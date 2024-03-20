@@ -46,6 +46,9 @@ public class EntityRegistry {
     public static final RegistrySupplier<EntityType<? extends IceSpit>> ICE_SPIT = ENTITY_TYPE.register("ice_spit",
             () -> EntityType.Builder.of(IceSpit::new, MobCategory.MISC).sized(0.75f, 2.0f).build(new ResourceLocation(Stellaris.MODID, "ice_spit").toString()));
 
+    public static final RegistrySupplier<EntityType<IceShardArrowEntity>> ICE_SHARD_ARROW = ENTITY_TYPE.register("ice_shard_arrow",
+            () -> EntityType.Builder.<IceShardArrowEntity>of(IceShardArrowEntity::new, MobCategory.MISC).sized(0.5f, 0.5f).build(new ResourceLocation(Stellaris.MODID, "ice_spit").toString()));
+
     //Entity Attributes
     public static void registerAttributes() {
         EntityAttributeRegistry.register(EntityRegistry.ALIEN,  Alien::setCustomAttributes);

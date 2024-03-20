@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.common.registry;
 
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.common.items.IceShardArrow;
 import dev.architectury.registry.CreativeTabRegistry;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
@@ -55,7 +56,7 @@ public class ItemsRegistry {
     public static final RegistrySupplier<Item> FUEL_ROCKET_MOTOR = ITEMS.register("fuel_rocket_motor", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
 
     public static final RegistrySupplier<Item> ROCKET_STATION = ITEMS.register("rocket_station", () -> new BlockItem(BlocksRegistry.ROCKET_STATION.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
-
+    public static final RegistrySupplier<Item> ICE_SHARD_ARROW = ITEMS.register("ice_shard_arrow", () -> new IceShardArrow(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
 
     /** Mob Eggs */
 

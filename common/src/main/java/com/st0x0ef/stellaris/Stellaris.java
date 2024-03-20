@@ -9,6 +9,7 @@ import com.st0x0ef.stellaris.client.renderers.entities.martianraptor.MartianRapt
 import com.st0x0ef.stellaris.client.renderers.entities.martianraptor.MartianRaptorRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.mogler.MoglerModel;
 import com.st0x0ef.stellaris.client.renderers.entities.mogler.MoglerRenderer;
+import com.st0x0ef.stellaris.client.renderers.entities.projectiles.IceShardArrowRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.pygro.PygroBruteRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.pygro.PygroModel;
 import com.st0x0ef.stellaris.client.renderers.entities.pygro.PygroRenderer;
@@ -74,6 +75,8 @@ public class Stellaris {
             EntityModelLayerRegistry.register(StarCrawlerModel.LAYER_LOCATION, StarCrawlerModel::createBodyLayer);
             //Ice Spit
             EntityRendererRegistry.register(EntityRegistry.ICE_SPIT, renderManager -> new ThrownItemRenderer<>(renderManager, 1, true));
+
+            EntityRendererRegistry.register(EntityRegistry.ICE_SHARD_ARROW, IceShardArrowRenderer::new);
         });
     }
 
