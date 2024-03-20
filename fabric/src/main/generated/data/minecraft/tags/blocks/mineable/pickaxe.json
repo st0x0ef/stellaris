@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "stellaris:raw_steel_block",
+    "stellaris:steel_block",
+    "stellaris:steel_ore",
+    "stellaris:deepslate_diamond_ore"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.0,
+  "group": "moon_stone",
+  "ingredient": {
+    "item": "stellaris:moon_cobblestone"
+  },
+  "result": "stellaris:moon_stone"
+}

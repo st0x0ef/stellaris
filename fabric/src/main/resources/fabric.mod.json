@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "stellaris",
+  "version": "${version}",
+  "name": "Stellaris",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "GNU AGPL 3.0",
+  "icon": "icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.st0x0ef.stellaris.fabric.StellarisFabric"
+    ],
+    "client": [
+      "com.st0x0ef.stellaris.fabric.client.StellarisFabricClient"
+    ],
+    "fabric-datagen": [
+      "com.st0x0ef.stellaris.fabric.datagen.ModDataGenerator"
+    ]
+  },
+  "mixins": [
+    "stellaris.mixins.json",
+    "stellaris-common.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.15.7",
+    "minecraft": ">=1.20.4"
+  }
+}

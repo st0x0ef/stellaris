@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "stellaris:block/cracked_moon_stone_bricks"
+  }
+}

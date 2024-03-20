@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "stellaris:block/rocket_station"
+    }
+  }
+}

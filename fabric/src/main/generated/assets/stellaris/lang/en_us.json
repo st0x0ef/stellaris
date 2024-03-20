@@ -1,0 +1,28 @@
+{
+  "block.stellaris.deepslate_steel_ore": "Deepslate Steel Ore",
+  "block.stellaris.raw_steel_block": "Raw Steel Block",
+  "block.stellaris.steel_block": "Steel Block",
+  "block.stellaris.steel_planting_block": "Steel Planting Block",
+  "block.stellaris.steel_ore": "Steel Ore",
+
+  "block.stellaris.chiseled_moon_stone": "Chiseled Moon Stone",
+  "block.stellaris.moon_cobblestone": "Moon Cobblestone",
+  "block.stellaris.moon_sand": "Moon Sand",
+  "block.stellaris.moon_stone": "Moon Stone",
+  "block.stellaris.cracked_moon_stone_bricks": "Cracked Moon Stone Bricks",
+  "block.stellaris.moon_stone_bricks": "Monn Stone Bricks",
+  "block.stellaris.moon_stone_pillar_end": "Moon Stone Pillar End",
+  "block.stellaris.moon_stone_pillar_side": "Moon Stone Pillar Side",
+  "block.stellaris.polished_moon_stone": "Polished Moon stone",
+  "block.stellaris.heavy_metal_plate": "Heavy Metal Plate",
+  "block.stellaris.heavy_metal_casing": "Heavy Metal Casing",
+  "block.stellaris.moon_deepslate": "Moon Deepslate",
+  "block.stellaris.moon_stone_dust": "Moon Stone Dust",
+
+
+
+  "categorie.stellaris.main": "Stellaris",
+  "item.stellaris.raw_steel_ingot": "Raw Steel Ingot",
+  "item.stellaris.steel_ingot": "Steel Ingot",
+  "item.stellaris.steel_nugget": "Steel Nugget"
+}

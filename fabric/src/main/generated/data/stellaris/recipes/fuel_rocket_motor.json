@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:iron_ingot"
+    },
+    "R": {
+      "item": "stellaris:steel_nugget"
+    },
+    "X": {
+      "item": "stellaris:steel_ingot"
+    },
+    "Y": {
+      "item": "stellaris:engine_fan"
+    }
+  },
+  "pattern": [
+    "XX ",
+    "Y#R",
+    "XX "
+  ],
+  "result": {
+    "item": "stellaris:fuel_rocket_motor"
+  }
+}

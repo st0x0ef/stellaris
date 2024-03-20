@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "stellaris:raw_steel_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "item": "stellaris:raw_steel_ingot"
+  }
+}
