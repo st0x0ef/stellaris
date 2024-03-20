@@ -11,6 +11,7 @@ import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.sensing.SensorType;
@@ -47,6 +48,9 @@ public class EntityRegistry {
 
     //Entity Attributes
     public static void registerAttributes() {
+        EntityAttributeRegistry.register(EntityRegistry.ALIEN,  Alien::setCustomAttributes);
+        EntityAttributeRegistry.register(EntityRegistry.ALIEN_ZOMBIE,  AlienZombie::setCustomAttributes);
+        EntityAttributeRegistry.register(EntityRegistry.MARTIAN_RAPTOR,  MartianRaptor::CreateRaptorAttributes);
         EntityAttributeRegistry.register(EntityRegistry.MARTIAN_RAPTOR,  MartianRaptor::CreateRaptorAttributes);
         EntityAttributeRegistry.register(EntityRegistry.PYGRO_BRUTE, PygroBrute::setCustomAttributes);
         EntityAttributeRegistry.register(EntityRegistry.PYGRO, Pygro::setCustomAttributes);

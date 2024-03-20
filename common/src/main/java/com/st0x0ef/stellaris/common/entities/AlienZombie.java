@@ -1,9 +1,11 @@
 package com.st0x0ef.stellaris.common.entities;
 
 import com.st0x0ef.stellaris.common.entities.alien.Alien;
+import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -26,9 +28,11 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
+import java.util.Random;
+
 public class AlienZombie extends Monster implements RangedAttackMob {
 	public AlienZombie(EntityType<? extends Monster> type, Level world) {
-		super(type, world);
+		super(EntityRegistry.ALIEN_ZOMBIE.get(), world);
 		this.xpReward = 5;
 	}
 
@@ -68,15 +72,7 @@ public class AlienZombie extends Monster implements RangedAttackMob {
 
 	@Override
 	public void performRangedAttack(LivingEntity livingEntity, float f) {
-		ItemStack itemStack = this.getProjectile(this.getItemInHand(ProjectileUtil.getWeaponHoldingHand(this, Items.BOW)));
-		AbstractArrow abstractArrow = this.getArrow(itemStack, f);
-		double d = livingEntity.getX() - this.getX();
-		double e = livingEntity.getY(0.3333333333333333) - abstractArrow.getY();
-		double g = livingEntity.getZ() - this.getZ();
-		double h = Math.sqrt(d * d + g * g);
-		abstractArrow.shoot(d, e + h * (double)0.2f, g, 1.6f, 14 - this.level().getDifficulty().getId() * 4);
-		this.playSound(SoundEvents.GLASS_BREAK, 1.0f, 1.0f / (this.getRandom().nextFloat() * 0.4f + 0.8f));
-		this.level().addFreshEntity(abstractArrow);
+		IceSpit.shoot(this, livingEntity, 2);
 	}
 
 	protected AbstractArrow getArrow(ItemStack itemStack, float f) {

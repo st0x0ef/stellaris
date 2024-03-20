@@ -73,7 +73,7 @@ public class Stellaris {
             EntityRendererRegistry.register(EntityRegistry.STAR_CRAWLER, StarCrawlerRenderer::new);
             EntityModelLayerRegistry.register(StarCrawlerModel.LAYER_LOCATION, StarCrawlerModel::createBodyLayer);
             //Ice Spit
-            EntityRendererRegistry.register(EntityRegistry.ICE_SPIT, ThrownItemRenderer::new);
+            EntityRendererRegistry.register(EntityRegistry.ICE_SPIT, renderManager -> new ThrownItemRenderer<>(renderManager, 1, true));
         });
     }
 

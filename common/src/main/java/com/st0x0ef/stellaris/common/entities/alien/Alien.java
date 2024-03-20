@@ -60,7 +60,7 @@ public class Alien extends Villager implements Merchant, Npc {
 	}
 
 	public Alien(EntityType<? extends Villager> type, Level worldIn) {
-		super(type, worldIn);
+		super(EntityRegistry.ALIEN.get(), worldIn);
 	}
 
 	@Override
@@ -239,7 +239,6 @@ public class Alien extends Villager implements Merchant, Npc {
 	@Override
 	public void baseTick() {
 		super.baseTick();
-
 		if (!ALIEN_SPAWN) {
 			this.remove(RemovalReason.DISCARDED);
 		}
