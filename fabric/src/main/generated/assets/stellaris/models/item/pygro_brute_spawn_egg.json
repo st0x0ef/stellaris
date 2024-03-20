@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "stellaris:item/pygro_brute_spawn_egg"
+  }
+}

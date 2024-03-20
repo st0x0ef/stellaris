@@ -24,5 +24,15 @@
   "categorie.stellaris.main": "Stellaris",
   "item.stellaris.raw_steel_ingot": "Raw Steel Ingot",
   "item.stellaris.steel_ingot": "Steel Ingot",
-  "item.stellaris.steel_nugget": "Steel Nugget"
+  "item.stellaris.ice_shard": "Ice Shard",
+  "item.stellaris.steel_nugget": "Steel Nugget",
+
+  "item.stellaris.pygro_spawn_egg": "Pygro Spawn Egg",
+  "item.stellaris.star_crawler_spawn_egg": "Star Crawler Spawn Egg",
+  "item.stellaris.alien_spawn_egg": "Alien Spawn Egg",
+  "item.stellaris.alien_zombie_spawn_egg": "Alien Zombie Spawn Egg",
+  "item.stellaris.martian_raptor_spawn_egg": "Martian Raptor Spawn Egg",
+  "item.stellaris.mogler_spawn_egg": "Mogler Spawn Egg",
+  "item.stellaris.pygro_brute_spawn_egg": "Pygro Brute Spawn Egg"
+
 }

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:cobblestone"
+    },
+    "X": {
+      "item": "stellaris:moon_sand"
+    }
+  },
+  "pattern": [
+    "   ",
+    "X# ",
+    "   "
+  ],
+  "result": {
+    "count": 2,
+    "item": "stellaris:moon_cobblestone"
+  }
+}
