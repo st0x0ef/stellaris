@@ -25,6 +25,4 @@ public class EntityTick {
             entity.setNoGravity(false);
         }
     }
-
-
 }

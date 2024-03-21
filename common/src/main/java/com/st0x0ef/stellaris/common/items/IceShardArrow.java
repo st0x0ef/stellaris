@@ -2,11 +2,9 @@ package com.st0x0ef.stellaris.common.items;
 
 
 import com.st0x0ef.stellaris.common.entities.IceShardArrowEntity;
-import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ArrowItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
