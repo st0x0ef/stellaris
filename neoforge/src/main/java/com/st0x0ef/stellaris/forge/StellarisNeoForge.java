@@ -6,7 +6,6 @@ import net.neoforged.fml.common.Mod;
 @Mod(Stellaris.MODID)
 public class StellarisNeoForge {
     public StellarisNeoForge() {
-        // Submit our event bus to let architectury register our content on the right time
         Stellaris.init();
 
     }
