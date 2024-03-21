@@ -9,12 +9,4 @@ public class StellarisFabric implements ModInitializer {
     public void onInitialize() {
         Stellaris.init();
     }
-
-    public class StellarisFabricClient implements ClientModInitializer {
-
-        @Override
-        public void onInitializeClient() {
-            Stellaris.clientInit();
-        }
-    }
 }
