@@ -29,7 +29,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Stellaris {
-    public static final String MODID = "stellaris";
+    public static final String MODID = "assets/stellaris/stellaris";
     public static final String MOD_NAME = "Stellaris";
     public static final Logger LOG = LoggerFactory.getLogger(MOD_NAME);
     public static final Gson GSON = new Gson();
