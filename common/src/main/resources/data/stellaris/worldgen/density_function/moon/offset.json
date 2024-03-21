@@ -1,0 +1,84 @@
+{
+  "type": "minecraft:flat_cache",
+  "argument": {
+    "type": "minecraft:cache_2d",
+    "argument": {
+      "type": "minecraft:add",
+      "argument1": {
+        "type": "minecraft:mul",
+        "argument1": {
+          "type": "minecraft:blend_offset"
+        },
+        "argument2": {
+          "type": "minecraft:add",
+          "argument1": 1,
+          "argument2": {
+            "type": "minecraft:mul",
+            "argument1": -1,
+            "argument2": {
+              "type": "minecraft:cache_once",
+              "argument": {
+                "type": "minecraft:blend_alpha"
+              }
+            }
+          }
+        }
+      },
+      "argument2": {
+        "type": "minecraft:mul",
+        "argument1": {
+          "type": "minecraft:add",
+          "argument1": -0.5037500262260437,
+          "argument2": {
+            "type": "minecraft:mul",
+            "argument1": {
+              "type": "minecraft:spline",
+              "spline": {
+                "coordinate": {
+                  "type": "minecraft:noise",
+                  "noise": "minecraft:ridge",
+                  "xz_scale": 0.25,
+                  "y_scale": 0
+                },
+                "points": [
+                  {
+                    "location": -1,
+                    "derivative": 0.1,
+                    "value": 0
+                  },
+                  {
+                    "location": -0.175,
+                    "derivative": 0.2,
+                    "value": 0.05
+                  },
+                  {
+                    "location": 0,
+                    "derivative": 0,
+                    "value": 0.15
+                  },
+                  {
+                    "location": 0.175,
+                    "derivative": -0.2,
+                    "value": 0.05
+                  },
+                  {
+                    "location": 1,
+                    "derivative": 0,
+                    "value": 0
+                  }
+                ]
+              }
+            },
+            "argument2": 2
+          }
+        },
+        "argument2": {
+          "type": "minecraft:cache_once",
+          "argument": {
+            "type": "minecraft:blend_alpha"
+          }
+        }
+      }
+    }
+  }
+}

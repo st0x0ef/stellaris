@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:add",
+  "argument1": {
+    "type": "minecraft:mul",
+    "argument1": 4,
+    "argument2": {
+      "type": "minecraft:quarter_negative",
+      "argument": {
+        "type": "minecraft:mul",
+        "argument1": {
+          "type": "minecraft:add",
+          "argument1": "stellaris:moon/depth",
+          "argument2": {
+            "type": "minecraft:mul",
+            "argument1": "minecraft:overworld/jaggedness",
+            "argument2": {
+              "type": "minecraft:half_negative",
+              "argument": {
+                "type": "minecraft:noise",
+                "noise": "minecraft:jagged",
+                "xz_scale": 1500,
+                "y_scale": 0
+              }
+            }
+          }
+        },
+        "argument2": "stellaris:moon/factor"
+      }
+    }
+  },
+  "argument2": "minecraft:overworld/base_3d_noise"
+}
