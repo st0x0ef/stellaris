@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "stellaris:moon_stone"
+    }
+  },
+  "pattern": [
+    "   ",
+    "## ",
+    "## "
+  ],
+  "result": {
+    "count": 4,
+    "item": "stellaris:moon_stone_bricks"
+  }
+}
