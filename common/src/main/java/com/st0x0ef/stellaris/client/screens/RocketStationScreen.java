@@ -3,6 +3,8 @@ package com.st0x0ef.stellaris.client.screens;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.menus.RocketStationMenu;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -10,6 +12,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
+@Environment(EnvType.CLIENT)
 public class RocketStationScreen extends AbstractContainerScreen<RocketStationMenu> {
 
     public static final ResourceLocation texture = new ResourceLocation(Stellaris.MODID, "textures/gui/rocket_station.png");
