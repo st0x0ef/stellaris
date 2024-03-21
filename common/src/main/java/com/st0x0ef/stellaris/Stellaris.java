@@ -42,7 +42,6 @@ public class Stellaris {
         EntityRegistry.registerAttributes();
         FeaturesRegistry.FEATURES.register();
         ItemsRegistry.ITEMS.register();
-
         CreativeTabsRegistry.TABS.register();
 
         RecipesRegistry.register();
