@@ -3,12 +3,14 @@ package com.st0x0ef.stellaris.client.renderers.entities.mogler;
 
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.entities.Mogler;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
-
+@Environment(EnvType.CLIENT)
 public class MoglerRenderer extends MobRenderer<Mogler, EntityModel<Mogler>> {
     private static final ResourceLocation LAYER_LOCATION = new ResourceLocation(Stellaris.MODID,"textures/entity/mogler.png");
 
