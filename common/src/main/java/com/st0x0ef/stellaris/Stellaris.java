@@ -46,6 +46,7 @@ public class Stellaris {
         ItemsRegistry.ITEMS.register();
         CreativeTabsRegistry.TABS.register();
         ParticleRegistry.PARTICLES.register();
+        SoundRegistry.SOUNDS.register();
 
         RecipesRegistry.register();
 

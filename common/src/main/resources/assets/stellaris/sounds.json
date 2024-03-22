@@ -1,0 +1,34 @@
+{
+  "rocket_fly": {
+    "sounds": [
+      {
+        "name": "stellaris:rocket_fly",
+        "stream": false
+      }
+    ]
+  },
+    "boost": {
+    "sounds": [
+      {
+        "name": "stellaris:boost",
+        "stream": false
+      }
+    ]
+  },
+    "beep": {
+    "sounds": [
+      {
+        "name": "stellaris:beep",
+        "stream": false
+      }
+    ]
+  },
+    "sonic_boom": {
+    "sounds": [
+      {
+        "name": "stellaris:sonic_boom",
+        "stream": false
+      }
+    ]
+  }
+}
