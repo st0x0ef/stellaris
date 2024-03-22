@@ -27,21 +27,21 @@ public class EntityRegistry {
 
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPE = DeferredRegister.create(Stellaris.MODID, Registries.ENTITY_TYPE);
     public static final RegistrySupplier<EntityType<Alien>> ALIEN = ENTITY_TYPE.register("alien",
-            () -> EntityType.Builder.of(Alien::new, MobCategory.MONSTER).sized(0.75f, 2.0f).build(new ResourceLocation(Stellaris.MODID, "alien").toString()));
+            () -> EntityType.Builder.of(Alien::new, MobCategory.MONSTER).sized(0.75f, 2.5f).build(new ResourceLocation(Stellaris.MODID, "alien").toString()));
     public static final RegistrySupplier<EntityType<AlienZombie>> ALIEN_ZOMBIE = ENTITY_TYPE.register("alien_zombie",
-            () -> EntityType.Builder.of(AlienZombie::new, MobCategory.MONSTER).sized(0.75f, 2.0f).build(new ResourceLocation(Stellaris.MODID, "alien_zombie").toString()));
+            () -> EntityType.Builder.of(AlienZombie::new, MobCategory.MONSTER).sized(0.6f, 2.4f).build(new ResourceLocation(Stellaris.MODID, "alien_zombie").toString()));
     public static final RegistrySupplier<EntityType<MartianRaptor>> MARTIAN_RAPTOR = ENTITY_TYPE.register("martian_raptor",
         () -> EntityType.Builder.of(MartianRaptor::new, MobCategory.MONSTER).sized(0.75f, 2.0f).build(new ResourceLocation(Stellaris.MODID, "martian_raptor").toString()));
     public static final RegistrySupplier<EntityType<Pygro>> PYGRO = ENTITY_TYPE.register("pygro",
-            () -> EntityType.Builder.of(Pygro::new, MobCategory.MONSTER).sized(0.75f, 2.0f).build(new ResourceLocation(Stellaris.MODID, "pygro").toString()));
+            () -> EntityType.Builder.of(Pygro::new, MobCategory.MONSTER).sized(0.6f, 1.8f).build(new ResourceLocation(Stellaris.MODID, "pygro").toString()));
     public static final RegistrySupplier<EntityType<PygroBrute>> PYGRO_BRUTE = ENTITY_TYPE.register("pygro_brute",
-            () -> EntityType.Builder.of(PygroBrute::new, MobCategory.MONSTER).sized(0.75f, 2.0f).build(new ResourceLocation(Stellaris.MODID, "pygro_brute").toString()));
+            () -> EntityType.Builder.of(PygroBrute::new, MobCategory.MONSTER).sized(0.6f, 1.8f).build(new ResourceLocation(Stellaris.MODID, "pygro_brute").toString()));
     public static final RegistrySupplier<EntityType<Mogler>> MOGLER = ENTITY_TYPE.register("mogler",
-            () -> EntityType.Builder.of(Mogler::new, MobCategory.MONSTER).sized(0.75f, 2.0f).build(new ResourceLocation(Stellaris.MODID, "mogler").toString()));
+            () -> EntityType.Builder.of(Mogler::new, MobCategory.MONSTER).sized(1.4f, 1.4f).build(new ResourceLocation(Stellaris.MODID, "mogler").toString()));
     public static final RegistrySupplier<EntityType<StarCrawler>> STAR_CRAWLER = ENTITY_TYPE.register("star_crawler",
-            () -> EntityType.Builder.of(StarCrawler::new, MobCategory.MONSTER).sized(0.75f, 2.0f).build(new ResourceLocation(Stellaris.MODID, "star_crawler").toString()));
+            () -> EntityType.Builder.of(StarCrawler::new, MobCategory.MONSTER).sized(1.3f, 1.0f).build(new ResourceLocation(Stellaris.MODID, "star_crawler").toString()));
     public static final RegistrySupplier<EntityType<? extends IceSpit>> ICE_SPIT = ENTITY_TYPE.register("ice_spit",
-            () -> EntityType.Builder.of(IceSpit::new, MobCategory.MISC).sized(0.75f, 2.0f).build(new ResourceLocation(Stellaris.MODID, "ice_spit").toString()));
+            () -> EntityType.Builder.of(IceSpit::new, MobCategory.MISC).sized(0.5f, 0.5f).build(new ResourceLocation(Stellaris.MODID, "ice_spit").toString()));
 
     public static final RegistrySupplier<EntityType<IceShardArrowEntity>> ICE_SHARD_ARROW = ENTITY_TYPE.register("ice_shard_arrow",
             () -> EntityType.Builder.<IceShardArrowEntity>of(IceShardArrowEntity::new, MobCategory.MISC).sized(0.5f, 0.5f).build(new ResourceLocation(Stellaris.MODID, "ice_shard_arrow").toString()));
