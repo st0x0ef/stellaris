@@ -24,8 +24,10 @@ import dev.architectury.registry.client.level.entity.EntityModelLayerRegistry;
 import dev.architectury.registry.client.level.entity.EntityRendererRegistry;
 import dev.architectury.registry.client.particle.ParticleProviderRegistry;
 import dev.architectury.registry.menu.MenuRegistry;
+import net.minecraft.client.renderer.block.LiquidBlockRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.server.packs.PackType;
+import org.intellij.lang.annotations.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,6 +38,7 @@ public class Stellaris {
     public static final Gson GSON = new Gson();
     public static void init() {
 
+        FluidRegistry.FLUIDS.register();
         BlocksRegistry.BLOCKS.register();
         MenuTypesRegistry.MENU_TYPE.register();
         EntityRegistry.BLOCK_ENTITY_TYPE.register();
@@ -90,6 +93,8 @@ public class Stellaris {
         ParticleProviderRegistry.register(ParticleRegistry.LARGE_SMOKE_PARTICLE.get(), LargeSmokeParticle.ParticleFactory::new);
         ParticleProviderRegistry.register(ParticleRegistry.SMALL_FLAME_PARTICLE.get(), SmallFlameParticle.ParticleFactory::new);
         ParticleProviderRegistry.register(ParticleRegistry.SMALL_SMOKE_PARTICLE.get(), SmallSmokeParticle.ParticleFactory::new);
+
+        /**Fluids*/
 
     }
 }

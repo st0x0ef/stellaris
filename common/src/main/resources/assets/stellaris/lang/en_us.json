@@ -35,6 +35,9 @@
   "item.stellaris.alien_zombie_spawn_egg": "Alien Zombie Spawn Egg",
   "item.stellaris.martian_raptor_spawn_egg": "Martian Raptor Spawn Egg",
   "item.stellaris.mogler_spawn_egg": "Mogler Spawn Egg",
-  "item.stellaris.pygro_brute_spawn_egg": "Pygro Brute Spawn Egg"
+  "item.stellaris.pygro_brute_spawn_egg": "Pygro Brute Spawn Egg",
 
+  "item.stellaris.fuel_bucket": "Fuel Bucket",
+  "item.stellaris.oil_bucket": "Oil Bucket",
+  "item.stellaris.hydrogen_bucket": "Hydrogen Bucket"
 }
