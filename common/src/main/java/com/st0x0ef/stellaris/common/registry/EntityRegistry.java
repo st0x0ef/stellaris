@@ -1,7 +1,7 @@
 package com.st0x0ef.stellaris.common.registry;
 
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.blocks.entities.RocketStationEntity;
+import com.st0x0ef.stellaris.common.data.blocks.entities.RocketStationEntity;
 import com.st0x0ef.stellaris.common.entities.*;
 import com.st0x0ef.stellaris.common.entities.alien.Alien;
 import com.st0x0ef.stellaris.common.entities.pygro.Pygro;

@@ -1,4 +1,4 @@
-package com.st0x0ef.stellaris.common.blocks.entities;
+package com.st0x0ef.stellaris.common.data.blocks.entities;
 
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.data.recipes.RocketStationRecipe;
