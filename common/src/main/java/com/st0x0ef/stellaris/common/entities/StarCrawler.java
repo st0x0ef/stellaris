@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.entities;
 
+import com.st0x0ef.stellaris.common.registry.TagRegistry;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
