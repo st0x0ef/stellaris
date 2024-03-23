@@ -2,7 +2,7 @@
   "block.stellaris.deepslate_steel_ore": "Deepslate Steel Ore",
   "block.stellaris.raw_steel_block": "Raw Steel Block",
   "block.stellaris.steel_block": "Steel Block",
-  "block.stellaris.steel_planting_block": "Steel Planting Block",
+  "block.stellaris.steel_planting_block": "Steel Plating Block",
   "block.stellaris.steel_ore": "Steel Ore",
 
   "block.stellaris.chiseled_moon_stone": "Chiseled Moon Stone",
@@ -49,5 +49,7 @@
 
   "item.stellaris.fuel_bucket": "Fuel Bucket",
   "item.stellaris.oil_bucket": "Oil Bucket",
-  "item.stellaris.hydrogen_bucket": "Hydrogen Bucket"
+  "item.stellaris.hydrogen_bucket": "Hydrogen Bucket",
+
+  "item.stellaris.rocket_launch_pad": "Rocket Launch Pad"
 }
