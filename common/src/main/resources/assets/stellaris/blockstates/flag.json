@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=north,half=lower": {
+      "model": "stellaris:block/flag_lower"
+    },
+    "facing=east,half=lower": {
+      "model": "stellaris:block/flag_lower",
+      "y": 90
+    },
+    "facing=south,half=lower": {
+      "model": "stellaris:block/flag_lower",
+      "y": 180
+    },
+    "facing=west,half=lower": {
+      "model": "stellaris:block/flag_lower",
+      "y": 270
+    },
+    "facing=north,half=upper": {
+      "model": "stellaris:block/flag_upper"
+    },
+    "facing=east,half=upper": {
+      "model": "stellaris:block/flag_upper",
+      "y": 90
+    },
+    "facing=south,half=upper": {
+      "model": "stellaris:block/flag_upper",
+      "y": 180
+    },
+    "facing=west,half=upper": {
+      "model": "stellaris:block/flag_upper",
+      "y": 270
+    }
+  }
+}

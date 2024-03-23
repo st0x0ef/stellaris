@@ -19,6 +19,16 @@
   "block.stellaris.moon_deepslate": "Moon Deepslate",
   "block.stellaris.moon_stone_dust": "Moon Stone Dust",
 
+  "block.stellaris.mercury_cobblestone": "Mercury Cobblestone",
+  "block.stellaris.mercury_iron_ore": "Mercury Iron Ore",
+  "block.stellaris.mercury_stone": "Mercury Stone",
+  "block.stellaris.mercury_stone_bricks": "Mercury Stone Bricks",
+  "block.stellaris.mercury_stone_pillar_end": "Mercury Stone Pillar End",
+  "block.stellaris.mercury_stone_pillar_side": "Mercury Stone Pillar Side",
+  "block.stellaris.chiseled_mercury_stone": "Chiseled Mercury Stone",
+  "block.stellaris.cracked_mercury_stone_bricks": "Cracked Mercury Stone Bricks",
+  "block.stellaris.polished_mercury_stone": "Polished Mercury Stone",
+
 
 
   "categorie.stellaris.main": "Stellaris",

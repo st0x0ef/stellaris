@@ -1,0 +1,8 @@
+{
+  "parent": "stellaris:template/flag_upper",
+  "textures": {
+    "layer1": "stellaris:block/flag/flag",
+	"layer2": "stellaris:block/flag/flag_overlay",
+    "particle": "stellaris:block/flag/flag"
+  }
+}
