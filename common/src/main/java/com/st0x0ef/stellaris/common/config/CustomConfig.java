@@ -27,9 +27,8 @@ public class CustomConfig {
     public static void addEntries() {
 
         addEntry("test", new ConfigEntry.ConfigEntryString("1", "uwu"));
-        addEntry("test2", new ConfigEntry.ConfigEntryString("1", "uwu"));
-        addEntry("test3", new ConfigEntry.ConfigEntryString("1", "uwu"));
-
+        addEntry("test2", new ConfigEntry.ConfigEntryInt(1, "uwu"));
+        addEntry("test3", new ConfigEntry.ConfigEntryBool(true, "uwu"));
     }
 
     public static void addEntry(String name, ConfigEntry entry) {
