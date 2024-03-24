@@ -42,6 +42,11 @@ public class ItemsRegistry {
     public static final RegistrySupplier<Item> MOON_STONE_PILLAR_END_ITEM = ITEMS.register("moon_stone_pillar_end", () -> new BlockItem(BlocksRegistry.MOON_STONE_PILLAR_END.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> MOON_STONE_PILLAR_SIDE_ITEM = ITEMS.register("moon_stone_pillar_side", () -> new BlockItem(BlocksRegistry.MOON_STONE_PILLAR_SIDE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> POLISHED_MOON_STONE_ITEM = ITEMS.register("polished_moon_stone", () -> new BlockItem(BlocksRegistry.POLISHED_MOON_STONE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> MOON_DESH_ORE_ITEM = ITEMS.register("moon_desh_ore", () -> new BlockItem(BlocksRegistry.MOON_DESH_ORE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> DESH_BLOCK_ITEM = ITEMS.register("desh_block", () -> new BlockItem(BlocksRegistry.DESH_BLOCK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> RAW_DESH_BLOCK_ITEM = ITEMS.register("raw_desh_block", () -> new BlockItem(BlocksRegistry.RAW_DESH_BLOCK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> DESH_PLANTING_BLOCK_ITEM = ITEMS.register("desh_plating_block", () -> new BlockItem(BlocksRegistry.DESH_PLANTING_BLOCK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> DESH_PILLAR_ITEM = ITEMS.register("desh_pillar", () -> new BlockItem(BlocksRegistry.DESH_PILLAR.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
 
     /** Mercury */
     public static final RegistrySupplier<Item> MERCURY_COBBLESTONE_ITEM = ITEMS.register("mercury_cobblestone", () -> new BlockItem(BlocksRegistry.MERCURY_COBBLESTONE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
