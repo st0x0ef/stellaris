@@ -1,7 +1,7 @@
 package com.st0x0ef.stellaris.common.registry;
 
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.blocks.RocketLaunchPad;
+import com.st0x0ef.stellaris.common.data.blocks.RocketLaunchPad;
 import com.st0x0ef.stellaris.common.data.blocks.RocketStation;
 import dev.architectury.core.block.ArchitecturyLiquidBlock;
 import dev.architectury.registry.registries.DeferredRegister;
@@ -10,7 +10,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 
