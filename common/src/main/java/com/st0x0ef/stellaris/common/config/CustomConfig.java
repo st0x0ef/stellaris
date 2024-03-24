@@ -42,7 +42,7 @@ public class CustomConfig {
 
     }
 
-    public static void writeConfigFile( String path) {
+    public static void writeConfigFile(String path) {
         try {
             FileWriter file = new FileWriter(Platform.getConfigFolder() + "/" + path);
             file.write(Stellaris.GSON.toJson(CONFIG));

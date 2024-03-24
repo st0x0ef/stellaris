@@ -12,6 +12,7 @@
   "entrypoints": {
     "main": [
       "com.st0x0ef.stellaris.fabric.StellarisFabric"
+
     ],
     "client": [
       "com.st0x0ef.stellaris.fabric.client.StellarisFabricClient"

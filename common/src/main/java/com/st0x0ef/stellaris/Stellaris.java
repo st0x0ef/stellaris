@@ -1,7 +1,7 @@
 package com.st0x0ef.stellaris;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.mojang.blaze3d.platform.InputConstants;
 import com.st0x0ef.stellaris.client.renderers.entities.alien.AlienModel;
 import com.st0x0ef.stellaris.client.renderers.entities.alien.AlienRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.alienzombie.AlienZombieModel;
@@ -21,9 +21,11 @@ import com.st0x0ef.stellaris.common.data.planets.StellarisData;
 import com.st0x0ef.stellaris.common.registry.*;
 import dev.architectury.event.events.client.ClientLifecycleEvent;
 import dev.architectury.registry.ReloadListenerRegistry;
+import dev.architectury.registry.client.keymappings.KeyMappingRegistry;
 import dev.architectury.registry.client.level.entity.EntityModelLayerRegistry;
 import dev.architectury.registry.client.level.entity.EntityRendererRegistry;
 import dev.architectury.registry.menu.MenuRegistry;
+import net.minecraft.client.KeyMapping;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.server.packs.PackType;
 import org.slf4j.Logger;
@@ -33,10 +35,7 @@ public class Stellaris {
     public static final String MODID = "stellaris";
     public static final String MOD_NAME = "Stellaris";
     public static final Logger LOG = LoggerFactory.getLogger(MOD_NAME);
-    public static final Gson GSON = new GsonBuilder()
-            .setPrettyPrinting()
-            .create();
-
+    public static final Gson GSON = new Gson();
     public static void init() {
         CustomConfig.init();
 
@@ -80,8 +79,18 @@ public class Stellaris {
             EntityModelLayerRegistry.register(StarCrawlerModel.LAYER_LOCATION, StarCrawlerModel::createBodyLayer);
             //Ice Spit
             EntityRendererRegistry.register(EntityRegistry.ICE_SPIT, ThrownItemRenderer::new);
+
+
+            KeyMappingRegistry.register(TEST_KEYMAPPING);
         });
     }
+
+    public static final KeyMapping TEST_KEYMAPPING = new KeyMapping(
+            "key.examplemod.custom_key", // The translation key of the name shown in the Controls screen
+            InputConstants.Type.KEYSYM, // This key mapping is for Keyboards by default
+            InputConstants.KEY_P, // The default keycode
+            "category.examplemod.example" // The category translation key used to categorize in the Controls screen
+    );
 
     public static void clientInit() {
     }
