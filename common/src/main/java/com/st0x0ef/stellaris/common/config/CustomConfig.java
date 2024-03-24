@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CustomConfig {
+
     public static Map<String, ConfigEntry<?>> CONFIG = new HashMap<>();
 
     public static void init() {
@@ -21,11 +22,11 @@ public class CustomConfig {
 
     }
 
+
     public static void addEntries() {
 
-        addEntry("test", new ConfigEntry<Boolean>( true,"uwu"));
-        addEntry("test2", new ConfigEntry<String>("test","uwu"));
-        addEntry("test3", new ConfigEntry<String>("test","uwu"));
+        addEntry("test", new ConfigEntry<Boolean>(true, "This is a test entry"));
+        addEntry("test2", new ConfigEntry<>(true, "This is a test entry"));
 
     }
 
