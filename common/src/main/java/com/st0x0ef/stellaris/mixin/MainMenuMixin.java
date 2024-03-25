@@ -1,12 +1,8 @@
-package com.st0x0ef.stellaris.fabric.mixin;
+package com.st0x0ef.stellaris.mixin;
 
-import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.fabric.client.ConfigScreen;
+import com.st0x0ef.stellaris.client.screens.ConfigScreen;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.CommonButtons;
 import net.minecraft.client.gui.components.SpriteIconButton;
-import net.minecraft.client.gui.screens.LanguageSelectScreen;
-import net.minecraft.client.gui.screens.OptionsScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.network.chat.Component;

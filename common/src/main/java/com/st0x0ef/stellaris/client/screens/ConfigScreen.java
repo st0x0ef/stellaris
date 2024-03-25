@@ -1,24 +1,19 @@
-package com.st0x0ef.stellaris.fabric.client;
+package com.st0x0ef.stellaris.client.screens;
 
 import com.st0x0ef.stellaris.common.config.ConfigEntry;
 import com.st0x0ef.stellaris.common.config.CustomConfig;
-import dev.architectury.event.events.client.ClientGuiEvent;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.StringWidget;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.layouts.FrameLayout;
 import net.minecraft.client.gui.layouts.GridLayout;
-import net.minecraft.client.gui.screens.*;
-import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
-import net.minecraft.client.gui.screens.telemetry.TelemetryInfoScreen;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.network.chat.Component;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @Environment(EnvType.CLIENT)
