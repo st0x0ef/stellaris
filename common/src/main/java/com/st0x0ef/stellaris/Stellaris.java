@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.st0x0ef.stellaris.client.renderers.entities.alien.AlienModel;
 import com.st0x0ef.stellaris.client.renderers.entities.alien.AlienRenderer;
@@ -35,7 +36,7 @@ public class Stellaris {
     public static final String MODID = "stellaris";
     public static final String MOD_NAME = "Stellaris";
     public static final Logger LOG = LoggerFactory.getLogger(MOD_NAME);
-    public static final Gson GSON = new Gson();
+    public static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     public static void init() {
         CustomConfig.init();
 
