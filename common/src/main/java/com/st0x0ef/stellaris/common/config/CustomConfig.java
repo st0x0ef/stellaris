@@ -27,7 +27,7 @@ public class CustomConfig {
 
         addEntry("test", new ConfigEntry<Boolean>(true, "This is a test entry"));
         addEntry("test2", new ConfigEntry<>(true, "This is a test entry"));
-
+        addEntry("test3", new ConfigEntry<>("true", "Coool"));
     }
 
     public static void addEntry(String name, ConfigEntry<?> entry) {
@@ -38,7 +38,6 @@ public class CustomConfig {
 
             CONFIG.put(name, new ConfigEntry(CONFIG.get(name).getValue(), entry.getDescription()));
         }
-
 
     }
 
