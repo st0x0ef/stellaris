@@ -2,7 +2,7 @@ package com.st0x0ef.stellaris.common.registry;
 
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.items.IceShardArrow;
-import com.st0x0ef.stellaris.item.ModFoodComponents;
+import com.st0x0ef.stellaris.common.registry.FoodRegistry;
 import dev.architectury.core.item.ArchitecturyBucketItem;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;

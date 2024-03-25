@@ -31,7 +31,7 @@ public class IceShardArrowEntity extends AbstractArrow {
 
         Entity entity = entityHitResult.getEntity();
         if (entity instanceof LivingEntity livingEntity) {
-            livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100));
+            livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 150));
         }
     }
 
