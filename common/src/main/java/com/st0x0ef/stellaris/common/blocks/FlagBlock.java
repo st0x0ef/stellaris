@@ -157,6 +157,4 @@ public class FlagBlock extends Block implements SimpleWaterloggedBlock {
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> p_49915_) {
         p_49915_.add(HALF, FACING, WATERLOGGED);
     }
-
-    PowderSnowBlock
 }

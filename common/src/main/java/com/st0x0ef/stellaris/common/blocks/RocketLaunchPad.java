@@ -1,4 +1,4 @@
-package com.st0x0ef.stellaris.common.data.blocks;
+package com.st0x0ef.stellaris.common.blocks;
 
 import com.st0x0ef.stellaris.common.registry.BlocksRegistry;
 import net.minecraft.core.BlockPos;

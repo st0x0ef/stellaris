@@ -1,4 +1,4 @@
-package com.st0x0ef.stellaris.common.data.blocks.entities;
+package com.st0x0ef.stellaris.common.blocks.entities;
 
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;

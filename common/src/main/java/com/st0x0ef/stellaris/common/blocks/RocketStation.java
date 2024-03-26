@@ -1,15 +1,19 @@
-package com.st0x0ef.stellaris.common.data.blocks;
+package com.st0x0ef.stellaris.common.blocks;
 
 import com.mojang.serialization.MapCodec;
-import com.st0x0ef.stellaris.common.data.blocks.entities.RocketStationEntity;
+import com.st0x0ef.stellaris.common.blocks.entities.RocketStationEntity;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.*;
-
+import net.minecraft.world.Containers;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.entity.*;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
@@ -63,4 +67,9 @@ public class RocketStation extends BaseEntityBlock {
             super.onRemove(blockState, level, blockPos, blockState2, bl);
         }
     }
+    @Override
+    public RenderShape getRenderShape(BlockState blockState) {
+        return RenderShape.MODEL;
+    }
+
 }
