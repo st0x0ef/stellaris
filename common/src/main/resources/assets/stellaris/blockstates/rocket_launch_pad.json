@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "stellaris:block/rocket_launch_pad"
+    },
+    "lit=true": {
+      "model": "stellaris:block/rocket_launch_pad_base"
+    }
+  }
+}
