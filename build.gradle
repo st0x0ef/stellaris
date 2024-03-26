@@ -13,6 +13,7 @@ subprojects {
     def modLoader = project.name
     def modId = rootProject.name
     def isCommon = (modLoader == "common")
+    def isFabric =  (modLoader == "fabric")
 
 
     loom {
@@ -24,7 +25,7 @@ subprojects {
             url "https://maven.neoforged.net/releases/"
            }
         maven { url "https://maven.shedaniel.me" }
-
+        maven { url "https://maven.terraformersmc.com/releases/com/terraformersmc/modmenu/" }
     }
 
     dependencies {
@@ -35,7 +36,9 @@ subprojects {
             modImplementation("me.shedaniel:RoughlyEnoughItems-${modLoader}:14.0.688")
 
         }
-
+        //if (isFabric) {
+        //    modApi "com.terraformersmc:modmenu:9.0.0"
+        //}
     }
 }
 

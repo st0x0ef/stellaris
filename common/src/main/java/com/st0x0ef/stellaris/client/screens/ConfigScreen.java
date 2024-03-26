@@ -23,7 +23,7 @@ public class ConfigScreen extends Screen {
     private final Screen parent;
     private final Map<String, ConfigEntry<?>> config;
     public ConfigScreen(Screen parent) {
-        super(Component.literal("Stellaris Option"));
+        super(Component.literal("Stellaris Config"));
         this.parent = parent;
         config = CustomConfig.CONFIG;
 
