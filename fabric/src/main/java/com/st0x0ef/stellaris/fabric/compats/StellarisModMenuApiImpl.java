@@ -1,4 +1,4 @@
-package com.st0x0ef.stellaris.fabric;
+package com.st0x0ef.stellaris.fabric.compats;
 
 import com.st0x0ef.stellaris.client.screens.ConfigScreen;
 import com.terraformersmc.modmenu.ModMenuModMenuCompat;

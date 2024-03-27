@@ -13,7 +13,6 @@ subprojects {
     def modLoader = project.name
     def modId = rootProject.name
     def isCommon = (modLoader == "common")
-    def isFabric =  (modLoader == "fabric")
 
 
     loom {
@@ -25,7 +24,7 @@ subprojects {
             url "https://maven.neoforged.net/releases/"
            }
         maven { url "https://maven.shedaniel.me" }
-        maven { url "https://maven.terraformersmc.com/releases/com/terraformersmc/modmenu/" }
+
     }
 
     dependencies {
@@ -36,9 +35,7 @@ subprojects {
             modImplementation("me.shedaniel:RoughlyEnoughItems-${modLoader}:14.0.688")
 
         }
-        //if (isFabric) {
-        //    modApi "com.terraformersmc:modmenu:9.0.0"
-        //}
+
     }
 }
 
@@ -52,11 +49,7 @@ allprojects {
     group = rootProject.maven_group
 
     repositories {
-        // Add repositories to retrieve artifacts from in here.
-        // You should only use this when depending on other mods because
-        // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
-        // See https://docs.gradle.org/current/userguide/declaring_repositories.html
-        // for more information about repositories.
+        maven { url "https://maven.terraformersmc.com/releases" }
     }
 
     tasks.withType(JavaCompile) {

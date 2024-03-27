@@ -23,7 +23,7 @@ public class ConfigScreen extends Screen {
     private final Screen parent;
     private final Map<String, ConfigEntry<?>> config;
     public ConfigScreen(Screen parent) {
-        super(Component.literal("Stellaris Config"));
+        super(Component.literal("Stellaris Option"));
         this.parent = parent;
         config = CustomConfig.CONFIG;
 
@@ -42,10 +42,8 @@ public class ConfigScreen extends Screen {
 
             StringWidget widget = new StringWidget(Component.literal(string), this.font);
 
-
             rowHelper.addChild(widget);
             addTypeWidgets(configEntry, rowHelper);
-
         });
 
         gridLayout.arrangeElements();
@@ -53,16 +51,6 @@ public class ConfigScreen extends Screen {
         gridLayout.visitWidgets(this::addRenderableWidget);
     }
 
-    @Override
-    public boolean keyPressed(int i, int j, int k) {
-        super.keyPressed(i, j, k);
-
-        if (i == 256) {
-            this.minecraft.setScreen(new TitleScreen());
-            return true;
-        }
-        return false;
-    }
 
     @Override
     public void onClose() {
