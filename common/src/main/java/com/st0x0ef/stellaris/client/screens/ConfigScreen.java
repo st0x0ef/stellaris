@@ -9,11 +9,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.*;
 import net.minecraft.client.gui.layouts.FrameLayout;
 import net.minecraft.client.gui.layouts.GridLayout;
-import net.minecraft.client.gui.screens.OptionsScreen;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.TitleScreen;
-import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
-import net.minecraft.client.gui.screens.worldselection.WorldSelectionList;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 
@@ -50,7 +46,7 @@ public class ConfigScreen extends Screen {
         });
 
         rowHelper.addChild(Button.builder(CommonComponents.GUI_DONE, (button) -> {
-            this.saveConfig();
+            this.onClose();
         }).width(200).build(), 2, rowHelper.newCellSettings().paddingTop(6));
 
         gridLayout.arrangeElements();
@@ -61,11 +57,10 @@ public class ConfigScreen extends Screen {
 
     @Override
     public void onClose() {
-        this.minecraft.setScreen(this.parent);
-
         CustomConfig.writeConfigFile("stellaris.json");
         CustomConfig.loadConfigFile();
-        //((ClientGuiEvent.SetScreen) screen -> null).modifyScreen();
+
+        this.minecraft.setScreen(this.parent);
     }
 
     @Override
