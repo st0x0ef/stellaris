@@ -64,3 +64,10 @@ type = "required"
 versionRange = "[1.20.4,1.21)"
 ordering = "NONE"
 side = "BOTH"
+
+[[mixins]]
+config="stellaris.mixins.json"
+
+[[mixins]]
+config="stellaris-common.mixins.json"
+

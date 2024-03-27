@@ -1,5 +1,6 @@
-package com.st0x0ef.stellaris.mixin;
+package com.st0x0ef.stellaris.forge.mixin;
 
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.ConfigScreen;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.SpriteIconButton;
@@ -31,6 +32,6 @@ public abstract class MainMenuMixin extends Screen {
 
     private static SpriteIconButton stellarisConfigButton(int i, Button.OnPress onPress, boolean bl) {
         Component component = bl ? Component.translatable("screens.stellaris.config") : Component.translatable("screens.stellaris.config");
-        return SpriteIconButton.builder(component, onPress, bl).width(i).sprite(new ResourceLocation("icon/accessibility"), 15, 15).build();
+        return SpriteIconButton.builder(component, onPress, bl).width(i).sprite(new ResourceLocation(Stellaris.MODID, "textures/item/engine_fan.png"), 16, 16).build();
     }
 }

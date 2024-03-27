@@ -6,9 +6,7 @@
   "mixins": [
     "EntityTick"
   ],
-  "client": [
-    "MainMenuMixin"
-  ],
+  "client": [],
   "injectors": {
     "defaultRequire": 1
   }
