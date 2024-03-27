@@ -17,17 +17,21 @@ import net.minecraft.client.gui.screens.worldselection.WorldSelectionList;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Environment(EnvType.CLIENT)
 public class ConfigScreen extends Screen {
 
+    private final Map<String, PlainTextButton> TEXT_FIELD = new HashMap<>();
+
     private final Screen parent;
     public ConfigScreen(Screen parent) {
         super(Component.literal("Stellaris Option"));
         this.parent = parent;
-
     }
+
+
 
     @Override
     protected void init() {
@@ -50,13 +54,15 @@ public class ConfigScreen extends Screen {
         }).width(200).build(), 2, rowHelper.newCellSettings().paddingTop(6));
 
         gridLayout.arrangeElements();
-        FrameLayout.alignInRectangle(gridLayout, -120, this.height / 6 , this.width, this.height, 0.5F, 0.0F);
+        FrameLayout.alignInRectangle(gridLayout, 0, this.height / 6 + 10, this.width, this.height , 0.5F, 0.0F);
         gridLayout.visitWidgets(this::addRenderableWidget);
     }
 
 
     @Override
     public void onClose() {
+        this.minecraft.setScreen(this.parent);
+
         CustomConfig.writeConfigFile("stellaris.json");
         CustomConfig.loadConfigFile();
         //((ClientGuiEvent.SetScreen) screen -> null).modifyScreen();
@@ -79,8 +85,12 @@ public class ConfigScreen extends Screen {
                     .build();
             rowHelper.addChild(checkbox);
         } else if (entry.getType() == String.class || entry.getType() == Integer.class || entry.getType() == Float.class || entry.getType() == Double.class) {
-            EditBox button = new EditBox(this.font, 50, 30, Component.literal(entry.getValue().toString()));
-
+            EditBox button = new EditBox(this.font, 50, 15, Component.literal(entry.getValue().toString()));
+            button.setMaxLength(100);
+            button.setValue(entry.getValue().toString());
+            button.setResponder((string) -> {
+                CustomConfig.CONFIG.replace(entryName, new ConfigEntry<String>(string, entry.getDescription()));
+            });
             rowHelper.addChild(button);
         } else {
             StringWidget widget = new StringWidget(Component.literal("This config type is not supported. Use the manual config"), this.font);
@@ -91,6 +101,13 @@ public class ConfigScreen extends Screen {
     public void saveConfig() {
         CustomConfig.writeConfigFile("stellaris.json");
         CustomConfig.loadConfigFile();
+        this.onClose();
     }
+
+    @Override
+    public void removed() {
+        this.minecraft.options.save();
+    }
+
 
 }
