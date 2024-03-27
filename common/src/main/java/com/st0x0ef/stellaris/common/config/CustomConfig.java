@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.common.config;
 
 import com.google.gson.JsonObject;
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.common.config.types.RangedInt;
 import dev.architectury.platform.Platform;
 
 import java.io.FileWriter;
@@ -26,8 +27,11 @@ public class CustomConfig {
     public static void addEntries() {
 
         addEntry("test", new ConfigEntry<Boolean>(true, "This is a test entry"));
-        addEntry("test2", new ConfigEntry<>(true, "This is a test entry"));
-        addEntry("test3", new ConfigEntry<>("true", "Coool"));
+        addEntry("test2", new ConfigEntry<Boolean>(true, "This is a test entry"));
+        addEntry("test3", new ConfigEntry<String>("true", "Coool"));
+        addEntry("test4", new ConfigEntry<RangedInt>(new RangedInt(6, 4, 30), "This is a ranged Int"));
+        addEntry("test5", new ConfigEntry<Integer>(1, "This is a ranged Int"));
+
     }
 
     public static void addEntry(String name, ConfigEntry<?> entry) {
