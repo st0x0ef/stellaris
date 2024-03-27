@@ -1,4 +1,4 @@
-package com.st0x0ef.stellaris.forge.client;
+package com.st0x0ef.stellaris.neoforge.client;
 
 import com.st0x0ef.stellaris.Stellaris;
 import net.neoforged.api.distmarker.Dist;

@@ -1,4 +1,4 @@
-package com.st0x0ef.stellaris.forge;
+package com.st0x0ef.stellaris.neoforge;
 
 import com.st0x0ef.stellaris.Stellaris;
 import net.neoforged.fml.common.Mod;
