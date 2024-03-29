@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.energy.base;
 
+import com.st0x0ef.stellaris.common.energy.impl.WrappedBlockEnergyContainer;
 import com.st0x0ef.stellaris.common.energy.util.Updatable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -14,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
  * @param <T> the type of the energy storage object. Botarium provides a default implementation for this with {@link WrappedBlockEnergyContainer}.
  */
 @FunctionalInterface
-public interface BotariumEnergyBlock<T extends EnergyContainer & Updatable> {
+public interface EnergyBlock<T extends EnergyContainer & Updatable> {
 
     /**
      * Retrieves the energy storage object for a given level, position, state, entity, and direction.

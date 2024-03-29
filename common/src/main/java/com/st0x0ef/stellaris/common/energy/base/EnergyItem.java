@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.energy.base;
 
+import com.st0x0ef.stellaris.common.energy.impl.WrappedItemEnergyContainer;
 import com.st0x0ef.stellaris.common.energy.util.Updatable;
 import net.minecraft.world.item.ItemStack;
 
@@ -9,7 +10,7 @@ import net.minecraft.world.item.ItemStack;
  * @param <T> The type of energy storage container. Botarium provides a default implementation for this with {@link WrappedItemEnergyContainer}.
  */
 @FunctionalInterface
-public interface BotariumEnergyItem<T extends EnergyContainer & Updatable> {
+public interface EnergyItem<T extends EnergyContainer & Updatable> {
     /**
      * Retrieves the energy storage container for the given holder.
      *

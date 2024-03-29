@@ -1,6 +1,6 @@
 package com.st0x0ef.stellaris.common.energy.impl;
 
-import com.st0x0ef.stellaris.common.energy.Botarium;
+import com.st0x0ef.stellaris.common.energy.EnergyMain;
 import com.st0x0ef.stellaris.common.energy.base.EnergyContainer;
 import com.st0x0ef.stellaris.common.energy.base.EnergySnapshot;
 import net.minecraft.nbt.CompoundTag;
@@ -89,15 +89,15 @@ public class SimpleEnergyContainer implements EnergyContainer {
 
     @Override
     public CompoundTag serialize(CompoundTag root) {
-        CompoundTag tag = root.getCompound(Botarium.BOTARIUM_DATA);
+        CompoundTag tag = root.getCompound(EnergyMain.STELLARIS_DATA);
         tag.putLong("Energy", this.energy);
-        root.put(Botarium.BOTARIUM_DATA, tag);
+        root.put(EnergyMain.STELLARIS_DATA, tag);
         return root;
     }
 
     @Override
     public void deserialize(CompoundTag root) {
-        CompoundTag tag = root.getCompound(Botarium.BOTARIUM_DATA);
+        CompoundTag tag = root.getCompound(EnergyMain.STELLARIS_DATA);
         this.energy = tag.getLong("Energy");
     }
 

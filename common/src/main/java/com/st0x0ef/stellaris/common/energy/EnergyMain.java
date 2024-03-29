@@ -7,8 +7,8 @@ import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-public class Botarium {
-    public static final String BOTARIUM_DATA = "BotariumData";
+public class EnergyMain {
+    public static final String STELLARIS_DATA = "StellarisData";
 
     public static <T, U> Map<T, U> finalizeRegistration(Map<Supplier<T>, U> unfinalized, @Nullable Map<T, U> finalized) {
         if (finalized == null) {
