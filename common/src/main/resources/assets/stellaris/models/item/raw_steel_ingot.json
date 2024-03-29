@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "stellaris:item/raw_steel_ingot"
+  }
+}

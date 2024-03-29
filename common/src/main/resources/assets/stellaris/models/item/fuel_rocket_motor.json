@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "stellaris:item/fuel_rocket_motor"
+  }
+}
