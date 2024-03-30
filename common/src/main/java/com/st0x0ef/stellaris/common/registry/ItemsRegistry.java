@@ -32,7 +32,8 @@ public class ItemsRegistry {
 
     public static final RegistrySupplier<Item> CANNON_STEAK = ITEMS.register("cannon_steak", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).food(FoodRegistry.CANNED_STEAK)));
     public static final RegistrySupplier<Item> COSMO_BREAD = ITEMS.register("cosmo_bread", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).food(FoodRegistry.COSMO_BREAD)));
-    public static final RegistrySupplier<Item> BERRY_JUICE = ITEMS.register("berry_juice", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).food(FoodRegistry.BERRY_JUICE)));public static final RegistrySupplier<Item> CHEESE = ITEMS.register("cheese", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).food(FoodRegistry.CHEESE)));
+    public static final RegistrySupplier<Item> BERRY_JUICE = ITEMS.register("berry_juice", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).food(FoodRegistry.BERRY_JUICE)));
+    public static final RegistrySupplier<Item> CHEESE = ITEMS.register("cheese", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).food(FoodRegistry.CHEESE)));
 
     /** Block Items */
     public static final RegistrySupplier<Item> STEEL_BLOCK_ITEM = ITEMS.register("steel_block", () -> new BlockItem(BlocksRegistry.STEEL_BLOCK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
