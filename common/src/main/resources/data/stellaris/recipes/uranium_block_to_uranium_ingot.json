@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "stellaris:uranium_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "item": "stellaris:uranium_ingot"
+  }
+}

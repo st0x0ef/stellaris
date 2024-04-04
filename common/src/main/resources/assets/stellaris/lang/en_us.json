@@ -31,6 +31,12 @@
   "block.stellaris.mercury_stone_brick_slab": "Mercury Stone Brick Slab",
 
 
+  "block.stellaris.mercury_uranium_ore" : "Mercury Uranium Ore",
+  "block.stellaris.uranium_block" : "Uranium Block",
+  "block.stellaris.raw_uranium_block" : "Raw Uranium Block",
+  "item.stellaris.raw_uranium": "Raw Uranium",
+  "item.stellaris.uranium_ingot": "Uranium Ingot",
+
 
   "categorie.stellaris.main": "Stellaris",
   "item.stellaris.raw_steel_ingot": "Raw Steel Ingot",
