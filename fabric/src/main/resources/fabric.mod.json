@@ -4,9 +4,9 @@
   "version": "${version}",
   "name": "Stellaris",
   "description": "",
-  "authors": [],
+  "authors": ["st0x0ef"],
   "contact": {},
-  "license": "GNU AGPL 3.0",
+  "license": "CC BY-NC-SA 4.0",
   "icon": "logo.png",
   "environment": "*",
   "entrypoints": {
@@ -23,6 +23,7 @@
   ],
   "depends": {
     "fabricloader": ">=0.15.7",
-    "minecraft": ">=1.20.4"
+    "minecraft": ">=1.20.4",
+    "architectury": ">=11.1.17"
   }
 }
