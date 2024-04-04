@@ -6,5 +6,9 @@
     "stellaris:steel_ore",
     "stellaris:steel_planting_block",
     "stellaris:deepslate_steel_ore",
+
+    "stellaris:mercury_uranium_ore",
+    "stellaris:uranium_block",
+    "stellaris:raw_uranium_block"
   ]
 }
