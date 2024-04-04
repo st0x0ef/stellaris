@@ -22,6 +22,8 @@ public class EntityRegistry {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPE = DeferredRegister.create(Stellaris.MODID, Registries.BLOCK_ENTITY_TYPE);
     public static final RegistrySupplier<BlockEntityType<RocketStationEntity>> ROCKET_STATION = BLOCK_ENTITY_TYPE.register("rocket_station",
             () -> BlockEntityType.Builder.of(RocketStationEntity::new, BlocksRegistry.ROCKET_STATION.get()).build(null));
+    public static final RegistrySupplier<BlockEntityType<RocketStationEntity>> URANIUM_BLOCK = BLOCK_ENTITY_TYPE.register("uranium_block",
+            () -> BlockEntityType.Builder.of(RocketStationEntity::new, BlocksRegistry.URANIUM_BLOCK.get(), BlocksRegistry.RAW_URANIUM_BLOCK.get(), BlocksRegistry.MERCURY_URANIUM_ORE.get()).build(null));
 
     //Entity type
 

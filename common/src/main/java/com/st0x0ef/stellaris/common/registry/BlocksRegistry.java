@@ -4,6 +4,7 @@ import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.FlagBlock;
 import com.st0x0ef.stellaris.common.blocks.RocketLaunchPad;
 import com.st0x0ef.stellaris.common.blocks.RocketStation;
+import com.st0x0ef.stellaris.common.blocks.UraniumBlock;
 import dev.architectury.core.block.ArchitecturyLiquidBlock;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
@@ -35,16 +36,9 @@ public class BlocksRegistry {
 
 
 //RADIOACTIVITY
-    public static final RegistrySupplier<Block> MERCURY_URANIUM_ORE = BLOCKS.register("mercury_uranium_ore", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(5f, 2.5f).requiresCorrectToolForDrops()));
-    public static final RegistrySupplier<Block> URANIUM_BLOCK = BLOCKS.register("uranium_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(5f, 2.5f).requiresCorrectToolForDrops()));
-    public static final RegistrySupplier<Block> RAW_URANIUM_BLOCK = BLOCKS.register("raw_uranium_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(5f, 2.5f).requiresCorrectToolForDrops()));
-
-
-
-
-
-
-
+    public static final RegistrySupplier<Block> MERCURY_URANIUM_ORE = BLOCKS.register("mercury_uranium_ore", () -> new UraniumBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(5f, 2.5f).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> URANIUM_BLOCK = BLOCKS.register("uranium_block", () -> new UraniumBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(5f, 2.5f).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> RAW_URANIUM_BLOCK = BLOCKS.register("raw_uranium_block", () -> new UraniumBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(5f, 2.5f).requiresCorrectToolForDrops()));
 
 
     /** MARS Items */

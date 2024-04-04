@@ -26,7 +26,6 @@ public class TagRegistry {
     public static final TagKey<Fluid> FLUID_OIL_FLUID_TAG = TagKey.create(Registries.FLUID, new ResourceLocation(Stellaris.MODID, "oil"));
 
     /** BIOMES */
-    public static final TagKey<Biome> GLACIO_BIOMES_TAG = TagKey.create(Registries.BIOME, new ResourceLocation(Stellaris.MODID, "glacio"));
     public static final TagKey<Biome> MARS_BIOMES_TAG = TagKey.create(Registries.BIOME, new ResourceLocation(Stellaris.MODID, "mars"));
     public static final TagKey<Biome> MERCURY_BIOMES_TAG = TagKey.create(Registries.BIOME, new ResourceLocation(Stellaris.MODID, "mercury"));
     public static final TagKey<Biome> MOON_BIOMES_TAG = TagKey.create(Registries.BIOME, new ResourceLocation(Stellaris.MODID, "moon"));
