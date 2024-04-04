@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 @Environment(EnvType.CLIENT)
-public class AlienZombieRenderer extends MobRenderer<AlienZombie, EntityModel<AlienZombie>> {
+public class AlienZombieRenderer extends MobRenderer<AlienZombie, AlienZombieModel<AlienZombie>> {
 
     public static final ResourceLocation TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/entity/alien_zombie.png");
 

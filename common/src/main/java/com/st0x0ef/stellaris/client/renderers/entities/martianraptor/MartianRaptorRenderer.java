@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 @Environment(EnvType.CLIENT)
-public class MartianRaptorRenderer extends MobRenderer<MartianRaptor, EntityModel<MartianRaptor>> {
+public class MartianRaptorRenderer extends MobRenderer<MartianRaptor, MartianRaptorModel<MartianRaptor>> {
 
     public static final ResourceLocation TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/entity/martian_raptor.png");
 

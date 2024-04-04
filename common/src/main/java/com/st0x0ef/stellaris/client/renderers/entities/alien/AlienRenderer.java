@@ -12,7 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.npc.VillagerProfession;
 
 @Environment(EnvType.CLIENT)
-public class AlienRenderer extends MobRenderer<Alien, EntityModel<Alien>> {
+public class AlienRenderer extends MobRenderer<Alien, AlienModel<Alien>> {
 
     /** TEXTURES */
     public static final ResourceLocation ALIEN = new ResourceLocation(Stellaris.MODID,"textures/entity/alien/alien.png");

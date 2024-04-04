@@ -28,7 +28,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class AlienZombie extends Monster implements RangedAttackMob {
 	public AlienZombie(EntityType<? extends Monster> type, Level world) {
-		super(EntityRegistry.ALIEN_ZOMBIE.get(), world);
+		super(type, world);
 		this.xpReward = 5;
 	}
 

@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.client.renderers.entities.pygro;
 
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.common.entities.pygro.Pygro;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.geom.EntityModelSet;
@@ -12,7 +13,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
 
 @Environment(EnvType.CLIENT)
-public class PygroRenderer extends HumanoidMobRenderer<Mob, PygroModel<Mob>> {
+public class PygroRenderer extends HumanoidMobRenderer<Pygro, PygroModel<Pygro>> {
 
     public static final ResourceLocation TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/entity/pygro.png");
 
@@ -20,17 +21,17 @@ public class PygroRenderer extends HumanoidMobRenderer<Mob, PygroModel<Mob>> {
         super(context, new PygroModel<>(context.bakeLayer(PygroModel.LAYER_LOCATION)), 0.5f);
     }
 
-
-    private static PygroModel<Mob> createModel(EntityModelSet p_174350_, ModelLayerLocation p_174351_) {
-
-        return new PygroModel<>(p_174350_.bakeLayer(p_174351_));
-    }
-
-    public ResourceLocation getTextureLocation(Mob p_115708_) {
+    @Override
+    public ResourceLocation getTextureLocation(Pygro entity) {
         return TEXTURE;
     }
 
-    protected boolean isShaking(Mob p_115712_) {
-        return super.isShaking(p_115712_) || p_115712_ instanceof AbstractPiglin && ((AbstractPiglin)p_115712_).isConverting();
+
+    private static PygroModel<Mob> createModel(EntityModelSet p_174350_, ModelLayerLocation p_174351_) {
+        return new PygroModel<>(p_174350_.bakeLayer(p_174351_));
+    }
+
+    protected boolean isShaking(Pygro p_115712_) {
+        return super.isShaking(p_115712_) || p_115712_ != null && p_115712_.isConverting();
     }
 }

@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 @Environment(EnvType.CLIENT)
-public class MoglerRenderer extends MobRenderer<Mogler, EntityModel<Mogler>> {
+public class MoglerRenderer extends MobRenderer<Mogler, MoglerModel<Mogler>> {
     private static final ResourceLocation LAYER_LOCATION = new ResourceLocation(Stellaris.MODID,"textures/entity/mogler.png");
 
     public MoglerRenderer(EntityRendererProvider.Context p_174165_) {

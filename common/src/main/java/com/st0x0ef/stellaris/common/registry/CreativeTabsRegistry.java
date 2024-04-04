@@ -11,15 +11,13 @@ import net.minecraft.world.item.ItemStack;
 
 public class CreativeTabsRegistry {
 
-    public static final DeferredRegister<CreativeModeTab> TABS =
-            DeferredRegister.create(Stellaris.MODID, Registries.CREATIVE_MODE_TAB);
+    public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Stellaris.MODID, Registries.CREATIVE_MODE_TAB);
 
     public static final RegistrySupplier<CreativeModeTab> STELLARIS_TAB = TABS.register(
             "stellaris", // Tab ID
             () -> CreativeTabRegistry.create(
                     Component.translatable("categorie.stellaris.main"), // Tab Name
-                    () -> new ItemStack(ItemsRegistry.STEEL_INGOT) // Icon
+                    () -> new ItemStack(ItemsRegistry.STEEL_INGOT)
             )
     );
-
 }

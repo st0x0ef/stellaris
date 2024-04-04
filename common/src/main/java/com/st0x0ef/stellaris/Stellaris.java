@@ -16,6 +16,7 @@ import com.st0x0ef.stellaris.client.renderers.entities.pygro.PygroModel;
 import com.st0x0ef.stellaris.client.renderers.entities.pygro.PygroRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.starcrawler.StarCrawlerModel;
 import com.st0x0ef.stellaris.client.renderers.entities.starcrawler.StarCrawlerRenderer;
+import com.st0x0ef.stellaris.client.screens.RocketMenuScreen;
 import com.st0x0ef.stellaris.client.screens.RocketStationScreen;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
 import com.st0x0ef.stellaris.common.registry.*;
@@ -35,7 +36,6 @@ public class Stellaris {
     public static final Logger LOG = LoggerFactory.getLogger(MOD_NAME);
     public static final Gson GSON = new Gson();
     public static void init() {
-
         FluidRegistry.FLUIDS.register();
         BlocksRegistry.BLOCKS.register();
         MenuTypesRegistry.MENU_TYPE.register();
@@ -52,44 +52,5 @@ public class Stellaris {
         RecipesRegistry.register();
 
         ReloadListenerRegistry.register(PackType.SERVER_DATA, new StellarisData());
-
-    }
-
-    public static void clientInit() {
-        /**Block Entities*/
-        MenuRegistry.registerScreenFactory(MenuTypesRegistry.ROCKET_STATION.get(), RocketStationScreen::new);
-
-        /**Entities*/
-        //Alien
-        EntityRendererRegistry.register(EntityRegistry.ALIEN, AlienRenderer::new);
-        EntityModelLayerRegistry.register(AlienModel.LAYER_LOCATION, AlienModel::createBodyLayer);
-        //Alien Zombie
-        EntityRendererRegistry.register(EntityRegistry.ALIEN_ZOMBIE, AlienZombieRenderer::new);
-        EntityModelLayerRegistry.register(AlienZombieModel.LAYER_LOCATION, AlienZombieModel::createBodyLayer);
-        //Martian Raptor
-        EntityRendererRegistry.register(EntityRegistry.MARTIAN_RAPTOR, MartianRaptorRenderer::new);
-        EntityModelLayerRegistry.register(MartianRaptorModel.LAYER_LOCATION, MartianRaptorModel::createBodyLayer);
-        //Pygro
-        EntityRendererRegistry.register(EntityRegistry.PYGRO, PygroRenderer::new);
-        EntityModelLayerRegistry.register(PygroModel.LAYER_LOCATION, PygroModel::createBodyLayer);
-        //Pygro Brute
-        EntityRendererRegistry.register(EntityRegistry.PYGRO_BRUTE, PygroBruteRenderer::new);
-        //Mogler
-        EntityRendererRegistry.register(EntityRegistry.MOGLER, MoglerRenderer::new);
-        EntityModelLayerRegistry.register(MoglerModel.LAYER_LOCATION, MoglerModel::createBodyLayer);
-        //Star Crawler
-        EntityRendererRegistry.register(EntityRegistry.STAR_CRAWLER, StarCrawlerRenderer::new);
-        EntityModelLayerRegistry.register(StarCrawlerModel.LAYER_LOCATION, StarCrawlerModel::createBodyLayer);
-        //Ice Spit
-        EntityRendererRegistry.register(EntityRegistry.ICE_SPIT, renderManager -> new ThrownItemRenderer<>(renderManager, 1, true));
-
-        EntityRendererRegistry.register(EntityRegistry.ICE_SHARD_ARROW, IceShardArrowRenderer::new);
-
-        /**Particles*/
-        ParticleProviderRegistry.register(ParticleRegistry.VENUS_RAIN_PARTICLE.get(), VenusRainParticle.ParticleFactory::new);
-        ParticleProviderRegistry.register(ParticleRegistry.LARGE_FLAME_PARTICLE.get(), LargeFlameParticle.ParticleFactory::new);
-        ParticleProviderRegistry.register(ParticleRegistry.LARGE_SMOKE_PARTICLE.get(), LargeSmokeParticle.ParticleFactory::new);
-        ParticleProviderRegistry.register(ParticleRegistry.SMALL_FLAME_PARTICLE.get(), SmallFlameParticle.ParticleFactory::new);
-        ParticleProviderRegistry.register(ParticleRegistry.SMALL_SMOKE_PARTICLE.get(), SmallSmokeParticle.ParticleFactory::new);
     }
 }

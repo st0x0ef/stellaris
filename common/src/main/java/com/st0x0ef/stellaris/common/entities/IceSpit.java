@@ -18,12 +18,12 @@ public class IceSpit extends AbstractArrow implements ItemSupplier {
 
 
     public IceSpit(EntityType<? extends AbstractArrow> entityType, Level level) {
-        super(EntityRegistry.ICE_SPIT.get(), level, new ItemStack(ItemsRegistry.ICE_SHARD.get()));
+        super(entityType, level, new ItemStack(ItemsRegistry.ICE_SHARD.get()));
     }
 
 
     protected IceSpit(EntityType<? extends AbstractArrow> entityType, LivingEntity livingEntity, Level level, ItemStack itemStack) {
-        super(EntityRegistry.ICE_SPIT.get(), livingEntity, level, new ItemStack(ItemsRegistry.ICE_SHARD.get()));
+        super(entityType, livingEntity, level, new ItemStack(ItemsRegistry.ICE_SHARD.get()));
     }
 
     public @NotNull ItemStack getItem() {
