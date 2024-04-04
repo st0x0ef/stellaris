@@ -36,7 +36,7 @@ public interface ImplementedInventory extends  WorldlyContainer {
 
 
     @Override
-    public default int[] getSlotsForFace(Direction direction) {
+    default int[] getSlotsForFace(Direction direction) {
         int[] result = new int[getItems().size()];
         for (int i = 0; i < result.length; i++) {
             result[i] = i;
@@ -46,22 +46,22 @@ public interface ImplementedInventory extends  WorldlyContainer {
     }
 
     @Override
-    public default boolean canPlaceItemThroughFace(int i, ItemStack itemStack, @Nullable Direction direction) {
+    default boolean canPlaceItemThroughFace(int i, ItemStack itemStack, @Nullable Direction direction) {
         return true;
     }
 
     @Override
-    public default boolean canTakeItemThroughFace(int i, ItemStack itemStack, Direction direction) {
+    default boolean canTakeItemThroughFace(int i, ItemStack itemStack, Direction direction) {
         return true;
     }
 
     @Override
-    public default  int getContainerSize() {
+    default  int getContainerSize() {
         return getItems().size();
     }
 
     @Override
-    public default boolean isEmpty() {
+    default boolean isEmpty() {
         for (int i = 0; i < getContainerSize(); i++) {
             ItemStack stack = getItem(i);
             if (!stack.isEmpty()) {
@@ -73,12 +73,12 @@ public interface ImplementedInventory extends  WorldlyContainer {
     }
 
     @Override
-    public default ItemStack getItem(int i) {
+    default ItemStack getItem(int i) {
         return getItems().get(i);
     }
 
     @Override
-    public default ItemStack removeItem(int i, int j) {
+    default ItemStack removeItem(int i, int j) {
         ItemStack result = ContainerHelper.removeItem(getItems(), i, j);
         if (!result.isEmpty()) {
             setChanged();
@@ -88,12 +88,12 @@ public interface ImplementedInventory extends  WorldlyContainer {
     }
 
     @Override
-    public default ItemStack removeItemNoUpdate(int i) {
+    default ItemStack removeItemNoUpdate(int i) {
         return ContainerHelper.takeItem(getItems(), i);
     }
 
     @Override
-    public default void setItem(int i, ItemStack itemStack) {
+    default void setItem(int i, ItemStack itemStack) {
         getItems().set(i, itemStack);
         if (itemStack.getCount() > getMaxStackSize()) {
             itemStack.setCount(getMaxStackSize());
@@ -103,17 +103,17 @@ public interface ImplementedInventory extends  WorldlyContainer {
 
 
     @Override
-    public default void setChanged() {
+    default void setChanged() {
 
     }
 
     @Override
-    public default boolean stillValid(Player player) {
+    default boolean stillValid(Player player) {
         return true;
     }
 
     @Override
-    public default void clearContent() {
+    default void clearContent() {
         getItems().clear();
 
     }

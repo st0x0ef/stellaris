@@ -104,13 +104,13 @@ public class RocketStationEntity extends BaseContainerBlockEntity implements Imp
 
     private void craftItem() {
         Optional<RecipeHolder<RocketStationRecipe>> recipe = getCurrentRecipe();
-        Stellaris.LOG.error("TEST Slot Count: " + getItem(0).getCount());
-
-        for (int i : inputSlots) {
-            this.removeItem(i, 1);
+        if (recipe.isPresent()) {
+            for (int i : inputSlots) {
+                this.removeItem(i, 1);
+            }
+            this.setItem(14, new ItemStack(recipe.get().value().getResultItem(null).getItem(),
+                    getItem(14).getCount() + recipe.get().value().getResultItem(null).getCount()));
         }
-        this.setItem(14, new ItemStack(recipe.get().value().getResultItem(null).getItem(),
-                getItem(14).getCount() + recipe.get().value().getResultItem(null).getCount()));
     }
 
 

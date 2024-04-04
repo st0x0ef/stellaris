@@ -20,5 +20,4 @@ public record Planet(
             Codec.INT.fieldOf("distanceFromEarth").forGetter(Planet::distanceFromEarth),
             Codec.FLOAT.fieldOf("gravity").forGetter(Planet::gravity)
     ).apply(instance, Planet::new));
-
 }
