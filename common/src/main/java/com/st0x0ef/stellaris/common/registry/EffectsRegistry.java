@@ -10,7 +10,7 @@ public class EffectsRegistry {
     public static final MobEffect RADIOACTIVE;
 
     static {
-        RADIOACTIVE = register("radioactive", new Radioactiveeffect(MobEffectCategory.HARMFUL, 8889189));
+        RADIOACTIVE = register("radioactive", new Radioactiveeffect(MobEffectCategory.HARMFUL, 8889187));
     }
 
     private static MobEffect register(String string, MobEffect mobEffect) {
