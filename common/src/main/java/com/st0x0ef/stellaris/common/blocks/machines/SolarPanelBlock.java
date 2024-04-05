@@ -1,9 +1,7 @@
 package com.st0x0ef.stellaris.common.blocks.machines;
 
 import com.mojang.serialization.MapCodec;
-import com.st0x0ef.stellaris.common.blocks.entities.RocketStationEntity;
-import com.st0x0ef.stellaris.common.blocks.entities.machines.GeneratorBlockEntityTemplate;
-import com.st0x0ef.stellaris.common.blocks.entities.machines.TestBlockEntity;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.SolarPanelEntity;
 import com.st0x0ef.stellaris.common.energy.base.EnergyContainer;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import net.minecraft.core.BlockPos;
@@ -20,20 +18,24 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
-public class GeneratorBlockTemplate extends BaseEntityBlock {
-    public GeneratorBlockTemplate(Properties properties) {
+public class SolarPanelBlock extends GeneratorBlockTemplate{
+    public SolarPanelBlock(Properties properties) {
         super(properties);
+    }
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> blockEntityType) {
+        return createTickerHelper(blockEntityType, EntityRegistry.SOLAR_PANEL.get(), (level1, blockPos, blockState1, blockEntity) -> ((SolarPanelEntity) blockEntity).tick());
     }
 
     @Override
     protected MapCodec<? extends BaseEntityBlock> codec() {
-        return simpleCodec(GeneratorBlockTemplate::new);
+        return simpleCodec(SolarPanelBlock::new);
     }
 
-    @Nullable
     @Override
-    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return new GeneratorBlockEntityTemplate(blockPos, blockState);
+    public @Nullable BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
+        return new SolarPanelEntity(blockPos, blockState);
     }
 
     @Override
@@ -44,18 +46,10 @@ public class GeneratorBlockTemplate extends BaseEntityBlock {
                     blockHitResult.getDirection()
             ).getStoredEnergy()));
             BlockEntity blockEntity = level.getBlockEntity(blockPos);
-            if (blockEntity instanceof GeneratorBlockEntityTemplate) {
+            if (blockEntity instanceof SolarPanelEntity) {
                 player.openMenu(blockState.getMenuProvider(level, blockPos));
             }
         }
-
         return InteractionResult.SUCCESS;
     }
-
-    @Nullable
-    @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> blockEntityType) {
-        return createTickerHelper(blockEntityType, EntityRegistry.TEST_BLOCK.get(), (level1, blockPos, blockState1, blockEntity) -> ((TestBlockEntity) blockEntity).tick());
-    }
-
 }

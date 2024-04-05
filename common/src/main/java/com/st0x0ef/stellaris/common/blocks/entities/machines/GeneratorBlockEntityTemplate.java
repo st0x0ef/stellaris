@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
 import com.st0x0ef.stellaris.common.energy.base.EnergyBlock;
+import com.st0x0ef.stellaris.common.energy.impl.ExtractOnlyEnergyContainer;
 import com.st0x0ef.stellaris.common.energy.impl.SimpleEnergyContainer;
 import com.st0x0ef.stellaris.common.energy.impl.WrappedBlockEnergyContainer;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
@@ -16,7 +17,8 @@ import org.jetbrains.annotations.Nullable;
 
 public class GeneratorBlockEntityTemplate extends BlockEntity implements EnergyBlock<WrappedBlockEnergyContainer> {
     private WrappedBlockEnergyContainer energyContainer;
-    private WrappedBlockEnergyContainer energyStorage = this.getEnergyStorage(level,getBlockPos(),getBlockState(),this,null);
+    private final WrappedBlockEnergyContainer energyStorage = this.getEnergyStorage(level,getBlockPos(),getBlockState(),this,null);
+
     private int EnergyGeneratedPT = 1;
 
     public GeneratorBlockEntityTemplate(BlockPos blockPos, BlockState blockState) {
@@ -24,12 +26,11 @@ public class GeneratorBlockEntityTemplate extends BlockEntity implements EnergyB
     }
 
     public GeneratorBlockEntityTemplate(BlockEntityType<?> entityType, BlockPos blockPos, BlockState blockState) {
-        super(EntityRegistry.TEST_BLOCK.get(), blockPos, blockState);
+        super(entityType, blockPos, blockState);
     }
-
     @Override
     public final WrappedBlockEnergyContainer getEnergyStorage(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity entity, @Nullable Direction direction) {
-        return energyContainer == null ? energyContainer = new WrappedBlockEnergyContainer(entity, new SimpleEnergyContainer(15000, Integer.MAX_VALUE)) : energyContainer;
+        return energyContainer == null ? energyContainer = new WrappedBlockEnergyContainer(entity, new ExtractOnlyEnergyContainer(15000, Integer.MAX_VALUE)) : energyContainer;
     }
 
     @Override
@@ -55,5 +56,8 @@ public class GeneratorBlockEntityTemplate extends BlockEntity implements EnergyB
         } else if (energyStorage.getStoredEnergy() > energyStorage.getMaxCapacity()) {
             energyStorage.setEnergy(energyStorage.getMaxCapacity());
         }
+    }
+    protected void setEnergyGeneratedPT(int energyGeneratedPT) {
+        EnergyGeneratedPT = energyGeneratedPT;
     }
 }
