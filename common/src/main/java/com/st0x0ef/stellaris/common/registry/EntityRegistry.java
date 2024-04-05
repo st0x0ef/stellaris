@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.common.registry;
 
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.entities.RocketStationEntity;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.TestBlockEntity;
 import com.st0x0ef.stellaris.common.entities.*;
 import com.st0x0ef.stellaris.common.entities.alien.Alien;
 import com.st0x0ef.stellaris.common.entities.pygro.Pygro;
@@ -22,6 +23,8 @@ public class EntityRegistry {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPE = DeferredRegister.create(Stellaris.MODID, Registries.BLOCK_ENTITY_TYPE);
     public static final RegistrySupplier<BlockEntityType<RocketStationEntity>> ROCKET_STATION = BLOCK_ENTITY_TYPE.register("rocket_station",
             () -> BlockEntityType.Builder.of(RocketStationEntity::new, BlocksRegistry.ROCKET_STATION.get()).build(null));
+    public static final RegistrySupplier<BlockEntityType<TestBlockEntity>> TEST_BLOCK = BLOCK_ENTITY_TYPE.register("test_block",
+            () -> BlockEntityType.Builder.of(TestBlockEntity::new, BlocksRegistry.TEST_BLOCK.get()).build(null));
 
     //Entity type
 
