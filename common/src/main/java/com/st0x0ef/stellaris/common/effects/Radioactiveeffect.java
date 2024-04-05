@@ -12,7 +12,7 @@ public class Radioactiveeffect extends MobEffect {
     public void applyEffectTick(LivingEntity livingEntity, int i) {
         super.applyEffectTick(livingEntity, i);
         if (livingEntity.getHealth() > 0.0F) {
-            livingEntity.hurt(livingEntity.damageSources().magic(), 0.0F);
+            livingEntity.hurt(livingEntity.damageSources().magic(), 2.0F);
         }
 
     }
