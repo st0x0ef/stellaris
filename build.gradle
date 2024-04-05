@@ -21,7 +21,8 @@ subprojects {
 
     repositories {
         maven {
-            url "https://maven.neoforged.net/releases/"
+            name "neoforgedReleases"
+            url "https://maven.neoforged.net/releases"
            }
         maven { url "https://maven.shedaniel.me" }
 
@@ -35,7 +36,6 @@ subprojects {
             modImplementation("me.shedaniel:RoughlyEnoughItems-${modLoader}:14.0.688")
 
         }
-
     }
 }
 
