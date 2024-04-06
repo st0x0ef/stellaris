@@ -3,9 +3,9 @@ package com.st0x0ef.stellaris.common.effects;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
-public class Radioactiveeffect extends MobEffect {
+public class RadioactiveEffect extends MobEffect {
 
-    public Radioactiveeffect(MobEffectCategory mobEffectCategory, int i) {
+    public RadioactiveEffect(MobEffectCategory mobEffectCategory, int i) {
         super(mobEffectCategory, i);
     }
 
