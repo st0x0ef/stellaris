@@ -130,6 +130,10 @@
 
 
 
-  "item.stellaris.ice_shard_arrow": "Ice Shard Arrow"
+  "item.stellaris.ice_shard_arrow": "Ice Shard Arrow",
 
+
+  "effect.stellaris.radioactive_1": "Radioactivity 1",
+  "effect.stellaris.radioactive_2": "Radioactivity 2",
+  "effect.stellaris.radioactive_3": "Radioactivity 3"
 }
