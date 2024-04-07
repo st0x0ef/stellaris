@@ -3,36 +3,25 @@ package com.st0x0ef.stellaris.client.screens;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.config.ConfigEntry;
 import com.st0x0ef.stellaris.common.config.CustomConfig;
-import com.st0x0ef.stellaris.common.config.types.RangedInt;
 import dev.architectury.platform.Platform;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.Util;
-import net.minecraft.client.OptionInstance;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.*;
 import net.minecraft.client.gui.components.toasts.SystemToast;
-import net.minecraft.client.gui.components.toasts.Toast;
 import net.minecraft.client.gui.layouts.FrameLayout;
 import net.minecraft.client.gui.layouts.GridLayout;
 import net.minecraft.client.gui.layouts.SpacerElement;
 import net.minecraft.client.gui.screens.*;
-import net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen;
-import net.minecraft.client.gui.screens.telemetry.TelemetryInfoScreen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
 
 import java.nio.file.Path;
-import java.util.HashMap;
-import java.util.Map;
 
 @Environment(EnvType.CLIENT)
 public class ConfigScreen extends Screen {
-
-    private final Map<String, PlainTextButton> TEXT_FIELD = new HashMap<>();
-
     private final Screen parent;
     public ConfigScreen(Screen parent) {
         super(Component.literal("Stellaris Option"));
@@ -49,10 +38,6 @@ public class ConfigScreen extends Screen {
         GridLayout.RowHelper rowHelper = gridLayout.createRowHelper(2);
 
         CustomConfig.CONFIG.forEach( (string, configEntry) -> {
-            if(configEntry.getType() == Boolean.class) {
-                Stellaris.LOG.error("Boolean");
-            }
-
             StringWidget widget = new StringWidget(Component.literal(string), this.font);
             rowHelper.addChild(widget);
             addTypeWidgets(configEntry, rowHelper, string);
@@ -60,26 +45,26 @@ public class ConfigScreen extends Screen {
 
         });
 
-        rowHelper.addChild(Button.builder(CommonComponents.GUI_DONE, (button) -> {
+        Button doneButton = Button.builder(CommonComponents.GUI_DONE, (button) -> {
             this.onClose();
-        }).width(200).build(), 2, rowHelper.newCellSettings().paddingTop(6));
+        }).width(200).build();
 
-        //TODO: set the good height for the button
-        SpriteIconButton spriteIconButton = (SpriteIconButton) stellarisConfigButton(20);
-        rowHelper.addChild(spriteIconButton);
+        rowHelper.addChild(doneButton, 2, rowHelper.newCellSettings().paddingTop(10));
+
         gridLayout.arrangeElements();
         FrameLayout.alignInRectangle(gridLayout, 0, this.height / 6 + 10, this.width, this.height , 0.5F, 0.0F);
         gridLayout.visitWidgets(this::addRenderableWidget);
+
+
     }
 
 
 
     @Override
     public void onClose() {
-
         CustomConfig.writeConfigFile("stellaris.json");
         CustomConfig.loadConfigFile();
-        this.playToast(Component.literal("Config Saved"), Component.literal("Config has been saved"));
+        this.playToast(Component.literal("Config Saved"), Component.literal("The Stellaris config has been saved"));
         this.minecraft.setScreen(this.parent);
     }
 
@@ -103,6 +88,7 @@ public class ConfigScreen extends Screen {
         } else if (entry.getType() == String.class ) {
             EditBox button = new EditBox(this.font, 50, 15, Component.literal(entry.getValue().toString()));
             button.setMaxLength(100);
+            button.setTooltip(new Tooltip(Component.literal(entry.getDescription()),null));
             button.setValue(entry.getValue().toString());
             button.setResponder((string) -> {
                 CustomConfig.CONFIG.replace(entryName, new ConfigEntry<String>(string, entry.getDescription()));
@@ -113,6 +99,8 @@ public class ConfigScreen extends Screen {
             EditBox button = new EditBox(this.font, 50, 15, Component.literal(entry.getValue().toString()));
             button.setMaxLength(100);
             button.setValue(entry.getValue().toString());
+            button.setTooltip(new Tooltip(Component.literal(entry.getDescription()),null));
+
             button.setResponder((string) -> {
                 int foo;
                 try {
@@ -120,25 +108,20 @@ public class ConfigScreen extends Screen {
 
                 } catch (NumberFormatException e) {
                     foo = 0;
-                    playToast(Component.literal("Invalid Number"), Component.literal("Please enter a valid number"));
                 }
 
-                CustomConfig.CONFIG.replace(entryName, new ConfigEntry<Integer>(foo, entry.getDescription()));
+                CustomConfig.CONFIG.replace(entryName, new ConfigEntry<Integer>((Integer) foo, entry.getDescription()));
 
             });
             rowHelper.addChild(button);
 
         } else {
-            StringWidget widget = new StringWidget(Component.literal("This config type is not supported. Use the manual config"), this.font);
-            rowHelper.addChild(widget);
+            SpriteIconButton spriteIconButton = stellarisConfigButton(20);
+            spriteIconButton.setTooltip(new Tooltip(Component.literal("This config type is not supported. Use the manual config"), null));
+            rowHelper.addChild(spriteIconButton);
         }
     }
 
-    public void saveConfig() {
-        CustomConfig.writeConfigFile("stellaris.json");
-        CustomConfig.loadConfigFile();
-        this.onClose();
-    }
 
     @Override
     public void removed() {
@@ -157,7 +140,6 @@ public class ConfigScreen extends Screen {
         return SpriteIconButton.builder(Component.literal("Config"), (button) -> {
             Path path = Path.of(Platform.getConfigFolder() + "/stellaris.json");
             Util.getPlatform().openUri(path.toUri());
-
         }, true).width(i).sprite(new ResourceLocation(Stellaris.MODID, "textures/item/engine_fan.png"), 16, 16).build();
     }
 }
