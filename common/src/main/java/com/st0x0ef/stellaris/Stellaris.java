@@ -36,7 +36,10 @@ public class Stellaris {
     public static final Logger LOG = LoggerFactory.getLogger(MOD_NAME);
     public static final Gson GSON = new Gson();
     public static void init() {
+        SoundRegistry.SOUNDS.register();
         FluidRegistry.FLUIDS.register();
+        EffectsRegistry.MOB_EFFECT.register();
+        ParticleRegistry.PARTICLES.register();
         BlocksRegistry.BLOCKS.register();
         MenuTypesRegistry.MENU_TYPE.register();
         EntityRegistry.BLOCK_ENTITY_TYPE.register();
@@ -46,8 +49,6 @@ public class Stellaris {
         FeaturesRegistry.FEATURES.register();
         ItemsRegistry.ITEMS.register();
         CreativeTabsRegistry.TABS.register();
-        ParticleRegistry.PARTICLES.register();
-        SoundRegistry.SOUNDS.register();
 
         RecipesRegistry.register();
 

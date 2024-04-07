@@ -23,7 +23,7 @@ public class UraniumBlockEntity extends BlockEntity {
         List<LivingEntity> entities = this.level.getEntitiesOfClass(LivingEntity.class, area);
         for (LivingEntity entity : entities) {
             if(/**!Methods.isLivingInJetSuit(entity) &&*/ !entity.getType().is(TagRegistry.ENTITY_RADIATION_INVULNERABLE_TAG)) {
-                entity.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE, 100));
+                entity.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE.get(), 100));
             }
         }
     }
