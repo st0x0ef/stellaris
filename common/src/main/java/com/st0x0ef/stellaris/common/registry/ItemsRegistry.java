@@ -2,7 +2,6 @@ package com.st0x0ef.stellaris.common.registry;
 
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.items.IceShardArrow;
-import com.st0x0ef.stellaris.common.registry.FoodRegistry;
 import dev.architectury.core.item.ArchitecturyBucketItem;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
@@ -113,8 +112,7 @@ public class ItemsRegistry {
     public static final RegistrySupplier<Item> MOON_STONE_DUST_ITEM = ITEMS.register("moon_stone_dust", () -> new BlockItem(BlocksRegistry.MOON_STONE_DUST.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> CRACKED_MOON_STONE_BRICKS_ITEM = ITEMS.register("cracked_moon_stone_bricks", () -> new BlockItem(BlocksRegistry.CRACKED_MOON_STONE_BRICKS.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> MOON_STONE_BRICKS_ITEM = ITEMS.register("moon_stone_bricks", () -> new BlockItem(BlocksRegistry.MOON_STONE_BRICKS.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
-    public static final RegistrySupplier<Item> MOON_STONE_PILLAR_END_ITEM = ITEMS.register("moon_stone_pillar_end", () -> new BlockItem(BlocksRegistry.MOON_STONE_PILLAR_END.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
-    public static final RegistrySupplier<Item> MOON_STONE_PILLAR_SIDE_ITEM = ITEMS.register("moon_stone_pillar_side", () -> new BlockItem(BlocksRegistry.MOON_STONE_PILLAR_SIDE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> MOON_STONE_PILLAR_ITEM = ITEMS.register("moon_stone_pillar", () -> new BlockItem(BlocksRegistry.MOON_STONE_PILLAR.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> POLISHED_MOON_STONE_ITEM = ITEMS.register("polished_moon_stone", () -> new BlockItem(BlocksRegistry.POLISHED_MOON_STONE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> MOON_DESH_ORE_ITEM = ITEMS.register("moon_desh_ore", () -> new BlockItem(BlocksRegistry.MOON_DESH_ORE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> DESH_BLOCK_ITEM = ITEMS.register("desh_block", () -> new BlockItem(BlocksRegistry.DESH_BLOCK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
@@ -127,9 +125,8 @@ public class ItemsRegistry {
     public static final RegistrySupplier<Item> MERCURY_IRON_ORE_ITEM = ITEMS.register("mercury_iron_ore", () -> new BlockItem(BlocksRegistry.MERCURY_IRON_ORE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> MERCURY_STONE_ITEM = ITEMS.register("mercury_stone", () -> new BlockItem(BlocksRegistry.MERCURY_STONE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> MERCURY_STONE_BRICKS_ITEM = ITEMS.register("mercury_stone_bricks", () -> new BlockItem(BlocksRegistry.MERCURY_STONE_BRICKS.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
-    public static final RegistrySupplier<Item> MERCURY_STONE_PILLAR_END_ITEM = ITEMS.register("mercury_stone_pillar_end", () -> new BlockItem(BlocksRegistry.MERCURY_STONE_PILLAR_END.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
-    public static final RegistrySupplier<Item> MERCURY_STONE_PILLAR_SIDE_ITEM = ITEMS.register("mercury_stone_pillar_side", () -> new BlockItem(BlocksRegistry.MERCURY_STONE_PILLAR_SIDE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
-    public static final RegistrySupplier<Item> CHISELED_MERCURY_STONE_ITEM = ITEMS.register("chiseled_mercury_stone", () -> new BlockItem(BlocksRegistry.CHISELED_MERCURY_STONE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> MERCURY_STONE_PILLAR_ITEM = ITEMS.register("mercury_stone_pillar", () -> new BlockItem(BlocksRegistry.MERCURY_STONE_PILLAR.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+   public static final RegistrySupplier<Item> CHISELED_MERCURY_STONE_ITEM = ITEMS.register("chiseled_mercury_stone", () -> new BlockItem(BlocksRegistry.CHISELED_MERCURY_STONE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> CRACKED_MERCURY_STONE_BRICKS_ITEM = ITEMS.register("cracked_mercury_stone_bricks", () -> new BlockItem(BlocksRegistry.CRACKED_MERCURY_STONE_BRICKS.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> POLISHED_MERCURY_STONE_ITEM = ITEMS.register("polished_mercury_stone", () -> new BlockItem(BlocksRegistry.POLISHED_MERCURY_STONE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
 
