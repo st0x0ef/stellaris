@@ -5,6 +5,13 @@
   "block.stellaris.steel_planting_block": "Steel Plating Block",
   "block.stellaris.steel_ore": "Steel Ore",
 
+  "block.stellaris.heavy_metal_plate": "Heavy Metal Plate",
+  "block.stellaris.heavy_metal_casing": "Heavy Metal Casing",
+  "block.stellaris.iron_plating_block": "Iron Plating Block",
+
+  "block.stellaris.permafrost_bricks": "Permafrost Bricks",
+  "block.stellaris.cracked_permafrost_bricks": "Cracked Permafrost Bricks",
+
   "block.stellaris.chiseled_moon_stone": "Chiseled Moon Stone",
   "block.stellaris.moon_cobblestone": "Moon Cobblestone",
   "block.stellaris.moon_sand": "Moon Sand",
@@ -14,10 +21,14 @@
   "block.stellaris.moon_stone_pillar_end": "Moon Stone Pillar End",
   "block.stellaris.moon_stone_pillar_side": "Moon Stone Pillar Side",
   "block.stellaris.polished_moon_stone": "Polished Moon stone",
-  "block.stellaris.heavy_metal_plate": "Heavy Metal Plate",
-  "block.stellaris.heavy_metal_casing": "Heavy Metal Casing",
   "block.stellaris.moon_deepslate": "Moon Deepslate",
   "block.stellaris.moon_stone_dust": "Moon Stone Dust",
+  "block.stellaris.moon_desh_ore": "Moon Desh Ore",
+
+  "block.stellaris.desh_plating_block": "Desh Plating Block",
+  "block.stellaris.desh_pillar": "Desh Pillar",
+  "block.stellaris.desh_block": "Desh Block",
+  "block.stellaris.raw_desh_block": "Raw Desh Block",
 
   "block.stellaris.mercury_cobblestone": "Mercury Cobblestone",
   "block.stellaris.mercury_iron_ore": "Mercury Iron Ore",
@@ -29,13 +40,42 @@
   "block.stellaris.cracked_mercury_stone_bricks": "Cracked Mercury Stone Bricks",
   "block.stellaris.polished_mercury_stone": "Polished Mercury Stone",
   "block.stellaris.mercury_stone_brick_slab": "Mercury Stone Brick Slab",
-
-
+  "block.stellaris.mercury_stone_brick_stairs": "Mercury Stone Brick Stairs",
   "block.stellaris.mercury_uranium_ore" : "Mercury Uranium Ore",
+
+
+  "block.stellaris.mars_stone_bricks" : "Mars Stone Bricks",
+  "block.stellaris.chiseled_mars_stone_bricks" : "Chiseled Mars Stone Bricks",
+  "block.stellaris.cracked_mars_stone_bricks" : "Cracked Mars Stone Bricks",
+  "block.stellaris.mars_cobblestone" : "Mars Cobblestone",
+  "block.stellaris.mars_iron_ore" : "Mars Iron Ore",
+  "block.stellaris.mars_ostrum_ore" : "Mars Ostrum Ore",
+  "block.stellaris.mars_sand" : "Mars Sand",
+  "block.stellaris.mars_stone" : "Mars Stone",
+  "block.stellaris.polished_mars_stone" : "Polished Mars Stone",
+  "block.stellaris.conglomorate" : "Conglomorate",
+  "block.stellaris.polished_conglomorate" : "Polished Conglomorate",
+
+  "block.stellaris.chiseled_venus_stone" : "Chiseled Venus Stone",
+  "block.stellaris.cracked_venus_sandstone_bricks" : "Cracked Venus Sandstone Bricks",
+  "block.stellaris.cracked_venus_stone_bricks" : "Cracked Venus Stone Bricks",
+  "block.stellaris.polished_venus_stone" : "Polished Venus Stone",
+  "block.stellaris.venus_coal_ore" : "Venus Coal Ore",
+  "block.stellaris.venus_gold_ore" : "Venus Gold Ore",
+  "block.stellaris.venus_stone" : "Venus Stone",
+  "block.stellaris.venus_cobblestone" : "Venus Cobblestone",
+  "block.stellaris.venus_sand" : "Venus Sand",
+  "block.stellaris.venus_sandstone" : "Venus Sandstone",
+  "block.stellaris.venus_sandstone_bricks" : "Venus Sandstone Bricks",
+  "block.stellaris.venus_stone_bricks" : "Venus Stone Bricks",
+
   "block.stellaris.uranium_block" : "Uranium Block",
   "block.stellaris.raw_uranium_block" : "Raw Uranium Block",
-  "item.stellaris.raw_uranium": "Raw Uranium",
-  "item.stellaris.uranium_ingot": "Uranium Ingot",
+
+  "block.stellaris.rocket_launch_pad": "Rocket Launch Pad",
+  "block.stellaris.rocket_station": "Rocket Station",
+  "block.stellaris.flag": "Flag",
+
 
 
   "categorie.stellaris.main": "Stellaris",
@@ -45,6 +85,17 @@
   "item.stellaris.steel_nugget": "Steel Nugget",
   "item.stellaris.heavy_metal_ingot": "Heavy Metal Ingot",
   "item.stellaris.heavy_metal_nugget": "Heavy Metal Nugget",
+  "item.stellaris.raw_uranium": "Raw Uranium",
+  "item.stellaris.uranium_ingot": "Uranium Ingot",
+
+
+
+  "item.stellaris.rocket_fin": "Rocket Fin",
+  "item.stellaris.engine_fan": "Engine Fan",
+  "item.stellaris.rocket_engine": "Rocket Engine",
+  "item.stellaris.fuel_rocket_motor": "Fuel Rocket Motor",
+
+
 
   "item.stellaris.pygro_spawn_egg": "Pygro Spawn Egg",
   "item.stellaris.star_crawler_spawn_egg": "Star Crawler Spawn Egg",
@@ -54,10 +105,33 @@
   "item.stellaris.mogler_spawn_egg": "Mogler Spawn Egg",
   "item.stellaris.pygro_brute_spawn_egg": "Pygro Brute Spawn Egg",
 
+
+
   "item.stellaris.fuel_bucket": "Fuel Bucket",
   "item.stellaris.oil_bucket": "Oil Bucket",
   "item.stellaris.hydrogen_bucket": "Hydrogen Bucket",
 
-  "block.stellaris.rocket_launch_pad": "Rocket Launch Pad",
-  "item.stellaris.cannon_steak": "Canned Steak"
+
+
+  "item.stellaris.big_blue_can": "Blue Can",
+  "item.stellaris.big_green_can": "Green Can",
+  "item.stellaris.big_purple_can": "Purple Can",
+  "item.stellaris.big_red_can": "Red Can",
+  "item.stellaris.big_yellow_can": "Yellow Can",
+
+  "item.stellaris.small_blue_can": "Small Blue Can",
+  "item.stellaris.small_green_can": "Small Green Can",
+  "item.stellaris.small_purple_can": "Small Purple Can",
+  "item.stellaris.small_red_can": "Small Red Can",
+  "item.stellaris.small_yellow_can": "Small Yellow Can",
+
+  "item.stellaris.cannon_steak": "Canned Steak",
+  "item.stellaris.berry_juice": "Canned Berry Juice",
+  "item.stellaris.cosmo_bread": "Cosmo Bread",
+  "item.stellaris.cheese": "Cheese",
+
+
+
+  "item.stellaris.ice_shard_arrow": "Ice Shard Arrow"
+
 }
