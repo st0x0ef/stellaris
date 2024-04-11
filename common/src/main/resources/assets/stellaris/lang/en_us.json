@@ -59,5 +59,22 @@
   "item.stellaris.hydrogen_bucket": "Hydrogen Bucket",
 
   "block.stellaris.rocket_launch_pad": "Rocket Launch Pad",
-  "item.stellaris.cannon_steak": "Canned Steak"
+  "item.stellaris.cannon_steak": "Canned Steak",
+
+  "block.stellaris.plutonium_block": "Plutonium Block",
+  "item.stellaris.plutonium_ingot": "Plutonium ingot",
+  "item.stellaris.plutonium_nugget": "Plutonium nugget",
+  "item.stellaris.plutonium_piece": "Plutonium piece",
+  "item.stellaris.plutonium_grain": "Plutonium grain",
+
+  "block.stellaris.neptunium_block": "Neptunium block",
+  "item.stellaris.neptunium_ingot": "Neptunium ingot",
+  "item.stellaris.neptunium_piece": "Neptunium piece",
+  "item.stellaris.raw_neptunium": "Raw neptunium",
+
+
+
+
+
+  "effect.stellaris.radioactive": "Radiation"
 }
