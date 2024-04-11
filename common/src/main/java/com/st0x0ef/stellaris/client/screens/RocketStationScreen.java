@@ -17,13 +17,11 @@ public class RocketStationScreen extends AbstractContainerScreen<RocketStationMe
 
     public static final ResourceLocation texture = new ResourceLocation(Stellaris.MODID, "textures/gui/rocket_station.png");
 
-
     public RocketStationScreen(RocketStationMenu abstractContainerMenu, Inventory inventory, Component component) {
         super(abstractContainerMenu, inventory, component);
         this.imageWidth = 177;
         this.imageHeight = 224;
         this.inventoryLabelY = this.imageHeight - 92;
-
     }
 
     @Override
