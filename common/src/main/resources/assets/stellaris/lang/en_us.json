@@ -135,5 +135,17 @@
 
   "effect.stellaris.radioactive_1": "Radioactivity 1",
   "effect.stellaris.radioactive_2": "Radioactivity 2",
-  "effect.stellaris.radioactive_3": "Radioactivity 3"
+  "effect.stellaris.radioactive_3": "Radioactivity 3",
+
+
+  "block.stellaris.neptunium_block": "Neptunium block",
+  "item.stellaris.neptunium_ingot": "Neptunium ingot",
+  "item.stellaris.neptunium_piece": "Neptunium piece",
+  "item.stellaris.raw_neptunium": "Raw neptunium",
+
+  "item.stellaris.plutonium_grain": "Plutonium grain",
+  "item.stellaris.plutonium_piece": "Plutonium piece",
+  "item.stellaris.plutonium_nugget": "Plutonium nugget",
+  "item.stellaris.plutonium_ingot": "Plutonium ingot",
+  "block.stellaris.plutonium_block": "Plutonium block"
 }
