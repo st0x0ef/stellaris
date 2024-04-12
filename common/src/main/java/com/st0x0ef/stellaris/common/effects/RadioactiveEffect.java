@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.effects;
 
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.registry.DamageSourceRegistry;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -15,15 +16,16 @@ public class RadioactiveEffect extends MobEffect {
     @Override
     public void applyEffectTick(LivingEntity livingEntity, int level) {
         if (livingEntity.getHealth() > 0.0F) {
-            if (level == 0 || level == 1) {
+            if (level == 0) {
                 livingEntity.hurt(DamageSourceRegistry.of(livingEntity.level(), DamageSourceRegistry.RADIATIONS), 0.5f);
             }
-            if (level == 1 || level == 2) {
-                livingEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 20));
-
-                if (level >= 2) {
-                    livingEntity.hurt(DamageSourceRegistry.of(livingEntity.level(), DamageSourceRegistry.RADIATIONS), 1.0f);
-                }
+            else if (level == 1) {
+                livingEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 80));
+                livingEntity.hurt(DamageSourceRegistry.of(livingEntity.level(), DamageSourceRegistry.RADIATIONS), 0.25f);
+            }
+            else if (level == 2) {
+                livingEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 80));
+                livingEntity.hurt(DamageSourceRegistry.of(livingEntity.level(), DamageSourceRegistry.RADIATIONS), 0.5f);
             }
         }
     }
@@ -41,7 +43,7 @@ public class RadioactiveEffect extends MobEffect {
     @Override
     public void onEffectStarted(LivingEntity livingEntity, int i) {
         if (i == 1 || i == 2) {
-            livingEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 20));
+            livingEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 80));
         }
     }
 }
