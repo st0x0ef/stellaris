@@ -1,4 +1,4 @@
-package com.st0x0ef.stellaris.forge.mixin;
+package com.st0x0ef.stellaris.neoforge.mixin;
 
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.ConfigScreen;
@@ -24,14 +24,14 @@ public abstract class MainMenuMixin extends Screen {
         int l = this.height / 4 + 48;
 
 
-        SpriteIconButton spriteIconButton = (SpriteIconButton)this.addRenderableWidget(stellarisConfigButton(20, (button) -> {
+        SpriteIconButton spriteIconButton = this.addRenderableWidget(stellarisConfigButton(20, (button) -> {
             this.minecraft.setScreen(new ConfigScreen(this));
         }, true));
         spriteIconButton.setPosition(this.width / 2 - 124, l);
     }
 
     private static SpriteIconButton stellarisConfigButton(int i, Button.OnPress onPress, boolean bl) {
-        Component component = bl ? Component.translatable("screens.stellaris.config") : Component.translatable("screens.stellaris.config");
+        Component component = Component.translatable("screens.stellaris.config");
         return SpriteIconButton.builder(component, onPress, bl).width(i).sprite(new ResourceLocation(Stellaris.MODID, "textures/item/engine_fan.png"), 16, 16).build();
     }
 }

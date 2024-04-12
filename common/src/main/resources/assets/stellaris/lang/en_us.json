@@ -147,5 +147,7 @@
   "item.stellaris.plutonium_piece": "Plutonium piece",
   "item.stellaris.plutonium_nugget": "Plutonium nugget",
   "item.stellaris.plutonium_ingot": "Plutonium ingot",
-  "block.stellaris.plutonium_block": "Plutonium block"
+  "block.stellaris.plutonium_block": "Plutonium block",
+
+  "screens.stellaris.config": "Stellaris config screen"
 }
