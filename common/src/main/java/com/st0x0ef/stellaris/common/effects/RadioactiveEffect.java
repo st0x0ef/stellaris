@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.effects;
 
+import com.st0x0ef.stellaris.common.registry.DamageSourseRegistry;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -17,13 +18,13 @@ public class RadioactiveEffect extends MobEffect {
         super.applyEffectTick(livingEntity, color);
         if (livingEntity.getHealth() > 0.0F) {
             if (this.level == 1 || this.level == 2) {
-                livingEntity.hurt(livingEntity.damageSources().magic(), 0.5f);
+                livingEntity.hurt(DamageSourseRegistry.of(livingEntity.level(), DamageSourseRegistry.RADIATIONS), 0.5f);
             }
             if (this.level == 2 || this.level == 3) {
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 20));
 
                 if (this.level == 3) {
-                    livingEntity.hurt(livingEntity.damageSources().magic(), 1.0f);
+                    livingEntity.hurt(DamageSourseRegistry.of(livingEntity.level(), DamageSourseRegistry.RADIATIONS), 1.0f);
                 }
             }
         }
