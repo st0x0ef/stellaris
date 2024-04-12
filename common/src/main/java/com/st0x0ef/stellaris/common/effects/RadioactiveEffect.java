@@ -7,7 +7,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 public class RadioactiveEffect extends MobEffect {
-    public int level;
+    public final int level;
 
     public RadioactiveEffect(MobEffectCategory mobEffectCategory, int color, int level) {
         super(mobEffectCategory, color);
