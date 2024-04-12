@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.common.registry;
 
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.common.blocks.entities.RadioactiveBlockEntity;
 import com.st0x0ef.stellaris.common.blocks.entities.RocketStationEntity;
 import com.st0x0ef.stellaris.common.entities.*;
 import com.st0x0ef.stellaris.common.entities.alien.Alien;
@@ -22,8 +23,16 @@ public class EntityRegistry {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPE = DeferredRegister.create(Stellaris.MODID, Registries.BLOCK_ENTITY_TYPE);
     public static final RegistrySupplier<BlockEntityType<RocketStationEntity>> ROCKET_STATION = BLOCK_ENTITY_TYPE.register("rocket_station",
             () -> BlockEntityType.Builder.of(RocketStationEntity::new, BlocksRegistry.ROCKET_STATION.get()).build(null));
-    public static final RegistrySupplier<BlockEntityType<RocketStationEntity>> URANIUM_BLOCK = BLOCK_ENTITY_TYPE.register("uranium_block",
-            () -> BlockEntityType.Builder.of(RocketStationEntity::new, BlocksRegistry.URANIUM_BLOCK.get(), BlocksRegistry.RAW_URANIUM_BLOCK.get(), BlocksRegistry.MERCURY_URANIUM_ORE.get()).build(null));
+    public static final RegistrySupplier<BlockEntityType<RadioactiveBlockEntity>> RADIOACTIVE_BLOCK = BLOCK_ENTITY_TYPE.register("radioactive_block",
+            () -> BlockEntityType.Builder.of(RadioactiveBlockEntity::new,
+                    BlocksRegistry.URANIUM_BLOCK.get(),
+                    BlocksRegistry.RAW_URANIUM_BLOCK.get(),
+                    BlocksRegistry.MERCURY_URANIUM_ORE.get(),
+                    BlocksRegistry.PLUTONIUM_BLOCK.get(),
+                    BlocksRegistry.NEPTUNIUM_BLOCK.get()
+                    ).build(null));
+//    public static final RegistrySupplier<BlockEntityType<RadioactiveBlockEntity>> PLUTONIUM_BLOCK = BLOCK_ENTITY_TYPE.register("plutonium_block",
+//            () -> BlockEntityType.Builder.of(RadioactiveBlockEntity::new, BlocksRegistry.PLUTONIUM_BLOCK.get()).build(null));
 
     //Entity type
 

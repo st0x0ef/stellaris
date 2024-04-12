@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.blocks.entities;
 
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.registry.EffectsRegistry;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import com.st0x0ef.stellaris.common.registry.TagRegistry;
@@ -15,8 +16,11 @@ import java.util.List;
 public class RadioactiveBlockEntity extends BlockEntity {
     public int radioactivityLevel;
 
+    public RadioactiveBlockEntity(BlockPos pos, BlockState state) {
+        super(EntityRegistry.RADIOACTIVE_BLOCK.get(), pos, state);
+    }
     public RadioactiveBlockEntity(BlockPos pos, BlockState state, int level) {
-        super(EntityRegistry.URANIUM_BLOCK.get(), pos, state);
+        this(pos, state);
         this.radioactivityLevel = level;
     }
 
@@ -25,11 +29,17 @@ public class RadioactiveBlockEntity extends BlockEntity {
 
         List<LivingEntity> entities = this.level.getEntitiesOfClass(LivingEntity.class, area);
         for (LivingEntity entity : entities) {
-            if(/**!Methods.isLivingInJetSuit(entity) &&*/ !entity.getType().is(TagRegistry.ENTITY_RADIATION_INVULNERABLE_TAG)) {
-                switch (radioactivityLevel) {
-                    case 1 : entity.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE_LVL_1.get(), 100));
-                    case 2 : entity.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE_LVL_2.get(), 100));
-                    case 3 : entity.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE_LVL_3.get(), 100));
+            if(/**!Methods.isLivingInJetSuit(entity) ||*/!entity.getType().is(TagRegistry.ENTITY_RADIATION_INVULNERABLE_TAG)) {
+//                switch (radioactivityLevel) {
+//                    case 1 : entity.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE.get(), 100,0));
+//                    case 2 : entity.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE.get(), 100,0));
+//                    case 3 : entity.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE.get(), 100,3));
+//                }
+                if(radioactivityLevel==1){entity.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE.get(), 100,0));}
+                else if(radioactivityLevel==2){entity.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE.get(), 100,1));}
+                else if (radioactivityLevel==3) {entity.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE.get(), 100,2));}
+                else {
+                    Stellaris.LOG.info(String.valueOf(radioactivityLevel));
                 }
             }
         }
