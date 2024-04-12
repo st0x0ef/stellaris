@@ -1,8 +1,9 @@
 package com.st0x0ef.stellaris.common.blocks.machines;
 
 import com.mojang.serialization.MapCodec;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.GeneratorBlockEntityTemplate;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.SolarPanelEntity;
-import com.st0x0ef.stellaris.common.energy.base.EnergyContainer;
+import com.st0x0ef.stellaris.common.energy.EnergyApi;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -25,7 +26,7 @@ public class SolarPanelBlock extends GeneratorBlockTemplate{
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> blockEntityType) {
-        return createTickerHelper(blockEntityType, EntityRegistry.SOLAR_PANEL.get(), (level1, blockPos, blockState1, blockEntity) -> ((SolarPanelEntity) blockEntity).tick());
+        return createTickerHelper(blockEntityType, EntityRegistry.SOLAR_PANEL.get(), (level1, blockPos, blockState1, blockEntity) -> ((GeneratorBlockEntityTemplate) blockEntity).tick());
     }
 
     @Override
@@ -41,10 +42,8 @@ public class SolarPanelBlock extends GeneratorBlockTemplate{
     @Override
     public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
         if (!level.isClientSide()) {
-            player.sendSystemMessage(Component.literal("Energy: " + EnergyContainer.of(
-                    level.getBlockEntity(blockPos),
-                    blockHitResult.getDirection()
-            ).getStoredEnergy()));
+            player.sendSystemMessage(Component.literal("Energy: " +
+                    EnergyApi.getAPIEnergyContainer(level, blockPos, blockState, null, null).getStoredEnergy()));
             BlockEntity blockEntity = level.getBlockEntity(blockPos);
             if (blockEntity instanceof SolarPanelEntity) {
                 player.openMenu(blockState.getMenuProvider(level, blockPos));

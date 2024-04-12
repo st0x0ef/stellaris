@@ -50,7 +50,6 @@ public class Stellaris {
         SoundRegistry.SOUNDS.register();
 
         RecipesRegistry.register();
-        EnergyRegistry.Register();
 
         ReloadListenerRegistry.register(PackType.SERVER_DATA, new StellarisData());
 

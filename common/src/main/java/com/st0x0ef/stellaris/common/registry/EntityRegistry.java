@@ -27,7 +27,7 @@ public class EntityRegistry {
     public static final RegistrySupplier<BlockEntityType<TestBlockEntity>> TEST_BLOCK = BLOCK_ENTITY_TYPE.register("test_block",
             () -> BlockEntityType.Builder.of(TestBlockEntity::new, BlocksRegistry.TEST_BLOCK.get()).build(null));
     public static final RegistrySupplier<BlockEntityType<SolarPanelEntity>> SOLAR_PANEL = BLOCK_ENTITY_TYPE.register("solar_panel",
-            () -> BlockEntityType.Builder.of(SolarPanelEntity::new, BlocksRegistry.TEST_BLOCK.get()).build(null));
+            () -> BlockEntityType.Builder.of(SolarPanelEntity::new,BlocksRegistry.SOLAR_PANEL.get()).build(null));
 
     //Entity type
 
@@ -54,10 +54,9 @@ public class EntityRegistry {
 
     //Entity Attributes
     public static void registerAttributes() {
-        EntityAttributeRegistry.register(EntityRegistry.ALIEN,  Alien::setCustomAttributes);
-        EntityAttributeRegistry.register(EntityRegistry.ALIEN_ZOMBIE,  AlienZombie::setCustomAttributes);
-        EntityAttributeRegistry.register(EntityRegistry.MARTIAN_RAPTOR,  MartianRaptor::CreateRaptorAttributes);
-        EntityAttributeRegistry.register(EntityRegistry.MARTIAN_RAPTOR,  MartianRaptor::CreateRaptorAttributes);
+        EntityAttributeRegistry.register(EntityRegistry.ALIEN, Alien::setCustomAttributes);
+        EntityAttributeRegistry.register(EntityRegistry.ALIEN_ZOMBIE, AlienZombie::setCustomAttributes);
+        EntityAttributeRegistry.register(EntityRegistry.MARTIAN_RAPTOR, MartianRaptor::CreateRaptorAttributes);
         EntityAttributeRegistry.register(EntityRegistry.PYGRO_BRUTE, PygroBrute::setCustomAttributes);
         EntityAttributeRegistry.register(EntityRegistry.PYGRO, Pygro::setCustomAttributes);
         EntityAttributeRegistry.register(EntityRegistry.MOGLER, Mogler::setCustomAttributes);
