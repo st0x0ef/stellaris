@@ -19,6 +19,7 @@ import com.st0x0ef.stellaris.client.renderers.entities.starcrawler.StarCrawlerRe
 import com.st0x0ef.stellaris.client.screens.RocketMenuScreen;
 import com.st0x0ef.stellaris.client.screens.RocketStationScreen;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
+import com.st0x0ef.stellaris.common.events.Events;
 import com.st0x0ef.stellaris.common.registry.*;
 import dev.architectury.registry.ReloadListenerRegistry;
 import dev.architectury.registry.client.level.entity.EntityModelLayerRegistry;
@@ -53,5 +54,6 @@ public class Stellaris {
         RecipesRegistry.register();
 
         ReloadListenerRegistry.register(PackType.SERVER_DATA, new StellarisData());
+        Events.registerEvents();
     }
 }
