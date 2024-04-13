@@ -1,6 +1,9 @@
 package com.st0x0ef.stellaris;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.ToNumberPolicy;
+import com.google.gson.ToNumberStrategy;
 import com.st0x0ef.stellaris.client.particles.*;
 import com.st0x0ef.stellaris.client.renderers.entities.alien.AlienModel;
 import com.st0x0ef.stellaris.client.renderers.entities.alien.AlienRenderer;
@@ -18,6 +21,7 @@ import com.st0x0ef.stellaris.client.renderers.entities.starcrawler.StarCrawlerMo
 import com.st0x0ef.stellaris.client.renderers.entities.starcrawler.StarCrawlerRenderer;
 import com.st0x0ef.stellaris.client.screens.RocketMenuScreen;
 import com.st0x0ef.stellaris.client.screens.RocketStationScreen;
+import com.st0x0ef.stellaris.common.config.CustomConfig;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
 import com.st0x0ef.stellaris.common.events.Events;
 import com.st0x0ef.stellaris.common.registry.*;
@@ -35,8 +39,13 @@ public class Stellaris {
     public static final String MODID = "stellaris";
     public static final String MOD_NAME = "Stellaris";
     public static final Logger LOG = LoggerFactory.getLogger(MOD_NAME);
-    public static final Gson GSON = new Gson();
+    public static final Gson GSON = new GsonBuilder()
+            .setPrettyPrinting()
+            .setObjectToNumberStrategy(ToNumberPolicy.LONG_OR_DOUBLE)
+            .create();
     public static void init() {
+        CustomConfig.init();
+
         SoundRegistry.SOUNDS.register();
         FluidRegistry.FLUIDS.register();
         EffectsRegistry.MOB_EFFECT.register();

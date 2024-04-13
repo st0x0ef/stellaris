@@ -26,11 +26,8 @@ public class CustomConfig {
 
     public static void addEntries() {
 
-        addEntry("test", new ConfigEntry<Boolean>(true, "This is a test entry"));
-        addEntry("test2", new ConfigEntry<Boolean>(true, "This is a test entry"));
-        addEntry("test3", new ConfigEntry<String>("true", "Coool"));
-        addEntry("test4", new ConfigEntry<RangedInt>(new RangedInt(6, 4, 30), "This is a ranged Int"));
-        addEntry("test5", new ConfigEntry<Integer>(1, "This is a ranged Int"));
+        addEntry("radioactivityCheckInterval", new ConfigEntry<Long>(5L, "This is a ranged Int"));
+        addEntry("test", new ConfigEntry<Integer>(5, "This is a ranged Int"));
 
     }
 
