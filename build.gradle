@@ -29,6 +29,9 @@ subprojects {
             name = 'ParchmentMC'
             url = 'https://maven.parchmentmc.org'
         }
+        maven {
+            url "https://cursemaven.com"
+        }
 
     }
 
@@ -41,6 +44,11 @@ subprojects {
         }
         if(!isCommon) {
             modImplementation("me.shedaniel:RoughlyEnoughItems-${modLoader}:14.0.688")
+
+        }
+
+        if(modLoader == "fabric") {
+            modImplementation "curse.maven:fabric-disable-custom-worlds-advice-401978:5007958"
 
         }
     }
