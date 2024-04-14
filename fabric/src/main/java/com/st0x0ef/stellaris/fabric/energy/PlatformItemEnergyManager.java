@@ -69,6 +69,7 @@ public record PlatformItemEnergyManager(ItemStackHolder holder, ContainerItemCon
             return energy.getCapacity();
     }
 
+
     @Override
     public long getMaxCapacity() {
         return energy.getCapacity();

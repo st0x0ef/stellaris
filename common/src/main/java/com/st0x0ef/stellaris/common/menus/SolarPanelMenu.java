@@ -29,13 +29,13 @@ public class SolarPanelMenu extends AbstractContainerMenu {
 
         checkContainerSize(container, 1);
         this.inventory = (container);
-
+        this.blockEntity=blockEntity;
         this.addSlot(new Slot(inventory, 0, 8, 146));
 
         addPlayerHotbar(playerInventory);
         addPlayerInventory(playerInventory);
 
-        this.blockEntity=blockEntity;
+
     }
 
     public SolarPanelEntity getBlockEntity(){

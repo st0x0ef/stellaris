@@ -5,7 +5,6 @@ import com.st0x0ef.stellaris.common.energy.util.Serializable;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import org.jetbrains.annotations.UnknownNullability;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedHashMap;
@@ -53,6 +52,14 @@ public class GaugeValueSerializer<T extends Serializable> {
         compound.put("value", format.serialize(new CompoundTag())); // Using the Serializable interface method
         return compound;
     }
+    public IGaugeValue read(FriendlyByteBuf buffer) {
+        CompoundTag compound = buffer.readNbt();
+        if (compound == null) {
+            throw new IllegalArgumentException("Received null compound tag while reading from buffer.");
+        }
+        return (IGaugeValue) deserialize(compound);
+    }
+
 
     public void addCodec(ResourceLocation location, Class<? extends T> clazz) {
         locationClassMap.put(location, clazz);

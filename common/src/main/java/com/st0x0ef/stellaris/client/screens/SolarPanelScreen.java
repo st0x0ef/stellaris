@@ -48,9 +48,17 @@ public class SolarPanelScreen extends AbstractContainerScreen<SolarPanelMenu> {
 		super.renderLabels(graphics, i, j);
 
 		SolarPanelEntity blockEntity = this.getMenu().getBlockEntity();
-		WrappedBlockEnergyContainer energyStorage = blockEntity.getEnergyContainer();
-        graphics.drawString(this.font, GaugeTextHelper.getStoredText(GaugeValueHelper.getEnergy(energyStorage.getStoredEnergy())).build(), this.titleLabelY, 28, 0x3C3C3C);
-		graphics.drawString(this.font, GaugeTextHelper.getCapacityText(GaugeValueHelper.getEnergy(energyStorage.getMaxCapacity())).build(), this.titleLabelY, 40, 0x3C3C3C);
-		graphics.drawString(this.font, GaugeTextHelper.getMaxGenerationPerTickText(GaugeValueHelper.getEnergy(blockEntity.getEnergyGeneratedPT())).build(), this.titleLabelY, 52, 0x3C3C3C);
+		if(blockEntity != null)
+		{
+			WrappedBlockEnergyContainer energyStorage = blockEntity.getEnergyContainer();
+			if(energyStorage!= null)
+			{
+				graphics.drawString(this.font, GaugeTextHelper.getStoredText(GaugeValueHelper.getEnergy(energyStorage.getStoredEnergy())).build(), this.titleLabelY, 28, 0x3C3C3C);
+				graphics.drawString(this.font, GaugeTextHelper.getCapacityText(GaugeValueHelper.getEnergy(energyStorage.getMaxCapacity())).build(), this.titleLabelY, 40, 0x3C3C3C);
+				graphics.drawString(this.font, GaugeTextHelper.getMaxGenerationPerTickText(GaugeValueHelper.getEnergy(blockEntity.getEnergyGeneratedPT())).build(), this.titleLabelY, 52, 0x3C3C3C);
+			}
+
+		}
+
 	}
 }

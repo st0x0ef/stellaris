@@ -4,11 +4,14 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.energy.impl.WrappedBlockEnergyContainer;
+import dev.architectury.fluid.FluidStack;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.level.material.Fluid;
 import org.joml.Matrix4f;
 
 public class GuiHelper
@@ -269,14 +272,14 @@ public class GuiHelper
 
     private static final ResourceLocation MISSING_TEXTURE_LOCATION = new ResourceLocation("missingno");
 
-//    public static TextureAtlasSprite getStillFluidSprite(FluidStack stack) {
-//        Fluid fluid = stack.getFluid();
-//        ResourceLocation fluidStill = MISSING_TEXTURE_LOCATION;
-//        if (fluid.defaultFluidState().getRenderPropertiesInternal() instanceof IClientFluidTypeExtensions props) {
-//            fluidStill = props.getStillTexture();
-//        }
-//        return Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(fluidStill);
-//    }
+    public static TextureAtlasSprite getStillFluidSprite(FluidStack stack) {
+        Fluid fluid = stack.getFluid();
+        ResourceLocation fluidStill = MISSING_TEXTURE_LOCATION;
+        if (fluid.defaultFluidState().getProperties() instanceof IClientFluidTypeExtensions props) {
+            fluidStill = props.getStillTexture();
+        }
+        return Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(fluidStill);
+    }
 
     public static Rectangle2d getFluidTankBounds(int left, int top) {
         return new Rectangle2d(left, top, FLUID_TANK_WIDTH, FLUID_TANK_HEIGHT);
