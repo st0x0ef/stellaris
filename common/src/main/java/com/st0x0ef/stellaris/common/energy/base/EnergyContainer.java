@@ -182,6 +182,8 @@ public interface EnergyContainer extends Serializable, Clearable {
      */
     long getStoredEnergy();
 
+    long getMaxEnergyStored();
+
     /**
      * @return The maximum amount of energy that can be stored in the container.
      */

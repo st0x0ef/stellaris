@@ -15,6 +15,7 @@ public class SimpleEnergyContainer implements EnergyContainer {
     private final long maxInsert;
     private final long maxExtract;
     private long energy;
+    private long maxEnergy;
 
     public SimpleEnergyContainer(long maxCapacity) {
         this(maxCapacity, 1024, 1024);
@@ -23,12 +24,16 @@ public class SimpleEnergyContainer implements EnergyContainer {
     public SimpleEnergyContainer(long maxCapacity, long maxTransfer) {
         this(maxCapacity, maxTransfer, maxTransfer);
     }
-
-    public SimpleEnergyContainer(long maxCapacity, long maxExtract, long maxInsert) {
+    public SimpleEnergyContainer(long maxCapacity, long maxTransfer,long maxEnergy) {
+        this(maxCapacity, maxTransfer, maxTransfer,maxEnergy);
+    }
+    public SimpleEnergyContainer(long maxCapacity, long maxExtract, long maxInsert,long maxEnergy) {
         this.capacity = maxCapacity;
         this.maxExtract = maxExtract;
         this.maxInsert = maxInsert;
+        this.maxEnergy = maxEnergy;
     }
+
 
     @Override
     public long insertEnergy(long maxAmount, boolean simulate) {
@@ -73,6 +78,11 @@ public class SimpleEnergyContainer implements EnergyContainer {
     }
 
     @Override
+    public long getMaxEnergyStored() {
+        return maxEnergy;
+    }
+
+    @Override
     public long getMaxCapacity() {
         return capacity;
     }
@@ -91,6 +101,7 @@ public class SimpleEnergyContainer implements EnergyContainer {
     public CompoundTag serialize(CompoundTag root) {
         CompoundTag tag = root.getCompound(EnergyMain.STELLARIS_DATA);
         tag.putLong("Energy", this.energy);
+        tag.putLong("MaxEnergy", this.maxEnergy);
         root.put(EnergyMain.STELLARIS_DATA, tag);
         return root;
     }
@@ -99,6 +110,7 @@ public class SimpleEnergyContainer implements EnergyContainer {
     public void deserialize(CompoundTag root) {
         CompoundTag tag = root.getCompound(EnergyMain.STELLARIS_DATA);
         this.energy = tag.getLong("Energy");
+        this.maxEnergy = tag.getLong("MaxEnergy");
     }
 
     @Override
@@ -119,5 +131,6 @@ public class SimpleEnergyContainer implements EnergyContainer {
     @Override
     public void clearContent() {
         this.energy = 0;
+        this.maxEnergy=0;
     }
 }

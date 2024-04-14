@@ -54,6 +54,11 @@ public record WrappedBlockEnergyContainer(BlockEntity blockEntity,
     }
 
     @Override
+    public long getMaxEnergyStored() {
+        return container.getMaxEnergyStored();
+    }
+
+    @Override
     public long getMaxCapacity() {
         return container.getMaxCapacity();
     }

@@ -1,18 +1,18 @@
 package com.st0x0ef.stellaris.common.blocks.machines.gauge;
 
+import com.st0x0ef.stellaris.common.energy.util.Serializable;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.neoforged.neoforge.common.util.INBTSerializable;
 
-public interface IGaugeValue extends INBTSerializable<CompoundTag>
+public interface IGaugeValue extends Serializable
 {
     Component getDisplayName();
 
     String getUnit();
 
-    int getAmount();
+    long getAmount();
 
-    int getCapacity();
+    long getCapacity();
 
     default int getColor()
     {
@@ -22,13 +22,13 @@ public interface IGaugeValue extends INBTSerializable<CompoundTag>
     boolean isReverse();
 
     default double getDisplayRatio() {
-        int capacity = this.getCapacity();
+        long capacity = this.getCapacity();
 
         if (capacity == 0) {
             return 0.0D;
         }
 
-        int amount = this.getAmount();
+        long amount = this.getAmount();
         return (this.isReverse() ? (capacity - amount) : amount) / (double) capacity;
     }
 }

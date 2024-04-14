@@ -57,6 +57,11 @@ public record WrappedItemEnergyContainer(ItemStack stack,
     }
 
     @Override
+    public long getMaxEnergyStored() {
+        return container.getMaxEnergyStored();
+    }
+
+    @Override
     public long getMaxCapacity() {
         return container.getMaxCapacity();
     }

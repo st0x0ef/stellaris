@@ -11,8 +11,8 @@ public class GaugeValueSimple implements IGaugeValue
     public static final int FALLBACK_COLOR = 0xA0FFFFFF;
 
     private ResourceLocation name;
-    private int amount;
-    private int capacity;
+    private long amount;
+    private long capacity;
     private Component displayeName;
     private String unit;
     private int color;
@@ -24,23 +24,23 @@ public class GaugeValueSimple implements IGaugeValue
         this(null);
     }
 
-    public GaugeValueSimple(@NonnullDefault ResourceLocation name) {
+    public GaugeValueSimple(ResourceLocation name) {
         this(name, 0, 0);
     }
 
-    public GaugeValueSimple(@NonnullDefault ResourceLocation name, int amount, int capacity) {
+    public GaugeValueSimple(ResourceLocation name, long amount, long capacity) {
         this(name, amount, capacity, null);
     }
 
-    public GaugeValueSimple(@NonnullDefault ResourceLocation name, int amount, int capacity, @Nullable Component displayeName) {
+    public GaugeValueSimple(ResourceLocation name, long amount, long capacity, @Nullable Component displayeName) {
         this(name, amount, capacity, displayeName, "");
     }
 
-    public GaugeValueSimple(@NonnullDefault ResourceLocation name, int amount, int capacity, @Nullable Component displayeName, @Nonnull String unit) {
+    public GaugeValueSimple(ResourceLocation name, long amount, long capacity, @Nullable Component displayeName, String unit) {
         this(name, amount, capacity, displayeName, unit, FALLBACK_COLOR);
     }
 
-    public GaugeValueSimple(@NonnullDefault ResourceLocation name, int amount, int capacity, @Nullable Component displayeName, @Nonnull String unit, int color) {
+    public GaugeValueSimple(ResourceLocation name, long amount, long capacity, @Nullable Component displayeName,String unit, int color) {
         this.name = name;
         this.amount = amount;
         this.capacity = capacity;
@@ -49,44 +49,12 @@ public class GaugeValueSimple implements IGaugeValue
         this.color = color;
     }
 
-    @Override
-    public CompoundTag serializeNBT() {
-        CompoundTag compound = new CompoundTag();
-        compound.putString("name", this.getName().toString());
-        compound.putInt("amount", this.getAmount());
-        compound.putInt("capacity", this.getCapacity());
-
-        if (this.getDisplayName() != null) {
-            compound.putString("displayName", Component.Serializer.toJson(this.getDisplayName()));
-        }
-
-        compound.putString("unit", this.getUnit());
-        compound.putInt("color", this.getColor());
-        compound.putBoolean("reverse", this.isReverse());
-
-        return compound;
-    }
-
-    @Override
-    public void deserializeNBT(CompoundTag compound) {
-        this.name(new ResourceLocation(compound.getString("name")));
-        this.amount(compound.getInt("amount"));
-        this.capacity(compound.getInt("capacity"));
-
-        if (compound.contains("displayName")) {
-            this.displayeName(Component.Serializer.fromJson(compound.getString("displayName")));
-        }
-
-        this.unit(compound.getString("unit"));
-        this.color(compound.getInt("color"));
-        this.reverse(compound.getBoolean("reverse"));
-    }
 
     public ResourceLocation getName() {
         return name;
     }
 
-    public GaugeValueSimple name(@NonnullDefault ResourceLocation name) {
+    public GaugeValueSimple name(ResourceLocation name) {
         this.name = name;
         return this;
     }
@@ -107,7 +75,7 @@ public class GaugeValueSimple implements IGaugeValue
         return Component.translatable(GaugeValueHelper.makeTranslationKey(this.getName()));
     }
 
-    public GaugeValueSimple displayeName(@NonnullDefault Component displayeName) {
+    public GaugeValueSimple displayeName(Component displayeName) {
         this.displayeName = displayeName;
         return this;
     }
@@ -117,23 +85,23 @@ public class GaugeValueSimple implements IGaugeValue
         return unit;
     }
 
-    public GaugeValueSimple unit(@NonnullDefault String unit) {
+    public GaugeValueSimple unit(String unit) {
         this.unit = unit;
         return this;
     }
 
     @Override
-    public int getAmount() {
+    public long getAmount() {
         return amount;
     }
 
-    public GaugeValueSimple amount(int amount) {
+    public GaugeValueSimple amount(long amount) {
         this.amount = amount;
         return this;
     }
 
     @Override
-    public int getCapacity() {
+    public long getCapacity() {
         return capacity;
     }
 
@@ -161,5 +129,36 @@ public class GaugeValueSimple implements IGaugeValue
         this.reverse = reverse;
         return this;
     }
+    @Override
+    public CompoundTag serialize(CompoundTag nbt) {
+        CompoundTag compound = new CompoundTag();
+        compound.putString("name", this.getName().toString());
+        compound.putLong("amount", this.getAmount());
+        compound.putLong("capacity", this.getCapacity());
+
+        if (this.getDisplayName() != null) {
+            compound.putString("displayName", Component.Serializer.toJson(this.getDisplayName()));
+        }
+
+        compound.putString("unit", this.getUnit());
+        compound.putInt("color", this.getColor());
+        compound.putBoolean("reverse", this.isReverse());
+        return compound;
+    }
+    @Override
+    public void deserialize(CompoundTag nbt) {
+        this.name(new ResourceLocation(nbt.getString("name")));
+        this.amount(nbt.getInt("amount"));
+        this.capacity(nbt.getInt("capacity"));
+
+        if (nbt.contains("displayName")) {
+            this.displayeName(Component.Serializer.fromJson(nbt.getString("displayName")));
+        }
+
+        this.unit(nbt.getString("unit"));
+        this.color(nbt.getInt("color"));
+        this.reverse(nbt.getBoolean("reverse"));
+    }
+
 
 }

@@ -28,6 +28,11 @@ public class UnlimitedEnergyContainer implements EnergyContainer, Updatable {
     }
 
     @Override
+    public long getMaxEnergyStored() {
+        return Integer.MAX_VALUE;
+    }
+
+    @Override
     public long getMaxCapacity() {
         return Integer.MAX_VALUE;
     }

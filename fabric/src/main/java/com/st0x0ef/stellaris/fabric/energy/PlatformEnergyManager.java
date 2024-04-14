@@ -58,6 +58,11 @@ public record PlatformEnergyManager(EnergyStorage energy) implements EnergyConta
     }
 
     @Override
+    public long getMaxEnergyStored() {
+        return 0;
+    }
+
+    @Override
     public long getMaxCapacity() {
         return energy.getCapacity();
     }
