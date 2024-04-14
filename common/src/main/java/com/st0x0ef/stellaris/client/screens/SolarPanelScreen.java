@@ -20,8 +20,8 @@ import com.st0x0ef.stellaris.common.blocks.machines.gauge.GaugeTextHelper;
 public class SolarPanelScreen extends AbstractContainerScreen<SolarPanelMenu> {
 	public static final ResourceLocation texture = new ResourceLocation(Stellaris.MODID, "textures/gui/solar_panel.png");
 
-	public SolarPanelScreen(SolarPanelMenu container, Inventory inventory, Component component) {
-		super(container, inventory, component);
+	public SolarPanelScreen(SolarPanelMenu abstractContainerMenu, Inventory inventory, Component component) {
+		super(abstractContainerMenu, inventory, component);
 		this.imageWidth = 177;
 		this.imageHeight = 228;
 		this.inventoryLabelY = this.imageHeight - 92;
@@ -36,7 +36,7 @@ public class SolarPanelScreen extends AbstractContainerScreen<SolarPanelMenu> {
 	}
 
 	@Override
-	protected void renderBg(GuiGraphics graphics, float p_97788_, int p_97789_, int p_97790_) {
+	protected void renderBg(GuiGraphics graphics, float var2,int var3, int var4) {
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 		RenderSystem.setShaderTexture(0, texture);
@@ -45,7 +45,7 @@ public class SolarPanelScreen extends AbstractContainerScreen<SolarPanelMenu> {
 
 	@Override
 	protected void renderLabels(GuiGraphics graphics, int i, int j) {
-		super.renderLabels(graphics, i, j);
+		super.renderLabels(graphics,i,j);
 
 		SolarPanelEntity blockEntity = this.getMenu().getBlockEntity();
 		if(blockEntity != null)

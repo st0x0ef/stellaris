@@ -275,9 +275,9 @@ public class GuiHelper
     public static TextureAtlasSprite getStillFluidSprite(FluidStack stack) {
         Fluid fluid = stack.getFluid();
         ResourceLocation fluidStill = MISSING_TEXTURE_LOCATION;
-        if (fluid.defaultFluidState().getProperties() instanceof IClientFluidTypeExtensions props) {
-            fluidStill = props.getStillTexture();
-        }
+//        if (fluid.defaultFluidState().getProperties() instanceof IClientFluidTypeExtensions props) {
+//             fluidStill = props.getStillTexture();
+//        }
         return Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(fluidStill);
     }
 

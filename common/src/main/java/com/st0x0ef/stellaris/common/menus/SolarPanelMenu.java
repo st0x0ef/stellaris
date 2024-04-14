@@ -8,11 +8,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.BaseEntityBlock;
-import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class SolarPanelMenu extends AbstractContainerMenu {
 
@@ -32,10 +28,10 @@ public class SolarPanelMenu extends AbstractContainerMenu {
         this.blockEntity=blockEntity;
         this.addSlot(new Slot(inventory, 0, 8, 146));
 
+        addSlots(inventory);
+
         addPlayerHotbar(playerInventory);
         addPlayerInventory(playerInventory);
-
-
     }
 
     public SolarPanelEntity getBlockEntity(){
@@ -69,7 +65,12 @@ public class SolarPanelMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player player) {
-        return false;
+        return this.inventory.stillValid(player);
+    }
+
+
+    private void addSlots(Container inventory) {
+        this.addSlot(new Slot(inventory, 0, 8, 146));
     }
 
     private void addPlayerInventory(Inventory playerInventory) {
