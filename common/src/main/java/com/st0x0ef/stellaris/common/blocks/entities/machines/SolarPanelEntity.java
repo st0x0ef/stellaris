@@ -15,7 +15,7 @@ public class SolarPanelEntity extends GeneratorBlockEntityTemplate {
 
     @Override
     protected AbstractContainerMenu createMenu(int i, Inventory inventory) {
-        return new SolarPanelMenu(i, inventory,this,this);
+        return new SolarPanelMenu(i, inventory,this, this);
     }
 
     @Override

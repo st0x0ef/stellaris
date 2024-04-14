@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.common.menus;
 
 import com.st0x0ef.stellaris.common.blocks.entities.machines.SolarPanelEntity;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -13,19 +14,21 @@ import net.minecraft.world.item.ItemStack;
 public class SolarPanelMenu extends AbstractContainerMenu {
 
     private final Container inventory;
-    private final SolarPanelEntity blockEntity;
+    private final SolarPanelEntity entity;
 
-    public SolarPanelMenu(int syncId, Inventory inventory) {
-        this(syncId, inventory, new SimpleContainer(1),null);
+    public static SolarPanelMenu create(int syncId, Inventory inventory, FriendlyByteBuf data) {
+        SolarPanelEntity entity = (SolarPanelEntity) inventory.player.level().getBlockEntity(data.readBlockPos());
+
+        return new SolarPanelMenu(syncId, inventory, new SimpleContainer(1), entity);
     }
 
-    public SolarPanelMenu(int syncId, Inventory playerInventory, Container container, SolarPanelEntity blockEntity)
+    public SolarPanelMenu(int syncId, Inventory playerInventory, Container container, SolarPanelEntity entity)
     {
         super(MenuTypesRegistry.SOLAR_PANEL_MENU.get(), syncId);
 
         checkContainerSize(container, 1);
         this.inventory = (container);
-        this.blockEntity=blockEntity;
+        this.entity = entity;
         this.addSlot(new Slot(inventory, 0, 8, 146));
 
         addSlots(inventory);
@@ -34,8 +37,8 @@ public class SolarPanelMenu extends AbstractContainerMenu {
         addPlayerInventory(playerInventory);
     }
 
-    public SolarPanelEntity getBlockEntity(){
-        return this.blockEntity;
+    public SolarPanelEntity getBlockEntity() {
+        return entity;
     }
 
     @Override

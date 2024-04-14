@@ -15,6 +15,6 @@ public class MenuTypesRegistry {
     public static final RegistrySupplier<MenuType<RocketStationMenu>> ROCKET_STATION = MENU_TYPE.register("rocket_station", () -> MenuRegistry.of(RocketStationMenu::new));
     public static final RegistrySupplier<MenuType<RocketMenuMenu>> ROCKET_MENU = MENU_TYPE.register("rocket_menu", () -> MenuRegistry.of(RocketMenuMenu::new));
 
-    public static final RegistrySupplier<MenuType<SolarPanelMenu>> SOLAR_PANEL_MENU = MENU_TYPE.register("solar_panel", () -> MenuRegistry.of(SolarPanelMenu::new));
+    public static final RegistrySupplier<MenuType<SolarPanelMenu>> SOLAR_PANEL_MENU = MENU_TYPE.register("solar_panel", () -> MenuRegistry.ofExtended(SolarPanelMenu::create));
 
 }
