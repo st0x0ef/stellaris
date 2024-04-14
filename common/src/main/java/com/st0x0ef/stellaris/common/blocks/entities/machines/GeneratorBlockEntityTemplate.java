@@ -94,11 +94,21 @@ public class GeneratorBlockEntityTemplate extends BaseContainerBlockEntity imple
         return null;
     }
 
+
+    public boolean canGenerate(){
+        return true;
+    }
+
+
     public void tick() {
-        if (energyContainer.getStoredEnergy() < energyContainer.getMaxCapacity()){
-            energyContainer.setEnergy(energyContainer.getStoredEnergy()+EnergyGeneratedPT);
-        } else if (energyContainer.getStoredEnergy() > energyContainer.getMaxCapacity()) {
-            energyContainer.setEnergy(energyContainer.getMaxCapacity());
+        if(canGenerate()) {
+            System.out.println("Hello there buddy");
+            if (energyContainer.getStoredEnergy() < energyContainer.getMaxCapacity()) {
+                energyContainer.setEnergy(energyContainer.getStoredEnergy() + EnergyGeneratedPT);
+            } else if (energyContainer.getStoredEnergy() > energyContainer.getMaxCapacity()) {
+                energyContainer.setEnergy(energyContainer.getMaxCapacity());
+            }
+            System.out.println(energyContainer.getStoredEnergy());
         }
     }
 
