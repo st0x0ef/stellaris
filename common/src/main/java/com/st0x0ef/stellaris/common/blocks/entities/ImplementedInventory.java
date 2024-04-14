@@ -9,7 +9,7 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
 @FunctionalInterface
-public interface ImplementedInventory extends  WorldlyContainer {
+public interface ImplementedInventory extends WorldlyContainer {
 
     NonNullList<ItemStack> getItems();
 
