@@ -16,9 +16,8 @@
     },
     {
       "apply": {
-        "model": "stellaris:block/cable_north",
-        "uvlock": true,
-        "y": 90
+        "model": "stellaris:block/cable_east",
+        "uvlock": true
       },
       "when": {
         "east": "true"
@@ -26,9 +25,8 @@
     },
     {
       "apply": {
-        "model": "stellaris:block/cable_north",
-        "uvlock": true,
-        "y": 180
+        "model": "stellaris:block/cable_south",
+        "uvlock": true
       },
       "when": {
         "south": "true"
@@ -36,9 +34,8 @@
     },
     {
       "apply": {
-        "model": "stellaris:block/cable_north",
-        "uvlock": true,
-        "y": 270
+        "model": "stellaris:block/cable_west",
+        "uvlock": true
       },
       "when": {
         "west": "true"
