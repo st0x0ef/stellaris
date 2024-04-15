@@ -1,22 +1,66 @@
 {
-  "variants": {
-    "": {
-      "model": "stellaris:block/cable"
+  "multipart": [
+    {
+      "apply": {
+        "model": "stellaris:block/cable"
+      }
     },
-    "facing=north": {
-      "model": "stellaris:block/cable_north"
+    {
+      "apply": {
+        "model": "stellaris:block/cable_north",
+        "uvlock": true
+      },
+      "when": {
+        "north": "true"
+      }
     },
-    "facing=east": {
-      "model": "stellaris:block/cable_east"
+    {
+      "apply": {
+        "model": "stellaris:block/cable_north",
+        "uvlock": true,
+        "y": 90
+      },
+      "when": {
+        "east": "true"
+      }
     },
-    "facing=south": {
-      "model": "stellaris:block/cable_south"
+    {
+      "apply": {
+        "model": "stellaris:block/cable_north",
+        "uvlock": true,
+        "y": 180
+      },
+      "when": {
+        "south": "true"
+      }
     },
-    "facing=west": {
-      "model": "stellaris:block/cable_west"
+    {
+      "apply": {
+        "model": "stellaris:block/cable_north",
+        "uvlock": true,
+        "y": 270
+      },
+      "when": {
+        "west": "true"
+      }
     },
-    "facing=down": {
-      "model": "stellaris:block/cable_down"
+    {
+      "apply": {
+        "model": "stellaris:block/cable_up",
+        "uvlock": true
+      },
+      "when": {
+        "up": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "stellaris:block/cable_down",
+        "uvlock": true
+      },
+      "when": {
+        "down": "true"
+      }
     }
-  }
+  ]
 }
