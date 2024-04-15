@@ -52,5 +52,7 @@
   "item.stellaris.oil_bucket": "Oil Bucket",
   "item.stellaris.hydrogen_bucket": "Hydrogen Bucket",
 
-  "block.stellaris.rocket_launch_pad": "Rocket Launch Pad"
+  "block.stellaris.rocket_launch_pad": "Rocket Launch Pad",
+  "block.stellaris.solar_panel": "Solar Panel",
+  "block.stellaris.cable": "Power Cable"
 }

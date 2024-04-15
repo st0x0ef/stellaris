@@ -1,8 +1,8 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "block/cable_texture",
-		"particle": "block/cable_texture"
+		"0": "stellaris:block/cable_texture",
+		"particle": "stellaris:block/cable_texture"
 	},
 	"elements": [
 		{
