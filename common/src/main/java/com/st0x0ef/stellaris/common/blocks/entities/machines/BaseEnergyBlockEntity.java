@@ -14,14 +14,14 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class TestBlockEntity extends BlockEntity implements EnergyBlock<WrappedBlockEnergyContainer> {
+public class BaseEnergyBlockEntity extends BlockEntity implements EnergyBlock<WrappedBlockEnergyContainer> {
     private WrappedBlockEnergyContainer energyContainer;
 
-    public TestBlockEntity(BlockPos blockPos, BlockState blockState) {
+    public BaseEnergyBlockEntity(BlockPos blockPos, BlockState blockState) {
         this(EntityRegistry.TEST_BLOCK.get(), blockPos, blockState);
     }
 
-    public TestBlockEntity(BlockEntityType<?> entityType, BlockPos blockPos, BlockState blockState) {
+    public BaseEnergyBlockEntity(BlockEntityType<?> entityType, BlockPos blockPos, BlockState blockState) {
         super(EntityRegistry.TEST_BLOCK.get(), blockPos, blockState);
     }
 
@@ -48,8 +48,5 @@ public class TestBlockEntity extends BlockEntity implements EnergyBlock<WrappedB
     }
 
     public void tick() {
-        if (this.getEnergyStorage(level,getBlockPos(),getBlockState(),this,null).getStoredEnergy()< energyContainer.getMaxCapacity()){
-
-        }
     }
 }

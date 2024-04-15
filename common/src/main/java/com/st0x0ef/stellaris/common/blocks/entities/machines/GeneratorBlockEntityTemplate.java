@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
 import com.st0x0ef.stellaris.common.blocks.entities.ImplementedInventory;
+import com.st0x0ef.stellaris.common.energy.EnergyApi;
 import com.st0x0ef.stellaris.common.energy.base.EnergyBlock;
 import com.st0x0ef.stellaris.common.energy.impl.ExtractOnlyEnergyContainer;
 import com.st0x0ef.stellaris.common.energy.impl.WrappedBlockEnergyContainer;
@@ -102,7 +103,6 @@ public class GeneratorBlockEntityTemplate extends BaseContainerBlockEntity imple
 
     public void tick() {
         if(canGenerate()) {
-            System.out.println("Hello there buddy");
             if (energyContainer.getStoredEnergy() < energyContainer.getMaxCapacity()) {
                 energyContainer.setEnergy(energyContainer.getStoredEnergy() + EnergyGeneratedPT);
             } else if (energyContainer.getStoredEnergy() > energyContainer.getMaxCapacity()) {
@@ -110,6 +110,8 @@ public class GeneratorBlockEntityTemplate extends BaseContainerBlockEntity imple
             }
             System.out.println(energyContainer.getStoredEnergy());
         }
+        BlockEntity blockEntity = this.getLevel().getBlockEntity(this.getBlockPos());
+        EnergyApi.distributeEnergyNearby(blockEntity,100);
     }
 
     @Override

@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "": {
+      "model": "stellaris:block/cable"
+    },
+    "facing=north": {
+      "model": "stellaris:block/cable_north"
+    },
+    "facing=east": {
+      "model": "stellaris:block/cable_east"
+    },
+    "facing=south": {
+      "model": "stellaris:block/cable_south"
+    },
+    "facing=west": {
+      "model": "stellaris:block/cable_west"
+    },
+    "facing=down": {
+      "model": "stellaris:block/cable_down"
+    }
+  }
+}

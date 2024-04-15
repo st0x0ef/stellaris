@@ -54,7 +54,7 @@ public class SolarPanelBlock extends GeneratorBlockTemplate {
         if (!level.isClientSide()) {
             BlockEntity blockEntity = level.getBlockEntity(blockPos);
             if (blockEntity instanceof SolarPanelEntity) {
-                MenuRegistry.openExtendedMenu((ServerPlayer) player, this.getMenuProvider(blockState, level, blockPos))  ;
+                MenuRegistry.openExtendedMenu((ServerPlayer) player, this.getMenuProvider(blockState, level, blockPos));
                 }
             }
         return InteractionResult.SUCCESS;
@@ -81,4 +81,15 @@ public class SolarPanelBlock extends GeneratorBlockTemplate {
         };
     }
 
+
+    @Override
+    public void onRemove(BlockState blockState, Level level, BlockPos blockPos, BlockState blockState2, boolean bl) {
+        if (blockState.getBlock() != blockState2.getBlock()) {
+            BlockEntity blockEntity = level.getBlockEntity(blockPos);
+            if (blockEntity instanceof SolarPanelEntity) {
+                level.updateNeighbourForOutputSignal(blockPos,this);
+            }
+            super.onRemove(blockState, level, blockPos, blockState2, bl);
+        }
+    }
 }
