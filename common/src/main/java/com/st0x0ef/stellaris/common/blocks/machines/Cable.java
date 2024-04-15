@@ -11,10 +11,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.BaseEntityBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.PipeBlock;
-import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -112,5 +109,10 @@ public class Cable extends BaseEnergyBlock {
             }
             super.onRemove(blockState, level, blockPos, blockState2, bl);
         }
+    }
+
+    @Override
+    public RenderShape getRenderShape(BlockState blockState) {
+        return RenderShape.MODEL;
     }
 }
