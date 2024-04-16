@@ -30,7 +30,6 @@ public class Cable extends BaseEnergyBlock {
     public static final BooleanProperty DOWN = PipeBlock.DOWN;
     private static final Map<Direction, BooleanProperty> PROPERTY_BY_DIRECTION = PipeBlock.PROPERTY_BY_DIRECTION;
 
-
     public Cable(Properties properties) {
         super(properties);
         this.registerDefaultState((BlockState)((BlockState)((BlockState)((BlockState)((BlockState)((BlockState)(this.stateDefinition.any())
@@ -83,7 +82,9 @@ public class Cable extends BaseEnergyBlock {
         if (blockState2.is(this)) {
             return (BlockState)blockState.setValue(PROPERTY_BY_DIRECTION.get(direction), true);
         }
-        return super.updateShape(blockState, direction, blockState2, levelAccessor, blockPos, blockPos2);
+        else {
+            return (BlockState)blockState.setValue(PROPERTY_BY_DIRECTION.get(direction), false);
+        }
     }
 
     @Override
