@@ -18,8 +18,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
-public class GeneratorBlockTemplate extends BaseEntityBlock {
-
+public class GeneratorBlockTemplate extends BaseEnergyBlock {
 
     protected GeneratorBlockTemplate(Properties properties) {
         super(properties);
@@ -36,12 +35,9 @@ public class GeneratorBlockTemplate extends BaseEntityBlock {
         return new GeneratorBlockEntityTemplate(blockPos, blockState);
     }
 
-
     @Override
     public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
         if (!level.isClientSide()) {
-            player.sendSystemMessage(Component.literal("Energy: "+
-                    EnergyApi.getAPIEnergyContainer(level, blockPos, blockState,null, null).getStoredEnergy()));
             BlockEntity blockEntity = level.getBlockEntity(blockPos);
             if (blockEntity instanceof GeneratorBlockEntityTemplate) {
                 player.openMenu(blockState.getMenuProvider(level, blockPos));

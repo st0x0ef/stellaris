@@ -2,7 +2,9 @@ package com.st0x0ef.stellaris.common.blocks.machines;
 
 import com.mojang.serialization.MapCodec;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.CableBlockEntity;
+import com.st0x0ef.stellaris.common.energy.base.EnergyBlock;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
+import com.st0x0ef.stellaris.common.registry.TagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -76,17 +78,21 @@ public class Cable extends BaseEnergyBlock {
         Level blockGetter = blockPlaceContext.getLevel();
         BlockPos blockPos = blockPlaceContext.getClickedPos();
         return (BlockState)((BlockState)((BlockState)((BlockState)((BlockState)((BlockState)this.defaultBlockState()
-                .setValue(DOWN, blockGetter.getBlockState(blockPos.below()).is(this)))
-                .setValue(UP, blockGetter.getBlockState(blockPos.above()).is(this)))
-                .setValue(NORTH, blockGetter.getBlockState(blockPos.north()).is(this)))
-                .setValue(EAST, blockGetter.getBlockState(blockPos.east()).is(this)))
-                .setValue(SOUTH, blockGetter.getBlockState(blockPos.south()).is(this)))
-                .setValue(WEST, blockGetter.getBlockState(blockPos.west()).is(this));
+                .setValue(DOWN, isConnectable(blockGetter.getBlockState(blockPos.below())))
+                .setValue(UP, isConnectable(blockGetter.getBlockState(blockPos.above())))
+                .setValue(NORTH, isConnectable(blockGetter.getBlockState(blockPos.north())))
+                .setValue(EAST, isConnectable(blockGetter.getBlockState(blockPos.east())))
+                .setValue(SOUTH, isConnectable(blockGetter.getBlockState(blockPos.south())))
+                .setValue(WEST, isConnectable(blockGetter.getBlockState(blockPos.west()))))))));
+    }
+
+    private boolean isConnectable(BlockState blockState){
+        return blockState.is(this) || blockState.is(TagRegistry.ENERGY_BLOCK_TAG) || blockState.getBlock() instanceof BaseEnergyBlock;
     }
 
     @Override
     public BlockState updateShape(BlockState blockState, Direction direction, BlockState blockState2, LevelAccessor levelAccessor, BlockPos blockPos, BlockPos blockPos2) {
-        if (blockState2.is(this)) {
+        if (isConnectable(blockState2)) {
             return (BlockState)blockState.setValue(PROPERTY_BY_DIRECTION.get(direction), true);
         }
         else {
@@ -109,7 +115,7 @@ public class Cable extends BaseEnergyBlock {
         if (blockState.getBlock() != blockState2.getBlock()) {
             BlockEntity blockEntity = level.getBlockEntity(blockPos);
             if (blockEntity instanceof CableBlockEntity) {
-                blockState.updateNeighbourShapes(level,blockPos,1);
+                blockState.updateNeighbourShapes(level,blockPos,UPDATE_NEIGHBORS);
             }
             super.onRemove(blockState, level, blockPos, blockState2, bl);
         }

@@ -41,4 +41,6 @@ public class TagRegistry {
     /** BLOCKS */
     public static final TagKey<Block> SPACE_STATION_CAN_SPAWN_ON = TagKey.create(Registries.BLOCK, new ResourceLocation(Stellaris.MODID, "space_station_can_spawn_on"));
 
+    public static final TagKey<Block> ENERGY_BLOCK_TAG = TagKey.create(Registries.BLOCK, new ResourceLocation(Stellaris.MODID, "energy_block"));
+
 }

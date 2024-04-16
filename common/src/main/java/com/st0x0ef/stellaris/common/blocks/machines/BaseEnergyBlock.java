@@ -37,7 +37,7 @@ public class BaseEnergyBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> blockEntityType) {
-        return createTickerHelper(blockEntityType, EntityRegistry.TEST_BLOCK.get(), (level1, blockPos, blockState1, blockEntity) -> ((BaseEnergyBlockEntity) blockEntity).tick());
+        return createTickerHelper(blockEntityType, null, (level1, blockPos, blockState1, blockEntity) -> ((BaseEnergyBlockEntity) blockEntity).tick());
     }
 
 }
