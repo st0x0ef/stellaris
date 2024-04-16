@@ -1,12 +1,10 @@
 package com.st0x0ef.stellaris.common.blocks.machines;
 
 import com.mojang.serialization.MapCodec;
-import com.st0x0ef.stellaris.common.blocks.entities.RocketStationEntity;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.CableBlockEntity;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.Containers;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -17,9 +15,7 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import org.jetbrains.annotations.Nullable;
 
@@ -105,7 +101,7 @@ public class Cable extends BaseEnergyBlock {
         if (blockState.getBlock() != blockState2.getBlock()) {
             BlockEntity blockEntity = level.getBlockEntity(blockPos);
             if (blockEntity instanceof CableBlockEntity) {
-                level.updateNeighbourForOutputSignal(blockPos,this);
+                blockState.updateNeighbourShapes(level,blockPos,1);
             }
             super.onRemove(blockState, level, blockPos, blockState2, bl);
         }
