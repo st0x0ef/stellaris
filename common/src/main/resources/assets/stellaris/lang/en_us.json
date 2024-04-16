@@ -17,7 +17,7 @@
   "block.stellaris.moon_sand": "Moon Sand",
   "block.stellaris.moon_stone": "Moon Stone",
   "block.stellaris.cracked_moon_stone_bricks": "Cracked Moon Stone Bricks",
-  "block.stellaris.moon_stone_bricks": "Monn Stone Bricks",
+  "block.stellaris.moon_stone_bricks": "Moon Stone Bricks",
   "block.stellaris.moon_stone_pillar": "Moon Stone Pillar",
   "block.stellaris.polished_moon_stone": "Polished Moon stone",
   "block.stellaris.moon_deepslate": "Moon Deepslate",
@@ -76,7 +76,7 @@
 
 
 
-  "categorie.stellaris.main": "Stellaris",
+  "category.stellaris.main": "Stellaris",
   "item.stellaris.raw_steel_ingot": "Raw Steel Ingot",
   "item.stellaris.steel_ingot": "Steel Ingot",
   "item.stellaris.ice_shard": "Ice Shard",
