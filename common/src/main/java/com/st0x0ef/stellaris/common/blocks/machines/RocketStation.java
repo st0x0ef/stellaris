@@ -1,7 +1,7 @@
-package com.st0x0ef.stellaris.common.blocks;
+package com.st0x0ef.stellaris.common.blocks.machines;
 
 import com.mojang.serialization.MapCodec;
-import com.st0x0ef.stellaris.common.blocks.entities.RocketStationEntity;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.RocketStationEntity;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Containers;

@@ -1,7 +1,7 @@
 package com.st0x0ef.stellaris.common.registry;
 
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.blocks.entities.RocketStationEntity;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.RocketStationEntity;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.CableBlockEntity;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.SolarPanelEntity;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.BaseEnergyBlockEntity;

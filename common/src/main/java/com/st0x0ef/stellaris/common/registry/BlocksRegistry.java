@@ -3,7 +3,7 @@ package com.st0x0ef.stellaris.common.registry;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.FlagBlock;
 import com.st0x0ef.stellaris.common.blocks.RocketLaunchPad;
-import com.st0x0ef.stellaris.common.blocks.RocketStation;
+import com.st0x0ef.stellaris.common.blocks.machines.RocketStation;
 import com.st0x0ef.stellaris.common.blocks.machines.Cable;
 import com.st0x0ef.stellaris.common.blocks.machines.SolarPanelBlock;
 import com.st0x0ef.stellaris.common.blocks.machines.BaseEnergyBlock;

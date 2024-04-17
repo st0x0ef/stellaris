@@ -29,8 +29,11 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.BowlFoodItem;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -119,10 +122,8 @@ public class VacumatorBlockEntity extends BaseContainerBlockEntity implements Im
     }
 
     public boolean canCraft() {
-        Stellaris.LOG.error(getItem(1).getItem().toString());
         if(getItem(0).getItem() instanceof CanItem) {
             return  getItem(1).getItem().isEdible() && getItem(2).is(Items.GLASS_BOTTLE);
-
         }
 
         return false;
@@ -134,7 +135,8 @@ public class VacumatorBlockEntity extends BaseContainerBlockEntity implements Im
 
 
         if(can.getNutrition(getItem(0)) < can.getMaxNutrition()) {
-            ItemStack potionResult = new ItemStack(Items.GLASS_BOTTLE);
+            ItemStack potionResult = new ItemStack(Items.POTION);
+            PotionUtils.setPotion(potionResult, Potion.byName("minecraft:water"));
 
             ItemStack result = new ItemStack(can);
             CanItem resultCanItem = (CanItem) result.getItem();
