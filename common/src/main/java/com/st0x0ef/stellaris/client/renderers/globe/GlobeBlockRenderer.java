@@ -17,16 +17,14 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
 
 @Environment(EnvType.CLIENT)
-public class GlobeBlockRenderer<T extends GlobeTileEntity> implements BlockEntityRenderer<GlobeTileEntity>, BlockEntityRendererProvider<T> {
+public class GlobeBlockRenderer<T extends GlobeTileEntity> implements BlockEntityRenderer<GlobeTileEntity> {
 
     private GlobeModel<?> model;
 
-    public GlobeBlockRenderer() {
-
-    }
+    public GlobeBlockRenderer(BlockEntityRendererProvider.Context Context) {}
 
     @Override
-    public void render(GlobeTileEntity tileEntity, float particleTicks, PoseStack matrixStackIn, MultiBufferSource buffer, int combinedLight, int p_112312_) {
+    public void render(GlobeTileEntity tileEntity, float particleTicks, PoseStack matrixStackIn, MultiBufferSource buffer, int combinedLight, int overlay) {
         BlockState state = tileEntity.getLevel().getBlockState(tileEntity.getBlockPos());
 
         if (!(state.getBlock() instanceof GlobeBlock)) {
@@ -58,8 +56,4 @@ public class GlobeBlockRenderer<T extends GlobeTileEntity> implements BlockEntit
         matrixStackIn.popPose();
     }
 
-    @Override
-    public BlockEntityRenderer<T> create(Context p_173571_) {
-        return this::render;
-    }
 }
