@@ -5,6 +5,7 @@ import com.st0x0ef.stellaris.common.blocks.entities.RocketStationEntity;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.CableBlockEntity;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.SolarPanelEntity;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.BaseEnergyBlockEntity;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.VacumatorBlockEntity;
 import com.st0x0ef.stellaris.common.entities.*;
 import com.st0x0ef.stellaris.common.entities.alien.Alien;
 import com.st0x0ef.stellaris.common.entities.pygro.Pygro;
@@ -31,6 +32,10 @@ public class EntityRegistry {
             () -> BlockEntityType.Builder.of(SolarPanelEntity::new,BlocksRegistry.SOLAR_PANEL.get()).build(null));
     public static final RegistrySupplier<BlockEntityType<CableBlockEntity>> CABLE_ENTITY = BLOCK_ENTITY_TYPE.register("cable",
             () -> BlockEntityType.Builder.of(CableBlockEntity::new,BlocksRegistry.CABLE.get()).build(null));
+
+    public static final RegistrySupplier<BlockEntityType<VacumatorBlockEntity>> VACUMATOR_ENTITY = BLOCK_ENTITY_TYPE.register("vacumator",
+            () -> BlockEntityType.Builder.of(VacumatorBlockEntity::new,BlocksRegistry.VACUMATOR.get()).build(null));
+
 
     //Entity type
 

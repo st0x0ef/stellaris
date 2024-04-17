@@ -7,6 +7,7 @@ import com.st0x0ef.stellaris.common.blocks.RocketStation;
 import com.st0x0ef.stellaris.common.blocks.machines.Cable;
 import com.st0x0ef.stellaris.common.blocks.machines.SolarPanelBlock;
 import com.st0x0ef.stellaris.common.blocks.machines.BaseEnergyBlock;
+import com.st0x0ef.stellaris.common.blocks.machines.Vacumator;
 import dev.architectury.core.block.ArchitecturyLiquidBlock;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
@@ -107,6 +108,7 @@ public class BlocksRegistry {
     public static final RegistrySupplier<Block> SOLAR_PANEL = BLOCKS.register("solar_panel", () -> new SolarPanelBlock(BlockBehaviour.Properties.ofLegacyCopy(STEEL_ORE.get()).mapColor(MapColor.DEEPSLATE).strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE)));
     public static final RegistrySupplier<Block> ROCKET_LAUNCH_PAD = BLOCKS.register("rocket_launch_pad", () -> new RocketLaunchPad(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).sound(SoundType.METAL).strength(5f, 2.5f).requiresCorrectToolForDrops()));
     public static final RegistrySupplier<Block> CABLE = BLOCKS.register("cable", ()-> new Cable(BlockBehaviour.Properties.ofFullCopy(Blocks.CHAIN)));
+    public static final RegistrySupplier<Block> VACUMATOR = BLOCKS.register("vacumator", ()-> new Vacumator(BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_ORE)));
 
     /**Fluid Blocks*/
     public static final RegistrySupplier<LiquidBlock> FUEL_BLOCK = BLOCKS.register("fuel", () -> new ArchitecturyLiquidBlock(FluidRegistry.FUEL_STILL, BlockBehaviour.Properties.ofFullCopy(Blocks.WATER)));

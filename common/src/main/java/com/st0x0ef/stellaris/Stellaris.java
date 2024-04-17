@@ -18,6 +18,7 @@ import com.st0x0ef.stellaris.client.renderers.entities.starcrawler.StarCrawlerMo
 import com.st0x0ef.stellaris.client.renderers.entities.starcrawler.StarCrawlerRenderer;
 import com.st0x0ef.stellaris.client.screens.RocketStationScreen;
 import com.st0x0ef.stellaris.client.screens.SolarPanelScreen;
+import com.st0x0ef.stellaris.client.screens.VacumatorScreen;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
 import com.st0x0ef.stellaris.common.registry.*;
 import dev.architectury.registry.ReloadListenerRegistry;
@@ -60,6 +61,7 @@ public class Stellaris {
         /**Block Entities*/
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.ROCKET_STATION.get(), RocketStationScreen::new);
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.SOLAR_PANEL_MENU.get(), SolarPanelScreen::new);
+        MenuRegistry.registerScreenFactory(MenuTypesRegistry.VACUMATOR_MENU.get(), VacumatorScreen::new);
 
         /**Entities*/
         //Alien

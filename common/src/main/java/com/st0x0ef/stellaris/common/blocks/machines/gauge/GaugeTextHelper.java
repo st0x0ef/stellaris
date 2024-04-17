@@ -8,8 +8,6 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 
 import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 public class GaugeTextHelper
 {
@@ -48,6 +46,7 @@ public class GaugeTextHelper
     public static GaugeTextBuilder getStorageText(IGaugeValue value) {
         return getText(value, "%1$s: %2$s §8| %3$s");
     }
+
 //    Cant Figure out this thing
 //    public static List<Component> getFluidTooltip(IFluidTank tank) {
 //        List<Component> tooltip = new ArrayList<>();

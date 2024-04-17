@@ -49,4 +49,8 @@ public class BaseEnergyBlockEntity extends BlockEntity implements EnergyBlock<Wr
 
     public void tick() {
     }
+
+    public final WrappedBlockEnergyContainer getEnergyContainer() {
+        return this.getEnergyStorage(this.level,this.worldPosition,this.getBlockState(),this,null);
+    }
 }
