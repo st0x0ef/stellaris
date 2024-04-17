@@ -142,9 +142,10 @@ public class VacumatorBlockEntity extends BaseContainerBlockEntity implements Im
             CanItem resultCanItem = (CanItem) result.getItem();
             resultCanItem.addNutrition(result, food.getItem().getFoodProperties().getNutrition());
 
-            setItem(0, ItemStack.EMPTY);
-            setItem(1, ItemStack.EMPTY);
-            setItem(2, ItemStack.EMPTY);
+
+            for (int i : inputSlots) {
+                removeItem(i, 1);
+            }
             setItem(3, result);
             setItem(4, potionResult);
 
