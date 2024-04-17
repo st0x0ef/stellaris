@@ -8,6 +8,7 @@ import dev.architectury.core.item.ArchitecturyBucketItem;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.*;
 
 public class ItemsRegistry {
@@ -55,6 +56,15 @@ public class ItemsRegistry {
     public static final RegistrySupplier<Item> HEAVY_METAL_CASING_ITEM = ITEMS.register("heavy_metal_casing", () -> new BlockItem(BlocksRegistry.HEAVY_METAL_CASING.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> HEAVY_METAL_INGOT_ITEM = ITEMS.register("heavy_metal_ingot", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> HEAVY_METAL_NUGGET_ITEM = ITEMS.register("heavy_metal_nugget", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+
+    //Globes
+
+    public static final RegistrySupplier<Item> EARTH_GLOBE_ITEM = ITEMS.register("earth_globe", () -> new BlockItem(BlocksRegistry.EARTH_GLOBE_BLOCK.get(), new Item.Properties().rarity(Rarity.EPIC).stacksTo(1).arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> MOON_GLOBE_ITEM = ITEMS.register("moon_globe", () -> new BlockItem(BlocksRegistry.MOON_GLOBE_BLOCK.get(), new Item.Properties().rarity(Rarity.EPIC).stacksTo(1).arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> MARS_GLOBE_ITEM = ITEMS.register("mars_globe", () -> new BlockItem(BlocksRegistry.MARS_GLOBE_BLOCK.get(), new Item.Properties().rarity(Rarity.EPIC).stacksTo(1).arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> MERCURY_GLOBE_ITEM = ITEMS.register("mercury_globe", () -> new BlockItem(BlocksRegistry.MERCURY_GLOBE_BLOCK.get(), new Item.Properties().rarity(Rarity.EPIC).stacksTo(1).arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> VENUS_GLOBE_ITEM = ITEMS.register("venus_globe", () -> new BlockItem(BlocksRegistry.VENUS_GLOBE_BLOCK.get(), new Item.Properties().rarity(Rarity.EPIC).stacksTo(1).arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> GLACIO_GLOBE_ITEM = ITEMS.register("glacio_globe", () -> new BlockItem(BlocksRegistry.GLACIO_GLOBE_BLOCK.get(), new Item.Properties().rarity(Rarity.EPIC).stacksTo(1).arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
 
 
     //RADIOACTIVITY

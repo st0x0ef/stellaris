@@ -15,8 +15,12 @@ import com.st0x0ef.stellaris.client.renderers.entities.pygro.PygroModel;
 import com.st0x0ef.stellaris.client.renderers.entities.pygro.PygroRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.starcrawler.StarCrawlerModel;
 import com.st0x0ef.stellaris.client.renderers.entities.starcrawler.StarCrawlerRenderer;
+import com.st0x0ef.stellaris.client.renderers.globe.GlobeModel;
+import com.st0x0ef.stellaris.client.renderers.globe.GlobeBlockRenderer;
 import com.st0x0ef.stellaris.client.screens.RocketMenuScreen;
 import com.st0x0ef.stellaris.client.screens.RocketStationScreen;
+import com.st0x0ef.stellaris.common.blocks.GlobeBlock;
+import com.st0x0ef.stellaris.common.blocks.entities.GlobeTileEntity;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import com.st0x0ef.stellaris.common.registry.ParticleRegistry;
@@ -24,6 +28,8 @@ import dev.architectury.registry.client.level.entity.EntityModelLayerRegistry;
 import dev.architectury.registry.client.level.entity.EntityRendererRegistry;
 import dev.architectury.registry.client.particle.ParticleProviderRegistry;
 import dev.architectury.registry.menu.MenuRegistry;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 
 public class StellarisClient {
@@ -34,6 +40,8 @@ public class StellarisClient {
         EntityModelLayerRegistry.register(PygroModel.LAYER_LOCATION, PygroModel::createBodyLayer);
         EntityModelLayerRegistry.register(MoglerModel.LAYER_LOCATION, MoglerModel::createBodyLayer);
         EntityModelLayerRegistry.register(StarCrawlerModel.LAYER_LOCATION, StarCrawlerModel::createBodyLayer);
+
+        EntityModelLayerRegistry.register(GlobeModel.LAYER_LOCATION, GlobeModel::createLayer);
     }
     public static void registerEntityRenderer() {
         EntityRendererRegistry.register(EntityRegistry.ALIEN, AlienRenderer::new);
@@ -47,6 +55,7 @@ public class StellarisClient {
 
         EntityRendererRegistry.register(EntityRegistry.ICE_SPIT, renderManager -> new ThrownItemRenderer<>(renderManager, 1, true));
         EntityRendererRegistry.register(EntityRegistry.ICE_SHARD_ARROW, IceShardArrowRenderer::new);
+
     }
 
     public static void registerParticle() {

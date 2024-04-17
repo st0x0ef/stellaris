@@ -1,14 +1,12 @@
 package com.st0x0ef.stellaris.common.registry;
 
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.blocks.FlagBlock;
-import com.st0x0ef.stellaris.common.blocks.RocketLaunchPad;
-import com.st0x0ef.stellaris.common.blocks.RocketStation;
-import com.st0x0ef.stellaris.common.blocks.RadioactiveBlock;
+import com.st0x0ef.stellaris.common.blocks.*;
 import dev.architectury.core.block.ArchitecturyLiquidBlock;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ColorRGBA;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.DyeColor;
@@ -44,7 +42,6 @@ public class BlocksRegistry {
     public static final RegistrySupplier<Block> RAW_URANIUM_BLOCK = BLOCKS.register("raw_uranium_block", () -> new RadioactiveBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.RAW_IRON_BLOCK).mapColor(DyeColor.GREEN), 1));
     public static final RegistrySupplier<Block> PLUTONIUM_BLOCK = BLOCKS.register("plutonium_block", () -> new RadioactiveBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DIAMOND_BLOCK).mapColor(DyeColor.RED), 2));
     public static final RegistrySupplier<Block> NEPTUNIUM_BLOCK = BLOCKS.register("neptunium_block", () -> new RadioactiveBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DIAMOND_BLOCK).mapColor(DyeColor.BLACK), 3));
-
 
 
     /** MARS Blocks */
@@ -131,11 +128,10 @@ public class BlocksRegistry {
     public static final RegistrySupplier<LiquidBlock> HYDROGEN_BLOCK = BLOCKS.register("hydrogen", () -> new ArchitecturyLiquidBlock(FluidRegistry.HYDROGEN_STILL, BlockBehaviour.Properties.ofFullCopy(Blocks.WATER)));
 
     /**Globes*/
-    public static final RegistrySupplier<Block> EARTH_GLOBE_BLOCK = BLOCKS.register("earth_globe", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(3.5F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops()));
-    public static final RegistrySupplier<Block> MOON_GLOBE_BLOCK = BLOCKS.register("moon_globe", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(3.5F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops()));
-    public static final RegistrySupplier<Block> MARS_GLOBE_BLOCK = BLOCKS.register("mars_globe", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(3.5F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops()));
-    public static final RegistrySupplier<Block> MERCURY_GLOBE_BLOCK = BLOCKS.register("mercury_globe", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(3.5F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops()));
-    public static final RegistrySupplier<Block> VENUS_GLOBE_BLOCK = BLOCKS.register("venus_globe", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(3.5F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops()));
-    public static final RegistrySupplier<Block> GLACIO_GLOBE_BLOCK = BLOCKS.register("glacio_globe", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(3.5F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops()));
-
+    public static final RegistrySupplier<Block> EARTH_GLOBE_BLOCK = BLOCKS.register("earth_globe", () -> new GlobeBlock(new ResourceLocation(Stellaris.MODID, "textures/block/globes/earth_globe.png"), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(3.5F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> MOON_GLOBE_BLOCK = BLOCKS.register("moon_globe", () -> new GlobeBlock(new ResourceLocation(Stellaris.MODID, "textures/block/globes/moon_globe.png"),BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(3.5F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> MARS_GLOBE_BLOCK = BLOCKS.register("mars_globe", () -> new GlobeBlock(new ResourceLocation(Stellaris.MODID, "textures/block/globes/mars_globe.png"), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(3.5F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> MERCURY_GLOBE_BLOCK = BLOCKS.register("mercury_globe", () -> new GlobeBlock(new ResourceLocation(Stellaris.MODID, "textures/block/globes/mercury_globe.png"), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(3.5F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> VENUS_GLOBE_BLOCK = BLOCKS.register("venus_globe", () -> new GlobeBlock(new ResourceLocation(Stellaris.MODID, "textures/block/globes/venus_globe.png"), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(3.5F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> GLACIO_GLOBE_BLOCK = BLOCKS.register("glacio_globe", () -> new GlobeBlock(new ResourceLocation(Stellaris.MODID, "textures/block/globes/glacio_globe.png") ,BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(3.5F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops()));
 }
