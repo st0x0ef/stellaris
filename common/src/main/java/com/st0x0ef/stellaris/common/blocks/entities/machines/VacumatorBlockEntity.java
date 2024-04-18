@@ -123,7 +123,7 @@ public class VacumatorBlockEntity extends BaseContainerBlockEntity implements Im
 
     public boolean canCraft() {
         if(getItem(0).getItem() instanceof CanItem) {
-            return  getItem(1).getItem().isEdible() && getItem(2).is(Items.GLASS_BOTTLE);
+            return  getItem(1).getItem().isEdible() && getItem(2).is(Items.GLASS_BOTTLE) && getItem(3).isEmpty() && getItem(4).isEmpty();
         }
 
         return false;
