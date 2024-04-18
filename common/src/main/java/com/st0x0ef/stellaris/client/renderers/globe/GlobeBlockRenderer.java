@@ -5,20 +5,32 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import com.st0x0ef.stellaris.common.blocks.GlobeBlock;
 import com.st0x0ef.stellaris.common.blocks.entities.GlobeTileEntity;
+import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.state.BlockState;
 
 @Environment(EnvType.CLIENT)
 public class GlobeBlockRenderer<T extends GlobeTileEntity> implements BlockEntityRenderer<GlobeTileEntity> {
 
+    private static ItemStack stack1 = new ItemStack(ItemsRegistry.EARTH_GLOBE_ITEM);
+    private static ItemStack stack2 = new ItemStack(ItemsRegistry.GLACIO_GLOBE_ITEM);
+    private static ItemStack stack3 = new ItemStack(ItemsRegistry.MARS_GLOBE_ITEM);
+    private static ItemStack stack4 = new ItemStack(ItemsRegistry.MOON_GLOBE_ITEM);
+    private static ItemStack stack5 = new ItemStack(ItemsRegistry.MERCURY_GLOBE_ITEM);
+    private static ItemStack stack6 = new ItemStack(ItemsRegistry.VENUS_GLOBE_ITEM);
     private GlobeModel<?> model;
 
     public GlobeBlockRenderer(BlockEntityRendererProvider.Context Context) {}
@@ -44,6 +56,7 @@ public class GlobeBlockRenderer<T extends GlobeTileEntity> implements BlockEntit
         if (this.model == null) {
             this.model = new GlobeModel<>(mc.getEntityModels().bakeLayer(GlobeModel.LAYER_LOCATION));
         }
+
 
         /** Animation */
         this.model.setupAnim(tileEntity, particleTicks);

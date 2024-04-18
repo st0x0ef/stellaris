@@ -23,8 +23,8 @@ public class GlobeItemRenderer<T extends GlobeTileEntity> extends BlockEntityWit
     private ResourceLocation texture;
     private GlobeModel<?> model;
 
-    public GlobeItemRenderer(BlockEntityRenderDispatcher p_172550_, EntityModelSet p_172551_) {
-        super(p_172550_, p_172551_);
+    public GlobeItemRenderer(BlockEntityRenderDispatcher blockEntityRenderDispatcher, EntityModelSet entityModelSet) {
+        super(blockEntityRenderDispatcher, entityModelSet);
     }
 
     public GlobeItemRenderer<?> setTexture(ResourceLocation texture) {
