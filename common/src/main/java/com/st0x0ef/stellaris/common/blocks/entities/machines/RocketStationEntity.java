@@ -1,6 +1,7 @@
-package com.st0x0ef.stellaris.common.blocks.entities;
+package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.common.blocks.entities.ImplementedInventory;
 import com.st0x0ef.stellaris.common.data.recipes.RocketStationRecipe;
 import com.st0x0ef.stellaris.common.menus.RocketStationMenu;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
