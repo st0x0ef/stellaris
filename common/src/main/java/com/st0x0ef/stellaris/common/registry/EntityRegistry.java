@@ -3,7 +3,7 @@ package com.st0x0ef.stellaris.common.registry;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.entities.GlobeTileEntity;
 import com.st0x0ef.stellaris.common.blocks.entities.RadioactiveBlockEntity;
-import com.st0x0ef.stellaris.common.blocks.entities.RocketStationEntity;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.*;
 import com.st0x0ef.stellaris.common.entities.*;
 import com.st0x0ef.stellaris.common.entities.alien.Alien;
 import com.st0x0ef.stellaris.common.entities.pygro.Pygro;
@@ -40,6 +40,17 @@ public class EntityRegistry {
             BlocksRegistry.VENUS_GLOBE_BLOCK.get(),
             BlocksRegistry.GLACIO_GLOBE_BLOCK.get())
             .build(null));
+
+    public static final RegistrySupplier<BlockEntityType<BaseEnergyBlockEntity>> TEST_BLOCK = BLOCK_ENTITY_TYPE.register("test_block",
+            () -> BlockEntityType.Builder.of(BaseEnergyBlockEntity::new, BlocksRegistry.TEST_BLOCK.get()).build(null));
+    public static final RegistrySupplier<BlockEntityType<SolarPanelEntity>> SOLAR_PANEL = BLOCK_ENTITY_TYPE.register("solar_panel",
+            () -> BlockEntityType.Builder.of(SolarPanelEntity::new,BlocksRegistry.SOLAR_PANEL.get()).build(null));
+    public static final RegistrySupplier<BlockEntityType<CableBlockEntity>> CABLE_ENTITY = BLOCK_ENTITY_TYPE.register("cable",
+            () -> BlockEntityType.Builder.of(CableBlockEntity::new,BlocksRegistry.CABLE.get()).build(null));
+
+    public static final RegistrySupplier<BlockEntityType<VacumatorBlockEntity>> VACUMATOR_ENTITY = BLOCK_ENTITY_TYPE.register("vacumator",
+            () -> BlockEntityType.Builder.of(VacumatorBlockEntity::new,BlocksRegistry.VACUMATOR.get()).build(null));
+
 
 
 
