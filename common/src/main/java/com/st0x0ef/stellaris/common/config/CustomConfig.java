@@ -76,4 +76,7 @@ public class CustomConfig {
         return new String(Files.readAllBytes(Paths.get(file)));
     }
 
+    public static Object getValue(String key) {
+        return CONFIG.get(key).getValue();
+    }
 }

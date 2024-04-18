@@ -18,7 +18,7 @@ import java.util.concurrent.atomic.AtomicLong;
 public class Events {
 
     // Check every 10 seconds
-    private static final long RADIOACTIVE_CHECK = 1000 * (long) CustomConfig.CONFIG.get("radioactivityCheckInterval").getValue()  ;
+    private static final long RADIOACTIVE_CHECK = 1000 * (long) CustomConfig.getValue("radioactivityCheckInterval");
     private static long lastRadioactiveCheck;
 
     public static void registerEvents() {
@@ -38,7 +38,7 @@ public class Events {
            long now = System.currentTimeMillis();
 
            if((now - lastRadioactiveCheck) > RADIOACTIVE_CHECK){
-               Stellaris.LOG.error("Checking every " + CustomConfig.CONFIG.get("radioactivityCheckInterval").getValue() + " seconds");
+               Stellaris.LOG.error("Checking every " + CustomConfig.getValue("radioactivityCheckInterval") + " seconds");
                player.getInventory().items.forEach(itemStack -> {
                    if(itemStack.getItem() instanceof RadioactiveItem radioactiveItem) {
                        player.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE.get(), 100, radioactiveItem.getRadiationLevel()));
