@@ -42,6 +42,9 @@ public class EntityRegistry {
             .build(null));
 
 
+
+    public static final RegistrySupplier<BlockEntityType<RocketStationEntity>> VACUMATOR = BLOCK_ENTITY_TYPE.register("vacumator",
+            () -> BlockEntityType.Builder.of(RocketStationEntity::new, BlocksRegistry.VACUMATOR.get()).build(null));
     //Entity type
 
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPE = DeferredRegister.create(Stellaris.MODID, Registries.ENTITY_TYPE);
