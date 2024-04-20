@@ -1,6 +1,8 @@
 package com.st0x0ef.stellaris.common.menus;
 
+import com.st0x0ef.stellaris.common.blocks.entities.machines.CoalGeneratorEntity;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.SolarPanelEntity;
+import com.st0x0ef.stellaris.common.menus.slots.CoalGeneratorSlot;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
@@ -11,20 +13,19 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
-public class SolarPanelMenu extends AbstractContainerMenu {
-
+public class CoalGeneratorMenu extends AbstractContainerMenu {
     private final Container inventory;
-    private final SolarPanelEntity entity;
+    private final CoalGeneratorEntity entity;
 
-    public static SolarPanelMenu create(int syncId, Inventory inventory, FriendlyByteBuf data) {
-        SolarPanelEntity entity = (SolarPanelEntity) inventory.player.level().getBlockEntity(data.readBlockPos());
+    public static CoalGeneratorMenu create(int syncId, Inventory inventory, FriendlyByteBuf data) {
+        CoalGeneratorEntity entity = (CoalGeneratorEntity) inventory.player.level().getBlockEntity(data.readBlockPos());
 
-        return new SolarPanelMenu(syncId, inventory, new SimpleContainer(1), entity);
+        return new CoalGeneratorMenu(syncId, inventory, new SimpleContainer(1), entity);
     }
 
-    public SolarPanelMenu(int syncId, Inventory playerInventory, Container container, SolarPanelEntity entity)
+    public CoalGeneratorMenu(int syncId, Inventory playerInventory, Container container, CoalGeneratorEntity entity)
     {
-        super(MenuTypesRegistry.SOLAR_PANEL_MENU.get(), syncId);
+        super(MenuTypesRegistry.COAL_GENERATOR_MENU.get(), syncId);
 
         checkContainerSize(container, 1);
         this.inventory = (container);
@@ -36,7 +37,7 @@ public class SolarPanelMenu extends AbstractContainerMenu {
         addPlayerInventory(playerInventory);
     }
 
-    public SolarPanelEntity getBlockEntity() {
+    public CoalGeneratorEntity getBlockEntity() {
         return entity;
     }
 
@@ -53,7 +54,7 @@ public class SolarPanelMenu extends AbstractContainerMenu {
                 }
             } else if (!this.moveItemStackTo(originalStack, 0, this.inventory.getContainerSize(), false)) {
                 return ItemStack.EMPTY;
-            }
+            } else
 
             if (originalStack.isEmpty()) {
                 slot.set(ItemStack.EMPTY);
@@ -72,7 +73,8 @@ public class SolarPanelMenu extends AbstractContainerMenu {
 
 
     private void addSlots(Container inventory) {
-        this.addSlot(new Slot(inventory, 0, 8, 146));
+        //TODO check slot placement
+        this.addSlot(new CoalGeneratorSlot(inventory, 0, 8, 146));
     }
 
     private void addPlayerInventory(Inventory playerInventory) {

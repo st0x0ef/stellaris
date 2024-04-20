@@ -36,7 +36,7 @@ public class Vacumator extends BaseEntityBlock{
         super(properties);
     }
 
-    //Need new ticker
+    //TODO Need new ticker
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> blockEntityType) {

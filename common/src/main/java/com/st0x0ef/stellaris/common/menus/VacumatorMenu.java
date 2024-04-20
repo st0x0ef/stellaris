@@ -1,9 +1,7 @@
 package com.st0x0ef.stellaris.common.menus;
 
-import com.st0x0ef.stellaris.common.blocks.entities.machines.SolarPanelEntity;
-import com.st0x0ef.stellaris.common.blocks.entities.machines.VacumatorBlockEntity;
+import com.st0x0ef.stellaris.common.menus.slots.ResultSlot;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;

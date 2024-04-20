@@ -45,6 +45,8 @@ public class EntityRegistry {
             () -> BlockEntityType.Builder.of(BaseEnergyBlockEntity::new, BlocksRegistry.TEST_BLOCK.get()).build(null));
     public static final RegistrySupplier<BlockEntityType<SolarPanelEntity>> SOLAR_PANEL = BLOCK_ENTITY_TYPE.register("solar_panel",
             () -> BlockEntityType.Builder.of(SolarPanelEntity::new,BlocksRegistry.SOLAR_PANEL.get()).build(null));
+    public static final RegistrySupplier<BlockEntityType<CoalGeneratorEntity>> COAL_GENERATOR = BLOCK_ENTITY_TYPE.register("coal_generator",
+            () -> BlockEntityType.Builder.of(CoalGeneratorEntity::new,BlocksRegistry.COAL_GENERATOR.get()).build(null));
     public static final RegistrySupplier<BlockEntityType<CableBlockEntity>> CABLE_ENTITY = BLOCK_ENTITY_TYPE.register("cable",
             () -> BlockEntityType.Builder.of(CableBlockEntity::new,BlocksRegistry.CABLE.get()).build(null));
 

@@ -38,7 +38,7 @@ public class Events {
            long now = System.currentTimeMillis();
 
            if((now - lastRadioactiveCheck) > RADIOACTIVE_CHECK){
-               Stellaris.LOG.error("Checking every " + CustomConfig.getValue("radioactivityCheckInterval") + " seconds");
+               //Stellaris.LOG.error("Checking every " + CustomConfig.getValue("radioactivityCheckInterval") + " seconds");
                player.getInventory().items.forEach(itemStack -> {
                    if(itemStack.getItem() instanceof RadioactiveItem radioactiveItem) {
                        player.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE.get(), 100, radioactiveItem.getRadiationLevel()));

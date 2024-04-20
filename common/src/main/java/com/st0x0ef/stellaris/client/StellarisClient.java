@@ -17,9 +17,7 @@ import com.st0x0ef.stellaris.client.renderers.entities.starcrawler.StarCrawlerMo
 import com.st0x0ef.stellaris.client.renderers.entities.starcrawler.StarCrawlerRenderer;
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeModel;
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeBlockRenderer;
-import com.st0x0ef.stellaris.client.screens.RocketMenuScreen;
-import com.st0x0ef.stellaris.client.screens.RocketStationScreen;
-import com.st0x0ef.stellaris.client.screens.VacumatorScreen;
+import com.st0x0ef.stellaris.client.screens.*;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import com.st0x0ef.stellaris.common.registry.ParticleRegistry;
@@ -67,8 +65,8 @@ public class StellarisClient {
     public static void registerScreen() {
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.ROCKET_STATION.get(), RocketStationScreen::new);
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.ROCKET_MENU.get(), RocketMenuScreen::new);
-
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.VACUMATOR_MENU.get(), VacumatorScreen::new);
-
+        MenuRegistry.registerScreenFactory(MenuTypesRegistry.SOLAR_PANEL_MENU.get(), SolarPanelScreen::new);
+        MenuRegistry.registerScreenFactory(MenuTypesRegistry.COAL_GENERATOR_MENU.get(), CoalGeneratorScreen::new);
     }
 }
