@@ -79,7 +79,7 @@ public class SolarPanelBlock extends GeneratorBlockTemplate {
 
             @Override
             public Component getDisplayName() {
-                return Component.literal("Recipe Creator");
+                return Component.literal("Solar Panel");
             }
 
             @Override

@@ -14,7 +14,7 @@ public class MenuTypesRegistry {
     public static final RegistrySupplier<MenuType<RocketMenuMenu>> ROCKET_MENU = MENU_TYPE.register("rocket_menu", () -> MenuRegistry.of(RocketMenuMenu::new));
 
     public static final RegistrySupplier<MenuType<SolarPanelMenu>> SOLAR_PANEL_MENU = MENU_TYPE.register("solar_panel", () -> MenuRegistry.ofExtended(SolarPanelMenu::create));
-    public static final RegistrySupplier<MenuType<CoalGeneratorMenu>> COAL_GENERATOR_MENU = MENU_TYPE.register("solar_panel", () -> MenuRegistry.ofExtended(CoalGeneratorMenu::create));
+    public static final RegistrySupplier<MenuType<CoalGeneratorMenu>> COAL_GENERATOR_MENU = MENU_TYPE.register("coal_generator", () -> MenuRegistry.ofExtended(CoalGeneratorMenu::create));
 
     public static final RegistrySupplier<MenuType<VacumatorMenu>> VACUMATOR_MENU = MENU_TYPE.register("vacumator", () -> MenuRegistry.of(VacumatorMenu::create));
 

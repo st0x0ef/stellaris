@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.common.menus;
 
 import com.st0x0ef.stellaris.common.blocks.entities.machines.CoalGeneratorEntity;
-import com.st0x0ef.stellaris.common.blocks.entities.machines.SolarPanelEntity;
 import com.st0x0ef.stellaris.common.menus.slots.CoalGeneratorSlot;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import net.minecraft.network.FriendlyByteBuf;
@@ -31,7 +30,7 @@ public class CoalGeneratorMenu extends AbstractContainerMenu {
         this.inventory = (container);
         this.entity = entity;
 
-        addSlots(inventory);
+        this.addSlot(new CoalGeneratorSlot(inventory, 0, 8, 146));
 
         addPlayerHotbar(playerInventory);
         addPlayerInventory(playerInventory);
@@ -69,12 +68,6 @@ public class CoalGeneratorMenu extends AbstractContainerMenu {
     @Override
     public boolean stillValid(Player player) {
         return this.inventory.stillValid(player);
-    }
-
-
-    private void addSlots(Container inventory) {
-        //TODO check slot placement
-        this.addSlot(new CoalGeneratorSlot(inventory, 0, 8, 146));
     }
 
     private void addPlayerInventory(Inventory playerInventory) {

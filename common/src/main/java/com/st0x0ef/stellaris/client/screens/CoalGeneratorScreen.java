@@ -21,14 +21,13 @@ import net.minecraft.world.entity.player.Inventory;
 @Environment(EnvType.CLIENT)
 public class CoalGeneratorScreen extends AbstractContainerScreen<CoalGeneratorMenu> {
 	//TODO change texture
-	public static final ResourceLocation texture = new ResourceLocation(Stellaris.MODID, "textures/gui/solar_panel.png");
+	public static final ResourceLocation texture = new ResourceLocation(Stellaris.MODID, "textures/gui/coal_generator.png");
 
 	public CoalGeneratorScreen(CoalGeneratorMenu abstractContainerMenu, Inventory inventory, Component component) {
 		super(abstractContainerMenu, inventory, component);
 		this.imageWidth = 177;
 		this.imageHeight = 228;
 		this.inventoryLabelY = this.imageHeight - 92;
-		this.titleLabelY += 40;
 	}
 
 	@Override
@@ -56,9 +55,9 @@ public class CoalGeneratorScreen extends AbstractContainerScreen<CoalGeneratorMe
 			WrappedBlockEnergyContainer energyStorage = blockEntity.getEnergyContainer();
 			if(energyStorage!= null)
 			{
-				graphics.drawString(this.font, GaugeTextHelper.getStoredText(GaugeValueHelper.getEnergy(energyStorage.getStoredEnergy())).build(), this.titleLabelY, 28, 0x3C3C3C);
-				graphics.drawString(this.font, GaugeTextHelper.getCapacityText(GaugeValueHelper.getEnergy(energyStorage.getMaxCapacity())).build(), this.titleLabelY, 40, 0x3C3C3C);
-				graphics.drawString(this.font, GaugeTextHelper.getMaxGenerationPerTickText(GaugeValueHelper.getEnergy(blockEntity.getEnergyGeneratedPT())).build(), this.titleLabelY, 52, 0x3C3C3C);
+				graphics.drawString(this.font, GaugeTextHelper.getStoredText(GaugeValueHelper.getEnergy(energyStorage.getStoredEnergy())).build(), this.titleLabelX, 128-30, 0x3C3C3C);
+				graphics.drawString(this.font, GaugeTextHelper.getCapacityText(GaugeValueHelper.getEnergy(energyStorage.getMaxCapacity())).build(), this.titleLabelX, 140-30, 0x3C3C3C);
+				graphics.drawString(this.font, GaugeTextHelper.getMaxGenerationPerTickText(GaugeValueHelper.getEnergy(blockEntity.getEnergyGeneratedPT())).build(), this.titleLabelX, 152-30, 0x3C3C3C);
 			}
 
 		}

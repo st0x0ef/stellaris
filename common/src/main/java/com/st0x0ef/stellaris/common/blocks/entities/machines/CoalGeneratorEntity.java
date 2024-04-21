@@ -24,7 +24,6 @@ public class CoalGeneratorEntity extends GeneratorBlockEntityTemplate {
         this.items = NonNullList.withSize(1, ItemStack.EMPTY);
     }
 
-    //TODO create menu and screen
     @Override
     protected AbstractContainerMenu createMenu(int i, Inventory inventory) {
         return new CoalGeneratorMenu(i, inventory,this,this);
