@@ -6,4 +6,11 @@ public class FoodRegistry {
     //**FOOD REGiSTRY**//
     public static final FoodProperties CHEESE = new FoodProperties.Builder().nutrition(3).saturationMod(1).build();
 
+
+
+
+
+
+
+
 }
