@@ -4,12 +4,11 @@ import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 
 //TODO move to radioactive generator menu
-public class UraniumGeneratorSlot extends Slot {
+public class RadioactiveGeneratorSlot extends Slot {
 
-    public UraniumGeneratorSlot(Container container, int slot, int x, int y) {
+    public RadioactiveGeneratorSlot(Container container, int slot, int x, int y) {
         super(container, slot, x, y);
     }
 
