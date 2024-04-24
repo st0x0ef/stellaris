@@ -11,7 +11,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 
 public class CoalGeneratorMenu extends AbstractContainerMenu {
     private final Container inventory;
@@ -65,7 +64,7 @@ public class CoalGeneratorMenu extends AbstractContainerMenu {
                 }
             } else if (!this.moveItemStackTo(originalStack, 0, this.inventory.getContainerSize(), false)) {
                 return ItemStack.EMPTY;
-            } else
+            }
 
             if (originalStack.isEmpty()) {
                 slot.set(ItemStack.EMPTY);

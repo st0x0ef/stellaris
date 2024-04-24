@@ -1,4 +1,4 @@
-package com.st0x0ef.stellaris.common.menus.slots;
+package com.st0x0ef.stellaris.common.menus;
 
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.Slot;

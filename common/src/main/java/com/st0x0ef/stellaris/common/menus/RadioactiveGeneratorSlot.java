@@ -1,4 +1,4 @@
-package com.st0x0ef.stellaris.common.menus.slots;
+package com.st0x0ef.stellaris.common.menus;
 
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import com.st0x0ef.stellaris.common.registry.TagRegistry;

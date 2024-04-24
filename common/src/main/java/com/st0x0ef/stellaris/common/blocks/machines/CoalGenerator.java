@@ -1,10 +1,13 @@
 package com.st0x0ef.stellaris.common.blocks.machines;
 
 import com.mojang.serialization.MapCodec;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.BaseEnergyBlockEntity;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.CoalGeneratorEntity;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.GeneratorBlockEntityTemplate;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.SolarPanelEntity;
 import com.st0x0ef.stellaris.common.menus.CoalGeneratorMenu;
 import com.st0x0ef.stellaris.common.menus.SolarPanelMenu;
+import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import dev.architectury.registry.menu.ExtendedMenuProvider;
 import dev.architectury.registry.menu.MenuRegistry;
 import io.netty.buffer.Unpooled;
@@ -21,13 +24,23 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class CoalGenerator extends GeneratorBlockTemplate{
+
+    //TODO add this because it wont work otherwise
+//    public static final DirectionProperty FACING;
+//    public static final BooleanProperty LIT;
+
     public CoalGenerator(Properties properties) {
         super(properties);
     }
@@ -90,5 +103,16 @@ public class CoalGenerator extends GeneratorBlockTemplate{
     @Override
     public RenderShape getRenderShape(BlockState blockState) {
         return RenderShape.MODEL;
+    }
+
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> blockEntityType) {
+        return createGeneratorTicker(level, blockEntityType, EntityRegistry.COAL_GENERATOR.get());
+    }
+
+    @Nullable
+    protected static <T extends BlockEntity> BlockEntityTicker<T> createGeneratorTicker(Level level, BlockEntityType<T> serverType, BlockEntityType<? extends CoalGeneratorEntity> clientType) {
+        return level.isClientSide ? null : createTickerHelper(serverType, clientType, CoalGeneratorEntity::serverTick);
     }
 }
