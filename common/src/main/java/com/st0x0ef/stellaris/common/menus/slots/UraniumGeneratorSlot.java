@@ -6,6 +6,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
+//TODO move to radioactive generator menu
 public class UraniumGeneratorSlot extends Slot {
 
     public UraniumGeneratorSlot(Container container, int slot, int x, int y) {

@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.common.menus;
 
 import com.st0x0ef.stellaris.common.blocks.entities.machines.CoalGeneratorEntity;
-import com.st0x0ef.stellaris.common.menus.slots.CoalGeneratorSlot;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
@@ -11,10 +10,24 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 public class CoalGeneratorMenu extends AbstractContainerMenu {
     private final Container inventory;
     private final CoalGeneratorEntity entity;
+
+    public static class CoalGeneratorSlot extends Slot {
+        public CoalGeneratorSlot(Container container, int slot, int x, int y) {
+            super(container, slot, x, y);
+        }
+
+        @Override
+        public void set(ItemStack stack) {
+            if(stack.getItem() == Items.COAL || stack.getItem() == Items.CHARCOAL){
+                super.set(stack);
+            }
+        }
+    }
 
     public static CoalGeneratorMenu create(int syncId, Inventory inventory, FriendlyByteBuf data) {
         CoalGeneratorEntity entity = (CoalGeneratorEntity) inventory.player.level().getBlockEntity(data.readBlockPos());
