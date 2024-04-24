@@ -24,6 +24,8 @@
   "block.stellaris.moon_stone_dust": "Moon Stone Dust",
   "block.stellaris.moon_desh_ore": "Moon Desh Ore",
   "block.stellaris.moon_stone_brick_slab": "Moon Stone Brick Slab",
+  "block.stellaris.moon_stone_brick_stairs": "Moon Stone Brick Stairs",
+
 
   "block.stellaris.desh_plating_block": "Desh Plating Block",
   "block.stellaris.desh_pillar": "Desh Pillar",
@@ -54,6 +56,8 @@
   "block.stellaris.mars_stone" : "Mars Stone",
   "block.stellaris.polished_mars_stone" : "Polished Mars Stone",
   "block.stellaris.mars_stone_brick_slab": "Mars Stone Brick Slab",
+  "block.stellaris.mars_stone_brick_stairs": "Mars Stone Brick Stairs",
+
 
   "block.stellaris.conglomorate" : "Conglomorate",
   "block.stellaris.polished_conglomorate" : "Polished Conglomorate",
@@ -71,6 +75,8 @@
   "block.stellaris.venus_sandstone_bricks" : "Venus Sandstone Bricks",
   "block.stellaris.venus_stone_bricks" : "Venus Stone Bricks",
   "block.stellaris.venus_stone_brick_slab": "Venus Stone Brick Slab",
+  "block.stellaris.venus_stone_brick_stairs": "Venus Stone Brick Stairs",
+
 
   "block.stellaris.uranium_block" : "Uranium Block",
   "block.stellaris.raw_uranium_block" : "Raw Uranium Block",
