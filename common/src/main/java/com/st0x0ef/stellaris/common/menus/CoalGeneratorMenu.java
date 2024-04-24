@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.common.menus;
 
 import com.st0x0ef.stellaris.common.blocks.entities.machines.CoalGeneratorEntity;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
+import com.st0x0ef.stellaris.common.registry.TagRegistry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
@@ -22,10 +23,8 @@ public class CoalGeneratorMenu extends AbstractContainerMenu {
         }
 
         @Override
-        public void set(ItemStack stack) {
-            if(stack.getItem() == Items.COAL || stack.getItem() == Items.CHARCOAL){
-                super.set(stack);
-            }
+        public boolean mayPlace(ItemStack stack) {
+            return stack.is(TagRegistry.COAL_GENERATOR_FUEL_TAG);
         }
     }
 
@@ -43,7 +42,7 @@ public class CoalGeneratorMenu extends AbstractContainerMenu {
         this.inventory = (container);
         this.entity = entity;
 
-        this.addSlot(new CoalGeneratorSlot(inventory, 0, 8, 146));
+        this.addSlot(new CoalGeneratorSlot(inventory, 0, 46, 68));
 
         addPlayerHotbar(playerInventory);
         addPlayerInventory(playerInventory);
@@ -86,7 +85,7 @@ public class CoalGeneratorMenu extends AbstractContainerMenu {
     private void addPlayerInventory(Inventory playerInventory) {
         for (int i = 0; i < 3; ++i) {
             for (int l = 0; l < 9; ++l) {
-                this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 8 + l * 18, (84 + i * 18) + 62));
+                this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 8 + l * 18, (84 + i * 18) + 61));
             }
         }
     }
