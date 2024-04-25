@@ -1,0 +1,8 @@
+{
+  "level": "minecraft:overworld",
+  "orbit": "minecraft:the_end",
+  "oxygen": false,
+  "temperature": 15,
+  "distanceFromEarth": 0,
+  "gravity": 10.0
+}
