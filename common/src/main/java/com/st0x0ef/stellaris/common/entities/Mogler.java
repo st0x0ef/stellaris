@@ -32,10 +32,6 @@ public class Mogler extends Hoglin {
         return !p_219183_.getBlockState(p_219185_.below()).is(Blocks.NETHER_WART_BLOCK);
     }
 
-    @Override
-    public @NotNull MobType getMobType() {
-        return MobType.UNDEAD;
-    }
 
     @Override
     public boolean removeWhenFarAway(double d) {

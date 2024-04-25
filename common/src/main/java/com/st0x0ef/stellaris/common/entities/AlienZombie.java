@@ -51,10 +51,6 @@ public class AlienZombie extends Monster implements RangedAttackMob {
 		this.goalSelector.addGoal(1, new RangedAttackGoal(this, 1.25, 20, 15));
 	}
 
-	@Override
-	public MobType getMobType() {
-		return MobType.UNDEAD;
-	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource p_33034_) {

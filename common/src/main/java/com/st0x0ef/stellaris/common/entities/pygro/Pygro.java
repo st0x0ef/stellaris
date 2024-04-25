@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableList;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -32,11 +31,6 @@ public class Pygro extends Piglin {
     @Override
     protected Brain.Provider<Piglin> brainProvider() {
         return Brain.provider(field_234414_c_, field_234405_b_);
-    }
-
-    @Override
-    public MobType getMobType() {
-        return MobType.UNDEAD;
     }
 
     @Override
