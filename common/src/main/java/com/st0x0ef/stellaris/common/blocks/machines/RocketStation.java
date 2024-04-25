@@ -37,7 +37,6 @@ public class RocketStation extends BaseEntityBlock {
             BlockEntity blockEntity = level.getBlockEntity(blockPos);
             if (blockEntity instanceof RocketStationEntity) {
                 player.openMenu(blockState.getMenuProvider(level, blockPos));
-
             }
         }
         return InteractionResult.SUCCESS;

@@ -1,6 +1,6 @@
 plugins {
-    id "architectury-plugin" version "3.4-SNAPSHOT"
-    id "dev.architectury.loom" version "1.5-SNAPSHOT" apply false
+    id "architectury-plugin" version "3.4+"
+    id "dev.architectury.loom" version "1.6+" apply false
 }
 
 architectury {
@@ -22,7 +22,7 @@ subprojects {
     repositories {
         maven {
             name "neoforgedReleases"
-            url "https://maven.neoforged.net/releases"
+            url "https://maven.neoforged.net"
            }
         maven { url "https://maven.shedaniel.me" }
         maven {
@@ -40,15 +40,15 @@ subprojects {
         // The following line declares the mojmap mappings, you may use other mappings as well
         mappings loom.layered() {
             officialMojangMappings()
-            parchment("org.parchmentmc.data:parchment-1.20.4:2024.02.25@zip")
+            //parchment("org.parchmentmc.data:parchment-1.20.4:2024.02.25@zip")
         }
         if(!isCommon) {
-            modImplementation("me.shedaniel:RoughlyEnoughItems-${modLoader}:14.0.688")
+            //modImplementation("me.shedaniel:RoughlyEnoughItems-${modLoader}:14.0.688")
 
         }
 
         if(modLoader == "fabric") {
-            modImplementation "curse.maven:fabric-disable-custom-worlds-advice-401978:5007958"
+            //modImplementation "curse.maven:fabric-disable-custom-worlds-advice-401978:5007958"
 
         }
     }
@@ -69,7 +69,7 @@ allprojects {
 
     tasks.withType(JavaCompile) {
         options.encoding = "UTF-8"
-        options.release.set(17)
+        options.release.set(21)
     }
 
     java {

@@ -6,9 +6,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.material.Fluid;
+
+import java.awt.*;
 
 public class TagRegistry {
 
@@ -35,10 +39,11 @@ public class TagRegistry {
     /** ITEMS */
     public static final TagKey<Item> RADIOACTIVE_ITEMS_TAG = TagKey.create(Registries.ITEM, new ResourceLocation(Stellaris.MODID, "radioactive_items"));
     public static final TagKey<Item> SPACE_FOOD = TagKey.create(Registries.ITEM, new ResourceLocation(Stellaris.MODID, "space_food"));
+    public static final TagKey<Item> COAL_GENERATOR_FUEL_TAG = TagKey.create(Registries.ITEM, new ResourceLocation(Stellaris.MODID, "coal_generator_fuel"));
+    public static final TagKey<Item> RADIOACTIVE_GENERATOR_FUEL_TAG = TagKey.create(Registries.ITEM, new ResourceLocation(Stellaris.MODID, "radioactive_generator_fuel"));
 
     /** BLOCKS */
     public static final TagKey<Block> SPACE_STATION_CAN_SPAWN_ON = TagKey.create(Registries.BLOCK, new ResourceLocation(Stellaris.MODID, "space_station_can_spawn_on"));
 
     public static final TagKey<Block> ENERGY_BLOCK_TAG = TagKey.create(Registries.BLOCK, new ResourceLocation(Stellaris.MODID, "energy_block"));
-
 }

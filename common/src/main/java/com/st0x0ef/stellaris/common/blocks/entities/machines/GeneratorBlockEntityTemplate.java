@@ -35,9 +35,9 @@ public class GeneratorBlockEntityTemplate extends BaseContainerBlockEntity imple
         return EnergyGeneratedPT;
     }
 
-    private int EnergyGeneratedPT;
+    protected int EnergyGeneratedPT;
     private final int MaxCapacity;
-    private NonNullList<ItemStack> items = NonNullList.withSize(1, ItemStack.EMPTY);
+    protected NonNullList<ItemStack> items;
     private List<Integer> inputSlots = List.of(0);
 
     public GeneratorBlockEntityTemplate(BlockPos blockPos, BlockState blockState) {
@@ -60,29 +60,27 @@ public class GeneratorBlockEntityTemplate extends BaseContainerBlockEntity imple
     }
 
     @Override
-    public @NotNull CompoundTag getUpdateTag() {
-        CompoundTag tag = new CompoundTag();
-        this.saveAdditional(tag);
-        return tag;
+    public NonNullList<ItemStack> getItems() {
+        return null;
     }
 
     @Override
     public void setChanged() {
-        level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
+        level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 1);
         super.setChanged();
     }
 
     @Override
-    public void load(CompoundTag tag) {
-        super.load(tag);
+    public void load(CompoundTag compoundTag) {
+        super.load(compoundTag);
         this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
-        ContainerHelper.loadAllItems(tag, this.items);
+        ContainerHelper.loadAllItems(compoundTag, this.items);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag) {
-        super.saveAdditional(tag);
-        ContainerHelper.saveAllItems(tag, this.items);
+    protected void saveAdditional(CompoundTag compoundTag) {
+        super.saveAdditional(compoundTag);
+        ContainerHelper.saveAllItems(compoundTag, this.items);
     }
 
     @Override
@@ -114,33 +112,4 @@ public class GeneratorBlockEntityTemplate extends BaseContainerBlockEntity imple
         EnergyApi.distributeEnergyNearby(blockEntity,100);
     }
 
-    @Override
-    public NonNullList<ItemStack> getItems() {
-        return items;
-    }
-
-    @Override
-    public int getContainerSize() {
-        return 1;
-    }
-
-    @Override
-    public ItemStack getItem(int i) {
-        return null;
-    }
-
-    @Override
-    public ItemStack removeItem(int i, int j) {
-        return null;
-    }
-
-    @Override
-    public ItemStack removeItemNoUpdate(int i) {
-        return null;
-    }
-
-    @Override
-    public void setItem(int i, ItemStack itemStack) {
-
-    }
 }

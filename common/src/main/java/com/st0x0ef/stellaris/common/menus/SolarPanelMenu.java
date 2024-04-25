@@ -29,9 +29,9 @@ public class SolarPanelMenu extends AbstractContainerMenu {
         checkContainerSize(container, 1);
         this.inventory = (container);
         this.entity = entity;
-        this.addSlot(new Slot(inventory, 0, 8, 146));
 
-        addSlots(inventory);
+        //TODO fix the slot i didnt have time
+        this.addSlot(new Slot(inventory, 0, 41, 63));
 
         addPlayerHotbar(playerInventory);
         addPlayerInventory(playerInventory);
@@ -69,11 +69,6 @@ public class SolarPanelMenu extends AbstractContainerMenu {
     @Override
     public boolean stillValid(Player player) {
         return this.inventory.stillValid(player);
-    }
-
-
-    private void addSlots(Container inventory) {
-        this.addSlot(new Slot(inventory, 0, 8, 146));
     }
 
     private void addPlayerInventory(Inventory playerInventory) {
