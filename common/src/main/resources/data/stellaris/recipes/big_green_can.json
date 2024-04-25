@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "stellaris:big_can"
+    }
+  },
+  "key": {
+    "X": {
+      "item": "minecraft:green_dye"
+    },
+    "pattern": [
+      "#X ",
+      "   ",
+      "   "
+    ],
+    "result": {
+      "count": 1,
+      "item": "stellaris:big_can"
+    }
+  }
+}
