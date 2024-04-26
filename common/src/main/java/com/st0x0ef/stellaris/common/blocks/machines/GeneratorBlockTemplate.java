@@ -36,7 +36,7 @@ public class GeneratorBlockTemplate extends BaseEnergyBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
+    public InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos blockPos, Player player, BlockHitResult blockHitResult) {
         if (!level.isClientSide()) {
             BlockEntity blockEntity = level.getBlockEntity(blockPos);
             if (blockEntity instanceof GeneratorBlockEntityTemplate) {
@@ -46,4 +46,6 @@ public class GeneratorBlockTemplate extends BaseEnergyBlock {
 
         return InteractionResult.SUCCESS;
     }
+
+
 }

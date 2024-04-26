@@ -10,6 +10,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -24,8 +25,8 @@ public abstract class AbstractGaugeDataRenderer
         this.value = value;
     }
 
-    public void toBytes(FriendlyByteBuf buffer) {
-        GaugeValueSerializer.Serializer.write(this.getValue(), buffer);
+    public void toBytes(FriendlyByteBuf buffer, HolderLookup.Provider provider) {
+        GaugeValueSerializer.Serializer.write(this.getValue(), buffer, provider);
     }
 
     public void render(GuiGraphics graphics, int left, int top, int width, int height) {

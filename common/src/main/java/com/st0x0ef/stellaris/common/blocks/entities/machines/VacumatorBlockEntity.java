@@ -17,6 +17,7 @@ import dev.architectury.registry.menu.MenuRegistry;
 import io.netty.buffer.Unpooled;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -62,16 +63,16 @@ public class VacumatorBlockEntity extends BaseContainerBlockEntity implements Im
         super.setChanged();
     }
     @Override
-    public void load(CompoundTag compoundTag) {
-        super.load(compoundTag);
+    public void loadAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
+        super.loadAdditional(compoundTag, provider);
         this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
-        ContainerHelper.loadAllItems(compoundTag, this.items);
+        ContainerHelper.loadAllItems(compoundTag, this.items, provider);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag compoundTag) {
-        super.saveAdditional(compoundTag);
-        ContainerHelper.saveAllItems(compoundTag, this.items);
+    protected void saveAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
+        super.saveAdditional(compoundTag, provider);
+        ContainerHelper.saveAllItems(compoundTag, this.items, provider);
     }
 
     @Override
@@ -109,13 +110,13 @@ public class VacumatorBlockEntity extends BaseContainerBlockEntity implements Im
 
         if(level.isClientSide()) return;
 
-        if(canCraft()) {
+        /**if(canCraft()) {
             craft();
             setChanged();
-        }
+        }*/
 
     }
-
+    /**
     public boolean canCraft() {
         if(getItem(0).getItem() instanceof CanItem) {
             return  getItem(1).getItem().isEdible() && getItem(2).is(Items.GLASS_BOTTLE) && getItem(3).isEmpty() && getItem(4).isEmpty();
@@ -145,6 +146,6 @@ public class VacumatorBlockEntity extends BaseContainerBlockEntity implements Im
             setItem(4, potionResult);
 
         }
-    }
+    }*/ // TODO : completely rewrite this
 
 }

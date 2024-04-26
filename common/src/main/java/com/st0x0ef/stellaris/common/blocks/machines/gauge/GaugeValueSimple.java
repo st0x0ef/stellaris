@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.blocks.machines.gauge;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -130,14 +131,14 @@ public class GaugeValueSimple implements IGaugeValue
         return this;
     }
     @Override
-    public CompoundTag serialize(CompoundTag nbt) {
+    public CompoundTag serialize(CompoundTag nbt, HolderLookup.Provider provider) {
         CompoundTag compound = new CompoundTag();
         compound.putString("name", this.getName().toString());
         compound.putLong("amount", this.getAmount());
         compound.putLong("capacity", this.getCapacity());
 
         if (this.getDisplayName() != null) {
-            compound.putString("displayName", Component.Serializer.toJson(this.getDisplayName()));
+            compound.putString("displayName", Component.Serializer.toJson(this.getDisplayName(), provider));
         }
 
         compound.putString("unit", this.getUnit());
@@ -146,13 +147,13 @@ public class GaugeValueSimple implements IGaugeValue
         return compound;
     }
     @Override
-    public void deserialize(CompoundTag nbt) {
+    public void deserialize(CompoundTag nbt, HolderLookup.Provider provider) {
         this.name(new ResourceLocation(nbt.getString("name")));
         this.amount(nbt.getInt("amount"));
         this.capacity(nbt.getInt("capacity"));
 
         if (nbt.contains("displayName")) {
-            this.displayeName(Component.Serializer.fromJson(nbt.getString("displayName")));
+            this.displayeName(Component.Serializer.fromJson(nbt.getString("displayName"), provider));
         }
 
         this.unit(nbt.getString("unit"));

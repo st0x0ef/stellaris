@@ -32,11 +32,11 @@ public class RadioactiveBlockEntity extends BlockEntity {
             for (LivingEntity entity : entities) {
                 if (/**!Methods.isLivingInJetSuit(entity) ||*/!entity.getType().is(TagRegistry.ENTITY_RADIATION_INVULNERABLE_TAG)) {
                     if (radioactivityLevel == 1) {
-                        entity.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE.get(), 100, 0));
+                        entity.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE, 100, 0));
                     } else if (radioactivityLevel == 2) {
-                        entity.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE.get(), 100, 1));
+                        entity.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE, 100, 1));
                     } else if (radioactivityLevel == 3) {
-                        entity.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE.get(), 100, 2));
+                        entity.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE, 100, 2));
                     } else {
                         Stellaris.LOG.info(String.valueOf(radioactivityLevel));
                     }

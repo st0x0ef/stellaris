@@ -35,6 +35,11 @@ public class IceShardArrowEntity extends AbstractArrow {
         }
     }
 
+    @Override
+    protected ItemStack getDefaultPickupItem() {
+        return null;
+    }
+
     static {
         DEFAULT_ARROW_STACK = new ItemStack(ItemsRegistry.ICE_SHARD_ARROW.get());
     }

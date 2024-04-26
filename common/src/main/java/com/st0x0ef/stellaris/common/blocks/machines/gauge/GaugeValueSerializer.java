@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.common.blocks.machines.gauge;
 
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.energy.util.Serializable;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -23,7 +24,7 @@ public class GaugeValueSerializer<T extends Serializable> {
 
     private GaugeValueSerializer() {}
 
-    public T deserialize(CompoundTag compound) {
+    public T deserialize(CompoundTag compound, HolderLookup.Provider provider) {
         String locationToString = compound.getString("location");
         CompoundTag valueNBT = compound.getCompound("value");
         Class<? extends T> clazz = locationClassMap.get(new ResourceLocation(locationToString));
@@ -34,7 +35,7 @@ public class GaugeValueSerializer<T extends Serializable> {
 
         try {
             T format = clazz.getDeclaredConstructor().newInstance();
-            format.deserialize(valueNBT); // Using the Serializable interface method
+            format.deserialize(valueNBT, provider);
             return format;
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
                  NoSuchMethodException e) {
@@ -42,22 +43,22 @@ public class GaugeValueSerializer<T extends Serializable> {
         }
     }
 
-    public void write(T format, FriendlyByteBuf buffer) {
-        buffer.writeNbt(serialize(format));
+    public void write(T format, FriendlyByteBuf buffer, HolderLookup.Provider provider) {
+        buffer.writeNbt(serialize(format, provider));
     }
 
-    public CompoundTag serialize(T format) {
+    public CompoundTag serialize(T format, HolderLookup.Provider provider) {
         CompoundTag compound = new CompoundTag();
         compound.putString("location", classLocationMap.get(format.getClass()).toString());
-        compound.put("value", format.serialize(new CompoundTag())); // Using the Serializable interface method
+        compound.put("value", format.serialize(new CompoundTag(), provider)); // Using the Serializable interface method
         return compound;
     }
-    public IGaugeValue read(FriendlyByteBuf buffer) {
+    public IGaugeValue read(FriendlyByteBuf buffer, HolderLookup.Provider provider) {
         CompoundTag compound = buffer.readNbt();
         if (compound == null) {
             throw new IllegalArgumentException("Received null compound tag while reading from buffer.");
         }
-        return (IGaugeValue) deserialize(compound);
+        return (IGaugeValue) deserialize(compound, provider);
     }
 
 

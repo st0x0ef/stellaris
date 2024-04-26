@@ -4,6 +4,7 @@ package com.st0x0ef.stellaris.common.energy.impl;
 import com.st0x0ef.stellaris.common.energy.base.EnergyContainer;
 import com.st0x0ef.stellaris.common.energy.base.EnergySnapshot;
 import com.st0x0ef.stellaris.common.energy.util.Updatable;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -89,13 +90,13 @@ public record WrappedBlockEnergyContainer(BlockEntity blockEntity,
     }
 
     @Override
-    public void deserialize(CompoundTag nbt) {
-        container.deserialize(nbt);
+    public void deserialize(CompoundTag nbt, HolderLookup.Provider provider) {
+        container.deserialize(nbt, provider);
     }
 
     @Override
-    public CompoundTag serialize(CompoundTag nbt) {
-        return container.serialize(nbt);
+    public CompoundTag serialize(CompoundTag nbt, HolderLookup.Provider provider) {
+        return container.serialize(nbt, provider);
     }
 
     @Override

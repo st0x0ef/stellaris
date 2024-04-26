@@ -27,9 +27,9 @@ public class Events {
           NonNullList<ItemStack> items =  menu.getItems();
           items.forEach(item -> {
               if(item.getItem() instanceof RadioactiveItem radioactiveItem) {
-                    player.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE.get(), 100, radioactiveItem.getRadiationLevel()));
+                    player.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE, 100, radioactiveItem.getRadiationLevel()));
               } else if (item.getItem() instanceof RadioactiveBlockItem radioactiveBlockItem){
-                  player.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE.get(), 100, radioactiveBlockItem.getRadiationLevel()));
+                  player.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE, 100, radioactiveBlockItem.getRadiationLevel()));
               }
           });
        });
@@ -41,9 +41,9 @@ public class Events {
                //Stellaris.LOG.error("Checking every " + CustomConfig.getValue("radioactivityCheckInterval") + " seconds");
                player.getInventory().items.forEach(itemStack -> {
                    if(itemStack.getItem() instanceof RadioactiveItem radioactiveItem) {
-                       player.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE.get(), 100, radioactiveItem.getRadiationLevel()));
+                       player.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE, 100, radioactiveItem.getRadiationLevel()));
                    } else if (itemStack.getItem() instanceof RadioactiveBlockItem radioactiveBlockItem){
-                       player.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE.get(), 100, radioactiveBlockItem.getRadiationLevel()));
+                       player.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE, 100, radioactiveBlockItem.getRadiationLevel()));
                    }
                });
                lastRadioactiveCheck = now;

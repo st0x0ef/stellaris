@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.common.blocks.entities;
 
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -23,24 +24,24 @@ public class GlobeTileEntity extends BlockEntity {
     }
 
     @Override
-    public void load(CompoundTag tag) {
-        super.load(tag);
+    public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+        super.loadAdditional(tag, provider);
         this.rotationalInertia = tag.getFloat("inertia");
         this.yaw = tag.getFloat("yaw");
         this.yaw0 = tag.getFloat("yaw0");
     }
 
     @Override
-    public void saveAdditional(CompoundTag tag) {
-        super.saveAdditional(tag);
+    public void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+        super.saveAdditional(tag, provider);
         tag.putFloat("inertia", this.rotationalInertia);
         tag.putFloat("yaw", this.yaw);
         tag.putFloat("yaw0", this.yaw0);
     }
 
     @Override
-    public CompoundTag getUpdateTag() {
-        return this.saveWithoutMetadata();
+    public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
+        return this.saveWithoutMetadata(provider);
     }
 
     @Override

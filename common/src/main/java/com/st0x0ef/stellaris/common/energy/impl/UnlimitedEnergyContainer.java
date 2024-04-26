@@ -4,6 +4,7 @@ package com.st0x0ef.stellaris.common.energy.impl;
 import com.st0x0ef.stellaris.common.energy.base.EnergyContainer;
 import com.st0x0ef.stellaris.common.energy.base.EnergySnapshot;
 import com.st0x0ef.stellaris.common.energy.util.Updatable;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 
 public class UnlimitedEnergyContainer implements EnergyContainer, Updatable {
@@ -63,12 +64,12 @@ public class UnlimitedEnergyContainer implements EnergyContainer, Updatable {
     }
 
     @Override
-    public void deserialize(CompoundTag nbt) {
+    public void deserialize(CompoundTag nbt, HolderLookup.Provider provider) {
         // do nothing
     }
 
     @Override
-    public CompoundTag serialize(CompoundTag nbt) {
+    public CompoundTag serialize(CompoundTag nbt, HolderLookup.Provider provider) {
         return nbt;
     }
 

@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.common.energy.impl;
 import com.st0x0ef.stellaris.common.energy.EnergyMain;
 import com.st0x0ef.stellaris.common.energy.base.EnergyContainer;
 import com.st0x0ef.stellaris.common.energy.base.EnergySnapshot;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
 
@@ -98,7 +99,7 @@ public class SimpleEnergyContainer implements EnergyContainer {
     }
 
     @Override
-    public CompoundTag serialize(CompoundTag root) {
+    public CompoundTag serialize(CompoundTag root, HolderLookup.Provider provider) {
         CompoundTag tag = root.getCompound(EnergyMain.STELLARIS_DATA);
         tag.putLong("Energy", this.energy);
         tag.putLong("MaxEnergy", this.maxEnergy);
@@ -107,7 +108,7 @@ public class SimpleEnergyContainer implements EnergyContainer {
     }
 
     @Override
-    public void deserialize(CompoundTag root) {
+    public void deserialize(CompoundTag root, HolderLookup.Provider provider) {
         CompoundTag tag = root.getCompound(EnergyMain.STELLARIS_DATA);
         this.energy = tag.getLong("Energy");
         this.maxEnergy = tag.getLong("MaxEnergy");

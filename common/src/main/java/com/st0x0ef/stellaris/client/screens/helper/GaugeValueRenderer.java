@@ -7,6 +7,7 @@ import com.st0x0ef.stellaris.common.blocks.machines.gauge.GaugeValueSimple;
 import com.st0x0ef.stellaris.common.blocks.machines.gauge.IGaugeValue;
 import com.st0x0ef.stellaris.common.util.GuiHelper;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 
@@ -19,8 +20,8 @@ public class GaugeValueRenderer extends AbstractGaugeDataRenderer {
         super(value);
     }
 
-    public GaugeValueRenderer(FriendlyByteBuf buffer) {
-        super(GaugeValueSerializer.Serializer.read(buffer));
+    public GaugeValueRenderer(FriendlyByteBuf buffer, HolderLookup.Provider provider) {
+        super(GaugeValueSerializer.Serializer.read(buffer, provider));
     }
 
     @Override

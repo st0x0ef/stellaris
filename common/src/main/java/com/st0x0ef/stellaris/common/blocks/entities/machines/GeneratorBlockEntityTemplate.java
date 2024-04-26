@@ -8,6 +8,7 @@ import com.st0x0ef.stellaris.common.energy.impl.WrappedBlockEnergyContainer;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -65,22 +66,27 @@ public class GeneratorBlockEntityTemplate extends BaseContainerBlockEntity imple
     }
 
     @Override
+    protected void setItems(NonNullList<ItemStack> nonNullList) {
+        this.items = nonNullList;
+    }
+
+    @Override
     public void setChanged() {
         level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 1);
         super.setChanged();
     }
 
     @Override
-    public void load(CompoundTag compoundTag) {
-        super.load(compoundTag);
+    public void loadAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
+        super.loadAdditional(compoundTag, provider);
         this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
-        ContainerHelper.loadAllItems(compoundTag, this.items);
+        ContainerHelper.loadAllItems(compoundTag, this.items, provider);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag compoundTag) {
-        super.saveAdditional(compoundTag);
-        ContainerHelper.saveAllItems(compoundTag, this.items);
+    protected void saveAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
+        super.saveAdditional(compoundTag, provider);
+        ContainerHelper.saveAllItems(compoundTag, this.items, provider);
     }
 
     @Override

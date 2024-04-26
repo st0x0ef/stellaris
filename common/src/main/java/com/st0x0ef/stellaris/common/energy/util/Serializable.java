@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.energy.util;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 
 public interface Serializable {
@@ -9,7 +10,7 @@ public interface Serializable {
      *
      * @param nbt The {@link CompoundTag} to deserialize from.
      */
-    void deserialize(CompoundTag nbt);
+    void deserialize(CompoundTag nbt, HolderLookup.Provider provider);
 
     /**
      * Serializes the information of an object to a {@link CompoundTag}.
@@ -17,5 +18,5 @@ public interface Serializable {
      * @param nbt The {@link CompoundTag} to serialize to.
      * @return The {@link CompoundTag} that was passed in but with the information of the object serialized added to it.
      */
-    CompoundTag serialize(CompoundTag nbt);
+    CompoundTag serialize(CompoundTag nbt, HolderLookup.Provider provider);
 }
