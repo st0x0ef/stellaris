@@ -19,6 +19,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -34,6 +35,7 @@ import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
@@ -110,16 +112,16 @@ public class VacumatorBlockEntity extends BaseContainerBlockEntity implements Im
 
         if(level.isClientSide()) return;
 
-        /**if(canCraft()) {
+        if(canCraft()) {
             craft();
             setChanged();
-        }*/
+        }
 
     }
-    /**
+
     public boolean canCraft() {
         if(getItem(0).getItem() instanceof CanItem) {
-            return  getItem(1).getItem().isEdible() && getItem(2).is(Items.GLASS_BOTTLE) && getItem(3).isEmpty() && getItem(4).isEmpty();
+            return  getItem(1).getItem().components().has(DataComponents.FOOD) && getItem(2).is(Items.GLASS_BOTTLE) && getItem(3).isEmpty() && getItem(4).isEmpty();
         }
 
         return false;
@@ -129,14 +131,13 @@ public class VacumatorBlockEntity extends BaseContainerBlockEntity implements Im
         CanItem can = (CanItem) getItem(0).getItem();
         ItemStack food = getItem(1);
 
-
         if(can.getNutrition(getItem(0)) < can.getMaxNutrition()) {
             ItemStack potionResult = new ItemStack(Items.POTION);
-            PotionUtils.setPotion(potionResult, Potion.byName("minecraft:water"));
+            potionResult.getComponents().get(DataComponents.POTION_CONTENTS).withPotion(Potions.WATER);
 
             ItemStack result = new ItemStack(can);
             CanItem resultCanItem = (CanItem) result.getItem();
-            resultCanItem.addNutrition(result, food.getItem().getFoodProperties().getNutrition());
+            resultCanItem.addNutrition(result, food.getItem().components().get(DataComponents.FOOD).nutrition());
 
 
             for (int i : inputSlots) {
@@ -146,6 +147,6 @@ public class VacumatorBlockEntity extends BaseContainerBlockEntity implements Im
             setItem(4, potionResult);
 
         }
-    }*/ // TODO : completely rewrite this
+    }
 
 }
