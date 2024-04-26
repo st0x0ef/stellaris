@@ -6,12 +6,12 @@ import com.st0x0ef.stellaris.common.energy.base.EnergySnapshot;
 import com.st0x0ef.stellaris.common.energy.impl.SimpleEnergySnapshot;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 
-public record PlatformItemEnergyManager(ItemStackHolder holder, ContainerItemContext context,
-                                        EnergyStorage energy) implements EnergyContainer {
+public record PlatformItemEnergyManager(ItemStackHolder holder, ContainerItemContext context, EnergyStorage energy) implements EnergyContainer {
 
     @Nullable
     public static PlatformItemEnergyManager of(ItemStackHolder stack) {
@@ -101,12 +101,12 @@ public record PlatformItemEnergyManager(ItemStackHolder holder, ContainerItemCon
     }
 
     @Override
-    public void deserialize(CompoundTag nbt) {
+    public void deserialize(CompoundTag nbt, HolderLookup.Provider provider) {
 
     }
 
     @Override
-    public CompoundTag serialize(CompoundTag nbt) {
+    public CompoundTag serialize(CompoundTag nbt, HolderLookup.Provider provider) {
         return nbt;
     }
 

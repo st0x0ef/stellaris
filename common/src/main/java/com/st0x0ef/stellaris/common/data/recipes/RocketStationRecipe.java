@@ -89,39 +89,23 @@ public class RocketStationRecipe implements Recipe<SimpleContainer> {
         public static final Serializer INSTANCE = new Serializer();
         public static final String ID = "rocket_station";
 
-        public static final Codec<RocketStationRecipe> CODEC = RecordCodecBuilder.create(in -> in.group(
+        public static final MapCodec<RocketStationRecipe> CODEC = RecordCodecBuilder.mapCodec(in -> in.group(
                 validateAmount(Ingredient.CODEC_NONEMPTY, 14).fieldOf("ingredients").forGetter(RocketStationRecipe::getIngredients),
                 ItemStack.CODEC.fieldOf("output").forGetter(r -> r.output)
         ).apply(in, RocketStationRecipe::new));
 
         private static Codec<List<Ingredient>> validateAmount(Codec<Ingredient> delegate, int max) {
-            return INSTANCE.codec().validate(INSTANCE.codec().validate(
-                    delegate.listOf(), list -> list.size() > max ? DataResult.error(() -> "Recipe has too many ingredients!") : DataResult.success(list)
-            ), list -> list.isEmpty() ? DataResult.error(() -> "Recipe has no ingredients!") : DataResult.success(list));
+            return delegate.listOf(1, max);
+        }
+
+        @Override
+        public MapCodec<RocketStationRecipe> codec() {
+            return CODEC;
         }
 
         @Override
         public StreamCodec<RegistryFriendlyByteBuf, RocketStationRecipe> streamCodec() {
             return (StreamCodec<RegistryFriendlyByteBuf, RocketStationRecipe>) CODEC; // idk if that work
-        }
-
-        @Override
-        public RocketStationRecipe fromNetwork(FriendlyByteBuf friendlyByteBuf) {
-            NonNullList<Ingredient> inputs = NonNullList.withSize(friendlyByteBuf.readInt(), Ingredient.EMPTY);
-            for (int i = 0; i < inputs.size(); i++) {
-                inputs.set(i, Ingredient.fromNetwork(friendlyByteBuf));
-            }
-            ItemStack output = friendlyByteBuf.readItem();
-            return new RocketStationRecipe(inputs, output);
-        }
-
-        @Override
-        public void toNetwork(FriendlyByteBuf friendlyByteBuf, RocketStationRecipe recipe) {
-            friendlyByteBuf.writeInt(recipe.recipeItems.size());
-            for (Ingredient ingredient : recipe.getIngredients()) {
-                ingredient.toNetwork(friendlyByteBuf);
-            }
-            friendlyByteBuf.writeItem(recipe.getResultItem(null));
         }
     }
 }

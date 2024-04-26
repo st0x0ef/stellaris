@@ -14,7 +14,7 @@ public class RadioactiveEffect extends MobEffect {
     }
 
     @Override
-    public void applyEffectTick(LivingEntity livingEntity, int level) {
+    public boolean applyEffectTick(LivingEntity livingEntity, int level) {
         if (livingEntity.getHealth() > 0.0F) {
             if (level == 0) {
                 livingEntity.hurt(DamageSourceRegistry.of(livingEntity.level(), DamageSourceRegistry.RADIATIONS), 0.5f);
@@ -27,7 +27,11 @@ public class RadioactiveEffect extends MobEffect {
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 80));
                 livingEntity.hurt(DamageSourceRegistry.of(livingEntity.level(), DamageSourceRegistry.RADIATIONS), 0.5f);
             }
+
+            return true;
         }
+
+        return false;
     }
 
     @Override

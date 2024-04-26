@@ -19,8 +19,8 @@ public class FabricItemEnergyContainer<T extends EnergyContainer & Updatable> ex
     public FabricItemEnergyContainer(ContainerItemContext ctx, ItemStack stack, T container) {
         this.ctx = ctx;
         this.stack = stack;
-        CompoundTag nbt = ctx.getItemVariant().getNbt();
-        if (nbt != null) container.deserialize(nbt);
+        //CompoundTag nbt = ctx.getItemVariant().getNbt();
+        //if (nbt != null) container.deserialize(nbt); // TODO : add a DataComponent for energy type
         this.container = container;
     }
 

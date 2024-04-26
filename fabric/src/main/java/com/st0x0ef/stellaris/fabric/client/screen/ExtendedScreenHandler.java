@@ -11,11 +11,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class ExtendedScreenHandler implements ExtendedScreenHandlerFactory {
     @Override
-    public void writeScreenOpeningData(ServerPlayer player, FriendlyByteBuf buf) {
-
-    }
-
-    @Override
     public Component getDisplayName() {
         return null;
     }
@@ -23,6 +18,11 @@ public class ExtendedScreenHandler implements ExtendedScreenHandlerFactory {
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
+        return null;
+    }
+
+    @Override
+    public Object getScreenOpeningData(ServerPlayer player) {
         return null;
     }
 }

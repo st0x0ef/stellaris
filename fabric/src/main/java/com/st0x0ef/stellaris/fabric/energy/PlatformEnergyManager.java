@@ -6,6 +6,7 @@ import com.st0x0ef.stellaris.common.energy.impl.SimpleEnergySnapshot;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -93,12 +94,12 @@ public record PlatformEnergyManager(EnergyStorage energy) implements EnergyConta
     }
 
     @Override
-    public void deserialize(CompoundTag nbt) {
+    public void deserialize(CompoundTag nbt, HolderLookup.Provider provider) {
 
     }
 
     @Override
-    public CompoundTag serialize(CompoundTag nbt) {
+    public CompoundTag serialize(CompoundTag nbt, HolderLookup.Provider provider) {
         return nbt;
     }
 
