@@ -2,10 +2,13 @@ package com.st0x0ef.stellaris.common.data.recipes;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
@@ -43,7 +46,7 @@ public class RocketStationRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public ItemStack assemble(SimpleContainer container, RegistryAccess registryAccess) {
+    public ItemStack assemble(SimpleContainer container, HolderLookup.Provider provider) {
         return output;
     }
 
@@ -53,9 +56,11 @@ public class RocketStationRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess registryAccess) {
+    public ItemStack getResultItem(HolderLookup.Provider provider) {
         return output;
     }
+
+
 
     @Override
     public NonNullList<Ingredient> getIngredients() {
@@ -81,25 +86,23 @@ public class RocketStationRecipe implements Recipe<SimpleContainer> {
     }
 
     public static class Serializer implements RecipeSerializer<RocketStationRecipe> {
-
-
-
         public static final Serializer INSTANCE = new Serializer();
         public static final String ID = "rocket_station";
 
         public static final Codec<RocketStationRecipe> CODEC = RecordCodecBuilder.create(in -> in.group(
                 validateAmount(Ingredient.CODEC_NONEMPTY, 14).fieldOf("ingredients").forGetter(RocketStationRecipe::getIngredients),
-                ItemStack.RESULT_CODEC.fieldOf("output").forGetter(r -> r.output)
+                ItemStack.CODEC.fieldOf("output").forGetter(r -> r.output)
         ).apply(in, RocketStationRecipe::new));
 
         private static Codec<List<Ingredient>> validateAmount(Codec<Ingredient> delegate, int max) {
-            return ExtraCodecs.validate(ExtraCodecs.validate(
+            return INSTANCE.codec().validate(INSTANCE.codec().validate(
                     delegate.listOf(), list -> list.size() > max ? DataResult.error(() -> "Recipe has too many ingredients!") : DataResult.success(list)
             ), list -> list.isEmpty() ? DataResult.error(() -> "Recipe has no ingredients!") : DataResult.success(list));
         }
+
         @Override
-        public Codec<RocketStationRecipe> codec() {
-            return CODEC;
+        public StreamCodec<RegistryFriendlyByteBuf, RocketStationRecipe> streamCodec() {
+            return (StreamCodec<RegistryFriendlyByteBuf, RocketStationRecipe>) CODEC; // idk if that work
         }
 
         @Override

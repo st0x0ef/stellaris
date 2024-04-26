@@ -17,8 +17,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
  * @param blockEntity The block entity.
  * @param container   The wrapped energy container. Botarium provides a default implementation for this with {@link SimpleEnergyContainer}.
  */
-public record WrappedBlockEnergyContainer(BlockEntity blockEntity,
-                                          EnergyContainer container) implements EnergyContainer, Updatable {
+public record WrappedBlockEnergyContainer(BlockEntity blockEntity, EnergyContainer container) implements EnergyContainer, Updatable {
 
     @Override
     public long insertEnergy(long energy, boolean simulate) {

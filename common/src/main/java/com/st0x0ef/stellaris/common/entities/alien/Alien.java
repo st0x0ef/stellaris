@@ -67,7 +67,7 @@ public class Alien extends Villager implements Merchant, Npc {
 	public Villager getBreedOffspring(ServerLevel level, AgeableMob p_241840_2_) {
 		Alien alienentity = new Alien(EntityRegistry.ALIEN.get(), this.level());
 
-		alienentity.finalizeSpawn(level, level.getCurrentDifficultyAt(new BlockPos((int)p_241840_2_.getX(), (int)p_241840_2_.getY(), (int)p_241840_2_.getZ())), MobSpawnType.BREEDING, null, null);
+		alienentity.finalizeSpawn(level, level.getCurrentDifficultyAt(new BlockPos((int)p_241840_2_.getX(), (int)p_241840_2_.getY(), (int)p_241840_2_.getZ())), MobSpawnType.BREEDING, null);
 		return alienentity;
 	}
 
@@ -180,8 +180,10 @@ public class Alien extends Villager implements Merchant, Npc {
 		p_35425_.updateActivityFromSchedule(this.level().getDayTime(), this.level().getGameTime());
 	}
 
+
+
 	@Override
-	public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag) {
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn) {
 
 		if (reason == MobSpawnType.COMMAND || reason == MobSpawnType.SPAWN_EGG || reason == MobSpawnType.SPAWNER || reason == MobSpawnType.DISPENSER) {
 			this.setVillagerData(this.getVillagerData().setType(VillagerType.byBiome(worldIn.getBiome(this.blockPosition()))));

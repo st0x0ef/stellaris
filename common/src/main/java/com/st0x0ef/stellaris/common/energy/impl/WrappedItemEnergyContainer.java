@@ -17,11 +17,6 @@ import net.minecraft.world.item.ItemStack;
  * @param container The wrapped energy container. Botarium provides a default implementation for this with {@link SimpleEnergyContainer}.
  */
 public record WrappedItemEnergyContainer(ItemStack stack, EnergyContainer container) implements EnergyContainer, Updatable {
-
-    public WrappedItemEnergyContainer {
-        container.deserialize(stack.getOrCreateTag());
-    }
-
     @Override
     public long insertEnergy(long energy, boolean simulate) {
         return container.insertEnergy(energy, simulate);
@@ -103,7 +98,7 @@ public record WrappedItemEnergyContainer(ItemStack stack, EnergyContainer contai
 
     @Override
     public void update() {
-        container.serialize(stack.getOrCreateTag());
+        //container.serialize(stack.getOrCreateTag()); // TODO : find how to fix that
     }
 
     @Override
