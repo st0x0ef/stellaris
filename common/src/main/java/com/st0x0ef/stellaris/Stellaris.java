@@ -37,8 +37,7 @@ import org.slf4j.LoggerFactory;
 
 public class Stellaris {
     public static final String MODID = "stellaris";
-    public static final String MOD_NAME = "Stellaris";
-    public static final Logger LOG = LoggerFactory.getLogger(MOD_NAME);
+    public static final Logger LOG = LoggerFactory.getLogger("Stellaris");
     public static final Gson GSON = new GsonBuilder()
             .setPrettyPrinting()
             .setObjectToNumberStrategy(ToNumberPolicy.LONG_OR_DOUBLE)
