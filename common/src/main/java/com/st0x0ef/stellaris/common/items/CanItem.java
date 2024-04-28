@@ -16,7 +16,6 @@ public class CanItem extends Item {
     public CanItem(Properties properties, int maxNutrition) {
         super(properties);
         this.maxNutrition = maxNutrition;
-        this.foodProperties = new FoodProperties.Builder().nutrition(0).saturationModifier(0).build();
     }
 
     public void setFoodProperties(FoodProperties foodProperties) {
@@ -42,12 +41,15 @@ public class CanItem extends Item {
 
     public int getMaxNutrition() {
         return maxNutrition;
-
     }
 
     @Override
     public void appendHoverText(ItemStack itemStack, TooltipContext tooltipContext, List<Component> list, TooltipFlag tooltipFlag) {
-        list.add(Component.literal("Nutrition : " + foodProperties.nutrition() + "/" + getMaxNutrition()));
-        list.add(Component.literal("Saturation : " + foodProperties.saturation()));
+        if (foodProperties != null) {
+            list.add(Component.literal("Nutrition : " + foodProperties.nutrition() + "/" + getMaxNutrition()));
+            list.add(Component.literal("Saturation : " + foodProperties.saturation()));
+        } else {
+            list.add(Component.translatable("tooltip.stellaris.can_item_empty"));
+        }
     }
 }

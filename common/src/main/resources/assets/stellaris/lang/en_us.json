@@ -158,5 +158,7 @@
   "item.stellaris.plutonium_ingot": "Plutonium ingot",
   "block.stellaris.plutonium_block": "Plutonium block",
 
-  "screens.stellaris.config": "Stellaris Config Screen"
+  "screens.stellaris.config": "Stellaris Config Screen",
+
+  "tooltip.stellaris.can_item_empty": "Empty Can"
 }
