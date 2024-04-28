@@ -49,17 +49,19 @@ public abstract class EntityEatMixin extends LivingEntity {
                 food.shrink(1);
             }
 
-            if (food.is(Items.GLASS_BOTTLE)) {
-                if (food.getComponents().get(DataComponents.POTION_CONTENTS).is(Potions.WATER)) {
-                    if (entity instanceof Player player) {
-                        if (player.getItemInHand(InteractionHand.OFF_HAND).getItem() instanceof CanItem can) {
-                            player.getFoodData().eat(can.getFoodProperties().nutrition(), can.getFoodProperties().saturation());
-                        }
+
+
+            this.gameEvent(GameEvent.EAT);
+        }
+
+        if (food.is(Items.GLASS_BOTTLE)) {
+            if (food.getComponents().get(DataComponents.POTION_CONTENTS).is(Potions.WATER)) {
+                if (entity instanceof Player player) {
+                    if (player.getItemInHand(InteractionHand.OFF_HAND).getItem() instanceof CanItem can) {
+                        player.getFoodData().eat(can.getFoodProperties().nutrition(), can.getFoodProperties().saturation());
                     }
                 }
             }
-
-            this.gameEvent(GameEvent.EAT);
         }
 
         cir.setReturnValue(food);
