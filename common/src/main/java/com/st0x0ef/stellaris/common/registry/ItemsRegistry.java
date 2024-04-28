@@ -41,7 +41,24 @@ public class ItemsRegistry {
 
 
     //** Food Items */
+
+
+    public static final RegistrySupplier<Item> CANNED_BAKED_POTATO = ITEMS.register("canned_baked_potato", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).food(FoodRegistry.CHEESE)));
+    public static final RegistrySupplier<Item> CANNED_COOKED_SALMON = ITEMS.register("canned_cooked_salmon", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).food(FoodRegistry.CHEESE)));
+    public static final RegistrySupplier<Item> CANNED_COOKED_PIE = ITEMS.register("canned_cooked_pie", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).food(FoodRegistry.CHEESE)));
+    public static final RegistrySupplier<Item> CANNED_COOKED_RABBIT = ITEMS.register("canned_cooked_rabbit", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).food(FoodRegistry.CHEESE)));
+    public static final RegistrySupplier<Item> CANNED_COOKED_PORKCHOP = ITEMS.register("canned_cooked_porkchop", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).food(FoodRegistry.CHEESE)));
+    public static final RegistrySupplier<Item> CANNED_COOKED_MUTTON = ITEMS.register("canned_cooked_mutton", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).food(FoodRegistry.CHEESE)));
+    public static final RegistrySupplier<Item> CANNED_COOKED_COD = ITEMS.register("canned_cooked_cod", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).food(FoodRegistry.CHEESE)));
+    public static final RegistrySupplier<Item> CANNED_COOKED_CHICKEN = ITEMS.register("canned_cooked_chicken", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).food(FoodRegistry.CHEESE)));
+    public static final RegistrySupplier<Item> CANNED_COOKED_BEEF = ITEMS.register("canned_cooked_beef", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).food(FoodRegistry.CHEESE)));
+
+    public static final RegistrySupplier<Item> CANNED_BREAD = ITEMS.register("canned_bread", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).food(FoodRegistry.CHEESE)));
+    public static final RegistrySupplier<Item> CANNED_BEETROOT_SOUP = ITEMS.register("canned_beetroot_soup", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).food(FoodRegistry.CHEESE)));
     public static final RegistrySupplier<Item> CHEESE = ITEMS.register("cheese", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).food(FoodRegistry.CHEESE)));
+
+
+
 
     /** Block Items */
     public static final RegistrySupplier<Item> STEEL_BLOCK_ITEM = ITEMS.register("steel_block", () -> new BlockItem(BlocksRegistry.STEEL_BLOCK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
