@@ -109,19 +109,17 @@ public class VacumatorBlockEntity extends BaseContainerBlockEntity implements Im
     }
 
     public void tick() {
-
         if(level.isClientSide()) return;
 
         if(canCraft()) {
             craft();
             setChanged();
         }
-
     }
 
     public boolean canCraft() {
         if(getItem(0).getItem() instanceof CanItem) {
-            return  getItem(1).getItem().components().has(DataComponents.FOOD) && getItem(2).is(Items.GLASS_BOTTLE) && getItem(3).isEmpty() && getItem(4).isEmpty();
+            return  isFood(getItem(1)) && getItem(2).is(Items.GLASS_BOTTLE) && getItem(3).isEmpty() && getItem(4).isEmpty();
         }
 
         return false;
@@ -131,22 +129,23 @@ public class VacumatorBlockEntity extends BaseContainerBlockEntity implements Im
         CanItem can = (CanItem) getItem(0).getItem();
         ItemStack food = getItem(1);
 
-        if(can.getNutrition(getItem(0)) < can.getMaxNutrition()) {
-            ItemStack potionResult = new ItemStack(Items.POTION);
-            potionResult.getComponents().get(DataComponents.POTION_CONTENTS).withPotion(Potions.WATER);
+        ItemStack result = new ItemStack(can);
+        CanItem resultCanItem = (CanItem) result.getItem();
 
-            ItemStack result = new ItemStack(can);
-            CanItem resultCanItem = (CanItem) result.getItem();
-            resultCanItem.addNutrition(result, food.getItem().components().get(DataComponents.FOOD).nutrition());
-
-
+        if (resultCanItem.addFoodIfPossible(food)) {
             for (int i : inputSlots) {
                 removeItem(i, 1);
             }
+
+            ItemStack potionResult = new ItemStack(Items.POTION);
+            potionResult.getComponents().get(DataComponents.POTION_CONTENTS).withPotion(Potions.WATER);
+
             setItem(3, result);
             setItem(4, potionResult);
-
         }
     }
 
+    public static boolean isFood(ItemStack food) {
+        return food.has(DataComponents.FOOD);
+    }
 }
