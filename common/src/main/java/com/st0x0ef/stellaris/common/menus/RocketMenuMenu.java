@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.common.menus;
 
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -11,7 +12,7 @@ import net.minecraft.world.item.ItemStack;
 public class RocketMenuMenu extends AbstractContainerMenu {
 
     private final Container inventory;
-    public RocketMenuMenu(int syncId, Inventory inventory) {
+    public RocketMenuMenu(int syncId, Inventory inventory, FriendlyByteBuf buffer) {
         this(syncId, inventory, new SimpleContainer(15));
     }
 

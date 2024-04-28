@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.common.menus;
 
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -13,9 +14,8 @@ public class VacumatorMenu extends AbstractContainerMenu {
 
     private final Container inventory;
 
-    public static VacumatorMenu create(int syncId, Inventory inventory) {
-
-        return new VacumatorMenu(syncId, inventory, new SimpleContainer(5));
+    public VacumatorMenu(int syncId, Inventory inventory, FriendlyByteBuf buffer) {
+        this(syncId, inventory, new SimpleContainer(5));
     }
 
     public VacumatorMenu(int syncId, Inventory playerInventory, Container container)

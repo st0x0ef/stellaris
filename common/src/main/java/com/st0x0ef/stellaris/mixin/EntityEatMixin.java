@@ -54,7 +54,7 @@ public abstract class EntityEatMixin extends LivingEntity {
             this.gameEvent(GameEvent.EAT);
         }
 
-        if (food.is(Items.GLASS_BOTTLE)) {
+        if (food.getComponents().has(DataComponents.POTION_CONTENTS)) {
             if (food.getComponents().get(DataComponents.POTION_CONTENTS).is(Potions.WATER)) {
                 if (entity instanceof Player player) {
                     if (player.getItemInHand(InteractionHand.OFF_HAND).getItem() instanceof CanItem can) {
@@ -66,6 +66,4 @@ public abstract class EntityEatMixin extends LivingEntity {
 
         cir.setReturnValue(food);
     }
-
-
 }
