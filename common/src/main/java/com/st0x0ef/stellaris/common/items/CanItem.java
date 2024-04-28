@@ -16,6 +16,7 @@ public class CanItem extends Item {
     public CanItem(Properties properties, int maxNutrition) {
         super(properties);
         this.maxNutrition = maxNutrition;
+        this.foodProperties = new FoodProperties.Builder().nutrition(0).saturationModifier(0).build();
     }
 
     public void setFoodProperties(FoodProperties foodProperties) {
@@ -32,7 +33,7 @@ public class CanItem extends Item {
 
     public boolean addFoodIfPossible(ItemStack food) {
         if (foodProperties.nutrition() + getNutrition(food) <= maxNutrition) {
-            setFoodProperties((new FoodProperties.Builder()).nutrition(this.foodProperties.nutrition() + getNutrition(food)).saturationModifier(this.foodProperties.saturation() + getSaturation(food)).build());
+            setFoodProperties(new FoodProperties.Builder().nutrition(this.foodProperties.nutrition() + getNutrition(food)).saturationModifier(this.foodProperties.saturation() + getSaturation(food)).build());
             return true;
         }
 
