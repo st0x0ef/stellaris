@@ -2,7 +2,9 @@ package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
 import com.st0x0ef.stellaris.common.energy.EnergyApi;
 import com.st0x0ef.stellaris.common.energy.impl.WrappedBlockEnergyContainer;
+import com.st0x0ef.stellaris.common.items.RadioactiveItem;
 import com.st0x0ef.stellaris.common.menus.CoalGeneratorMenu;
+import com.st0x0ef.stellaris.common.menus.RadioactiveGeneratorMenu;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -16,13 +18,10 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AbstractFurnaceBlock;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
@@ -30,22 +29,18 @@ import java.util.List;
 
 import static net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity.getFuel;
 
-public class CoalGeneratorEntity extends GeneratorBlockEntityTemplate {
-
-    private List<Integer> inputSlots = List.of(0);
-
-    public CoalGeneratorEntity(BlockPos blockPos, BlockState blockState) {
-        super(EntityRegistry.COAL_GENERATOR.get(), blockPos, blockState,1,2000);
+public class RadioactiveGeneratorEntity extends GeneratorBlockEntityTemplate {
+    public RadioactiveGeneratorEntity(BlockPos blockPos, BlockState blockState) {
+        super(EntityRegistry.RADIOACTIVE_GENERATOR.get(), blockPos, blockState,1,2000);
 
         super.items = NonNullList.withSize(1, ItemStack.EMPTY);
     }
 
     @Override
     protected AbstractContainerMenu createMenu(int i, Inventory inventory) {
-        return new CoalGeneratorMenu(i, inventory,this,this);
+        return new RadioactiveGeneratorMenu(i, inventory,this,this);
     }
 
-    //TODO implement coal and charcoal blocks(maybe all blocks)
     int litTime;
     int litDuration;
     int cookingProgress;
@@ -54,7 +49,7 @@ public class CoalGeneratorEntity extends GeneratorBlockEntityTemplate {
     @Override
     public void tick() {}
 
-    public static void serverTick(Level level, BlockPos pos, BlockState state, CoalGeneratorEntity blockEntity) {
+    public static void serverTick(Level level, BlockPos pos, BlockState state, RadioactiveGeneratorEntity blockEntity) {
         WrappedBlockEnergyContainer energyContainer = blockEntity.getEnergyContainer();
         boolean bl = blockEntity.isLit();
         boolean bl2 = false;
@@ -62,11 +57,10 @@ public class CoalGeneratorEntity extends GeneratorBlockEntityTemplate {
             --blockEntity.litTime;
         }
 
-        ItemStack itemStack = (ItemStack)blockEntity.items.get(1);
-        boolean bl3 = !((ItemStack)blockEntity.items.get(0)).isEmpty();
+        ItemStack itemStack = blockEntity.items.get(1);
+        boolean bl3 = !(blockEntity.items.get(0)).isEmpty();
         boolean bl4 = !itemStack.isEmpty();
         if (blockEntity.isLit() || bl4 && bl3) {
-
             int i = blockEntity.getMaxStackSize();
             if (!blockEntity.isLit() && canBurn(blockEntity.items)) {
                 blockEntity.litTime = blockEntity.getBurnDuration(itemStack);
@@ -88,7 +82,7 @@ public class CoalGeneratorEntity extends GeneratorBlockEntityTemplate {
                 ++blockEntity.cookingProgress;
                 if (blockEntity.cookingProgress == blockEntity.cookingTotalTime) {
                     blockEntity.cookingProgress = 0;
-                    blockEntity.cookingTotalTime = getTotalCookTime(level, blockEntity);
+                    blockEntity.cookingTotalTime = blockEntity.getBurnDuration(blockEntity.getItem(0));
                     bl2 = true;
                 }
             } else {
@@ -100,8 +94,7 @@ public class CoalGeneratorEntity extends GeneratorBlockEntityTemplate {
 
         if (bl != blockEntity.isLit()) {
             bl2 = true;
-            //TODO add this to coal generator(its 2am i need some sleep i cant make this now)
-            state = (BlockState)state.setValue(AbstractFurnaceBlock.LIT, blockEntity.isLit());
+            state = state.setValue(AbstractFurnaceBlock.LIT, blockEntity.isLit());
             level.setBlock(pos, state, 3);
         }
 
@@ -121,22 +114,22 @@ public class CoalGeneratorEntity extends GeneratorBlockEntityTemplate {
     }
 
     private static boolean canBurn(NonNullList<ItemStack> inventory) {
-        return !((ItemStack) inventory.get(0)).isEmpty();
+        return !(inventory.get(0)).isEmpty();
     }
 
     //TODO check if this is useful
     private static boolean burn(RegistryAccess registryAccess, @Nullable RecipeHolder<?> recipe, NonNullList<ItemStack> inventory) {
         if (recipe != null && canBurn(inventory)) {
-            ItemStack itemStack = (ItemStack)inventory.get(0);
+            ItemStack itemStack = inventory.get(0);
             ItemStack itemStack2 = recipe.value().getResultItem(registryAccess);
-            ItemStack itemStack3 = (ItemStack)inventory.get(2);
+            ItemStack itemStack3 = inventory.get(2);
             if (itemStack3.isEmpty()) {
                 inventory.set(2, itemStack2.copy());
             } else if (itemStack3.is(itemStack2.getItem())) {
                 itemStack3.grow(1);
             }
 
-            if (itemStack.is(Blocks.WET_SPONGE.asItem()) && !((ItemStack)inventory.get(1)).isEmpty() && ((ItemStack)inventory.get(1)).is(Items.BUCKET)) {
+            if (itemStack.is(Blocks.WET_SPONGE.asItem()) && !(inventory.get(1)).isEmpty() && (inventory.get(1)).is(Items.BUCKET)) {
                 inventory.set(1, new ItemStack(Items.WATER_BUCKET));
             }
 
@@ -152,12 +145,17 @@ public class CoalGeneratorEntity extends GeneratorBlockEntityTemplate {
             return 0;
         } else {
             Item item = fuel.getItem();
-            return (Integer)getFuel().getOrDefault(item, 0);
+            if (item instanceof RadioactiveItem radioactiveItem) {
+                switch (radioactiveItem.getRadiationLevel()) {
+                    case 0: return 200;
+                    case 1: return 500;
+                    case 2: return 1000;
+                    default: return 0;
+                }
+            }
         }
-    }
 
-    private static int getTotalCookTime(Level level, CoalGeneratorEntity blockEntity) {
-        return 200;
+        return 0;
     }
 
     private boolean isLit() {

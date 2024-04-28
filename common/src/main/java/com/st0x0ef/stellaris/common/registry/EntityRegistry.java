@@ -44,14 +44,15 @@ public class EntityRegistry {
     public static final RegistrySupplier<BlockEntityType<BaseEnergyBlockEntity>> TEST_BLOCK = BLOCK_ENTITY_TYPE.register("test_block",
             () -> BlockEntityType.Builder.of(BaseEnergyBlockEntity::new, BlocksRegistry.TEST_BLOCK.get()).build(null));
     public static final RegistrySupplier<BlockEntityType<SolarPanelEntity>> SOLAR_PANEL = BLOCK_ENTITY_TYPE.register("solar_panel",
-            () -> BlockEntityType.Builder.of(SolarPanelEntity::new,BlocksRegistry.SOLAR_PANEL.get()).build(null));
+            () -> BlockEntityType.Builder.of(SolarPanelEntity::new, BlocksRegistry.SOLAR_PANEL.get()).build(null));
     public static final RegistrySupplier<BlockEntityType<CoalGeneratorEntity>> COAL_GENERATOR = BLOCK_ENTITY_TYPE.register("coal_generator",
-            () -> BlockEntityType.Builder.of(CoalGeneratorEntity::new,BlocksRegistry.COAL_GENERATOR.get()).build(null));
+            () -> BlockEntityType.Builder.of(CoalGeneratorEntity::new, BlocksRegistry.COAL_GENERATOR.get()).build(null));
+    public static final RegistrySupplier<BlockEntityType<RadioactiveGeneratorEntity>> RADIOACTIVE_GENERATOR = BLOCK_ENTITY_TYPE.register("radioactive_generator",
+            () -> BlockEntityType.Builder.of(RadioactiveGeneratorEntity::new, BlocksRegistry.RADIOACTIVE_GENERATOR.get()).build(null));
     public static final RegistrySupplier<BlockEntityType<CableBlockEntity>> CABLE_ENTITY = BLOCK_ENTITY_TYPE.register("cable",
-            () -> BlockEntityType.Builder.of(CableBlockEntity::new,BlocksRegistry.CABLE.get()).build(null));
-
+            () -> BlockEntityType.Builder.of(CableBlockEntity::new, BlocksRegistry.CABLE.get()).build(null));
     public static final RegistrySupplier<BlockEntityType<VacumatorBlockEntity>> VACUMATOR_ENTITY = BLOCK_ENTITY_TYPE.register("vacumator",
-            () -> BlockEntityType.Builder.of(VacumatorBlockEntity::new,BlocksRegistry.VACUMATOR.get()).build(null));
+            () -> BlockEntityType.Builder.of(VacumatorBlockEntity::new, BlocksRegistry.VACUMATOR.get()).build(null));
 
     //Entity type
 

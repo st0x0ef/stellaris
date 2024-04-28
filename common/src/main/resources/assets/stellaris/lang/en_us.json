@@ -85,6 +85,9 @@
 
   "block.stellaris.rocket_launch_pad": "Rocket Launch Pad",
   "block.stellaris.rocket_station": "Rocket Station",
+  "block.stellaris.coal_generator": "Coal Generator",
+  "block.stellaris.radioactive_generator": "Radioactive Generator",
+  "block.stellaris.solar_panel": "Solar Panel",
   "block.stellaris.flag": "Flag",
 
 
