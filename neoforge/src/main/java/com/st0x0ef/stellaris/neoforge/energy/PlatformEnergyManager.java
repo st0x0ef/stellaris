@@ -6,6 +6,7 @@ import com.st0x0ef.stellaris.common.energy.base.EnergySnapshot;
 import com.st0x0ef.stellaris.common.energy.impl.SimpleEnergySnapshot;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -90,17 +91,17 @@ public record PlatformEnergyManager(IEnergyStorage energy) implements EnergyCont
     }
 
     @Override
-    public void deserialize(CompoundTag nbt) {
-
-    }
-
-    @Override
-    public CompoundTag serialize(CompoundTag nbt) {
-        return nbt;
-    }
-
-    @Override
     public void clearContent() {
         setEnergy(0);
+    }
+
+    @Override
+    public void deserialize(CompoundTag nbt, HolderLookup.Provider provider) {
+
+    }
+
+    @Override
+    public CompoundTag serialize(CompoundTag nbt, HolderLookup.Provider provider) {
+        return nbt;
     }
 }

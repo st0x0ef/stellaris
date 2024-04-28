@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.common.events;
 
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.config.CustomConfig;
 import com.st0x0ef.stellaris.common.items.RadioactiveBlockItem;
 import com.st0x0ef.stellaris.common.items.RadioactiveItem;
@@ -12,8 +11,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-
-import java.util.concurrent.atomic.AtomicLong;
 
 public class Events {
 
