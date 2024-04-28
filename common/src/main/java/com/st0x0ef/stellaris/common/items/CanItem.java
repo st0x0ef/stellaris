@@ -44,6 +44,10 @@ public class CanItem extends Item {
         return maxNutrition;
     }
 
+    public FoodProperties getFoodProperties() {
+        return this.foodProperties;
+    }
+
     @Override
     public void appendHoverText(ItemStack itemStack, TooltipContext tooltipContext, List<Component> list, TooltipFlag tooltipFlag) {
         if (foodProperties.nutrition() > 0 && foodProperties.saturation() > 0) {

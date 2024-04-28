@@ -1,40 +1,22 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
-import com.mojang.serialization.MapCodec;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.entities.ImplementedInventory;
-import com.st0x0ef.stellaris.common.blocks.machines.BaseEnergyBlock;
-import com.st0x0ef.stellaris.common.energy.base.EnergyContainer;
-import com.st0x0ef.stellaris.common.energy.impl.WrappedBlockEnergyContainer;
 import com.st0x0ef.stellaris.common.items.CanItem;
-import com.st0x0ef.stellaris.common.menus.RocketStationMenu;
-import com.st0x0ef.stellaris.common.menus.SolarPanelMenu;
 import com.st0x0ef.stellaris.common.menus.VacumatorMenu;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
-import com.st0x0ef.stellaris.common.registry.TagRegistry;
-import dev.architectury.registry.menu.ExtendedMenuProvider;
-import dev.architectury.registry.menu.MenuRegistry;
-import io.netty.buffer.Unpooled;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.ContainerHelper;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.item.BowlFoodItem;
-import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -137,8 +119,7 @@ public class VacumatorBlockEntity extends BaseContainerBlockEntity implements Im
                 removeItem(i, 1);
             }
 
-            ItemStack potionResult = new ItemStack(Items.POTION);
-            potionResult.getComponents().get(DataComponents.POTION_CONTENTS).withPotion(Potions.WATER);
+            ItemStack potionResult = PotionContents.createItemStack(Items.POTION, Potions.WATER);
 
             setItem(3, result);
             setItem(4, potionResult);
