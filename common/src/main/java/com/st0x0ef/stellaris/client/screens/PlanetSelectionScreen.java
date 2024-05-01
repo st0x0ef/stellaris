@@ -14,11 +14,11 @@ import net.minecraft.network.chat.Component;
 
 
 @Environment(EnvType.CLIENT)
-public class Planetselectionscreen extends AbstractContainerScreen<PlanetSelectionMenu> {
+public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelectionMenu> {
     public static final ResourceLocation texture = new ResourceLocation(Stellaris.MODID, "textures/gui/planet_selection.png");
 
 
-    public Planetselectionscreen(PlanetSelectionMenu abstractContainerMenu, Inventory inventory, Component component) {
+    public PlanetSelectionScreen(PlanetSelectionMenu abstractContainerMenu, Inventory inventory, Component component) {
         super(abstractContainerMenu, inventory, component);
         this.imageWidth = 1200;
         this.imageHeight = 1600;
