@@ -2,12 +2,22 @@ package com.st0x0ef.stellaris.common.blocks.machines;
 
 import com.mojang.serialization.MapCodec;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.RocketStationEntity;
+import com.st0x0ef.stellaris.common.menus.RocketStationMenu;
+import com.st0x0ef.stellaris.common.menus.VacumatorMenu;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
+import dev.architectury.registry.menu.ExtendedMenuProvider;
+import dev.architectury.registry.menu.MenuRegistry;
+import io.netty.buffer.Unpooled;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.RenderShape;
@@ -36,7 +46,7 @@ public class RocketStation extends BaseEntityBlock {
         if (!level.isClientSide) {
             BlockEntity blockEntity = level.getBlockEntity(blockPos);
             if (blockEntity instanceof RocketStationEntity) {
-                player.openMenu(blockState.getMenuProvider(level, blockPos));
+                MenuRegistry.openExtendedMenu((ServerPlayer) player, this.getMenuProvider(blockState, level, blockPos));
             }
         }
         return InteractionResult.SUCCESS;
@@ -71,4 +81,25 @@ public class RocketStation extends BaseEntityBlock {
         return RenderShape.MODEL;
     }
 
+    @Nullable
+    @Override
+    protected ExtendedMenuProvider getMenuProvider(BlockState state, Level level, BlockPos pos) {
+        return new ExtendedMenuProvider() {
+            @Override
+            public void saveExtraData(FriendlyByteBuf buf) {
+                buf.writeBlockPos(pos);
+            }
+
+            @Override
+            public Component getDisplayName() {
+                return RocketStation.this.getName();
+            }
+
+            @Override
+            public AbstractContainerMenu createMenu(int syncId, Inventory inv, Player player) {
+                return new RocketStationMenu(syncId, inv,  new FriendlyByteBuf(Unpooled.buffer()).writeBlockPos(pos));
+            }
+        };
+
+    }
 }

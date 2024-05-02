@@ -16,6 +16,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -58,7 +59,8 @@ public class Vacumator extends BaseEntityBlock{
         if (!level.isClientSide()) {
             BlockEntity blockEntity = level.getBlockEntity(blockPos);
             if (blockEntity instanceof VacumatorBlockEntity) {
-                MenuRegistry.openMenu((ServerPlayer) player, blockState.getMenuProvider(level, blockPos));
+                MenuRegistry.openExtendedMenu((ServerPlayer) player, this.getMenuProvider(blockState, level, blockPos));
+
             }
         }
         return InteractionResult.SUCCESS;
@@ -87,4 +89,26 @@ public class Vacumator extends BaseEntityBlock{
         return RenderShape.MODEL;
     }
 
+
+    @Nullable
+    @Override
+    protected ExtendedMenuProvider getMenuProvider(BlockState state, Level level, BlockPos pos) {
+        return new ExtendedMenuProvider() {
+            @Override
+            public void saveExtraData(FriendlyByteBuf buf) {
+                buf.writeBlockPos(pos);
+            }
+
+            @Override
+            public Component getDisplayName() {
+                return Vacumator.this.getName();
+            }
+
+            @Override
+            public AbstractContainerMenu createMenu(int syncId, Inventory inv, Player player) {
+                return new VacumatorMenu(syncId, inv,  new FriendlyByteBuf(Unpooled.buffer()).writeBlockPos(pos));
+            }
+        };
+
+    }
 }

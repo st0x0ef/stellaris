@@ -30,6 +30,6 @@ public abstract class EntityTick {
         }
 
 
-        EntityOxygen.tick(entity);
+        //EntityOxygen.tick(entity);
     }
 }
