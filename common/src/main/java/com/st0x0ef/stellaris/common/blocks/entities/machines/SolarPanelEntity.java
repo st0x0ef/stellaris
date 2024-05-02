@@ -11,8 +11,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class SolarPanelEntity extends GeneratorBlockEntityTemplate {
+
+    protected NonNullList<ItemStack> items;
+
     public SolarPanelEntity(BlockPos blockPos, BlockState blockState) {
         super(EntityRegistry.SOLAR_PANEL.get(), blockPos, blockState,1,500);
+        this.items = NonNullList.withSize(1, ItemStack.EMPTY);
     }
 
     @Override
@@ -25,5 +29,15 @@ public class SolarPanelEntity extends GeneratorBlockEntityTemplate {
         Level level = this.getLevel();
         BlockPos blockPos = this.getBlockPos().offset(0, 1, 0);
         return level.isDay() && level.canSeeSky(blockPos);
+    }
+
+    @Override
+    public NonNullList<ItemStack> getItems() {
+        return items;
+    }
+
+    @Override
+    public void setItems(NonNullList<ItemStack> items) {
+        this.items = items;
     }
 }
