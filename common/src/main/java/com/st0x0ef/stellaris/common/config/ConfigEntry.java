@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.common.config;
 
 import java.io.Serializable;
-import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 public class ConfigEntry<T> implements Serializable {

@@ -1,8 +1,8 @@
 package com.st0x0ef.stellaris.common.energy;
 
 import com.st0x0ef.stellaris.common.energy.base.EnergyBlock;
-import com.st0x0ef.stellaris.common.energy.base.EnergyItem;
 import com.st0x0ef.stellaris.common.energy.base.EnergyContainer;
+import com.st0x0ef.stellaris.common.energy.base.EnergyItem;
 import com.st0x0ef.stellaris.common.energy.util.Updatable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

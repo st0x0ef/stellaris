@@ -5,7 +5,6 @@ import com.st0x0ef.stellaris.common.data.planets.StellarisData;
 import com.st0x0ef.stellaris.common.registry.DamageSourceRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
 import java.util.List;

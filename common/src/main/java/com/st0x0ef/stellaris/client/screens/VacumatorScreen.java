@@ -2,10 +2,6 @@ package com.st0x0ef.stellaris.client.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.blocks.entities.machines.VacumatorBlockEntity;
-import com.st0x0ef.stellaris.common.blocks.machines.gauge.GaugeTextHelper;
-import com.st0x0ef.stellaris.common.blocks.machines.gauge.GaugeValueHelper;
-import com.st0x0ef.stellaris.common.energy.impl.WrappedBlockEnergyContainer;
 import com.st0x0ef.stellaris.common.menus.VacumatorMenu;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

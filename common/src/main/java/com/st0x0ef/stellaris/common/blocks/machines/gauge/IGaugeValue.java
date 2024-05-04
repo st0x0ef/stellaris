@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.common.blocks.machines.gauge;
 
 import com.st0x0ef.stellaris.common.energy.util.Serializable;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 
 public interface IGaugeValue extends Serializable

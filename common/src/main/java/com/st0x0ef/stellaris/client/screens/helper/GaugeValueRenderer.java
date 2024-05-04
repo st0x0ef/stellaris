@@ -5,7 +5,6 @@ import com.st0x0ef.stellaris.common.blocks.machines.gauge.GaugeValueFluidStack;
 import com.st0x0ef.stellaris.common.blocks.machines.gauge.GaugeValueSerializer;
 import com.st0x0ef.stellaris.common.blocks.machines.gauge.GaugeValueSimple;
 import com.st0x0ef.stellaris.common.blocks.machines.gauge.IGaugeValue;
-import com.st0x0ef.stellaris.common.util.GuiHelper;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.FriendlyByteBuf;

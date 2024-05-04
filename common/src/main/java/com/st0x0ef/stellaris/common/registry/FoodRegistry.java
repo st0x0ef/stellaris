@@ -1,7 +1,5 @@
 package com.st0x0ef.stellaris.common.registry;
 
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 
 public class FoodRegistry {
