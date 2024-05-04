@@ -16,9 +16,8 @@ public abstract class EntityTick {
 
     @Shadow public abstract void tick();
 
-    // Check every 10 seconds
-    private static final long RADIOACTIVE_CHECK = 1000;
-    private static long lastRadioactiveCheck;
+    private static final long OXYGEN_CHECK = 1000;
+    private static long lastOxygenCheck;
 
     @Inject(at = @At(value = "HEAD"), method = "tick")
     private void tick(CallbackInfo info) {
@@ -26,11 +25,9 @@ public abstract class EntityTick {
 
 
         long now = System.currentTimeMillis();
-        if((now - lastRadioactiveCheck) > RADIOACTIVE_CHECK){
+        if((now - lastOxygenCheck) > OXYGEN_CHECK){
             EntityOxygen.tick(entity);
         }
-        lastRadioactiveCheck = now;
-
-
+        lastOxygenCheck = now;
     }
 }
