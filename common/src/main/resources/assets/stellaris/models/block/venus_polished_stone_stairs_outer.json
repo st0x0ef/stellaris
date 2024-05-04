@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "stellaris:block/polished_venus_stone",
+    "side": "stellaris:block/polished_venus_stone",
+    "top": "stellaris:block/polished_venus_stone"
+  }
+}
