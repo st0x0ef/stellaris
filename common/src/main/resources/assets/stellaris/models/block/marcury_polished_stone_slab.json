@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "stellaris:block/polished_mercury_stone",
+    "side": "stellaris:block/polished_mercury_stone",
+    "top": "stellaris:block/polished_mercury_stone"
+  }
+}

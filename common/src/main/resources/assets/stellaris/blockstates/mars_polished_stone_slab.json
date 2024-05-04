@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "stellaris:block/mars_polished_stone_slab"
+    },
+    "type=double": {
+      "model": "stellaris:block/polished_mars_stone"
+    },
+    "type=top": {
+      "model": "stellaris:block/mars_polished_stone_slab_top"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "stellaris:block/venus_stone_slab"
+    },
+    "type=double": {
+      "model": "stellaris:block/venus_stone"
+    },
+    "type=top": {
+      "model": "stellaris:block/venus_stone_slab_top"
+    }
+  }
+}

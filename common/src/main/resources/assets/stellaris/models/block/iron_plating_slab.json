@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "stellaris:block/iron_plating_block",
+    "side": "stellaris:block/iron_plating_block",
+    "top": "stellaris:block/iron_plating_block"
+  }
+}

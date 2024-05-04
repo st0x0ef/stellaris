@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "stellaris:block/polished_conglomorate",
+    "side": "stellaris:block/polished_conglomorate",
+    "top": "stellaris:block/polished_conglomorate"
+  }
+}
