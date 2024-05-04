@@ -2,7 +2,6 @@ package com.st0x0ef.stellaris.common.config;
 
 import com.google.gson.JsonObject;
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.config.types.RangedInt;
 import dev.architectury.platform.Platform;
 
 import java.io.FileWriter;
@@ -27,7 +26,12 @@ public class CustomConfig {
     public static void addEntries() {
 
         addEntry("radioactivityCheckInterval", new ConfigEntry<Long>(5L, "This is a ranged Int"));
-        addEntry("test", new ConfigEntry<Integer>(5, "This is a ranged Int"));
+        //do we need this?
+        //addEntry("test", new ConfigEntry<Integer>(5, "This is a ranged Int"));
+        //Change these if necessary
+        addEntry("uraniumBurnTime", new ConfigEntry<Integer>(/*coalBurnTime*5 */8000,"Burn time for uranium ingot in Radioactive Generator"));
+        addEntry("plutoniumBurnTime", new ConfigEntry<Integer>(/*uraniumBurnTime*1.5 */12000,"Burn time for plutonium ingot in Radioactive Generator"));
+        addEntry("neptuniumBurnTime", new ConfigEntry<Integer>(/*uraniumBurnTime*2 */16000,"Burn time for neptunium ingot in Radioactive Generator"));
 
     }
 

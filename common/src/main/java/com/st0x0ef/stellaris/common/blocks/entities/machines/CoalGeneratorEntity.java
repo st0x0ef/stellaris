@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
+import com.st0x0ef.stellaris.common.blocks.machines.CoalGenerator;
 import com.st0x0ef.stellaris.common.energy.EnergyApi;
 import com.st0x0ef.stellaris.common.energy.impl.WrappedBlockEnergyContainer;
 import com.st0x0ef.stellaris.common.menus.CoalGeneratorMenu;
@@ -13,16 +14,13 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.AbstractFurnaceBlock;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
@@ -31,6 +29,12 @@ import java.util.List;
 import static net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity.getFuel;
 
 public class CoalGeneratorEntity extends GeneratorBlockEntityTemplate {
+    int litTime;
+    int litDuration;
+    int cookingProgress;
+    int cookingTotalTime;
+
+    public final ContainerData dataAccess;
 
     private List<Integer> inputSlots = List.of(0);
 
@@ -38,18 +42,48 @@ public class CoalGeneratorEntity extends GeneratorBlockEntityTemplate {
         super(EntityRegistry.COAL_GENERATOR.get(), blockPos, blockState,1,2000);
 
         super.items = NonNullList.withSize(1, ItemStack.EMPTY);
+
+        this.dataAccess = new ContainerData() {
+
+            public int get(int i) {
+                switch (i) {
+                    case 0 -> {
+                        return CoalGeneratorEntity.this.litTime;
+                    }
+                    case 1 -> {
+                        return CoalGeneratorEntity.this.litDuration;
+                    }
+                    case 2 -> {
+                        return CoalGeneratorEntity.this.cookingProgress;
+                    }
+                    case 3 -> {
+                        return CoalGeneratorEntity.this.cookingTotalTime;
+                    }
+                    default -> {
+                        return 0;
+                    }
+                }
+            }
+
+            public void set(int i, int j) {
+                switch (i) {
+                    case 0 -> CoalGeneratorEntity.this.litTime = j;
+                    case 1 -> CoalGeneratorEntity.this.litDuration = j;
+                    case 2 -> CoalGeneratorEntity.this.cookingProgress = j;
+                    case 3 -> CoalGeneratorEntity.this.cookingTotalTime = j;
+                }
+            }
+
+            public int getCount() {
+                return 4;
+            }
+        };
     }
 
     @Override
     protected AbstractContainerMenu createMenu(int i, Inventory inventory) {
-        return new CoalGeneratorMenu(i, inventory,this,this);
+        return new CoalGeneratorMenu(i, inventory,this,this, dataAccess);
     }
-
-    //TODO implement coal and charcoal blocks(maybe all blocks)
-    int litTime;
-    int litDuration;
-    int cookingProgress;
-    int cookingTotalTime;
 
     @Override
     public void tick() {}
@@ -100,8 +134,7 @@ public class CoalGeneratorEntity extends GeneratorBlockEntityTemplate {
 
         if (bl != blockEntity.isLit()) {
             bl2 = true;
-            //TODO add this to coal generator(its 2am i need some sleep i cant make this now)
-            state = (BlockState)state.setValue(AbstractFurnaceBlock.LIT, blockEntity.isLit());
+            state = (BlockState)state.setValue(CoalGenerator.LIT, blockEntity.isLit());
             level.setBlock(pos, state, 3);
         }
 
@@ -166,13 +199,18 @@ public class CoalGeneratorEntity extends GeneratorBlockEntityTemplate {
 
     @Override
     public boolean canGenerate() {
-        return canBurn(this.items);
+        return this.isLit();
     }
 
     @Override
-    public NonNullList<ItemStack> getItems() {
-        return this.items;
+    protected void setItems(NonNullList<ItemStack> nonNullList) {
+        this.items = nonNullList;
     }
+
+//    @Override
+//    public NonNullList<ItemStack> getItems() {
+//        return this.items;
+//    }
 
     @Override
     public void loadAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {

@@ -1,15 +1,16 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
+import com.google.common.collect.Maps;
+import com.st0x0ef.stellaris.common.config.CustomConfig;
 import com.st0x0ef.stellaris.common.energy.EnergyApi;
 import com.st0x0ef.stellaris.common.energy.impl.WrappedBlockEnergyContainer;
 import com.st0x0ef.stellaris.common.items.RadioactiveItem;
-import com.st0x0ef.stellaris.common.menus.CoalGeneratorMenu;
 import com.st0x0ef.stellaris.common.menus.RadioactiveGeneratorMenu;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
+import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
 import net.minecraft.world.ContainerHelper;
@@ -17,19 +18,22 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AbstractFurnaceBlock;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
-
-import static net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity.getFuel;
+import java.util.Map;
 
 public class RadioactiveGeneratorEntity extends GeneratorBlockEntityTemplate {
+
+    int litTime;
+    int litDuration;
+    int cookingProgress;
+    int cookingTotalTime;
+    private static volatile Map<Item, Integer> fuelCache;
+
+
     public RadioactiveGeneratorEntity(BlockPos blockPos, BlockState blockState) {
         super(EntityRegistry.RADIOACTIVE_GENERATOR.get(), blockPos, blockState,1,2000);
 
@@ -40,11 +44,6 @@ public class RadioactiveGeneratorEntity extends GeneratorBlockEntityTemplate {
     protected AbstractContainerMenu createMenu(int i, Inventory inventory) {
         return new RadioactiveGeneratorMenu(i, inventory,this,this);
     }
-
-    int litTime;
-    int litDuration;
-    int cookingProgress;
-    int cookingTotalTime;
 
     @Override
     public void tick() {}
@@ -118,26 +117,33 @@ public class RadioactiveGeneratorEntity extends GeneratorBlockEntityTemplate {
     }
 
     //TODO check if this is useful
-    private static boolean burn(RegistryAccess registryAccess, @Nullable RecipeHolder<?> recipe, NonNullList<ItemStack> inventory) {
-        if (recipe != null && canBurn(inventory)) {
+    private static boolean burn(NonNullList<ItemStack> inventory) {
+        if (canBurn(inventory)) {
             ItemStack itemStack = inventory.get(0);
-            ItemStack itemStack2 = recipe.value().getResultItem(registryAccess);
-            ItemStack itemStack3 = inventory.get(2);
-            if (itemStack3.isEmpty()) {
-                inventory.set(2, itemStack2.copy());
-            } else if (itemStack3.is(itemStack2.getItem())) {
-                itemStack3.grow(1);
-            }
-
-            if (itemStack.is(Blocks.WET_SPONGE.asItem()) && !(inventory.get(1)).isEmpty() && (inventory.get(1)).is(Items.BUCKET)) {
-                inventory.set(1, new ItemStack(Items.WATER_BUCKET));
-            }
-
             itemStack.shrink(1);
             return true;
         } else {
             return false;
         }
+    }
+
+    public static Map<Item, Integer> getFuel() {
+        Map<Item, Integer> map = fuelCache;
+        if (map != null) {
+            return map;
+        } else {
+            Map<Item, Integer> map2 = Maps.newLinkedHashMap();
+            add(map2, ItemsRegistry.URANIUM_INGOT.get(), (int) CustomConfig.getValue("uraniumBurnTime"));
+            add(map2, ItemsRegistry.PLUTONIUM_INGOT.get(), (int) CustomConfig.getValue("plutoniumBurnTime"));
+            add(map2, ItemsRegistry.NEPTUNIUM_INGOT.get(), (int) CustomConfig.getValue("neptuniumBurnTime"));
+            fuelCache = map2;
+            return map2;
+        }
+    }
+
+    private static void add(Map<Item, Integer> map, ItemLike itemLike, int i) {
+        Item item = itemLike.asItem();
+        map.put(item, i);
     }
 
     protected int getBurnDuration(ItemStack fuel) {
