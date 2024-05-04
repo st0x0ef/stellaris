@@ -24,7 +24,6 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         this.imageHeight = 1600;
         this.inventoryLabelY = this.imageHeight - 110;
 
-
     }
 
     @Override
@@ -41,7 +40,6 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, texture);
         graphics.blit(texture, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
-
 
     }
 }

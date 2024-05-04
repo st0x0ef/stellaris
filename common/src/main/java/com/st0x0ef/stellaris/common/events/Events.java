@@ -1,16 +1,22 @@
 package com.st0x0ef.stellaris.common.events;
 
 import com.st0x0ef.stellaris.common.config.CustomConfig;
+import com.st0x0ef.stellaris.common.data.planets.StellarisData;
 import com.st0x0ef.stellaris.common.items.RadioactiveBlockItem;
 import com.st0x0ef.stellaris.common.items.RadioactiveItem;
 import com.st0x0ef.stellaris.common.registry.EffectsRegistry;
 import dev.architectury.event.events.common.PlayerEvent;
 import dev.architectury.event.events.common.TickEvent;
 import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 public class Events {
 
@@ -34,8 +40,7 @@ public class Events {
        TickEvent.PLAYER_POST.register(player -> {
            long now = System.currentTimeMillis();
 
-           if((now - lastRadioactiveCheck) > RADIOACTIVE_CHECK){
-               //Stellaris.LOG.error("Checking every " + CustomConfig.getValue("radioactivityCheckInterval") + " seconds");
+           if((now - lastRadioactiveCheck) > RADIOACTIVE_CHECK) {
                player.getInventory().items.forEach(itemStack -> {
                    if(itemStack.getItem() instanceof RadioactiveItem radioactiveItem) {
                        player.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE, 100, radioactiveItem.getRadiationLevel()));
@@ -47,7 +52,6 @@ public class Events {
            }
 
        });
-
 
    }
 }
