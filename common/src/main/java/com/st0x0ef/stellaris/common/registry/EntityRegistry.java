@@ -37,8 +37,7 @@ public class EntityRegistry {
             BlocksRegistry.MOON_GLOBE_BLOCK.get(),
             BlocksRegistry.MARS_GLOBE_BLOCK.get(),
             BlocksRegistry.MERCURY_GLOBE_BLOCK.get(),
-            BlocksRegistry.VENUS_GLOBE_BLOCK.get(),
-            BlocksRegistry.GLACIO_GLOBE_BLOCK.get())
+            BlocksRegistry.VENUS_GLOBE_BLOCK.get())
             .build(null));
 
     public static final RegistrySupplier<BlockEntityType<BaseEnergyBlockEntity>> TEST_BLOCK = BLOCK_ENTITY_TYPE.register("test_block",
