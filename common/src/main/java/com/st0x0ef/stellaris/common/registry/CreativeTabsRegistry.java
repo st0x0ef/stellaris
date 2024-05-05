@@ -20,4 +20,11 @@ public class CreativeTabsRegistry {
                     () -> new ItemStack(ItemsRegistry.STEEL_INGOT)
             )
     );
+    public static final RegistrySupplier<CreativeModeTab> STELLARIS_BLOCKS_TAB = TABS.register(
+            "stellaris_blocks",
+            () -> CreativeTabRegistry.create(
+                    Component.translatable("categorie.stellaris_blocks.main"),
+                    () -> new ItemStack(ItemsRegistry.STEEL_BLOCK_ITEM)
+            )
+    );
 }
