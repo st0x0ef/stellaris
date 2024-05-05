@@ -1,5 +1,5 @@
 {
-  "parent": "stellaris:block/vertical_slab",
+  "parent": "stellaris:custom/vertical_slab",
   "textures": {
     "bottom": "block/moon_stone",
     "top": "block/moon_stone",

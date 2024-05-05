@@ -4,6 +4,7 @@ import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.FlagBlock;
 import com.st0x0ef.stellaris.common.blocks.RadioactiveBlock;
 import com.st0x0ef.stellaris.common.blocks.RocketLaunchPad;
+import com.st0x0ef.stellaris.common.blocks.VerticalSlabBlock;
 import com.st0x0ef.stellaris.common.blocks.machines.*;
 import dev.architectury.core.block.ArchitecturyLiquidBlock;
 import dev.architectury.registry.registries.DeferredRegister;
@@ -175,6 +176,6 @@ public class BlocksRegistry {
     public static final RegistrySupplier<Block> STEEL_PILLAR = BLOCKS.register("steel_pillar", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(5f, 2.5f).requiresCorrectToolForDrops()));
     public static final RegistrySupplier<Block> VENUS_PILLAR = BLOCKS.register("venus_pillar", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(5f, 2.5f).requiresCorrectToolForDrops()));
 
-    public static final RegistrySupplier<Block> VERTICAL_MOON_SLAB = BLOCKS.register("vertical_moon_slab", () -> new FlagBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(5f, 2.5f).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> VERTICAL_MOON_SLAB = BLOCKS.register("vertical_moon_slab", () -> new VerticalSlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(5f, 2.5f).requiresCorrectToolForDrops()));
 
 }
