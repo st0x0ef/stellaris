@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "stellaris:block/venus_smooth_sandstone_slab"
+    },
+    "type=double": {
+      "model": "stellaris:block/venus_smooth_sandstone"
+    },
+    "type=top": {
+      "model": "stellaris:block/venus_smooth_sandstone_slab_top"
+    }
+  }
+}

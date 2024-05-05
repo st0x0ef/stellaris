@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "stellaris:block/venus_smooth_sandstone",
+    "side": "stellaris:block/venus_smooth_sandstone",
+    "top": "stellaris:block/venus_smooth_sandstone"
+  }
+}
