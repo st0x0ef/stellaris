@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "tutorial:block/vertical_moon_slab", "uvlock": true },
+    "facing=east":  { "model": "tutorial:block/vertical_moon_slab", "y":  90, "uvlock": true },
+    "facing=south": { "model": "tutorial:block/vertical_moon_slab", "y": 180, "uvlock": true },
+    "facing=west":  { "model": "tutorial:block/vertical_moon_slab", "y": 270, "uvlock": true }
+  }
+}
