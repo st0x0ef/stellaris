@@ -8,9 +8,6 @@ import net.fabricmc.api.ClientModInitializer;
 public class StellarisFabricClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-        StellarisClient.registerParticle();
-        StellarisClient.registerEntityModelLayer();
-        StellarisClient.registerEntityRenderer();
-        StellarisClient.registerScreen();
+        StellarisClient.initClient();
     }
 }

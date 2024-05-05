@@ -1,6 +1,8 @@
 package com.st0x0ef.stellaris.client;
 
+import com.st0x0ef.stellaris.client.events.ClientEvents;
 import com.st0x0ef.stellaris.client.particles.*;
+import com.st0x0ef.stellaris.client.registries.KeyMappings;
 import com.st0x0ef.stellaris.client.renderers.entities.alien.AlienModel;
 import com.st0x0ef.stellaris.client.renderers.entities.alien.AlienRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.alienzombie.AlienZombieModel;
@@ -15,12 +17,16 @@ import com.st0x0ef.stellaris.client.renderers.entities.pygro.PygroModel;
 import com.st0x0ef.stellaris.client.renderers.entities.pygro.PygroRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.starcrawler.StarCrawlerModel;
 import com.st0x0ef.stellaris.client.renderers.entities.starcrawler.StarCrawlerRenderer;
+import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.normal.NormalRocketModel;
+import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.normal.NormalRocketRenderer;
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeBlockRenderer;
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeModel;
 import com.st0x0ef.stellaris.client.screens.*;
+import com.st0x0ef.stellaris.common.entities.RocketEntity;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import com.st0x0ef.stellaris.common.registry.ParticleRegistry;
+import dev.architectury.registry.client.keymappings.KeyMappingRegistry;
 import dev.architectury.registry.client.level.entity.EntityModelLayerRegistry;
 import dev.architectury.registry.client.level.entity.EntityRendererRegistry;
 import dev.architectury.registry.client.particle.ParticleProviderRegistry;
@@ -29,6 +35,15 @@ import dev.architectury.registry.menu.MenuRegistry;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 
 public class StellarisClient {
+
+    public static void initClient() {
+        registerParticle();
+        registerEntityModelLayer();
+        registerEntityRenderer();
+        registerScreen();
+        registerKey();
+        ClientEvents.registerEvents();
+    }
     public static void registerEntityModelLayer() {
         EntityModelLayerRegistry.register(AlienModel.LAYER_LOCATION, AlienModel::createBodyLayer);
         EntityModelLayerRegistry.register(AlienZombieModel.LAYER_LOCATION, AlienZombieModel::createBodyLayer);
@@ -38,6 +53,8 @@ public class StellarisClient {
         EntityModelLayerRegistry.register(StarCrawlerModel.LAYER_LOCATION, StarCrawlerModel::createBodyLayer);
 
         EntityModelLayerRegistry.register(GlobeModel.LAYER_LOCATION, GlobeModel::createLayer);
+        EntityModelLayerRegistry.register(NormalRocketModel.LAYER_LOCATION, NormalRocketModel::createBodyLayer);
+
     }
     public static void registerEntityRenderer() {
         EntityRendererRegistry.register(EntityRegistry.ALIEN, AlienRenderer::new);
@@ -50,6 +67,7 @@ public class StellarisClient {
 
         EntityRendererRegistry.register(EntityRegistry.ICE_SPIT, renderManager -> new ThrownItemRenderer<>(renderManager, 1, true));
         EntityRendererRegistry.register(EntityRegistry.ICE_SHARD_ARROW, IceShardArrowRenderer::new);
+        EntityRendererRegistry.register(EntityRegistry.ROCKET, NormalRocketRenderer::new);
 
         BlockEntityRendererRegistry.register(EntityRegistry.GLOBE_BLOCK_ENTITY.get() ,GlobeBlockRenderer::new);
     }
@@ -69,5 +87,11 @@ public class StellarisClient {
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.SOLAR_PANEL_MENU.get(), SolarPanelScreen::new);
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.COAL_GENERATOR_MENU.get(), CoalGeneratorScreen::new);
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.RADIOACTIVE_GENERATOR_MENU.get(), RadioactiveGeneratorScreen::new);
+        MenuRegistry.registerScreenFactory(MenuTypesRegistry.PLANET_SELECTION_MENU.get(), PlanetSelectionScreen::new);
     }
+
+    public static void registerKey() {
+        KeyMappingRegistry.register(KeyMappings.ROCKET_START);
+    }
+
 }

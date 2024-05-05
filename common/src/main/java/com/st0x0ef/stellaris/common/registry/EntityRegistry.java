@@ -77,6 +77,13 @@ public class EntityRegistry {
     public static final RegistrySupplier<EntityType<IceShardArrowEntity>> ICE_SHARD_ARROW = ENTITY_TYPE.register("ice_shard_arrow",
             () -> EntityType.Builder.<IceShardArrowEntity>of(IceShardArrowEntity::new, MobCategory.MISC).sized(0.5f, 0.5f).build(new ResourceLocation(Stellaris.MODID, "ice_shard_arrow").toString()));
 
+    /**
+     * Vehicles
+     */
+    public static final RegistrySupplier<EntityType<RocketEntity>> ROCKET = ENTITY_TYPE.register("rocket",
+            () -> EntityType.Builder.<RocketEntity>of(RocketEntity::new, MobCategory.MISC).sized(1.1f, 4.4f).build(new ResourceLocation(Stellaris.MODID, "rocket").toString()));
+
+
     //Entity Attributes
     public static void registerAttributes() {
         EntityAttributeRegistry.register(EntityRegistry.ALIEN,  Alien::setCustomAttributes);

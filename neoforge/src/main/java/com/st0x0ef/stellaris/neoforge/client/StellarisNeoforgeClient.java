@@ -11,9 +11,7 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 public class StellarisNeoforgeClient {
     @SubscribeEvent
     public static void clientSetup(FMLClientSetupEvent event) {
-        StellarisClient.registerEntityModelLayer();
-        event.enqueueWork(StellarisClient::registerParticle);
-        event.enqueueWork(StellarisClient::registerEntityRenderer);
-        event.enqueueWork(StellarisClient::registerScreen);
+        event.enqueueWork(StellarisClient::initClient);
+
     }
 }

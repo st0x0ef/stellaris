@@ -6,6 +6,7 @@ import com.google.gson.ToNumberPolicy;
 import com.st0x0ef.stellaris.common.config.CustomConfig;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
 import com.st0x0ef.stellaris.common.events.Events;
+import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import com.st0x0ef.stellaris.common.registry.*;
 import dev.architectury.registry.ReloadListenerRegistry;
 import net.minecraft.server.packs.PackType;
@@ -22,6 +23,7 @@ public class Stellaris {
     public static void init() {
         CustomConfig.init();
 
+        NetworkRegistry.register();
         SoundRegistry.SOUNDS.register();
         FluidRegistry.FLUIDS.register();
         EffectsRegistry.MOB_EFFECT.register();
