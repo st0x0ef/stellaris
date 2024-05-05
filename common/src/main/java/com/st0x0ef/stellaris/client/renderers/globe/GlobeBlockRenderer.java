@@ -22,7 +22,6 @@ import net.minecraft.world.level.block.state.BlockState;
 public class GlobeBlockRenderer<T extends GlobeTileEntity> implements BlockEntityRenderer<GlobeTileEntity> {
 
     private static ItemStack stack1 = new ItemStack(ItemsRegistry.EARTH_GLOBE_ITEM);
-    private static ItemStack stack2 = new ItemStack(ItemsRegistry.GLACIO_GLOBE_ITEM);
     private static ItemStack stack3 = new ItemStack(ItemsRegistry.MARS_GLOBE_ITEM);
     private static ItemStack stack4 = new ItemStack(ItemsRegistry.MOON_GLOBE_ITEM);
     private static ItemStack stack5 = new ItemStack(ItemsRegistry.MERCURY_GLOBE_ITEM);
