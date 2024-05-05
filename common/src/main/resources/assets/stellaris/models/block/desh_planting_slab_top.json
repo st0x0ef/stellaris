@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "stellaris:block/desh_plating_block",
+    "side": "stellaris:block/desh_plating_block",
+    "top": "stellaris:block/desh_plating_block"
+  }
+}

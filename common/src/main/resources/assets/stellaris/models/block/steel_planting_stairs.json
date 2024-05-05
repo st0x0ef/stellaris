@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "stellaris:block/steel_planting_block",
+    "side": "stellaris:block/steel_planting_block",
+    "top": "stellaris:block/steel_planting_block"
+  }
+}
