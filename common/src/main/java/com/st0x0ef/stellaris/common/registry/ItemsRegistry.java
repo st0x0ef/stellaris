@@ -113,18 +113,6 @@ public class ItemsRegistry {
     public static final RegistrySupplier<Item> VENUS_SMOOTH_SANDSTONE_BRICK_ITEM = ITEMS.register("venus_smooth_sandstone_brick", () -> new BlockItem(BlocksRegistry.VENUS_SMOOTH_SANDSTONE_BRICK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
     public static final RegistrySupplier<Item> VENUS_STONE_BRICK_STAIRS_ITEM = ITEMS.register("venus_stone_brick_stairs", () -> new BlockItem(BlocksRegistry.VENUS_STONE_BRICK_STAIRS.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
 
-    /** GLACIO Items */
-    public static final RegistrySupplier<Item> CHISELED_GLACIO_STONE_ITEM = ITEMS.register("chiseled_glacio_stone", () -> new BlockItem(BlocksRegistry.CHISELED_GLACIO_STONE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
-    public static final RegistrySupplier<Item> CRACKED_GLACIO_STONE_BRICKS_ITEM = ITEMS.register("cracked_glacio_stone_bricks", () -> new BlockItem(BlocksRegistry.CRACKED_GLACIO_STONE_BRICKS.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
-    public static final RegistrySupplier<Item> GLACIO_COAL_ORE_ITEM = ITEMS.register("glacio_coal_ore", () -> new BlockItem(BlocksRegistry.GLACIO_COAL_ORE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
-    public static final RegistrySupplier<Item> GLACIO_COBBLESTONE_ITEM = ITEMS.register("glacio_cobblestone", () -> new BlockItem(BlocksRegistry.GLACIO_COBBLESTONE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
-    public static final RegistrySupplier<Item> GLACIO_COPPER_ORE_ITEM = ITEMS.register("glacio_copper_ore", () -> new BlockItem(BlocksRegistry.GLACIO_COPPER_ORE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
-    public static final RegistrySupplier<Item> GLACIO_ICE_SHARD_ORE_ITEM = ITEMS.register("glacio_ice_shard_ore", () -> new BlockItem(BlocksRegistry.GLACIO_ICE_SHARD_ORE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
-    public static final RegistrySupplier<Item> GLACIO_IRON_ORE_ITEM = ITEMS.register("glacio_iron_ore", () -> new BlockItem(BlocksRegistry.GLACIO_IRON_ORE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
-    public static final RegistrySupplier<Item> GLACIO_LAPIS_ORE_ITEM = ITEMS.register("glacio_lapis_ore", () -> new BlockItem(BlocksRegistry.GLACIO_LAPIS_ORE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
-    public static final RegistrySupplier<Item> GLACIO_STONE_ITEM = ITEMS.register("glacio_stone", () -> new BlockItem(BlocksRegistry.GLACIO_STONE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
-    public static final RegistrySupplier<Item> GLACIO_STONE_BRICKS_ITEM = ITEMS.register("glacio_stone_bricks", () -> new BlockItem(BlocksRegistry.GLACIO_STONE_BRICKS.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
-    public static final RegistrySupplier<Item> POLISHED_GLACIO_STONE_ITEM = ITEMS.register("polished_glacio_stone", () -> new BlockItem(BlocksRegistry.POLISHED_GLACIO_STONE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
 
     /** Moon Items */
     public static final RegistrySupplier<Item> CHISELED_MOON_STONE_ITEM = ITEMS.register("chiseled_moon_stone", () -> new BlockItem(BlocksRegistry.CHISELED_MOON_STONE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
