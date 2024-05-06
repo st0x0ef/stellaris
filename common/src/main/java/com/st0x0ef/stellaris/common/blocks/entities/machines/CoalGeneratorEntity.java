@@ -82,7 +82,7 @@ public class CoalGeneratorEntity extends GeneratorBlockEntityTemplate {
 
     @Override
     protected AbstractContainerMenu createMenu(int i, Inventory inventory) {
-        return new CoalGeneratorMenu(i, inventory,this,this, dataAccess);
+        return new CoalGeneratorMenu(i, inventory, this, dataAccess);
     }
 
     @Override
@@ -217,11 +217,15 @@ public class CoalGeneratorEntity extends GeneratorBlockEntityTemplate {
         super.loadAdditional(compoundTag, provider);
         this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
         ContainerHelper.loadAllItems(compoundTag, this.items, provider);
+        litTime = compoundTag.getShort("BurnTime");
+        cookingProgress = compoundTag.getShort("CookTime");
+        cookingTotalTime = compoundTag.getShort("CookTimeTotal");
     }
 
     @Override
     protected void saveAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
         super.saveAdditional(compoundTag, provider);
+        ContainerHelper.saveAllItems(compoundTag, items, provider);
         compoundTag.putShort("BurnTime", (short)this.litTime);
         compoundTag.putShort("CookTime", (short)this.cookingProgress);
         compoundTag.putShort("CookTimeTotal", (short)this.cookingTotalTime);

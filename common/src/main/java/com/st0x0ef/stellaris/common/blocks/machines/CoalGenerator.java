@@ -90,8 +90,12 @@ public class CoalGenerator extends GeneratorBlockTemplate{
             }
 
             @Override
-            public @NotNull AbstractContainerMenu createMenu(int syncId, Inventory inv, Player player) {
-                return CoalGeneratorMenu.create(syncId, inv, new FriendlyByteBuf(Unpooled.buffer()).writeBlockPos(blockPos));
+            public AbstractContainerMenu createMenu(int syncId, Inventory inv, Player player) {
+                BlockEntity blockEntity = level.getBlockEntity(blockPos);
+                if (blockEntity instanceof CoalGeneratorEntity coalGeneratorEntity) {
+                    return coalGeneratorEntity.createMenu(syncId, inv, player);
+                }
+                return null;
             }
         };
     }

@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.common.menus;
 
-import com.st0x0ef.stellaris.common.blocks.entities.machines.CoalGeneratorEntity;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import com.st0x0ef.stellaris.common.registry.TagRegistry;
 import net.minecraft.network.FriendlyByteBuf;
@@ -17,7 +16,6 @@ import net.minecraft.world.item.ItemStack;
 
 public class CoalGeneratorMenu extends AbstractContainerMenu {
     private final Container inventory;
-    private final CoalGeneratorEntity entity;
     private final ContainerData data;
 
     public static class CoalGeneratorSlot extends Slot {
@@ -31,29 +29,24 @@ public class CoalGeneratorMenu extends AbstractContainerMenu {
         }
     }
 
-    public static CoalGeneratorMenu create(int syncId, Inventory inventory, FriendlyByteBuf data) {
-        CoalGeneratorEntity entity = (CoalGeneratorEntity) inventory.player.level().getBlockEntity(data.readBlockPos());
-
-        return new CoalGeneratorMenu(syncId, inventory, new SimpleContainer(1), entity, new SimpleContainerData(4));
+    public CoalGeneratorMenu(int syncId, Inventory inventory, FriendlyByteBuf data) {
+        this(syncId, inventory, new SimpleContainer(1), new SimpleContainerData(4));
     }
 
-    public CoalGeneratorMenu(int syncId, Inventory playerInventory, Container container, CoalGeneratorEntity entity, ContainerData containerData)
+    public CoalGeneratorMenu(int syncId, Inventory playerInventory, Container container, ContainerData containerData)
     {
         super(MenuTypesRegistry.COAL_GENERATOR_MENU.get(), syncId);
 
         checkContainerSize(container, 1);
         this.inventory = (container);
-        this.entity = entity;
         this.data = containerData;
 
         this.addSlot(new CoalGeneratorSlot(inventory, 0, 46, 68));
 
         addPlayerHotbar(playerInventory);
         addPlayerInventory(playerInventory);
-    }
 
-    public CoalGeneratorEntity getBlockEntity() {
-        return entity;
+        addDataSlots(containerData);
     }
 
     @Override

@@ -55,16 +55,16 @@ public class CoalGeneratorScreen extends AbstractContainerScreen<CoalGeneratorMe
 	protected void renderLabels(GuiGraphics graphics, int i, int j) {
 		super.renderLabels(graphics,i,j);
 
-		CoalGeneratorEntity blockEntity = this.getMenu().getBlockEntity();
-		if(blockEntity != null)
-		{
-			WrappedBlockEnergyContainer energyStorage = blockEntity.getEnergyContainer();
-			if(energyStorage!= null)
-			{
-				graphics.drawString(this.font, GaugeTextHelper.getStoredText(GaugeValueHelper.getEnergy(energyStorage.getStoredEnergy())).build(), this.titleLabelX, 128-30, 0x3C3C3C);
-				graphics.drawString(this.font, GaugeTextHelper.getCapacityText(GaugeValueHelper.getEnergy(energyStorage.getMaxCapacity())).build(), this.titleLabelX, 140-30, 0x3C3C3C);
-				graphics.drawString(this.font, GaugeTextHelper.getMaxGenerationPerTickText(GaugeValueHelper.getEnergy(blockEntity.getEnergyGeneratedPT())).build(), this.titleLabelX, 152-30, 0x3C3C3C);
-			}
-		}
+//		CoalGeneratorEntity blockEntity = this.getMenu().getBlockEntity();
+//		if(blockEntity != null)
+//		{
+//			WrappedBlockEnergyContainer energyStorage = blockEntity.getEnergyContainer();
+//			if(energyStorage!= null)
+//			{
+//				graphics.drawString(this.font, GaugeTextHelper.getStoredText(GaugeValueHelper.getEnergy(energyStorage.getStoredEnergy())).build(), this.titleLabelX, 128-30, 0x3C3C3C);
+//				graphics.drawString(this.font, GaugeTextHelper.getCapacityText(GaugeValueHelper.getEnergy(energyStorage.getMaxCapacity())).build(), this.titleLabelX, 140-30, 0x3C3C3C);
+//				graphics.drawString(this.font, GaugeTextHelper.getMaxGenerationPerTickText(GaugeValueHelper.getEnergy(blockEntity.getEnergyGeneratedPT())).build(), this.titleLabelX, 152-30, 0x3C3C3C);
+//			}
+//		}
 	}
 }
