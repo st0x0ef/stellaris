@@ -52,6 +52,8 @@ public class EntityRegistry {
             () -> BlockEntityType.Builder.of(CableBlockEntity::new, BlocksRegistry.CABLE.get()).build(null));
     public static final RegistrySupplier<BlockEntityType<VacumatorBlockEntity>> VACUMATOR_ENTITY = BLOCK_ENTITY_TYPE.register("vacumator",
             () -> BlockEntityType.Builder.of(VacumatorBlockEntity::new, BlocksRegistry.VACUMATOR.get()).build(null));
+    public static final RegistrySupplier<BlockEntityType<WaterSeparatorBlockEntity>> WATER_SEPARATOR_ENTITY = BLOCK_ENTITY_TYPE.register("water_separator",
+            () -> BlockEntityType.Builder.of(WaterSeparatorBlockEntity::new, BlocksRegistry.WATER_SEPARATOR.get()).build(null));
 
     //Entity type
 

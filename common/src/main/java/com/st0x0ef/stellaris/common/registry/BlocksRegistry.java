@@ -118,6 +118,7 @@ public class BlocksRegistry {
     public static final RegistrySupplier<Block> ROCKET_LAUNCH_PAD = BLOCKS.register("rocket_launch_pad", () -> new RocketLaunchPad(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).sound(SoundType.METAL).strength(5f, 2.5f).requiresCorrectToolForDrops()));
     public static final RegistrySupplier<Block> CABLE = BLOCKS.register("cable", ()-> new Cable(BlockBehaviour.Properties.ofFullCopy(Blocks.CHAIN)));
     public static final RegistrySupplier<Block> VACUMATOR = BLOCKS.register("vacumator", ()-> new Vacumator(BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_ORE)));
+    public static final RegistrySupplier<Block> WATER_SEPARATOR = BLOCKS.register("water_separator", () -> new WaterSeparatorBlock(BlockBehaviour.Properties.ofLegacyCopy(STEEL_ORE.get()).mapColor(MapColor.DEEPSLATE).strength(4.5F, 3F).sound(SoundType.DEEPSLATE)));
 
     /**Fluid Blocks*/
     public static final RegistrySupplier<LiquidBlock> FUEL_BLOCK = BLOCKS.register("fuel", () -> new ArchitecturyLiquidBlock(FluidRegistry.FUEL_STILL, BlockBehaviour.Properties.ofFullCopy(Blocks.WATER)));
