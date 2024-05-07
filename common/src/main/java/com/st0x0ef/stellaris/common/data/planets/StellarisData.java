@@ -18,6 +18,7 @@ import java.util.Map;
 public class StellarisData extends SimpleJsonResourceReloadListener {
 
     public static final Map<ResourceKey<Level>, Planet> PLANETS = new HashMap<>();
+    public static final Map<String, ResourceKey<Level>> SYSTEMS = new HashMap<>();
 
     public StellarisData() {
         super(Stellaris.GSON, "planets");
@@ -26,10 +27,14 @@ public class StellarisData extends SimpleJsonResourceReloadListener {
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> resourceLocationJsonElementMap, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
         PLANETS.clear();
+        SYSTEMS.clear();
         resourceLocationJsonElementMap.forEach((key, value) -> {
             JsonObject json = GsonHelper.convertToJsonObject(value, "planets");
             Planet planet = Planet.CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
             PLANETS.put(planet.dimension(), planet);
+            Stellaris.LOG.error("Adding" + planet.dimension().toString() + "  : " + planet.system() + " to the system list.");
+            //TODO : transform system to ResourceKey
+            SYSTEMS.put(planet.system(), planet.dimension());
 
         });
     }

@@ -37,7 +37,7 @@ public class Stellaris {
         FeaturesRegistry.FEATURES.register();
         ItemsRegistry.ITEMS.register();
         CreativeTabsRegistry.TABS.register();
-
+        CommandsRegistry.register();
         RecipesRegistry.register();
 
         ReloadListenerRegistry.register(PackType.SERVER_DATA, new StellarisData());

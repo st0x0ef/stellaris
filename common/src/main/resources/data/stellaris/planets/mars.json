@@ -1,6 +1,6 @@
 {
-  "system": "solar_system",
-  "level": "minecraft:overworld",
+  "system": "test",
+  "level": "stellaris:mars",
   "orbit": "minecraft:the_end",
   "oxygen": true,
   "temperature": 15,
