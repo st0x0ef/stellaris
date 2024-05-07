@@ -82,7 +82,7 @@ public class CoalGeneratorEntity extends GeneratorBlockEntityTemplate {
 
     @Override
     protected AbstractContainerMenu createMenu(int i, Inventory inventory) {
-        return new CoalGeneratorMenu(i, inventory, this, dataAccess);
+        return new CoalGeneratorMenu(i, inventory, this, this, dataAccess);
     }
 
     @Override

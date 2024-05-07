@@ -95,7 +95,11 @@ public class RocketStation extends BaseEntityBlock {
 
             @Override
             public AbstractContainerMenu createMenu(int syncId, Inventory inv, Player player) {
-                return new RocketStationMenu(syncId, inv,  new FriendlyByteBuf(Unpooled.buffer()).writeBlockPos(pos));
+                BlockEntity blockEntity = level.getBlockEntity(pos);
+                if (blockEntity instanceof RocketStationEntity rocketStationEntity) {
+                    return rocketStationEntity.createMenu(syncId, inv, player);
+                }
+                return null;
             }
         };
 

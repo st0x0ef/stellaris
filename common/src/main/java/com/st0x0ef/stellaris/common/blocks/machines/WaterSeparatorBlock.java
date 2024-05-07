@@ -85,7 +85,11 @@ public class WaterSeparatorBlock extends BaseEnergyBlock {
             @Nullable
             @Override
             public AbstractContainerMenu createMenu(int syncId, Inventory inventory, Player player) {
-                return new WaterSeparatorMenu(syncId, inventory, new FriendlyByteBuf(Unpooled.buffer()));
+                BlockEntity blockEntity = level.getBlockEntity(pos);
+                if (blockEntity instanceof WaterSeparatorBlockEntity waterSeparatorBlockEntity) {
+                    return waterSeparatorBlockEntity.createMenu(syncId, inventory, player);
+                }
+                return null;
             }
         };
     }

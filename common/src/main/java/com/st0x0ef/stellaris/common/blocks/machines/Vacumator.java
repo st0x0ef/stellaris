@@ -101,7 +101,11 @@ public class Vacumator extends BaseEntityBlock{
 
             @Override
             public AbstractContainerMenu createMenu(int syncId, Inventory inv, Player player) {
-                return new VacumatorMenu(syncId, inv,  new FriendlyByteBuf(Unpooled.buffer()).writeBlockPos(pos));
+                BlockEntity blockEntity = level.getBlockEntity(pos);
+                if (blockEntity instanceof VacumatorBlockEntity vacumatorBlockEntity) {
+                    return vacumatorBlockEntity.createMenu(syncId, inv, player);
+                }
+                return null;
             }
         };
 

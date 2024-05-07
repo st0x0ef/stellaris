@@ -74,8 +74,12 @@ public class SolarPanelBlock extends GeneratorBlockTemplate {
             }
 
             @Override
-            public @NotNull AbstractContainerMenu createMenu(int syncId, Inventory inv, Player player) {
-                return SolarPanelMenu.create(syncId, inv, new FriendlyByteBuf(Unpooled.buffer()).writeBlockPos(blockPos));
+            public AbstractContainerMenu createMenu(int syncId, Inventory inv, Player player) {
+                BlockEntity blockEntity = level.getBlockEntity(blockPos);
+                if (blockEntity instanceof SolarPanelEntity solarPanelEntity) {
+                    return solarPanelEntity.createMenu(syncId, inv, player);
+                }
+                return null;
             }
         };
     }

@@ -86,8 +86,12 @@ public class RadioactiveGenerator extends GeneratorBlockTemplate{
             }
 
             @Override
-            public @NotNull AbstractContainerMenu createMenu(int syncId, Inventory inv, Player player) {
-                return RadioactiveGeneratorMenu.create(syncId, inv, new FriendlyByteBuf(Unpooled.buffer()).writeBlockPos(blockPos));
+            public AbstractContainerMenu createMenu(int syncId, Inventory inv, Player player) {
+                BlockEntity blockEntity = level.getBlockEntity(blockPos);
+                if (blockEntity instanceof RadioactiveGeneratorEntity radioactiveGeneratorEntity) {
+                    return radioactiveGeneratorEntity.createMenu(syncId, inv, player);
+                }
+                return null;
             }
         };
     }
