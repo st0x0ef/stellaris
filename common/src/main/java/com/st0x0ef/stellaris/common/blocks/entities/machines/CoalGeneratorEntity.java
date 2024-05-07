@@ -90,55 +90,37 @@ public class CoalGeneratorEntity extends GeneratorBlockEntityTemplate {
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, CoalGeneratorEntity blockEntity) {
         WrappedBlockEnergyContainer energyContainer = blockEntity.getEnergyContainer();
-        boolean bl = blockEntity.isLit();
-        boolean bl2 = false;
+        boolean wasLit = blockEntity.isLit();
+        boolean shouldUpdate = false;
+
         if (blockEntity.isLit()) {
             --blockEntity.litTime;
         }
 
-        ItemStack itemStack = (ItemStack)blockEntity.items.get(1);
-        boolean bl3 = !((ItemStack)blockEntity.items.get(0)).isEmpty();
-        boolean bl4 = !itemStack.isEmpty();
-        if (blockEntity.isLit() || bl4 && bl3) {
-
-            int i = blockEntity.getMaxStackSize();
-            if (!blockEntity.isLit() && canBurn(blockEntity.items)) {
-                blockEntity.litTime = blockEntity.getBurnDuration(itemStack);
+        ItemStack stack = blockEntity.items.get(0);
+        if (blockEntity.isLit() || !stack.isEmpty()) {
+            if (!blockEntity.isLit() && !stack.isEmpty()) {
+                blockEntity.litTime = blockEntity.getBurnDuration(stack);
                 blockEntity.litDuration = blockEntity.litTime;
                 if (blockEntity.isLit()) {
-                    bl2 = true;
-                    if (bl4) {
-                        Item item = itemStack.getItem();
-                        itemStack.shrink(1);
-                        if (itemStack.isEmpty()) {
-                            Item item2 = item.getCraftingRemainingItem();
-                            blockEntity.items.set(1, item2 == null ? ItemStack.EMPTY : new ItemStack(item2));
-                        }
+                    shouldUpdate = true;
+                    Item item = stack.getItem();
+                    stack.shrink(1);
+                    if (stack.isEmpty()) {
+                        Item item2 = item.getCraftingRemainingItem();
+                        blockEntity.items.set(0, item2 == null ? ItemStack.EMPTY : new ItemStack(item2));
                     }
                 }
             }
-
-            if (blockEntity.isLit() && canBurn(blockEntity.items)) {
-                ++blockEntity.cookingProgress;
-                if (blockEntity.cookingProgress == blockEntity.cookingTotalTime) {
-                    blockEntity.cookingProgress = 0;
-                    blockEntity.cookingTotalTime = getTotalCookTime(level, blockEntity);
-                    bl2 = true;
-                }
-            } else {
-                blockEntity.cookingProgress = 0;
-            }
-        } else if (!blockEntity.isLit() && blockEntity.cookingProgress > 0) {
-            blockEntity.cookingProgress = Mth.clamp(blockEntity.cookingProgress - 2, 0, blockEntity.cookingTotalTime);
         }
 
-        if (bl != blockEntity.isLit()) {
-            bl2 = true;
-            state = (BlockState)state.setValue(CoalGenerator.LIT, blockEntity.isLit());
+        if (wasLit != blockEntity.isLit()) {
+            shouldUpdate = true;
+            state = state.setValue(CoalGenerator.LIT, blockEntity.isLit());
             level.setBlock(pos, state, 3);
         }
 
-        if (bl2) {
+        if (shouldUpdate) {
             setChanged(level, pos, state);
         }
 
@@ -153,44 +135,13 @@ public class CoalGeneratorEntity extends GeneratorBlockEntityTemplate {
         EnergyApi.distributeEnergyNearby(blockEntity,100);
     }
 
-    private static boolean canBurn(NonNullList<ItemStack> inventory) {
-        return !((ItemStack) inventory.get(0)).isEmpty();
-    }
-
-    //TODO check if this is useful
-    private static boolean burn(RegistryAccess registryAccess, @Nullable RecipeHolder<?> recipe, NonNullList<ItemStack> inventory) {
-        if (recipe != null && canBurn(inventory)) {
-            ItemStack itemStack = (ItemStack)inventory.get(0);
-            ItemStack itemStack2 = recipe.value().getResultItem(registryAccess);
-            ItemStack itemStack3 = (ItemStack)inventory.get(2);
-            if (itemStack3.isEmpty()) {
-                inventory.set(2, itemStack2.copy());
-            } else if (itemStack3.is(itemStack2.getItem())) {
-                itemStack3.grow(1);
-            }
-
-            if (itemStack.is(Blocks.WET_SPONGE.asItem()) && !((ItemStack)inventory.get(1)).isEmpty() && ((ItemStack)inventory.get(1)).is(Items.BUCKET)) {
-                inventory.set(1, new ItemStack(Items.WATER_BUCKET));
-            }
-
-            itemStack.shrink(1);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     protected int getBurnDuration(ItemStack fuel) {
         if (fuel.isEmpty()) {
             return 0;
         } else {
             Item item = fuel.getItem();
-            return (Integer)getFuel().getOrDefault(item, 0);
+            return getFuel().getOrDefault(item, 0);
         }
-    }
-
-    private static int getTotalCookTime(Level level, CoalGeneratorEntity blockEntity) {
-        return 200;
     }
 
     private boolean isLit() {
@@ -218,8 +169,6 @@ public class CoalGeneratorEntity extends GeneratorBlockEntityTemplate {
         this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
         ContainerHelper.loadAllItems(compoundTag, this.items, provider);
         litTime = compoundTag.getShort("BurnTime");
-        cookingProgress = compoundTag.getShort("CookTime");
-        cookingTotalTime = compoundTag.getShort("CookTimeTotal");
     }
 
     @Override
@@ -227,7 +176,5 @@ public class CoalGeneratorEntity extends GeneratorBlockEntityTemplate {
         super.saveAdditional(compoundTag, provider);
         ContainerHelper.saveAllItems(compoundTag, items, provider);
         compoundTag.putShort("BurnTime", (short)this.litTime);
-        compoundTag.putShort("CookTime", (short)this.cookingProgress);
-        compoundTag.putShort("CookTimeTotal", (short)this.cookingTotalTime);
     }
 }
