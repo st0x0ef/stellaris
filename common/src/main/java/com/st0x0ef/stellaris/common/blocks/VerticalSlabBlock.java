@@ -44,11 +44,16 @@ public class VerticalSlabBlock extends HorizontalDirectionalBlock implements Sim
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         Direction dir = state.getValue(FACING);
         return switch (dir) {
-            case NORTH -> Block.box(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.5f);
-            case SOUTH -> Block.box(0.0f, 0.0f, 0.5f, 1.0f, 1.0f, 1.0f);
-            case EAST -> Block.box(0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
-            case WEST -> Block.box(0.0f, 0.0f, 0.0f, 8.0f, 16.0f, 16.0f);
-            default -> Shapes.block();
+            case NORTH:
+                yield Shapes.box(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.5f);
+            case SOUTH:
+                yield Shapes.box(0.0f, 0.0f, 0.5f, 1.0f, 1.0f, 1.0f);
+            case EAST:
+                yield Shapes.box(0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
+            case WEST:
+                yield Shapes.box(0.0f, 0.0f, 0.0f, 0.5f, 1.0f, 1.0f);
+            default:
+                yield Shapes.block();
         };
     }
 
@@ -56,7 +61,7 @@ public class VerticalSlabBlock extends HorizontalDirectionalBlock implements Sim
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         return (BlockState)this.defaultBlockState()
-                .setValue(FACING, context.getHorizontalDirection().getOpposite())
+                .setValue(FACING, context.getHorizontalDirection())
                 .setValue(WATERLOGGED, context.getLevel().getFluidState(context.getClickedPos()).is(Fluids.WATER));
     }
 
@@ -72,10 +77,5 @@ public class VerticalSlabBlock extends HorizontalDirectionalBlock implements Sim
         }
 
         return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
-    }
-
-    @Override
-    protected RenderShape getRenderShape(BlockState state) {
-        return RenderShape.MODEL;
     }
 }
