@@ -42,12 +42,12 @@ public class Cable extends BaseEnergyBlock {
 
     public Cable(Properties properties) {
         super(properties);
-        this.registerDefaultState((BlockState)((BlockState)((BlockState)((BlockState)((BlockState)((BlockState)(this.stateDefinition.any())
-                .setValue(NORTH, false))
-                .setValue(EAST, false))
-                .setValue(SOUTH, false))
-                .setValue(WEST, false))
-                .setValue(UP, false))
+        this.registerDefaultState((this.stateDefinition.any())
+                .setValue(NORTH, false)
+                .setValue(EAST, false)
+                .setValue(SOUTH, false)
+                .setValue(WEST, false)
+                .setValue(UP, false)
                 .setValue(DOWN, false));
         this.shapeByIndex = this.makeShapes(0.125f);
     }
@@ -72,20 +72,20 @@ public class Cable extends BaseEnergyBlock {
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> blockEntityType) {
         return createTickerHelper(blockEntityType, EntityRegistry.CABLE_ENTITY.get(),
-                (level1, blockPos, blockState1, blockEntity) -> ((CableBlockEntity) blockEntity).tick());
+                (level1, blockPos, blockState1, blockEntity) -> blockEntity.tick());
     }
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext blockPlaceContext) {
         Level blockGetter = blockPlaceContext.getLevel();
         BlockPos blockPos = blockPlaceContext.getClickedPos();
-        return (BlockState)((BlockState)((BlockState)((BlockState)((BlockState)((BlockState)this.defaultBlockState()
+        return this.defaultBlockState()
                 .setValue(DOWN, isConnectable(blockGetter.getBlockState(blockPos.below())))
                 .setValue(UP, isConnectable(blockGetter.getBlockState(blockPos.above())))
                 .setValue(NORTH, isConnectable(blockGetter.getBlockState(blockPos.north())))
                 .setValue(EAST, isConnectable(blockGetter.getBlockState(blockPos.east())))
                 .setValue(SOUTH, isConnectable(blockGetter.getBlockState(blockPos.south())))
-                .setValue(WEST, isConnectable(blockGetter.getBlockState(blockPos.west()))))))));
+                .setValue(WEST, isConnectable(blockGetter.getBlockState(blockPos.west())));
     }
 
     private boolean isConnectable(BlockState blockState){
@@ -95,10 +95,10 @@ public class Cable extends BaseEnergyBlock {
     @Override
     public BlockState updateShape(BlockState blockState, Direction direction, BlockState blockState2, LevelAccessor levelAccessor, BlockPos blockPos, BlockPos blockPos2) {
         if (isConnectable(blockState2)) {
-            return (BlockState)blockState.setValue(PROPERTY_BY_DIRECTION.get(direction), true);
+            return blockState.setValue(PROPERTY_BY_DIRECTION.get(direction), true);
         }
         else {
-            return (BlockState)blockState.setValue(PROPERTY_BY_DIRECTION.get(direction), false);
+            return blockState.setValue(PROPERTY_BY_DIRECTION.get(direction), false);
         }
     }
 
@@ -135,12 +135,12 @@ public class Cable extends BaseEnergyBlock {
     private VoxelShape[] makeShapes(float apothem) {
         float f = 0.5F - apothem;
         float g = 0.5F + apothem;
-        VoxelShape voxelShape = Block.box((double)(f * 16.0F), (double)(f * 16.0F), (double)(f * 16.0F), (double)(g * 16.0F), (double)(g * 16.0F), (double)(g * 16.0F));
+        VoxelShape voxelShape = Block.box(f * 16.0F, f * 16.0F, f * 16.0F, g * 16.0F, g * 16.0F, g * 16.0F);
         VoxelShape[] voxelShapes = new VoxelShape[DIRECTIONS.length];
 
         for(int i = 0; i < DIRECTIONS.length; ++i) {
             Direction direction = DIRECTIONS[i];
-            voxelShapes[i] = Shapes.box(0.5 + Math.min((double)(-apothem), (double)direction.getStepX() * 0.5), 0.5 + Math.min((double)(-apothem), (double)direction.getStepY() * 0.5), 0.5 + Math.min((double)(-apothem), (double)direction.getStepZ() * 0.5), 0.5 + Math.max((double)apothem, (double)direction.getStepX() * 0.5), 0.5 + Math.max((double)apothem, (double)direction.getStepY() * 0.5), 0.5 + Math.max((double)apothem, (double)direction.getStepZ() * 0.5));
+            voxelShapes[i] = Shapes.box(0.5 + Math.min(-apothem, (double)direction.getStepX() * 0.5), 0.5 + Math.min(-apothem, (double)direction.getStepY() * 0.5), 0.5 + Math.min(-apothem, (double)direction.getStepZ() * 0.5), 0.5 + Math.max(apothem, (double)direction.getStepX() * 0.5), 0.5 + Math.max(apothem, (double)direction.getStepY() * 0.5), 0.5 + Math.max(apothem, (double)direction.getStepZ() * 0.5));
         }
 
         VoxelShape[] voxelShapes2 = new VoxelShape[64];

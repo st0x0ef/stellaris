@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.common.network;
 
 import com.st0x0ef.stellaris.client.registries.KeyMappings;
-import com.st0x0ef.stellaris.common.keybinds.KeyVariables;
 import dev.architectury.networking.NetworkManager;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;

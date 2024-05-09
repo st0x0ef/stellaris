@@ -3,11 +3,9 @@ package com.st0x0ef.stellaris.common.blocks.machines;
 import com.mojang.serialization.MapCodec;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.GeneratorBlockEntityTemplate;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.SolarPanelEntity;
-import com.st0x0ef.stellaris.common.menus.SolarPanelMenu;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import dev.architectury.registry.menu.ExtendedMenuProvider;
 import dev.architectury.registry.menu.MenuRegistry;
-import io.netty.buffer.Unpooled;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -25,7 +23,6 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class SolarPanelBlock extends GeneratorBlockTemplate {
@@ -35,7 +32,7 @@ public class SolarPanelBlock extends GeneratorBlockTemplate {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> blockEntityType) {
-        return createTickerHelper(blockEntityType, EntityRegistry.SOLAR_PANEL.get(), (level1, blockPos, blockState1, blockEntity) -> ((GeneratorBlockEntityTemplate) blockEntity).tick());
+        return createTickerHelper(blockEntityType, EntityRegistry.SOLAR_PANEL.get(), (level1, blockPos, blockState1, blockEntity) -> blockEntity.tick());
     }
 
     @Override

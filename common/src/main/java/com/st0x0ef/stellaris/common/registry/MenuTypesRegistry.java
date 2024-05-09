@@ -21,6 +21,6 @@ public class MenuTypesRegistry {
     public static final RegistrySupplier<MenuType<WaterSeparatorMenu>> WATER_SEPARATOR_MENU = MENU_TYPE.register("water_separator", () -> MenuRegistry.ofExtended(WaterSeparatorMenu::new));
 
 
-    public static final RegistrySupplier<MenuType<PlanetSelectionMenu>> PLANET_SELECTION_MENU = MENU_TYPE.register("planet_selection_menu", () -> MenuRegistry.of(PlanetSelectionMenu::create));
+    public static final RegistrySupplier<MenuType<PlanetSelectionMenu>> PLANET_SELECTION_MENU = MENU_TYPE.register("planet_selection_menu", () -> MenuRegistry.ofExtended(PlanetSelectionMenu::create));
 
 }

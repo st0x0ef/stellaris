@@ -82,7 +82,7 @@ public class EntityRegistry {
      * Vehicles
      */
     public static final RegistrySupplier<EntityType<RocketEntity>> ROCKET = ENTITY_TYPE.register("rocket",
-            () -> EntityType.Builder.<RocketEntity>of(RocketEntity::new, MobCategory.MISC).sized(1.1f, 4.4f).build(new ResourceLocation(Stellaris.MODID, "rocket").toString()));
+            () -> EntityType.Builder.of(RocketEntity::new, MobCategory.MISC).sized(1.1f, 4.4f).build(new ResourceLocation(Stellaris.MODID, "rocket").toString()));
 
 
     //Entity Attributes

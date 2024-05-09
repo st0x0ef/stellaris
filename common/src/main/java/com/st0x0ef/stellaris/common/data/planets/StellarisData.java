@@ -38,12 +38,4 @@ public class StellarisData extends SimpleJsonResourceReloadListener {
 
         });
     }
-
-    public static Planet getPlanet(ResourceKey<Level> level) {
-        return PLANETS.get(level);
-    }
-
-    public static boolean isPlanet(ResourceKey<Level> level) {
-        return PLANETS.containsKey(level);
-    }
 }

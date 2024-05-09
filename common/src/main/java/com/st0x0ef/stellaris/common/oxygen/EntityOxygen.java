@@ -1,20 +1,17 @@
 package com.st0x0ef.stellaris.common.oxygen;
 
 import com.st0x0ef.stellaris.common.blocks.entities.oxygen.OxygenSourceBlockEntity;
-import com.st0x0ef.stellaris.common.data.planets.StellarisData;
 import com.st0x0ef.stellaris.common.registry.DamageSourceRegistry;
+import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class EntityOxygen {
 
     public static void tick(Entity entity) {
         boolean canBreathThisTick = false;
 
-        if (!StellarisData.isPlanet(entity.level().dimension())) { return; }
+        if (PlanetUtil.hasOxygen(entity.level().dimension())) { return; }
 
         for (int x = -16; x < 16; x++) {
             for (int z = -16; z < 16; z++) {

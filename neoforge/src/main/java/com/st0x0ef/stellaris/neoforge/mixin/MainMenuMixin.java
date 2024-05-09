@@ -9,6 +9,7 @@ import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -30,6 +31,7 @@ public abstract class MainMenuMixin extends Screen {
         spriteIconButton.setPosition(this.width / 2 - 124, l);
     }
 
+    @Unique
     private static SpriteIconButton stellarisConfigButton(int i, Button.OnPress onPress, boolean bl) {
         Component component = Component.translatable("screens.stellaris.config");
         return SpriteIconButton.builder(component, onPress, bl).width(i).sprite(new ResourceLocation(Stellaris.MODID, "textures/item/engine_fan.png"), 16, 16).build();

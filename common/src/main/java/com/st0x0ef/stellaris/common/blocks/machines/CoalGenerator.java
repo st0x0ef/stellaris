@@ -2,11 +2,9 @@ package com.st0x0ef.stellaris.common.blocks.machines;
 
 import com.mojang.serialization.MapCodec;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.CoalGeneratorEntity;
-import com.st0x0ef.stellaris.common.menus.CoalGeneratorMenu;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import dev.architectury.registry.menu.ExtendedMenuProvider;
 import dev.architectury.registry.menu.MenuRegistry;
-import io.netty.buffer.Unpooled;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
@@ -27,7 +25,6 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class CoalGenerator extends GeneratorBlockTemplate{

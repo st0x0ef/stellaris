@@ -2,10 +2,8 @@ package com.st0x0ef.stellaris.client.events;
 
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.registries.KeyMappings;
-import com.st0x0ef.stellaris.common.entities.RocketEntity;
 import com.st0x0ef.stellaris.common.network.KeyHandler;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
-import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import dev.architectury.event.events.client.ClientTickEvent;
 
 public class ClientEvents {

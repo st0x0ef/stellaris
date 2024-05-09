@@ -110,7 +110,7 @@ public class ConfigScreen extends Screen {
                     foo = 0;
                 }
 
-                CustomConfig.CONFIG.replace(entryName, new ConfigEntry<Integer>((Integer) foo, entry.getDescription()));
+                CustomConfig.CONFIG.replace(entryName, new ConfigEntry<Integer>(foo, entry.getDescription()));
 
             });
             rowHelper.addChild(button);

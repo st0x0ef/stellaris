@@ -1,8 +1,8 @@
 package com.st0x0ef.stellaris.mixin;
 
-import com.st0x0ef.stellaris.common.data.planets.StellarisData;
 import com.st0x0ef.stellaris.common.items.CanItem;
 import com.st0x0ef.stellaris.common.registry.TagRegistry;
+import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -25,19 +25,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class EntityEatMixin extends LivingEntity {
     @Shadow public abstract void playSound(SoundEvent soundEvent, float f, float g);
 
-    @Shadow public abstract boolean canEat(boolean bl);
-
     protected EntityEatMixin(EntityType<? extends LivingEntity> entityType, Level level) {
         super(entityType, level);
     }
 
-    @Inject(at = @At(value = "HEAD"), method = "eat")
+    @Inject(at = @At(value = "HEAD"), method = "eat", cancellable = true)
     public void eat(Level level, ItemStack food, CallbackInfoReturnable<ItemStack> cir) {
         LivingEntity entity = this;
 
         if (food.getComponents().has(DataComponents.FOOD)) {
-            if(!StellarisData.isPlanet(level.dimension())) return;
-            if(!StellarisData.getPlanet(level.dimension()).oxygen() && (!food.is(TagRegistry.SPACE_FOOD) || !(food.getItem() instanceof CanItem))) {
+            if(!PlanetUtil.isPlanet(level.dimension())) return;
+            if(!PlanetUtil.hasOxygen(level.dimension()) && (!food.is(TagRegistry.SPACE_FOOD) || !(food.getItem() instanceof CanItem))) {
                 //TODO : Stop the player from eating
                 return;
             }

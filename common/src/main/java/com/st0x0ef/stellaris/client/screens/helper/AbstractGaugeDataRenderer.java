@@ -4,8 +4,8 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.common.blocks.machines.gauge.GaugeTextHelper;
 import com.st0x0ef.stellaris.common.blocks.machines.gauge.GaugeValueSerializer;
 import com.st0x0ef.stellaris.common.blocks.machines.gauge.IGaugeValue;
-import com.st0x0ef.stellaris.common.util.GuiHelper;
-import com.st0x0ef.stellaris.common.util.Rectangle2d;
+import com.st0x0ef.stellaris.common.utils.GuiHelper;
+import com.st0x0ef.stellaris.common.utils.Rectangle2d;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -75,9 +75,9 @@ public abstract class AbstractGaugeDataRenderer
 
         float scale = Math.min(1.0F, (float) bounds.getWidth() / (float) textWidth);
         float offsetX = 0.0F;
-        float offsetY = (float) ((bounds.getHeight() - ((fontRenderer.lineHeight - 1) * scale)) / 2.0F);
-        float scaledX = (float) ((bounds.getX() + offsetX) / scale);
-        float scaledY = (float) ((bounds.getY() + offsetY) / scale);
+        float offsetY = (bounds.getHeight() - ((fontRenderer.lineHeight - 1) * scale)) / 2.0F;
+        float scaledX = (bounds.getX() + offsetX) / scale;
+        float scaledY = (bounds.getY() + offsetY) / scale;
 
         graphics.pose().pushPose();
         graphics.pose().scale(scale, scale, scale);

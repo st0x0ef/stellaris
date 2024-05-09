@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.common.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.arguments.StringArgumentType;
 import com.st0x0ef.stellaris.common.menus.PlanetSelectionMenu;
 import dev.architectury.registry.menu.MenuRegistry;
 import net.minecraft.commands.CommandSourceStack;

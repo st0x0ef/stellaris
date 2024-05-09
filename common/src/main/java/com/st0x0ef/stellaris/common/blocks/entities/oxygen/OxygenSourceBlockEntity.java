@@ -1,7 +1,7 @@
 package com.st0x0ef.stellaris.common.blocks.entities.oxygen;
 
-import com.st0x0ef.stellaris.common.data.planets.StellarisData;
 import com.st0x0ef.stellaris.common.oxygen.OxygenContainer;
+import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -19,7 +19,7 @@ public abstract class OxygenSourceBlockEntity extends BlockEntity {
     }
 
     public void tick() {
-        if (StellarisData.isPlanet(this.level.dimension())) {
+        if (PlanetUtil.isPlanet(this.level.dimension())) {
             container.tick();
         }
     }

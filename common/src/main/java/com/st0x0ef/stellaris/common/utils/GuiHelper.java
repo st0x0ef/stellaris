@@ -1,4 +1,4 @@
-package com.st0x0ef.stellaris.common.util;
+package com.st0x0ef.stellaris.common.utils;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;

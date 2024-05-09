@@ -1,4 +1,4 @@
-package com.st0x0ef.stellaris.common.util;
+package com.st0x0ef.stellaris.common.utils;
 
 public class Rectangle2d
 {
