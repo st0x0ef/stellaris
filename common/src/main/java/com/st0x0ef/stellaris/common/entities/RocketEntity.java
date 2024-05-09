@@ -3,9 +3,12 @@ package com.st0x0ef.stellaris.common.entities;
 import com.st0x0ef.stellaris.common.menus.PlanetSelectionMenu;
 import com.st0x0ef.stellaris.common.registry.ParticleRegistry;
 import com.st0x0ef.stellaris.common.registry.SoundRegistry;
+import com.st0x0ef.stellaris.common.utils.PlanetUtil;
+import io.netty.buffer.Unpooled;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -186,24 +189,7 @@ public class RocketEntity extends IVehicleEntity {
         Player player = this.getFirstPlayerPassenger();
 
         if (player != null) {
-            player.openMenu(this.getPlanetMenuProvider());
+            player.openMenu(PlanetUtil.getPlanetMenuProvider());
         }
     }
-
-    public MenuProvider getPlanetMenuProvider() {
-        return new MenuProvider() {
-
-            @Override
-            public Component getDisplayName() {
-                return Component.literal("Planets !!");
-            }
-
-            @Override
-            public @NotNull AbstractContainerMenu createMenu(int syncId, Inventory inv, Player player) {
-                return PlanetSelectionMenu.create(syncId, inv);
-            }
-        };
-    }
-
-
 }
