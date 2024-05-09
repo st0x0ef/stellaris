@@ -23,19 +23,7 @@ public class StellarisCommands {
         dispatcher.register(Commands.literal("stellaris")
                 .then(Commands.literal("planetScreen")
                         .requires(c -> c.hasPermission(2))
-                        .executes((Command) -> openPlanetsScreen(Command.getSource())))
+                        .executes((Command) -> PlanetUtil.openPlanetSelectionMenu(Command.getSource().getPlayer())))
         );
-    }
-
-    private int openPlanetsScreen(CommandSourceStack source) {
-        Player player = source.getPlayer();
-
-        // Open the planet selection menu
-        if (player instanceof ServerPlayer serverPlayer) {
-            MenuRegistry.openMenu(serverPlayer, PlanetUtil.getPlanetMenuProvider());
-
-        }
-
-        return 1;
     }
 }

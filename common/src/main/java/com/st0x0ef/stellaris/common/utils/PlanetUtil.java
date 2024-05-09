@@ -29,8 +29,8 @@ public class PlanetUtil {
         return true;
     }
 
-    public static MenuProvider getPlanetMenuProvider() {
-        return new MenuProvider() {
+    public static int openPlanetSelectionMenu(Player player) {
+        MenuProvider provider = new MenuProvider() {
 
             @Override
             public Component getDisplayName() {
@@ -43,5 +43,12 @@ public class PlanetUtil {
                 return PlanetSelectionMenu.create(syncId, inv, buffer);
             }
         };
+
+        if (player != null) {
+            player.openMenu(provider);
+            return 1;
+        }
+
+        return 0;
     }
 }

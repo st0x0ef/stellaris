@@ -66,7 +66,7 @@ public class RocketEntity extends IVehicleEntity {
             this.startTimerAndFlyMovement();
 
             if (this.getY() > 600) {
-                this.openPlanetSelectionMenu();
+                PlanetUtil.openPlanetSelectionMenu(this.getFirstPlayerPassenger());
             }
         }
     }
@@ -142,7 +142,6 @@ public class RocketEntity extends IVehicleEntity {
 
             //if (data.get(RocketEntity.FUEL) == this.getFuelCapacity()) {
                 if (!data.get(RocketEntity.ROCKET_START)) {
-                    System.out.println("Fly me to the moon");
                     data.set(RocketEntity.ROCKET_START, true);
                     this.level().playSound(null, this, SoundRegistry.ROCKET_SOUND.get(), SoundSource.NEUTRAL, 1, 1);
                     startTimerAndFlyMovement();
@@ -178,18 +177,10 @@ public class RocketEntity extends IVehicleEntity {
     }
 
     public Player getFirstPlayerPassenger() {
-        if (!this.getPassengers().isEmpty() && this.getPassengers().get(0) instanceof Player player) {
+        if (!this.getPassengers().isEmpty() && this.getPassengers().getFirst() instanceof Player player) {
             return player;
         }
 
         return null;
-    }
-
-    public void openPlanetSelectionMenu() {
-        Player player = this.getFirstPlayerPassenger();
-
-        if (player != null) {
-            player.openMenu(PlanetUtil.getPlanetMenuProvider());
-        }
     }
 }
