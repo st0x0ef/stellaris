@@ -240,4 +240,7 @@ public class ItemsRegistry {
     public static final RegistrySupplier<Item> FLAG_ITEM = ITEMS.register("flag", () -> new BlockItem(BlocksRegistry.FLAG.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
 
     public static final RegistrySupplier<Item> VERTICAL_MOON_SLAB_ITEM = ITEMS.register("vertical_moon_slab", () -> new BlockItem(BlocksRegistry.VERTICAL_MOON_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
+    public static final RegistrySupplier<Item> VERTICAL_MARS_SLAB_ITEM = ITEMS.register("vertical_mars_slab", () -> new BlockItem(BlocksRegistry.VERTICAL_MARS_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
+    public static final RegistrySupplier<Item> VERTICAL_VENUS_SLAB_ITEM = ITEMS.register("vertical_venus_slab", () -> new BlockItem(BlocksRegistry.VERTICAL_VENUS_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
+    public static final RegistrySupplier<Item> VERTICAL_MERCURY_SLAB_ITEM = ITEMS.register("vertical_mercury_slab", () -> new BlockItem(BlocksRegistry.VERTICAL_MERCURY_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
 }

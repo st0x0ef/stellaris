@@ -121,6 +121,11 @@
   "block.stellaris.venus_stone_brick_slab": "Venus Stone Brick Slab",
   "block.stellaris.venus_stone_brick_stairs": "Venus Stone Brick Stairs",
 
+  "block.stellaris.vertical_moon_slab": "Vertical Moon Stone Slab",
+  "block.stellaris.vertical_mars_slab": "Vertical Mars Stone Slab",
+  "block.stellaris.vertical_venus_slab": "Vertical Venus Stone Slab",
+  "block.stellaris.vertical_mercury_slab": "Vertical Mercury Stone Slab",
+
 
   "block.stellaris.uranium_block" : "Uranium Block",
   "block.stellaris.raw_uranium_block" : "Raw Uranium Block",

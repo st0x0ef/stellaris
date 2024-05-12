@@ -178,5 +178,8 @@ public class BlocksRegistry {
     public static final RegistrySupplier<Block> VENUS_PILLAR = BLOCKS.register("venus_pillar", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(5f, 2.5f).requiresCorrectToolForDrops()));
 
     public static final RegistrySupplier<Block> VERTICAL_MOON_SLAB = BLOCKS.register("vertical_moon_slab", () -> new VerticalSlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(5f, 2.5f).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> VERTICAL_MARS_SLAB = BLOCKS.register("vertical_mars_slab", () -> new VerticalSlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(5f, 2.5f).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> VERTICAL_VENUS_SLAB = BLOCKS.register("vertical_venus_slab", () -> new VerticalSlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(5f, 2.5f).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> VERTICAL_MERCURY_SLAB = BLOCKS.register("vertical_mercury_slab", () -> new VerticalSlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(5f, 2.5f).requiresCorrectToolForDrops()));
 
 }
