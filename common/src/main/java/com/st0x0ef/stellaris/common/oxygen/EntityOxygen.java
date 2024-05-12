@@ -17,9 +17,7 @@ public class EntityOxygen {
             for (int z = -16; z < 16; z++) {
                 for (int y = -16; y < 16; y++) {
                     if (entity.level().getBlockEntity(new BlockPos(x + entity.getBlockX(), y + entity.getBlockY(), z + entity.getBlockZ())) instanceof OxygenSourceBlockEntity source) {
-                        if (!source.container.removeOxygenAt(entity.getOnPos(), false)) {
-                            canBreathThisTick = true;
-                        }
+                        canBreathThisTick = source.container.removeOxygenAt(entity.getOnPos(), false);
                     }
                 }
             }

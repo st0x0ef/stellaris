@@ -20,7 +20,8 @@ public abstract class OxygenSourceBlockEntity extends BlockEntity {
 
     public void tick() {
         if (PlanetUtil.isPlanet(this.level.dimension())) {
-            container.tick();
+            container.addOxygenAt(this.getBlockPos(), false);
+            container.tick(this.level);
         }
     }
 }
