@@ -1,13 +1,18 @@
 package com.st0x0ef.stellaris.common.entities;
 
-import com.st0x0ef.stellaris.common.menus.PlanetSelectionMenu;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.SolarPanelEntity;
+import com.st0x0ef.stellaris.common.menus.RocketMenu;
 import com.st0x0ef.stellaris.common.registry.ParticleRegistry;
 import com.st0x0ef.stellaris.common.registry.SoundRegistry;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
+import dev.architectury.registry.menu.ExtendedMenuProvider;
+import dev.architectury.registry.menu.MenuRegistry;
 import io.netty.buffer.Unpooled;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -17,23 +22,25 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.MenuProvider;
+import net.minecraft.world.*;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.HasCustomInventoryScreen;
+import net.minecraft.world.entity.animal.horse.Horse;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 
-public class RocketEntity extends IVehicleEntity {
+public class RocketEntity extends IVehicleEntity implements ContainerListener, HasCustomInventoryScreen {
+
 
     public static final EntityDataAccessor<Integer> START_TIMER = SynchedEntityData.defineId(RocketEntity.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<Boolean> ROCKET_START = SynchedEntityData.defineId(RocketEntity.class, EntityDataSerializers.BOOLEAN);
 
+    protected SimpleContainer inventory;
 
     public RocketEntity(EntityType<?> entityType, Level level) {
         super(entityType, level);
@@ -74,11 +81,23 @@ public class RocketEntity extends IVehicleEntity {
 
     @Override
     protected void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+
         this.getEntityData().set(ROCKET_START, compound.getBoolean("rocket_start"));
         this.getEntityData().set(START_TIMER, compound.getInt("start_timer"));
 
+
     }
 
+    @Override
+    protected void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.put("InventoryCustom", this.inventory.createTag(this.registryAccess()));
+
+        compound.putBoolean("rocket_start", this.getEntityData().get(ROCKET_START));
+        compound.putInt("start_timer", this.getEntityData().get(START_TIMER));
+
+    }
 
     @Override
     public boolean isPushable() {
@@ -101,7 +120,7 @@ public class RocketEntity extends IVehicleEntity {
 
         if (!this.level().isClientSide) {
             if (player.isCrouching()) {
-                //this.openCustomInventoryScreen(player);
+                this.openCustomInventoryScreen(player);
                 return InteractionResult.CONSUME;
             }
 
@@ -183,4 +202,36 @@ public class RocketEntity extends IVehicleEntity {
 
         return null;
     }
+
+    @Override
+    public void containerChanged(Container container) {
+
+    }
+
+    @Override
+    public void openCustomInventoryScreen(Player player) {
+        if (player instanceof ServerPlayer serverPlayer) {
+            MenuRegistry.openExtendedMenu(serverPlayer, new ExtendedMenuProvider() {
+                @Override
+                public void saveExtraData(FriendlyByteBuf packetByteBuf) {
+                    packetByteBuf.writeInt(RocketEntity.this.getId());
+                }
+
+                @Override
+                public Component getDisplayName() {
+                    return Component.literal("Rocket");
+                }
+
+                @Override
+                public AbstractContainerMenu createMenu(int syncId, Inventory inv, Player player) {
+                    FriendlyByteBuf packetBuffer = new FriendlyByteBuf(Unpooled.buffer());
+                    packetBuffer.writeVarInt(RocketEntity.this.getId());
+
+                    return new RocketMenu(syncId, inv, packetBuffer);
+                }
+            });
+        }
+    }
+
+
 }

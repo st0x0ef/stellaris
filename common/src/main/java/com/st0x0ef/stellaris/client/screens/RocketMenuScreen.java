@@ -2,7 +2,7 @@ package com.st0x0ef.stellaris.client.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.menus.RocketMenuMenu;
+import com.st0x0ef.stellaris.common.menus.RocketMenu;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.GuiGraphics;
@@ -13,15 +13,15 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 @Environment(EnvType.CLIENT)
-public class RocketMenuScreen extends AbstractContainerScreen<RocketMenuMenu> {
+public class RocketMenuScreen extends AbstractContainerScreen<RocketMenu> {
 
     public static final ResourceLocation texture = new ResourceLocation(Stellaris.MODID, "textures/gui/rocket.png");
 
 
-    public RocketMenuScreen(RocketMenuMenu abstractContainerMenu, Inventory inventory, Component component) {
+    public RocketMenuScreen(RocketMenu abstractContainerMenu, Inventory inventory, Component component) {
         super(abstractContainerMenu, inventory, component);
         this.imageWidth = 177;
-        this.imageHeight = 174;
+        this.imageHeight = 177;
         this.inventoryLabelY = this.imageHeight - 92;
 
     }

@@ -10,14 +10,14 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
-public class RocketMenuMenu extends AbstractContainerMenu {
+public class RocketMenu extends AbstractContainerMenu {
 
     private final Container inventory;
-    public RocketMenuMenu(int syncId, Inventory inventory, FriendlyByteBuf buffer) {
+    public RocketMenu(int syncId, Inventory inventory, FriendlyByteBuf buffer) {
         this(syncId, inventory, new SimpleContainer(15));
     }
 
-    public RocketMenuMenu(int syncId, Inventory playerInventory, Container container)
+    public RocketMenu(int syncId, Inventory playerInventory, Container container)
     {
 
         super(MenuTypesRegistry.ROCKET_MENU.get(), syncId);
@@ -65,40 +65,45 @@ public class RocketMenuMenu extends AbstractContainerMenu {
 
 
     private void addSlots(Container inventory) {
-        this.addSlot(new Slot(inventory, 0, 56, 20));
+        //FUEL SLOTS
+        this.addSlot(new Slot(inventory, 0, 20, 27));
+        this.addSlot(new Slot(inventory, 1, 20, 57));
 
-        this.addSlot(new Slot(inventory, 1, 47, 38));
-        this.addSlot(new Slot(inventory, 3, 47, 56));
-        this.addSlot(new Slot(inventory, 5, 47, 75));
+        //INVENTORY SLOTS
+        this.addSlot(new Slot(inventory, 3, 86, 20));
+        this.addSlot(new Slot(inventory, 5, 86, 37));
 
-        this.addSlot(new Slot(inventory, 2, 65, 38));
-        this.addSlot(new Slot(inventory, 4, 65, 56));
-        this.addSlot(new Slot(inventory, 6, 65, 75));
+        this.addSlot(new Slot(inventory, 2, 104, 20));
+        this.addSlot(new Slot(inventory, 4, 104, 37));
 
-        this.addSlot(new Slot(inventory, 7, 29, 92));
-        this.addSlot(new Slot(inventory, 8, 47, 92));
-        this.addSlot(new Slot(inventory, 9, 65, 92));
-        this.addSlot(new Slot(inventory, 10, 83, 92));
+        this.addSlot(new Slot(inventory, 6, 122, 20));
+        this.addSlot(new Slot(inventory, 7, 122, 37));
 
-        this.addSlot(new Slot(inventory, 11, 29, 110));
-        this.addSlot(new Slot(inventory, 12, 56, 110));
-        this.addSlot(new Slot(inventory, 13, 83, 110));
+        this.addSlot(new Slot(inventory, 8, 140, 20));
+        this.addSlot(new Slot(inventory, 9, 140, 37));
 
-        this.addSlot(new ResultSlot(inventory, 14, 129, 56));
+        //UPGRADE SLOTS
+        this.addSlot(new Slot(inventory, 10, 76, 66));
+
+        this.addSlot(new Slot(inventory, 11, 101, 66));
+        this.addSlot(new Slot(inventory, 12, 126, 66));
+        this.addSlot(new Slot(inventory, 13, 151, 66));
+
+        //this.addSlot(new ResultSlot(inventory, 14, 129, 56));
 
     }
 
     private void addPlayerInventory(Inventory playerInventory) {
         for (int i = 0; i < 3; ++i) {
             for (int l = 0; l < 9; ++l) {
-                this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 8 + l * 18, (84 + i * 18) + 58));
+                this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 8 + l * 18, (84 + i * 18) + 11));
             }
         }
     }
 
     private void addPlayerHotbar(Inventory playerInventory) {
         for (int i = 0; i < 9; ++i) {
-            this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 200));
+            this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 153));
         }
     }
 }
