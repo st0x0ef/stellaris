@@ -87,7 +87,6 @@ public class StellarisClient {
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.COAL_GENERATOR_MENU.get(), CoalGeneratorScreen::new);
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.RADIOACTIVE_GENERATOR_MENU.get(), RadioactiveGeneratorScreen::new);
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.PLANET_SELECTION_MENU.get(), PlanetSelectionScreen::new);
-        MenuRegistry.registerScreenFactory(MenuTypesRegistry.OXYGEN_PROPAGATOR.get(), OxygenPropagatorScreen::new);
     }
 
     public static void registerKey() {

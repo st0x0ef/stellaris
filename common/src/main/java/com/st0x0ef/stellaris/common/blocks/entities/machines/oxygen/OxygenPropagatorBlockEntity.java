@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines.oxygen;
 
-import com.st0x0ef.stellaris.common.menus.OxygenPropagatorMenu;
 import com.st0x0ef.stellaris.common.oxygen.OxygenContainer;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
@@ -47,7 +46,7 @@ public class OxygenPropagatorBlockEntity extends OxygenBlockEntity {
 
     @Override
     protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
-        return new OxygenPropagatorMenu(containerId, inventory, this);
+        return null;
     }
 
     @Override
