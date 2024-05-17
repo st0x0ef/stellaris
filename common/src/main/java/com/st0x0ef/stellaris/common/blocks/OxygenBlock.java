@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.common.blocks;
 
-import com.st0x0ef.stellaris.common.blocks.entities.oxygen.OxygenPropagatorBlockEntity;
-import com.st0x0ef.stellaris.common.blocks.entities.oxygen.OxygenSourceBlockEntity;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.oxygen.OxygenBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -15,11 +14,8 @@ public abstract class OxygenBlock extends BaseEntityBlock {
 
     @Override
     protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        if (level.getBlockEntity(pos) instanceof OxygenSourceBlockEntity oxygenSourceBlockEntity) {
-            oxygenSourceBlockEntity.tick();
-        }
-        else if (level.getBlockEntity(pos) instanceof OxygenPropagatorBlockEntity oxygenSourceBlockEntity) {
-            oxygenSourceBlockEntity.tick();
+        if (level.getBlockEntity(pos) instanceof OxygenBlockEntity entity) {
+            entity.tick();
         }
     }
 }

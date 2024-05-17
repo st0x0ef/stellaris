@@ -1,6 +1,6 @@
 package com.st0x0ef.stellaris.common.oxygen;
 
-import com.st0x0ef.stellaris.common.blocks.entities.oxygen.OxygenSourceBlockEntity;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.oxygen.OxygenBlockEntity;
 import com.st0x0ef.stellaris.common.registry.DamageSourceRegistry;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import net.minecraft.core.BlockPos;
@@ -16,8 +16,8 @@ public class EntityOxygen {
         for (int x = -16; x < 16; x++) {
             for (int z = -16; z < 16; z++) {
                 for (int y = -16; y < 16; y++) {
-                    if (entity.level().getBlockEntity(new BlockPos(x + entity.getBlockX(), y + entity.getBlockY(), z + entity.getBlockZ())) instanceof OxygenSourceBlockEntity source) {
-                        canBreathThisTick = source.container.removeOxygenAt(entity.getOnPos(), false);
+                    if (entity.level().getBlockEntity(new BlockPos(x + entity.getBlockX(), y + entity.getBlockY(), z + entity.getBlockZ())) instanceof OxygenBlockEntity source) {
+                        canBreathThisTick = source.getOxygenContainer().removeOxygenAt(entity.getOnPos(), false);
                     }
                 }
             }

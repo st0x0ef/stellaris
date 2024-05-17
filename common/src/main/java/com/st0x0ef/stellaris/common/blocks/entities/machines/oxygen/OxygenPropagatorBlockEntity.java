@@ -1,23 +1,20 @@
-package com.st0x0ef.stellaris.common.blocks.entities.oxygen;
+package com.st0x0ef.stellaris.common.blocks.entities.machines.oxygen;
 
 import com.st0x0ef.stellaris.common.oxygen.OxygenContainer;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-public abstract class OxygenPropagatorBlockEntity extends BlockEntity {
-    public OxygenContainer container;
-    public int range;
-
+public class OxygenPropagatorBlockEntity extends OxygenBlockEntity {
     protected OxygenPropagatorBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState, int range, int power) {
-        super(type, pos, blockState);
-        this.range = range;
-
-        container = new OxygenContainer(power);
+        super(type, pos, blockState, new OxygenContainer(power), range);
     }
 
+    @Override
     public void tick() {
         if (PlanetUtil.isPlanet(this.level.dimension())) {
             if (container.removeOxygenAt(this.getBlockPos().getX() + 1, this.getBlockPos().getY(), this.getBlockPos().getZ(), false)) {
@@ -39,5 +36,20 @@ public abstract class OxygenPropagatorBlockEntity extends BlockEntity {
                 container.tick(this.level);
             }
         }
+    }
+
+    @Override
+    protected Component getDefaultName() {
+        return Component.literal("Oxygen Propagator");
+    }
+
+    @Override
+    protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
+        return null; // TODO : menu
+    }
+
+    @Override
+    public int getContainerSize() {
+        return 0;
     }
 }
