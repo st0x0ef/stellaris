@@ -1,8 +1,8 @@
 package com.st0x0ef.stellaris.common.menus;
 
 import com.st0x0ef.stellaris.common.blocks.entities.machines.RadioactiveGeneratorEntity;
+import com.st0x0ef.stellaris.common.menus.slot.RadioactiveGeneratorSlot;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
-import com.st0x0ef.stellaris.common.registry.TagRegistry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
@@ -15,19 +15,6 @@ import net.minecraft.world.item.ItemStack;
 public class RadioactiveGeneratorMenu extends AbstractContainerMenu {
     private final Container inventory;
     private final RadioactiveGeneratorEntity entity;
-
-    public class RadioactiveGeneratorSlot extends Slot {
-
-        public RadioactiveGeneratorSlot(Container container, int slot, int x, int y) {
-            super(container, slot, x, y);
-        }
-
-        @Override
-        public boolean mayPlace(ItemStack stack) {
-            return stack.is(TagRegistry.RADIOACTIVE_GENERATOR_FUEL_TAG);
-        }
-    }
-
 
     public static RadioactiveGeneratorMenu create(int syncId, Inventory inventory, FriendlyByteBuf data) {
         RadioactiveGeneratorEntity entity = (RadioactiveGeneratorEntity) inventory.player.level().getBlockEntity(data.readBlockPos());

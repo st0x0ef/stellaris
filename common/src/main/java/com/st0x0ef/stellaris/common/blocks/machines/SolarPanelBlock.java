@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.common.blocks.machines;
 
 import com.mojang.serialization.MapCodec;
-import com.st0x0ef.stellaris.common.blocks.entities.machines.GeneratorBlockEntityTemplate;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.SolarPanelEntity;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import dev.architectury.registry.menu.ExtendedMenuProvider;

@@ -13,12 +13,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 @Environment(EnvType.CLIENT)
-public class RocketMenuScreen extends AbstractContainerScreen<RocketMenu> {
+public class RocketScreen extends AbstractContainerScreen<RocketMenu> {
 
     public static final ResourceLocation texture = new ResourceLocation(Stellaris.MODID, "textures/gui/rocket.png");
 
 
-    public RocketMenuScreen(RocketMenu abstractContainerMenu, Inventory inventory, Component component) {
+    public RocketScreen(RocketMenu abstractContainerMenu, Inventory inventory, Component component) {
         super(abstractContainerMenu, inventory, component);
         this.imageWidth = 177;
         this.imageHeight = 177;

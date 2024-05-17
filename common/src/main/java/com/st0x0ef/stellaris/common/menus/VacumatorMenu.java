@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.menus;
 
+import com.st0x0ef.stellaris.common.menus.slot.ResultSlot;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
