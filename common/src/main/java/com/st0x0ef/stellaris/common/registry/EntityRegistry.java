@@ -4,6 +4,7 @@ import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.entities.GlobeTileEntity;
 import com.st0x0ef.stellaris.common.blocks.entities.RadioactiveBlockEntity;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.*;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.oxygen.OxygenPropagatorBlockEntity;
 import com.st0x0ef.stellaris.common.entities.*;
 import com.st0x0ef.stellaris.common.entities.alien.Alien;
 import com.st0x0ef.stellaris.common.entities.pygro.Pygro;
@@ -54,6 +55,8 @@ public class EntityRegistry {
             () -> BlockEntityType.Builder.of(VacumatorBlockEntity::new, BlocksRegistry.VACUMATOR.get()).build(null));
     public static final RegistrySupplier<BlockEntityType<WaterSeparatorBlockEntity>> WATER_SEPARATOR_ENTITY = BLOCK_ENTITY_TYPE.register("water_separator",
             () -> BlockEntityType.Builder.of(WaterSeparatorBlockEntity::new, BlocksRegistry.WATER_SEPARATOR.get()).build(null));
+    public static final RegistrySupplier<BlockEntityType<OxygenPropagatorBlockEntity>> OXYGEN_PROPAGATOR = BLOCK_ENTITY_TYPE.register("oxygen_propagator",
+            () -> BlockEntityType.Builder.of(OxygenPropagatorBlockEntity::new, BlocksRegistry.OXYGEN_PROPAGATOR.get()).build(null));
 
     //Entity type
 

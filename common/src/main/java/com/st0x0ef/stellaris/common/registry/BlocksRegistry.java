@@ -1,10 +1,7 @@
 package com.st0x0ef.stellaris.common.registry;
 
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.blocks.FlagBlock;
-import com.st0x0ef.stellaris.common.blocks.RadioactiveBlock;
-import com.st0x0ef.stellaris.common.blocks.RocketLaunchPad;
-import com.st0x0ef.stellaris.common.blocks.VerticalSlabBlock;
+import com.st0x0ef.stellaris.common.blocks.*;
 import com.st0x0ef.stellaris.common.blocks.machines.*;
 import dev.architectury.core.block.ArchitecturyLiquidBlock;
 import dev.architectury.registry.registries.DeferredRegister;
@@ -119,6 +116,9 @@ public class BlocksRegistry {
     public static final RegistrySupplier<Block> CABLE = BLOCKS.register("cable", ()-> new Cable(BlockBehaviour.Properties.ofFullCopy(Blocks.CHAIN)));
     public static final RegistrySupplier<Block> VACUMATOR = BLOCKS.register("vacumator", ()-> new Vacumator(BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_ORE)));
     public static final RegistrySupplier<Block> WATER_SEPARATOR = BLOCKS.register("water_separator", () -> new WaterSeparatorBlock(BlockBehaviour.Properties.ofFullCopy(STEEL_ORE.get()).mapColor(MapColor.DEEPSLATE).strength(4.5F, 3F).sound(SoundType.DEEPSLATE)));
+
+    /**Oxygen Blocks**/
+    public static final RegistrySupplier<Block> OXYGEN_PROPAGATOR = BLOCKS.register("oxygen_propagator", () -> new OxygenPropagatorBlock(BlockBehaviour.Properties.ofFullCopy(WATER_SEPARATOR.get())));
 
     /**Fluid Blocks*/
     public static final RegistrySupplier<LiquidBlock> FUEL_BLOCK = BLOCKS.register("fuel", () -> new ArchitecturyLiquidBlock(FluidRegistry.FUEL_STILL, BlockBehaviour.Properties.ofFullCopy(Blocks.WATER)));
