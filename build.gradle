@@ -14,11 +14,11 @@ subprojects {
     apply plugin: 'maven-publish'
 
     def modLoader = project.name
-    def modId = rootProject.name
+    def modId = rootProject.archives_base_name
     def isCommon = (modLoader == "common")
 
     base {
-        archivesName = modId + "-" + modLoader + "-" + mod_version
+        archivesName = modId + "-" + modLoader + "-${rootProject.minecraft_version}-" + mod_version
     }
 
 
