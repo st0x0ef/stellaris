@@ -1,6 +1,7 @@
 plugins {
     id "architectury-plugin" version "3.4+"
     id "dev.architectury.loom" version "1.6+" apply false
+    id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
 }
 
 architectury {
@@ -8,11 +9,17 @@ architectury {
 }
 
 subprojects {
-    apply plugin: "dev.architectury.loom"
+    apply plugin: 'dev.architectury.loom'
+    apply plugin: 'architectury-plugin'
+    apply plugin: 'maven-publish'
 
     def modLoader = project.name
     def modId = rootProject.name
     def isCommon = (modLoader == "common")
+
+    base {
+        archivesName = modId + "-" + modLoader + "-" + mod_version
+    }
 
 
     loom {
@@ -20,18 +27,11 @@ subprojects {
     }
 
     repositories {
-        maven {
-            name "neoforgedReleases"
-            url "https://maven.neoforged.net"
-           }
         maven { url "https://maven.shedaniel.me" }
-        maven {
-            name = 'ParchmentMC'
-            url = 'https://maven.parchmentmc.org'
-        }
-        maven {
-            url "https://cursemaven.com"
-        }
+        maven { url "https://cursemaven.com" }
+        maven { url "https://maven.terraformersmc.com/releases" }
+        maven { url "https://maven.parchmentmc.org" }
+        maven { url "https://maven.neoforged.net" }
     }
 
     dependencies {
@@ -54,16 +54,6 @@ subprojects {
 
 allprojects {
     apply plugin: "java"
-    apply plugin: "architectury-plugin"
-    apply plugin: "maven-publish"
-
-    archivesBaseName = rootProject.archives_base_name
-    version = rootProject.mod_version
-    group = rootProject.maven_group
-
-    repositories {
-        maven { url "https://maven.terraformersmc.com/releases" }
-    }
 
     tasks.withType(JavaCompile).configureEach {
         options.encoding = "UTF-8"
