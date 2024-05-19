@@ -17,13 +17,15 @@ public class RocketMenu extends AbstractContainerMenu {
         this(syncId, inventory, new SimpleContainer(15));
     }
 
+
+
     public RocketMenu(int syncId, Inventory playerInventory, Container container)
     {
 
         super(MenuTypesRegistry.ROCKET_MENU.get(), syncId);
 
 
-        checkContainerSize(container, 15);
+        checkContainerSize(container, 14);
         this.inventory = (container);
 
         addSlots(inventory);
@@ -84,7 +86,6 @@ public class RocketMenu extends AbstractContainerMenu {
 
         //UPGRADE SLOTS
         this.addSlot(new Slot(inventory, 10, 76, 66));
-
         this.addSlot(new Slot(inventory, 11, 101, 66));
         this.addSlot(new Slot(inventory, 12, 126, 66));
         this.addSlot(new Slot(inventory, 13, 151, 66));

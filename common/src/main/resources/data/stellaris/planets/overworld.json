@@ -2,7 +2,7 @@
   "system": "solar_system",
   "level": "minecraft:overworld",
   "orbit": "minecraft:the_end",
-  "oxygen": true,
+  "oxygen": false,
   "temperature": 15,
   "distanceFromEarth": 0,
   "gravity": 10.0
