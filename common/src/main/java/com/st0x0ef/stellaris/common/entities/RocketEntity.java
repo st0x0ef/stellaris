@@ -98,16 +98,23 @@ public class RocketEntity extends IVehicleEntity implements ImplementedInventory
     @Override
     protected void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        this.inventory.getItems().forEach(itemStack -> {
-            items.clear();
-            items.add(itemStack);
-        });
+
+        //saveInventoryInList();
         ContainerHelper.saveAllItems(compound, items, this.registryAccess());
 
         compound.putBoolean("rocket_start", this.getEntityData().get(ROCKET_START));
         compound.putInt("start_timer", this.getEntityData().get(START_TIMER));
-
     }
+
+//    private ListTag saveInventoryInList() {
+//        ListTag list = new ListTag();
+//        items.clear();
+//        this.inventory.getItems().forEach(itemStack -> {
+//            items.add(itemStack);
+//            list.add(list.size(), itemStack));
+//        });
+//
+//    }
 
     @Override
     public boolean isPushable() {
