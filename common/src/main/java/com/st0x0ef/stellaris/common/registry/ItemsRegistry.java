@@ -1,10 +1,7 @@
 package com.st0x0ef.stellaris.common.registry;
 
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.items.CanItem;
-import com.st0x0ef.stellaris.common.items.IceShardArrow;
-import com.st0x0ef.stellaris.common.items.RadioactiveBlockItem;
-import com.st0x0ef.stellaris.common.items.RadioactiveItem;
+import com.st0x0ef.stellaris.common.items.*;
 import com.st0x0ef.stellaris.common.items.oxygen.OxygenTankItem;
 import dev.architectury.core.item.ArchitecturyBucketItem;
 import dev.architectury.registry.registries.DeferredRegister;
@@ -249,4 +246,8 @@ public class ItemsRegistry {
     public static final RegistrySupplier<Item> VERTICAL_MARS_SLAB_ITEM = ITEMS.register("vertical_mars_slab", () -> new BlockItem(BlocksRegistry.VERTICAL_MARS_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
     public static final RegistrySupplier<Item> VERTICAL_VENUS_SLAB_ITEM = ITEMS.register("vertical_venus_slab", () -> new BlockItem(BlocksRegistry.VERTICAL_VENUS_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
     public static final RegistrySupplier<Item> VERTICAL_MERCURY_SLAB_ITEM = ITEMS.register("vertical_mercury_slab", () -> new BlockItem(BlocksRegistry.VERTICAL_MERCURY_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
+
+    /** Rocket */
+    public static final RegistrySupplier<Item> ROCKET = ITEMS.register("rocket", () -> new RocketItem( new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
+
 }

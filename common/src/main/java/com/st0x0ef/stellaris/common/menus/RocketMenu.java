@@ -1,5 +1,7 @@
 package com.st0x0ef.stellaris.common.menus;
 
+import com.st0x0ef.stellaris.common.menus.slot.SpecificItemsSlot;
+import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
@@ -85,7 +87,7 @@ public class RocketMenu extends AbstractContainerMenu {
         this.addSlot(new Slot(inventory, 9, 140, 37));
 
         //UPGRADE SLOTS
-        this.addSlot(new Slot(inventory, 10, 76, 66));
+        this.addSlot(new SpecificItemsSlot.Item(inventory, 10, 76, 66, ItemsRegistry.STEEL_NUGGET.get()));
         this.addSlot(new Slot(inventory, 11, 101, 66));
         this.addSlot(new Slot(inventory, 12, 126, 66));
         this.addSlot(new Slot(inventory, 13, 151, 66));
