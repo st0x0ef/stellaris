@@ -37,6 +37,7 @@ public class TagRegistry {
     public static final TagKey<Item> SPACE_FOOD = TagKey.create(Registries.ITEM, new ResourceLocation(Stellaris.MODID, "space_food"));
     public static final TagKey<Item> COAL_GENERATOR_FUEL_TAG = TagKey.create(Registries.ITEM, new ResourceLocation(Stellaris.MODID, "coal_generator_fuel"));
     public static final TagKey<Item> RADIOACTIVE_GENERATOR_FUEL_TAG = TagKey.create(Registries.ITEM, new ResourceLocation(Stellaris.MODID, "radioactive_generator_fuel"));
+    public static final TagKey<Item> ROCKET_SKIN = TagKey.create(Registries.ITEM, new ResourceLocation(Stellaris.MODID, "rocket_skin"));
 
     /** BLOCKS */
     public static final TagKey<Block> SPACE_STATION_CAN_SPAWN_ON = TagKey.create(Registries.BLOCK, new ResourceLocation(Stellaris.MODID, "space_station_can_spawn_on"));

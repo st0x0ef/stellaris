@@ -69,16 +69,9 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
 
         ScreenHelper.drawTexture(0, (this.height / 2) - 177 / 2, 215, 177, LARGE_MENU_TEXTURE, true);
-        AtomicInteger systemsHeight = new AtomicInteger();
-        StellarisData.SYSTEMS.forEach((key, value) -> {
-            Button systemsButton = Button.builder(Component.literal(key), (button) -> {
-                System.out.println("System: " + key);
-            }).width(200).pos(2, 90 + systemsHeight.get()).build();
-            System.out.println("System: " + key);
-            systemsHeight.addAndGet(20);
-            addRenderableWidget(systemsButton);
-        });
 
+
+        addSystemsButtons();
     }
 
     @Override
@@ -88,6 +81,13 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
 
     public void addSystemsButtons() {
+        AtomicInteger systemsHeight = new AtomicInteger();
+        StellarisData.SYSTEMS.forEach((key, value) -> {
+            Button systemsButton = Button.builder(Component.literal(key), (button) -> {
+            }).width(200).pos(2, 90 + systemsHeight.get()).build();
+            systemsHeight.addAndGet(20);
+            addRenderableWidget(systemsButton);
+        });
 
     }
 

@@ -1,5 +1,7 @@
 package com.st0x0ef.stellaris.common.entities;
 
+import com.google.common.collect.Sets;
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.menus.RocketMenu;
 import com.st0x0ef.stellaris.common.registry.ParticleRegistry;
 import com.st0x0ef.stellaris.common.registry.SoundRegistry;
@@ -7,6 +9,8 @@ import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import dev.architectury.registry.menu.ExtendedMenuProvider;
 import dev.architectury.registry.menu.MenuRegistry;
 import io.netty.buffer.Unpooled;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -16,28 +20,34 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.*;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.HasCustomInventoryScreen;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.vehicle.DismountHelper;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.Set;
+
 public class RocketEntity extends IVehicleEntity implements HasCustomInventoryScreen {
 
 
     public static final EntityDataAccessor<Integer> START_TIMER = SynchedEntityData.defineId(RocketEntity.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<Boolean> ROCKET_START = SynchedEntityData.defineId(RocketEntity.class, EntityDataSerializers.BOOLEAN);
+    public static final EntityDataAccessor<String> ROCKET_SKIN = SynchedEntityData.defineId(RocketEntity.class, EntityDataSerializers.STRING);
+
+    public static final String DEFAULT_SKIN_TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/entity/rocket/normal/rocket.png").toString();
 
     protected SimpleContainer inventory;
 
@@ -45,6 +55,8 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         super(entityType, level);
         this.entityData.set(START_TIMER, 0);
         this.entityData.set(ROCKET_START, false);
+        this.entityData.set(ROCKET_SKIN, DEFAULT_SKIN_TEXTURE);
+
         this.inventory = new SimpleContainer(14);
     }
 
@@ -190,6 +202,44 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
         return false;
     }
+
+    @Override
+    public Vec3 getDismountLocationForPassenger(LivingEntity livingEntity) {
+        Vec3[] avector3d = new Vec3[]{getCollisionHorizontalEscapeVector(this.getBbWidth(), livingEntity.getBbWidth(), livingEntity.getYRot()), getCollisionHorizontalEscapeVector(this.getBbWidth(), livingEntity.getBbWidth(), livingEntity.getYRot() - 22.5F), getCollisionHorizontalEscapeVector(this.getBbWidth(), livingEntity.getBbWidth(), livingEntity.getYRot() + 22.5F), getCollisionHorizontalEscapeVector(this.getBbWidth(), livingEntity.getBbWidth(), livingEntity.getYRot() - 45.0F), getCollisionHorizontalEscapeVector(this.getBbWidth(), livingEntity.getBbWidth(), livingEntity.getYRot() + 45.0F)};
+        Set<BlockPos> set = Sets.newLinkedHashSet();
+        double d0 = this.getBoundingBox().maxY;
+        double d1 = this.getBoundingBox().minY - 0.5D;
+        BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos();
+
+        for(Vec3 vector3d : avector3d) {
+            blockpos$mutable.set(this.getX() + vector3d.x, d0, this.getZ() + vector3d.z);
+
+            for(double d2 = d0; d2 > d1; --d2) {
+                set.add(blockpos$mutable.immutable());
+                blockpos$mutable.move(Direction.DOWN);
+            }
+        }
+
+        for(BlockPos blockpos : set) {
+            if (!this.level().getFluidState(blockpos).is(FluidTags.LAVA)) {
+                double d3 = this.level().getBlockFloorHeight(blockpos);
+                if (DismountHelper.isBlockFloorValid(d3)) {
+                    Vec3 vector3d1 = Vec3.upFromBottomCenterOf(blockpos, d3);
+
+                    for(Pose pose : livingEntity.getDismountPoses()) {
+                        if (DismountHelper.isBlockFloorValid(this.level().getBlockFloorHeight(blockpos))) {
+                            livingEntity.setPose(pose);
+                            return vector3d1;
+                        }
+                    }
+                }
+            }
+        }
+
+        return new Vec3(this.getX(), this.getBoundingBox().maxY, this.getZ());
+    }
+
+
 
 
     public double getRocketSpeed() {

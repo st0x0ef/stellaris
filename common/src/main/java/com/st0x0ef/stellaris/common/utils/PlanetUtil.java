@@ -3,10 +3,13 @@ package com.st0x0ef.stellaris.common.utils;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
 import com.st0x0ef.stellaris.common.menus.PlanetSelectionMenu;
+import dev.architectury.registry.menu.ExtendedMenuProvider;
+import dev.architectury.registry.menu.MenuRegistry;
 import io.netty.buffer.Unpooled;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -30,7 +33,12 @@ public class PlanetUtil {
     }
 
     public static int openPlanetSelectionMenu(Player player) {
-        MenuProvider provider = new MenuProvider() {
+        ExtendedMenuProvider provider = new ExtendedMenuProvider() {
+
+            @Override
+            public void saveExtraData(FriendlyByteBuf buf) {
+
+            }
 
             @Override
             public Component getDisplayName() {
@@ -44,8 +52,8 @@ public class PlanetUtil {
             }
         };
 
-        if (player != null) {
-            player.openMenu(provider);
+        if (player != null && player instanceof ServerPlayer) {
+            MenuRegistry.openExtendedMenu((ServerPlayer)player, provider);
             return 1;
         }
 

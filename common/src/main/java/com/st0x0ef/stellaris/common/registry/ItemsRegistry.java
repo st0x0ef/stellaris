@@ -3,10 +3,12 @@ package com.st0x0ef.stellaris.common.registry;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.items.*;
 import com.st0x0ef.stellaris.common.items.oxygen.OxygenTankItem;
+import com.st0x0ef.stellaris.common.items.upgrade.RocketSkinItem;
 import dev.architectury.core.item.ArchitecturyBucketItem;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.*;
 
 public class ItemsRegistry {
@@ -249,5 +251,7 @@ public class ItemsRegistry {
 
     /** Rocket */
     public static final RegistrySupplier<Item> ROCKET = ITEMS.register("rocket", () -> new RocketItem( new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
+    public static final RegistrySupplier<Item> TEST_SKIN_ITEM = ITEMS.register("test_skin", () -> new RocketSkinItem(new ResourceLocation(Stellaris.MODID, "textures/skin/test"), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
+    public static final RegistrySupplier<Item> TEST_SKIN_ITEM_2 = ITEMS.register("test_skin_2", () -> new RocketSkinItem(new ResourceLocation(Stellaris.MODID, "textures/skin/test2"), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
 
 }
