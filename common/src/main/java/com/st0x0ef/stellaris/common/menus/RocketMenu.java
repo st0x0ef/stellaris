@@ -91,7 +91,7 @@ public class RocketMenu extends AbstractContainerMenu {
         //UPGRADE SLOTS
         this.addSlot(new SpecificItemsSlot.Item(inventory, 10, 76, 66, ItemsRegistry.STEEL_NUGGET.get()));
         this.addSlot(new Slot(inventory, 11, 101, 66));
-        this.addSlot(new SpecificItemsSlot.Tags(inventory, 12, 126, 66, TagRegistry.ROCKET_SKIN));
+        this.addSlot(new Slot(inventory, 12, 126, 66));
         this.addSlot(new Slot(inventory, 13, 151, 66));
 
     }

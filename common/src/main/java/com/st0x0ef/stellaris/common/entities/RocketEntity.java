@@ -2,7 +2,9 @@ package com.st0x0ef.stellaris.common.entities;
 
 import com.google.common.collect.Sets;
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.common.items.upgrade.RocketSkinItem;
 import com.st0x0ef.stellaris.common.menus.RocketMenu;
+import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import com.st0x0ef.stellaris.common.registry.ParticleRegistry;
 import com.st0x0ef.stellaris.common.registry.SoundRegistry;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
@@ -11,6 +13,7 @@ import dev.architectury.registry.menu.MenuRegistry;
 import io.netty.buffer.Unpooled;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -29,25 +32,26 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.*;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.DismountHelper;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Set;
 
-public class RocketEntity extends IVehicleEntity implements HasCustomInventoryScreen {
-
+public class RocketEntity extends IVehicleEntity implements HasCustomInventoryScreen, ContainerListener {
 
     public static final EntityDataAccessor<Integer> START_TIMER = SynchedEntityData.defineId(RocketEntity.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<Boolean> ROCKET_START = SynchedEntityData.defineId(RocketEntity.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<String> ROCKET_SKIN = SynchedEntityData.defineId(RocketEntity.class, EntityDataSerializers.STRING);
-
-    public static final String DEFAULT_SKIN_TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/entity/rocket/normal/rocket.png").toString();
+    public static final String DEFAULT_SKIN_TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/vehicle/rocket_skin/normal/standard.png").toString();
 
     protected SimpleContainer inventory;
 
@@ -65,6 +69,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         builder
                 .define(ROCKET_START, false)
                 .define(START_TIMER, 0)
+                .define(ROCKET_SKIN, DEFAULT_SKIN_TEXTURE)
                 .build();
 
     }
@@ -78,6 +83,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 //        this.fillUpRocket();
 //        this.rocketExplosion();
 //        this.burnEntities();
+        this.checkContainer();
 
         if (this.entityData.get(ROCKET_START)) {
             this.spawnParticle();
@@ -175,7 +181,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     @Override
     public void kill() {
         this.dropEquipment();
-        //this.spawnRocketItem();
+        this.spawnRocketItem();
 
         if (!this.level().isClientSide) {
             this.remove(RemovalReason.DISCARDED);
@@ -190,7 +196,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
         if (sourceEntity != null && sourceEntity.isCrouching() && !this.isVehicle()) {
 
-            //this.spawnRocketItem();
+            this.spawnRocketItem();
             this.dropEquipment();
 
             if (!this.level().isClientSide) {
@@ -239,8 +245,26 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         return new Vec3(this.getX(), this.getBoundingBox().maxY, this.getZ());
     }
 
+    @Nullable
+    @Override
+    public ItemStack getPickResult() {
+        return this.getRocketItem();
+    }
 
+    public void setSkinTexture(String texture) {
+        this.getEntityData().set(ROCKET_SKIN, texture);
+    }
 
+    public String getSkinTexture() {
+        return this.getEntityData().get(ROCKET_SKIN);
+    }
+
+    protected void spawnRocketItem() {
+        ItemEntity entityToSpawn = new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), this.getRocketItem());
+        entityToSpawn.setPickUpDelay(10);
+
+        this.level().addFreshEntity(entityToSpawn);
+    }
 
     public double getRocketSpeed() {
         return Mth.clamp(0.65 * 1, 0.7, 1.5);
@@ -321,6 +345,27 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
             }
         }
     }
+    public ItemStack getRocketItem() {
+        ItemStack itemStack = new ItemStack(ItemsRegistry.ROCKET.get(), 1);
+        CompoundTag tag = new CompoundTag();
+        tag.putString("rocket_skin", this.getEntityData().get(ROCKET_SKIN));
+
+        CustomData.set(DataComponents.CUSTOM_DATA, itemStack, tag);
+
+        return itemStack;
+    }
 
 
+    @Override
+    public void containerChanged(Container container) {
+        container.setItem(1, new ItemStack(ItemsRegistry.STEEL_NUGGET));
+        Stellaris.LOG.error("Container Change ");
+    }
+
+    private void checkContainer() {
+        if (inventory.getItem(12).getItem() instanceof RocketSkinItem item) {
+            this.getEntityData().set(ROCKET_SKIN, item.getRocketSkinName().toString());
+        }
+
+    }
 }

@@ -15,7 +15,14 @@ public class NormalRocketRenderer extends VehicleRenderer<RocketEntity, NormalRo
 
     @Override
     public ResourceLocation getTextureLocation(RocketEntity entity) {
-        return TEXTURE;
+        ResourceLocation location = new ResourceLocation(entity.getEntityData().get(RocketEntity.ROCKET_SKIN));
+        return location;
     }
+
+    @Override
+    protected boolean isShaking(RocketEntity rocket) {
+        return rocket.getEntityData().get(RocketEntity.ROCKET_START);
+    }
+
 
 }
