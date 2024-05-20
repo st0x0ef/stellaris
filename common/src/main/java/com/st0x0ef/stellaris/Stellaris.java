@@ -7,8 +7,10 @@ import com.st0x0ef.stellaris.common.config.CustomConfig;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
 import com.st0x0ef.stellaris.common.events.Events;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
+import com.st0x0ef.stellaris.common.network.packets.SyncPlanetsDatapack;
 import com.st0x0ef.stellaris.common.registry.*;
 import dev.architectury.registry.ReloadListenerRegistry;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,4 +45,13 @@ public class Stellaris {
         ReloadListenerRegistry.register(PackType.SERVER_DATA, new StellarisData());
         Events.registerEvents();
     }
+
+    public static void onDatapackSyncEvent(ServerPlayer player) {
+        StellarisData.PLANETS.forEach(((resourceKey, planet) -> {
+            NetworkRegistry.CHANNEL.sendToPlayer(player, new SyncPlanetsDatapack(resourceKey, planet));
+
+        }));
+    }
+
+
 }

@@ -38,4 +38,8 @@ public class StellarisData extends SimpleJsonResourceReloadListener {
 
         });
     }
+
+    public static void addPlanet(ResourceKey<Level> resourceKey, Planet planet) {
+        PLANETS.put(resourceKey, planet);
+    }
 }

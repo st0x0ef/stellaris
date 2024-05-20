@@ -1,4 +1,4 @@
-package com.st0x0ef.stellaris.common.network;
+package com.st0x0ef.stellaris.common.network.packets;
 
 import com.st0x0ef.stellaris.client.registries.KeyMappings;
 import dev.architectury.networking.NetworkManager;
