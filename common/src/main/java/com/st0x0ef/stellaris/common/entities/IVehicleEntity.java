@@ -30,19 +30,19 @@ public abstract class IVehicleEntity extends Entity{
     public float yya;
     public float zza;
 
-    public IVehicleEntity(EntityType<?> p_19870_, Level p_19871_) {
-        super(p_19870_, p_19871_);
+    public IVehicleEntity(EntityType<?> entityType, Level level) {
+        super(entityType, level);
         this.blocksBuilding = true;
     }
 
 
     @Override
-    protected void readAdditionalSaveData(CompoundTag p_20052_) {
+    protected void readAdditionalSaveData(CompoundTag tag) {
 
     }
 
     @Override
-    protected void addAdditionalSaveData(CompoundTag p_20139_) {
+    protected void addAdditionalSaveData(CompoundTag tag) {
 
     }
 
@@ -54,7 +54,7 @@ public abstract class IVehicleEntity extends Entity{
 
     /** Interact with the Entity Gui,Spawn Egg... */
     @Override
-    public InteractionResult interact(Player p_19978_, InteractionHand p_19979_) {
+    public InteractionResult interact(Player player, InteractionHand hand) {
         return InteractionResult.PASS;
     }
 
@@ -135,7 +135,7 @@ public abstract class IVehicleEntity extends Entity{
     }
 
     /** Movement Physic */
-    public void travel(Vec3 p_21280_) {
+    public void travel(Vec3 vec3) {
         if (this.isControlledByLocalInstance()) {
             double d0 = 0.08D;
 
@@ -146,7 +146,7 @@ public abstract class IVehicleEntity extends Entity{
                 float f5 = this.isSprinting() ? 0.9F : this.getWaterSlowDown();
                 float f6 = 0.02F;
 
-                this.moveRelative(f6, p_21280_);
+                this.moveRelative(f6, vec3);
                 this.move(MoverType.SELF, this.getDeltaMovement());
                 Vec3 vec36 = this.getDeltaMovement();
                 if (this.horizontalCollision) {
@@ -161,7 +161,7 @@ public abstract class IVehicleEntity extends Entity{
                 }
             } else if (this.isInLava()) {
                 double d7 = this.getY();
-                this.moveRelative(0.02F, p_21280_);
+                this.moveRelative(0.02F, vec3);
                 this.move(MoverType.SELF, this.getDeltaMovement());
                 if (this.getFluidHeight(FluidTags.LAVA) <= this.getFluidJumpThreshold()) {
                     this.setDeltaMovement(this.getDeltaMovement().multiply(0.5D, 0.8F, 0.5D));
@@ -183,7 +183,7 @@ public abstract class IVehicleEntity extends Entity{
                 BlockPos blockpos = this.getBlockPosBelowThatAffectsMyMovement();
                 float f3 = 1.0F;
                 float f4 = this.onGround() ? f3 * 0.91F : 0.91F;
-                Vec3 vec35 = this.handleRelativeFrictionAndCalculateMovement(p_21280_, f3);
+                Vec3 vec35 = this.handleRelativeFrictionAndCalculateMovement(vec3, f3);
                 double d2 = vec35.y;
                 if (this.level().isClientSide && !this.level().hasChunkAt(blockpos)) {
                     if (this.getY() > (double)this.level().getMinBuildHeight()) {
@@ -208,13 +208,14 @@ public abstract class IVehicleEntity extends Entity{
         return this.speed;
     }
 
-    public void setSpeed(float p_21320_) {
-        this.speed = p_21320_;
+    public void setSpeed(float speed) {
+        this.speed = speed;
     }
 
     protected float getWaterSlowDown() {
         return 0.8F;
     }
+
 
     public Vec3 getFluidFallingAdjustedMovement(double p_20995_, boolean p_20996_, Vec3 p_20997_) {
         if (!this.isNoGravity() && !this.isSprinting()) {
@@ -231,12 +232,12 @@ public abstract class IVehicleEntity extends Entity{
         }
     }
 
-    public float getFrictionInfluencedSpeed(float p_21331_) {
-        return this.getSpeed() * (0.21600002F / (p_21331_ * p_21331_ * p_21331_));
+    public float getFrictionInfluencedSpeed(float delta) {
+        return this.getSpeed() * (0.21600002F / (delta * delta * delta));
     }
 
-    public Vec3 handleRelativeFrictionAndCalculateMovement(Vec3 p_21075_, float p_21076_) {
-        this.moveRelative(this.getFrictionInfluencedSpeed(p_21076_), p_21075_);
+    public Vec3 handleRelativeFrictionAndCalculateMovement(Vec3 vector, float delta) {
+        this.moveRelative(this.getFrictionInfluencedSpeed(delta), vector);
         this.move(MoverType.SELF, this.getDeltaMovement());
         Vec3 vec3 = this.getDeltaMovement();
         if ((this.horizontalCollision) && (this.getBlockStateOn().is(Blocks.POWDER_SNOW) && PowderSnowBlock.canEntityWalkOnPowderSnow(this))) {

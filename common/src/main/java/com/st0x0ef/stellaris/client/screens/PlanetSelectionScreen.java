@@ -1,8 +1,10 @@
 package com.st0x0ef.stellaris.client.screens;
 
+import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.components.ModifiedButton;
+import com.st0x0ef.stellaris.client.screens.components.TexturedButton;
 import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
 import com.st0x0ef.stellaris.common.menus.PlanetSelectionMenu;
@@ -83,10 +85,14 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     public void addSystemsButtons() {
         AtomicInteger systemsHeight = new AtomicInteger();
         StellarisData.SYSTEMS.forEach((key, value) -> {
-            Button systemsButton = Button.builder(Component.literal(key), (button) -> {
-            }).width(200).pos(2, 90 + systemsHeight.get()).build();
-            systemsHeight.addAndGet(20);
-            addRenderableWidget(systemsButton);
+            List<String> buttonText = List.of("Go Back to the planet selection", "menu and try again.");
+            this.addButton(this.width / 2 - 30 , this.height / 2 + 50, 0, 75, 25, false, null, buttonText,
+                    BUTTON_TEXTURE, TexturedButton.ColorTypes.BLUE, Component.literal(key), (onPress) -> {
+                        System.out.println("Go Back");
+                        this.onClose();
+                    });
+
+            systemsHeight.addAndGet(35);
         });
 
     }
