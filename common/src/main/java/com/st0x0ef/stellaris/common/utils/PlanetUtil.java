@@ -9,6 +9,7 @@ import io.netty.buffer.Unpooled;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
@@ -30,6 +31,13 @@ public class PlanetUtil {
             return getPlanet(level).oxygen();
         }
         return true;
+    }
+
+    public static ResourceLocation getPlanetBar(ResourceKey<Level> level) {
+        if (isPlanet(level)) {
+            return getPlanet(level).textures().planet_bar();
+        }
+        return new ResourceLocation("stellaris", "textures/planet_bar/earth_planet_bar.png");
     }
 
     public static int openPlanetSelectionMenu(Player player) {
