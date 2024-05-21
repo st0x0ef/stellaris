@@ -1,6 +1,8 @@
 package com.st0x0ef.stellaris.client;
 
 import com.st0x0ef.stellaris.client.events.ClientEvents;
+import com.st0x0ef.stellaris.client.overlays.RocketBarOverlay;
+import com.st0x0ef.stellaris.client.overlays.RocketStartOverlay;
 import com.st0x0ef.stellaris.client.particles.*;
 import com.st0x0ef.stellaris.client.registries.KeyMappings;
 import com.st0x0ef.stellaris.client.renderers.entities.alien.AlienModel;
@@ -25,6 +27,7 @@ import com.st0x0ef.stellaris.client.screens.*;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import com.st0x0ef.stellaris.common.registry.ParticleRegistry;
+import dev.architectury.event.events.client.ClientGuiEvent;
 import dev.architectury.registry.client.keymappings.KeyMappingRegistry;
 import dev.architectury.registry.client.level.entity.EntityModelLayerRegistry;
 import dev.architectury.registry.client.level.entity.EntityRendererRegistry;
@@ -42,6 +45,7 @@ public class StellarisClient {
         registerScreen();
         registerKey();
         ClientEvents.registerEvents();
+        registerOverlays();
     }
     public static void registerEntityModelLayer() {
         EntityModelLayerRegistry.register(AlienModel.LAYER_LOCATION, AlienModel::createBodyLayer);
@@ -93,4 +97,9 @@ public class StellarisClient {
         KeyMappingRegistry.register(KeyMappings.ROCKET_START);
     }
 
+    public static void registerOverlays() {
+        ClientGuiEvent.RENDER_HUD.register(RocketStartOverlay::render);
+        ClientGuiEvent.RENDER_HUD.register(RocketBarOverlay::render);
+
+    }
 }

@@ -33,6 +33,13 @@ public class PlanetUtil {
         return true;
     }
 
+    public static boolean isOrbit(ResourceKey<Level> level) {
+        if (isPlanet(level)) {
+            return getPlanet(level).oxygen();
+        }
+        return true;
+    }
+
     public static ResourceLocation getPlanetBar(ResourceKey<Level> level) {
         if (isPlanet(level)) {
             return getPlanet(level).textures().planet_bar();

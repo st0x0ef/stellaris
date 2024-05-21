@@ -90,6 +90,44 @@ public class ScreenHelper {
 
     }
 
+    //Hate this
+    public static class renderWithFloat {
+
+        public static void blit(PoseStack p_93201_, float p_93202_, float p_93203_, float p_93204_, float p_93205_, float p_93206_, TextureAtlasSprite p_93207_) {
+            innerBlit(p_93201_.last().pose(), p_93202_, p_93202_ + p_93205_, p_93203_, p_93203_ + p_93206_, p_93204_, p_93207_.getU0(), p_93207_.getU1(), p_93207_.getV0(), p_93207_.getV1());
+        }
+
+        public void blit(PoseStack p_93229_, float p_93230_, float p_93231_, float blitOffset, float p_93232_, float p_93233_, float p_93234_, float p_93235_) {
+            blit(p_93229_, p_93230_, p_93231_, blitOffset, p_93232_, p_93233_, p_93234_, p_93235_, 256, 256);
+        }
+
+        public static void blit(PoseStack p_93144_, float p_93145_, float p_93146_, float p_93147_, float p_93148_, float p_93149_, float p_93150_, float p_93151_, float p_93152_, float p_93153_) {
+            innerBlit(p_93144_, p_93145_, p_93145_ + p_93150_, p_93146_, p_93146_ + p_93151_, p_93147_, p_93150_, p_93151_, p_93148_, p_93149_, p_93152_, p_93153_);
+        }
+
+        public static void blit(PoseStack p_93161_, float p_93162_, float p_93163_, float p_93164_, float p_93165_, float p_93166_, float p_93167_, float p_93168_, float p_93169_, float p_93170_, float p_93171_) {
+            innerBlit(p_93161_, p_93162_, p_93162_ + p_93164_, p_93163_, p_93163_ + p_93165_, 0, p_93168_, p_93169_, p_93166_, p_93167_, p_93170_, p_93171_);
+        }
+
+        public static void blit(PoseStack p_93134_, float p_93135_, float p_93136_, float p_93137_, float p_93138_, float p_93139_, float p_93140_, float p_93141_, float p_93142_) {
+            blit(p_93134_, p_93135_, p_93136_, p_93139_, p_93140_, p_93137_, p_93138_, p_93139_, p_93140_, p_93141_, p_93142_);
+        }
+
+        private static void innerBlit(PoseStack p_93188_, float p_93189_, float p_93190_, float p_93191_, float p_93192_, float p_93193_, float p_93194_, float p_93195_, float p_93196_, float p_93197_, float p_93198_, float p_93199_) {
+            innerBlit(p_93188_.last().pose(), p_93189_, p_93190_, p_93191_, p_93192_, p_93193_, (p_93196_ + 0.0F) / p_93198_, (p_93196_ + p_93194_) / p_93198_, (p_93197_ + 0.0F) / p_93199_, (p_93197_ + p_93195_) / p_93199_);
+        }
+
+        private static void innerBlit(Matrix4f p_93113_, float p_93114_, float p_93115_, float p_93116_, float p_93117_, float p_93118_, float p_93119_, float p_93120_, float p_93121_, float p_93122_) {
+            RenderSystem.setShader(GameRenderer::getPositionTexShader);
+            BufferBuilder bufferbuilder = Tesselator.getInstance().getBuilder();
+            bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+            bufferbuilder.vertex(p_93113_, p_93114_, p_93117_, p_93118_).uv(p_93119_, p_93122_).endVertex();
+            bufferbuilder.vertex(p_93113_, p_93115_, p_93117_, p_93118_).uv(p_93120_, p_93122_).endVertex();
+            bufferbuilder.vertex(p_93113_, p_93115_, p_93116_, p_93118_).uv(p_93120_, p_93121_).endVertex();
+            bufferbuilder.vertex(p_93113_, p_93114_, p_93116_, p_93118_).uv(p_93119_, p_93121_).endVertex();
+            BufferUploader.drawWithShader(bufferbuilder.end());
+        }
+    }
 
     public static void drawTexture(int leftPos, int topPos, int width, int height, ResourceLocation texture, boolean blend) {
         if (blend) {

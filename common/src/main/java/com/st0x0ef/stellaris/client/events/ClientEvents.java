@@ -15,14 +15,9 @@ public class ClientEvents {
     public static void registerEvents() {
         ClientTickEvent.CLIENT_POST.register(minecraft -> {
             while (KeyMappings.ROCKET_START.consumeClick()) {
-                Stellaris.LOG.info("Rocket Start ");
-
                 NetworkRegistry.CHANNEL.sendToServer(new KeyHandler("rocket_start", true));
-
             }
         });
-
-        ClientGuiEvent.RENDER_HUD.register(RocketStartOverlay::render);
     }
 
 }

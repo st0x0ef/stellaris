@@ -5,5 +5,9 @@
   "oxygen": true,
   "temperature": 15,
   "distanceFromEarth": 0,
-  "gravity": 10.0
+  "gravity": 10.0,
+  "textures": {
+    "planet": "stellaris:textures/planet_bar/mars_planet_bar.png",
+    "planet_bar": "stellaris:textures/planet_bar/mars_planet_bar.png"
+  }
 }

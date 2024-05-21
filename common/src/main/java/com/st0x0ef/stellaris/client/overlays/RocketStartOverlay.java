@@ -36,6 +36,7 @@ public class RocketStartOverlay {
                 timer = vehicle.getEntityData().get(RocketEntity.START_TIMER);
             }
 
+            /** CHECK IF ROCKET IS STARTED */
             if(!vehicle.getEntityData().get(RocketEntity.ROCKET_START)) return;
 
             int timerWidth = graphics.guiWidth() / 2 - 31;
