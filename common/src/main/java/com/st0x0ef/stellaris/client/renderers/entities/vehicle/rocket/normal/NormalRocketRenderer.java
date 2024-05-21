@@ -24,5 +24,4 @@ public class NormalRocketRenderer extends VehicleRenderer<RocketEntity, NormalRo
         return rocket.getEntityData().get(RocketEntity.ROCKET_START);
     }
 
-
 }

@@ -11,6 +11,7 @@ import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import dev.architectury.registry.menu.ExtendedMenuProvider;
 import dev.architectury.registry.menu.MenuRegistry;
 import io.netty.buffer.Unpooled;
+import net.minecraft.client.renderer.entity.CamelRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
@@ -33,6 +34,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.*;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -144,7 +146,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
                 return InteractionResult.CONSUME;
             }
 
-            player.startRiding(this);
+            this.doPlayerRide(player);
             return InteractionResult.CONSUME;
         }
 
@@ -364,6 +366,18 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         container.setItem(1, new ItemStack(ItemsRegistry.STEEL_NUGGET));
         Stellaris.LOG.error("Container Change ");
     }
+
+    protected void doPlayerRide(Player player) {
+        if (!this.level().isClientSide) {
+            Vec3 entityPos = player.getPosition(0);
+            player.setPosRaw(entityPos.x, entityPos.y + 40.0, entityPos.z);
+
+            player.startRiding(this);
+
+        }
+
+    }
+
 
     private void checkContainer() {
         if (inventory.getItem(12).getItem() instanceof RocketSkinItem item) {

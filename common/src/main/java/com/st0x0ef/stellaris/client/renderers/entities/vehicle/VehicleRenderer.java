@@ -44,16 +44,17 @@ public abstract class VehicleRenderer<T extends IVehicleEntity, M extends Entity
         return this.model;
     }
 
-    public void render(T p_115308_, float p_115309_, float p_115310_, PoseStack p_115311_, MultiBufferSource p_115312_, int p_115313_) {
-        p_115311_.pushPose();
-                                                                                    //&& p_115308_.getVehicle().shouldRiderSit()
-        boolean shouldSit = p_115308_.isPassenger() && (p_115308_.getVehicle() != null );
+    @Override
+    public void render(T entity, float entityYaw, float partialTick, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
+        poseStack.pushPose();
+        //&& entity.getVehicle().shouldRiderSit()
+        boolean shouldSit = entity.isPassenger() && (entity.getVehicle() != null);
         this.model.riding = shouldSit;
-        float f = Mth.rotLerp(p_115310_, p_115308_.yRotO, p_115308_.getYRot());
-        float f1 = Mth.rotLerp(p_115310_, p_115308_.yRotO, p_115308_.getYRot());
+        float f = Mth.rotLerp(partialTick, entity.yRotO, entity.getYRot());
+        float f1 = Mth.rotLerp(partialTick, entity.yRotO, entity.getYRot());
         float f2 = f1 - f;
-        if (shouldSit && p_115308_.getVehicle() instanceof LivingEntity livingentity) {
-            f = Mth.rotLerp(p_115310_, livingentity.yBodyRotO, livingentity.yBodyRot);
+        if (shouldSit && entity.getVehicle() instanceof LivingEntity livingentity) {
+            f = Mth.rotLerp(partialTick, livingentity.yBodyRotO, livingentity.yBodyRot);
             f2 = f1 - f;
             float f3 = Mth.wrapDegrees(f2);
             if (f3 < -85.0F) {
@@ -72,43 +73,44 @@ public abstract class VehicleRenderer<T extends IVehicleEntity, M extends Entity
             f2 = f1 - f;
         }
 
-        float f6 = Mth.lerp(p_115310_, p_115308_.xRotO, p_115308_.getXRot());
+        float f6 = Mth.lerp(partialTick, entity.xRotO, entity.getXRot());
 
-        float f7 = this.getBob(p_115308_, p_115310_);
-        this.setupRotations(p_115308_, p_115311_, f7, f, p_115310_);
-        p_115311_.scale(-1.0F, -1.0F, 1.0F);
-        this.scale(p_115308_, p_115311_, p_115310_);
-        p_115311_.translate(0.0D, -1.501F, 0.0D);
+        float f7 = this.getBob(entity, partialTick);
+        this.setupRotations(entity, poseStack, f7, f, partialTick);
+        poseStack.scale(-1.0F, -1.0F, 1.0F);
+        this.scale(entity, poseStack, partialTick);
+        poseStack.translate(0.0D, -1.501F, 0.0D);
         float f8 = 0.0F;
         float f5 = 0.0F;
 
 
-        this.model.prepareMobModel(p_115308_, f5, f8, p_115310_);
-        this.model.setupAnim(p_115308_, f5, f8, f7, f2, f6);
+        this.model.prepareMobModel(entity, f5, f8, partialTick);
+        this.model.setupAnim(entity, f5, f8, f7, f2, f6);
         Minecraft minecraft = Minecraft.getInstance();
-        boolean flag = this.isBodyVisible(p_115308_);
-        boolean flag1 = !flag && !p_115308_.isInvisibleTo(minecraft.player);
-        boolean flag2 = minecraft.shouldEntityAppearGlowing(p_115308_);
-        RenderType rendertype = this.getRenderType(p_115308_, flag, flag1, flag2);
+        boolean flag = this.isBodyVisible(entity);
+        boolean flag1 = !flag && !entity.isInvisibleTo(minecraft.player);
+        boolean flag2 = minecraft.shouldEntityAppearGlowing(entity);
+        RenderType rendertype = this.getRenderType(entity, flag, flag1, flag2);
         if (rendertype != null) {
-            VertexConsumer vertexconsumer = p_115312_.getBuffer(rendertype);
-            int i = getOverlayCoords(p_115308_, this.getWhiteOverlayProgress(p_115308_, p_115310_));
-            this.model.renderToBuffer(p_115311_, vertexconsumer, p_115313_, i, 1.0F, 1.0F, 1.0F, flag1 ? 0.15F : 1.0F);
+            VertexConsumer vertexconsumer = buffer.getBuffer(rendertype);
+            int i = getOverlayCoords(entity, this.getWhiteOverlayProgress(entity, partialTick));
+            this.model.renderToBuffer(poseStack, vertexconsumer, packedLight, i, 1.0F, 1.0F, 1.0F, flag1 ? 0.15F : 1.0F);
         }
 
-        if (!p_115308_.isSpectator()) {
+        if (!entity.isSpectator()) {
             for(RenderLayer<T, M> renderlayer : this.layers) {
-                renderlayer.render(p_115311_, p_115312_, p_115313_, p_115308_, f5, f8, p_115310_, f7, f2, f6);
+                renderlayer.render(poseStack, buffer, packedLight, entity, f5, f8, partialTick, f7, f2, f6);
             }
         }
 
-        p_115311_.popPose();
-        super.render(p_115308_, p_115309_, p_115310_, p_115311_, p_115312_, p_115313_);
+        poseStack.popPose();
+        super.render(entity, entityYaw, partialTick, poseStack, buffer, packedLight);
     }
 
+
     @Nullable
-    protected RenderType getRenderType(T p_115322_, boolean p_115323_, boolean p_115324_, boolean p_115325_) {
-        ResourceLocation resourcelocation = this.getTextureLocation(p_115322_);
+    protected RenderType getRenderType(T entity, boolean p_115323_, boolean p_115324_, boolean p_115325_) {
+        ResourceLocation resourcelocation = this.getTextureLocation(entity);
         if (p_115324_) {
             return RenderType.itemEntityTranslucentCull(resourcelocation);
         } else if (p_115323_) {
@@ -134,16 +136,16 @@ public abstract class VehicleRenderer<T extends IVehicleEntity, M extends Entity
         return 0.0F;
     }
 
-    protected void setupRotations(T p_115317_, PoseStack p_115318_, float p_115319_, float p_115320_, float p_115321_) {
-        if (this.isShaking(p_115317_)) {
+    protected void setupRotations(T entity, PoseStack poseStack, float p_115319_, float p_115320_, float p_115321_) {
+        if (this.isShaking(entity)) {
             if (!Minecraft.getInstance().isPaused()) {
-                double shakeDirection1 = (p_115321_ * (p_115317_.level().random.nextBoolean() ? 1 : -1)) / 50;
-                double shakeDirection2 = (p_115321_ * (p_115317_.level().random.nextBoolean() ? 1 : -1)) / 50;
-                double shakeDirection3 = (p_115321_ * (p_115317_.level().random.nextBoolean() ? 1 : -1)) / 50;
-                p_115318_.translate(shakeDirection1, shakeDirection2, shakeDirection3);
+                double shakeDirection1 = (p_115321_ * (entity.level().random.nextBoolean() ? 1 : -1)) / 50;
+                double shakeDirection2 = (p_115321_ * (entity.level().random.nextBoolean() ? 1 : -1)) / 50;
+                double shakeDirection3 = (p_115321_ * (entity.level().random.nextBoolean() ? 1 : -1)) / 50;
+                poseStack.translate(shakeDirection1, shakeDirection2, shakeDirection3);
             }
         }
-        p_115318_.mulPose(Axis.YP.rotationDegrees(180.0F - p_115320_));
+        poseStack.mulPose(Axis.YP.rotationDegrees(180.0F - p_115320_));
     }
 
     protected float getBob(T p_115305_, float p_115306_) {

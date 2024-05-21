@@ -67,7 +67,6 @@ public class RocketItem extends Item {
 
                 if (entities.isEmpty()) {
                     RocketEntity rocket = this.getRocket(context.getLevel());
-
                     /** SET PRE POS */
                     rocket.setPos(pos.getX() + 0.5D,  pos.getY() + 1, pos.getZ() + 0.5D);
 
@@ -83,6 +82,8 @@ public class RocketItem extends Item {
                     level.addFreshEntity(rocket);
 
                     /** SET TAGS */
+                    this.addRocketInfos(rocket, itemStack);
+
 //                    rocket.getEntityData().set(RocketEntity.FUEL, itemStack.getOrCreateTag().getInt(FUEL_TAG));
 //                    rocket.getEntityData().set(RocketEntity.FUEL_BUCKET_NEEDED, RocketEntity.DEFAULT_FUEL_BUCKETS + itemStack.getOrCreateTag().getInt("fuelCapacityModifier"));
 //                    rocket.getEntityData().set(RocketEntity.FUEL_USAGE, RocketEntity.DEFAULT_FUEL_USAGE + itemStack.getOrCreateTag().getInt("fuelUsageModifier"));
@@ -140,6 +141,9 @@ public class RocketItem extends Item {
         return 1.0D + Shapes.collide(Direction.Axis.Y, p_20629_, iterable, p_20628_ ? -2.0D : -1.0D);
     }
 
+    private void addRocketInfos(RocketEntity entity, ItemStack stack) {
+        entity.getEntityData().set(RocketEntity.ROCKET_SKIN, stack.get(DataComponents.CUSTOM_DATA).copyTag().getString("rocket_skin"));
+    }
 
 
 }
