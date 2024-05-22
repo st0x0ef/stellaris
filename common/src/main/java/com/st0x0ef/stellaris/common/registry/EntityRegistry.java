@@ -77,7 +77,6 @@ public class EntityRegistry {
             () -> EntityType.Builder.of(StarCrawler::new, MobCategory.MONSTER).sized(1.3f, 1.0f).build(new ResourceLocation(Stellaris.MODID, "star_crawler").toString()));
     public static final RegistrySupplier<EntityType<? extends IceSpit>> ICE_SPIT = ENTITY_TYPE.register("ice_spit",
             () -> EntityType.Builder.of(IceSpit::new, MobCategory.MISC).sized(0.5f, 0.5f).build(new ResourceLocation(Stellaris.MODID, "ice_spit").toString()));
-
     public static final RegistrySupplier<EntityType<IceShardArrowEntity>> ICE_SHARD_ARROW = ENTITY_TYPE.register("ice_shard_arrow",
             () -> EntityType.Builder.<IceShardArrowEntity>of(IceShardArrowEntity::new, MobCategory.MISC).sized(0.5f, 0.5f).build(new ResourceLocation(Stellaris.MODID, "ice_shard_arrow").toString()));
 
@@ -86,7 +85,8 @@ public class EntityRegistry {
      */
     public static final RegistrySupplier<EntityType<RocketEntity>> ROCKET = ENTITY_TYPE.register("rocket",
             () -> EntityType.Builder.of(RocketEntity::new, MobCategory.MISC).sized(1.1f, 4.4f).build(new ResourceLocation(Stellaris.MODID, "rocket").toString()));
-
+    public static final RegistrySupplier<EntityType<LanderEntity>> LANDER = ENTITY_TYPE.register("lander",
+            () -> EntityType.Builder.<LanderEntity>of(LanderEntity::new, MobCategory.MISC).sized(2.5f, 1.0f).build(new ResourceLocation(Stellaris.MODID, "rocket").toString()));
 
     //Entity Attributes
     public static void registerAttributes() {

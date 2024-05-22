@@ -19,6 +19,8 @@ import com.st0x0ef.stellaris.client.renderers.entities.pygro.PygroModel;
 import com.st0x0ef.stellaris.client.renderers.entities.pygro.PygroRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.starcrawler.StarCrawlerModel;
 import com.st0x0ef.stellaris.client.renderers.entities.starcrawler.StarCrawlerRenderer;
+import com.st0x0ef.stellaris.client.renderers.entities.vehicle.lander.LanderModel;
+import com.st0x0ef.stellaris.client.renderers.entities.vehicle.lander.LanderRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.normal.NormalRocketModel;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.normal.NormalRocketRenderer;
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeBlockRenderer;
@@ -57,6 +59,7 @@ public class StellarisClient {
 
         EntityModelLayerRegistry.register(GlobeModel.LAYER_LOCATION, GlobeModel::createLayer);
         EntityModelLayerRegistry.register(NormalRocketModel.LAYER_LOCATION, NormalRocketModel::createBodyLayer);
+        EntityModelLayerRegistry.register(LanderModel.LAYER_LOCATION, LanderModel::createBodyLayer);
 
     }
     public static void registerEntityRenderer() {
@@ -71,6 +74,8 @@ public class StellarisClient {
         EntityRendererRegistry.register(EntityRegistry.ICE_SPIT, renderManager -> new ThrownItemRenderer<>(renderManager, 1, true));
         EntityRendererRegistry.register(EntityRegistry.ICE_SHARD_ARROW, IceShardArrowRenderer::new);
         EntityRendererRegistry.register(EntityRegistry.ROCKET, NormalRocketRenderer::new);
+        EntityRendererRegistry.register(EntityRegistry.LANDER, LanderRenderer::new);
+
 
         BlockEntityRendererRegistry.register(EntityRegistry.GLOBE_BLOCK_ENTITY.get() ,GlobeBlockRenderer::new);
     }
@@ -91,6 +96,7 @@ public class StellarisClient {
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.COAL_GENERATOR_MENU.get(), CoalGeneratorScreen::new);
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.RADIOACTIVE_GENERATOR_MENU.get(), RadioactiveGeneratorScreen::new);
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.PLANET_SELECTION_MENU.get(), PlanetSelectionScreen::new);
+        MenuRegistry.registerScreenFactory(MenuTypesRegistry.LANDER_MENU.get(), LanderScreen::new);
     }
 
     public static void registerKey() {

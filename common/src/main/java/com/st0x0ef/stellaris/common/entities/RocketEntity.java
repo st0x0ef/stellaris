@@ -378,11 +378,13 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
     }
 
-
     private void checkContainer() {
         if (inventory.getItem(12).getItem() instanceof RocketSkinItem item) {
             this.getEntityData().set(ROCKET_SKIN, item.getRocketSkinName().toString());
         }
+    }
 
+    public Container getInventory() {
+        return this.inventory;
     }
 }
