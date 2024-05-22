@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "#stellaris:can",
+    "stellaris:canned_steak",
+    "stellaris:canned_berry_juice",
+    "stellaris:cosmo_bread"
+
+  ]
+}

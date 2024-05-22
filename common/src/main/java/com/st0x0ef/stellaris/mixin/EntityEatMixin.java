@@ -36,7 +36,6 @@ public abstract class EntityEatMixin extends LivingEntity {
         if (food.getComponents().has(DataComponents.FOOD)) {
             if(!PlanetUtil.isPlanet(level.dimension())) return;
             if(!PlanetUtil.hasOxygen(level.dimension()) && (!food.is(TagRegistry.SPACE_FOOD) || !(food.getItem() instanceof CanItem))) {
-                //TODO : Stop the player from eating
                 return;
             }
 
