@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.common.network.packets;
 
 import com.st0x0ef.stellaris.client.registries.KeyMappings;
+import com.st0x0ef.stellaris.common.keybinds.KeyVariables;
 import dev.architectury.networking.NetworkManager;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
@@ -38,6 +39,9 @@ public class KeyHandler {
             switch (message.key) {
                 case "rocket_start":
                     KeyMappings.startRocket(player);
+                    break;
+                case "key_jump":
+                    KeyVariables.KEY_JUMP.put(player.getUUID(), message.condition);
                     break;
             }
         });
