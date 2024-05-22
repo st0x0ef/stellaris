@@ -1,0 +1,10 @@
+{
+  "name": "Earth",
+  "orbitLocation": 100,
+  "parent" : "Sun",
+  "texture" : "stellaris:textures/environment/sun.png",
+  "orbitColor": "Blue",
+  "hasMoons": true,
+  "specialTexture": "stellaris:textures/environment/sun.png",
+  "isStatic": true
+}
