@@ -127,6 +127,7 @@
   "block.stellaris.vertical_mercury_slab": "Vertical Mercury Stone Slab",
 
   "block.stellaris.cheese_block": "Cheese Block",
+  "block.stellaris.vacumator": "Vacumator",
 
 
   "block.stellaris.uranium_block" : "Uranium Block",
@@ -176,7 +177,12 @@
   "item.stellaris.oil_bucket": "Oil Bucket",
   "item.stellaris.hydrogen_bucket": "Hydrogen Bucket",
 
+  "item.stellaris.oxygen_tank": "Oxygen Tank",
+  "item.stellaris.big_oxygen_tank": "Big Oxygen Tank",
 
+  "item.stellaris.rocket": "Rocket",
+  "item.stellaris.basic_rocket_skin": "Basic Rocket Skin",
+  "item.stellaris.frozy_rocket_skin": "Frozy Rocket Skin",
 
   "item.stellaris.big_blue_can": "Blue Can",
   "item.stellaris.big_green_can": "Green Can",
@@ -216,5 +222,10 @@
 
   "screens.stellaris.config": "Stellaris Config Screen",
 
-  "tooltip.stellaris.can_item_empty": "Empty Can"
+  "tooltip.stellaris.can_item_empty": "Empty Can",
+
+
+  "container.entity.stellaris.lander": "Lander",
+  "container.entity.stellaris.rocket": "Rocket"
+
 }
