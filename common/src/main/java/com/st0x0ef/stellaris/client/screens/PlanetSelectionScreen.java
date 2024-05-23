@@ -17,6 +17,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.ImageButton;
+import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
@@ -118,6 +120,9 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         prevScrollCallback = GLFW.glfwSetScrollCallback(windowHandle, this::onMouseScroll);
     }
 
+    private void nothing() {
+    }
+
     private void startUpdating() {
         scheduler.scheduleAtFixedRate(this::updatePlanets, 0, UPDATE_INTERVAL, TimeUnit.MILLISECONDS);
     }
@@ -147,7 +152,6 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     public void renderBodiesAndPlanets(GuiGraphics graphics) {
         Font font = Minecraft.getInstance().font;
-        long currentTime = Util.getMillis();
 
         for (CelestialBody body : STARS) {
             float bodyX = (float) ((body.x + offsetX) * zoomLevel - (body.width / 2) * zoomLevel);
@@ -216,14 +220,17 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             for (PlanetInfo planet : PLANETS) {
                 planet.updateAngle(time);
                 planet.updatePosition();
+
+//                System.out.println(planet.name + ", " + planet.x + ", " + planet.y);
             }
             for (MoonInfo moon : MOONS) {
                 moon.updateAngle(time);
                 moon.updatePosition();
+
+//                System.out.println(moon.name + ", " + moon.x + ", " + moon.y);
             }
         }
     }
-
 
     public void drawOrbits() {
         RenderSystem.enableBlend();
