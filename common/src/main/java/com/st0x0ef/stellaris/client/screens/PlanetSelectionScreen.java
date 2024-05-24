@@ -3,10 +3,8 @@ package com.st0x0ef.stellaris.client.screens;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.client.renderers.screen.TextureRenderer;
 import com.st0x0ef.stellaris.client.screens.components.ModifiedButton;
 import com.st0x0ef.stellaris.client.screens.components.TexturedButton;
-import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
 import com.st0x0ef.stellaris.client.screens.info.CelestialBody;
 import com.st0x0ef.stellaris.client.screens.info.MoonInfo;
 import com.st0x0ef.stellaris.client.screens.info.PlanetInfo;
@@ -19,6 +17,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.ImageButton;
+import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
@@ -50,9 +50,6 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     public static final ResourceLocation LARGE_BUTTON_TEXTURE = new ResourceLocation(Stellaris.MODID,
             "textures/gui/util/buttons/large_button.png");
 
-    public static final ResourceLocation MILKY_WAY_TEXTURE = new ResourceLocation(Stellaris.MODID,
-            "textures/gui/util/milky_way.png");
-
     public static final ResourceLocation SMALL_MENU_LIST = new ResourceLocation(Stellaris.MODID,
             "textures/gui/util/planet_menu.png");
     public static final ResourceLocation LARGE_MENU_TEXTURE = new ResourceLocation(Stellaris.MODID,
@@ -65,25 +62,29 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             SUN
     );
 
+    private static final PlanetInfo EARTH = new PlanetInfo(new ResourceLocation(Stellaris.MODID, "textures/environment/solar_system/earth.png"),
+            "Earth", 100, 8000L, 10, 10, SUN);
+
     private static final List<PlanetInfo> PLANETS = Arrays.asList(
             new PlanetInfo(new ResourceLocation(Stellaris.MODID, "textures/environment/solar_system/mercury.png"),
                     "Mercury", 38, 3000L, 5, 5, SUN),
             new PlanetInfo(new ResourceLocation(Stellaris.MODID, "textures/environment/solar_system/venus.png"),
                     "Venus", 68, 5000L, 9, 9, SUN),
-            new PlanetInfo(new ResourceLocation(Stellaris.MODID, "textures/environment/solar_system/earth.png"),
-                    "Earth", 100, 8000L, 10, 10, SUN),
+            EARTH,
             new PlanetInfo(new ResourceLocation(Stellaris.MODID, "textures/environment/solar_system/mars.png"),
                     "Mars", 140, 10000L, 9, 9, SUN)
     );
 
     private static final List<MoonInfo> MOONS = Arrays.asList(
             new MoonInfo(new ResourceLocation(Stellaris.MODID, "textures/environment/solar_system/moon.png"),
-                    30, 1000L, 7, 7, PLANETS.get(2)),
+                    30, 1000L, 7, 7, EARTH),
             new MoonInfo(new ResourceLocation(Stellaris.MODID, "textures/environment/solar_system/deimos.png"),
                     20, 1000L, 4, 4, PLANETS.get(3)),
             new MoonInfo(new ResourceLocation(Stellaris.MODID, "textures/environment/solar_system/phobos.png"),
                     30, 1500L, 4, 4, PLANETS.get(3)
-            ));
+            )
+    );
+
 
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private static final long UPDATE_INTERVAL = 1L;
@@ -95,6 +96,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     private double lastMouseY;
     private boolean dragging = false;
 
+    private boolean isXPressed;
+
     private double zoomLevel = 1.0;
     private GLFWScrollCallback prevScrollCallback;
 
@@ -102,6 +105,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     public PlanetSelectionScreen(PlanetSelectionMenu abstractContainerMenu, Inventory inventory, Component component) {
         super(abstractContainerMenu, inventory, component);
+        startUpdating();
         this.imageWidth = 1200;
         this.imageHeight = 1600;
         this.inventoryLabelY = this.imageHeight - 110;
@@ -116,14 +120,21 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         prevScrollCallback = GLFW.glfwSetScrollCallback(windowHandle, this::onMouseScroll);
     }
 
+    private void nothing() {
+    }
+
     private void startUpdating() {
         scheduler.scheduleAtFixedRate(this::updatePlanets, 0, UPDATE_INTERVAL, TimeUnit.MILLISECONDS);
     }
 
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
-        this.renderBackground(graphics, mouseX, mouseY, partialTicks);
         super.render(graphics, mouseX, mouseY, partialTicks);
+        this.renderBackground(graphics, mouseX, mouseY, partialTicks);
+        drawOrbits();
+        renderBodiesAndPlanets(graphics);
+        renderMoons(graphics);
+
         this.renderTooltip(graphics, mouseX, mouseY);
     }
 
@@ -134,10 +145,6 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         RenderSystem.setShaderTexture(0, BACKGROUND_TEXTURE);
         graphics.blit(BACKGROUND_TEXTURE, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
 
-        drawOrbits();
-        renderBodiesAndPlanets(graphics);
-        renderMoons(graphics);
-
 //        ScreenHelper.drawTexture(0, (this.height / 2) - 177 / 2, 215, 177, LARGE_MENU_TEXTURE, true);
 
         addSystemsButtons();
@@ -145,7 +152,6 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     public void renderBodiesAndPlanets(GuiGraphics graphics) {
         Font font = Minecraft.getInstance().font;
-        long currentTime = Util.getMillis();
 
         for (CelestialBody body : STARS) {
             float bodyX = (float) ((body.x + offsetX) * zoomLevel - (body.width / 2) * zoomLevel);
@@ -161,9 +167,6 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         }
 
         for (PlanetInfo planet : PLANETS) {
-            planet.updateAngle(currentTime);
-            planet.updatePosition();
-
             CelestialBody orbitCenter = planet.orbitCenter;
 
             float orbitCenterX = (float) ((orbitCenter.x + offsetX) * zoomLevel);
@@ -195,19 +198,37 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         }
     }
 
-    private void updatePlanets() {
-        long time = Util.getMillis();
-        for (PlanetInfo planet : PLANETS) {
-            planet.updateAngle(time);
-            planet.updatePosition();
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if (keyCode == GLFW.GLFW_KEY_X) {
+            isXPressed = true;
         }
-        updateMoons(time);
+        return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
-    private void updateMoons(long currentTime) {
-        for (MoonInfo moon : MOONS) {
-            moon.updateAngle(currentTime);
-            moon.updatePosition();
+    @Override
+    public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
+        if (keyCode == GLFW.GLFW_KEY_X) {
+            isXPressed = false;
+        }
+        return super.keyReleased(keyCode, scanCode, modifiers);
+    }
+
+    private void updatePlanets() {
+        long time = Util.getMillis();
+        if (isXPressed == false) {
+            for (PlanetInfo planet : PLANETS) {
+                planet.updateAngle(time);
+                planet.updatePosition();
+
+//                System.out.println(planet.name + ", " + planet.x + ", " + planet.y);
+            }
+            for (MoonInfo moon : MOONS) {
+                moon.updateAngle(time);
+                moon.updatePosition();
+
+//                System.out.println(moon.name + ", " + moon.x + ", " + moon.y);
+            }
         }
     }
 

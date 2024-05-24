@@ -9,6 +9,8 @@ import com.st0x0ef.stellaris.client.renderers.entities.alien.AlienModel;
 import com.st0x0ef.stellaris.client.renderers.entities.alien.AlienRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.alienzombie.AlienZombieModel;
 import com.st0x0ef.stellaris.client.renderers.entities.alienzombie.AlienZombieRenderer;
+import com.st0x0ef.stellaris.client.renderers.entities.cheeseboss.CheeseBossModel;
+import com.st0x0ef.stellaris.client.renderers.entities.cheeseboss.CheeseBossRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.martianraptor.MartianRaptorModel;
 import com.st0x0ef.stellaris.client.renderers.entities.martianraptor.MartianRaptorRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.mogler.MoglerModel;
@@ -56,6 +58,7 @@ public class StellarisClient {
         EntityModelLayerRegistry.register(PygroModel.LAYER_LOCATION, PygroModel::createBodyLayer);
         EntityModelLayerRegistry.register(MoglerModel.LAYER_LOCATION, MoglerModel::createBodyLayer);
         EntityModelLayerRegistry.register(StarCrawlerModel.LAYER_LOCATION, StarCrawlerModel::createBodyLayer);
+        EntityModelLayerRegistry.register(CheeseBossModel.LAYER_LOCATION, CheeseBossModel::createBodyLayer);
 
         EntityModelLayerRegistry.register(GlobeModel.LAYER_LOCATION, GlobeModel::createLayer);
         EntityModelLayerRegistry.register(NormalRocketModel.LAYER_LOCATION, NormalRocketModel::createBodyLayer);
@@ -70,6 +73,7 @@ public class StellarisClient {
         EntityRendererRegistry.register(EntityRegistry.PYGRO_BRUTE, PygroBruteRenderer::new);
         EntityRendererRegistry.register(EntityRegistry.MOGLER, MoglerRenderer::new);
         EntityRendererRegistry.register(EntityRegistry.STAR_CRAWLER, StarCrawlerRenderer::new);
+        EntityRendererRegistry.register(EntityRegistry.CHEESE_BOSS, CheeseBossRenderer::new);
 
         EntityRendererRegistry.register(EntityRegistry.ICE_SPIT, renderManager -> new ThrownItemRenderer<>(renderManager, 1, true));
         EntityRendererRegistry.register(EntityRegistry.ICE_SHARD_ARROW, IceShardArrowRenderer::new);

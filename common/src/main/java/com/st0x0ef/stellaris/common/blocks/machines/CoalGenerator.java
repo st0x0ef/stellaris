@@ -15,6 +15,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -29,7 +30,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class CoalGenerator extends GeneratorBlockTemplate{
 
-    //TODO add this because model wont work correctly otherwise
     public static final DirectionProperty FACING = AbstractFurnaceBlock.FACING;
     public static final BooleanProperty LIT = AbstractFurnaceBlock.LIT;
 
@@ -121,6 +121,15 @@ public class CoalGenerator extends GeneratorBlockTemplate{
     @Override
     protected BlockState mirror(BlockState blockState, Mirror mirror) {
         return blockState.rotate(mirror.getRotation(blockState.getValue(FACING)));
+    }
+
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext blockPlaceContext) {
+        Level blockGetter = blockPlaceContext.getLevel();
+        BlockPos blockPos = blockPlaceContext.getClickedPos();
+        return this.defaultBlockState()
+                .setValue(FACING, blockPlaceContext.getHorizontalDirection())
+                .setValue(LIT,false);
     }
 
     @Override

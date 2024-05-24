@@ -1,11 +1,11 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "block/machines/coal_generator_bottom",
-		"2": "block/machines/coal_generator_front_on",
-		"3": "block/machines/coal_generator_side",
-		"4": "block/machines/coal_generator_top",
-		"particle": "block/machines/coal_generator_bottom"
+		"0": "stellaris:block/machines/coal_generator_bottom",
+		"2": "stellaris:block/machines/coal_generator_front_on",
+		"3": "stellaris:block/machines/coal_generator_side",
+		"4": "stellaris:block/machines/coal_generator_top",
+		"particle": "stellaris:block/machines/coal_generator_side"
 	},
 	"elements": [
 		{

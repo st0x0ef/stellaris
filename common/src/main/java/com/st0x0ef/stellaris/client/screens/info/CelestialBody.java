@@ -9,7 +9,7 @@ public class CelestialBody {
     public final float height;
     public final int orbitColor;
     public float x;
-    public float y;
+    public double y;
 
     public CelestialBody(ResourceLocation texture, String name, float x, float y, float width, float height, int orbitColor) {
         this.texture = texture;
