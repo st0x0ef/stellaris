@@ -60,29 +60,6 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     public static final List<PlanetInfo> PLANETS = new ArrayList<>();
     public static final List<MoonInfo> MOONS = new ArrayList<>();
 
-//    private static final PlanetInfo EARTH = new PlanetInfo(new ResourceLocation(Stellaris.MODID, "textures/environment/solar_system/earth.png"),
-//            "Earth", 100, 8000L, 10, 10, SUN);
-//
-//    private static final List<PlanetInfo> PLANETS = Arrays.asList(
-//            new PlanetInfo(new ResourceLocation(Stellaris.MODID, "textures/environment/solar_system/mercury.png"),
-//                    "Mercury", 38, 3000L, 5, 5, SUN),
-//            new PlanetInfo(new ResourceLocation(Stellaris.MODID, "textures/environment/solar_system/venus.png"),
-//                    "Venus", 68, 5000L, 9, 9, SUN),
-//            EARTH,
-//            new PlanetInfo(new ResourceLocation(Stellaris.MODID, "textures/environment/solar_system/mars.png"),
-//                    "Mars", 140, 10000L, 9, 9, SUN)
-//    );
-//
-//    private static final List<MoonInfo> MOONS = Arrays.asList(
-//            new MoonInfo(new ResourceLocation(Stellaris.MODID, "textures/environment/solar_system/moon.png"),
-//                    30, 1000L, 7, 7, EARTH),
-//            new MoonInfo(new ResourceLocation(Stellaris.MODID, "textures/environment/solar_system/deimos.png"),
-//                    20, 1000L, 4, 4, PLANETS.get(3)),
-//            new MoonInfo(new ResourceLocation(Stellaris.MODID, "textures/environment/solar_system/phobos.png"),
-//                    30, 1500L, 4, 4, PLANETS.get(3)
-//            )
-//    );
-
 
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private static final long UPDATE_INTERVAL = 1L;
