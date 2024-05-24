@@ -183,4 +183,11 @@ public class BlocksRegistry {
     public static final RegistrySupplier<Block> VERTICAL_VENUS_SLAB = BLOCKS.register("vertical_venus_slab", () -> new VerticalSlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(5f, 2.5f).requiresCorrectToolForDrops()));
     public static final RegistrySupplier<Block> VERTICAL_MERCURY_SLAB = BLOCKS.register("vertical_mercury_slab", () -> new VerticalSlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(5f, 2.5f).requiresCorrectToolForDrops()));
 
+    public static final RegistrySupplier<Block> VERTICAL_HEAVY_METAL_PLATE_SLAB = BLOCKS.register("vertical_heavy_metal_plate_slab", () -> new VerticalSlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).sound(SoundType.METAL).strength(5f, 2.5f).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> VERTICAL_STEEL_SLAB = BLOCKS.register("vertical_steel_slab", () -> new VerticalSlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).sound(SoundType.METAL).strength(5f, 2.5f).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> VERTICAL_STEEL_PLATING_SLAB = BLOCKS.register("vertical_steel_plating_slab", () -> new VerticalSlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).sound(SoundType.METAL).strength(5f, 2.5f).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> VERTICAL_IRON_PLATING_SLAB = BLOCKS.register("vertical_iron_plating_slab", () -> new VerticalSlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).sound(SoundType.METAL).strength(5f, 2.5f).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> VERTICAL_DESH_PLATING_SLAB = BLOCKS.register("vertical_desh_plating_slab", () -> new VerticalSlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).sound(SoundType.METAL).strength(5f, 2.5f).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> VERTICAL_DESH_SLAB = BLOCKS.register("vertical_desh_slab", () -> new VerticalSlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).sound(SoundType.METAL).strength(5f, 2.5f).requiresCorrectToolForDrops()));
+
 }
