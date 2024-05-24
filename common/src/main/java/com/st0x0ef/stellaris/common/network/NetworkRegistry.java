@@ -6,7 +6,7 @@ import com.st0x0ef.stellaris.common.network.packets.SyncPlanetsDatapack;
 import dev.architectury.networking.NetworkChannel;
 import net.minecraft.resources.ResourceLocation;
 
-
+@SuppressWarnings("removal")
 public class NetworkRegistry {
     public static final NetworkChannel CHANNEL = NetworkChannel.create(new ResourceLocation(Stellaris.MODID, "networking_channel"));
 

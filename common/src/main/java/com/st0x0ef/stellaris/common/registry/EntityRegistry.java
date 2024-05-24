@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.registry;
 
+import com.ibm.icu.impl.ValidIdentifiers;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.entities.GlobeTileEntity;
 import com.st0x0ef.stellaris.common.blocks.entities.RadioactiveBlockEntity;
@@ -79,14 +80,15 @@ public class EntityRegistry {
             () -> EntityType.Builder.of(IceSpit::new, MobCategory.MISC).sized(0.5f, 0.5f).build(new ResourceLocation(Stellaris.MODID, "ice_spit").toString()));
     public static final RegistrySupplier<EntityType<IceShardArrowEntity>> ICE_SHARD_ARROW = ENTITY_TYPE.register("ice_shard_arrow",
             () -> EntityType.Builder.<IceShardArrowEntity>of(IceShardArrowEntity::new, MobCategory.MISC).sized(0.5f, 0.5f).build(new ResourceLocation(Stellaris.MODID, "ice_shard_arrow").toString()));
-
+    public static final RegistrySupplier<EntityType<CheeseBoss>> CHEESE_BOSS = ENTITY_TYPE.register("cheese_boss",
+            () -> EntityType.Builder.of(CheeseBoss::new, MobCategory.MONSTER).sized(1.0f, 3.5f).build(new ResourceLocation(Stellaris.MODID, "cheese_boss").toString()));
     /**
      * Vehicles
      */
     public static final RegistrySupplier<EntityType<RocketEntity>> ROCKET = ENTITY_TYPE.register("rocket",
             () -> EntityType.Builder.of(RocketEntity::new, MobCategory.MISC).sized(1.1f, 4.4f).build(new ResourceLocation(Stellaris.MODID, "rocket").toString()));
     public static final RegistrySupplier<EntityType<LanderEntity>> LANDER = ENTITY_TYPE.register("lander",
-            () -> EntityType.Builder.<LanderEntity>of(LanderEntity::new, MobCategory.MISC).sized(2.5f, 1.0f).build(new ResourceLocation(Stellaris.MODID, "rocket").toString()));
+            () -> EntityType.Builder.<LanderEntity>of(LanderEntity::new, MobCategory.MISC).sized(2.5f, 1.0f).build(new ResourceLocation(Stellaris.MODID, "lander").toString()));
 
     //Entity Attributes
     public static void registerAttributes() {
@@ -98,6 +100,7 @@ public class EntityRegistry {
         EntityAttributeRegistry.register(EntityRegistry.PYGRO, Pygro::setCustomAttributes);
         EntityAttributeRegistry.register(EntityRegistry.MOGLER, Mogler::setCustomAttributes);
         EntityAttributeRegistry.register(EntityRegistry.STAR_CRAWLER, StarCrawler::setCustomAttributes);
+        EntityAttributeRegistry.register(EntityRegistry.CHEESE_BOSS, CheeseBoss::setCustomAttributes);
     }
 
 
