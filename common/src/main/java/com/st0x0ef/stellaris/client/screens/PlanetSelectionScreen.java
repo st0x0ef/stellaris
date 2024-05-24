@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.client.screens;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.client.screens.components.InvisibleButton;
 import com.st0x0ef.stellaris.client.screens.components.ModifiedButton;
 import com.st0x0ef.stellaris.client.screens.components.TexturedButton;
 import com.st0x0ef.stellaris.client.screens.info.CelestialBody;
@@ -38,25 +39,18 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelectionMenu> {
 
     public static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/planet_selection.png");
-    public static final ResourceLocation SCROLLER_TEXTURE = new ResourceLocation(Stellaris.MODID,
-            "textures/gui/util/scroller.png");
+    public static final ResourceLocation SCROLLER_TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/util/scroller.png");
 
-    public static final ResourceLocation SMALL_BUTTON_TEXTURE = new ResourceLocation(Stellaris.MODID,
-            "textures/gui/util/buttons/small_button.png");
-    public static final ResourceLocation BUTTON_TEXTURE = new ResourceLocation(Stellaris.MODID,
-            "textures/gui/util/buttons/button.png");
-    public static final ResourceLocation LARGE_BUTTON_TEXTURE = new ResourceLocation(Stellaris.MODID,
-            "textures/gui/util/buttons/large_button.png");
+    public static final ResourceLocation SMALL_BUTTON_TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/util/buttons/small_button.png");
+    public static final ResourceLocation BUTTON_TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/util/buttons/button.png");
+    public static final ResourceLocation LARGE_BUTTON_TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/util/buttons/large_button.png");
 
-    public static final ResourceLocation SMALL_MENU_LIST = new ResourceLocation(Stellaris.MODID,
-            "textures/gui/util/planet_menu.png");
-    public static final ResourceLocation LARGE_MENU_TEXTURE = new ResourceLocation(Stellaris.MODID,
-            "textures/gui/util/large_planet_menu.png");
+    public static final ResourceLocation SMALL_MENU_LIST = new ResourceLocation(Stellaris.MODID, "textures/gui/util/planet_menu.png");
+    public static final ResourceLocation LARGE_MENU_TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/util/large_planet_menu.png");
 
     public static final List<CelestialBody> STARS = new ArrayList<>();
     public static final List<PlanetInfo> PLANETS = new ArrayList<>();
     public static final List<MoonInfo> MOONS = new ArrayList<>();
-
 
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private static final long UPDATE_INTERVAL = 1L;
@@ -73,7 +67,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     private double zoomLevel = 1.0;
     private GLFWScrollCallback prevScrollCallback;
 
-    public List<ModifiedButton> visibleButtons;
+    private List<InvisibleButton> planetButtons = new ArrayList<InvisibleButton>();
+    private List<InvisibleButton> moonButtons = new ArrayList<InvisibleButton>();
 
     public PlanetSelectionScreen(PlanetSelectionMenu abstractContainerMenu, Inventory inventory, Component component) {
         super(abstractContainerMenu, inventory, component);
@@ -81,7 +76,6 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         this.imageWidth = 1200;
         this.imageHeight = 1600;
         this.inventoryLabelY = this.imageHeight - 110;
-
     }
 
     @Override
@@ -91,22 +85,68 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         centerSun();
         long windowHandle = Minecraft.getInstance().getWindow().getWindow();
         prevScrollCallback = GLFW.glfwSetScrollCallback(windowHandle, this::onMouseScroll);
+
+        initializePlanetButtons();
+        initializeMoonButtons();
+    }
+
+    private void initializePlanetButtons() {
+        planetButtons.clear();
+        for (PlanetInfo planet : PLANETS) {
+            int planetWidth = (int) (planet.width * zoomLevel);
+            int planetHeight = (int) (planet.height * zoomLevel);
+            float planetX = (float) ((planet.orbitCenter.x + offsetX + planet.orbitRadius * Math.cos(planet.currentAngle) - planetWidth / 2) * zoomLevel);
+            float planetY = (float) ((planet.orbitCenter.y + offsetY + planet.orbitRadius * Math.sin(planet.currentAngle) - planetHeight / 2) * zoomLevel);
+
+            InvisibleButton button = new InvisibleButton((int) planetX, (int) planetY, planetWidth, planetHeight, Component.literal(planet.name), (btn) -> onPlanetButtonClick(planet));
+            planetButtons.add(button);
+            addRenderableWidget(button);
+        }
+    }
+
+    private void initializeMoonButtons() {
+        moonButtons.clear();
+        for (MoonInfo moon : MOONS) {
+            int moonWidth = (int) (moon.width * zoomLevel);
+            int moonHeight = (int) (moon.height * zoomLevel);
+            float moonX = (float) ((moon.orbitCenter.x + offsetX + moon.orbitRadius * Math.cos(moon.currentAngle) - moonWidth / 2) * zoomLevel);
+            float moonY = (float) ((moon.orbitCenter.y + offsetY + moon.orbitRadius * Math.sin(moon.currentAngle) - moonHeight / 2) * zoomLevel);
+
+            InvisibleButton button = new InvisibleButton((int) moonX, (int) moonY, moonWidth, moonHeight, Component.literal(moon.name), (btn) -> onMoonButtonClick(moon));
+            moonButtons.add(button);
+            addRenderableWidget(button);
+        }
     }
 
     private void startUpdating() {
         scheduler.scheduleAtFixedRate(this::updatePlanets, 0, UPDATE_INTERVAL, TimeUnit.MILLISECONDS);
     }
 
+    private CelestialBody focusedBody = null;
+
+    private void onPlanetButtonClick(PlanetInfo planet) {
+        focusedBody = planet;
+        centerOnBody(planet);
+    }
+
+    private void onMoonButtonClick(MoonInfo moon) {
+        focusedBody = moon;
+        centerOnBody(moon);
+    }
+
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+        if (focusedBody != null) {
+            centerOnBody(focusedBody);
+        }
         super.render(graphics, mouseX, mouseY, partialTicks);
         this.renderBackground(graphics, mouseX, mouseY, partialTicks);
         drawOrbits();
         renderBodiesAndPlanets(graphics);
         renderMoons(graphics);
-
         this.renderTooltip(graphics, mouseX, mouseY);
     }
+
 
     @Override
     protected void renderBg(GuiGraphics graphics, float var2, int var3, int var4) {
@@ -114,10 +154,6 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, BACKGROUND_TEXTURE);
         graphics.blit(BACKGROUND_TEXTURE, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
-
-//        ScreenHelper.drawTexture(0, (this.height / 2) - 177 / 2, 215, 177, LARGE_MENU_TEXTURE, true);
-
-        addSystemsButtons();
     }
 
     public void renderBodiesAndPlanets(GuiGraphics graphics) {
@@ -154,6 +190,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             graphics.drawString(font, planet.name, (int) (planetX + planetWidth / 2 - nameWidth / 2), (int) (planetY + planetHeight), 0xFFFFFF);
 
         }
+
+        initializePlanetButtons();
     }
 
     public void renderMoons(GuiGraphics graphics) {
@@ -166,12 +204,16 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
             graphics.blit(moon.texture, (int) moonX, (int) moonY, 0, 0, moonWidth, moonHeight, moonWidth, moonHeight);
         }
+
+        initializeMoonButtons();
     }
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (keyCode == GLFW.GLFW_KEY_X) {
             isXPressed = true;
+        } else if (keyCode == GLFW.GLFW_KEY_K) {
+            centerOnBody(findByNamePlanet("Earth"));
         }
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
@@ -186,14 +228,13 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     private void updatePlanets() {
         long time = Util.getMillis();
-        if (!isXPressed) {
-            for (PlanetInfo planet : PLANETS) {
-                planet.updateAngle(time);
-                planet.updatePosition();
-            }
-            for (MoonInfo moon : MOONS) {
-                moon.updateAngle(time);
-            }
+        for (PlanetInfo planet : PLANETS) {
+            planet.updateAngle(time);
+            planet.updatePosition();
+        }
+        for (MoonInfo moon : MOONS) {
+            moon.updateAngle(time);
+            moon.updatePosition();
         }
     }
 
@@ -308,6 +349,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             dragging = true;
             lastMouseX = mouseX;
             lastMouseY = mouseY;
+            focusedBody = null;
         }
         return super.mouseClicked(mouseX, mouseY, button);
     }
@@ -335,7 +377,6 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     public PlanetSelectionMenu getMenu() {
         return this.menu;
     }
-
 
     public void addSystemsButtons() {
         AtomicInteger systemsHeight = new AtomicInteger();
