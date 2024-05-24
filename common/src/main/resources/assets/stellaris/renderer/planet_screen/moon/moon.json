@@ -1,0 +1,10 @@
+{
+  "texture": "stellaris:textures/environment/solar_system/moon.png",
+  "name": "Moon",
+  "distance": 30,
+  "period": 2000,
+  "width": 7.0,
+  "height": 7.0,
+  "parent": "Earth",
+  "dimensionId": "stellaris:moon"
+}

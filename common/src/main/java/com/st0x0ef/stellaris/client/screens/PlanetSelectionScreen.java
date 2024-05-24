@@ -302,6 +302,15 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         return null;
     }
 
+    public static CelestialBody findByNamePlanet(String name) {
+        for (CelestialBody body : PlanetSelectionScreen.PLANETS) {
+            if (body.getName().equals(name)) {
+                return body;
+            }
+        }
+        return null;
+    }
+
     private void centerOnBody(CelestialBody body) {
         zoomLevel = 1;
         offsetX = ((body.x - width / 2.0)) * -1;
