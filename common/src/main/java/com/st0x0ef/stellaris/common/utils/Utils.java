@@ -1,9 +1,11 @@
 package com.st0x0ef.stellaris.common.utils;
 
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.entities.LanderEntity;
 import com.st0x0ef.stellaris.common.entities.RocketEntity;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
+import net.minecraft.client.Minecraft;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
@@ -45,19 +47,21 @@ public class Utils {
 
         ServerLevel nextLevel;
         if(orbit) {
-            nextLevel = entity.getServer().getLevel(destination.orbit());
+
+            nextLevel = entity.level().getServer().getLevel(destination.orbit());
         } else {
-            nextLevel = entity.getServer().getLevel(destination.dimension());
+
+            nextLevel = entity.level().getServer().getLevel(destination.dimension());
         }
 
         if (!entity.canChangeDimensions()) return;
-
         entity.changeDimension(nextLevel);
         entity.setPos(entity.getX(), yPos, entity.getZ());
     }
 
     /** To use with the planetSelection menu */
     public static void changeDimension(Player player, Planet destination, boolean orbit) {
+        Stellaris.LOG.error("Change dimension");
         Entity vehicle = player.getVehicle();
         if (vehicle instanceof RocketEntity rocket) {
 
@@ -71,8 +75,8 @@ public class Utils {
 
             player.level().addFreshEntity(lander);
             player.startRiding(lander);
-
-
+        } else {
+            teleportEntity(player, destination, 600, orbit);
         }
 
     }

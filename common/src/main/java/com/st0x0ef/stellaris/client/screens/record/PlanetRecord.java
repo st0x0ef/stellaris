@@ -2,12 +2,16 @@ package com.st0x0ef.stellaris.client.screens.record;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 
 public record PlanetRecord(
         ResourceLocation texture, String name,
         float distance, long period, float width,
-        float height, String parent, String dimensionId) {
+        float height, String parent,
+        ResourceKey<Level> dimensionId) {
 
 
     public static final Codec<PlanetRecord> CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -18,6 +22,6 @@ public record PlanetRecord(
             Codec.FLOAT.fieldOf("width").forGetter(PlanetRecord::width),
             Codec.FLOAT.fieldOf("height").forGetter(PlanetRecord::height),
             Codec.STRING.fieldOf("parent").forGetter(PlanetRecord::parent),
-            Codec.STRING.fieldOf("dimensionId").forGetter(PlanetRecord::dimensionId)
+            ResourceKey.codec(Registries.DIMENSION).fieldOf("dimensionId").forGetter(PlanetRecord::dimensionId)
     ).apply(instance, PlanetRecord::new));
 }

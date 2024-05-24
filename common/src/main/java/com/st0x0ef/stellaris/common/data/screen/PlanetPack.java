@@ -47,8 +47,8 @@ public class PlanetPack extends SimpleJsonResourceReloadListener {
                         (long) planet.period(),
                         (int) planet.width(),
                         (int) planet.height(),
-                        PlanetSelectionScreen.findByNameStar(planet.parent())
-//                        planet.dimensionId()
+                        PlanetSelectionScreen.findByNameStar(planet.parent()),
+                        planet.dimensionId()
                 );
 
             PlanetSelectionScreen.PLANETS.add((PlanetInfo) screenPlanet);

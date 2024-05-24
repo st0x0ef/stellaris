@@ -32,7 +32,7 @@ public record Planet(
         return new Planet(buffer.readUtf(), buffer.readResourceKey(Registries.DIMENSION), buffer.readResourceKey(Registries.DIMENSION), buffer.readBoolean(), buffer.readInt(), buffer.readInt(), buffer.readFloat(), PlanetTextures.fromNetwork(buffer));
     }
 
-    public void toNetwork(FriendlyByteBuf buffer) {
+    public  void toNetwork(FriendlyByteBuf buffer) {
         buffer.writeUtf(this.system);
         buffer.writeResourceKey(this.dimension);
         buffer.writeResourceKey(this.orbit);

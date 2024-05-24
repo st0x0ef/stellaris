@@ -18,6 +18,7 @@ public record StarRecord(
             Codec.FLOAT.fieldOf("width").forGetter(StarRecord::width),
             Codec.FLOAT.fieldOf("height").forGetter(StarRecord::height),
             Codec.STRING.fieldOf("orbitColor").forGetter(StarRecord::orbitColor)
+
     ).apply(instance, StarRecord::new));
 
 }

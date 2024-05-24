@@ -5,12 +5,16 @@ import com.mojang.blaze3d.vertex.*;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.components.InvisibleButton;
 import com.st0x0ef.stellaris.client.screens.components.ModifiedButton;
-import com.st0x0ef.stellaris.client.screens.components.TexturedButton;
 import com.st0x0ef.stellaris.client.screens.info.CelestialBody;
 import com.st0x0ef.stellaris.client.screens.info.MoonInfo;
 import com.st0x0ef.stellaris.client.screens.info.PlanetInfo;
+import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
+import com.st0x0ef.stellaris.common.data.screen.PlanetPack;
 import com.st0x0ef.stellaris.common.menus.PlanetSelectionMenu;
+import com.st0x0ef.stellaris.common.network.NetworkRegistry;
+import com.st0x0ef.stellaris.common.network.packets.TeleportEntity;
+import com.st0x0ef.stellaris.common.utils.Utils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.Util;
@@ -23,6 +27,7 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWScrollCallback;
 import org.lwjgl.opengl.GL11;
@@ -69,6 +74,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     private List<InvisibleButton> planetButtons = new ArrayList<InvisibleButton>();
     private List<InvisibleButton> moonButtons = new ArrayList<InvisibleButton>();
+
 
     public PlanetSelectionScreen(PlanetSelectionMenu abstractContainerMenu, Inventory inventory, Component component) {
         super(abstractContainerMenu, inventory, component);
@@ -214,8 +220,17 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             isXPressed = true;
         } else if (keyCode == GLFW.GLFW_KEY_K) {
             centerOnBody(findByNamePlanet("Earth"));
+        } else if (keyCode == GLFW.GLFW_KEY_SPACE) {
+            tpToFocusedPlanet();
+
         }
         return super.keyPressed(keyCode, scanCode, modifiers);
+    }
+
+    public void tpToFocusedPlanet() {
+        if(focusedBody != null) {
+            NetworkRegistry.CHANNEL.sendToServer(new TeleportEntity(focusedBody.dimension, false));
+        };
     }
 
     @Override
@@ -378,20 +393,6 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         return this.menu;
     }
 
-    public void addSystemsButtons() {
-        AtomicInteger systemsHeight = new AtomicInteger();
-        StellarisData.SYSTEMS.forEach((key, value) -> {
-            List<String> buttonText = List.of("Go Back to the planet selection", "menu and try again.");
-            this.addButton(this.width / 2 - 30 , this.height / 2 + 50, 0, 75, 25, false, null, buttonText,
-                    BUTTON_TEXTURE, TexturedButton.ColorTypes.BLUE, Component.literal(key), (onPress) -> {
-                        System.out.println("Go Back");
-                        this.onClose();
-                    });
-
-            systemsHeight.addAndGet(35);
-        });
-
-    }
 
     public ModifiedButton addButton(int x, int y, int row, int width, int height, boolean rocketCondition,
                                     ModifiedButton.ButtonTypes type, List<String> list, ResourceLocation buttonTexture,
