@@ -279,8 +279,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         return null;
     }
 
-    public static CelestialBody findByNamePlanet(String name) {
-        for (CelestialBody body : PlanetSelectionScreen.PLANETS) {
+    public static PlanetInfo findByNamePlanet(String name) {
+        for (PlanetInfo body : PlanetSelectionScreen.PLANETS) {
             if (body.getName().equals(name)) {
                 return body;
             }

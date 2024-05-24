@@ -8,9 +8,7 @@ import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.PlanetSelectionScreen;
 import com.st0x0ef.stellaris.client.screens.info.CelestialBody;
 import com.st0x0ef.stellaris.client.screens.info.MoonInfo;
-import com.st0x0ef.stellaris.client.screens.info.PlanetInfo;
 import com.st0x0ef.stellaris.client.screens.record.MoonRecord;
-import com.st0x0ef.stellaris.client.screens.record.PlanetRecord;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
@@ -25,7 +23,7 @@ public class MoonPack extends SimpleJsonResourceReloadListener {
     public static final Map<String, MoonRecord> MOON = new HashMap<>();
 
     public MoonPack(Gson gson) {
-        super(gson, "renderer/planet_screen/planet");
+        super(gson, "renderer/planet_screen/moon");
     }
 
     @Override
@@ -40,7 +38,7 @@ public class MoonPack extends SimpleJsonResourceReloadListener {
             MOON.put(moon.name(), moon);
 
             CelestialBody screenMoon;
-                screenMoon = new PlanetInfo(
+                screenMoon = new MoonInfo(
                         moon.texture(),
                         moon.name(),
                         (int) moon.distance(),
