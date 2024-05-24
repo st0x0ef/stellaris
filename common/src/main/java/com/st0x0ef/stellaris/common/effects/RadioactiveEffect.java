@@ -16,19 +16,21 @@ public class RadioactiveEffect extends MobEffect {
     public boolean applyEffectTick(LivingEntity livingEntity, int level) {
         if (livingEntity.getHealth() > 0.0F) {
             if (level == 0) {
-                livingEntity.hurt(DamageSourceRegistry.of(livingEntity.level(), DamageSourceRegistry.RADIATIONS), 0.5f);
+                livingEntity.hurt(DamageSourceRegistry.of(livingEntity.level(), DamageSourceRegistry.RADIATIONS), 0.7f);
             }
             else if (level == 1) {
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 80));
-                livingEntity.hurt(DamageSourceRegistry.of(livingEntity.level(), DamageSourceRegistry.RADIATIONS), 0.25f);
+                livingEntity.hurt(DamageSourceRegistry.of(livingEntity.level(), DamageSourceRegistry.RADIATIONS), 0.5f);
             }
             else if (level == 2) {
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 80));
-                livingEntity.hurt(DamageSourceRegistry.of(livingEntity.level(), DamageSourceRegistry.RADIATIONS), 0.5f);
+                livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80));
+                livingEntity.hurt(DamageSourceRegistry.of(livingEntity.level(), DamageSourceRegistry.RADIATIONS), 1f);
             }
 
             return true;
         }
+
 
         return false;
     }
