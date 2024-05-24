@@ -251,6 +251,13 @@ public class ItemsRegistry {
     public static final RegistrySupplier<Item> VERTICAL_VENUS_SLAB_ITEM = ITEMS.register("vertical_venus_slab", () -> new BlockItem(BlocksRegistry.VERTICAL_VENUS_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
     public static final RegistrySupplier<Item> VERTICAL_MERCURY_SLAB_ITEM = ITEMS.register("vertical_mercury_slab", () -> new BlockItem(BlocksRegistry.VERTICAL_MERCURY_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
 
+    public static final RegistrySupplier<Item> VERTICAL_HEAVY_METAL_PLATE_SLAB = ITEMS.register("vertical_heavy_metal_plate_slab", () -> new BlockItem(BlocksRegistry.VERTICAL_HEAVY_METAL_PLATE_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
+    public static final RegistrySupplier<Item> VERTICAL_STEEL_SLAB = ITEMS.register("vertical_steel_slab", () -> new BlockItem(BlocksRegistry.VERTICAL_STEEL_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
+    public static final RegistrySupplier<Item> VERTICAL_STEEL_PLATING_SLAB = ITEMS.register("vertical_steel_plating_slab", () -> new BlockItem(BlocksRegistry.VERTICAL_STEEL_PLATING_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
+    public static final RegistrySupplier<Item> VERTICAL_IRON_PLATING_SLAB = ITEMS.register("vertical_iron_plating_slab", () -> new BlockItem(BlocksRegistry.VERTICAL_IRON_PLATING_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
+    public static final RegistrySupplier<Item> VERTICAL_DESH_PLATING_SLAB = ITEMS.register("vertical_desh_plating_slab", () -> new BlockItem(BlocksRegistry.VERTICAL_DESH_PLATING_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
+    public static final RegistrySupplier<Item> VERTICAL_DESH_SLAB = ITEMS.register("vertical_desh_slab", () -> new BlockItem(BlocksRegistry.VERTICAL_DESH_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
+
     /** Rocket */
     public static final RegistrySupplier<Item> ROCKET = ITEMS.register("rocket", () -> new RocketItem( new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> FROSTY_ROCKET_SKIN = ITEMS.register("frozy_rocket_sku", () -> new RocketSkinItem(new ResourceLocation(Stellaris.MODID, "textures/vehicle/rocket_skin/normal/frozy.png"), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));

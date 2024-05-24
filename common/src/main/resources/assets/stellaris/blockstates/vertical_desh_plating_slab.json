@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "stellaris:block/vertical_desh_plating_slab", "uvlock": true },
+    "facing=east":  { "model": "stellaris:block/vertical_desh_plating_slab", "y":  90, "uvlock": true },
+    "facing=south": { "model": "stellaris:block/vertical_desh_plating_slab", "y": 180, "uvlock": true },
+    "facing=west":  { "model": "stellaris:block/vertical_desh_plating_slab", "y": 270, "uvlock": true }
+  }
+}
