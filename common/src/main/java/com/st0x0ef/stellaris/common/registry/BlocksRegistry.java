@@ -7,6 +7,7 @@ import dev.architectury.core.block.ArchitecturyLiquidBlock;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ColorRGBA;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.DyeColor;
@@ -131,7 +132,7 @@ public class BlocksRegistry {
     public static final RegistrySupplier<Block> VENUS_STONE_BRICK_STAIRS = BLOCKS.register("venus_stone_brick_stairs", () -> new StairBlock(VENUS_STONE.get().defaultBlockState(), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(5f, 2.5f).requiresCorrectToolForDrops()));
 
     /**Globes*/
-    public static final RegistrySupplier<Block> EARTH_GLOBE_BLOCK = BLOCKS.register("earth_globe", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(3.5F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> EARTH_GLOBE_BLOCK = BLOCKS.register("earth_globe", () -> new GlobeBlock(new ResourceLocation("stellaris:textures/block/globes/earth_globe.png"), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(3.5F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops()));
     public static final RegistrySupplier<Block> MOON_GLOBE_BLOCK = BLOCKS.register("moon_globe", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(3.5F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops()));
     public static final RegistrySupplier<Block> MARS_GLOBE_BLOCK = BLOCKS.register("mars_globe", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(3.5F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops()));
     public static final RegistrySupplier<Block> MERCURY_GLOBE_BLOCK = BLOCKS.register("mercury_globe", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(3.5F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops()));

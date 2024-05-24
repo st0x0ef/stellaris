@@ -17,20 +17,19 @@ import net.minecraft.world.level.Level;
 import java.util.List;
 
 public class CanItem extends Item {
-    private FoodProperties foodProperties;
-    private final int maxNutrition;
+    final private int maxNutrition;
 
     public CanItem(Properties properties, int maxNutrition) {
         super(properties);
         this.maxNutrition = maxNutrition;
-        this.foodProperties = new FoodProperties.Builder().nutrition(0).saturationModifier(0).alwaysEdible().build();
     }
 
 
 
     public void setFoodProperties(ItemStack stack, FoodProperties foodProperties) {
-        this.foodProperties = foodProperties;
+        System.out.println("New food properties " + foodProperties.nutrition() + " " + foodProperties.saturation());
         stack.set(DataComponents.FOOD, foodProperties);
+
 
     }
 
@@ -42,10 +41,17 @@ public class CanItem extends Item {
         return food.get(DataComponents.FOOD).saturation() ;
     }
 
-    public boolean addFoodIfPossible(ItemStack food) {
+    public boolean addFoodIfPossible(ItemStack can, ItemStack food) {
+        FoodProperties canFoodProperties = can.get(DataComponents.FOOD);
+        FoodProperties foodProperties = food.get(DataComponents.FOOD);
 
-        if (this.foodProperties.nutrition() + getNutrition(food) <= maxNutrition) {
-            setFoodProperties(food, new FoodProperties.Builder().nutrition(this.foodProperties.nutrition() + getNutrition(food)).saturationModifier(this.foodProperties.saturation() + getSaturation(food)).build());
+        //System.out.println(foodProperties.nutrition() + getNutrition(food) + " " + maxNutrition);
+
+
+        if (foodProperties.nutrition() + getNutrition(can) <= maxNutrition) {
+            System.out.println("added  " + getNutrition(can) + "  " + canFoodProperties.nutrition());
+
+            setFoodProperties(food, new FoodProperties.Builder().nutrition(foodProperties.nutrition() + getNutrition(can)).saturationModifier(foodProperties.saturation() + getSaturation(can)).build());
             return true;
         }
 
@@ -56,17 +62,19 @@ public class CanItem extends Item {
         return maxNutrition;
     }
 
-    public FoodProperties getFoodProperties() {
-        return this.foodProperties;
-    }
 
     @Override
     public void appendHoverText(ItemStack itemStack, TooltipContext tooltipContext, List<Component> list, TooltipFlag tooltipFlag) {
-        //FoodProperties properties = itemStack.get(DataComponents.FOOD);
+        FoodProperties properties = itemStack.get(DataComponents.FOOD);
 
-        if (foodProperties.nutrition() > 0 && foodProperties.saturation() > 0) {
-            list.add(Component.literal("Nutrition : " + foodProperties.nutrition() + "/" + getMaxNutrition()));
-            list.add(Component.literal("Saturation : " + foodProperties.saturation()));
+        if(properties == null) {
+            System.out.println("null");
+            list.add(Component.translatable("tooltip.stellaris.can_item_empty"));
+        }
+
+        if (properties.nutrition() > 0 && properties.saturation() > 0) {
+            list.add(Component.literal("Nutrition : " + properties.nutrition() + "/" + getMaxNutrition()));
+            list.add(Component.literal("Saturation : " + properties.saturation()));
         } else {
             list.add(Component.translatable("tooltip.stellaris.can_item_empty"));
         }

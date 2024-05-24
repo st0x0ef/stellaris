@@ -48,6 +48,7 @@ public class Stellaris {
         RecipesRegistry.register();
 
         ReloadListenerRegistry.register(PackType.SERVER_DATA, new StellarisData());
+
         Events.registerEvents();
     }
 
