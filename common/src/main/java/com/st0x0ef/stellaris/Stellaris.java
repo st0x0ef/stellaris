@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.ToNumberPolicy;
 import com.st0x0ef.stellaris.common.config.CustomConfig;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
+import com.st0x0ef.stellaris.common.data.screen.PlanetPack;
 import com.st0x0ef.stellaris.common.data.screen.StarPack;
 import com.st0x0ef.stellaris.common.events.Events;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
@@ -26,6 +27,9 @@ public class Stellaris {
     public static void init() {
         CustomConfig.init();
 
+        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new StarPack(GSON));
+        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new PlanetPack(GSON));
+
         NetworkRegistry.register();
         SoundRegistry.SOUNDS.register();
         FluidRegistry.FLUIDS.register();
@@ -44,7 +48,6 @@ public class Stellaris {
         RecipesRegistry.register();
 
         ReloadListenerRegistry.register(PackType.SERVER_DATA, new StellarisData());
-        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new StarPack(GSON));
         Events.registerEvents();
     }
 

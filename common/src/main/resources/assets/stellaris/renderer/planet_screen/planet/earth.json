@@ -1,0 +1,9 @@
+{
+  "texture": "stellaris:textures/environment/solar_system/earth.png",
+  "name": "Earth",
+  "distance": 100,
+  "period": 8000,
+  "width": 10.0,
+  "height": 10.0,
+  "parent": "Sun"
+}

@@ -1,0 +1,9 @@
+{
+  "texture": "stellaris:textures/environment/star/sun.png",
+  "name": "Sun",
+  "x": 300,
+  "y": 100,
+  "width": 35.0,
+  "height": 35.0,
+  "orbitColor": "Yellow"
+}

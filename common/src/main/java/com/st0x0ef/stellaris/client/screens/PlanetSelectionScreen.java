@@ -28,6 +28,7 @@ import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWScrollCallback;
 import org.lwjgl.opengl.GL11;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -55,35 +56,32 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     public static final ResourceLocation LARGE_MENU_TEXTURE = new ResourceLocation(Stellaris.MODID,
             "textures/gui/util/large_planet_menu.png");
 
-    private static final CelestialBody SUN = new CelestialBody(new ResourceLocation(Stellaris.MODID, "textures/environment/star/sun.png"),
-            "Sun", 300, 100, 35, 35, 0xFFFF00);
+    public static final List<CelestialBody> STARS = new ArrayList<>();
+    public static final List<PlanetInfo> PLANETS = new ArrayList<>();
+    public static final List<MoonInfo> MOONS = new ArrayList<>();
 
-    private static final List<CelestialBody> STARS = Arrays.asList(
-            SUN
-    );
-
-    private static final PlanetInfo EARTH = new PlanetInfo(new ResourceLocation(Stellaris.MODID, "textures/environment/solar_system/earth.png"),
-            "Earth", 100, 8000L, 10, 10, SUN);
-
-    private static final List<PlanetInfo> PLANETS = Arrays.asList(
-            new PlanetInfo(new ResourceLocation(Stellaris.MODID, "textures/environment/solar_system/mercury.png"),
-                    "Mercury", 38, 3000L, 5, 5, SUN),
-            new PlanetInfo(new ResourceLocation(Stellaris.MODID, "textures/environment/solar_system/venus.png"),
-                    "Venus", 68, 5000L, 9, 9, SUN),
-            EARTH,
-            new PlanetInfo(new ResourceLocation(Stellaris.MODID, "textures/environment/solar_system/mars.png"),
-                    "Mars", 140, 10000L, 9, 9, SUN)
-    );
-
-    private static final List<MoonInfo> MOONS = Arrays.asList(
-            new MoonInfo(new ResourceLocation(Stellaris.MODID, "textures/environment/solar_system/moon.png"),
-                    30, 1000L, 7, 7, EARTH),
-            new MoonInfo(new ResourceLocation(Stellaris.MODID, "textures/environment/solar_system/deimos.png"),
-                    20, 1000L, 4, 4, PLANETS.get(3)),
-            new MoonInfo(new ResourceLocation(Stellaris.MODID, "textures/environment/solar_system/phobos.png"),
-                    30, 1500L, 4, 4, PLANETS.get(3)
-            )
-    );
+//    private static final PlanetInfo EARTH = new PlanetInfo(new ResourceLocation(Stellaris.MODID, "textures/environment/solar_system/earth.png"),
+//            "Earth", 100, 8000L, 10, 10, SUN);
+//
+//    private static final List<PlanetInfo> PLANETS = Arrays.asList(
+//            new PlanetInfo(new ResourceLocation(Stellaris.MODID, "textures/environment/solar_system/mercury.png"),
+//                    "Mercury", 38, 3000L, 5, 5, SUN),
+//            new PlanetInfo(new ResourceLocation(Stellaris.MODID, "textures/environment/solar_system/venus.png"),
+//                    "Venus", 68, 5000L, 9, 9, SUN),
+//            EARTH,
+//            new PlanetInfo(new ResourceLocation(Stellaris.MODID, "textures/environment/solar_system/mars.png"),
+//                    "Mars", 140, 10000L, 9, 9, SUN)
+//    );
+//
+//    private static final List<MoonInfo> MOONS = Arrays.asList(
+//            new MoonInfo(new ResourceLocation(Stellaris.MODID, "textures/environment/solar_system/moon.png"),
+//                    30, 1000L, 7, 7, EARTH),
+//            new MoonInfo(new ResourceLocation(Stellaris.MODID, "textures/environment/solar_system/deimos.png"),
+//                    20, 1000L, 4, 4, PLANETS.get(3)),
+//            new MoonInfo(new ResourceLocation(Stellaris.MODID, "textures/environment/solar_system/phobos.png"),
+//                    30, 1500L, 4, 4, PLANETS.get(3)
+//            )
+//    );
 
 
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
@@ -290,9 +288,18 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     private void centerSun() {
         float centerX = width / 2.0f;
         float centerY = height / 2.0f;
-        SUN.setPosition(centerX, centerY);
+        findByNameStar("Sun").setPosition(centerX, centerY);
         offsetX = 0;
         offsetY = 0;
+    }
+
+    public static CelestialBody findByNameStar(String name) {
+        for (CelestialBody body : PlanetSelectionScreen.STARS) {
+            if (body.getName().equals(name)) {
+                return body;
+            }
+        }
+        return null;
     }
 
     private void centerOnBody(CelestialBody body) {

@@ -5,6 +5,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.client.screens.PlanetSelectionScreen;
+import com.st0x0ef.stellaris.client.screens.info.CelestialBody;
 import com.st0x0ef.stellaris.client.screens.record.StarRecord;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -27,10 +29,41 @@ public class StarPack extends SimpleJsonResourceReloadListener {
     protected void apply(Map<ResourceLocation, JsonElement> object, ResourceManager resourceManager, ProfilerFiller profiler) {
         STAR.clear();
         object.forEach((key, value) -> {
-            JsonObject json = GsonHelper.convertToJsonObject(value, "planets");
-            StarRecord star = StarRecord.CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
+            JsonObject json = GsonHelper.convertToJsonObject(value, "stars");
+            StarRecord star;
+
+            star = StarRecord.CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
+
             STAR.put(star.name(), star);
-            Stellaris.LOG.error("Adding" + star.name());
+
+            int orbitColor = getColorFromName(star.orbitColor());
+
+            CelestialBody screenStar;
+                screenStar = new CelestialBody(
+                        star.texture(),
+                        star.name(),
+                        (int) star.x(),
+                        (int) star.y(),
+                        (float) star.width(),
+                        (float) star.height(),
+                        orbitColor
+                );
+
+            PlanetSelectionScreen.STARS.add(screenStar);
+            Stellaris.LOG.info("Added a star to PlanetSelectionScreen : " + star.name());
         });
+    }
+
+    private int getColorFromName(String colorName) {
+        switch (colorName) {
+            case "Yellow":
+                return 0xFFFF00;
+            case "Red":
+                return 0xFF0000;
+            case "Blue":
+                return 0x0000FF;
+            default:
+                return 0xFFFFFF;
+        }
     }
 }
