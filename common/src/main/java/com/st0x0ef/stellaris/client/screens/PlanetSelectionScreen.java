@@ -105,8 +105,6 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         renderBodiesAndPlanets(graphics);
         renderMoons(graphics);
 
-        Stellaris.LOG.info("isXPressed : " + isXPressed);
-
         this.renderTooltip(graphics, mouseX, mouseY);
     }
 
@@ -192,14 +190,9 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             for (PlanetInfo planet : PLANETS) {
                 planet.updateAngle(time);
                 planet.updatePosition();
-
-                System.out.println(planet.name + ", " + planet.x + ", " + planet.y);
             }
             for (MoonInfo moon : MOONS) {
                 moon.updateAngle(time);
-                moon.updatePosition();
-
-                System.out.println(moon.name + ", " + moon.x + ", " + moon.y);
             }
         }
     }
