@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.ToNumberPolicy;
 import com.st0x0ef.stellaris.common.config.CustomConfig;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
+import com.st0x0ef.stellaris.common.data.screen.MoonPack;
 import com.st0x0ef.stellaris.common.data.screen.PlanetPack;
 import com.st0x0ef.stellaris.common.data.screen.StarPack;
 import com.st0x0ef.stellaris.common.events.Events;
@@ -27,8 +28,7 @@ public class Stellaris {
     public static void init() {
         CustomConfig.init();
 
-        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new StarPack(GSON));
-        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new PlanetPack(GSON));
+        registerPacks();
 
         NetworkRegistry.register();
         SoundRegistry.SOUNDS.register();
@@ -58,5 +58,10 @@ public class Stellaris {
         }));
     }
 
+    public static void registerPacks() {
+        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new StarPack(GSON));
+        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new PlanetPack(GSON));
+        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new MoonPack(GSON));
+    }
 
 }
