@@ -17,8 +17,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.ImageButton;
-import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
@@ -29,7 +27,6 @@ import org.lwjgl.glfw.GLFWScrollCallback;
 import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -71,7 +68,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     private double lastMouseY;
     private boolean dragging = false;
 
-    private boolean isXPressed;
+    private boolean isXPressed = false;
 
     private double zoomLevel = 1.0;
     private GLFWScrollCallback prevScrollCallback;
@@ -90,12 +87,10 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     @Override
     protected void init() {
         super.init();
+        isXPressed = false;
         centerSun();
         long windowHandle = Minecraft.getInstance().getWindow().getWindow();
         prevScrollCallback = GLFW.glfwSetScrollCallback(windowHandle, this::onMouseScroll);
-    }
-
-    private void nothing() {
     }
 
     private void startUpdating() {
@@ -109,6 +104,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         drawOrbits();
         renderBodiesAndPlanets(graphics);
         renderMoons(graphics);
+
+        Stellaris.LOG.info("isXPressed : " + isXPressed);
 
         this.renderTooltip(graphics, mouseX, mouseY);
     }
@@ -191,18 +188,18 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     private void updatePlanets() {
         long time = Util.getMillis();
-        if (isXPressed == false) {
+        if (!isXPressed) {
             for (PlanetInfo planet : PLANETS) {
                 planet.updateAngle(time);
                 planet.updatePosition();
 
-//                System.out.println(planet.name + ", " + planet.x + ", " + planet.y);
+                System.out.println(planet.name + ", " + planet.x + ", " + planet.y);
             }
             for (MoonInfo moon : MOONS) {
                 moon.updateAngle(time);
                 moon.updatePosition();
 
-//                System.out.println(moon.name + ", " + moon.x + ", " + moon.y);
+                System.out.println(moon.name + ", " + moon.x + ", " + moon.y);
             }
         }
     }
