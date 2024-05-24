@@ -49,6 +49,7 @@ public class RadioactiveEffect extends MobEffect {
     public void onEffectStarted(LivingEntity livingEntity, int i) {
         if (i == 1 || i == 2) {
             livingEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 80));
+            livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80));
         }
     }
 }
