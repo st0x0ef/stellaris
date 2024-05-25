@@ -1,0 +1,10 @@
+{
+  "texture": "stellaris:textures/environment/solar_system/phobos.png",
+  "name": "Phobos",
+  "distance": 30,
+  "period": 1500,
+  "width": 4.0,
+  "height": 4.0,
+  "parent": "Mars",
+  "dimensionId": "stellaris:phobos"
+}

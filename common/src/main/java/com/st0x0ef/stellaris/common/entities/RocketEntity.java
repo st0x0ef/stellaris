@@ -4,8 +4,8 @@ import com.google.common.collect.Sets;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.items.upgrade.RocketSkinItem;
 import com.st0x0ef.stellaris.common.menus.RocketMenu;
+import com.st0x0ef.stellaris.common.registry.EntityData;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
-import com.st0x0ef.stellaris.common.registry.ParticleRegistry;
 import com.st0x0ef.stellaris.common.registry.SoundRegistry;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import dev.architectury.registry.menu.ExtendedMenuProvider;
@@ -90,7 +90,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
             this.startTimerAndFlyMovement();
 
             if (this.getY() > 600) {
-                PlanetUtil.openPlanetSelectionMenu(this.getFirstPlayerPassenger());
+                this.openPlanetMenu(this.getFirstPlayerPassenger());
             }
         }
     }
@@ -115,6 +115,8 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         this.getEntityData().set(START_TIMER, compound.getInt("start_timer"));
 
     }
+
+
 
 
 
@@ -143,15 +145,17 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
                 return InteractionResult.CONSUME;
             }
 
-            player.startRiding(this);
+            this.doPlayerRide(player);
             return InteractionResult.CONSUME;
         }
 
         return result;
     }
 
-
-
+    @Override
+    public Vec3 getPassengerRidingPosition(Entity entity) {
+        return this.position().add(this.getPassengerAttachmentPoint(entity, getDimensions(this.getPose()),1.0F)).subtract(0d,3.15d,0d);
+    }
 
     @Override
     public void openCustomInventoryScreen(Player player) {
@@ -276,8 +280,8 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
             if (this.entityData.get(START_TIMER) == 200) {
                 for (ServerPlayer player : level.getServer().getPlayerList().getPlayers()) {
-                    level.sendParticles(player, (ParticleOptions) ParticleRegistry.LARGE_FLAME_PARTICLE.get(), true, this.getX() - vec.x, this.getY() - vec.y - 2.2, this.getZ() - vec.z, 20, 0.1, 0.1, 0.1, 0.001);
-                    level.sendParticles(player, (ParticleOptions) ParticleRegistry.LARGE_SMOKE_PARTICLE.get(), true, this.getX() - vec.x, this.getY() - vec.y - 3.2, this.getZ() - vec.z, 10, 0.1, 0.1, 0.1, 0.04);
+                    level.sendParticles(player, (ParticleOptions) ParticleTypes.FLAME, true, this.getX() - vec.x, this.getY() - vec.y - 2.2, this.getZ() - vec.z, 20, 0.1, 0.1, 0.1, 0.001);
+                    level.sendParticles(player, (ParticleOptions) ParticleTypes.FLAME, true, this.getX() - vec.x, this.getY() - vec.y - 3.2, this.getZ() - vec.z, 10, 0.1, 0.1, 0.1, 0.04);
                 }
             } else {
                 for (ServerPlayer player : level.getServer().getPlayerList().getPlayers()) {
@@ -362,9 +366,35 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         Stellaris.LOG.error("Container Change ");
     }
 
+    protected void doPlayerRide(Player player) {
+        if (!this.level().isClientSide) {
+            Vec3 entityPos = player.getPosition(0);
+            player.setPosRaw(entityPos.x, entityPos.y + 40.0, entityPos.z);
+
+            player.startRiding(this);
+
+        }
+
+    }
+
     private void checkContainer() {
         if (inventory.getItem(12).getItem() instanceof RocketSkinItem item) {
             this.getEntityData().set(ROCKET_SKIN, item.getRocketSkinName().toString());
+        }
+    }
+
+    public Container getInventory() {
+        return this.inventory;
+    }
+
+    private void openPlanetMenu(Player player) {
+        if(player == null) return;
+
+        if(!player.getEntityData().get(EntityData.DATA_PLANET_MENU_OPEN)) {
+            player.setNoGravity(true);
+            player.getVehicle().setNoGravity(true);
+            PlanetUtil.openPlanetSelectionMenu(player);
+            player.getEntityData().set(EntityData.DATA_PLANET_MENU_OPEN, true);
         }
 
     }

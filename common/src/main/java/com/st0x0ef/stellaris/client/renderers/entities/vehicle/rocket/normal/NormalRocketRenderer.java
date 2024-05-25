@@ -3,11 +3,8 @@ package com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.normal;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.VehicleRenderer;
 import com.st0x0ef.stellaris.common.entities.RocketEntity;
-import com.st0x0ef.stellaris.common.entities.alien.Alien;
-import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Entity;
 
 public class NormalRocketRenderer extends VehicleRenderer<RocketEntity, NormalRocketModel<RocketEntity>> {
     public ResourceLocation TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/vehicle/rocket_skin/normal/standard.png");
@@ -26,4 +23,5 @@ public class NormalRocketRenderer extends VehicleRenderer<RocketEntity, NormalRo
     protected boolean isShaking(RocketEntity rocket) {
         return rocket.getEntityData().get(RocketEntity.ROCKET_START);
     }
+
 }

@@ -76,11 +76,11 @@ public class RocketMenu extends AbstractContainerMenu {
         this.addSlot(new Slot(inventory, 1, 20, 57));
 
         //INVENTORY SLOTS
-        this.addSlot(new Slot(inventory, 3, 86, 20));
-        this.addSlot(new Slot(inventory, 5, 86, 37));
+        this.addSlot(new Slot(inventory, 2, 86, 20));
+        this.addSlot(new Slot(inventory, 3, 86, 37));
 
-        this.addSlot(new Slot(inventory, 2, 104, 20));
-        this.addSlot(new Slot(inventory, 4, 104, 37));
+        this.addSlot(new Slot(inventory, 4, 104, 20));
+        this.addSlot(new Slot(inventory, 5, 104, 37));
 
         this.addSlot(new Slot(inventory, 6, 122, 20));
         this.addSlot(new Slot(inventory, 7, 122, 37));

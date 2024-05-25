@@ -126,6 +126,9 @@
   "block.stellaris.vertical_venus_slab": "Vertical Venus Stone Slab",
   "block.stellaris.vertical_mercury_slab": "Vertical Mercury Stone Slab",
 
+  "block.stellaris.cheese_block": "Cheese Block",
+  "block.stellaris.vacumator": "Vacumator",
+
 
   "block.stellaris.uranium_block" : "Uranium Block",
   "block.stellaris.raw_uranium_block" : "Raw Uranium Block",
@@ -174,7 +177,12 @@
   "item.stellaris.oil_bucket": "Oil Bucket",
   "item.stellaris.hydrogen_bucket": "Hydrogen Bucket",
 
+  "item.stellaris.oxygen_tank": "Oxygen Tank",
+  "item.stellaris.big_oxygen_tank": "Big Oxygen Tank",
 
+  "item.stellaris.rocket": "Rocket",
+  "item.stellaris.basic_rocket_skin": "Basic Rocket Skin",
+  "item.stellaris.frozy_rocket_skin": "Frozy Rocket Skin",
 
   "item.stellaris.big_blue_can": "Blue Can",
   "item.stellaris.big_green_can": "Green Can",
@@ -192,7 +200,7 @@
   "item.stellaris.berry_juice": "Canned Berry Juice",
   "item.stellaris.cosmo_bread": "Cosmo Bread",
   "item.stellaris.cheese": "Cheese",
-
+  "item.stellaris.cosmo_coffee": "Cosmo coffee",
 
 
   "item.stellaris.ice_shard_arrow": "Ice Shard Arrow",
@@ -213,6 +221,15 @@
   "block.stellaris.plutonium_block": "Plutonium block",
 
   "screens.stellaris.config": "Stellaris Config Screen",
+  "tooltip.stellaris.can_item_empty": "Empty Can",
 
-  "tooltip.stellaris.can_item_empty": "Empty Can"
+
+  "container.entity.stellaris.lander": "Lander",
+  "container.entity.stellaris.rocket": "Rocket",
+  "advancements.stellaris.moon.root.title" : "That's small step for man...",
+  "advancements.moon.root.description" : "land on the moon",
+  "advancements.mars.root.title" : "Red wasteland",
+  "advancements.mars.root.description" : "land on the mars",
+  "death.attack.radiation": "%1$s received a lethal dose of radiation"
+
 }

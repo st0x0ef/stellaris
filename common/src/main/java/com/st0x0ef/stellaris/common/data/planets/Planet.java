@@ -11,7 +11,9 @@ public record Planet(
         String system,
         ResourceKey<Level> dimension,
         ResourceKey<Level> orbit,
-        boolean oxygen, int temperature, int distanceFromEarth, float gravity
+        boolean oxygen, int temperature, int distanceFromEarth, float gravity,
+        PlanetTextures textures
+
 ) {
     public static final Codec<Planet> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.STRING.fieldOf("system").forGetter(Planet::system),
@@ -20,14 +22,17 @@ public record Planet(
             Codec.BOOL.fieldOf("oxygen").forGetter(Planet::oxygen),
             Codec.INT.fieldOf("temperature").forGetter(Planet::temperature),
             Codec.INT.fieldOf("distanceFromEarth").forGetter(Planet::distanceFromEarth),
-            Codec.FLOAT.fieldOf("gravity").forGetter(Planet::gravity)
+            Codec.FLOAT.fieldOf("gravity").forGetter(Planet::gravity),
+            PlanetTextures.CODEC.fieldOf("textures").forGetter(Planet::textures)
+
+
     ).apply(instance, Planet::new));
 
     public static Planet fromNetwork(FriendlyByteBuf buffer) {
-        return new Planet(buffer.readUtf(), buffer.readResourceKey(Registries.DIMENSION), buffer.readResourceKey(Registries.DIMENSION), buffer.readBoolean(), buffer.readInt(), buffer.readInt(), buffer.readFloat());
+        return new Planet(buffer.readUtf(), buffer.readResourceKey(Registries.DIMENSION), buffer.readResourceKey(Registries.DIMENSION), buffer.readBoolean(), buffer.readInt(), buffer.readInt(), buffer.readFloat(), PlanetTextures.fromNetwork(buffer));
     }
 
-    public void toNetwork(FriendlyByteBuf buffer) {
+    public  void toNetwork(FriendlyByteBuf buffer) {
         buffer.writeUtf(this.system);
         buffer.writeResourceKey(this.dimension);
         buffer.writeResourceKey(this.orbit);
@@ -35,6 +40,6 @@ public record Planet(
         buffer.writeInt(this.temperature);
         buffer.writeInt(this.distanceFromEarth);
         buffer.writeFloat(this.gravity);
-
+        this.textures.toNetwork(buffer);
     }
 }

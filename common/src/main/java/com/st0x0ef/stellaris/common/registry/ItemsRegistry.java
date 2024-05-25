@@ -9,7 +9,10 @@ import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
+
+import java.util.List;
 
 public class ItemsRegistry {
 
@@ -25,23 +28,27 @@ public class ItemsRegistry {
     public static final RegistrySupplier<Item> HEAVY_METAL_INGOT_ITEM = ITEMS.register("heavy_metal_ingot", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> HEAVY_METAL_NUGGET_ITEM = ITEMS.register("heavy_metal_nugget", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> RAW_STEEL_INGOT = ITEMS.register("raw_steel_ingot", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+
+    static FoodProperties canFoodProperties = new FoodProperties.Builder().nutrition(0).saturationModifier(0).build();
+
     /** Food Cans */
-    public static final RegistrySupplier<Item> BIG_BLUE_CAN = ITEMS.register("big_blue_can", () -> new CanItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), 20));
-    public static final RegistrySupplier<Item> BIG_GREEN_CAM = ITEMS.register("big_green_can", () -> new CanItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), 20));
-    public static final RegistrySupplier<Item> BIG_PURPLE_CAN = ITEMS.register("big_purple_can", () -> new CanItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), 20));
-    public static final RegistrySupplier<Item> BIG_RED_CAN = ITEMS.register("big_red_can", () -> new CanItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), 20));
-    public static final RegistrySupplier<Item> BIG_YELLOW_CAN = ITEMS.register("big_yellow_can", () -> new CanItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), 20));
-    public static final RegistrySupplier<Item> SMALL_BLUE_CAN = ITEMS.register("small_blue_can", () -> new CanItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), 10));
-    public static final RegistrySupplier<Item> SMALL_GREEN_CAN = ITEMS.register("small_green_can", () -> new CanItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), 10));
-    public static final RegistrySupplier<Item> SMALL_PURPLE_CAN = ITEMS.register("small_purple_can", () -> new CanItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), 10));
-    public static final RegistrySupplier<Item> SMALL_RED_CAN = ITEMS.register("small_red_can", () -> new CanItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), 10));
-    public static final RegistrySupplier<Item> SMALL_YELLOW_CAN = ITEMS.register("small_yellow_can", () -> new CanItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), 10));
+    public static final RegistrySupplier<Item> BIG_BLUE_CAN = ITEMS.register("big_blue_can", () -> new CanItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).food(canFoodProperties), 20));
+    public static final RegistrySupplier<Item> BIG_GREEN_CAM = ITEMS.register("big_green_can", () -> new CanItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).food(canFoodProperties), 20));
+    public static final RegistrySupplier<Item> BIG_PURPLE_CAN = ITEMS.register("big_purple_can", () -> new CanItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).food(canFoodProperties), 20));
+    public static final RegistrySupplier<Item> BIG_RED_CAN = ITEMS.register("big_red_can", () -> new CanItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).food(canFoodProperties), 20));
+    public static final RegistrySupplier<Item> BIG_YELLOW_CAN = ITEMS.register("big_yellow_can", () -> new CanItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).food(canFoodProperties), 20));
+    public static final RegistrySupplier<Item> SMALL_BLUE_CAN = ITEMS.register("small_blue_can", () -> new CanItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).food(canFoodProperties), 10));
+    public static final RegistrySupplier<Item> SMALL_GREEN_CAN = ITEMS.register("small_green_can", () -> new CanItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).food(canFoodProperties), 10));
+    public static final RegistrySupplier<Item> SMALL_PURPLE_CAN = ITEMS.register("small_purple_can", () -> new CanItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).food(canFoodProperties), 10));
+    public static final RegistrySupplier<Item> SMALL_RED_CAN = ITEMS.register("small_red_can", () -> new CanItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).food(canFoodProperties), 10));
+    public static final RegistrySupplier<Item> SMALL_YELLOW_CAN = ITEMS.register("small_yellow_can", () -> new CanItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).food(canFoodProperties), 10));
     /** Food Items */
 
-    public static final RegistrySupplier<Item> CANNON_STEAK = ITEMS.register("cannon_steak", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).food(FoodRegistry.CANNED_STEAK)));
     public static final RegistrySupplier<Item> COSMO_BREAD = ITEMS.register("cosmo_bread", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).food(FoodRegistry.COSMO_BREAD)));
     public static final RegistrySupplier<Item> BERRY_JUICE = ITEMS.register("berry_juice", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).food(FoodRegistry.BERRY_JUICE)));
     public static final RegistrySupplier<Item> CHEESE = ITEMS.register("cheese", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).food(FoodRegistry.CHEESE)));
+    public static final RegistrySupplier<Item> COSMO_COFFEE = ITEMS.register("cosmo_coffee", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).food(FoodRegistry.COSMO_COFFEE)));
+    public static final RegistrySupplier<Item> CHEESE_BLOCK_ITEM = ITEMS.register("cheese_block", () -> new BlockItem(BlocksRegistry.CHEESE_BLOCK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
 
     /** Other */
     public static final RegistrySupplier<Item> OXYGEN_TANK = ITEMS.register("oxygen_tank", () -> new OxygenTankItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), 3600));
@@ -104,6 +111,7 @@ public class ItemsRegistry {
     public static final RegistrySupplier<Item> MARS_COBBLESONE = ITEMS.register("mars_cobblestone", () -> new BlockItem(BlocksRegistry.MARS_COBBLESONE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
     public static final RegistrySupplier<Item> MARS_IRON_ORE = ITEMS.register("mars_iron_ore", () -> new BlockItem(BlocksRegistry.MARS_IRON_ORE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
     public static final RegistrySupplier<Item> MARS_OSTRUM_ORE = ITEMS.register("mars_ostrum_ore", () -> new BlockItem(BlocksRegistry.MARS_OSTRUM_ORE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
+    public static final RegistrySupplier<Item> MARS_PLUTONIUM_ORE = ITEMS.register("mars_plutonium_ore", () -> new BlockItem(BlocksRegistry.MARS_PLUTONIUM_ORE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
     public static final RegistrySupplier<Item> MARS_SAND = ITEMS.register("mars_sand", () -> new BlockItem(BlocksRegistry.MARS_SAND.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
     public static final RegistrySupplier<Item> MARS_STONE = ITEMS.register("mars_stone", () -> new BlockItem(BlocksRegistry.MARS_STONE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
     public static final RegistrySupplier<Item> MARS_STONE_BRICKS = ITEMS.register("mars_stone_bricks", () -> new BlockItem(BlocksRegistry.MARS_STONE_BRICKS.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
@@ -121,7 +129,8 @@ public class ItemsRegistry {
     public static final RegistrySupplier<Item> CRACKED_VENUS_SANDSTONE_BRICKS_ITEM = ITEMS.register("cracked_venus_sandstone_bricks", () -> new BlockItem(BlocksRegistry.CRACKED_VENUS_SANDSTONE_BRICKS.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
     public static final RegistrySupplier<Item> CRACKED_VENUS_STONE_BRICKS_ITEM = ITEMS.register("cracked_venus_stone_bricks", () -> new BlockItem(BlocksRegistry.CRACKED_VENUS_STONE_BRICKS.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
     public static final RegistrySupplier<Item> POLISHED_VENUS_STONE_ITEM = ITEMS.register("polished_venus_stone", () -> new BlockItem(BlocksRegistry.POLISHED_VENUS_STONE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
-    public static final RegistrySupplier<Item> VENUS_COAL_ORE_ITEM = ITEMS.register("venus_coal_ore", () -> new BlockItem(BlocksRegistry.VENUS_COAL_ORE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
+    public static final RegistrySupplier<Item> VENUS_COAL_ORE_ITEM_ITEM = ITEMS.register("venus_coal_ore", () -> new BlockItem(BlocksRegistry.VENUS_COAL_ORE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
+    public static final RegistrySupplier<Item> VENUS_NEPTUNIUM_ORE_item = ITEMS.register("venus_neptunium_ore", () -> new BlockItem(BlocksRegistry.VENUS_NEPTUNIUM_ORE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
     public static final RegistrySupplier<Item> CHISELED_MOON_STONE_ITEM_ITEM = ITEMS.register("venus_cobblestone", () -> new BlockItem(BlocksRegistry.VENUS_COBBLESTONE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
     public static final RegistrySupplier<Item> VENUS_COBBLESTONE_ITEM = ITEMS.register("venus_gold_ore", () -> new BlockItem(BlocksRegistry.VENUS_GOLD_ORE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
     public static final RegistrySupplier<Item> VENUS_SAND_ITEM = ITEMS.register("venus_sand", () -> new BlockItem(BlocksRegistry.VENUS_SAND.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
@@ -248,6 +257,13 @@ public class ItemsRegistry {
     public static final RegistrySupplier<Item> VERTICAL_MARS_SLAB_ITEM = ITEMS.register("vertical_mars_slab", () -> new BlockItem(BlocksRegistry.VERTICAL_MARS_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
     public static final RegistrySupplier<Item> VERTICAL_VENUS_SLAB_ITEM = ITEMS.register("vertical_venus_slab", () -> new BlockItem(BlocksRegistry.VERTICAL_VENUS_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
     public static final RegistrySupplier<Item> VERTICAL_MERCURY_SLAB_ITEM = ITEMS.register("vertical_mercury_slab", () -> new BlockItem(BlocksRegistry.VERTICAL_MERCURY_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
+
+    public static final RegistrySupplier<Item> VERTICAL_HEAVY_METAL_PLATE_SLAB = ITEMS.register("vertical_heavy_metal_plate_slab", () -> new BlockItem(BlocksRegistry.VERTICAL_HEAVY_METAL_PLATE_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
+    public static final RegistrySupplier<Item> VERTICAL_STEEL_SLAB = ITEMS.register("vertical_steel_slab", () -> new BlockItem(BlocksRegistry.VERTICAL_STEEL_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
+    public static final RegistrySupplier<Item> VERTICAL_STEEL_PLATING_SLAB = ITEMS.register("vertical_steel_plating_slab", () -> new BlockItem(BlocksRegistry.VERTICAL_STEEL_PLATING_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
+    public static final RegistrySupplier<Item> VERTICAL_IRON_PLATING_SLAB = ITEMS.register("vertical_iron_plating_slab", () -> new BlockItem(BlocksRegistry.VERTICAL_IRON_PLATING_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
+    public static final RegistrySupplier<Item> VERTICAL_DESH_PLATING_SLAB = ITEMS.register("vertical_desh_plating_slab", () -> new BlockItem(BlocksRegistry.VERTICAL_DESH_PLATING_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
+    public static final RegistrySupplier<Item> VERTICAL_DESH_SLAB = ITEMS.register("vertical_desh_slab", () -> new BlockItem(BlocksRegistry.VERTICAL_DESH_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
 
     /** Rocket */
     public static final RegistrySupplier<Item> ROCKET = ITEMS.register("rocket", () -> new RocketItem( new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));

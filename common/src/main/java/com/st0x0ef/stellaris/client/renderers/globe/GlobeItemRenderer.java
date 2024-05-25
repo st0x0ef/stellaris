@@ -27,6 +27,7 @@ public class GlobeItemRenderer<T extends GlobeTileEntity> extends BlockEntityWit
         super(blockEntityRenderDispatcher, entityModelSet);
     }
 
+    
     public GlobeItemRenderer<?> setTexture(ResourceLocation texture) {
         this.texture = texture;
         return this;

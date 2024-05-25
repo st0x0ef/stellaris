@@ -1,5 +1,6 @@
 {
   "parent": "stellaris:template/globe",
+  "globe": "earth",
   "textures": {
     "particle": "stellaris:block/globes/earth_globe"
   }

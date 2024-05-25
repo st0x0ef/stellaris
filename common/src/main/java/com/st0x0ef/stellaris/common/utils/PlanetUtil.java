@@ -9,8 +9,8 @@ import io.netty.buffer.Unpooled;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -30,6 +30,14 @@ public class PlanetUtil {
             return getPlanet(level).oxygen();
         }
         return true;
+    }
+
+    /** Get the resourcelocation of the planet bar set in the Planet file */
+    public static ResourceLocation getPlanetBar(ResourceKey<Level> level) {
+        if (isPlanet(level)) {
+            return getPlanet(level).textures().planet_bar();
+        }
+        return new ResourceLocation("stellaris", "textures/planet_bar/earth_planet_bar.png");
     }
 
     public static int openPlanetSelectionMenu(Player player) {
@@ -52,8 +60,8 @@ public class PlanetUtil {
             }
         };
 
-        if (player != null && player instanceof ServerPlayer) {
-            MenuRegistry.openExtendedMenu((ServerPlayer)player, provider);
+        if (player instanceof ServerPlayer serverPlayer) {
+            MenuRegistry.openExtendedMenu(serverPlayer, provider);
             return 1;
         }
 
