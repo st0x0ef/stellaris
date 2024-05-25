@@ -8,13 +8,9 @@ import com.st0x0ef.stellaris.client.screens.components.ModifiedButton;
 import com.st0x0ef.stellaris.client.screens.info.CelestialBody;
 import com.st0x0ef.stellaris.client.screens.info.MoonInfo;
 import com.st0x0ef.stellaris.client.screens.info.PlanetInfo;
-import com.st0x0ef.stellaris.common.data.planets.Planet;
-import com.st0x0ef.stellaris.common.data.planets.StellarisData;
-import com.st0x0ef.stellaris.common.data.screen.PlanetPack;
 import com.st0x0ef.stellaris.common.menus.PlanetSelectionMenu;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import com.st0x0ef.stellaris.common.network.packets.TeleportEntity;
-import com.st0x0ef.stellaris.common.utils.Utils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.Util;
@@ -23,13 +19,10 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.phys.Vec3;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWScrollCallback;
 import org.lwjgl.opengl.GL11;
@@ -37,7 +30,6 @@ import org.lwjgl.opengl.GL11;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 
 @Environment(EnvType.CLIENT)
@@ -230,8 +222,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         if (isXPressed) {
             CelestialBody bodyToHighlight = hoveredBody != null ? hoveredBody : focusedBody;
             if (bodyToHighlight != null) {
-                int highlightWidth = (int) ((int) (bodyToHighlight.width + 2) * zoomLevel);
-                int highlightHeight = (int) ((int) (bodyToHighlight.height + 2) * zoomLevel);
+                int highlightWidth = (int) ((int) (bodyToHighlight.width) * zoomLevel);
+                int highlightHeight = (int) ((int) (bodyToHighlight.height) * zoomLevel);
                 float highlightX = (float) ((bodyToHighlight.x + offsetX) * zoomLevel - (highlightWidth / 2) * zoomLevel);
                 float highlightY = (float) ((bodyToHighlight.y + offsetY) * zoomLevel - (highlightHeight / 2) * zoomLevel);
 
@@ -240,12 +232,11 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         }
     }
 
-
-
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (keyCode == GLFW.GLFW_KEY_X) {
             isXPressed = !isXPressed;
+
         } else if (keyCode == GLFW.GLFW_KEY_K) {
             centerOnBody(findByNamePlanet("Earth"));
         } else if (keyCode == GLFW.GLFW_KEY_SPACE) {
