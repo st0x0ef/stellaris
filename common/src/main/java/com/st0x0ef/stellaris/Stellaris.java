@@ -46,6 +46,7 @@ public class Stellaris {
         CreativeTabsRegistry.TABS.register();
         CommandsRegistry.register();
         RecipesRegistry.register();
+        EntityData.register();
 
         ReloadListenerRegistry.register(PackType.SERVER_DATA, new StellarisData());
 

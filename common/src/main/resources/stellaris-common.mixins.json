@@ -5,7 +5,8 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "EntityEatMixin",
-    "EntityTick"
+    "EntityTick",
+    "PlayerDataMixin"
   ],
   "client": [],
   "injectors": {
