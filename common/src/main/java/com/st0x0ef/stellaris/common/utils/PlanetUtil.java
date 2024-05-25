@@ -60,8 +60,8 @@ public class PlanetUtil {
             }
         };
 
-        if (player != null && player instanceof ServerPlayer) {
-            MenuRegistry.openExtendedMenu((ServerPlayer)player, provider);
+        if (player instanceof ServerPlayer serverPlayer) {
+            MenuRegistry.openExtendedMenu(serverPlayer, provider);
             return 1;
         }
 
