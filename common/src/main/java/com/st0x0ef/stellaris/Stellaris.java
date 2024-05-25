@@ -31,21 +31,22 @@ public class Stellaris {
         registerPacks();
 
         NetworkRegistry.register();
-        SoundRegistry.SOUNDS.register();
+
         FluidRegistry.FLUIDS.register();
         EffectsRegistry.MOB_EFFECT.register();
         ParticleRegistry.PARTICLES.register();
         BlocksRegistry.BLOCKS.register();
-        MenuTypesRegistry.MENU_TYPE.register();
-        EntityRegistry.BLOCK_ENTITY_TYPE.register();
         EntityRegistry.ENTITY_TYPE.register();
         EntityRegistry.SENSOR.register();
-        EntityRegistry.registerAttributes();
-        FeaturesRegistry.FEATURES.register();
+        EntityRegistry.BLOCK_ENTITY_TYPE.register();
         ItemsRegistry.ITEMS.register();
         CreativeTabsRegistry.TABS.register();
-        CommandsRegistry.register();
+        MenuTypesRegistry.MENU_TYPE.register();
         RecipesRegistry.register();
+        SoundRegistry.SOUNDS.register();
+        FeaturesRegistry.FEATURES.register();
+        CommandsRegistry.register();
+
         EntityData.register();
 
         ReloadListenerRegistry.register(PackType.SERVER_DATA, new StellarisData());
