@@ -97,14 +97,14 @@ public class EntityRegistry {
 
     //Entity Attributes
     public static void registerAttributes(BiConsumer<Supplier<? extends EntityType<? extends LivingEntity>>, Supplier<AttributeSupplier.Builder>> attributes) {
-        EntityAttributeRegistry.register(EntityRegistry.ALIEN,  Alien::setCustomAttributes);
-        EntityAttributeRegistry.register(EntityRegistry.ALIEN_ZOMBIE,  AlienZombie::setCustomAttributes);
-        EntityAttributeRegistry.register(EntityRegistry.MARTIAN_RAPTOR,  MartianRaptor::CreateRaptorAttributes);
-        EntityAttributeRegistry.register(EntityRegistry.MARTIAN_RAPTOR,  MartianRaptor::CreateRaptorAttributes);
-        EntityAttributeRegistry.register(EntityRegistry.PYGRO_BRUTE, PygroBrute::setCustomAttributes);
-        EntityAttributeRegistry.register(EntityRegistry.PYGRO, Pygro::setCustomAttributes);
-        EntityAttributeRegistry.register(EntityRegistry.MOGLER, Mogler::setCustomAttributes);
-        EntityAttributeRegistry.register(EntityRegistry.STAR_CRAWLER, StarCrawler::setCustomAttributes);
+        attributes.accept(EntityRegistry.ALIEN,  Alien::setCustomAttributes);
+        attributes.accept(EntityRegistry.ALIEN_ZOMBIE,  AlienZombie::setCustomAttributes);
+        attributes.accept(EntityRegistry.MARTIAN_RAPTOR,  MartianRaptor::CreateRaptorAttributes);
+        attributes.accept(EntityRegistry.MARTIAN_RAPTOR,  MartianRaptor::CreateRaptorAttributes);
+        attributes.accept(EntityRegistry.PYGRO_BRUTE, PygroBrute::setCustomAttributes);
+        attributes.accept(EntityRegistry.PYGRO, Pygro::setCustomAttributes);
+        attributes.accept(EntityRegistry.MOGLER, Mogler::setCustomAttributes);
+        attributes.accept(EntityRegistry.STAR_CRAWLER, StarCrawler::setCustomAttributes);
     }
 
     //Entity Sensor
