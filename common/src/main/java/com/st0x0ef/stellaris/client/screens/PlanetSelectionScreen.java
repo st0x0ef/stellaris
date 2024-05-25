@@ -43,6 +43,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Environment(EnvType.CLIENT)
 public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelectionMenu> {
 
+    public static final ResourceLocation HIGHLIGHTER_TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/util/planet_highlighter.png");
+
     public static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/planet_selection.png");
     public static final ResourceLocation SCROLLER_TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/util/scroller.png");
 
@@ -60,14 +62,14 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private static final long UPDATE_INTERVAL = 1L;
 
+    private boolean isXPressed = false;
+
     private double offsetX = 0;
     private double offsetY = 0;
 
     private double lastMouseX;
     private double lastMouseY;
     private boolean dragging = false;
-
-    private boolean isXPressed = false;
 
     private double zoomLevel = 1.0;
     private GLFWScrollCallback prevScrollCallback;
@@ -104,7 +106,12 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             float planetX = (float) ((planet.orbitCenter.x + offsetX + planet.orbitRadius * Math.cos(planet.currentAngle) - planetWidth / 2) * zoomLevel);
             float planetY = (float) ((planet.orbitCenter.y + offsetY + planet.orbitRadius * Math.sin(planet.currentAngle) - planetHeight / 2) * zoomLevel);
 
-            InvisibleButton button = new InvisibleButton((int) planetX, (int) planetY, planetWidth, planetHeight, Component.literal(planet.name), (btn) -> onPlanetButtonClick(planet));
+            InvisibleButton button = new InvisibleButton(
+                    (int) planetX, (int) planetY, planetWidth + 2, planetHeight + 2,
+                    Component.literal(planet.name),
+                    (btn) -> onPlanetButtonClick(planet),
+                    () -> hoveredBody = planet
+            );
             planetButtons.add(button);
             addRenderableWidget(button);
         }
@@ -118,17 +125,25 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             float moonX = (float) ((moon.orbitCenter.x + offsetX + moon.orbitRadius * Math.cos(moon.currentAngle) - moonWidth / 2) * zoomLevel);
             float moonY = (float) ((moon.orbitCenter.y + offsetY + moon.orbitRadius * Math.sin(moon.currentAngle) - moonHeight / 2) * zoomLevel);
 
-            InvisibleButton button = new InvisibleButton((int) moonX, (int) moonY, moonWidth, moonHeight, Component.literal(moon.name), (btn) -> onMoonButtonClick(moon));
+            InvisibleButton button = new InvisibleButton(
+                    (int) moonX, (int) moonY, moonWidth, moonHeight,
+                    Component.literal(moon.name),
+                    (btn) -> onMoonButtonClick(moon),
+                    () -> hoveredBody = moon
+            );
             moonButtons.add(button);
             addRenderableWidget(button);
         }
     }
+
+
 
     private void startUpdating() {
         scheduler.scheduleAtFixedRate(this::updatePlanets, 0, UPDATE_INTERVAL, TimeUnit.MILLISECONDS);
     }
 
     private CelestialBody focusedBody = null;
+    private CelestialBody hoveredBody = null;
 
     private void onPlanetButtonClick(PlanetInfo planet) {
         focusedBody = planet;
@@ -149,7 +164,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         this.renderBackground(graphics, mouseX, mouseY, partialTicks);
         drawOrbits();
         renderBodiesAndPlanets(graphics);
-        renderMoons(graphics);
+        renderHighlighter(graphics);
         this.renderTooltip(graphics, mouseX, mouseY);
     }
 
@@ -197,10 +212,6 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
         }
 
-        initializePlanetButtons();
-    }
-
-    public void renderMoons(GuiGraphics graphics) {
         for (MoonInfo moon : MOONS) {
             float moonX = (float) ((moon.x + offsetX) * zoomLevel - (moon.width / 2) * zoomLevel);
             float moonY = (float) ((moon.y + offsetY) * zoomLevel - (moon.height / 2) * zoomLevel);
@@ -211,18 +222,34 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             graphics.blit(moon.texture, (int) moonX, (int) moonY, 0, 0, moonWidth, moonHeight, moonWidth, moonHeight);
         }
 
+        initializePlanetButtons();
         initializeMoonButtons();
     }
+
+    private void renderHighlighter(GuiGraphics graphics) {
+        if (isXPressed) {
+            CelestialBody bodyToHighlight = hoveredBody != null ? hoveredBody : focusedBody;
+            if (bodyToHighlight != null) {
+                int highlightWidth = (int) bodyToHighlight.width + 4;
+                int highlightHeight = (int) bodyToHighlight.height + 4;
+                float highlightX = (float) ((bodyToHighlight.x + offsetX) * zoomLevel - (highlightWidth / 2) * zoomLevel);
+                float highlightY = (float) ((bodyToHighlight.y + offsetY) * zoomLevel - (highlightHeight / 2) * zoomLevel);
+
+                graphics.blit(HIGHLIGHTER_TEXTURE, (int) highlightX, (int) highlightY, 0, 0, highlightWidth, highlightHeight, highlightWidth, highlightHeight);
+            }
+        }
+    }
+
+
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (keyCode == GLFW.GLFW_KEY_X) {
-            isXPressed = true;
+            isXPressed = !isXPressed;
         } else if (keyCode == GLFW.GLFW_KEY_K) {
             centerOnBody(findByNamePlanet("Earth"));
         } else if (keyCode == GLFW.GLFW_KEY_SPACE) {
             tpToFocusedPlanet();
-
         }
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
@@ -233,24 +260,22 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         };
     }
 
-
     @Override
     public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
-        if (keyCode == GLFW.GLFW_KEY_X) {
-            isXPressed = false;
-        }
         return super.keyReleased(keyCode, scanCode, modifiers);
     }
 
     private void updatePlanets() {
         long time = Util.getMillis();
-        for (PlanetInfo planet : PLANETS) {
-            planet.updateAngle(time);
-            planet.updatePosition();
-        }
-        for (MoonInfo moon : MOONS) {
-            moon.updateAngle(time);
-            moon.updatePosition();
+        if (!isXPressed) {
+            for (PlanetInfo planet : PLANETS) {
+                planet.updateAngle(time);
+                planet.updatePosition();
+            }
+            for (MoonInfo moon : MOONS) {
+                moon.updateAngle(time);
+                moon.updatePosition();
+            }
         }
     }
 
@@ -336,7 +361,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     }
 
     private void centerOnBody(CelestialBody body) {
-        zoomLevel = 1;
+        zoomLevel = 1.0;
         offsetX = ((body.x - width / 2.0)) * -1;
         offsetY = ((body.y - height / 2.0)) * -1;
     }
@@ -366,6 +391,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             lastMouseX = mouseX;
             lastMouseY = mouseY;
             focusedBody = null;
+            hoveredBody = null;
         }
         return super.mouseClicked(mouseX, mouseY, button);
     }
