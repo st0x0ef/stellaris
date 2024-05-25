@@ -13,7 +13,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 public class MilkyWayScreen extends AbstractContainerScreen<PlanetSelectionMenu> {
     public static final ResourceLocation MILKY_WAY_TEXTURE = new ResourceLocation(Stellaris.MODID,
-            "textures/gui/util/milky_way.png");
+            "textures/environment/milky_way.png");
     public static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(Stellaris.MODID,
             "textures/gui/planet_selection.png");
 
