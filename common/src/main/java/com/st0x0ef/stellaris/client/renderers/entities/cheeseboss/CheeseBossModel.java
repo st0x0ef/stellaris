@@ -109,7 +109,7 @@ public class CheeseBossModel<T extends CheeseBoss> extends HierarchicalModel<T> 
 		this.Head.xRot = headPitch * 0.017453292F;
 
 		this.animateWalk(CheeseBossAnim.idle,limbSwing,limbSwingAmount,2f,2.5f);
-		//this.animate(entity.idleAni,CheeseBossAnim.idle,ageInTicks);
+		this.animate(entity.idleAnimationState, CheeseBossAnim.idle, ageInTicks);
 	}
 
 	@Override

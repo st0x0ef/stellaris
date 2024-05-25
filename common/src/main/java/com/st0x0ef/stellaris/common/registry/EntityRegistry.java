@@ -105,6 +105,7 @@ public class EntityRegistry {
         attributes.accept(EntityRegistry.PYGRO, Pygro::setCustomAttributes);
         attributes.accept(EntityRegistry.MOGLER, Mogler::setCustomAttributes);
         attributes.accept(EntityRegistry.STAR_CRAWLER, StarCrawler::setCustomAttributes);
+        attributes.accept(EntityRegistry.CHEESE_BOSS, CheeseBoss::setCustomAttributes);
     }
 
     //Entity Sensor
