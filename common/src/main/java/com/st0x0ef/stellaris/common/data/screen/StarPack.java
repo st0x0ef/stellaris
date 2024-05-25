@@ -46,7 +46,8 @@ public class StarPack extends SimpleJsonResourceReloadListener {
                         (int) star.y(),
                         (float) star.width(),
                         (float) star.height(),
-                        orbitColor
+                        orbitColor,
+                        null
                 );
 
             PlanetSelectionScreen.STARS.add(screenStar);

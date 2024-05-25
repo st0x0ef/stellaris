@@ -1,6 +1,8 @@
 package com.st0x0ef.stellaris.client.screens.info;
 
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 
 public class PlanetInfo extends CelestialBody {
     private final long orbitDuration;
@@ -8,8 +10,9 @@ public class PlanetInfo extends CelestialBody {
     public final double orbitRadius;
     public double currentAngle;
 
-    public PlanetInfo(ResourceLocation texture, String name, double orbitRadius, long orbitDuration, int width, int height, CelestialBody orbitCenter) {
-        super(texture, name, 0, 0, width, height, 0xFFFFFF);
+
+    public PlanetInfo(ResourceLocation texture, String name, double orbitRadius, long orbitDuration, int width, int height, CelestialBody orbitCenter, ResourceKey<Level> dimension) {
+        super(texture, name, 0, 0, width, height, 0xFFFFFF, dimension);
         this.orbitRadius = orbitRadius;
         this.orbitDuration = orbitDuration;
         this.orbitCenter = orbitCenter;

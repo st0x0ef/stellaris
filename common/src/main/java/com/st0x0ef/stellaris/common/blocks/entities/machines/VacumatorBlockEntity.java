@@ -113,8 +113,7 @@ public class VacumatorBlockEntity extends BaseContainerBlockEntity implements Im
 
         ItemStack result = new ItemStack(can);
         CanItem resultCanItem = (CanItem) result.getItem();
-
-        if (resultCanItem.addFoodIfPossible(food)) {
+        if (resultCanItem.addFoodIfPossible(getItem(0), food)) {
             for (int i : inputSlots) {
                 removeItem(i, 1);
             }
