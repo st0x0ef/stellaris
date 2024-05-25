@@ -1,16 +1,13 @@
 package com.st0x0ef.stellaris.common.utils;
 
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.entities.LanderEntity;
 import com.st0x0ef.stellaris.common.entities.RocketEntity;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
-import net.minecraft.client.Minecraft;
+import com.st0x0ef.stellaris.platform.TeleportUtil;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
@@ -32,6 +29,7 @@ public class Utils {
 
     /** Should be call after teleporting the player */
     public static LanderEntity createLanderFromRocket(Player player, RocketEntity rocket) {
+
         LanderEntity lander = new LanderEntity(player.level());
         lander.setPos(player.getX(), player.getY(), player.getZ());
         transfertInventory(rocket, lander);
@@ -43,7 +41,10 @@ public class Utils {
     }
 
     /** Teleport an entity to the planet wanted */
-    public static void teleportEntity(Entity entity, Planet destination, double yPos, boolean orbit) {
+    public static void teleportEntity(Entity entity, Planet destination, int yPos, boolean orbit) {
+
+
+        if(entity.level().isClientSide()) return;
 
         ServerLevel nextLevel;
         if(orbit) {
@@ -55,13 +56,19 @@ public class Utils {
         }
 
         if (!entity.canChangeDimensions()) return;
-        entity.changeDimension(nextLevel);
+
+        //entity.changeDimension(nextLevel);
+
+        TeleportUtil.teleportToPlanet(entity, nextLevel, yPos);
         entity.setPos(entity.getX(), yPos, entity.getZ());
+
     }
 
     /** To use with the planetSelection menu */
     public static void changeDimension(Player player, Planet destination, boolean orbit) {
-        Stellaris.LOG.error("Change dimension");
+
+        if(player.level().isClientSide()) return;
+
         Entity vehicle = player.getVehicle();
         if (vehicle instanceof RocketEntity rocket) {
 
@@ -79,6 +86,9 @@ public class Utils {
             teleportEntity(player, destination, 600, orbit);
         }
 
+
     }
+
+
 
 }
