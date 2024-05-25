@@ -9,8 +9,8 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class OxygenSourceBlockEntity extends OxygenBlockEntity {
-    protected OxygenSourceBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState, int range, int power) {
+public class OxygenDistributorBlockEntity extends OxygenBlockEntity {
+    protected OxygenDistributorBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState, int range, int power) {
         super(type, pos, blockState, new OxygenContainer(power), range);
     }
 

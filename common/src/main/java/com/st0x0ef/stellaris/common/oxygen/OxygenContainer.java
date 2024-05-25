@@ -1,10 +1,13 @@
 package com.st0x0ef.stellaris.common.oxygen;
 
+import com.st0x0ef.stellaris.common.items.oxygen.OxygenContainerItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 
 public class OxygenContainer {
     private final int maxOxygen;
+    private int oxygenStored;
+
     private int[][][] oxygenRoom = new int[32][32][32];
 
     public OxygenContainer(int maxOxygen) {
@@ -22,16 +25,22 @@ public class OxygenContainer {
         return false;
     }
 
-    public boolean removeOxygenAt(int x, int y, int z, boolean simulate) {
-        return removeOxygenAt(new BlockPos(x, y, z), simulate);
+    public boolean addOxygenAtFromSource(BlockPos pos, boolean simulate, OxygenContainer container) {
+        if (addOxygenAt(pos, simulate)) {
+            return container.removeOxygenStored(simulate);
+        }
+
+        return false;
     }
 
     public boolean addOxygenAt(BlockPos pos, boolean simulate) {
         if (getOxygenAt(pos) < maxOxygen) {
-            if (!simulate) {
-                oxygenRoom[pos.getX()][pos.getY()][pos.getZ()]++;
+            if (removeOxygenStored(simulate)) {
+                if (!simulate) {
+                    oxygenRoom[pos.getX()][pos.getY()][pos.getZ()]++;
+                }
+                return true;
             }
-            return true;
         }
 
         return false;
@@ -60,5 +69,36 @@ public class OxygenContainer {
 
     public int getOxygenAt(BlockPos pos) {
         return oxygenRoom[pos.getX()][pos.getY()][pos.getZ()];
+    }
+
+    public int getOxygenStored() {
+        return oxygenStored;
+    }
+
+    public void removeAllOxygenStored() {
+        oxygenStored = 0;
+    }
+
+    public boolean removeOxygenStored(boolean simulate) {
+        if (getOxygenStored() > 0) {
+            if (!simulate) {
+                oxygenStored--;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public boolean addOxygenStored(OxygenContainerItem container, boolean simulate) {
+        int oxygenToAdd = container.getOxygenContainer().getOxygenStored();
+        if (oxygenToAdd + getOxygenStored() <= maxOxygen) {
+            if (!simulate) {
+                oxygenStored += oxygenToAdd;
+                container.getOxygenContainer().removeAllOxygenStored();
+            }
+
+            return true;
+        }
+        return false;
     }
 }

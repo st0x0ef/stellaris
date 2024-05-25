@@ -18,23 +18,14 @@ public class OxygenPropagatorBlockEntity extends OxygenBlockEntity {
     @Override
     public void tick() {
         if (PlanetUtil.isPlanet(this.level.dimension())) {
-            if (container.removeOxygenAt(this.getBlockPos().getX() + 1, this.getBlockPos().getY(), this.getBlockPos().getZ(), false)) {
-                container.tick(this.level);
-            }
-            else if (container.removeOxygenAt(this.getBlockPos().getX() - 1, this.getBlockPos().getY(), this.getBlockPos().getZ(), false)) {
-                container.tick(this.level);
-            }
-            else if (container.removeOxygenAt(this.getBlockPos().getX(), this.getBlockPos().getY() + 1, this.getBlockPos().getZ(), false)) {
-                container.tick(this.level);
-            }
-            else if (container.removeOxygenAt(this.getBlockPos().getX(), this.getBlockPos().getY() - 1, this.getBlockPos().getZ(), false)) {
-                container.tick(this.level);
-            }
-            else if (container.removeOxygenAt(this.getBlockPos().getX(), this.getBlockPos().getY(), this.getBlockPos().getZ() + 1, false)) {
-                container.tick(this.level);
-            }
-            else if (container.removeOxygenAt(this.getBlockPos().getX(), this.getBlockPos().getY(), this.getBlockPos().getZ() - 1, false)) {
-                container.tick(this.level);
+            for (int x = -16; x < 16; x++) {
+                for (int z = -16; z < 16; z++) {
+                    for (int y = -16; y < 16; y++) {
+                        if (this.level.getBlockEntity(new BlockPos(x + this.getBlockPos().getX(), y + this.getBlockPos().getY(), z + this.getBlockPos().getZ())) instanceof OxygenDistributorBlockEntity source) {
+                            container.addOxygenAtFromSource(this.getBlockPos(), false, source.getOxygenContainer());
+                        }
+                    }
+                }
             }
         }
     }
