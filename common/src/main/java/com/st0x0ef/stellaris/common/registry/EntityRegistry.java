@@ -16,6 +16,8 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.SpawnPlacementTypes;
+import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
@@ -98,6 +100,22 @@ public class EntityRegistry {
         EntityAttributeRegistry.register(EntityRegistry.PYGRO, Pygro::setCustomAttributes);
         EntityAttributeRegistry.register(EntityRegistry.MOGLER, Mogler::setCustomAttributes);
         EntityAttributeRegistry.register(EntityRegistry.STAR_CRAWLER, StarCrawler::setCustomAttributes);
+    }
+
+
+    public static void registerSpawnPlacements() {
+        SpawnPlacements.register(MOGLER.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Lunarian::checkMobSpawnRules);
+        SpawnPlacements.register(ModEntityTypes.CORRUPTED_LUNARIAN.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CorruptedLunarian::checkMonsterSpawnRules);
+        SpawnPlacements.register(ModEntityTypes.STAR_CRAWLER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, StarCrawler::checkMonsterSpawnRules);
+        SpawnPlacements.register(ModEntityTypes.MARTIAN_RAPTOR.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MartianRaptor::checkMonsterSpawnRules);
+        SpawnPlacements.register(ModEntityTypes.PYGRO.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Pygro::checkMonsterSpawnRules);
+        SpawnPlacements.register(ModEntityTypes.ZOMBIFIED_PYGRO.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ZombifiedPygro::checkMonsterSpawnRules);
+        SpawnPlacements.register(ModEntityTypes.PYGRO_BRUTE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, PygroBrute::checkMonsterSpawnRules);
+        SpawnPlacements.register(ModEntityTypes.MOGLER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mogler::checkMobSpawnRules);
+        SpawnPlacements.register(ModEntityTypes.ZOMBIFIED_MOGLER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ZombifiedMogler::checkMonsterSpawnRules);
+        SpawnPlacements.register(ModEntityTypes.LUNARIAN_WANDERING_TRADER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Lunarian::checkMobSpawnRules);
+        SpawnPlacements.register(ModEntityTypes.SULFUR_CREEPER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SulfurCreeper::checkMonsterSpawnRules);
+        SpawnPlacements.register(ModEntityTypes.GLACIAN_RAM.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, GlacianRam::checkMobSpawnRules);
     }
 
 

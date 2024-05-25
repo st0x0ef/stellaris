@@ -2,12 +2,12 @@ pluginManagement {
     repositories {
         maven { url "https://maven.fabricmc.net/" }
         maven { url "https://maven.architectury.dev/" }
-        maven { url "https://maven.minecraftforge.net/" }
+        maven { url "https://maven.minecraftforge.net/maven" }
         maven { url "https://maven.neoforged.net" }
         gradlePluginPortal()
     }
 }
 
-include("common")
-include("fabric")
-include("neoforge")
+include "common"
+include "fabric"
+include "neoforge"

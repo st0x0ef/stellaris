@@ -17,7 +17,7 @@ import java.util.Random;
 public class IceSpit extends AbstractArrow implements ItemSupplier {
 
 
-    public IceSpit(EntityType<? extends AbstractArrow> entityType, Level level) {
+    public IceSpit(EntityType<? extends IceSpit> entityType, Level level) {
         super(entityType, level, new ItemStack(ItemsRegistry.ICE_SHARD.get()));
     }
 

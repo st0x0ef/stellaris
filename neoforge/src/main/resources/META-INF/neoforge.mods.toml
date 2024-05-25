@@ -1,30 +1,38 @@
 modLoader = "javafml"
-loaderVersion = "[1,)"
+loaderVersion = "[3,)"
 license = "CC BY-NC-SA 4.0"
 issueTrackerURL = "https://github.com/st0x0ef/Stellaris/issues"
+
 [[mods]]
 modId = "stellaris"
 version = "${version}"
 displayName = "Stellaris"
+authors = "The Stellaris Team"
 logoFile = "logo.png"
 description = '''
 Fly into new world!
 '''
+
 [[dependencies.stellaris]]
 modId = "neoforge"
 type = "required"
-versionRange = "[1,)"
+versionRange = "[20.6,)"
 ordering = "NONE"
 side = "BOTH"
+
 [[dependencies.stellaris]]
 modId = "minecraft"
 type = "required"
-versionRange = "[1.20.5,1.21)"
+versionRange = "[1.20.6,)"
 ordering = "NONE"
 side = "BOTH"
+
 [[dependencies.stellaris]]
 modId = "architectury"
 type = "required"
 versionRange = "[12,)"
-ordering = "NONE"
+ordering = "AFTER"
 side = "BOTH"
+
+[[mixins]]
+config = "stellaris.mixins.json"

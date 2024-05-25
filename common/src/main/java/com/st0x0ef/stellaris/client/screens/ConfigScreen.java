@@ -117,7 +117,7 @@ public class ConfigScreen extends Screen {
 
         } else {
             SpriteIconButton spriteIconButton = stellarisConfigButton(20);
-            spriteIconButton.setTooltip(new Tooltip(Component.literal("This config type is not supported. Use the manual config"), null));
+            spriteIconButton.setTooltip(Tooltip.create(Component.literal("This config type is not supported. Use the manual config"), null));
             rowHelper.addChild(spriteIconButton);
         }
     }

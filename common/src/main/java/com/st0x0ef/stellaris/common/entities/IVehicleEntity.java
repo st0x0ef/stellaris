@@ -30,8 +30,8 @@ public abstract class IVehicleEntity extends Entity{
     public float yya;
     public float zza;
 
-    public IVehicleEntity(EntityType<?> p_19870_, Level p_19871_) {
-        super(p_19870_, p_19871_);
+    public IVehicleEntity(EntityType<?> type, Level level) {
+        super(type, level);
         this.blocksBuilding = true;
     }
 
