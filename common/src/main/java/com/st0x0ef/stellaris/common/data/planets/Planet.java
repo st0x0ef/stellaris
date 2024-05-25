@@ -41,6 +41,5 @@ public record Planet(
         buffer.writeInt(this.distanceFromEarth);
         buffer.writeFloat(this.gravity);
         this.textures.toNetwork(buffer);
-
     }
 }
