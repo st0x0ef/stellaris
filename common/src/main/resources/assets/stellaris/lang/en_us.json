@@ -230,6 +230,7 @@
   "advancements.moon.root.description" : "land on the moon",
   "advancements.mars.root.title" : "Red wasteland",
   "advancements.mars.root.description" : "land on the mars",
-  "death.attack.radiation": "%1$s received a lethal dose of radiation"
+  "death.attack.radiation": "%1$s received a lethal dose of radiation",
 
+  "message.stellaris.speed": "%s Speed"
 }
