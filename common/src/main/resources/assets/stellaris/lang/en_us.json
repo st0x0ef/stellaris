@@ -235,5 +235,6 @@
 
   "event.stellaris.cheeseboss": "Cheese Boss",
 
-  "entity.stellaris.cheese_boss": "Cheese Boss"
+  "entity.stellaris.cheese_boss": "Cheese Boss",
+  "message.stellaris.speed": "%s Speed"
 }
