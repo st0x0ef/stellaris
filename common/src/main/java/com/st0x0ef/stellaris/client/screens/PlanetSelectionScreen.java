@@ -263,31 +263,45 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         initializeMoonButtons();
     }
 
+    private int currentHighlighterFrame = 0;
+    private final int totalHighlighterFrames = 31;
+
     private void renderHighlighter(GuiGraphics graphics) {
         if (isXPressed && !showLargeMenu) {
+            Minecraft minecraft = Minecraft.getInstance();
             CelestialBody bodyToHighlight = hoveredBody != null ? hoveredBody : focusedBody;
             if (bodyToHighlight != null) {
-                int highlightWidth = (int) ((int) (bodyToHighlight.width) * zoomLevel);
-                int highlightHeight = (int) ((int) (bodyToHighlight.height) * zoomLevel);
-                float highlightX = (float) ((bodyToHighlight.x + offsetX) * zoomLevel - (highlightWidth / 2) * zoomLevel);
-                float highlightY = (float) ((bodyToHighlight.y + offsetY) * zoomLevel - (highlightHeight / 2) * zoomLevel);
+                int highlightWidth = (int) (bodyToHighlight.width * zoomLevel);
+                int highlightHeight = (int) (bodyToHighlight.height * zoomLevel);
+                float highlightX = (float) ((bodyToHighlight.x + offsetX) * zoomLevel - highlightWidth / 2);
+                float highlightY = (float) ((bodyToHighlight.y + offsetY) * zoomLevel - highlightHeight / 2);
 
-                graphics.blit(HIGHLIGHTER_TEXTURE, (int) highlightX, (int) highlightY, 0, 0, highlightWidth, highlightHeight, highlightWidth, highlightHeight);
+                currentHighlighterFrame = (currentHighlighterFrame + 1) % totalHighlighterFrames;
+
+                int frameHeight = highlightHeight;
+                int frameY = currentHighlighterFrame * frameHeight;
+
+                graphics.blit(HIGHLIGHTER_TEXTURE, (int) highlightX, (int) highlightY, 0, frameY, highlightWidth, highlightHeight, highlightWidth, totalHighlighterFrames * frameHeight);
             }
         }
     }
+
 
     private void renderLargeMenu(GuiGraphics graphics) {
         if (showLargeMenu) {
             int menuWidth = 215;
             int menuHeight = 177;
+
+            int buttonWidth = 74;
+            int buttonHeight = 20;
+
             int centerX = (this.width - menuWidth) / 2;
             int centerY = (this.height - menuHeight) / 2;
 
             float alpha = 0.5f;
 
             launchButton.visible = true;
-            launchButton.setPosition(centerX + (menuWidth - launchButton.getWidth()) / 2, centerY + menuHeight + 10);
+            launchButton.setPosition(centerX + buttonWidth / 2 - buttonWidth / 3 - buttonWidth / 15, centerY + buttonHeight / 2);
 
             RenderSystem.enableBlend();
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
@@ -304,9 +318,6 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (keyCode == GLFW.GLFW_KEY_X) {
             isXPressed = !isXPressed;
-
-        } else if (keyCode == GLFW.GLFW_KEY_K) {
-            centerOnBody(findByNamePlanet("Earth"));
         } else if (keyCode == GLFW.GLFW_KEY_Z) {
             tpToFocusedPlanet();
         }
@@ -455,14 +466,15 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             dragging = true;
             lastMouseX = mouseX;
             lastMouseY = mouseY;
-            focusedBody = null;
-            hoveredBody = null;
             if (showLargeMenu) {
                 if (launchButton.mouseClicked(mouseX, mouseY, button)) {
                     return true;
                 }
                 showLargeMenu = false;
                 return true;
+            } else {
+                focusedBody = null;
+                hoveredBody = null;
             }
         }
         return super.mouseClicked(mouseX, mouseY, button);

@@ -13,8 +13,12 @@ import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import com.st0x0ef.stellaris.common.network.packets.SyncPlanetsDatapack;
 import com.st0x0ef.stellaris.common.registry.*;
 import dev.architectury.registry.ReloadListenerRegistry;
+import net.minecraft.client.Minecraft;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
+import org.lwjgl.opengl.GL;
+import org.lwjgl.opengl.GL43;
+import org.lwjgl.opengl.GLDebugMessageCallback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,6 +30,10 @@ public class Stellaris {
             .setObjectToNumberStrategy(ToNumberPolicy.LONG_OR_DOUBLE)
             .create();
     public static void init() {
+        Minecraft.getInstance().execute(() -> {
+            setupOpenGLDebugMessageCallback();
+        });
+
         CustomConfig.init();
 
         registerPacks();
@@ -52,6 +60,21 @@ public class Stellaris {
         ReloadListenerRegistry.register(PackType.SERVER_DATA, new StellarisData());
 
         Events.registerEvents();
+    }
+
+    private static void setupOpenGLDebugMessageCallback() {
+        if (GL.getCapabilities().GL_KHR_debug) {
+            GL43.glDebugMessageCallback((source, type, id, severity, length, message, userParam) -> {
+                if (id == 1281) {
+                    return;
+                }
+                String errorMessage = GLDebugMessageCallback.getMessage(length, message);
+                Stellaris.LOG.error("OpenGL debug message: id={}, source={}, type={}, severity={}, message='{}'",
+                        id, source, type, severity, errorMessage);
+            }, 0);
+            GL43.glEnable(GL43.GL_DEBUG_OUTPUT);
+            GL43.glEnable(GL43.GL_DEBUG_OUTPUT_SYNCHRONOUS);
+        }
     }
 
     public static void onDatapackSyncEvent(ServerPlayer player) {

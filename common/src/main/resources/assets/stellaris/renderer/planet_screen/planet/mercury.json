@@ -3,8 +3,8 @@
   "name": "Mercury",
   "distance": 38,
   "period": 3000,
-  "width": 5.0,
-  "height": 5.0,
+  "width": 6.0,
+  "height": 6.0,
   "parent": "Sun",
   "dimensionId": "stellaris:mercury"
 }
