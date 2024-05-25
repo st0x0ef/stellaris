@@ -11,6 +11,7 @@ import com.st0x0ef.stellaris.client.screens.info.PlanetInfo;
 import com.st0x0ef.stellaris.common.menus.PlanetSelectionMenu;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import com.st0x0ef.stellaris.common.network.packets.TeleportEntity;
+import com.st0x0ef.stellaris.common.registry.EntityData;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.Util;
@@ -23,6 +24,7 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWScrollCallback;
 import org.lwjgl.opengl.GL11;
@@ -248,7 +250,9 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     public void tpToFocusedPlanet() {
         if(focusedBody != null) {
             NetworkRegistry.CHANNEL.sendToServer(new TeleportEntity(focusedBody.dimension, false));
-        };
+        } else {
+            Stellaris.LOG.error("Focused body is null");
+        }
     }
 
     @Override
@@ -411,7 +415,17 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         return this.menu;
     }
 
+    @Override
+    public void onClose() {
+        if(getPlayer().getEntityData().get(EntityData.DATA_PLANET_MENU_OPEN)) {
+            return;
+        }
+        super.onClose();
+    }
 
+    public Player getPlayer() {
+        return menu.getPlayer();
+    }
     public ModifiedButton addButton(int x, int y, int row, int width, int height, boolean rocketCondition,
                                     ModifiedButton.ButtonTypes type, List<String> list, ResourceLocation buttonTexture,
                                     ModifiedButton.ColorTypes colorType, Component title, Button.OnPress onPress) {

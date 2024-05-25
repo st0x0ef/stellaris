@@ -19,7 +19,7 @@ public class Utils {
         Container landerContainer = lander.getInventory();
         /** We set the rocket in the first slot */
         ItemStack rocketStack = new ItemStack(ItemsRegistry.ROCKET.get());
-        rocketContainer.setItem(14, rocketStack);
+        rocketContainer.setItem(13, rocketStack);
 
         /** We start at two because we don"t want the oil inputs */
         for (int i = 0; i <= lander.getInventory().getContainerSize() - 1; i++) {
@@ -28,10 +28,10 @@ public class Utils {
     }
 
     /** Should be call after teleporting the player */
-    public static LanderEntity createLanderFromRocket(Player player, RocketEntity rocket) {
+    public static LanderEntity createLanderFromRocket(Player player, RocketEntity rocket, int yPos) {
 
         LanderEntity lander = new LanderEntity(player.level());
-        lander.setPos(player.getX(), player.getY(), player.getZ());
+        lander.setPos(player.getX(), yPos, player.getZ());
         transfertInventory(rocket, lander);
 
         rocket.discard();
@@ -73,7 +73,7 @@ public class Utils {
         if (vehicle instanceof RocketEntity rocket) {
 
             /** We create the lander */
-            LanderEntity lander = createLanderFromRocket(player, rocket);
+            LanderEntity lander = createLanderFromRocket(player, rocket, 600);
 
             /** We remove the player from the Rocket */
             player.stopRiding();
