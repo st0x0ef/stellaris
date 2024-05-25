@@ -146,15 +146,19 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     private CelestialBody hoveredBody = null;
 
     private void onPlanetButtonClick(PlanetInfo planet) {
-        focusedBody = planet;
-        centerOnBody(planet);
-        showLargeMenu = true;
+        if (!showLargeMenu) {
+            focusedBody = planet;
+            centerOnBody(planet);
+            showLargeMenu = true;
+        }
     }
 
     private void onMoonButtonClick(MoonInfo moon) {
-        focusedBody = moon;
-        centerOnBody(moon);
-        showLargeMenu = true;
+        if (!showLargeMenu) {
+            focusedBody = moon;
+            centerOnBody(moon);
+            showLargeMenu = true;
+        }
     }
 
     @Override
@@ -234,7 +238,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     }
 
     private void renderHighlighter(GuiGraphics graphics) {
-        if (isXPressed) {
+        if (isXPressed && !showLargeMenu) {
             CelestialBody bodyToHighlight = hoveredBody != null ? hoveredBody : focusedBody;
             if (bodyToHighlight != null) {
                 int highlightWidth = (int) ((int) (bodyToHighlight.width) * zoomLevel);
@@ -254,10 +258,14 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             int centerX = (this.width - menuWidth) / 2;
             int centerY = (this.height - menuHeight) / 2;
 
+            float alpha = 0.5f;
+
+            RenderSystem.enableBlend();
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
-            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 0.5F);
+            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, alpha);
             RenderSystem.setShaderTexture(0, LARGE_MENU_TEXTURE);
             graphics.blit(LARGE_MENU_TEXTURE, centerX, centerY, 0, 0, menuWidth, menuHeight, menuWidth, menuHeight);
+            RenderSystem.disableBlend();
         }
     }
 
