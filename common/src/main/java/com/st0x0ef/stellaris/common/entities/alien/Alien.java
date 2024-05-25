@@ -67,10 +67,10 @@ public class Alien extends Villager implements Merchant, Npc {
 
 	@Override
 	public Villager getBreedOffspring(ServerLevel level, AgeableMob p_241840_2_) {
-		Alien alienentity = new Alien(EntityRegistry.ALIEN.get(), this.level());
+		Alien alien = new Alien(EntityRegistry.ALIEN.get(), level);
 
-		alienentity.finalizeSpawn(level, level.getCurrentDifficultyAt(new BlockPos((int)p_241840_2_.getX(), (int)p_241840_2_.getY(), (int)p_241840_2_.getZ())), MobSpawnType.BREEDING, null);
-		return alienentity;
+		alien.finalizeSpawn(level, level.getCurrentDifficultyAt(new BlockPos((int)p_241840_2_.getX(), (int)p_241840_2_.getY(), (int)p_241840_2_.getZ())), MobSpawnType.BREEDING, null);
+		return alien;
 	}
 
 	@Override

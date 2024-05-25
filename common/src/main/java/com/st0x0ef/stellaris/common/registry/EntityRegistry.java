@@ -9,7 +9,6 @@ import com.st0x0ef.stellaris.common.entities.*;
 import com.st0x0ef.stellaris.common.entities.alien.Alien;
 import com.st0x0ef.stellaris.common.entities.pygro.Pygro;
 import com.st0x0ef.stellaris.common.entities.pygro.PygroMobsSensor;
-import dev.architectury.registry.level.entity.EntityAttributeRegistry;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
