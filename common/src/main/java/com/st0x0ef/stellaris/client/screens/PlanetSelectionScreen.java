@@ -436,7 +436,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         if (!isLaunching) {
             zoomLevel = 1.0;
         } else {
-            zoomLevel = 1.5;
+            zoomLevel = 1.6;
         }
         offsetX = ((body.x - width / 2.0)) * -1;
         offsetY = ((body.y - height / 2.0)) * -1;
@@ -454,8 +454,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             if (mouseX[0] < screenSize / 5) {
 
             } else {
-                zoomLevel += scrollY * 0.01;
-                zoomLevel = Math.max(0.01, Math.min(zoomLevel, 2.0));
+                zoomLevel += scrollY * 0.02;
+                zoomLevel = Math.max(0.02, Math.min(zoomLevel, 2.0));
             }
         }
     }
