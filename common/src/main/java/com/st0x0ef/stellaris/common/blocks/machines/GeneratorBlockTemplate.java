@@ -23,12 +23,6 @@ public class GeneratorBlockTemplate extends BaseEnergyBlock {
         return null;
     }
 
-    @Nullable
-    @Override
-    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return new GeneratorBlockEntityTemplate(blockPos, blockState);
-    }
-
     @Override
     public InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos blockPos, Player player, BlockHitResult blockHitResult) {
         if (!level.isClientSide()) {

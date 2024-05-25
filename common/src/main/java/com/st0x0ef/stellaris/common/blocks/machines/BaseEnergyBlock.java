@@ -21,7 +21,7 @@ public class BaseEnergyBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return new BaseEnergyBlockEntity(blockPos, blockState);
+        return null;
     }
 
 }

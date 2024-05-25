@@ -46,8 +46,6 @@ public class EntityRegistry {
             BlocksRegistry.VENUS_GLOBE_BLOCK.get())
             .build(null));
 
-    public static final RegistrySupplier<BlockEntityType<BaseEnergyBlockEntity>> TEST_BLOCK = BLOCK_ENTITY_TYPE.register("test_block",
-            () -> BlockEntityType.Builder.of(BaseEnergyBlockEntity::new, BlocksRegistry.TEST_BLOCK.get()).build(null));
     public static final RegistrySupplier<BlockEntityType<SolarPanelEntity>> SOLAR_PANEL = BLOCK_ENTITY_TYPE.register("solar_panel",
             () -> BlockEntityType.Builder.of(SolarPanelEntity::new, BlocksRegistry.SOLAR_PANEL.get()).build(null));
     public static final RegistrySupplier<BlockEntityType<CoalGeneratorEntity>> COAL_GENERATOR = BLOCK_ENTITY_TYPE.register("coal_generator",

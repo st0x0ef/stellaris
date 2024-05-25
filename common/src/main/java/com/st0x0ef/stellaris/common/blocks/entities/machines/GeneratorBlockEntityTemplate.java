@@ -35,14 +35,8 @@ public class GeneratorBlockEntityTemplate extends BaseContainerBlockEntity imple
     protected NonNullList<ItemStack> items;
     private List<Integer> inputSlots = List.of(0);
 
-    public GeneratorBlockEntityTemplate(BlockPos blockPos, BlockState blockState) {
-        this(EntityRegistry.TEST_BLOCK.get(), blockPos, blockState,1,500);
-
-        this.items = NonNullList.withSize(1, ItemStack.EMPTY);
-    }
-
     public GeneratorBlockEntityTemplate(BlockEntityType<?> entityType, BlockPos blockPos, BlockState blockState, int EnergyGeneratedPT,int MaxCapacity) {
-        super(EntityRegistry.TEST_BLOCK.get(), blockPos, blockState);
+        super(entityType, blockPos, blockState);
         this.EnergyGeneratedPT=EnergyGeneratedPT;
         this.MaxCapacity=MaxCapacity;
     }

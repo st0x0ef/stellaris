@@ -3,7 +3,6 @@ package com.st0x0ef.stellaris.common.blocks.entities.machines;
 import com.st0x0ef.stellaris.common.energy.base.EnergyBlock;
 import com.st0x0ef.stellaris.common.energy.impl.SimpleEnergyContainer;
 import com.st0x0ef.stellaris.common.energy.impl.WrappedBlockEnergyContainer;
-import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -18,12 +17,8 @@ import org.jetbrains.annotations.Nullable;
 public class BaseEnergyBlockEntity extends BlockEntity implements EnergyBlock<WrappedBlockEnergyContainer> {
     private WrappedBlockEnergyContainer energyContainer;
 
-    public BaseEnergyBlockEntity(BlockPos blockPos, BlockState blockState) {
-        this(EntityRegistry.TEST_BLOCK.get(), blockPos, blockState);
-    }
-
     public BaseEnergyBlockEntity(BlockEntityType<?> entityType, BlockPos blockPos, BlockState blockState) {
-        super(EntityRegistry.TEST_BLOCK.get(), blockPos, blockState);
+        super(entityType, blockPos, blockState);
     }
 
     @Override
