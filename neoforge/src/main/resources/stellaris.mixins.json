@@ -4,7 +4,7 @@
   "package": "com.st0x0ef.stellaris.neoforge.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "SpawnPlacementsAccessor"
+
   ],
   "client": [
     "MainMenuMixin"
