@@ -1,11 +1,10 @@
-package com.st0x0ef.stellaris.client.screens;
+package com.st0x0ef.stellaris.client.screens.temporary;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
 import com.st0x0ef.stellaris.common.menus.PlanetSelectionMenu;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
@@ -14,7 +13,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 public class MilkyWayScreen extends AbstractContainerScreen<PlanetSelectionMenu> {
     public static final ResourceLocation MILKY_WAY_TEXTURE = new ResourceLocation(Stellaris.MODID,
-            "textures/gui/util/milky_way.png");
+            "textures/environment/milky_way.png");
     public static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(Stellaris.MODID,
             "textures/gui/planet_selection.png");
 

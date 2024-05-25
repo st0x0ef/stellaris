@@ -15,6 +15,15 @@ public class ClientEvents {
             while (minecraft.options.keyJump.consumeClick()) {
                 NetworkRegistry.CHANNEL.sendToServer(new KeyHandler("key_jump", true));
             }
+
+            if (minecraft.getCurrentServer() != null) {
+                while (!minecraft.options.keyJump.consumeClick()) {
+                    NetworkRegistry.CHANNEL.sendToServer(new KeyHandler("key_jump", false));
+                }
+            }
+
+
+
         });
     }
 

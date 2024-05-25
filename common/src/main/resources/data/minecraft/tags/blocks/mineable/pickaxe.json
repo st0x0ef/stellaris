@@ -5,9 +5,41 @@
     "stellaris:steel_block",
     "stellaris:steel_ore",
     "stellaris:deepslate_steel_ore",
+    "stellaris:iron_plating_block",
+    "stellaris:steel_planting_block",
+    "stellaris:heavy_metal_plate",
+    "stellaris:heavy_metal_casing",
+    "stellaris:desh_block",
+    "stellaris:raw_desh_block",
+    "stellaris:desh_plating_block",
+    "stellaris:desh_pillar",
+    "stellaris:meteorite",
+    "stellaris:flag",
 
     "stellaris:mercury_uranium_ore",
     "stellaris:uranium_block",
-    "stellaris:raw_uranium_block"
+    "stellaris:raw_uranium_block",
+    "stellaris:plutonium_block",
+    "stellaris:neptunium_block",
+
+    "stellaris:chiseled_mars_stone_bricks",
+    "stellaris:conglomorate",
+    "stellaris:cracked_mars_stone_bricks",
+    "stellaris:mars_cobblestone",
+    "stellaris:mars_iron_ore",
+    "stellaris:mars_ostrum_ore",
+    "stellaris:mars_sand",
+    "stellaris:mars_stone",
+    "stellaris:mars_stone_bricks",
+    "stellaris:polished_conglomorate",
+    "stellaris:polished_mars_stone",
+    "stellaris:mars_stone_brick_slab",
+
+    "stellaris:iron_plating_block",
+    "stellaris:iron_plating_block",
+    "stellaris:iron_plating_block",
+    "stellaris:iron_plating_block",
+    "stellaris:iron_plating_block",
+    "stellaris:iron_plating_block"
   ]
 }

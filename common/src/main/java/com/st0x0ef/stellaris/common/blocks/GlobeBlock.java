@@ -54,6 +54,7 @@ public class GlobeBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
         this.texture = resourceLocation;
     }
 
+
     @Override
     protected MapCodec<? extends BaseEntityBlock> codec() {
         return CODEC;

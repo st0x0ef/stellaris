@@ -200,7 +200,7 @@
   "item.stellaris.berry_juice": "Canned Berry Juice",
   "item.stellaris.cosmo_bread": "Cosmo Bread",
   "item.stellaris.cheese": "Cheese",
-
+  "item.stellaris.cosmo_coffee": "Cosmo coffee",
 
 
   "item.stellaris.ice_shard_arrow": "Ice Shard Arrow",
@@ -227,10 +227,11 @@
 
   "container.entity.stellaris.lander": "Lander",
   "container.entity.stellaris.rocket": "Rocket",
-  "advancements.moon.root.title" : "That's small step for man...",
+  "advancements.stellaris.moon.root.title" : "That's small step for man...",
   "advancements.moon.root.description" : "land on the moon",
   "advancements.mars.root.title" : "Red wasteland",
   "advancements.mars.root.description" : "land on the mars",
+  "death.attack.radiation": "%1$s received a lethal dose of radiation",
 
   "event.stellaris.cheeseboss": "Cheese Boss",
 

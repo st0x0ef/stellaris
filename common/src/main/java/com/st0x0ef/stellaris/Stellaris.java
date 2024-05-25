@@ -5,6 +5,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.ToNumberPolicy;
 import com.st0x0ef.stellaris.common.config.CustomConfig;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
+import com.st0x0ef.stellaris.common.data.screen.MoonPack;
+import com.st0x0ef.stellaris.common.data.screen.PlanetPack;
 import com.st0x0ef.stellaris.common.data.screen.StarPack;
 import com.st0x0ef.stellaris.common.events.Events;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
@@ -26,25 +28,29 @@ public class Stellaris {
     public static void init() {
         CustomConfig.init();
 
+        registerPacks();
+
         NetworkRegistry.register();
-        SoundRegistry.SOUNDS.register();
+
         FluidRegistry.FLUIDS.register();
         EffectsRegistry.MOB_EFFECT.register();
         ParticleRegistry.PARTICLES.register();
         BlocksRegistry.BLOCKS.register();
-        MenuTypesRegistry.MENU_TYPE.register();
-        EntityRegistry.BLOCK_ENTITY_TYPE.register();
         EntityRegistry.ENTITY_TYPE.register();
         EntityRegistry.SENSOR.register();
-        EntityRegistry.registerAttributes();
-        FeaturesRegistry.FEATURES.register();
+        EntityRegistry.BLOCK_ENTITY_TYPE.register();
         ItemsRegistry.ITEMS.register();
         CreativeTabsRegistry.TABS.register();
-        CommandsRegistry.register();
+        MenuTypesRegistry.MENU_TYPE.register();
         RecipesRegistry.register();
+        SoundRegistry.SOUNDS.register();
+        FeaturesRegistry.FEATURES.register();
+        CommandsRegistry.register();
+
+        EntityData.register();
 
         ReloadListenerRegistry.register(PackType.SERVER_DATA, new StellarisData());
-        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new StarPack(GSON));
+
         Events.registerEvents();
     }
 
@@ -55,5 +61,10 @@ public class Stellaris {
         }));
     }
 
+    public static void registerPacks() {
+        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new StarPack(GSON));
+        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new PlanetPack(GSON));
+        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new MoonPack(GSON));
+    }
 
 }

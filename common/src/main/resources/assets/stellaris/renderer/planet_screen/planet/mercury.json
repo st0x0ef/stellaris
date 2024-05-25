@@ -1,0 +1,10 @@
+{
+  "texture": "stellaris:textures/environment/solar_system/mercury.png",
+  "name": "Mercury",
+  "distance": 38,
+  "period": 3000,
+  "width": 5.0,
+  "height": 5.0,
+  "parent": "Sun",
+  "dimensionId": "stellaris:mercury"
+}

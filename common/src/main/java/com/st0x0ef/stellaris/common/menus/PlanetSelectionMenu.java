@@ -12,10 +12,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class PlanetSelectionMenu extends AbstractContainerMenu {
     private final Container inventory;
-    protected PlanetSelectionMenu(@Nullable MenuType<?> menuType, int i, Container inventory) {
-        super(menuType, i);
-        this.inventory = inventory;
-    }
+    private final Player player;
     public static PlanetSelectionMenu create(int syncId, Inventory inventory, FriendlyByteBuf data) {
 
         return new PlanetSelectionMenu(syncId, inventory, new SimpleContainer(0));
@@ -24,6 +21,7 @@ public class PlanetSelectionMenu extends AbstractContainerMenu {
     {
         super(MenuTypesRegistry.PLANET_SELECTION_MENU.get(), syncId);
         this.inventory = (container);
+        this.player = playerInventory.player;
     }
     @Override
     public ItemStack quickMoveStack(Player player, int invSlot) {
@@ -34,5 +32,8 @@ public class PlanetSelectionMenu extends AbstractContainerMenu {
         return !player.isDeadOrDying();
     }
 
+    public Player getPlayer() {
+        return player;
+    }
 }
 
