@@ -447,15 +447,16 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
         double[] mouseX = new double[1];
         double[] mouseY = new double[1];
-        double screenSize = Minecraft.getInstance().getWindow().getWidth();
+
         GLFW.glfwGetCursorPos(window, mouseX, mouseY);
 
         if (scrollY != 0) {
-            if (mouseX[0] < screenSize / 5) {
+            zoomLevel += scrollY * 0.02;
+            zoomLevel = Math.max(0.02, Math.min(zoomLevel, 2.0));
 
-            } else {
-                zoomLevel += scrollY * 0.02;
-                zoomLevel = Math.max(0.02, Math.min(zoomLevel, 2.0));
+            zoomLevel = Math.round(zoomLevel);
+            if (zoomLevel % 2 != 0) {
+                zoomLevel += (scrollY > 0) ? 1 : -1;
             }
         }
     }
