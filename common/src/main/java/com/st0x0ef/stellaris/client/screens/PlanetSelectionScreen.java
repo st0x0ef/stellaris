@@ -147,10 +147,10 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     }
 
     private void initializeLaunchButton() {
-        int buttonWidth = 100;
+        int buttonWidth = 74;
         int buttonHeight = 20;
-        int buttonX = (this.width - buttonWidth) / 2;
-        int buttonY = (this.height - buttonHeight) / 2 + 150;
+        int buttonX = (this.width - buttonWidth) / 4 + 100;
+        int buttonY = (this.height - buttonHeight) / 4;
         launchButton = new LaunchButton(buttonX, buttonY, buttonWidth, buttonHeight, Component.literal("Launch"), (btn) -> onLaunchButtonClick());
         this.addRenderableWidget(launchButton);
         launchButton.visible = false;
