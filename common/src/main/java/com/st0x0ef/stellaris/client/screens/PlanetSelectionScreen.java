@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.*;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.components.InvisibleButton;
 import com.st0x0ef.stellaris.client.screens.components.ModifiedButton;
+import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
 import com.st0x0ef.stellaris.client.screens.info.CelestialBody;
 import com.st0x0ef.stellaris.client.screens.info.MoonInfo;
 import com.st0x0ef.stellaris.client.screens.info.PlanetInfo;
@@ -55,6 +56,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     private static final long UPDATE_INTERVAL = 1L;
 
     private boolean isXPressed = false;
+    private boolean isLaunching = false;
+    private boolean showLargeMenu = false;
 
     private double offsetX = 0;
     private double offsetY = 0;
@@ -83,6 +86,11 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         super.init();
         isXPressed = false;
         centerSun();
+
+        RenderSystem.enableBlend();
+        RenderSystem.defaultBlendFunc();
+        RenderSystem.enableDepthTest();
+
         long windowHandle = Minecraft.getInstance().getWindow().getWindow();
         prevScrollCallback = GLFW.glfwSetScrollCallback(windowHandle, this::onMouseScroll);
 
@@ -140,23 +148,30 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     private void onPlanetButtonClick(PlanetInfo planet) {
         focusedBody = planet;
         centerOnBody(planet);
+        showLargeMenu = true;
     }
 
     private void onMoonButtonClick(MoonInfo moon) {
         focusedBody = moon;
         centerOnBody(moon);
+        showLargeMenu = true;
     }
 
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+        this.renderBackground(graphics, mouseX, mouseY, partialTicks);
+        super.render(graphics, mouseX, mouseY, partialTicks);
+
         if (focusedBody != null) {
             centerOnBody(focusedBody);
         }
-        super.render(graphics, mouseX, mouseY, partialTicks);
-        this.renderBackground(graphics, mouseX, mouseY, partialTicks);
+
         drawOrbits();
+
         renderBodiesAndPlanets(graphics);
         renderHighlighter(graphics);
+        renderLargeMenu(graphics);
+
         this.renderTooltip(graphics, mouseX, mouseY);
     }
 
@@ -232,6 +247,20 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         }
     }
 
+    private void renderLargeMenu(GuiGraphics graphics) {
+        if (showLargeMenu) {
+            int menuWidth = 215;
+            int menuHeight = 177;
+            int centerX = (this.width - menuWidth) / 2;
+            int centerY = (this.height - menuHeight) / 2;
+
+            RenderSystem.setShader(GameRenderer::getPositionTexShader);
+            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 0.5F);
+            RenderSystem.setShaderTexture(0, LARGE_MENU_TEXTURE);
+            graphics.blit(LARGE_MENU_TEXTURE, centerX, centerY, 0, 0, menuWidth, menuHeight, menuWidth, menuHeight);
+        }
+    }
+
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (keyCode == GLFW.GLFW_KEY_X) {
@@ -239,7 +268,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
         } else if (keyCode == GLFW.GLFW_KEY_K) {
             centerOnBody(findByNamePlanet("Earth"));
-        } else if (keyCode == GLFW.GLFW_KEY_SPACE) {
+        } else if (keyCode == GLFW.GLFW_KEY_Z) {
             tpToFocusedPlanet();
         }
         return super.keyPressed(keyCode, scanCode, modifiers);
@@ -352,7 +381,11 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     }
 
     private void centerOnBody(CelestialBody body) {
-        zoomLevel = 1.0;
+        if (!isLaunching) {
+            zoomLevel = 1.0;
+        } else {
+            zoomLevel = 1.5;
+        }
         offsetX = ((body.x - width / 2.0)) * -1;
         offsetY = ((body.y - height / 2.0)) * -1;
     }
@@ -383,9 +416,14 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             lastMouseY = mouseY;
             focusedBody = null;
             hoveredBody = null;
+            if (showLargeMenu) {
+                showLargeMenu = false;
+                return true;
+            }
         }
         return super.mouseClicked(mouseX, mouseY, button);
     }
+
 
     @Override
     public boolean mouseReleased(double mouseX, double mouseY, int button) {

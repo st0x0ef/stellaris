@@ -1,5 +1,5 @@
 {
-  "system": "test",
+  "system": "solar_system",
   "level": "stellaris:mars",
   "orbit": "minecraft:the_end",
   "oxygen": true,
