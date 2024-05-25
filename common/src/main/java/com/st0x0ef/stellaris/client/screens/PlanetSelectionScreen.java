@@ -453,11 +453,6 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         if (scrollY != 0) {
             zoomLevel += scrollY * 0.02;
             zoomLevel = Math.max(0.02, Math.min(zoomLevel, 2.0));
-
-            zoomLevel = Math.round(zoomLevel);
-            if (zoomLevel % 2 != 0) {
-                zoomLevel += (scrollY > 0) ? 1 : -1;
-            }
         }
     }
 
