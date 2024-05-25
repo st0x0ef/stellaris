@@ -230,6 +230,9 @@
   "advancements.moon.root.title" : "That's small step for man...",
   "advancements.moon.root.description" : "land on the moon",
   "advancements.mars.root.title" : "Red wasteland",
-  "advancements.mars.root.description" : "land on the mars"
+  "advancements.mars.root.description" : "land on the mars",
 
+  "event.stellaris.cheeseboss": "Cheese Boss",
+
+  "entity.stellaris.cheese_boss": "Cheese Boss"
 }
