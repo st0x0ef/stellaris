@@ -78,7 +78,7 @@ public class ConfigScreen extends Screen {
         if(entry.getType() == Boolean.class) {
             Checkbox checkbox = Checkbox.builder(Component.literal(entry.getValue().toString()), this.font)
                     .selected((Boolean) entry.getValue())
-                    .tooltip(new Tooltip(Component.literal(entry.getDescription()),null))
+                    .tooltip(Tooltip.create(Component.literal(entry.getDescription()),null))
                     .onValueChange((checkbox1, aBoolean) -> {
                         CustomConfig.CONFIG.replace(entryName, new ConfigEntry<Boolean>(aBoolean,  entry.getDescription()));
                     })
@@ -88,7 +88,7 @@ public class ConfigScreen extends Screen {
         } else if (entry.getType() == String.class ) {
             EditBox button = new EditBox(this.font, 50, 15, Component.literal(entry.getValue().toString()));
             button.setMaxLength(100);
-            button.setTooltip(new Tooltip(Component.literal(entry.getDescription()),null));
+            button.setTooltip(Tooltip.create(Component.literal(entry.getDescription()),null));
             button.setValue(entry.getValue().toString());
             button.setResponder((string) -> {
                 CustomConfig.CONFIG.replace(entryName, new ConfigEntry<String>(string, entry.getDescription()));
@@ -99,7 +99,7 @@ public class ConfigScreen extends Screen {
             EditBox button = new EditBox(this.font, 50, 15, Component.literal(entry.getValue().toString()));
             button.setMaxLength(100);
             button.setValue(entry.getValue().toString());
-            button.setTooltip(new Tooltip(Component.literal(entry.getDescription()),null));
+            button.setTooltip(Tooltip.create(Component.literal(entry.getDescription()),null));
 
             button.setResponder((string) -> {
                 int foo;
