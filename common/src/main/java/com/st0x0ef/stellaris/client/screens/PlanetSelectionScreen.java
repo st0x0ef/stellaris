@@ -230,8 +230,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         if (isXPressed) {
             CelestialBody bodyToHighlight = hoveredBody != null ? hoveredBody : focusedBody;
             if (bodyToHighlight != null) {
-                int highlightWidth = (int) bodyToHighlight.width + 4;
-                int highlightHeight = (int) bodyToHighlight.height + 4;
+                int highlightWidth = (int) ((int) (bodyToHighlight.width + 2) * zoomLevel);
+                int highlightHeight = (int) ((int) (bodyToHighlight.height + 2) * zoomLevel);
                 float highlightX = (float) ((bodyToHighlight.x + offsetX) * zoomLevel - (highlightWidth / 2) * zoomLevel);
                 float highlightY = (float) ((bodyToHighlight.y + offsetY) * zoomLevel - (highlightHeight / 2) * zoomLevel);
 
