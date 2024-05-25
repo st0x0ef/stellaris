@@ -11,6 +11,7 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 
 @Environment(EnvType.CLIENT)
 public class CheeseBossModel<T extends CheeseBoss> extends HierarchicalModel<T> {
@@ -105,11 +106,17 @@ public class CheeseBossModel<T extends CheeseBoss> extends HierarchicalModel<T> 
 	@Override
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+		this.applyHeadRotation(netHeadYaw,headPitch);
+
+		this.animateWalk(CheeseBossAnim.walking,limbSwing,limbSwingAmount,4.1f,2.5f);
+		this.animate(entity.idleAnimationState, CheeseBossAnim.idle, ageInTicks, 1f);
+	}
+
+	private void applyHeadRotation(float netHeadYaw, float headPitch) {
+		netHeadYaw = Mth.clamp(netHeadYaw, -30.0F, 30.0F);
+		headPitch = Mth.clamp(headPitch, -25.0F, 45.0F);
 		this.Head.yRot = netHeadYaw * 0.017453292F;
 		this.Head.xRot = headPitch * 0.017453292F;
-
-		this.animateWalk(CheeseBossAnim.idle,limbSwing,limbSwingAmount,2f,2.5f);
-		//this.animate(entity.idleAni,CheeseBossAnim.idle,ageInTicks);
 	}
 
 	@Override

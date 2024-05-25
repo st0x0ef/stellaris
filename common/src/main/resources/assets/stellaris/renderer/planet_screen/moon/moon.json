@@ -3,8 +3,8 @@
   "name": "Moon",
   "distance": 30,
   "period": 2000,
-  "width": 7.0,
-  "height": 7.0,
+  "width": 6.0,
+  "height": 6.0,
   "parent": "Earth",
   "dimensionId": "stellaris:moon"
 }

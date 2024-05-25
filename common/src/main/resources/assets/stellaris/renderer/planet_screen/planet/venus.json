@@ -3,8 +3,8 @@
   "name": "Venus",
   "distance": 68,
   "period": 5000,
-  "width": 9.0,
-  "height": 9.0,
+  "width": 8.0,
+  "height": 8.0,
   "parent": "Sun",
   "dimensionId": "stellaris:venus"
 }

@@ -85,7 +85,7 @@ public class EntityRegistry {
     public static final RegistrySupplier<EntityType<IceShardArrowEntity>> ICE_SHARD_ARROW = ENTITY_TYPE.register("ice_shard_arrow",
             () -> EntityType.Builder.<IceShardArrowEntity>of(IceShardArrowEntity::new, MobCategory.MISC).sized(0.5f, 0.5f).build(new ResourceLocation(Stellaris.MODID, "ice_shard_arrow").toString()));
     public static final RegistrySupplier<EntityType<CheeseBoss>> CHEESE_BOSS = ENTITY_TYPE.register("cheese_boss",
-            () -> EntityType.Builder.of(CheeseBoss::new, MobCategory.MONSTER).sized(1.0f, 3.5f).build(new ResourceLocation(Stellaris.MODID, "cheese_boss").toString()));
+            () -> EntityType.Builder.of(CheeseBoss::new, MobCategory.MONSTER).sized(1.0f, 3.7f).eyeHeight(3.5f).build(new ResourceLocation(Stellaris.MODID, "cheese_boss").toString()));
 
     /**
      * Vehicles
@@ -105,6 +105,7 @@ public class EntityRegistry {
         attributes.accept(EntityRegistry.PYGRO, Pygro::setCustomAttributes);
         attributes.accept(EntityRegistry.MOGLER, Mogler::setCustomAttributes);
         attributes.accept(EntityRegistry.STAR_CRAWLER, StarCrawler::setCustomAttributes);
+        attributes.accept(EntityRegistry.CHEESE_BOSS, CheeseBoss::setCustomAttributes);
     }
 
     //Entity Sensor
