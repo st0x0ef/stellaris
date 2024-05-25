@@ -17,7 +17,7 @@ import net.minecraft.world.entity.projectile.SpectralArrow;
 import net.minecraft.world.level.Level;
 
 public class StarCrawler extends Monster {
-	public StarCrawler(EntityType<? extends Monster> type, Level world) {
+	public StarCrawler(EntityType<? extends StarCrawler> type, Level world) {
 		super(type, world);
 		this.xpReward = 5;
 	}

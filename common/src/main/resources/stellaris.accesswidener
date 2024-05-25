@@ -4,5 +4,5 @@ accessible field net/minecraft/world/entity/npc/Villager assignProfessionWhenSpa
 transitive-accessible method net/minecraft/world/entity/ai/sensing/SensorType <init> (Ljava/util/function/Supplier;)V
 accessible method net/minecraft/core/particles/SimpleParticleType <init> (Z)V
 accessible class net/minecraft/client/gui/components/Tooltip
-accessible method net/minecraft/client/gui/components/Tooltip <init> (Lnet/minecraft/network/chat/Component;Lnet/minecraft/network/chat/Component;)V
 accessible method net/minecraft/world/entity/LivingEntity addEatEffect (Lnet/minecraft/world/food/FoodProperties;)V
+accessible class net/minecraft/client/gui/tooltip/Tooltip

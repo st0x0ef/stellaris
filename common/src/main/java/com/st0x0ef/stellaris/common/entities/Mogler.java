@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.Nullable;
 
 public class Mogler extends Hoglin {
-    public Mogler(EntityType<Mogler> type, Level world) {
+    public Mogler(EntityType<? extends Mogler> type, Level world) {
         super(type, world);
     }
 

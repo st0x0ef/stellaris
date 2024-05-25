@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.common.registry;
 
-import com.ibm.icu.impl.ValidIdentifiers;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.entities.GlobeTileEntity;
 import com.st0x0ef.stellaris.common.blocks.entities.RadioactiveBlockEntity;
@@ -87,6 +86,7 @@ public class EntityRegistry {
             () -> EntityType.Builder.<IceShardArrowEntity>of(IceShardArrowEntity::new, MobCategory.MISC).sized(0.5f, 0.5f).build(new ResourceLocation(Stellaris.MODID, "ice_shard_arrow").toString()));
     public static final RegistrySupplier<EntityType<CheeseBoss>> CHEESE_BOSS = ENTITY_TYPE.register("cheese_boss",
             () -> EntityType.Builder.of(CheeseBoss::new, MobCategory.MONSTER).sized(1.0f, 3.5f).build(new ResourceLocation(Stellaris.MODID, "cheese_boss").toString()));
+
     /**
      * Vehicles
      */
@@ -97,22 +97,17 @@ public class EntityRegistry {
 
     //Entity Attributes
     public static void registerAttributes(BiConsumer<Supplier<? extends EntityType<? extends LivingEntity>>, Supplier<AttributeSupplier.Builder>> attributes) {
-        attributes.accept(EntityRegistry.ALIEN,  Alien::setCustomAttributes);
-        attributes.accept(EntityRegistry.ALIEN_ZOMBIE,  AlienZombie::setCustomAttributes);
-        attributes.accept(EntityRegistry.MARTIAN_RAPTOR,  MartianRaptor::CreateRaptorAttributes);
-        attributes.accept(EntityRegistry.MARTIAN_RAPTOR,  MartianRaptor::CreateRaptorAttributes);
-        attributes.accept(EntityRegistry.PYGRO_BRUTE, PygroBrute::setCustomAttributes);
-        attributes.accept(EntityRegistry.PYGRO, Pygro::setCustomAttributes);
-        attributes.accept(EntityRegistry.MOGLER, Mogler::setCustomAttributes);
-        attributes.accept(EntityRegistry.STAR_CRAWLER, StarCrawler::setCustomAttributes);
-        attributes.accept(EntityRegistry.CHEESE_BOSS, CheeseBoss::setCustomAttributes);
+        EntityAttributeRegistry.register(EntityRegistry.ALIEN,  Alien::setCustomAttributes);
+        EntityAttributeRegistry.register(EntityRegistry.ALIEN_ZOMBIE,  AlienZombie::setCustomAttributes);
+        EntityAttributeRegistry.register(EntityRegistry.MARTIAN_RAPTOR,  MartianRaptor::CreateRaptorAttributes);
+        EntityAttributeRegistry.register(EntityRegistry.MARTIAN_RAPTOR,  MartianRaptor::CreateRaptorAttributes);
+        EntityAttributeRegistry.register(EntityRegistry.PYGRO_BRUTE, PygroBrute::setCustomAttributes);
+        EntityAttributeRegistry.register(EntityRegistry.PYGRO, Pygro::setCustomAttributes);
+        EntityAttributeRegistry.register(EntityRegistry.MOGLER, Mogler::setCustomAttributes);
+        EntityAttributeRegistry.register(EntityRegistry.STAR_CRAWLER, StarCrawler::setCustomAttributes);
     }
-
-
 
     //Entity Sensor
     public static final DeferredRegister<SensorType<?>> SENSOR = DeferredRegister.create(Stellaris.MODID, Registries.SENSOR_TYPE);
     public static final RegistrySupplier<SensorType<PygroMobsSensor>> PYGRO_SENSOR = SENSOR.register("pygro_sensor", ()-> new SensorType<>(PygroMobsSensor::new));
-
-
 }
