@@ -4,14 +4,13 @@ import com.google.common.collect.Sets;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.items.upgrade.RocketSkinItem;
 import com.st0x0ef.stellaris.common.menus.RocketMenu;
+import com.st0x0ef.stellaris.common.registry.EntityData;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
-import com.st0x0ef.stellaris.common.registry.ParticleRegistry;
 import com.st0x0ef.stellaris.common.registry.SoundRegistry;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import dev.architectury.registry.menu.ExtendedMenuProvider;
 import dev.architectury.registry.menu.MenuRegistry;
 import io.netty.buffer.Unpooled;
-import net.minecraft.client.renderer.entity.CamelRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
@@ -21,7 +20,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.protocol.game.ClientboundMoveEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -34,7 +32,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.*;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -93,7 +90,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
             this.startTimerAndFlyMovement();
 
             if (this.getY() > 600) {
-                PlanetUtil.openPlanetSelectionMenu(this.getFirstPlayerPassenger());
+                this.openPlanetMenu(this.getFirstPlayerPassenger());
             }
         }
     }
@@ -118,6 +115,8 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         this.getEntityData().set(START_TIMER, compound.getInt("start_timer"));
 
     }
+
+
 
 
 
@@ -386,5 +385,17 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
     public Container getInventory() {
         return this.inventory;
+    }
+
+    private void openPlanetMenu(Player player) {
+        if(player == null) return;
+
+        if(!player.getEntityData().get(EntityData.DATA_PLANET_MENU_OPEN)) {
+            player.setNoGravity(true);
+            player.getVehicle().setNoGravity(true);
+            PlanetUtil.openPlanetSelectionMenu(player);
+            player.getEntityData().set(EntityData.DATA_PLANET_MENU_OPEN, true);
+        }
+
     }
 }

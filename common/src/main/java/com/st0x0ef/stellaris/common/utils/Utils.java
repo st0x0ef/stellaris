@@ -43,8 +43,8 @@ public class Utils {
     /** Teleport an entity to the planet wanted */
     public static void teleportEntity(Entity entity, Planet destination, int yPos, boolean orbit) {
 
-
         if(entity.level().isClientSide()) return;
+        entity.setNoGravity(false);
 
         ServerLevel nextLevel;
         if(orbit) {
@@ -80,9 +80,12 @@ public class Utils {
 
             teleportEntity(player, destination, 600, orbit);
 
+            player.closeContainer();
+
             player.level().addFreshEntity(lander);
             player.startRiding(lander);
         } else {
+            player.closeContainer();
             teleportEntity(player, destination, 600, orbit);
         }
 
