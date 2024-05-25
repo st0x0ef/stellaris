@@ -22,7 +22,7 @@ public class MartianRaptor extends Monster {
 
     private float AttackAnim = 0;
 
-    public MartianRaptor(EntityType<? extends Monster> type, Level world) {
+    public MartianRaptor(EntityType<? extends MartianRaptor> type, Level world) {
         super(type, world);
         this.xpReward = 5;
     }

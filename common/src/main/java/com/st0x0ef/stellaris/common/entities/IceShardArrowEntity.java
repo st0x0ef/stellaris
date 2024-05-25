@@ -16,7 +16,7 @@ public class IceShardArrowEntity extends AbstractArrow {
 
     private static final ItemStack DEFAULT_ARROW_STACK;
 
-    public IceShardArrowEntity(EntityType<IceShardArrowEntity> entityType, Level level) {
+    public IceShardArrowEntity(EntityType<? extends IceShardArrowEntity> entityType, Level level) {
         super(entityType, level, DEFAULT_ARROW_STACK);
     }
 
