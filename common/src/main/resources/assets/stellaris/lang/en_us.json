@@ -230,6 +230,8 @@
   "text.stellaris.planetscreen.phobos": "Phobos",
   "text.stellaris.planetscreen.deimos": "Deimos",
 
+  "solar_system": "Solar System",
+
   "text.stellaris.planetscreen.temperature": "Temperature",
   "text.stellaris.planetscreen.gravity": "Gravity",
   "text.stellaris.planetscreen.oxygen": "Has Oxygen",
