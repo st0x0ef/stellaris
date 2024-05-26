@@ -65,6 +65,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     public static final Component gravity = Component.translatable("text.stellaris.planetscreen.gravity");
     public static final Component launch = Component.translatable("text.stellaris.planetscreen.launch");
     public static final Component oxygen = Component.translatable("text.stellaris.planetscreen.oxygen");
+    public static final Component system = Component.translatable("text.stellaris.planetscreen.system");
 
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private static final long UPDATE_INTERVAL = 1L;
@@ -305,13 +306,24 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             Float CELESTIAL_BODY_TEMPERATURE = PlanetUtil.getPlanet(focusedBody.dimension).temperature();
             Float CELESTIAL_BODY_GRAVITY = PlanetUtil.getPlanet(focusedBody.dimension).temperature();
             Boolean CELESTIAL_BODY_OXYGEN = PlanetUtil.getPlanet(focusedBody.dimension).oxygen();
+            String CELESTIAL_BODY_SYSTEM = PlanetUtil.getPlanet(focusedBody.dimension).system();
+
+            Component systemTranslatable;
 
             Component temperatureV = null;
             Component gravityV = null;
             Component oxygenV = null;
+            Component systemV = null;
 
             int oxygenColor = 0xFFFFF;
             int temperatureColor = 0xFFFFF;
+
+            if (CELESTIAL_BODY_SYSTEM == null) {
+                systemV = Component.literal(system + " : null");
+            } else {
+                systemTranslatable = Component.translatable(PlanetUtil.getPlanet(focusedBody.dimension).system());
+                systemV = Component.literal(system + " : " + systemTranslatable.getString());
+            }
 
             if (CELESTIAL_BODY_TEMPERATURE == null) {
                 temperatureV = Component.literal(temperature.getString() + " : null");
@@ -375,7 +387,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             graphics.drawString(font, gravityV, textX, buttonY + buttonHeight / 4 + 75, 0xFFFFFF, false);
             graphics.drawString(font, oxygenV, textX, buttonY + buttonHeight / 4 + 90, oxygenColor, false);
 
-            graphics.drawString(font, "temporary : null", textX, buttonY + buttonHeight / 4 + 105, 0xFFFFFF, false);
+            graphics.drawString(font, systemV, textX, buttonY + buttonHeight / 4 + 105, 0xFFFFFF, false);
             graphics.drawString(font, "temporary : null", textX, buttonY + buttonHeight / 4 + 120, 0xFFFFFF, false);
             graphics.drawString(font, "temporary : null", textX, buttonY + buttonHeight / 4 + 135, 0xFFFFFF, false);
 
