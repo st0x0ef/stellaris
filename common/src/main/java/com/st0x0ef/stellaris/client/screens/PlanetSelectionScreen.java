@@ -352,7 +352,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             if (CELESTIAL_BODY_TEMPERATURE >= 100) {
                 temperatureColor = Utils.getColorHexCode("DarkRed");
             } else if (CELESTIAL_BODY_TEMPERATURE >= 0){
-                temperatureColor = Utils.getColorHexCode("Green");
+                temperatureColor = Utils.getColorHexCode("Lime");
             } else if (CELESTIAL_BODY_TEMPERATURE >= -100) {
                 temperatureColor = Utils.getColorHexCode("Cyan");
             } else {
