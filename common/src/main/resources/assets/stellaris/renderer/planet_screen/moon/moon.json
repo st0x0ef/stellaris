@@ -6,5 +6,6 @@
   "width": 6.0,
   "height": 6.0,
   "parent": "Earth",
-  "dimensionId": "stellaris:moon"
+  "dimensionId": "stellaris:moon",
+  "translatable": "text.stellaris.planetscreen.moon"
 }

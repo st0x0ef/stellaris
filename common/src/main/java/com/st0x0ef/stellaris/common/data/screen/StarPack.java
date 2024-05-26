@@ -8,6 +8,7 @@ import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.PlanetSelectionScreen;
 import com.st0x0ef.stellaris.client.screens.info.CelestialBody;
 import com.st0x0ef.stellaris.client.screens.record.StarRecord;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
@@ -47,7 +48,8 @@ public class StarPack extends SimpleJsonResourceReloadListener {
                         (float) star.width(),
                         (float) star.height(),
                         orbitColor,
-                        null
+                        null,
+                        Component.translatable(star.translatable())
                 );
 
             PlanetSelectionScreen.STARS.add(screenStar);

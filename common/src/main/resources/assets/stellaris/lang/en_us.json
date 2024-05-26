@@ -219,6 +219,22 @@
 
   "screens.stellaris.config": "Stellaris Config Screen",
 
+  "text.stellaris.planetscreen.sun": "Sun",
+
+  "text.stellaris.planetscreen.mercury": "Mercury",
+  "text.stellaris.planetscreen.venus": "Venus",
+  "text.stellaris.planetscreen.earth": "Earth",
+  "text.stellaris.planetscreen.mars": "Mars",
+
+  "text.stellaris.planetscreen.venus": "Venus",
+  "text.stellaris.planetscreen.phobos": "Phobos",
+  "text.stellaris.planetscreen.deimos": "Deimos",
+
+  "text.stellaris.planetscreen.temperature": "Temperature : ",
+  "text.stellaris.planetscreen.gravity": "Gravity : ",
+  "text.stellaris.planetscreen.oxygen": "Has Oxygen : ",
+  "text.stellaris.planetscreen.launch": "Launch!",
+
   "tooltip.stellaris.can_item_empty": "Empty Can",
 
 

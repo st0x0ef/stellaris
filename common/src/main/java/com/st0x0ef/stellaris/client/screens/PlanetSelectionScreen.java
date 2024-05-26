@@ -25,6 +25,7 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -40,7 +41,6 @@ import java.util.concurrent.*;
 
 @Environment(EnvType.CLIENT)
 public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelectionMenu> {
-
     public static final ResourceLocation HIGHLIGHTER_TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/util/planet_highlighter.png");
     public static final ResourceLocation BLACK_TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/util/black.png");
 
@@ -58,6 +58,11 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     public static final List<CelestialBody> STARS = new ArrayList<>();
     public static final List<PlanetInfo> PLANETS = new ArrayList<>();
     public static final List<MoonInfo> MOONS = new ArrayList<>();
+
+    public static final Component temperature = Component.translatable("text.stellaris.planetscreen.temperature");
+    public static final Component gravity = Component.translatable("text.stellaris.planetscreen.gravity");
+    public static final Component launch = Component.translatable("text.stellaris.planetscreen.launch");
+    public static final Component oxygen = Component.translatable("text.stellaris.planetscreen.oxygen");
 
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private static final long UPDATE_INTERVAL = 1L;
@@ -230,7 +235,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             graphics.blit(body.texture, (int) bodyX, (int) bodyY, 0, 0, bodyWidth, bodyHeight, bodyWidth, bodyHeight);
 
             int nameWidth = font.width(body.name);
-            graphics.drawString(font, body.name, (int) (bodyX + bodyWidth / 2 - nameWidth / 2), (int) (bodyY + bodyHeight), 0xFFFFFF);
+            graphics.drawString(font, body.translatable, (int) (bodyX + bodyWidth / 2 - nameWidth / 2), (int) (bodyY + bodyHeight), 0xFFFFFF);
         }
 
         for (PlanetInfo planet : PLANETS) {
@@ -248,7 +253,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             graphics.blit(planet.texture, (int) planetX, (int) planetY, 0, 0, planetWidth, planetHeight, planetWidth, planetHeight);
 
             int nameWidth = font.width(planet.name);
-            graphics.drawString(font, planet.name, (int) (planetX + planetWidth / 2 - nameWidth / 2), (int) (planetY + planetHeight), 0xFFFFFF);
+            graphics.drawString(font, planet.translatable, (int) (planetX + planetWidth / 2 - nameWidth / 2), (int) (planetY + planetHeight), 0xFFFFFF);
 
         }
 
@@ -270,7 +275,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     private final int totalHighlighterFrames = 31;
 
     private void renderHighlighter(GuiGraphics graphics) {
-        if (isXPressed && !showLargeMenu) {
+        if (!showLargeMenu) {
             Minecraft minecraft = Minecraft.getInstance();
             CelestialBody bodyToHighlight = hoveredBody != null ? hoveredBody : focusedBody;
             if (bodyToHighlight != null) {
@@ -293,8 +298,13 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     private void renderLargeMenu(GuiGraphics graphics) {
         if (showLargeMenu) {
             isXPressed = false;
+
             ResourceLocation CELESTIAL_BODY_TEXTURE = focusedBody.texture;
-            String CELESTIAL_BODY_NAME = focusedBody.name;
+
+            Component CELESTIAL_BODY_NAME = focusedBody.translatable;
+            Component temperatureV = Component.literal(temperature + " : null");
+            Component gravityV = Component.literal(gravity + " : null");
+            Component oxygenV = Component.literal(oxygen + " : null");
 
             int menuWidth = 215;
             int menuHeight = 177;
@@ -315,12 +325,15 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             launchButton.visible = true;
             launchButton.setPosition(buttonX, buttonY);
 
-            graphics.drawString(font, "Launch!", buttonX + buttonWidth / 4, buttonY + buttonHeight / 4 + 1, 0xFFFFFF);
+            graphics.drawString(font, launch, buttonX + buttonWidth / 4, buttonY + buttonHeight / 4 + 1, 0xFFFFFF);
             graphics.drawString(font, CELESTIAL_BODY_NAME, textX, buttonY + buttonHeight / 4 + 37, 0xFFFFFF, true);
+
             graphics.drawString(font, "--------------------", textX, buttonY + buttonHeight / 4 + 50, 0xFFFFFF, false);
-            graphics.drawString(font, "temperature : null", textX, buttonY + buttonHeight / 4 + 60, 0x009900, false);
-            graphics.drawString(font, "gravity : null", textX, buttonY + buttonHeight / 4 + 75, 0xFFFFFF, false);
-            graphics.drawString(font, "temporary : null", textX, buttonY + buttonHeight / 4 + 90, 0xFFFFFF, false);
+
+            graphics.drawString(font, temperatureV, textX, buttonY + buttonHeight / 4 + 60, 0x009900, false);
+            graphics.drawString(font, gravityV, textX, buttonY + buttonHeight / 4 + 75, 0xFFFFFF, false);
+            graphics.drawString(font, oxygenV, textX, buttonY + buttonHeight / 4 + 90, 0xFFFFFF, false);
+
             graphics.drawString(font, "temporary : null", textX, buttonY + buttonHeight / 4 + 105, 0xFFFFFF, false);
             graphics.drawString(font, "temporary : null", textX, buttonY + buttonHeight / 4 + 120, 0xFFFFFF, false);
             graphics.drawString(font, "temporary : null", textX, buttonY + buttonHeight / 4 + 135, 0xFFFFFF, false);

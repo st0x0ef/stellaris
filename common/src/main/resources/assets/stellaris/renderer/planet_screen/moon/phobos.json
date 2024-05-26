@@ -6,5 +6,6 @@
   "width": 4.0,
   "height": 4.0,
   "parent": "Mars",
-  "dimensionId": "stellaris:phobos"
+  "dimensionId": "stellaris:phobos",
+  "translatable": "text.stellaris.planetscreen.phobos"
 }

@@ -6,5 +6,6 @@
   "width": 6.0,
   "height": 6.0,
   "parent": "Sun",
-  "dimensionId": "stellaris:mercury"
+  "dimensionId": "stellaris:mercury",
+  "translatable": "text.stellaris.planetscreen.mercury"
 }
