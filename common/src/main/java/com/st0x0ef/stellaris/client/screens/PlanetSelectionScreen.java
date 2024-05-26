@@ -6,6 +6,7 @@ import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.components.InvisibleButton;
 import com.st0x0ef.stellaris.client.screens.components.LaunchButton;
 import com.st0x0ef.stellaris.client.screens.components.ModifiedButton;
+import com.st0x0ef.stellaris.client.screens.components.TexturedButton;
 import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
 import com.st0x0ef.stellaris.client.screens.info.CelestialBody;
 import com.st0x0ef.stellaris.client.screens.info.MoonInfo;
@@ -275,7 +276,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     private final int totalHighlighterFrames = 31;
 
     private void renderHighlighter(GuiGraphics graphics) {
-        if (getMenu().freeze_gui && !showLargeMenu) {
+        if (!showLargeMenu) {
             CelestialBody bodyToHighlight = hoveredBody != null ? hoveredBody : focusedBody;
             if (bodyToHighlight != null) {
                 int highlightWidth = (int) (bodyToHighlight.width * zoomLevel);
@@ -300,9 +301,32 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             ResourceLocation CELESTIAL_BODY_TEXTURE = focusedBody.texture;
 
             Component CELESTIAL_BODY_NAME = focusedBody.translatable;
-            Component temperatureV = Component.literal(temperature.getString() + " : " + PlanetUtil.getPlanet(focusedBody.dimension).temperature() + " °C");
-            Component gravityV = Component.literal(gravity.getString() + " : " + PlanetUtil.getPlanet(focusedBody.dimension).gravity() + " m/s");
-            Component oxygenV = Component.literal(oxygen.getString() + " : " + PlanetUtil.getPlanet(focusedBody.dimension).oxygen());
+
+            Float CELESTIAL_BODY_TEMPERATURE = PlanetUtil.getPlanet(focusedBody.dimension).temperature();
+            Float CELESTIAL_BODY_GRAVITY = PlanetUtil.getPlanet(focusedBody.dimension).temperature();
+            Boolean CELESTIAL_BODY_OXYGEN = PlanetUtil.getPlanet(focusedBody.dimension).oxygen();
+
+            Component temperatureV = null;
+            Component gravityV = null;
+            Component oxygenV = null;
+
+            if (CELESTIAL_BODY_TEMPERATURE == null) {
+                temperatureV = Component.literal(temperature.getString() + " : null");
+            } else {
+                temperatureV = Component.literal(temperature.getString() + " : " + PlanetUtil.getPlanet(focusedBody.dimension).temperature() + " °C");
+            }
+
+            if (CELESTIAL_BODY_OXYGEN == null ){
+                oxygenV = Component.literal(oxygen.getString() + " : null");
+            } else {
+                oxygenV = Component.literal(oxygen.getString() + " : " + PlanetUtil.getPlanet(focusedBody.dimension).oxygen());
+            }
+
+            if (CELESTIAL_BODY_GRAVITY == null) {
+                gravityV = Component.literal(gravity.getString() + " : null");
+            } else {
+                gravityV = Component.literal(gravity.getString() + " : " + PlanetUtil.getPlanet(focusedBody.dimension).gravity() + " m/s");
+            }
 
             int menuWidth = 215;
             int menuHeight = 177;
