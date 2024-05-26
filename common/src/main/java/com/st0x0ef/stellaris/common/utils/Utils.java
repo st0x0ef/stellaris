@@ -110,4 +110,64 @@ public class Utils {
 
         return Double.parseDouble(numberStr);
     }
+
+    /** COLOR!!! */
+    public static int getColorHexCode(String colorName) {
+        switch (colorName.toLowerCase()) {
+            case "black":
+                return 0x000000;
+            case "white":
+                return 0xFFFFFF;
+            case "red":
+                return 0xFF0000;
+            case "green":
+                return 0x008000;
+            case "blue":
+                return 0x0000FF;
+            case "yellow":
+                return 0xFFFF00;
+            case "cyan":
+                return 0x00FFFF;
+            case "magenta":
+                return 0xFF00FF;
+            case "gray":
+                return 0x808080;
+            case "maroon":
+                return 0x800000;
+            case "olive":
+                return 0x808000;
+            case "purple":
+                return 0x800080;
+            case "teal":
+                return 0x008080;
+            case "navy":
+                return 0x000080;
+            case "orange":
+                return 0xFFA500;
+            case "brown":
+                return 0xA52A2A;
+            case "lime":
+                return 0x00FF00;
+            case "pink":
+                return 0xFFC0CB;
+            case "coral":
+                return 0xFF7F50;
+            case "gold":
+                return 0xFFD700;
+            case "silver":
+                return 0xC0C0C0;
+            case "beige":
+                return 0xF5F5DC;
+            case "lavender":
+                return 0xE6E6FA;
+            case "turquoise":
+                return 0x40E0D0;
+            case "salmon":
+                return 0xFA8072;
+            case "khaki":
+                return 0xF0E68C;
+            default:
+                throw new IllegalArgumentException("Unknown color: " + colorName);
+        }
+    }
 }

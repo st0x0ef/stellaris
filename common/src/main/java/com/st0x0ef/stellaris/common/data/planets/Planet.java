@@ -11,6 +11,7 @@ import net.minecraft.world.level.Level;
 public record Planet(
         String system,
         String translatable,
+        String name,
         ResourceKey<Level> dimension,
         ResourceKey<Level> orbit,
         boolean oxygen, int temperature, int distanceFromEarth, float gravity,
@@ -20,6 +21,7 @@ public record Planet(
     public static final Codec<Planet> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.STRING.fieldOf("system").forGetter(Planet::system),
             Codec.STRING.fieldOf("translatable").forGetter(Planet::translatable),
+            Codec.STRING.fieldOf("name").forGetter(Planet::name),
             ResourceKey.codec(Registries.DIMENSION).fieldOf("level").forGetter(Planet::dimension),
             ResourceKey.codec(Registries.DIMENSION).fieldOf("orbit").forGetter(Planet::orbit),
             Codec.BOOL.fieldOf("oxygen").forGetter(Planet::oxygen),
@@ -27,13 +29,10 @@ public record Planet(
             Codec.INT.fieldOf("distanceFromEarth").forGetter(Planet::distanceFromEarth),
             Codec.FLOAT.fieldOf("gravity").forGetter(Planet::gravity),
             PlanetTextures.CODEC.fieldOf("textures").forGetter(Planet::textures)
-
-
-
     ).apply(instance, Planet::new));
 
     public static Planet fromNetwork(FriendlyByteBuf buffer) {
-        return new Planet(buffer.readUtf(), buffer.readUtf(), buffer.readResourceKey(Registries.DIMENSION), buffer.readResourceKey(Registries.DIMENSION), buffer.readBoolean(), buffer.readInt(), buffer.readInt(), buffer.readFloat(), PlanetTextures.fromNetwork(buffer));
+        return new Planet(buffer.readUtf(), buffer.readUtf(), buffer.readUtf(), buffer.readResourceKey(Registries.DIMENSION), buffer.readResourceKey(Registries.DIMENSION), buffer.readBoolean(), buffer.readInt(), buffer.readInt(), buffer.readFloat(), PlanetTextures.fromNetwork(buffer));
     }
 
     public  void toNetwork(FriendlyByteBuf buffer) {

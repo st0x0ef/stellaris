@@ -8,6 +8,7 @@ import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.PlanetSelectionScreen;
 import com.st0x0ef.stellaris.client.screens.info.CelestialBody;
 import com.st0x0ef.stellaris.client.screens.record.StarRecord;
+import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -37,7 +38,7 @@ public class StarPack extends SimpleJsonResourceReloadListener {
 
             STAR.put(star.name(), star);
 
-            int orbitColor = getColorFromName(star.orbitColor());
+            int orbitColor = Utils.getColorHexCode(star.orbitColor());
 
             CelestialBody screenStar;
                 screenStar = new CelestialBody(
@@ -45,28 +46,16 @@ public class StarPack extends SimpleJsonResourceReloadListener {
                         star.name(),
                         (int) star.x(),
                         (int) star.y(),
-                        (float) star.width(),
-                        (float) star.height(),
+                        star.width(),
+                        star.height(),
                         orbitColor,
                         null,
                         Component.translatable(star.translatable())
                 );
 
             PlanetSelectionScreen.STARS.add(screenStar);
-            Stellaris.LOG.info("Added a star to PlanetSelectionScreen : " + star.name());
+            Stellaris.LOG.info("Added a star to PlanetSelectionScreen : {}", star.name());
         });
     }
 
-    private int getColorFromName(String colorName) {
-        switch (colorName) {
-            case "Yellow":
-                return 0xFFFF00;
-            case "Red":
-                return 0xFF0000;
-            case "Blue":
-                return 0x0000FF;
-            default:
-                return 0xFFFFFF;
-        }
-    }
 }
