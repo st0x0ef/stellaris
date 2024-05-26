@@ -389,8 +389,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             graphics.drawString(font, oxygenV, textX, buttonY + buttonHeight / 4 + 90, oxygenColor, false);
 
             graphics.drawString(font, systemV, textX, buttonY + buttonHeight / 4 + 105, 0xFFFFFF, false);
-            graphics.drawString(font, "temporary : null", textX, buttonY + buttonHeight / 4 + 120, 0xFFFFFF, false);
-            graphics.drawString(font, "temporary : null", textX, buttonY + buttonHeight / 4 + 135, 0xFFFFFF, false);
+//            graphics.drawString(font, "temporary : null", textX, buttonY + buttonHeight / 4 + 120, 0xFFFFFF, false);
+//            graphics.drawString(font, "temporary : null", textX, buttonY + buttonHeight / 4 + 135, 0xFFFFFF, false);
 
             RenderSystem.enableBlend();
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
