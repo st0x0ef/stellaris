@@ -292,6 +292,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     private void renderLargeMenu(GuiGraphics graphics) {
         if (showLargeMenu) {
+            isXPressed = false;
             ResourceLocation CELESTIAL_BODY_TEXTURE = focusedBody.texture;
             String CELESTIAL_BODY_NAME = focusedBody.name;
 
