@@ -44,9 +44,11 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.Set;
 
 public class RocketEntity extends IVehicleEntity implements HasCustomInventoryScreen, ContainerListener {
@@ -87,12 +89,11 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     @Override
     public void tick() {
         super.tick();
-
 //        this.rotateRocket();
 //        this.checkOnBlocks();
 //        this.fillUpRocket();
 //        this.rocketExplosion();
-//        this.burnEntities();
+        this.burnEntities();
         this.checkContainer();
 
         if (this.entityData.get(ROCKET_START)) {
@@ -269,24 +270,6 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         return this.getRocketItem();
     }
 
-    public void setSkinTexture(String texture) {
-        this.getEntityData().set(ROCKET_SKIN, texture);
-    }
-
-    public String getSkinTexture() {
-        return this.getEntityData().get(ROCKET_SKIN);
-    }
-
-    protected void spawnRocketItem() {
-        ItemEntity entityToSpawn = new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), this.getRocketItem());
-        entityToSpawn.setPickUpDelay(10);
-
-        this.level().addFreshEntity(entityToSpawn);
-    }
-
-    public double getRocketSpeed() {
-        return Mth.clamp(0.65 * 1, 0.7, 1.5);
-    }
 
     public void spawnParticle() {
         if (this.level() instanceof ServerLevel level) {
@@ -413,9 +396,6 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
     }
 
-    public Container getInventory() {
-        return this.inventory;
-    }
 
     private void openPlanetMenu(Player player) {
         if(player == null) return;
@@ -429,7 +409,45 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
     }
 
+
+    public void burnEntities() {
+        if (this.entityData.get(START_TIMER) == 200) {
+            AABB aabb = AABB.ofSize(new Vec3(this.getX(), this.getY() - 2, this.getZ()), 2, 2, 2);
+            List<LivingEntity> entities = this.getCommandSenderWorld().getEntitiesOfClass(LivingEntity.class, aabb);
+
+            for (LivingEntity entity : entities) {
+                entity.setRemainingFireTicks(40);
+
+            }
+        }
+    }
+    protected void spawnRocketItem() {
+        ItemEntity entityToSpawn = new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), this.getRocketItem());
+        entityToSpawn.setPickUpDelay(10);
+
+        this.level().addFreshEntity(entityToSpawn);
+    }
+
     public int getFuel() {
         return this.getEntityData().get(FUEL);
     }
+
+    public Container getInventory() {
+        return this.inventory;
+    }
+
+    public void setSkinTexture(String texture) {
+        this.getEntityData().set(ROCKET_SKIN, texture);
+    }
+
+    public String getSkinTexture() {
+        return this.getEntityData().get(ROCKET_SKIN);
+    }
+
+
+
+    public double getRocketSpeed() {
+        return Mth.clamp(0.65 * 1, 0.7, 1.5);
+    }
+
 }
