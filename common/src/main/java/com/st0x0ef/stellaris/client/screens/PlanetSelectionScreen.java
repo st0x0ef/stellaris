@@ -301,10 +301,14 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             int centerX = (this.width - menuWidth) / 2;
             int centerY = (this.height - menuHeight) / 2;
 
+            int buttonX = centerX + buttonWidth / 2 - buttonWidth / 3 - buttonWidth / 15;
+            int buttonY = centerY + buttonHeight / 2 + 1;
+
             float alpha = 0.5f;
 
             launchButton.visible = true;
-            launchButton.setPosition(centerX + buttonWidth / 2 - buttonWidth / 3 - buttonWidth / 15, centerY + buttonHeight / 2 + 1);
+            launchButton.setPosition(buttonX, buttonY);
+            graphics.drawString(font, "Launch!", buttonX + buttonWidth / 4, buttonY + buttonHeight / 4 + 1, 0xFFFFFF);
 
             RenderSystem.enableBlend();
             RenderSystem.setShader(GameRenderer::getPositionTexShader);

@@ -9,6 +9,7 @@ import com.st0x0ef.stellaris.common.data.screen.MoonPack;
 import com.st0x0ef.stellaris.common.data.screen.PlanetPack;
 import com.st0x0ef.stellaris.common.data.screen.StarPack;
 import com.st0x0ef.stellaris.common.events.Events;
+import com.st0x0ef.stellaris.common.handlers.GlobalExceptionHandler;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import com.st0x0ef.stellaris.common.network.packets.SyncPlanetsDatapack;
 import com.st0x0ef.stellaris.common.registry.*;
@@ -29,9 +30,11 @@ public class Stellaris {
             .setPrettyPrinting()
             .setObjectToNumberStrategy(ToNumberPolicy.LONG_OR_DOUBLE)
             .create();
+
     public static void init() {
         Minecraft.getInstance().execute(() -> {
             setupOpenGLDebugMessageCallback();
+            Thread.setDefaultUncaughtExceptionHandler(new GlobalExceptionHandler());
         });
 
         CustomConfig.init();
