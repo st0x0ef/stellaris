@@ -12,7 +12,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 public class Utils {
-
     /** Transfert the rocket inventory inside the Lander inventory */
     public static void transfertInventory(RocketEntity rocket, LanderEntity lander) {
         Container rocketContainer = rocket.getInventory();
@@ -92,6 +91,23 @@ public class Utils {
 
     }
 
+    public static double changeLastDigitToEven(double number) {
+        String numberStr = Double.toString(number);
+        int decimalIndex = numberStr.indexOf('.');
 
+        if (decimalIndex != -1) {
+            String beforeDecimal = numberStr.substring(0, decimalIndex + 1);
+            String afterDecimal = numberStr.substring(decimalIndex + 1);
 
+            char lastChar = afterDecimal.charAt(afterDecimal.length() - 1);
+
+            if ((lastChar - '0') % 2 != 0) {
+                afterDecimal = afterDecimal.substring(0, afterDecimal.length() - 1) + '2';
+            }
+
+            numberStr = beforeDecimal + afterDecimal;
+        }
+
+        return Double.parseDouble(numberStr);
+    }
 }

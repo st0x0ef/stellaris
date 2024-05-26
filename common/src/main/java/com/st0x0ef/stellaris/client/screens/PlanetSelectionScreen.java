@@ -14,6 +14,7 @@ import com.st0x0ef.stellaris.common.menus.PlanetSelectionMenu;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import com.st0x0ef.stellaris.common.network.packets.TeleportEntity;
 import com.st0x0ef.stellaris.common.registry.EntityData;
+import com.st0x0ef.stellaris.common.utils.Utils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.Util;
@@ -183,6 +184,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     private void onLaunchButtonClick() {
         if (focusedBody != null) {
+            showLargeMenu = false;
+
             tpToFocusedPlanet();
         }
     }
@@ -301,7 +304,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             float alpha = 0.5f;
 
             launchButton.visible = true;
-            launchButton.setPosition(centerX + buttonWidth / 2 - buttonWidth / 3 - buttonWidth / 15, centerY + buttonHeight / 2);
+            launchButton.setPosition(centerX + buttonWidth / 2 - buttonWidth / 3 - buttonWidth / 15, centerY + buttonHeight / 2 + 1);
 
             RenderSystem.enableBlend();
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
@@ -488,8 +491,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     @Override
     public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
         if (dragging) {
-            offsetX += (mouseX - lastMouseX) / zoomLevel;
-            offsetY += (mouseY - lastMouseY) / zoomLevel;
+            offsetX += Utils.changeLastDigitToEven((mouseX - lastMouseX) / zoomLevel);
+            offsetY += Utils.changeLastDigitToEven((mouseY - lastMouseY) / zoomLevel);
             lastMouseX = mouseX;
             lastMouseY = mouseY;
         }
