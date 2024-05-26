@@ -322,7 +322,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
                 systemV = Component.literal(system + " : null");
             } else {
                 systemTranslatable = Component.translatable(PlanetUtil.getPlanet(focusedBody.dimension).system());
-                systemV = Component.literal(system + " : " + systemTranslatable.getString());
+                systemV = Component.literal(system.getString() + " : " + systemTranslatable.getString());
             }
 
             if (CELESTIAL_BODY_TEMPERATURE == null) {
