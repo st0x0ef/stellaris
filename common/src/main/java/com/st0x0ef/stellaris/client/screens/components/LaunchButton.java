@@ -44,7 +44,7 @@ public class LaunchButton extends Button {
         this.xTexStart = 0;
         this.yTexStart = 0;
         this.buttonTexture = new ResourceLocation(Stellaris.MODID, "textures/gui/util/buttons/launch_button.png");
-        this.hoverButtonTexture = new ResourceLocation(Stellaris.MODID, "textures/gui/util/buttons/launch_button.png");
+        this.hoverButtonTexture = new ResourceLocation(Stellaris.MODID, "textures/gui/util/buttons/launch_button_hovered.png");
     }
 
     @SuppressWarnings("unchecked")
