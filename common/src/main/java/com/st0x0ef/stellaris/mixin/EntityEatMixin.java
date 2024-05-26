@@ -29,37 +29,14 @@ public abstract class EntityEatMixin extends LivingEntity {
         super(entityType, level);
     }
 
+
     @Inject(at = @At(value = "HEAD"), method = "eat", cancellable = true)
-    public void eat(Level level, ItemStack food, CallbackInfoReturnable<ItemStack> cir) {
-        LivingEntity entity = this;
+    private void cancelEat(Level level, ItemStack food, CallbackInfoReturnable<ItemStack> cir) {
 
-        if (food.getComponents().has(DataComponents.FOOD)) {
-            if(!PlanetUtil.isPlanet(level.dimension())) return;
-            if(!PlanetUtil.hasOxygen(level.dimension()) && (!food.is(TagRegistry.SPACE_FOOD) || !(food.getItem() instanceof CanItem))) {
-                return;
-            }
-
-            level.playSound(null, this.getX(), this.getY(), this.getZ(), this.getEatingSound(food), SoundSource.NEUTRAL, 1.0F, 1.0F + (level.random.nextFloat() - level.random.nextFloat()) * 0.4F);
-            entity.eat(level, food);
-            if (!(entity instanceof Player) || !((Player)entity).getAbilities().instabuild) {
-                food.shrink(1);
-            }
-
-
-
-            this.gameEvent(GameEvent.EAT);
-        }
-
-        if (food.getComponents().has(DataComponents.POTION_CONTENTS)) {
-            if (food.getComponents().get(DataComponents.POTION_CONTENTS).is(Potions.WATER)) {
-                if (entity instanceof Player player) {
-                    if (player.getItemInHand(InteractionHand.OFF_HAND).getItem() instanceof CanItem can) {
-                        //player.getFoodData().eat(can.getFoodProperties().nutrition(), can.getFoodProperties().saturation());
-                    }
-                }
+        if(PlanetUtil.isPlanet(level.dimension())) {
+            if(!PlanetUtil.hasOxygen(level.dimension()) && !food.is(TagRegistry.SPACE_FOOD)) {
+                cir.setReturnValue(food);
             }
         }
-
-        cir.setReturnValue(food);
     }
 }
