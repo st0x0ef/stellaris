@@ -330,7 +330,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
             graphics.drawString(font, "--------------------", textX, buttonY + buttonHeight / 4 + 50, 0xFFFFFF, false);
 
-            graphics.drawString(font, temperatureV, textX, buttonY + buttonHeight / 4 + 60, 0x009900, false);
+            graphics.drawString(font, temperatureV, textX, buttonY + buttonHeight / 4 + 60, 0xFFFFFF, false);
             graphics.drawString(font, gravityV, textX, buttonY + buttonHeight / 4 + 75, 0xFFFFFF, false);
             graphics.drawString(font, oxygenV, textX, buttonY + buttonHeight / 4 + 90, 0xFFFFFF, false);
 
