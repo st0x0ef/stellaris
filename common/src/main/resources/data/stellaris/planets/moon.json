@@ -5,9 +5,9 @@
   "translatable": "stellaris.planet.moon",
   "orbit": "minecraft:the_end",
   "oxygen": false,
-  "temperature": 15,
+  "temperature": -153,
   "distanceFromEarth": 0,
-  "gravity": 10.0,
+  "gravity": 1.62,
   "textures": {
     "planet": "stellaris:textures/planet_bar/moon_planet_bar.png",
     "planet_bar": "stellaris:textures/planet_bar/moon_planet_bar.png"
