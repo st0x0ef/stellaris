@@ -110,6 +110,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         compound.put("InventoryCustom", this.inventory.createTag(registryAccess()));
         compound.putBoolean("rocket_start", this.getEntityData().get(ROCKET_START));
         compound.putInt("start_timer", this.getEntityData().get(START_TIMER));
+        compound.putInt("fuel", this.getEntityData().get(FUEL));
     }
 
 
@@ -121,7 +122,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
         this.getEntityData().set(ROCKET_START, compound.getBoolean("rocket_start"));
         this.getEntityData().set(START_TIMER, compound.getInt("start_timer"));
-
+        this.getEntityData().set(FUEL, compound.getInt("fuel"));
     }
 
 
