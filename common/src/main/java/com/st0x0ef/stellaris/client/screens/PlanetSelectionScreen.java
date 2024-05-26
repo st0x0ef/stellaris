@@ -25,6 +25,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -65,6 +66,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     public static final Component gravity = Component.translatable("text.stellaris.planetscreen.gravity");
     public static final Component launch = Component.translatable("text.stellaris.planetscreen.launch");
     public static final Component oxygen = Component.translatable("text.stellaris.planetscreen.oxygen");
+    public static final Component system = Component.translatable("text.stellaris.planetscreen.system");
 
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private static final long UPDATE_INTERVAL = 1L;
@@ -305,13 +307,24 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             Float CELESTIAL_BODY_TEMPERATURE = PlanetUtil.getPlanet(focusedBody.dimension).temperature();
             Float CELESTIAL_BODY_GRAVITY = PlanetUtil.getPlanet(focusedBody.dimension).temperature();
             Boolean CELESTIAL_BODY_OXYGEN = PlanetUtil.getPlanet(focusedBody.dimension).oxygen();
+            String CELESTIAL_BODY_SYSTEM = PlanetUtil.getPlanet(focusedBody.dimension).system();
+
+            Component systemTranslatable;
 
             Component temperatureV = null;
             Component gravityV = null;
             Component oxygenV = null;
+            Component systemV = null;
 
             int oxygenColor = 0xFFFFF;
             int temperatureColor = 0xFFFFF;
+
+            if (CELESTIAL_BODY_SYSTEM == null) {
+                systemV = Component.literal(system + " : null");
+            } else {
+                systemTranslatable = Component.translatable(PlanetUtil.getPlanet(focusedBody.dimension).system());
+                systemV = Component.literal(system.getString() + " : " + systemTranslatable.getString());
+            }
 
             if (CELESTIAL_BODY_TEMPERATURE == null) {
                 temperatureV = Component.literal(temperature.getString() + " : null");
@@ -340,7 +353,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             if (CELESTIAL_BODY_TEMPERATURE >= 100) {
                 temperatureColor = Utils.getColorHexCode("DarkRed");
             } else if (CELESTIAL_BODY_TEMPERATURE >= 0){
-                temperatureColor = Utils.getColorHexCode("Green");
+                temperatureColor = Utils.getColorHexCode("Lime");
             } else if (CELESTIAL_BODY_TEMPERATURE >= -100) {
                 temperatureColor = Utils.getColorHexCode("Cyan");
             } else {
@@ -375,7 +388,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             graphics.drawString(font, gravityV, textX, buttonY + buttonHeight / 4 + 75, 0xFFFFFF, false);
             graphics.drawString(font, oxygenV, textX, buttonY + buttonHeight / 4 + 90, oxygenColor, false);
 
-            graphics.drawString(font, "temporary : null", textX, buttonY + buttonHeight / 4 + 105, 0xFFFFFF, false);
+            graphics.drawString(font, systemV, textX, buttonY + buttonHeight / 4 + 105, 0xFFFFFF, false);
             graphics.drawString(font, "temporary : null", textX, buttonY + buttonHeight / 4 + 120, 0xFFFFFF, false);
             graphics.drawString(font, "temporary : null", textX, buttonY + buttonHeight / 4 + 135, 0xFFFFFF, false);
 
@@ -528,17 +541,43 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     }
 
     private void onMouseScroll(long window, double scrollX, double scrollY) {
-        Minecraft.getInstance().player.getInventory().swapPaint((int) scrollY);
-
         double[] mouseX = new double[1];
         double[] mouseY = new double[1];
 
         GLFW.glfwGetCursorPos(window, mouseX, mouseY);
 
-        if (scrollY != 0) {
-            zoomLevel += scrollY * 0.02;
-            zoomLevel = Math.max(0.02, Math.min(zoomLevel, 2.0));
+        if (this.minecraft != null && this.minecraft.player != null) {
+            handleHotbarScroll(scrollY);
+
+            if (this.minecraft.screen instanceof CreativeModeInventoryScreen) {
+                CreativeModeInventoryScreen creativeScreen = (CreativeModeInventoryScreen) this.minecraft.screen;
+                if (creativeScreen.mouseScrolled(mouseX[0], mouseY[0], scrollX, scrollY)) {
+                    return;
+                }
+            }
+
+            if (this.minecraft.screen instanceof PlanetSelectionScreen) {
+                if (scrollY != 0) {
+                    zoomLevel += scrollY * 0.02;
+                    zoomLevel = Math.max(0.02, Math.min(zoomLevel, 2.0));
+                }
+            }
+            }
+    }
+
+    private boolean handleHotbarScroll(double scrollY) {
+        if (this.minecraft != null && this.minecraft.player != null) {
+            int currentSlot = this.minecraft.player.getInventory().selected;
+            int newSlot = currentSlot - (int) scrollY;
+
+            newSlot = (newSlot + 9) % 9;
+
+            if (newSlot != currentSlot) {
+                this.minecraft.player.getInventory().selected = newSlot;
+                return true;
+            }
         }
+        return false;
     }
 
     @Override

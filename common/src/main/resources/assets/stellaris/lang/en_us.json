@@ -230,10 +230,13 @@
   "text.stellaris.planetscreen.phobos": "Phobos",
   "text.stellaris.planetscreen.deimos": "Deimos",
 
+  "solar_system": "Solar System",
+
   "text.stellaris.planetscreen.temperature": "Temperature",
   "text.stellaris.planetscreen.gravity": "Gravity",
   "text.stellaris.planetscreen.oxygen": "Has Oxygen",
   "text.stellaris.planetscreen.launch": "Launch!",
+  "text.stellaris.planetscreen.system": "Planetary System",
 
   "tooltip.stellaris.can_item_empty": "Empty Can",
 
