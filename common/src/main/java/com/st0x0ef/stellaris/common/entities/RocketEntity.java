@@ -38,6 +38,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.DismountHelper;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
@@ -51,6 +52,11 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     public static final EntityDataAccessor<Integer> START_TIMER = SynchedEntityData.defineId(RocketEntity.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<Boolean> ROCKET_START = SynchedEntityData.defineId(RocketEntity.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<String> ROCKET_SKIN = SynchedEntityData.defineId(RocketEntity.class, EntityDataSerializers.STRING);
+    public static final EntityDataAccessor<Integer> FUEL = SynchedEntityData.defineId(RocketEntity.class, EntityDataSerializers.INT);
+    public static final int MAX_FUEL = 10000;
+
+
+
     public static final String DEFAULT_SKIN_TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/vehicle/rocket_skin/normal/standard.png").toString();
 
     protected SimpleContainer inventory;
@@ -60,6 +66,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         this.entityData.set(START_TIMER, 0);
         this.entityData.set(ROCKET_START, false);
         this.entityData.set(ROCKET_SKIN, DEFAULT_SKIN_TEXTURE);
+        this.entityData.set(FUEL, 0);
 
         this.inventory = new SimpleContainer(14);
     }
@@ -70,6 +77,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
                 .define(ROCKET_START, false)
                 .define(START_TIMER, 0)
                 .define(ROCKET_SKIN, DEFAULT_SKIN_TEXTURE)
+                .define(FUEL, 0)
                 .build();
 
     }
@@ -141,7 +149,12 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
         if (!this.level().isClientSide) {
             if (player.isCrouching()) {
-                this.openCustomInventoryScreen(player);
+                if (player.getMainHandItem().is(ItemsRegistry.FUEL_BUCKET.get())) {
+                    fillUpRocket(1000);
+                    player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.BUCKET));
+                } else {
+                    this.openCustomInventoryScreen(player);
+                }
                 return InteractionResult.CONSUME;
             }
 
@@ -163,7 +176,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
             MenuRegistry.openExtendedMenu(serverPlayer, new ExtendedMenuProvider() {
                 @Override
                 public void saveExtraData(FriendlyByteBuf packetByteBuf) {
-                    packetByteBuf.writeInt(RocketEntity.this.getId());
+                    packetByteBuf.writeVarInt(RocketEntity.this.getId());
                 }
 
                 @Override
@@ -174,9 +187,9 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
                 @Override
                 public AbstractContainerMenu createMenu(int syncId, Inventory inv, Player player) {
                     FriendlyByteBuf packetBuffer = new FriendlyByteBuf(Unpooled.buffer());
+                    packetBuffer.writeInt(RocketEntity.this.getEntityData().get(FUEL));
                     packetBuffer.writeVarInt(RocketEntity.this.getId());
-
-                    return new RocketMenu(syncId, inv, inventory);
+                    return new RocketMenu(syncId, inv, inventory, RocketEntity.this.getId());
                 }
             });
         }
@@ -381,6 +394,24 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         if (inventory.getItem(12).getItem() instanceof RocketSkinItem item) {
             this.getEntityData().set(ROCKET_SKIN, item.getRocketSkinName().toString());
         }
+
+        if (inventory.getItem(0).is(ItemsRegistry.FUEL_BUCKET.get())) {
+            fillUpRocket(1000);
+        }
+    }
+
+    public void fillUpRocket(int value) {
+        int newFuel = this.getEntityData().get(FUEL) + value;
+        if(newFuel <= MAX_FUEL) {
+            this.getEntityData().set(FUEL, newFuel);
+            inventory.removeItem(0, 1);
+            inventory.setItem(1, new ItemStack(Items.BUCKET));
+        } else {
+            this.getEntityData().set(FUEL, MAX_FUEL);
+            inventory.removeItem(0, 1);
+            inventory.setItem(1, new ItemStack(Items.BUCKET));
+        }
+
     }
 
     public Container getInventory() {
@@ -397,5 +428,9 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
             player.getEntityData().set(EntityData.DATA_PLANET_MENU_OPEN, true);
         }
 
+    }
+
+    public int getFuel() {
+        return this.getEntityData().get(FUEL);
     }
 }

@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.client.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.client.screens.components.Gauge;
 import com.st0x0ef.stellaris.common.menus.RocketMenu;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -31,6 +32,11 @@ public class RocketScreen extends AbstractContainerScreen<RocketMenu> {
         this.renderBackground(graphics, mouseX, mouseY, partialTicks);
         super.render(graphics, mouseX, mouseY, partialTicks);
         this.renderTooltip(graphics, mouseX, mouseY);
+
+        Gauge gauge = new Gauge(this.leftPos + 51, this.topPos + 27, 12, getPourcentTexture(), Component.nullToEmpty(""), new ResourceLocation(Stellaris.MODID, "textures/block/fluids/fuel_overlay.png"))
+                .setUVs(20, 30);
+
+        this.addRenderableWidget(gauge);
     }
 
     @Override
@@ -41,4 +47,8 @@ public class RocketScreen extends AbstractContainerScreen<RocketMenu> {
         guiGraphics.blit(texture, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
     }
 
+
+    public int getPourcentTexture() {
+        return this.getMenu().getRocket().getFuel() * 47 / 10000;
+    }
 }
