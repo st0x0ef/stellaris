@@ -310,10 +310,13 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             Component gravityV = null;
             Component oxygenV = null;
 
+            int oxygenColor = 0xFFFFF;
+            int temperatureColor = 0xFFFFF;
+
             if (CELESTIAL_BODY_TEMPERATURE == null) {
                 temperatureV = Component.literal(temperature.getString() + " : null");
             } else {
-                temperatureV = Component.literal(temperature.getString() + " : " + PlanetUtil.getPlanet(focusedBody.dimension).temperature() + " °C");
+                temperatureV = Component.literal(temperature.getString() + " : " + PlanetUtil.getPlanet(focusedBody.dimension).temperature() + "°C");
             }
 
             if (CELESTIAL_BODY_OXYGEN == null ){
@@ -325,7 +328,23 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             if (CELESTIAL_BODY_GRAVITY == null) {
                 gravityV = Component.literal(gravity.getString() + " : null");
             } else {
-                gravityV = Component.literal(gravity.getString() + " : " + PlanetUtil.getPlanet(focusedBody.dimension).gravity() + " m/s");
+                gravityV = Component.literal(gravity.getString() + " : " + PlanetUtil.getPlanet(focusedBody.dimension).gravity() + "m/s");
+            }
+
+            if (CELESTIAL_BODY_OXYGEN == true) {
+                oxygenColor = Utils.getColorHexCode("Lime");
+            } else {
+                oxygenColor = Utils.getColorHexCode("Red");
+            }
+
+            if (CELESTIAL_BODY_TEMPERATURE >= 100) {
+                temperatureColor = Utils.getColorHexCode("DarkRed");
+            } else if (CELESTIAL_BODY_TEMPERATURE >= 0){
+                temperatureColor = Utils.getColorHexCode("Green");
+            } else if (CELESTIAL_BODY_TEMPERATURE >= -100) {
+                temperatureColor = Utils.getColorHexCode("Aqua");
+            } else {
+                temperatureColor = Utils.getColorHexCode("Blue");
             }
 
             int menuWidth = 215;
@@ -352,9 +371,9 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
             graphics.drawString(font, "--------------------", textX, buttonY + buttonHeight / 4 + 50, 0xFFFFFF, false);
 
-            graphics.drawString(font, temperatureV, textX, buttonY + buttonHeight / 4 + 60, 0xFFFFFF, false);
+            graphics.drawString(font, temperatureV, textX, buttonY + buttonHeight / 4 + 60, temperatureColor, false);
             graphics.drawString(font, gravityV, textX, buttonY + buttonHeight / 4 + 75, 0xFFFFFF, false);
-            graphics.drawString(font, oxygenV, textX, buttonY + buttonHeight / 4 + 90, 0xFFFFFF, false);
+            graphics.drawString(font, oxygenV, textX, buttonY + buttonHeight / 4 + 90, oxygenColor, false);
 
             graphics.drawString(font, "temporary : null", textX, buttonY + buttonHeight / 4 + 105, 0xFFFFFF, false);
             graphics.drawString(font, "temporary : null", textX, buttonY + buttonHeight / 4 + 120, 0xFFFFFF, false);
