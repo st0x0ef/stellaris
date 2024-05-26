@@ -1,6 +1,7 @@
 {
   "system": "solar_system",
   "translatable": "stellaris.planet.earth",
+  "name": "Earth",
   "level": "minecraft:overworld",
   "orbit": "minecraft:the_end",
   "oxygen": true,
