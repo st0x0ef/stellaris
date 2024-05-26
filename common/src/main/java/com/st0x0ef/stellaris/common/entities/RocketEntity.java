@@ -91,8 +91,8 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         super.tick();
 //        this.rotateRocket();
 //        this.checkOnBlocks();
-//        this.fillUpRocket();
-//        this.rocketExplosion();
+
+        this.rocketExplosion();
         this.burnEntities();
         this.checkContainer();
 
@@ -330,6 +330,14 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         }
     }
 
+
+    public void rocketExplosion() {
+        if (this.entityData.get(START_TIMER) == 200) {
+            if (this.getDeltaMovement().y < -0.07) {
+                destroyRocket(true);
+            }
+        }
+    }
     public Player getFirstPlayerPassenger() {
         if (!this.getPassengers().isEmpty() && this.getPassengers().getFirst() instanceof Player player) {
             return player;
