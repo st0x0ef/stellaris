@@ -107,6 +107,7 @@ public class StellarisClient {
 
     public static void registerKey() {
         KeyMappingRegistry.register(KeyMappings.ROCKET_START);
+        KeyMappingRegistry.register(KeyMappings.FREEZE_PLANET_MENU);
     }
 
     public static void registerOverlays() {

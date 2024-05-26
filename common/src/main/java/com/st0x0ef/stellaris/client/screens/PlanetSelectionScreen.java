@@ -25,7 +25,6 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -41,6 +40,7 @@ import java.util.concurrent.*;
 
 @Environment(EnvType.CLIENT)
 public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelectionMenu> {
+
     public static final ResourceLocation HIGHLIGHTER_TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/util/planet_highlighter.png");
     public static final ResourceLocation BLACK_TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/util/black.png");
 
@@ -67,7 +67,6 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private static final long UPDATE_INTERVAL = 1L;
 
-    private boolean isXPressed = false;
     private boolean isLaunching = false;
     private boolean showLargeMenu = false;
 
@@ -96,7 +95,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     @Override
     protected void init() {
         super.init();
-        isXPressed = false;
+        getMenu().freeze_gui = false;
         centerSun();
 
         RenderSystem.enableBlend();
@@ -253,7 +252,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             graphics.blit(planet.texture, (int) planetX, (int) planetY, 0, 0, planetWidth, planetHeight, planetWidth, planetHeight);
 
             int nameWidth = font.width(planet.name);
-            graphics.drawString(font, planet.translatable, (int) (planetX + planetWidth / 2 - nameWidth / 2), (int) (planetY + planetHeight), 0xFFFFFF);
+            graphics.drawString(font, planet.name, (int) (planetX + planetWidth / 2 - nameWidth / 2), (int) (planetY + planetHeight), 0xFFFFFF);
 
         }
 
@@ -275,8 +274,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     private final int totalHighlighterFrames = 31;
 
     private void renderHighlighter(GuiGraphics graphics) {
-        if (!showLargeMenu) {
-            Minecraft minecraft = Minecraft.getInstance();
+        if (getMenu().freeze_gui && !showLargeMenu) {
             CelestialBody bodyToHighlight = hoveredBody != null ? hoveredBody : focusedBody;
             if (bodyToHighlight != null) {
                 int highlightWidth = (int) (bodyToHighlight.width * zoomLevel);
@@ -297,8 +295,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     private void renderLargeMenu(GuiGraphics graphics) {
         if (showLargeMenu) {
-            isXPressed = false;
-
+            getMenu().freeze_gui = false;
             ResourceLocation CELESTIAL_BODY_TEXTURE = focusedBody.texture;
 
             Component CELESTIAL_BODY_NAME = focusedBody.translatable;
@@ -362,9 +359,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if (keyCode == GLFW.GLFW_KEY_X) {
-            isXPressed = !isXPressed;
-        } else if (keyCode == GLFW.GLFW_KEY_Z) {
+        if (keyCode == GLFW.GLFW_KEY_Z) {
             tpToFocusedPlanet();
         }
         return super.keyPressed(keyCode, scanCode, modifiers);
@@ -385,7 +380,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     private void updatePlanets() {
         long time = Util.getMillis();
-        if (!isXPressed) {
+        if (!getMenu().freeze_gui) {
             for (PlanetInfo planet : PLANETS) {
                 planet.updateAngle(time);
                 planet.updatePosition();

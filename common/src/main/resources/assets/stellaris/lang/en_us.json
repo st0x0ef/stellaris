@@ -249,5 +249,9 @@
   "event.stellaris.cheeseboss": "Cheese Boss",
 
   "entity.stellaris.cheese_boss": "Cheese Boss",
-  "message.stellaris.speed": "%s Speed"
+  "message.stellaris.speed": "%s Speed",
+
+  "category.stellaris.default": "Stellaris Key",
+  "key.stellaris.rocket_start": "Rocket Start",
+  "key.stellaris.freeze_planet_menu": "Freeze Planet in the Selection Menu"
 }

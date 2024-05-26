@@ -5,6 +5,7 @@ import com.st0x0ef.stellaris.common.entities.LanderEntity;
 import com.st0x0ef.stellaris.common.network.packets.KeyHandler;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import dev.architectury.event.events.client.ClientTickEvent;
+import net.minecraft.client.Minecraft;
 
 public class ClientEvents {
 
@@ -12,6 +13,9 @@ public class ClientEvents {
         ClientTickEvent.CLIENT_POST.register(minecraft -> {
             while (KeyMappings.ROCKET_START.consumeClick()) {
                 NetworkRegistry.CHANNEL.sendToServer(new KeyHandler("rocket_start", true));
+            }
+            while (KeyMappings.FREEZE_PLANET_MENU.consumeClick()) {
+                NetworkRegistry.CHANNEL.sendToServer(new KeyHandler("freeze_planet_menu", true));
             }
             while (minecraft.options.keyJump.consumeClick()) {
                 NetworkRegistry.CHANNEL.sendToServer(new KeyHandler("key_jump", true));
@@ -22,8 +26,6 @@ public class ClientEvents {
                     NetworkRegistry.CHANNEL.sendToServer(new KeyHandler("key_jump", false));
                 }
             }
-
-
         });
     }
 

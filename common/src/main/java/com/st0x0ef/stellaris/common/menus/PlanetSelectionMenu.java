@@ -13,6 +13,8 @@ import org.jetbrains.annotations.Nullable;
 public class PlanetSelectionMenu extends AbstractContainerMenu {
     private final Container inventory;
     private final Player player;
+    public boolean freeze_gui = false;
+
     public static PlanetSelectionMenu create(int syncId, Inventory inventory, FriendlyByteBuf data) {
 
         return new PlanetSelectionMenu(syncId, inventory, new SimpleContainer(0));
@@ -20,7 +22,7 @@ public class PlanetSelectionMenu extends AbstractContainerMenu {
     public PlanetSelectionMenu(int syncId, Inventory playerInventory, Container container)
     {
         super(MenuTypesRegistry.PLANET_SELECTION_MENU.get(), syncId);
-        this.inventory = (container);
+        this.inventory = container;
         this.player = playerInventory.player;
     }
     @Override
@@ -34,6 +36,10 @@ public class PlanetSelectionMenu extends AbstractContainerMenu {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public void switchFreezeGui() {
+        freeze_gui = !freeze_gui;
     }
 }
 
