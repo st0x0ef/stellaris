@@ -11,7 +11,7 @@ public class MoonInfo extends CelestialBody {
     public double currentAngle;
 
     public MoonInfo(ResourceLocation texture, String name, double orbitRadius, long orbitalPeriod, int width, int height, PlanetInfo orbitCenter, ResourceKey<Level> dimension) {
-        super(texture, orbitCenter.name + " Moon", 0, 0, width, height, 0xFFFFFF, dimension);
+        super(texture, name, 0, 0, width, height, 0xFFFFFF, dimension);
         this.orbitRadius = orbitRadius;
         this.orbitalPeriod = orbitalPeriod;
         this.orbitCenter = orbitCenter;

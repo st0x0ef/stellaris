@@ -25,7 +25,6 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -43,6 +42,7 @@ import java.util.concurrent.*;
 public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelectionMenu> {
 
     public static final ResourceLocation HIGHLIGHTER_TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/util/planet_highlighter.png");
+    public static final ResourceLocation BLACK_TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/util/black.png");
 
     public static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/planet_selection.png");
     public static final ResourceLocation SCROLLER_TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/util/scroller.png");
@@ -292,6 +292,10 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     private void renderLargeMenu(GuiGraphics graphics) {
         if (showLargeMenu) {
+            isXPressed = false;
+            ResourceLocation CELESTIAL_BODY_TEXTURE = focusedBody.texture;
+            String CELESTIAL_BODY_NAME = focusedBody.name;
+
             int menuWidth = 215;
             int menuHeight = 177;
 
@@ -304,17 +308,39 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             int buttonX = centerX + buttonWidth / 2 - buttonWidth / 3 - buttonWidth / 15;
             int buttonY = centerY + buttonHeight / 2 + 1;
 
+            int textX = buttonX + buttonWidth / 4 - 20;
+
             float alpha = 0.5f;
 
             launchButton.visible = true;
             launchButton.setPosition(buttonX, buttonY);
+
             graphics.drawString(font, "Launch!", buttonX + buttonWidth / 4, buttonY + buttonHeight / 4 + 1, 0xFFFFFF);
+            graphics.drawString(font, CELESTIAL_BODY_NAME, textX, buttonY + buttonHeight / 4 + 37, 0xFFFFFF, true);
+            graphics.drawString(font, "--------------------", textX, buttonY + buttonHeight / 4 + 50, 0xFFFFFF, false);
+            graphics.drawString(font, "temperature : null", textX, buttonY + buttonHeight / 4 + 60, 0x009900, false);
+            graphics.drawString(font, "gravity : null", textX, buttonY + buttonHeight / 4 + 75, 0xFFFFFF, false);
+            graphics.drawString(font, "temporary : null", textX, buttonY + buttonHeight / 4 + 90, 0xFFFFFF, false);
+            graphics.drawString(font, "temporary : null", textX, buttonY + buttonHeight / 4 + 105, 0xFFFFFF, false);
+            graphics.drawString(font, "temporary : null", textX, buttonY + buttonHeight / 4 + 120, 0xFFFFFF, false);
+            graphics.drawString(font, "temporary : null", textX, buttonY + buttonHeight / 4 + 135, 0xFFFFFF, false);
 
             RenderSystem.enableBlend();
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
+
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, alpha);
+
             RenderSystem.setShaderTexture(0, LARGE_MENU_TEXTURE);
             graphics.blit(LARGE_MENU_TEXTURE, centerX, centerY, 0, 0, menuWidth, menuHeight, menuWidth, menuHeight);
+
+            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+
+            RenderSystem.setShaderTexture(0, BLACK_TEXTURE);
+            graphics.blit(BLACK_TEXTURE, centerX + menuWidth - 64, centerY + menuHeight / 2 - 32, 0, 0, 48, 48, 48, 48);
+
+            RenderSystem.setShaderTexture(0, CELESTIAL_BODY_TEXTURE);
+            graphics.blit(CELESTIAL_BODY_TEXTURE, centerX + menuWidth - 46, centerY + menuHeight / 2 - 14, 0, 0, 12, 12, 12, 12);
+
             RenderSystem.disableBlend();
         } else {
             launchButton.visible = false;
