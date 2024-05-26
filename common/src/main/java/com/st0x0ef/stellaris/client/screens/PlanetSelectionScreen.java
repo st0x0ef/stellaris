@@ -14,6 +14,7 @@ import com.st0x0ef.stellaris.common.menus.PlanetSelectionMenu;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import com.st0x0ef.stellaris.common.network.packets.TeleportEntity;
 import com.st0x0ef.stellaris.common.registry.EntityData;
+import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -299,9 +300,9 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             ResourceLocation CELESTIAL_BODY_TEXTURE = focusedBody.texture;
 
             Component CELESTIAL_BODY_NAME = focusedBody.translatable;
-            Component temperatureV = Component.literal(temperature.getString() + " : null °C");
-            Component gravityV = Component.literal(gravity.getString() + " : null m/s");
-            Component oxygenV = Component.literal(oxygen.getString() + " : null");
+            Component temperatureV = Component.literal(temperature.getString() + " : " + PlanetUtil.getPlanet(focusedBody.dimension).temperature() + " °C");
+            Component gravityV = Component.literal(gravity.getString() + " : " + PlanetUtil.getPlanet(focusedBody.dimension).gravity() + " m/s");
+            Component oxygenV = Component.literal(oxygen.getString() + " : " + PlanetUtil.getPlanet(focusedBody.dimension).oxygen());
 
             int menuWidth = 215;
             int menuHeight = 177;

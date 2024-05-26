@@ -67,4 +67,8 @@ public class PlanetUtil {
 
         return 0;
     }
+
+    public Planet getPlanetFromDim(ResourceKey<Level> dim) {
+        return StellarisData.getPlanet(dim);
+    }
 }

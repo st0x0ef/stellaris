@@ -14,7 +14,7 @@ public record Planet(
         String name,
         ResourceKey<Level> dimension,
         ResourceKey<Level> orbit,
-        boolean oxygen, int temperature, int distanceFromEarth, float gravity,
+        boolean oxygen, float temperature, int distanceFromEarth, float gravity,
         PlanetTextures textures
 
 ) {
@@ -25,7 +25,7 @@ public record Planet(
             ResourceKey.codec(Registries.DIMENSION).fieldOf("level").forGetter(Planet::dimension),
             ResourceKey.codec(Registries.DIMENSION).fieldOf("orbit").forGetter(Planet::orbit),
             Codec.BOOL.fieldOf("oxygen").forGetter(Planet::oxygen),
-            Codec.INT.fieldOf("temperature").forGetter(Planet::temperature),
+            Codec.FLOAT.fieldOf("temperature").forGetter(Planet::temperature),
             Codec.INT.fieldOf("distanceFromEarth").forGetter(Planet::distanceFromEarth),
             Codec.FLOAT.fieldOf("gravity").forGetter(Planet::gravity),
             PlanetTextures.CODEC.fieldOf("textures").forGetter(Planet::textures)
@@ -41,7 +41,7 @@ public record Planet(
         buffer.writeResourceKey(this.dimension);
         buffer.writeResourceKey(this.orbit);
         buffer.writeBoolean(this.oxygen);
-        buffer.writeInt(this.temperature);
+        buffer.writeFloat(this.temperature);
         buffer.writeInt(this.distanceFromEarth);
         buffer.writeFloat(this.gravity);
         this.textures.toNetwork(buffer);
