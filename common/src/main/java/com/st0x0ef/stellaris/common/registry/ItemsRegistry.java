@@ -1,6 +1,8 @@
 package com.st0x0ef.stellaris.common.registry;
 
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.common.data_components.RocketComponent;
+import com.st0x0ef.stellaris.common.entities.RocketEntity;
 import com.st0x0ef.stellaris.common.items.*;
 import com.st0x0ef.stellaris.common.items.oxygen.OxygenTankItem;
 import com.st0x0ef.stellaris.common.items.upgrade.RocketSkinItem;
@@ -266,7 +268,7 @@ public class ItemsRegistry {
     public static final RegistrySupplier<Item> VERTICAL_DESH_SLAB = ITEMS.register("vertical_desh_slab", () -> new BlockItem(BlocksRegistry.VERTICAL_DESH_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
 
     /** Rocket */
-    public static final RegistrySupplier<Item> ROCKET = ITEMS.register("rocket", () -> new RocketItem( new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> ROCKET = ITEMS.register("rocket", () -> new RocketItem( new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.MAX_STACK_SIZE.get(), new RocketComponent(RocketEntity.DEFAULT_SKIN_TEXTURE, 0))));
     public static final RegistrySupplier<Item> FROSTY_ROCKET_SKIN = ITEMS.register("frozy_rocket_sku", () -> new RocketSkinItem(new ResourceLocation(Stellaris.MODID, "textures/vehicle/rocket_skin/normal/frozy.png"), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> BASIC_ROCKET_SKIN = ITEMS.register("basic_rocket_skin", () -> new RocketSkinItem(new ResourceLocation(Stellaris.MODID, "textures/vehicle/rocket_skin/normal/standard.png"), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
 

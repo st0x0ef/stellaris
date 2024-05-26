@@ -2,8 +2,10 @@ package com.st0x0ef.stellaris.common.entities;
 
 import com.google.common.collect.Sets;
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.common.data_components.RocketComponent;
 import com.st0x0ef.stellaris.common.items.upgrade.RocketSkinItem;
 import com.st0x0ef.stellaris.common.menus.RocketMenu;
+import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import com.st0x0ef.stellaris.common.registry.EntityData;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import com.st0x0ef.stellaris.common.registry.SoundRegistry;
@@ -124,8 +126,6 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         this.getEntityData().set(START_TIMER, compound.getInt("start_timer"));
         this.getEntityData().set(FUEL, compound.getInt("fuel"));
     }
-
-
 
 
 
@@ -365,10 +365,8 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     }
     public ItemStack getRocketItem() {
         ItemStack itemStack = new ItemStack(ItemsRegistry.ROCKET.get(), 1);
-        CompoundTag tag = new CompoundTag();
-        tag.putString("rocket_skin", this.getEntityData().get(ROCKET_SKIN));
-
-        CustomData.set(DataComponents.CUSTOM_DATA, itemStack, tag);
+        RocketComponent rocketComponent = new RocketComponent(this.getEntityData().get(ROCKET_SKIN), this.getEntityData().get(FUEL));
+        itemStack.set(DataComponentsRegistry.MAX_STACK_SIZE.get(), rocketComponent);
 
         return itemStack;
     }

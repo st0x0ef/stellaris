@@ -1,7 +1,9 @@
 package com.st0x0ef.stellaris.common.items;
 
 import com.st0x0ef.stellaris.common.blocks.RocketLaunchPad;
+import com.st0x0ef.stellaris.common.data_components.RocketComponent;
 import com.st0x0ef.stellaris.common.entities.RocketEntity;
+import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -84,12 +86,6 @@ public class RocketItem extends Item {
                     /** SET TAGS */
                     this.addRocketInfos(rocket, itemStack);
 
-//                    rocket.getEntityData().set(RocketEntity.FUEL, itemStack.getOrCreateTag().getInt(FUEL_TAG));
-//                    rocket.getEntityData().set(RocketEntity.FUEL_BUCKET_NEEDED, RocketEntity.DEFAULT_FUEL_BUCKETS + itemStack.getOrCreateTag().getInt("fuelCapacityModifier"));
-//                    rocket.getEntityData().set(RocketEntity.FUEL_USAGE, RocketEntity.DEFAULT_FUEL_USAGE + itemStack.getOrCreateTag().getInt("fuelUsageModifier"));
-//                    rocket.getEntityData().set(RocketEntity.SKIN_TEXTURE_PATH, itemStack.getOrCreateTag().getString("rocketSkinTexturePath"));
-//                    rocket.setSkinTexture(getRocketSkinTexturePath());
-
                     /** CALL PLACE ROCKET EVENT */
                     //MinecraftForge.EVENT_BUS.post(new PlaceRocketEvent(rocket, context));
 
@@ -111,13 +107,13 @@ public class RocketItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        if(stack.get(DataComponents.CUSTOM_DATA) == null) return;
+        RocketComponent rocketComponent = stack.get(DataComponentsRegistry.MAX_STACK_SIZE.get());
+        if(rocketComponent == null) return;
+
+        tooltipComponents.add(Component.literal("Rocket Skin: " + rocketComponent.skin()));
+        tooltipComponents.add(Component.literal("Fuel: " + rocketComponent.fuel()));
 
 
-        CompoundTag tag = stack.get(DataComponents.CUSTOM_DATA).copyTag();
-        if(tag.contains("rocket_skin")) {
-            tooltipComponents.add(Component.literal("Rocket Skin: " + tag.getString("rocket_skin")));
-        }
     }
 
     public float getRocketPlaceHigh() {
@@ -142,7 +138,10 @@ public class RocketItem extends Item {
     }
 
     private void addRocketInfos(RocketEntity entity, ItemStack stack) {
-        entity.getEntityData().set(RocketEntity.ROCKET_SKIN, stack.get(DataComponents.CUSTOM_DATA).copyTag().getString("rocket_skin"));
+        RocketComponent rocketComponent = stack.get(DataComponentsRegistry.MAX_STACK_SIZE.get());
+        entity.getEntityData().set(RocketEntity.ROCKET_SKIN, rocketComponent.skin());
+        entity.getEntityData().set(RocketEntity.FUEL, rocketComponent.fuel());
+
     }
 
 
