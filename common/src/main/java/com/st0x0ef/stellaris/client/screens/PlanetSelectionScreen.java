@@ -302,8 +302,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             ResourceLocation CELESTIAL_BODY_TEXTURE = focusedBody.texture;
 
             Component CELESTIAL_BODY_NAME = focusedBody.translatable;
-            Component temperatureV = Component.literal(temperature.getString() + " : null");
-            Component gravityV = Component.literal(gravity.getString() + " : null");
+            Component temperatureV = Component.literal(temperature.getString() + " : null °C");
+            Component gravityV = Component.literal(gravity.getString() + " : null m/s");
             Component oxygenV = Component.literal(oxygen.getString() + " : null");
 
             int menuWidth = 215;
@@ -330,7 +330,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
             graphics.drawString(font, "--------------------", textX, buttonY + buttonHeight / 4 + 50, 0xFFFFFF, false);
 
-            graphics.drawString(font, temperatureV, textX, buttonY + buttonHeight / 4 + 60, 0x009900, false);
+            graphics.drawString(font, temperatureV, textX, buttonY + buttonHeight / 4 + 60, 0xFFFFFF, false);
             graphics.drawString(font, gravityV, textX, buttonY + buttonHeight / 4 + 75, 0xFFFFFF, false);
             graphics.drawString(font, oxygenV, textX, buttonY + buttonHeight / 4 + 90, 0xFFFFFF, false);
 
