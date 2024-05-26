@@ -1,6 +1,7 @@
 {
   "system": "solar_system",
   "level": "stellaris:mars",
+  "translatable": "stellaris.planet.mars",
   "orbit": "minecraft:the_end",
   "oxygen": false,
   "temperature": 15,
