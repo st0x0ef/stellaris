@@ -25,6 +25,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -540,17 +541,43 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     }
 
     private void onMouseScroll(long window, double scrollX, double scrollY) {
-        Minecraft.getInstance().player.getInventory().swapPaint((int) scrollY);
-
         double[] mouseX = new double[1];
         double[] mouseY = new double[1];
 
         GLFW.glfwGetCursorPos(window, mouseX, mouseY);
 
-        if (scrollY != 0) {
-            zoomLevel += scrollY * 0.02;
-            zoomLevel = Math.max(0.02, Math.min(zoomLevel, 2.0));
+        if (this.minecraft != null && this.minecraft.player != null) {
+            handleHotbarScroll(scrollY);
+
+            if (this.minecraft.screen instanceof CreativeModeInventoryScreen) {
+                CreativeModeInventoryScreen creativeScreen = (CreativeModeInventoryScreen) this.minecraft.screen;
+                if (creativeScreen.mouseScrolled(mouseX[0], mouseY[0], scrollX, scrollY)) {
+                    return;
+                }
+            }
+
+            if (this.minecraft.screen instanceof PlanetSelectionScreen) {
+                if (scrollY != 0) {
+                    zoomLevel += scrollY * 0.02;
+                    zoomLevel = Math.max(0.02, Math.min(zoomLevel, 2.0));
+                }
+            }
+            }
+    }
+
+    private boolean handleHotbarScroll(double scrollY) {
+        if (this.minecraft != null && this.minecraft.player != null) {
+            int currentSlot = this.minecraft.player.getInventory().selected;
+            int newSlot = currentSlot - (int) scrollY;
+
+            newSlot = (newSlot + 9) % 9;
+
+            if (newSlot != currentSlot) {
+                this.minecraft.player.getInventory().selected = newSlot;
+                return true;
+            }
         }
+        return false;
     }
 
     @Override
