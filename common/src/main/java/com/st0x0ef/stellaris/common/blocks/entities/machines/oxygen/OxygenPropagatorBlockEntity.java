@@ -1,7 +1,7 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines.oxygen;
 
 import com.st0x0ef.stellaris.common.oxygen.OxygenContainer;
-import com.st0x0ef.stellaris.common.registry.EntityRegistry;
+import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class OxygenPropagatorBlockEntity extends OxygenBlockEntity {
 
     public OxygenPropagatorBlockEntity(BlockPos pos, BlockState blockState) {
-        super(EntityRegistry.OXYGEN_PROPAGATOR.get(), pos, blockState, new OxygenContainer(0), 0); // TODO change range and power values
+        super(BlockEntityRegistry.OXYGEN_PROPAGATOR.get(), pos, blockState, new OxygenContainer(0), 0); // TODO change range and power values
     }
 
     @Override

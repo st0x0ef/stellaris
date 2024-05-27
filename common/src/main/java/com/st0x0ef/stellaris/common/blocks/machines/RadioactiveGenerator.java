@@ -6,6 +6,7 @@ import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import dev.architectury.registry.menu.ExtendedMenuProvider;
 import dev.architectury.registry.menu.MenuRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -15,23 +16,27 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.AbstractFurnaceBlock;
 import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 public class RadioactiveGenerator extends GeneratorBlockTemplate{
-
-    //TODO add this because it wont work otherwise
-//    public static final DirectionProperty FACING;
-//    public static final BooleanProperty LIT;
+    public static final DirectionProperty FACING = AbstractFurnaceBlock.FACING;
+    public static final BooleanProperty LIT = AbstractFurnaceBlock.LIT;
 
     public RadioactiveGenerator(Properties properties) {
         super(properties);
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(LIT, Boolean.valueOf(false)));
     }
 
     @Override
@@ -107,5 +112,10 @@ public class RadioactiveGenerator extends GeneratorBlockTemplate{
     @Nullable
     protected static <T extends BlockEntity> BlockEntityTicker<T> createGeneratorTicker(Level level, BlockEntityType<T> serverType, BlockEntityType<? extends RadioactiveGeneratorEntity> clientType) {
         return level.isClientSide ? null : createTickerHelper(serverType, clientType, RadioactiveGeneratorEntity::serverTick);
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(FACING, LIT);
     }
 }

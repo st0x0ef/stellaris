@@ -1,6 +1,6 @@
 package com.st0x0ef.stellaris.common.blocks.entities;
 
-import com.st0x0ef.stellaris.common.registry.EntityRegistry;
+import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -20,7 +20,7 @@ public class GlobeTileEntity extends BlockEntity {
     private float yaw0 = 0.0f;
 
     public GlobeTileEntity(BlockPos pos, BlockState state) {
-        super(EntityRegistry.GLOBE_BLOCK_ENTITY.get(), pos, state);
+        super(BlockEntityRegistry.GLOBE_BLOCK_ENTITY.get(), pos, state);
     }
 
     @Override

@@ -3,7 +3,7 @@ package com.st0x0ef.stellaris.common.blocks.entities.machines;
 import com.st0x0ef.stellaris.common.blocks.entities.ImplementedInventory;
 import com.st0x0ef.stellaris.common.items.CanItem;
 import com.st0x0ef.stellaris.common.menus.VacumatorMenu;
-import com.st0x0ef.stellaris.common.registry.EntityRegistry;
+import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -31,7 +31,7 @@ public class VacumatorBlockEntity extends BaseContainerBlockEntity implements Im
 
 
     public VacumatorBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(EntityRegistry.VACUMATOR_ENTITY.get(), blockPos, blockState);
+        super(BlockEntityRegistry.VACUMATOR_ENTITY.get(), blockPos, blockState);
         this.items = NonNullList.withSize(5, ItemStack.EMPTY);
 
     }

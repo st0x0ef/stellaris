@@ -1,17 +1,13 @@
 package com.st0x0ef.stellaris.common.network.packets;
 
-import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.client.registries.KeyMappings;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
 import dev.architectury.networking.NetworkManager;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
-import java.util.Map;
 import java.util.function.Supplier;
 
 public class SyncPlanetsDatapack {

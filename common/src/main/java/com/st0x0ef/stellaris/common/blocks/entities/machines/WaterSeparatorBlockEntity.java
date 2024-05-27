@@ -3,7 +3,7 @@ package com.st0x0ef.stellaris.common.blocks.entities.machines;
 import com.st0x0ef.stellaris.common.blocks.entities.ImplementedInventory;
 import com.st0x0ef.stellaris.common.energy.base.EnergyBlock;
 import com.st0x0ef.stellaris.common.energy.impl.WrappedBlockEnergyContainer;
-import com.st0x0ef.stellaris.common.registry.EntityRegistry;
+import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -22,7 +22,7 @@ public class WaterSeparatorBlockEntity extends BaseContainerBlockEntity implemen
     private NonNullList<ItemStack> items = NonNullList.withSize(6, ItemStack.EMPTY);
 
     public WaterSeparatorBlockEntity(BlockPos pos, BlockState state) {
-        super(EntityRegistry.WATER_SEPARATOR_ENTITY.get(), pos, state);
+        super(BlockEntityRegistry.WATER_SEPARATOR_ENTITY.get(), pos, state);
     }
 
     @Override

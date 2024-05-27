@@ -1,7 +1,7 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
 import com.st0x0ef.stellaris.common.menus.SolarPanelMenu;
-import com.st0x0ef.stellaris.common.registry.EntityRegistry;
+import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
@@ -19,7 +19,7 @@ public class SolarPanelEntity extends GeneratorBlockEntityTemplate {
     protected NonNullList<ItemStack> items;
 
     public SolarPanelEntity(BlockPos blockPos, BlockState blockState) {
-        super(EntityRegistry.SOLAR_PANEL.get(), blockPos, blockState,1,500);
+        super(BlockEntityRegistry.SOLAR_PANEL.get(), blockPos, blockState,1,500);
         this.items = NonNullList.withSize(1, ItemStack.EMPTY);
     }
 
