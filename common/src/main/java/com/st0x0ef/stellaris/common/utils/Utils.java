@@ -182,4 +182,20 @@ public class Utils {
 
         return (i % 1000) + "K";
     }
+
+    /**
+     * @param MCG Minecraft Gravity Unit
+     * @return Earth Gravity Unit (G)
+     */
+    public float MCGToEG(float MCG){
+        return 12.5f*MCG;
+    }
+
+    /**
+     * @param EG Earth Gravity Unit (G)
+     * @return Minecraft Gravity Unit
+     */
+    public float EGTOMCG(float EG){
+        return 0.08f*EG;
+    }
 }
