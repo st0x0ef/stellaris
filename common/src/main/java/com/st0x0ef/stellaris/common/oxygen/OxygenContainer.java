@@ -5,6 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 
 public class OxygenContainer {
+
     private final int maxOxygen;
     private int oxygenStored;
 
@@ -68,7 +69,12 @@ public class OxygenContainer {
     }
 
     public int getOxygenAt(BlockPos pos) {
-        return oxygenRoom[pos.getX()][pos.getY()][pos.getZ()];
+        try {
+            return oxygenRoom[pos.getX()][pos.getY()][pos.getZ()];
+        }
+        catch (Exception e) {
+            return 0;
+        }
     }
 
     public int getOxygenStored() {
