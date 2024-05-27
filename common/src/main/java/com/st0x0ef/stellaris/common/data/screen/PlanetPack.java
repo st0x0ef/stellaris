@@ -38,21 +38,19 @@ public class PlanetPack extends SimpleJsonResourceReloadListener {
 
             PLANET.put(planet.name(), planet);
 
-            CelestialBody screenPlanet;
-                screenPlanet = new PlanetInfo(
-                        planet.texture(),
-                        planet.name(),
-                        (int) planet.distance(),
-                        planet.period(),
-                        (int) planet.width(),
-                        (int) planet.height(),
-                        PlanetSelectionScreen.findByNameStar(planet.parent()),
-                        planet.dimensionId(),
-                        Component.translatable(planet.translatable())
+            PlanetInfo screenPlanet = new PlanetInfo(
+                planet.texture(),
+                planet.name(),
+                (int) planet.distance(),
+                planet.period(),
+                (int) planet.width(),
+                (int) planet.height(),
+                PlanetSelectionScreen.findByNameStar(planet.parent()),
+                planet.dimensionId(),
+                Component.translatable(planet.translatable())
+            );
 
-                );
-
-            PlanetSelectionScreen.PLANETS.add((PlanetInfo) screenPlanet);
+            PlanetSelectionScreen.PLANETS.add(screenPlanet);
             Stellaris.LOG.info("Added a planet to PlanetSelectionScreen : " + planet.name());
         });
     }

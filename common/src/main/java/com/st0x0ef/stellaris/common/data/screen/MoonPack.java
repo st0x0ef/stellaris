@@ -38,20 +38,19 @@ public class MoonPack extends SimpleJsonResourceReloadListener {
 
             MOON.put(moon.name(), moon);
 
-            CelestialBody screenMoon;
-                screenMoon = new MoonInfo(
-                        moon.texture(),
-                        moon.name(),
-                        (int) moon.distance(),
-                        moon.period(),
-                        (int) moon.width(),
-                        (int) moon.height(),
-                        PlanetSelectionScreen.findByNamePlanet(moon.parent()),
-                        moon.dimensionId(),
-                        Component.translatable(moon.translatable())
-                );
+            MoonInfo screenMoon = new MoonInfo(
+                moon.texture(),
+                moon.name(),
+                (int) moon.distance(),
+                moon.period(),
+                (int) moon.width(),
+                (int) moon.height(),
+                PlanetSelectionScreen.findByNamePlanet(moon.parent()),
+                moon.dimensionId(),
+                Component.translatable(moon.translatable())
+            );
 
-            PlanetSelectionScreen.MOONS.add((MoonInfo) screenMoon);
+            PlanetSelectionScreen.MOONS.add(screenMoon);
             Stellaris.LOG.info("Added a moon to PlanetSelectionScreen : " + moon.name());
         });
     }
