@@ -52,9 +52,9 @@ public class LaunchButton extends Button {
         return (T) this;
     }
 
-    public <T extends LaunchButton> T tex(ResourceLocation buttonTexture, ResourceLocation hovorTexture) {
+    public <T extends LaunchButton> T tex(ResourceLocation buttonTexture, ResourceLocation hoverTexture) {
         this.buttonTexture = buttonTexture;
-        this.hoverButtonTexture = hovorTexture;
+        this.hoverButtonTexture = hoverTexture;
         return cast();
     }
 

@@ -12,6 +12,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 public class Utils {
+
+
     /** Transfert the rocket inventory inside the Lander inventory */
     public static void transfertInventory(RocketEntity rocket, LanderEntity lander) {
         Container rocketContainer = rocket.getInventory();
