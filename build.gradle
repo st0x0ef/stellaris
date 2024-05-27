@@ -5,7 +5,7 @@ plugins {
 }
 
 architectury {
-    minecraft = rootProject.minecraft_version
+    minecraft = project.minecraft_version
 }
 
 subprojects {
@@ -13,12 +13,12 @@ subprojects {
     apply plugin: 'architectury-plugin'
     apply plugin: 'maven-publish'
 
+    base {
+        archivesName = "${rootProject.modid}-${rootProject.minecraft_version}-${project.name}"
+    }
+
     def modLoader = project.name
     def isCommon = (modLoader == "common")
-
-    loom {
-        silentMojangMappingsLicense()
-    }
 
     repositories {
         maven { url "https://maven.shedaniel.me" }
@@ -37,30 +37,31 @@ subprojects {
         }
         if(!isCommon) {
             modImplementation("me.shedaniel:RoughlyEnoughItems-${modLoader}:${rootProject.rei_version}")
-
         }
+    }
 
-        if(modLoader == "fabric") {
-            //modImplementation "curse.maven:fabric-disable-custom-worlds-advice-401978:5007958"
+    java {
+        withSourcesJar()
+
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        it.options.release = 21
+    }
+
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                artifactId = base.archivesName.get()
+                from components.java
+            }
         }
     }
 }
 
 allprojects {
-    apply plugin: "java"
-    apply plugin: "architectury-plugin"
-    apply plugin: "maven-publish"
-
-    archivesBaseName = "${rootProject.modid}-${rootProject.minecraft_version}-${project.name}"
     group = rootProject.maven_group
     version = rootProject.mod_version
-
-    tasks.withType(JavaCompile).configureEach {
-        options.encoding = "UTF-8"
-        options.release.set(21)
-    }
-
-    java {
-        withSourcesJar()
-    }
 }
