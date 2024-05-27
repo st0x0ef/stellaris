@@ -1,13 +1,19 @@
 package com.st0x0ef.stellaris.common.effects;
 
 import com.st0x0ef.stellaris.common.registry.DamageSourceRegistry;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+
+import java.util.Optional;
+
 public class RadioactiveEffect extends MobEffect {
 
+    private final Optional<SoundEvent> soundOnAdded = Optional.empty();
     public RadioactiveEffect(MobEffectCategory mobEffectCategory, int color) {
         super(mobEffectCategory, color);
     }
@@ -17,12 +23,10 @@ public class RadioactiveEffect extends MobEffect {
         if (livingEntity.getHealth() > 0.0F) {
             if (level == 0) {
                 livingEntity.hurt(DamageSourceRegistry.of(livingEntity.level(), DamageSourceRegistry.RADIATIONS), 0.7f);
-            }
-            else if (level == 1) {
+            } else if (level == 1) {
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 80));
                 livingEntity.hurt(DamageSourceRegistry.of(livingEntity.level(), DamageSourceRegistry.RADIATIONS), 0.5f);
-            }
-            else if (level == 2) {
+            } else if (level == 2) {
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 80));
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80));
                 livingEntity.hurt(DamageSourceRegistry.of(livingEntity.level(), DamageSourceRegistry.RADIATIONS), 1f);
@@ -45,6 +49,7 @@ public class RadioactiveEffect extends MobEffect {
         }
     }
 
+
     @Override
     public void onEffectStarted(LivingEntity livingEntity, int i) {
         if (i == 1 || i == 2) {
@@ -52,4 +57,15 @@ public class RadioactiveEffect extends MobEffect {
             livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80));
         }
     }
+
+    public void onEffectAdded(LivingEntity livingEntity, int amplifier){
+        this.soundOnAdded.ifPresent((soundEvent) -> {
+            livingEntity.level().playSound((Player)null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), soundEvent, livingEntity.getSoundSource(), 3.0F, 1.0F);
+        });
+    }
+
+
+
+
+
 }
