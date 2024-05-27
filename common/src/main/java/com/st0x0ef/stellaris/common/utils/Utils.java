@@ -185,17 +185,17 @@ public class Utils {
 
     /**
      * @param MCG Minecraft Gravity Unit
-     * @return Earth Gravity Unit (G)
+     * @return m/s²
      */
-    public float MCGToEG(float MCG){
-        return 12.5f*MCG;
+    public float MCGToMPS2(float MCG){
+        return 122.583125f*MCG;
     }
 
     /**
-     * @param EG Earth Gravity Unit (G)
+     * @param MPS2 m/s²
      * @return Minecraft Gravity Unit
      */
-    public float EGTOMCG(float EG){
-        return 0.08f*EG;
+    public float MPS2ToMCG(float MPS2){
+        return 0.0081577297f*MPS2;
     }
 }
