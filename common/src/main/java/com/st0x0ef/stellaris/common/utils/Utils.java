@@ -187,7 +187,7 @@ public class Utils {
      * @param MCG Minecraft Gravity Unit
      * @return m/s²
      */
-    public float MCGToMPS2(float MCG){
+    public static double MCGToMPS2(float MCG){
         return 122.583125f*MCG;
     }
 
@@ -195,7 +195,7 @@ public class Utils {
      * @param MPS2 m/s²
      * @return Minecraft Gravity Unit
      */
-    public float MPS2ToMCG(float MPS2){
+    public static double MPS2ToMCG(float MPS2){
         return 0.0081577297f*MPS2;
     }
 }
