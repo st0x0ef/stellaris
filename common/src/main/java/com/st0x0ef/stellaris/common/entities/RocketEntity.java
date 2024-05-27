@@ -389,17 +389,18 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     }
 
     public void fillUpRocket(int value) {
-        int newFuel = this.getEntityData().get(FUEL) + value;
+        int oldFuel = this.getEntityData().get(FUEL);
+        if (oldFuel==MAX_FUEL) {
+            return;
+        }
+        int newFuel = oldFuel + value;
         if(newFuel <= MAX_FUEL) {
             this.getEntityData().set(FUEL, newFuel);
-            inventory.removeItem(0, 1);
-            inventory.setItem(1, new ItemStack(Items.BUCKET));
         } else {
             this.getEntityData().set(FUEL, MAX_FUEL);
-            inventory.removeItem(0, 1);
-            inventory.setItem(1, new ItemStack(Items.BUCKET));
         }
-
+        inventory.removeItem(0, 1);
+        inventory.setItem(1, new ItemStack(Items.BUCKET, inventory.getItem(1).getCount()+1));
     }
 
 
