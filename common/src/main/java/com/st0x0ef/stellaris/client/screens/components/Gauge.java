@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.client.screens.components;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
+import com.st0x0ef.stellaris.common.utils.Utils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -20,14 +21,6 @@ import net.minecraft.world.phys.Vec3;
 public class Gauge extends AbstractWidget {
     private ResourceLocation overlay_texture;
 
-    private int xTexStart;
-    private int yTexStart;
-
-    private int yDiffText;
-
-    private int textureWidth;
-    private int textureHeight;
-
     private int value;
     private int max_value;
 
@@ -36,9 +29,6 @@ public class Gauge extends AbstractWidget {
 
     public Gauge(int x, int y, int width, int height, Component message, ResourceLocation overlay_texture, int value, int max_value) {
         super(x, y, width, height, message);
-        this.yDiffText = 0;
-        this.xTexStart = 0;
-        this.yTexStart = 0;
         this.overlay_texture = overlay_texture;
         this.max_value = max_value;
         this.value = value;
@@ -58,7 +48,8 @@ public class Gauge extends AbstractWidget {
 
         if (mouseX >= getX() && mouseX <= getX() + width && mouseY >= getY() && mouseY <= getY() + height) {
 
-            graphics.renderTooltip(Minecraft.getInstance().font, Component.literal(getMessage().getString() + " : " + value), mouseX, mouseY);
+            graphics.renderTooltip(Minecraft.getInstance().font,
+                    getGaugeTooltip(), mouseX, mouseY);
         }
 
     }
@@ -68,5 +59,12 @@ public class Gauge extends AbstractWidget {
 
     }
 
+    public Component getGaugeTooltip() {
+        if(value >= max_value) {
+            return Component.translatable("screen.stellaris.gauge", Utils.betterIntToString(value), Utils.betterIntToString(max_value)).withColor(Utils.getColorHexCode("green"));
+        } else {
+            return Component.translatable("screen.stellaris.gauge", Utils.betterIntToString(value), Utils.betterIntToString(max_value)).withColor(Utils.getColorHexCode("red"));
+        }
+    }
 
 }

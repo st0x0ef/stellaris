@@ -57,7 +57,5 @@ public class RocketScreen extends AbstractContainerScreen<RocketMenu> {
     }
 
 
-    public int getPourcentTexture() {
-        return this.getMenu().getRocket().getFuel() * 47 / 10000;
-    }
+
 }

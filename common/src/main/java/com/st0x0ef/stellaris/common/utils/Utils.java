@@ -176,4 +176,10 @@ public class Utils {
                 throw new IllegalArgumentException("Unknown color : " + colorName);
         }
     }
+
+    public static String betterIntToString(int i) {
+        if (i == 0) return "0";
+
+        return (i % 1000) + "K";
+    }
 }
