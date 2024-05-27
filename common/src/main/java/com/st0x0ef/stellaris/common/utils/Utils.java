@@ -166,8 +166,12 @@ public class Utils {
                 return 0xFA8072;
             case "khaki":
                 return 0xF0E68C;
+            case "darkred":
+                return 0x8B0000;
+            case "dark_red":
+                return 0x8B0000;
             default:
-                throw new IllegalArgumentException("Unknown color: " + colorName);
+                throw new IllegalArgumentException("Unknown color : " + colorName);
         }
     }
 }

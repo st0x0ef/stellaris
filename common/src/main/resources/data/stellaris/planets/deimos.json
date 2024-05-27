@@ -1,13 +1,13 @@
 {
   "system": "solar_system",
-  "level": "stellaris:mars",
-  "name": "Mars",
-  "translatable": "stellaris.planet.mars",
+  "level": "stellaris:deimos",
+  "name": "Deimos",
+  "translatable": "stellaris.moon.deimos",
   "orbit": "minecraft:the_end",
   "oxygen": false,
-  "temperature": -63,
+  "temperature": -40,
   "distanceFromEarth": 0,
-  "gravity": 3.72076,
+  "gravity": 0.003,
   "textures": {
     "planet": "stellaris:textures/planet_bar/mars_planet_bar.png",
     "planet_bar": "stellaris:textures/planet_bar/mars_planet_bar.png"

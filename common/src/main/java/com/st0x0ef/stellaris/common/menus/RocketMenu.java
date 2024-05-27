@@ -1,5 +1,7 @@
 package com.st0x0ef.stellaris.common.menus;
 
+import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.common.entities.RocketEntity;
 import com.st0x0ef.stellaris.common.items.upgrade.RocketSkinItem;
 import com.st0x0ef.stellaris.common.menus.slot.SpecificItemsSlot;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
@@ -17,18 +19,20 @@ import net.minecraft.world.item.ItemStack;
 public class RocketMenu extends AbstractContainerMenu {
 
     private final Container inventory;
+    private final RocketEntity rocket;
+
     public RocketMenu(int syncId, Inventory inventory, FriendlyByteBuf buffer) {
-        this(syncId, inventory, new SimpleContainer(15));
+        this(syncId, inventory, new SimpleContainer(15), buffer.readVarInt());
     }
 
 
 
-    public RocketMenu(int syncId, Inventory playerInventory, Container container)
+    public RocketMenu(int syncId, Inventory playerInventory, Container container, int entityId)
     {
 
         super(MenuTypesRegistry.ROCKET_MENU.get(), syncId);
 
-
+        this.rocket = (RocketEntity) playerInventory.player.level().getEntity(entityId);
         checkContainerSize(container, 14);
         this.inventory = (container);
 
@@ -36,7 +40,6 @@ public class RocketMenu extends AbstractContainerMenu {
 
         addPlayerHotbar(playerInventory);
         addPlayerInventory(playerInventory);
-
     }
 
     @Override
@@ -108,5 +111,9 @@ public class RocketMenu extends AbstractContainerMenu {
         for (int i = 0; i < 9; ++i) {
             this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 153));
         }
+    }
+
+    public RocketEntity getRocket() {
+        return rocket;
     }
 }
