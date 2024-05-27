@@ -43,28 +43,8 @@ public class RocketScreen extends AbstractContainerScreen<RocketMenu> {
         this.renderTooltip(graphics, mouseX, mouseY);
 
         rocket_fuel = this.getMenu().getRocket().getFuel();
-//
-//        int fluidtankX = this.leftPos + 51;
-//        int fluidtankY = this.topPos + 27;
-//        int fluidtankWidth = 12;
-//        int fluidtankHeight = 46;
-//
-//        Gauge gauge = new Gauge(fluidtankX, fluidtankY, fluidtankWidth, fluidtankHeight, Component.nullToEmpty(""), fuel_overlay, RocketFuel, MaxFuel);
-//
-//        if (RocketFuel > 10000) {
-//            RocketFuel = MaxFuel;
-//            graphics.blit(fuel_overlay, fluidtankX, fluidtankY, fluidtankWidth, fluidtankHeight - 1, fluidtankWidth, fluidtankHeight -1, fluidtankWidth, fluidtankHeight - 1);
-//        } else {
-//            graphics.blit(fuel_overlay, fluidtankX, fluidtankY + 45 - (int) (RocketFuel / (MaxFuel / 10) * 4.5), (float) fluidtankWidth, (float) (fluidtankHeight - (MaxFuel / 1000 - RocketFuel / (MaxFuel / 10)) * 4.5), fluidtankWidth, (int) (fluidtankHeight - (MaxFuel / 1000 - RocketFuel / (MaxFuel / 10)) * 4.6), fluidtankWidth, 45);
-//        }
-//
-//        ScreenHelper.drawTexture(fluidtankX, fluidtankY, fluidtankWidth, fluidtankHeight, fluid_tank_overlay, false);
-//
-//        if (mouseX >= fluidtankX && mouseX <= fluidtankX + fluidtankWidth && mouseY >= fluidtankY && mouseY <= fluidtankY + fluidtankHeight) {
-//            graphics.renderTooltip(this.font, Component.literal(Fuel.getString() + " : " + RocketFuel), mouseX, mouseY);
-//        }
 
-    Gauge gauge = new Gauge(this.leftPos + 51, this.topPos + 27, 12, 46, Fuel, fuel_overlay, rocket_fuel, max_fuel);
+        Gauge gauge = new Gauge(this.leftPos + 51, this.topPos + 27, 12, 46, Fuel, fuel_overlay, rocket_fuel, max_fuel);
         this.addRenderableWidget(gauge);
     }
 
