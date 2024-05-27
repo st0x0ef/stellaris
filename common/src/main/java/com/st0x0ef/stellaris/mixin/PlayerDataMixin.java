@@ -1,10 +1,7 @@
 package com.st0x0ef.stellaris.mixin;
 
-import com.mojang.authlib.GameProfile;
 import com.st0x0ef.stellaris.common.registry.EntityData;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;

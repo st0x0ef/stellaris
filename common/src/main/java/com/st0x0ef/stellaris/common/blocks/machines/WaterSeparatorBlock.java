@@ -1,7 +1,7 @@
 package com.st0x0ef.stellaris.common.blocks.machines;
 
 import com.st0x0ef.stellaris.common.blocks.entities.machines.WaterSeparatorBlockEntity;
-import com.st0x0ef.stellaris.common.registry.EntityRegistry;
+import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import dev.architectury.registry.menu.ExtendedMenuProvider;
 import dev.architectury.registry.menu.MenuRegistry;
 import net.minecraft.core.BlockPos;
@@ -94,7 +94,7 @@ public class WaterSeparatorBlock extends BaseEnergyBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        return level.isClientSide ? null : createTickerHelper(blockEntityType, EntityRegistry.WATER_SEPARATOR_ENTITY.get(), WaterSeparatorBlockEntity::serverTick);
+        return level.isClientSide ? null : createTickerHelper(blockEntityType, BlockEntityRegistry.WATER_SEPARATOR_ENTITY.get(), WaterSeparatorBlockEntity::serverTick);
     }
 
     @Override

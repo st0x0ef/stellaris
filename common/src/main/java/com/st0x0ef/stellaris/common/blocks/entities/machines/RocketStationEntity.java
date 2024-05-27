@@ -3,7 +3,7 @@ package com.st0x0ef.stellaris.common.blocks.entities.machines;
 import com.st0x0ef.stellaris.common.blocks.entities.ImplementedInventory;
 import com.st0x0ef.stellaris.common.data.recipes.RocketStationRecipe;
 import com.st0x0ef.stellaris.common.menus.RocketStationMenu;
-import com.st0x0ef.stellaris.common.registry.EntityRegistry;
+import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -32,7 +32,7 @@ public class RocketStationEntity extends BaseContainerBlockEntity implements Imp
 
 
     public RocketStationEntity(BlockPos blockPos, BlockState blockState) {
-        super(EntityRegistry.ROCKET_STATION.get(), blockPos, blockState);
+        super(BlockEntityRegistry.ROCKET_STATION.get(), blockPos, blockState);
 
         this.items = NonNullList.withSize(15, ItemStack.EMPTY);
 

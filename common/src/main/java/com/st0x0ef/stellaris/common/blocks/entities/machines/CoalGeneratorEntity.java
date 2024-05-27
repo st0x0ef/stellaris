@@ -4,7 +4,7 @@ import com.st0x0ef.stellaris.common.blocks.machines.CoalGenerator;
 import com.st0x0ef.stellaris.common.energy.EnergyApi;
 import com.st0x0ef.stellaris.common.energy.impl.WrappedBlockEnergyContainer;
 import com.st0x0ef.stellaris.common.menus.CoalGeneratorMenu;
-import com.st0x0ef.stellaris.common.registry.EntityRegistry;
+import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
@@ -33,7 +33,7 @@ public class CoalGeneratorEntity extends GeneratorBlockEntityTemplate {
     private List<Integer> inputSlots = List.of(0);
 
     public CoalGeneratorEntity(BlockPos blockPos, BlockState blockState) {
-        super(EntityRegistry.COAL_GENERATOR.get(), blockPos, blockState,1,2000);
+        super(BlockEntityRegistry.COAL_GENERATOR.get(), blockPos, blockState,1,2000);
 
         super.items = NonNullList.withSize(1, ItemStack.EMPTY);
 
@@ -149,13 +149,8 @@ public class CoalGeneratorEntity extends GeneratorBlockEntityTemplate {
 
     @Override
     protected void setItems(NonNullList<ItemStack> nonNullList) {
-        this.items = nonNullList;
+        super.setItems(nonNullList);
     }
-
-//    @Override
-//    public NonNullList<ItemStack> getItems() {
-//        return this.items;
-//    }
 
     @Override
     public void loadAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {

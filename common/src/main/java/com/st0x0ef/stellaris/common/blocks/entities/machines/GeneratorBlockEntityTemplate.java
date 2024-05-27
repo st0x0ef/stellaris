@@ -5,7 +5,6 @@ import com.st0x0ef.stellaris.common.energy.EnergyApi;
 import com.st0x0ef.stellaris.common.energy.base.EnergyBlock;
 import com.st0x0ef.stellaris.common.energy.impl.ExtractOnlyEnergyContainer;
 import com.st0x0ef.stellaris.common.energy.impl.WrappedBlockEnergyContainer;
-import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;

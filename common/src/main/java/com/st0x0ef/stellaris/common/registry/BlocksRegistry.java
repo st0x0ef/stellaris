@@ -3,6 +3,8 @@ package com.st0x0ef.stellaris.common.registry;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.*;
 import com.st0x0ef.stellaris.common.blocks.machines.*;
+import com.st0x0ef.stellaris.common.blocks.machines.oxygen.OxygenDistributorBlock;
+import com.st0x0ef.stellaris.common.blocks.machines.oxygen.OxygenPropagatorBlock;
 import dev.architectury.core.block.ArchitecturyLiquidBlock;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
@@ -122,6 +124,7 @@ public class BlocksRegistry {
 
     /**Oxygen Blocks**/
     public static final RegistrySupplier<Block> OXYGEN_PROPAGATOR = BLOCKS.register("oxygen_propagator", () -> new OxygenPropagatorBlock(BlockBehaviour.Properties.ofFullCopy(WATER_SEPARATOR.get())));
+    public static final RegistrySupplier<Block> OXYGEN_DISTRIBUTOR = BLOCKS.register("oxygen_distributor", () -> new OxygenDistributorBlock(BlockBehaviour.Properties.ofFullCopy(WATER_SEPARATOR.get())));
 
     /**Fluid Blocks*/
     public static final RegistrySupplier<LiquidBlock> FUEL_BLOCK = BLOCKS.register("fuel", () -> new ArchitecturyLiquidBlock(FluidRegistry.FUEL_STILL, BlockBehaviour.Properties.ofFullCopy(Blocks.WATER)));

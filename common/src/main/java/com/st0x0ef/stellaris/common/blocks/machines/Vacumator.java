@@ -3,7 +3,7 @@ package com.st0x0ef.stellaris.common.blocks.machines;
 import com.mojang.serialization.MapCodec;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.SolarPanelEntity;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.VacumatorBlockEntity;
-import com.st0x0ef.stellaris.common.registry.EntityRegistry;
+import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import dev.architectury.registry.menu.ExtendedMenuProvider;
 import dev.architectury.registry.menu.MenuRegistry;
 import net.minecraft.core.BlockPos;
@@ -34,7 +34,7 @@ public class Vacumator extends BaseEntityBlock{
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> blockEntityType) {
-        return createTickerHelper(blockEntityType, EntityRegistry.VACUMATOR_ENTITY.get(), (level1, blockPos, blockState1, blockEntity) -> blockEntity.tick());
+        return createTickerHelper(blockEntityType, BlockEntityRegistry.VACUMATOR_ENTITY.get(), (level1, blockPos, blockState1, blockEntity) -> blockEntity.tick());
     }
 
     @Override

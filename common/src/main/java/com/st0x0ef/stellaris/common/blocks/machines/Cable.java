@@ -2,7 +2,7 @@ package com.st0x0ef.stellaris.common.blocks.machines;
 
 import com.mojang.serialization.MapCodec;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.CableBlockEntity;
-import com.st0x0ef.stellaris.common.registry.EntityRegistry;
+import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.registry.TagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -71,7 +71,7 @@ public class Cable extends BaseEnergyBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> blockEntityType) {
-        return createTickerHelper(blockEntityType, EntityRegistry.CABLE_ENTITY.get(),
+        return createTickerHelper(blockEntityType, BlockEntityRegistry.CABLE_ENTITY.get(),
                 (level1, blockPos, blockState1, blockEntity) -> blockEntity.tick());
     }
 

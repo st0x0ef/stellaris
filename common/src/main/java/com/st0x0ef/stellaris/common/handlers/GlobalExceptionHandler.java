@@ -1,7 +1,5 @@
 package com.st0x0ef.stellaris.common.handlers;
 
-import com.st0x0ef.stellaris.Stellaris;
-
 import java.util.NoSuchElementException;
 
 public class GlobalExceptionHandler implements Thread.UncaughtExceptionHandler {

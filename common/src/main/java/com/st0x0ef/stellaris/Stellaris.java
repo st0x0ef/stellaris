@@ -50,7 +50,7 @@ public class Stellaris {
         BlocksRegistry.BLOCKS.register();
         EntityRegistry.ENTITY_TYPE.register();
         EntityRegistry.SENSOR.register();
-        EntityRegistry.BLOCK_ENTITY_TYPE.register();
+        BlockEntityRegistry.BLOCK_ENTITY_TYPE.register();
         ItemsRegistry.ITEMS.register();
         CreativeTabsRegistry.TABS.register();
         MenuTypesRegistry.MENU_TYPE.register();

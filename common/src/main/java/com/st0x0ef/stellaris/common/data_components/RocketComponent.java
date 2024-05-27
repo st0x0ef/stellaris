@@ -2,17 +2,10 @@ package com.st0x0ef.stellaris.common.data_components;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.st0x0ef.stellaris.common.data.planets.Planet;
-import com.st0x0ef.stellaris.common.data.planets.PlanetTextures;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.component.CustomData;
-import net.minecraft.world.item.component.FireworkExplosion;
-import net.minecraft.world.item.component.Fireworks;
 
 public record RocketComponent(String skin, int fuel) {
 

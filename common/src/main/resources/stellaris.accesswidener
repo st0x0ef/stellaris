@@ -3,5 +3,4 @@ accessWidener v2 named
 accessible field net/minecraft/world/entity/npc/Villager assignProfessionWhenSpawned Z
 transitive-accessible method net/minecraft/world/entity/ai/sensing/SensorType <init> (Ljava/util/function/Supplier;)V
 accessible method net/minecraft/core/particles/SimpleParticleType <init> (Z)V
-accessible class net/minecraft/client/gui/components/Tooltip
 accessible method net/minecraft/world/entity/LivingEntity addEatEffect (Lnet/minecraft/world/food/FoodProperties;)V

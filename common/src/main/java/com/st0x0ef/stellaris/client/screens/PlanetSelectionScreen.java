@@ -6,8 +6,6 @@ import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.components.InvisibleButton;
 import com.st0x0ef.stellaris.client.screens.components.LaunchButton;
 import com.st0x0ef.stellaris.client.screens.components.ModifiedButton;
-import com.st0x0ef.stellaris.client.screens.components.TexturedButton;
-import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
 import com.st0x0ef.stellaris.client.screens.info.CelestialBody;
 import com.st0x0ef.stellaris.client.screens.info.MoonInfo;
 import com.st0x0ef.stellaris.client.screens.info.PlanetInfo;
@@ -35,7 +33,6 @@ import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWScrollCallback;
 import org.lwjgl.opengl.GL11;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;

@@ -1,8 +1,6 @@
 package com.st0x0ef.stellaris.mixin;
 
 import com.st0x0ef.stellaris.common.oxygen.EntityOxygen;
-import com.st0x0ef.stellaris.common.registry.EntityData;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;

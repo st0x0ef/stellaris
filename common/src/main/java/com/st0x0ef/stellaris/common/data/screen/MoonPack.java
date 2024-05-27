@@ -10,7 +10,6 @@ import com.st0x0ef.stellaris.client.screens.info.CelestialBody;
 import com.st0x0ef.stellaris.client.screens.info.MoonInfo;
 import com.st0x0ef.stellaris.client.screens.record.MoonRecord;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
@@ -39,20 +38,19 @@ public class MoonPack extends SimpleJsonResourceReloadListener {
 
             MOON.put(moon.name(), moon);
 
-            CelestialBody screenMoon;
-                screenMoon = new MoonInfo(
-                        moon.texture(),
-                        moon.name(),
-                        (int) moon.distance(),
-                        (long) moon.period(),
-                        (int) moon.width(),
-                        (int) moon.height(),
-                        PlanetSelectionScreen.findByNamePlanet(moon.parent()),
-                        moon.dimensionId(),
-                        Component.translatable(moon.translatable())
-                );
+            MoonInfo screenMoon = new MoonInfo(
+                moon.texture(),
+                moon.name(),
+                (int) moon.distance(),
+                moon.period(),
+                (int) moon.width(),
+                (int) moon.height(),
+                PlanetSelectionScreen.findByNamePlanet(moon.parent()),
+                moon.dimensionId(),
+                Component.translatable(moon.translatable())
+            );
 
-            PlanetSelectionScreen.MOONS.add((MoonInfo) screenMoon);
+            PlanetSelectionScreen.MOONS.add(screenMoon);
             Stellaris.LOG.info("Added a moon to PlanetSelectionScreen : " + moon.name());
         });
     }

@@ -6,7 +6,7 @@ import com.st0x0ef.stellaris.common.energy.EnergyApi;
 import com.st0x0ef.stellaris.common.energy.impl.WrappedBlockEnergyContainer;
 import com.st0x0ef.stellaris.common.items.RadioactiveItem;
 import com.st0x0ef.stellaris.common.menus.RadioactiveGeneratorMenu;
-import com.st0x0ef.stellaris.common.registry.EntityRegistry;
+import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -35,7 +35,7 @@ public class RadioactiveGeneratorEntity extends GeneratorBlockEntityTemplate {
 
 
     public RadioactiveGeneratorEntity(BlockPos blockPos, BlockState blockState) {
-        super(EntityRegistry.RADIOACTIVE_GENERATOR.get(), blockPos, blockState,1,2000);
+        super(BlockEntityRegistry.RADIOACTIVE_GENERATOR.get(), blockPos, blockState,1,2000);
 
         super.items = NonNullList.withSize(1, ItemStack.EMPTY);
     }
@@ -175,7 +175,7 @@ public class RadioactiveGeneratorEntity extends GeneratorBlockEntityTemplate {
 
     @Override
     public NonNullList<ItemStack> getItems() {
-        return this.items;
+        return super.getItems();
     }
 
     @Override

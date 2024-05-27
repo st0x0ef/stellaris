@@ -9,8 +9,6 @@ import com.st0x0ef.stellaris.client.screens.PlanetSelectionScreen;
 import com.st0x0ef.stellaris.client.screens.info.CelestialBody;
 import com.st0x0ef.stellaris.client.screens.info.PlanetInfo;
 import com.st0x0ef.stellaris.client.screens.record.PlanetRecord;
-import com.st0x0ef.stellaris.client.screens.record.StarRecord;
-import com.st0x0ef.stellaris.common.data.planets.Planet;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -40,21 +38,19 @@ public class PlanetPack extends SimpleJsonResourceReloadListener {
 
             PLANET.put(planet.name(), planet);
 
-            CelestialBody screenPlanet;
-                screenPlanet = new PlanetInfo(
-                        planet.texture(),
-                        planet.name(),
-                        (int) planet.distance(),
-                        (long) planet.period(),
-                        (int) planet.width(),
-                        (int) planet.height(),
-                        PlanetSelectionScreen.findByNameStar(planet.parent()),
-                        planet.dimensionId(),
-                        Component.translatable(planet.translatable())
+            PlanetInfo screenPlanet = new PlanetInfo(
+                planet.texture(),
+                planet.name(),
+                (int) planet.distance(),
+                planet.period(),
+                (int) planet.width(),
+                (int) planet.height(),
+                PlanetSelectionScreen.findByNameStar(planet.parent()),
+                planet.dimensionId(),
+                Component.translatable(planet.translatable())
+            );
 
-                );
-
-            PlanetSelectionScreen.PLANETS.add((PlanetInfo) screenPlanet);
+            PlanetSelectionScreen.PLANETS.add(screenPlanet);
             Stellaris.LOG.info("Added a planet to PlanetSelectionScreen : " + planet.name());
         });
     }

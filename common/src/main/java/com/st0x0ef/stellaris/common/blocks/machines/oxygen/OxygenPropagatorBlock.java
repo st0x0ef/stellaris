@@ -1,4 +1,4 @@
-package com.st0x0ef.stellaris.common.blocks;
+package com.st0x0ef.stellaris.common.blocks.machines.oxygen;
 
 import com.mojang.serialization.MapCodec;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.oxygen.OxygenPropagatorBlockEntity;
@@ -25,7 +25,7 @@ public class OxygenPropagatorBlock extends OxygenBlock {
 
     @Override
     protected MapCodec<? extends BaseEntityBlock> codec() {
-        return null;
+        return simpleCodec(OxygenPropagatorBlock::new);
     }
 
     @Override
