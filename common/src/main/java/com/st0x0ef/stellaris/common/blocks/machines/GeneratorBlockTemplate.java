@@ -19,7 +19,7 @@ public class GeneratorBlockTemplate extends BaseEnergyBlock {
 
     @Override
     protected MapCodec<? extends BaseEntityBlock> codec() {
-        return null;
+        return super.codec();
     }
 
     @Override

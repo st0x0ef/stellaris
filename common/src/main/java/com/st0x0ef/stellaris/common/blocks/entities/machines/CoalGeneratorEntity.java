@@ -149,13 +149,8 @@ public class CoalGeneratorEntity extends GeneratorBlockEntityTemplate {
 
     @Override
     protected void setItems(NonNullList<ItemStack> nonNullList) {
-        this.items = nonNullList;
+        super.setItems(nonNullList);
     }
-
-//    @Override
-//    public NonNullList<ItemStack> getItems() {
-//        return this.items;
-//    }
 
     @Override
     public void loadAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {

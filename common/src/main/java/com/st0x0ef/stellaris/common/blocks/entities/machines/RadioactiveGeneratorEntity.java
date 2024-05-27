@@ -175,7 +175,7 @@ public class RadioactiveGeneratorEntity extends GeneratorBlockEntityTemplate {
 
     @Override
     public NonNullList<ItemStack> getItems() {
-        return this.items;
+        return super.getItems();
     }
 
     @Override
