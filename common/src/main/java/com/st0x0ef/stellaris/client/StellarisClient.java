@@ -29,6 +29,7 @@ import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.normal.Nor
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeBlockRenderer;
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeModel;
 import com.st0x0ef.stellaris.client.screens.*;
+import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import com.st0x0ef.stellaris.common.registry.ParticleRegistry;
@@ -82,7 +83,7 @@ public class StellarisClient {
         EntityRendererRegistry.register(EntityRegistry.LANDER, LanderRenderer::new);
 
 
-        BlockEntityRendererRegistry.register(EntityRegistry.GLOBE_BLOCK_ENTITY.get() ,GlobeBlockRenderer::new);
+        BlockEntityRendererRegistry.register(BlockEntityRegistry.GLOBE_BLOCK_ENTITY.get(), GlobeBlockRenderer::new);
     }
 
     public static void registerParticle() {

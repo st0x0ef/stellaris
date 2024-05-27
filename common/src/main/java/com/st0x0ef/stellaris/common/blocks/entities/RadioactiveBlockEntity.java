@@ -1,8 +1,8 @@
 package com.st0x0ef.stellaris.common.blocks.entities;
 
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.registry.EffectsRegistry;
-import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import com.st0x0ef.stellaris.common.registry.TagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -17,7 +17,7 @@ public class RadioactiveBlockEntity extends BlockEntity {
     public int radioactivityLevel;
 
     public RadioactiveBlockEntity(BlockPos pos, BlockState state) {
-        super(EntityRegistry.RADIOACTIVE_BLOCK.get(), pos, state);
+        super(BlockEntityRegistry.RADIOACTIVE_BLOCK.get(), pos, state);
     }
     public RadioactiveBlockEntity(BlockPos pos, BlockState state, int level) {
         this(pos, state);

@@ -43,7 +43,7 @@ public class MoonPack extends SimpleJsonResourceReloadListener {
                         moon.texture(),
                         moon.name(),
                         (int) moon.distance(),
-                        (long) moon.period(),
+                        moon.period(),
                         (int) moon.width(),
                         (int) moon.height(),
                         PlanetSelectionScreen.findByNamePlanet(moon.parent()),

@@ -2,7 +2,7 @@ package com.st0x0ef.stellaris.common.blocks.machines;
 
 import com.mojang.serialization.MapCodec;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.CoalGeneratorEntity;
-import com.st0x0ef.stellaris.common.registry.EntityRegistry;
+import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import dev.architectury.registry.menu.ExtendedMenuProvider;
 import dev.architectury.registry.menu.MenuRegistry;
 import net.minecraft.core.BlockPos;
@@ -105,7 +105,7 @@ public class CoalGenerator extends GeneratorBlockTemplate{
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> blockEntityType) {
-        return createGeneratorTicker(level, blockEntityType, EntityRegistry.COAL_GENERATOR.get());
+        return createGeneratorTicker(level, blockEntityType, BlockEntityRegistry.COAL_GENERATOR.get());
     }
 
     @Nullable

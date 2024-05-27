@@ -59,13 +59,13 @@ public class CheeseBoss extends Monster implements Enemy, RangedAttackMob {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0f));
-        this.goalSelector.addGoal(1, (Goal)new RandomLookAroundGoal((Mob)this));
+        this.goalSelector.addGoal(1, new RandomLookAroundGoal(this));
         this.addBehaviourGoals();
     }
 
     protected void addBehaviourGoals() {
         this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0));
-        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<Player>((Mob)this, Player.class, true));
+        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<Player>(this, Player.class, true));
     }
 
     /**boss bar event*/

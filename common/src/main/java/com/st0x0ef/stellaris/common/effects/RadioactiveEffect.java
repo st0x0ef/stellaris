@@ -60,7 +60,7 @@ public class RadioactiveEffect extends MobEffect {
 
     public void onEffectAdded(LivingEntity livingEntity, int amplifier){
         this.soundOnAdded.ifPresent((soundEvent) -> {
-            livingEntity.level().playSound((Player)null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), soundEvent, livingEntity.getSoundSource(), 3.0F, 1.0F);
+            livingEntity.level().playSound(null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), soundEvent, livingEntity.getSoundSource(), 3.0F, 1.0F);
         });
     }
 
