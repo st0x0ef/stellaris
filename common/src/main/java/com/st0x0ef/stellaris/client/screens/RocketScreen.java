@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.client.screens;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.components.Gauge;
+import com.st0x0ef.stellaris.common.entities.RocketEntity;
 import com.st0x0ef.stellaris.common.menus.RocketMenu;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import net.fabricmc.api.EnvType;
@@ -23,7 +24,7 @@ public class RocketScreen extends AbstractContainerScreen<RocketMenu> {
     public static final ResourceLocation fluid_tank_overlay = new ResourceLocation(Stellaris.MODID, "textures/gui/util/fluid_tank_overlay.png");
 
     public int rocket_fuel = 0;
-    public int max_fuel = this.getMenu().getRocket().MAX_FUEL;
+    public int max_fuel = RocketEntity.MAX_FUEL;
     public Component Capacity;
 
     public static final Component Fuel = Component.translatable("text.stellaris.rocketscreen.fuel");

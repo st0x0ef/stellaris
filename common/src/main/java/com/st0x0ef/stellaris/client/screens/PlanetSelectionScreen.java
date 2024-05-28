@@ -120,8 +120,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         for (PlanetInfo planet : PLANETS) {
             int planetWidth = (int) (planet.width * zoomLevel);
             int planetHeight = (int) (planet.height * zoomLevel);
-            float planetX = (float) ((planet.orbitCenter.x + offsetX + planet.orbitRadius * Math.cos(planet.currentAngle) - planetWidth / 2) * zoomLevel);
-            float planetY = (float) ((planet.orbitCenter.y + offsetY + planet.orbitRadius * Math.sin(planet.currentAngle) - planetHeight / 2) * zoomLevel);
+            float planetX = (float) ((planet.orbitCenter.x + offsetX + planet.orbitRadius * Math.cos(planet.currentAngle) - (double) planetWidth / 2) * zoomLevel);
+            float planetY = (float) ((planet.orbitCenter.y + offsetY + planet.orbitRadius * Math.sin(planet.currentAngle) - (double) planetHeight / 2) * zoomLevel);
 
             InvisibleButton button = new InvisibleButton(
                     (int) planetX, (int) planetY, planetWidth + 2, planetHeight + 2,
@@ -140,8 +140,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         for (MoonInfo moon : MOONS) {
             int moonWidth = (int) (moon.width * zoomLevel);
             int moonHeight = (int) (moon.height * zoomLevel);
-            float moonX = (float) ((moon.orbitCenter.x + offsetX + moon.orbitRadius * Math.cos(moon.currentAngle) - moonWidth / 2) * zoomLevel);
-            float moonY = (float) ((moon.orbitCenter.y + offsetY + moon.orbitRadius * Math.sin(moon.currentAngle) - moonHeight / 2) * zoomLevel);
+            float moonX = (float) ((moon.orbitCenter.x + offsetX + moon.orbitRadius * Math.cos(moon.currentAngle) - (double) moonWidth / 2) * zoomLevel);
+            float moonY = (float) ((moon.orbitCenter.y + offsetY + moon.orbitRadius * Math.sin(moon.currentAngle) - (double) moonHeight / 2) * zoomLevel);
 
             InvisibleButton button = new InvisibleButton(
                     (int) moonX, (int) moonY, moonWidth, moonHeight,
@@ -235,7 +235,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             graphics.blit(body.texture, (int) bodyX, (int) bodyY, 0, 0, bodyWidth, bodyHeight, bodyWidth, bodyHeight);
 
             int nameWidth = font.width(body.name);
-            graphics.drawString(font, body.translatable, (int) (bodyX + bodyWidth / 2 - nameWidth / 2), (int) (bodyY + bodyHeight), 0xFFFFFF);
+            graphics.drawString(font, body.translatable, (int) (bodyX + (float) bodyWidth / 2 - (float) nameWidth / 2), (int) (bodyY + bodyHeight), 0xFFFFFF);
         }
 
         for (PlanetInfo planet : PLANETS) {
@@ -253,7 +253,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             graphics.blit(planet.texture, (int) planetX, (int) planetY, 0, 0, planetWidth, planetHeight, planetWidth, planetHeight);
 
             int nameWidth = font.width(planet.name);
-            graphics.drawString(font, planet.name, (int) (planetX + planetWidth / 2 - nameWidth / 2), (int) (planetY + planetHeight), 0xFFFFFF);
+            graphics.drawString(font, planet.name, (int) (planetX + (float) planetWidth / 2 - (float) nameWidth / 2), (int) (planetY + planetHeight), 0xFFFFFF);
 
         }
 
@@ -280,8 +280,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             if (bodyToHighlight != null) {
                 int highlightWidth = (int) (bodyToHighlight.width * zoomLevel);
                 int highlightHeight = (int) (bodyToHighlight.height * zoomLevel);
-                float highlightX = (float) ((bodyToHighlight.x + offsetX) * zoomLevel - highlightWidth / 2);
-                float highlightY = (float) ((bodyToHighlight.y + offsetY) * zoomLevel - highlightHeight / 2);
+                float highlightX = (float) ((bodyToHighlight.x + offsetX) * zoomLevel - (double) highlightWidth / 2);
+                float highlightY = (float) ((bodyToHighlight.y + offsetY) * zoomLevel - (double) highlightHeight / 2);
 
                 currentHighlighterFrame = (currentHighlighterFrame + 1) % totalHighlighterFrames;
 

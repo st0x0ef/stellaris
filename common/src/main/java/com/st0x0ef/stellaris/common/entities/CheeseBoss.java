@@ -1,7 +1,10 @@
 package com.st0x0ef.stellaris.common.entities;
 
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
+import dev.architectury.networking.NetworkManager;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.BossEvent;
@@ -90,5 +93,10 @@ public class CheeseBoss extends Monster implements Enemy, RangedAttackMob {
     @Override
     public void performRangedAttack(LivingEntity target, float velocity) {
 
+    }
+
+    @Override
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
+        return NetworkManager.createAddEntityPacket(this);
     }
 }

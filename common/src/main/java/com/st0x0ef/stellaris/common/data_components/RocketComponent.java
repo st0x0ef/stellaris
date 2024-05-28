@@ -17,12 +17,6 @@ public record RocketComponent(String skin, int fuel) {
     public static final StreamCodec<ByteBuf, RocketComponent> STREAM_CODEC;
 
 
-    public RocketComponent(String skin, int fuel) {
-
-        this.skin = skin;
-        this.fuel = fuel;
-    }
-
     public int getFuel() {
         return fuel;
     }

@@ -2,6 +2,9 @@ package com.st0x0ef.stellaris.common.entities;
 
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
+import dev.architectury.networking.NetworkManager;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -42,5 +45,10 @@ public class IceShardArrowEntity extends AbstractArrow {
 
     static {
         DEFAULT_ARROW_STACK = new ItemStack(ItemsRegistry.ICE_SHARD_ARROW.get());
+    }
+
+    @Override
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
+        return NetworkManager.createAddEntityPacket(this);
     }
 }

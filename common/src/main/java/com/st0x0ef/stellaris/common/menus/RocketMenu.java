@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.common.menus;
 
 import com.st0x0ef.stellaris.common.entities.RocketEntity;
+import com.st0x0ef.stellaris.common.menus.slot.FuelBucketSlot;
 import com.st0x0ef.stellaris.common.menus.slot.ResultSlot;
 import com.st0x0ef.stellaris.common.menus.slot.SpecificItemsSlot;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
@@ -113,17 +114,5 @@ public class RocketMenu extends AbstractContainerMenu {
 
     public RocketEntity getRocket() {
         return rocket;
-    }
-
-    private class FuelBucketSlot extends Slot{
-
-        public FuelBucketSlot(Container container, int slot, int x, int y) {
-            super(container, slot, x, y);
-        }
-
-        @Override
-        public boolean mayPlace(ItemStack stack) {
-            return stack.is(ItemsRegistry.FUEL_BUCKET.get());
-        }
     }
 }
