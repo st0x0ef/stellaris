@@ -152,7 +152,7 @@ public class RocketItem extends Item {
         RocketComponent rocketComponent = stack.get(DataComponentsRegistry.ROCKET_COMPONENT.get());
         entity.getEntityData().set(RocketEntity.ROCKET_SKIN, rocketComponent.skin());
         entity.getEntityData().set(RocketEntity.FUEL, rocketComponent.getFuel());
-        entity.getEntityData().set(RocketEntity.ROCKET_MODEL, rocketComponent.getModel());
+        entity.getEntityData().set(RocketEntity.ROCKET_MODEL, rocketComponent.getModel().getSerializedName());
 
     }
 

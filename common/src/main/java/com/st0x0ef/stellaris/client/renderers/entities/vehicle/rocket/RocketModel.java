@@ -47,4 +47,15 @@ public enum RocketModel implements StringRepresentable {
     public String getSerializedName() {
         return name().toLowerCase();
     }
+
+    public static RocketModel fromString(String name) {
+        return switch (name) {
+            case "tiny" -> TINY;
+            case "small" -> SMALL;
+            case "normal" -> NORMAL;
+            case "big" -> BIG;
+            default -> NORMAL;
+        };
+
+    }
 }

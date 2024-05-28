@@ -56,7 +56,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     public static final EntityDataAccessor<Integer> START_TIMER = SynchedEntityData.defineId(RocketEntity.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<Boolean> ROCKET_START = SynchedEntityData.defineId(RocketEntity.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<String> ROCKET_SKIN = SynchedEntityData.defineId(RocketEntity.class, EntityDataSerializers.STRING);
-    public static final EntityDataAccessor<RocketModel> ROCKET_MODEL = SynchedEntityData.defineId(RocketEntity.class, EntityData.ROCKET_MODEL);
+    public static final EntityDataAccessor<String> ROCKET_MODEL = SynchedEntityData.defineId(RocketEntity.class, EntityDataSerializers.STRING);
 
     public static final EntityDataAccessor<Integer> FUEL = SynchedEntityData.defineId(RocketEntity.class, EntityDataSerializers.INT);
     public static final int MAX_FUEL = 10000;
@@ -73,7 +73,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         this.entityData.set(ROCKET_START, false);
         this.entityData.set(ROCKET_SKIN, DEFAULT_SKIN_TEXTURE);
         this.entityData.set(FUEL, 0);
-        this.entityData.set(ROCKET_MODEL, RocketModel.NORMAL);
+        this.entityData.set(ROCKET_MODEL, RocketModel.NORMAL.getSerializedName());
 
         this.inventory = new SimpleContainer(14);
     }
@@ -85,7 +85,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
                 .define(START_TIMER, 0)
                 .define(ROCKET_SKIN, DEFAULT_SKIN_TEXTURE)
                 .define(FUEL, 0)
-                .define(ROCKET_MODEL, RocketModel.NORMAL)
+                .define(ROCKET_MODEL, RocketModel.NORMAL.getSerializedName())
                 .build();
 
     }
@@ -114,6 +114,8 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     protected void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
 
+        compound.putString("model", this.getEntityData().get(ROCKET_MODEL));
+
         compound.put("InventoryCustom", this.inventory.createTag(registryAccess()));
         compound.putBoolean("rocket_start", this.getEntityData().get(ROCKET_START));
         compound.putInt("start_timer", this.getEntityData().get(START_TIMER));
@@ -127,6 +129,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         ListTag inventoryCustom = compound.getList("InventoryCustom", 10);
         this.inventory.fromTag(inventoryCustom, registryAccess());
 
+        this.getEntityData().set(ROCKET_MODEL, compound.getString("model"));
         this.getEntityData().set(ROCKET_START, compound.getBoolean("rocket_start"));
         this.getEntityData().set(START_TIMER, compound.getInt("start_timer"));
         this.getEntityData().set(FUEL, compound.getInt("fuel"));
@@ -360,7 +363,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     }
     public ItemStack getRocketItem() {
         ItemStack itemStack = new ItemStack(ItemsRegistry.ROCKET.get(), 1);
-        RocketComponent rocketComponent = new RocketComponent(this.getEntityData().get(ROCKET_SKIN), this.getEntityData().get(ROCKET_MODEL), this.getEntityData().get(FUEL));
+        RocketComponent rocketComponent = new RocketComponent(this.getEntityData().get(ROCKET_SKIN), RocketModel.fromString(this.getEntityData().get(ROCKET_MODEL)), this.getEntityData().get(FUEL));
         itemStack.set(DataComponentsRegistry.ROCKET_COMPONENT.get(), rocketComponent);
 
         return itemStack;
@@ -390,7 +393,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         }
 
         if (inventory.getItem(13).getItem() instanceof RocketModelItem item) {
-            this.getEntityData().set(ROCKET_MODEL, item.getModel());
+            this.getEntityData().set(ROCKET_MODEL, item.getModel().getSerializedName());
             this.spawnRocketItem();
             this.dropEquipment();
 
@@ -465,17 +468,14 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         this.getEntityData().set(ROCKET_SKIN, texture);
     }
 
-    public String getSkinTexture() {
-        return this.getEntityData().get(ROCKET_SKIN);
-    }
-
     public double getRocketSpeed() {
         return Mth.clamp(0.65 * 1, 0.7, 1.5);
     }
 
     public String getFullSkinTexture() {
-        String texture = this.getSkinTexture();
-        texture = texture.replace("normal", this.getEntityData().get(ROCKET_MODEL).toString());
+        String texture = this.getEntityData().get(ROCKET_SKIN);
+        texture = texture.replace("normal", this.getEntityData().get(ROCKET_MODEL));
+
         return texture;
     }
 

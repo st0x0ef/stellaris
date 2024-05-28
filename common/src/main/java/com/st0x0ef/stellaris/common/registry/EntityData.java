@@ -21,6 +21,7 @@ public class EntityData {
 
     public static void register() {
         DATA_PLANET_MENU_OPEN = SynchedEntityData.defineId(Player.class, EntityDataSerializers.BOOLEAN);
+
         ROCKET_MODEL = EntityDataSerializer.forValueType(RocketModel.STREAM_CODEC);
 
         EntityDataSerializers.registerSerializer(ROCKET_MODEL);

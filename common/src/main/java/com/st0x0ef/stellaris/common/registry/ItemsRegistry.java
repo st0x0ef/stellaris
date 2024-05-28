@@ -271,10 +271,17 @@ public class ItemsRegistry {
 
     /** Rocket */
     public static final RegistrySupplier<Item> ROCKET = ITEMS.register("rocket", () -> new RocketItem( new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.ROCKET_COMPONENT.get(), new RocketComponent(RocketEntity.DEFAULT_SKIN_TEXTURE, RocketModel.NORMAL, 0))));
+
     public static final RegistrySupplier<Item> FROSTY_ROCKET_SKIN = ITEMS.register("frozy_rocket_skin", () -> new RocketSkinItem(new ResourceLocation(Stellaris.MODID, "textures/vehicle/rocket_skin/normal/frozy.png"), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
-    public static final RegistrySupplier<Item> BASIC_ROCKET_SKIN = ITEMS.register("basic_rocket_skin", () -> new RocketSkinItem(new ResourceLocation(Stellaris.MODID, "textures/vehicle/rocket_skin/normal/standard.png"), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> STANDARD_ROCKET_SKIN = ITEMS.register("standard_rocket_skin", () -> new RocketSkinItem(new ResourceLocation(Stellaris.MODID, "textures/vehicle/rocket_skin/normal/standard.png"), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> GALAXY_ROCKET_SKIN = ITEMS.register("galaxy_rocket_skin", () -> new RocketSkinItem(new ResourceLocation(Stellaris.MODID, "textures/vehicle/rocket_skin/normal/galaxy.png"), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> MILITARY_ROCKET_SKIN = ITEMS.register("military_rocket_skin", () -> new RocketSkinItem(new ResourceLocation(Stellaris.MODID, "textures/vehicle/rocket_skin/normal/frozy.png"), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> RUSTY_ROCKET_SKIN = ITEMS.register("rusty_rocket_skin", () -> new RocketSkinItem(new ResourceLocation(Stellaris.MODID, "textures/vehicle/rocket_skin/normal/rusty.png"), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
 
 
     public static final RegistrySupplier<Item> TINY_ROCKET_UPGRADE = ITEMS.register("tiny_rocket_upgrade", () -> new RocketModelItem(RocketModel.TINY, new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> SMALL_ROCKET_UPGRADE = ITEMS.register("small_rocket_upgrade", () -> new RocketModelItem(RocketModel.SMALL, new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> NORMAL_ROCKET_UPGRADE = ITEMS.register("normal_rocket_upgrade", () -> new RocketModelItem(RocketModel.NORMAL, new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> BIG_ROCKET_UPGRADE = ITEMS.register("big_rocket_upgrade", () -> new RocketModelItem(RocketModel.BIG, new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
 
 }
