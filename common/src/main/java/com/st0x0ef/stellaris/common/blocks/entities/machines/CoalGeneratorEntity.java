@@ -1,8 +1,8 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
 import com.st0x0ef.stellaris.common.blocks.machines.CoalGenerator;
-import com.st0x0ef.stellaris.common.energy.EnergyApi;
-import com.st0x0ef.stellaris.common.energy.impl.WrappedBlockEnergyContainer;
+import com.st0x0ef.stellaris.common.systems.energy.EnergyApi;
+import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedBlockEnergyContainer;
 import com.st0x0ef.stellaris.common.menus.CoalGeneratorMenu;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;

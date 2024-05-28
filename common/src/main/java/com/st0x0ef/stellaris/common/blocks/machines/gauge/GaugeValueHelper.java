@@ -1,8 +1,8 @@
 package com.st0x0ef.stellaris.common.blocks.machines.gauge;
 
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.energy.impl.WrappedBlockEnergyContainer;
-import com.st0x0ef.stellaris.common.energy.impl.WrappedItemEnergyContainer;
+import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedBlockEnergyContainer;
+import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedItemEnergyContainer;
 import net.minecraft.resources.ResourceLocation;
 
 public class GaugeValueHelper
