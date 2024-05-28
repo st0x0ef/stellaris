@@ -10,7 +10,9 @@
     "PlayerDataMixin",
     "ItemEntityGravityMixin"
   ],
-  "client": [],
+  "client": [
+    "client.PlayerLanderRendererMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   }
