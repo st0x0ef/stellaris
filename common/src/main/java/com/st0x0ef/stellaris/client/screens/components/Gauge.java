@@ -46,12 +46,6 @@ public class Gauge extends AbstractWidget {
 
         ScreenHelper.drawTexture(getX(), getY(), width, height, FLUID_TANK_OVERLAY, false);
 
-        if (mouseX >= getX() && mouseX <= getX() + width && mouseY >= getY() && mouseY <= getY() + height) {
-
-            graphics.renderTooltip(Minecraft.getInstance().font,
-                    getGaugeTooltip(), mouseX, mouseY);
-        }
-
     }
 
     @Override
@@ -61,7 +55,7 @@ public class Gauge extends AbstractWidget {
 
     public Component getGaugeTooltip() {
         if(value >= max_value) {
-            return Component.translatable("screen.stellaris.gauge", Utils.betterIntToString(value), Utils.betterIntToString(max_value)).withColor(Utils.getColorHexCode("green"));
+            return Component.translatable("screen.stellaris.gauge", Utils.betterIntToString(value), Utils.betterIntToString(max_value)).withColor(Utils.getColorHexCode("lime"));
         } else {
             return Component.translatable("screen.stellaris.gauge", Utils.betterIntToString(value), Utils.betterIntToString(max_value)).withColor(Utils.getColorHexCode("red"));
         }

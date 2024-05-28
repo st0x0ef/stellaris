@@ -5,6 +5,9 @@ import com.st0x0ef.stellaris.common.entities.LanderEntity;
 import com.st0x0ef.stellaris.common.entities.RocketEntity;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import com.st0x0ef.stellaris.platform.TeleportUtil;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextColor;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.Entity;
@@ -173,7 +176,7 @@ public class Utils {
             case "dark_red":
                 return 0x8B0000;
             default:
-                throw new IllegalArgumentException("Unknown color : " + colorName);
+                return 0xFFFFFF;
         }
     }
 
@@ -181,6 +184,14 @@ public class Utils {
         if (i == 0) return "0";
 
         return (i % 1000) + "K";
+    }
+
+    public static Component getMessageComponent(String text, String color) {
+        return Component.literal(text).setStyle(Style.EMPTY.withColor(TextColor.fromRgb(Utils.getColorHexCode(color))));
+    }
+
+    public static Component getMessageComponent(String text, int color) {
+        return Component.literal(text).setStyle(Style.EMPTY.withColor(TextColor.fromRgb(color)));
     }
 
     /**

@@ -5,12 +5,16 @@ import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.components.Gauge;
 import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
 import com.st0x0ef.stellaris.common.menus.RocketMenu;
+import com.st0x0ef.stellaris.common.utils.Utils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
@@ -24,6 +28,7 @@ public class RocketScreen extends AbstractContainerScreen<RocketMenu> {
 
     public int rocket_fuel = 0;
     public int max_fuel = this.getMenu().getRocket().MAX_FUEL;
+    public Component Capacity;
 
     public static final Component Fuel = Component.translatable("text.stellaris.rocketscreen.fuel");
 
@@ -43,8 +48,22 @@ public class RocketScreen extends AbstractContainerScreen<RocketMenu> {
         this.renderTooltip(graphics, mouseX, mouseY);
 
         rocket_fuel = this.getMenu().getRocket().getFuel();
+        String GaugeComponent = Fuel.getString() + " : " + rocket_fuel + " / " + max_fuel;
 
         Gauge gauge = new Gauge(this.leftPos + 51, this.topPos + 27, 12, 46, Fuel, fuel_overlay, rocket_fuel, max_fuel);
+
+        if (rocket_fuel >= max_fuel) {
+            Capacity = Utils.getMessageComponent(GaugeComponent, "Lime");
+        } else if (rocket_fuel <= 0) {
+            Capacity = Utils.getMessageComponent(GaugeComponent, "Red");
+        } else {
+            Capacity = Utils.getMessageComponent(GaugeComponent, "Orange");
+        }
+
+        if (mouseX >= this.leftPos + 51 && mouseX <= this.leftPos + 51 + 12 && mouseY >= this.topPos + 27 && mouseY <= this.topPos + 27 + 46) {
+            graphics.renderTooltip(this.font, Capacity, mouseX, mouseY);
+        }
+
         this.addRenderableWidget(gauge);
     }
 
