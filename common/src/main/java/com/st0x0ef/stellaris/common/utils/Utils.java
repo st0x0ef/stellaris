@@ -186,8 +186,9 @@ public class Utils {
         return (i % 1000) + "K";
     }
 
+    /** gui convenience feature */
     public static Component getMessageComponent(String text, String color) {
-        return Component.literal(text).setStyle(Style.EMPTY.withColor(TextColor.fromRgb(Utils.getColorHexCode(color))));
+        return Component.literal(text).setStyle(Style.EMPTY.withColor(TextColor.fromRgb(getColorHexCode(color))));
     }
 
     public static Component getMessageComponent(String text, int color) {
