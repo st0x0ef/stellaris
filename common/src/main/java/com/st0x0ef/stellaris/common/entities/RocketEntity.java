@@ -93,13 +93,10 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     @Override
     public void tick() {
         super.tick();
-//        this.rotateRocket();
-//        this.checkOnBlocks();
 
         this.rocketExplosion();
         this.burnEntities();
         this.checkContainer();
-
         if (this.entityData.get(ROCKET_START)) {
             this.spawnParticle();
             this.startTimerAndFlyMovement();
@@ -115,6 +112,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         super.addAdditionalSaveData(compound);
 
         compound.putString("model", this.getEntityData().get(ROCKET_MODEL));
+        compound.putString("skin", this.getEntityData().get(ROCKET_SKIN));
 
         compound.put("InventoryCustom", this.inventory.createTag(registryAccess()));
         compound.putBoolean("rocket_start", this.getEntityData().get(ROCKET_START));
@@ -129,6 +127,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         ListTag inventoryCustom = compound.getList("InventoryCustom", 10);
         this.inventory.fromTag(inventoryCustom, registryAccess());
 
+        this.getEntityData().set(ROCKET_SKIN, compound.getString("skin"));
         this.getEntityData().set(ROCKET_MODEL, compound.getString("model"));
         this.getEntityData().set(ROCKET_START, compound.getBoolean("rocket_start"));
         this.getEntityData().set(START_TIMER, compound.getInt("start_timer"));
@@ -425,6 +424,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     }
 
 
+
     private void openPlanetMenu(Player player) {
         if(player == null) return;
 
@@ -474,7 +474,9 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
     public String getFullSkinTexture() {
         String texture = this.getEntityData().get(ROCKET_SKIN);
-        texture = texture.replace("normal", this.getEntityData().get(ROCKET_MODEL));
+        if(this.getEntityData().get(ROCKET_MODEL) != "" || this.getEntityData().get(ROCKET_MODEL) != null) {
+            texture = texture.replace("normal", this.getEntityData().get(ROCKET_MODEL));
+        }
 
         return texture;
     }
