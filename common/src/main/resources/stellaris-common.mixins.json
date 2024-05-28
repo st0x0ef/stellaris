@@ -7,7 +7,8 @@
     "EntityEatMixin",
     "EntityTick",
     "LivingEntityMixin",
-    "PlayerDataMixin"
+    "PlayerDataMixin",
+    "ItemEntityGravityMixin"
   ],
   "client": [],
   "injectors": {
