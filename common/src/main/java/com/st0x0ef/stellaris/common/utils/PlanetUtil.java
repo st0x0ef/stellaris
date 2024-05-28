@@ -71,4 +71,16 @@ public class PlanetUtil {
     public Planet getPlanetFromDim(ResourceKey<Level> dim) {
         return StellarisData.getPlanet(dim);
     }
+
+    public boolean getOxygen(ResourceKey<Level> dim) {
+        return getPlanet(dim).oxygen();
+    }
+
+    public float getTemperature(ResourceKey<Level> dim) {
+        return getPlanet(dim).temperature();
+    }
+
+    public String getSystem(ResourceKey<Level> dim) {
+        return getPlanet(dim).system();
+    }
 }
