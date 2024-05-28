@@ -5,7 +5,7 @@ import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.SolarPanelEntity;
 import com.st0x0ef.stellaris.common.blocks.machines.gauge.GaugeTextHelper;
 import com.st0x0ef.stellaris.common.blocks.machines.gauge.GaugeValueHelper;
-import com.st0x0ef.stellaris.common.energy.impl.WrappedBlockEnergyContainer;
+import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedBlockEnergyContainer;
 import com.st0x0ef.stellaris.common.menus.SolarPanelMenu;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

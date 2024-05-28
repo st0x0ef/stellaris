@@ -2,8 +2,8 @@ package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
 import com.google.common.collect.Maps;
 import com.st0x0ef.stellaris.common.config.CustomConfig;
-import com.st0x0ef.stellaris.common.energy.EnergyApi;
-import com.st0x0ef.stellaris.common.energy.impl.WrappedBlockEnergyContainer;
+import com.st0x0ef.stellaris.common.systems.energy.EnergyApi;
+import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedBlockEnergyContainer;
 import com.st0x0ef.stellaris.common.items.RadioactiveItem;
 import com.st0x0ef.stellaris.common.menus.RadioactiveGeneratorMenu;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
