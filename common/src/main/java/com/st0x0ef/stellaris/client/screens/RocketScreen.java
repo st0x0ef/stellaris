@@ -25,7 +25,7 @@ public class RocketScreen extends AbstractContainerScreen<RocketMenu> {
 
     public int rocket_fuel = 0;
     public int max_fuel = RocketEntity.MAX_FUEL;
-    public Component Capacity;
+    public Component capacity;
 
     public static final Component Fuel = Component.translatable("text.stellaris.rocketscreen.fuel");
 
@@ -50,18 +50,20 @@ public class RocketScreen extends AbstractContainerScreen<RocketMenu> {
         Gauge gauge = new Gauge(this.leftPos + 51, this.topPos + 27, 12, 46, Fuel, fuel_overlay, rocket_fuel, max_fuel);
 
         if (rocket_fuel >= max_fuel) {
-            Capacity = Utils.getMessageComponent(GaugeComponent, "Lime");
+            capacity = Utils.getMessageComponent(GaugeComponent, "Lime");
         } else if (rocket_fuel <= 0) {
-            Capacity = Utils.getMessageComponent(GaugeComponent, "Red");
+            capacity = Utils.getMessageComponent(GaugeComponent, "Red");
         } else {
-            Capacity = Utils.getMessageComponent(GaugeComponent, "Orange");
+            capacity = Utils.getMessageComponent(GaugeComponent, "Orange");
         }
 
         if (mouseX >= this.leftPos + 51 && mouseX <= this.leftPos + 51 + 12 && mouseY >= this.topPos + 27 && mouseY <= this.topPos + 27 + 46) {
-            graphics.renderTooltip(this.font, Capacity, mouseX, mouseY);
+            graphics.renderTooltip(this.font, capacity, mouseX, mouseY);
         }
 
         this.addRenderableWidget(gauge);
+
+
     }
 
     @Override
