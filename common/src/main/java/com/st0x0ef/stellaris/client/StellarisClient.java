@@ -24,8 +24,14 @@ import com.st0x0ef.stellaris.client.renderers.entities.starcrawler.StarCrawlerMo
 import com.st0x0ef.stellaris.client.renderers.entities.starcrawler.StarCrawlerRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.lander.LanderModel;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.lander.LanderRenderer;
+import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.big.BigRocketModel;
+import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.big.BigRocketRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.normal.NormalRocketModel;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.normal.NormalRocketRenderer;
+import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.small.SmallRocketModel;
+import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.small.SmallRocketRenderer;
+import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.tiny.TinyRocketModel;
+import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.tiny.TinyRocketRenderer;
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeBlockRenderer;
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeModel;
 import com.st0x0ef.stellaris.client.screens.*;
@@ -63,8 +69,13 @@ public class StellarisClient {
         EntityModelLayerRegistry.register(CheeseBossModel.LAYER_LOCATION, CheeseBossModel::createBodyLayer);
 
         EntityModelLayerRegistry.register(GlobeModel.LAYER_LOCATION, GlobeModel::createLayer);
-        EntityModelLayerRegistry.register(NormalRocketModel.LAYER_LOCATION, NormalRocketModel::createBodyLayer);
         EntityModelLayerRegistry.register(LanderModel.LAYER_LOCATION, LanderModel::createBodyLayer);
+
+        EntityModelLayerRegistry.register(TinyRocketModel.LAYER_LOCATION, TinyRocketModel::createBodyLayer);
+        EntityModelLayerRegistry.register(SmallRocketModel.LAYER_LOCATION, SmallRocketModel::createBodyLayer);
+        EntityModelLayerRegistry.register(NormalRocketModel.LAYER_LOCATION, NormalRocketModel::createBodyLayer);
+        EntityModelLayerRegistry.register(BigRocketModel.LAYER_LOCATION, BigRocketModel::createBodyLayer);
+
 
     }
     public static void registerEntityRenderer() {
@@ -79,7 +90,12 @@ public class StellarisClient {
 
         EntityRendererRegistry.register(EntityRegistry.ICE_SPIT, renderManager -> new ThrownItemRenderer<>(renderManager, 1, true));
         EntityRendererRegistry.register(EntityRegistry.ICE_SHARD_ARROW, IceShardArrowRenderer::new);
-        EntityRendererRegistry.register(EntityRegistry.ROCKET, NormalRocketRenderer::new);
+
+        EntityRendererRegistry.register(EntityRegistry.NORMAL_ROCKET, NormalRocketRenderer::new);
+        EntityRendererRegistry.register(EntityRegistry.TINY_ROCKET, TinyRocketRenderer::new);
+        EntityRendererRegistry.register(EntityRegistry.SMALL_ROCKET, SmallRocketRenderer::new);
+        EntityRendererRegistry.register(EntityRegistry.BIG_ROCKET, BigRocketRenderer::new);
+
         EntityRendererRegistry.register(EntityRegistry.LANDER, LanderRenderer::new);
 
 

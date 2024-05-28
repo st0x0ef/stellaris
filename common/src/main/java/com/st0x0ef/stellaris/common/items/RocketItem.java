@@ -14,6 +14,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -52,7 +53,7 @@ public class RocketItem extends Item {
             BlockPlaceContext blockplacecontext = new BlockPlaceContext(context);
             BlockPos blockpos = blockplacecontext.getClickedPos();
             Vec3 vec3 = Vec3.upFromBottomCenterOf(blockpos, this.getRocketPlaceHigh());
-            AABB aabb = EntityRegistry.ROCKET.get().getDimensions().makeBoundingBox(vec3.x(), vec3.y(), vec3.z());
+            AABB aabb = EntityRegistry.NORMAL_ROCKET.get().getDimensions().makeBoundingBox(vec3.x(), vec3.y(), vec3.z());
 
             if (level.noCollision(aabb)) {
                 /** POS */
@@ -65,7 +66,7 @@ public class RocketItem extends Item {
                 List<Entity> entities = player.getCommandSenderWorld().getEntitiesOfClass(Entity.class, scanAbove);
 
                 if (entities.isEmpty()) {
-                    RocketEntity rocket = this.getRocket(context.getLevel());
+                    RocketEntity rocket = this.getRocket(context.getLevel(), itemStack);
                     /** SET PRE POS */
                     rocket.setPos(pos.getX() + 0.5D,  pos.getY() + 1, pos.getZ() + 0.5D);
 
@@ -102,9 +103,25 @@ public class RocketItem extends Item {
         return super.useOn(context);
     }
 
+    public EntityType<? extends RocketEntity> getEntityType(ItemStack stack) {
+        RocketComponent rocketComponent = stack.get(DataComponentsRegistry.ROCKET_COMPONENT.get());
+        return switch (rocketComponent.getModel().toString()) {
+            case "small" -> EntityRegistry.SMALL_ROCKET.get();
+            case "normal" -> EntityRegistry.NORMAL_ROCKET.get();
+            case "big" -> EntityRegistry.BIG_ROCKET.get();
+            default -> EntityRegistry.TINY_ROCKET.get();
+        };
+    }
+
+    public RocketEntity getRocket(Level level, ItemStack stack) {
+        return new RocketEntity(getEntityType(stack), level);
+    }
+
+
+
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        RocketComponent rocketComponent = stack.get(DataComponentsRegistry.MAX_STACK_SIZE.get());
+        RocketComponent rocketComponent = stack.get(DataComponentsRegistry.ROCKET_COMPONENT.get());
         if(rocketComponent == null) return;
 
         tooltipComponents.add(Component.literal("Rocket Skin: " + rocketComponent.skin()));
@@ -121,9 +138,6 @@ public class RocketItem extends Item {
         world.playSound(null, pos, SoundEvents.STONE_BREAK, SoundSource.BLOCKS, 1,1);
     }
 
-    public RocketEntity getRocket(Level level) {
-        return new RocketEntity(EntityRegistry.ROCKET.get(), level);
-    }
     protected static double getYOffset(LevelReader reader, BlockPos pos, boolean p_20628_, AABB p_20629_) {
         AABB aabb = new AABB(pos);
         if (p_20628_) {
@@ -135,9 +149,10 @@ public class RocketItem extends Item {
     }
 
     private void addRocketInfos(RocketEntity entity, ItemStack stack) {
-        RocketComponent rocketComponent = stack.get(DataComponentsRegistry.MAX_STACK_SIZE.get());
+        RocketComponent rocketComponent = stack.get(DataComponentsRegistry.ROCKET_COMPONENT.get());
         entity.getEntityData().set(RocketEntity.ROCKET_SKIN, rocketComponent.skin());
-        entity.getEntityData().set(RocketEntity.FUEL, rocketComponent.fuel());
+        entity.getEntityData().set(RocketEntity.FUEL, rocketComponent.getFuel());
+        entity.getEntityData().set(RocketEntity.ROCKET_MODEL, rocketComponent.getModel());
 
     }
 

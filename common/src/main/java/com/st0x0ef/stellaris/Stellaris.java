@@ -42,6 +42,8 @@ public class Stellaris {
         registerPacks();
 
         NetworkRegistry.register();
+        EntityData.register();
+
         DataComponentsRegistry.DATA_COMPONENT_TYPE.register();
 
         FluidRegistry.FLUIDS.register();
@@ -58,7 +60,6 @@ public class Stellaris {
         SoundRegistry.SOUNDS.register();
         FeaturesRegistry.FEATURES.register();
         CommandsRegistry.register();
-        EntityData.register();
 
         ReloadListenerRegistry.register(PackType.SERVER_DATA, new StellarisData());
 

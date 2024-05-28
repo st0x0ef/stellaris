@@ -11,7 +11,7 @@ public class DataComponentsRegistry {
 
     public static final DeferredRegister<DataComponentType<?>> DATA_COMPONENT_TYPE = DeferredRegister.create(Stellaris.MODID, Registries.DATA_COMPONENT_TYPE);
 
-    public static final RegistrySupplier<DataComponentType<RocketComponent>> MAX_STACK_SIZE = DATA_COMPONENT_TYPE.register("rocket_component",
+    public static final RegistrySupplier<DataComponentType<RocketComponent>> ROCKET_COMPONENT = DATA_COMPONENT_TYPE.register("rocket_component",
             () -> DataComponentType.<RocketComponent>builder().persistent(RocketComponent.CODEC).networkSynchronized(RocketComponent.STREAM_CODEC).build());
 
 }

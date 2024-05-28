@@ -2,7 +2,9 @@ package com.st0x0ef.stellaris.common.entities;
 
 import com.google.common.collect.Sets;
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.RocketModel;
 import com.st0x0ef.stellaris.common.data_components.RocketComponent;
+import com.st0x0ef.stellaris.common.items.upgrade.RocketModelItem;
 import com.st0x0ef.stellaris.common.items.upgrade.RocketSkinItem;
 import com.st0x0ef.stellaris.common.menus.RocketMenu;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
@@ -54,6 +56,8 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     public static final EntityDataAccessor<Integer> START_TIMER = SynchedEntityData.defineId(RocketEntity.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<Boolean> ROCKET_START = SynchedEntityData.defineId(RocketEntity.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<String> ROCKET_SKIN = SynchedEntityData.defineId(RocketEntity.class, EntityDataSerializers.STRING);
+    public static final EntityDataAccessor<RocketModel> ROCKET_MODEL = SynchedEntityData.defineId(RocketEntity.class, EntityData.ROCKET_MODEL);
+
     public static final EntityDataAccessor<Integer> FUEL = SynchedEntityData.defineId(RocketEntity.class, EntityDataSerializers.INT);
     public static final int MAX_FUEL = 10000;
 
@@ -69,6 +73,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         this.entityData.set(ROCKET_START, false);
         this.entityData.set(ROCKET_SKIN, DEFAULT_SKIN_TEXTURE);
         this.entityData.set(FUEL, 0);
+        this.entityData.set(ROCKET_MODEL, RocketModel.NORMAL);
 
         this.inventory = new SimpleContainer(14);
     }
@@ -80,6 +85,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
                 .define(START_TIMER, 0)
                 .define(ROCKET_SKIN, DEFAULT_SKIN_TEXTURE)
                 .define(FUEL, 0)
+                .define(ROCKET_MODEL, RocketModel.NORMAL)
                 .build();
 
     }
@@ -354,8 +360,8 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     }
     public ItemStack getRocketItem() {
         ItemStack itemStack = new ItemStack(ItemsRegistry.ROCKET.get(), 1);
-        RocketComponent rocketComponent = new RocketComponent(this.getEntityData().get(ROCKET_SKIN), this.getEntityData().get(FUEL));
-        itemStack.set(DataComponentsRegistry.MAX_STACK_SIZE.get(), rocketComponent);
+        RocketComponent rocketComponent = new RocketComponent(this.getEntityData().get(ROCKET_SKIN), this.getEntityData().get(ROCKET_MODEL), this.getEntityData().get(FUEL));
+        itemStack.set(DataComponentsRegistry.ROCKET_COMPONENT.get(), rocketComponent);
 
         return itemStack;
     }
@@ -381,6 +387,18 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     private void checkContainer() {
         if (inventory.getItem(12).getItem() instanceof RocketSkinItem item) {
             this.getEntityData().set(ROCKET_SKIN, item.getRocketSkinName().toString());
+        }
+
+        if (inventory.getItem(13).getItem() instanceof RocketModelItem item) {
+            this.getEntityData().set(ROCKET_MODEL, item.getModel());
+            this.spawnRocketItem();
+            this.dropEquipment();
+
+            if (!this.level().isClientSide) {
+                this.remove(RemovalReason.DISCARDED);
+            }
+
+
         }
 
         if (inventory.getItem(0).is(ItemsRegistry.FUEL_BUCKET.get())) {
@@ -451,10 +469,14 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         return this.getEntityData().get(ROCKET_SKIN);
     }
 
-
-
     public double getRocketSpeed() {
         return Mth.clamp(0.65 * 1, 0.7, 1.5);
+    }
+
+    public String getFullSkinTexture() {
+        String texture = this.getSkinTexture();
+        texture = texture.replace("normal", this.getEntityData().get(ROCKET_MODEL).toString());
+        return texture;
     }
 
 }
