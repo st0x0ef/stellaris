@@ -19,31 +19,24 @@ public class CustomConfig {
         loadConfigFile();
         addEntries();
         writeConfigFile("stellaris.json");
-
     }
 
 
     public static void addEntries() {
 
-        addEntry("radioactivityCheckInterval", new ConfigEntry<Long>(5L, "This is a ranged Int"));
+        addEntry("radioactivityCheckInterval", new ConfigEntry<>(5L, "This is a ranged Int"));
         //do we need this?
         //addEntry("test", new ConfigEntry<Integer>(5, "This is a ranged Int"));
         //Change these if necessary
-        addEntry("uraniumBurnTime", new ConfigEntry<Integer>(/*coalBurnTime*5 */8000,"Burn time for uranium ingot in Radioactive Generator"));
-        addEntry("plutoniumBurnTime", new ConfigEntry<Integer>(/*uraniumBurnTime*1.5 */12000,"Burn time for plutonium ingot in Radioactive Generator"));
-        addEntry("neptuniumBurnTime", new ConfigEntry<Integer>(/*uraniumBurnTime*2 */16000,"Burn time for neptunium ingot in Radioactive Generator"));
+        addEntry("uraniumBurnTime", new ConfigEntry<>(/*coalBurnTime*5 */8000, "Burn time for uranium ingot in Radioactive Generator"));
+        addEntry("plutoniumBurnTime", new ConfigEntry<>(/*uraniumBurnTime*1.5 */12000, "Burn time for plutonium ingot in Radioactive Generator"));
+        addEntry("neptuniumBurnTime", new ConfigEntry<>(/*uraniumBurnTime*2 */16000, "Burn time for neptunium ingot in Radioactive Generator"));
 
+        addEntry("maxOxygenPerBlock", new ConfigEntry<>(5, "The maximum amount of oxygen stored in each block"));
     }
 
     public static void addEntry(String name, ConfigEntry<?> entry) {
-
-        if(CONFIG.get(name) == null) {
-            CONFIG.put(name, entry);
-        } else {
-
-            CONFIG.put(name, new ConfigEntry(CONFIG.get(name).getValue(), entry.getDescription()));
-        }
-
+        CONFIG.merge(name, entry, (a, b) -> new ConfigEntry<>(a.getValue(), b.getDescription()));
     }
 
     public static void writeConfigFile(String path) {
@@ -75,8 +68,7 @@ public class CustomConfig {
 
     }
 
-    public static String readFileAsString(String file) throws Exception
-    {
+    public static String readFileAsString(String file) throws Exception {
         return new String(Files.readAllBytes(Paths.get(file)));
     }
 

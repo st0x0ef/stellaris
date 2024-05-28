@@ -2,9 +2,7 @@ package com.st0x0ef.stellaris.common.blocks.entities.machines.oxygen;
 
 import com.st0x0ef.stellaris.common.oxygen.OxygenContainer;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;

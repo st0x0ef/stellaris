@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class OxygenPropagatorBlockEntity extends OxygenBlockEntity {
 
     public OxygenPropagatorBlockEntity(BlockPos pos, BlockState blockState) {
-        super(BlockEntityRegistry.OXYGEN_PROPAGATOR.get(), pos, blockState, new OxygenContainer(0), 0); // TODO change range and power values
+        super(BlockEntityRegistry.OXYGEN_PROPAGATOR.get(), pos, blockState, new OxygenContainer(0), 32);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class OxygenPropagatorBlockEntity extends OxygenBlockEntity {
 
     @Override
     protected Component getDefaultName() {
-        return Component.literal("Oxygen Propagator");
+        return null;
     }
 
     @Override
