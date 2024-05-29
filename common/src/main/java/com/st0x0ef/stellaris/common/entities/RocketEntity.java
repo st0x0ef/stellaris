@@ -172,7 +172,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
     @Override
     public Vec3 getPassengerRidingPosition(Entity entity) {
-        return this.position().add(this.getPassengerAttachmentPoint(entity, getDimensions(this.getPose()),1.0F)).subtract(0d,3.15d,0d);
+        return this.position().add(this.getPassengerAttachmentPoint(entity, getDimensions(this.getPose()),1.0F));
     }
 
     @Override
@@ -411,11 +411,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
             return;
         }
         int newFuel = oldFuel + value;
-        if(newFuel <= MAX_FUEL) {
-            this.getEntityData().set(FUEL, newFuel);
-        } else {
-            this.getEntityData().set(FUEL, MAX_FUEL);
-        }
+        this.getEntityData().set(FUEL, Math.min(newFuel, MAX_FUEL));
         inventory.removeItem(0, 1);
         inventory.setItem(1, new ItemStack(Items.BUCKET, inventory.getItem(1).getCount()+1));
     }

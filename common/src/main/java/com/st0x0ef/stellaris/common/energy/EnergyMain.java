@@ -10,14 +10,14 @@ import java.util.stream.Collectors;
 public class EnergyMain {
     public static final String STELLARIS_DATA = "StellarisData";
 
-    public static <T, U> Map<T, U> finalizeRegistration(Map<Supplier<T>, U> unfinalized, @Nullable Map<T, U> finalized) {
+    public static <T, U> Map finalizeRegistration(Map<Supplier<T>, U> unfinalized, @Nullable Map<T, U> finalized) {
         if (finalized == null) {
-            Map<T, U> collected = unfinalized.entrySet().stream().map(entry -> Pair.of(entry.getKey().get(), entry.getValue())).collect(Collectors.toUnmodifiableMap(Pair::getFirst, Pair::getSecond));
+            Map collected = unfinalized.entrySet().stream().map((entry) -> Pair.of(((Supplier<?>)entry.getKey()).get(), entry.getValue())).collect(Collectors.toUnmodifiableMap(Pair::getFirst, Pair::getSecond));
             unfinalized.clear();
             return collected;
+        } else {
+            return finalized;
         }
-
-        return finalized;
     }
 
 }

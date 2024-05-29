@@ -5,13 +5,14 @@ import com.st0x0ef.stellaris.common.energy.generic.base.EntityContainerLookup;
 import com.st0x0ef.stellaris.common.energy.generic.base.ItemContainerLookup;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
-import org.apache.commons.lang3.NotImplementedException;
 import org.jetbrains.annotations.Nullable;
 
 public class LookupApi {
+    public LookupApi() {
+    }
 
     public static <T, C> BlockContainerLookup<T, C> createBlockLookup(ResourceLocation name, Class<T> typeClass, Class<C> contextClass) {
-        throw new NotImplementedException();
+        return new FabricBlockContainerLookup(name, typeClass, contextClass);
     }
 
     public static <T> BlockContainerLookup<T, @Nullable Direction> createBlockLookup(ResourceLocation name, Class<T> typeClass) {
@@ -19,7 +20,7 @@ public class LookupApi {
     }
 
     public static <T, C> ItemContainerLookup<T, C> createItemLookup(ResourceLocation name, Class<T> typeClass, Class<C> contextClass) {
-        throw new NotImplementedException();
+        return new FabricItemContainerLookup(name, typeClass, contextClass);
     }
 
     public static <T> ItemContainerLookup<T, Void> createItemLookup(ResourceLocation name, Class<T> typeClass) {
@@ -27,7 +28,7 @@ public class LookupApi {
     }
 
     public static <T, C> EntityContainerLookup<T, C> createEntityLookup(ResourceLocation name, Class<T> typeClass, Class<C> contextClass) {
-        throw new NotImplementedException();
+        return new FabricEntityContainerLookup(name, typeClass, contextClass);
     }
 
     public static <T> EntityContainerLookup<T, Void> createEntityLookup(ResourceLocation name, Class<T> typeClass) {

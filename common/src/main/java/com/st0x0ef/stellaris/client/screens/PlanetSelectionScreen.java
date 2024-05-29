@@ -64,6 +64,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     public static final Component launch = Component.translatable("text.stellaris.planetscreen.launch");
     public static final Component oxygen = Component.translatable("text.stellaris.planetscreen.oxygen");
     public static final Component system = Component.translatable("text.stellaris.planetscreen.system");
+    public static final Component error_message = Component.translatable("text.stellaris.planetscreen.error_message");
 
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private static final long UPDATE_INTERVAL = 1L;
@@ -188,9 +189,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     }
 
     private void onLaunchButtonClick() {
-        if (focusedBody != null) {
+        if (focusedBody != null && focusedBody.dimension != null) {
             showLargeMenu = false;
-
             tpToFocusedPlanet();
         }
     }

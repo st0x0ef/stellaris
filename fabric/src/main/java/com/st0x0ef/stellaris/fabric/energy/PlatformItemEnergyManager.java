@@ -12,110 +12,183 @@ import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 
 public record PlatformItemEnergyManager(ItemStackHolder holder, ContainerItemContext context, EnergyStorage energy) implements EnergyContainer {
+    public PlatformItemEnergyManager(ItemStackHolder holder, ContainerItemContext context, EnergyStorage energy) {
+        this.holder = holder;
+        this.context = context;
+        this.energy = energy;
+    }
 
-    @Nullable
-    public static PlatformItemEnergyManager of(ItemStackHolder stack) {
+    public static @Nullable PlatformItemEnergyManager of(ItemStackHolder stack) {
         ContainerItemContext context = ItemStackStorage.of(stack.getStack());
-        var fabricEnergy = EnergyStorage.ITEM.find(stack.getStack(), context);
+        EnergyStorage fabricEnergy = EnergyStorage.ITEM.find(stack.getStack(), context);
         return fabricEnergy == null ? null : new PlatformItemEnergyManager(stack, context, fabricEnergy);
     }
 
-    @Override
     public long insertEnergy(long maxAmount, boolean simulate) {
-        try (Transaction txn = Transaction.openOuter()) {
-            long insert = energy.insert(maxAmount, txn);
-            if (simulate) txn.abort();
-            else {
+        Transaction txn = Transaction.openOuter();
+
+        long var7;
+        try {
+            long insert = this.energy.insert(maxAmount, txn);
+            if (simulate) {
+                txn.abort();
+            } else {
                 txn.commit();
-                holder.setStack(context.getItemVariant().toStack());
+                this.holder.setStack(this.context.getItemVariant().toStack());
             }
-            return insert;
+
+            var7 = insert;
+        } catch (Throwable var10) {
+            if (txn != null) {
+                try {
+                    txn.close();
+                } catch (Throwable var9) {
+                    var10.addSuppressed(var9);
+                }
+            }
+
+            throw var10;
         }
+
+        if (txn != null) {
+            txn.close();
+        }
+
+        return var7;
     }
 
-    @Override
     public long extractEnergy(long maxAmount, boolean simulate) {
-        try (Transaction txn = Transaction.openOuter()) {
-            long extract = energy.extract(maxAmount, txn);
-            if (simulate) txn.abort();
-            else {
+        Transaction txn = Transaction.openOuter();
+
+        long var7;
+        try {
+            long extract = this.energy.extract(maxAmount, txn);
+            if (simulate) {
+                txn.abort();
+            } else {
                 txn.commit();
-                holder.setStack(context.getItemVariant().toStack());
+                this.holder.setStack(this.context.getItemVariant().toStack());
             }
-            return extract;
+
+            var7 = extract;
+        } catch (Throwable var10) {
+            if (txn != null) {
+                try {
+                    txn.close();
+                } catch (Throwable var9) {
+                    var10.addSuppressed(var9);
+                }
+            }
+
+            throw var10;
         }
+
+        if (txn != null) {
+            txn.close();
+        }
+
+        return var7;
     }
 
-    @Override
     public void setEnergy(long energy) {
-        try (Transaction txn = Transaction.openOuter()) {
+        Transaction txn = Transaction.openOuter();
+
+        try {
             if (energy > this.energy.getAmount()) {
                 this.energy.insert(energy - this.energy.getAmount(), txn);
             } else if (energy < this.energy.getAmount()) {
                 this.energy.extract(this.energy.getAmount() - energy, txn);
             }
+
             txn.commit();
-            holder.setStack(context.getItemVariant().toStack());
+            this.holder.setStack(this.context.getItemVariant().toStack());
+        } catch (Throwable var7) {
+            if (txn != null) {
+                try {
+                    txn.close();
+                } catch (Throwable var6) {
+                    var7.addSuppressed(var6);
+                }
+            }
+
+            throw var7;
         }
+
+        if (txn != null) {
+            txn.close();
+        }
+
     }
 
-    @Override
     public long getStoredEnergy() {
-        return energy.getAmount();
+        return this.energy.getAmount();
     }
 
-    @Override
-    public long getMaxEnergyStored() {
-            return energy.getCapacity();
-    }
-
-
-    @Override
     public long getMaxCapacity() {
-        return energy.getCapacity();
+        return this.energy.getCapacity();
     }
 
-    @Override
     public long maxInsert() {
-        return energy.getCapacity();
+        return this.energy.getCapacity();
     }
 
-    @Override
     public long maxExtract() {
-        return energy.getCapacity();
+        return this.energy.getCapacity();
     }
 
-    @Override
     public boolean allowsInsertion() {
-        return energy.supportsInsertion();
+        return this.energy.supportsInsertion();
     }
 
-    @Override
     public boolean allowsExtraction() {
-        return energy.supportsExtraction();
+        return this.energy.supportsExtraction();
     }
 
-    @Override
     public EnergySnapshot createSnapshot() {
         return new SimpleEnergySnapshot(this);
     }
 
-    @Override
     public void deserialize(CompoundTag nbt, HolderLookup.Provider provider) {
-
     }
 
-    @Override
     public CompoundTag serialize(CompoundTag nbt, HolderLookup.Provider provider) {
         return nbt;
     }
 
-    @Override
     public void clearContent() {
-        try (Transaction txn = Transaction.openOuter()) {
-            energy.extract(energy.getAmount(), txn);
+        Transaction txn = Transaction.openOuter();
+
+        try {
+            this.energy.extract(this.energy.getAmount(), txn);
             txn.commit();
-            holder.setStack(context.getItemVariant().toStack());
+            this.holder.setStack(this.context.getItemVariant().toStack());
+        } catch (Throwable var5) {
+            if (txn != null) {
+                try {
+                    txn.close();
+                } catch (Throwable var4) {
+                    var5.addSuppressed(var4);
+                }
+            }
+
+            throw var5;
         }
+
+        if (txn != null) {
+            txn.close();
+        }
+
+    }
+
+    public ItemStackHolder holder() {
+        return this.holder;
+    }
+
+    public ContainerItemContext context() {
+        return this.context;
+    }
+
+    public EnergyStorage energy() {
+        return this.energy;
     }
 }
