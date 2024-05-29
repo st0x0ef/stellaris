@@ -122,6 +122,11 @@
   "block.stellaris.vertical_mars_slab": "Vertical Mars Stone Slab",
   "block.stellaris.vertical_venus_slab": "Vertical Venus Stone Slab",
   "block.stellaris.vertical_mercury_slab": "Vertical Mercury Stone Slab",
+  "block.stellaris.vertical_steel_slab": "Vertical Steel Slab",
+  "block.stellaris.vertical_heavy_metal_slab": "Vertical Heavy Metal Slab",
+  "block.stellaris.vertical_steel_plating_slab": "Vertical Steel Plating Slab",
+  "block.stellaris.vertical_desh_plating_slab": "Vertical Desh Plating Slab",
+  "block.stellaris.vertical_desh_slab": "Vertical Desh Slab",
 
   "block.stellaris.cheese_block": "Cheese Block",
   "block.stellaris.vacumator": "Vacumator",
@@ -139,6 +144,7 @@
   "block.stellaris.water_separator": "Water Separator",
 
   "block.stellaris.oxygen_propagator": "Oxygen Propagator",
+  "block.stellaris.oxygen_distributor": "Oxygen Distributor",
 
   "categorie.stellaris.main": "Stellaris",
   "categorie.stellaris_blocks.main": "Stellaris Blocks",
@@ -167,7 +173,6 @@
   "item.stellaris.martian_raptor_spawn_egg": "Martian Raptor Spawn Egg",
   "item.stellaris.mogler_spawn_egg": "Mogler Spawn Egg",
   "item.stellaris.pygro_brute_spawn_egg": "Pygro Brute Spawn Egg",
-
 
 
   "item.stellaris.fuel_bucket": "Fuel Bucket",
@@ -258,5 +263,7 @@
 
   "category.stellaris.default": "Stellaris Key",
   "key.stellaris.rocket_start": "Rocket Start",
-  "key.stellaris.freeze_planet_menu": "Freeze Planet in the Selection Menu"
+  "key.stellaris.freeze_planet_menu": "Freeze Planet in the Selection Menu",
+
+  "screen.stellaris.gauge": "Capacity : %1$s / %2$s"
 }

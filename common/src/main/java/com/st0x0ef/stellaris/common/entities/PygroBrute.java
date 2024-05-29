@@ -1,5 +1,8 @@
 package com.st0x0ef.stellaris.common.entities;
 
+import dev.architectury.networking.NetworkManager;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -27,5 +30,10 @@ public class PygroBrute extends PiglinBrute {
                 this.remove(RemovalReason.DISCARDED);
             }
         }
+    }
+
+    @Override
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
+        return NetworkManager.createAddEntityPacket(this);
     }
 }

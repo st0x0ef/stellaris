@@ -47,8 +47,14 @@ public class EntityRegistry {
     /**
      * Vehicles
      */
-    public static final RegistrySupplier<EntityType<RocketEntity>> ROCKET = ENTITY_TYPE.register("rocket",
-            () -> EntityType.Builder.of(RocketEntity::new, MobCategory.MISC).sized(1.1f, 4.4f).build(new ResourceLocation(Stellaris.MODID, "rocket").toString()));
+    public static final RegistrySupplier<EntityType<RocketEntity>> TINY_ROCKET = ENTITY_TYPE.register("tiny_rocket", () -> EntityType.Builder.of(RocketEntity::new, MobCategory.MISC).sized(1.1f, 4.4f).fireImmune().build(new ResourceLocation(Stellaris.MODID, "tiny_rocket").toString()));
+    public static final RegistrySupplier<EntityType<RocketEntity>> BIG_ROCKET = ENTITY_TYPE.register("big_rocket", () -> EntityType.Builder.of(RocketEntity::new, MobCategory.MISC).sized(1.1f, 4.4f).fireImmune().build(new ResourceLocation(Stellaris.MODID, "big_rocket").toString()));
+
+    public static final RegistrySupplier<EntityType<RocketEntity>> NORMAL_ROCKET = ENTITY_TYPE.register("normal_rocket",
+            () -> EntityType.Builder.of(RocketEntity::new, MobCategory.MISC).sized(1.1f, 4.4f).build(new ResourceLocation(Stellaris.MODID, "normal_rocket").toString()));
+    public static final RegistrySupplier<EntityType<RocketEntity>> SMALL_ROCKET = ENTITY_TYPE.register("small_rocket",
+            () -> EntityType.Builder.of(RocketEntity::new, MobCategory.MISC).sized(0.8f, 3.2f).build(new ResourceLocation(Stellaris.MODID, "small_rocket").toString()));
+
     public static final RegistrySupplier<EntityType<LanderEntity>> LANDER = ENTITY_TYPE.register("lander",
             () -> EntityType.Builder.<LanderEntity>of(LanderEntity::new, MobCategory.MISC).sized(2.5f, 1.0f).build(new ResourceLocation(Stellaris.MODID, "lander").toString()));
 

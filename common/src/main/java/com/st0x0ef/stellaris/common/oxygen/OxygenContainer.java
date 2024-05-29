@@ -5,7 +5,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 
 public class OxygenContainer {
+
     private final int maxOxygen;
+
     private int oxygenStored;
 
     private int[][][] oxygenRoom = new int[32][32][32];
@@ -26,15 +28,17 @@ public class OxygenContainer {
     }
 
     public boolean addOxygenAtFromSource(BlockPos pos, boolean simulate, OxygenContainer container) {
-        if (addOxygenAt(pos, simulate)) {
-            return container.removeOxygenStored(simulate);
+        if (container.removeOxygenStored(true)) {
+            if (addOxygenAt(pos, simulate)) {
+                return container.removeOxygenStored(simulate);
+            }
         }
 
         return false;
     }
 
     public boolean addOxygenAt(BlockPos pos, boolean simulate) {
-        if (getOxygenAt(pos) < maxOxygen) {
+        if (getOxygenAt(pos) < OxygenUtils.maxOxygenByBlock) {
             if (removeOxygenStored(simulate)) {
                 if (!simulate) {
                     oxygenRoom[pos.getX()][pos.getY()][pos.getZ()]++;
@@ -46,19 +50,23 @@ public class OxygenContainer {
         return false;
     }
 
+    public boolean addOxygenAt(int x, int y, int z, boolean simulate) {
+        return addOxygenAt(new BlockPos(x, y, z), simulate);
+    }
+
     public void tick(Level level) {
         int[][][] oxygenCopy = oxygenRoom.clone();
 
         for (int x = 0; x < 32; x++) {
             for (int y = 0; y < 32; y++) {
                 for (int z = 0; z < 32; z++) {
-                    if (oxygenRoom[x][y][z] >= 1) {
-                        if (oxygenRoom[x+1][y][z] < maxOxygen && level.isEmptyBlock(new BlockPos(x + 1, y, z))) { oxygenCopy[x+1][y][z]++; }
-                        if (oxygenRoom[x-1][y][z] < maxOxygen && level.isEmptyBlock(new BlockPos(x - 1, y, z))) { oxygenCopy[x-1][y][z]++; }
-                        if (oxygenRoom[x][y+1][z] < maxOxygen && level.isEmptyBlock(new BlockPos(x, y + 1, z))) { oxygenCopy[x][y+1][z]++; }
-                        if (oxygenRoom[x][y-1][z] < maxOxygen && level.isEmptyBlock(new BlockPos(x, y - 1, z))) { oxygenCopy[x][y-1][z]++; }
-                        if (oxygenRoom[x][y][z+1] < maxOxygen && level.isEmptyBlock(new BlockPos(x, y, z + 1))) { oxygenCopy[x][y][z+1]++; }
-                        if (oxygenRoom[x][y][z-1] < maxOxygen && level.isEmptyBlock(new BlockPos(x, y, z - 1))) { oxygenCopy[x][y][z-1]++; }
+                    if (oxygenCopy[x][y][z] >= 1) {
+                        if (oxygenCopy[x+1][y][z] < OxygenUtils.maxOxygenByBlock && level.isEmptyBlock(new BlockPos(x + 1, y, z))) { addOxygenAt(x + 1, y, z, false); }
+                        if (oxygenCopy[x-1][y][z] < OxygenUtils.maxOxygenByBlock && level.isEmptyBlock(new BlockPos(x - 1, y, z))) { addOxygenAt(x - 1, y, z, false); }
+                        if (oxygenCopy[x][y+1][z] < OxygenUtils.maxOxygenByBlock && level.isEmptyBlock(new BlockPos(x, y + 1, z))) { addOxygenAt(x, y + 1, z, false); }
+                        if (oxygenCopy[x][y-1][z] < OxygenUtils.maxOxygenByBlock && level.isEmptyBlock(new BlockPos(x, y - 1, z))) { addOxygenAt(x, y - 1, z, false); }
+                        if (oxygenCopy[x][y][z+1] < OxygenUtils.maxOxygenByBlock && level.isEmptyBlock(new BlockPos(x, y, z + 1))) { addOxygenAt(x, y, z + 1, false); }
+                        if (oxygenCopy[x][y][z-1] < OxygenUtils.maxOxygenByBlock && level.isEmptyBlock(new BlockPos(x, y, z - 1))) { addOxygenAt(x, y, z - 1, false); }
                     }
                 }
             }
@@ -68,7 +76,12 @@ public class OxygenContainer {
     }
 
     public int getOxygenAt(BlockPos pos) {
-        return oxygenRoom[pos.getX()][pos.getY()][pos.getZ()];
+        try {
+            return oxygenRoom[pos.getX()][pos.getY()][pos.getZ()];
+        }
+        catch (Exception e) {
+            return 0;
+        }
     }
 
     public int getOxygenStored() {
