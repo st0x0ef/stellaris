@@ -242,6 +242,7 @@
   "text.stellaris.planetscreen.oxygen": "Has Oxygen",
   "text.stellaris.planetscreen.launch": "Launch!",
   "text.stellaris.planetscreen.system": "Planetary System",
+  "text.stellaris.planetscreen.error_message": "You can't reach that planet",
 
   "text.stellaris.rocketscreen.fuel": "Fuel Capacity",
 

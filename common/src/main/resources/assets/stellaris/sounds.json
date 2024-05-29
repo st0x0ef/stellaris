@@ -30,5 +30,13 @@
         "stream": false
       }
     ]
+  },
+  "radioactive" : {
+    "sounds" : [
+      {
+        "name" : "stellaris:radioactive",
+        "stream" : false
+      }
+    ]
   }
 }
