@@ -175,7 +175,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
     @Override
     public Vec3 getPassengerRidingPosition(Entity entity) {
-        return this.position().add(this.getPassengerAttachmentPoint(entity, getDimensions(this.getPose()),1.0F)).subtract(0d,3.15d,0d);
+        return this.position().add(this.getPassengerAttachmentPoint(entity, getDimensions(this.getPose()),1.0F)).add(0d,2,0d);
     }
 
     @Override

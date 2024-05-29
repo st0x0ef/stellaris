@@ -26,13 +26,17 @@ public abstract class ItemEntityGravityMixin {
     @Unique
     ItemEntity stellaris$itemEntity = (ItemEntity) ((Object) this);
 
+    /**
+     * @author TATHAN
+     * @reason rewrite gravity system
+     */
     @Overwrite
     public double getDefaultGravity() {
         ResourceKey<Level> dimension = stellaris$itemEntity.level().dimension();
         if (PlanetUtil.isPlanet(dimension)) {
-            return ((double) Utils.MPS2ToMCG(PlanetUtil.getPlanet(dimension).gravity()) % 2);
+            return (Utils.MPS2ToMCG(PlanetUtil.getPlanet(dimension).gravity()) % 2);
         } else {
-            return ((double) 0.04);
+            return 0.04;
         }
     }
 
