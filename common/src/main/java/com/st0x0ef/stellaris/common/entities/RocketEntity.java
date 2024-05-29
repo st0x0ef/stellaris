@@ -60,9 +60,6 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
     public static final EntityDataAccessor<Integer> FUEL = SynchedEntityData.defineId(RocketEntity.class, EntityDataSerializers.INT);
     public static final int MAX_FUEL = 10000;
-
-
-
     public static final String DEFAULT_SKIN_TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/vehicle/rocket_skin/normal/standard.png").toString();
 
     protected SimpleContainer inventory;
