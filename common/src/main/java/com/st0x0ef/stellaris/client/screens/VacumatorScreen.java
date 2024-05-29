@@ -19,7 +19,7 @@ public class VacumatorScreen extends AbstractContainerScreen<VacumatorMenu> {
 	public VacumatorScreen(VacumatorMenu abstractContainerMenu, Inventory inventory, Component component) {
 		super(abstractContainerMenu, inventory, component);
 		this.imageWidth = 177;
-		this.imageHeight = 229;
+		this.imageHeight = 227;
 		this.inventoryLabelY = this.imageHeight - 95;
 		this.titleLabelY += 10;
 	}
@@ -38,6 +38,4 @@ public class VacumatorScreen extends AbstractContainerScreen<VacumatorMenu> {
 		RenderSystem.setShaderTexture(0, texture);
 		graphics.blit(texture, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
 	}
-
-
 }

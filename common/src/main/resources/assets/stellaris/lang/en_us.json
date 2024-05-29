@@ -199,7 +199,6 @@
   "item.stellaris.small_yellow_can": "Small Yellow Can",
 
   "item.stellaris.cannon_steak": "Canned Steak",
-  "item.stellaris.berry_juice": "Canned Berry Juice",
   "item.stellaris.cosmo_bread": "Cosmo Bread",
   "item.stellaris.cheese": "Cheese",
   "item.stellaris.cosmo_coffee": "Cosmo coffee",
@@ -246,8 +245,9 @@
 
   "text.stellaris.rocketscreen.fuel": "Fuel Capacity",
 
-  "tooltip.stellaris.can_item_empty": "Empty Can",
-
+  "tooltip.item.stellaris.can.empty": "Empty",
+  "tooltip.item.stellaris.can.nutrition": "Nutrition: %s/%s",
+  "tooltip.item.stellaris.can.saturation": "Saturation: %s",
 
   "container.entity.stellaris.lander": "Lander",
   "container.entity.stellaris.rocket": "Rocket",

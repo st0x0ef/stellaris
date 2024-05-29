@@ -22,13 +22,9 @@ import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
-
 public class VacumatorBlockEntity extends BaseContainerBlockEntity implements ImplementedInventory {
 
     private NonNullList<ItemStack> items;
-    private List<Integer> inputSlots = List.of(0, 1, 2);
-
 
     public VacumatorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(BlockEntityRegistry.VACUMATOR_ENTITY.get(), blockPos, blockState);
@@ -46,6 +42,7 @@ public class VacumatorBlockEntity extends BaseContainerBlockEntity implements Im
         level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
         super.setChanged();
     }
+
     @Override
     public void loadAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
         super.loadAdditional(compoundTag, provider);
@@ -61,7 +58,7 @@ public class VacumatorBlockEntity extends BaseContainerBlockEntity implements Im
 
     @Override
     protected Component getDefaultName() {
-        return Component.literal("Vacumator");
+        return Component.translatable("block.stellaris.vacumator");
     }
 
     @Override
@@ -79,7 +76,6 @@ public class VacumatorBlockEntity extends BaseContainerBlockEntity implements Im
         return false;
     }
 
-
     @Override
     public NonNullList<ItemStack> getItems() {
         return items;
@@ -91,37 +87,36 @@ public class VacumatorBlockEntity extends BaseContainerBlockEntity implements Im
     }
 
     public void tick() {
-        if(level.isClientSide()) return;
+        if (level.isClientSide()) {
+            return;
+        }
 
-        if(canCraft()) {
+        if (canCraft()) {
             craft();
             setChanged();
         }
     }
 
     public boolean canCraft() {
-        if(getItem(0).getItem() instanceof CanItem) {
-            return  isFood(getItem(1)) && getItem(2).is(Items.GLASS_BOTTLE) && getItem(3).isEmpty() && getItem(4).isEmpty();
+        if (getItem(0).getItem() instanceof CanItem) {
+            return isFood(getItem(1)) && getItem(2).is(Items.GLASS_BOTTLE) && getItem(3).isEmpty() && getItem(4).isEmpty();
         }
 
         return false;
     }
 
     public void craft() {
-        CanItem can = (CanItem) getItem(0).getItem();
-        ItemStack food = getItem(1);
+        ItemStack canStack = getItem(0);
+        ItemStack resultStack = new ItemStack(canStack.getItem());
+        CanItem.setFoodProperties(resultStack, CanItem.getFoodProperties(canStack));
 
-        ItemStack result = new ItemStack(can);
-        CanItem resultCanItem = (CanItem) result.getItem();
-        if (resultCanItem.addFoodIfPossible(getItem(0), food)) {
-            for (int i : inputSlots) {
+        if (CanItem.addFoodToCan(resultStack, getItem(1))) {
+            for (int i = 0; i < 3; i++) {
                 removeItem(i, 1);
             }
 
-            ItemStack potionResult = PotionContents.createItemStack(Items.POTION, Potions.WATER);
-
-            setItem(3, result);
-            setItem(4, potionResult);
+            setItem(3, resultStack);
+            setItem(4, PotionContents.createItemStack(Items.POTION, Potions.WATER));
         }
     }
 
