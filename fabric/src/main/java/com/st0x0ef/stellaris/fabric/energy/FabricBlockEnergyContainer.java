@@ -14,52 +14,49 @@ public class FabricBlockEnergyContainer<T extends EnergyContainer & Updatable> e
         this.container = container;
     }
 
-    @Override
     public long insert(long maxAmount, TransactionContext transaction) {
-        if (maxAmount <= 0) return 0;
-        this.updateSnapshots(transaction);
-        return container.insertEnergy(maxAmount, false);
+        if (maxAmount <= 0L) {
+            return 0L;
+        } else {
+            this.updateSnapshots(transaction);
+            return this.container.insertEnergy(maxAmount, false);
+        }
     }
 
-    @Override
     public long extract(long maxAmount, TransactionContext transaction) {
-        if (maxAmount <= 0) return 0;
-        this.updateSnapshots(transaction);
-        return container.extractEnergy(maxAmount, false);
+        if (maxAmount <= 0L) {
+            return 0L;
+        } else {
+            this.updateSnapshots(transaction);
+            return this.container.extractEnergy(maxAmount, false);
+        }
     }
 
-    @Override
     public long getAmount() {
-        return container.getStoredEnergy();
+        return this.container.getStoredEnergy();
     }
 
-    @Override
     public long getCapacity() {
-        return container.getMaxCapacity();
+        return this.container.getMaxCapacity();
     }
 
-    @Override
     public boolean supportsInsertion() {
-        return container.allowsInsertion();
+        return this.container.allowsInsertion();
     }
 
-    @Override
     public boolean supportsExtraction() {
-        return container.allowsExtraction();
+        return this.container.allowsExtraction();
     }
 
-    @Override
     protected EnergySnapshot createSnapshot() {
-        return container.createSnapshot();
+        return this.container.createSnapshot();
     }
 
-    @Override
     protected void readSnapshot(EnergySnapshot snapshot) {
-        container.readSnapshot(snapshot);
+        this.container.readSnapshot(snapshot);
     }
 
-    @Override
     protected void onFinalCommit() {
-        container.update();
+        this.container.update();
     }
 }

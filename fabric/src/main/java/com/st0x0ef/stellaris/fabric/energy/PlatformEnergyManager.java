@@ -17,94 +17,129 @@ import team.reborn.energy.api.EnergyStorage;
 
 @ApiStatus.Internal
 public record PlatformEnergyManager(EnergyStorage energy) implements EnergyContainer {
+    public PlatformEnergyManager(EnergyStorage energy) {
+        this.energy = energy;
+    }
 
-    @Nullable
-    public static PlatformEnergyManager of(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity entity, @Nullable Direction direction) {
+    public static @Nullable PlatformEnergyManager of(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity entity, @Nullable Direction direction) {
         EnergyStorage fabricEnergy = EnergyStorage.SIDED.find(level, pos, state, entity, direction);
         return fabricEnergy == null ? null : new PlatformEnergyManager(fabricEnergy);
     }
 
-    @Override
     public long insertEnergy(long maxAmount, boolean simulate) {
-        try (Transaction txn = Transaction.openOuter()) {
-            long insert = energy.insert(maxAmount, txn);
-            if (simulate) txn.abort();
-            else txn.commit();
-            return insert;
+        Transaction txn = Transaction.openOuter();
+
+        long var7;
+        try {
+            long insert = this.energy.insert(maxAmount, txn);
+            if (simulate) {
+                txn.abort();
+            } else {
+                txn.commit();
+            }
+
+            var7 = insert;
+        } catch (Throwable var10) {
+            if (txn != null) {
+                try {
+                    txn.close();
+                } catch (Throwable var9) {
+                    var10.addSuppressed(var9);
+                }
+            }
+
+            throw var10;
         }
+
+        if (txn != null) {
+            txn.close();
+        }
+
+        return var7;
     }
 
-    @Override
     public long extractEnergy(long maxAmount, boolean simulate) {
-        try (Transaction txn = Transaction.openOuter()) {
-            long extract = energy.extract(maxAmount, txn);
-            if (simulate) txn.abort();
-            else txn.commit();
-            return extract;
+        Transaction txn = Transaction.openOuter();
+
+        long var7;
+        try {
+            long extract = this.energy.extract(maxAmount, txn);
+            if (simulate) {
+                txn.abort();
+            } else {
+                txn.commit();
+            }
+
+            var7 = extract;
+        } catch (Throwable var10) {
+            if (txn != null) {
+                try {
+                    txn.close();
+                } catch (Throwable var9) {
+                    var10.addSuppressed(var9);
+                }
+            }
+
+            throw var10;
         }
+
+        if (txn != null) {
+            txn.close();
+        }
+
+        return var7;
     }
 
-    @Override
     public void setEnergy(long energy) {
         if (energy > this.energy.getAmount()) {
-            insertEnergy(energy - this.energy.getAmount(), false);
+            this.insertEnergy(energy - this.energy.getAmount(), false);
         } else if (energy < this.energy.getAmount()) {
-            extractEnergy(this.energy.getAmount() - energy, false);
+            this.extractEnergy(this.energy.getAmount() - energy, false);
         }
+
     }
 
-    @Override
     public long getStoredEnergy() {
-        return energy.getAmount();
+        return this.energy.getAmount();
     }
 
-    @Override
-    public long getMaxEnergyStored() {
-        return 0;
-    }
-
-    @Override
     public long getMaxCapacity() {
-        return energy.getCapacity();
+        return this.energy.getCapacity();
     }
 
-    @Override
     public long maxInsert() {
-        return energy.getCapacity();
+        return this.energy.getCapacity();
     }
 
-    @Override
     public long maxExtract() {
-        return energy.getCapacity();
+        return this.energy.getCapacity();
     }
 
-    @Override
     public boolean allowsInsertion() {
-        return energy.supportsInsertion();
+        return this.energy.supportsInsertion();
     }
 
-    @Override
     public boolean allowsExtraction() {
-        return energy.supportsExtraction();
+        return this.energy.supportsExtraction();
     }
 
-    @Override
     public EnergySnapshot createSnapshot() {
         return new SimpleEnergySnapshot(this);
     }
 
-    @Override
     public void deserialize(CompoundTag nbt, HolderLookup.Provider provider) {
 
     }
 
-    @Override
     public CompoundTag serialize(CompoundTag nbt, HolderLookup.Provider provider) {
         return nbt;
     }
 
-    @Override
     public void clearContent() {
-        setEnergy(0);
+        this.setEnergy(0L);
+    }
+
+    public EnergyStorage energy() {
+        return this.energy;
     }
 }
