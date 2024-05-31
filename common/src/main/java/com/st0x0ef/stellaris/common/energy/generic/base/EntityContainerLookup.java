@@ -7,11 +7,16 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.Supplier;
 
 public interface EntityContainerLookup<T, C> {
-    @Nullable T find(Entity var1, C var2);
 
-    void registerEntityTypes(EntityGetter<T, C> var1, Supplier<EntityType<?>>... var2);
+    /**
+     * @return The {@link T} for the block.
+     */
+    @Nullable
+    T find(Entity entity, C context);
 
-    public interface EntityGetter<T, C> {
-        T getContainer(Entity var1, C var2);
+    void registerEntityTypes(EntityGetter<T, C> getter, Supplier<EntityType<?>>... containers);
+
+    interface EntityGetter<T, C> {
+        T getContainer(Entity entity, C context);
     }
 }

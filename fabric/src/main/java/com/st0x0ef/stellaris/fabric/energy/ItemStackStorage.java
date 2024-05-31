@@ -13,10 +13,12 @@ public class ItemStackStorage extends SingleStackStorage {
         this.stack = stack;
     }
 
+    @Override
     protected ItemStack getStack() {
-        return this.stack;
+        return stack;
     }
 
+    @Override
     protected void setStack(ItemStack stack) {
         this.stack = stack;
     }

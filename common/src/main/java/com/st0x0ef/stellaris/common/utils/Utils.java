@@ -121,6 +121,8 @@ public class Utils {
         switch (colorName.toLowerCase()) {
             case "black":
                 return 0x000000;
+            case "white":
+                return 0xFFFFFF;
             case "red":
                 return 0xFF0000;
             case "green":

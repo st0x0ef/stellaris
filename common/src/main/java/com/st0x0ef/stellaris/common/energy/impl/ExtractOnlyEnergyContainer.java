@@ -8,28 +8,29 @@ public class ExtractOnlyEnergyContainer extends SimpleEnergyContainer {
     }
 
     public ExtractOnlyEnergyContainer(long maxCapacity, long maxExtract) {
-        super(maxCapacity, maxExtract, 0L);
+        super(maxCapacity, maxExtract, 0);
     }
 
+    @Override
     public long maxInsert() {
-        return 0L;
+        return 0;
     }
 
+    @Override
     public boolean allowsInsertion() {
         return false;
     }
 
+    @Override
     public long insertEnergy(long maxAmount, boolean simulate) {
-        return 0L;
+        return 0;
     }
 
+    @Override
     public long internalInsert(long maxAmount, boolean simulate) {
-        long inserted = Mth.clamp(maxAmount, 0L, this.getMaxCapacity() - this.getStoredEnergy());
-        if (simulate) {
-            return inserted;
-        } else {
-            this.setEnergy(this.getStoredEnergy() + inserted);
-            return inserted;
-        }
+        long inserted = Mth.clamp(maxAmount, 0, getMaxCapacity() - getStoredEnergy());
+        if (simulate) return inserted;
+        this.setEnergy(getStoredEnergy() + inserted);
+        return inserted;
     }
 }

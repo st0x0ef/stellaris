@@ -11,7 +11,8 @@ public class SimpleEnergySnapshot implements EnergySnapshot {
         this.energy = container.getStoredEnergy();
     }
 
+    @Override
     public void loadSnapshot(EnergyContainer container) {
-        container.setEnergy(this.energy);
+        container.setEnergy(energy);
     }
 }

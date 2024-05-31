@@ -23,5 +23,14 @@ public class AdvancementsRegister implements AdvancementSubProvider {
         AdvancementHolder advancementHolder = Builder.advancement().display((ItemLike) BlocksRegistry.MOON_SAND, Component.translatable("advancements.moon.root.title"), Component.translatable("advancements.moon.root.description"), new ResourceLocation("textures/gui/advancements/backgrounds/stellaris.png"), AdvancementType.TASK, true, true, false).addCriterion("land on the moon", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike) ItemsRegistry.MOON_SAND_ITEM)).save(writer, "moon/root");
 
         AdvancementHolder advancementHolder2 = Builder.advancement().display((ItemLike) BlocksRegistry.MARS_SAND, Component.translatable("advancements.mars.root.title"), Component.translatable("advancements.mars.root.description"), new ResourceLocation("textures/gui/advancements/backgrounds/stellaris.png"), AdvancementType.TASK, true, true, false).addCriterion("land on the mars", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike) ItemsRegistry.MARS_SAND)).save(writer, "moon/root");
+
+
+
+
+
+
+
+
+
     }
 }
