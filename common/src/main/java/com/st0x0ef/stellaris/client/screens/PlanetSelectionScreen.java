@@ -79,6 +79,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     private double lastMouseY;
     private boolean dragging = false;
 
+    private boolean isPausePressed = false;
+
     private double zoomLevel = 1.0;
     private GLFWScrollCallback prevScrollCallback;
 
@@ -415,6 +417,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (keyCode == GLFW.GLFW_KEY_Z) {
             tpToFocusedPlanet();
+        } else if (keyCode == GLFW.GLFW_KEY_X){
+            isPausePressed = !isPausePressed;
         }
         return super.keyPressed(keyCode, scanCode, modifiers);
     }

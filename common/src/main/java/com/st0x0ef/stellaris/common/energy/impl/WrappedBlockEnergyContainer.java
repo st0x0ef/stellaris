@@ -6,6 +6,7 @@ import com.st0x0ef.stellaris.common.energy.base.EnergySnapshot;
 import com.st0x0ef.stellaris.common.energy.util.Updatable;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 /**
@@ -17,92 +18,95 @@ import net.minecraft.world.level.block.entity.BlockEntity;
  * @param container   The wrapped energy container. Botarium provides a default implementation for this with {@link SimpleEnergyContainer}.
  */
 public record WrappedBlockEnergyContainer(BlockEntity blockEntity, EnergyContainer container) implements EnergyContainer, Updatable {
-    public WrappedBlockEnergyContainer(BlockEntity blockEntity, EnergyContainer container) {
-        this.blockEntity = blockEntity;
-        this.container = container;
-    }
 
+    @Override
     public long insertEnergy(long energy, boolean simulate) {
-        return this.container.insertEnergy(energy, simulate);
+        return container.insertEnergy(energy, simulate);
     }
 
+    @Override
     public long extractEnergy(long energy, boolean simulate) {
-        return this.container.extractEnergy(energy, simulate);
+        return container.extractEnergy(energy, simulate);
     }
 
+    @Override
     public long internalInsert(long amount, boolean simulate) {
-        long inserted = this.container.internalInsert(amount, simulate);
-        if (!simulate) {
-            this.update();
-        }
-
+        long inserted = container.internalInsert(amount, simulate);
+        if (!simulate) update();
         return inserted;
     }
 
+    @Override
     public long internalExtract(long amount, boolean simulate) {
-        long l = this.container.internalExtract(amount, simulate);
-        if (!simulate) {
-            this.update();
-        }
-
+        long l = container.internalExtract(amount, simulate);
+        if (!simulate) update();
         return l;
     }
 
+    @Override
     public void setEnergy(long energy) {
-        this.container.setEnergy(energy);
+        container.setEnergy(energy);
     }
 
+    @Override
     public long getStoredEnergy() {
-        return this.container.getStoredEnergy();
+        return container.getStoredEnergy();
     }
 
+    @Override
+    public long getMaxEnergyStored() {
+        return container.getMaxEnergyStored();
+    }
+
+    @Override
     public long getMaxCapacity() {
-        return this.container.getMaxCapacity();
+        return container.getMaxCapacity();
     }
 
+    @Override
     public long maxInsert() {
-        return this.container.maxInsert();
+        return container.maxInsert();
     }
 
+    @Override
     public long maxExtract() {
-        return this.container.maxExtract();
+        return container.maxExtract();
     }
 
+    @Override
     public boolean allowsInsertion() {
-        return this.container.allowsInsertion();
+        return container.allowsInsertion();
     }
 
+    @Override
     public boolean allowsExtraction() {
-        return this.container.allowsExtraction();
+        return container.allowsExtraction();
     }
 
+    @Override
     public EnergySnapshot createSnapshot() {
-        return this.container.createSnapshot();
+        return container.createSnapshot();
     }
 
+    @Override
     public void deserialize(CompoundTag nbt, HolderLookup.Provider provider) {
-        this.container.deserialize(nbt, provider);
+        container.deserialize(nbt, provider);
     }
 
+    @Override
     public CompoundTag serialize(CompoundTag nbt, HolderLookup.Provider provider) {
-        return this.container.serialize(nbt, provider);
+        return container.serialize(nbt, provider);
     }
 
+    @Override
     public void update() {
-        this.blockEntity.setChanged();
-        this.blockEntity.getLevel().sendBlockUpdated(this.blockEntity.getBlockPos(), this.blockEntity.getBlockState(), this.blockEntity.getBlockState(), 3);
+        blockEntity.setChanged();
+        blockEntity.getLevel().sendBlockUpdated(blockEntity.getBlockPos(), blockEntity.getBlockState(), blockEntity.getBlockState(), Block.UPDATE_ALL);
     }
 
+    @Override
     public void clearContent() {
-        this.container.clearContent();
-        this.update();
-    }
-
-    public BlockEntity blockEntity() {
-        return this.blockEntity;
-    }
-
-    public EnergyContainer container() {
-        return this.container;
+        container.clearContent();
+        update();
     }
 }

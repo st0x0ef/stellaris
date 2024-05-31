@@ -20,7 +20,7 @@ public abstract class EntityTick {
     @Unique
     private static final long OXYGEN_CHECK = 1000;
     @Unique
-    private static long stellaris$lastOxygenCheck;
+    private static long lastOxygenCheck;
 
     @Inject(at = @At(value = "HEAD"), method = "tick")
     private void tick(CallbackInfo info) {
@@ -28,10 +28,10 @@ public abstract class EntityTick {
 
 
         long now = System.currentTimeMillis();
-        if((now - stellaris$lastOxygenCheck) > OXYGEN_CHECK){
+        if((now - lastOxygenCheck) > OXYGEN_CHECK){
             EntityOxygen.tick(entity);
         }
-        stellaris$lastOxygenCheck = now;
+        lastOxygenCheck = now;
     }
 
 

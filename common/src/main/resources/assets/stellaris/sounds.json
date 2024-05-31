@@ -31,11 +31,11 @@
       }
     ]
   },
-  "radioactive" : {
-    "sounds" : [
+    "radioactive": {
+    "sounds": [
       {
-        "name" : "stellaris:radioactive",
-        "stream" : false
+        "name": "stellaris:radioactive",
+        "stream": false
       }
     ]
   }

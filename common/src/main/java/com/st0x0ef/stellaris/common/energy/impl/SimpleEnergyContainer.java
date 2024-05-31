@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.common.energy.impl;
 import com.st0x0ef.stellaris.common.energy.EnergyMain;
 import com.st0x0ef.stellaris.common.energy.base.EnergyContainer;
 import com.st0x0ef.stellaris.common.energy.base.EnergySnapshot;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
 
@@ -15,106 +16,122 @@ public class SimpleEnergyContainer implements EnergyContainer {
     private final long maxInsert;
     private final long maxExtract;
     private long energy;
+    private long maxEnergy;
 
     public SimpleEnergyContainer(long maxCapacity) {
-        this(maxCapacity, 1024L, 1024L);
+        this(maxCapacity, 1024, 1024);
     }
 
     public SimpleEnergyContainer(long maxCapacity, long maxTransfer) {
         this(maxCapacity, maxTransfer, maxTransfer);
     }
-
-    public SimpleEnergyContainer(long maxCapacity, long maxExtract, long maxInsert) {
+    public SimpleEnergyContainer(long maxCapacity, long maxTransfer,long maxEnergy) {
+        this(maxCapacity, maxTransfer, maxTransfer,maxEnergy);
+    }
+    public SimpleEnergyContainer(long maxCapacity, long maxExtract, long maxInsert,long maxEnergy) {
         this.capacity = maxCapacity;
         this.maxExtract = maxExtract;
         this.maxInsert = maxInsert;
+        this.maxEnergy = maxEnergy;
     }
 
+
+    @Override
     public long insertEnergy(long maxAmount, boolean simulate) {
-        long inserted = Mth.clamp(maxAmount, 0L, Math.min(this.maxInsert(), this.getMaxCapacity() - this.getStoredEnergy()));
-        if (simulate) {
-            return inserted;
-        } else {
-            this.setEnergy(this.energy + inserted);
-            return inserted;
-        }
+        long inserted = Mth.clamp(maxAmount, 0, Math.min(maxInsert(), getMaxCapacity() - getStoredEnergy()));
+        if (simulate) return inserted;
+        this.setEnergy(this.energy + inserted);
+        return inserted;
     }
 
+    @Override
     public long extractEnergy(long maxAmount, boolean simulate) {
-        long extracted = Mth.clamp(maxAmount, 0L, Math.min(this.maxExtract(), this.getStoredEnergy()));
-        if (simulate) {
-            return extracted;
-        } else {
-            this.setEnergy(this.energy - extracted);
-            return extracted;
-        }
+        long extracted = Mth.clamp(maxAmount, 0, Math.min(maxExtract(), getStoredEnergy()));
+        if (simulate) return extracted;
+        this.setEnergy(this.energy - extracted);
+        return extracted;
     }
 
+    @Override
     public long internalInsert(long maxAmount, boolean simulate) {
-        long inserted = Mth.clamp(maxAmount, 0L, this.getMaxCapacity() - this.getStoredEnergy());
-        if (simulate) {
-            return inserted;
-        } else {
-            this.setEnergy(this.energy + inserted);
-            return inserted;
-        }
+        long inserted = Mth.clamp(maxAmount, 0, getMaxCapacity() - getStoredEnergy());
+        if (simulate) return inserted;
+        this.setEnergy(this.energy + inserted);
+        return inserted;
     }
 
+    @Override
     public long internalExtract(long maxAmount, boolean simulate) {
-        long extracted = Mth.clamp(maxAmount, 0L, this.getStoredEnergy());
-        if (simulate) {
-            return extracted;
-        } else {
-            this.setEnergy(this.energy - extracted);
-            return extracted;
-        }
+        long extracted = Mth.clamp(maxAmount, 0, getStoredEnergy());
+        if (simulate) return extracted;
+        this.setEnergy(this.energy - extracted);
+        return extracted;
     }
 
+    @Override
     public void setEnergy(long energy) {
         this.energy = energy;
     }
 
+    @Override
     public long getStoredEnergy() {
-        return this.energy;
+        return energy;
     }
 
+    @Override
+    public long getMaxEnergyStored() {
+        return maxEnergy;
+    }
+
+    @Override
     public long getMaxCapacity() {
-        return this.capacity;
+        return capacity;
     }
 
+    @Override
     public long maxInsert() {
-        return this.maxInsert;
+        return maxInsert;
     }
 
+    @Override
     public long maxExtract() {
-        return this.maxExtract;
+        return maxExtract;
     }
 
-    public CompoundTag serialize(CompoundTag root) {
+    @Override
+    public CompoundTag serialize(CompoundTag root, HolderLookup.Provider provider) {
         CompoundTag tag = root.getCompound(EnergyMain.STELLARIS_DATA);
         tag.putLong("Energy", this.energy);
+        tag.putLong("MaxEnergy", this.maxEnergy);
         root.put(EnergyMain.STELLARIS_DATA, tag);
         return root;
     }
 
-    public void deserialize(CompoundTag root) {
+    @Override
+    public void deserialize(CompoundTag root, HolderLookup.Provider provider) {
         CompoundTag tag = root.getCompound(EnergyMain.STELLARIS_DATA);
         this.energy = tag.getLong("Energy");
+        this.maxEnergy = tag.getLong("MaxEnergy");
     }
 
+    @Override
     public boolean allowsInsertion() {
         return true;
     }
 
+    @Override
     public boolean allowsExtraction() {
         return true;
     }
 
+    @Override
     public EnergySnapshot createSnapshot() {
         return new SimpleEnergySnapshot(this);
     }
 
+    @Override
     public void clearContent() {
-        this.energy = 0L;
+        this.energy = 0;
+        this.maxEnergy=0;
     }
 }

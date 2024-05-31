@@ -17,6 +17,7 @@ import dev.architectury.registry.ReloadListenerRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
+import net.minecraft.world.entity.item.ItemEntity;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL43;
 import org.lwjgl.opengl.GLDebugMessageCallback;
@@ -46,6 +47,7 @@ public class Stellaris {
 
         DataComponentsRegistry.DATA_COMPONENT_TYPE.register();
 
+        SoundRegistry.SOUNDS.register();
         FluidRegistry.FLUIDS.register();
         EffectsRegistry.MOB_EFFECT.register();
         ParticleRegistry.PARTICLES.register();
@@ -57,7 +59,6 @@ public class Stellaris {
         CreativeTabsRegistry.TABS.register();
         MenuTypesRegistry.MENU_TYPE.register();
         RecipesRegistry.register();
-        SoundRegistry.SOUNDS.register();
         FeaturesRegistry.FEATURES.register();
         CommandsRegistry.register();
 

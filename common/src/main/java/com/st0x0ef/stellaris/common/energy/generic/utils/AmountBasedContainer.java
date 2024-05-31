@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.common.energy.generic.utils;
 import net.minecraft.world.Clearable;
 
 public interface AmountBasedContainer extends Clearable {
+
     long getStoredAmount();
 
     long getCapacity();
@@ -11,9 +12,9 @@ public interface AmountBasedContainer extends Clearable {
 
     boolean allowsExtraction();
 
-    long insert(long var1, boolean var3);
+    long insert(long amount, boolean simulate);
 
-    long extract(long var1, boolean var3);
+    long extract(long amount, boolean simulate);
 
     long maxInsert();
 
