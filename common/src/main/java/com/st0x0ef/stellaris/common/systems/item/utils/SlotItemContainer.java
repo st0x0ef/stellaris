@@ -1,7 +1,7 @@
 package com.st0x0ef.stellaris.common.systems.item.utils;
 
-import earth.terrarium.botarium.common.item.base.ItemContainer;
-import earth.terrarium.botarium.common.item.base.ItemContainerExtras;
+import com.st0x0ef.stellaris.common.systems.item.base.ItemContainerExtras;
+import com.st0x0ef.stellaris.platform.systems.item.base.ItemContainer;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Player;

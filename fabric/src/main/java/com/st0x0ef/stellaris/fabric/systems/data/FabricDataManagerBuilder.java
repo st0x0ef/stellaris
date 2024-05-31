@@ -1,8 +1,8 @@
 package com.st0x0ef.stellaris.fabric.systems.data;
 
 import com.mojang.serialization.Codec;
-import earth.terrarium.botarium.common.data.DataManager;
-import earth.terrarium.botarium.common.data.DataManagerBuilder;
+import com.st0x0ef.stellaris.common.systems.data.DataManager;
+import com.st0x0ef.stellaris.common.systems.data.DataManagerBuilder;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
 import net.minecraft.resources.ResourceLocation;

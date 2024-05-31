@@ -1,11 +1,12 @@
 package com.st0x0ef.stellaris.common.systems.item.impl;
 
-import earth.terrarium.botarium.common.item.base.ItemContainer;
-import earth.terrarium.botarium.common.item.base.ItemContainerExtras;
-import earth.terrarium.botarium.common.item.base.ItemSnapshot;
-import earth.terrarium.botarium.util.Serializable;
-import earth.terrarium.botarium.util.Snapshotable;
+import com.st0x0ef.stellaris.common.systems.item.base.ItemContainerExtras;
+import com.st0x0ef.stellaris.common.systems.item.base.ItemSnapshot;
+import com.st0x0ef.stellaris.common.systems.util.Serializable;
+import com.st0x0ef.stellaris.common.systems.util.Snapshotable;
+import com.st0x0ef.stellaris.platform.systems.item.base.ItemContainer;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.ContainerHelper;
@@ -24,8 +25,8 @@ public class SimpleItemContainer implements ItemContainer, ItemContainerExtras, 
 
     public SimpleItemContainer(int capacity, ItemStack stack) {
         this(capacity);
-        onUpdate = () -> serialize(stack.getOrCreateTag());
-        this.deserialize(stack.getOrCreateTag());
+        //onUpdate = () -> serialize(stack.getOrCreateTag()); TODO fix this
+        //this.deserialize(stack.getOrCreateTag());
     }
 
     public SimpleItemContainer(int capacity, Level level, BlockPos blockPos) {
@@ -95,7 +96,7 @@ public class SimpleItemContainer implements ItemContainer, ItemContainerExtras, 
                 stacks.set(slot, stack.copyWithCount(amount));
             }
             return stack.copyWithCount(amount);
-        } else if (ItemStack.isSameItemSameTags(stack, itemStack)) {
+        } else if (ItemStack.isSameItemSameComponents(stack, itemStack)) {
             int amount = Math.min(stack.getCount(), getSlotLimit(slot) - itemStack.getCount());
             if (amount > 0) {
                 if (!simulate) {
@@ -117,7 +118,7 @@ public class SimpleItemContainer implements ItemContainer, ItemContainerExtras, 
                 int toExtract = Math.min(amount - extracted.getCount(), stack.getCount());
                 if (extracted.isEmpty()) {
                     extracted = stack.copyWithCount(toExtract);
-                } else if (ItemStack.isSameItemSameTags(extracted, stack)) {
+                } else if (ItemStack.isSameItemSameComponents(extracted, stack)) {
                     extracted.grow(toExtract);
                 }
                 if (!simulate) {
@@ -156,12 +157,13 @@ public class SimpleItemContainer implements ItemContainer, ItemContainerExtras, 
 
     @Override
     public void deserialize(CompoundTag nbt) {
-        ContainerHelper.loadAllItems(nbt, stacks);
+        //ContainerHelper.loadAllItems(nbt, stacks); TODO fix this
     }
 
     @Override
     public CompoundTag serialize(CompoundTag nbt) {
-        return ContainerHelper.saveAllItems(nbt, stacks);
+        //return ContainerHelper.saveAllItems(nbt, stacks); TODO fix this
+        return null;
     }
 
     @Override

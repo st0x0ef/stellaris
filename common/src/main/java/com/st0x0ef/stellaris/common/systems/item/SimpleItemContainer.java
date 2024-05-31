@@ -28,12 +28,13 @@ public class SimpleItemContainer implements SerializableContainer {
 
     @Override
     public void deserialize(CompoundTag nbt) {
-        ContainerHelper.loadAllItems(nbt, items);
+        //ContainerHelper.loadAllItems(nbt, items); TODO fix this
     }
 
     @Override
     public CompoundTag serialize(CompoundTag nbt) {
-        return ContainerHelper.saveAllItems(nbt, items);
+        //return ContainerHelper.saveAllItems(nbt, items); TODO fix this
+        return null;
     }
 
     @Override

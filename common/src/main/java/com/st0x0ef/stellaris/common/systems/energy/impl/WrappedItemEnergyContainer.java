@@ -18,7 +18,7 @@ public record WrappedItemEnergyContainer(ItemStack stack,
                                          EnergyContainer container) implements EnergyContainer, Updatable {
 
     public WrappedItemEnergyContainer {
-        container.deserialize(stack.getOrCreateTag());
+        //container.deserialize(stack.getOrCreateTag()); TODO fix this
     }
 
     @Override
@@ -97,7 +97,7 @@ public record WrappedItemEnergyContainer(ItemStack stack,
 
     @Override
     public void update() {
-        container.serialize(stack.getOrCreateTag());
+        //container.serialize(stack.getOrCreateTag()); TODO fix this
     }
 
     @Override

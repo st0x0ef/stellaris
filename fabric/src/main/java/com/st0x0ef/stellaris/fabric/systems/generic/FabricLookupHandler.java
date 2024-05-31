@@ -1,8 +1,8 @@
 package com.st0x0ef.stellaris.fabric.systems.generic;
 
-import earth.terrarium.botarium.common.generic.base.BlockContainerLookup;
-import earth.terrarium.botarium.common.generic.base.EntityContainerLookup;
-import earth.terrarium.botarium.common.generic.base.ItemContainerLookup;
+import com.st0x0ef.stellaris.common.systems.generic.base.BlockContainerLookup;
+import com.st0x0ef.stellaris.common.systems.generic.base.EntityContainerLookup;
+import com.st0x0ef.stellaris.common.systems.generic.base.ItemContainerLookup;
 import net.fabricmc.fabric.api.lookup.v1.block.BlockApiLookup;
 import net.fabricmc.fabric.api.lookup.v1.entity.EntityApiLookup;
 import net.fabricmc.fabric.api.lookup.v1.item.ItemApiLookup;

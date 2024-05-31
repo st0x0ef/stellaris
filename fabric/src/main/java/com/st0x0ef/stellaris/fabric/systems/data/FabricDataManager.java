@@ -1,6 +1,6 @@
 package com.st0x0ef.stellaris.fabric.systems.data;
 
-import earth.terrarium.botarium.common.data.DataManager;
+import com.st0x0ef.stellaris.common.systems.data.DataManager;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentTarget;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
 

@@ -67,11 +67,11 @@ public class GaugeValueHelper
     }
 
     public static IGaugeValue getEnergy(WrappedItemEnergyContainer energyStorage) {
-        return getEnergy(energyStorage.getStoredEnergy(), energyStorage.getMaxEnergyStored());
+        return getEnergy(energyStorage.getStoredEnergy(), energyStorage.getMaxCapacity());
     }
 
     public static IGaugeValue getEnergy(WrappedBlockEnergyContainer blockEntity) {
-        return getEnergy(blockEntity.getStoredEnergy());
+        return getEnergy(blockEntity.getStoredEnergy(), blockEntity.getMaxCapacity());
     }
 
 //    public static IGaugeValue getOxygen(int amount) {

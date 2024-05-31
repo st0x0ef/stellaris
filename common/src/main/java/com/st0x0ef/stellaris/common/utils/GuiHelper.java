@@ -113,7 +113,7 @@ public class GuiHelper
 //    }
 
     public static void drawEnergy(GuiGraphics graphics, int left, int top, WrappedBlockEnergyContainer energyStorage) {
-        drawEnergy(graphics, left, top,(double) energyStorage.getStoredEnergy() / (double) energyStorage.getMaxEnergyStored());
+        drawEnergy(graphics, left, top,(double) energyStorage.getStoredEnergy() / (double) energyStorage.getMaxCapacity());
     }
 
     public static void drawEnergy(GuiGraphics graphics, int left, int top, double ratio) {
