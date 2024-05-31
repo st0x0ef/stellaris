@@ -1,4 +1,4 @@
-package com.st0x0ef.stellaris.platform.systems.energy.item.base;
+package com.st0x0ef.stellaris.platform.systems.item.base.fabric;
 
 import com.st0x0ef.stellaris.fabric.systems.item.PlatformItemContainer;
 import com.st0x0ef.stellaris.platform.systems.item.base.ItemContainer;

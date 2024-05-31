@@ -1,7 +1,7 @@
 package com.st0x0ef.stellaris.common.blocks.machines.gauge;
 
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.energy.util.Serializable;
+import com.st0x0ef.stellaris.common.systems.util.Serializable;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -35,7 +35,7 @@ public class GaugeValueSerializer<T extends Serializable> {
 
         try {
             T format = clazz.getDeclaredConstructor().newInstance();
-            format.deserialize(valueNBT, provider);
+            format.deserialize(valueNBT);
             return format;
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
                  NoSuchMethodException e) {
@@ -50,7 +50,7 @@ public class GaugeValueSerializer<T extends Serializable> {
     public CompoundTag serialize(T format, HolderLookup.Provider provider) {
         CompoundTag compound = new CompoundTag();
         compound.putString("location", classLocationMap.get(format.getClass()).toString());
-        compound.put("value", format.serialize(new CompoundTag(), provider)); // Using the Serializable interface method
+        compound.put("value", format.serialize(new CompoundTag())); // Using the Serializable interface method
         return compound;
     }
     public IGaugeValue read(FriendlyByteBuf buffer, HolderLookup.Provider provider) {
