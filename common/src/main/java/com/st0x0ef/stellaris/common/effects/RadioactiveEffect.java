@@ -13,7 +13,7 @@ import java.util.Optional;
 
 public class RadioactiveEffect extends MobEffect {
 
-    private final Optional<SoundEvent> soundOnAdded = Optional.of((SoundEvent) SoundRegistry.RADIOACTIVE);
+    private final Optional<SoundEvent> soundOnAdded = Optional.of(SoundRegistry.RADIOACTIVE.get());
     public RadioactiveEffect(MobEffectCategory mobEffectCategory, int color) {
         super(mobEffectCategory, color);
     }

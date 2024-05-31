@@ -47,6 +47,7 @@ public class Stellaris {
 
         DataComponentsRegistry.DATA_COMPONENT_TYPE.register();
 
+        SoundRegistry.SOUNDS.register();
         FluidRegistry.FLUIDS.register();
         EffectsRegistry.MOB_EFFECT.register();
         ParticleRegistry.PARTICLES.register();
@@ -58,7 +59,6 @@ public class Stellaris {
         CreativeTabsRegistry.TABS.register();
         MenuTypesRegistry.MENU_TYPE.register();
         RecipesRegistry.register();
-        SoundRegistry.SOUNDS.register();
         FeaturesRegistry.FEATURES.register();
         CommandsRegistry.register();
 
