@@ -22,7 +22,7 @@ subprojects {
 
     repositories {
         maven { url "https://maven.shedaniel.me" }
-        maven { url "https://cursmaven.com" }
+        maven { url "https://cursemaven.com" }
         maven { url "https://maven.terraformersmc.com/releases" }
         maven { url "https://maven.parchmentmc.org" }
         maven { url "https://maven.neoforged.net/releases" }
