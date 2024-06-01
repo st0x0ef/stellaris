@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.client.screens;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
 import com.st0x0ef.stellaris.common.menus.MilkyWayMenu;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -23,8 +24,6 @@ public class MilkyWayScreen extends AbstractContainerScreen<MilkyWayMenu> {
 
     public static boolean isPausePressed = false;
     public Component milkywayTranslatable = Component.translatable("text.stellaris.milkywayscreen.milkyway");
-
-    private float rotationAngle = 0.0f;
 
     public MilkyWayScreen(MilkyWayMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
@@ -69,26 +68,7 @@ public class MilkyWayScreen extends AbstractContainerScreen<MilkyWayMenu> {
         int milkywayX = (width - milkywayWidth) / 2;
         int milkywayY = (height - milkywayHeight) / 2;
 
-        if (!isPausePressed) {
-            rotationAngle += partialTicks * -0.0005f;
-        }
-
-        PoseStack poseStack = guiGraphics.pose();
-        poseStack.pushPose();
-
-        poseStack.translate(milkywayX + milkywayWidth / 2.0f, milkywayY + milkywayHeight / 2.0f, 0);
-        poseStack.mulPose(new Matrix4f().rotation(rotationAngle, 0.0f, 0.0f, 1.0f));
-        poseStack.translate(-(milkywayX + milkywayWidth / 2.0f), -(milkywayY + milkywayHeight / 2.0f), 0);
-
-        RenderSystem.setShaderTexture(0, MILKY_WAY_TEXTURE);
-        RenderSystem.enableBlend();
-        RenderSystem.defaultBlendFunc();
-        RenderSystem.enableDepthTest();
-
-        guiGraphics.blit(MILKY_WAY_TEXTURE, milkywayX, milkywayY, 0, 0, milkywayWidth, milkywayHeight, milkywayWidth, milkywayHeight);
-
-        RenderSystem.disableBlend();
-        poseStack.popPose();
+        ScreenHelper.drawTexturewithRotation(guiGraphics, MILKY_WAY_TEXTURE, milkywayX, milkywayY, 0, 0, milkywayWidth, milkywayHeight, milkywayWidth, milkywayHeight, 0.0005f, partialTicks, 0);
 
         int nameWidth = font.width(milkywayTranslatable);
         guiGraphics.drawString(font, milkywayTranslatable.getString(), (width - nameWidth) / 2, 10, 0xFFFFFF);
