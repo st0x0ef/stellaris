@@ -8,6 +8,8 @@ import dev.architectury.impl.NetworkAggregator;
 import dev.architectury.networking.NetworkManager;
 import dev.architectury.networking.transformers.PacketSink;
 import dev.architectury.networking.transformers.SplitPacketTransformer;
+import dev.architectury.platform.Platform;
+import net.fabricmc.api.EnvType;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -25,7 +27,10 @@ public class NetworkRegistry {
         NetworkAggregator.registerReceiver(NetworkManager.Side.C2S, TELEPORT_ENTITY_ID, Collections.singletonList(new SplitPacketTransformer()), TeleportEntity::apply);
 
         /** S2C */
+
+
         NetworkAggregator.registerReceiver(NetworkManager.Side.S2C, SYNC_PLANET_DATAPACK_ID, Collections.singletonList(new SplitPacketTransformer()), SyncPlanetsDatapack::apply);
+
     }
 
     public static void sendToPlayer(ServerPlayer player, ResourceLocation packet_id, RegistryFriendlyByteBuf buffer) {

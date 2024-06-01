@@ -23,10 +23,8 @@ public class StellarisNeoForge {
             Stellaris.onDatapackSyncEvent(event.getPlayer());
         } else {
             event.getPlayerList().getPlayers().forEach((Stellaris::onDatapackSyncEvent));
-
         }
     }
-
 
     public static void onAttributes(EntityAttributeCreationEvent event) {
         EntityRegistry.registerAttributes((entityType, attribute) -> event.put(entityType.get(), attribute.get().build()));

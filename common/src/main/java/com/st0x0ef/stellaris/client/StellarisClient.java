@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.client;
 
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.events.ClientEvents;
 import com.st0x0ef.stellaris.client.overlays.LanderOverlay;
 import com.st0x0ef.stellaris.client.overlays.RocketBarOverlay;
@@ -40,6 +41,7 @@ import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import com.st0x0ef.stellaris.common.registry.ParticleRegistry;
 import dev.architectury.event.events.client.ClientGuiEvent;
+import dev.architectury.platform.Platform;
 import dev.architectury.registry.client.keymappings.KeyMappingRegistry;
 import dev.architectury.registry.client.level.entity.EntityModelLayerRegistry;
 import dev.architectury.registry.client.level.entity.EntityRendererRegistry;
@@ -51,10 +53,15 @@ import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 public class StellarisClient {
 
     public static void initClient() {
+        Stellaris.LOG.error("Initializing Stellaris Client");
+
         registerParticle();
 
-        registerEntityRenderer();
-        registerEntityModelLayer();
+        if(Platform.isFabric()) {
+            registerEntityRenderer();
+            registerEntityModelLayer();
+
+        }
         registerScreen();
         registerKey();
         ClientEvents.registerEvents();
