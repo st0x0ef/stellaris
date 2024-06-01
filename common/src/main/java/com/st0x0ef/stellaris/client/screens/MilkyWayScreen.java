@@ -22,6 +22,8 @@ public class MilkyWayScreen extends AbstractContainerScreen<MilkyWayMenu> {
     public static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(Stellaris.MODID,
             "textures/gui/planet_selection.png");
 
+    public static float rotationAngle = 0;
+
     public static boolean isPausePressed = false;
     public Component milkywayTranslatable = Component.translatable("text.stellaris.milkywayscreen.milkyway");
 
@@ -68,7 +70,11 @@ public class MilkyWayScreen extends AbstractContainerScreen<MilkyWayMenu> {
         int milkywayX = (width - milkywayWidth) / 2;
         int milkywayY = (height - milkywayHeight) / 2;
 
-        ScreenHelper.drawTexturewithRotation(guiGraphics, MILKY_WAY_TEXTURE, milkywayX, milkywayY, 0, 0, milkywayWidth, milkywayHeight, milkywayWidth, milkywayHeight, 0.0005f, partialTicks, 0);
+        if (!isPausePressed) {
+            rotationAngle -= partialTicks * 0.005f;
+        }
+
+        ScreenHelper.drawTexturewithRotation(guiGraphics, MILKY_WAY_TEXTURE, milkywayX, milkywayY, 0, 0, milkywayWidth, milkywayHeight, milkywayWidth, milkywayHeight, 0.005f);
 
         int nameWidth = font.width(milkywayTranslatable);
         guiGraphics.drawString(font, milkywayTranslatable.getString(), (width - nameWidth) / 2, 10, 0xFFFFFF);

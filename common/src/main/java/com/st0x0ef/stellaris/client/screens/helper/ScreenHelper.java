@@ -144,16 +144,12 @@ public class ScreenHelper {
         }
     }
 
-    public static void drawTexturewithRotation(GuiGraphics graphics, ResourceLocation resourceLocation, int x, int y, int uOffset, int vOffset, int width, int height, int textureWidth, int textureHeight, float rotationAngle, float partialTicks, float firstAngle) {
-        float first_angle = firstAngle;
-
-        first_angle += partialTicks * rotationAngle;
-
+    public static void drawTexturewithRotation(GuiGraphics graphics, ResourceLocation resourceLocation, int x, int y, int uOffset, int vOffset, int width, int height, int textureWidth, int textureHeight, float rotationAngle) {
         PoseStack poseStack = graphics.pose();
         poseStack.pushPose();
 
         poseStack.translate(x + width / 2.0f, y + height / 2.0f, 0);
-        poseStack.mulPose(new Matrix4f().rotation(first_angle, 0.0f, 0.0f, 1.0f));
+        poseStack.mulPose(new Matrix4f().rotation(rotationAngle, 0.0f, 0.0f, 1.0f));
         poseStack.translate(-(x + width / 2.0f), -(y + height / 2.0f), 0);
 
         RenderSystem.setShaderTexture(0, resourceLocation);

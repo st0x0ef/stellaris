@@ -13,6 +13,7 @@ import com.st0x0ef.stellaris.common.menus.PlanetSelectionMenu;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import com.st0x0ef.stellaris.common.network.packets.TeleportEntity;
 import com.st0x0ef.stellaris.common.registry.EntityData;
+import com.st0x0ef.stellaris.common.registry.TranslatableRegistry;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import net.fabricmc.api.EnvType;
@@ -80,6 +81,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     private boolean dragging = false;
 
     private boolean isPausePressed = false;
+    private boolean isShiftPressed = false;
 
     private double zoomLevel = 1.0;
     private GLFWScrollCallback prevScrollCallback;
@@ -280,7 +282,14 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         if (!showLargeMenu) {
             CelestialBody bodyToHighlight = hoveredBody != null ? hoveredBody : focusedBody;
             if (bodyToHighlight != null) {
-                Component bodyDescription = Utils.getMessageComponent("§f"+ hoveredBody.translatable.getString());
+                List<Component> bodyDescription = new ArrayList<>();
+
+                bodyDescription.add(Utils.getMessageComponent("§f" + hoveredBody.translatable.getString()));
+                if (!isShiftPressed) {
+                    bodyDescription.add(Utils.getMessageComponent("§8" + TranslatableRegistry.holdShift.getString()));
+                } else {
+                    bodyDescription.add(Utils.getMessageComponent("§8" + TranslatableRegistry.holdShift.getString()));
+                }
 
                 int highlightWidth = (int) (bodyToHighlight.width * zoomLevel);
                 int highlightHeight = (int) (bodyToHighlight.height * zoomLevel);
@@ -293,13 +302,12 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
                 int frameY = currentHighlighterFrame * frameHeight;
 
                 if (isPausePressed) {
-                    graphics.renderTooltip(this.font, bodyDescription, mouseX, mouseY);
+                    graphics.renderComponentTooltip(this.font, bodyDescription, mouseX, mouseY);
                 }
                 graphics.blit(HIGHLIGHTER_TEXTURE, (int) highlightX, (int) highlightY, 0, frameY, highlightWidth, highlightHeight, highlightWidth, totalHighlighterFrames * frameHeight);
             }
         }
     }
-
 
     private void renderLargeMenu(GuiGraphics graphics) {
         if (showLargeMenu) {
@@ -424,6 +432,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             tpToFocusedPlanet();
         } else if (keyCode == GLFW.GLFW_KEY_X){
             isPausePressed = !isPausePressed;
+        } else if (keyCode == GLFW.GLFW_KEY_LEFT_SHIFT || keyCode == GLFW.GLFW_KEY_RIGHT_SHIFT) {
+
         }
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
