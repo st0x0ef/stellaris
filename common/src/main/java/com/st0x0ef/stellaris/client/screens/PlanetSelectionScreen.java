@@ -284,18 +284,24 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         if (!showLargeMenu) {
             CelestialBody bodyToHighlight = hoveredBody != null ? hoveredBody : focusedBody;
             if (bodyToHighlight != null) {
-
                 List<Component> bodyDescription = new ArrayList<>();
 
                 bodyDescription.add(Utils.getMessageComponent("§f" + hoveredBody.translatable.getString()));
                 if (!isShiftPressed) {
                     bodyDescription.add(Utils.getMessageComponent("§8" + TranslatableRegistry.holdShift.getString()));
                 } else {
-                    bodyDescription.add(Utils.getMessageComponent("§8" + TranslatableRegistry.holdShift.getString()));
+                    bodyDescription.add(Utils.getMessageComponent(""));
+                    bodyDescription.add(Utils.getMessageComponent("§f--------------------"));
+                    if (PlanetUtil.getPlanet(hoveredBody.dimension) == null) {
+                        bodyDescription.add(Utils.getMessageComponent(error_message.getString(), "Red"));
+                    } else {
+                        bodyDescription.add(Utils.getMessageComponent(""));
+                        bodyDescription.add(Utils.getMessageComponent(temperature.getString() + " : " + PlanetUtil.getPlanet(hoveredBody.dimension).temperature() + "°C"));
+                        bodyDescription.add(Utils.getMessageComponent(gravity.getString() + " : " + PlanetUtil.getPlanet(hoveredBody.dimension).gravity() + "m/s"));
+                        bodyDescription.add(Utils.getMessageComponent(oxygen.getString() + " : " + PlanetUtil.getPlanet(hoveredBody.dimension).oxygen()));
+                        bodyDescription.add(Utils.getMessageComponent(system.getString() + " : " + PlanetUtil.getPlanet(hoveredBody.dimension).system()));
+                    }
                 }
-
-                //Component bodyDescription = Utils.getMessageComponent("§f"+ hoveredBody.translatable.getString());
-
 
                 int highlightWidth = (int) (bodyToHighlight.width * zoomLevel);
                 int highlightHeight = (int) (bodyToHighlight.height * zoomLevel);
@@ -310,10 +316,6 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
                 if (isPausePressed) {
                     graphics.renderComponentTooltip(this.font, bodyDescription, mouseX, mouseY);
                 }
-
-                //if (isPausePressed) {
-                //    graphics.renderTooltip(this.font, bodyDescription, mouseX, mouseY);
-                //}
 
                 graphics.blit(HIGHLIGHTER_TEXTURE, (int) highlightX, (int) highlightY, 0, frameY, highlightWidth, highlightHeight, highlightWidth, totalHighlighterFrames * frameHeight);
             }
@@ -444,7 +446,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         } else if (keyCode == GLFW.GLFW_KEY_X){
             isPausePressed = !isPausePressed;
         } else if (keyCode == GLFW.GLFW_KEY_LEFT_SHIFT || keyCode == GLFW.GLFW_KEY_RIGHT_SHIFT) {
-
+            isShiftPressed = true;
         }
 
         return super.keyPressed(keyCode, scanCode, modifiers);
@@ -461,6 +463,9 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     @Override
     public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
+        if (keyCode == GLFW.GLFW_KEY_LEFT_SHIFT || keyCode == GLFW.GLFW_KEY_RIGHT_SHIFT) {
+            isShiftPressed = false;
+        }
         return super.keyReleased(keyCode, scanCode, modifiers);
     }
 
@@ -552,6 +557,15 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     public static PlanetInfo findByNamePlanet(String name) {
         for (PlanetInfo body : PlanetSelectionScreen.PLANETS) {
+            if (body.getName().equals(name)) {
+                return body;
+            }
+        }
+        return null;
+    }
+
+    public static MoonInfo findByNameMoon(String name) {
+        for (MoonInfo body : PlanetSelectionScreen.MOONS) {
             if (body.getName().equals(name)) {
                 return body;
             }

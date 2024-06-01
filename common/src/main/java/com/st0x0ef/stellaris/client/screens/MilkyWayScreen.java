@@ -72,7 +72,7 @@ public class MilkyWayScreen extends AbstractContainerScreen<MilkyWayMenu> {
             rotationAngle -= partialTicks * 0.005f;
         }
 
-        ScreenHelper.drawTexturewithRotation(guiGraphics, MILKY_WAY_TEXTURE, milkywayX, milkywayY, 0, 0, milkywayWidth, milkywayHeight, milkywayWidth, milkywayHeight, 0.005f);
+        ScreenHelper.drawTexturewithRotation(guiGraphics, MILKY_WAY_TEXTURE, milkywayX, milkywayY, 0, 0, milkywayWidth, milkywayHeight, milkywayWidth, milkywayHeight, rotationAngle);
 
         int nameWidth = font.width(milkywayTranslatable);
         guiGraphics.drawString(font, milkywayTranslatable.getString(), (width - nameWidth) / 2, 10, 0xFFFFFF);
