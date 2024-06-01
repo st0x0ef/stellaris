@@ -6,7 +6,6 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ByIdMap;
 import net.minecraft.util.StringRepresentable;
-import net.minecraft.world.entity.animal.sniffer.Sniffer;
 
 import java.util.function.IntFunction;
 
@@ -23,7 +22,7 @@ public enum RocketModel implements StringRepresentable {
     public static final StreamCodec<ByteBuf, RocketModel> STREAM_CODEC = ByteBufCodecs.idMapper(BY_ID, RocketModel::id);
     private final int id;
 
-    private RocketModel(final int id) {
+    RocketModel(final int id) {
         this.id = id;
     }
 

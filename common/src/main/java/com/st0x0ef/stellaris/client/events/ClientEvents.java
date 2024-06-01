@@ -1,26 +1,23 @@
 package com.st0x0ef.stellaris.client.events;
 
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.registries.KeyMappings;
-import com.st0x0ef.stellaris.common.keybinds.KeyVariables;
 import com.st0x0ef.stellaris.common.network.packets.KeyHandler;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
-import dev.architectury.event.events.client.ClientChatEvent;
 import dev.architectury.event.events.client.ClientTickEvent;
-import net.minecraft.client.KeyboardHandler;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.player.PlayerRenderer;
+import io.netty.buffer.Unpooled;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 
 public class ClientEvents {
 
     public static void registerEvents() {
         ClientTickEvent.CLIENT_LEVEL_POST.register(clientLevel -> {
             while (KeyMappings.ROCKET_START.consumeClick()) {
-                NetworkRegistry.CHANNEL.sendToServer(new KeyHandler("rocket_start", true));
+                RegistryFriendlyByteBuf buffer = new RegistryFriendlyByteBuf(Unpooled.buffer(), clientLevel.registryAccess());
+                NetworkRegistry.sendToServer(NetworkRegistry.KEY_HANDLER_ID, KeyHandler.encode(new KeyHandler("rocket_start", true), buffer));
             }
             while (KeyMappings.FREEZE_PLANET_MENU.consumeClick()) {
-                System.out.println("freeze_planet_menu");
-                NetworkRegistry.CHANNEL.sendToServer(new KeyHandler("freeze_planet_menu", true));
+                RegistryFriendlyByteBuf buffer = new RegistryFriendlyByteBuf(Unpooled.buffer(), clientLevel.registryAccess());
+                NetworkRegistry.sendToServer(NetworkRegistry.KEY_HANDLER_ID, KeyHandler.encode(new KeyHandler("freeze_planet_menu", true), buffer));
             }
 
 //            Minecraft minecraft = Minecraft.getInstance();

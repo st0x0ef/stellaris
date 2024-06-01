@@ -16,6 +16,7 @@ import com.st0x0ef.stellaris.common.registry.EntityData;
 import com.st0x0ef.stellaris.common.registry.TranslatableRegistry;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
+import io.netty.buffer.Unpooled;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.Util;
@@ -26,6 +27,7 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -282,6 +284,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         if (!showLargeMenu) {
             CelestialBody bodyToHighlight = hoveredBody != null ? hoveredBody : focusedBody;
             if (bodyToHighlight != null) {
+
                 List<Component> bodyDescription = new ArrayList<>();
 
                 bodyDescription.add(Utils.getMessageComponent("§f" + hoveredBody.translatable.getString()));
@@ -290,6 +293,9 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
                 } else {
                     bodyDescription.add(Utils.getMessageComponent("§8" + TranslatableRegistry.holdShift.getString()));
                 }
+
+                //Component bodyDescription = Utils.getMessageComponent("§f"+ hoveredBody.translatable.getString());
+
 
                 int highlightWidth = (int) (bodyToHighlight.width * zoomLevel);
                 int highlightHeight = (int) (bodyToHighlight.height * zoomLevel);
@@ -304,6 +310,11 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
                 if (isPausePressed) {
                     graphics.renderComponentTooltip(this.font, bodyDescription, mouseX, mouseY);
                 }
+
+                //if (isPausePressed) {
+                //    graphics.renderTooltip(this.font, bodyDescription, mouseX, mouseY);
+                //}
+
                 graphics.blit(HIGHLIGHTER_TEXTURE, (int) highlightX, (int) highlightY, 0, frameY, highlightWidth, highlightHeight, highlightWidth, totalHighlighterFrames * frameHeight);
             }
         }
@@ -435,12 +446,14 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         } else if (keyCode == GLFW.GLFW_KEY_LEFT_SHIFT || keyCode == GLFW.GLFW_KEY_RIGHT_SHIFT) {
 
         }
+
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
     public void tpToFocusedPlanet() {
         if(focusedBody != null) {
-            NetworkRegistry.CHANNEL.sendToServer(new TeleportEntity(focusedBody.dimension, false));
+            RegistryFriendlyByteBuf buffer = new RegistryFriendlyByteBuf(Unpooled.buffer(), getPlayer().registryAccess());
+            NetworkRegistry.sendToServer(NetworkRegistry.TELEPORT_ENTITY_ID, TeleportEntity.encode(new TeleportEntity(focusedBody.dimension, false), buffer));
         } else {
             Stellaris.LOG.error("Focused body is null");
         }
