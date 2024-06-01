@@ -30,7 +30,7 @@ public abstract class PlayerLanderKeyMixin {
     @Inject(at = @At(value = "TAIL"), method = "keyPress", cancellable = true)
     private void keyPress(long windowPointer, int key, int scanCode, int action, int modifiers, CallbackInfo info) {
         if (windowPointer == this.minecraft.getWindow().getWindow()) {
-            if(minecraft.player.getVehicle() instanceof LanderEntity) {
+            if(minecraft.player != null && minecraft.player.getVehicle() instanceof LanderEntity) {
                 keyEvent(minecraft.player, minecraft.options.keyJump, key, scanCode, action, modifiers);
 
             }
@@ -40,6 +40,7 @@ public abstract class PlayerLanderKeyMixin {
     public void keyEvent(Player player, KeyMapping keyWanted, int key, int scanCode, int action, int modifiers) {
         if ((keyWanted.getDefaultKey().getValue() == key && action == GLFW.GLFW_RELEASE && KeyVariables.isHoldingJump(player))  || (KeyVariables.isHoldingJump(player))) {
             KeyVariables.KEY_JUMP.put(player.getUUID(), false);
+
             RegistryFriendlyByteBuf buffer = new RegistryFriendlyByteBuf(Unpooled.buffer(), player.registryAccess());
             NetworkRegistry.sendToServer(NetworkRegistry.KEY_HANDLER_ID, KeyHandler.encode(new KeyHandler("key_jump", false), buffer));
         } else if (keyWanted.getDefaultKey().getValue() == key && action == GLFW.GLFW_PRESS && !KeyVariables.isHoldingJump(player)) {
