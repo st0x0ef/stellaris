@@ -94,7 +94,9 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     public PlanetSelectionScreen(PlanetSelectionMenu abstractContainerMenu, Inventory inventory, Component component) {
         super(abstractContainerMenu, inventory, component);
-        startUpdating();
+        if (isPausePressed == false) {
+            startUpdating();
+        }
         this.imageWidth = 1200;
         this.imageHeight = 1600;
         this.inventoryLabelY = this.imageHeight - 110;
