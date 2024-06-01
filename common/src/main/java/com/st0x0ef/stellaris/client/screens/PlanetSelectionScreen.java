@@ -628,13 +628,15 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             lastMouseX = mouseX;
             lastMouseY = mouseY;
             if (showLargeMenu) {
-                showLargeMenu = !showLargeMenu;
+                if (launchButton.mouseClicked(mouseX, mouseY, button)) {
+                    return true;
+                }
+                showLargeMenu = false;
                 return true;
             } else {
                 focusedBody = null;
                 hoveredBody = null;
             }
-            return true;
         }
         return super.mouseClicked(mouseX, mouseY, button);
     }
