@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.common.network.packets;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
+import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import dev.architectury.networking.NetworkManager;
 import net.minecraft.core.registries.Registries;
@@ -19,7 +20,6 @@ public class TeleportEntity {
 
     public TeleportEntity(ResourceKey<Level> dimension, boolean orbit) {
         this.dimension = dimension;
-
         this.orbit = orbit;
     }
 
@@ -36,7 +36,7 @@ public class TeleportEntity {
 
     public static void apply(RegistryFriendlyByteBuf buffer, NetworkManager.PacketContext context) {
         Player player = context.getPlayer();
-        Planet planet = StellarisData.getPlanet(SerializationUtils.deserialize(buffer.readByteArray()));
+        Planet planet = PlanetUtil.getPlanet(new TeleportEntity(buffer).dimension);
         if(planet != null) {
             Utils.changeDimension(player, planet, false);
         } else {
