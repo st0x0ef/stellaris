@@ -70,7 +70,7 @@ public class MilkyWayScreen extends AbstractContainerScreen<MilkyWayMenu> {
         int milkywayY = (height - milkywayHeight) / 2;
 
         if (!isPausePressed) {
-            rotationAngle += partialTicks * -0.005f;
+            rotationAngle += partialTicks * -0.0005f;
         }
 
         PoseStack poseStack = guiGraphics.pose();

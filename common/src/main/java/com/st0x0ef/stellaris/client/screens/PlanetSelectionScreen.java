@@ -209,7 +209,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         drawOrbits();
 
         renderBodiesAndPlanets(graphics);
-        renderHighlighter(graphics);
+        renderHighlighter(graphics, mouseX, mouseY);
         renderLargeMenu(graphics);
 
         this.renderTooltip(graphics, mouseX, mouseY);
@@ -276,10 +276,12 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     private int currentHighlighterFrame = 0;
     private final int totalHighlighterFrames = 31;
 
-    private void renderHighlighter(GuiGraphics graphics) {
+    private void renderHighlighter(GuiGraphics graphics, int mouseX, int mouseY) {
         if (!showLargeMenu) {
             CelestialBody bodyToHighlight = hoveredBody != null ? hoveredBody : focusedBody;
             if (bodyToHighlight != null) {
+                Component bodyDescription = Utils.getMessageComponent("§f"+ hoveredBody.translatable.getString());
+
                 int highlightWidth = (int) (bodyToHighlight.width * zoomLevel);
                 int highlightHeight = (int) (bodyToHighlight.height * zoomLevel);
                 float highlightX = (float) ((bodyToHighlight.x + offsetX) * zoomLevel - (double) highlightWidth / 2);
@@ -290,6 +292,9 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
                 int frameHeight = highlightHeight;
                 int frameY = currentHighlighterFrame * frameHeight;
 
+                if (isPausePressed) {
+                    graphics.renderTooltip(this.font, bodyDescription, mouseX, mouseY);
+                }
                 graphics.blit(HIGHLIGHTER_TEXTURE, (int) highlightX, (int) highlightY, 0, frameY, highlightWidth, highlightHeight, highlightWidth, totalHighlighterFrames * frameHeight);
             }
         }
@@ -438,7 +443,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     private void updatePlanets() {
         long time = Util.getMillis();
-        if (!getMenu().freeze_gui) {
+        if (!getMenu().freeze_gui || !isPausePressed) {
             for (PlanetInfo planet : PLANETS) {
                 planet.updateAngle(time);
                 planet.updatePosition();
