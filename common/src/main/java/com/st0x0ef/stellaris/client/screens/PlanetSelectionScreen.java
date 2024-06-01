@@ -290,12 +290,10 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
                 if (!isShiftPressed) {
                     bodyDescription.add(Utils.getMessageComponent("§8" + TranslatableRegistry.holdShift.getString()));
                 } else {
-                    bodyDescription.add(Utils.getMessageComponent(""));
                     bodyDescription.add(Utils.getMessageComponent("§f--------------------"));
                     if (PlanetUtil.getPlanet(hoveredBody.dimension) == null) {
                         bodyDescription.add(Utils.getMessageComponent(error_message.getString(), "Red"));
                     } else {
-                        bodyDescription.add(Utils.getMessageComponent(""));
                         bodyDescription.add(Utils.getMessageComponent(temperature.getString() + " : " + PlanetUtil.getPlanet(hoveredBody.dimension).temperature() + "°C"));
                         bodyDescription.add(Utils.getMessageComponent(gravity.getString() + " : " + PlanetUtil.getPlanet(hoveredBody.dimension).gravity() + "m/s"));
                         bodyDescription.add(Utils.getMessageComponent(oxygen.getString() + " : " + PlanetUtil.getPlanet(hoveredBody.dimension).oxygen()));
@@ -630,15 +628,13 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             lastMouseX = mouseX;
             lastMouseY = mouseY;
             if (showLargeMenu) {
-                if (launchButton.mouseClicked(mouseX, mouseY, button)) {
-                    return true;
-                }
-                showLargeMenu = false;
+                showLargeMenu = !showLargeMenu;
                 return true;
             } else {
                 focusedBody = null;
                 hoveredBody = null;
             }
+            return true;
         }
         return super.mouseClicked(mouseX, mouseY, button);
     }
