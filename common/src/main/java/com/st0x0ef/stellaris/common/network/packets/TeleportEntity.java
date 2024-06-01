@@ -6,12 +6,11 @@ import com.st0x0ef.stellaris.common.data.planets.StellarisData;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import dev.architectury.networking.NetworkManager;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-
-import java.util.function.Supplier;
+import org.apache.commons.lang3.SerializationUtils;
 
 public class TeleportEntity {
 
@@ -24,33 +23,24 @@ public class TeleportEntity {
         this.orbit = orbit;
     }
 
-    public TeleportEntity(FriendlyByteBuf buffer) {
+    public TeleportEntity(RegistryFriendlyByteBuf buffer) {
         this.dimension = buffer.readResourceKey(Registries.DIMENSION);
         this.orbit = buffer.readBoolean();
     }
 
-    public static TeleportEntity decode(FriendlyByteBuf buffer) {
-        return new TeleportEntity(buffer);
-    }
-
-    public static void encode(TeleportEntity message, FriendlyByteBuf buffer) {
+    public static RegistryFriendlyByteBuf encode(TeleportEntity message, RegistryFriendlyByteBuf buffer) {
         buffer.writeResourceKey(message.dimension);
         buffer.writeBoolean(message.orbit);
+        return buffer;
     }
 
-    public static void apply(TeleportEntity message, Supplier<NetworkManager.PacketContext> contextSupplier) {
-        NetworkManager.PacketContext context = contextSupplier.get();
-
+    public static void apply(RegistryFriendlyByteBuf buffer, NetworkManager.PacketContext context) {
         Player player = context.getPlayer();
-        Planet planet = StellarisData.getPlanet(message.dimension);
+        Planet planet = StellarisData.getPlanet(SerializationUtils.deserialize(buffer.readByteArray()));
         if(planet != null) {
-            Stellaris.LOG.error("Planet exist: " + planet.dimension());
             Utils.changeDimension(player, planet, false);
         } else {
             Stellaris.LOG.error("Planet is null");
         }
     }
-
-
-
 }

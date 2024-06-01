@@ -3,12 +3,12 @@ package com.st0x0ef.stellaris.common.data.planets;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
 
-public record Planet(
+public record Planet (
         String system,
         String translatable,
         String name,
@@ -31,11 +31,11 @@ public record Planet(
             PlanetTextures.CODEC.fieldOf("textures").forGetter(Planet::textures)
     ).apply(instance, Planet::new));
 
-    public static Planet fromNetwork(FriendlyByteBuf buffer) {
+    public static Planet fromNetwork(RegistryFriendlyByteBuf buffer) {
         return new Planet(buffer.readUtf(), buffer.readUtf(), buffer.readUtf(), buffer.readResourceKey(Registries.DIMENSION), buffer.readResourceKey(Registries.DIMENSION), buffer.readBoolean(), buffer.readInt(), buffer.readInt(), buffer.readFloat(), PlanetTextures.fromNetwork(buffer));
     }
 
-    public  void toNetwork(FriendlyByteBuf buffer) {
+    public RegistryFriendlyByteBuf toNetwork(RegistryFriendlyByteBuf buffer) {
         buffer.writeUtf(this.system);
         buffer.writeUtf(this.translatable);
         buffer.writeResourceKey(this.dimension);
@@ -44,7 +44,7 @@ public record Planet(
         buffer.writeFloat(this.temperature);
         buffer.writeInt(this.distanceFromEarth);
         buffer.writeFloat(this.gravity);
-        this.textures.toNetwork(buffer);
+        return this.textures.toNetwork(buffer);
     }
 
     public Component getTranslation() {
