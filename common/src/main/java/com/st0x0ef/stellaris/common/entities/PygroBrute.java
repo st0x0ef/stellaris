@@ -21,16 +21,6 @@ public class PygroBrute extends PiglinBrute {
                 .add(Attributes.MAX_HEALTH, 16)
                 .add(Attributes.ATTACK_DAMAGE, 5);
     }
-    private boolean PYGRO_BRUTE_SPAWN = true;
-    @Override
-    public void tick() {
-        super.tick();
-        if (!PYGRO_BRUTE_SPAWN) {
-            if (!this.level().isClientSide) {
-                this.remove(RemovalReason.DISCARDED);
-            }
-        }
-    }
 
     @Override
     public Packet<ClientGamePacketListener> getAddEntityPacket() {

@@ -12,7 +12,8 @@ public class TeleportUtilImpl {
         Vec3 newPos = new Vec3(entity.getX(), yPos, entity.getZ());
         PortalInfo portalInfo = new PortalInfo(newPos, Vec3.ZERO, entity.yRotO, entity.xRotO);
 
-        FabricDimensions.teleport(entity, level, portalInfo);
+        if (level != null) {
+            FabricDimensions.teleport(entity, level, portalInfo);
+        }
     }
-
 }

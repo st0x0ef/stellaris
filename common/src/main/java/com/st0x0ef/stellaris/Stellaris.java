@@ -44,24 +44,26 @@ public class Stellaris {
         registerPacks();
 
         NetworkRegistry.register();
-        EntityData.register();
+
 
         DataComponentsRegistry.DATA_COMPONENT_TYPE.register();
 
         SoundRegistry.SOUNDS.register();
-        FluidRegistry.FLUIDS.register();
         EffectsRegistry.MOB_EFFECT.register();
+        FluidRegistry.FLUIDS.register();
         ParticleRegistry.PARTICLES.register();
         BlocksRegistry.BLOCKS.register();
-        EntityRegistry.ENTITY_TYPE.register();
-        EntityRegistry.SENSOR.register();
-        BlockEntityRegistry.BLOCK_ENTITY_TYPE.register();
         ItemsRegistry.ITEMS.register();
+        BlockEntityRegistry.BLOCK_ENTITY_TYPE.register();
         CreativeTabsRegistry.TABS.register();
         MenuTypesRegistry.MENU_TYPE.register();
         RecipesRegistry.register();
         FeaturesRegistry.FEATURES.register();
         CommandsRegistry.register();
+
+        EntityRegistry.ENTITY_TYPE.register();
+        EntityRegistry.SENSOR.register();
+        EntityData.register();
 
         ReloadListenerRegistry.register(PackType.SERVER_DATA, new StellarisData());
         Events.registerEvents();

@@ -53,17 +53,6 @@ public class Mogler extends Hoglin {
         return moglerentity;
     }
 
-    private boolean MOGLER_SPAWN = true;
-    @Override
-    public void tick() {
-        super.tick();
-        if (!MOGLER_SPAWN) {
-            if (!this.level().isClientSide) {
-                this.remove(RemovalReason.DISCARDED);
-            }
-        }
-    }
-
     @Override
     public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkManager.createAddEntityPacket(this);

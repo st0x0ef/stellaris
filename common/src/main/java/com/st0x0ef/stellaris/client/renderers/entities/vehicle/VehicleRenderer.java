@@ -12,6 +12,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
@@ -153,5 +154,10 @@ public abstract class VehicleRenderer<T extends IVehicleEntity, M extends Entity
     }
 
     protected void scale(T p_115314_, PoseStack p_115315_, float p_115316_) {
+    }
+
+    @Override
+    public boolean shouldRender(T livingEntity, Frustum camera, double camX, double camY, double camZ) {
+        return livingEntity != null && camera.isVisible(livingEntity.getBoundingBoxForCulling());
     }
 }

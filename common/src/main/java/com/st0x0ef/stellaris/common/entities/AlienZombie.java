@@ -87,17 +87,6 @@ public class AlienZombie extends Monster implements RangedAttackMob {
 		return super.checkSpawnRules(p_21686_, p_21687_);
 	}
 
-	private boolean ALIEN_ZOMBIE_SPAWN = true;
-	@Override
-	public void tick() {
-		super.tick();
-		if (!ALIEN_ZOMBIE_SPAWN) {
-			if (!this.level().isClientSide) {
-				this.remove(RemovalReason.DISCARDED);
-			}
-		}
-	}
-
 	@Override
 	public Packet<ClientGamePacketListener> getAddEntityPacket() {
 		return NetworkManager.createAddEntityPacket(this);

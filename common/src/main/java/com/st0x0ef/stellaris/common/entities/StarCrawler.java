@@ -64,16 +64,6 @@ public class StarCrawler extends Monster {
 			return false;
 		return super.hurt(source, amount);
 	}
-	private boolean STAR_CRAWLER_SPAWN = true;
-	@Override
-	public void baseTick() {
-		super.baseTick();
-		if (!STAR_CRAWLER_SPAWN) {
-			if (!this.level().isClientSide) {
-				this.remove(RemovalReason.DISCARDED);
-			}
-		}
-	}
 
 	@Override
 	public Packet<ClientGamePacketListener> getAddEntityPacket() {

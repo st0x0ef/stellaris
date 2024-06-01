@@ -61,8 +61,6 @@ public class Utils {
 
         if (!entity.canChangeDimensions()) return;
 
-        //entity.changeDimension(nextLevel);
-
         TeleportUtil.teleportToPlanet(entity, nextLevel, yPos);
         entity.setPos(entity.getX(), yPos, entity.getZ());
 

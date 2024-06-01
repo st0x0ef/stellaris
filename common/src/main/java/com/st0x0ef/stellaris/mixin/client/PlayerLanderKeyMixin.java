@@ -31,7 +31,7 @@ public abstract class PlayerLanderKeyMixin {
     private void keyPress(long windowPointer, int key, int scanCode, int action, int modifiers, CallbackInfo info) {
         if (windowPointer == this.minecraft.getWindow().getWindow()) {
             if (minecraft.player == null) return;
-            if(minecraft.player.getVehicle() instanceof LanderEntity) {
+            if (minecraft.player.getVehicle() instanceof LanderEntity) {
                 keyEvent(minecraft.player, minecraft.options.keyJump, key, scanCode, action, modifiers);
 
             }

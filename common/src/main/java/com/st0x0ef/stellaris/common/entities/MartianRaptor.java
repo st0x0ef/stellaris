@@ -82,18 +82,6 @@ public class MartianRaptor extends Monster {
         }
     }
 
-
-    private boolean MARTIAN_RAPTOR_SPAWN = true;
-    @Override
-    public void baseTick() {
-        super.baseTick();
-        if (!MARTIAN_RAPTOR_SPAWN) {
-            if (!this.level().isClientSide) {
-                this.remove(RemovalReason.DISCARDED);
-            }
-        }
-    }
-
     public float getAttackAnim() {
         return AttackAnim;
     }

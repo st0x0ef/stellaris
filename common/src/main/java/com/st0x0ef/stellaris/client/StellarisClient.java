@@ -52,8 +52,9 @@ public class StellarisClient {
 
     public static void initClient() {
         registerParticle();
-        registerEntityModelLayer();
+
         registerEntityRenderer();
+        registerEntityModelLayer();
         registerScreen();
         registerKey();
         ClientEvents.registerEvents();
@@ -97,7 +98,6 @@ public class StellarisClient {
         EntityRendererRegistry.register(EntityRegistry.BIG_ROCKET, BigRocketRenderer::new);
 
         EntityRendererRegistry.register(EntityRegistry.LANDER, LanderRenderer::new);
-
 
         BlockEntityRendererRegistry.register(BlockEntityRegistry.GLOBE_BLOCK_ENTITY.get(), GlobeBlockRenderer::new);
     }
