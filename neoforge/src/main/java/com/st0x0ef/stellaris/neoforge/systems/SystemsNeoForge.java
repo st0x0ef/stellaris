@@ -19,7 +19,8 @@ import net.neoforged.neoforge.fluids.capability.wrappers.FluidBucketWrapper;
 
 @SuppressWarnings({"unused", "CodeBlock2Expr"})
 public class SystemsNeoForge {
-    public SystemsNeoForge(IEventBus bus) {
+
+    public static void init(IEventBus bus) {
         bus.addListener(SystemsNeoForge::registerEnergy);
         //bus.addListener(SystemsNeoForge::registerFluid); TODO fix this
         bus.addListener(SystemsNeoForge::registerItem);
