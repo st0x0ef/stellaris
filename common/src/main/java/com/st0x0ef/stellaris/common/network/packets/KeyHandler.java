@@ -29,7 +29,7 @@ public class KeyHandler {
 
     public static void apply(RegistryFriendlyByteBuf buffer, NetworkManager.PacketContext context) {
         Player player = context.getPlayer();
-
+        if (player==null) return;
         context.queue(() -> {
             switch (buffer.readUtf()) {
                 case "rocket_start":
