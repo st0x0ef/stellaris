@@ -13,7 +13,7 @@ import java.util.Optional;
 
 public class RadioactiveEffect extends MobEffect {
 
-    private final Optional<SoundEvent> soundOnAdded = Optional.of(SoundRegistry.RADIOACTIVE.get());
+    private final SoundEvent soundOnAdded = SoundRegistry.RADIOACTIVE.get();
     public RadioactiveEffect(MobEffectCategory mobEffectCategory, int color) {
         super(mobEffectCategory, color);
     }
@@ -59,12 +59,6 @@ public class RadioactiveEffect extends MobEffect {
     }
 
     public void onEffectAdded(LivingEntity livingEntity, int amplifier){
-        this.soundOnAdded.ifPresent((soundEvent) -> {
-            livingEntity.level().playSound(null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), soundEvent, livingEntity.getSoundSource(), 3.0F, 1.0F);
-        });
+        livingEntity.level().playSound(null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), soundOnAdded, livingEntity.getSoundSource(), 3.0F, 1.0F);
     }
-
-
-
-
 }
