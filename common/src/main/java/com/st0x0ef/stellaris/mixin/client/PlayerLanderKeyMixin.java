@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.mixin.client;
 
+import com.st0x0ef.stellaris.common.entities.LanderEntity;
 import com.st0x0ef.stellaris.common.keybinds.KeyVariables;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import com.st0x0ef.stellaris.common.network.packets.KeyHandler;
@@ -29,7 +30,10 @@ public abstract class PlayerLanderKeyMixin {
     @Inject(at = @At(value = "TAIL"), method = "keyPress", cancellable = true)
     private void keyPress(long windowPointer, int key, int scanCode, int action, int modifiers, CallbackInfo info) {
         if (windowPointer == this.minecraft.getWindow().getWindow()) {
-            keyEvent(minecraft.player, minecraft.options.keyJump, key, scanCode, action, modifiers);
+            if(minecraft.player.getVehicle() instanceof LanderEntity) {
+                keyEvent(minecraft.player, minecraft.options.keyJump, key, scanCode, action, modifiers);
+
+            }
         }
     }
 
