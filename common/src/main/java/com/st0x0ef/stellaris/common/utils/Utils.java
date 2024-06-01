@@ -195,6 +195,10 @@ public class Utils {
         return Component.literal(text).setStyle(Style.EMPTY.withColor(TextColor.fromRgb(color)));
     }
 
+    public static Component getMessageComponent(String text) {
+        return Component.literal(text).setStyle(Style.EMPTY);
+    }
+
     /**
      * @param MCG Minecraft Gravity Unit
      * @return m/s²
