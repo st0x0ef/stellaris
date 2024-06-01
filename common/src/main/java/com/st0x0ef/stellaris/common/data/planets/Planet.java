@@ -38,6 +38,7 @@ public record Planet (
     public RegistryFriendlyByteBuf toNetwork(RegistryFriendlyByteBuf buffer) {
         buffer.writeUtf(this.system);
         buffer.writeUtf(this.translatable);
+        buffer.writeUtf(this.name);
         buffer.writeResourceKey(this.dimension);
         buffer.writeResourceKey(this.orbit);
         buffer.writeBoolean(this.oxygen);
