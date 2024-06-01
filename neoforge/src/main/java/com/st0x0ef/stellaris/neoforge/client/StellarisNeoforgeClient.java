@@ -30,69 +30,42 @@ import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.tiny.TinyR
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.tiny.TinyRocketRenderer;
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeBlockRenderer;
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeModel;
+import com.st0x0ef.stellaris.client.screens.*;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
+import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import dev.architectury.registry.client.level.entity.EntityModelLayerRegistry;
 import dev.architectury.registry.client.level.entity.EntityRendererRegistry;
 import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
+import dev.architectury.registry.menu.MenuRegistry;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.client.event.ScreenEvent;
 
 @EventBusSubscriber(modid = Stellaris.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
 public class StellarisNeoforgeClient {
     @SubscribeEvent
     public static void clientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(StellarisClient::initClient);
-
     }
 
     @SubscribeEvent
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
-
-        event.registerEntityRenderer(EntityRegistry.ALIEN.get(), AlienRenderer::new);
-        event.registerEntityRenderer(EntityRegistry.ALIEN_ZOMBIE.get(), AlienZombieRenderer::new);
-        event.registerEntityRenderer(EntityRegistry.MARTIAN_RAPTOR.get(), MartianRaptorRenderer::new);
-        event.registerEntityRenderer(EntityRegistry.PYGRO.get(), PygroRenderer::new);
-        event.registerEntityRenderer(EntityRegistry.PYGRO_BRUTE.get(), PygroBruteRenderer::new);
-        event.registerEntityRenderer(EntityRegistry.MOGLER.get(), MoglerRenderer::new);
-        event.registerEntityRenderer(EntityRegistry.STAR_CRAWLER.get(), StarCrawlerRenderer::new);
-        event.registerEntityRenderer(EntityRegistry.CHEESE_BOSS.get(), CheeseBossRenderer::new);
-
-        event.registerEntityRenderer(EntityRegistry.ICE_SPIT.get(), renderManager -> new ThrownItemRenderer<>(renderManager, 1, true));
-        event.registerEntityRenderer(EntityRegistry.ICE_SHARD_ARROW.get(), IceShardArrowRenderer::new);
-
-        event.registerEntityRenderer(EntityRegistry.NORMAL_ROCKET.get(), NormalRocketRenderer::new);
-        event.registerEntityRenderer(EntityRegistry.TINY_ROCKET.get(), TinyRocketRenderer::new);
-        event.registerEntityRenderer(EntityRegistry.SMALL_ROCKET.get(), SmallRocketRenderer::new);
-        event.registerEntityRenderer(EntityRegistry.BIG_ROCKET.get(), BigRocketRenderer::new);
-
-        event.registerEntityRenderer(EntityRegistry.LANDER.get(), LanderRenderer::new);
-
-        event.registerBlockEntityRenderer(BlockEntityRegistry.GLOBE_BLOCK_ENTITY.get(), GlobeBlockRenderer::new);
-
+        StellarisClient.registerEntityRenderer();
     }
 
     @SubscribeEvent
     public static void registerEntityLayer(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        event.registerLayerDefinition(AlienModel.LAYER_LOCATION, AlienModel::createBodyLayer);
-        event.registerLayerDefinition(AlienZombieModel.LAYER_LOCATION, AlienZombieModel::createBodyLayer);
-        event.registerLayerDefinition(MartianRaptorModel.LAYER_LOCATION, MartianRaptorModel::createBodyLayer);
-        event.registerLayerDefinition(PygroModel.LAYER_LOCATION, PygroModel::createBodyLayer);
-        event.registerLayerDefinition(MoglerModel.LAYER_LOCATION, MoglerModel::createBodyLayer);
-        event.registerLayerDefinition(StarCrawlerModel.LAYER_LOCATION, StarCrawlerModel::createBodyLayer);
-        event.registerLayerDefinition(CheeseBossModel.LAYER_LOCATION, CheeseBossModel::createBodyLayer);
+        StellarisClient.registerEntityModelLayer();
+    }
 
-        event.registerLayerDefinition(GlobeModel.LAYER_LOCATION, GlobeModel::createLayer);
-        event.registerLayerDefinition(LanderModel.LAYER_LOCATION, LanderModel::createBodyLayer);
-
-        event.registerLayerDefinition(TinyRocketModel.LAYER_LOCATION, TinyRocketModel::createBodyLayer);
-        event.registerLayerDefinition(SmallRocketModel.LAYER_LOCATION, SmallRocketModel::createBodyLayer);
-        event.registerLayerDefinition(NormalRocketModel.LAYER_LOCATION, NormalRocketModel::createBodyLayer);
-        event.registerLayerDefinition(BigRocketModel.LAYER_LOCATION, BigRocketModel::createBodyLayer);
-
+    @SubscribeEvent
+    public static void registerScreen(RegisterMenuScreensEvent event) {
+        StellarisClient.registerScreen();
     }
 }

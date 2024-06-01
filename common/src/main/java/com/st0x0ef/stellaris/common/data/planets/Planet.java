@@ -44,7 +44,8 @@ public record Planet (
         buffer.writeFloat(this.temperature);
         buffer.writeInt(this.distanceFromEarth);
         buffer.writeFloat(this.gravity);
-        return this.textures.toNetwork(buffer);
+        this.textures.toNetwork(buffer);
+        return buffer;
     }
 
     public Component getTranslation() {
