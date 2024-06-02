@@ -76,7 +76,7 @@ public class RocketMenu extends AbstractContainerMenu {
 
     private void addSlots(Container inventory) {
         //FUEL SLOTS
-        this.addSlot(new FuelBucketSlot(inventory, 0, 20, 27));
+        this.addSlot(new Slot(inventory, 0, 20, 27));
         this.addSlot(new ResultSlot(inventory, 1, 20, 57));
 
         //INVENTORY SLOTS

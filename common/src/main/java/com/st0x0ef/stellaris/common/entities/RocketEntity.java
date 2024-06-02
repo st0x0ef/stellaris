@@ -88,6 +88,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         this.rocketExplosion();
         this.burnEntities();
         this.checkContainer();
+
         if (ROCKET_START) {
             this.spawnParticle();
             this.startTimerAndFlyMovement();
@@ -138,7 +139,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
         if (!this.level().isClientSide) {
             if (player.isCrouching()) {
-                if (player.getMainHandItem().is(ItemsRegistry.FUEL_BUCKET.get())) {
+                if (player.getMainHandItem().is(FuelType.getFuelItem(MOTOR_UPGRADE.getFuelType()))) {
                     fillUpRocket(1000);
                     player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.BUCKET));
                 } else {
@@ -351,28 +352,6 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
     @Override
     public void containerChanged(Container container) {
-        if (container.getItem(10).getItem() instanceof RocketUpgradeItem item) {
-            this.MOTOR_UPGRADE = (MotorUpgrade) item.getUpgrade();
-        }
-        if (container.getItem(11).getItem() instanceof RocketUpgradeItem item) {
-            this.TANK_UPGRADE = (TankUpgrade) item.getUpgrade();
-        }
-        if (container.getItem(12).getItem() instanceof RocketUpgradeItem item) {
-            this.SKIN_UPGRADE = (SkinUpgrade) item.getUpgrade();
-        }
-        if (container.getItem(13).getItem() instanceof RocketUpgradeItem item) {
-            this.MODEL_UPGRADE = (ModelUpgrade) item.getUpgrade();
-            this.spawnRocketItem();
-            this.dropEquipment();
-
-            if (!this.level().isClientSide) {
-                this.remove(RemovalReason.DISCARDED);
-            }
-        }
-
-        if (inventory.getItem(0).is(FuelType.getFuelItem(MOTOR_UPGRADE.getFuelType()))) {
-            fillUpRocket(1000);
-        }
     }
 
     protected void doPlayerRide(Player player) {
@@ -388,6 +367,28 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
     private void checkContainer() {
 
+        if (this.getInventory().getItem(10).getItem() instanceof RocketUpgradeItem item) {
+            this.MOTOR_UPGRADE = (MotorUpgrade) item.getUpgrade();
+        }
+        if (this.getInventory().getItem(11).getItem() instanceof RocketUpgradeItem item) {
+            this.TANK_UPGRADE = (TankUpgrade) item.getUpgrade();
+        }
+        if (this.getInventory().getItem(12).getItem() instanceof RocketUpgradeItem item) {
+            this.SKIN_UPGRADE = (SkinUpgrade) item.getUpgrade();
+        }
+        if (this.getInventory().getItem(13).getItem() instanceof RocketUpgradeItem item) {
+            this.MODEL_UPGRADE = (ModelUpgrade) item.getUpgrade();
+            this.spawnRocketItem();
+            this.dropEquipment();
+
+            if (!this.level().isClientSide) {
+                this.remove(RemovalReason.DISCARDED);
+            }
+        }
+
+        if (this.getInventory().getItem(0).is(FuelType.getFuelItem(MOTOR_UPGRADE.getFuelType()))) {
+            fillUpRocket(1000);
+        }
     }
 
     public void fillUpRocket(int value) {
