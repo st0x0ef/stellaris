@@ -3,7 +3,7 @@
 layout: home
 
 hero:
-  name: "Stellaris Project Documentation"
+  name: "The Stellaris Project Documentation"
   text: "Learn how to create your own planets !"
   tagline: 
   actions:
