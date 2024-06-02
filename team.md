@@ -90,6 +90,11 @@ const members = [
     title: 'Builder'
   },
   {
+    avatar: 'https://cdn.discordapp.com/avatars/1003010832365539348/3e9ceaf9866d84927477a42a136d9825?size=1024',
+    name: 'Kurjiano',
+    title: 'Builder'
+  },  
+  {
     avatar: 'https://cdn.discordapp.com/avatars/667758839625416720/f2ed80b9c10b8d3528aec7c09ff9ec6e?size=1024',
     name: 'Ilyuxadwa',
     title: 'Texturer/Modeler'
