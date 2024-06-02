@@ -101,11 +101,11 @@ public class PlanetUtil {
         return StellarisData.getPlanet(dim);
     }
 
-    public float getTemperature(ResourceKey<Level> dim) {
+    public static float getTemperature(ResourceKey<Level> dim) {
         return getPlanet(dim).temperature();
     }
 
-    public String getSystem(ResourceKey<Level> dim) {
+    public static String getSystem(ResourceKey<Level> dim) {
         return getPlanet(dim).system();
     }
 }
