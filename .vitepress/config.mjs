@@ -10,7 +10,8 @@ export default defineConfig({
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Create a planet', link: '/custom-planets' },
-      { text: 'Configure the screen', link: '/custom-screen' }
+      { text: 'Configure the screen', link: '/custom-screen' },
+      { text: 'Team', link: '/team' }
 
     ],
 
