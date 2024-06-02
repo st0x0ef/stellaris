@@ -229,10 +229,15 @@
   "text.stellaris.planetscreen.venus": "Venus",
   "text.stellaris.planetscreen.earth": "Earth",
   "text.stellaris.planetscreen.mars": "Mars",
+  "text.stellaris.planetscreen.jupiter": "Jupiter",
+  "text.stellaris.planetscreen.saturn": "Saturn",
+  "text.stellaris.planetscreen.uranus": "Uranus",
+  "text.stellaris.planetscreen.neptune": "Neptune",
 
   "text.stellaris.planetscreen.moon": "Moon",
   "text.stellaris.planetscreen.phobos": "Phobos",
   "text.stellaris.planetscreen.deimos": "Deimos",
+
   "text.stellaris.planetscreen.asteroid_belt": "Asteroid Belt",
 
   "solar_system": "Solar System",
