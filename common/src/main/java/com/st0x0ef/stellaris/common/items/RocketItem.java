@@ -148,13 +148,8 @@ public class RocketItem extends Item {
         return 1.0D + Shapes.collide(Direction.Axis.Y, p_20629_, iterable, p_20628_ ? -2.0D : -1.0D);
     }
 
-    private void addRocketInfos(RocketEntity entity, ItemStack stack) {
+    private void addRocketInfos(RocketEntity rocket, ItemStack stack) {
         RocketComponent rocketComponent = stack.get(DataComponentsRegistry.ROCKET_COMPONENT.get());
-        entity.getEntityData().set(RocketEntity.ROCKET_SKIN, rocketComponent.skin());
-        entity.getEntityData().set(RocketEntity.FUEL, rocketComponent.getFuel());
-        entity.getEntityData().set(RocketEntity.ROCKET_MODEL, rocketComponent.getModel().getSerializedName());
-
+        rocket.FUEL = rocketComponent.getFuel();
     }
-
-
 }

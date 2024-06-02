@@ -24,7 +24,7 @@ public class RocketScreen extends AbstractContainerScreen<RocketMenu> {
     public static final ResourceLocation fluid_tank_overlay = new ResourceLocation(Stellaris.MODID, "textures/gui/util/fluid_tank_overlay.png");
 
     public int rocket_fuel = 0;
-    public int max_fuel = RocketEntity.MAX_FUEL;
+    public int max_fuel;
     public Component capacity;
 
     public static final Component Fuel = Component.translatable("text.stellaris.rocketscreen.fuel");
@@ -35,7 +35,6 @@ public class RocketScreen extends AbstractContainerScreen<RocketMenu> {
         this.imageWidth = 177;
         this.imageHeight = 177;
         this.inventoryLabelY = this.imageHeight - 92;
-
     }
 
     @Override
@@ -45,6 +44,8 @@ public class RocketScreen extends AbstractContainerScreen<RocketMenu> {
         this.renderTooltip(graphics, mouseX, mouseY);
 
         rocket_fuel = this.getMenu().getRocket().getFuel();
+        max_fuel = this.getMenu().getRocket().TANK_UPGRADE.getTankCapacity();
+
         String GaugeComponent = Fuel.getString() + " : " + rocket_fuel + " / " + max_fuel;
 
         Gauge gauge = new Gauge(this.leftPos + 51, this.topPos + 27, 12, 46, Fuel, fuel_overlay, rocket_fuel, max_fuel);
@@ -62,8 +63,6 @@ public class RocketScreen extends AbstractContainerScreen<RocketMenu> {
         }
 
         this.addRenderableWidget(gauge);
-
-
     }
 
     @Override

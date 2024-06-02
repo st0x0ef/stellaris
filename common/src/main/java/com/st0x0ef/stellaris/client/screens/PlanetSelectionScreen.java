@@ -354,7 +354,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             if (CELESTIAL_BODY_TEMPERATURE == null) {
                 temperatureV = Component.literal(temperature.getString() + " : null");
             } else {
-                temperatureV = Component.literal(temperature.getString() + " : " + CELESTIAL_BODY_TEMPERATURE + "°C");
+                temperatureV = Component.literal(temperature.getString() + " : " + PlanetUtil.getPlanet(focusedBody.dimension).temperature() + "°C");
             }
 
             if (CELESTIAL_BODY_OXYGEN == null ){
