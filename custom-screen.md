@@ -9,7 +9,7 @@ First, you'll need to create the base of the resourcepack. The structure of the 
 ```
 ├─ assets
 │  ├─ [namespace]
-│  │  └─ renderer
+│     └─ renderer
 │         └─ planet_screen
 │             └─ star
 │             └─ planet
