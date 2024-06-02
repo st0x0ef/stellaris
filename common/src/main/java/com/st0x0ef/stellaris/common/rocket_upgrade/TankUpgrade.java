@@ -12,6 +12,6 @@ public class TankUpgrade extends RocketUpgrade {
     }
 
     public static TankUpgrade getBasic() {
-        return new TankUpgrade(300);
+        return new TankUpgrade(3000);
     }
 }
