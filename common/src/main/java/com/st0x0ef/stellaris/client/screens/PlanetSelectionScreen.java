@@ -94,9 +94,6 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     public PlanetSelectionScreen(PlanetSelectionMenu abstractContainerMenu, Inventory inventory, Component component) {
         super(abstractContainerMenu, inventory, component);
-        if (isPausePressed == false) {
-            startUpdating();
-        }
         this.imageWidth = 1200;
         this.imageHeight = 1600;
         this.inventoryLabelY = this.imageHeight - 110;
@@ -208,6 +205,9 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         this.renderBackground(graphics, mouseX, mouseY, partialTicks);
         super.render(graphics, mouseX, mouseY, partialTicks);
 
+        if (!isPausePressed) {
+            updatePlanets();
+        }
         if (focusedBody != null) {
             centerOnBody(focusedBody);
         }
@@ -296,10 +296,10 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
                     if (PlanetUtil.getPlanet(hoveredBody.dimension) == null) {
                         bodyDescription.add(Utils.getMessageComponent(error_message.getString(), "Red"));
                     } else {
-                        bodyDescription.add(Utils.getMessageComponent(temperature.getString() + " : " + PlanetUtil.getPlanet(hoveredBody.dimension).temperature() + "°C"));
+                        bodyDescription.add(Utils.getMessageComponent(temperature.getString() + " : " + PlanetUtil.getTemperature(hoveredBody.dimension) + "°C"));
                         bodyDescription.add(Utils.getMessageComponent(gravity.getString() + " : " + PlanetUtil.getPlanet(hoveredBody.dimension).gravity() + "m/s"));
                         bodyDescription.add(Utils.getMessageComponent(oxygen.getString() + " : " + PlanetUtil.getPlanet(hoveredBody.dimension).oxygen()));
-                        bodyDescription.add(Utils.getMessageComponent(system.getString() + " : " + PlanetUtil.getPlanet(hoveredBody.dimension).system()));
+                        bodyDescription.add(Utils.getMessageComponent(system.getString() + " : " + Component.translatable(PlanetUtil.getSystem(hoveredBody.dimension)).getString()));
                     }
                 }
 
@@ -329,7 +329,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
             Component CELESTIAL_BODY_NAME = focusedBody.translatable;
 
-            Float CELESTIAL_BODY_TEMPERATURE = PlanetUtil.getPlanet(focusedBody.dimension).temperature();
+            Float CELESTIAL_BODY_TEMPERATURE = PlanetUtil.getTemperature(focusedBody.dimension);
             Float CELESTIAL_BODY_GRAVITY = PlanetUtil.getPlanet(focusedBody.dimension).gravity();
             Boolean CELESTIAL_BODY_OXYGEN = PlanetUtil.getPlanet(focusedBody.dimension).oxygen();
             String CELESTIAL_BODY_SYSTEM = PlanetUtil.getPlanet(focusedBody.dimension).system();
@@ -347,26 +347,26 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             if (CELESTIAL_BODY_SYSTEM == null) {
                 systemV = Component.literal(system + " : null");
             } else {
-                systemTranslatable = Component.translatable(PlanetUtil.getPlanet(focusedBody.dimension).system());
+                systemTranslatable = Component.translatable(CELESTIAL_BODY_SYSTEM);
                 systemV = Component.literal(system.getString() + " : " + systemTranslatable.getString());
             }
 
             if (CELESTIAL_BODY_TEMPERATURE == null) {
                 temperatureV = Component.literal(temperature.getString() + " : null");
             } else {
-                temperatureV = Component.literal(temperature.getString() + " : " + PlanetUtil.getPlanet(focusedBody.dimension).temperature() + "°C");
+                temperatureV = Component.literal(temperature.getString() + " : " + CELESTIAL_BODY_TEMPERATURE + "°C");
             }
 
             if (CELESTIAL_BODY_OXYGEN == null ){
                 oxygenV = Component.literal(oxygen.getString() + " : null");
             } else {
-                oxygenV = Component.literal(oxygen.getString() + " : " + PlanetUtil.getPlanet(focusedBody.dimension).oxygen());
+                oxygenV = Component.literal(oxygen.getString() + " : " + CELESTIAL_BODY_GRAVITY);
             }
 
             if (CELESTIAL_BODY_GRAVITY == null) {
                 gravityV = Component.literal(gravity.getString() + " : null");
             } else {
-                gravityV = Component.literal(gravity.getString() + " : " + PlanetUtil.getPlanet(focusedBody.dimension).gravity() + "m/s");
+                gravityV = Component.literal(gravity.getString() + " : " + CELESTIAL_BODY_GRAVITY + "m/s");
             }
 
             if (CELESTIAL_BODY_OXYGEN == true) {
