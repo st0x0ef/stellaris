@@ -8,7 +8,7 @@ First, you'll need to create the base of the datapack. The structure of the data
 
 ```
 ├─ data
-│  ├─ [namespace]
+│  └─ [namespace]
 │     └─ planets
 │         └─ planet1.json
 │         └─ planet2.json

@@ -8,7 +8,7 @@ First, you'll need to create the base of the resourcepack. The structure of the 
 
 ```
 ├─ assets
-│  ├─ [namespace]
+│  └─ [namespace]
 │     └─ renderer
 │         └─ planet_screen
 │             └─ star
