@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/outer_stairs",
-  "textures": {
-    "bottom": "stellaris:block/heavy_metal_plate",
-    "side": "stellaris:block/heavy_metal_plate",
-    "top": "stellaris:block/heavy_metal_plate"
-  }
-}

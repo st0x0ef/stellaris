@@ -1,8 +1,0 @@
-{
-  "variants": {
-    "facing=north": { "model": "stellaris:block/vertical_heavy_metal_plate_slab", "uvlock": true },
-    "facing=east":  { "model": "stellaris:block/vertical_heavy_metal_plate_slab", "y":  90, "uvlock": true },
-    "facing=south": { "model": "stellaris:block/vertical_heavy_metal_plate_slab", "y": 180, "uvlock": true },
-    "facing=west":  { "model": "stellaris:block/vertical_heavy_metal_plate_slab", "y": 270, "uvlock": true }
-  }
-}

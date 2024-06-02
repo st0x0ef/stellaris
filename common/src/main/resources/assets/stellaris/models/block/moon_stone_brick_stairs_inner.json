@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/inner_stairs",
-  "textures": {
-    "bottom": "stellaris:block/moon_stone_bricks",
-    "side": "stellaris:block/moon_stone_bricks",
-    "top": "stellaris:block/moon_stone_bricks"
-  }
-}

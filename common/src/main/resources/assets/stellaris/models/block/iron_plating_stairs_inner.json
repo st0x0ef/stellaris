@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/inner_stairs",
-  "textures": {
-    "bottom": "stellaris:block/iron_plating_block",
-    "side": "stellaris:block/iron_plating_block",
-    "top": "stellaris:block/iron_plating_block"
-  }
-}

@@ -1,8 +1,0 @@
-{
-  "parent": "stellaris:custom/rocket_launch_pad_base",
-  "textures": {
-    "all": "stellaris:block/rocket_launch_pad",
-    "particle": "stellaris:block/rocket_launch_pad",
-    "1": "stellaris:block/rocket_launch_pad"
-  }
-}

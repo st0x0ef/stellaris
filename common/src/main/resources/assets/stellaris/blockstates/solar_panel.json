@@ -1,8 +1,0 @@
-{
-  "variants": {
-    "": {
-      "model": "stellaris:block/solar_panel",
-      "y": 90
-    }
-  }
-}

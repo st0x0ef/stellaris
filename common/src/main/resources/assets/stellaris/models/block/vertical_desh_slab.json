@@ -1,8 +1,0 @@
-{
-  "parent": "stellaris:custom/vertical_slab",
-  "textures": {
-    "bottom": "stellaris:block/desh_block",
-    "top": "stellaris:block/desh_block",
-    "side": "stellaris:block/desh_block"
-  }
-}

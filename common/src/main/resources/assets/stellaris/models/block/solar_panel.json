@@ -1,7 +1,0 @@
-{
-  "parent": "stellaris:custom/solar_panel",
-  "textures": {
-    "0": "stellaris:block/machines/solar_panel",
-    "particle": "stellaris:block/machines/solar_panel"
-  }
-}

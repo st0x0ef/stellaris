@@ -1,8 +1,0 @@
-{
-  "parent": "stellaris:custom/vertical_slab",
-  "textures": {
-    "bottom": "stellaris:block/steel_block",
-    "top": "stellaris:block/steel_block",
-    "side": "stellaris:block/steel_block"
-  }
-}

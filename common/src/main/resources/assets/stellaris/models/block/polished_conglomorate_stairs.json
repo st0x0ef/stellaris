@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/stairs",
-  "textures": {
-    "bottom": "stellaris:block/polished_conglomorate",
-    "side": "stellaris:block/polished_conglomorate",
-    "top": "stellaris:block/polished_conglomorate"
-  }
-}

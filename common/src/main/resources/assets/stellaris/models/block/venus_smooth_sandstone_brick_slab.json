@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "bottom": "stellaris:block/venus_smooth_sandstone_brick",
-    "side": "stellaris:block/venus_smooth_sandstone_brick",
-    "top": "stellaris:block/venus_smooth_sandstone_brick"
-  }
-}
