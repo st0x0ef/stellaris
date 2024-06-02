@@ -21,6 +21,6 @@ public class BigRocketRenderer extends VehicleRenderer<RocketEntity, BigRocketMo
 
     @Override
     protected boolean isShaking(RocketEntity rocket) {
-        return rocket.getEntityData().get(RocketEntity.ROCKET_START);
+        return rocket.ROCKET_START;
     }
 }

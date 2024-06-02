@@ -31,12 +31,12 @@ public class RocketStartOverlay {
             int timer = 0;
 
             /** GET TIMER */
-            if (vehicle instanceof RocketEntity) {
-                timer = vehicle.getEntityData().get(RocketEntity.START_TIMER);
-            }
+            if (vehicle instanceof RocketEntity rocket) {
+                timer = rocket.START_TIMER;
 
-            /** CHECK IF ROCKET IS STARTED */
-            if(!vehicle.getEntityData().get(RocketEntity.ROCKET_START)) return;
+                /** CHECK IF ROCKET IS STARTED */
+                if(!rocket.ROCKET_START) return;
+            }
 
             int timerWidth = graphics.guiWidth() / 2 - 31;
             int timerHeight = graphics.guiHeight() / 2 / 2;

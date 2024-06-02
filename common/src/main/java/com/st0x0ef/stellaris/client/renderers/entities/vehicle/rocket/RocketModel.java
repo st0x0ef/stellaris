@@ -37,7 +37,6 @@ public enum RocketModel implements StringRepresentable {
             case SMALL -> "small";
             case NORMAL -> "normal";
             case BIG -> "big";
-            default -> "normal";
         };
     }
 

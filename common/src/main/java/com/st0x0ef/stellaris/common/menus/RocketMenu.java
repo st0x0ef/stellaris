@@ -4,6 +4,10 @@ import com.st0x0ef.stellaris.common.entities.RocketEntity;
 import com.st0x0ef.stellaris.common.menus.slot.FuelBucketSlot;
 import com.st0x0ef.stellaris.common.menus.slot.ResultSlot;
 import com.st0x0ef.stellaris.common.menus.slot.SpecificItemsSlot;
+import com.st0x0ef.stellaris.common.menus.slot.upgrade.MotorUpgradeSlot;
+import com.st0x0ef.stellaris.common.menus.slot.upgrade.RocketModelSlot;
+import com.st0x0ef.stellaris.common.menus.slot.upgrade.RocketSkinSlot;
+import com.st0x0ef.stellaris.common.menus.slot.upgrade.TankUpgradeSlot;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import net.minecraft.network.FriendlyByteBuf;
@@ -24,8 +28,6 @@ public class RocketMenu extends AbstractContainerMenu {
         this(syncId, inventory, new SimpleContainer(15), buffer.readVarInt());
     }
 
-
-
     public RocketMenu(int syncId, Inventory playerInventory, Container container, int entityId)
     {
 
@@ -45,7 +47,7 @@ public class RocketMenu extends AbstractContainerMenu {
     public ItemStack quickMoveStack(Player player, int invSlot) {
         ItemStack newStack = ItemStack.EMPTY;
         Slot slot = this.slots.get(invSlot);
-        if (slot != null && slot.hasItem()) {
+        if (slot.hasItem()) {
             ItemStack originalStack = slot.getItem();
             newStack = originalStack.copy();
             if (invSlot < this.inventory.getContainerSize()) {
@@ -91,13 +93,13 @@ public class RocketMenu extends AbstractContainerMenu {
         this.addSlot(new Slot(inventory, 9, 140, 37));
 
         //UPGRADE SLOTS
-        this.addSlot(new SpecificItemsSlot.Item(inventory, 10, 76, 66, ItemsRegistry.STEEL_NUGGET.get()));
-        this.addSlot(new Slot(inventory, 11, 101, 66));
+        this.addSlot(new MotorUpgradeSlot(inventory, 10, 76, 66));
+        this.addSlot(new TankUpgradeSlot(inventory, 11, 101, 66));
 
         //SKIN SLOTS
-        this.addSlot(new Slot(inventory, 12, 126, 66));
+        this.addSlot(new RocketSkinSlot(inventory, 12, 126, 66));
         //MODEL SLOTS
-        this.addSlot(new Slot(inventory, 13, 151, 66));
+        this.addSlot(new RocketModelSlot(inventory, 13, 151, 66));
 
     }
 
