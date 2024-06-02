@@ -1,6 +1,6 @@
 # Custom Planets
 
-With Project Stellaris, you can add your own planets with a datapack !
+With Project Stellaris, you can add your own planets with a simple datapack !
 
 ## Creation of the datapack
 
