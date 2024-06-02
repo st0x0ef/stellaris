@@ -296,7 +296,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
                     if (PlanetUtil.getPlanet(hoveredBody.dimension) == null) {
                         bodyDescription.add(Utils.getMessageComponent(error_message.getString(), "Red"));
                     } else {
-                        bodyDescription.add(Utils.getMessageComponent(temperature.getString() + " : " + PlanetUtil.getTemperature(hoveredBody.dimension) + "°C"));
+                        bodyDescription.add(Utils.getMessageComponent(temperature.getString() + " : " + PlanetUtil.getPlanet(hoveredBody.dimension).temperature() + "°C"));
                         bodyDescription.add(Utils.getMessageComponent(gravity.getString() + " : " + PlanetUtil.getPlanet(hoveredBody.dimension).gravity() + "m/s"));
                         bodyDescription.add(Utils.getMessageComponent(oxygen.getString() + " : " + PlanetUtil.getPlanet(hoveredBody.dimension).oxygen()));
                         bodyDescription.add(Utils.getMessageComponent(system.getString() + " : " + Component.translatable(PlanetUtil.getSystem(hoveredBody.dimension)).getString()));
@@ -329,7 +329,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
             Component CELESTIAL_BODY_NAME = focusedBody.translatable;
 
-            Float CELESTIAL_BODY_TEMPERATURE = PlanetUtil.getTemperature(focusedBody.dimension);
+            Float CELESTIAL_BODY_TEMPERATURE = PlanetUtil.getPlanet(focusedBody.dimension).temperature();
             Float CELESTIAL_BODY_GRAVITY = PlanetUtil.getPlanet(focusedBody.dimension).gravity();
             Boolean CELESTIAL_BODY_OXYGEN = PlanetUtil.getPlanet(focusedBody.dimension).oxygen();
             String CELESTIAL_BODY_SYSTEM = PlanetUtil.getPlanet(focusedBody.dimension).system();
