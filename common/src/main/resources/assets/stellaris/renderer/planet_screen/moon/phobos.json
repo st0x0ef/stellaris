@@ -5,7 +5,7 @@
   "period": 1500,
   "width": 4.0,
   "height": 4.0,
-  "parent": "Mars",
+  "parent": "stellaris:mars",
   "dimensionId": "stellaris:phobos",
   "translatable": "text.stellaris.planetscreen.phobos",
   "id": "stellaris:phobos"

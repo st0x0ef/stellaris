@@ -5,7 +5,7 @@
   "period": 5000,
   "width": 8.0,
   "height": 8.0,
-  "parent": "Sun",
+  "parent": "stellaris:sun",
   "dimensionId": "stellaris:venus",
   "translatable": "text.stellaris.planetscreen.venus",
   "id": "stellaris:venus"
