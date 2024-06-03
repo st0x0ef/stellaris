@@ -11,13 +11,14 @@ public class MoonInfo extends CelestialBody {
     public final double orbitRadius;
     public double currentAngle;
 
-    public MoonInfo(ResourceLocation texture, String name, double orbitRadius, long orbitalPeriod, int width, int height, PlanetInfo orbitCenter, ResourceKey<Level> dimension, Component translatable) {
-        super(texture, name, 0, 0, width, height, 0xFFFFFF, dimension, translatable);
+    public MoonInfo(ResourceLocation texture, String name, double orbitRadius, long orbitalPeriod, int width, int height, PlanetInfo orbitCenter, ResourceKey<Level> dimension, Component translatable, String id) {
+        super(texture, name, 0, 0, width, height, 0xFFFFFF, dimension, translatable, id);
         this.orbitRadius = orbitRadius;
         this.orbitalPeriod = orbitalPeriod;
         this.orbitCenter = orbitCenter;
         this.currentAngle = 0;
         this.translatable = translatable;
+        this.id = id;
     }
 
     public void updateAngle(long currentTime) {
@@ -27,5 +28,9 @@ public class MoonInfo extends CelestialBody {
     public void updatePosition() {
         this.x = (float) (orbitCenter.x + orbitRadius * Math.cos(currentAngle));
         this.y = orbitCenter.y + orbitRadius * Math.sin(currentAngle);
+    }
+
+    public String getId() {
+        return id;
     }
 }

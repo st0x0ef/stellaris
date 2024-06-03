@@ -29,9 +29,11 @@ import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWScrollCallback;
 import org.lwjgl.opengl.GL11;
@@ -541,32 +543,32 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     private void centerSun() {
         float centerX = width / 2.0f;
         float centerY = height / 2.0f;
-        findByNameStar("Sun").setPosition(centerX, centerY);
+        findByNameStar("stellaris:sun").setPosition(centerX, centerY);
         offsetX = 0;
         offsetY = 0;
     }
 
-    public static CelestialBody findByNameStar(String name) {
+    public static CelestialBody findByNameStar(String id) {
         for (CelestialBody body : PlanetSelectionScreen.STARS) {
-            if (body.getName().equals(name)) {
+            if (body.getId().equals(id)) {
                 return body;
             }
         }
         return null;
     }
 
-    public static PlanetInfo findByNamePlanet(String name) {
+    public static PlanetInfo findByNamePlanet(String id) {
         for (PlanetInfo body : PlanetSelectionScreen.PLANETS) {
-            if (body.getName().equals(name)) {
+            if (body.getId().equals(id)) {
                 return body;
             }
         }
         return null;
     }
 
-    public static MoonInfo findByNameMoon(String name) {
+    public static MoonInfo findByNameMoon(String id) {
         for (MoonInfo body : PlanetSelectionScreen.MOONS) {
-            if (body.getName().equals(name)) {
+            if (body.getId().equals(id)) {
                 return body;
             }
         }

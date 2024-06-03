@@ -15,8 +15,9 @@ public class CelestialBody {
     public double y;
     public ResourceKey<Level> dimension;
     public Component translatable;
+    public String id;
 
-    public CelestialBody(ResourceLocation texture, String name, float x, float y, float width, float height, int orbitColor, ResourceKey<Level> dimension, Component translatable) {
+    public CelestialBody(ResourceLocation texture, String name, float x, float y, float width, float height, int orbitColor, ResourceKey<Level> dimension, Component translatable, String id) {
         this.texture = texture;
         this.name = name;
         this.x = x;
@@ -26,6 +27,7 @@ public class CelestialBody {
         this.orbitColor = orbitColor;
         this.dimension = dimension;
         this.translatable = translatable;
+        this.id = id;
     }
 
     public void setPosition(float x, float y) {
@@ -33,8 +35,16 @@ public class CelestialBody {
         this.y = y;
     }
 
+    public Component getTranslatable() {
+        return translatable;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public String getId() {
+        return id;
     }
 
 }

@@ -10,7 +10,7 @@ import net.minecraft.world.level.Level;
 public record MoonRecord(
         ResourceLocation texture, String name,
         float distance, long period, float width,
-        float height, String parent, ResourceKey<Level> dimensionId, String translatable) {
+        float height, String parent, ResourceKey<Level> dimensionId, String translatable, String id) {
 
 
     public static final Codec<MoonRecord> CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -22,6 +22,7 @@ public record MoonRecord(
             Codec.FLOAT.fieldOf("height").forGetter(MoonRecord::height),
             Codec.STRING.fieldOf("parent").forGetter(MoonRecord::parent),
             ResourceKey.codec(Registries.DIMENSION).fieldOf("dimensionId").forGetter(MoonRecord::dimensionId),
-            Codec.STRING.fieldOf("translatable").forGetter(MoonRecord::translatable)
+            Codec.STRING.fieldOf("translatable").forGetter(MoonRecord::translatable),
+            Codec.STRING.fieldOf("id").forGetter(MoonRecord::id)
     ).apply(instance, MoonRecord::new));
 }
