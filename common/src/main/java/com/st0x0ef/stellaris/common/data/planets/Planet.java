@@ -14,7 +14,10 @@ public record Planet (
         String name,
         ResourceKey<Level> dimension,
         ResourceKey<Level> orbit,
-        boolean oxygen, float temperature, int distanceFromEarth, float gravity,
+        boolean oxygen,
+        float temperature,
+        int distanceFromEarth,
+        float gravity,
         PlanetTextures textures
 
 ) {
@@ -32,7 +35,7 @@ public record Planet (
     ).apply(instance, Planet::new));
 
     public static Planet fromNetwork(RegistryFriendlyByteBuf buffer) {
-        return new Planet(buffer.readUtf(), buffer.readUtf(), buffer.readUtf(), buffer.readResourceKey(Registries.DIMENSION), buffer.readResourceKey(Registries.DIMENSION), buffer.readBoolean(), buffer.readInt(), buffer.readInt(), buffer.readFloat(), PlanetTextures.fromNetwork(buffer));
+        return new Planet(buffer.readUtf(), buffer.readUtf(), buffer.readUtf(), buffer.readResourceKey(Registries.DIMENSION), buffer.readResourceKey(Registries.DIMENSION), buffer.readBoolean(), buffer.readFloat(), buffer.readInt(), buffer.readFloat(), PlanetTextures.fromNetwork(buffer));
     }
 
     public RegistryFriendlyByteBuf toNetwork(RegistryFriendlyByteBuf buffer) {

@@ -29,11 +29,9 @@ import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWScrollCallback;
 import org.lwjgl.opengl.GL11;
@@ -63,6 +61,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     public static final List<CelestialBody> STARS = new ArrayList<>();
     public static final List<PlanetInfo> PLANETS = new ArrayList<>();
     public static final List<MoonInfo> MOONS = new ArrayList<>();
+//    public static final List<SubMoonInfo> SUBMOONS = new ArrayList<>();
 
     public static final Component temperature = Component.translatable("text.stellaris.planetscreen.temperature");
     public static final Component gravity = Component.translatable("text.stellaris.planetscreen.gravity");
@@ -294,11 +293,11 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
                 if (!isShiftPressed) {
                     bodyDescription.add(Utils.getMessageComponent("§8" + TranslatableRegistry.holdShift.getString()));
                 } else {
-                    bodyDescription.add(Utils.getMessageComponent("§f--------------------"));
+                    bodyDescription.add(Utils.getMessageComponent("§f￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣"));
                     if (PlanetUtil.getPlanet(hoveredBody.dimension) == null) {
                         bodyDescription.add(Utils.getMessageComponent(error_message.getString(), "Red"));
                     } else {
-                        bodyDescription.add(Utils.getMessageComponent(temperature.getString() + " : " + PlanetUtil.getPlanet(hoveredBody.dimension).temperature() + "°C"));
+                        bodyDescription.add(Utils.getMessageComponent(temperature.getString() + " : " + PlanetUtil.getTemperature(hoveredBody.dimension) + "°C"));
                         bodyDescription.add(Utils.getMessageComponent(gravity.getString() + " : " + PlanetUtil.getPlanet(hoveredBody.dimension).gravity() + "m/s"));
                         bodyDescription.add(Utils.getMessageComponent(oxygen.getString() + " : " + PlanetUtil.getPlanet(hoveredBody.dimension).oxygen()));
                         bodyDescription.add(Utils.getMessageComponent(system.getString() + " : " + Component.translatable(PlanetUtil.getSystem(hoveredBody.dimension)).getString()));
@@ -409,13 +408,13 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             graphics.drawString(font, launch, buttonX + buttonWidth / 4, buttonY + buttonHeight / 4 + 1, 0xFFFFFF);
             graphics.drawString(font, CELESTIAL_BODY_NAME, textX, buttonY + buttonHeight / 4 + 37, 0xFFFFFF, true);
 
-            graphics.drawString(font, "--------------------", textX, buttonY + buttonHeight / 4 + 50, 0xFFFFFF, false);
+            graphics.drawString(font, "￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣", textX, buttonY + buttonHeight / 4 + 50, 0xFFFFFF, true);
 
-            graphics.drawString(font, temperatureV, textX, buttonY + buttonHeight / 4 + 60, temperatureColor, false);
-            graphics.drawString(font, gravityV, textX, buttonY + buttonHeight / 4 + 75, 0xFFFFFF, false);
-            graphics.drawString(font, oxygenV, textX, buttonY + buttonHeight / 4 + 90, oxygenColor, false);
+            graphics.drawString(font, temperatureV, textX, buttonY + buttonHeight / 4 + 60, temperatureColor, true);
+            graphics.drawString(font, gravityV, textX, buttonY + buttonHeight / 4 + 75, 0xFFFFFF, true);
+            graphics.drawString(font, oxygenV, textX, buttonY + buttonHeight / 4 + 90, oxygenColor, true);
 
-            graphics.drawString(font, systemV, textX, buttonY + buttonHeight / 4 + 105, 0xFFFFFF, false);
+            graphics.drawString(font, systemV, textX, buttonY + buttonHeight / 4 + 105, 0xFFFFFF, true);
 //            graphics.drawString(font, "temporary : null", textX, buttonY + buttonHeight / 4 + 120, 0xFFFFFF, false);
 //            graphics.drawString(font, "temporary : null", textX, buttonY + buttonHeight / 4 + 135, 0xFFFFFF, false);
 
