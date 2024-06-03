@@ -34,8 +34,10 @@ public class Gauge extends AbstractWidget {
         if (value > max_value) {
             value = max_value;
             graphics.blit(overlay_texture, getX(), getY(), width, height - 1, width, height -1, width, height - 1);
+        } else if (value <= 0) {
+            graphics.blit(overlay_texture, getX(), getY(), width, height, width, 0, width, 45);
         } else {
-            graphics.blit(overlay_texture, getX(), getY() + 45 - (int) ((double) value / ((double) max_value / 10) * 4.5), (float) width, (float) (height - ((double) max_value / 1000 - (double) value / ((double) max_value / 10)) * 4.5), width, (int) (height - ((double) max_value / 1000 - (double) value / ((double) max_value / 10)) * 4.6), width, 45);
+            graphics.blit(overlay_texture, getX(), getY() + 45 - 45 / (max_value / value), width, height, width, 45 / (max_value / value), width, 45);
         }
 
         ScreenHelper.drawTexture(getX(), getY(), width, height, FLUID_TANK_OVERLAY, false);

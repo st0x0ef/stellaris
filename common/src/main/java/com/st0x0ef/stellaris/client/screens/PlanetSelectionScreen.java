@@ -360,7 +360,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             if (CELESTIAL_BODY_OXYGEN == null ){
                 oxygenV = Component.literal(oxygen.getString() + " : null");
             } else {
-                oxygenV = Component.literal(oxygen.getString() + " : " + CELESTIAL_BODY_GRAVITY);
+                oxygenV = Component.literal(oxygen.getString() + " : " + CELESTIAL_BODY_OXYGEN);
             }
 
             if (CELESTIAL_BODY_GRAVITY == null) {

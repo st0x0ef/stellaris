@@ -72,7 +72,4 @@ public class RocketScreen extends AbstractContainerScreen<RocketMenu> {
         RenderSystem.setShaderTexture(0, texture);
         guiGraphics.blit(texture, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
     }
-
-
-
 }
