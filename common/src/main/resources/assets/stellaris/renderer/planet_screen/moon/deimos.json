@@ -7,5 +7,6 @@
   "height": 4.0,
   "parent": "Mars",
   "dimensionId": "stellaris:deimos",
-  "translatable": "text.stellaris.planetscreen.deimos"
+  "translatable": "text.stellaris.planetscreen.deimos",
+  "id": "stellaris:deimos"
 }

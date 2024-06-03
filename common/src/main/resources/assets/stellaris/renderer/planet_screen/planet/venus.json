@@ -7,5 +7,6 @@
   "height": 8.0,
   "parent": "Sun",
   "dimensionId": "stellaris:venus",
-  "translatable": "text.stellaris.planetscreen.venus"
+  "translatable": "text.stellaris.planetscreen.venus",
+  "id": "stellaris:venus"
 }

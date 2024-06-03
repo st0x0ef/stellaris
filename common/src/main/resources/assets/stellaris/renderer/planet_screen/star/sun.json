@@ -6,5 +6,6 @@
   "width": 36.0,
   "height": 36.0,
   "orbitColor": "Yellow",
-  "translatable": "text.stellaris.planetscreen.sun"
+  "translatable": "text.stellaris.planetscreen.sun",
+  "id": "stellaris:sun"
 }
