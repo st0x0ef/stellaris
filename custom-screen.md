@@ -35,7 +35,8 @@ This folder will contains all of the stars.
   "width": 36.0,
   "height": 36.0,
   "orbitColor": "Yellow",
-  "translatable": "text.stellaris.planetscreen.sun"
+  "translatable": "text.stellaris.planetscreen.sun",
+  "id": "stellaris:sun"
 }
 ```
 `texture`: The texture location of the star
@@ -54,6 +55,8 @@ This folder will contains all of the stars.
 
 `translatable`: The translatable name of your star
 
+`id`: A special id of your star
+
 **The planet folder**
 This folder will contains all of the planets. Theses planets will orbit around a star
 
@@ -67,7 +70,8 @@ This folder will contains all of the planets. Theses planets will orbit around a
   "height": 10.0,
   "parent": "Sun",
   "dimensionId": "minecraft:overworld",
-  "translatable": "text.stellaris.planetscreen.earth"
+  "translatable": "text.stellaris.planetscreen.earth",
+  "id": "stellaris:earth"
 }
 ```
 `texture`: The texture location of the planet
@@ -88,6 +92,8 @@ This folder will contains all of the planets. Theses planets will orbit around a
 
 `translatable`: The translatable name of your planet
 
+`id`: A special id of your planet
+
 **The moon folder**
 This folder contains all of the moons that are orbiting around planets
 
@@ -101,7 +107,8 @@ This folder contains all of the moons that are orbiting around planets
   "height": 6.0,
   "parent": "Earth",
   "dimensionId": "stellaris:moon",
-  "translatable": "text.stellaris.planetscreen.moon"
+  "translatable": "text.stellaris.planetscreen.moon",
+  "id": "stellaris:moon"
 }
 ```
 `texture`: The texture location of the moon
@@ -121,6 +128,8 @@ This folder contains all of the moons that are orbiting around planets
 `dimensionId`: the Resource key of the moon's dimension
 
 `translatable`: The translatable name of your moon
+
+`id`: A special id of your moon
 
 ::: info
 For the `translatable` fields, it"s a field in `assets/[namespace]/lang/en_us.json` in your resourcepack.
