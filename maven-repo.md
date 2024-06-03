@@ -18,6 +18,6 @@ repositories {
 
 ```groovy
 dependencies {
-  implementation "com.st0x0ef:stellaris-{modloader}-{minecraft_version}:{version}"
+  implementation "com.st0x0ef:stellaris-{modloader}-{minecraft_version}:{stellaris_version}"
 }
 ```
