@@ -13,7 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 
 @Environment(EnvType.CLIENT)
 public class Gauge extends AbstractWidget {
-    private ResourceLocation overlay_texture;
+    private ResourceLocation overlay_texture;   
 
     private int value;
     private int max_value;
@@ -31,13 +31,14 @@ public class Gauge extends AbstractWidget {
 
     @Override
     public void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
-        if (value > max_value) {
+        if (value >= max_value) {
             value = max_value;
             graphics.blit(overlay_texture, getX(), getY(), width, height - 1, width, height -1, width, height - 1);
         } else if (value <= 0) {
             graphics.blit(overlay_texture, getX(), getY(), width, height, width, 0, width, 45);
         } else {
-            graphics.blit(overlay_texture, getX(), getY() + 45 - 45 / (max_value / value), width, height, width, 45 / (max_value / value), width, 45);
+            float WidgetY = getY() + 45 - 45 / ((float) max_value / value);
+            graphics.blit(overlay_texture, getX(), (int) WidgetY, (float) width, (float) height, width, (int) (45 / ((float) max_value / value)), width, 45);
         }
 
         ScreenHelper.drawTexture(getX(), getY(), width, height, FLUID_TANK_OVERLAY, false);

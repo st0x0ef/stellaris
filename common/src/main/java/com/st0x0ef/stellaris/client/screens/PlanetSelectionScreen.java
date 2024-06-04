@@ -3,16 +3,17 @@ package com.st0x0ef.stellaris.client.screens;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.client.screens.components.InvisibleButton;
-import com.st0x0ef.stellaris.client.screens.components.LaunchButton;
-import com.st0x0ef.stellaris.client.screens.components.ModifiedButton;
+import com.st0x0ef.stellaris.client.screens.components.*;
 import com.st0x0ef.stellaris.client.screens.info.CelestialBody;
 import com.st0x0ef.stellaris.client.screens.info.MoonInfo;
 import com.st0x0ef.stellaris.client.screens.info.PlanetInfo;
+import com.st0x0ef.stellaris.common.data.planets.Planet;
+import com.st0x0ef.stellaris.common.entities.RocketEntity;
 import com.st0x0ef.stellaris.common.menus.PlanetSelectionMenu;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import com.st0x0ef.stellaris.common.network.packets.TeleportEntity;
 import com.st0x0ef.stellaris.common.registry.EntityData;
+import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import com.st0x0ef.stellaris.common.registry.TranslatableRegistry;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
@@ -30,6 +31,7 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import org.lwjgl.glfw.GLFW;
@@ -38,6 +40,7 @@ import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.*;
 
 
@@ -57,6 +60,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     public static final ResourceLocation SMALL_MENU_LIST = new ResourceLocation(Stellaris.MODID, "textures/gui/util/planet_menu.png");
     public static final ResourceLocation LARGE_MENU_TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/util/large_planet_menu.png");
+    public static final ResourceLocation LARGE_MENU_TEXTURE_RED = new ResourceLocation(Stellaris.MODID, "textures/gui/util/large_planet_menu_red.png");
 
     public static final List<CelestialBody> STARS = new ArrayList<>();
     public static final List<PlanetInfo> PLANETS = new ArrayList<>();
@@ -73,8 +77,11 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private static final long UPDATE_INTERVAL = 1L;
 
+    public final static Player p = Minecraft.getInstance().player;
+
     private boolean isLaunching = false;
     private boolean showLargeMenu = false;
+    LaunchButton launchButton;
 
     private double offsetX = 0;
     private double offsetY = 0;
@@ -91,7 +98,6 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     private List<InvisibleButton> planetButtons = new ArrayList<InvisibleButton>();
     private List<InvisibleButton> moonButtons = new ArrayList<InvisibleButton>();
-    private LaunchButton launchButton;
 
     public PlanetSelectionScreen(PlanetSelectionMenu abstractContainerMenu, Inventory inventory, Component component) {
         super(abstractContainerMenu, inventory, component);
@@ -114,6 +120,29 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         prevScrollCallback = GLFW.glfwSetScrollCallback(windowHandle, this::onMouseScroll);
 
         initializeAllButtons();
+    }
+
+    public boolean canLaunch(Planet planet) {
+        Player player = this.getPlayer();
+        if (player == null) {
+            return false;
+        }
+        Entity vehicle = player.getVehicle();
+        RocketEntity playerRocket = null;
+
+        if (vehicle instanceof RocketEntity &&
+                (vehicle.getType() == EntityRegistry.TINY_ROCKET ||
+                        vehicle.getType() == EntityRegistry.BIG_ROCKET ||
+                        vehicle.getType() == EntityRegistry.SMALL_ROCKET ||
+                        vehicle.getType() == EntityRegistry.NORMAL_ROCKET)) {
+            playerRocket = (RocketEntity) vehicle;
+        }
+
+        if (playerRocket != null && playerRocket.canGoTo(PlanetUtil.getPlanet(player.level().dimension()), planet)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private void initializeAllButtons() {
@@ -166,17 +195,16 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         int buttonHeight = 20;
         int buttonX = (this.width - buttonWidth) / 4 + 100;
         int buttonY = (this.height - buttonHeight) / 4;
+
         launchButton = new LaunchButton(buttonX, buttonY, buttonWidth, buttonHeight, Component.literal("Launch"), (btn) -> onLaunchButtonClick());
+
         this.addRenderableWidget(launchButton);
+
         launchButton.visible = false;
     }
 
-    private void startUpdating() {
-        scheduler.scheduleAtFixedRate(this::updatePlanets, 0, UPDATE_INTERVAL, TimeUnit.MILLISECONDS);
-    }
-
-    private CelestialBody focusedBody = null;
-    private CelestialBody hoveredBody = null;
+    public static CelestialBody focusedBody = null;
+    public static CelestialBody hoveredBody = null;
 
     private void onPlanetButtonClick(PlanetInfo planet) {
         if (!showLargeMenu) {
@@ -211,6 +239,9 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         }
         if (focusedBody != null) {
             centerOnBody(focusedBody);
+        }
+        if (!showLargeMenu) {
+            launchButton.visible = false;
         }
 
         drawOrbits();
@@ -400,10 +431,12 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
             int textX = buttonX + buttonWidth / 4 - 20;
 
-            float alpha = 0.5f;
-
             launchButton.visible = true;
             launchButton.setPosition(buttonX, buttonY);
+
+            float alpha = 0.5f;
+
+            RenderSystem.disableBlend();
 
             graphics.drawString(font, launch, buttonX + buttonWidth / 4, buttonY + buttonHeight / 4 + 1, 0xFFFFFF);
             graphics.drawString(font, CELESTIAL_BODY_NAME, textX, buttonY + buttonHeight / 4 + 37, 0xFFFFFF, true);
@@ -423,8 +456,30 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, alpha);
 
-            RenderSystem.setShaderTexture(0, LARGE_MENU_TEXTURE);
-            graphics.blit(LARGE_MENU_TEXTURE, centerX, centerY, 0, 0, menuWidth, menuHeight, menuWidth, menuHeight);
+            if (canLaunch(PlanetUtil.getPlanet(focusedBody.dimension))) {
+                RenderSystem.setShaderTexture(0, LARGE_MENU_TEXTURE);
+                graphics.blit(LARGE_MENU_TEXTURE, centerX, centerY, 0, 0, menuWidth, menuHeight, menuWidth, menuHeight);
+                launchButton.setButtonTexture(
+                        new ResourceLocation("stellaris:textures/gui/util/buttons/launch_button.png"),
+                        new ResourceLocation("stellaris:textures/gui/util/buttons/launch_button_hovered.png")
+                );
+            } else {
+                if (Objects.equals(focusedBody.name, "Earth")) {
+                    RenderSystem.setShaderTexture(0, LARGE_MENU_TEXTURE);
+                    launchButton.setButtonTexture(
+                            new ResourceLocation("stellaris:textures/gui/util/buttons/launch_button.png"),
+                            new ResourceLocation("stellaris:textures/gui/util/buttons/launch_button_hovered.png")
+                    );
+                    graphics.blit(LARGE_MENU_TEXTURE, centerX, centerY, 0, 0, menuWidth, menuHeight, menuWidth, menuHeight);
+                } else {
+                    RenderSystem.setShaderTexture(0, LARGE_MENU_TEXTURE_RED);
+                    graphics.blit(LARGE_MENU_TEXTURE_RED, centerX, centerY, 0, 0, menuWidth, menuHeight, menuWidth, menuHeight);
+                    launchButton.setButtonTexture(
+                            new ResourceLocation("stellaris:textures/gui/util/buttons/no_launch_button.png"),
+                            new ResourceLocation("stellaris:textures/gui/util/buttons/no_launch_button_hovered.png")
+                    );
+                }
+            }
 
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
