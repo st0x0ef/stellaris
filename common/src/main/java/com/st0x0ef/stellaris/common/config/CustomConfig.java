@@ -3,7 +3,6 @@ package com.st0x0ef.stellaris.common.config;
 import com.google.gson.JsonObject;
 import com.st0x0ef.stellaris.Stellaris;
 import dev.architectury.platform.Platform;
-import net.fabricmc.api.EnvType;
 
 import java.io.FileWriter;
 import java.io.IOException;

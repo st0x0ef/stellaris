@@ -9,8 +9,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 
-import java.util.Optional;
-
 public class RadioactiveEffect extends MobEffect {
 
     private final SoundEvent soundOnAdded = SoundRegistry.RADIOACTIVE.get();

@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.client.renderers.entities.martianraptor;
 
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.entities.CheeseBoss;
 import com.st0x0ef.stellaris.common.entities.MartianRaptor;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

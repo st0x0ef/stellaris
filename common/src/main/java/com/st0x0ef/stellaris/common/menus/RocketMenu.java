@@ -1,14 +1,11 @@
 package com.st0x0ef.stellaris.common.menus;
 
 import com.st0x0ef.stellaris.common.entities.RocketEntity;
-import com.st0x0ef.stellaris.common.menus.slot.FuelBucketSlot;
 import com.st0x0ef.stellaris.common.menus.slot.ResultSlot;
-import com.st0x0ef.stellaris.common.menus.slot.SpecificItemsSlot;
 import com.st0x0ef.stellaris.common.menus.slot.upgrade.MotorUpgradeSlot;
 import com.st0x0ef.stellaris.common.menus.slot.upgrade.RocketModelSlot;
 import com.st0x0ef.stellaris.common.menus.slot.upgrade.RocketSkinSlot;
 import com.st0x0ef.stellaris.common.menus.slot.upgrade.TankUpgradeSlot;
-import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;

@@ -400,12 +400,13 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         }
 
         FUEL += value;
-        if(FUEL > TANK_UPGRADE.getTankCapacity()) {
+        if (FUEL > TANK_UPGRADE.getTankCapacity()) {
             FUEL = TANK_UPGRADE.getTankCapacity();
         }
 
-        inventory.removeItem(0, 1);
-        inventory.setItem(1, new ItemStack(Items.BUCKET, inventory.getItem(1).getCount()+1));
+        if (inventory.removeItem(0, 1).is(ItemsRegistry.FUEL_BUCKET.get())) {
+            inventory.setItem(1, new ItemStack(Items.BUCKET, inventory.getItem(1).getCount()+1));
+        }
     }
 
 
