@@ -9,7 +9,9 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 
-public record RocketComponent(String skin, RocketModel model, FuelType.Type fuelType, int fuel, int tankCapacity) {
+import java.io.Serializable;
+
+public record RocketComponent(String skin, RocketModel model, FuelType.Type fuelType, int fuel, int tankCapacity) implements Serializable {
 
     public static final Codec<RocketComponent> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.STRING.fieldOf("skin").forGetter(RocketComponent::skin),

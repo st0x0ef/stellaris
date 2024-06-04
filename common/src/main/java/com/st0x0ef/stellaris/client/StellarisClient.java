@@ -60,8 +60,8 @@ public class StellarisClient {
         if(Platform.isFabric()) {
             registerEntityRenderer();
             registerEntityModelLayer();
-
         }
+
         registerScreen();
         registerKey();
         ClientEvents.registerEvents();

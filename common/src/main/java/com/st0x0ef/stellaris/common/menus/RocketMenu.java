@@ -11,6 +11,7 @@ import com.st0x0ef.stellaris.common.menus.slot.upgrade.TankUpgradeSlot;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -30,7 +31,6 @@ public class RocketMenu extends AbstractContainerMenu {
 
     public RocketMenu(int syncId, Inventory playerInventory, Container container, int entityId)
     {
-
         super(MenuTypesRegistry.ROCKET_MENU.get(), syncId);
 
         this.rocket = (RocketEntity) playerInventory.player.level().getEntity(entityId);
@@ -70,6 +70,10 @@ public class RocketMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player player) {
+        if (!player.isLocalPlayer()) {
+            this.getRocket().syncRocketData((ServerPlayer) player);
+        }
+
         return this.inventory.stillValid(player);
     }
 

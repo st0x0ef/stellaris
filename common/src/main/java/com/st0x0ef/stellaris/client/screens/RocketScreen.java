@@ -9,6 +9,7 @@ import com.st0x0ef.stellaris.common.utils.Utils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.ImageWidget;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
@@ -43,8 +44,8 @@ public class RocketScreen extends AbstractContainerScreen<RocketMenu> {
         super.render(graphics, mouseX, mouseY, partialTicks);
         this.renderTooltip(graphics, mouseX, mouseY);
 
-        rocket_fuel = this.getMenu().getRocket().getFuel();
-        max_fuel = this.getMenu().getRocket().TANK_UPGRADE.getTankCapacity();
+        rocket_fuel = this.getMenu().getRocket().rocketComponent.getFuel();
+        max_fuel = this.getMenu().getRocket().rocketComponent.getTankCapacity();
 
         String GaugeComponent = Fuel.getString() + " : " + rocket_fuel + " / " + max_fuel;
 
