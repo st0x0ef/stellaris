@@ -13,10 +13,10 @@ import net.minecraft.resources.ResourceLocation;
 
 @Environment(EnvType.CLIENT)
 public class Gauge extends AbstractWidget {
-    private ResourceLocation overlay_texture;   
+    private final ResourceLocation overlay_texture;
 
     private int value;
-    private int max_value;
+    private final int max_value;
 
     public static final ResourceLocation FLUID_TANK_OVERLAY = new ResourceLocation(Stellaris.MODID, "textures/gui/util/fluid_tank_overlay.png");
 

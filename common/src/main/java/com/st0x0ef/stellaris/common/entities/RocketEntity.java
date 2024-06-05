@@ -469,7 +469,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     }
 
     public void syncRocketData(ServerPlayer player) {
-        this.rocketComponent = new RocketComponent(SKIN_UPGRADE.getRocketSkinLocation().toString(), RocketModel.fromString(MODEL_UPGRADE.getModel().toString()), MOTOR_UPGRADE.getFuelType(), FUEL, TANK_UPGRADE.getTankCapacity());;
+        this.rocketComponent = new RocketComponent(SKIN_UPGRADE.getRocketSkinLocation().toString(), RocketModel.fromString(MODEL_UPGRADE.getModel().toString()), MOTOR_UPGRADE.getFuelType(), FUEL, TANK_UPGRADE.getTankCapacity());
 
         if (!level().isClientSide()) {
             RegistryFriendlyByteBuf buffer = new RegistryFriendlyByteBuf(Unpooled.buffer(), level().getServer().registryAccess());

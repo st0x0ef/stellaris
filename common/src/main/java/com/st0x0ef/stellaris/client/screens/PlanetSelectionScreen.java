@@ -96,8 +96,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     private double zoomLevel = 1.0;
     private GLFWScrollCallback prevScrollCallback;
 
-    private List<InvisibleButton> planetButtons = new ArrayList<InvisibleButton>();
-    private List<InvisibleButton> moonButtons = new ArrayList<InvisibleButton>();
+    private List<InvisibleButton> planetButtons = new ArrayList<>();
+    private List<InvisibleButton> moonButtons = new ArrayList<>();
 
     public PlanetSelectionScreen(PlanetSelectionMenu abstractContainerMenu, Inventory inventory, Component component) {
         super(abstractContainerMenu, inventory, component);
@@ -138,11 +138,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             playerRocket = (RocketEntity) vehicle;
         }
 
-        if (playerRocket != null && playerRocket.canGoTo(PlanetUtil.getPlanet(player.level().dimension()), planet)) {
-            return true;
-        } else {
-            return false;
-        }
+        return playerRocket != null && playerRocket.canGoTo(PlanetUtil.getPlanet(player.level().dimension()), planet);
     }
 
     private void initializeAllButtons() {
@@ -409,7 +405,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
                 gravityV = Component.literal(gravity.getString() + " : " + CELESTIAL_BODY_GRAVITY + "m/s");
             }
 
-            if (CELESTIAL_BODY_OXYGEN == true) {
+            if (CELESTIAL_BODY_OXYGEN) {
                 oxygenColor = Utils.getColorHexCode("Lime");
             } else {
                 oxygenColor = Utils.getColorHexCode("Red");
@@ -656,8 +652,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         if (this.minecraft != null && this.minecraft.player != null) {
             handleHotbarScroll(scrollY);
 
-            if (this.minecraft.screen instanceof CreativeModeInventoryScreen) {
-                CreativeModeInventoryScreen creativeScreen = (CreativeModeInventoryScreen) this.minecraft.screen;
+            if (this.minecraft.screen instanceof CreativeModeInventoryScreen creativeScreen) {
                 if (creativeScreen.mouseScrolled(mouseX[0], mouseY[0], scrollX, scrollY)) {
                     return;
                 }

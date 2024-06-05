@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.lang.reflect.Type;
 
 public class ConfigEntry<T> implements Serializable {
-    private T value;
-    private String description;
+    private final T value;
+    private final String description;
 
     public ConfigEntry(T value, String description) {
         this.value = value;
