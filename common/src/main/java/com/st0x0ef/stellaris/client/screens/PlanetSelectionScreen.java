@@ -224,10 +224,18 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     private void onLaunchButtonClick() {
         if (focusedBody != null && focusedBody.dimension != null) {
+            if (canLaunch(PlanetUtil.getPlanet(focusedBody.dimension))) {
+                tpToFocusedPlanet();
+            } else {
+                if (PlanetUtil.getPlanet(focusedBody.dimension).name().equals("Earth")) {
+                    tpToFocusedPlanet();
+                }
+            }
             showLargeMenu = false;
-            tpToFocusedPlanet();
         }
     }
+
+
 
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
