@@ -36,25 +36,44 @@ import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.tiny.TinyR
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeBlockRenderer;
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeModel;
 import com.st0x0ef.stellaris.client.screens.*;
+import com.st0x0ef.stellaris.common.data.screen.MoonPack;
+import com.st0x0ef.stellaris.common.data.screen.PlanetPack;
+import com.st0x0ef.stellaris.common.data.screen.StarPack;
+import com.st0x0ef.stellaris.common.handlers.GlobalExceptionHandler;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import com.st0x0ef.stellaris.common.registry.ParticleRegistry;
 import dev.architectury.event.events.client.ClientGuiEvent;
 import dev.architectury.platform.Platform;
+import dev.architectury.registry.ReloadListenerRegistry;
 import dev.architectury.registry.client.keymappings.KeyMappingRegistry;
 import dev.architectury.registry.client.level.entity.EntityModelLayerRegistry;
 import dev.architectury.registry.client.level.entity.EntityRendererRegistry;
 import dev.architectury.registry.client.particle.ParticleProviderRegistry;
 import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
 import dev.architectury.registry.menu.MenuRegistry;
+import net.fabricmc.api.EnvType;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.server.packs.PackType;
+import org.lwjgl.opengl.GL;
+import org.lwjgl.opengl.GL43;
+import org.lwjgl.opengl.GLDebugMessageCallback;
 
 public class StellarisClient {
 
     public static void initClient() {
         Stellaris.LOG.error("Initializing Stellaris Client");
 
+        registerPacks();
+
+        if (Platform.getEnv() == EnvType.CLIENT) {
+            Minecraft.getInstance().execute(() -> {
+                setupOpenGLDebugMessageCallback();
+                Thread.setDefaultUncaughtExceptionHandler(new GlobalExceptionHandler());
+            });
+        }
         registerParticle();
 
         if(Platform.isFabric()) {
@@ -139,5 +158,26 @@ public class StellarisClient {
         ClientGuiEvent.RENDER_HUD.register(RocketStartOverlay::render);
         ClientGuiEvent.RENDER_HUD.register(RocketBarOverlay::render);
         ClientGuiEvent.RENDER_HUD.register(LanderOverlay::render);
+    }
+
+    public static void setupOpenGLDebugMessageCallback() {
+        if (GL.getCapabilities().GL_KHR_debug) {
+            GL43.glDebugMessageCallback((source, type, id, severity, length, message, userParam) -> {
+                if (id == 1281) {
+                    return;
+                }
+                String errorMessage = GLDebugMessageCallback.getMessage(length, message);
+                Stellaris.LOG.error("OpenGL debug message: id={}, source={}, type={}, severity={}, message='{}'",
+                        id, source, type, severity, errorMessage);
+            }, 0);
+            GL43.glEnable(GL43.GL_DEBUG_OUTPUT);
+            GL43.glEnable(GL43.GL_DEBUG_OUTPUT_SYNCHRONOUS);
+        }
+    }
+
+    public static void registerPacks() {
+        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new StarPack(Stellaris.GSON));
+        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new PlanetPack(Stellaris.GSON));
+        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new MoonPack(Stellaris.GSON));
     }
 }
