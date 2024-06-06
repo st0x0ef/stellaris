@@ -21,9 +21,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class GeneratorBlockEntityTemplate extends BaseEnergyBlockEntity implements ImplementedInventory {
+public abstract class GeneratorBlockEntityTemplate extends BaseEnergyBlockEntity implements ImplementedInventory {
 
-    private WrappedBlockEnergyContainer energyContainer = this.getEnergyStorage(level,getBlockPos(),getBlockState(),this,null);
+    private WrappedBlockEnergyContainer energyContainer;
 
     public int getEnergyGeneratedPT() {
         return EnergyGeneratedPT;
@@ -31,11 +31,11 @@ public class GeneratorBlockEntityTemplate extends BaseEnergyBlockEntity implemen
 
     protected int EnergyGeneratedPT;
     private final int MaxCapacity;
-    protected NonNullList<ItemStack> items;
-    private List<Integer> inputSlots = List.of(0);
+    //private List<Integer> inputSlots = List.of(0);
 
-    public GeneratorBlockEntityTemplate(BlockEntityType<?> entityType, BlockPos blockPos, BlockState blockState, int EnergyGeneratedPT, int MaxCapacity, String tagName) {
-        super(entityType, blockPos, blockState, tagName);
+    public GeneratorBlockEntityTemplate(BlockEntityType<?> entityType, BlockPos blockPos, BlockState blockState,
+                                        int EnergyGeneratedPT, int MaxCapacity, String tagName, int containerSize) {
+        super(entityType, blockPos, blockState, tagName, containerSize);
         this.EnergyGeneratedPT=EnergyGeneratedPT;
         this.MaxCapacity=MaxCapacity;
     }
@@ -44,18 +44,15 @@ public class GeneratorBlockEntityTemplate extends BaseEnergyBlockEntity implemen
     public final WrappedBlockEnergyContainer getEnergyStorage(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity entity, @Nullable Direction direction) {
         return energyContainer == null ? energyContainer = new WrappedBlockEnergyContainer(entity, new ExtractOnlyEnergyContainer(MaxCapacity, Integer.MAX_VALUE)) : energyContainer;
     }
-    public final WrappedBlockEnergyContainer getWrappedEnergyContainer() {
-        return this.getEnergyStorage(this.level,this.worldPosition,this.getBlockState(),this,null);
-    }
 
     @Override
     public NonNullList<ItemStack> getItems() {
-        return items;
+        return this.items;
     }
 
     @Override
-    protected void setItems(NonNullList<ItemStack> nonNullList) {
-        this.items = nonNullList;
+    protected void setItems(NonNullList<ItemStack> items) {
+        this.items = items;
     }
 
     @Override
@@ -65,31 +62,22 @@ public class GeneratorBlockEntityTemplate extends BaseEnergyBlockEntity implemen
     }
 
 
-
     @Override
     protected Component getDefaultName() {
         return null;
     }
 
-    @Override
-    protected AbstractContainerMenu createMenu(int i, Inventory inventory) {
-        return null;
-    }
-
-
-    public boolean canGenerate(){
-        return true;
-    }
-
+    public abstract boolean canGenerate();
 
     public void tick() {
         if(canGenerate()) {
-            if (energyContainer.getStoredEnergy() < energyContainer.getMaxCapacity()) {
-                energyContainer.setEnergy(energyContainer.getStoredEnergy() + EnergyGeneratedPT);
-            } else if (energyContainer.getStoredEnergy() > energyContainer.getMaxCapacity()) {
-                energyContainer.setEnergy(energyContainer.getMaxCapacity());
+            WrappedBlockEnergyContainer energyContainer1 = this.getWrappedEnergyContainer();
+            if (energyContainer1.getStoredEnergy() < energyContainer1.getMaxCapacity()) {
+                energyContainer1.setEnergy(energyContainer1.getStoredEnergy() + EnergyGeneratedPT);
+            } else if (energyContainer1.getStoredEnergy() > energyContainer1.getMaxCapacity()) {
+                energyContainer1.setEnergy(energyContainer1.getMaxCapacity());
             }
-            System.out.println(energyContainer.getStoredEnergy());
+            System.out.println(energyContainer1.getStoredEnergy());
         }
         BlockEntity blockEntity = this.getLevel().getBlockEntity(this.getBlockPos());
         //EnergyApi.distributeEnergyNearby(blockEntity,100);

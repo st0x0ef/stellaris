@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
 import com.st0x0ef.stellaris.common.menus.SolarPanelMenu;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
+import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedBlockEnergyContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
@@ -19,8 +20,13 @@ public class SolarPanelEntity extends GeneratorBlockEntityTemplate {
     protected NonNullList<ItemStack> items;
 
     public SolarPanelEntity(BlockPos blockPos, BlockState blockState) {
-        super(BlockEntityRegistry.SOLAR_PANEL.get(), blockPos, blockState,1,500,"stellaris.energy.solar_panel");
+        super(BlockEntityRegistry.SOLAR_PANEL.get(), blockPos, blockState,1,500,"stellaris.energy.solar_panel",0);
         this.items = NonNullList.withSize(1, ItemStack.EMPTY);
+    }
+
+    @Override
+    public WrappedBlockEnergyContainer getWrappedEnergyContainer() {
+        return this.getEnergyStorage(this.getLevel(),this.getBlockPos(),this.getBlockState(),this,null);
     }
 
     @Override
@@ -36,19 +42,9 @@ public class SolarPanelEntity extends GeneratorBlockEntityTemplate {
     }
 
     @Override
-    public NonNullList<ItemStack> getItems() {
-        return items;
-    }
-
-    @Override
-    public void setItems(NonNullList<ItemStack> items) {
-        this.items = items;
-    }
-
-    @Override
     public void loadAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
         super.loadAdditional(compoundTag, provider);
-        this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
+        //this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
         ContainerHelper.loadAllItems(compoundTag, this.items, provider);
     }
 
@@ -56,5 +52,10 @@ public class SolarPanelEntity extends GeneratorBlockEntityTemplate {
     protected void saveAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
         super.saveAdditional(compoundTag, provider);
         ContainerHelper.saveAllItems(compoundTag, this.items, provider);
+    }
+
+    @Override
+    public int getContainerSize() {
+        return 0;
     }
 }

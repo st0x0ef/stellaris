@@ -34,7 +34,8 @@ public class RadioactiveGeneratorEntity extends GeneratorBlockEntityTemplate {
 
 
     public RadioactiveGeneratorEntity(BlockPos blockPos, BlockState blockState) {
-        super(BlockEntityRegistry.RADIOACTIVE_GENERATOR.get(), blockPos, blockState,1,2000,"stellaris.energy.radioactive_generator");
+        super(BlockEntityRegistry.RADIOACTIVE_GENERATOR.get(),
+                blockPos, blockState,1,2000,"stellaris.energy.radioactive_generator",1);
 
         super.items = NonNullList.withSize(1, ItemStack.EMPTY);
     }
@@ -42,6 +43,11 @@ public class RadioactiveGeneratorEntity extends GeneratorBlockEntityTemplate {
     @Override
     protected AbstractContainerMenu createMenu(int i, Inventory inventory) {
         return new RadioactiveGeneratorMenu(i, inventory,this,this);
+    }
+
+    @Override
+    public WrappedBlockEnergyContainer getWrappedEnergyContainer() {
+        return this.getEnergyStorage(this.getLevel(),this.getBlockPos(),this.getBlockState(),this,null);
     }
 
     @Override
@@ -173,11 +179,6 @@ public class RadioactiveGeneratorEntity extends GeneratorBlockEntityTemplate {
     }
 
     @Override
-    public NonNullList<ItemStack> getItems() {
-        return super.getItems();
-    }
-
-    @Override
     public void loadAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
         super.loadAdditional(compoundTag, provider);
         this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
@@ -190,5 +191,10 @@ public class RadioactiveGeneratorEntity extends GeneratorBlockEntityTemplate {
         compoundTag.putShort("BurnTime", (short)this.litTime);
         compoundTag.putShort("CookTime", (short)this.cookingProgress);
         compoundTag.putShort("CookTimeTotal", (short)this.cookingTotalTime);
+    }
+
+    @Override
+    public int getContainerSize() {
+        return 1;
     }
 }

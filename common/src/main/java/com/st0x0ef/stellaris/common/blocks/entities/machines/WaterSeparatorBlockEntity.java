@@ -19,15 +19,15 @@ import org.jetbrains.annotations.Nullable;
 
 public class WaterSeparatorBlockEntity extends BaseEnergyBlockEntity implements ImplementedInventory {
 
-    private NonNullList<ItemStack> items = NonNullList.withSize(6, ItemStack.EMPTY);
+    //private NonNullList<ItemStack> items = NonNullList.withSize(6, ItemStack.EMPTY);
 
     public WaterSeparatorBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockEntityRegistry.WATER_SEPARATOR_ENTITY.get(), pos, state,"stellaris.energy.water_separator");
+        super(BlockEntityRegistry.WATER_SEPARATOR_ENTITY.get(), pos, state,"stellaris.energy.water_separator",6);
     }
 
     @Override
-    public WrappedBlockEnergyContainer getEnergyStorage(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity entity, @Nullable Direction direction) {
-        return null;
+    public WrappedBlockEnergyContainer getWrappedEnergyContainer() {
+        return this.getEnergyStorage(this.getLevel(),this.getBlockPos(),this.getBlockState(),this,null);
     }
 
     @Override
@@ -37,12 +37,17 @@ public class WaterSeparatorBlockEntity extends BaseEnergyBlockEntity implements 
 
     @Override
     public NonNullList<ItemStack> getItems() {
-        return items;
+        return this.items;
     }
 
     @Override
     protected void setItems(NonNullList<ItemStack> items) {
         this.items = items;
+    }
+
+    @Override
+    public int getContainerSize() {
+        return 6;
     }
 
     @Override

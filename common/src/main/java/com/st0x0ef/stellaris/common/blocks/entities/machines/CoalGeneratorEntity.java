@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.machines.CoalGenerator;
 import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedBlockEnergyContainer;
 import com.st0x0ef.stellaris.common.menus.CoalGeneratorMenu;
@@ -29,12 +30,12 @@ public class CoalGeneratorEntity extends GeneratorBlockEntityTemplate {
 
     public final ContainerData dataAccess;
 
-    private List<Integer> inputSlots = List.of(0);
+    //private List<Integer> inputSlots = List.of(0);
 
     public CoalGeneratorEntity(BlockPos blockPos, BlockState blockState) {
-        super(BlockEntityRegistry.COAL_GENERATOR.get(), blockPos, blockState,1,2000, "stellaris.energy.coal_generator");
+        super(BlockEntityRegistry.COAL_GENERATOR.get(), blockPos, blockState,1,2000, "stellaris.energy.coal_generator",1);
 
-        super.items = NonNullList.withSize(1, ItemStack.EMPTY);
+        //super.items = NonNullList.withSize(1, ItemStack.EMPTY);
 
         this.dataAccess = new ContainerData() {
 
@@ -76,6 +77,11 @@ public class CoalGeneratorEntity extends GeneratorBlockEntityTemplate {
     @Override
     protected AbstractContainerMenu createMenu(int i, Inventory inventory) {
         return new CoalGeneratorMenu(i, inventory, this, this, dataAccess);
+    }
+
+    @Override
+    public final WrappedBlockEnergyContainer getWrappedEnergyContainer() {
+        return this.getEnergyStorage(this.level,this.worldPosition,this.getBlockState(),this,null);
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, CoalGeneratorEntity blockEntity) {
@@ -123,6 +129,7 @@ public class CoalGeneratorEntity extends GeneratorBlockEntityTemplate {
         }
 
         //EnergyApi.distributeEnergyNearby(blockEntity,100);
+        Stellaris.LOG.warn(Long.toString(energyContainer.getStoredEnergy()));
     }
 
     protected int getBurnDuration(ItemStack fuel) {
@@ -144,11 +151,6 @@ public class CoalGeneratorEntity extends GeneratorBlockEntityTemplate {
     }
 
     @Override
-    protected void setItems(NonNullList<ItemStack> nonNullList) {
-        super.setItems(nonNullList);
-    }
-
-    @Override
     public void loadAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
         super.loadAdditional(compoundTag, provider);
         //this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
@@ -161,5 +163,10 @@ public class CoalGeneratorEntity extends GeneratorBlockEntityTemplate {
         super.saveAdditional(compoundTag, provider);
         ContainerHelper.saveAllItems(compoundTag, items, provider);
         compoundTag.putShort("BurnTime", (short)this.litTime);
+    }
+
+    @Override
+    public int getContainerSize() {
+        return 1;
     }
 }
