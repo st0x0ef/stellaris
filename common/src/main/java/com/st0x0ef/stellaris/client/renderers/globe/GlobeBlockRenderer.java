@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import com.st0x0ef.stellaris.common.blocks.GlobeBlock;
-import com.st0x0ef.stellaris.common.blocks.entities.GlobeTileEntity;
+import com.st0x0ef.stellaris.common.blocks.entities.GlobeBlockEntity;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -19,7 +19,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 
 @Environment(EnvType.CLIENT)
-public class GlobeBlockRenderer<T extends GlobeTileEntity> implements BlockEntityRenderer<GlobeTileEntity> {
+public class GlobeBlockRenderer<T extends GlobeBlockEntity> implements BlockEntityRenderer<GlobeBlockEntity> {
 
     private static ItemStack stack1 = new ItemStack(ItemsRegistry.EARTH_GLOBE_ITEM);
     private static ItemStack stack3 = new ItemStack(ItemsRegistry.MARS_GLOBE_ITEM);
@@ -31,7 +31,7 @@ public class GlobeBlockRenderer<T extends GlobeTileEntity> implements BlockEntit
     public GlobeBlockRenderer(BlockEntityRendererProvider.Context Context) {}
 
     @Override
-    public void render(GlobeTileEntity tileEntity, float particleTicks, PoseStack matrixStackIn, MultiBufferSource buffer, int combinedLight, int overlay) {
+    public void render(GlobeBlockEntity tileEntity, float particleTicks, PoseStack matrixStackIn, MultiBufferSource buffer, int combinedLight, int overlay) {
         BlockState state = tileEntity.getLevel().getBlockState(tileEntity.getBlockPos());
 
         if (!(state.getBlock() instanceof GlobeBlock)) {

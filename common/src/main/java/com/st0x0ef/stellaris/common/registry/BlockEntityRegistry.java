@@ -1,7 +1,7 @@
 package com.st0x0ef.stellaris.common.registry;
 
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.blocks.entities.GlobeTileEntity;
+import com.st0x0ef.stellaris.common.blocks.entities.GlobeBlockEntity;
 import com.st0x0ef.stellaris.common.blocks.entities.RadioactiveBlockEntity;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.*;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.oxygen.OxygenDistributorBlockEntity;
@@ -24,7 +24,7 @@ public class BlockEntityRegistry {
                     BlocksRegistry.PLUTONIUM_BLOCK.get(),
                     BlocksRegistry.NEPTUNIUM_BLOCK.get()
             ).build(null));
-    public static final RegistrySupplier<BlockEntityType<GlobeTileEntity>> GLOBE_BLOCK_ENTITY = BLOCK_ENTITY_TYPE.register("globe", () -> BlockEntityType.Builder.of(GlobeTileEntity::new,
+    public static final RegistrySupplier<BlockEntityType<GlobeBlockEntity>> GLOBE_BLOCK_ENTITY = BLOCK_ENTITY_TYPE.register("globe", () -> BlockEntityType.Builder.of(GlobeBlockEntity::new,
                     BlocksRegistry.EARTH_GLOBE_BLOCK.get(),
                     BlocksRegistry.MOON_GLOBE_BLOCK.get(),
                     BlocksRegistry.MARS_GLOBE_BLOCK.get(),

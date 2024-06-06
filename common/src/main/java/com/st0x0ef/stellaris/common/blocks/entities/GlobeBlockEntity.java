@@ -13,13 +13,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class GlobeTileEntity extends BlockEntity {
+public class GlobeBlockEntity extends BlockEntity {
 
     private float rotationalInertia = 0.0f;
     private float yaw = 0.0f;
     private float yaw0 = 0.0f;
 
-    public GlobeTileEntity(BlockPos pos, BlockState state) {
+    public GlobeBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.GLOBE_BLOCK_ENTITY.get(), pos, state);
     }
 

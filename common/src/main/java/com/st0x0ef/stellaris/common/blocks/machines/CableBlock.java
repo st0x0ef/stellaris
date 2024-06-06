@@ -29,7 +29,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 
-public class Cable extends BaseEntityBlock {
+public class CableBlock extends BaseEntityBlock {
     private static final Direction[] DIRECTIONS = Direction.values();
     public static final BooleanProperty NORTH = PipeBlock.NORTH;
     public static final BooleanProperty EAST = PipeBlock.EAST;
@@ -40,7 +40,7 @@ public class Cable extends BaseEntityBlock {
     private static final Map<Direction, BooleanProperty> PROPERTY_BY_DIRECTION = PipeBlock.PROPERTY_BY_DIRECTION;
     protected final VoxelShape[] shapeByIndex;
 
-    public Cable(Properties properties) {
+    public CableBlock(Properties properties) {
         super(properties);
         this.registerDefaultState((this.stateDefinition.any())
                 .setValue(NORTH, false)
@@ -60,7 +60,7 @@ public class Cable extends BaseEntityBlock {
 
     @Override
     protected MapCodec<? extends BaseEntityBlock> codec() {
-        return simpleCodec(Cable::new);
+        return simpleCodec(CableBlock::new);
     }
 
     @Override

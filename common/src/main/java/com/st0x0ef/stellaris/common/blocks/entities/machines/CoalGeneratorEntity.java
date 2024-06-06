@@ -1,16 +1,13 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
-import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.blocks.machines.CoalGenerator;
+import com.st0x0ef.stellaris.common.blocks.machines.CoalGeneratorBlock;
 import com.st0x0ef.stellaris.common.menus.CoalGeneratorMenu;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedBlockEnergyContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
@@ -22,7 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import static net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity.getFuel;
 
-public class CoalGeneratorEntity extends GeneratorBlockEntityTemplate {
+public class CoalGeneratorEntity extends BaseGeneratorBlockEntity {
 
     private int litTime;
     private int litDuration;
@@ -95,7 +92,7 @@ public class CoalGeneratorEntity extends GeneratorBlockEntityTemplate {
 
         if (wasLit != blockEntity.isLit()) {
             shouldUpdate = true;
-            state = state.setValue(CoalGenerator.LIT, blockEntity.isLit());
+            state = state.setValue(CoalGeneratorBlock.LIT, blockEntity.isLit());
             level.setBlock(pos, state, 3);
         }
 

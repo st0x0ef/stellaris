@@ -3,7 +3,7 @@ package com.st0x0ef.stellaris.client.renderers.globe;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.blocks.entities.GlobeTileEntity;
+import com.st0x0ef.stellaris.common.blocks.entities.GlobeBlockEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.Model;
@@ -16,7 +16,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
 @Environment(EnvType.CLIENT)
-public class GlobeModel<T extends GlobeTileEntity> extends Model {
+public class GlobeModel<T extends GlobeBlockEntity> extends Model {
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(Stellaris.MODID, "globe"), "main");
     public final ModelPart globe;
 
@@ -43,7 +43,7 @@ public class GlobeModel<T extends GlobeTileEntity> extends Model {
         globe.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
     }
 
-    public void setupAnim(GlobeTileEntity entity, float partialTicks) {
+    public void setupAnim(GlobeBlockEntity entity, float partialTicks) {
         this.globe.getChild("planet").yRot = Mth.lerp(partialTicks, entity.getYaw0(), entity.getYaw());
     }
 }

@@ -28,19 +28,19 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-public class RocketStation extends BaseEntityBlock {
+public class RocketStationBlock extends BaseEntityBlock {
 
     public static final VoxelShape SHAPE = Shapes.box(0, 0, 0, 1, 0.75, 1);
 
 
-    public static final MapCodec<RocketStation> CODEC = simpleCodec(RocketStation::new);
+    public static final MapCodec<RocketStationBlock> CODEC = simpleCodec(RocketStationBlock::new);
 
-    public RocketStation(Properties properties) {
+    public RocketStationBlock(Properties properties) {
         super(properties);
     }
 
     @Override
-    protected MapCodec<? extends RocketStation> codec() {
+    protected MapCodec<? extends RocketStationBlock> codec() {
         return CODEC;
     }
 
@@ -95,7 +95,7 @@ public class RocketStation extends BaseEntityBlock {
 
             @Override
             public Component getDisplayName() {
-                return RocketStation.this.getName();
+                return RocketStationBlock.this.getName();
             }
 
             @Override

@@ -9,7 +9,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class SolarPanelEntity extends GeneratorBlockEntityTemplate {
+public class SolarPanelEntity extends BaseGeneratorBlockEntity {
 
     public SolarPanelEntity(BlockPos blockPos, BlockState blockState) {
         super(BlockEntityRegistry.SOLAR_PANEL.get(), blockPos, blockState, 1, 500);

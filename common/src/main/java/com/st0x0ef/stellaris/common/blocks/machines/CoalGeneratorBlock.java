@@ -1,7 +1,7 @@
 package com.st0x0ef.stellaris.common.blocks.machines;
 
 import com.mojang.serialization.MapCodec;
-import com.st0x0ef.stellaris.common.blocks.entities.machines.RadioactiveGeneratorEntity;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.CoalGeneratorEntity;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
@@ -12,25 +12,25 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-public class RadioactiveGenerator extends BaseLitMachineBlock {
+public class CoalGeneratorBlock extends BaseLitMachineBlock {
 
-    public RadioactiveGenerator(Properties properties) {
+    public CoalGeneratorBlock(Properties properties) {
         super(properties);
     }
 
     @Override
     protected MapCodec<? extends BaseEntityBlock> codec() {
-        return simpleCodec(RadioactiveGenerator::new);
+        return simpleCodec(CoalGeneratorBlock::new);
     }
 
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return new RadioactiveGeneratorEntity(blockPos, blockState);
+        return new CoalGeneratorEntity(blockPos, blockState);
     }
 
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> blockEntityType) {
-        return level.isClientSide ? null : createTickerHelper(blockEntityType, BlockEntityRegistry.RADIOACTIVE_GENERATOR.get(), RadioactiveGeneratorEntity::serverTick);
+        return level.isClientSide ? null : createTickerHelper(blockEntityType, BlockEntityRegistry.COAL_GENERATOR.get(), CoalGeneratorEntity::serverTick);
     }
 }

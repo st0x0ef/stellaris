@@ -11,14 +11,14 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class GeneratorBlockEntityTemplate extends BaseEnergyContainerBlockEntity {
+public abstract class BaseGeneratorBlockEntity extends BaseEnergyContainerBlockEntity {
 
     private WrappedBlockEnergyContainer energyContainer;
 
     protected int energyGeneratedPT;
     private final int maxCapacity;
 
-    public GeneratorBlockEntityTemplate(BlockEntityType<?> entityType, BlockPos blockPos, BlockState blockState, int energyGeneratedPT, int maxCapacity) {
+    public BaseGeneratorBlockEntity(BlockEntityType<?> entityType, BlockPos blockPos, BlockState blockState, int energyGeneratedPT, int maxCapacity) {
         super(entityType, blockPos, blockState);
         this.energyGeneratedPT = energyGeneratedPT;
         this.maxCapacity = maxCapacity;
