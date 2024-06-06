@@ -16,12 +16,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class SolarPanelEntity extends GeneratorBlockEntityTemplate {
 
-
-    protected NonNullList<ItemStack> items;
-
     public SolarPanelEntity(BlockPos blockPos, BlockState blockState) {
         super(BlockEntityRegistry.SOLAR_PANEL.get(), blockPos, blockState,1,500,"stellaris.energy.solar_panel",0);
-        this.items = NonNullList.withSize(1, ItemStack.EMPTY);
     }
 
     @Override
