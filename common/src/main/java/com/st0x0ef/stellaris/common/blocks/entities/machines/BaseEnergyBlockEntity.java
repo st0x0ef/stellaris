@@ -6,15 +6,21 @@ import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedBlockEnergyContai
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class BaseEnergyBlockEntity extends BlockEntity implements EnergyBlock<WrappedBlockEnergyContainer> {
+public class BaseEnergyBlockEntity extends BaseContainerBlockEntity implements EnergyBlock<WrappedBlockEnergyContainer> {
     private WrappedBlockEnergyContainer energyContainer;
 
     public BaseEnergyBlockEntity(BlockEntityType<?> entityType, BlockPos blockPos, BlockState blockState) {
@@ -22,7 +28,7 @@ public class BaseEnergyBlockEntity extends BlockEntity implements EnergyBlock<Wr
     }
 
     @Override
-    public final WrappedBlockEnergyContainer getEnergyStorage(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity entity, @Nullable Direction direction) {
+    public WrappedBlockEnergyContainer getEnergyStorage(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity entity, @Nullable Direction direction) {
         return energyContainer == null ? energyContainer = new WrappedBlockEnergyContainer(entity, new SimpleEnergyContainer(15000, Integer.MAX_VALUE)) : energyContainer;
     }
 
@@ -44,10 +50,35 @@ public class BaseEnergyBlockEntity extends BlockEntity implements EnergyBlock<Wr
         super.saveAdditional(compoundTag, provider);
     }
 
+    @Override
+    protected Component getDefaultName() {
+        return null;
+    }
+
+    @Override
+    protected NonNullList<ItemStack> getItems() {
+        return null;
+    }
+
+    @Override
+    protected void setItems(NonNullList<ItemStack> items) {
+
+    }
+
+    @Override
+    protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
+        return null;
+    }
+
+    @Override
+    public int getContainerSize() {
+        return 0;
+    }
+
     public void tick() {
     }
 
-    public final WrappedBlockEnergyContainer getEnergyContainer() {
+    public WrappedBlockEnergyContainer getEnergyContainer() {
         return this.getEnergyStorage(this.level,this.worldPosition,this.getBlockState(),this,null);
     }
 }

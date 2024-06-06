@@ -21,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class GeneratorBlockEntityTemplate extends BaseContainerBlockEntity implements EnergyBlock<WrappedBlockEnergyContainer>, ImplementedInventory {
+public class GeneratorBlockEntityTemplate extends BaseEnergyBlockEntity implements ImplementedInventory {
 
     private WrappedBlockEnergyContainer energyContainer = this.getEnergyStorage(level,getBlockPos(),getBlockState(),this,null);
 
@@ -91,7 +91,7 @@ public class GeneratorBlockEntityTemplate extends BaseContainerBlockEntity imple
             System.out.println(energyContainer.getStoredEnergy());
         }
         BlockEntity blockEntity = this.getLevel().getBlockEntity(this.getBlockPos());
-        EnergyApi.distributeEnergyNearby(blockEntity,100);
+        //EnergyApi.distributeEnergyNearby(blockEntity,100);
     }
 
 }

@@ -109,7 +109,7 @@ public class RadioactiveGeneratorEntity extends GeneratorBlockEntityTemplate {
             }
         }
 
-        EnergyApi.distributeEnergyNearby(blockEntity,100);
+        //EnergyApi.distributeEnergyNearby(blockEntity,100);
     }
 
     private static boolean canBurn(NonNullList<ItemStack> inventory) {

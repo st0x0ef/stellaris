@@ -126,7 +126,7 @@ public class CoalGeneratorEntity extends GeneratorBlockEntityTemplate {
             }
         }
 
-        EnergyApi.distributeEnergyNearby(blockEntity,100);
+        //EnergyApi.distributeEnergyNearby(blockEntity,100);
     }
 
     protected int getBurnDuration(ItemStack fuel) {

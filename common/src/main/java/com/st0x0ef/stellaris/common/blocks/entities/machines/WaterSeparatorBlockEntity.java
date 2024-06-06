@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-public class WaterSeparatorBlockEntity extends BaseContainerBlockEntity implements EnergyBlock<WrappedBlockEnergyContainer>, ImplementedInventory {
+public class WaterSeparatorBlockEntity extends BaseEnergyBlockEntity implements ImplementedInventory {
 
     private NonNullList<ItemStack> items = NonNullList.withSize(6, ItemStack.EMPTY);
 
@@ -32,7 +32,7 @@ public class WaterSeparatorBlockEntity extends BaseContainerBlockEntity implemen
 
     @Override
     protected Component getDefaultName() {
-        return null;
+        return Component.literal("Water Seperator");
     }
 
     @Override
