@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-public interface BotariumItemBlock<T extends ItemContainer & Updatable & Snapshotable<ItemSnapshot>> {
+public interface ItemBlock<T extends ItemContainer & Updatable & Snapshotable<ItemSnapshot>> {
 
     @Nullable
     T getItemContainer(Level level, BlockPos pos, @Nullable BlockState state, @Nullable BlockEntity entity, @Nullable Direction direction);

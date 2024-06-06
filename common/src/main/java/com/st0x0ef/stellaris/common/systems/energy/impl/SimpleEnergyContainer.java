@@ -89,15 +89,15 @@ public class SimpleEnergyContainer implements EnergyContainer {
 
     @Override
     public CompoundTag serialize(CompoundTag root) {
-        CompoundTag tag = root.getCompound(SystemsMain.BOTARIUM_DATA);
+        CompoundTag tag = root.getCompound(SystemsMain.SYSTEMS_DATA);
         tag.putLong("Energy", this.energy);
-        root.put(SystemsMain.BOTARIUM_DATA, tag);
+        root.put(SystemsMain.SYSTEMS_DATA, tag);
         return root;
     }
 
     @Override
     public void deserialize(CompoundTag root) {
-        CompoundTag tag = root.getCompound(SystemsMain.BOTARIUM_DATA);
+        CompoundTag tag = root.getCompound(SystemsMain.SYSTEMS_DATA);
         this.energy = tag.getLong("Energy");
     }
 

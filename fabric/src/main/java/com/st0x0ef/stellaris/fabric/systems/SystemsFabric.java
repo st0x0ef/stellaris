@@ -4,11 +4,10 @@ import com.st0x0ef.stellaris.common.systems.energy.EnergyApi;
 import com.st0x0ef.stellaris.common.systems.energy.base.EnergyBlock;
 import com.st0x0ef.stellaris.common.systems.energy.base.EnergyItem;
 import com.st0x0ef.stellaris.common.systems.item.ItemContainerBlock;
-import com.st0x0ef.stellaris.common.systems.item.base.BotariumItemBlock;
+import com.st0x0ef.stellaris.common.systems.item.base.ItemBlock;
 import com.st0x0ef.stellaris.fabric.systems.energy.FabricBlockEnergyContainer;
 import com.st0x0ef.stellaris.fabric.systems.energy.FabricItemEnergyContainer;
 import com.st0x0ef.stellaris.fabric.systems.item.FabricItemContainer;
-import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.fabricmc.fabric.impl.transfer.item.InventoryStorageImpl;
 import team.reborn.energy.api.EnergyStorage;
@@ -101,10 +100,10 @@ public class SystemsFabric {
         });
 
         ItemStorage.SIDED.registerFallback((world, pos, state, blockEntity, context) -> {
-            if (blockEntity instanceof BotariumItemBlock<?> attachment) {
+            if (blockEntity instanceof ItemBlock<?> attachment) {
                 var container = attachment.getItemContainer(world, pos, state, blockEntity, context);
                 return container == null ? null : new FabricItemContainer(container);
-            } else if (state.getBlock() instanceof BotariumItemBlock<?> attachment) {
+            } else if (state.getBlock() instanceof ItemBlock<?> attachment) {
                 var container = attachment.getItemContainer(world, pos, state, blockEntity, context);
                 return container == null ? null : new FabricItemContainer(container);
             }
