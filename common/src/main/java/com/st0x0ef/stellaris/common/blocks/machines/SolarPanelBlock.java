@@ -2,9 +2,11 @@ package com.st0x0ef.stellaris.common.blocks.machines;
 
 import com.mojang.serialization.MapCodec;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.SolarPanelEntity;
+import com.st0x0ef.stellaris.common.menus.SolarPanelMenu;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import dev.architectury.registry.menu.ExtendedMenuProvider;
 import dev.architectury.registry.menu.MenuRegistry;
+import io.netty.buffer.Unpooled;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -71,11 +73,11 @@ public class SolarPanelBlock extends GeneratorBlockTemplate {
 
             @Override
             public AbstractContainerMenu createMenu(int syncId, Inventory inv, Player player) {
-                BlockEntity blockEntity = level.getBlockEntity(blockPos);
-                if (blockEntity instanceof SolarPanelEntity solarPanelEntity) {
-                    return solarPanelEntity.createMenu(syncId, inv, player);
-                }
-                return null;
+//                BlockEntity blockEntity = level.getBlockEntity(blockPos);
+//                if (blockEntity instanceof SolarPanelEntity solarPanelEntity) {
+//                    return solarPanelEntity.createMenu(syncId, inv, player);
+//                }
+                return SolarPanelMenu.create(syncId, inv, new FriendlyByteBuf(Unpooled.buffer()).writeBlockPos(blockPos));
             }
         };
     }
