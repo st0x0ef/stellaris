@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
 import com.st0x0ef.stellaris.common.blocks.machines.CoalGenerator;
-import com.st0x0ef.stellaris.common.systems.energy.EnergyApi;
 import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedBlockEnergyContainer;
 import com.st0x0ef.stellaris.common.menus.CoalGeneratorMenu;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
@@ -33,7 +32,7 @@ public class CoalGeneratorEntity extends GeneratorBlockEntityTemplate {
     private List<Integer> inputSlots = List.of(0);
 
     public CoalGeneratorEntity(BlockPos blockPos, BlockState blockState) {
-        super(BlockEntityRegistry.COAL_GENERATOR.get(), blockPos, blockState,1,2000);
+        super(BlockEntityRegistry.COAL_GENERATOR.get(), blockPos, blockState,1,2000, "stellaris.energy.coal_generator");
 
         super.items = NonNullList.withSize(1, ItemStack.EMPTY);
 
@@ -79,11 +78,8 @@ public class CoalGeneratorEntity extends GeneratorBlockEntityTemplate {
         return new CoalGeneratorMenu(i, inventory, this, this, dataAccess);
     }
 
-    @Override
-    public void tick() {}
-
     public static void serverTick(Level level, BlockPos pos, BlockState state, CoalGeneratorEntity blockEntity) {
-        WrappedBlockEnergyContainer energyContainer = blockEntity.getEnergyContainer();
+        WrappedBlockEnergyContainer energyContainer = blockEntity.getWrappedEnergyContainer();
         boolean wasLit = blockEntity.isLit();
         boolean shouldUpdate = false;
 
@@ -155,7 +151,7 @@ public class CoalGeneratorEntity extends GeneratorBlockEntityTemplate {
     @Override
     public void loadAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
         super.loadAdditional(compoundTag, provider);
-        this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
+        //this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
         ContainerHelper.loadAllItems(compoundTag, this.items, provider);
         litTime = compoundTag.getShort("BurnTime");
     }

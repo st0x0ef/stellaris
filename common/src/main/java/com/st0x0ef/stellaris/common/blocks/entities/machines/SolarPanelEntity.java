@@ -19,7 +19,7 @@ public class SolarPanelEntity extends GeneratorBlockEntityTemplate {
     protected NonNullList<ItemStack> items;
 
     public SolarPanelEntity(BlockPos blockPos, BlockState blockState) {
-        super(BlockEntityRegistry.SOLAR_PANEL.get(), blockPos, blockState,1,500);
+        super(BlockEntityRegistry.SOLAR_PANEL.get(), blockPos, blockState,1,500,"stellaris.energy.solar_panel");
         this.items = NonNullList.withSize(1, ItemStack.EMPTY);
     }
 

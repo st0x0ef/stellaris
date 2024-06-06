@@ -2,7 +2,6 @@ package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
 import com.google.common.collect.Maps;
 import com.st0x0ef.stellaris.common.config.CustomConfig;
-import com.st0x0ef.stellaris.common.systems.energy.EnergyApi;
 import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedBlockEnergyContainer;
 import com.st0x0ef.stellaris.common.items.RadioactiveItem;
 import com.st0x0ef.stellaris.common.menus.RadioactiveGeneratorMenu;
@@ -35,7 +34,7 @@ public class RadioactiveGeneratorEntity extends GeneratorBlockEntityTemplate {
 
 
     public RadioactiveGeneratorEntity(BlockPos blockPos, BlockState blockState) {
-        super(BlockEntityRegistry.RADIOACTIVE_GENERATOR.get(), blockPos, blockState,1,2000);
+        super(BlockEntityRegistry.RADIOACTIVE_GENERATOR.get(), blockPos, blockState,1,2000,"stellaris.energy.radioactive_generator");
 
         super.items = NonNullList.withSize(1, ItemStack.EMPTY);
     }
@@ -49,7 +48,7 @@ public class RadioactiveGeneratorEntity extends GeneratorBlockEntityTemplate {
     public void tick() {}
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, RadioactiveGeneratorEntity blockEntity) {
-        WrappedBlockEnergyContainer energyContainer = blockEntity.getEnergyContainer();
+        WrappedBlockEnergyContainer energyContainer = blockEntity.getWrappedEnergyContainer();
         boolean bl = blockEntity.isLit();
         boolean bl2 = false;
         if (blockEntity.isLit()) {

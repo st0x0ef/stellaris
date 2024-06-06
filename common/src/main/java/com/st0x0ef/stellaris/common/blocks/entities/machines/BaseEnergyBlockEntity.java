@@ -20,11 +20,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class BaseEnergyBlockEntity extends BaseContainerBlockEntity implements EnergyBlock<WrappedBlockEnergyContainer> {
+public abstract class BaseEnergyBlockEntity extends BaseContainerBlockEntity implements EnergyBlock<WrappedBlockEnergyContainer> {
     private WrappedBlockEnergyContainer energyContainer;
+    private final String tagName;
 
-    public BaseEnergyBlockEntity(BlockEntityType<?> entityType, BlockPos blockPos, BlockState blockState) {
+    public BaseEnergyBlockEntity(BlockEntityType<?> entityType, BlockPos blockPos, BlockState blockState, String tagName) {
         super(entityType, blockPos, blockState);
+        this.tagName = tagName;
     }
 
     @Override
@@ -37,12 +39,14 @@ public class BaseEnergyBlockEntity extends BaseContainerBlockEntity implements E
     public @NotNull CompoundTag getUpdateTag(HolderLookup.Provider provider) {
         CompoundTag tag = new CompoundTag();
         this.saveAdditional(tag, provider);
+        tag.putLong(this.tagName, getWrappedEnergyContainer().getStoredEnergy());
         return tag;
     }
 
     @Override
     protected void loadAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
         super.loadAdditional(compoundTag, provider);
+        getWrappedEnergyContainer().setEnergy(compoundTag.getLong(tagName));
     }
 
     @Override
@@ -78,7 +82,7 @@ public class BaseEnergyBlockEntity extends BaseContainerBlockEntity implements E
     public void tick() {
     }
 
-    public WrappedBlockEnergyContainer getEnergyContainer() {
+    public WrappedBlockEnergyContainer getWrappedEnergyContainer() {
         return this.getEnergyStorage(this.level,this.worldPosition,this.getBlockState(),this,null);
     }
 }

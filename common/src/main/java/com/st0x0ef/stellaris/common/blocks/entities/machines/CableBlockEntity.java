@@ -9,14 +9,14 @@ import net.minecraft.world.level.block.state.BlockState;
 public class CableBlockEntity extends BaseEnergyBlockEntity {
 
     public CableBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(BlockEntityRegistry.CABLE_ENTITY.get(), blockPos, blockState);
+        super(BlockEntityRegistry.CABLE_ENTITY.get(), blockPos, blockState,"stellaris.energy.cable");
     }
 
     @Override
     public void tick() {
         if (!this.getLevel().isClientSide) {
             BlockEntity blockEntity = this.getLevel().getBlockEntity(this.getBlockPos());
-            EnergyApi.distributeEnergyNearby(blockEntity,100);
+            //EnergyApi.distributeEnergyNearby(blockEntity,100);
         }
     }
 }

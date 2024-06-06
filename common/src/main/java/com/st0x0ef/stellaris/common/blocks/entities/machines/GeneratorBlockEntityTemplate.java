@@ -34,16 +34,17 @@ public class GeneratorBlockEntityTemplate extends BaseEnergyBlockEntity implemen
     protected NonNullList<ItemStack> items;
     private List<Integer> inputSlots = List.of(0);
 
-    public GeneratorBlockEntityTemplate(BlockEntityType<?> entityType, BlockPos blockPos, BlockState blockState, int EnergyGeneratedPT,int MaxCapacity) {
-        super(entityType, blockPos, blockState);
+    public GeneratorBlockEntityTemplate(BlockEntityType<?> entityType, BlockPos blockPos, BlockState blockState, int EnergyGeneratedPT, int MaxCapacity, String tagName) {
+        super(entityType, blockPos, blockState, tagName);
         this.EnergyGeneratedPT=EnergyGeneratedPT;
         this.MaxCapacity=MaxCapacity;
     }
+
     @Override
     public final WrappedBlockEnergyContainer getEnergyStorage(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity entity, @Nullable Direction direction) {
         return energyContainer == null ? energyContainer = new WrappedBlockEnergyContainer(entity, new ExtractOnlyEnergyContainer(MaxCapacity, Integer.MAX_VALUE)) : energyContainer;
     }
-    public final WrappedBlockEnergyContainer getEnergyContainer() {
+    public final WrappedBlockEnergyContainer getWrappedEnergyContainer() {
         return this.getEnergyStorage(this.level,this.worldPosition,this.getBlockState(),this,null);
     }
 

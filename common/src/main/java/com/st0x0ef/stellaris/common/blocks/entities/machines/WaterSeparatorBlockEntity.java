@@ -22,7 +22,7 @@ public class WaterSeparatorBlockEntity extends BaseEnergyBlockEntity implements 
     private NonNullList<ItemStack> items = NonNullList.withSize(6, ItemStack.EMPTY);
 
     public WaterSeparatorBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockEntityRegistry.WATER_SEPARATOR_ENTITY.get(), pos, state);
+        super(BlockEntityRegistry.WATER_SEPARATOR_ENTITY.get(), pos, state,"stellaris.energy.water_separator");
     }
 
     @Override
@@ -32,7 +32,7 @@ public class WaterSeparatorBlockEntity extends BaseEnergyBlockEntity implements 
 
     @Override
     protected Component getDefaultName() {
-        return Component.literal("Water Seperator");
+        return Component.literal("Water Separator");
     }
 
     @Override

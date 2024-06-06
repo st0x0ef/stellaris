@@ -50,7 +50,7 @@ public class SolarPanelScreen extends AbstractContainerScreen<SolarPanelMenu> {
 		SolarPanelEntity blockEntity = this.getMenu().getBlockEntity();
 		if(blockEntity != null)
 		{
-			WrappedBlockEnergyContainer energyStorage = blockEntity.getEnergyContainer();
+			WrappedBlockEnergyContainer energyStorage = blockEntity.getWrappedEnergyContainer();
 			if(energyStorage!= null)
 			{
 				graphics.drawString(this.font, GaugeTextHelper.getStoredText(GaugeValueHelper.getEnergy(energyStorage.getStoredEnergy())).build(), this.titleLabelY, 28, 0x3C3C3C);
