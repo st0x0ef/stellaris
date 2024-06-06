@@ -11,9 +11,6 @@ loom {
     accessWidenerPath = project(":common").loom.accessWidenerPath
 }
 
-
-def generatedResources = file("src/generated")
-
 sourceSets {
     main {
         resources {

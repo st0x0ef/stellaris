@@ -1,7 +1,5 @@
 package com.st0x0ef.stellaris.common.rocket_upgrade;
 
-import com.st0x0ef.stellaris.common.items.upgrade.FuelType;
-
 public class MotorUpgrade extends RocketUpgrade {
     private final FuelType.Type type;
 
