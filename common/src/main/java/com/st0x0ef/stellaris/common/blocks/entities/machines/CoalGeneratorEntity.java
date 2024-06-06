@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.common.blocks.entities.machines;
 import com.st0x0ef.stellaris.common.blocks.machines.CoalGeneratorBlock;
 import com.st0x0ef.stellaris.common.menus.CoalGeneratorMenu;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
+import com.st0x0ef.stellaris.common.registry.TagRegistry;
 import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedBlockEnergyContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -113,14 +114,12 @@ public class CoalGeneratorEntity extends BaseGeneratorBlockEntity {
 //        Stellaris.LOG.warn(Long.toString(energyContainer.getStoredEnergy()));
     }
 
-    protected int getBurnDuration(ItemStack fuel) {
-        if (fuel.isEmpty()) {
+    protected int getBurnDuration(ItemStack fuelStack) {
+        if (fuelStack.isEmpty() || !fuelStack.is(TagRegistry.COAL_GENERATOR_FUEL_TAG)) {
             return 0;
         }
-        else {
-            Item item = fuel.getItem();
-            return getFuel().getOrDefault(item, 0);
-        }
+
+        return getFuel().getOrDefault(fuelStack.getItem(), 0);
     }
 
     private boolean isLit() {

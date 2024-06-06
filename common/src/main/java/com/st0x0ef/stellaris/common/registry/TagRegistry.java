@@ -33,7 +33,6 @@ public class TagRegistry {
     public static final TagKey<Item> ROCKET_UPGRADE_TAG = TagKey.create(Registries.ITEM, new ResourceLocation(Stellaris.MODID, "rocket_upgrade"));
 
     /** ITEMS */
-    public static final TagKey<Item> RADIOACTIVE_ITEMS_TAG = TagKey.create(Registries.ITEM, new ResourceLocation(Stellaris.MODID, "radioactive_items"));
     public static final TagKey<Item> SPACE_FOOD = TagKey.create(Registries.ITEM, new ResourceLocation(Stellaris.MODID, "space_food"));
     public static final TagKey<Item> COAL_GENERATOR_FUEL_TAG = TagKey.create(Registries.ITEM, new ResourceLocation(Stellaris.MODID, "coal_generator_fuel"));
     public static final TagKey<Item> RADIOACTIVE_GENERATOR_FUEL_TAG = TagKey.create(Registries.ITEM, new ResourceLocation(Stellaris.MODID, "radioactive_generator_fuel"));

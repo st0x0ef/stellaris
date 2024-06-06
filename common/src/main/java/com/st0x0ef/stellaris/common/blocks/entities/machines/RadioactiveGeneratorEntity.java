@@ -1,8 +1,10 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
+import com.st0x0ef.stellaris.common.items.RadiationItem;
 import com.st0x0ef.stellaris.common.items.RadioactiveItem;
 import com.st0x0ef.stellaris.common.menus.RadioactiveGeneratorMenu;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
+import com.st0x0ef.stellaris.common.registry.TagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -22,14 +24,13 @@ public class RadioactiveGeneratorEntity extends CoalGeneratorEntity {
         return new RadioactiveGeneratorMenu(containerId, inventory, this, this);
     }
 
-    protected int getBurnDuration(ItemStack fuel) {
-        if (fuel.isEmpty()) {
+    protected int getBurnDuration(ItemStack fuelStack) {
+        if (fuelStack.isEmpty()) {
             return 0;
         }
 
-        Item item = fuel.getItem();
-        if (item instanceof RadioactiveItem radioactiveItem) {
-            return switch (radioactiveItem.getRadiationLevel()) {
+        if (fuelStack.getItem() instanceof RadiationItem radiationItem) {
+            return switch (radiationItem.getRadiationLevel()) {
                 case 0 -> 200;
                 case 1 -> 500;
                 case 2 -> 1000;
