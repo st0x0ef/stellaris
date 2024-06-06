@@ -19,19 +19,19 @@ public class SolarPanelMenu extends AbstractContainerMenu {
     public static SolarPanelMenu create(int syncId, Inventory inventory, FriendlyByteBuf data) {
         SolarPanelEntity entity = (SolarPanelEntity) inventory.player.level().getBlockEntity(data.readBlockPos());
 
-        return new SolarPanelMenu(syncId, inventory, new SimpleContainer(1), entity);
+        return new SolarPanelMenu(syncId, inventory, new SimpleContainer(), entity);
     }
 
     public SolarPanelMenu(int syncId, Inventory playerInventory, Container container, SolarPanelEntity entity)
     {
         super(MenuTypesRegistry.SOLAR_PANEL_MENU.get(), syncId);
 
-        checkContainerSize(container, 1);
+        //checkContainerSize(container, 1);
         this.inventory = (container);
         this.entity = entity;
 
         //TODO fix the slot i didnt have time
-        this.addSlot(new Slot(inventory, 0, 41, 63));
+        //this.addSlot(new Slot(inventory, 0, 41, 63));
 
         addPlayerHotbar(playerInventory);
         addPlayerInventory(playerInventory);
