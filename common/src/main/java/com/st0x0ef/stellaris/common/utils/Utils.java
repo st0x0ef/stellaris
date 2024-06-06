@@ -8,11 +8,14 @@ import com.st0x0ef.stellaris.platform.TeleportUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 public class Utils {
 
@@ -195,6 +198,15 @@ public class Utils {
 
     public static Component getMessageComponent(String text) {
         return Component.literal(text).setStyle(Style.EMPTY);
+    }
+
+    /** dimension util */
+    public static int getPlayerCountInDimension(MinecraftServer server, ResourceKey<Level> dimensionKey) {
+        ServerLevel dimension = server.getLevel(dimensionKey);
+        if (dimension == null) {
+            return 0;
+        }
+        return (int) dimension.players().stream().count();
     }
 
     /**

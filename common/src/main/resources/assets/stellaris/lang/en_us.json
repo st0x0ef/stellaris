@@ -254,6 +254,8 @@
   "text.stellaris.milkywayscreen.milkyway": "Milky Way",
 
   "translatable.stellaris.registry.holdshift": "Hold [↑ Shift] to view more info",
+  "translatable.stellaris.registry.player": "Player",
+  "translatable.stellaris.registry.players": "player",
 
   "tooltip.item.stellaris.can.empty": "Empty",
   "tooltip.item.stellaris.can.nutrition": "Nutrition: %s/%s",

@@ -79,6 +79,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     public final static Player p = Minecraft.getInstance().player;
 
+
     private boolean isLaunching = false;
     private boolean showLargeMenu = false;
     LaunchButton launchButton;
@@ -328,7 +329,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
                 if (!isShiftPressed) {
                     bodyDescription.add(Utils.getMessageComponent("§8" + TranslatableRegistry.holdShift.getString()));
                 } else {
-                    bodyDescription.add(Utils.getMessageComponent("§f￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣"));
+                    bodyDescription.add(Utils.getMessageComponent("§f￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣"));
                     if (PlanetUtil.getPlanet(hoveredBody.dimension) == null) {
                         bodyDescription.add(Utils.getMessageComponent(error_message.getString(), "Red"));
                     } else {
@@ -336,6 +337,10 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
                         bodyDescription.add(Utils.getMessageComponent(gravity.getString() + " : " + PlanetUtil.getPlanet(hoveredBody.dimension).gravity() + "m/s"));
                         bodyDescription.add(Utils.getMessageComponent(oxygen.getString() + " : " + PlanetUtil.getPlanet(hoveredBody.dimension).oxygen()));
                         bodyDescription.add(Utils.getMessageComponent(system.getString() + " : " + Component.translatable(PlanetUtil.getSystem(hoveredBody.dimension)).getString()));
+                        if (getPlayer().getServer() != null) {
+                            bodyDescription.add(Utils.getMessageComponent(""));
+                            bodyDescription.add(Utils.getMessageComponent(TranslatableRegistry.players.getString() + " : " + Utils.getPlayerCountInDimension(getPlayer().getServer(), hoveredBody.dimension)));
+                        }
                     }
                 }
 
@@ -445,14 +450,17 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             graphics.drawString(font, launch, buttonX + buttonWidth / 4, buttonY + buttonHeight / 4 + 1, 0xFFFFFF);
             graphics.drawString(font, CELESTIAL_BODY_NAME, textX, buttonY + buttonHeight / 4 + 37, 0xFFFFFF, true);
 
-            graphics.drawString(font, "￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣", textX, buttonY + buttonHeight / 4 + 50, 0xFFFFFF, true);
+            graphics.drawString(font, "￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣", textX, buttonY + buttonHeight / 4 + 50, 0xFFFFFF, true);
 
             graphics.drawString(font, temperatureV, textX, buttonY + buttonHeight / 4 + 60, temperatureColor, true);
             graphics.drawString(font, gravityV, textX, buttonY + buttonHeight / 4 + 75, 0xFFFFFF, true);
             graphics.drawString(font, oxygenV, textX, buttonY + buttonHeight / 4 + 90, oxygenColor, true);
-
             graphics.drawString(font, systemV, textX, buttonY + buttonHeight / 4 + 105, 0xFFFFFF, true);
-//            graphics.drawString(font, "temporary : null", textX, buttonY + buttonHeight / 4 + 120, 0xFFFFFF, false);
+
+            if (getPlayer().getServer() != null) {
+                graphics.drawString(font, TranslatableRegistry.players.getString() + " : " + Utils.getPlayerCountInDimension(getPlayer().getServer(), focusedBody.dimension), textX, buttonY + buttonHeight / 4 + 120, 0xFFFFFF, false);
+            }
+
 //            graphics.drawString(font, "temporary : null", textX, buttonY + buttonHeight / 4 + 135, 0xFFFFFF, false);
 
             RenderSystem.enableBlend();
@@ -634,10 +642,10 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     }
 
     private void centerOnBody(CelestialBody body) {
-        if (!isLaunching) {
-            zoomLevel = 1.0;
-        } else {
+        if (isLaunching) {
             zoomLevel = 1.6;
+        } else {
+            zoomLevel = 1.0;
         }
         offsetX = ((body.x - width / 2.0)) * -1;
         offsetY = ((body.y - height / 2.0)) * -1;
@@ -660,7 +668,11 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
             if (this.minecraft.screen instanceof PlanetSelectionScreen) {
                 if (scrollY != 0) {
-                    zoomLevel += scrollY * 0.02;
+                    int i = 0;
+                    while (i < 5) {
+                        zoomLevel += scrollY * 0.004;
+                        i++;
+                    }
                     zoomLevel = Math.max(0.02, Math.min(zoomLevel, 2.0));
                 }
             }
