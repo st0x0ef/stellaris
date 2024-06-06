@@ -56,6 +56,6 @@ public class SolarPanelEntity extends GeneratorBlockEntityTemplate {
 
     @Override
     public int getContainerSize() {
-        return 0;
+        return 1;
     }
 }
