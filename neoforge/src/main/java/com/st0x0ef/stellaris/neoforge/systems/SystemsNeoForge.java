@@ -4,18 +4,15 @@ import com.st0x0ef.stellaris.common.systems.energy.EnergyApi;
 import com.st0x0ef.stellaris.common.systems.energy.base.EnergyBlock;
 import com.st0x0ef.stellaris.common.systems.energy.base.EnergyItem;
 import com.st0x0ef.stellaris.common.systems.item.ItemContainerBlock;
-import com.st0x0ef.stellaris.common.systems.item.base.BotariumItemBlock;
+import com.st0x0ef.stellaris.common.systems.item.base.ItemBlock;
 import com.st0x0ef.stellaris.neoforge.systems.energy.ForgeEnergyContainer;
 import com.st0x0ef.stellaris.neoforge.systems.generic.NeoForgeCapsHandler;
 import com.st0x0ef.stellaris.neoforge.systems.item.ForgeItemContainer;
 import com.st0x0ef.stellaris.neoforge.systems.item.ItemContainerWrapper;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.world.item.BucketItem;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
-import net.neoforged.neoforge.fluids.capability.wrappers.FluidBucketWrapper;
 
 @SuppressWarnings({"unused", "CodeBlock2Expr"})
 public class SystemsNeoForge {
@@ -33,16 +30,16 @@ public class SystemsNeoForge {
                 if (blockEntity instanceof ItemContainerBlock itemContainerBlock) {
                     return new ItemContainerWrapper(itemContainerBlock.getContainer());
                 }
-                if (blockEntity instanceof BotariumItemBlock<?> itemBlock) {
+                if (blockEntity instanceof ItemBlock<?> itemBlock) {
                     return new ForgeItemContainer(itemBlock.getItemContainer(blockEntity.getLevel(), blockEntity.getBlockPos(), blockEntity.getBlockState(), blockEntity, object2));
                 }
                 return null;
             });
         });
 
-        BuiltInRegistries.BLOCK.stream().filter(block -> block instanceof BotariumItemBlock<?>).forEach(block -> {
+        BuiltInRegistries.BLOCK.stream().filter(block -> block instanceof ItemBlock<?>).forEach(block -> {
             event.registerBlock(Capabilities.ItemHandler.BLOCK, (level, blockPos, blockState, blockEntity, direction) -> {
-                if (blockState.getBlock() instanceof BotariumItemBlock<?> itemContainerBlock) {
+                if (blockState.getBlock() instanceof ItemBlock<?> itemContainerBlock) {
                     return new ForgeItemContainer(itemContainerBlock.getItemContainer(level, blockPos, blockState, blockEntity, direction));
                 }
                 return null;

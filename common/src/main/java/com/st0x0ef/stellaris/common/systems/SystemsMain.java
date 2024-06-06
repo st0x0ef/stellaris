@@ -1,13 +1,8 @@
 package com.st0x0ef.stellaris.common.systems;
 
 import com.mojang.datafixers.util.Pair;
-import com.mojang.serialization.Codec;
 import com.st0x0ef.stellaris.Stellaris;
-import net.minecraft.core.particles.ParticleType;
-import net.minecraft.core.registries.BuiltInRegistries;
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
@@ -16,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class SystemsMain {
     public static final String MOD_ID = Stellaris.MODID;
-    public static final String BOTARIUM_DATA = "BotariumData";
+    public static final String SYSTEMS_DATA = "StellarisData";
     public static final Logger LOGGER = (Logger) Stellaris.LOG;
 
 //    public static final RegistryHolder<ParticleType<?>> PARTICLES = new RegistryHolder<>(BuiltInRegistries.PARTICLE_TYPE, MOD_ID);
