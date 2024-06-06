@@ -29,7 +29,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 
-public class Cable extends BaseEnergyBlock {
+public class Cable extends BaseEntityBlock {
     private static final Direction[] DIRECTIONS = Direction.values();
     public static final BooleanProperty NORTH = PipeBlock.NORTH;
     public static final BooleanProperty EAST = PipeBlock.EAST;
@@ -89,7 +89,7 @@ public class Cable extends BaseEnergyBlock {
     }
 
     private boolean isConnectable(BlockState blockState){
-        return blockState.is(this) || blockState.is(TagRegistry.ENERGY_BLOCK_TAG) || blockState.getBlock() instanceof BaseEnergyBlock;
+        return blockState.is(this) || blockState.is(TagRegistry.ENERGY_BLOCK_TAG) || blockState.getBlock() instanceof BaseMachineBlock;
     }
 
     @Override

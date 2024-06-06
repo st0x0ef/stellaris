@@ -24,12 +24,10 @@ import org.jetbrains.annotations.Nullable;
 
 public class VacumatorBlockEntity extends BaseContainerBlockEntity implements ImplementedInventory {
 
-    private NonNullList<ItemStack> items;
+    private NonNullList<ItemStack> items = NonNullList.withSize(5, ItemStack.EMPTY);
 
     public VacumatorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(BlockEntityRegistry.VACUMATOR_ENTITY.get(), blockPos, blockState);
-        this.items = NonNullList.withSize(5, ItemStack.EMPTY);
-
     }
 
     @Override

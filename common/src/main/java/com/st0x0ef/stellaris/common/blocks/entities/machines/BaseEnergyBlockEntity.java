@@ -6,69 +6,54 @@ import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedBlockEnergyContai
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class BaseEnergyBlockEntity extends BaseContainerBlockEntity implements EnergyBlock<WrappedBlockEnergyContainer> {
-    private WrappedBlockEnergyContainer energyContainer;
-    private final String tagName;
-    protected NonNullList<ItemStack> items;
+import static com.st0x0ef.stellaris.common.blocks.entities.machines.BaseEnergyContainerBlockEntity.ENERGY_TAG;
 
-    public BaseEnergyBlockEntity(BlockEntityType<?> entityType, BlockPos blockPos,
-                                 BlockState blockState, String tagName, int containerSize) {
-        super(entityType, blockPos, blockState);
-        this.tagName = tagName;
-        this.items = NonNullList.withSize(containerSize, ItemStack.EMPTY);
+public abstract class BaseEnergyBlockEntity extends BlockEntity implements EnergyBlock<WrappedBlockEnergyContainer>, WrappedEnergyBlockEntity {
+
+    private WrappedBlockEnergyContainer energyContainer;
+
+    public BaseEnergyBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+        super(type, pos, state);
     }
+
+    public abstract void tick();
+
+    public abstract int getMaxCapacity();
 
     @Override
     public WrappedBlockEnergyContainer getEnergyStorage(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity entity, @Nullable Direction direction) {
-        return energyContainer == null ? energyContainer = new WrappedBlockEnergyContainer(entity, new SimpleEnergyContainer(15000, Integer.MAX_VALUE)) : energyContainer;
+        return energyContainer == null ? energyContainer = new WrappedBlockEnergyContainer(entity, new SimpleEnergyContainer(getMaxCapacity(), Integer.MAX_VALUE)) : energyContainer;
     }
-    public abstract WrappedBlockEnergyContainer getWrappedEnergyContainer();
+
+    @Override
+    public WrappedBlockEnergyContainer getWrappedEnergyContainer() {
+        return getEnergyStorage(getLevel(), getBlockPos(), getBlockState(), this, null);
+    }
 
     @Override
     public @NotNull CompoundTag getUpdateTag(HolderLookup.Provider provider) {
         CompoundTag tag = new CompoundTag();
-        this.saveAdditional(tag, provider);
+        saveAdditional(tag, provider);
         return tag;
     }
 
     @Override
-    protected void loadAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
-        super.loadAdditional(compoundTag, provider);
-        getWrappedEnergyContainer().setEnergy(compoundTag.getLong(tagName));
+    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+        super.loadAdditional(tag, provider);
+        getWrappedEnergyContainer().setEnergy(tag.getLong(ENERGY_TAG));
     }
 
     @Override
-    protected void saveAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
-        super.saveAdditional(compoundTag, provider);
-        compoundTag.putLong(this.tagName, getWrappedEnergyContainer().getStoredEnergy());
-    }
-
-    @Override
-    protected abstract Component getDefaultName();
-
-    @Override
-    protected abstract NonNullList<ItemStack> getItems();
-
-    @Override
-    protected abstract void setItems(NonNullList<ItemStack> items);
-
-    @Override
-    public abstract int getContainerSize();
-
-    public void tick() {
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+        super.saveAdditional(tag, provider);
+        tag.putLong(ENERGY_TAG, getWrappedEnergyContainer().getStoredEnergy());
     }
 }
