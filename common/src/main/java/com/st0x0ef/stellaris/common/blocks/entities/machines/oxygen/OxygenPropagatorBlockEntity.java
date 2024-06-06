@@ -1,28 +1,30 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines.oxygen;
 
+import com.st0x0ef.stellaris.common.blocks.entities.machines.BaseEnergyBlockEntity;
 import com.st0x0ef.stellaris.common.oxygen.OxygenContainer;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class OxygenPropagatorBlockEntity extends OxygenBlockEntity {
+public class OxygenPropagatorBlockEntity extends BaseEnergyBlockEntity implements OxygenContainerBlockEntity {
 
-    public OxygenPropagatorBlockEntity(BlockPos pos, BlockState blockState) {
-        super(BlockEntityRegistry.OXYGEN_PROPAGATOR.get(), pos, blockState, new OxygenContainer(0), 32);
+    private final OxygenContainer oxygenContainer = new OxygenContainer(0);
+
+    public OxygenPropagatorBlockEntity(BlockPos pos, BlockState state) {
+        super(BlockEntityRegistry.OXYGEN_PROPAGATOR.get(), pos, state);
     }
 
     @Override
     public void tick() {
-        if (PlanetUtil.isPlanet(this.level.dimension())) {
-            for (int x = -16; x < 16; x++) {
-                for (int z = -16; z < 16; z++) {
-                    for (int y = -16; y < 16; y++) {
-                        if (this.level.getBlockEntity(new BlockPos(x + this.getBlockPos().getX(), y + this.getBlockPos().getY(), z + this.getBlockPos().getZ())) instanceof OxygenDistributorBlockEntity source) {
-                            container.addOxygenAtFromSource(this.getBlockPos(), false, source.getOxygenContainer());
+        if (getWrappedEnergyContainer().getStoredEnergy() > 0) {
+            if (PlanetUtil.isPlanet(level.dimension())) {
+                for (int x = -16; x < 16; x++) {
+                    for (int z = -16; z < 16; z++) {
+                        for (int y = -16; y < 16; y++) {
+                            if (level.getBlockEntity(new BlockPos(x + getBlockPos().getX(), y + getBlockPos().getY(), z + getBlockPos().getZ())) instanceof OxygenPropagatorBlockEntity propagatorBlockEntity) {
+                                oxygenContainer.addOxygenAtFromSource(getBlockPos(), false, propagatorBlockEntity.getOxygenContainer());
+                            }
                         }
                     }
                 }
@@ -31,17 +33,17 @@ public class OxygenPropagatorBlockEntity extends OxygenBlockEntity {
     }
 
     @Override
-    protected Component getDefaultName() {
-        return null;
+    public int getMaxCapacity() {
+        return 6000;
     }
 
     @Override
-    protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
-        return null;
+    public OxygenContainer getOxygenContainer() {
+        return oxygenContainer;
     }
 
     @Override
-    public int getContainerSize() {
-        return 0;
+    public int getRange() {
+        return 32;
     }
 }
