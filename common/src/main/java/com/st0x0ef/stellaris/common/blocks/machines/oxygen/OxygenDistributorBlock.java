@@ -19,20 +19,18 @@ public class OxygenDistributorBlock extends BaseLitMachineBlock {
         super(properties);
     }
 
-    @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        return createTickerHelper(blockEntityType, BlockEntityRegistry.OXYGEN_DISTRIBUTOR.get(), (level1, pos, state1, blockEntity) -> blockEntity.tick());
+    public BlockEntityType<?> getBlockEntityType() {
+        return BlockEntityRegistry.OXYGEN_DISTRIBUTOR.get();
+    }
+
+    @Override
+    public boolean hasTicker(Level level) {
+        return !level.isClientSide;
     }
 
     @Override
     protected MapCodec<? extends BaseEntityBlock> codec() {
         return simpleCodec(OxygenDistributorBlock::new);
-    }
-
-    @Nullable
-    @Override
-    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new OxygenDistributorBlockEntity(pos, state);
     }
 }

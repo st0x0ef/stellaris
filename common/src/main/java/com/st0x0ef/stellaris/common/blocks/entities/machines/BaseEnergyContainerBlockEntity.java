@@ -22,7 +22,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class BaseEnergyContainerBlockEntity extends BaseContainerBlockEntity implements EnergyBlock<WrappedBlockEnergyContainer>, WrappedEnergyBlockEntity, ImplementedInventory {
+public abstract class BaseEnergyContainerBlockEntity extends BaseContainerBlockEntity implements EnergyBlock<WrappedBlockEnergyContainer>, WrappedEnergyBlockEntity, ImplementedInventory, TickingBlockEntity {
 
     public static final String ENERGY_TAG = "Energy";
 
@@ -68,8 +68,6 @@ public abstract class BaseEnergyContainerBlockEntity extends BaseContainerBlockE
         tag.putLong(ENERGY_TAG, getWrappedEnergyContainer().getStoredEnergy());
         ContainerHelper.saveAllItems(tag, items, provider);
     }
-
-    public abstract void tick();
 
     @Override
     public WrappedBlockEnergyContainer getWrappedEnergyContainer() {

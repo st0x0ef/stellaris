@@ -19,18 +19,17 @@ public class RadioactiveGeneratorBlock extends BaseLitMachineBlock {
     }
 
     @Override
+    public BlockEntityType<?> getBlockEntityType() {
+        return BlockEntityRegistry.RADIOACTIVE_GENERATOR.get();
+    }
+
+    @Override
+    public boolean hasTicker(Level level) {
+        return !level.isClientSide;
+    }
+
+    @Override
     protected MapCodec<? extends BaseEntityBlock> codec() {
         return simpleCodec(RadioactiveGeneratorBlock::new);
-    }
-
-    @Override
-    public @Nullable BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return new RadioactiveGeneratorEntity(blockPos, blockState);
-    }
-
-    @Nullable
-    @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> blockEntityType) {
-        return level.isClientSide ? null : createTickerHelper(blockEntityType, BlockEntityRegistry.RADIOACTIVE_GENERATOR.get(), RadioactiveGeneratorEntity::serverTick);
     }
 }

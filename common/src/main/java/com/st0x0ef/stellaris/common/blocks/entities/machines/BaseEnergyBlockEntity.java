@@ -16,15 +16,13 @@ import org.jetbrains.annotations.Nullable;
 
 import static com.st0x0ef.stellaris.common.blocks.entities.machines.BaseEnergyContainerBlockEntity.ENERGY_TAG;
 
-public abstract class BaseEnergyBlockEntity extends BlockEntity implements EnergyBlock<WrappedBlockEnergyContainer>, WrappedEnergyBlockEntity {
+public abstract class BaseEnergyBlockEntity extends BlockEntity implements EnergyBlock<WrappedBlockEnergyContainer>, WrappedEnergyBlockEntity, TickingBlockEntity {
 
     private WrappedBlockEnergyContainer energyContainer;
 
     public BaseEnergyBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
     }
-
-    public abstract void tick();
 
     public abstract int getMaxCapacity();
 

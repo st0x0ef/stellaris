@@ -51,8 +51,8 @@ public abstract class BaseGeneratorBlockEntity extends BaseEnergyContainerBlockE
             else if (container.getStoredEnergy() > container.getMaxCapacity()) {
                 container.setEnergy(container.getMaxCapacity());
             }
-            System.out.println(container.getStoredEnergy());
+//            System.out.println(container.getStoredEnergy());
         }
-        EnergyApi.distributeEnergyNearby(this, 100);
+//        EnergyApi.distributeEnergyNearby(this, 100);
     }
 }

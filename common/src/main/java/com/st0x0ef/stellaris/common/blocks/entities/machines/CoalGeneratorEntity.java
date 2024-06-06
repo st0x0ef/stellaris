@@ -64,45 +64,45 @@ public class CoalGeneratorEntity extends BaseGeneratorBlockEntity {
         return new CoalGeneratorMenu(containerId, inventory, this, this, dataAccess);
     }
 
-    public static void serverTick(Level level, BlockPos pos, BlockState state, CoalGeneratorEntity blockEntity) {
-        WrappedBlockEnergyContainer energyContainer = blockEntity.getWrappedEnergyContainer();
-        boolean wasLit = blockEntity.isLit();
+    public void tick() {
+        WrappedBlockEnergyContainer energyContainer = getWrappedEnergyContainer();
+        boolean wasLit = isLit();
         boolean shouldUpdate = false;
 
-        if (blockEntity.isLit()) {
-            --blockEntity.litTime;
+        if (isLit()) {
+            --litTime;
         }
 
-        ItemStack stack = blockEntity.getItems().get(0);
-        if (blockEntity.isLit() || !stack.isEmpty()) {
-            if (!blockEntity.isLit() && !stack.isEmpty()) {
-                blockEntity.litTime = blockEntity.getBurnDuration(stack);
-                blockEntity.litDuration = blockEntity.litTime;
-                if (blockEntity.isLit()) {
+        ItemStack stack = getItems().get(0);
+        if (isLit() || !stack.isEmpty()) {
+            if (!isLit() && !stack.isEmpty()) {
+                litTime = getBurnDuration(stack);
+                litDuration = litTime;
+                if (isLit()) {
                     shouldUpdate = true;
                     Item item = stack.getItem();
                     stack.shrink(1);
                     if (stack.isEmpty()) {
                         Item item2 = item.getCraftingRemainingItem();
-                        blockEntity.getItems().set(0, item2 == null ? ItemStack.EMPTY : new ItemStack(item2));
+                        getItems().set(0, item2 == null ? ItemStack.EMPTY : new ItemStack(item2));
                     }
                 }
             }
         }
 
-        if (wasLit != blockEntity.isLit()) {
+        if (wasLit != isLit()) {
             shouldUpdate = true;
-            state = state.setValue(CoalGeneratorBlock.LIT, blockEntity.isLit());
-            level.setBlock(pos, state, 3);
+            BlockState state = getBlockState().setValue(CoalGeneratorBlock.LIT, isLit());
+            level.setBlock(getBlockPos(), state, 3);
         }
 
         if (shouldUpdate) {
-            setChanged(level, pos, state);
+            setChanged(level, getBlockPos(), getBlockState());
         }
 
-        if (blockEntity.isLit()) {
+        if (isLit()) {
             if (energyContainer.getStoredEnergy() < energyContainer.getMaxCapacity()) {
-                energyContainer.setEnergy(energyContainer.getStoredEnergy() + blockEntity.getEnergyGeneratedPT());
+                energyContainer.setEnergy(energyContainer.getStoredEnergy() + getEnergyGeneratedPT());
             }
             else if (energyContainer.getStoredEnergy() > energyContainer.getMaxCapacity()) {
                 energyContainer.setEnergy(energyContainer.getMaxCapacity());

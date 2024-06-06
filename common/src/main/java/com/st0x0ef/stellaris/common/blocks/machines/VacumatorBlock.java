@@ -18,11 +18,14 @@ public class VacumatorBlock extends BaseMachineBlock {
         super(properties);
     }
 
-    //TODO Need new ticker
-    @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        return createTickerHelper(blockEntityType, BlockEntityRegistry.VACUMATOR_ENTITY.get(), (level1, blockPos, state1, blockEntity) -> blockEntity.tick());
+    public BlockEntityType<?> getBlockEntityType() {
+        return BlockEntityRegistry.VACUMATOR_ENTITY.get();
+    }
+
+    @Override
+    public boolean hasTicker(Level level) {
+        return !level.isClientSide;
     }
 
     @Override

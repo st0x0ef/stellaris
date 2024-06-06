@@ -29,7 +29,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 
-public class CableBlock extends BaseEntityBlock {
+public class CableBlock extends BaseTickingEntityBlock {
     private static final Direction[] DIRECTIONS = Direction.values();
     public static final BooleanProperty NORTH = PipeBlock.NORTH;
     public static final BooleanProperty EAST = PipeBlock.EAST;
@@ -52,10 +52,14 @@ public class CableBlock extends BaseEntityBlock {
         this.shapeByIndex = this.makeShapes(0.125f);
     }
 
-    @Nullable
     @Override
-    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return new CableBlockEntity(blockPos, blockState);
+    public BlockEntityType<?> getBlockEntityType() {
+        return BlockEntityRegistry.CABLE_ENTITY.get();
+    }
+
+    @Override
+    public boolean hasTicker(Level level) {
+        return !level.isClientSide;
     }
 
     @Override
@@ -66,13 +70,6 @@ public class CableBlock extends BaseEntityBlock {
     @Override
     protected boolean isPathfindable(BlockState blockState, PathComputationType pathComputationType) {
         return false;
-    }
-
-    @Nullable
-    @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> blockEntityType) {
-        return createTickerHelper(blockEntityType, BlockEntityRegistry.CABLE_ENTITY.get(),
-                (level1, blockPos, blockState1, blockEntity) -> blockEntity.tick());
     }
 
     @Override

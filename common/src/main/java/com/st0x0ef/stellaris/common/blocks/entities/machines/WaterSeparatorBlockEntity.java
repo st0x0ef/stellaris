@@ -34,7 +34,4 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity im
     @Override
     public void tick() {
     }
-
-    public static void serverTick(Level level, BlockPos pos, BlockState state, WaterSeparatorBlockEntity blockEntity) {
-    }
 }
