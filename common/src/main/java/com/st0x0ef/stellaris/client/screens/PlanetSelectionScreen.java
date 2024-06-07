@@ -40,6 +40,7 @@ import org.lwjgl.glfw.GLFWScrollCallback;
 import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.*;
@@ -520,14 +521,66 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (keyCode == GLFW.GLFW_KEY_Z) {
             tpToFocusedPlanet();
-        } else if (keyCode == GLFW.GLFW_KEY_X){
+        } else if (keyCode == GLFW.GLFW_KEY_X) {
             isPausePressed = !isPausePressed;
         } else if (keyCode == GLFW.GLFW_KEY_LEFT_SHIFT || keyCode == GLFW.GLFW_KEY_RIGHT_SHIFT) {
             isShiftPressed = true;
+        } else if (keyCode == GLFW.GLFW_KEY_RIGHT) {
+            if (focusedBody instanceof PlanetInfo) {
+                focusedBody = getNextBodyByDistance((PlanetInfo) focusedBody);
+                centerOnBody(focusedBody);
+            }
+        } else if (keyCode == GLFW.GLFW_KEY_LEFT) {
+            if (focusedBody instanceof PlanetInfo) {
+                focusedBody = getPreviousBodyByDistance((PlanetInfo) focusedBody);
+                centerOnBody(focusedBody);
+            }
         }
 
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
+
+    private CelestialBody getNextBodyByDistance(PlanetInfo currentBody) {
+        if (currentBody == null) return null;
+
+        List<PlanetInfo> bodies = new ArrayList<>();
+        bodies.addAll(PLANETS);
+
+        bodies.sort(Comparator.comparingDouble(b -> b.orbitRadius));
+
+        for (int i = 0; i < bodies.size(); i++) {
+            if (bodies.get(i) == currentBody) {
+                for (int j = i + 1; j < bodies.size(); j++) {
+                    if (bodies.get(j).orbitCenter == currentBody.orbitCenter) {
+                        return bodies.get(j);
+                    }
+                }
+            }
+        }
+        return currentBody;
+    }
+
+    private CelestialBody getPreviousBodyByDistance(PlanetInfo currentBody) {
+        if (currentBody == null) return null;
+
+        List<PlanetInfo> bodies = new ArrayList<>();
+        bodies.addAll(PLANETS);
+
+        bodies.sort(Comparator.comparingDouble(b -> b.orbitRadius));
+
+        for (int i = bodies.size() - 1; i >= 0; i--) {
+            if (bodies.get(i) == currentBody) {
+                for (int j = i - 1; j >= 0; j--) {
+                    if (bodies.get(j).orbitCenter == currentBody.orbitCenter) {
+                        return bodies.get(j);
+                    }
+                }
+            }
+        }
+        return currentBody;
+    }
+
+
 
     public void tpToFocusedPlanet() {
         if(focusedBody != null) {
