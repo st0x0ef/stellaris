@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.common.blocks.machines.gauge;
 
-import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;

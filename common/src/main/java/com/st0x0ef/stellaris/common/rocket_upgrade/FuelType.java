@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 
 public class FuelType {
     public static float getMegametersTraveledByMbOfFuel(Item item) {

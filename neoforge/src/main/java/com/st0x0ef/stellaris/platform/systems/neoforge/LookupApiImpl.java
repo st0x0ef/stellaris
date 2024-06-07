@@ -4,7 +4,6 @@ import com.st0x0ef.stellaris.common.systems.generic.base.BlockContainerLookup;
 import com.st0x0ef.stellaris.common.systems.generic.base.EntityContainerLookup;
 import com.st0x0ef.stellaris.common.systems.generic.base.ItemContainerLookup;
 import com.st0x0ef.stellaris.neoforge.systems.generic.NeoForgeCapsHandler;
-import com.st0x0ef.stellaris.platform.systems.LookupApi;
 import net.minecraft.resources.ResourceLocation;
 
 public class LookupApiImpl {

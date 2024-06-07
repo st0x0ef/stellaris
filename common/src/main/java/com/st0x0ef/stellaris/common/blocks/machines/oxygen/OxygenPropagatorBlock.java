@@ -1,21 +1,16 @@
 package com.st0x0ef.stellaris.common.blocks.machines.oxygen;
 
 import com.mojang.serialization.MapCodec;
-import com.st0x0ef.stellaris.common.blocks.entities.machines.oxygen.OxygenPropagatorBlockEntity;
 import com.st0x0ef.stellaris.common.blocks.machines.BaseTickingEntityBlock;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import org.jetbrains.annotations.Nullable;
 
 public class OxygenPropagatorBlock extends BaseTickingEntityBlock {
 

@@ -22,7 +22,6 @@ import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
 import java.util.Optional;
 
 public class RocketStationEntity extends BaseContainerBlockEntity implements ImplementedInventory {

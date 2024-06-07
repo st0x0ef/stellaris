@@ -2,7 +2,6 @@ package com.st0x0ef.stellaris.common.systems;
 
 import com.mojang.datafixers.util.Pair;
 import com.st0x0ef.stellaris.Stellaris;
-import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;

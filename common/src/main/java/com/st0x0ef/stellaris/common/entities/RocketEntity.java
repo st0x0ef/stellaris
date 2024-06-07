@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.common.entities;
 
 import com.google.common.collect.Sets;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.RocketModel;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.data_components.RocketComponent;
@@ -129,10 +128,9 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         FUEL = compound.getInt("fuel");
 
         if (FUEL != 0) {
-            currentFuelItem = FuelType.getItemBasedOnName(compound.getString("currentFuelItemType")).getDefaultInstance().getItem();
+            currentFuelItem = FuelType.getItemBasedOnName(compound.getString("currentFuelItemType"));
         }
     }
-
 
 
     @Override
@@ -149,6 +147,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     public void push(Entity entity) {
 
     }
+
     @Override
     public InteractionResult interact(Player player, InteractionHand hand) {
         super.interact(player, hand);
@@ -171,7 +170,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
     @Override
     public Vec3 getPassengerRidingPosition(Entity entity) {
-        return this.position().add(this.getPassengerAttachmentPoint(entity, getDimensions(this.getPose()),1.0F)).add(0d,2,0d);
+        return this.position().add(this.getPassengerAttachmentPoint(entity, getDimensions(this.getPose()),1.0F)).add(0d,-3.15d,0d);
     }
 
     @Override
@@ -196,8 +195,6 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
                     return new RocketMenu(syncId, inv, inventory, RocketEntity.this.getId());
                 }
             });
-
-            syncRocketData(serverPlayer);
         }
     }
 

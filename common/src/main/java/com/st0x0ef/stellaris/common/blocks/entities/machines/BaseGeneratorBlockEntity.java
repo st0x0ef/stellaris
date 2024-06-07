@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
-import com.st0x0ef.stellaris.common.systems.energy.EnergyApi;
 import com.st0x0ef.stellaris.common.systems.energy.impl.ExtractOnlyEnergyContainer;
 import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedBlockEnergyContainer;
 import net.minecraft.core.BlockPos;

@@ -1,15 +1,12 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
 import com.st0x0ef.stellaris.common.items.RadiationItem;
-import com.st0x0ef.stellaris.common.items.RadioactiveItem;
 import com.st0x0ef.stellaris.common.menus.RadioactiveGeneratorMenu;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
-import com.st0x0ef.stellaris.common.registry.TagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 
