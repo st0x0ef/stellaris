@@ -2,7 +2,7 @@ package com.st0x0ef.stellaris.common.blocks;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.st0x0ef.stellaris.common.blocks.entities.GlobeTileEntity;
+import com.st0x0ef.stellaris.common.blocks.entities.GlobeBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
@@ -100,7 +100,7 @@ public class GlobeBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
 
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return new GlobeTileEntity(blockPos, blockState);
+        return new GlobeBlockEntity(blockPos, blockState);
     }
 
     @Override
@@ -111,7 +111,7 @@ public class GlobeBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
     @Override
     public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult result) {
         if (!level.isClientSide) {
-            if (level.getBlockEntity(pos) instanceof GlobeTileEntity blockEntity) {
+            if (level.getBlockEntity(pos) instanceof GlobeBlockEntity blockEntity) {
                 float value = (float) (Math.PI / (Math.pow(0.00003, blockEntity.getRotationalInertia()) + 1) / 4);
                 blockEntity.setRotationalInertia(value);
                 blockEntity.setChanged();
@@ -124,7 +124,7 @@ public class GlobeBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
     @Override
     public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, BlockPos pFromPos, boolean pIsMoving) {
         if (!pLevel.isClientSide) {
-            if (pLevel.getBlockEntity(pPos) instanceof GlobeTileEntity blockEntity) {
+            if (pLevel.getBlockEntity(pPos) instanceof GlobeBlockEntity blockEntity) {
                 float value = (float) (Math.PI / (Math.pow(0.00003, blockEntity.getRotationalInertia()) + 1) / 4);
                 blockEntity.setRotationalInertia(value);
                 blockEntity.setChanged();
@@ -136,8 +136,8 @@ public class GlobeBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
     @Override
     public <T2 extends BlockEntity> BlockEntityTicker<T2> getTicker(Level level, BlockState state, BlockEntityType<T2> type) {
         return (l, p, s, e) -> {
-            if (e instanceof GlobeTileEntity) {
-                ((GlobeTileEntity) e).tick();
+            if (e instanceof GlobeBlockEntity) {
+                ((GlobeBlockEntity) e).tick();
             }
         };
     }

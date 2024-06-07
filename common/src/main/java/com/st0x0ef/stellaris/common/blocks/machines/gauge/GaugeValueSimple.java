@@ -130,14 +130,14 @@ public class GaugeValueSimple implements IGaugeValue
         return this;
     }
     @Override
-    public CompoundTag serialize(CompoundTag nbt, HolderLookup.Provider provider) {
+    public CompoundTag serialize(CompoundTag nbt) {
         CompoundTag compound = new CompoundTag();
         compound.putString("name", this.getName().toString());
         compound.putLong("amount", this.getAmount());
         compound.putLong("capacity", this.getCapacity());
 
         if (this.getDisplayName() != null) {
-            compound.putString("displayName", Component.Serializer.toJson(this.getDisplayName(), provider));
+            //compound.putString("displayName", Component.Serializer.toJson(this.getDisplayName(), provider));
         }
 
         compound.putString("unit", this.getUnit());
@@ -146,19 +146,17 @@ public class GaugeValueSimple implements IGaugeValue
         return compound;
     }
     @Override
-    public void deserialize(CompoundTag nbt, HolderLookup.Provider provider) {
+    public void deserialize(CompoundTag nbt) {
         this.name(new ResourceLocation(nbt.getString("name")));
         this.amount(nbt.getInt("amount"));
         this.capacity(nbt.getInt("capacity"));
 
         if (nbt.contains("displayName")) {
-            this.displayeName(Component.Serializer.fromJson(nbt.getString("displayName"), provider));
+            //this.displayeName(Component.Serializer.fromJson(nbt.getString("displayName"), provider));
         }
 
         this.unit(nbt.getString("unit"));
         this.color(nbt.getInt("color"));
         this.reverse(nbt.getBoolean("reverse"));
     }
-
-
 }

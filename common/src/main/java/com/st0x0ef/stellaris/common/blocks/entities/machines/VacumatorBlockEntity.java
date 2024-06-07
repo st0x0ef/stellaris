@@ -22,14 +22,12 @@ import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-public class VacumatorBlockEntity extends BaseContainerBlockEntity implements ImplementedInventory {
+public class VacumatorBlockEntity extends BaseContainerBlockEntity implements ImplementedInventory, TickingBlockEntity {
 
-    private NonNullList<ItemStack> items;
+    private NonNullList<ItemStack> items = NonNullList.withSize(5, ItemStack.EMPTY);
 
     public VacumatorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(BlockEntityRegistry.VACUMATOR_ENTITY.get(), blockPos, blockState);
-        this.items = NonNullList.withSize(5, ItemStack.EMPTY);
-
     }
 
     @Override
@@ -86,11 +84,8 @@ public class VacumatorBlockEntity extends BaseContainerBlockEntity implements Im
         this.items = nonNullList;
     }
 
+    @Override
     public void tick() {
-        if (level.isClientSide()) {
-            return;
-        }
-
         if (canCraft()) {
             craft();
             setChanged();

@@ -47,7 +47,7 @@ public class RocketScreen extends AbstractContainerScreen<RocketMenu> {
 
         String GaugeComponent = Fuel.getString() + " : " + rocket_fuel + " / " + max_fuel;
 
-        Gauge gauge = new Gauge(this.leftPos + 51, this.topPos + 27, 12, 46, Fuel, fuel_overlay, rocket_fuel, max_fuel);
+        Gauge gauge = new Gauge(this.leftPos + 51, this.topPos + 27, 12, 46, Fuel, fuel_overlay, fluid_tank_overlay, rocket_fuel, max_fuel);
 
         if (rocket_fuel >= max_fuel) {
             capacity = Utils.getMessageComponent(GaugeComponent, "Lime");
