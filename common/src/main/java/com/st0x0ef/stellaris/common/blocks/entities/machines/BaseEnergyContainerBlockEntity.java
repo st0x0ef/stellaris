@@ -21,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
 
 public abstract class BaseEnergyContainerBlockEntity extends BaseContainerBlockEntity implements EnergyBlock<WrappedBlockEnergyContainer>, WrappedEnergyBlockEntity, ImplementedInventory, TickingBlockEntity {
 
-    public static final String ENERGY_TAG = "Energy";
+    public static final String ENERGY_TAG = "stellaris.energy";
 
     private WrappedBlockEnergyContainer energyContainer;
     private NonNullList<ItemStack> items = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);

@@ -4,16 +4,15 @@ import com.mojang.serialization.MapCodec;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.CableBlockEntity;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.registry.TagRegistry;
+import com.st0x0ef.stellaris.common.systems.energy.base.EnergyBlock;
+import com.st0x0ef.stellaris.platform.systems.energy.CableUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.BaseEntityBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.PipeBlock;
-import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -74,22 +73,27 @@ public class CableBlock extends BaseTickingEntityBlock {
     public BlockState getStateForPlacement(BlockPlaceContext blockPlaceContext) {
         Level blockGetter = blockPlaceContext.getLevel();
         BlockPos blockPos = blockPlaceContext.getClickedPos();
+        BlockEntity blockEntity = blockGetter.getBlockEntity(blockPos);
         return this.defaultBlockState()
-                .setValue(DOWN, isConnectable(blockGetter.getBlockState(blockPos.below())))
-                .setValue(UP, isConnectable(blockGetter.getBlockState(blockPos.above())))
-                .setValue(NORTH, isConnectable(blockGetter.getBlockState(blockPos.north())))
-                .setValue(EAST, isConnectable(blockGetter.getBlockState(blockPos.east())))
-                .setValue(SOUTH, isConnectable(blockGetter.getBlockState(blockPos.south())))
-                .setValue(WEST, isConnectable(blockGetter.getBlockState(blockPos.west())));
+                .setValue(DOWN, isConnectable(blockEntity, blockGetter.getBlockEntity(blockPos.below()), blockGetter.getBlockState(blockPos.below()), Direction.DOWN))
+                .setValue(UP, isConnectable(blockEntity, blockGetter.getBlockEntity(blockPos.above()), blockGetter.getBlockState(blockPos.above()), Direction.UP))
+                .setValue(NORTH, isConnectable(blockEntity, blockGetter.getBlockEntity(blockPos.north()), blockGetter.getBlockState(blockPos.north()), Direction.NORTH))
+                .setValue(EAST, isConnectable(blockEntity, blockGetter.getBlockEntity(blockPos.east()), blockGetter.getBlockState(blockPos.east()), Direction.EAST))
+                .setValue(SOUTH, isConnectable(blockEntity, blockGetter.getBlockEntity(blockPos.south()), blockGetter.getBlockState(blockPos.south()), Direction.SOUTH))
+                .setValue(WEST, isConnectable(blockEntity, blockGetter.getBlockEntity(blockPos.west()), blockGetter.getBlockState(blockPos.west()), Direction.WEST));
     }
 
-    private boolean isConnectable(BlockState blockState){
-        return blockState.is(this) || blockState.is(TagRegistry.ENERGY_BLOCK_TAG) || blockState.getBlock() instanceof BaseMachineBlock;
+    private boolean isConnectable(BlockEntity blockEntity,BlockEntity blockEntityTo, BlockState blockStateTo, Direction direction) {
+        return blockStateTo.is(this) || blockStateTo.is(TagRegistry.ENERGY_BLOCK_TAG) ||
+                blockEntityTo instanceof EnergyBlock<?> || CableUtil.isEnergyContainer(blockEntityTo, direction);
     }
 
     @Override
     public BlockState updateShape(BlockState blockState, Direction direction, BlockState blockState2, LevelAccessor levelAccessor, BlockPos blockPos, BlockPos blockPos2) {
-        if (isConnectable(blockState2)) {
+        BlockEntity blockEntity = levelAccessor.getBlockEntity(blockPos);
+        BlockEntity blockEntityTo = levelAccessor.getBlockEntity(blockPos.relative(direction));
+
+        if (isConnectable(blockEntity, blockEntityTo, blockState2, direction)) {
             return blockState.setValue(PROPERTY_BY_DIRECTION.get(direction), true);
         }
         else {
