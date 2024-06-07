@@ -1,5 +1,5 @@
 {
-  "parent": "beyond_earth:block/solar_panel",
+  "parent": "stellaris:block/solar_panel",
   "display": {
     "thirdperson": {
       "rotation": [10, -45, 170],
