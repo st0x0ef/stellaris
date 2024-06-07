@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.client.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.client.screens.components.Gauge;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.CoalGeneratorEntity;
 import com.st0x0ef.stellaris.common.blocks.machines.gauge.GaugeTextHelper;
 import com.st0x0ef.stellaris.common.blocks.machines.gauge.GaugeValueHelper;
@@ -20,7 +21,9 @@ import net.minecraft.world.entity.player.Inventory;
 @Environment(EnvType.CLIENT)
 public class CoalGeneratorScreen extends AbstractContainerScreen<CoalGeneratorMenu> {
 	public static final ResourceLocation texture = new ResourceLocation(Stellaris.MODID, "textures/gui/coal_generator.png");
-	private static final ResourceLocation litProgressSprite = new ResourceLocation("container/furnace/lit_progress");
+	private static final ResourceLocation litProgressSprite = new ResourceLocation(Stellaris.MODID, "textures/gui/util/fire_progress.png");
+	private static final ResourceLocation fuel_overlay = new ResourceLocation(Stellaris.MODID, "textures/gui/util/battery_overlay.png");
+	private static final ResourceLocation energy_texture = new ResourceLocation(Stellaris.MODID, "textures/gui/util/energy_full.png");
 
 	public CoalGeneratorScreen(CoalGeneratorMenu abstractContainerMenu, Inventory inventory, Component component) {
 		super(abstractContainerMenu, inventory, component);
@@ -34,6 +37,18 @@ public class CoalGeneratorScreen extends AbstractContainerScreen<CoalGeneratorMe
 		this.renderBackground(graphics,mouseX,mouseY,partialTicks);
 		super.render(graphics, mouseX, mouseY, partialTicks);
 		this.renderTooltip(graphics, mouseX, mouseY);
+
+		CoalGeneratorEntity blockEntity = this.getMenu().getBlockEntity();
+		if(blockEntity != null)
+		{
+			WrappedBlockEnergyContainer energyStorage = blockEntity.getWrappedEnergyContainer();
+
+			Gauge gauge = new Gauge(this.leftPos + 147, this.topPos + 51, 13, 49, null, energy_texture, fuel_overlay, (int) energyStorage.getStoredEnergy(), (int) energyStorage.getMaxCapacity());
+			this.addRenderableWidget(gauge);
+
+		}
+
+
 	}
 
 	@Override
