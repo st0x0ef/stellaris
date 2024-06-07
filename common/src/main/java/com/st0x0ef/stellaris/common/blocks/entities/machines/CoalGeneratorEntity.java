@@ -4,6 +4,7 @@ import com.st0x0ef.stellaris.common.blocks.machines.CoalGeneratorBlock;
 import com.st0x0ef.stellaris.common.menus.CoalGeneratorMenu;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.registry.TagRegistry;
+import com.st0x0ef.stellaris.common.systems.energy.EnergyApi;
 import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedBlockEnergyContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -52,7 +53,7 @@ public class CoalGeneratorEntity extends BaseGeneratorBlockEntity {
     };
 
     public CoalGeneratorEntity(BlockPos blockPos, BlockState blockState) {
-        this(BlockEntityRegistry.COAL_GENERATOR.get(), blockPos, blockState, 1, 2000);
+        this(BlockEntityRegistry.COAL_GENERATOR.get(), blockPos, blockState, 1, 30000);
     }
 
     public CoalGeneratorEntity(BlockEntityType<?> entityType, BlockPos blockPos, BlockState blockState, int energyGeneratedPT, int maxCapacity) {
@@ -109,7 +110,7 @@ public class CoalGeneratorEntity extends BaseGeneratorBlockEntity {
             }
         }
 
-        //EnergyApi.distributeEnergyNearby(blockEntity,100);
+        //EnergyApi.distributeEnergyNearby(this,100);
 //        Stellaris.LOG.warn(Long.toString(energyContainer.getStoredEnergy()));
     }
 

@@ -32,8 +32,8 @@ public class StellarisData extends SimpleJsonResourceReloadListener {
             JsonObject json = GsonHelper.convertToJsonObject(value, "planets");
             Planet planet = Planet.CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
             PLANETS.put(planet.dimension(), planet);
-            Stellaris.LOG.error("Adding" + planet.dimension().toString() + "  : " + planet.system() + " to the system list.");
-            Stellaris.LOG.info(String.valueOf(planet.temperature()));
+//            Stellaris.LOG.error("Adding" + planet.dimension().toString() + "  : " + planet.system() + " to the system list.");
+//            Stellaris.LOG.info(String.valueOf(planet.temperature()));
             SYSTEMS.put(planet.system(), planet.dimension());
 
         });
