@@ -33,6 +33,6 @@ public class MoonInfo extends CelestialBody {
     }
 
     public String getId() {
-        return id;
+        return super.getId();
     }
 }

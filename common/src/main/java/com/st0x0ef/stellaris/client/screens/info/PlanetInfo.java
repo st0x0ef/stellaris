@@ -34,6 +34,6 @@ public class PlanetInfo extends CelestialBody {
     }
 
     public String getId() {
-        return id;
+        return super.getId();
     }
 }
