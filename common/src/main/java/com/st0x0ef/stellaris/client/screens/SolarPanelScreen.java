@@ -61,9 +61,12 @@ public class SolarPanelScreen extends AbstractContainerScreen<SolarPanelMenu> {
 			WrappedBlockEnergyContainer energyStorage = blockEntity.getWrappedEnergyContainer();
 			if(energyStorage!= null)
 			{
-				graphics.drawString(this.font, GaugeTextHelper.getStoredText(GaugeValueHelper.getEnergy(energyStorage.getStoredEnergy())).build(), this.titleLabelY, 28, 0x3C3C3C);
-				graphics.drawString(this.font, GaugeTextHelper.getCapacityText(GaugeValueHelper.getEnergy(energyStorage.getMaxCapacity())).build(), this.titleLabelY, 40, 0x3C3C3C);
-				graphics.drawString(this.font, GaugeTextHelper.getMaxGenerationPerTickText(GaugeValueHelper.getEnergy(blockEntity.getEnergyGeneratedPT())).build(), this.titleLabelY, 52, 0x3C3C3C);
+				graphics.drawString(this.font, Component.translatable("gauge_text.stellaris.stored", energyStorage.getStoredEnergy()), 25, 7, 0x3C3C3C);
+				graphics.drawString(this.font, Component.translatable("gauge_text.stellaris.capacity", energyStorage.getMaxCapacity()), 25, 17, 0x3C3C3C);
+
+//				graphics.drawString(this.font, GaugeTextHelper.getStoredText(GaugeValueHelper.getEnergy(energyStorage.getStoredEnergy())).build(), 25, 5, 0x3C3C3C);
+//				graphics.drawString(this.font, GaugeTextHelper.getCapacityText(GaugeValueHelper.getEnergy(energyStorage.getMaxCapacity())).build(), 25, 13, 0x3C3C3C);
+//				graphics.drawString(this.font, GaugeTextHelper.getMaxGenerationPerTickText(GaugeValueHelper.getEnergy(blockEntity.getEnergyGeneratedPT())).build(), 25, 21, 0x3C3C3C);
 			}
 
 		}

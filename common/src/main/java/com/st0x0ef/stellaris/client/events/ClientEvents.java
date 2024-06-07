@@ -15,6 +15,7 @@ public class ClientEvents {
                 RegistryFriendlyByteBuf buffer = new RegistryFriendlyByteBuf(Unpooled.buffer(), clientLevel.registryAccess());
                 NetworkRegistry.sendToServer(NetworkRegistry.KEY_HANDLER_ID, KeyHandler.encode(new KeyHandler("rocket_start", true), buffer));
             }
+
             while (KeyMappings.FREEZE_PLANET_MENU.consumeClick()) {
                 RegistryFriendlyByteBuf buffer = new RegistryFriendlyByteBuf(Unpooled.buffer(), clientLevel.registryAccess());
                 NetworkRegistry.sendToServer(NetworkRegistry.KEY_HANDLER_ID, KeyHandler.encode(new KeyHandler("freeze_planet_menu", true), buffer));

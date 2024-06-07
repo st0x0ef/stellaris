@@ -279,5 +279,10 @@
   "key.stellaris.rocket_start": "Rocket Start",
   "key.stellaris.freeze_planet_menu": "Freeze Planet in the Selection Menu",
 
-  "screen.stellaris.gauge": "Capacity : %1$s / %2$s"
+  "screen.stellaris.gauge": "Capacity : %1$s / %2$s",
+
+  "gauge_text.stellaris.stored" : "Stored : %s",
+  "gauge_text.stellaris.capacity" : "Capacity : %s",
+  "gauge_text.stellaris.max_generation" : "Max Generation : %s"
+
 }

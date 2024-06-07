@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.network.packets;
 
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.registries.KeyMappings;
 import com.st0x0ef.stellaris.common.keybinds.KeyVariables;
 import com.st0x0ef.stellaris.common.menus.PlanetSelectionMenu;
@@ -29,7 +30,6 @@ public class KeyHandler {
 
     public static void apply(RegistryFriendlyByteBuf buffer, NetworkManager.PacketContext context) {
         Player player = context.getPlayer();
-        if (player==null) return;
         context.queue(() -> {
             switch (buffer.readUtf()) {
                 case "rocket_start":
@@ -40,6 +40,7 @@ public class KeyHandler {
                     break;
                 case "freeze_planet_menu":
                     if (player.containerMenu instanceof PlanetSelectionMenu menu) {
+                        Stellaris.LOG.error("Switching freeze gui");
                         menu.switchFreezeGui();
                     }
                     break;
