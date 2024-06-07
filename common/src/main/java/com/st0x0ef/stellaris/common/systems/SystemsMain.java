@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class SystemsMain {
     public static final String MOD_ID = Stellaris.MODID;
     public static final String SYSTEMS_DATA = "StellarisData";
-    public static final Logger LOGGER = (Logger) Stellaris.LOG;
+    //public static final Logger LOGGER = (Logger) Stellaris.LOG;
 
 //    public static final RegistryHolder<ParticleType<?>> PARTICLES = new RegistryHolder<>(BuiltInRegistries.PARTICLE_TYPE, MOD_ID);
 //
