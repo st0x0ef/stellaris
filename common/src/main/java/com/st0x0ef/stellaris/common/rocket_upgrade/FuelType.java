@@ -7,28 +7,64 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 public class FuelType {
-    public static int getConsumptionBy100Kilometers(Type type, Type.Radioactive radioactiveElement) {
-        return switch (type) {
-            case Type.FUEL -> 1000;
-            case Type.HYDROGEN -> 800;
-            case Type.RADIOACTIVE -> switch (radioactiveElement) {
-                case Type.Radioactive.URANIUM -> 500;
-                case Type.Radioactive.NEPTUNIUM -> 450;
-                case Type.Radioactive.PLUTONIUM -> 400;
+    public static float getMegametersTraveledByMbOfFuel(Item item) {
+        Type type = Type.getTypeBasedOnItem(item);
+
+        if (type != null && type != Type.RADIOACTIVE) {
+            return switch (type) {
+                case FUEL -> 19.22f; // Need 20mb to go on Moon, 2133mb to go on Venus, 2900mb to go on Mars and 4786mb to go on Mercury (approx)
+                case HYDROGEN -> 21.36f; // Need 18mb to go on Moon, 1920mb to go on Venus, 2610mb to go on Mars and 4307mb to go on Mercury (approx)
+                default -> throw new IllegalStateException("Unexpected value: " + type);
             };
-        }; // TODO : change these value
+        }
+
+        Type.Radioactive radioactiveElement = Type.Radioactive.getTypeBasedOnItem(item);
+
+        if (radioactiveElement != null && type == Type.RADIOACTIVE) {
+            return switch (radioactiveElement) {
+                case URANIUM -> 23.74f; // Need 16mb to go on Moon, 1728mb to go on Venus, 2349mb to go on Mars and 3876mb to go on Mercury (approx)
+                case NEPTUNIUM -> 26.38f; // Need 15mb to go on Moon, 1555mb to go on Venus, 2114mb to go on Mars and 3488mb to go on Mercury (approx)
+                case PLUTONIUM -> 29.3f; // Need 14mb to go on Moon, 1400mb to go on Venus, 1903mb to go on Mars and 3140mb to go on Mercury (approx)
+            };
+        }
+
+        return 0.0f;
     }
 
     public static Item getFuelItem(Type type, Type.Radioactive radioactiveElement) {
-        return switch (type) {
-            case Type.FUEL -> ItemsRegistry.FUEL_BUCKET.get();
-            case Type.HYDROGEN -> ItemsRegistry.HYDROGEN_BUCKET.get();
-            case Type.RADIOACTIVE -> switch (radioactiveElement) {
-                case Type.Radioactive.URANIUM -> ItemsRegistry.URANIUM_INGOT.get();
-                case Type.Radioactive.NEPTUNIUM -> ItemsRegistry.NEPTUNIUM_INGOT.get();
-                case Type.Radioactive.PLUTONIUM -> ItemsRegistry.PLUTONIUM_INGOT.get();
+        if (radioactiveElement == null) {
+            return switch (type) {
+                case Type.FUEL -> ItemsRegistry.FUEL_BUCKET.get();
+                case Type.HYDROGEN -> ItemsRegistry.HYDROGEN_BUCKET.get();
+                case RADIOACTIVE -> null;
             };
-        };
+        } else {
+            return switch (type) {
+                case Type.FUEL -> ItemsRegistry.FUEL_BUCKET.get();
+                case Type.HYDROGEN -> ItemsRegistry.HYDROGEN_BUCKET.get();
+                case Type.RADIOACTIVE -> switch (radioactiveElement) {
+                    case Type.Radioactive.URANIUM -> ItemsRegistry.URANIUM_INGOT.get();
+                    case Type.Radioactive.NEPTUNIUM -> ItemsRegistry.NEPTUNIUM_INGOT.get();
+                    case Type.Radioactive.PLUTONIUM -> ItemsRegistry.PLUTONIUM_INGOT.get();
+                };
+            };
+        }
+    }
+
+    public static Item getItemBasedOnName(String name) {
+        if (name.equals(Type.FUEL.getSerializedName())) {
+            return ItemsRegistry.FUEL_BUCKET.get();
+        } else if (name.equals(Type.HYDROGEN.getSerializedName())) {
+            return ItemsRegistry.HYDROGEN_BUCKET.get();
+        } else if (name.equals(Type.Radioactive.URANIUM.getSerializedName())) {
+            return ItemsRegistry.URANIUM_INGOT.get();
+        } else if (name.equals(Type.Radioactive.NEPTUNIUM.getSerializedName())) {
+            return ItemsRegistry.NEPTUNIUM_INGOT.get();
+        } else if (name.equals(Type.Radioactive.PLUTONIUM.getSerializedName())) {
+            return ItemsRegistry.PLUTONIUM_INGOT.get();
+        }
+
+        return null;
     }
 
     public static final Codec<Type> CODEC = StringRepresentable.fromEnum(Type::values);
@@ -38,17 +74,32 @@ public class FuelType {
         HYDROGEN,
         RADIOACTIVE;
 
+        public static Type getTypeBasedOnItem(Item item) {
+            if (item.getDefaultInstance().is(ItemsRegistry.FUEL_BUCKET.get())) {
+                return FUEL;
+            } else if (item.getDefaultInstance().is(ItemsRegistry.HYDROGEN_BUCKET.get())) {
+                return HYDROGEN;
+            }
+
+            return null;
+        }
+
+        @Override
+        public String getSerializedName() {
+            return name().toLowerCase();
+        }
+
         public enum Radioactive implements StringRepresentable {
             URANIUM,
             NEPTUNIUM,
             PLUTONIUM;
 
-            public static Radioactive getTypeBasedOnItem(ItemStack item) {
-                if (item.is(ItemsRegistry.URANIUM_INGOT)) {
+            public static Radioactive getTypeBasedOnItem(Item item) {
+                if (item.getDefaultInstance().is(ItemsRegistry.URANIUM_INGOT.get())) {
                     return URANIUM;
-                } else if (item.is(ItemsRegistry.NEPTUNIUM_INGOT)) {
+                } else if (item.getDefaultInstance().is(ItemsRegistry.NEPTUNIUM_INGOT.get())) {
                     return NEPTUNIUM;
-                } else if (item.is(ItemsRegistry.PLUTONIUM_INGOT)) {
+                } else if (item.getDefaultInstance().is(ItemsRegistry.PLUTONIUM_INGOT.get())) {
                     return PLUTONIUM;
                 }
 
@@ -59,11 +110,6 @@ public class FuelType {
             public String getSerializedName() {
                 return name().toLowerCase();
             }
-        }
-
-        @Override
-        public String getSerializedName() {
-            return name().toLowerCase();
         }
     }
 }

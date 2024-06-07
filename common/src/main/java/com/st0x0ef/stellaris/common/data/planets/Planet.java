@@ -29,7 +29,7 @@ public record Planet (
             ResourceKey.codec(Registries.DIMENSION).fieldOf("orbit").forGetter(Planet::orbit),
             Codec.BOOL.fieldOf("oxygen").forGetter(Planet::oxygen),
             Codec.FLOAT.fieldOf("temperature").forGetter(Planet::temperature),
-            Codec.INT.fieldOf("distanceFromEarth").forGetter(Planet::distanceFromEarth),
+            Codec.INT.fieldOf("distanceFromEarth").forGetter(Planet::distanceFromEarth), // in megameters
             Codec.FLOAT.fieldOf("gravity").forGetter(Planet::gravity),
             PlanetTextures.CODEC.fieldOf("textures").forGetter(Planet::textures)
     ).apply(instance, Planet::new));

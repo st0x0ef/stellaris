@@ -64,8 +64,6 @@ import org.lwjgl.opengl.GLDebugMessageCallback;
 public class StellarisClient {
 
     public static void initClient() {
-        Stellaris.LOG.error("Initializing Stellaris Client");
-
         registerPacks();
 
         if (Platform.getEnv() == EnvType.CLIENT) {
@@ -86,6 +84,7 @@ public class StellarisClient {
         ClientEvents.registerEvents();
         registerOverlays();
     }
+
     public static void registerEntityModelLayer() {
         EntityModelLayerRegistry.register(AlienModel.LAYER_LOCATION, AlienModel::createBodyLayer);
         EntityModelLayerRegistry.register(AlienZombieModel.LAYER_LOCATION, AlienZombieModel::createBodyLayer);
@@ -102,9 +101,8 @@ public class StellarisClient {
         EntityModelLayerRegistry.register(SmallRocketModel.LAYER_LOCATION, SmallRocketModel::createBodyLayer);
         EntityModelLayerRegistry.register(NormalRocketModel.LAYER_LOCATION, NormalRocketModel::createBodyLayer);
         EntityModelLayerRegistry.register(BigRocketModel.LAYER_LOCATION, BigRocketModel::createBodyLayer);
-
-
     }
+
     public static void registerEntityRenderer() {
         EntityRendererRegistry.register(EntityRegistry.ALIEN, AlienRenderer::new);
         EntityRendererRegistry.register(EntityRegistry.ALIEN_ZOMBIE, AlienZombieRenderer::new);

@@ -1,10 +1,10 @@
 package com.st0x0ef.stellaris.common.entities;
 
 import com.google.common.collect.Sets;
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.RocketModel;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.data_components.RocketComponent;
-import com.st0x0ef.stellaris.common.rocket_upgrade.FuelType;
 import com.st0x0ef.stellaris.common.items.upgrade.RocketUpgradeItem;
 import com.st0x0ef.stellaris.common.menus.RocketMenu;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
@@ -13,10 +13,7 @@ import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import com.st0x0ef.stellaris.common.registry.EntityData;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import com.st0x0ef.stellaris.common.registry.SoundRegistry;
-import com.st0x0ef.stellaris.common.rocket_upgrade.ModelUpgrade;
-import com.st0x0ef.stellaris.common.rocket_upgrade.MotorUpgrade;
-import com.st0x0ef.stellaris.common.rocket_upgrade.SkinUpgrade;
-import com.st0x0ef.stellaris.common.rocket_upgrade.TankUpgrade;
+import com.st0x0ef.stellaris.common.rocket_upgrade.*;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import dev.architectury.registry.menu.ExtendedMenuProvider;
 import dev.architectury.registry.menu.MenuRegistry;
@@ -43,6 +40,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.DismountHelper;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -65,7 +63,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     public MotorUpgrade MOTOR_UPGRADE;
     public TankUpgrade TANK_UPGRADE;
 
-    private FuelType.Type.Radioactive radioactiveElement;
+    private Item currentFuelItem;
 
     protected SimpleContainer inventory;
 
@@ -78,8 +76,6 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         this.MODEL_UPGRADE = ModelUpgrade.getBasic();
         this.MOTOR_UPGRADE = MotorUpgrade.getBasic();
         this.TANK_UPGRADE = TankUpgrade.getBasic();
-
-        this.radioactiveElement = null;
 
         this.START_TIMER = 0;
         this.ROCKET_START = false;
@@ -114,6 +110,14 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
         compound.put("InventoryCustom", this.inventory.createTag(registryAccess()));
         compound.putInt("fuel", FUEL);
+
+        if (FUEL != 0 && currentFuelItem != null) {
+            if (FuelType.Type.getTypeBasedOnItem(currentFuelItem) != null) {
+                compound.putString("currentFuelItemType", FuelType.Type.getTypeBasedOnItem(currentFuelItem).getSerializedName());
+            } else if (FuelType.Type.Radioactive.getTypeBasedOnItem(currentFuelItem) != null) {
+                compound.putString("currentFuelItemType", FuelType.Type.Radioactive.getTypeBasedOnItem(currentFuelItem).getSerializedName());
+            }
+        }
     }
 
 
@@ -123,6 +127,10 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         ListTag inventoryCustom = compound.getList("InventoryCustom", 10);
         this.inventory.fromTag(inventoryCustom, registryAccess());
         FUEL = compound.getInt("fuel");
+
+        if (FUEL != 0) {
+            currentFuelItem = FuelType.getItemBasedOnName(compound.getString("currentFuelItemType")).getDefaultInstance().getItem();
+        }
     }
 
 
@@ -148,7 +156,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
         if (!this.level().isClientSide) {
             if (player.isCrouching()) {
-                if (!tryFillUpRocket(player.getMainHandItem())) {
+                if (!tryFillUpRocket(player.getMainHandItem().getItem())) {
                     this.openCustomInventoryScreen(player);
                 }
                 return InteractionResult.CONSUME;
@@ -372,65 +380,57 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
     private void checkContainer() {
         if (this.getInventory().getItem(10).getItem() instanceof RocketUpgradeItem item) {
-            this.MOTOR_UPGRADE = (MotorUpgrade) item.getUpgrade();
+            if (item.getUpgrade() instanceof MotorUpgrade upgrade) {
+                this.MOTOR_UPGRADE = upgrade;
+            }
         } else if (this.getInventory().getItem(10).isEmpty()) {
             this.MOTOR_UPGRADE = MotorUpgrade.getBasic();
         }
 
         if (this.getInventory().getItem(11).getItem() instanceof RocketUpgradeItem item) {
-            this.TANK_UPGRADE = (TankUpgrade) item.getUpgrade();
+            if (item.getUpgrade() instanceof TankUpgrade upgrade) {
+                this.TANK_UPGRADE = upgrade;
+            }
         } else if (this.getInventory().getItem(11).isEmpty()) {
             this.TANK_UPGRADE = TankUpgrade.getBasic();
         }
 
         if (this.getInventory().getItem(12).getItem() instanceof RocketUpgradeItem item) {
-            this.SKIN_UPGRADE = (SkinUpgrade) item.getUpgrade();
+            if (item.getUpgrade() instanceof SkinUpgrade upgrade) {
+                this.SKIN_UPGRADE = upgrade;
+            }
         } else if (this.getInventory().getItem(12).isEmpty()) {
             this.SKIN_UPGRADE = SkinUpgrade.getBasic();
         }
 
         if (this.getInventory().getItem(13).getItem() instanceof RocketUpgradeItem item) {
-            this.MODEL_UPGRADE = (ModelUpgrade) item.getUpgrade();
-            this.spawnRocketItem();
-            this.dropEquipment();
-
-            if (!this.level().isClientSide) {
-                this.remove(RemovalReason.DISCARDED);
+            if (item.getUpgrade() instanceof ModelUpgrade upgrade) {
+                this.MODEL_UPGRADE = upgrade;
             }
         } else if (this.getInventory().getItem(13).isEmpty()) {
             this.MODEL_UPGRADE = ModelUpgrade.getBasic();
         }
 
-        if (!this.getInventory().getItem(0).isEmpty()) {
-            tryFillUpRocket(this.getInventory().getItem(0));
-        }
+        tryFillUpRocket(this.getInventory().getItem(0).getItem());
     }
 
 
 
-    public boolean tryFillUpRocket(ItemStack item) {
-        if (FUEL == TANK_UPGRADE.getTankCapacity()) {
+    public boolean tryFillUpRocket(Item item) {
+        if (FUEL == TANK_UPGRADE.getTankCapacity() || item == null) {
             return false;
         }
 
-        if (MOTOR_UPGRADE.getFuelType().equals(FuelType.Type.RADIOACTIVE)) {
-            if (this.getFuel() == 0) {
-                this.radioactiveElement = FuelType.Type.Radioactive.getTypeBasedOnItem(item);
+        if (MOTOR_UPGRADE.getFuelType().equals(FuelType.Type.RADIOACTIVE) && FuelType.Type.Radioactive.getTypeBasedOnItem(item) != null && canPutFuelBasedOnCurrentFuelItem(item)) {
+            FUEL += 1000;
+            if (FUEL > TANK_UPGRADE.getTankCapacity()) {
+                FUEL = TANK_UPGRADE.getTankCapacity();
             }
 
-            if (FuelType.Type.Radioactive.getTypeBasedOnItem(item) == this.radioactiveElement) {
-                FUEL += 1000;
-                if (FUEL > TANK_UPGRADE.getTankCapacity()) {
-                    FUEL = TANK_UPGRADE.getTankCapacity();
-                }
+            inventory.removeItem(0, 1);
 
-                if (inventory.removeItem(0, 1).is(ItemsRegistry.FUEL_BUCKET.get())) {
-                    inventory.setItem(1, new ItemStack(Items.BUCKET, inventory.getItem(1).getCount()+1));
-                }
-
-                return true;
-            }
-        } else if (item.is(FuelType.getFuelItem(MOTOR_UPGRADE.getFuelType(), null))) {
+            return true;
+        } else if (FuelType.Type.getTypeBasedOnItem(item) == MOTOR_UPGRADE.getFuelType() && canPutFuelBasedOnCurrentFuelItem(item)) {
             FUEL += 1000;
             if (FUEL > TANK_UPGRADE.getTankCapacity()) {
                 FUEL = TANK_UPGRADE.getTankCapacity();
@@ -444,6 +444,15 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         }
 
         return false;
+    }
+
+    private boolean canPutFuelBasedOnCurrentFuelItem(Item item) {
+        if (FUEL == 0) {
+            currentFuelItem = item;
+            return true;
+        }
+
+        return currentFuelItem == item;
     }
 
 
@@ -500,7 +509,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     }
 
     public boolean canGoTo (Planet actual, Planet destination) {
-        return Mth.abs(actual.distanceFromEarth() - destination.distanceFromEarth()) <=  this.TANK_UPGRADE.getTankCapacity() / FuelType.getConsumptionBy100Kilometers(this.MOTOR_UPGRADE.getFuelType(), this.radioactiveElement);
+        return Mth.abs(actual.distanceFromEarth() - destination.distanceFromEarth()) <=  this.TANK_UPGRADE.getTankCapacity() * FuelType.getMegametersTraveledByMbOfFuel(this.currentFuelItem);
     }
 
     public void syncRocketData(ServerPlayer player) {
