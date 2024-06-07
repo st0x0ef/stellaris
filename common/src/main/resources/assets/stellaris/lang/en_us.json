@@ -256,6 +256,7 @@
   "translatable.stellaris.registry.holdshift": "Hold [↑ Shift] to view more info",
   "translatable.stellaris.registry.player": "Player",
   "translatable.stellaris.registry.players": "player",
+  "translatable.stellaris.registry.moons": "§7§l☾ §rMoons",
 
   "tooltip.item.stellaris.can.empty": "Empty",
   "tooltip.item.stellaris.can.nutrition": "Nutrition: %s/%s",

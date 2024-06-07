@@ -7,4 +7,6 @@ public class TranslatableRegistry {
 
     public static final Component player = Component.translatable("translatable.stellaris.registry.player");
     public static final Component players = Component.translatable("translatable.stellaris.registry.players");
+
+    public static final Component moons = Component.translatable("translatable.stellaris.registry.moons");
 }
