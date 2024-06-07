@@ -25,9 +25,7 @@ public class KeyMappings {
 
     public static void startRocket(Player player) {
         if(player.getVehicle() instanceof RocketEntity rocketEntity) {
-            if (rocketEntity.getFuel() >= rocketEntity.TANK_UPGRADE.getTankCapacity()) {
-                rocketEntity.startRocket();
-            }
+            rocketEntity.startRocket();
         }
     }
 }

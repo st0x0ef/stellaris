@@ -46,6 +46,7 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -230,7 +231,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     }
 
     @Override
-    public Vec3 getDismountLocationForPassenger(LivingEntity livingEntity) {
+    public @NotNull Vec3 getDismountLocationForPassenger(LivingEntity livingEntity) {
         Vec3[] avector3d = new Vec3[]{getCollisionHorizontalEscapeVector(this.getBbWidth(), livingEntity.getBbWidth(), livingEntity.getYRot()), getCollisionHorizontalEscapeVector(this.getBbWidth(), livingEntity.getBbWidth(), livingEntity.getYRot() - 22.5F), getCollisionHorizontalEscapeVector(this.getBbWidth(), livingEntity.getBbWidth(), livingEntity.getYRot() + 22.5F), getCollisionHorizontalEscapeVector(this.getBbWidth(), livingEntity.getBbWidth(), livingEntity.getYRot() - 45.0F), getCollisionHorizontalEscapeVector(this.getBbWidth(), livingEntity.getBbWidth(), livingEntity.getYRot() + 45.0F)};
         Set<BlockPos> set = Sets.newLinkedHashSet();
         double d0 = this.getBoundingBox().maxY;
@@ -293,14 +294,13 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         Player player = (Player) this.getFirstPassenger();
 
         if (player != null) {
-            if (this.FUEL == this.TANK_UPGRADE.getTankCapacity()) {
+            if (this.FUEL > 0) {
                 if (!this.ROCKET_START) {
                     this.ROCKET_START = true;
                     this.level().playSound(null, this, SoundRegistry.ROCKET_SOUND.get(), SoundSource.NEUTRAL, 1, 1);
-                    startTimerAndFlyMovement();
                 }
             } else {
-                player.displayClientMessage(Component.literal("You need to put " + this.TANK_UPGRADE.getTankCapacity() + "mb of " + this.MOTOR_UPGRADE.getFuelType().toString() + " in the rocket to be able to fly"), true);
+                player.displayClientMessage(Component.literal("You need to put " + this.MOTOR_UPGRADE.getFuelType().getSerializedName() + " in the rocket to be able to fly"), true);
             }
         }
     }
