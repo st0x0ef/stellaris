@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.components.*;
+import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
 import com.st0x0ef.stellaris.client.screens.info.CelestialBody;
 import com.st0x0ef.stellaris.client.screens.info.MoonInfo;
 import com.st0x0ef.stellaris.client.screens.info.PlanetInfo;
@@ -112,6 +113,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         super.init();
         getMenu().freeze_gui = false;
         centerSun();
+
 
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
@@ -251,7 +253,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
         drawOrbits();
 
-        renderBodiesAndPlanets(graphics);
+        renderBodiesAndPlanets(graphics, partialTicks);
         renderHighlighter(graphics, mouseX, mouseY);
         renderLargeMenu(graphics);
 
@@ -267,7 +269,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         graphics.blit(BACKGROUND_TEXTURE, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
     }
 
-    public void renderBodiesAndPlanets(GuiGraphics graphics) {
+    public void renderBodiesAndPlanets(GuiGraphics graphics, float partialTicks) {
         Font font = Minecraft.getInstance().font;
 
         for (CelestialBody body : STARS) {
@@ -295,7 +297,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             int planetWidth = (int) (planet.width * zoomLevel);
             int planetHeight = (int) (planet.height * zoomLevel);
 
-            graphics.blit(planet.texture, (int) planetX, (int) planetY, 0, 0, planetWidth, planetHeight, planetWidth, planetHeight);
+            ScreenHelper.drawTexturewithRotation(graphics, planet.texture, (int) planetX, (int) planetY, 0, 0, planetWidth, planetHeight, planetWidth, planetHeight, (float) planet.currentAngle);
 
             int nameWidth = font.width(planet.name);
             graphics.drawString(font, planet.name, (int) (planetX + (float) planetWidth / 2 - (float) nameWidth / 2), (int) (planetY + planetHeight), 0xFFFFFF);
@@ -309,7 +311,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             int moonWidth = (int) (moon.width * zoomLevel);
             int moonHeight = (int) (moon.height * zoomLevel);
 
-            graphics.blit(moon.texture, (int) moonX, (int) moonY, 0, 0, moonWidth, moonHeight, moonWidth, moonHeight);
+            ScreenHelper.drawTexturewithRotation(graphics, moon.texture, (int) moonX, (int) moonY, 0, 0, moonWidth, moonHeight, moonWidth, moonHeight, (float) moon.currentAngle);
         }
 
         initializePlanetButtons();
@@ -358,7 +360,14 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
                     graphics.renderComponentTooltip(this.font, bodyDescription, mouseX, mouseY);
                 }
 
-                graphics.blit(HIGHLIGHTER_TEXTURE, (int) highlightX, (int) highlightY, 0, frameY, highlightWidth, highlightHeight, highlightWidth, totalHighlighterFrames * frameHeight);
+                float currentAngle = 0.0f;
+                if (bodyToHighlight instanceof PlanetInfo) {
+                    currentAngle = (float) ((PlanetInfo) bodyToHighlight).currentAngle;
+                } else if (bodyToHighlight instanceof MoonInfo) {
+                    currentAngle = (float) ((MoonInfo) bodyToHighlight).currentAngle;
+                }
+
+                ScreenHelper.drawTexturewithRotation(graphics, HIGHLIGHTER_TEXTURE, (int) highlightX, (int) highlightY, 0, frameY, highlightWidth, highlightHeight, highlightWidth, totalHighlighterFrames * frameHeight, currentAngle);
             }
         }
     }
@@ -537,16 +546,22 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         return super.keyReleased(keyCode, scanCode, modifiers);
     }
 
+    double angle;
+
     private void updatePlanets() {
         long time = Util.getMillis();
         if (!getMenu().freeze_gui || !isPausePressed) {
             for (PlanetInfo planet : PLANETS) {
                 planet.updateAngle(time);
                 planet.updatePosition();
+
+                this.angle = planet.updateAngle(time);
             }
             for (MoonInfo moon : MOONS) {
                 moon.updateAngle(time);
                 moon.updatePosition();
+
+                this.angle = moon.updateAngle(time);
             }
         }
     }

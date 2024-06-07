@@ -21,9 +21,11 @@ public class PlanetInfo extends CelestialBody {
         this.id = id;
     }
 
-    public void updateAngle(long currentTime) {
+    public double updateAngle(long currentTime) {
         double orbitProgress = (currentTime % orbitDuration) / (double) orbitDuration;
         this.currentAngle = orbitProgress * 2 * Math.PI;
+
+        return this.currentAngle;
     }
 
     public void updatePosition() {

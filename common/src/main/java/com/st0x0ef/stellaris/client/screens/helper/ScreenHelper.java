@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.client.screens.helper;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
+import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.GameRenderer;
@@ -157,10 +158,9 @@ public class ScreenHelper {
         RenderSystem.defaultBlendFunc();
         RenderSystem.enableDepthTest();
 
-        graphics.blit(resourceLocation, x, y, 0, 0, width, height, textureWidth, textureHeight);
+        graphics.blit(resourceLocation, x, y, uOffset, vOffset, width, height, textureWidth, textureHeight);
 
         RenderSystem.disableBlend();
         poseStack.popPose();
     }
-
 }
