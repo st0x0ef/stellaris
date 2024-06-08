@@ -12,20 +12,21 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import org.jetbrains.annotations.Nullable;
 
-public interface EnergyContainerImpl {
-    static EnergyContainer of(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity entity, @Nullable Direction direction) {
+@SuppressWarnings("unused")
+public class EnergyContainerHelperImpl {
+    public static EnergyContainer of(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity entity, @Nullable Direction direction) {
         return PlatformEnergyManager.of(level, pos, state, entity, direction);
     }
 
-    static EnergyContainer of(ItemStackHolder holder) {
+    public static EnergyContainer of(ItemStackHolder holder) {
         return PlatformEnergyManager.of(holder);
     }
 
-    static boolean holdsEnergy(ItemStack stack) {
+    public static boolean holdsEnergy(ItemStack stack) {
         return stack.getCapability(Capabilities.EnergyStorage.ITEM) != null;
     }
 
-    static boolean holdsEnergy(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity entity, @Nullable Direction direction) {
+    public static boolean holdsEnergy(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity entity, @Nullable Direction direction) {
         return level.getCapability(Capabilities.EnergyStorage.BLOCK, pos, state, entity, direction) != null;
     }
 }

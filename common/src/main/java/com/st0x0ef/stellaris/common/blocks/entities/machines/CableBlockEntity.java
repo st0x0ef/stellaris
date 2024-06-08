@@ -14,7 +14,7 @@ public class CableBlockEntity extends BaseEnergyBlockEntity {
 
     @Override
     public void tick() {
-        //EnergyApi.distributeEnergyNearby(this, 100);
+        EnergyApi.distributeEnergyNearby(this, 100);
     }
 
     @Override

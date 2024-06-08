@@ -15,22 +15,20 @@ import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 
 @SuppressWarnings("unused")
-public interface EnergyContainerImpl {
-    static EnergyContainer of(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity entity, @Nullable Direction direction) {
+public class EnergyContainerHelperImpl {
+    public static EnergyContainer of(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity entity, @Nullable Direction direction) {
         return PlatformEnergyManager.of(level, pos, state, entity, direction);
     }
 
-    static EnergyContainer of(ItemStackHolder holder) {
+    public static EnergyContainer of(ItemStackHolder holder) {
         return PlatformItemEnergyManager.of(holder);
     }
 
-
-    static boolean holdsEnergy(ItemStack stack) {
-        return EnergyStorage.ITEM.find(stack, ItemStackStorage.of(stack)) != null;
+    public static boolean holdsEnergy(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity entity, @Nullable Direction direction) {
+        return EnergyStorage.SIDED.find(level, pos, state, entity, direction) != null;
     }
 
-
-    static boolean holdsEnergy(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity entity, @Nullable Direction direction) {
-        return EnergyStorage.SIDED.find(level, pos, state, entity, direction) != null;
+    public static boolean holdsEnergy(ItemStack stack) {
+        return EnergyStorage.ITEM.find(stack, ItemStackStorage.of(stack)) != null;
     }
 }

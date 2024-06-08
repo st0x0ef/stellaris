@@ -110,8 +110,7 @@ public class CoalGeneratorEntity extends BaseGeneratorBlockEntity {
             }
         }
 
-        //EnergyApi.distributeEnergyNearby(this,100);
-//        Stellaris.LOG.warn(Long.toString(energyContainer.getStoredEnergy()));
+        EnergyApi.distributeEnergyNearby(this,100);
     }
 
     protected int getBurnDuration(ItemStack fuelStack) {

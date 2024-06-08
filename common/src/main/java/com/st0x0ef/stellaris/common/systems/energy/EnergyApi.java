@@ -6,6 +6,7 @@ import com.st0x0ef.stellaris.common.systems.energy.base.EnergyItem;
 import com.st0x0ef.stellaris.common.systems.item.ItemStackHolder;
 import com.st0x0ef.stellaris.platform.systems.energy.EnergyContainer;
 import com.st0x0ef.stellaris.common.systems.util.Updatable;
+import com.st0x0ef.stellaris.platform.systems.energy.EnergyContainerHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.Item;
@@ -149,7 +150,8 @@ public class EnergyApi {
      * @return The amount of energy that was distributed
      */
     public static long distributeEnergyNearby(Level level, BlockPos energyPos, @Nullable Direction extractDirection, long amount) {
-        EnergyContainer internalEnergy = EnergyContainer.of(level, energyPos, extractDirection);
+        EnergyContainer internalEnergy = EnergyContainer.of(level, energyPos,level.getBlockState(energyPos),level.getBlockEntity(energyPos), extractDirection);
+        if (internalEnergy==null) return -1;
         long amountToDistribute = internalEnergy.extractEnergy(amount, true);
         if (amountToDistribute == 0) return 0;
         List<EnergyContainer> list = Direction.stream()

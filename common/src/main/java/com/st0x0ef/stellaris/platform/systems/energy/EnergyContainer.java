@@ -28,9 +28,8 @@ public interface EnergyContainer extends Serializable, Clearable {
      * @return An instance of EnergyContainer. Returns null if the block does not hold energy.
      */
     @Nullable
-    @ExpectPlatform
     static EnergyContainer of(Level level, BlockPos pos, @Nullable BlockState state, @Nullable BlockEntity entity, @Nullable Direction direction) {
-        throw new NotImplementedException();
+        return EnergyContainerHelper.of(level,pos,state,entity,direction);
     }
 
     /**
@@ -70,9 +69,8 @@ public interface EnergyContainer extends Serializable, Clearable {
      * @return An instance of EnergyContainer. Returns null if the item stack does not hold energy.
      */
     @Nullable
-    @ExpectPlatform
     static EnergyContainer of(ItemStackHolder holder) {
-        throw new NotImplementedException();
+        return EnergyContainerHelper.of(holder);
     }
 
     /**
@@ -82,9 +80,8 @@ public interface EnergyContainer extends Serializable, Clearable {
      * @param stack The ItemStack to check.
      * @return True if the ItemStack holds energy, false otherwise.
      */
-    @ExpectPlatform
     static boolean holdsEnergy(ItemStack stack) {
-        throw new NotImplementedException();
+        return EnergyContainerHelper.holdsEnergy(stack);
     }
 
     /**
@@ -102,9 +99,8 @@ public interface EnergyContainer extends Serializable, Clearable {
      * @param direction The direction of the block (can be null).
      * @return True if the block holds energy, false otherwise.
      */
-    @ExpectPlatform
     static boolean holdsEnergy(Level level, BlockPos pos, @Nullable BlockState state, @Nullable BlockEntity entity, @Nullable Direction direction) {
-        throw new NotImplementedException();
+        return EnergyContainerHelper.holdsEnergy(level,pos,state,entity,direction);
     }
 
     /**
