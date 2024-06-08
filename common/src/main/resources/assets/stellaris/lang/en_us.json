@@ -98,6 +98,7 @@
   "block.stellaris.polished_mars_stone" : "Polished Mars Stone",
   "block.stellaris.mars_stone_brick_slab": "Mars Stone Brick Slab",
   "block.stellaris.mars_stone_brick_stairs": "Mars Stone Brick Stairs",
+  "block.stellaris.mars_plutonium_ore": "Mars Plutonium Ore",
 
 
   "block.stellaris.conglomorate" : "Conglomorate",
@@ -117,6 +118,7 @@
   "block.stellaris.venus_stone_bricks" : "Venus Stone Bricks",
   "block.stellaris.venus_stone_brick_slab": "Venus Stone Brick Slab",
   "block.stellaris.venus_stone_brick_stairs": "Venus Stone Brick Stairs",
+  "block.stellaris.venus_neptunium_ore": "Venus Neptunium Ore",
 
   "block.stellaris.vertical_moon_slab": "Vertical Moon Stone Slab",
   "block.stellaris.vertical_mars_slab": "Vertical Mars Stone Slab",
@@ -159,12 +161,20 @@
   "item.stellaris.uranium_ingot": "Uranium Ingot",
 
 
-
   "item.stellaris.rocket_fin": "Rocket Fin",
   "item.stellaris.engine_fan": "Engine Fan",
   "item.stellaris.rocket_engine": "Rocket Engine",
-  "item.stellaris.fuel_rocket_motor": "Fuel Rocket Motor",
 
+  "item.stellaris.skin_frozy": "Frozy Skin",
+  "item.stellaris.skin_normal": "Normal Skin",
+  "item.stellaris.skin_galaxy": "Galaxy Skin",
+  "item.stellaris.skin_military": "Military Skin",
+  "item.stellaris.skin_rusty": "Rusty Skin",
+
+  "item.stellaris.tiny_rocket_upgrade": "Tiny Rocket Model",
+  "item.stellaris.small_rocket_upgrade": "Small Rocket Model",
+  "item.stellaris.normal_rocket_upgrade": "Normal Rocket Model",
+  "item.stellaris.big_rocket_upgrade": "Big Rocket Model",
 
 
   "item.stellaris.pygro_spawn_egg": "Pygro Spawn Egg",
@@ -186,6 +196,11 @@
   "item.stellaris.rocket": "Rocket",
   "item.stellaris.basic_rocket_skin": "Basic Rocket Skin",
   "item.stellaris.frozy_rocket_skin": "Frozy Rocket Skin",
+
+  "item.stellaris.hydrogen_motor": "Hydrogen Motor",
+  "item.stellaris.radioactive_motor": "Radioactive Motor",
+
+  "item.stellaris.big_fuel_tank_upgrade": "Big Fuel Tank",
 
   "item.stellaris.big_blue_can": "Blue Can",
   "item.stellaris.big_green_can": "Green Can",

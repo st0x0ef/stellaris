@@ -9,6 +9,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -71,7 +72,7 @@ public class CanItem extends Item {
     }
 
     @Override
-    public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
+    public @NotNull ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
         super.finishUsingItem(stack, level, entity);
         if (entity instanceof Player player && !player.hasInfiniteMaterials()) {
             ItemStack emptyCanStack = new ItemStack(stack.getItem());

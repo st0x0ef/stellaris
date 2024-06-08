@@ -208,8 +208,6 @@ public class ItemsRegistry {
     public static final RegistrySupplier<Item> ROCKET_FIN = ITEMS.register("rocket_fin", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> ROCKET_FAN = ITEMS.register("engine_fan", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> ROCKET_ENGINE = ITEMS.register("rocket_engine", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
-    public static final RegistrySupplier<Item> FUEL_ROCKET_MOTOR = ITEMS.register("fuel_rocket_motor", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
-
 
 
     public static final RegistrySupplier<Item> ROCKET_STATION = ITEMS.register("rocket_station", () -> new BlockItem(BlocksRegistry.ROCKET_STATION.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
@@ -284,6 +282,6 @@ public class ItemsRegistry {
 
     public static final RegistrySupplier<Item> BIG_FUEL_TANK_UPGRADE = ITEMS.register("big_fuel_tank_upgrade", () -> new RocketUpgradeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), new TankUpgrade(5000)));
 
-    public static final RegistrySupplier<Item> HYDROGEN_MOTOR_UPGRADE = ITEMS.register("hydrogen_motor_upgrade", () -> new RocketUpgradeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), new MotorUpgrade(FuelType.Type.HYDROGEN)));
-    public static final RegistrySupplier<Item> RADIOACTIVE_MOTOR_UPGRADE = ITEMS.register("radioactive_motor_upgrade", () -> new RocketUpgradeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), new MotorUpgrade(FuelType.Type.RADIOACTIVE)));
+    public static final RegistrySupplier<Item> HYDROGEN_MOTOR_UPGRADE = ITEMS.register("hydrogen_motor", () -> new RocketUpgradeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), new MotorUpgrade(FuelType.Type.HYDROGEN)));
+    public static final RegistrySupplier<Item> RADIOACTIVE_MOTOR_UPGRADE = ITEMS.register("radioactive_motor", () -> new RocketUpgradeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), new MotorUpgrade(FuelType.Type.RADIOACTIVE)));
 }
