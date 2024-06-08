@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "stellaris:block/oxygen_propagator",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "stellaris:block/oxygen_propagator"
+    },
+    "facing=south": {
+      "model": "stellaris:block/oxygen_propagator",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "stellaris:block/oxygen_propagator",
+      "y": 270
+    }
+  }
+}
