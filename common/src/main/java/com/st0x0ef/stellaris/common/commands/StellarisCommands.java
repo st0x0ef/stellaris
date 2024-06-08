@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.common.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
+import com.st0x0ef.stellaris.client.screens.PlanetSelectionScreen;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -15,6 +16,7 @@ public class StellarisCommands {
                         .requires(c -> c.hasPermission(2))
                         .executes((CommandContext<CommandSourceStack> context) -> {
                             PlanetUtil.openPlanetSelectionMenu(context.getSource().getPlayer());
+                            PlanetSelectionScreen.commandablelol = true;
                             return 0;
                         }))
                 .then(Commands.literal("galaxyScreen")
