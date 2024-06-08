@@ -224,4 +224,12 @@ public class Utils {
     public static double MPS2ToMCG(float MPS2){
         return 0.0081577297f*MPS2;
     }
+
+    public static int findSmallerNumber(int value1, int value2) {
+        return Math.min(value1, value2);
+    }
+
+    public static int findBiggerNumber(int value1, int value2) {
+        return Math.max(value1, value2);
+    }
 }
