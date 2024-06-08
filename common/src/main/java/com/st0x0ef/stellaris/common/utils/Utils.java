@@ -187,6 +187,22 @@ public class Utils {
         return (i % 1000) + "K";
     }
 
+    public static int findSmallerNumber(int a, int b) {
+        if (a < b) {
+            return a;
+        } else {
+            return b;
+        }
+    }
+
+    public static int findBiggerNumber(int a, int b) {
+        if (a > b) {
+            return a;
+        } else {
+            return b;
+        }
+    }
+
     /** gui convenience feature */
     public static Component getMessageComponent(String text, String color) {
         return Component.literal(text).setStyle(Style.EMPTY.withColor(TextColor.fromRgb(getColorHexCode(color))));
