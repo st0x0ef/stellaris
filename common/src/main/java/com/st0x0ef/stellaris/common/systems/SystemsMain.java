@@ -1,7 +1,13 @@
 package com.st0x0ef.stellaris.common.systems;
 
 import com.mojang.datafixers.util.Pair;
+import com.mojang.serialization.MapCodec;
 import com.st0x0ef.stellaris.Stellaris;
+import dev.architectury.registry.registries.DeferredRegister;
+import net.minecraft.core.particles.ParticleType;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
@@ -11,19 +17,25 @@ import java.util.stream.Collectors;
 public class SystemsMain {
     public static final String MOD_ID = Stellaris.MODID;
     public static final String SYSTEMS_DATA = "StellarisData";
-    //public static final Logger LOGGER = (Logger) Stellaris.LOG;
+//    public static final Logger LOGGER = (Logger) Stellaris.LOG;
 
-//    public static final RegistryHolder<ParticleType<?>> PARTICLES = new RegistryHolder<>(BuiltInRegistries.PARTICLE_TYPE, MOD_ID);
+//    public static final DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(MOD_ID, Registries.PARTICLE_TYPE);
 //
 //    public static final Supplier<ParticleType<FluidParticleOptions>> FLUID_PARTICLE = PARTICLES.register("fluid", () -> new ParticleType<>(false, FluidParticleOptions.DESERIALIZER) {
+//
 //        @Override
-//        public @NotNull Codec<FluidParticleOptions> codec() {
+//        public MapCodec<FluidParticleOptions> codec() {
 //            return FluidParticleOptions.CODEC;
 //        }
-//    });
 //
+//        @Override
+//        public StreamCodec<? super RegistryFriendlyByteBuf, FluidParticleOptions> streamCodec() {
+//            return FluidParticleOptions.CODEC_STREAM;
+//        }
+//    });
+
 //    public static void init() {
-//        PARTICLES.initialize();
+//        PARTICLES.register();
 //    }
 
     public static <T, U> Map<T, U> finalizeRegistration(Map<Supplier<T>, U> unfinalized, @Nullable Map<T, U> finalized) {
