@@ -2,7 +2,7 @@ package com.st0x0ef.stellaris.fabric.systems.energy;
 
 import com.st0x0ef.stellaris.common.systems.energy.base.EnergySnapshot;
 import com.st0x0ef.stellaris.common.systems.util.Updatable;
-import com.st0x0ef.stellaris.platform.systems.energy.EnergyContainer;
+import com.st0x0ef.stellaris.common.systems.energy.base.EnergyContainer;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.fabricmc.fabric.api.transfer.v1.transaction.base.SnapshotParticipant;
 import team.reborn.energy.api.EnergyStorage;

@@ -2,7 +2,6 @@ package com.st0x0ef.stellaris.common.systems.energy.base;
 
 import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedItemEnergyContainer;
 import com.st0x0ef.stellaris.common.systems.util.Updatable;
-import com.st0x0ef.stellaris.platform.systems.energy.EnergyContainer;
 import net.minecraft.world.item.ItemStack;
 
 /**

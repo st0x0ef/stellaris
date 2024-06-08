@@ -4,7 +4,7 @@ import com.st0x0ef.stellaris.common.systems.energy.base.EnergySnapshot;
 import com.st0x0ef.stellaris.common.systems.energy.impl.SimpleEnergySnapshot;
 import com.st0x0ef.stellaris.common.systems.item.ItemStackHolder;
 import com.st0x0ef.stellaris.fabric.systems.ItemStackStorage;
-import com.st0x0ef.stellaris.platform.systems.energy.EnergyContainer;
+import com.st0x0ef.stellaris.common.systems.energy.base.EnergyContainer;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.nbt.CompoundTag;

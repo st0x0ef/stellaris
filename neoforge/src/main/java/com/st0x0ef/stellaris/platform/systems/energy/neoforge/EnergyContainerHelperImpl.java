@@ -2,7 +2,7 @@ package com.st0x0ef.stellaris.platform.systems.energy.neoforge;
 
 import com.st0x0ef.stellaris.common.systems.item.ItemStackHolder;
 import com.st0x0ef.stellaris.neoforge.systems.energy.PlatformEnergyManager;
-import com.st0x0ef.stellaris.platform.systems.energy.EnergyContainer;
+import com.st0x0ef.stellaris.common.systems.energy.base.EnergyContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;

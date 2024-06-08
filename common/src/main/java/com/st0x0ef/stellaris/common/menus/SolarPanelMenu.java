@@ -2,7 +2,7 @@ package com.st0x0ef.stellaris.common.menus;
 
 import com.st0x0ef.stellaris.common.blocks.entities.machines.SolarPanelEntity;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
-import com.st0x0ef.stellaris.platform.systems.energy.EnergyContainer;
+import com.st0x0ef.stellaris.common.systems.energy.base.EnergyContainer;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;

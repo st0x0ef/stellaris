@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.platform.systems.energy;
 
+import com.st0x0ef.stellaris.common.systems.energy.base.EnergyContainer;
 import com.st0x0ef.stellaris.common.systems.item.ItemStackHolder;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.core.BlockPos;

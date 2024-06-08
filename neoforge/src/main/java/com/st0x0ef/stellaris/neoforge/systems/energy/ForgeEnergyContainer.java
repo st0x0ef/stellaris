@@ -1,7 +1,7 @@
 package com.st0x0ef.stellaris.neoforge.systems.energy;
 
 import com.st0x0ef.stellaris.common.systems.util.Updatable;
-import com.st0x0ef.stellaris.platform.systems.energy.EnergyContainer;
+import com.st0x0ef.stellaris.common.systems.energy.base.EnergyContainer;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 
 public record ForgeEnergyContainer<T extends EnergyContainer & Updatable>(T container) implements IEnergyStorage {
