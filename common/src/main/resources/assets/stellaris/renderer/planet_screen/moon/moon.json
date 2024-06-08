@@ -5,7 +5,8 @@
   "period": 2000,
   "width": 6.0,
   "height": 6.0,
-  "parent": "Earth",
+  "parent": "stellaris:earth",
   "dimensionId": "stellaris:moon",
-  "translatable": "text.stellaris.planetscreen.moon"
+  "translatable": "text.stellaris.planetscreen.moon",
+  "id": "stellaris:moon"
 }

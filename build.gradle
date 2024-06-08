@@ -22,7 +22,7 @@ subprojects {
 
     repositories {
         maven { url "https://maven.shedaniel.me" }
-        maven { url "https://cursmaven.com" }
+        maven { url "https://cursemaven.com" }
         maven { url "https://maven.terraformersmc.com/releases" }
         maven { url "https://maven.parchmentmc.org" }
         maven { url "https://maven.neoforged.net/releases" }
@@ -51,13 +51,32 @@ subprojects {
         it.options.release = 21
     }
 
-    publishing {
-        publications {
-            mavenJava(MavenPublication) {
-                artifactId = base.archivesName.get()
-                from components.java
+    if (!isCommon) {
+
+        publishing {
+            publications {
+                maven(MavenPublication) {
+                    artifactId = "stellaris-${modLoader}-${rootProject.minecraft_version}"
+                    from components.java
+
+                    pom {
+                        name = "Stellaris ${modLoader}"
+                        url = "https://github.com/st0x0ef/stellaris"
+
+                    }
+                }
+            }
+            repositories {
+                maven {
+                    url = "https://maven.odysseyus.fr/releases/"
+                    credentials {
+                        username = System.getenv("MAVEN_USER")
+                        password = System.getenv("MAVEN_PASS")
+                    }
+                }
             }
         }
+
     }
 }
 

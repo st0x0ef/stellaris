@@ -11,7 +11,7 @@ public record PlanetRecord(
         ResourceLocation texture, String name,
         float distance, long period, float width,
         float height, String parent,
-        ResourceKey<Level> dimensionId, String translatable) {
+        ResourceKey<Level> dimensionId, String translatable, String id) {
 
 
     public static final Codec<PlanetRecord> CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -23,6 +23,7 @@ public record PlanetRecord(
             Codec.FLOAT.fieldOf("height").forGetter(PlanetRecord::height),
             Codec.STRING.fieldOf("parent").forGetter(PlanetRecord::parent),
             ResourceKey.codec(Registries.DIMENSION).fieldOf("dimensionId").forGetter(PlanetRecord::dimensionId),
-            Codec.STRING.fieldOf("translatable").forGetter(PlanetRecord::translatable)
+            Codec.STRING.fieldOf("translatable").forGetter(PlanetRecord::translatable),
+            Codec.STRING.fieldOf("id").forGetter(PlanetRecord::id)
     ).apply(instance, PlanetRecord::new));
 }

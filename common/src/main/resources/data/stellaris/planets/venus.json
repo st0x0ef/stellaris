@@ -6,7 +6,7 @@
   "orbit": "minecraft:the_end",
   "oxygen": false,
   "temperature": 462,
-  "distanceFromEarth": 0,
+  "distanceFromEarth": 41000,
   "gravity": 8.87,
   "textures": {
     "planet": "stellaris:textures/planet_bar/venus_planet_bar.png",

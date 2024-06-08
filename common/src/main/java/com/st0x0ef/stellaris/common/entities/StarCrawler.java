@@ -1,5 +1,8 @@
 package com.st0x0ef.stellaris.common.entities;
 
+import dev.architectury.networking.NetworkManager;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
@@ -61,14 +64,9 @@ public class StarCrawler extends Monster {
 			return false;
 		return super.hurt(source, amount);
 	}
-	private boolean STAR_CRAWLER_SPAWN = true;
+
 	@Override
-	public void baseTick() {
-		super.baseTick();
-		if (!STAR_CRAWLER_SPAWN) {
-			if (!this.level().isClientSide) {
-				this.remove(RemovalReason.DISCARDED);
-			}
-		}
+	public Packet<ClientGamePacketListener> getAddEntityPacket() {
+		return NetworkManager.createAddEntityPacket(this);
 	}
 }

@@ -5,11 +5,17 @@ import com.st0x0ef.stellaris.common.entities.LanderEntity;
 import com.st0x0ef.stellaris.common.entities.RocketEntity;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import com.st0x0ef.stellaris.platform.TeleportUtil;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextColor;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 public class Utils {
 
@@ -57,8 +63,6 @@ public class Utils {
         }
 
         if (!entity.canChangeDimensions()) return;
-
-        //entity.changeDimension(nextLevel);
 
         TeleportUtil.teleportToPlanet(entity, nextLevel, yPos);
         entity.setPos(entity.getX(), yPos, entity.getZ());
@@ -173,7 +177,7 @@ public class Utils {
             case "dark_red":
                 return 0x8B0000;
             default:
-                throw new IllegalArgumentException("Unknown color : " + colorName);
+                return 0xFFFFFF;
         }
     }
 
@@ -181,6 +185,28 @@ public class Utils {
         if (i == 0) return "0";
 
         return (i % 1000) + "K";
+    }
+
+    /** gui convenience feature */
+    public static Component getMessageComponent(String text, String color) {
+        return Component.literal(text).setStyle(Style.EMPTY.withColor(TextColor.fromRgb(getColorHexCode(color))));
+    }
+
+    public static Component getMessageComponent(String text, int color) {
+        return Component.literal(text).setStyle(Style.EMPTY.withColor(TextColor.fromRgb(color)));
+    }
+
+    public static Component getMessageComponent(String text) {
+        return Component.literal(text).setStyle(Style.EMPTY);
+    }
+
+    /** dimension util */
+    public static int getPlayerCountInDimension(MinecraftServer server, ResourceKey<Level> dimensionKey) {
+        ServerLevel dimension = server.getLevel(dimensionKey);
+        if (dimension == null) {
+            return 0;
+        }
+        return (int) dimension.players().stream().count();
     }
 
     /**
@@ -197,5 +223,13 @@ public class Utils {
      */
     public static double MPS2ToMCG(float MPS2){
         return 0.0081577297f*MPS2;
+    }
+
+    public static int findSmallerNumber(int value1, int value2) {
+        return Math.min(value1, value2);
+    }
+
+    public static int findBiggerNumber(int value1, int value2) {
+        return Math.max(value1, value2);
     }
 }

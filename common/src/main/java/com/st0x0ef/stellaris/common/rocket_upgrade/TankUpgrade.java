@@ -1,0 +1,17 @@
+package com.st0x0ef.stellaris.common.rocket_upgrade;
+
+public class TankUpgrade extends RocketUpgrade {
+    private final int tankCapacity;
+
+    public TankUpgrade(int tankCapacity) {
+        this.tankCapacity = tankCapacity;
+    }
+
+    public int getTankCapacity() {
+        return tankCapacity;
+    }
+
+    public static TankUpgrade getBasic() {
+        return new TankUpgrade(3000);
+    }
+}

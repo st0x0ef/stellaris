@@ -5,7 +5,8 @@
   "period": 1000,
   "width": 4.0,
   "height": 4.0,
-  "parent": "Mars",
+  "parent": "stellaris:mars",
   "dimensionId": "stellaris:deimos",
-  "translatable": "text.stellaris.planetscreen.deimos"
+  "translatable": "text.stellaris.planetscreen.deimos",
+  "id": "stellaris:deimos"
 }

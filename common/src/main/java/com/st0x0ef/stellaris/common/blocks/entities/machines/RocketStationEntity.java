@@ -22,14 +22,11 @@ import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
 import java.util.Optional;
 
 public class RocketStationEntity extends BaseContainerBlockEntity implements ImplementedInventory {
 
     private NonNullList<ItemStack> items;
-    private List<Integer> inputSlots = List.of(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13);
-
 
     public RocketStationEntity(BlockPos blockPos, BlockState blockState) {
         super(BlockEntityRegistry.ROCKET_STATION.get(), blockPos, blockState);
@@ -111,7 +108,7 @@ public class RocketStationEntity extends BaseContainerBlockEntity implements Imp
     private void craftItem() {
         Optional<RecipeHolder<RocketStationRecipe>> recipe = getCurrentRecipe();
         if (recipe.isPresent()) {
-            for (int i : inputSlots) {
+            for (int i = 0; i < 14; i++) {
                 this.removeItem(i, 1);
             }
             this.setItem(14, new ItemStack(recipe.get().value().getResultItem(null).getItem(),

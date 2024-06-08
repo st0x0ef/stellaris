@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.common.utils;
 
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
+import com.st0x0ef.stellaris.common.menus.MilkyWayMenu;
 import com.st0x0ef.stellaris.common.menus.PlanetSelectionMenu;
 import dev.architectury.registry.menu.ExtendedMenuProvider;
 import dev.architectury.registry.menu.MenuRegistry;
@@ -68,7 +69,43 @@ public class PlanetUtil {
         return 0;
     }
 
-    public Planet getPlanetFromDim(ResourceKey<Level> dim) {
+    public static int openMilkyWayMenu(Player player) {
+        ExtendedMenuProvider provider = new ExtendedMenuProvider() {
+
+            @Override
+            public void saveExtraData(FriendlyByteBuf buf) {
+
+            }
+
+            @Override
+            public Component getDisplayName() {
+                return Component.literal("MilkyWay");
+            }
+
+            @Override
+            public @NotNull AbstractContainerMenu createMenu(int syncId, Inventory inv, Player player) {
+                FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
+                return MilkyWayMenu.create(syncId, inv, buffer);
+            }
+        };
+
+        if (player instanceof ServerPlayer serverPlayer) {
+            MenuRegistry.openExtendedMenu(serverPlayer, provider);
+            return 1;
+        }
+
+        return 0;
+    }
+
+    public static Planet getPlanetFromDim(ResourceKey<Level> dim) {
         return StellarisData.getPlanet(dim);
+    }
+
+    public static float getTemperature(ResourceKey<Level> dim) {
+        return getPlanet(dim).temperature();
+    }
+
+    public static String getSystem(ResourceKey<Level> dim) {
+        return getPlanet(dim).system();
     }
 }

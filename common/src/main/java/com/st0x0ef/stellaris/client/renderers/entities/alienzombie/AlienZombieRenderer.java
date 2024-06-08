@@ -4,6 +4,7 @@ import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.entities.AlienZombie;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -20,5 +21,10 @@ public class AlienZombieRenderer extends MobRenderer<AlienZombie, AlienZombieMod
     @Override
     public ResourceLocation getTextureLocation(AlienZombie entity) {
         return TEXTURE;
+    }
+
+    @Override
+    public boolean shouldRender(AlienZombie livingEntity, Frustum camera, double camX, double camY, double camZ) {
+        return livingEntity != null && camera.isVisible(livingEntity.getBoundingBoxForCulling());
     }
 }

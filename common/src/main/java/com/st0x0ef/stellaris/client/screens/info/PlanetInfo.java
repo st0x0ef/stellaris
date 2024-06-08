@@ -11,22 +11,29 @@ public class PlanetInfo extends CelestialBody {
     public final double orbitRadius;
     public double currentAngle;
 
-    public PlanetInfo(ResourceLocation texture, String name, double orbitRadius, long orbitDuration, int width, int height, CelestialBody orbitCenter, ResourceKey<Level> dimension, Component translatable) {
-        super(texture, name, 0, 0, width, height, 0xFFFFFF, dimension, translatable);
+    public PlanetInfo(ResourceLocation texture, String name, double orbitRadius, long orbitDuration, int width, int height, CelestialBody orbitCenter, ResourceKey<Level> dimension, Component translatable, String id) {
+        super(texture, name, 0, 0, width, height, 0xFFFFFF, dimension, translatable, id);
         this.orbitRadius = orbitRadius;
         this.orbitDuration = orbitDuration;
         this.orbitCenter = orbitCenter;
         this.currentAngle = 0;
         this.translatable = translatable;
+        this.id = id;
     }
 
-    public void updateAngle(long currentTime) {
+    public double updateAngle(long currentTime) {
         double orbitProgress = (currentTime % orbitDuration) / (double) orbitDuration;
         this.currentAngle = orbitProgress * 2 * Math.PI;
+
+        return this.currentAngle;
     }
 
     public void updatePosition() {
         this.x = (float) (orbitCenter.x + orbitRadius * Math.cos(currentAngle));
         this.y = (float) (orbitCenter.y + orbitRadius * Math.sin(currentAngle));
+    }
+
+    public String getId() {
+        return super.getId();
     }
 }

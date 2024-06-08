@@ -1,7 +1,10 @@
 package com.st0x0ef.stellaris.common.entities;
 
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
+import dev.architectury.networking.NetworkManager;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.AgeableMob;
@@ -50,14 +53,8 @@ public class Mogler extends Hoglin {
         return moglerentity;
     }
 
-    private boolean MOGLER_SPAWN = true;
     @Override
-    public void tick() {
-        super.tick();
-        if (!MOGLER_SPAWN) {
-            if (!this.level().isClientSide) {
-                this.remove(RemovalReason.DISCARDED);
-            }
-        }
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
+        return NetworkManager.createAddEntityPacket(this);
     }
 }

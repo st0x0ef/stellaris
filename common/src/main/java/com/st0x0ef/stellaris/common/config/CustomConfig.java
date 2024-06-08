@@ -19,7 +19,6 @@ public class CustomConfig {
         loadConfigFile();
         addEntries();
         writeConfigFile("stellaris.json");
-
     }
 
 
@@ -29,21 +28,15 @@ public class CustomConfig {
         //do we need this?
         //addEntry("test", new ConfigEntry<Integer>(5, "This is a ranged Int"));
         //Change these if necessary
-        addEntry("uraniumBurnTime", new ConfigEntry<Integer>(/*coalBurnTime*5 */8000,"Burn time for uranium ingot in Radioactive Generator"));
-        addEntry("plutoniumBurnTime", new ConfigEntry<Integer>(/*uraniumBurnTime*1.5 */12000,"Burn time for plutonium ingot in Radioactive Generator"));
-        addEntry("neptuniumBurnTime", new ConfigEntry<Integer>(/*uraniumBurnTime*2 */16000,"Burn time for neptunium ingot in Radioactive Generator"));
+        addEntry("uraniumBurnTime", new ConfigEntry<Integer>(/*coalBurnTime*5 */8000, "Burn time for uranium ingot in Radioactive Generator"));
+        addEntry("plutoniumBurnTime", new ConfigEntry<Integer>(/*uraniumBurnTime*1.5 */12000, "Burn time for plutonium ingot in Radioactive Generator"));
+        addEntry("neptuniumBurnTime", new ConfigEntry<Integer>(/*uraniumBurnTime*2 */16000, "Burn time for neptunium ingot in Radioactive Generator"));
 
+        addEntry("maxOxygenPerBlock", new ConfigEntry<Integer>(5, "The maximum amount of oxygen stored in each block"));
     }
 
     public static void addEntry(String name, ConfigEntry<?> entry) {
-
-        if(CONFIG.get(name) == null) {
-            CONFIG.put(name, entry);
-        } else {
-
-            CONFIG.put(name, new ConfigEntry(CONFIG.get(name).getValue(), entry.getDescription()));
-        }
-
+        CONFIG.merge(name, entry, (a, b) -> new ConfigEntry<>(a.getValue(), b.getDescription()));
     }
 
     public static void writeConfigFile(String path) {
@@ -58,10 +51,12 @@ public class CustomConfig {
 
     public static void loadConfigFile() {
 
+        String path = Platform.getConfigFolder() + "/stellaris.json";
+
         String jsonString;
 
         try {
-            jsonString = readFileAsString(Platform.getConfigFolder() + "/stellaris.json");
+            jsonString = readFileAsString(path);
             JsonObject jsonObject = Stellaris.GSON.fromJson(jsonString, JsonObject.class);
 
             jsonObject.getAsJsonObject().entrySet().forEach(entry -> {
@@ -75,8 +70,7 @@ public class CustomConfig {
 
     }
 
-    public static String readFileAsString(String file) throws Exception
-    {
+    public static String readFileAsString(String file) throws Exception {
         return new String(Files.readAllBytes(Paths.get(file)));
     }
 

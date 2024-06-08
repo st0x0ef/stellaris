@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.client.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.client.screens.components.Gauge;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.SolarPanelEntity;
 import com.st0x0ef.stellaris.common.blocks.machines.gauge.GaugeTextHelper;
 import com.st0x0ef.stellaris.common.blocks.machines.gauge.GaugeValueHelper;
@@ -20,6 +21,9 @@ import net.minecraft.world.entity.player.Inventory;
 public class SolarPanelScreen extends AbstractContainerScreen<SolarPanelMenu> {
 	public static final ResourceLocation texture = new ResourceLocation(Stellaris.MODID, "textures/gui/solar_panel.png");
 
+	public static final ResourceLocation fuel_overlay = new ResourceLocation(Stellaris.MODID, "textures/gui/util/energy_full.png");
+
+
 	public SolarPanelScreen(SolarPanelMenu abstractContainerMenu, Inventory inventory, Component component) {
 		super(abstractContainerMenu, inventory, component);
 		this.imageWidth = 177;
@@ -33,6 +37,10 @@ public class SolarPanelScreen extends AbstractContainerScreen<SolarPanelMenu> {
 		this.renderBackground(graphics,mouseX,mouseY,partialTicks);
 		super.render(graphics, mouseX, mouseY, partialTicks);
 		this.renderTooltip(graphics, mouseX, mouseY);
+
+		Gauge gauge = new Gauge(this.leftPos + 108, this.topPos + 69, 13, 47, null, fuel_overlay, null, (int) this.menu.getEnergyContainer().getStoredEnergy(), (int) this.menu.getEnergyContainer().getMaxCapacity());
+
+		this.addRenderableWidget(gauge);
 	}
 
 	@Override
@@ -50,12 +58,15 @@ public class SolarPanelScreen extends AbstractContainerScreen<SolarPanelMenu> {
 		SolarPanelEntity blockEntity = this.getMenu().getBlockEntity();
 		if(blockEntity != null)
 		{
-			WrappedBlockEnergyContainer energyStorage = blockEntity.getEnergyContainer();
+			WrappedBlockEnergyContainer energyStorage = blockEntity.getWrappedEnergyContainer();
 			if(energyStorage!= null)
 			{
-				graphics.drawString(this.font, GaugeTextHelper.getStoredText(GaugeValueHelper.getEnergy(energyStorage.getStoredEnergy())).build(), this.titleLabelY, 28, 0x3C3C3C);
-				graphics.drawString(this.font, GaugeTextHelper.getCapacityText(GaugeValueHelper.getEnergy(energyStorage.getMaxCapacity())).build(), this.titleLabelY, 40, 0x3C3C3C);
-				graphics.drawString(this.font, GaugeTextHelper.getMaxGenerationPerTickText(GaugeValueHelper.getEnergy(blockEntity.getEnergyGeneratedPT())).build(), this.titleLabelY, 52, 0x3C3C3C);
+				graphics.drawString(this.font, Component.translatable("gauge_text.stellaris.stored", energyStorage.getStoredEnergy()), 25, 7, 0x3C3C3C);
+				graphics.drawString(this.font, Component.translatable("gauge_text.stellaris.capacity", energyStorage.getMaxCapacity()), 25, 17, 0x3C3C3C);
+
+//				graphics.drawString(this.font, GaugeTextHelper.getStoredText(GaugeValueHelper.getEnergy(energyStorage.getStoredEnergy())).build(), 25, 5, 0x3C3C3C);
+//				graphics.drawString(this.font, GaugeTextHelper.getCapacityText(GaugeValueHelper.getEnergy(energyStorage.getMaxCapacity())).build(), 25, 13, 0x3C3C3C);
+//				graphics.drawString(this.font, GaugeTextHelper.getMaxGenerationPerTickText(GaugeValueHelper.getEnergy(blockEntity.getEnergyGeneratedPT())).build(), 25, 21, 0x3C3C3C);
 			}
 
 		}

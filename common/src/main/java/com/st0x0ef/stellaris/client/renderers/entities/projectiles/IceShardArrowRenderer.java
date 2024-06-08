@@ -4,6 +4,7 @@ import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.entities.IceShardArrowEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.ArrowRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
@@ -19,5 +20,10 @@ public class IceShardArrowRenderer extends ArrowRenderer<IceShardArrowEntity> {
     @Override
     public ResourceLocation getTextureLocation(IceShardArrowEntity entity) {
         return LAYER_LOCATION;
+    }
+
+    @Override
+    public boolean shouldRender(IceShardArrowEntity livingEntity, Frustum camera, double camX, double camY, double camZ) {
+        return livingEntity != null && camera.isVisible(livingEntity.getBoundingBoxForCulling());
     }
 }

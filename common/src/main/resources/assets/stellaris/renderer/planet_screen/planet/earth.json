@@ -5,7 +5,8 @@
   "period": 8000,
   "width": 10.0,
   "height": 10.0,
-  "parent": "Sun",
+  "parent": "stellaris:sun",
   "dimensionId": "minecraft:overworld",
-  "translatable": "text.stellaris.planetscreen.earth"
+  "translatable": "text.stellaris.planetscreen.earth",
+  "id": "stellaris:earth"
 }

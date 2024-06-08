@@ -15,7 +15,7 @@ import team.reborn.energy.api.EnergyStorage;
 @SuppressWarnings("UnstableApiUsage")
 public class SystemsFabric {
 
-    public void init() {
+    public static void init() {
 
         EnergyStorage.SIDED.registerFallback((world, pos, state, blockEntity, context) -> {
             if (blockEntity instanceof EnergyBlock<?> attachment) {

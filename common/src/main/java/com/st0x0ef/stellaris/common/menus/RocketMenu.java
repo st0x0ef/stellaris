@@ -2,10 +2,13 @@ package com.st0x0ef.stellaris.common.menus;
 
 import com.st0x0ef.stellaris.common.entities.RocketEntity;
 import com.st0x0ef.stellaris.common.menus.slot.ResultSlot;
-import com.st0x0ef.stellaris.common.menus.slot.SpecificItemsSlot;
-import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
+import com.st0x0ef.stellaris.common.menus.slot.upgrade.MotorUpgradeSlot;
+import com.st0x0ef.stellaris.common.menus.slot.upgrade.RocketModelSlot;
+import com.st0x0ef.stellaris.common.menus.slot.upgrade.RocketSkinSlot;
+import com.st0x0ef.stellaris.common.menus.slot.upgrade.TankUpgradeSlot;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -23,11 +26,8 @@ public class RocketMenu extends AbstractContainerMenu {
         this(syncId, inventory, new SimpleContainer(15), buffer.readVarInt());
     }
 
-
-
     public RocketMenu(int syncId, Inventory playerInventory, Container container, int entityId)
     {
-
         super(MenuTypesRegistry.ROCKET_MENU.get(), syncId);
 
         this.rocket = (RocketEntity) playerInventory.player.level().getEntity(entityId);
@@ -44,7 +44,7 @@ public class RocketMenu extends AbstractContainerMenu {
     public ItemStack quickMoveStack(Player player, int invSlot) {
         ItemStack newStack = ItemStack.EMPTY;
         Slot slot = this.slots.get(invSlot);
-        if (slot != null && slot.hasItem()) {
+        if (slot.hasItem()) {
             ItemStack originalStack = slot.getItem();
             newStack = originalStack.copy();
             if (invSlot < this.inventory.getContainerSize()) {
@@ -67,13 +67,17 @@ public class RocketMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player player) {
+        if (!player.isLocalPlayer()) {
+            this.getRocket().syncRocketData((ServerPlayer) player);
+        }
+
         return this.inventory.stillValid(player);
     }
 
 
     private void addSlots(Container inventory) {
         //FUEL SLOTS
-        this.addSlot(new FuelBucketSlot(inventory, 0, 20, 27));
+        this.addSlot(new Slot(inventory, 0, 20, 27));
         this.addSlot(new ResultSlot(inventory, 1, 20, 57));
 
         //INVENTORY SLOTS
@@ -90,10 +94,13 @@ public class RocketMenu extends AbstractContainerMenu {
         this.addSlot(new Slot(inventory, 9, 140, 37));
 
         //UPGRADE SLOTS
-        this.addSlot(new SpecificItemsSlot.Item(inventory, 10, 76, 66, ItemsRegistry.STEEL_NUGGET.get()));
-        this.addSlot(new Slot(inventory, 11, 101, 66));
-        this.addSlot(new Slot(inventory, 12, 126, 66));
-        this.addSlot(new Slot(inventory, 13, 151, 66));
+        this.addSlot(new MotorUpgradeSlot(inventory, 10, 76, 66));
+        this.addSlot(new TankUpgradeSlot(inventory, 11, 101, 66));
+
+        //SKIN SLOTS
+        this.addSlot(new RocketSkinSlot(inventory, 12, 126, 66));
+        //MODEL SLOTS
+        this.addSlot(new RocketModelSlot(inventory, 13, 151, 66));
 
     }
 
@@ -113,17 +120,5 @@ public class RocketMenu extends AbstractContainerMenu {
 
     public RocketEntity getRocket() {
         return rocket;
-    }
-
-    private class FuelBucketSlot extends Slot{
-
-        public FuelBucketSlot(Container container, int slot, int x, int y) {
-            super(container, slot, x, y);
-        }
-
-        @Override
-        public boolean mayPlace(ItemStack stack) {
-            return stack.is(ItemsRegistry.FUEL_BUCKET.get());
-        }
     }
 }

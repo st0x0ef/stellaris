@@ -5,7 +5,8 @@
   "period": 10000,
   "width": 10.0,
   "height": 10.0,
-  "parent": "Sun",
+  "parent": "stellaris:sun",
   "dimensionId": "stellaris:mars",
-  "translatable": "text.stellaris.planetscreen.mars"
+  "translatable": "text.stellaris.planetscreen.mars",
+  "id": "stellaris:mars"
 }

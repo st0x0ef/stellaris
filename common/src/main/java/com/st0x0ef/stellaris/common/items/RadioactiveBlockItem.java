@@ -3,7 +3,7 @@ package com.st0x0ef.stellaris.common.items;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
 
-public class RadioactiveBlockItem extends BlockItem {
+public class RadioactiveBlockItem extends BlockItem implements RadiationItem {
 
     private final int radiationLevel;
 
@@ -12,6 +12,7 @@ public class RadioactiveBlockItem extends BlockItem {
         this.radiationLevel = radiationLevel;
     }
 
+    @Override
     public int getRadiationLevel() {
         return radiationLevel - 1;
     }

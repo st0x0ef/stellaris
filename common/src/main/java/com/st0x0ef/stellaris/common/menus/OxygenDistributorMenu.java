@@ -15,13 +15,12 @@ public class OxygenDistributorMenu extends BaseContainer {
     private final OxygenDistributorBlockEntity blockEntity;
 
     public OxygenDistributorMenu(int containerId, Inventory inventory, Container container, OxygenDistributorBlockEntity blockEntity) {
-        super(MenuTypesRegistry.OXYGEN_DISTRIBUTOR.get(), containerId, 2, inventory);
+        super(MenuTypesRegistry.OXYGEN_DISTRIBUTOR.get(), containerId, 2, inventory, 54);
         this.container = container;
         this.blockEntity = blockEntity;
 
-        // TODO change slot positions to match gui texture
-        addSlot(new Slot(container, 0, 50, 25));
-        addSlot(new Slot(container, 1, 68, 25));
+        addSlot(new Slot(container, 0, 17, 58));
+        addSlot(new Slot(container, 1, 17, 88));
     }
 
     public static OxygenDistributorMenu create(int syncId, Inventory inventory, FriendlyByteBuf data) {

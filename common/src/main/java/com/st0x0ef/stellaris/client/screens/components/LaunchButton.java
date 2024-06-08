@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.client.screens.components;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -43,8 +42,11 @@ public class LaunchButton extends Button {
         this.yDiffText = 0;
         this.xTexStart = 0;
         this.yTexStart = 0;
-        this.buttonTexture = new ResourceLocation(Stellaris.MODID, "textures/gui/util/buttons/launch_button.png");
-        this.hoverButtonTexture = new ResourceLocation(Stellaris.MODID, "textures/gui/util/buttons/launch_button_hovered.png");
+    }
+
+    public void setButtonTexture(ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture) {
+        this.buttonTexture = buttonTexture;
+        this.hoverButtonTexture = hoverButtonTexture;
     }
 
     @SuppressWarnings("unchecked")
@@ -140,5 +142,6 @@ public class LaunchButton extends Button {
             return this.color;
         }
     }
+
 
 }

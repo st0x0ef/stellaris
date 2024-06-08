@@ -1,7 +1,10 @@
 package com.st0x0ef.stellaris.common.entities;
 
 import com.st0x0ef.stellaris.common.entities.alien.Alien;
+import dev.architectury.networking.NetworkManager;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
@@ -84,14 +87,8 @@ public class AlienZombie extends Monster implements RangedAttackMob {
 		return super.checkSpawnRules(p_21686_, p_21687_);
 	}
 
-	private boolean ALIEN_ZOMBIE_SPAWN = true;
 	@Override
-	public void tick() {
-		super.tick();
-		if (!ALIEN_ZOMBIE_SPAWN) {
-			if (!this.level().isClientSide) {
-				this.remove(RemovalReason.DISCARDED);
-			}
-		}
+	public Packet<ClientGamePacketListener> getAddEntityPacket() {
+		return NetworkManager.createAddEntityPacket(this);
 	}
 }

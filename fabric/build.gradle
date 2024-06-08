@@ -52,6 +52,7 @@ dependencies {
     modApi "dev.architectury:architectury-fabric:${rootProject.architectury_version}"
     modApi "com.terraformersmc:modmenu:10.0.0-beta.1"
     include modApi('teamreborn:energy:4.0.1') { transitive = false }
+
     modImplementation "curse.maven:energized-power-782147:5392661"
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }

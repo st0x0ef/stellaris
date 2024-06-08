@@ -3,8 +3,8 @@ package com.st0x0ef.stellaris.client.screens;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.components.Gauge;
-import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
 import com.st0x0ef.stellaris.common.menus.RocketMenu;
+import com.st0x0ef.stellaris.common.utils.Utils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.GuiGraphics;
@@ -23,7 +23,8 @@ public class RocketScreen extends AbstractContainerScreen<RocketMenu> {
     public static final ResourceLocation fluid_tank_overlay = new ResourceLocation(Stellaris.MODID, "textures/gui/util/fluid_tank_overlay.png");
 
     public int rocket_fuel = 0;
-    public int max_fuel = this.getMenu().getRocket().MAX_FUEL;
+    public int max_fuel;
+    public Component capacity;
 
     public static final Component Fuel = Component.translatable("text.stellaris.rocketscreen.fuel");
 
@@ -33,7 +34,6 @@ public class RocketScreen extends AbstractContainerScreen<RocketMenu> {
         this.imageWidth = 177;
         this.imageHeight = 177;
         this.inventoryLabelY = this.imageHeight - 92;
-
     }
 
     @Override
@@ -42,9 +42,25 @@ public class RocketScreen extends AbstractContainerScreen<RocketMenu> {
         super.render(graphics, mouseX, mouseY, partialTicks);
         this.renderTooltip(graphics, mouseX, mouseY);
 
-        rocket_fuel = this.getMenu().getRocket().getFuel();
+        rocket_fuel = this.getMenu().getRocket().rocketComponent.getFuel();
+        max_fuel = this.getMenu().getRocket().rocketComponent.getTankCapacity();
 
-        Gauge gauge = new Gauge(this.leftPos + 51, this.topPos + 27, 12, 46, Fuel, fuel_overlay, rocket_fuel, max_fuel);
+        String GaugeComponent = Fuel.getString() + " : " + rocket_fuel + " / " + max_fuel;
+
+        Gauge gauge = new Gauge(this.leftPos + 51, this.topPos + 27, 12, 46, Fuel, fuel_overlay, fluid_tank_overlay, rocket_fuel, max_fuel);
+
+        if (rocket_fuel >= max_fuel) {
+            capacity = Utils.getMessageComponent(GaugeComponent, "Lime");
+        } else if (rocket_fuel <= 0) {
+            capacity = Utils.getMessageComponent(GaugeComponent, "Red");
+        } else {
+            capacity = Utils.getMessageComponent(GaugeComponent, "Orange");
+        }
+
+        if (mouseX >= this.leftPos + 51 && mouseX <= this.leftPos + 51 + 12 && mouseY >= this.topPos + 27 && mouseY <= this.topPos + 27 + 46) {
+            graphics.renderTooltip(this.font, capacity, mouseX, mouseY);
+        }
+
         this.addRenderableWidget(gauge);
     }
 
@@ -55,7 +71,4 @@ public class RocketScreen extends AbstractContainerScreen<RocketMenu> {
         RenderSystem.setShaderTexture(0, texture);
         guiGraphics.blit(texture, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
     }
-
-
-
 }

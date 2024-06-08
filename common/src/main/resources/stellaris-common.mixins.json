@@ -7,9 +7,13 @@
     "EntityEatMixin",
     "EntityTick",
     "LivingEntityMixin",
-    "PlayerDataMixin"
+    "PlayerDataMixin",
+    "ItemEntityGravityMixin"
   ],
-  "client": [],
+  "client": [
+    "client.PlayerLanderRendererMixin",
+    "client.PlayerLanderKeyMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   }

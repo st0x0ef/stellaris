@@ -18,14 +18,14 @@ public abstract class LivingEntityMixin {
     @Unique
     LivingEntity stellaris$livingEntity = (LivingEntity) ((Object) this);
 
-    @Inject(at = @At("HEAD"), method = "Lnet/minecraft/world/entity/LivingEntity;tick()V")
+    @Inject(at = @At("HEAD"), method = "tick()V")
     private void tick(CallbackInfo ci){
-        //LivingEntity livingEntity = (LivingEntity) ((Object) this);
         ResourceKey<Level> dimension = stellaris$livingEntity.level().dimension();
+
         if (PlanetUtil.isPlanet(dimension)) {
-            stellaris$livingEntity.getAttribute(Attributes.GRAVITY).setBaseValue((double) Utils.MPS2ToMCG(PlanetUtil.getPlanet(dimension).gravity()));
+            stellaris$livingEntity.getAttribute(Attributes.GRAVITY).setBaseValue(Utils.MPS2ToMCG(PlanetUtil.getPlanet(dimension).gravity()));
         } else {
-            stellaris$livingEntity.getAttribute(Attributes.GRAVITY).setBaseValue((double) 0.08);
+            stellaris$livingEntity.getAttribute(Attributes.GRAVITY).setBaseValue(0.08);
         }
     }
 }

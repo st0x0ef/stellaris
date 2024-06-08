@@ -122,6 +122,11 @@
   "block.stellaris.vertical_mars_slab": "Vertical Mars Stone Slab",
   "block.stellaris.vertical_venus_slab": "Vertical Venus Stone Slab",
   "block.stellaris.vertical_mercury_slab": "Vertical Mercury Stone Slab",
+  "block.stellaris.vertical_steel_slab": "Vertical Steel Slab",
+  "block.stellaris.vertical_heavy_metal_slab": "Vertical Heavy Metal Slab",
+  "block.stellaris.vertical_steel_plating_slab": "Vertical Steel Plating Slab",
+  "block.stellaris.vertical_desh_plating_slab": "Vertical Desh Plating Slab",
+  "block.stellaris.vertical_desh_slab": "Vertical Desh Slab",
 
   "block.stellaris.cheese_block": "Cheese Block",
   "block.stellaris.vacumator": "Vacumator",
@@ -135,6 +140,7 @@
   "block.stellaris.coal_generator": "Coal Generator",
   "block.stellaris.radioactive_generator": "Radioactive Generator",
   "block.stellaris.solar_panel": "Solar Panel",
+  "block.stellaris.cable": "Cable",
   "block.stellaris.flag": "Flag",
   "block.stellaris.water_separator": "Water Separator",
 
@@ -170,7 +176,6 @@
   "item.stellaris.pygro_brute_spawn_egg": "Pygro Brute Spawn Egg",
 
 
-
   "item.stellaris.fuel_bucket": "Fuel Bucket",
   "item.stellaris.oil_bucket": "Oil Bucket",
   "item.stellaris.hydrogen_bucket": "Hydrogen Bucket",
@@ -195,7 +200,6 @@
   "item.stellaris.small_yellow_can": "Small Yellow Can",
 
   "item.stellaris.cannon_steak": "Canned Steak",
-  "item.stellaris.berry_juice": "Canned Berry Juice",
   "item.stellaris.cosmo_bread": "Cosmo Bread",
   "item.stellaris.cheese": "Cheese",
   "item.stellaris.cosmo_coffee": "Cosmo coffee",
@@ -226,10 +230,16 @@
   "text.stellaris.planetscreen.venus": "Venus",
   "text.stellaris.planetscreen.earth": "Earth",
   "text.stellaris.planetscreen.mars": "Mars",
+  "text.stellaris.planetscreen.jupiter": "Jupiter",
+  "text.stellaris.planetscreen.saturn": "Saturn",
+  "text.stellaris.planetscreen.uranus": "Uranus",
+  "text.stellaris.planetscreen.neptune": "Neptune",
 
   "text.stellaris.planetscreen.moon": "Moon",
   "text.stellaris.planetscreen.phobos": "Phobos",
   "text.stellaris.planetscreen.deimos": "Deimos",
+
+  "text.stellaris.planetscreen.asteroid_belt": "Asteroid Belt",
 
   "solar_system": "Solar System",
 
@@ -238,11 +248,20 @@
   "text.stellaris.planetscreen.oxygen": "Has Oxygen",
   "text.stellaris.planetscreen.launch": "Launch!",
   "text.stellaris.planetscreen.system": "Planetary System",
+  "text.stellaris.planetscreen.error_message": "You can't reach that celestial body",
 
   "text.stellaris.rocketscreen.fuel": "Fuel Capacity",
 
-  "tooltip.stellaris.can_item_empty": "Empty Can",
+  "text.stellaris.milkywayscreen.milkyway": "Milky Way",
 
+  "translatable.stellaris.registry.holdshift": "Hold [↑ Shift] to view more info",
+  "translatable.stellaris.registry.player": "Player",
+  "translatable.stellaris.registry.players": "player",
+  "translatable.stellaris.registry.moons": "§7§l☾ §r§7Moons",
+
+  "tooltip.item.stellaris.can.empty": "Empty",
+  "tooltip.item.stellaris.can.nutrition": "Nutrition: %s/%s",
+  "tooltip.item.stellaris.can.saturation": "Saturation: %s",
 
   "container.entity.stellaris.lander": "Lander",
   "container.entity.stellaris.rocket": "Rocket",
@@ -261,5 +280,10 @@
   "key.stellaris.rocket_start": "Rocket Start",
   "key.stellaris.freeze_planet_menu": "Freeze Planet in the Selection Menu",
 
-  "screen.stellaris.gauge": "Capacity : %1$s / %2$s"
+  "screen.stellaris.gauge": "Capacity : %1$s / %2$s",
+
+  "gauge_text.stellaris.stored" : "Stored : %s",
+  "gauge_text.stellaris.capacity" : "Capacity : %s",
+  "gauge_text.stellaris.max_generation" : "Max Generation : %s"
+
 }

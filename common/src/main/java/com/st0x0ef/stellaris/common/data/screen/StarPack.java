@@ -50,7 +50,8 @@ public class StarPack extends SimpleJsonResourceReloadListener {
                         star.height(),
                         orbitColor,
                         null,
-                        Component.translatable(star.translatable())
+                        Component.translatable(star.translatable()),
+                        star.id()
                 );
 
             PlanetSelectionScreen.STARS.add(screenStar);

@@ -7,7 +7,7 @@ import net.minecraft.resources.ResourceLocation;
 public record StarRecord(
         ResourceLocation texture, String name,
         float x, float y, float width,
-        float height, String orbitColor, String translatable) {
+        float height, String orbitColor, String translatable, String id) {
 
 
     public static final Codec<StarRecord> CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -18,7 +18,7 @@ public record StarRecord(
             Codec.FLOAT.fieldOf("width").forGetter(StarRecord::width),
             Codec.FLOAT.fieldOf("height").forGetter(StarRecord::height),
             Codec.STRING.fieldOf("orbitColor").forGetter(StarRecord::orbitColor),
-            Codec.STRING.fieldOf("translatable").forGetter(StarRecord::translatable)
-
+            Codec.STRING.fieldOf("translatable").forGetter(StarRecord::translatable),
+            Codec.STRING.fieldOf("id").forGetter(StarRecord::id)
     ).apply(instance, StarRecord::new));
 }
