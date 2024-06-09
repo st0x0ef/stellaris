@@ -25,6 +25,7 @@ public class CustomConfig {
     public static void addEntries() {
 
         addEntry("radioactivityCheckInterval", new ConfigEntry<Long>(5L, "This is a ranged Int"));
+        addEntry("planetScreenGravityColor", new ConfigEntry<String>("White", "Yeah"));
         //do we need this?
         //addEntry("test", new ConfigEntry<Integer>(5, "This is a ranged Int"));
         //Change these if necessary
