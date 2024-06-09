@@ -68,7 +68,7 @@ This folder will contains all of the planets. Theses planets will orbit around a
   "period": 8000,
   "width": 10.0,
   "height": 10.0,
-  "parent": "Sun",
+  "parent": "stellaris:sun",
   "dimensionId": "minecraft:overworld",
   "translatable": "text.stellaris.planetscreen.earth",
   "id": "stellaris:earth"
@@ -105,7 +105,7 @@ This folder contains all of the moons that are orbiting around planets
   "period": 2000,
   "width": 6.0,
   "height": 6.0,
-  "parent": "Earth",
+  "parent": "stellaris:earth",
   "dimensionId": "stellaris:moon",
   "translatable": "text.stellaris.planetscreen.moon",
   "id": "stellaris:moon"
