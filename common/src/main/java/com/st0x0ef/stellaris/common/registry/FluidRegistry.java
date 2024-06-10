@@ -63,4 +63,16 @@ public class FluidRegistry {
     public static final RegistrySupplier<FlowingFluid> FLOWING_HYDROGEN = FLUIDS.register("flowing_hydrogen", () -> new ArchitecturyFlowingFluid.Flowing(HYDROGEN_ATTRIBUTES));
     public static final RegistrySupplier<FlowingFluid> HYDROGEN_STILL = FLUIDS.register("hydrogen", () -> new ArchitecturyFlowingFluid.Source(HYDROGEN_ATTRIBUTES));
 
+    /** OXYGEN FLUIDS **/
+    private static final ArchitecturyFluidAttributes OXYGEN_ATTRIBUTES = SimpleArchitecturyFluidAttributes.ofSupplier(() -> FluidRegistry.FLOWING_OXYGEN, () -> FluidRegistry.OXYGEN_STILL)
+            .blockSupplier(() -> BlocksRegistry.OXYGEN_BLOCK)
+            .slopeFindDistance(4)
+            .dropOff(1)
+            .tickDelay(8)
+            .explosionResistance(100)
+            .sourceTexture(new ResourceLocation(Stellaris.MODID, "block/fluids/oxygen_still"))
+            .flowingTexture(new ResourceLocation(Stellaris.MODID, "block/fluids/oxygen_flow"));
+
+    public static final RegistrySupplier<FlowingFluid> FLOWING_OXYGEN = FLUIDS.register("flowing_oxygen", () -> new ArchitecturyFlowingFluid.Flowing(OXYGEN_ATTRIBUTES));
+    public static final RegistrySupplier<FlowingFluid> OXYGEN_STILL = FLUIDS.register("oxygen", () -> new ArchitecturyFlowingFluid.Source(OXYGEN_ATTRIBUTES));
 }
