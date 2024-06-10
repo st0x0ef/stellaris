@@ -4,6 +4,7 @@ import com.st0x0ef.stellaris.common.blocks.entities.ImplementedInventory;
 import com.st0x0ef.stellaris.common.data.recipes.RocketStationRecipe;
 import com.st0x0ef.stellaris.common.menus.RocketStationMenu;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
+import com.st0x0ef.stellaris.common.registry.RecipesRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -102,7 +103,7 @@ public class RocketStationEntity extends BaseContainerBlockEntity implements Imp
         for (int i = 0; i < this.getContainerSize(); i++) {
             simpleContainer.setItem(i, this.getItem(i));
         }
-       return getLevel().getRecipeManager().getRecipeFor(RocketStationRecipe.Type.INSTANCE, simpleContainer, getLevel());
+       return getLevel().getRecipeManager().getRecipeFor(RecipesRegistry.ROCKET_STATION_TYPE.get(), simpleContainer, getLevel());
     }
 
     private void craftItem() {
