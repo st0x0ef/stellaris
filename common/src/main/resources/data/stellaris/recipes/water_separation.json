@@ -1,6 +1,6 @@
 {
   "type": "stellaris:water_seperator",
-  "energy": 100,
+  "energy": 10,
   "ingredient": {
     "fluid": "minecraft:water",
     "amount": 2

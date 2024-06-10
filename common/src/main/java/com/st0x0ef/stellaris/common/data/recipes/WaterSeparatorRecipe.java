@@ -64,11 +64,11 @@ public record WaterSeparatorRecipe(FluidStack ingredientStack, List<FluidStack> 
                 FluidStack.CODEC.listOf(1, 2).fieldOf("results").forGetter(WaterSeparatorRecipe::resultStacks),
                 Codec.INT.fieldOf("energy").forGetter(WaterSeparatorRecipe::energy)
         ).apply(instance, WaterSeparatorRecipe::new));
-        public static final StreamCodec<RegistryFriendlyByteBuf, ArrayList<FluidStack>> FLUID_STACK_LIST_STREAM_CODEC =
+        public static final StreamCodec<RegistryFriendlyByteBuf, List<FluidStack>> FLUID_STACK_LIST_STREAM_CODEC =
                 ByteBufCodecs.collection(ArrayList::new, FluidStack.STREAM_CODEC, 2);
         private static final StreamCodec<RegistryFriendlyByteBuf, WaterSeparatorRecipe> STREAM_CODEC = StreamCodec.of((buf, recipe) -> {
             recipe.ingredientStack().write(buf);
-            FLUID_STACK_LIST_STREAM_CODEC.encode(buf, (ArrayList<FluidStack>) recipe.resultStacks);
+            FLUID_STACK_LIST_STREAM_CODEC.encode(buf, recipe.resultStacks);
             buf.writeInt(recipe.energy);
         }, buf -> new WaterSeparatorRecipe(FluidStack.read(buf), FLUID_STACK_LIST_STREAM_CODEC.decode(buf), buf.readInt()));
 

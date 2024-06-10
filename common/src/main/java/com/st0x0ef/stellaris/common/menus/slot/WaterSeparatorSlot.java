@@ -11,15 +11,19 @@ import net.minecraft.world.level.material.Fluids;
 public class WaterSeparatorSlot extends Slot {
 
     private final boolean emptyOnly;
+    private final boolean allowTanks;
 
-    public WaterSeparatorSlot(Container container, int slot, int x, int y, boolean emptyOnly) {
+    public WaterSeparatorSlot(Container container, int slot, int x, int y, boolean emptyOnly, boolean allowTanks) {
         super(container, slot, x, y);
         this.emptyOnly = emptyOnly;
+        this.allowTanks = allowTanks;
     }
 
     @Override
     public boolean mayPlace(ItemStack stack) {
-        return (stack.getItem() instanceof BucketItem item && (!emptyOnly || FluidBucketHooks.getFluid(item).isSame(Fluids.EMPTY))) || stack.getItem() instanceof OxygenContainerItem;
+        return (stack.getItem() instanceof BucketItem item
+                && (!emptyOnly || FluidBucketHooks.getFluid(item).isSame(Fluids.EMPTY)))
+                || (allowTanks && stack.getItem() instanceof OxygenContainerItem);
     }
 
     @Override
