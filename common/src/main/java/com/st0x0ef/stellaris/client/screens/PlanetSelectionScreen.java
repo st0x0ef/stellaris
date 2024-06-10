@@ -493,7 +493,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             }
 
             if (canLaunch(PlanetUtil.getPlanet(focusedBody.dimension))) {
-                graphics.drawString(font, gravityV, textX, buttonY + buttonHeight / 4 + 75, Utils.getColorHexCode("Cyan"), true);
+                graphics.drawString(font, gravityV, textX, buttonY + buttonHeight / 4 + 75, Utils.getColorHexCode("White"), true);
 
                 RenderSystem.enableBlend();
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
@@ -508,7 +508,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
                 );
             } else {
                 if (Objects.equals(focusedBody.name, "Earth")) {
-                    graphics.drawString(font, gravityV, textX, buttonY + buttonHeight / 4 + 75, Utils.getColorHexCode("Cyan"), true);
+                    graphics.drawString(font, gravityV, textX, buttonY + buttonHeight / 4 + 75, Utils.getColorHexCode("White"), true);
 
                     RenderSystem.enableBlend();
                     RenderSystem.setShader(GameRenderer::getPositionTexShader);
@@ -522,7 +522,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
                     );
                     graphics.blit(LARGE_MENU_TEXTURE, centerX, centerY, 0, 0, menuWidth, menuHeight, menuWidth, menuHeight);
                 } else {
-                    graphics.drawString(font, gravityV, textX, buttonY + buttonHeight / 4 + 75, Utils.getColorHexCode("Red"), true);
+                    graphics.drawString(font, gravityV, textX, buttonY + buttonHeight / 4 + 75, Utils.getColorHexCode("Orange"), true);
 
                     RenderSystem.enableBlend();
                     RenderSystem.setShader(GameRenderer::getPositionTexShader);
