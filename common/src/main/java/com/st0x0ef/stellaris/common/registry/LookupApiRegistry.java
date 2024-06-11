@@ -55,7 +55,7 @@ public class LookupApiRegistry {
             } return null;
         });
         EnergyApi.registerEnergyBlock(BlocksRegistry.RADIOACTIVE_GENERATOR, (level, blockPos, blockState, blockEntity, direction)
-                -> new WrappedBlockEnergyContainer(blockEntity, new ExtractOnlyEnergyContainer(30000, Integer.MAX_VALUE)));
+                -> new WrappedBlockEnergyContainer(blockEntity, new ExtractOnlyEnergyContainer(1000000, Integer.MAX_VALUE)));
         EnergyApi.registerEnergyBlockEntity(BlockEntityRegistry.RADIOACTIVE_GENERATOR,(level, blockPos, blockState, blockEntity, direction)->{
             if(blockEntity instanceof RadioactiveGeneratorEntity blockEntity1){
                 return blockEntity1.getWrappedEnergyContainer();

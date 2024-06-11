@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class RadioactiveGeneratorEntity extends CoalGeneratorEntity {
 
     public RadioactiveGeneratorEntity(BlockPos blockPos, BlockState blockState) {
-        super(BlockEntityRegistry.RADIOACTIVE_GENERATOR.get(), blockPos, blockState, 1, 2000);
+        super(BlockEntityRegistry.RADIOACTIVE_GENERATOR.get(), blockPos, blockState, 500, 1000000);
     }
 
     @Override
@@ -21,6 +21,7 @@ public class RadioactiveGeneratorEntity extends CoalGeneratorEntity {
         return new RadioactiveGeneratorMenu(containerId, inventory, this, this);
     }
 
+    @Override
     protected int getBurnDuration(ItemStack fuelStack) {
         if (fuelStack.isEmpty()) {
             return 0;
@@ -38,7 +39,13 @@ public class RadioactiveGeneratorEntity extends CoalGeneratorEntity {
         return 0;
     }
 
+    @Override
     protected Component getDefaultName() {
         return Component.translatable("block.stellaris.radioactive_generator");
+    }
+
+    @Override
+    protected int getMaxCapacity() {
+        return 1000000;
     }
 }
