@@ -55,7 +55,6 @@ public class Gauge extends AbstractWidget {
 
     @Override
     protected void updateWidgetNarration(NarrationElementOutput narrationElementOutput) {
-        this.updateWidgetNarration(narrationElementOutput);
     }
 
     public static class SidewayGauge extends Gauge {
@@ -66,15 +65,18 @@ public class Gauge extends AbstractWidget {
 
         @Override
         public void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
-            if (value >= max_value) {
-                value = max_value;
-                graphics.blit(texture, getX(), getY(), width, height - 1, width, height -1, width, height - 1);
-            } else if (value <= 0) {
-                graphics.blit(texture, getX(), getY(), width, height, width, 0, width, 45);
-            } else {
-                float WidgetY = getY() + 45 - 45 / ((float) max_value / value);
-                graphics.blit(texture, getX(), (int) WidgetY, (float) width, (float) height, width, (int) (45 / ((float) max_value / value)), width, 45);
-            }
+//            if (value >= max_value) {
+//                value = max_value;
+//                graphics.blit(texture, getX(), getY(), width, height - 1, width, height -1, width, height - 1);
+//            } else if (value <= 0) {
+//                graphics.blit(texture, getX(), getY(), width, height, width, 0, width, 45);
+//            } else {
+//                float WidgetY = getY() + 45 - 45 / ((float) max_value / value);
+//                graphics.blit(texture, getX(), (int) WidgetY, (float) width, (float) height, width, (int) (45 / ((float) max_value / value)), width, 45);
+//            }
+
+            int pourcent = width * value/max_value;
+            graphics.blit(texture, getX(), getY(), width, height, pourcent, height);
 
             if (overlay_texture != null) {
                 ScreenHelper.drawTexture(getX(), getY(), width, height, overlay_texture, false);
