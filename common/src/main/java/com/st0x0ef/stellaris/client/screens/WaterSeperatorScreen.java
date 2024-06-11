@@ -5,6 +5,8 @@ import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.components.Gauge;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.WaterSeparatorBlockEntity;
 import com.st0x0ef.stellaris.common.menus.WaterSeparatorMenu;
+import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedBlockEnergyContainer;
+import com.st0x0ef.stellaris.platform.systems.energy.EnergyContainer;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -33,6 +35,7 @@ public class WaterSeperatorScreen extends AbstractContainerScreen<WaterSeparator
         renderWaterGauge();
         renderHydrogenGauge();
         renderOxygen();
+        renderEnergyGauge();
     }
 
     @Override
@@ -72,11 +75,12 @@ public class WaterSeperatorScreen extends AbstractContainerScreen<WaterSeparator
     }
 
     private void renderEnergyGauge() {
-        ResourceLocation water_overlay = new ResourceLocation(Stellaris.MODID, "textures/gui/util/fuel_overlay.png");
-        ResourceLocation fluid_tank_overlay = new ResourceLocation(Stellaris.MODID, "textures/gui/util/water_tank_overlay.png");
+        ResourceLocation water_overlay = new ResourceLocation(Stellaris.MODID, "textures/gui/util/sideway_energy_full.png");
+        ResourceLocation fluid_tank_overlay = new ResourceLocation(Stellaris.MODID, "textures/gui/util/sideway_battery_overlay.png");
 
-        WaterSeparatorBlockEntity.FluidTank waterTank = this.getMenu().getBlockEntity().getResultTanks().get(1);
-        Gauge.SidewayGauge oxygenGauge = new Gauge.SidewayGauge( this.leftPos + 142,  this.topPos + 52, 12, 46, null, water_overlay, fluid_tank_overlay, waterTank.getAmount(), waterTank.getMaxCapacity());
+        EnergyContainer energyContainer = this.getMenu().getBlockEntity().getWrappedEnergyContainer().container();
+
+        Gauge.SidewayGauge oxygenGauge = new Gauge.SidewayGauge( this.leftPos + 64,  this.topPos + 24, 47, 13, null, water_overlay, fluid_tank_overlay, (int) energyContainer.getMaxCapacity(),(int) energyContainer.getMaxCapacity());
 
         this.addRenderableWidget(oxygenGauge);
     }

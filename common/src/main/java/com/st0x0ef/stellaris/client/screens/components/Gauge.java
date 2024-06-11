@@ -76,7 +76,7 @@ public class Gauge extends AbstractWidget {
 //            }
 
             int pourcent = width * value/max_value;
-            graphics.blit(texture, getX(), getY(), width, height, pourcent, height);
+            graphics.blit(texture, getX(), getY(), width, height, pourcent, height, width, height);
 
             if (overlay_texture != null) {
                 ScreenHelper.drawTexture(getX(), getY(), width, height, overlay_texture, false);
