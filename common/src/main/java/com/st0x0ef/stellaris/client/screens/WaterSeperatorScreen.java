@@ -18,7 +18,7 @@ public class WaterSeperatorScreen extends AbstractContainerScreen<WaterSeparator
         super(menu, playerInventory, title);
         imageWidth = 177;
         imageHeight = 224;
-        inventoryLabelX = imageWidth - 92;
+        inventoryLabelX = imageWidth - Integer.MAX_VALUE/2;
     }
 
     @Override
