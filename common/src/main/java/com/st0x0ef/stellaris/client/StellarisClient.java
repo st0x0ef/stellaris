@@ -1,12 +1,11 @@
 package com.st0x0ef.stellaris.client;
 
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.client.events.ClientEvents;
 import com.st0x0ef.stellaris.client.overlays.LanderOverlay;
 import com.st0x0ef.stellaris.client.overlays.RocketBarOverlay;
 import com.st0x0ef.stellaris.client.overlays.RocketStartOverlay;
 import com.st0x0ef.stellaris.client.particles.*;
-import com.st0x0ef.stellaris.client.registries.KeyMappings;
+import com.st0x0ef.stellaris.client.registries.KeyMappingsRegistry;
 import com.st0x0ef.stellaris.client.renderers.entities.alien.AlienModel;
 import com.st0x0ef.stellaris.client.renderers.entities.alien.AlienRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.alienzombie.AlienZombieModel;
@@ -47,13 +46,13 @@ import com.st0x0ef.stellaris.common.registry.ParticleRegistry;
 import dev.architectury.event.events.client.ClientGuiEvent;
 import dev.architectury.platform.Platform;
 import dev.architectury.registry.ReloadListenerRegistry;
-import dev.architectury.registry.client.keymappings.KeyMappingRegistry;
 import dev.architectury.registry.client.level.entity.EntityModelLayerRegistry;
 import dev.architectury.registry.client.level.entity.EntityRendererRegistry;
 import dev.architectury.registry.client.particle.ParticleProviderRegistry;
 import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
 import dev.architectury.registry.menu.MenuRegistry;
 import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.server.packs.PackType;
@@ -62,16 +61,15 @@ import org.lwjgl.opengl.GL43;
 import org.lwjgl.opengl.GLDebugMessageCallback;
 
 public class StellarisClient {
-
+    @Environment(EnvType.CLIENT)
     public static void initClient() {
         registerPacks();
 
-        if (Platform.getEnv() == EnvType.CLIENT) {
-            Minecraft.getInstance().execute(() -> {
-                setupOpenGLDebugMessageCallback();
-                Thread.setDefaultUncaughtExceptionHandler(new GlobalExceptionHandler());
-            });
-        }
+        Minecraft.getInstance().execute(() -> {
+            setupOpenGLDebugMessageCallback();
+            Thread.setDefaultUncaughtExceptionHandler(new GlobalExceptionHandler());
+        });
+
         registerParticle();
 
         if(Platform.isFabric()) {
@@ -79,9 +77,9 @@ public class StellarisClient {
             registerEntityModelLayer();
         }
 
+        KeyMappingsRegistry.register();
+
         registerScreen();
-        registerKey();
-        ClientEvents.registerEvents();
         registerOverlays();
     }
 
@@ -145,11 +143,6 @@ public class StellarisClient {
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.MILKYWAY_MENU.get(), MilkyWayScreen::new);
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.LANDER_MENU.get(), LanderScreen::new);
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.OXYGEN_DISTRIBUTOR.get(), OxygenDistributorScreen::new);
-    }
-
-    public static void registerKey() {
-        KeyMappingRegistry.register(KeyMappings.ROCKET_START);
-        KeyMappingRegistry.register(KeyMappings.FREEZE_PLANET_MENU);
     }
 
     public static void registerOverlays() {
