@@ -355,8 +355,8 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     }
     public ItemStack getRocketItem() {
         ItemStack itemStack = new ItemStack(ItemsRegistry.ROCKET.get(), 1);
-        RocketComponent rocketComponent = new RocketComponent(SKIN_UPGRADE.getRocketSkinLocation().toString(), RocketModel.fromString(MODEL_UPGRADE.getModel().toString()), MOTOR_UPGRADE.getFuelType(), FUEL, TANK_UPGRADE.getTankCapacity());
-
+        RocketComponent rocketComponent = new RocketComponent(SKIN_UPGRADE.getRocketSkinLocation().toString(), MODEL_UPGRADE.getModel(), MOTOR_UPGRADE.getFuelType(), FUEL, TANK_UPGRADE.getTankCapacity());
+        Stellaris.LOG.error(MODEL_UPGRADE.getModel().getSerializedName());
         itemStack.set(DataComponentsRegistry.ROCKET_COMPONENT.get(), rocketComponent);
         return itemStack;
     }
