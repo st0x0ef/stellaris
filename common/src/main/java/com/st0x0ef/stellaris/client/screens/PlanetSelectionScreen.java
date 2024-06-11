@@ -106,6 +106,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         this.imageWidth = 1200;
         this.imageHeight = 1600;
         this.inventoryLabelY = this.imageHeight - 110;
+        initializeLaunchButton();
     }
 
     @Override

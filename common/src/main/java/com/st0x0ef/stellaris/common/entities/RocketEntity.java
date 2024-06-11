@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.common.entities;
 
 import com.google.common.collect.Sets;
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.RocketModel;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.data_components.RocketComponent;
@@ -93,7 +94,6 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         this.rocketExplosion();
         this.burnEntities();
         this.checkContainer();
-
         if (ROCKET_START) {
             this.spawnParticle();
             this.startTimerAndFlyMovement();
@@ -355,6 +355,8 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     }
     public ItemStack getRocketItem() {
         ItemStack itemStack = new ItemStack(ItemsRegistry.ROCKET.get(), 1);
+        RocketComponent rocketComponent = new RocketComponent(SKIN_UPGRADE.getRocketSkinLocation().toString(), RocketModel.fromString(MODEL_UPGRADE.getModel().toString()), MOTOR_UPGRADE.getFuelType(), FUEL, TANK_UPGRADE.getTankCapacity());
+
         itemStack.set(DataComponentsRegistry.ROCKET_COMPONENT.get(), rocketComponent);
         return itemStack;
     }
@@ -500,8 +502,6 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         if (MODEL_UPGRADE != null) {
             texture = texture.replace("normal", MODEL_UPGRADE.getModel().toString());
         }
-
-
         return texture;
     }
 
