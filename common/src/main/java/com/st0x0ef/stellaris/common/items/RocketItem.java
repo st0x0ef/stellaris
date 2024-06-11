@@ -106,6 +106,7 @@ public class RocketItem extends Item {
     public EntityType<? extends RocketEntity> getEntityType(ItemStack stack) {
         RocketComponent rocketComponent = stack.get(DataComponentsRegistry.ROCKET_COMPONENT.get());
         return switch (rocketComponent.getModel().toString()) {
+            case "tiny" -> EntityRegistry.TINY_ROCKET.get();
             case "small" -> EntityRegistry.SMALL_ROCKET.get();
             case "normal" -> EntityRegistry.NORMAL_ROCKET.get();
             case "big" -> EntityRegistry.BIG_ROCKET.get();
@@ -126,6 +127,7 @@ public class RocketItem extends Item {
 
         tooltipComponents.add(Component.literal("Rocket Skin: " + rocketComponent.skin()));
         tooltipComponents.add(Component.literal("Fuel: " + rocketComponent.fuel()));
+        tooltipComponents.add(Component.literal("Model: " + rocketComponent.model()));
 
 
     }

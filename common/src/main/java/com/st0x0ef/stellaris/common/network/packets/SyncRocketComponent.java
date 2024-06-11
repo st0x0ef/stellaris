@@ -12,14 +12,14 @@ public class SyncRocketComponent {
     private final RocketComponent component;
 
     public SyncRocketComponent(RegistryFriendlyByteBuf buffer) {
-        this((RocketComponent) SerializationUtils.deserialize(buffer.readByteArray()));
+        this(RocketComponent.fromNetwork(buffer));
     }
     public SyncRocketComponent(RocketComponent component) {
         this.component = component;
     }
 
     public static RegistryFriendlyByteBuf encode(SyncRocketComponent message, RegistryFriendlyByteBuf buffer) {
-        buffer.writeByteArray(SerializationUtils.serialize(message.component));
+        message.component.toNetwork(buffer);
         return buffer;
     }
 
