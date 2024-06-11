@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.client.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.client.screens.components.Gauge;
 import com.st0x0ef.stellaris.common.menus.WaterSeparatorMenu;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -18,7 +19,7 @@ public class WaterSeperatorScreen extends AbstractContainerScreen<WaterSeparator
         super(menu, playerInventory, title);
         imageWidth = 177;
         imageHeight = 224;
-        inventoryLabelX = imageWidth - Integer.MAX_VALUE/2;
+        this.inventoryLabelY = this.imageHeight - 92;
     }
 
     @Override
