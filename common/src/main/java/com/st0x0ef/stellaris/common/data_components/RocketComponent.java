@@ -3,8 +3,12 @@ package com.st0x0ef.stellaris.common.data_components;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.RocketModel;
+import com.st0x0ef.stellaris.common.data.planets.Planet;
+import com.st0x0ef.stellaris.common.data.planets.PlanetTextures;
 import com.st0x0ef.stellaris.common.rocket_upgrade.FuelType;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
@@ -43,6 +47,20 @@ public record RocketComponent(String skin, RocketModel model, FuelType.Type fuel
     public int getTankCapacity() {
         return tankCapacity;
     }
+
+    public static RocketComponent fromNetwork(RegistryFriendlyByteBuf buffer) {
+        return new RocketComponent(buffer.readUtf(), RocketModel.fromString(buffer.readUtf()), FuelType.Type.fromString(buffer.readUtf()), buffer.readInt(), buffer.readInt());
+    }
+
+    public RegistryFriendlyByteBuf toNetwork(RegistryFriendlyByteBuf buffer) {
+        buffer.writeUtf(this.skin);
+        buffer.writeUtf(this.model().getSerializedName());
+        buffer.writeUtf(this.fuelType.toString());
+        buffer.writeInt(this.fuel);
+        buffer.writeInt(this.tankCapacity);
+        return buffer;
+    }
+
 
     static {
         STREAM_CODEC = StreamCodec.composite(ByteBufCodecs.STRING_UTF8, RocketComponent::skin, ByteBufCodecs.fromCodec(RocketModel.CODEC), RocketComponent::model, ByteBufCodecs.fromCodec(FuelType.CODEC), RocketComponent::fuelType, ByteBufCodecs.INT, RocketComponent::fuel, ByteBufCodecs.INT, RocketComponent::tankCapacity, RocketComponent::new);

@@ -1,10 +1,6 @@
 package com.st0x0ef.stellaris.common.registry;
 
-import com.st0x0ef.stellaris.common.blocks.entities.RadioactiveBlockEntity;
-import com.st0x0ef.stellaris.common.blocks.entities.machines.CableBlockEntity;
-import com.st0x0ef.stellaris.common.blocks.entities.machines.CoalGeneratorEntity;
-import com.st0x0ef.stellaris.common.blocks.entities.machines.RadioactiveGeneratorEntity;
-import com.st0x0ef.stellaris.common.blocks.entities.machines.SolarPanelEntity;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.*;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.oxygen.OxygenDistributorBlockEntity;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.oxygen.OxygenPropagatorBlockEntity;
 import com.st0x0ef.stellaris.common.systems.energy.EnergyApi;
@@ -36,6 +32,13 @@ public class LookupApiRegistry {
                 return blockEntity1.getWrappedEnergyContainer();
             } return null;
         });
+        EnergyApi.registerEnergyBlock(BlocksRegistry.WATER_SEPARATOR, (level, blockPos, blockState, blockEntity, direction)
+                -> new WrappedBlockEnergyContainer(blockEntity, new SimpleEnergyContainer(12000, Integer.MAX_VALUE)));
+        EnergyApi.registerEnergyBlockEntity(BlockEntityRegistry.OXYGEN_DISTRIBUTOR,(level, blockPos, blockState, blockEntity, direction)->{
+            if(blockEntity instanceof WaterSeparatorBlockEntity blockEntity1){
+                return blockEntity1.getWrappedEnergyContainer();
+            } return null;
+        });
 
         EnergyApi.registerEnergyBlock(BlocksRegistry.SOLAR_PANEL, (level, blockPos, blockState, blockEntity, direction)
                 -> new WrappedBlockEnergyContainer(blockEntity, new ExtractOnlyEnergyContainer(30000, Integer.MAX_VALUE)));
@@ -52,7 +55,7 @@ public class LookupApiRegistry {
             } return null;
         });
         EnergyApi.registerEnergyBlock(BlocksRegistry.RADIOACTIVE_GENERATOR, (level, blockPos, blockState, blockEntity, direction)
-                -> new WrappedBlockEnergyContainer(blockEntity, new ExtractOnlyEnergyContainer(30000, Integer.MAX_VALUE)));
+                -> new WrappedBlockEnergyContainer(blockEntity, new ExtractOnlyEnergyContainer(1000000, Integer.MAX_VALUE)));
         EnergyApi.registerEnergyBlockEntity(BlockEntityRegistry.RADIOACTIVE_GENERATOR,(level, blockPos, blockState, blockEntity, direction)->{
             if(blockEntity instanceof RadioactiveGeneratorEntity blockEntity1){
                 return blockEntity1.getWrappedEnergyContainer();
