@@ -23,7 +23,7 @@ public class FluidRegistry {
             .dropOff(1)
             .tickDelay(8)
             .explosionResistance(100.0F)
-            .convertToSource(true)
+            .convertToSource(false)
             .sourceTexture(new ResourceLocation(Stellaris.MODID, "block/fluids/fuel_still"))
             .flowingTexture(new ResourceLocation(Stellaris.MODID, "block/fluids/fuel_flow"));
 
@@ -56,7 +56,7 @@ public class FluidRegistry {
             .dropOff(1)
             .tickDelay(8)
             .explosionResistance(100.0F)
-            .convertToSource(true)
+            .convertToSource(false)
             .sourceTexture(new ResourceLocation(Stellaris.MODID, "block/fluids/hydrogen_still"))
             .flowingTexture(new ResourceLocation(Stellaris.MODID, "block/fluids/hydrogen_flow"));
 
@@ -70,6 +70,7 @@ public class FluidRegistry {
             .dropOff(1)
             .tickDelay(8)
             .explosionResistance(100)
+            .convertToSource(false)
             .sourceTexture(new ResourceLocation(Stellaris.MODID, "block/fluids/oxygen_still"))
             .flowingTexture(new ResourceLocation(Stellaris.MODID, "block/fluids/oxygen_flow"));
 
