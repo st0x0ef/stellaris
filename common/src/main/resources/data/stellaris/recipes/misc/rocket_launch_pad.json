@@ -2,13 +2,14 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "   ",
-    "###",
-    "# #"
+    "   ",
+    "###"
   ],
   "key": {
     "#": {"item": "stellaris:steel_ingot"}
   },
   "result": {
-    "id": "stellaris:rocket_fin"
+    "id": "stellaris:rocket_launch_pad",
+    "count": 3
   }
 }

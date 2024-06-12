@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "   ",
+    "#R ",
+    "   "
+  ],
+  "key": {
+    "#": {"item": "minecraft:arrow"},
+    "R": {"item": "stellaris:ice_shard"}
+  },
+  "result": {
+    "id": "stellaris:ice_shard_arrow",
+    "count": 2
+  }
+}
