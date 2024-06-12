@@ -6,6 +6,8 @@ import com.st0x0ef.stellaris.client.screens.components.Gauge;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.FluidTank;
 import com.st0x0ef.stellaris.common.menus.WaterSeparatorMenu;
 import com.st0x0ef.stellaris.platform.systems.energy.EnergyContainer;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -13,6 +15,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
+@Environment(EnvType.CLIENT)
 public class WaterSeperatorScreen extends AbstractContainerScreen<WaterSeparatorMenu> {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/water_separator.png");
