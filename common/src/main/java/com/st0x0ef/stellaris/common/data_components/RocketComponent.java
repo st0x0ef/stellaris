@@ -12,15 +12,17 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.animal.Cod;
+import net.minecraft.world.item.Item;
 
 import java.io.Serializable;
 
-public record RocketComponent(String skin, RocketModel model, FuelType.Type fuelType, int fuel, int tankCapacity) implements Serializable {
+public record RocketComponent(String skin, RocketModel model, String fuelType, int fuel, int tankCapacity) implements Serializable {
 
     public static final Codec<RocketComponent> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.STRING.fieldOf("skin").forGetter(RocketComponent::skin),
             RocketModel.CODEC.fieldOf("model").forGetter(RocketComponent::model),
-            FuelType.CODEC.fieldOf("fuel_type").forGetter(RocketComponent::fuelType),
+            Codec.STRING.fieldOf("fuel_type").forGetter(RocketComponent::fuelType),
             Codec.INT.fieldOf("fuel").forGetter(RocketComponent::fuel),
             Codec.INT.fieldOf("fuel_capacity").forGetter(RocketComponent::tankCapacity)
     ).apply(instance, RocketComponent::new));
@@ -40,22 +42,18 @@ public record RocketComponent(String skin, RocketModel model, FuelType.Type fuel
         return model;
     }
 
-    public FuelType.Type getFuelType() {
-        return fuelType;
-    }
-
     public int getTankCapacity() {
         return tankCapacity;
     }
 
     public static RocketComponent fromNetwork(RegistryFriendlyByteBuf buffer) {
-        return new RocketComponent(buffer.readUtf(), RocketModel.fromString(buffer.readUtf()), FuelType.Type.fromString(buffer.readUtf()), buffer.readInt(), buffer.readInt());
+        return new RocketComponent(buffer.readUtf(), RocketModel.fromString(buffer.readUtf()), buffer.readUtf(), buffer.readInt(), buffer.readInt());
     }
 
     public RegistryFriendlyByteBuf toNetwork(RegistryFriendlyByteBuf buffer) {
         buffer.writeUtf(this.skin);
         buffer.writeUtf(this.model().getSerializedName());
-        buffer.writeUtf(this.fuelType.toString());
+        buffer.writeUtf(this.fuelType);
         buffer.writeInt(this.fuel);
         buffer.writeInt(this.tankCapacity);
         return buffer;
@@ -63,6 +61,6 @@ public record RocketComponent(String skin, RocketModel model, FuelType.Type fuel
 
 
     static {
-        STREAM_CODEC = StreamCodec.composite(ByteBufCodecs.STRING_UTF8, RocketComponent::skin, ByteBufCodecs.fromCodec(RocketModel.CODEC), RocketComponent::model, ByteBufCodecs.fromCodec(FuelType.CODEC), RocketComponent::fuelType, ByteBufCodecs.INT, RocketComponent::fuel, ByteBufCodecs.INT, RocketComponent::tankCapacity, RocketComponent::new);
+        STREAM_CODEC = StreamCodec.composite(ByteBufCodecs.STRING_UTF8, RocketComponent::skin, ByteBufCodecs.fromCodec(RocketModel.CODEC), RocketComponent::model, ByteBufCodecs.STRING_UTF8, RocketComponent::fuelType, ByteBufCodecs.INT, RocketComponent::fuel, ByteBufCodecs.INT, RocketComponent::tankCapacity, RocketComponent::new);
     }
 }

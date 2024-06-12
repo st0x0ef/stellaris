@@ -37,7 +37,7 @@ public class KeyHandler {
                     if (player.getVehicle() instanceof RocketEntity rocketEntity) rocketEntity.startRocket();
                     break;
                 case "key_jump":
-                    KeyVariables.KEY_JUMP.put(player.getUUID(), buffer.readBoolean());
+                    KeyVariables.KEY_JUMP.put(player.getUUID(), keyHandler.condition);
                     break;
                 case "freeze_planet_menu":
                     if (player.containerMenu instanceof PlanetSelectionMenu menu) menu.switchFreezeGui();

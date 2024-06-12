@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.common.network.packets;
 
 import com.st0x0ef.stellaris.common.data_components.RocketComponent;
 import com.st0x0ef.stellaris.common.menus.RocketMenu;
+import com.st0x0ef.stellaris.common.rocket_upgrade.FuelType;
 import dev.architectury.networking.NetworkManager;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.RegistryFriendlyByteBuf;
