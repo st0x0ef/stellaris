@@ -36,6 +36,7 @@ import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.tiny.TinyR
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeBlockRenderer;
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeModel;
 import com.st0x0ef.stellaris.client.screens.*;
+import com.st0x0ef.stellaris.common.data.renderer.SkyPack;
 import com.st0x0ef.stellaris.common.data.screen.MoonPack;
 import com.st0x0ef.stellaris.common.data.screen.PlanetPack;
 import com.st0x0ef.stellaris.common.data.screen.StarPack;
@@ -54,12 +55,14 @@ import dev.architectury.registry.client.particle.ParticleProviderRegistry;
 import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
 import dev.architectury.registry.menu.MenuRegistry;
 import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.server.packs.PackType;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL43;
 import org.lwjgl.opengl.GLDebugMessageCallback;
+
 
 public class StellarisClient {
 
@@ -177,5 +180,6 @@ public class StellarisClient {
         ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new StarPack(Stellaris.GSON));
         ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new PlanetPack(Stellaris.GSON));
         ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new MoonPack(Stellaris.GSON));
+        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new SkyPack(Stellaris.GSON));
     }
 }

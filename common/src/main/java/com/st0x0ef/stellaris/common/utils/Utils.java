@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.utils;
 
+import com.mojang.serialization.Codec;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.entities.LanderEntity;
 import com.st0x0ef.stellaris.common.entities.RocketEntity;
@@ -16,6 +17,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+
+import java.util.Locale;
 
 public class Utils {
 
@@ -207,6 +210,10 @@ public class Utils {
             return 0;
         }
         return (int) dimension.players().stream().count();
+    }
+
+    public static <T extends Enum<T>> Codec<T> customCodec(Class<T> enumClass) {
+        return Codec.STRING.xmap(s -> Enum.valueOf(enumClass, s.toUpperCase(Locale.ROOT)), Enum::name);
     }
 
     /**
