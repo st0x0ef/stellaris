@@ -45,7 +45,7 @@
     }
   ],
   "output": {
-    "item": "stellaris:rocket",
+    "id": "stellaris:rocket",
     "count": 1
   }
 }
