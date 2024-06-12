@@ -14,6 +14,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Environment(EnvType.CLIENT)
 public class RocketScreen extends AbstractContainerScreen<RocketMenu> {
 
@@ -45,23 +48,12 @@ public class RocketScreen extends AbstractContainerScreen<RocketMenu> {
         rocket_fuel = this.getMenu().getRocket().rocketComponent.getFuel();
         max_fuel = this.getMenu().getRocket().rocketComponent.getTankCapacity();
 
-        String GaugeComponent = Fuel.getString() + " : " + rocket_fuel + " / " + max_fuel;
-
-        Gauge gauge = new Gauge(this.leftPos + 51, this.topPos + 27, 12, 46, Fuel, fuel_overlay, fluid_tank_overlay, rocket_fuel, max_fuel);
-
-        if (rocket_fuel >= max_fuel) {
-            capacity = Utils.getMessageComponent(GaugeComponent, "Lime");
-        } else if (rocket_fuel <= 0) {
-            capacity = Utils.getMessageComponent(GaugeComponent, "Red");
-        } else {
-            capacity = Utils.getMessageComponent(GaugeComponent, "Orange");
-        }
-
-        if (mouseX >= this.leftPos + 51 && mouseX <= this.leftPos + 51 + 12 && mouseY >= this.topPos + 27 && mouseY <= this.topPos + 27 + 46) {
-            graphics.renderTooltip(this.font, capacity, mouseX, mouseY);
-        }
+        Gauge gauge = new Gauge(this.leftPos + 51, this.topPos + 27, 12, 46, Component.translatable("stellaris.screen.fuel"), fuel_overlay, fluid_tank_overlay, rocket_fuel, max_fuel);
 
         this.addRenderableWidget(gauge);
+
+        gauge.renderTooltip(graphics, mouseX, mouseY, this.font);
+
     }
 
     @Override

@@ -299,6 +299,8 @@
 
   "gauge_text.stellaris.stored" : "Stored : %s",
   "gauge_text.stellaris.capacity" : "Capacity : %s",
-  "gauge_text.stellaris.max_generation" : "Max Generation : %s"
+  "gauge_text.stellaris.max_generation" : "Max Generation : %s",
+  "stellaris.screen.fuel": "Fuel",
+  "stellaris.screen.energy": "Energy"
 
 }

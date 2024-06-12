@@ -2,8 +2,13 @@ package com.st0x0ef.stellaris.common.menus;
 
 import com.st0x0ef.stellaris.common.blocks.entities.machines.RadioactiveGeneratorEntity;
 import com.st0x0ef.stellaris.common.menus.slot.RadioactiveGeneratorSlot;
+import com.st0x0ef.stellaris.common.network.NetworkRegistry;
+import com.st0x0ef.stellaris.common.network.packets.SyncWidgetsTanks;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
+import io.netty.buffer.Unpooled;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -67,9 +72,12 @@ public class RadioactiveGeneratorMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player player) {
-        return this.inventory.stillValid(player);
-    }
+        if (!player.isLocalPlayer()) {
+            this.syncBattery((ServerPlayer) player);
+        }
 
+        return inventory.stillValid(player);
+    }
     private void addPlayerInventory(Inventory playerInventory) {
         for (int i = 0; i < 3; ++i) {
             for (int l = 0; l < 9; ++l) {
@@ -81,6 +89,14 @@ public class RadioactiveGeneratorMenu extends AbstractContainerMenu {
     private void addPlayerHotbar(Inventory playerInventory) {
         for (int i = 0; i < 9; ++i) {
             this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 204));
+        }
+    }
+
+    public void syncBattery(ServerPlayer player) {
+        if (!player.level().isClientSide()) {
+            RegistryFriendlyByteBuf buffer = new RegistryFriendlyByteBuf(Unpooled.buffer(), player.level().getServer().registryAccess());
+            buffer = SyncWidgetsTanks.encode(new SyncWidgetsTanks(new long[]{this.getBlockEntity().getWrappedEnergyContainer().getStoredEnergy()}), buffer);
+            NetworkRegistry.sendToPlayer(player, NetworkRegistry.SYNC_FLUID_TANKS_ID, buffer);
         }
     }
 }
