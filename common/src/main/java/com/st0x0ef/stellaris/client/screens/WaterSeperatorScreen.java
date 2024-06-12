@@ -80,7 +80,7 @@ public class WaterSeperatorScreen extends AbstractContainerScreen<WaterSeparator
 
         EnergyContainer energyContainer = this.getMenu().getBlockEntity().getWrappedEnergyContainer().container();
 
-        Gauge.SidewayGauge oxygenGauge = new Gauge.SidewayGauge( this.leftPos + 64,  this.topPos + 24, 47, 13, null, water_overlay, fluid_tank_overlay, (int) energyContainer.getMaxCapacity(),(int) energyContainer.getMaxCapacity());
+        Gauge.SidewayGauge oxygenGauge = new Gauge.SidewayGauge( this.leftPos + 64,  this.topPos + 24, 47, 13, null, water_overlay, fluid_tank_overlay, (int) energyContainer.getStoredEnergy(),(int) energyContainer.getMaxCapacity());
 
         this.addRenderableWidget(oxygenGauge);
     }

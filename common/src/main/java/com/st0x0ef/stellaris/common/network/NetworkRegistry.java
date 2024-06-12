@@ -1,10 +1,7 @@
 package com.st0x0ef.stellaris.common.network;
 
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.network.packets.KeyHandler;
-import com.st0x0ef.stellaris.common.network.packets.SyncRocketComponent;
-import com.st0x0ef.stellaris.common.network.packets.SyncPlanetsDatapack;
-import com.st0x0ef.stellaris.common.network.packets.TeleportEntity;
+import com.st0x0ef.stellaris.common.network.packets.*;
 import dev.architectury.impl.NetworkAggregator;
 import dev.architectury.networking.NetworkManager;
 import dev.architectury.networking.transformers.PacketSink;
@@ -20,6 +17,7 @@ public class NetworkRegistry {
     public static final ResourceLocation SYNC_PLANET_DATAPACK_ID = new ResourceLocation(Stellaris.MODID, "sync_planet_datapack");
     public static final ResourceLocation TELEPORT_ENTITY_ID = new ResourceLocation(Stellaris.MODID, "teleport_entity");
     public static final ResourceLocation SYNC_ROCKET_COMPONENT_ID = new ResourceLocation(Stellaris.MODID, "sync_rocket_component");
+    public static final ResourceLocation SYNC_FLUID_TANKS_ID = new ResourceLocation(Stellaris.MODID, "sync_fluid_tanks");
 
     public static void register() {
         /** C2S */
@@ -29,6 +27,8 @@ public class NetworkRegistry {
         /** S2C */
         NetworkAggregator.registerReceiver(NetworkManager.Side.S2C, SYNC_PLANET_DATAPACK_ID, Collections.singletonList(new SplitPacketTransformer()), SyncPlanetsDatapack::apply);
         NetworkAggregator.registerReceiver(NetworkManager.Side.S2C, SYNC_ROCKET_COMPONENT_ID, Collections.singletonList(new SplitPacketTransformer()), SyncRocketComponent::apply);
+        NetworkAggregator.registerReceiver(NetworkManager.Side.S2C, SYNC_FLUID_TANKS_ID, Collections.singletonList(new SplitPacketTransformer()), SyncWidgetsTanks::apply);
+
     }
 
     public static void sendToPlayer(ServerPlayer player, ResourceLocation packet_id, RegistryFriendlyByteBuf buffer) {

@@ -36,8 +36,9 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity {
     public static final long BUCKET_AMOUNT = 1000;
 
     //Water Tank (I guess)
-    private final FluidTank ingredientTank = new FluidTank("ingredientTank", TANK_CAPACITY);
-    private final NonNullList<FluidTank> resultTanks = Util.make(NonNullList.createWithCapacity(2), list -> {
+    public final FluidTank ingredientTank = new FluidTank("ingredientTank", TANK_CAPACITY);
+
+    public final NonNullList<FluidTank> resultTanks = Util.make(NonNullList.createWithCapacity(2), list -> {
         list.add(0, new FluidTank("resultTank1", TANK_CAPACITY));
         list.add(1, new FluidTank("resultTank2", TANK_CAPACITY));
     });
@@ -45,6 +46,7 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity {
 
     public WaterSeparatorBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.WATER_SEPARATOR_ENTITY.get(), pos, state);
+        ingredientTank.setFluid(Fluids.WATER, TANK_CAPACITY);
     }
 
     @Override
@@ -222,7 +224,7 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity {
         }
 
         public void setAmount(long amount) {
-            stack.setAmount(Mth.clamp(amount, 0, maxCapacity));
+            stack.setAmount(Mth.clamp(amount, 1, maxCapacity));
         }
 
         public void grow(long amount) {

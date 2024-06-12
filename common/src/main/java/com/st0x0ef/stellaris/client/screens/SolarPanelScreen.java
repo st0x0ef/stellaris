@@ -17,6 +17,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Environment(EnvType.CLIENT)
 public class SolarPanelScreen extends AbstractContainerScreen<SolarPanelMenu> {
 	public static final ResourceLocation texture = new ResourceLocation(Stellaris.MODID, "textures/gui/solar_panel.png");
@@ -38,9 +41,13 @@ public class SolarPanelScreen extends AbstractContainerScreen<SolarPanelMenu> {
 		super.render(graphics, mouseX, mouseY, partialTicks);
 		this.renderTooltip(graphics, mouseX, mouseY);
 
-		Gauge gauge = new Gauge(this.leftPos + 108, this.topPos + 69, 13, 47, null, fuel_overlay, null, (int) this.menu.getEnergyContainer().getStoredEnergy(), (int) this.menu.getEnergyContainer().getMaxCapacity());
-
+		Gauge gauge = new Gauge(this.leftPos + 108, this.topPos + 69, 13, 47, Component.translatable("stellaris.screen.energy"), fuel_overlay, null, (int) this.menu.getEnergyContainer().getStoredEnergy(), (int) this.menu.getEnergyContainer().getMaxCapacity());
 		this.addRenderableWidget(gauge);
+
+		List<Component> components = new ArrayList<>();
+		components.add(Component.translatable("gauge_text.stellaris.max_generation", this.getMenu().getBlockEntity().getEnergyGeneratedPT()));
+		gauge.renderTooltips(graphics, mouseX, mouseY, this.font, components);
+
 	}
 
 	@Override
@@ -63,10 +70,6 @@ public class SolarPanelScreen extends AbstractContainerScreen<SolarPanelMenu> {
 			{
 				graphics.drawString(this.font, Component.translatable("gauge_text.stellaris.stored", energyStorage.getStoredEnergy()), 25, 7, 0x3C3C3C);
 				graphics.drawString(this.font, Component.translatable("gauge_text.stellaris.capacity", energyStorage.getMaxCapacity()), 25, 17, 0x3C3C3C);
-
-//				graphics.drawString(this.font, GaugeTextHelper.getStoredText(GaugeValueHelper.getEnergy(energyStorage.getStoredEnergy())).build(), 25, 5, 0x3C3C3C);
-//				graphics.drawString(this.font, GaugeTextHelper.getCapacityText(GaugeValueHelper.getEnergy(energyStorage.getMaxCapacity())).build(), 25, 13, 0x3C3C3C);
-//				graphics.drawString(this.font, GaugeTextHelper.getMaxGenerationPerTickText(GaugeValueHelper.getEnergy(blockEntity.getEnergyGeneratedPT())).build(), 25, 21, 0x3C3C3C);
 			}
 
 		}

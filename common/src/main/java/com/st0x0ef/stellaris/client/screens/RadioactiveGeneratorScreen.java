@@ -2,6 +2,8 @@ package com.st0x0ef.stellaris.client.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.client.screens.components.Gauge;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.CoalGeneratorEntity;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.RadioactiveGeneratorEntity;
 import com.st0x0ef.stellaris.common.blocks.machines.gauge.GaugeTextHelper;
 import com.st0x0ef.stellaris.common.blocks.machines.gauge.GaugeValueHelper;
@@ -16,9 +18,14 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Environment(EnvType.CLIENT)
 public class RadioactiveGeneratorScreen extends AbstractContainerScreen<RadioactiveGeneratorMenu> {
 	public static final ResourceLocation texture = new ResourceLocation(Stellaris.MODID, "textures/gui/radioactive_generator.png");
+	public static final ResourceLocation BATTERY_OVERLAY = new ResourceLocation(Stellaris.MODID, "textures/gui/util/battery_overlay.png");
+	public static final ResourceLocation ENERGY_TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/util/energy_full.png");
 
 	public RadioactiveGeneratorScreen(RadioactiveGeneratorMenu abstractContainerMenu, Inventory inventory, Component component) {
 		super(abstractContainerMenu, inventory, component);
@@ -32,6 +39,19 @@ public class RadioactiveGeneratorScreen extends AbstractContainerScreen<Radioact
 		this.renderBackground(graphics,mouseX,mouseY,partialTicks);
 		super.render(graphics, mouseX, mouseY, partialTicks);
 		this.renderTooltip(graphics, mouseX, mouseY);
+
+		CoalGeneratorEntity blockEntity = this.getMenu().getBlockEntity();
+		if(blockEntity != null)
+		{
+			WrappedBlockEnergyContainer energyStorage = blockEntity.getWrappedEnergyContainer();
+
+			Gauge gauge = new Gauge(this.leftPos + 147, this.topPos + 51, 13, 49, Component.translatable("stellaris.screen.energy"), ENERGY_TEXTURE, BATTERY_OVERLAY, (int) energyStorage.getStoredEnergy(), (int) energyStorage.getMaxCapacity());
+			this.addRenderableWidget(gauge);
+			List<Component> components = new ArrayList<>();
+			components.add(Component.translatable("gauge_text.stellaris.max_generation", blockEntity.getEnergyGeneratedPT()));
+			gauge.renderTooltips(graphics, mouseX, mouseY, this.font, components);
+		}
+
 	}
 
 	@Override
@@ -42,20 +62,4 @@ public class RadioactiveGeneratorScreen extends AbstractContainerScreen<Radioact
 		graphics.blit(texture, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
 	}
 
-	@Override
-	protected void renderLabels(GuiGraphics graphics, int i, int j) {
-		super.renderLabels(graphics,i,j);
-
-		RadioactiveGeneratorEntity blockEntity = this.getMenu().getBlockEntity();
-		if(blockEntity != null) {
-			WrappedBlockEnergyContainer energyStorage = blockEntity.getWrappedEnergyContainer();
-			if(energyStorage!= null) {
-				graphics.drawString(this.font, GaugeTextHelper.getStoredText(GaugeValueHelper.getEnergy(energyStorage.getStoredEnergy())).build(), this.titleLabelX, 128-30, 0x3C3C3C);
-				graphics.drawString(this.font, GaugeTextHelper.getCapacityText(GaugeValueHelper.getEnergy(energyStorage.getMaxCapacity())).build(), this.titleLabelX, 140-30, 0x3C3C3C);
-				graphics.drawString(this.font, GaugeTextHelper.getMaxGenerationPerTickText(GaugeValueHelper.getEnergy(blockEntity.getEnergyGeneratedPT())).build(), this.titleLabelX, 152-30, 0x3C3C3C);
-			}
-
-		}
-
-	}
 }

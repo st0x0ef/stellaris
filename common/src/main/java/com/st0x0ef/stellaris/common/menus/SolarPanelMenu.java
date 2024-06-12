@@ -1,9 +1,14 @@
 package com.st0x0ef.stellaris.common.menus;
 
 import com.st0x0ef.stellaris.common.blocks.entities.machines.SolarPanelEntity;
+import com.st0x0ef.stellaris.common.network.NetworkRegistry;
+import com.st0x0ef.stellaris.common.network.packets.SyncWidgetsTanks;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import com.st0x0ef.stellaris.platform.systems.energy.EnergyContainer;
+import io.netty.buffer.Unpooled;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -69,7 +74,11 @@ public class SolarPanelMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player player) {
-        return this.inventory.stillValid(player);
+        if (!player.isLocalPlayer()) {
+            this.syncBattery((ServerPlayer) player);
+        }
+
+        return inventory.stillValid(player);
     }
 
     private void addPlayerInventory(Inventory playerInventory) {
@@ -88,5 +97,14 @@ public class SolarPanelMenu extends AbstractContainerMenu {
 
     public EnergyContainer getEnergyContainer() {
         return this.entity.getWrappedEnergyContainer().container();
+    }
+
+    public void syncBattery(ServerPlayer player) {
+        if (!player.level().isClientSide()) {
+            RegistryFriendlyByteBuf buffer = new RegistryFriendlyByteBuf(Unpooled.buffer(), player.level().getServer().registryAccess());
+            buffer = SyncWidgetsTanks.encode(new SyncWidgetsTanks(new long[]{this.getEnergyContainer().getStoredEnergy()}), buffer);
+            NetworkRegistry.sendToPlayer(player, NetworkRegistry.SYNC_FLUID_TANKS_ID, buffer);
+
+        }
     }
 }

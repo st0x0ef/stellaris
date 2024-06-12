@@ -149,6 +149,12 @@
   "block.stellaris.oxygen_propagator": "Oxygen Propagator",
   "block.stellaris.oxygen_distributor": "Oxygen Distributor",
 
+  "fluid.stellaris.fuel": "Fuel",
+  "fluid.stellaris.hydrogen": "Hydrogen",
+  "fluid.stellaris.oil": "Oil",
+  "fluid.stellaris.oxygen": "Oxygen",
+
+
   "categorie.stellaris.main": "Stellaris",
   "categorie.stellaris_blocks.main": "Stellaris Blocks",
   "item.stellaris.raw_steel_ingot": "Raw Steel Ingot",
@@ -299,6 +305,8 @@
 
   "gauge_text.stellaris.stored" : "Stored : %s",
   "gauge_text.stellaris.capacity" : "Capacity : %s",
-  "gauge_text.stellaris.max_generation" : "Max Generation : %s"
+  "gauge_text.stellaris.max_generation" : "Max Generation : %s",
+  "stellaris.screen.fuel": "Fuel",
+  "stellaris.screen.energy": "Energy"
 
 }

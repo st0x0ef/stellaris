@@ -2,8 +2,13 @@ package com.st0x0ef.stellaris.common.menus;
 
 import com.st0x0ef.stellaris.common.blocks.entities.machines.CoalGeneratorEntity;
 import com.st0x0ef.stellaris.common.menus.slot.CoalGeneratorSlot;
+import com.st0x0ef.stellaris.common.network.NetworkRegistry;
+import com.st0x0ef.stellaris.common.network.packets.SyncWidgetsTanks;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
+import io.netty.buffer.Unpooled;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
@@ -76,6 +81,10 @@ public class CoalGeneratorMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player player) {
+        if(!player.isLocalPlayer()) {
+            this.syncBattery((ServerPlayer) player);
+        }
+
         return this.inventory.stillValid(player);
     }
 
@@ -104,5 +113,14 @@ public class CoalGeneratorMenu extends AbstractContainerMenu {
 
     public boolean isLit() {
         return this.data.get(0) > 0;
+    }
+
+    public void syncBattery(ServerPlayer player) {
+        if (!player.level().isClientSide()) {
+            RegistryFriendlyByteBuf buffer = new RegistryFriendlyByteBuf(Unpooled.buffer(), player.level().getServer().registryAccess());
+            buffer = SyncWidgetsTanks.encode(new SyncWidgetsTanks(new long[]{this.getBlockEntity().getWrappedEnergyContainer().getStoredEnergy()}), buffer);
+            NetworkRegistry.sendToPlayer(player, NetworkRegistry.SYNC_FLUID_TANKS_ID, buffer);
+
+        }
     }
 }

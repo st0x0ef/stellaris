@@ -18,13 +18,18 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Environment(EnvType.CLIENT)
 public class CoalGeneratorScreen extends AbstractContainerScreen<CoalGeneratorMenu> {
 
 	private static final ResourceLocation TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/coal_generator.png");
 	private static final ResourceLocation LIT_PROGRESS_SPRITE = new ResourceLocation(Stellaris.MODID, "textures/gui/util/fire_progress.png");
-	public static final ResourceLocation FUEL_OVERLAY = new ResourceLocation(Stellaris.MODID, "textures/gui/util/battery_overlay.png");
+	public static final ResourceLocation BATTERY_OVERLAY = new ResourceLocation(Stellaris.MODID, "textures/gui/util/battery_overlay.png");
 	public static final ResourceLocation ENERGY_TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/util/energy_full.png");
+
+
 
 	public CoalGeneratorScreen(CoalGeneratorMenu abstractContainerMenu, Inventory inventory, Component component) {
 		super(abstractContainerMenu, inventory, component);
@@ -44,9 +49,12 @@ public class CoalGeneratorScreen extends AbstractContainerScreen<CoalGeneratorMe
 		{
 			WrappedBlockEnergyContainer energyStorage = blockEntity.getWrappedEnergyContainer();
 
-			Gauge gauge = new Gauge(this.leftPos + 147, this.topPos + 51, 13, 49, null, ENERGY_TEXTURE, FUEL_OVERLAY, (int) energyStorage.getStoredEnergy(), (int) energyStorage.getMaxCapacity());
+			Gauge gauge = new Gauge(this.leftPos + 147, this.topPos + 51, 13, 49, Component.translatable("stellaris.screen.energy"), ENERGY_TEXTURE, BATTERY_OVERLAY, (int) energyStorage.getStoredEnergy(), (int) energyStorage.getMaxCapacity());
 			this.addRenderableWidget(gauge);
 
+			List<Component> components = new ArrayList<>();
+			components.add(Component.translatable("gauge_text.stellaris.max_generation", blockEntity.getEnergyGeneratedPT()));
+			gauge.renderTooltips(graphics, mouseX, mouseY, this.font, components);
 		}
 
 
