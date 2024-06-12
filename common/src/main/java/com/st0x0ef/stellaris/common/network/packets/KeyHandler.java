@@ -1,7 +1,7 @@
 package com.st0x0ef.stellaris.common.network.packets;
 
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.client.registries.KeyMappings;
+import com.st0x0ef.stellaris.common.entities.RocketEntity;
 import com.st0x0ef.stellaris.common.keybinds.KeyVariables;
 import com.st0x0ef.stellaris.common.menus.PlanetSelectionMenu;
 import dev.architectury.networking.NetworkManager;
@@ -30,20 +30,20 @@ public class KeyHandler {
 
     public static void apply(RegistryFriendlyByteBuf buffer, NetworkManager.PacketContext context) {
         Player player = context.getPlayer();
+        KeyHandler keyHandler = new KeyHandler(buffer);
         context.queue(() -> {
-            switch (buffer.readUtf()) {
+            switch (keyHandler.key) {
                 case "rocket_start":
-                    KeyMappings.startRocket(player);
+                    if (player.getVehicle() instanceof RocketEntity rocketEntity) rocketEntity.startRocket();
                     break;
                 case "key_jump":
                     KeyVariables.KEY_JUMP.put(player.getUUID(), buffer.readBoolean());
                     break;
                 case "freeze_planet_menu":
-                    if (player.containerMenu instanceof PlanetSelectionMenu menu) {
-                        Stellaris.LOG.error("Switching freeze gui");
-                        menu.switchFreezeGui();
-                    }
+                    if (player.containerMenu instanceof PlanetSelectionMenu menu) menu.switchFreezeGui();
                     break;
+                default:
+                    Stellaris.LOG.error("unknown key action {}", keyHandler.key);
             }
         });
     }

@@ -40,15 +40,19 @@ public abstract class BaseEnergyContainerBlockEntity extends BaseContainerBlockE
         this.items = items;
     }
 
+    protected int getMaxCapacity() {
+        return 15000;
+    }
+
     @Override
     public WrappedBlockEnergyContainer getEnergyStorage(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity entity, @Nullable Direction direction) {
-        return energyContainer == null ? energyContainer = new WrappedBlockEnergyContainer(entity, new SimpleEnergyContainer(15000, Integer.MAX_VALUE)) : energyContainer;
+        return energyContainer == null ? energyContainer = new WrappedBlockEnergyContainer(entity, new SimpleEnergyContainer(getMaxCapacity(), Integer.MAX_VALUE)) : energyContainer;
     }
 
     @Override
     public @NotNull CompoundTag getUpdateTag(HolderLookup.Provider provider) {
         CompoundTag tag = new CompoundTag();
-        tag.putLong(ENERGY_TAG, getWrappedEnergyContainer().getStoredEnergy());
+        saveAdditional(tag, provider);
         return tag;
     }
 

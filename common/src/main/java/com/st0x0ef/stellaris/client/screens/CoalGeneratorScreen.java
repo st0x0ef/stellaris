@@ -20,10 +20,11 @@ import net.minecraft.world.entity.player.Inventory;
 
 @Environment(EnvType.CLIENT)
 public class CoalGeneratorScreen extends AbstractContainerScreen<CoalGeneratorMenu> {
-	public static final ResourceLocation texture = new ResourceLocation(Stellaris.MODID, "textures/gui/coal_generator.png");
-	private static final ResourceLocation litProgressSprite = new ResourceLocation(Stellaris.MODID, "textures/gui/util/fire_progress.png");
-	private static final ResourceLocation fuel_overlay = new ResourceLocation(Stellaris.MODID, "textures/gui/util/battery_overlay.png");
-	private static final ResourceLocation energy_texture = new ResourceLocation(Stellaris.MODID, "textures/gui/util/energy_full.png");
+
+	private static final ResourceLocation TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/coal_generator.png");
+	private static final ResourceLocation LIT_PROGRESS_SPRITE = new ResourceLocation(Stellaris.MODID, "textures/gui/util/fire_progress.png");
+	public static final ResourceLocation FUEL_OVERLAY = new ResourceLocation(Stellaris.MODID, "textures/gui/util/battery_overlay.png");
+	public static final ResourceLocation ENERGY_TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/util/energy_full.png");
 
 	public CoalGeneratorScreen(CoalGeneratorMenu abstractContainerMenu, Inventory inventory, Component component) {
 		super(abstractContainerMenu, inventory, component);
@@ -43,7 +44,7 @@ public class CoalGeneratorScreen extends AbstractContainerScreen<CoalGeneratorMe
 		{
 			WrappedBlockEnergyContainer energyStorage = blockEntity.getWrappedEnergyContainer();
 
-			Gauge gauge = new Gauge(this.leftPos + 147, this.topPos + 51, 13, 49, null, energy_texture, fuel_overlay, (int) energyStorage.getStoredEnergy(), (int) energyStorage.getMaxCapacity());
+			Gauge gauge = new Gauge(this.leftPos + 147, this.topPos + 51, 13, 49, null, ENERGY_TEXTURE, FUEL_OVERLAY, (int) energyStorage.getStoredEnergy(), (int) energyStorage.getMaxCapacity());
 			this.addRenderableWidget(gauge);
 
 		}
@@ -55,13 +56,13 @@ public class CoalGeneratorScreen extends AbstractContainerScreen<CoalGeneratorMe
 	protected void renderBg(GuiGraphics graphics, float var2,int var3, int var4) {
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-		RenderSystem.setShaderTexture(0, texture);
-		graphics.blit(texture, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
+		RenderSystem.setShaderTexture(0, TEXTURE);
+		graphics.blit(TEXTURE, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
 		int k = this.leftPos;
 		int l = this.topPos;
 		if (this.menu.isLit()) {
 			int n = Mth.ceil(this.menu.getLitProgress() * 13.0F) + 1;
-			graphics.blitSprite(litProgressSprite, 14, 14, 0, 14 - n, k + 84, l + 69 + 14 - n, 14, n);
+			graphics.blitSprite(LIT_PROGRESS_SPRITE, 14, 14, 0, 14 - n, k + 84, l + 69 + 14 - n, 14, n);
 		}
 	}
 

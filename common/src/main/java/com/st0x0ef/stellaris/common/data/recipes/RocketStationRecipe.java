@@ -1,11 +1,12 @@
 package com.st0x0ef.stellaris.common.data.recipes;
 
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.st0x0ef.stellaris.common.registry.RecipesRegistry;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
@@ -15,6 +16,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RocketStationRecipe implements Recipe<SimpleContainer> {
@@ -29,7 +31,7 @@ public class RocketStationRecipe implements Recipe<SimpleContainer> {
 
     @Override
     public boolean matches(SimpleContainer container, Level level) {
-        if(level.isClientSide()) {
+        if (level.isClientSide()) {
             return false;
         }
 
@@ -58,7 +60,6 @@ public class RocketStationRecipe implements Recipe<SimpleContainer> {
     }
 
 
-
     @Override
     public NonNullList<Ingredient> getIngredients() {
         NonNullList<Ingredient> list = NonNullList.createWithCapacity(this.recipeItems.size());
@@ -68,32 +69,25 @@ public class RocketStationRecipe implements Recipe<SimpleContainer> {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return Serializer.INSTANCE;
+        return RecipesRegistry.WATER_SEPERATOR_SERIALIZER.get();
     }
 
     @Override
     public RecipeType<?> getType() {
-        return Type.INSTANCE;
-    }
-
-    public static class Type implements RecipeType<RocketStationRecipe> {
-        public static final Type INSTANCE = new Type();
-        public static final String ID = "rocket_station";
-
+        return RecipesRegistry.ROCKET_STATION_TYPE.get();
     }
 
     public static class Serializer implements RecipeSerializer<RocketStationRecipe> {
-        public static final Serializer INSTANCE = new Serializer();
-        public static final String ID = "rocket_station";
 
-        public static final MapCodec<RocketStationRecipe> CODEC = RecordCodecBuilder.mapCodec(in -> in.group(
-                validateAmount(Ingredient.CODEC_NONEMPTY, 14).fieldOf("ingredients").forGetter(RocketStationRecipe::getIngredients),
+        public static final MapCodec<RocketStationRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+                Ingredient.CODEC_NONEMPTY.listOf(1, 14).fieldOf("ingredients").forGetter(RocketStationRecipe::getIngredients),
                 ItemStack.CODEC.fieldOf("output").forGetter(r -> r.output)
-        ).apply(in, RocketStationRecipe::new));
-
-        private static Codec<List<Ingredient>> validateAmount(Codec<Ingredient> delegate, int max) {
-            return delegate.listOf(1, max);
-        }
+        ).apply(instance, RocketStationRecipe::new));
+        public static final StreamCodec<RegistryFriendlyByteBuf, ArrayList<Ingredient>> INGREDIENT_LIST_STREAM_CODEC = ByteBufCodecs.collection(ArrayList::new, Ingredient.CONTENTS_STREAM_CODEC, 14);
+        public static final StreamCodec<RegistryFriendlyByteBuf, RocketStationRecipe> STREAM_CODEC = StreamCodec.of((buf, recipe) -> {
+            INGREDIENT_LIST_STREAM_CODEC.encode(buf, (ArrayList<Ingredient>) recipe.recipeItems);
+            ItemStack.STREAM_CODEC.encode(buf, recipe.output);
+        }, buf -> new RocketStationRecipe(INGREDIENT_LIST_STREAM_CODEC.decode(buf), ItemStack.STREAM_CODEC.decode(buf)));
 
         @Override
         public MapCodec<RocketStationRecipe> codec() {
@@ -102,7 +96,7 @@ public class RocketStationRecipe implements Recipe<SimpleContainer> {
 
         @Override
         public StreamCodec<RegistryFriendlyByteBuf, RocketStationRecipe> streamCodec() {
-            return (StreamCodec<RegistryFriendlyByteBuf, RocketStationRecipe>) CODEC; // idk if that work
+            return STREAM_CODEC;
         }
     }
 }

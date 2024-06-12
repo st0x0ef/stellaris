@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.common.rocket_upgrade;
 
 import com.mojang.serialization.Codec;
+import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.RocketModel;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.Item;
@@ -81,6 +82,16 @@ public class FuelType {
             }
 
             return null;
+        }
+
+        public static Type fromString(String name) {
+            return switch (name) {
+                case "fuel" -> FUEL;
+                case "hydrogen" -> HYDROGEN;
+                case "radioactive" -> RADIOACTIVE;
+                default -> RADIOACTIVE;
+            };
+
         }
 
         @Override
