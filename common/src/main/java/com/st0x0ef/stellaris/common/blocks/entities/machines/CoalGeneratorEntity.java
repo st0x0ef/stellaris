@@ -6,6 +6,7 @@ import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.registry.TagRegistry;
 import com.st0x0ef.stellaris.common.systems.energy.EnergyApi;
 import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedBlockEnergyContainer;
+import com.st0x0ef.stellaris.platform.systems.energy.EnergyContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -70,7 +71,7 @@ public class CoalGeneratorEntity extends BaseGeneratorBlockEntity {
         boolean wasLit = isLit();
         boolean shouldUpdate = false;
 
-        if (isLit()) {
+        if (canGenerate()) {
             --litTime;
         }
 
@@ -127,7 +128,9 @@ public class CoalGeneratorEntity extends BaseGeneratorBlockEntity {
 
     @Override
     public boolean canGenerate() {
-        return isLit();
+        EnergyContainer energyContainer = getWrappedEnergyContainer();
+        boolean isMaxEnergy = energyContainer.getStoredEnergy()==energyContainer.getMaxCapacity();
+        return isLit() && !isMaxEnergy;
     }
 
     @Override
