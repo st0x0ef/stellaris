@@ -69,7 +69,7 @@ public class RocketStationRecipe implements Recipe<SimpleContainer> {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return RecipesRegistry.WATER_SEPERATOR_SERIALIZER.get();
+        return RecipesRegistry.ROCKET_STATION.get();
     }
 
     @Override
@@ -80,9 +80,10 @@ public class RocketStationRecipe implements Recipe<SimpleContainer> {
     public static class Serializer implements RecipeSerializer<RocketStationRecipe> {
 
         public static final MapCodec<RocketStationRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-                Ingredient.CODEC_NONEMPTY.listOf(1, 14).fieldOf("ingredients").forGetter(RocketStationRecipe::getIngredients),
+                Ingredient.CODEC_NONEMPTY.listOf(1, 14).fieldOf("ingredients").forGetter(r -> r.recipeItems),
                 ItemStack.CODEC.fieldOf("output").forGetter(r -> r.output)
         ).apply(instance, RocketStationRecipe::new));
+
         public static final StreamCodec<RegistryFriendlyByteBuf, ArrayList<Ingredient>> INGREDIENT_LIST_STREAM_CODEC = ByteBufCodecs.collection(ArrayList::new, Ingredient.CONTENTS_STREAM_CODEC, 14);
         public static final StreamCodec<RegistryFriendlyByteBuf, RocketStationRecipe> STREAM_CODEC = StreamCodec.of((buf, recipe) -> {
             INGREDIENT_LIST_STREAM_CODEC.encode(buf, (ArrayList<Ingredient>) recipe.recipeItems);
