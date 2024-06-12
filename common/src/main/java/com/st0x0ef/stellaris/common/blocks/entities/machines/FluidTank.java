@@ -30,11 +30,15 @@ public class FluidTank {
     }
 
     public void setAmount(long amount) {
-        stack.setAmount(Mth.clamp(amount, 1, maxCapacity));
+        stack.setAmount(Mth.clamp(amount, 0, maxCapacity));
     }
 
     public void grow(long amount) {
         setAmount(getAmount() + amount);
+    }
+
+    public boolean isEmpty() {
+        return stack.isEmpty();
     }
 
     public FluidStack getStack() {
