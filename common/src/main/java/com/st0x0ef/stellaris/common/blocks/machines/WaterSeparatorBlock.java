@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.common.blocks.machines;
 
 import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.SimpleMapCodec;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;

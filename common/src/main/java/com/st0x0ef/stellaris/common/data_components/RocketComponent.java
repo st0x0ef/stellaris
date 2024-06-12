@@ -3,17 +3,11 @@ package com.st0x0ef.stellaris.common.data_components;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.RocketModel;
-import com.st0x0ef.stellaris.common.data.planets.Planet;
-import com.st0x0ef.stellaris.common.data.planets.PlanetTextures;
-import com.st0x0ef.stellaris.common.rocket_upgrade.FuelType;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.animal.Cod;
-import net.minecraft.world.item.Item;
 
 import java.io.Serializable;
 

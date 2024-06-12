@@ -16,8 +16,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.st0x0ef.stellaris.client.screens.RocketScreen.Fuel;
-
 @Environment(EnvType.CLIENT)
 public class Gauge extends AbstractWidget {
 

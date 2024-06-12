@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.common.blocks.machines;
 
-import com.mojang.serialization.MapCodec;
 import dev.architectury.registry.menu.ExtendedMenuProvider;
 import dev.architectury.registry.menu.MenuRegistry;
 import net.minecraft.core.BlockPos;

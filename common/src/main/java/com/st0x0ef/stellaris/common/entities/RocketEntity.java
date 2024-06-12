@@ -65,7 +65,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     public MotorUpgrade MOTOR_UPGRADE;
     public TankUpgrade TANK_UPGRADE;
 
-    public Item currentFuelItem;
+    private Item currentFuelItem;
 
     protected SimpleContainer inventory;
 
@@ -509,10 +509,6 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     }
 
     public boolean canGoTo (Planet actual, Planet destination) {
-        Stellaris.LOG.info("1 : {}", this.rocketComponent.fuel());
-        Stellaris.LOG.info("2 : {}", this.rocketComponent.fuelType());
-        Stellaris.LOG.info("3 : {}", FuelType.getMegametersTraveled(this.rocketComponent.fuel(), FuelType.getItemBasedOnLoacation(new ResourceLocation(Stellaris.MODID, this.rocketComponent.fuelType()))));
-        Stellaris.LOG.info("4 : {}", Mth.abs(actual.distanceFromEarth() - destination.distanceFromEarth()));
         return Mth.abs(actual.distanceFromEarth() - destination.distanceFromEarth()) <= FuelType.getMegametersTraveled(this.rocketComponent.fuel(), FuelType.getItemBasedOnLoacation(new ResourceLocation(Stellaris.MODID, this.rocketComponent.fuelType())));
     }
 

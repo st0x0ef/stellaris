@@ -33,8 +33,4 @@ public class FabricDataManagerRegistry implements DataManagerRegistry {
         return new FabricDataManagerBuilder<>(modid, factory);
     }
 
-    @Override
-    public void initialize() {
-
-    }
 }

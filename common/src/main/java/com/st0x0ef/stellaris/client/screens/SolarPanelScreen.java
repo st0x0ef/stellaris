@@ -4,8 +4,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.components.Gauge;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.SolarPanelEntity;
-import com.st0x0ef.stellaris.common.blocks.machines.gauge.GaugeTextHelper;
-import com.st0x0ef.stellaris.common.blocks.machines.gauge.GaugeValueHelper;
 import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedBlockEnergyContainer;
 import com.st0x0ef.stellaris.common.menus.SolarPanelMenu;
 import net.fabricmc.api.EnvType;
