@@ -1,11 +1,11 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "block/machines/radioactive_generator_bottom",
-		"1": "block/machines/radioactive_generator_front",
-		"3": "block/machines/radioactive_generator_side",
-		"4": "block/machines/radioactive_generator_top",
-		"particle": "block/machines/radioactive_generator_bottom"
+		"0": "stellaris:block/machines/radioactive_generator_bottom",
+		"1": "stellaris:block/machines/radioactive_generator_front",
+		"3": "stellaris:block/machines/radioactive_generator_side",
+		"4": "stellaris:block/machines/radioactive_generator_top",
+		"particle": "stellaris:block/machines/radioactive_generator_bottom"
 	},
 	"elements": [
 		{
