@@ -18,6 +18,7 @@ import com.st0x0ef.stellaris.common.registry.TranslatableRegistry;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import io.netty.buffer.Unpooled;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.Util;
@@ -43,7 +44,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.*;
-
 
 @Environment(EnvType.CLIENT)
 public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelectionMenu> {
@@ -329,7 +329,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
 
     private int currentHighlighterFrame = 0;
-    private final int totalHighlighterFrames = 31;
+    private final int totalHighlighterFrames = 30;
 
     private void renderHighlighter(GuiGraphics graphics, int mouseX, int mouseY) {
         if (!showLargeMenu && (hoveredBody != null || focusedBody != null)) {
@@ -791,10 +791,16 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     private void centerSun() {
         float centerX = width / 2.0f;
         float centerY = height / 2.0f;
-        findByNameStar("stellaris:sun").setPosition(centerX, centerY);
+        CelestialBody sun = findByNameStar("stellaris:sun");
+        if (sun != null) {
+            sun.setPosition(centerX, centerY);
+        } else {
+            Stellaris.LOG.error("stellaris:sun is null");
+        }
         offsetX = 0;
         offsetY = 0;
     }
+
 
     public static CelestialBody findByNameStar(String id) {
         for (CelestialBody body : PlanetSelectionScreen.STARS) {
@@ -802,6 +808,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
                 return body;
             }
         }
+        Stellaris.LOG.warn("Star not found : " + id);
         return null;
     }
 

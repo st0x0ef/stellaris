@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.utils;
 
+import com.mojang.serialization.Codec;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.entities.LanderEntity;
 import com.st0x0ef.stellaris.common.entities.RocketEntity;
@@ -16,6 +17,9 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+
+import java.util.Locale;
+import java.util.function.Function;
 
 public class Utils {
 
@@ -208,6 +212,26 @@ public class Utils {
         }
         return (int) dimension.players().stream().count();
     }
+
+    /** codec */
+    public static <T extends Enum<T>> Codec<T> EnumCodec(Class<T> e) {
+        Function<String, T> stringToEnum = new Function<String, T>() {
+            @Override
+            public T apply(String s) {
+                return Enum.valueOf(e, s.toUpperCase(Locale.ROOT));
+            }
+        };
+
+        Function<T, String> enumToString = new Function<T, String>() {
+            @Override
+            public String apply(T enumValue) {
+                return enumValue.name();
+            }
+        };
+
+        return Codec.STRING.xmap(stringToEnum, enumToString);
+    }
+
 
     /**
      * @param MCG Minecraft Gravity Unit
