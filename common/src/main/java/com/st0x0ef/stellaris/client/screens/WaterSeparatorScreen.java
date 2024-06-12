@@ -16,12 +16,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 @Environment(EnvType.CLIENT)
-public class WaterSeperatorScreen extends AbstractContainerScreen<WaterSeparatorMenu> {
+public class WaterSeparatorScreen extends AbstractContainerScreen<WaterSeparatorMenu> {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/water_separator.png");
     ResourceLocation liquid_tank_overlay = new ResourceLocation(Stellaris.MODID, "textures/gui/util/water_tank_overlay.png");
 
-    public WaterSeperatorScreen(WaterSeparatorMenu menu, Inventory playerInventory, Component title) {
+    public WaterSeparatorScreen(WaterSeparatorMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
         imageWidth = 177;
         imageHeight = 224;
@@ -70,8 +70,8 @@ public class WaterSeperatorScreen extends AbstractContainerScreen<WaterSeparator
     private void renderOxygen() {
         ResourceLocation oxygen_overlay = new ResourceLocation(Stellaris.MODID, "textures/gui/util/fuel_overlay.png");
 
-        FluidTank waterTank = this.getMenu().getBlockEntity().getResultTanks().get(1);
-        Gauge oxygenGauge = new Gauge( this.leftPos + 142,  this.topPos + 52, 12, 46, null, oxygen_overlay, liquid_tank_overlay, waterTank.getAmount(), waterTank.getMaxCapacity());
+        FluidTank oxygenTank = this.getMenu().getBlockEntity().getResultTanks().get(1);
+        Gauge oxygenGauge = new Gauge( this.leftPos + 142,  this.topPos + 52, 12, 46, null, oxygen_overlay, liquid_tank_overlay, oxygenTank.getAmount(), oxygenTank.getMaxCapacity());
 
         this.addRenderableWidget(oxygenGauge);
     }
