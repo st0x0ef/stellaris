@@ -6,7 +6,7 @@ import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.skys.record.Renderable;
-import com.st0x0ef.stellaris.client.skys.renderer.SkyRenderer;
+
 import com.st0x0ef.stellaris.client.skys.type.RenderInfo;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.resources.ResourceLocation;
@@ -29,8 +29,8 @@ public class SkyPack extends SimpleJsonResourceReloadListener {
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> object, ResourceManager resourceManager, ProfilerFiller profiler) {
         RENDERABLE_MAP.clear();
-        SkyRenderer.RenderList.clear();
-        SkyRenderer.stars.clear();
+//        SkyRenderer.RenderList.clear();
+//        SkyRenderer.stars.clear();
 
         object.forEach((key, value) -> {
             JsonObject json = GsonHelper.convertToJsonObject(value, "renderable");
@@ -54,12 +54,12 @@ public class SkyPack extends SimpleJsonResourceReloadListener {
                             renderable.skyObject()
                     );
 
-                    SkyRenderer.RenderList.add(skyRenderer);
-                    SkyRenderer.starType.addAll(renderable.star());
-                    Stellaris.LOG.info("Added A Sky Renderer for " + renderable.dimension());
-                    for (RenderInfo info : SkyRenderer.RenderList) {
-                        Stellaris.LOG.info(" - " + info.getDimensionId());
-                    }
+//                    SkyRenderer.RenderList.add(skyRenderer);
+//                    SkyRenderer.starType.addAll(renderable.star());
+//                    Stellaris.LOG.info("Added A Sky Renderer for " + renderable.dimension());
+//                    for (RenderInfo info : SkyRenderer.RenderList) {
+//                        Stellaris.LOG.info(" - " + info.getDimensionId());
+//                    }
                 } else {
                     Stellaris.LOG.warn("Parsed renderable is null for key : " + key);
                 }
