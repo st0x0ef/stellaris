@@ -16,10 +16,6 @@ public enum RocketModel implements StringRepresentable {
     BIG(3);
 
     public static final Codec<RocketModel> CODEC = StringRepresentable.fromEnum(RocketModel::values);
-
-
-    public static final IntFunction<RocketModel> BY_ID = ByIdMap.continuous(RocketModel::id, values(), ByIdMap.OutOfBoundsStrategy.ZERO);
-    public static final StreamCodec<ByteBuf, RocketModel> STREAM_CODEC = ByteBufCodecs.idMapper(BY_ID, RocketModel::id);
     private final int id;
 
     RocketModel(final int id) {

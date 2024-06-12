@@ -18,6 +18,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.Map;
+import java.util.UUID;
+
 @Mixin(KeyboardHandler.class)
 public abstract class PlayerLanderKeyMixin {
 
@@ -31,9 +34,15 @@ public abstract class PlayerLanderKeyMixin {
     private void keyPress(long windowPointer, int key, int scanCode, int action, int modifiers, CallbackInfo info) {
         if (windowPointer == this.minecraft.getWindow().getWindow()) {
             if (minecraft.player == null) return;
+
+            sendKeyToServerAndClientHashMap(key, action, minecraft.player, this.minecraft.options.keyUp, KeyVariables.KEY_UP, "key_up", KeyVariables.isHoldingUp(minecraft.player));
+            sendKeyToServerAndClientHashMap(key, action, minecraft.player, this.minecraft.options.keyDown, KeyVariables.KEY_DOWN, "key_down", KeyVariables.isHoldingDown(minecraft.player));
+            sendKeyToServerAndClientHashMap(key, action, minecraft.player, this.minecraft.options.keyRight, KeyVariables.KEY_RIGHT, "key_right", KeyVariables.isHoldingRight(minecraft.player));
+            sendKeyToServerAndClientHashMap(key, action, minecraft.player, this.minecraft.options.keyLeft, KeyVariables.KEY_LEFT, "key_left", KeyVariables.isHoldingLeft(minecraft.player));
+
+
             if (minecraft.player.getVehicle() instanceof LanderEntity) {
                 keyEvent(minecraft.player, minecraft.options.keyJump, key, scanCode, action, modifiers);
-
             }
         }
     }
@@ -41,7 +50,6 @@ public abstract class PlayerLanderKeyMixin {
     public void keyEvent(Player player, KeyMapping keyWanted, int key, int scanCode, int action, int modifiers) {
         if ((keyWanted.getDefaultKey().getValue() == key && action == GLFW.GLFW_RELEASE && KeyVariables.isHoldingJump(player))  || (KeyVariables.isHoldingJump(player))) {
             KeyVariables.KEY_JUMP.put(player.getUUID(), false);
-
             RegistryFriendlyByteBuf buffer = new RegistryFriendlyByteBuf(Unpooled.buffer(), player.registryAccess());
             NetworkRegistry.sendToServer(NetworkRegistry.KEY_HANDLER_ID, KeyHandler.encode(new KeyHandler("key_jump", false), buffer));
         } else if (keyWanted.getDefaultKey().getValue() == key && action == GLFW.GLFW_PRESS && !KeyVariables.isHoldingJump(player)) {
@@ -50,4 +58,24 @@ public abstract class PlayerLanderKeyMixin {
             NetworkRegistry.sendToServer(NetworkRegistry.KEY_HANDLER_ID, KeyHandler.encode(new KeyHandler("key_jump", true), buffer));
         }
     }
+
+
+    private static void sendKeyToServerAndClientHashMap(int key, int action, Player player, KeyMapping keyWanted, Map<UUID, Boolean> variableKey, String keyString, boolean isPressed) {
+        if (player == null) {
+            return;
+        }
+
+        if ((keyWanted.getDefaultKey().getValue() == key && action == GLFW.GLFW_RELEASE && isPressed) || isPressed) {
+            variableKey.put(player.getUUID(), false);
+            RegistryFriendlyByteBuf buffer = new RegistryFriendlyByteBuf(Unpooled.buffer(), player.registryAccess());
+            NetworkRegistry.sendToServer(NetworkRegistry.KEY_HANDLER_ID, KeyHandler.encode(new KeyHandler(keyString, false), buffer));
+        }
+
+        if (keyWanted.getDefaultKey().getValue() == key && action == GLFW.GLFW_PRESS && !isPressed) {
+            variableKey.put(player.getUUID(), true);
+            RegistryFriendlyByteBuf buffer = new RegistryFriendlyByteBuf(Unpooled.buffer(), player.registryAccess());
+            NetworkRegistry.sendToServer(NetworkRegistry.KEY_HANDLER_ID, KeyHandler.encode(new KeyHandler(keyString, true), buffer));
+        }
+    }
+
 }
