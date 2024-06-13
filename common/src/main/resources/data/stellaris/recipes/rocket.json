@@ -2,7 +2,7 @@
   "type": "stellaris:rocket_station",
   "ingredients": [
     {
-      "item": "stellaris:steel_ingot"
+      "item": "stellaris:rocket_nose_cone"
     },
     {
       "item": "stellaris:steel_ingot"
@@ -23,7 +23,7 @@
       "item": "stellaris:steel_ingot"
     },
     {
-      "item": "stellaris:steel_ingot"
+      "item": "stellaris:rocket_fin"
     },
     {
       "item": "stellaris:steel_ingot"
@@ -32,16 +32,16 @@
       "item": "stellaris:steel_ingot"
     },
     {
-      "item": "stellaris:steel_ingot"
+      "item": "stellaris:rocket_fin"
     },
     {
-      "item": "stellaris:steel_ingot"
+      "item": "stellaris:rocket_fin"
     },
     {
-      "item": "stellaris:steel_ingot"
+      "item": "stellaris:rocket_engine"
     },
     {
-      "item": "stellaris:steel_ingot"
+      "item": "stellaris:rocket_fin"
     }
   ],
   "output": {
