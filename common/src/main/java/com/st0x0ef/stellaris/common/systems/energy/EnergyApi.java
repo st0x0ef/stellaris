@@ -149,7 +149,11 @@ public class EnergyApi {
      * @return The amount of energy that was distributed
      */
     public static long distributeEnergyNearby(Level level, BlockPos energyPos, @Nullable Direction extractDirection, long amount) {
-        EnergyContainer internalEnergy = EnergyContainer.of(level, energyPos,level.getBlockState(energyPos),level.getBlockEntity(energyPos), extractDirection);
+        if(level==null) return -1;
+        if(energyPos==null) return -1;
+        //if(level.getBlockState(energyPos)==null) return -1;
+        if(level.getBlockEntity(energyPos)==null) return -1;
+        EnergyContainer internalEnergy = EnergyContainer.of(level, energyPos, level.getBlockState(energyPos),level.getBlockEntity(energyPos), extractDirection);
         if (internalEnergy==null) return -1;
         long amountToDistribute = internalEnergy.extractEnergy(amount, true);
         if (amountToDistribute == 0) return 0;
