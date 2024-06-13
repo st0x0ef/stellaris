@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.data_components.JetSuitComponent;
 import com.st0x0ef.stellaris.common.keybinds.KeyVariables;
+import com.st0x0ef.stellaris.common.oxygen.OxygenContainer;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.ChatFormatting;
@@ -23,10 +24,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 public class JetSuit {
-
-
     public static class Suit extends AbstractSpaceArmor.Chestplate {
         public float spacePressTime;
+        public OxygenContainer oxygenContainer;
 
         public Suit(Holder<ArmorMaterial> material, Properties properties) {
             super(material, Type.CHESTPLATE, properties);

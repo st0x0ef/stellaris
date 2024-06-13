@@ -18,22 +18,16 @@ public abstract class EntityTick {
     @Shadow public abstract void tick();
 
     @Unique
-    private static final long OXYGEN_CHECK = 1000;
-    @Unique
-    private static long lastOxygenCheck;
+    private long stellaris$lastOxygenCheck;
 
     @Inject(at = @At(value = "HEAD"), method = "tick")
     private void tick(CallbackInfo info) {
         Entity entity = (Entity) ((Object) this);
 
-
         long now = System.currentTimeMillis();
-        if((now - lastOxygenCheck) > OXYGEN_CHECK){
+        if((now - stellaris$lastOxygenCheck) > 1000){
             EntityOxygen.tick(entity);
+            stellaris$lastOxygenCheck = now;
         }
-        lastOxygenCheck = now;
     }
-
-
-
 }

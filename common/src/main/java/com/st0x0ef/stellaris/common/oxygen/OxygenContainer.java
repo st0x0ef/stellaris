@@ -1,8 +1,18 @@
 package com.st0x0ef.stellaris.common.oxygen;
 
+import com.mojang.datafixers.util.Pair;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
+import com.mojang.serialization.DynamicOps;
+import com.mojang.serialization.codecs.SimpleMapCodec;
+import com.st0x0ef.stellaris.common.armors.JetSuit;
+import com.st0x0ef.stellaris.common.blocks.machines.RadioactiveGeneratorBlock;
 import com.st0x0ef.stellaris.common.items.oxygen.OxygenContainerItem;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.Level;
+
+import static net.minecraft.world.level.block.state.BlockBehaviour.simpleCodec;
 
 public class OxygenContainer {
 
