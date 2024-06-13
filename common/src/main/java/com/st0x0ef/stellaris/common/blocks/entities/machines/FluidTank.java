@@ -51,6 +51,8 @@ public class FluidTank {
     }
 
     public void save(HolderLookup.Provider provider, CompoundTag tag) {
-        tag.put(name, stack.write(provider, new CompoundTag()));
+        if (!isEmpty()) {
+            tag.put(name, stack.write(provider, new CompoundTag()));
+        }
     }
 }
