@@ -94,6 +94,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     private boolean isPausePressed = false;
     private boolean isShiftPressed = false;
+    public boolean isPlanetScreenOpened;
 
     private double zoomLevel = 1.0;
     private GLFWScrollCallback prevScrollCallback;
@@ -115,6 +116,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         getMenu().freeze_gui = false;
         centerSun();
 
+        isPlanetScreenOpened = true;
 
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();

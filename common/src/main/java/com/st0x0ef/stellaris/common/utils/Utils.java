@@ -19,6 +19,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 import java.util.Locale;
+import java.util.Random;
 import java.util.function.Function;
 
 public class Utils {
@@ -180,9 +181,16 @@ public class Utils {
                 return 0x8B0000;
             case "dark_red":
                 return 0x8B0000;
+            case "rainbow":
+                return generateRandomHexColor();
             default:
                 return 0xFFFFFF;
         }
+    }
+
+    public static int generateRandomHexColor() {
+        Random random = new Random();
+        return random.nextInt(0xFFFFFF + 1);
     }
 
     public static String betterIntToString(int i) {
