@@ -30,6 +30,8 @@ public class JetSuit {
 
         public Suit(Holder<ArmorMaterial> material, Properties properties) {
             super(material, Type.CHESTPLATE, properties);
+
+            oxygenContainer = new OxygenContainer(3000);
         }
 
 

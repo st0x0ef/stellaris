@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines.oxygen;
 
+import com.st0x0ef.stellaris.common.armors.JetSuit;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.BaseEnergyContainerBlockEntity;
 import com.st0x0ef.stellaris.common.menus.OxygenDistributorMenu;
 import com.st0x0ef.stellaris.common.oxygen.OxygenContainer;
@@ -22,13 +23,20 @@ public class OxygenDistributorBlockEntity extends BaseEnergyContainerBlockEntity
 
     @Override
     public void tick() {
-        if (getWrappedEnergyContainer().getStoredEnergy() > 0) {
-            timer++;
-            if (timer >= 4) {
-                timer = 0;
-                if (PlanetUtil.isPlanet(level.dimension())) {
+        if (getWrappedEnergyContainer().getStoredEnergy() > 0 && oxygenContainer.getOxygenStored() > 0) {
+            if (PlanetUtil.isPlanet(level.dimension())) {
+                timer++;
+                if (timer >= 4) {
                     oxygenContainer.addOxygenAt(getBlockPos(), false);
                     oxygenContainer.tick(level);
+                    timer = 0;
+                }
+            }
+
+            if (this.getItem(1).getItem() instanceof JetSuit.Suit jetSuit) {
+                if (oxygenContainer.removeOxygenStored(100, true) && jetSuit.oxygenContainer.addOxygenStored(100, true)) {
+                    oxygenContainer.removeOxygenStored(100, false);
+                    jetSuit.oxygenContainer.addOxygenStored(100, false);
                 }
             }
         }

@@ -103,21 +103,26 @@ public class OxygenContainer {
     }
 
     public boolean removeOxygenStored(boolean simulate) {
+        return removeOxygenStored(1, simulate);
+    }
+
+    public boolean removeOxygenStored(int amount, boolean simulate) {
         if (getOxygenStored() > 0) {
             if (!simulate) {
-                oxygenStored--;
+                oxygenStored -= amount;
             }
+
             return true;
         }
+
         return false;
     }
 
-    public boolean addOxygenStored(OxygenContainerItem container, boolean simulate) {
-        int oxygenToAdd = container.getOxygenContainer().getOxygenStored();
-        if (oxygenToAdd + getOxygenStored() <= maxOxygen) {
+    public boolean addOxygenStored(int amount, boolean simulate) {
+        if (amount + getOxygenStored() <= maxOxygen) {
             if (!simulate) {
-                oxygenStored += oxygenToAdd;
-                container.getOxygenContainer().removeAllOxygenStored();
+                oxygenStored += amount;
+                removeAllOxygenStored();
             }
 
             return true;

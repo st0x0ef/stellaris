@@ -18,7 +18,6 @@ public class JetSuitOverlay {
         Player player = Minecraft.getInstance().player;
 
         if (Utils.isLivingInJetSuit(player)) {
-            Minecraft mc = Minecraft.getInstance();
             ItemStack itemStack = player.getItemBySlot(EquipmentSlot.CHEST);
 
             int x = 5;
@@ -30,16 +29,14 @@ public class JetSuitOverlay {
                 String fuel = String.valueOf(jetSuitItem.getFuel(itemStack));
 
                 /** TEXT */
-                Font font = mc.font;
+                Font font = Minecraft.getInstance().font;
                 Component text = Component.translatable("general." + Stellaris.MODID + ".jet_suit_mode").append(": ").withStyle(chatFormatting).append(modeText.copy().withStyle(ChatFormatting.GRAY));
                 graphics.drawString(font, text, (x + (80 - font.width(text)) / 2), y + 83, 0xFFFFFF);
 
                 Component fuelText = Component.translatable("general." + Stellaris.MODID + ".jet_suit_fuel").append(": ").withStyle(chatFormatting).append(fuel).withStyle(ChatFormatting.GRAY);
 
                 graphics.drawString(font, fuelText, (x + (80 - font.width(fuelText)) / 2), y + 92, 0xFFFFFF);
-
             }
         }
-
     }
 }
