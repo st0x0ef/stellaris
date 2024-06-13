@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
+import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -13,12 +14,14 @@ public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity {
     public FluidTank outputFluidTank = new FluidTank("outputTank",5000);
 
 
-    public FuelRefineryBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-        super(type, pos, state);
+    public FuelRefineryBlockEntity(BlockPos pos, BlockState state) {
+        super(BlockEntityRegistry.FUEL_REFINERY.get(), pos, state);
     }
 
     @Override
     public void tick() {
+        this.getItems();
+        inputFluidTank.getAmount();
 
     }
 
@@ -30,5 +33,15 @@ public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity {
     @Override
     protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
         return null;
+    }
+
+    @Override
+    public int getContainerSize() {
+        return 4;
+    }
+
+    @Override
+    protected int getMaxCapacity() {
+        return 128000;
     }
 }
