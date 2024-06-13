@@ -1,10 +1,7 @@
 package com.st0x0ef.stellaris.client;
 
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.client.overlays.JetSuitOverlay;
-import com.st0x0ef.stellaris.client.overlays.LanderOverlay;
-import com.st0x0ef.stellaris.client.overlays.RocketBarOverlay;
-import com.st0x0ef.stellaris.client.overlays.RocketStartOverlay;
+import com.st0x0ef.stellaris.client.overlays.*;
 import com.st0x0ef.stellaris.client.particles.*;
 import com.st0x0ef.stellaris.client.registries.KeyMappingsRegistry;
 import com.st0x0ef.stellaris.client.renderers.entities.alien.AlienModel;
@@ -154,6 +151,7 @@ public class StellarisClient {
         ClientGuiEvent.RENDER_HUD.register(RocketBarOverlay::render);
         ClientGuiEvent.RENDER_HUD.register(LanderOverlay::render);
         ClientGuiEvent.RENDER_HUD.register(JetSuitOverlay::render);
+        ClientGuiEvent.RENDER_HUD.register(OxygenTankOverlay::render);
 
     }
 

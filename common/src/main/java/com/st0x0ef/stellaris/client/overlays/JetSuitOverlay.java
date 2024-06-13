@@ -27,11 +27,17 @@ public class JetSuitOverlay {
             if (itemStack.getItem() instanceof JetSuit.Suit jetSuitItem) {
                 Component modeText = jetSuitItem.getModeType(itemStack).getComponent();
                 ChatFormatting chatFormatting = jetSuitItem.getModeType(itemStack).getChatFormatting();
+                String fuel = String.valueOf(jetSuitItem.getFuel(itemStack));
 
                 /** TEXT */
                 Font font = mc.font;
                 Component text = Component.translatable("general." + Stellaris.MODID + ".jet_suit_mode").append(": ").withStyle(chatFormatting).append(modeText.copy().withStyle(ChatFormatting.GRAY));
-                graphics.drawString(font, text, (x + (80 - font.width(text)) / 2), y + 80 + 3, 0xFFFFFF);
+                graphics.drawString(font, text, (x + (80 - font.width(text)) / 2), y + 83, 0xFFFFFF);
+
+                Component fuelText = Component.translatable("general." + Stellaris.MODID + ".jet_suit_fuel").append(": ").withStyle(chatFormatting).append(fuel).withStyle(ChatFormatting.GRAY);
+
+                graphics.drawString(font, fuelText, (x + (80 - font.width(fuelText)) / 2), y + 92, 0xFFFFFF);
+
             }
         }
 

@@ -72,6 +72,9 @@ public class JetSuit {
 //        }
 
         public void onArmorTick(ItemStack stack, Level level, Player player) {
+            super.onArmorTick(stack, level, player);
+            if (this.getFuel(stack) <= 0) return;
+
             /** JET SUIT FAST BOOST */
             if (player.isSprinting()) {
                 this.boost(player, 1.3, true);
@@ -102,6 +105,8 @@ public class JetSuit {
                         player.setDeltaMovement(vec3.x, vec3.y + gravity/1.1 - 0.02, vec3.z);
                         player.resetFallDistance();
                         Utils.disableFlyAntiCheat(player, true);
+                        this.addFuel(stack, -2);
+
                     }
 
                     /** MOVE UP */
