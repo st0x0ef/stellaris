@@ -95,22 +95,24 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity {
 
             if (!inputStack.isEmpty() && (outputStack.isEmpty() || hasSpace)) {
                 if (!ingredientTank.isEmpty() && ingredientTank.getAmount() >= BUCKET_AMOUNT) {
-                    ItemStack resultStack = new ItemStack(ingredientTank.getStack().getFluid().getBucket());
-                    boolean success = false;
+                    if (inputStack.getItem() instanceof BucketItem item && FluidBucketHooks.getFluid(item).isSame(Fluids.EMPTY)) {
+                        ItemStack resultStack = new ItemStack(ingredientTank.getStack().getFluid().getBucket());
+                        boolean success = false;
 
-                    if (outputStack.isEmpty()) {
-                        setItem(0, resultStack);
-                        success = true;
-                    }
-                    else if (ItemStack.isSameItem(outputStack, resultStack) && hasSpace) {
-                        getItem(0).grow(1);
-                        success = true;
-                    }
+                        if (outputStack.isEmpty()) {
+                            setItem(0, resultStack);
+                            success = true;
+                        }
+                        else if (ItemStack.isSameItem(outputStack, resultStack) && hasSpace) {
+                            getItem(0).grow(1);
+                            success = true;
+                        }
 
-                    if (success) {
-                        inputStack.shrink(1);
-                        ingredientTank.grow(-BUCKET_AMOUNT);
-                        setChanged();
+                        if (success) {
+                            inputStack.shrink(1);
+                            ingredientTank.grow(-BUCKET_AMOUNT);
+                            setChanged();
+                        }
                     }
                 }
             }
@@ -154,15 +156,23 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity {
     private boolean addFluidFromBucket() {
         if (ingredientTank.getAmount() + BUCKET_AMOUNT < ingredientTank.getMaxCapacity()) {
             ItemStack inputStack = getItem(1);
+            ItemStack outputStack = getItem(0);
+            boolean hasSpace = outputStack.getCount() < outputStack.getMaxStackSize();
 
-            if (!inputStack.isEmpty() && getItem(0).isEmpty()) {
+            if (!inputStack.isEmpty() && (outputStack.isEmpty() || hasSpace)) {
                 if (inputStack.getItem() instanceof BucketItem item) {
                     Fluid fluid = FluidBucketHooks.getFluid(item);
 
                     if (!fluid.isSame(Fluids.EMPTY)) {
-                        setItem(0, new ItemStack(Items.BUCKET));
-                        setItem(1, ItemStack.EMPTY);
+                        if (outputStack.isEmpty()) {
+                            setItem(0, new ItemStack(Items.BUCKET));
+                        }
+                        else if (outputStack.is(Items.BUCKET) && hasSpace) {
+                            outputStack.grow(1);
+                        }
+                        else return false;
 
+                        setItem(1, ItemStack.EMPTY);
                         addToTank(ingredientTank, FluidStack.create(fluid, BUCKET_AMOUNT));
                         setChanged();
                         return true;
