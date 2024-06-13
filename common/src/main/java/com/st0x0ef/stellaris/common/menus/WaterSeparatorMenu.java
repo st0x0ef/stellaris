@@ -70,10 +70,8 @@ public class WaterSeparatorMenu extends BaseContainer {
             values.toArray( simpleArray );
 
 
-            buffer = SyncWidgetsTanks.encode(new SyncWidgetsTanks( ArrayUtils.toPrimitive(simpleArray)), buffer);
-            NetworkRegistry.sendToPlayer(player, NetworkRegistry.SYNC_FLUID_TANKS_ID, buffer);
-            buffer = SyncWidgetsTanks.encode(new SyncWidgetsTanks(new long[]{this.blockEntity.ingredientTank.getAmount()}), buffer);
-            NetworkRegistry.sendToPlayer(player, NetworkRegistry.SYNC_FLUID_TANKS_ID, buffer);
+            NetworkRegistry.sendToPlayer(player, NetworkRegistry.SYNC_FLUID_TANKS_ID, SyncWidgetsTanks.encode(new SyncWidgetsTanks( ArrayUtils.toPrimitive(simpleArray)), buffer));
+            NetworkRegistry.sendToPlayer(player, NetworkRegistry.SYNC_FLUID_TANKS_ID, SyncWidgetsTanks.encode(new SyncWidgetsTanks(new long[]{this.blockEntity.ingredientTank.getAmount()}), buffer));
 
         }
     }

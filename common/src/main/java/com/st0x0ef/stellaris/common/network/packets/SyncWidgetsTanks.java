@@ -21,27 +21,26 @@ public class SyncWidgetsTanks {
 
     public static RegistryFriendlyByteBuf encode(SyncWidgetsTanks message, RegistryFriendlyByteBuf buffer) {
         buffer.writeLongArray(message.component);
-
         return buffer;
     }
 
     public static void apply(RegistryFriendlyByteBuf buffer, NetworkManager.PacketContext context) {
         LocalPlayer player = (LocalPlayer) context.getPlayer();
         SyncWidgetsTanks syncWidgetsTanks = new SyncWidgetsTanks(buffer);
-        if (player.containerMenu instanceof WaterSeparatorMenu menu) {
-            if(syncWidgetsTanks.component.length == 2) {
-                menu.getBlockEntity().resultTanks.getFirst().setAmount(syncWidgetsTanks.component[0]);
-                menu.getBlockEntity().resultTanks.getLast().setAmount(syncWidgetsTanks.component[1]);
-
-                Stellaris.LOG.error("Amount in Packet {}", syncWidgetsTanks.component[1]);
-                Stellaris.LOG.error("Amount in entity {}", menu.getBlockEntity().resultTanks.getLast().getAmount());
-            } else {
-                menu.getBlockEntity().ingredientTank.setAmount(syncWidgetsTanks.component[0]);
+        switch (player.containerMenu) {
+            case WaterSeparatorMenu menu -> {
+                if (syncWidgetsTanks.component.length == 2) {
+                    menu.getBlockEntity().resultTanks.getFirst().setAmount(syncWidgetsTanks.component[0]);
+                    menu.getBlockEntity().resultTanks.getLast().setAmount(syncWidgetsTanks.component[1]);
+                } else {
+                    menu.getBlockEntity().ingredientTank.setAmount(syncWidgetsTanks.component[0]);
+                }
             }
-        } else if (player.containerMenu instanceof SolarPanelMenu menu) {
-            menu.getEnergyContainer().setEnergy(syncWidgetsTanks.component[0]);
-        } else if (player.containerMenu instanceof CoalGeneratorMenu menu) {
-            menu.getBlockEntity().getWrappedEnergyContainer().setEnergy(syncWidgetsTanks.component[0]);
+            case SolarPanelMenu menu -> menu.getEnergyContainer().setEnergy(syncWidgetsTanks.component[0]);
+            case CoalGeneratorMenu menu ->
+                    menu.getBlockEntity().getWrappedEnergyContainer().setEnergy(syncWidgetsTanks.component[0]);
+            default -> {
+            }
         }
     }
 }
