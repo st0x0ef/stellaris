@@ -27,6 +27,7 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
@@ -82,7 +83,8 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         this.ROCKET_START = false;
         this.FUEL = 0;
 
-        rocketComponent = new RocketComponent(SKIN_UPGRADE.getRocketSkinLocation().toString(), RocketModel.fromString(MODEL_UPGRADE.getModel().toString()), MOTOR_UPGRADE.getFuelType(), FUEL, TANK_UPGRADE.getTankCapacity());
+        this.currentFuelItem = ItemsRegistry.FUEL_BUCKET.get();
+        this.rocketComponent = new RocketComponent(SKIN_UPGRADE.getRocketSkinLocation().toString(), RocketModel.fromString(MODEL_UPGRADE.getModel().toString()), currentFuelItem.toString(), FUEL, TANK_UPGRADE.getTankCapacity());
 
         this.inventory = new SimpleContainer(14);
     }
@@ -129,7 +131,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         FUEL = compound.getInt("fuel");
 
         if (FUEL != 0) {
-            currentFuelItem = FuelType.getItemBasedOnName(compound.getString("currentFuelItemType"));
+            currentFuelItem = FuelType.getItemBasedOnTypeName(compound.getString("currentFuelItemType"));
         }
     }
 
@@ -355,8 +357,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     }
     public ItemStack getRocketItem() {
         ItemStack itemStack = new ItemStack(ItemsRegistry.ROCKET.get(), 1);
-        RocketComponent rocketComponent = new RocketComponent(SKIN_UPGRADE.getRocketSkinLocation().toString(), MODEL_UPGRADE.getModel(), MOTOR_UPGRADE.getFuelType(), FUEL, TANK_UPGRADE.getTankCapacity());
-        Stellaris.LOG.error(MODEL_UPGRADE.getModel().getSerializedName());
+        rocketComponent = new RocketComponent(SKIN_UPGRADE.getRocketSkinLocation().toString(), RocketModel.fromString(MODEL_UPGRADE.getModel().toString()), currentFuelItem.toString(), FUEL, TANK_UPGRADE.getTankCapacity());Stellaris.LOG.error(MODEL_UPGRADE.getModel().getSerializedName());
         itemStack.set(DataComponentsRegistry.ROCKET_COMPONENT.get(), rocketComponent);
         return itemStack;
     }
@@ -429,7 +430,9 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
             inventory.removeItem(0, 1);
 
             return true;
-        } else if (FuelType.Type.getTypeBasedOnItem(item) == MOTOR_UPGRADE.getFuelType() && canPutFuelBasedOnCurrentFuelItem(item)) {
+        }
+
+        if (FuelType.Type.getTypeBasedOnItem(item) == MOTOR_UPGRADE.getFuelType() && canPutFuelBasedOnCurrentFuelItem(item)) {
             FUEL += 1000;
             if (FUEL > TANK_UPGRADE.getTankCapacity()) {
                 FUEL = TANK_UPGRADE.getTankCapacity();
@@ -506,16 +509,15 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     }
 
     public boolean canGoTo (Planet actual, Planet destination) {
-        return Mth.abs(actual.distanceFromEarth() - destination.distanceFromEarth()) <=  this.TANK_UPGRADE.getTankCapacity() * FuelType.getMegametersTraveledByMbOfFuel(this.currentFuelItem);
+        return Mth.abs(actual.distanceFromEarth() - destination.distanceFromEarth()) <= FuelType.getMegametersTraveled(this.rocketComponent.fuel(), FuelType.getItemBasedOnLoacation(new ResourceLocation(Stellaris.MODID, this.rocketComponent.fuelType())));
     }
 
     public void syncRocketData(ServerPlayer player) {
-        this.rocketComponent = new RocketComponent(SKIN_UPGRADE.getRocketSkinLocation().toString(), RocketModel.fromString(MODEL_UPGRADE.getModel().toString()), MOTOR_UPGRADE.getFuelType(), FUEL, TANK_UPGRADE.getTankCapacity());
+        this.rocketComponent = new RocketComponent(SKIN_UPGRADE.getRocketSkinLocation().toString(), RocketModel.fromString(MODEL_UPGRADE.getModel().toString()), currentFuelItem.toString(), FUEL, TANK_UPGRADE.getTankCapacity());
 
         if (!level().isClientSide()) {
             RegistryFriendlyByteBuf buffer = new RegistryFriendlyByteBuf(Unpooled.buffer(), level().getServer().registryAccess());
-            buffer = SyncRocketComponent.encode(new SyncRocketComponent(rocketComponent), buffer);
-            NetworkRegistry.sendToPlayer(player, NetworkRegistry.SYNC_ROCKET_COMPONENT_ID, buffer);
+            NetworkRegistry.sendToPlayer(player, NetworkRegistry.SYNC_ROCKET_COMPONENT_ID, SyncRocketComponent.encode(new SyncRocketComponent(rocketComponent), buffer));
         }
     }
 }

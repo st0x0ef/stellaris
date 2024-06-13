@@ -2,13 +2,13 @@ package com.st0x0ef.stellaris.common.data.recipes;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.RocketStationEntity;
 import com.st0x0ef.stellaris.common.registry.RecipesRegistry;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
@@ -19,7 +19,7 @@ import net.minecraft.world.level.Level;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RocketStationRecipe implements Recipe<SimpleContainer> {
+public class RocketStationRecipe implements Recipe<RocketStationEntity> {
 
     private final ItemStack output;
     private final List<Ingredient> recipeItems;
@@ -30,11 +30,7 @@ public class RocketStationRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public boolean matches(SimpleContainer container, Level level) {
-        if (level.isClientSide()) {
-            return false;
-        }
-
+    public boolean matches(RocketStationEntity container, Level level) {
         for (int i = 0; i < container.getContainerSize() - 1; i++) {
             if (!recipeItems.get(i).test(container.getItem(i))) {
                 return false;
@@ -45,7 +41,7 @@ public class RocketStationRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public ItemStack assemble(SimpleContainer container, HolderLookup.Provider provider) {
+    public ItemStack assemble(RocketStationEntity container, HolderLookup.Provider provider) {
         return output;
     }
 
@@ -59,7 +55,6 @@ public class RocketStationRecipe implements Recipe<SimpleContainer> {
         return output;
     }
 
-
     @Override
     public NonNullList<Ingredient> getIngredients() {
         NonNullList<Ingredient> list = NonNullList.createWithCapacity(this.recipeItems.size());
@@ -69,7 +64,7 @@ public class RocketStationRecipe implements Recipe<SimpleContainer> {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return RecipesRegistry.WATER_SEPERATOR_SERIALIZER.get();
+        return RecipesRegistry.ROCKET_STATION.get();
     }
 
     @Override
@@ -80,12 +75,13 @@ public class RocketStationRecipe implements Recipe<SimpleContainer> {
     public static class Serializer implements RecipeSerializer<RocketStationRecipe> {
 
         public static final MapCodec<RocketStationRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-                Ingredient.CODEC_NONEMPTY.listOf(1, 14).fieldOf("ingredients").forGetter(RocketStationRecipe::getIngredients),
+                Ingredient.CODEC_NONEMPTY.listOf(1, 14).fieldOf("ingredients").forGetter(r -> r.recipeItems),
                 ItemStack.CODEC.fieldOf("output").forGetter(r -> r.output)
         ).apply(instance, RocketStationRecipe::new));
-        public static final StreamCodec<RegistryFriendlyByteBuf, ArrayList<Ingredient>> INGREDIENT_LIST_STREAM_CODEC = ByteBufCodecs.collection(ArrayList::new, Ingredient.CONTENTS_STREAM_CODEC, 14);
+
+        public static final StreamCodec<RegistryFriendlyByteBuf, List<Ingredient>> INGREDIENT_LIST_STREAM_CODEC = ByteBufCodecs.collection(ArrayList::new, Ingredient.CONTENTS_STREAM_CODEC, 14);
         public static final StreamCodec<RegistryFriendlyByteBuf, RocketStationRecipe> STREAM_CODEC = StreamCodec.of((buf, recipe) -> {
-            INGREDIENT_LIST_STREAM_CODEC.encode(buf, (ArrayList<Ingredient>) recipe.recipeItems);
+            INGREDIENT_LIST_STREAM_CODEC.encode(buf, recipe.recipeItems);
             ItemStack.STREAM_CODEC.encode(buf, recipe.output);
         }, buf -> new RocketStationRecipe(INGREDIENT_LIST_STREAM_CODEC.decode(buf), ItemStack.STREAM_CODEC.decode(buf)));
 

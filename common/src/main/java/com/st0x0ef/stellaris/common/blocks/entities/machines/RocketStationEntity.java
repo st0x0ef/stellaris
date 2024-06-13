@@ -12,12 +12,11 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.ContainerHelper;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -27,18 +26,16 @@ import java.util.Optional;
 
 public class RocketStationEntity extends BaseContainerBlockEntity implements ImplementedInventory {
 
-    private NonNullList<ItemStack> items;
+    private NonNullList<ItemStack> items = NonNullList.withSize(15, ItemStack.EMPTY);
+    private final RecipeManager.CachedCheck<RocketStationEntity, RocketStationRecipe> quickCheck = RecipeManager.createCheck(RecipesRegistry.ROCKET_STATION_TYPE.get());
 
     public RocketStationEntity(BlockPos blockPos, BlockState blockState) {
         super(BlockEntityRegistry.ROCKET_STATION.get(), blockPos, blockState);
-
-        this.items = NonNullList.withSize(15, ItemStack.EMPTY);
-
     }
 
     @Override
     protected Component getDefaultName() {
-        return Component.literal("Rocket Station");
+        return Component.translatable("block.stellaris.rocket_station");
     }
 
     @Override
@@ -65,7 +62,6 @@ public class RocketStationEntity extends BaseContainerBlockEntity implements Imp
         ContainerHelper.saveAllItems(compoundTag, this.items, provider);
     }
 
-
     @Override
     public NonNullList<ItemStack> getItems() {
         return items;
@@ -91,58 +87,39 @@ public class RocketStationEntity extends BaseContainerBlockEntity implements Imp
         return false;
     }
 
-    private boolean hasRecipe() {
-        Optional<RecipeHolder<RocketStationRecipe>> recipe = this.getCurrentRecipe();
-
-        return recipe.isPresent() && canInsertAmountIntoOutputSlot(recipe.get().value().getResultItem(null))
-                && canInsertItemIntoOutputSlot(recipe.get().value().getResultItem(null).getItem());
-    }
-
-    private Optional<RecipeHolder<RocketStationRecipe>> getCurrentRecipe() {
-        SimpleContainer simpleContainer = new SimpleContainer(this.getContainerSize());
-        for (int i = 0; i < this.getContainerSize(); i++) {
-            simpleContainer.setItem(i, this.getItem(i));
-        }
-       return getLevel().getRecipeManager().getRecipeFor(RecipesRegistry.ROCKET_STATION_TYPE.get(), simpleContainer, getLevel());
-    }
-
-    private void craftItem() {
-        Optional<RecipeHolder<RocketStationRecipe>> recipe = getCurrentRecipe();
-        if (recipe.isPresent()) {
-            for (int i = 0; i < 14; i++) {
-                this.removeItem(i, 1);
-            }
-            this.setItem(14, new ItemStack(recipe.get().value().getResultItem(null).getItem(),
-                    getItem(14).getCount() + recipe.get().value().getResultItem(null).getCount()));
-        }
-    }
-
-
-    public void tick(Level world, BlockPos pos, BlockState state) {
-        if(world.isClientSide()) {
+    public void tick(Level level) {
+        if (level.isClientSide()) {
             return;
         }
 
-        if(isOutputSlotEmptyOrReceivable()) {
-            if(this.hasRecipe()) {
-                setChanged(world, pos, state);
-                this.craftItem();
+        ItemStack outputStack = getItem(14);
+        if (outputStack.isEmpty() || outputStack.getCount() < outputStack.getMaxStackSize()) {
+            Optional<RecipeHolder<RocketStationRecipe>> recipeHolder = quickCheck.getRecipeFor(this, level);
+            if (recipeHolder.isPresent()) {
+                RocketStationRecipe recipe = recipeHolder.get().value();
+                ItemStack resultStack = recipe.getResultItem(level.registryAccess());
+                if (outputStack.isEmpty() || (ItemStack.isSameItemSameComponents(outputStack, resultStack)
+                        && outputStack.getCount() + resultStack.getCount() <= outputStack.getMaxStackSize())) {
 
+                    if (outputStack.isEmpty()) {
+                        setItem(14, resultStack.copy());
+                    }
+                    else if (ItemStack.isSameItemSameComponents(outputStack, resultStack)) {
+                        outputStack.grow(1);
+                    }
+                    else return;
+
+                    for (int i = 0; i < 14; i++) {
+                        ItemStack stack = getItem(i);
+                        stack.shrink(1);
+
+                        if (stack.isEmpty()) {
+                            setItem(i, ItemStack.EMPTY);
+                        }
+                    }
+                    setChanged();
+                }
             }
-        } else {
-            setChanged(world, pos, state);
         }
-    }
-
-    private boolean canInsertItemIntoOutputSlot(Item item) {
-        return this.getItem(14).getItem() == item || this.getItem(14).isEmpty();
-    }
-
-    private boolean canInsertAmountIntoOutputSlot(ItemStack result) {
-        return this.getItem(14).getCount() + result.getCount() <= getItem(14).getMaxStackSize();
-    }
-
-    private boolean isOutputSlotEmptyOrReceivable() {
-        return this.getItem(14).isEmpty() || this.getItem(14).getCount() < this.getItem(14).getMaxStackSize();
     }
 }

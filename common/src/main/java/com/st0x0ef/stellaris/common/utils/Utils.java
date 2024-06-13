@@ -12,9 +12,13 @@ import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
@@ -263,5 +267,25 @@ public class Utils {
 
     public static int findBiggerNumber(int value1, int value2) {
         return Math.max(value1, value2);
+    }
+
+    public static void disableFlyAntiCheat(Player player, boolean condition) {
+        if (player instanceof ServerPlayer) {
+            if (condition) {
+                ((ServerPlayer) player).connection.aboveGroundTickCount = 0;
+            }
+        }
+    }
+
+    public static boolean isLivingInJetSuit(LivingEntity entity) {
+        if (!isLivingInArmor(entity, EquipmentSlot.HEAD, ItemsRegistry.JETSUIT_HELMET.get())) return false;
+        if (!isLivingInArmor(entity, EquipmentSlot.CHEST, ItemsRegistry.JETSUIT_SUIT.get())) return false;
+        if (!isLivingInArmor(entity, EquipmentSlot.LEGS, ItemsRegistry.JETSUIT_LEGGINGS.get())) return false;
+        return isLivingInArmor(entity, EquipmentSlot.FEET, ItemsRegistry.JETSUIT_BOOTS.get());
+    }
+
+
+    public static boolean isLivingInArmor(LivingEntity entity, EquipmentSlot slot, Item item) {
+        return entity.getItemBySlot(slot).getItem() == item;
     }
 }

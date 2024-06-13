@@ -5,8 +5,6 @@ import com.st0x0ef.stellaris.common.systems.data.DataManager;
 import com.st0x0ef.stellaris.common.systems.data.DataManagerBuilder;
 import com.st0x0ef.stellaris.common.systems.data.DataManagerRegistry;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
@@ -47,11 +45,5 @@ public class NeoDataManagerRegistry implements DataManagerRegistry {
 
     public String getModid() {
         return modid;
-    }
-
-    @Override
-    public void initialize() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        this.register.register(modEventBus);
     }
 }

@@ -5,7 +5,6 @@ import com.st0x0ef.stellaris.common.menus.RocketMenu;
 import dev.architectury.networking.NetworkManager;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import org.apache.commons.lang3.SerializationUtils;
 
 public class SyncRocketComponent {
 

@@ -7,11 +7,9 @@ import com.st0x0ef.stellaris.common.blocks.entities.machines.WaterSeparatorBlock
 import com.st0x0ef.stellaris.common.registry.RecipesRegistry;
 import dev.architectury.fluid.FluidStack;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -19,10 +17,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Predicate;
 
 public record WaterSeparatorRecipe(FluidStack ingredientStack, List<FluidStack> resultStacks, int energy) implements Recipe<WaterSeparatorBlockEntity> {
 

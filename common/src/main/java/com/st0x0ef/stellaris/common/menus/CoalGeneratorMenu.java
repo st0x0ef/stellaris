@@ -38,7 +38,7 @@ public class CoalGeneratorMenu extends AbstractContainerMenu {
         super(MenuTypesRegistry.COAL_GENERATOR_MENU.get(), syncId);
 
         checkContainerSize(container, 1);
-        this.inventory = (container);
+        this.inventory = container;
         this.entity = entity;
         this.data = containerData;
 
@@ -118,9 +118,7 @@ public class CoalGeneratorMenu extends AbstractContainerMenu {
     public void syncBattery(ServerPlayer player) {
         if (!player.level().isClientSide()) {
             RegistryFriendlyByteBuf buffer = new RegistryFriendlyByteBuf(Unpooled.buffer(), player.level().getServer().registryAccess());
-            buffer = SyncWidgetsTanks.encode(new SyncWidgetsTanks(new long[]{this.getBlockEntity().getWrappedEnergyContainer().getStoredEnergy()}), buffer);
-            NetworkRegistry.sendToPlayer(player, NetworkRegistry.SYNC_FLUID_TANKS_ID, buffer);
-
+            NetworkRegistry.sendToPlayer(player, NetworkRegistry.SYNC_FLUID_TANKS_ID, SyncWidgetsTanks.encode(new SyncWidgetsTanks(new long[]{this.getBlockEntity().getWrappedEnergyContainer().getStoredEnergy()}), buffer));
         }
     }
 }

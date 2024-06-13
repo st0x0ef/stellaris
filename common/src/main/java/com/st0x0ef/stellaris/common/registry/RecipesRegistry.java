@@ -40,7 +40,7 @@ public class RecipesRegistry {
 
         @Override
         public String toString() {
-            return Stellaris.MODID + ":" + id;
+            return id;
         }
     }
 }

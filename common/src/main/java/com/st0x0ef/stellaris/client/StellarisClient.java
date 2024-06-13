@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.client;
 
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.client.overlays.JetSuitOverlay;
 import com.st0x0ef.stellaris.client.overlays.LanderOverlay;
 import com.st0x0ef.stellaris.client.overlays.RocketBarOverlay;
 import com.st0x0ef.stellaris.client.overlays.RocketStartOverlay;
@@ -145,13 +146,15 @@ public class StellarisClient {
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.MILKYWAY_MENU.get(), MilkyWayScreen::new);
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.LANDER_MENU.get(), LanderScreen::new);
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.OXYGEN_DISTRIBUTOR.get(), OxygenDistributorScreen::new);
-        MenuRegistry.registerScreenFactory(MenuTypesRegistry.WATER_SEPARATOR_MENU.get(), WaterSeperatorScreen::new);
+        MenuRegistry.registerScreenFactory(MenuTypesRegistry.WATER_SEPARATOR_MENU.get(), WaterSeparatorScreen::new);
     }
 
     public static void registerOverlays() {
         ClientGuiEvent.RENDER_HUD.register(RocketStartOverlay::render);
         ClientGuiEvent.RENDER_HUD.register(RocketBarOverlay::render);
         ClientGuiEvent.RENDER_HUD.register(LanderOverlay::render);
+        ClientGuiEvent.RENDER_HUD.register(JetSuitOverlay::render);
+
     }
 
     public static void setupOpenGLDebugMessageCallback() {

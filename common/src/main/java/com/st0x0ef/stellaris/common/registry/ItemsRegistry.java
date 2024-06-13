@@ -2,7 +2,10 @@ package com.st0x0ef.stellaris.common.registry;
 
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.RocketModel;
+import com.st0x0ef.stellaris.common.armors.JetSuit;
+import com.st0x0ef.stellaris.common.data_components.JetSuitComponent;
 import com.st0x0ef.stellaris.common.data_components.RocketComponent;
+import com.st0x0ef.stellaris.common.data_components.SpaceArmorComponent;
 import com.st0x0ef.stellaris.common.items.*;
 import com.st0x0ef.stellaris.common.items.oxygen.OxygenTankItem;
 import com.st0x0ef.stellaris.common.items.upgrade.RocketUpgradeItem;
@@ -204,7 +207,7 @@ public class ItemsRegistry {
 
     /** Rocket Parts */
 
-    public static final RegistrySupplier<Item> ROCKET_NOSE_CONE = ITEMS.register("rocket_nose_cone", () -> new Item(new Item.Properties()));
+    public static final RegistrySupplier<Item> ROCKET_NOSE_CONE = ITEMS.register("rocket_nose_cone", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> ROCKET_FIN = ITEMS.register("rocket_fin", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> ROCKET_FAN = ITEMS.register("engine_fan", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> ROCKET_ENGINE = ITEMS.register("rocket_engine", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
@@ -267,7 +270,7 @@ public class ItemsRegistry {
     public static final RegistrySupplier<Item> VERTICAL_DESH_SLAB = ITEMS.register("vertical_desh_slab", () -> new BlockItem(BlocksRegistry.VERTICAL_DESH_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
 
     /** Rocket */
-    public static final RegistrySupplier<Item> ROCKET = ITEMS.register("rocket", () -> new RocketItem( new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.ROCKET_COMPONENT.get(), new RocketComponent(SkinUpgrade.getBasic().getNameSpace(), ModelUpgrade.getBasic().getModel(), MotorUpgrade.getBasic().getFuelType(), 0, TankUpgrade.getBasic().getTankCapacity()))));
+    public static final RegistrySupplier<Item> ROCKET = ITEMS.register("rocket", () -> new RocketItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.ROCKET_COMPONENT.get(), new RocketComponent(SkinUpgrade.getBasic().getNameSpace(), ModelUpgrade.getBasic().getModel(), MotorUpgrade.getBasic().getFuelType().getSerializedName(), 0, TankUpgrade.getBasic().getTankCapacity()))));
 
     // Upgrade
     public static final RegistrySupplier<Item> FROSTY_ROCKET_SKIN = ITEMS.register("skin_frozy", () -> new RocketUpgradeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), new SkinUpgrade(new ResourceLocation(Stellaris.MODID, "textures/vehicle/rocket_skin/normal/frozy.png"))));
@@ -285,4 +288,12 @@ public class ItemsRegistry {
 
     public static final RegistrySupplier<Item> HYDROGEN_MOTOR_UPGRADE = ITEMS.register("hydrogen_motor", () -> new RocketUpgradeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), new MotorUpgrade(FuelType.Type.HYDROGEN)));
     public static final RegistrySupplier<Item> RADIOACTIVE_MOTOR_UPGRADE = ITEMS.register("radioactive_motor", () -> new RocketUpgradeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), new MotorUpgrade(FuelType.Type.RADIOACTIVE)));
+
+    /** Suit */
+
+    public static final RegistrySupplier<Item> JETSUIT_HELMET = ITEMS.register("jetsuit_helmet", () -> new ArmorItem(ArmorMaterials.NETHERITE, ArmorItem.Type.HELMET, new Item.Properties().component(DataComponentsRegistry.SPACE_ARMOR_ROCKET.get(), new SpaceArmorComponent(0, 0)).arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> JETSUIT_LEGGINGS = ITEMS.register("jetsuit_leggings", () -> new ArmorItem(ArmorMaterials.NETHERITE, ArmorItem.Type.LEGGINGS, new Item.Properties().component(DataComponentsRegistry.SPACE_ARMOR_ROCKET.get(), new SpaceArmorComponent(0, 0)).arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> JETSUIT_BOOTS = ITEMS.register("jetsuit_boots", () -> new ArmorItem(ArmorMaterials.NETHERITE, ArmorItem.Type.BOOTS, new Item.Properties().component(DataComponentsRegistry.SPACE_ARMOR_ROCKET.get(), new SpaceArmorComponent(0, 0)).arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> JETSUIT_SUIT = ITEMS.register("jetsuit_suit", () -> new JetSuit.Suit(ArmorMaterials.NETHERITE, new Item.Properties().component(DataComponentsRegistry.SPACE_ARMOR_ROCKET.get(), new SpaceArmorComponent(0, 0)).component(DataComponentsRegistry.JET_SUIT_COMPONENT.get(), new JetSuitComponent(JetSuit.ModeType.DISABLED)).arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+
 }

@@ -6,7 +6,6 @@ import com.st0x0ef.stellaris.common.systems.energy.base.EnergyItem;
 import com.st0x0ef.stellaris.common.systems.item.ItemStackHolder;
 import com.st0x0ef.stellaris.platform.systems.energy.EnergyContainer;
 import com.st0x0ef.stellaris.common.systems.util.Updatable;
-import com.st0x0ef.stellaris.platform.systems.energy.EnergyContainerHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.Item;

@@ -16,7 +16,6 @@ public class MarsFog {
     @SubscribeEvent
     public static void setupFog(ViewportEvent.RenderFog event) {
         Minecraft mc = Minecraft.getInstance();
-        Stellaris.LOG.error(PlanetUtil.getPlanet(mc.level.dimension()).name());
 
         if (Objects.equals(PlanetUtil.getPlanet(mc.level.dimension()).name(), "Mars")) {
             float fogLevel = mc.level.getRainLevel((float) event.getPartialTick()) - 0.02F;

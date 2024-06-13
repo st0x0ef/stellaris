@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "   ",
+    " # ",
+    "   "
+  ],
+  "key": {
+    "#": {"item": "stellaris:steel_ingot"}
+  },
+  "result": {
+    "id": "stellaris:steel_nugget",
+    "count": 9
+  }
+}

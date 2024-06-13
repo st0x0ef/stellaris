@@ -1,13 +1,7 @@
 package com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket;
 
 import com.mojang.serialization.Codec;
-import io.netty.buffer.ByteBuf;
-import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.util.ByIdMap;
 import net.minecraft.util.StringRepresentable;
-
-import java.util.function.IntFunction;
 
 public enum RocketModel implements StringRepresentable {
     TINY(0),
@@ -16,10 +10,6 @@ public enum RocketModel implements StringRepresentable {
     BIG(3);
 
     public static final Codec<RocketModel> CODEC = StringRepresentable.fromEnum(RocketModel::values);
-
-
-    public static final IntFunction<RocketModel> BY_ID = ByIdMap.continuous(RocketModel::id, values(), ByIdMap.OutOfBoundsStrategy.ZERO);
-    public static final StreamCodec<ByteBuf, RocketModel> STREAM_CODEC = ByteBufCodecs.idMapper(BY_ID, RocketModel::id);
     private final int id;
 
     RocketModel(final int id) {

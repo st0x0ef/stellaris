@@ -15,7 +15,6 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.BucketItem;
@@ -46,7 +45,6 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity {
 
     public WaterSeparatorBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.WATER_SEPARATOR_ENTITY.get(), pos, state);
-        ingredientTank.setFluid(Fluids.WATER, TANK_CAPACITY);
     }
 
     @Override
@@ -72,7 +70,7 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity {
             FluidTank tank = resultTanks.get(i);
 
             if (!inputStack.isEmpty()) {
-                if (!tank.getStack().isEmpty() && tank.getAmount() >= BUCKET_AMOUNT) {
+                if (!tank.isEmpty() && tank.getAmount() >= BUCKET_AMOUNT) {
                     ItemStack resultStack;
                     if (tank.getStack().getFluid().isSame(FluidRegistry.OXYGEN_STILL.get()) && inputStack.getItem() instanceof OxygenContainerItem) {
                         resultStack = inputStack.copy(); // TODO modify oxygen amount
@@ -81,9 +79,11 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity {
                         resultStack = new ItemStack(tank.getStack().getFluid().getBucket());
                     }
 
-                    setItem(slot, resultStack);
-                    tank.grow(-BUCKET_AMOUNT);
-                    setChanged();
+                    if (!resultStack.isEmpty()) {
+                        setItem(slot, resultStack);
+                        tank.grow(-BUCKET_AMOUNT);
+                        setChanged();
+                    }
                 }
             }
         }
@@ -94,7 +94,7 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity {
             boolean hasSpace = outputStack.getCount() < outputStack.getMaxStackSize();
 
             if (!inputStack.isEmpty() && (outputStack.isEmpty() || hasSpace)) {
-                if (!ingredientTank.getStack().isEmpty() && ingredientTank.getAmount() >= BUCKET_AMOUNT) {
+                if (!ingredientTank.isEmpty() && ingredientTank.getAmount() >= BUCKET_AMOUNT) {
                     ItemStack resultStack = new ItemStack(ingredientTank.getStack().getFluid().getBucket());
                     boolean success = false;
 
@@ -128,7 +128,7 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity {
                 FluidTank tank1 = resultTanks.getFirst();
                 FluidTank tank2 = resultTanks.get(1);
 
-                if ((tank1.getStack().isEmpty() || tank1.getStack().isFluidEqual(stack1)) && (tank2.getStack().isEmpty() || tank2.getStack().isFluidEqual(stack2))) {
+                if ((tank1.isEmpty() || tank1.getStack().isFluidEqual(stack1)) && (tank2.isEmpty() || tank2.getStack().isFluidEqual(stack2))) {
                     if (tank1.getAmount() + stacks.getFirst().getAmount() <= tank1.getMaxCapacity() && tank2.getAmount() + stacks.get(1).getAmount() <= tank2.getMaxCapacity()) {
                         energyContainer.extractEnergy(recipe.energy(), false);
                         ingredientTank.grow(-recipe.ingredientStack().getAmount());
@@ -198,50 +198,5 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity {
 
     public NonNullList<FluidTank> getResultTanks() {
         return resultTanks;
-    }
-
-    public static class FluidTank {
-
-        private final String name;
-        private final int maxCapacity;
-        private FluidStack stack = FluidStack.empty();
-
-        public FluidTank(String name, int maxCapacity) {
-            this.name = name;
-            this.maxCapacity = maxCapacity;
-        }
-
-        public int getMaxCapacity() {
-            return maxCapacity;
-        }
-
-        public void setFluid(Fluid fluid, long amount) {
-            stack = FluidStack.create(fluid, amount);
-        }
-
-        public long getAmount() {
-            return stack.getAmount();
-        }
-
-        public void setAmount(long amount) {
-            stack.setAmount(Mth.clamp(amount, 1, maxCapacity));
-        }
-
-        public void grow(long amount) {
-            setAmount(getAmount() + amount);
-        }
-
-        public FluidStack getStack() {
-            return stack;
-        }
-
-        public void load(HolderLookup.Provider provider, CompoundTag tag) {
-            CompoundTag containerTag = tag.getCompound(name);
-            stack = FluidStack.read(provider, containerTag).orElse(FluidStack.empty());
-        }
-
-        public void save(HolderLookup.Provider provider, CompoundTag tag) {
-            tag.put(name, stack.write(provider, new CompoundTag()));
-        }
     }
 }
