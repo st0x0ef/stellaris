@@ -214,7 +214,7 @@ public class Utils {
         if (dimension == null) {
             return 0;
         }
-        return (int) dimension.players().stream().count();
+        return dimension.players().size();
     }
 
     /** codec */

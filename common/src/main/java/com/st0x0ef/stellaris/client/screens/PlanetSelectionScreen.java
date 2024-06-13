@@ -406,13 +406,13 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
             Component systemTranslatable;
 
-            Component temperatureV = null;
-            Component gravityV = null;
-            Component oxygenV = null;
-            Component systemV = null;
+            Component temperatureV;
+            Component gravityV;
+            Component oxygenV;
+            Component systemV;
 
-            int oxygenColor = 0xFFFFF;
-            int temperatureColor = 0xFFFFF;
+            int oxygenColor;
+            int temperatureColor;
 
             if (CELESTIAL_BODY_SYSTEM == null) {
                 systemV = Component.literal(system + " : null");
@@ -421,23 +421,11 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
                 systemV = Component.literal(system.getString() + " : " + systemTranslatable.getString());
             }
 
-            if (CELESTIAL_BODY_TEMPERATURE == null) {
-                temperatureV = Component.literal(temperature.getString() + " : null");
-            } else {
-                temperatureV = Component.literal(temperature.getString() + " : " + PlanetUtil.getPlanet(focusedBody.dimension).temperature() + "°C");
-            }
+            temperatureV = Component.literal(temperature.getString() + " : " + PlanetUtil.getPlanet(focusedBody.dimension).temperature() + "°C");
 
-            if (CELESTIAL_BODY_OXYGEN == null ){
-                oxygenV = Component.literal(oxygen.getString() + " : null");
-            } else {
-                oxygenV = Component.literal(oxygen.getString() + " : " + CELESTIAL_BODY_OXYGEN);
-            }
+            oxygenV = Component.literal(oxygen.getString() + " : " + CELESTIAL_BODY_OXYGEN);
 
-            if (CELESTIAL_BODY_GRAVITY == null) {
-                gravityV = Component.literal(gravity.getString() + " : null");
-            } else {
-                gravityV = Component.literal(gravity.getString() + " : " + CELESTIAL_BODY_GRAVITY + "m/s");
-            }
+            gravityV = Component.literal(gravity.getString() + " : " + CELESTIAL_BODY_GRAVITY + "m/s");
 
             if (CELESTIAL_BODY_OXYGEN) {
                 oxygenColor = Utils.getColorHexCode("Lime");
@@ -602,8 +590,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         if (currentBody == null) return null;
 
         if (currentBody instanceof PlanetInfo) {
-            List<PlanetInfo> bodies = new ArrayList<>();
-            bodies.addAll(PLANETS);
+            List<PlanetInfo> bodies = new ArrayList<>(PLANETS);
 
             bodies.sort(Comparator.comparingDouble(b -> b.orbitRadius));
 
@@ -617,8 +604,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
                 }
             }
         } else if (currentBody instanceof MoonInfo) {
-            List<MoonInfo> bodies = new ArrayList<>();
-            bodies.addAll(MOONS);
+            List<MoonInfo> bodies = new ArrayList<>(MOONS);
 
             bodies.sort(Comparator.comparingDouble(b -> b.orbitRadius));
 
@@ -639,8 +625,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         if (currentBody == null) return null;
 
         if (currentBody instanceof PlanetInfo) {
-            List<PlanetInfo> bodies = new ArrayList<>();
-            bodies.addAll(PLANETS);
+            List<PlanetInfo> bodies = new ArrayList<>(PLANETS);
 
             bodies.sort(Comparator.comparingDouble(b -> b.orbitRadius));
 
@@ -654,8 +639,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
                 }
             }
         } else if (currentBody instanceof MoonInfo) {
-            List<MoonInfo> bodies = new ArrayList<>();
-            bodies.addAll(MOONS);
+            List<MoonInfo> bodies = new ArrayList<>(MOONS);
 
             bodies.sort(Comparator.comparingDouble(b -> b.orbitRadius));
 
