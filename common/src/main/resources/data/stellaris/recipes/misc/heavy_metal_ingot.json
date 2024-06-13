@@ -1,9 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "   ",
-    " # ",
-    "   "
+    "#"
   ],
   "key": {
     "#": {"item": "stellaris:heavy_metal_plate"}
