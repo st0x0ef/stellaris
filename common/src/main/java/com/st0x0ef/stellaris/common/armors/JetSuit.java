@@ -92,96 +92,85 @@ public class JetSuit {
 
             /** CALCULATE PRESS SPACE TIME */
             this.calculateSpacePressTime(player, stack);
+
+            /** HOVER MOVEMENT **/
+            this.hoverModeMovement(player,stack);
         }
 
-        public void normalFlyModeMovement(Player player, ItemStack stack) {
-            if (!player.getAbilities().flying && !player.isPassenger() && Utils.isLivingInJetSuit(player)) {
+        private void normalFlyModeMovement(Player player, ItemStack stack) {
+            if (KeyVariables.isHoldingJump(player)) {
+                player.moveRelative(1.2F, new Vec3(0, 0.1, 0));
+                player.resetFallDistance();
+                Utils.disableFlyAntiCheat(player, true);
+            }
 
-                /** HOVER FLY */
-                if (this.getMode(stack) == ModeType.HOVER.getMode() && !player.hasEffect(MobEffects.SLOW_FALLING)) {
-                    double gravity = player.getAttribute(Attributes.GRAVITY).getValue();
-
-                    Vec3 vec3 = player.getDeltaMovement();
-                    /** MAIN MOVEMENT */
-                    if (!player.onGround() && !player.isInLiquid()) {
-                        player.setDeltaMovement(vec3.x, vec3.y + gravity/1.1 - 0.02, vec3.z);
-                        player.resetFallDistance();
-                        Utils.disableFlyAntiCheat(player, true);
-                        this.addFuel(stack, -2);
-
-                    }
-
-                    /** MOVE UP */
-                    if (KeyVariables.isHoldingJump(player)) {
-                        player.moveRelative(2.0F, new Vec3(0, 0.008, 0));
-                        Utils.disableFlyAntiCheat(player, true);
-                    }
-
-                    /** MOVE DOWN */
-                    if (!player.onGround() && player.isCrouching()) {
-                        player.moveRelative(2.0F, new Vec3(0, -0.008, 0));
-                        if (player instanceof LocalPlayer localPlayer) {
-                            localPlayer.crouching = false;
-                        }
-                        player.setDeltaMovement(vec3.x, vec3.y - 0.05, vec3.z);
-                    }
-
-                    /** MOVE FORWARD AND BACKWARD */
-                    if (!player.onGround()) {
-                        if (KeyVariables.isHoldingUp(player)) {
-                            player.moveRelative(1.0F, new Vec3(0, 0, 0.01));
-                        }
-                        else if (KeyVariables.isHoldingDown(player)) {
-                            player.moveRelative(1.0F, new Vec3(0, 0, -0.01));
-                        }
-                    }
-
-                    /** MOVE SIDEWAYS */
-                    if (!player.onGround()) {
-                        if (KeyVariables.isHoldingRight(player)) {
-                            Stellaris.LOG.error("sideway");
-                            player.moveRelative(1.0F, new Vec3(-0.01, 0, 0));
-                        }
-                        else if (KeyVariables.isHoldingLeft(player)) {
-                            Stellaris.LOG.error("sideway");
-
-                            player.moveRelative(1.0F, new Vec3(0.01, 0, 0));
-                        }
-                    }
+            if (!player.onGround()) {
+                if (KeyVariables.isHoldingUp(player)) {
+                    player.moveRelative(1.0F, new Vec3(0, 0, 0.03));
+                } else if (KeyVariables.isHoldingDown(player)) {
+                    player.moveRelative(1.0F, new Vec3(0, 0, -0.03));
                 }
+            }
 
-                /** NORMAL FLY */
-                if (this.getMode(stack) == ModeType.NORMAL.getMode()) {
-
-                    /** MOVE UP */
-                    if (KeyVariables.isHoldingJump(player)) {
-                        player.moveRelative(1.2F, new Vec3(0, 0.1, 0));
-                        player.resetFallDistance();
-                        Utils.disableFlyAntiCheat(player, true);
-                    }
-
-                    /** MOVE FORWARD AND BACKWARD */
-                    if (!player.onGround()) {
-                        if (KeyVariables.isHoldingUp(player)) {
-                            player.moveRelative(1.0F, new Vec3(0, 0, 0.03));
-                        }
-                        else if (KeyVariables.isHoldingDown(player)) {
-                            player.moveRelative(1.0F, new Vec3(0, 0, -0.03));
-                        }
-                    }
-
-                    /** MOVE SIDEWAYS */
-                    if (!player.onGround()) {
-                        if (KeyVariables.isHoldingRight(player)) {
-                            player.moveRelative(1.0F, new Vec3(-0.03, 0, 0));
-                        }
-                        else if (KeyVariables.isHoldingLeft(player)) {
-                            player.moveRelative(1.0F, new Vec3(0.03, 0, 0));
-                        }
-                    }
+            if (!player.onGround()) {
+                if (KeyVariables.isHoldingRight(player)) {
+                    player.moveRelative(1.0F, new Vec3(-0.03, 0, 0));
+                } else if (KeyVariables.isHoldingLeft(player)) {
+                    player.moveRelative(1.0F, new Vec3(0.03, 0, 0));
                 }
             }
         }
+        private void hoverModeMovement(Player player, ItemStack stack) {
+            double gravity = player.getAttribute(Attributes.GRAVITY).getValue();
+            Vec3 vec3 = player.getDeltaMovement();
+
+            // Main movement logic
+            if (!player.onGround() && !player.isInWater()) {
+                player.setDeltaMovement(vec3.x, vec3.y + gravity / 1.1 - 0.02, vec3.z);
+                player.resetFallDistance();
+                Utils.disableFlyAntiCheat(player, true);
+                this.addFuel(stack, -2);
+            }
+
+            // Move up
+            if (KeyVariables.isHoldingJump(player)) {
+                player.moveRelative(0.05F, new Vec3(0, 0.08, 0));
+                Utils.disableFlyAntiCheat(player, true);
+            }
+
+            // Move down
+            if (player.isCrouching()) {
+                player.moveRelative(0.05F, new Vec3(0, -0.08, 0));
+            }
+
+            // Move forward and backward
+            if (!player.onGround()) {
+                if (KeyVariables.isHoldingUp(player)) {
+                    player.moveRelative(0.1F, new Vec3(0, 0, 0.1));
+                } else if (KeyVariables.isHoldingDown(player)) {
+                    player.moveRelative(0.1F, new Vec3(0, 0, -0.1));
+                }
+            }
+
+            // Move sideways
+            if (!player.onGround()) {
+                if (KeyVariables.isHoldingRight(player)) {
+                    player.moveRelative(0.1F, new Vec3(-0.1, 0, 0));
+                } else if (KeyVariables.isHoldingLeft(player)) {
+                    player.moveRelative(0.1F, new Vec3(0.1, 0, 0));
+                }
+            }
+        }
+
+        private void elytraModeMovement(Player player, ItemStack stack) {
+            // Implement elytra mode movement logic here
+            if (KeyVariables.isHoldingJump(player) && player.isFallFlying()) {
+                double speed = player.isSprinting() ? 1.5 : 1.0;
+                player.moveRelative(0.05F, player.getLookAngle().scale(speed));
+                Utils.disableFlyAntiCheat(player, true);
+            }
+        }
+
 
         public void switchJetSuitMode(Player player, ItemStack itemStack) {
             JetSuitComponent jetSuitComponent;
@@ -219,11 +208,13 @@ public class JetSuit {
                     else if (KeyVariables.isHoldingJump(player)) {
                         if (this.spacePressTime < 1.4F) {
                             this.spacePressTime = this.spacePressTime + 0.2F;
+                            hoverModeMovement(player,itemStack);
                         }
                     }
                     else if (this.spacePressTime >= 0.6F) {
                         this.spacePressTime = this.spacePressTime - 0.2F;
                     }
+
                 }
 
                 /** ELYTRA MODE */
