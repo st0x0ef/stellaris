@@ -6,8 +6,8 @@
     " R "
   ],
   "key": {
-    "#": {"item": "stellaris:steel_ingot"},
-    "R": {"item": "stellaris:steel_nugget"}
+    "#": {"item": "stellaris:heavy_metal_ingot"},
+    "R": {"item": "stellaris:heavy_metal_nugget"}
   },
   "result": {
     "id": "stellaris:cable",
