@@ -12,7 +12,8 @@
   ],
   "client": [
     "client.PlayerLanderRendererMixin",
-    "client.PlayerLanderKeyMixin"
+    "client.PlayerLanderKeyMixin",
+    "client.LevelRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
-import org.apache.commons.lang3.tuple.Triple;
+import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 
 import java.util.ArrayList;
@@ -23,12 +23,15 @@ public class SkyRenderer {
     private static final Random random = new Random();
     private static final Minecraft mc = Minecraft.getInstance();
     private static final boolean colorSystem = false;
-    private static final VertexBuffer starBuffer = StarHelper.createStars(0.15F, 190, 160, -1);
+
+    @Nullable
+    private static VertexBuffer starBuffer = null;
 
     public static void render(ResourceKey<Level> dimension, float partialTicks, Matrix4f projectionMatrix, PoseStack poseStack, Matrix4f viewMatrix) {
         LevelRenderer renderer = mc.levelRenderer;
         Tesselator tesselator = Tesselator.getInstance();
         BufferBuilder buffer = tesselator.getBuilder();
+        starBuffer = StarHelper.createStars(0.15F, 190, 160, -1);
 
         RenderableType renderable = getRenderableType(mc.player.level().dimension());
 
@@ -61,8 +64,7 @@ public class SkyRenderer {
         RenderSystem.depthMask(true);
     }
 
-
-    public static RenderableType getRenderableType(ResourceKey<Level> dimension) {
+    public static synchronized RenderableType getRenderableType(ResourceKey<Level> dimension) {
         for (RenderableType renderableType : renderableList) {
             if (renderableType.getDimension() == dimension) {
                 return renderableType;

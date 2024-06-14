@@ -1,10 +1,10 @@
 {
-  "id": "stellaris:mars",
+  "id": "minecraft:overworld",
   "cloud": "VANILLA",
   "weather": true,
   "sunrise_color": "Orange",
-  "star_count": 5000,
-  "star_color": "Rainbow",
+  "star_count": 3000,
+  "star_color": "White",
   "sky_object": [
     {
       "texture": "stellaris:textures/environment/solar_system/moon.png",
