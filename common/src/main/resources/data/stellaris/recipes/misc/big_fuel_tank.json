@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "c c",
+    "cbc",
+    "ccc"
+  ],
+  "key": {
+    "c": {
+      "item": "stellaris:desh_ingot"
+    },
+    "b": {
+      "item": "minecraft:bucket"
+    }
+  },
+  "result": {
+    "id": "stellaris:big_fuel_tank_upgrade",
+    "count": 1
+  }
+}
