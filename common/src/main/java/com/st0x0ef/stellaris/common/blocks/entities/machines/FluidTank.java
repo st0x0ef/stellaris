@@ -14,7 +14,7 @@ public class FluidTank {
 
     public FluidTank(String name, int maxCapacity) {
         this.name = name;
-        this.maxCapacity = maxCapacity;
+        this.maxCapacity = (int) (maxCapacity * FluidTankHelper.BUCKET_AMOUNT);
     }
 
     public int getMaxCapacity() {
@@ -30,7 +30,7 @@ public class FluidTank {
     }
 
     public void setAmount(long amount) {
-        stack.setAmount(Mth.clamp(amount, 0, maxCapacity));
+        stack.setAmount(Mth.clamp(amount, 1, maxCapacity));
     }
 
     public void grow(long amount) {
@@ -51,6 +51,8 @@ public class FluidTank {
     }
 
     public void save(HolderLookup.Provider provider, CompoundTag tag) {
-        tag.put(name, stack.write(provider, new CompoundTag()));
+        if (!isEmpty()) {
+            tag.put(name, stack.write(provider, new CompoundTag()));
+        }
     }
 }

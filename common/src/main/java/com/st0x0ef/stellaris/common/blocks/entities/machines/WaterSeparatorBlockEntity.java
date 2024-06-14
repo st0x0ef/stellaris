@@ -1,14 +1,11 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
 import com.st0x0ef.stellaris.common.data.recipes.WaterSeparatorRecipe;
-import com.st0x0ef.stellaris.common.items.oxygen.OxygenContainerItem;
 import com.st0x0ef.stellaris.common.menus.WaterSeparatorMenu;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
-import com.st0x0ef.stellaris.common.registry.FluidRegistry;
 import com.st0x0ef.stellaris.common.registry.RecipesRegistry;
 import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedBlockEnergyContainer;
 import dev.architectury.fluid.FluidStack;
-import dev.architectury.hooks.fluid.FluidBucketHooks;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -17,22 +14,16 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.item.BucketItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.level.material.Fluids;
 
 import java.util.List;
 import java.util.Optional;
 
 public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity {
 
-    private static final int TANK_CAPACITY = 3000;
-    public static final long BUCKET_AMOUNT = 1000;
+    private static final int TANK_CAPACITY = 3;
 
     //Water Tank (I guess)
     public final FluidTank ingredientTank = new FluidTank("ingredientTank", TANK_CAPACITY);
@@ -66,54 +57,12 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity {
     public void tick() {
         for (int i = 0; i < 2; i++) {
             int slot = i + 2;
-            ItemStack inputStack = getItem(slot);
             FluidTank tank = resultTanks.get(i);
-
-            if (!inputStack.isEmpty()) {
-                if (!tank.isEmpty() && tank.getAmount() >= BUCKET_AMOUNT) {
-                    ItemStack resultStack;
-                    if (tank.getStack().getFluid().isSame(FluidRegistry.OXYGEN_STILL.get()) && inputStack.getItem() instanceof OxygenContainerItem) {
-                        resultStack = inputStack.copy(); // TODO modify oxygen amount
-                    }
-                    else {
-                        resultStack = new ItemStack(tank.getStack().getFluid().getBucket());
-                    }
-
-                    if (!resultStack.isEmpty()) {
-                        setItem(slot, resultStack);
-                        tank.grow(-BUCKET_AMOUNT);
-                        setChanged();
-                    }
-                }
-            }
+            FluidTankHelper.extractFluidToItem(this, tank, slot);
         }
 
-        if (!addFluidFromBucket()) {
-            ItemStack inputStack = getItem(1);
-            ItemStack outputStack = getItem(0);
-            boolean hasSpace = outputStack.getCount() < outputStack.getMaxStackSize();
-
-            if (!inputStack.isEmpty() && (outputStack.isEmpty() || hasSpace)) {
-                if (!ingredientTank.isEmpty() && ingredientTank.getAmount() >= BUCKET_AMOUNT) {
-                    ItemStack resultStack = new ItemStack(ingredientTank.getStack().getFluid().getBucket());
-                    boolean success = false;
-
-                    if (outputStack.isEmpty()) {
-                        setItem(0, resultStack);
-                        success = true;
-                    }
-                    else if (ItemStack.isSameItem(outputStack, resultStack) && hasSpace) {
-                        getItem(0).grow(1);
-                        success = true;
-                    }
-
-                    if (success) {
-                        inputStack.shrink(1);
-                        ingredientTank.grow(-BUCKET_AMOUNT);
-                        setChanged();
-                    }
-                }
-            }
+        if (!FluidTankHelper.addFluidFromBucket(this, ingredientTank, 1, 0)) {
+            FluidTankHelper.extractFluidToItem(this, ingredientTank, 1, 0);
         }
 
         Optional<RecipeHolder<WaterSeparatorRecipe>> recipeHolder = cachedCheck.getRecipeFor(this, level);
@@ -123,8 +72,8 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity {
 
             if (energyContainer.getStoredEnergy() >= recipe.energy()) {
                 List<FluidStack> stacks = recipe.resultStacks();
-                FluidStack stack1 = recipe.resultStacks().getFirst();
-                FluidStack stack2 = recipe.resultStacks().get(1);
+                FluidStack stack1 = stacks.getFirst();
+                FluidStack stack2 = stacks.get(1);
                 FluidTank tank1 = resultTanks.getFirst();
                 FluidTank tank2 = resultTanks.get(1);
 
@@ -132,45 +81,13 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity {
                     if (tank1.getAmount() + stacks.getFirst().getAmount() <= tank1.getMaxCapacity() && tank2.getAmount() + stacks.get(1).getAmount() <= tank2.getMaxCapacity()) {
                         energyContainer.extractEnergy(recipe.energy(), false);
                         ingredientTank.grow(-recipe.ingredientStack().getAmount());
-                        addToTank(tank1, stack1);
-                        addToTank(tank2, stack2);
+                        FluidTankHelper.addToTank(tank1, stack1);
+                        FluidTankHelper.addToTank(tank2, stack2);
                         setChanged();
                     }
                 }
             }
         }
-    }
-
-    private static void addToTank(FluidTank tank, FluidStack stack) {
-        FluidStack tankStack = tank.getStack();
-        if (tankStack.isEmpty()) {
-            tank.setFluid(stack.getFluid(), stack.getAmount());
-        }
-        else {
-            tank.grow(stack.getAmount());
-        }
-    }
-
-    private boolean addFluidFromBucket() {
-        if (ingredientTank.getAmount() + BUCKET_AMOUNT < ingredientTank.getMaxCapacity()) {
-            ItemStack inputStack = getItem(1);
-
-            if (!inputStack.isEmpty() && getItem(0).isEmpty()) {
-                if (inputStack.getItem() instanceof BucketItem item) {
-                    Fluid fluid = FluidBucketHooks.getFluid(item);
-
-                    if (!fluid.isSame(Fluids.EMPTY)) {
-                        setItem(0, new ItemStack(Items.BUCKET));
-                        setItem(1, ItemStack.EMPTY);
-
-                        addToTank(ingredientTank, FluidStack.create(fluid, BUCKET_AMOUNT));
-                        setChanged();
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
     }
 
     @Override

@@ -28,7 +28,6 @@ public class NetworkRegistry {
         NetworkAggregator.registerReceiver(NetworkManager.Side.S2C, SYNC_PLANET_DATAPACK_ID, Collections.singletonList(new SplitPacketTransformer()), SyncPlanetsDatapack::apply);
         NetworkAggregator.registerReceiver(NetworkManager.Side.S2C, SYNC_ROCKET_COMPONENT_ID, Collections.singletonList(new SplitPacketTransformer()), SyncRocketComponent::apply);
         NetworkAggregator.registerReceiver(NetworkManager.Side.S2C, SYNC_FLUID_TANKS_ID, Collections.singletonList(new SplitPacketTransformer()), SyncWidgetsTanks::apply);
-
     }
 
     public static void sendToPlayer(ServerPlayer player, ResourceLocation packet_id, RegistryFriendlyByteBuf buffer) {

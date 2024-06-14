@@ -76,18 +76,16 @@ public class CoalGeneratorEntity extends BaseGeneratorBlockEntity {
         }
 
         ItemStack stack = getItems().get(0);
-        if (isLit() || !stack.isEmpty()) {
-            if (!isLit() && !stack.isEmpty()) {
-                litTime = getBurnDuration(stack);
-                litDuration = litTime;
-                if (isLit()) {
-                    shouldUpdate = true;
-                    Item item = stack.getItem();
-                    stack.shrink(1);
-                    if (stack.isEmpty()) {
-                        Item item2 = item.getCraftingRemainingItem();
-                        getItems().set(0, item2 == null ? ItemStack.EMPTY : new ItemStack(item2));
-                    }
+        if (!isLit() || !stack.isEmpty()) {
+            litTime = getBurnDuration(stack);
+            litDuration = litTime;
+            if (isLit()) {
+                shouldUpdate = true;
+                Item item = stack.getItem();
+                stack.shrink(1);
+                if (stack.isEmpty()) {
+                    Item item2 = item.getCraftingRemainingItem();
+                    getItems().set(0, item2 == null ? ItemStack.EMPTY : new ItemStack(item2));
                 }
             }
         }

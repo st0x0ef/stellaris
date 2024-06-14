@@ -33,7 +33,7 @@ public class SkyPack extends SimpleJsonResourceReloadListener {
         object.forEach((key, value) -> {
             JsonObject json = GsonHelper.convertToJsonObject(value, "renderable");
             Renderable renderable;
-
+            
             try {
                 renderable = Renderable.CODEC.parse(JsonOps.INSTANCE, json).resultOrPartial(error -> {
                     Stellaris.LOG.error("Failed to parse renderable for " + key + ": " + error);
