@@ -4,6 +4,7 @@ import com.st0x0ef.stellaris.common.items.oxygen.OxygenContainerItem;
 import com.st0x0ef.stellaris.common.registry.FluidRegistry;
 import dev.architectury.fluid.FluidStack;
 import dev.architectury.hooks.fluid.FluidBucketHooks;
+import dev.architectury.hooks.fluid.FluidStackHooks;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.ItemStack;
@@ -14,7 +15,7 @@ import net.minecraft.world.level.material.Fluids;
 
 public class FluidTankHelper {
 
-    public static final long BUCKET_AMOUNT = 1000;
+    public static final long BUCKET_AMOUNT = FluidStackHooks.bucketAmount();
 
     public static <T extends BlockEntity & Container> void extractFluidToItem(T blockEntity, FluidTank tank, int slot) {
         ItemStack inputStack = blockEntity.getItem(slot);
