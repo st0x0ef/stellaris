@@ -6,6 +6,7 @@ import com.st0x0ef.stellaris.common.entities.LanderEntity;
 import com.st0x0ef.stellaris.common.entities.RocketEntity;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import com.st0x0ef.stellaris.platform.TeleportUtil;
+import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
@@ -13,6 +14,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -23,6 +25,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 import java.util.Locale;
+import java.util.Random;
 import java.util.function.Function;
 
 public class Utils {
@@ -184,9 +187,16 @@ public class Utils {
                 return 0x8B0000;
             case "dark_red":
                 return 0x8B0000;
+            case "rainbow":
+                return generateRandomHexColor();
             default:
                 return 0xFFFFFF;
         }
+    }
+
+    public static int generateRandomHexColor() {
+        Random random = new Random();
+        return random.nextInt(0xFFFFFF + 1);
     }
 
     public static String betterIntToString(int i) {
@@ -214,7 +224,7 @@ public class Utils {
         if (dimension == null) {
             return 0;
         }
-        return (int) dimension.players().stream().count();
+        return dimension.players().size();
     }
 
     /** codec */
@@ -238,19 +248,21 @@ public class Utils {
 
 
     /**
-     * @param MCG Minecraft Gravity Unit
+     * @param MCG Minecraft Gravity Unit (blocks/t²)
      * @return m/s²
      */
-    public static double MCGToMPS2(float MCG){
+    public static float MCGToMPS2(float MCG){
         return 122.583125f*MCG;
     }
 
     /**
      * @param MPS2 m/s²
-     * @return Minecraft Gravity Unit
+     * @return Minecraft Gravity Unit (blocks/t²)
      */
-    public static double MPS2ToMCG(float MPS2){
-        return 0.0081577297f*MPS2;
+    public static double MPS2ToMCG(float MPS2) {
+        if (MPS2>0) return Math.floor(0.0081577297038234259406d * MPS2* 10000000) / 10000000;
+        else if (MPS2<0) return Math.ceil(0.0081577297038234259406d * MPS2* 10000000) / 10000000;
+        else return 0;
     }
 
     public static int findSmallerNumber(int value1, int value2) {
@@ -264,7 +276,7 @@ public class Utils {
     public static void disableFlyAntiCheat(Player player, boolean condition) {
         if (player instanceof ServerPlayer) {
             if (condition) {
-                ((ServerPlayer) player).connection.aboveGroundTickCount = 0;
+//                ((ServerPlayer) player).connection.aboveGroundTickCount = 0;
             }
         }
     }

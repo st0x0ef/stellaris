@@ -144,6 +144,7 @@ public class StellarisClient {
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.LANDER_MENU.get(), LanderScreen::new);
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.OXYGEN_DISTRIBUTOR.get(), OxygenDistributorScreen::new);
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.WATER_SEPARATOR_MENU.get(), WaterSeparatorScreen::new);
+        MenuRegistry.registerScreenFactory(MenuTypesRegistry.FUEL_REFINERY.get(), FuelRefineryScreen::new);
     }
 
     public static void registerOverlays() {

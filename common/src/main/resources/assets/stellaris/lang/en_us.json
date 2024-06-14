@@ -133,6 +133,11 @@
   "block.stellaris.cheese_block": "Cheese Block",
   "block.stellaris.vacumator": "Vacumator",
 
+  "block.stellaris.earth_globe": "Earth Globe",
+  "block.stellaris.moon_globe": "Moon Globe",
+  "block.stellaris.mars_globe": "Mars Globe",
+  "block.stellaris.mercury_globe": "Mercury Globe",
+  "block.stellaris.venus_globe": "Venus Globe",
 
   "block.stellaris.uranium_block" : "Uranium Block",
   "block.stellaris.raw_uranium_block" : "Raw Uranium Block",
@@ -158,6 +163,7 @@
 
   "categorie.stellaris.main": "Stellaris",
   "categorie.stellaris_blocks.main": "Stellaris Blocks",
+
   "item.stellaris.raw_steel_ingot": "Raw Steel Ingot",
   "item.stellaris.steel_ingot": "Steel Ingot",
   "item.stellaris.ice_shard": "Ice Shard",
@@ -171,6 +177,7 @@
   "item.stellaris.rocket_fin": "Rocket Fin",
   "item.stellaris.engine_fan": "Engine Fan",
   "item.stellaris.rocket_engine": "Rocket Engine",
+  "item.stellaris.rocket_nose_cone": "Rocket Nose Cone",
 
   "item.stellaris.skin_frozy": "Frozy Skin",
   "item.stellaris.skin_normal": "Normal Skin",
@@ -226,6 +233,10 @@
   "item.stellaris.cheese": "Cheese",
   "item.stellaris.cosmo_coffee": "Cosmo coffee",
 
+  "item.stellaris.jetsuit_helmet": "Jet Suit Helmet",
+  "item.stellaris.jetsuit_leggings": "Jet Suit Leggings",
+  "item.stellaris.jetsuit_boots": "Jet Suit Boots",
+  "item.stellaris.jetsuit_suit": "Jet Suit Chest",
 
   "item.stellaris.ice_shard_arrow": "Ice Shard Arrow",
 

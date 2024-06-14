@@ -30,7 +30,7 @@ public abstract class BaseContainer extends AbstractContainerMenu {
     @Override
     public ItemStack quickMoveStack(Player playerIn, int index) {
         Slot sourceSlot = slots.get(index);
-        if (sourceSlot == null || !sourceSlot.hasItem()) return ItemStack.EMPTY;
+        if (!sourceSlot.hasItem()) return ItemStack.EMPTY;
         ItemStack sourceStack = sourceSlot.getItem();
         ItemStack copyOfSourceStack = sourceStack.copy();
 

@@ -12,10 +12,14 @@ import com.st0x0ef.stellaris.common.registry.*;
 import dev.architectury.registry.ReloadListenerRegistry;
 import io.netty.buffer.Unpooled;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
+import net.minecraft.server.packs.resources.PreparableReloadListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.function.BiConsumer;
 
 public class Stellaris {
     public static final String MODID = "stellaris";
@@ -48,7 +52,6 @@ public class Stellaris {
         MenuTypesRegistry.MENU_TYPE.register();
         FeaturesRegistry.FEATURES.register();
         CommandsRegistry.register();
-        //LookupApiRegistry.register();
         BiomeModificationsRegistry.register();
         ReloadListenerRegistry.register(PackType.SERVER_DATA, new StellarisData());
         Events.registerEvents();
@@ -60,6 +63,10 @@ public class Stellaris {
             RegistryFriendlyByteBuf buffer = new RegistryFriendlyByteBuf(Unpooled.buffer(), player.registryAccess());
             NetworkRegistry.sendToPlayer(player, NetworkRegistry.SYNC_PLANET_DATAPACK_ID, SyncPlanetsDatapack.encode(new SyncPlanetsDatapack(resourceKey, planet), buffer));
         }));
+    }
+
+    public static void onAddReloadListenerEvent(BiConsumer<ResourceLocation, PreparableReloadListener> registry) {
+        registry.accept(new ResourceLocation(Stellaris.MODID, "planets"), new StellarisData());
     }
 
 }

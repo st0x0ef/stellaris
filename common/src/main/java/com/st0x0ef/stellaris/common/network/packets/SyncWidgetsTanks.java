@@ -1,7 +1,7 @@
 package com.st0x0ef.stellaris.common.network.packets;
 
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.menus.CoalGeneratorMenu;
+import com.st0x0ef.stellaris.common.menus.FuelRefineryMenu;
 import com.st0x0ef.stellaris.common.menus.SolarPanelMenu;
 import com.st0x0ef.stellaris.common.menus.WaterSeparatorMenu;
 import dev.architectury.networking.NetworkManager;
@@ -15,6 +15,7 @@ public class SyncWidgetsTanks {
     public SyncWidgetsTanks(RegistryFriendlyByteBuf buffer) {
         this(buffer.readLongArray());
     }
+
     public SyncWidgetsTanks(long[] values) {
         this.component = values;
     }
@@ -32,9 +33,14 @@ public class SyncWidgetsTanks {
                 if (syncWidgetsTanks.component.length == 2) {
                     menu.getBlockEntity().resultTanks.getFirst().setAmount(syncWidgetsTanks.component[0]);
                     menu.getBlockEntity().resultTanks.getLast().setAmount(syncWidgetsTanks.component[1]);
-                } else {
+                }
+                else {
                     menu.getBlockEntity().ingredientTank.setAmount(syncWidgetsTanks.component[0]);
                 }
+            }
+            case FuelRefineryMenu menu -> {
+                menu.getBlockEntity().getIngredientTank().setAmount(syncWidgetsTanks.component[0]);
+                menu.getBlockEntity().getResultTank().setAmount(syncWidgetsTanks.component[1]);
             }
             case SolarPanelMenu menu -> menu.getEnergyContainer().setEnergy(syncWidgetsTanks.component[0]);
             case CoalGeneratorMenu menu ->

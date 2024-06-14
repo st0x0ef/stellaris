@@ -16,7 +16,7 @@ public class CableUtilImpl {
         BlockPos blockPos = blockEntity.getBlockPos();
         BlockState blockState = blockEntity.getBlockState();
 
-        IEnergyStorage energyStorage = (IEnergyStorage)level.getCapability(Capabilities.EnergyStorage.BLOCK, blockPos, blockState, blockEntity, null);
+        IEnergyStorage energyStorage = level.getCapability(Capabilities.EnergyStorage.BLOCK, blockPos, blockState, blockEntity, null);
         return energyStorage!=null;
     }
 }
