@@ -42,7 +42,8 @@ public class StarHelper {
 
     private static BufferBuilder.RenderedBuffer drawStars(BufferBuilder p_109555_, float scale, boolean amountDefault, int amountFast, int amountFancy, boolean colorSystem, int r, int g, int b) {
         Random random = new Random(10842L);
-        p_109555_.begin(VertexFormat.Mode.QUADS, colorSystem ? DefaultVertexFormat.POSITION_COLOR : DefaultVertexFormat.POSITION);
+        if (!p_109555_.building()) p_109555_.begin(VertexFormat.Mode.QUADS, colorSystem ? DefaultVertexFormat.POSITION_COLOR : DefaultVertexFormat.POSITION);
+
 
         GraphicsStatus graphicsMode = Minecraft.getInstance().options.graphicsMode().get();
 
