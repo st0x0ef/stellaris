@@ -23,7 +23,7 @@ public class SkyRenderer {
     private static final Random random = new Random();
     private static final Minecraft mc = Minecraft.getInstance();
     private static final boolean colorSystem = false;
-    private static final VertexBuffer starBuffer = StarHelper.createStars(0.15F, 190, 160, -1, false);
+    private static final VertexBuffer starBuffer = StarHelper.createStars(0.15F, 190, 160, -1);
 
     public static void render(ResourceKey<Level> dimension, float partialTicks, Matrix4f projectionMatrix, PoseStack poseStack, Matrix4f viewMatrix) {
         LevelRenderer renderer = mc.levelRenderer;

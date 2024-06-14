@@ -2,20 +2,21 @@ package com.st0x0ef.stellaris.client.skys.helper;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
-import com.st0x0ef.stellaris.client.skys.renderer.SkyRenderer;
-import com.st0x0ef.stellaris.client.skys.type.RenderableType;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.GraphicsStatus;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 
 import java.util.Random;
 
+@Environment(EnvType.CLIENT)
 public class StarHelper {
     public static VertexBuffer createStars(float scale, int amountFast, int amountFancy, int r, int g, int b) {
         return createStars(scale, false, amountFast, amountFancy, true, r, g, b);
     }
 
-    public static VertexBuffer createStars(float scale, int r, int g, int b, boolean colorSystem) {
+    public static VertexBuffer createStars(float scale, int r, int g, int b) {
         return createStars(scale, true, 0, 0, true, r, g, b);
     }
 
@@ -46,16 +47,9 @@ public class StarHelper {
         bufferBuilder.begin(VertexFormat.Mode.QUADS, colorSystem ? DefaultVertexFormat.POSITION_COLOR : DefaultVertexFormat.POSITION);
 
         GraphicsStatus graphicsMode = Minecraft.getInstance().options.graphicsMode().get();
+        int stars = amountDefault ? 1500 : (graphicsMode == GraphicsStatus.FANCY || graphicsMode == GraphicsStatus.FABULOUS) ? amountFancy : amountFast;
 
-        RenderableType renderableType = SkyRenderer.getRenderableType(Minecraft.getInstance().player.level().dimension());
-        if (renderableType==null) return bufferBuilder.endOrDiscardIfEmpty();
-        int stars = renderableType.getStarCount();
-
-        if (graphicsMode != GraphicsStatus.FANCY && graphicsMode != GraphicsStatus.FABULOUS) {
-            stars /= 2;
-        }
-
-        for (int i = 0; i < stars; ++i) {
+        for (int i = 0; i < stars; i++) {
             double d0 = random.nextFloat() * 2.0F - 1.0F;
             double d1 = random.nextFloat() * 2.0F - 1.0F;
             double d2 = random.nextFloat() * 2.0F - 1.0F;
