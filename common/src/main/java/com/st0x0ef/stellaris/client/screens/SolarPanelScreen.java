@@ -56,21 +56,21 @@ public class SolarPanelScreen extends AbstractContainerScreen<SolarPanelMenu> {
 		graphics.blit(texture, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
 	}
 
-	@Override
-	protected void renderLabels(GuiGraphics graphics, int i, int j) {
-		super.renderLabels(graphics,i,j);
-
-		SolarPanelEntity blockEntity = this.getMenu().getBlockEntity();
-		if(blockEntity != null)
-		{
-			WrappedBlockEnergyContainer energyStorage = blockEntity.getWrappedEnergyContainer();
-			if(energyStorage!= null)
-			{
-				graphics.drawString(this.font, Component.translatable("gauge_text.stellaris.stored", energyStorage.getStoredEnergy()), 25, 7, 0x3C3C3C);
-				graphics.drawString(this.font, Component.translatable("gauge_text.stellaris.capacity", energyStorage.getMaxCapacity()), 25, 17, 0x3C3C3C);
-			}
-
-		}
-
-	}
+//	@Override
+//	protected void renderLabels(GuiGraphics graphics, int i, int j) {
+//		super.renderLabels(graphics,i,j);
+//
+//		SolarPanelEntity blockEntity = this.getMenu().getBlockEntity();
+//		if(blockEntity != null)
+//		{
+//			WrappedBlockEnergyContainer energyStorage = blockEntity.getWrappedEnergyContainer();
+//			if(energyStorage!= null)
+//			{
+//				graphics.drawString(this.font, Component.translatable("gauge_text.stellaris.stored", energyStorage.getStoredEnergy()), 25, 7, 0x3C3C3C);
+//				graphics.drawString(this.font, Component.translatable("gauge_text.stellaris.capacity", energyStorage.getMaxCapacity()), 25, 17, 0x3C3C3C);
+//			}
+//
+//		}
+//
+//	}
 }
