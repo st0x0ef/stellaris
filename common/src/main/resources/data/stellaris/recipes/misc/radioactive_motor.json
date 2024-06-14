@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "sss",
+    "eii",
+    "sss"
+  ],
+  "key": {
+    "i": {
+      "item": "stellaris:ice_shard"
+    },
+    "s": {
+      "item": "stellaris:uranium_ingot"
+    },
+    "e": {
+      "item": "stellaris:desh_block"
+    }
+  },
+  "result": {
+    "id": "stellaris:radioactive_motor",
+    "count": 1
+  }
+}
