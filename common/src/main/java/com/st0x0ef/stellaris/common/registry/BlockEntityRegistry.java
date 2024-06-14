@@ -44,11 +44,13 @@ public class BlockEntityRegistry {
             () -> BlockEntityType.Builder.of(CableBlockEntity::new, BlocksRegistry.CABLE.get()).build(null));
     public static final RegistrySupplier<BlockEntityType<VacumatorBlockEntity>> VACUMATOR_ENTITY = BLOCK_ENTITY_TYPE.register("vacumator",
             () -> BlockEntityType.Builder.of(VacumatorBlockEntity::new, BlocksRegistry.VACUMATOR.get()).build(null));
-    public static final RegistrySupplier<BlockEntityType<WaterSeparatorBlockEntity>> WATER_SEPARATOR_ENTITY = BLOCK_ENTITY_TYPE.register("water_separator",
+    public static final Supplier<BlockEntityType<?>> WATER_SEPARATOR_ENTITY = BLOCK_ENTITY_TYPE.register("water_separator",
             () -> BlockEntityType.Builder.of(WaterSeparatorBlockEntity::new, BlocksRegistry.WATER_SEPARATOR.get()).build(null));
     public static final Supplier<BlockEntityType<?>> OXYGEN_PROPAGATOR = BLOCK_ENTITY_TYPE.register("oxygen_propagator",
             () -> BlockEntityType.Builder.of(OxygenPropagatorBlockEntity::new, BlocksRegistry.OXYGEN_PROPAGATOR.get()).build(null));
     public static final Supplier<BlockEntityType<?>> OXYGEN_DISTRIBUTOR = BLOCK_ENTITY_TYPE.register("oxygen_distributor",
             () -> BlockEntityType.Builder.of(OxygenDistributorBlockEntity::new, BlocksRegistry.OXYGEN_DISTRIBUTOR.get()).build(null));
+    public static final Supplier<BlockEntityType<?>> FUEL_REFINERY = BLOCK_ENTITY_TYPE.register("fuel_refinery",
+            () -> BlockEntityType.Builder.of(FuelRefineryBlockEntity::new, BlocksRegistry.FUEL_REFINERY.get()).build(null));
 
 }

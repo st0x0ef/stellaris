@@ -34,6 +34,13 @@ public class LookupApiRegistry {
         });
         EnergyApi.registerEnergyBlock(BlocksRegistry.WATER_SEPARATOR, (level, blockPos, blockState, blockEntity, direction)
                 -> new WrappedBlockEnergyContainer(blockEntity, new SimpleEnergyContainer(12000, Integer.MAX_VALUE)));
+        EnergyApi.registerEnergyBlockEntity(BlockEntityRegistry.WATER_SEPARATOR_ENTITY,(level, blockPos, blockState, blockEntity, direction)->{
+            if(blockEntity instanceof WaterSeparatorBlockEntity blockEntity1){
+                return blockEntity1.getWrappedEnergyContainer();
+            } return null;
+        });
+        EnergyApi.registerEnergyBlock(BlocksRegistry.WATER_SEPARATOR, (level, blockPos, blockState, blockEntity, direction)
+                -> new WrappedBlockEnergyContainer(blockEntity, new SimpleEnergyContainer(128000, Integer.MAX_VALUE)));
         EnergyApi.registerEnergyBlockEntity(BlockEntityRegistry.OXYGEN_DISTRIBUTOR,(level, blockPos, blockState, blockEntity, direction)->{
             if(blockEntity instanceof WaterSeparatorBlockEntity blockEntity1){
                 return blockEntity1.getWrappedEnergyContainer();
