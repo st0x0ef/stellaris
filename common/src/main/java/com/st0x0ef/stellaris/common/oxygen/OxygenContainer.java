@@ -129,4 +129,8 @@ public class OxygenContainer {
         }
         return false;
     }
+
+    public void setOxygenStored(int amount) {
+        oxygenStored = amount;
+    }
 }

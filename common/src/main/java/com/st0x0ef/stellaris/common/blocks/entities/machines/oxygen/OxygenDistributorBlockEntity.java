@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class OxygenDistributorBlockEntity extends BaseEnergyContainerBlockEntity implements OxygenContainerBlockEntity {
 
-    private final OxygenContainer oxygenContainer = new OxygenContainer(6000);
+    public final OxygenContainer oxygenContainer = new OxygenContainer(6000);
     private int timer = 0;
 
     public OxygenDistributorBlockEntity(BlockPos pos, BlockState state) {

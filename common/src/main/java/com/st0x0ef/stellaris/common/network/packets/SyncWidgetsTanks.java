@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.common.network.packets;
 
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.menus.CoalGeneratorMenu;
+import com.st0x0ef.stellaris.common.menus.OxygenDistributorMenu;
 import com.st0x0ef.stellaris.common.menus.SolarPanelMenu;
 import com.st0x0ef.stellaris.common.menus.WaterSeparatorMenu;
 import dev.architectury.networking.NetworkManager;
@@ -39,6 +40,16 @@ public class SyncWidgetsTanks {
             case SolarPanelMenu menu -> menu.getEnergyContainer().setEnergy(syncWidgetsTanks.component[0]);
             case CoalGeneratorMenu menu ->
                     menu.getBlockEntity().getWrappedEnergyContainer().setEnergy(syncWidgetsTanks.component[0]);
+            case OxygenDistributorMenu menu -> {
+
+                if (syncWidgetsTanks.component.length == 2) {
+                    menu.getBlockEntity().oxygenContainer.setOxygenStored((int) syncWidgetsTanks.component[0]);
+                } else {
+                    menu.getBlockEntity().getWrappedEnergyContainer().setEnergy(syncWidgetsTanks.component[0]);
+                }
+
+            }
+
             default -> {
             }
         }
