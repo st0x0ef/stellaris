@@ -48,7 +48,6 @@ public class Stellaris {
         MenuTypesRegistry.MENU_TYPE.register();
         FeaturesRegistry.FEATURES.register();
         CommandsRegistry.register();
-        //LookupApiRegistry.register();
         BiomeModificationsRegistry.register();
         ReloadListenerRegistry.register(PackType.SERVER_DATA, new StellarisData());
         Events.registerEvents();
