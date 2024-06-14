@@ -163,7 +163,7 @@ public class JetSuit {
         private void elytraModeMovement(Player player, ItemStack stack) {
             // Implement elytra mode movement logic here
 
-            if (player.isSprinting()) {
+            if (player.isSprinting() && !player.onGround()) {
                 player.startFallFlying();
                 Utils.disableFlyAntiCheat(player, true);
             }
