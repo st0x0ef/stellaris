@@ -10,6 +10,6 @@ public class StellarisFabricClient implements ClientModInitializer {
     public void onInitializeClient() {
         StellarisClient.initClient();
 
-        WorldRenderEvents.START.register(SkyRendererFabric::RegisterSkyRenderer);
+        WorldRenderEvents.AFTER_SETUP.register(SkyRendererFabric::RegisterSkyRenderer);
     }
 }
