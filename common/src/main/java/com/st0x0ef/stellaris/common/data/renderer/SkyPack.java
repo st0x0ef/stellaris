@@ -7,8 +7,8 @@ import com.mojang.serialization.JsonOps;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.skys.record.Renderable;
 
-import com.st0x0ef.stellaris.client.skys.type.RenderInfo;
-import com.st0x0ef.stellaris.common.utils.Utils;
+import com.st0x0ef.stellaris.client.skys.renderer.SkyRenderer;
+import com.st0x0ef.stellaris.client.skys.type.RenderableType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
@@ -29,12 +29,10 @@ public class SkyPack extends SimpleJsonResourceReloadListener {
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> object, ResourceManager resourceManager, ProfilerFiller profiler) {
         RENDERABLE_MAP.clear();
-//        SkyRenderer.RenderList.clear();
-//        SkyRenderer.stars.clear();
 
         object.forEach((key, value) -> {
             JsonObject json = GsonHelper.convertToJsonObject(value, "renderable");
-            Renderable renderable = null;
+            Renderable renderable;
 
             try {
                 renderable = Renderable.CODEC.parse(JsonOps.INSTANCE, json).resultOrPartial(error -> {
@@ -42,24 +40,20 @@ public class SkyPack extends SimpleJsonResourceReloadListener {
                 }).orElse(null);
 
                 if (renderable != null) {
-
                     RENDERABLE_MAP.put(renderable.dimension().toString(), renderable);
 
-                    RenderInfo skyRenderer = new RenderInfo(
+                    RenderableType renderableType = new RenderableType(
                             renderable.dimension(),
                             renderable.cloudType(),
                             renderable.weather(),
-                            Utils.getColorHexCode(renderable.sunriseColor()),
-                            renderable.star(),
+                            renderable.sunriseColor(),
+                            renderable.star_count(),
+                            renderable.star_color(),
                             renderable.skyObject()
                     );
 
-//                    SkyRenderer.RenderList.add(skyRenderer);
-//                    SkyRenderer.starType.addAll(renderable.star());
-//                    Stellaris.LOG.info("Added A Sky Renderer for " + renderable.dimension());
-//                    for (RenderInfo info : SkyRenderer.RenderList) {
-//                        Stellaris.LOG.info(" - " + info.getDimensionId());
-//                    }
+                    SkyRenderer.renderableList.add(renderableType);
+                    Stellaris.LOG.info(renderable.toString());
                 } else {
                     Stellaris.LOG.warn("Parsed renderable is null for key : " + key);
                 }

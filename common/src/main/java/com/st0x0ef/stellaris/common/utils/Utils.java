@@ -6,6 +6,7 @@ import com.st0x0ef.stellaris.common.entities.LanderEntity;
 import com.st0x0ef.stellaris.common.entities.RocketEntity;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import com.st0x0ef.stellaris.platform.TeleportUtil;
+import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
@@ -272,7 +273,7 @@ public class Utils {
     public static void disableFlyAntiCheat(Player player, boolean condition) {
         if (player instanceof ServerPlayer) {
             if (condition) {
-                ((ServerPlayer) player).connection.aboveGroundTickCount = 0;
+//                ((ServerPlayer) player).connection.aboveGroundTickCount = 0;
             }
         }
     }
