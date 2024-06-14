@@ -1,7 +1,7 @@
 package com.st0x0ef.stellaris.common.menus;
 
 import com.st0x0ef.stellaris.common.blocks.entities.machines.WaterSeparatorBlockEntity;
-import com.st0x0ef.stellaris.common.menus.slot.WaterSeparatorSlot;
+import com.st0x0ef.stellaris.common.menus.slot.FluidContainerSlot;
 import com.st0x0ef.stellaris.common.menus.slot.ResultSlot;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import com.st0x0ef.stellaris.common.network.packets.SyncWidgetsTanks;
@@ -35,9 +35,9 @@ public class WaterSeparatorMenu extends BaseContainer {
         this.blockEntity = blockEntity;
 
         addSlot(new ResultSlot(container, 0, 104, 114)); // Water tank output
-        addSlot(new WaterSeparatorSlot(container, 1, 56, 114, false, false)); // Water tank input
-        addSlot(new WaterSeparatorSlot(container, 2, 20, 114, true, true)); // Left tank output
-        addSlot(new WaterSeparatorSlot(container, 3, 140, 114, true, true)); // Right tank output
+        addSlot(new FluidContainerSlot(container, 1, 56, 114, false, false)); // Water tank input
+        addSlot(new FluidContainerSlot(container, 2, 20, 114, true, true)); // Left tank output
+        addSlot(new FluidContainerSlot(container, 3, 140, 114, true, true)); // Right tank output
     }
 
     @Override

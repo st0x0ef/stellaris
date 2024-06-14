@@ -1,0 +1,12 @@
+{
+  "type": "stellaris:fuel_refinery",
+  "energy": 10,
+  "ingredient": {
+    "fluid": "stellaris:oil",
+    "amount": 1
+  },
+  "result": {
+    "fluid": "stellaris:fuel",
+    "amount": 1
+  }
+}

@@ -8,12 +8,12 @@ import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluids;
 
-public class WaterSeparatorSlot extends Slot {
+public class FluidContainerSlot extends Slot {
 
     private final boolean emptyOnly;
     private final boolean allowTanks;
 
-    public WaterSeparatorSlot(Container container, int slot, int x, int y, boolean emptyOnly, boolean allowTanks) {
+    public FluidContainerSlot(Container container, int slot, int x, int y, boolean emptyOnly, boolean allowTanks) {
         super(container, slot, x, y);
         this.emptyOnly = emptyOnly;
         this.allowTanks = allowTanks;
