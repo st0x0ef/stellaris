@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.client.skys.helper;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.st0x0ef.stellaris.client.skys.renderer.SkyRenderer;
+import com.st0x0ef.stellaris.client.skys.type.RenderableType;
 import net.minecraft.client.GraphicsStatus;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
@@ -40,13 +41,15 @@ public class StarHelper {
         return vertexBuffer;
     }
 
-    private static BufferBuilder.RenderedBuffer drawStars(BufferBuilder p_109555_, float scale, boolean amountDefault, int amountFast, int amountFancy, boolean colorSystem, int r, int g, int b) {
+    private static BufferBuilder.RenderedBuffer drawStars(BufferBuilder bufferBuilder, float scale, boolean amountDefault, int amountFast, int amountFancy, boolean colorSystem, int r, int g, int b) {
         Random random = new Random(10842L);
-        p_109555_.begin(VertexFormat.Mode.QUADS, colorSystem ? DefaultVertexFormat.POSITION_COLOR : DefaultVertexFormat.POSITION);
+        bufferBuilder.begin(VertexFormat.Mode.QUADS, colorSystem ? DefaultVertexFormat.POSITION_COLOR : DefaultVertexFormat.POSITION);
 
         GraphicsStatus graphicsMode = Minecraft.getInstance().options.graphicsMode().get();
 
-        int stars = SkyRenderer.getRenderableType(Minecraft.getInstance().player.level().dimension()).getStarCount();
+        RenderableType renderableType = SkyRenderer.getRenderableType(Minecraft.getInstance().player.level().dimension());
+        if (renderableType==null) return bufferBuilder.endOrDiscardIfEmpty();
+        int stars = renderableType.getStarCount();
 
         if (graphicsMode != GraphicsStatus.FANCY && graphicsMode != GraphicsStatus.FABULOUS) {
             stars /= 2;
@@ -90,14 +93,14 @@ public class StarHelper {
                         int color2 = g == -1 ? i : g;
                         int color3 = b == -1 ? i : b;
 
-                        p_109555_.vertex(d5 + d25, d6 + d23, d7 + d26).color(color1, color2, color3, 0xAA).endVertex();
+                        bufferBuilder.vertex(d5 + d25, d6 + d23, d7 + d26).color(color1, color2, color3, 0xAA).endVertex();
                     } else {
-                        p_109555_.vertex(d5 + d25, d6 + d23, d7 + d26).endVertex();
+                        bufferBuilder.vertex(d5 + d25, d6 + d23, d7 + d26).endVertex();
                     }
                 }
             }
         }
 
-        return p_109555_.end();
+        return bufferBuilder.end();
     }
 }
