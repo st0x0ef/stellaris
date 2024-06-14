@@ -88,13 +88,11 @@ public class JetSuit {
             }
 
             /** NORMAL FLY MOVEMENT */
-            this.normalFlyModeMovement(player, stack);
-
-            /** CALCULATE PRESS SPACE TIME */
-            this.calculateSpacePressTime(player, stack);
-
-            /** HOVER MOVEMENT **/
-            this.hoverModeMovement(player,stack);
+            switch (this.getMode(stack)) {
+                case 1 -> this.normalFlyModeMovement(player, stack);
+                case 2 -> this.hoverModeMovement(player, stack);
+                case 3 -> this.elytraModeMovement(player, stack);
+            }
         }
 
         private void normalFlyModeMovement(Player player, ItemStack stack) {
@@ -164,9 +162,9 @@ public class JetSuit {
 
         private void elytraModeMovement(Player player, ItemStack stack) {
             // Implement elytra mode movement logic here
-            if (KeyVariables.isHoldingJump(player) && player.isFallFlying()) {
-                double speed = player.isSprinting() ? 1.5 : 1.0;
-                player.moveRelative(0.05F, player.getLookAngle().scale(speed));
+
+            if (player.isSprinting()) {
+                player.startFallFlying();
                 Utils.disableFlyAntiCheat(player, true);
             }
         }
@@ -223,6 +221,7 @@ public class JetSuit {
                         if (player.isSprinting()) {
                             if (this.spacePressTime < 2.8F) {
                                 this.spacePressTime = this.spacePressTime + 0.2F;
+                                elytraModeMovement(player,itemStack);
                             }
                         } else {
                             if (this.spacePressTime < 2.2F) {
