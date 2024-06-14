@@ -47,19 +47,10 @@ public class StarHelper {
     private static BufferBuilder.RenderedBuffer drawStars(BufferBuilder bufferBuilder, float scale, boolean amountDefault, int amountFast, int amountFancy, boolean colorSystem, int r, int g, int b) {
         Random random = new Random(10842L);
         int stars;
-        RenderableType renderableType;
-        if (Minecraft.getInstance().player.level().dimension() != null) {
-            renderableType = SkyRenderer.getRenderableType(Minecraft.getInstance().player.level().dimension());
 
-            GraphicsStatus graphicsMode = Minecraft.getInstance().options.graphicsMode().get();
+        GraphicsStatus graphicsMode = Minecraft.getInstance().options.graphicsMode().get();
 
-            stars = (graphicsMode == GraphicsStatus.FABULOUS || graphicsMode == GraphicsStatus.FANCY)
-                    ? renderableType.getStarCount()
-                    : renderableType.getStarCount() / 2;
-
-        } else {
-            stars = 1500;
-        }
+        stars = (graphicsMode == GraphicsStatus.FABULOUS || graphicsMode == GraphicsStatus.FANCY) ? amountFancy : amountFast;
 
         if (!bufferBuilder.building()) bufferBuilder.begin(VertexFormat.Mode.QUADS, colorSystem ? DefaultVertexFormat.POSITION_COLOR : DefaultVertexFormat.POSITION);
 
