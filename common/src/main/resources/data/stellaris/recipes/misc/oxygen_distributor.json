@@ -1,13 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "###",
     "#X#",
+    "#T#",
     "###"
   ],
   "key": {
-    "#": {"item": "stellaris:steel_block"},
-    "X": {"item": "stellaris:engine_fan"}
+    "#": {"item": "stellaris:heavy_metal_plate"},
+    "X": {"item": "stellaris:engine_fan"},
+    "T": {"item": "stellaris:big_oxygen_tank"}
   },
   "result": {
     "id": "stellaris:oxygen_distributor"
