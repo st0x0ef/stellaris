@@ -14,6 +14,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -247,19 +248,21 @@ public class Utils {
 
 
     /**
-     * @param MCG Minecraft Gravity Unit
+     * @param MCG Minecraft Gravity Unit (blocks/t²)
      * @return m/s²
      */
-    public static double MCGToMPS2(float MCG){
+    public static float MCGToMPS2(float MCG){
         return 122.583125f*MCG;
     }
 
     /**
      * @param MPS2 m/s²
-     * @return Minecraft Gravity Unit
+     * @return Minecraft Gravity Unit (blocks/t²)
      */
-    public static double MPS2ToMCG(float MPS2){
-        return 0.0081577297f*MPS2;
+    public static double MPS2ToMCG(float MPS2) {
+        if (MPS2>0) return Math.floor(0.0081577297038234259406d * MPS2* 10000000) / 10000000;
+        else if (MPS2<0) return Math.ceil(0.0081577297038234259406d * MPS2* 10000000) / 10000000;
+        else return 0;
     }
 
     public static int findSmallerNumber(int value1, int value2) {
