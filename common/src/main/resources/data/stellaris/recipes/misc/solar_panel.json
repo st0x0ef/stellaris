@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RRR",
+    "X#X",
+    "XXX"
+  ],
+  "key": {
+    "X": {"item": "stellaris:steel_block"},
+    "#": {"item": "minecraft:redstone_block"},
+    "R": {"item": "minecraft:amethyst_block"}
+  },
+  "result": {
+    "id": "stellaris:solar_panel"
+  }
+}
