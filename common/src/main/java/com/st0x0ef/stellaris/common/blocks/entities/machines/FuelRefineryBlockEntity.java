@@ -20,8 +20,8 @@ import java.util.Optional;
 
 public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity {
 
-    private final FluidTank ingredientTank = new FluidTank("ingredientTank", 5000);
-    private final FluidTank resultTank = new FluidTank("resultTank", 5000);
+    private final FluidTank ingredientTank = new FluidTank("ingredientTank", 5);
+    private final FluidTank resultTank = new FluidTank("resultTank", 5);
     private final RecipeManager.CachedCheck<FuelRefineryBlockEntity, FuelRefineryRecipe> cachedCheck = RecipeManager.createCheck(RecipesRegistry.FUEL_REFINERY_TYPE.get());
 
     public FuelRefineryBlockEntity(BlockPos pos, BlockState state) {

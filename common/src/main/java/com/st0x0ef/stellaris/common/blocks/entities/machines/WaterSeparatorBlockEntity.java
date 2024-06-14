@@ -23,7 +23,7 @@ import java.util.Optional;
 
 public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity {
 
-    private static final int TANK_CAPACITY = 3000;
+    private static final int TANK_CAPACITY = 3;
 
     //Water Tank (I guess)
     public final FluidTank ingredientTank = new FluidTank("ingredientTank", TANK_CAPACITY);

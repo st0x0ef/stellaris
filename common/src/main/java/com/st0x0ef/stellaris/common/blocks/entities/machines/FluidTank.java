@@ -14,7 +14,7 @@ public class FluidTank {
 
     public FluidTank(String name, int maxCapacity) {
         this.name = name;
-        this.maxCapacity = maxCapacity;
+        this.maxCapacity = (int) (maxCapacity * FluidTankHelper.BUCKET_AMOUNT);
     }
 
     public int getMaxCapacity() {
