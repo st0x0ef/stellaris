@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "   ",
+    "## ",
+    "## "
+  ],
+  "key": {
+    "#": {"item": "stellaris:venus_cobblestone"}
+  },
+  "result": {
+    "id": "stellaris:polished_venus_stone",
+    "count": 4
+  }
+}
