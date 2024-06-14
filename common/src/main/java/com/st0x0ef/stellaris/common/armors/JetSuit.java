@@ -253,10 +253,6 @@ public class JetSuit {
                 }
             }
         }
-
-        public int getOxygenCapacity() {
-            return 60000;
-        }
     }
 
     public enum ModeType implements StringRepresentable {
@@ -314,5 +310,4 @@ public class JetSuit {
         }
 
     }
-
 }
