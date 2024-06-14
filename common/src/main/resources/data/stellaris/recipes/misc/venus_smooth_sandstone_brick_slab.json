@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "   ",
+    "   ",
+    "###"
+  ],
+  "key": {
+    "#": {"item": "stellaris:venus_smooth_sandstone_brick"}
+  },
+  "result": {
+    "id": "stellaris:venus_smooth_sandstone_brick_slab",
+    "count": 6
+  }
+}
