@@ -59,8 +59,7 @@ public class SkyPack extends SimpleJsonResourceReloadListener {
                             renderable.cloudType(),
                             renderable.weather(),
                             renderable.sunriseColor(),
-                            renderable.star_count(),
-                            renderable.star_color(),
+                            renderable.star().getFirst(),
                             renderable.skyObject()
                     );
 

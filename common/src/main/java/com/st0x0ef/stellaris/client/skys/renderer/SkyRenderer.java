@@ -50,7 +50,7 @@ public class SkyRenderer extends DimensionSpecialEffects {
             starBuffer = StarHelper.createStars(0.1F, 255, 255, 255);
         }
 
-        renderSky(buffer, tesselator, projectionMatrix, viewMatrix, renderer, poseStack, partialTicks);
+        renderSky(buffer, tesselator, partialTicks, projectionMatrix, renderer, poseStack, viewMatrix);
 
         if (Events.isCustomClouds && clouds_texture != null && poseStack != null) {
             SkyHelper.renderCustomClouds(poseStack, projectionMatrix, viewMatrix, partialTicks, mc.player.getX(), mc.player.getY(), mc.player.getZ(), clouds_texture);
