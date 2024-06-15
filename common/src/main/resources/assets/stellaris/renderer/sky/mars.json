@@ -1,15 +1,13 @@
 {
   "id": "stellaris:mars",
-  "cloud": "VANILLA",
+  "cloud": "none",
   "weather": true,
   "sunrise_color": "Orange",
   "star": [
     {
-      "id": "stellaris:mars",
-      "count_fancy": 10000,
-      "count_fast": 5000,
+      "count": 6500,
       "colored": true,
-      "shine_time": "ALL"
+      "allDaysVisible": true
     }
   ],
   "sky_object": [

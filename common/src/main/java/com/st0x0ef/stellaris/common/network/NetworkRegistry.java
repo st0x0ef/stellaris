@@ -22,7 +22,7 @@ public class NetworkRegistry {
     public static void register() {
         /** C2S */
         NetworkAggregator.registerReceiver(NetworkManager.Side.C2S, KEY_HANDLER_ID, Collections.singletonList(new SplitPacketTransformer()), KeyHandler::apply);
-        NetworkAggregator.registerReceiver(NetworkManager.Side.C2S, TELEPORT_ENTITY_ID, Collections.singletonList(new SplitPacketTransformer()), TeleportEntity::apply);
+        NetworkAggregator.registerReceiver(NetworkManager.Side.C2S, TELEPORT_ENTITY_ID, Collections.singletonList(new SplitPacketTransformer()), TeleportEntityToPlanet::apply);
 
         /** S2C */
         NetworkAggregator.registerReceiver(NetworkManager.Side.S2C, SYNC_PLANET_DATAPACK_ID, Collections.singletonList(new SplitPacketTransformer()), SyncPlanetsDatapack::apply);

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "sss",
+    "eii",
+    "sss"
+  ],
+  "key": {
+    "i": {
+      "item": "stellaris:ice_shard"
+    },
+    "s": {
+      "item": "minecraft:diamond"
+    },
+    "e": {
+      "item": "stellaris:desh_block"
+    }
+  },
+  "result": {
+    "id": "stellaris:hydrogen_motor",
+    "count": 1
+  }
+}

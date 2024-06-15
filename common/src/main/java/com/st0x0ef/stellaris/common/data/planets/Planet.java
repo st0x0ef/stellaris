@@ -13,7 +13,6 @@ public record Planet (
         String translatable,
         String name,
         ResourceKey<Level> dimension,
-        ResourceKey<Level> orbit,
         boolean oxygen,
         float temperature,
         int distanceFromEarth,
@@ -26,7 +25,6 @@ public record Planet (
             Codec.STRING.fieldOf("translatable").forGetter(Planet::translatable),
             Codec.STRING.fieldOf("name").forGetter(Planet::name),
             ResourceKey.codec(Registries.DIMENSION).fieldOf("level").forGetter(Planet::dimension),
-            ResourceKey.codec(Registries.DIMENSION).fieldOf("orbit").forGetter(Planet::orbit),
             Codec.BOOL.fieldOf("oxygen").forGetter(Planet::oxygen),
             Codec.FLOAT.fieldOf("temperature").forGetter(Planet::temperature),
             Codec.INT.fieldOf("distanceFromEarth").forGetter(Planet::distanceFromEarth), // in megameters
@@ -35,7 +33,7 @@ public record Planet (
     ).apply(instance, Planet::new));
 
     public static Planet fromNetwork(RegistryFriendlyByteBuf buffer) {
-        return new Planet(buffer.readUtf(), buffer.readUtf(), buffer.readUtf(), buffer.readResourceKey(Registries.DIMENSION), buffer.readResourceKey(Registries.DIMENSION), buffer.readBoolean(), buffer.readFloat(), buffer.readInt(), buffer.readFloat(), PlanetTextures.fromNetwork(buffer));
+        return new Planet(buffer.readUtf(), buffer.readUtf(), buffer.readUtf(), buffer.readResourceKey(Registries.DIMENSION), buffer.readBoolean(), buffer.readFloat(), buffer.readInt(), buffer.readFloat(), PlanetTextures.fromNetwork(buffer));
     }
 
     public RegistryFriendlyByteBuf toNetwork(RegistryFriendlyByteBuf buffer) {
@@ -43,7 +41,6 @@ public record Planet (
         buffer.writeUtf(this.translatable);
         buffer.writeUtf(this.name);
         buffer.writeResourceKey(this.dimension);
-        buffer.writeResourceKey(this.orbit);
         buffer.writeBoolean(this.oxygen);
         buffer.writeFloat(this.temperature);
         buffer.writeInt(this.distanceFromEarth);

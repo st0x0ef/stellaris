@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "## ",
+    "## ",
+    "## "
+  ],
+  "key": {
+    "#": {"item": "stellaris:mars_stone"}
+  },
+  "result": {
+    "id": "stellaris:mars_pillar",
+    "count": 6
+  }
+}

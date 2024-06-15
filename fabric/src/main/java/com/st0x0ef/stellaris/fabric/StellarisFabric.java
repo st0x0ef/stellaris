@@ -21,7 +21,9 @@ public class StellarisFabric implements ModInitializer {
     @Override
     public void onInitialize() {
         Stellaris.init();
+        onAddReloadListener();
         ServerLifecycleEvents.SYNC_DATA_PACK_CONTENTS.register((player, joined) -> Stellaris.onDatapackSyncEvent(player));
+
 
         EntityRegistry.registerAttributes((type, builder) -> FabricDefaultAttributeRegistry.register(type.get(), builder.get()));
         SystemsFabric.init();

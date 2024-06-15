@@ -22,8 +22,8 @@
   "block.stellaris.moon_desh_ore": "Moon Desh Ore",
   "block.stellaris.moon_stone_brick_slab": "Moon Stone Brick Slab",
   "block.stellaris.moon_stone_brick_stairs": "Moon Stone Brick Stairs",
-  "block.stellaris.moon_polished_stone_brick_slab": "Moon Polished Stone Brick Slab",
-  "block.stellaris.moon_polished_stone_brick_stairs": "Moon Polished Stone Brick Stairs",
+  "block.stellaris.moon_polished_stone_brick_slab": "Moon Polished Stone Slab",
+  "block.stellaris.moon_polished_stone_brick_stairs": "Moon Polished Stone Stairs",
 
   "block.stellaris.mars_pillar": "Mars Pillar",
   "block.stellaris.mars_polished_stone_stairs": "Mars Polished Stone Stairs",
@@ -166,6 +166,8 @@
 
   "item.stellaris.raw_steel_ingot": "Raw Steel Ingot",
   "item.stellaris.steel_ingot": "Steel Ingot",
+  "item.stellaris.raw_desh_ingot": "Raw Desh Ingot",
+  "item.stellaris.desh_ingot": "Desh Ingot",
   "item.stellaris.ice_shard": "Ice Shard",
   "item.stellaris.steel_nugget": "Steel Nugget",
   "item.stellaris.heavy_metal_ingot": "Heavy Metal Ingot",
@@ -319,6 +321,9 @@
   "gauge_text.stellaris.capacity" : "Capacity : %s",
   "gauge_text.stellaris.max_generation" : "Max Generation : %s",
   "stellaris.screen.fuel": "Fuel",
+  "stellaris.screen.water": "Water",
+  "stellaris.screen.hydrogen": "Hydrogen",
+  "stellaris.screen.oxygen": "Oxygen",
   "stellaris.screen.energy": "Energy",
 
   "general.stellaris.jet_suit_mode": "Mode",

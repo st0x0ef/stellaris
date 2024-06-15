@@ -12,7 +12,7 @@ import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.entities.RocketEntity;
 import com.st0x0ef.stellaris.common.menus.PlanetSelectionMenu;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
-import com.st0x0ef.stellaris.common.network.packets.TeleportEntity;
+import com.st0x0ef.stellaris.common.network.packets.TeleportEntityToPlanet;
 import com.st0x0ef.stellaris.common.registry.EntityData;
 import com.st0x0ef.stellaris.common.registry.TranslatableRegistry;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
@@ -557,7 +557,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (keyCode == GLFW.GLFW_KEY_Z) {
             if (canLaunch(PlanetUtil.getPlanet(focusedBody.dimension))) {
-                tpToFocusedPlanet();
+                if (focusedBody != null) tpToFocusedPlanet();
             }
         } else if (keyCode == GLFW.GLFW_KEY_X) {
             isPausePressed = !isPausePressed;
@@ -683,9 +683,9 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     }
 
     public void tpToFocusedPlanet() {
-        if(focusedBody != null) {
+        if (focusedBody != null) {
             RegistryFriendlyByteBuf buffer = new RegistryFriendlyByteBuf(Unpooled.buffer(), getPlayer().registryAccess());
-            NetworkRegistry.sendToServer(NetworkRegistry.TELEPORT_ENTITY_ID, TeleportEntity.encode(new TeleportEntity(focusedBody.dimension, false), buffer));
+            NetworkRegistry.sendToServer(NetworkRegistry.TELEPORT_ENTITY_ID, TeleportEntityToPlanet.encode(new TeleportEntityToPlanet(focusedBody.dimension), buffer));
         } else {
             Stellaris.LOG.error("Focused body is null");
         }
@@ -925,6 +925,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     public Player getPlayer() {
         return menu.getPlayer();
     }
+
     public ModifiedButton addButton(int x, int y, int row, int width, int height, boolean rocketCondition,
                                     ModifiedButton.ButtonTypes type, List<String> list, ResourceLocation buttonTexture,
                                     ModifiedButton.ColorTypes colorType, Component title, Button.OnPress onPress) {

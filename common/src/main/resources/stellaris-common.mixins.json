@@ -11,8 +11,9 @@
     "ItemEntityGravityMixin"
   ],
   "client": [
-    "client.PlayerLanderRendererMixin",
-    "client.PlayerLanderKeyMixin"
+    "client.PlayerRiddingVehicleMixin",
+    "client.PlayerLanderKeyMixin",
+    "client.LevelRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

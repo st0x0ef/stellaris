@@ -6,8 +6,8 @@
     "###"
   ],
   "key": {
-    "X": {"item": "minecraft:redstone_dust"},
-    "#": {"item": "stellaris:steel_ingot"}
+    "#": {"item": "stellaris:steel_ingot"},
+    "X": {"item": "minecraft:redstone"}
   },
   "result": {
     "id": "stellaris:rocket_nose_cone"

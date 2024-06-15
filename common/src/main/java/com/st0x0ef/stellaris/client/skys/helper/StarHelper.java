@@ -2,6 +2,10 @@ package com.st0x0ef.stellaris.client.skys.helper;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
+import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.client.skys.renderer.SkyRenderer;
+import com.st0x0ef.stellaris.client.skys.type.RenderableType;
+import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.GraphicsStatus;
@@ -44,10 +48,25 @@ public class StarHelper {
 
     private static BufferBuilder.RenderedBuffer drawStars(BufferBuilder bufferBuilder, float scale, boolean amountDefault, int amountFast, int amountFancy, boolean colorSystem, int r, int g, int b) {
         Random random = new Random(10842L);
-        bufferBuilder.begin(VertexFormat.Mode.QUADS, colorSystem ? DefaultVertexFormat.POSITION_COLOR : DefaultVertexFormat.POSITION);
+        int stars = 1500;
 
-        GraphicsStatus graphicsMode = Minecraft.getInstance().options.graphicsMode().get();
-        int stars = amountDefault ? 1500 : (graphicsMode == GraphicsStatus.FANCY || graphicsMode == GraphicsStatus.FABULOUS) ? amountFancy : amountFast;
+        RenderableType renderableType;
+
+        if (SkyRenderer.getRenderableType(Minecraft.getInstance().player.level().dimension()) != null) {
+            GraphicsStatus graphicsMode = Minecraft.getInstance().options.graphicsMode().get();
+            renderableType = SkyRenderer.getRenderableType(Minecraft.getInstance().player.level().dimension());
+
+            assert renderableType != null;
+            if ((graphicsMode == GraphicsStatus.FABULOUS || graphicsMode == GraphicsStatus.FANCY)) {
+                stars = renderableType.getStarCount();
+            } else {
+                stars = renderableType.getStarCount() / 2;
+            }
+        }
+
+        if (SkyRenderer.getRenderableType(Minecraft.getInstance().player.level().dimension()) == null && PlanetUtil.getPlanet(Minecraft.getInstance().player.level().dimension()) != null) stars = 1500;
+
+        if (!bufferBuilder.building()) bufferBuilder.begin(VertexFormat.Mode.QUADS, colorSystem ? DefaultVertexFormat.POSITION_COLOR : DefaultVertexFormat.POSITION);
 
         for (int i = 0; i < stars; i++) {
             double d0 = random.nextFloat() * 2.0F - 1.0F;

@@ -129,7 +129,7 @@ public class LanderEntity extends IVehicleEntity implements HasCustomInventorySc
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
-        ListTag inventoryCustom = compound.getList("InventoryCustom", 10);
+        ListTag inventoryCustom = compound.getList("InventoryCustom", 14);
         this.inventory.fromTag(inventoryCustom, registryAccess());
 
     }
@@ -180,8 +180,7 @@ public class LanderEntity extends IVehicleEntity implements HasCustomInventorySc
     }
 
     public Player getFirstPlayerPassenger() {
-        if (!this.getPassengers().isEmpty() && this.getPassengers().get(0) instanceof Player player) {
-
+        if (this.getPassengers().getFirst() instanceof Player player) {
             return player;
         }
 
