@@ -79,7 +79,9 @@ public class SyncWidgetsTanks {
             case CoalGeneratorMenu menu ->
                     menu.getBlockEntity().getWrappedEnergyContainer().setEnergy(syncWidgetsTanks.component[0]);
             case RadioactiveGeneratorMenu menu ->
-                menu.getBlockEntity().getWrappedEnergyContainer().setEnergy(syncWidgetsTanks.component[0]);
+                    menu.getBlockEntity().getWrappedEnergyContainer().setEnergy(syncWidgetsTanks.component[0]);
+            case OxygenDistributorMenu menu ->
+                    menu.getBlockEntity().getWrappedEnergyContainer().setEnergy(syncWidgetsTanks.component[0]);
             default -> {
             }
         }
