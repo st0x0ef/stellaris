@@ -15,7 +15,7 @@ import net.minecraft.world.level.Level;
 import java.util.Objects;
 
 public class SkyRendererFabric {
-    private static final Minecraft mc = Minecraft.getInstance();
+    private static final Minecraft mc = Minecraft.getInstance(); 
     private static final LocalPlayer p = mc.player;
 
     public static void RegisterSkyRenderer(WorldRenderContext context) {
