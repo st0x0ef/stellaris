@@ -8,14 +8,12 @@ import com.st0x0ef.stellaris.common.oxygen.OxygenContainer;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.StringRepresentable;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorMaterial;
@@ -26,6 +24,7 @@ import net.minecraft.world.phys.Vec3;
 public class JetSuit {
     public static class Suit extends AbstractSpaceArmor.Chestplate {
         public float spacePressTime;
+
         public OxygenContainer oxygenContainer;
 
         public Suit(Holder<ArmorMaterial> material, Properties properties) {
@@ -33,7 +32,6 @@ public class JetSuit {
 
             oxygenContainer = new OxygenContainer(3000);
         }
-
 
         public int getMode(ItemStack itemStack) {
             return itemStack.get(DataComponentsRegistry.JET_SUIT_COMPONENT.get()).type().getMode();
@@ -88,11 +86,13 @@ public class JetSuit {
             }
 
             /** NORMAL FLY MOVEMENT */
-            switch (this.getMode(stack)) {
-                case 1 -> this.normalFlyModeMovement(player, stack);
-                case 2 -> this.hoverModeMovement(player, stack);
-                case 3 -> this.elytraModeMovement(player, stack);
-            }
+            this.normalFlyModeMovement(player, stack);
+
+            /** CALCULATE PRESS SPACE TIME */
+            this.calculateSpacePressTime(player, stack);
+
+            /** HOVER MOVEMENT **/
+            this.hoverModeMovement(player,stack);
         }
 
         private void normalFlyModeMovement(Player player, ItemStack stack) {
@@ -161,10 +161,11 @@ public class JetSuit {
         }
 
         private void elytraModeMovement(Player player, ItemStack stack) {
-            if (player.isSprinting() && !player.onGround()) {
-                player.startFallFlying();
+            // Implement elytra mode movement logic here
+            if (KeyVariables.isHoldingJump(player) && player.isFallFlying()) {
+                double speed = player.isSprinting() ? 1.5 : 1.0;
+                player.moveRelative(0.05F, player.getLookAngle().scale(speed));
                 Utils.disableFlyAntiCheat(player, true);
-                this.addFuel(stack, -2);
             }
         }
 
@@ -220,7 +221,6 @@ public class JetSuit {
                         if (player.isSprinting()) {
                             if (this.spacePressTime < 2.8F) {
                                 this.spacePressTime = this.spacePressTime + 0.2F;
-                                elytraModeMovement(player,itemStack);
                             }
                         } else {
                             if (this.spacePressTime < 2.2F) {
@@ -252,6 +252,10 @@ public class JetSuit {
                     }
                 }
             }
+        }
+
+        public int getOxygenCapacity() {
+            return 60000;
         }
     }
 
@@ -310,4 +314,5 @@ public class JetSuit {
         }
 
     }
+
 }
