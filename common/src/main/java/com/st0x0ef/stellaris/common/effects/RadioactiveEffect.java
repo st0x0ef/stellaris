@@ -16,7 +16,6 @@ public class RadioactiveEffect extends MobEffect {
         super(mobEffectCategory, color);
     }
 
-    @Override
     public boolean applyEffectTick(LivingEntity livingEntity, int level) {
         if (livingEntity.getHealth() > 0.0F) {
             if (level == 0) {
@@ -37,7 +36,6 @@ public class RadioactiveEffect extends MobEffect {
         return false;
     }
 
-    @Override
     public boolean shouldApplyEffectTickThisTick(int i, int j) {
         int k = 25 >> j;
         if (k > 0) {
@@ -47,8 +45,6 @@ public class RadioactiveEffect extends MobEffect {
         }
     }
 
-
-    @Override
     public void onEffectStarted(LivingEntity livingEntity, int i) {
         if (i == 1 || i == 2) {
             livingEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 80));
