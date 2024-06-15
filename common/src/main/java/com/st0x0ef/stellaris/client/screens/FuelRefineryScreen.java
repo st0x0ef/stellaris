@@ -33,9 +33,9 @@ public class FuelRefineryScreen extends AbstractContainerScreen<FuelRefineryMenu
         renderTooltip(guiGraphics, mouseX, mouseY);
         FuelRefineryBlockEntity blockEntity = this.getMenu().getBlockEntity();
         if (blockEntity != null){
-            renderFuelGauge(blockEntity);
-            renderOilGauge(blockEntity);
-            renderEnergyGauge(blockEntity);
+            renderFuelGauge(blockEntity,guiGraphics,mouseX,mouseY);
+            renderOilGauge(blockEntity,guiGraphics,mouseX,mouseY);
+            renderEnergyGauge(blockEntity,guiGraphics,mouseX,mouseY);
         }
     }
 
@@ -47,32 +47,35 @@ public class FuelRefineryScreen extends AbstractContainerScreen<FuelRefineryMenu
         guiGraphics.blit(TEXTURE, leftPos, topPos, 0, 0, imageWidth, imageHeight, imageWidth, imageHeight);
     }
 
-    private void renderOilGauge(FuelRefineryBlockEntity blockEntity) {
+    private void renderOilGauge(FuelRefineryBlockEntity blockEntity, GuiGraphics guiGraphics, int mouseX, int mouseY) {
         ResourceLocation oil_overlay = new ResourceLocation(Stellaris.MODID, "textures/gui/util/oil_gui_overlay.png");
 
         FluidTank oilTank = blockEntity.getIngredientTank();
-        Gauge oilGauge = new Gauge( this.leftPos + 22,  this.topPos + 54, 12, 46, null, oil_overlay, liquid_tank_overlay, oilTank.getAmount(), oilTank.getMaxCapacity());
+        Gauge oilGauge = new Gauge( this.leftPos + 43,  this.topPos + 22, 12, 46, null, oil_overlay, liquid_tank_overlay, oilTank.getAmount(), oilTank.getMaxCapacity());
 
         this.addRenderableWidget(oilGauge);
+        //oilGauge.renderTooltip(guiGraphics, mouseX, mouseY, this.font);
     }
 
-    private void renderFuelGauge(FuelRefineryBlockEntity blockEntity) {
+    private void renderFuelGauge(FuelRefineryBlockEntity blockEntity, GuiGraphics guiGraphics, int mouseX, int mouseY) {
         ResourceLocation fuel_overlay = new ResourceLocation(Stellaris.MODID, "textures/gui/util/fuel_overlay.png");
 
         FluidTank fuelTank = blockEntity.getResultTank();
-        Gauge fuelGauge = new Gauge( this.leftPos + 142,  this.topPos + 54, 12, 46, null, fuel_overlay, liquid_tank_overlay, fuelTank.getAmount(), fuelTank.getMaxCapacity());
+        Gauge fuelGauge = new Gauge( this.leftPos + 100,  this.topPos + 22, 12, 46, null, fuel_overlay, liquid_tank_overlay, fuelTank.getAmount(), fuelTank.getMaxCapacity());
 
         this.addRenderableWidget(fuelGauge);
+        //fuelGauge.renderTooltip(guiGraphics, mouseX, mouseY, this.font);
     }
 
-    private void renderEnergyGauge(FuelRefineryBlockEntity blockEntity) {
+    private void renderEnergyGauge(FuelRefineryBlockEntity blockEntity, GuiGraphics guiGraphics, int mouseX, int mouseY) {
         ResourceLocation energy_overlay = new ResourceLocation(Stellaris.MODID, "textures/gui/util/energy_full.png");
         ResourceLocation battery_overlay = new ResourceLocation(Stellaris.MODID, "textures/gui/util/battery_overlay.png");
 
         EnergyContainer energyContainer = blockEntity.getWrappedEnergyContainer().container();
 
-        Gauge energyGauge = new Gauge( this.leftPos + 140, this.topPos + 50, 13, 47, Component.translatable("stellaris.screen.energy"), energy_overlay, battery_overlay, (int) energyContainer.getStoredEnergy(),(int) energyContainer.getMaxCapacity());
+        Gauge energyGauge = new Gauge( this.leftPos + 150, this.topPos + 21, 13, 47, Component.translatable("stellaris.screen.energy"), energy_overlay, battery_overlay, (int) energyContainer.getStoredEnergy(),(int) energyContainer.getMaxCapacity());
 
         this.addRenderableWidget(energyGauge);
+        //energyGauge.renderTooltip(guiGraphics, mouseX, mouseY, this.font);
     }
 }
