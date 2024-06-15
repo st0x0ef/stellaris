@@ -1,10 +1,15 @@
 {
   "id": "stellaris:mars",
-  "cloud": "VANILLA",
+  "cloud": "none",
   "weather": true,
   "sunrise_color": "Orange",
-  "star_count": 5000,
-  "star_color": "Rainbow",
+  "star": [
+    {
+      "count": 6500,
+      "colored": true,
+      "allDaysVisible": true
+    }
+  ],
   "sky_object": [
     {
       "texture": "stellaris:textures/environment/solar_system/moon.png",

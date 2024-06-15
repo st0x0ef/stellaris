@@ -8,6 +8,7 @@ import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
 import com.st0x0ef.stellaris.client.screens.info.CelestialBody;
 import com.st0x0ef.stellaris.client.screens.info.MoonInfo;
 import com.st0x0ef.stellaris.client.screens.info.PlanetInfo;
+import com.st0x0ef.stellaris.client.skys.renderer.SkyRenderer;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.entities.RocketEntity;
 import com.st0x0ef.stellaris.common.menus.PlanetSelectionMenu;
@@ -557,7 +558,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (keyCode == GLFW.GLFW_KEY_Z) {
             if (canLaunch(PlanetUtil.getPlanet(focusedBody.dimension))) {
-                tpToFocusedPlanet();
+                if (focusedBody != null) tpToFocusedPlanet();
             }
         } else if (keyCode == GLFW.GLFW_KEY_X) {
             isPausePressed = !isPausePressed;
@@ -683,7 +684,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     }
 
     public void tpToFocusedPlanet() {
-        if(focusedBody != null) {
+        if (focusedBody != null) {
+            SkyRenderer.defaultCloudsLevel = Minecraft.getInstance().options.cloudStatus().get();
             RegistryFriendlyByteBuf buffer = new RegistryFriendlyByteBuf(Unpooled.buffer(), getPlayer().registryAccess());
             NetworkRegistry.sendToServer(NetworkRegistry.TELEPORT_ENTITY_ID, TeleportEntity.encode(new TeleportEntity(focusedBody.dimension, false), buffer));
         } else {

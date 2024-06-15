@@ -1,13 +1,13 @@
 {
-  "id": "stellaris:mars",
-  "cloud": "none",
+  "id": "stellaris:venus",
+  "cloud": "stellaris:textures/environment/venus_clouds.png",
   "weather": true,
   "sunrise_color": "Orange",
   "star": [
     {
-      "count": 6500,
+      "count": 3500,
       "colored": true,
-      "allDaysVisible": true
+      "allDaysVisible": false
     }
   ],
   "sky_object": [

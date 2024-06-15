@@ -1,10 +1,15 @@
 {
   "id": "minecraft:overworld",
-  "cloud": "VANILLA",
+  "cloud": "vanilla",
   "weather": true,
   "sunrise_color": "Orange",
-  "star_count": 3000,
-  "star_color": "White",
+  "star": [
+    {
+     "count": 3000,
+     "colored": false,
+     "allDaysVisible": false
+    }
+  ],
   "sky_object": [
     {
       "texture": "stellaris:textures/environment/solar_system/moon.png",
