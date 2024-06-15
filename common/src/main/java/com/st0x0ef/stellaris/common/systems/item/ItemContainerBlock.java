@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.common.systems.item;
 
-@Deprecated
 public interface ItemContainerBlock {
 
     /**

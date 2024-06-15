@@ -99,8 +99,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     private double zoomLevel = 1.0;
     private GLFWScrollCallback prevScrollCallback;
 
-    private List<InvisibleButton> planetButtons = new ArrayList<>();
-    private List<InvisibleButton> moonButtons = new ArrayList<>();
+    private final List<InvisibleButton> planetButtons = new ArrayList<>();
+    private final List<InvisibleButton> moonButtons = new ArrayList<>();
 
     public PlanetSelectionScreen(PlanetSelectionMenu abstractContainerMenu, Inventory inventory, Component component) {
         super(abstractContainerMenu, inventory, component);
@@ -385,12 +385,11 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
         currentHighlighterFrame = (currentHighlighterFrame + 1) % totalHighlighterFrames;
 
-        int frameHeight = highlightHeight;
-        int frameY = currentHighlighterFrame * frameHeight;
+        int frameY = currentHighlighterFrame * highlightHeight;
 
         float currentAngle = bodyToHighlight instanceof PlanetInfo ? (float) ((PlanetInfo) bodyToHighlight).currentAngle : (float) ((MoonInfo) bodyToHighlight).currentAngle;
 
-        ScreenHelper.drawTexturewithRotation(graphics, HIGHLIGHTER_TEXTURE, (int) highlightX, (int) highlightY, 0, frameY, highlightWidth, highlightHeight, highlightWidth, totalHighlighterFrames * frameHeight, currentAngle);
+        ScreenHelper.drawTexturewithRotation(graphics, HIGHLIGHTER_TEXTURE, (int) highlightX, (int) highlightY, 0, frameY, highlightWidth, highlightHeight, highlightWidth, totalHighlighterFrames * highlightHeight, currentAngle);
     }
 
 
@@ -401,9 +400,9 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
             Component CELESTIAL_BODY_NAME = focusedBody.translatable;
 
-            Float CELESTIAL_BODY_TEMPERATURE = PlanetUtil.getPlanet(focusedBody.dimension).temperature();
-            Float CELESTIAL_BODY_GRAVITY = PlanetUtil.getPlanet(focusedBody.dimension).gravity();
-            Boolean CELESTIAL_BODY_OXYGEN = PlanetUtil.getPlanet(focusedBody.dimension).oxygen();
+            float CELESTIAL_BODY_TEMPERATURE = PlanetUtil.getPlanet(focusedBody.dimension).temperature();
+            float CELESTIAL_BODY_GRAVITY = PlanetUtil.getPlanet(focusedBody.dimension).gravity();
+            boolean CELESTIAL_BODY_OXYGEN = PlanetUtil.getPlanet(focusedBody.dimension).oxygen();
             String CELESTIAL_BODY_SYSTEM = PlanetUtil.getPlanet(focusedBody.dimension).system();
 
             Component systemTranslatable;
@@ -589,72 +588,86 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     }
 
     private CelestialBody getNextBodyByDistance(CelestialBody currentBody) {
-        if (currentBody == null) return null;
+        switch (currentBody) {
+            case null -> {
+                return null;
+            }
+            case PlanetInfo planetInfo -> {
+                List<PlanetInfo> bodies = new ArrayList<>(PLANETS);
 
-        if (currentBody instanceof PlanetInfo) {
-            List<PlanetInfo> bodies = new ArrayList<>(PLANETS);
+                bodies.sort(Comparator.comparingDouble(b -> b.orbitRadius));
 
-            bodies.sort(Comparator.comparingDouble(b -> b.orbitRadius));
-
-            for (int i = 0; i < bodies.size(); i++) {
-                if (bodies.get(i) == currentBody) {
-                    for (int j = i + 1; j < bodies.size(); j++) {
-                        if (bodies.get(j).orbitCenter == ((PlanetInfo) currentBody).orbitCenter) {
-                            return bodies.get(j);
+                for (int i = 0; i < bodies.size(); i++) {
+                    if (bodies.get(i) == currentBody) {
+                        for (int j = i + 1; j < bodies.size(); j++) {
+                            if (bodies.get(j).orbitCenter == ((PlanetInfo) currentBody).orbitCenter) {
+                                return bodies.get(j);
+                            }
                         }
                     }
                 }
             }
-        } else if (currentBody instanceof MoonInfo) {
-            List<MoonInfo> bodies = new ArrayList<>(MOONS);
+            case MoonInfo moonInfo -> {
+                List<MoonInfo> bodies = new ArrayList<>(MOONS);
 
-            bodies.sort(Comparator.comparingDouble(b -> b.orbitRadius));
+                bodies.sort(Comparator.comparingDouble(b -> b.orbitRadius));
 
-            for (int i = 0; i < bodies.size(); i++) {
-                if (bodies.get(i) == currentBody) {
-                    for (int j = i + 1; j < bodies.size(); j++) {
-                        if (bodies.get(j).orbitCenter == ((MoonInfo) currentBody).orbitCenter) {
-                            return bodies.get(j);
+                for (int i = 0; i < bodies.size(); i++) {
+                    if (bodies.get(i) == currentBody) {
+                        for (int j = i + 1; j < bodies.size(); j++) {
+                            if (bodies.get(j).orbitCenter == ((MoonInfo) currentBody).orbitCenter) {
+                                return bodies.get(j);
+                            }
                         }
                     }
                 }
+            }
+            default -> {
             }
         }
+
         return currentBody;
     }
 
     private CelestialBody getPreviousBodyByDistance(CelestialBody currentBody) {
-        if (currentBody == null) return null;
+        switch (currentBody) {
+            case null -> {
+                return null;
+            }
+            case PlanetInfo planetInfo -> {
+                List<PlanetInfo> bodies = new ArrayList<>(PLANETS);
 
-        if (currentBody instanceof PlanetInfo) {
-            List<PlanetInfo> bodies = new ArrayList<>(PLANETS);
+                bodies.sort(Comparator.comparingDouble(b -> b.orbitRadius));
 
-            bodies.sort(Comparator.comparingDouble(b -> b.orbitRadius));
-
-            for (int i = bodies.size() - 1; i >= 0; i--) {
-                if (bodies.get(i) == currentBody) {
-                    for (int j = i - 1; j >= 0; j--) {
-                        if (bodies.get(j).orbitCenter == ((PlanetInfo) currentBody).orbitCenter) {
-                            return bodies.get(j);
+                for (int i = bodies.size() - 1; i >= 0; i--) {
+                    if (bodies.get(i) == currentBody) {
+                        for (int j = i - 1; j >= 0; j--) {
+                            if (bodies.get(j).orbitCenter == ((PlanetInfo) currentBody).orbitCenter) {
+                                return bodies.get(j);
+                            }
                         }
                     }
                 }
             }
-        } else if (currentBody instanceof MoonInfo) {
-            List<MoonInfo> bodies = new ArrayList<>(MOONS);
+            case MoonInfo moonInfo -> {
+                List<MoonInfo> bodies = new ArrayList<>(MOONS);
 
-            bodies.sort(Comparator.comparingDouble(b -> b.orbitRadius));
+                bodies.sort(Comparator.comparingDouble(b -> b.orbitRadius));
 
-            for (int i = bodies.size() - 1; i >= 0; i--) {
-                if (bodies.get(i) == currentBody) {
-                    for (int j = i - 1; j >= 0; j--) {
-                        if (bodies.get(j).orbitCenter == ((MoonInfo) currentBody).orbitCenter) {
-                            return bodies.get(j);
+                for (int i = bodies.size() - 1; i >= 0; i--) {
+                    if (bodies.get(i) == currentBody) {
+                        for (int j = i - 1; j >= 0; j--) {
+                            if (bodies.get(j).orbitCenter == ((MoonInfo) currentBody).orbitCenter) {
+                                return bodies.get(j);
+                            }
                         }
                     }
                 }
+            }
+            default -> {
             }
         }
+
         return currentBody;
     }
 
@@ -794,7 +807,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
                 return body;
             }
         }
-        Stellaris.LOG.warn("Star not found : " + id);
+        Stellaris.LOG.warn("Star not found : {}", id);
         return null;
     }
 

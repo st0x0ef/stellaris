@@ -18,8 +18,7 @@ public class NormalRocketRenderer extends VehicleRenderer<RocketEntity, NormalRo
     @Override
     public ResourceLocation getTextureLocation(RocketEntity entity) {
         entity.MODEL_UPGRADE = new ModelUpgrade(RocketModel.NORMAL);
-        ResourceLocation location = new ResourceLocation(entity.getFullSkinTexture());
-        return location;
+        return new ResourceLocation(entity.getFullSkinTexture());
     }
 
     @Override

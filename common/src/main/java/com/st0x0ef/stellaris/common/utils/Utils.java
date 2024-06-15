@@ -6,7 +6,6 @@ import com.st0x0ef.stellaris.common.entities.LanderEntity;
 import com.st0x0ef.stellaris.common.entities.RocketEntity;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import com.st0x0ef.stellaris.platform.TeleportUtil;
-import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
@@ -14,7 +13,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -122,68 +120,38 @@ public class Utils {
 
     /** COLOR!!! */
     public static int getColorHexCode(String colorName) {
-        switch (colorName.toLowerCase()) {
-            case "black":
-                return 0x000000;
-            case "white":
-                return 0xFFFFFF;
-            case "red":
-                return 0xFF0000;
-            case "green":
-                return 0x008000;
-            case "blue":
-                return 0x0000FF;
-            case "yellow":
-                return 0xFFFF00;
-            case "cyan":
-                return 0x00FFFF;
-            case "magenta":
-                return 0xFF00FF;
-            case "gray":
-                return 0x808080;
-            case "maroon":
-                return 0x800000;
-            case "olive":
-                return 0x808000;
-            case "purple":
-                return 0x800080;
-            case "teal":
-                return 0x008080;
-            case "navy":
-                return 0x000080;
-            case "orange":
-                return 0xFFA500;
-            case "brown":
-                return 0xA52A2A;
-            case "lime":
-                return 0x00FF00;
-            case "pink":
-                return 0xFFC0CB;
-            case "coral":
-                return 0xFF7F50;
-            case "gold":
-                return 0xFFD700;
-            case "silver":
-                return 0xC0C0C0;
-            case "beige":
-                return 0xF5F5DC;
-            case "lavender":
-                return 0xE6E6FA;
-            case "turquoise":
-                return 0x40E0D0;
-            case "salmon":
-                return 0xFA8072;
-            case "khaki":
-                return 0xF0E68C;
-            case "darkred":
-                return 0x8B0000;
-            case "dark_red":
-                return 0x8B0000;
-            case "rainbow":
-                return generateRandomHexColor();
-            default:
-                return 0xFFFFFF;
-        }
+        return switch (colorName.toLowerCase()) {
+            case "black" -> 0x000000;
+            case "white" -> 0xFFFFFF;
+            case "red" -> 0xFF0000;
+            case "green" -> 0x008000;
+            case "blue" -> 0x0000FF;
+            case "yellow" -> 0xFFFF00;
+            case "cyan" -> 0x00FFFF;
+            case "magenta" -> 0xFF00FF;
+            case "gray" -> 0x808080;
+            case "maroon" -> 0x800000;
+            case "olive" -> 0x808000;
+            case "purple" -> 0x800080;
+            case "teal" -> 0x008080;
+            case "navy" -> 0x000080;
+            case "orange" -> 0xFFA500;
+            case "brown" -> 0xA52A2A;
+            case "lime" -> 0x00FF00;
+            case "pink" -> 0xFFC0CB;
+            case "coral" -> 0xFF7F50;
+            case "gold" -> 0xFFD700;
+            case "silver" -> 0xC0C0C0;
+            case "beige" -> 0xF5F5DC;
+            case "lavender" -> 0xE6E6FA;
+            case "turquoise" -> 0x40E0D0;
+            case "salmon" -> 0xFA8072;
+            case "khaki" -> 0xF0E68C;
+            case "darkred" -> 0x8B0000;
+            case "dark_red" -> 0x8B0000;
+            case "rainbow" -> generateRandomHexColor();
+            default -> 0xFFFFFF;
+        };
     }
 
     public static int generateRandomHexColor() {
@@ -221,14 +189,14 @@ public class Utils {
 
     /** codec */
     public static <T extends Enum<T>> Codec<T> EnumCodec(Class<T> e) {
-        Function<String, T> stringToEnum = new Function<String, T>() {
+        Function<String, T> stringToEnum = new Function<>() {
             @Override
             public T apply(String s) {
                 return Enum.valueOf(e, s.toUpperCase(Locale.ROOT));
             }
         };
 
-        Function<T, String> enumToString = new Function<T, String>() {
+        Function<T, String> enumToString = new Function<>() {
             @Override
             public String apply(T enumValue) {
                 return enumValue.name();

@@ -2,10 +2,8 @@ package com.st0x0ef.stellaris.client.skys.record;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.st0x0ef.stellaris.client.skys.type.PlanetCloudType;
 import com.st0x0ef.stellaris.client.skys.type.SkyObjectType;
 import com.st0x0ef.stellaris.client.skys.record.StarTypeRecord;
-import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;

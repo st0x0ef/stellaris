@@ -132,12 +132,9 @@ public class JetSuit {
                     /** MOVE SIDEWAYS */
                     if (!player.onGround()) {
                         if (KeyVariables.isHoldingRight(player)) {
-                            Stellaris.LOG.error("sideway");
                             player.moveRelative(1.0F, new Vec3(-0.01, 0, 0));
                         }
                         else if (KeyVariables.isHoldingLeft(player)) {
-                            Stellaris.LOG.error("sideway");
-
                             player.moveRelative(1.0F, new Vec3(0.01, 0, 0));
                         }
                     }
@@ -306,7 +303,7 @@ public class JetSuit {
         }
 
         public static ModeType fromString(String string) {
-            Stellaris.LOG.error("From String : " + Integer.decode(string));
+            Stellaris.LOG.error("From String : {}", Integer.decode(string));
 
             return switch (Integer.decode(string)) {
                case 0 -> DISABLED;

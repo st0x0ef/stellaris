@@ -17,9 +17,6 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class WaterSeparatorMenu extends BaseContainer {
 
     private final Container container;

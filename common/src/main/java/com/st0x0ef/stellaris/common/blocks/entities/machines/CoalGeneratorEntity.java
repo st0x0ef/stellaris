@@ -75,7 +75,7 @@ public class CoalGeneratorEntity extends BaseGeneratorBlockEntity {
             --litTime;
         }
 
-        ItemStack stack = getItems().get(0);
+        ItemStack stack = getItems().getFirst();
         if (!isLit() && !stack.isEmpty()) {
             litTime = getBurnDuration(stack);
             litDuration = litTime;
