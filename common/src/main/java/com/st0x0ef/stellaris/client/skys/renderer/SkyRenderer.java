@@ -3,19 +3,18 @@ package com.st0x0ef.stellaris.client.skys.renderer;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Axis;
-import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.client.StellarisClient;
 import com.st0x0ef.stellaris.client.skys.helper.SkyHelper;
 import com.st0x0ef.stellaris.client.skys.helper.StarHelper;
 import com.st0x0ef.stellaris.client.skys.type.RenderableType;
 import com.st0x0ef.stellaris.common.events.Events;
-import net.minecraft.client.CloudStatus;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.DimensionSpecialEffects;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 
@@ -23,25 +22,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class SkyRenderer {
+public class SkyRenderer extends DimensionSpecialEffects {
     public static final List<RenderableType> renderableList = new ArrayList<>();
-    private static final Random random = new Random();
     private static final Minecraft mc = Minecraft.getInstance();
-    private static final boolean colorSystem = false;
 
+    public SkyRenderer() {
+        super(Float.NaN, false, SkyType.NONE, false, false);
+    }
+    
     @Nullable
     public static ResourceLocation clouds_texture = null;
 
     @Nullable
     private static VertexBuffer starBuffer = null;
 
-    @Nullable
-    public static CloudStatus defaultCloudsLevel = null;
-
-    public static void render(ResourceKey<Level> dimension, float partialTicks, Matrix4f projectionMatrix, Matrix4f viewMatrix, PoseStack poseStack) {
+    public static void render(ResourceKey<Level> dimension, float partialTicks, Matrix4f projectionMatrix, PoseStack poseStack, Matrix4f viewMatrix) {
         LevelRenderer renderer = mc.levelRenderer;
         Tesselator tesselator = Tesselator.getInstance();
         BufferBuilder buffer = tesselator.getBuilder();
+        starBuffer = StarHelper.createStars(0.15F, 190, 160, -1);
 
         RenderableType renderable = getRenderableType(mc.player.level().dimension());
 
@@ -51,14 +50,13 @@ public class SkyRenderer {
             starBuffer = StarHelper.createStars(0.1F, 255, 255, 255);
         }
 
-        renderSky(buffer, tesselator, projectionMatrix, viewMatrix, renderer, poseStack, partialTicks);
+        renderSky(buffer, tesselator, partialTicks, projectionMatrix, renderer, poseStack, viewMatrix);
 
         if (Events.isCustomClouds && clouds_texture != null && poseStack != null) {
             SkyHelper.renderCustomClouds(poseStack, projectionMatrix, viewMatrix, partialTicks, mc.player.getX(), mc.player.getY(), mc.player.getZ(), clouds_texture);
-        }
-    }
+        }}
 
-    private static void renderSky(BufferBuilder buffer, Tesselator tesselator, Matrix4f projectionMatrix, Matrix4f viewMatrix, LevelRenderer renderer, PoseStack poseStack, float partialTicks) {
+    private static void renderSky(BufferBuilder buffer, Tesselator tesselator, float partialTicks, Matrix4f projectionMatrix, LevelRenderer renderer, PoseStack poseStack, Matrix4f viewMatrix) {
         float dayTime = mc.level.getTimeOfDay(partialTicks);
         float worldTime = mc.level.getDayTime() + partialTicks;
         float dayAngle = dayTime * 360f % 360f;
@@ -92,5 +90,15 @@ public class SkyRenderer {
             }
         }
         return null;
+    }
+
+    @Override
+    public Vec3 getBrightnessDependentFogColor(Vec3 fogColor, float brightness) {
+        return fogColor.multiply(brightness * 0.94F + 0.06F, brightness * 0.94F + 0.06F, brightness * 0.91F + 0.09F);
+    }
+
+    @Override
+    public boolean isFoggyAt(int x, int y) {
+        return false;
     }
 }

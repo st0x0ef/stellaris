@@ -23,6 +23,6 @@ public class SkyRendererFabric {
         if (p == null || SkyRenderer.getRenderableType(p.level().dimension()) == null) return;
 
         ResourceKey<Level> dim = p.level().dimension();
-        SkyRenderer.render(dim, context.tickDelta(), context.projectionMatrix(), context.positionMatrix(), context.matrixStack());
+        SkyRenderer.render(dim, context.tickDelta(), context.projectionMatrix(), context.matrixStack(), context.positionMatrix());
     }
 }
