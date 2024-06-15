@@ -18,11 +18,15 @@ public class StellarisNeoForge {
     public StellarisNeoForge(IEventBus bus) {
         Stellaris.init();
         StellarisClient.registerPacks();
+
         NeoForge.EVENT_BUS.addListener(StellarisNeoForge::onAddReloadListenerEvent);
         NeoForge.EVENT_BUS.addListener(StellarisNeoForge::onDatapackSync);
+
         bus.addListener(StellarisNeoForge::onAttributes);
+
         NeoForge.EVENT_BUS.addListener(MarsFog::setupFog);
         NeoForge.EVENT_BUS.addListener(SkyRendererNeoForge::RenderWorldSky);
+
         SystemsNeoForge.init(bus);
     }
 
