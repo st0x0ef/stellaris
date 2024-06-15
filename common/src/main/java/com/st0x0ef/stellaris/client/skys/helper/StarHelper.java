@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.st0x0ef.stellaris.client.skys.renderer.SkyRenderer;
 import com.st0x0ef.stellaris.client.skys.type.RenderableType;
+import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.GraphicsStatus;
@@ -46,20 +47,23 @@ public class StarHelper {
 
     private static BufferBuilder.RenderedBuffer drawStars(BufferBuilder bufferBuilder, float scale, boolean amountDefault, int amountFast, int amountFancy, boolean colorSystem, int r, int g, int b) {
         Random random = new Random(10842L);
-        int stars;
+        int stars = 1500;
+
         RenderableType renderableType;
         if (Minecraft.getInstance().player.level().dimension() != null) {
             renderableType = SkyRenderer.getRenderableType(Minecraft.getInstance().player.level().dimension());
 
             GraphicsStatus graphicsMode = Minecraft.getInstance().options.graphicsMode().get();
 
-            stars = (graphicsMode == GraphicsStatus.FABULOUS || graphicsMode == GraphicsStatus.FANCY)
-                    ? renderableType.getStarCount()
-                    : renderableType.getStarCount() / 2;
-
-        } else {
-            stars = 1500;
+            assert renderableType != null;
+            if ((graphicsMode == GraphicsStatus.FABULOUS || graphicsMode == GraphicsStatus.FANCY)) {
+                stars = renderableType.getStarCount();
+            } else {
+                stars = renderableType.getStarCount() / 2;
+            }
         }
+
+        if (SkyRenderer.getRenderableType(Minecraft.getInstance().player.level().dimension()) == null && PlanetUtil.getPlanet(Minecraft.getInstance().player.level().dimension()) != null) stars = 1500;
 
         if (!bufferBuilder.building()) bufferBuilder.begin(VertexFormat.Mode.QUADS, colorSystem ? DefaultVertexFormat.POSITION_COLOR : DefaultVertexFormat.POSITION);
 
