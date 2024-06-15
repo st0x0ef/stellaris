@@ -25,8 +25,6 @@ public class RocketScreen extends AbstractContainerScreen<RocketMenu> {
     public int max_fuel;
     public Component capacity;
 
-    public static final Component Fuel = Component.translatable("text.stellaris.rocketscreen.fuel");
-
 
     public RocketScreen(RocketMenu abstractContainerMenu, Inventory inventory, Component component) {
         super(abstractContainerMenu, inventory, component);
@@ -49,7 +47,6 @@ public class RocketScreen extends AbstractContainerScreen<RocketMenu> {
         this.addRenderableWidget(gauge);
 
         gauge.renderTooltip(graphics, mouseX, mouseY, this.font);
-
     }
 
     @Override

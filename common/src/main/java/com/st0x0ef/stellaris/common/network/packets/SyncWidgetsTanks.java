@@ -8,6 +8,8 @@ import dev.architectury.networking.NetworkManager;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 
+import java.util.List;
+
 public class SyncWidgetsTanks {
 
     private final long[] component;
@@ -18,6 +20,13 @@ public class SyncWidgetsTanks {
 
     public SyncWidgetsTanks(long[] values) {
         this.component = values;
+    }
+
+    public SyncWidgetsTanks(List<Long> values) {
+        this.component = new long[values.size()];
+        for (int i = 0; i < component.length; i++) {
+            this.component[i] = values.get(i);
+        }
     }
 
     public static RegistryFriendlyByteBuf encode(SyncWidgetsTanks message, RegistryFriendlyByteBuf buffer) {

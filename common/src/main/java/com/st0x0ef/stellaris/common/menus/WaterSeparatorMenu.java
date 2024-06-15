@@ -58,21 +58,14 @@ public class WaterSeparatorMenu extends BaseContainer {
         if (!player.level().isClientSide()) {
             RegistryFriendlyByteBuf buffer = new RegistryFriendlyByteBuf(Unpooled.buffer(), player.level().getServer().registryAccess());
 
-            List<Long> values
-                    = new ArrayList<Long>();
+            List<Long> values  = new ArrayList<>();
 
             this.blockEntity.getResultTanks().forEach((fluidTank -> {
                 values.add(fluidTank.getAmount());
             }));
 
-            Long[] simpleArray = new Long[ values.size() ];
-            values.toArray( simpleArray );
-
-            NetworkRegistry.sendToPlayer(player, NetworkRegistry.SYNC_FLUID_TANKS_ID, SyncWidgetsTanks.encode(new SyncWidgetsTanks( ArrayUtils.toPrimitive(simpleArray)), buffer));
+            NetworkRegistry.sendToPlayer(player, NetworkRegistry.SYNC_FLUID_TANKS_ID, SyncWidgetsTanks.encode(new SyncWidgetsTanks(values), buffer));
             NetworkRegistry.sendToPlayer(player, NetworkRegistry.SYNC_FLUID_TANKS_ID, SyncWidgetsTanks.encode(new SyncWidgetsTanks(new long[]{this.blockEntity.ingredientTank.getAmount()}), buffer));
-
         }
     }
-
-
 }

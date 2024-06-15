@@ -28,7 +28,6 @@ public class Stellaris {
             .create();
 
     public static void init() {
-
         CustomConfig.init();
 
         NetworkRegistry.register();
