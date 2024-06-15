@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Axis;
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.client.StellarisClient;
 import com.st0x0ef.stellaris.client.skys.helper.SkyHelper;
 import com.st0x0ef.stellaris.client.skys.helper.StarHelper;
 import com.st0x0ef.stellaris.client.skys.type.RenderableType;
@@ -37,29 +38,25 @@ public class SkyRenderer {
     @Nullable
     public static CloudStatus defaultCloudsLevel = null;
 
-    public static void render(ResourceKey<Level> dimension, float partialTicks, Matrix4f projectionMatrix, Matrix4f viewMatrix, @Nullable PoseStack poseStack) {
+    public static void render(ResourceKey<Level> dimension, float partialTicks, Matrix4f projectionMatrix, Matrix4f viewMatrix, PoseStack poseStack) {
         LevelRenderer renderer = mc.levelRenderer;
         Tesselator tesselator = Tesselator.getInstance();
         BufferBuilder buffer = tesselator.getBuilder();
 
         RenderableType renderable = getRenderableType(mc.player.level().dimension());
 
-        // Ensure starBuffer is created only once
-        if (starBuffer == null) {
-            if (renderable != null && renderable.getStarColor()) {
-                starBuffer = StarHelper.createStars(0.1F, 190, 160, -1);
-            } else {
-                starBuffer = StarHelper.createStars(0.1F, 255, 255, 255);
-            }
+        if (renderable != null) {
+            starBuffer = StarHelper.createStars(0.1F, 190, 160, -1);
+        } else {
+            starBuffer = StarHelper.createStars(0.1F, 255, 255, 255);
         }
 
         renderSky(buffer, tesselator, projectionMatrix, viewMatrix, renderer, poseStack, partialTicks);
 
-        if (Events.isCustomClouds && clouds_texture != null) {
+        if (Events.isCustomClouds && clouds_texture != null && poseStack != null) {
             SkyHelper.renderCustomClouds(poseStack, projectionMatrix, viewMatrix, partialTicks, mc.player.getX(), mc.player.getY(), mc.player.getZ(), clouds_texture);
         }
     }
-
 
     private static void renderSky(BufferBuilder buffer, Tesselator tesselator, Matrix4f projectionMatrix, Matrix4f viewMatrix, LevelRenderer renderer, PoseStack poseStack, float partialTicks) {
         float dayTime = mc.level.getTimeOfDay(partialTicks);
@@ -77,7 +74,7 @@ public class SkyRenderer {
             starLight = mc.level.getStarBrightness(partialTicks) * rainLevel + 0.2F;
         }
 
-        if (starLight > 0.0F && starBuffer != null) {
+        if (starLight > 0.0F) {
             matrix4f = new Matrix4f(viewMatrix).rotate(Axis.XP.rotationDegrees(mc.level.getTimeOfDay(partialTicks) * -360.0F));
             RenderSystem.setShader(GameRenderer::getPositionColorTexShader);
             RenderSystem.setShaderColor(starLight, starLight, starLight, starLight);

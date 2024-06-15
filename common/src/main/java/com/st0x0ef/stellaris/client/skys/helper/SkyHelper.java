@@ -3,6 +3,8 @@ package com.st0x0ef.stellaris.client.skys.helper;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
+import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.client.StellarisClient;
 import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.RenderType;
@@ -36,7 +38,7 @@ public class SkyHelper {
         }
     }
 
-    public static void renderCustomClouds(@Nullable PoseStack poseStack, Matrix4f projectionMatrix, Matrix4f frustrumMatrix, float partialTick, double camX, double camY, double camZ, ResourceLocation cloudsTexture) {
+    public static void renderCustomClouds(PoseStack poseStack, Matrix4f projectionMatrix, Matrix4f frustrumMatrix, float partialTick, double camX, double camY, double camZ, ResourceLocation cloudsTexture) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, cloudsTexture);
         RenderSystem.enableBlend();
@@ -46,6 +48,7 @@ public class SkyHelper {
             generateCustomClouds();
         }
 
+        assert poseStack != null;
         poseStack.pushPose();
         poseStack.translate(-camX, -camY, -camZ);
         poseStack.scale(12.0F, 1.0F, 12.0F);

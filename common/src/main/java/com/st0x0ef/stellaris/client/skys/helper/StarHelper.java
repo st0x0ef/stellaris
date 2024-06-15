@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.client.skys.helper;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.skys.renderer.SkyRenderer;
 import com.st0x0ef.stellaris.client.skys.type.RenderableType;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
@@ -51,9 +52,10 @@ public class StarHelper {
 
         RenderableType renderableType;
 
-        if (Minecraft.getInstance().player.level().dimension() != null) {
-        GraphicsStatus graphicsMode = Minecraft.getInstance().options.graphicsMode().get();
-        renderableType = SkyRenderer.getRenderableType(Minecraft.getInstance().player.level().dimension());
+        if (SkyRenderer.getRenderableType(Minecraft.getInstance().player.level().dimension()) != null) {
+            GraphicsStatus graphicsMode = Minecraft.getInstance().options.graphicsMode().get();
+            renderableType = SkyRenderer.getRenderableType(Minecraft.getInstance().player.level().dimension());
+
             assert renderableType != null;
             if ((graphicsMode == GraphicsStatus.FABULOUS || graphicsMode == GraphicsStatus.FANCY)) {
                 stars = renderableType.getStarCount();
