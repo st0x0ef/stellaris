@@ -27,6 +27,6 @@ public class SkyRendererNeoForge {
         Player p = mc.player;
         ResourceKey<Level> dim = Objects.requireNonNull(p).level().dimension();
 
-        SkyRenderer.render(dim, e.getPartialTick(), e.getProjectionMatrix(), e.getModelViewMatrix(), e.getPoseStack());
+        SkyRenderer.render(dim, e.getPartialTick(), e.getProjectionMatrix(), e.getPoseStack(), e.getModelViewMatrix());
     }
 }

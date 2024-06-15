@@ -9,12 +9,10 @@ import com.st0x0ef.stellaris.common.events.Events;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import com.st0x0ef.stellaris.common.network.packets.SyncPlanetsDatapack;
 import com.st0x0ef.stellaris.common.registry.*;
-import dev.architectury.registry.ReloadListenerRegistry;
 import io.netty.buffer.Unpooled;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,5 +65,4 @@ public class Stellaris {
     public static void onAddReloadListenerEvent(BiConsumer<ResourceLocation, PreparableReloadListener> registry) {
         registry.accept(new ResourceLocation(Stellaris.MODID, "planets"), new StellarisData());
     }
-
 }
