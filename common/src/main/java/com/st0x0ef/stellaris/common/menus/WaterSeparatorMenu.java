@@ -9,15 +9,15 @@ import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import io.netty.buffer.Unpooled;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import org.apache.commons.lang3.ArrayUtils;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class WaterSeparatorMenu extends BaseContainer {
 
@@ -54,18 +54,26 @@ public class WaterSeparatorMenu extends BaseContainer {
     }
 
     public void syncWidgets(ServerPlayer player) {
-
         if (!player.level().isClientSide()) {
-            RegistryFriendlyByteBuf buffer = new RegistryFriendlyByteBuf(Unpooled.buffer(), player.level().getServer().registryAccess());
+            Map<Long, ResourceLocation> values = new HashMap<>();
 
-            List<Long> values  = new ArrayList<>();
+            blockEntity.getResultTanks().forEach((tank -> values.put(tank.getAmount(), tank.getStack().getFluid().arch$registryName())));
 
-            this.blockEntity.getResultTanks().forEach((fluidTank -> {
-                values.add(fluidTank.getAmount());
-            }));
-
-            NetworkRegistry.sendToPlayer(player, NetworkRegistry.SYNC_FLUID_TANKS_ID, SyncWidgetsTanks.encode(new SyncWidgetsTanks(values), buffer));
-            NetworkRegistry.sendToPlayer(player, NetworkRegistry.SYNC_FLUID_TANKS_ID, SyncWidgetsTanks.encode(new SyncWidgetsTanks(new long[]{this.blockEntity.ingredientTank.getAmount()}), buffer));
+            NetworkRegistry.sendToPlayer(player, NetworkRegistry.SYNC_FLUID_TANKS_ID, SyncWidgetsTanks.encode(new SyncWidgetsTanks(
+                    values.keySet().stream().toList(),
+                    values.values().toArray(new ResourceLocation[0])
+            ), createBuf(player)));
+            NetworkRegistry.sendToPlayer(player, NetworkRegistry.SYNC_FLUID_TANKS_ID, SyncWidgetsTanks.encode(new SyncWidgetsTanks(
+                    new long[] {blockEntity.ingredientTank.getAmount()},
+                    new ResourceLocation[] {blockEntity.ingredientTank.getStack().getFluid().arch$registryName()}
+            ), createBuf(player)));
+            NetworkRegistry.sendToPlayer(player, NetworkRegistry.SYNC_FLUID_TANKS_ID, SyncWidgetsTanks.encode(new SyncWidgetsTanks(
+                    new long[] {blockEntity.getWrappedEnergyContainer().getStoredEnergy(), 0, 0} // The 0s are fillers, so the array size is 3
+            ), createBuf(player)));
         }
+    }
+
+    public static RegistryFriendlyByteBuf createBuf(Player player) {
+        return new RegistryFriendlyByteBuf(Unpooled.buffer(), player.level().getServer().registryAccess());
     }
 }
