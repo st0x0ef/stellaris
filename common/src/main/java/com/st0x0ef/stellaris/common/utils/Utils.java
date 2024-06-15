@@ -59,29 +59,21 @@ public class Utils {
     }
 
     /** Teleport an entity to the planet wanted */
-    public static void teleportEntity(Entity entity, Planet destination, int yPos, boolean orbit) {
+    public static void teleportEntity(Entity entity, Planet destination, int yPos) {
 
         if(entity.level().isClientSide()) return;
         entity.setNoGravity(false);
 
-        ServerLevel nextLevel;
-        if(orbit) {
-
-            nextLevel = entity.level().getServer().getLevel(destination.orbit());
-        } else {
-
-            nextLevel = entity.level().getServer().getLevel(destination.dimension());
-        }
+        ServerLevel nextLevel = entity.level().getServer().getLevel(destination.dimension());
 
         if (!entity.canChangeDimensions()) return;
 
         TeleportUtil.teleportToPlanet(entity, nextLevel, yPos);
         entity.setPos(entity.getX(), yPos, entity.getZ());
-
     }
 
     /** To use with the planetSelection menu */
-    public static void changeDimension(Player player, Planet destination, boolean orbit) {
+    public static void changeDimension(Player player, Planet destination) {
 
         if(player.level().isClientSide()) return;
 
@@ -94,7 +86,7 @@ public class Utils {
             /** We remove the player from the Rocket */
             player.stopRiding();
 
-            teleportEntity(player, destination, 600, orbit);
+            teleportEntity(player, destination, 600);
 
             player.closeContainer();
 
@@ -102,7 +94,7 @@ public class Utils {
             player.startRiding(lander);
         } else {
             player.closeContainer();
-            teleportEntity(player, destination, 600, orbit);
+            teleportEntity(player, destination, 600);
         }
 
 

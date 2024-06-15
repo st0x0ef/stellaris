@@ -23,7 +23,7 @@ public class StellarisNeoForge {
         NeoForge.EVENT_BUS.addListener(StellarisNeoForge::onAddReloadListenerEvent);
         bus.addListener(StellarisNeoForge::onAttributes);
         NeoForge.EVENT_BUS.addListener(MarsFog::setupFog);
-        NeoForge.EVENT_BUS.addListener(SkyRendererNeoForge::RenderWorldSky);
+        //NeoForge.EVENT_BUS.addListener(SkyRendererNeoForge::RenderWorldSky);
         SystemsNeoForge.init(bus);
 
         if (FMLEnvironment.dist.isClient()) {
