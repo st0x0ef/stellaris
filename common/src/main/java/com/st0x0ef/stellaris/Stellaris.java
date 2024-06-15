@@ -53,7 +53,6 @@ public class Stellaris {
         FeaturesRegistry.FEATURES.register();
         CommandsRegistry.register();
         BiomeModificationsRegistry.register();
-        ReloadListenerRegistry.register(PackType.SERVER_DATA, new StellarisData());
         Events.registerEvents();
         LookupApiRegistry.register();
     }
