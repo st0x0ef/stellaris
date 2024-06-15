@@ -50,11 +50,10 @@ public class StarHelper {
         int stars = 1500;
 
         RenderableType renderableType;
+
         if (Minecraft.getInstance().player.level().dimension() != null) {
-            renderableType = SkyRenderer.getRenderableType(Minecraft.getInstance().player.level().dimension());
-
-            GraphicsStatus graphicsMode = Minecraft.getInstance().options.graphicsMode().get();
-
+        GraphicsStatus graphicsMode = Minecraft.getInstance().options.graphicsMode().get();
+        renderableType = SkyRenderer.getRenderableType(Minecraft.getInstance().player.level().dimension());
             assert renderableType != null;
             if ((graphicsMode == GraphicsStatus.FABULOUS || graphicsMode == GraphicsStatus.FANCY)) {
                 stars = renderableType.getStarCount();

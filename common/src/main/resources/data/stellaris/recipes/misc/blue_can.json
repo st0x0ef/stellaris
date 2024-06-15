@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "   ",
+    "X# ",
+    "   "
+  ],
+  "key": {
+    "X": {"item": "stellaris:big_green_can"},
+    "#": {"item": "minecraft:blue_dye"}
+  },
+  "result": {
+    "id": "stellaris:big_blue_can"
+  }
+}

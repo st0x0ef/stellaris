@@ -1,14 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "#R#",
-    "X X",
-    "x X"
+    "RXR",
+    "# #",
+    "# #"
   ],
   "key": {
-    "X": {"item": "stellaris:rocket_fin"},
-    "#": {"item": "stellaris:heavy_metal_plate"},
-    "R": {"item": "minecraft:redstone_dust"}
+    "#": {"item": "stellaris:rocket_fin"},
+    "R": {"item": "stellaris:heavy_metal_plate"},
+    "X": {"item": "minecraft:redstone"}
   },
   "result": {
     "id": "stellaris:rocket_engine"

@@ -78,9 +78,9 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity {
                 FluidTank tank2 = resultTanks.get(1);
 
                 if ((tank1.isEmpty() || tank1.getStack().isFluidEqual(stack1)) && (tank2.isEmpty() || tank2.getStack().isFluidEqual(stack2))) {
-                    if (tank1.getAmount() + stacks.getFirst().getAmount() <= tank1.getMaxCapacity() && tank2.getAmount() + stacks.get(1).getAmount() <= tank2.getMaxCapacity()) {
+                    if (tank1.getAmount() + stack1.getAmount() <= tank1.getMaxCapacity() && tank2.getAmount() + stack2.getAmount() <= tank2.getMaxCapacity()) {
                         energyContainer.extractEnergy(recipe.energy(), false);
-                        ingredientTank.grow(-recipe.ingredientStack().getAmount());
+                        ingredientTank.grow(-recipe.stack().getAmount());
                         FluidTankHelper.addToTank(tank1, stack1);
                         FluidTankHelper.addToTank(tank2, stack2);
                         setChanged();

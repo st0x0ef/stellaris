@@ -1,5 +1,6 @@
 {
   "type": "stellaris:fuel_refinery",
+  "isFluidMB": true,
   "energy": 10,
   "ingredient": {
     "fluid": "stellaris:oil",
