@@ -17,7 +17,11 @@ import net.minecraft.world.entity.player.Inventory;
 public class FuelRefineryScreen extends AbstractContainerScreen<FuelRefineryMenu> {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/fuel_refinery.png");
-    ResourceLocation liquid_tank_overlay = new ResourceLocation(Stellaris.MODID, "textures/gui/util/water_tank_overlay.png");
+
+    private final FuelRefineryBlockEntity blockEntity = getMenu().getBlockEntity();
+    private Gauge ingredientTankGauge;
+    private Gauge resultTankGauge;
+    private Gauge energyGauge;
 
     public FuelRefineryScreen(FuelRefineryMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
@@ -27,16 +31,43 @@ public class FuelRefineryScreen extends AbstractContainerScreen<FuelRefineryMenu
     }
 
     @Override
+    protected void init() {
+        super.init();
+
+        if (blockEntity == null) {
+            return;
+        }
+
+        FluidTank ingredientTank = blockEntity.getIngredientTank();
+        ingredientTankGauge = new Gauge(leftPos + 43, topPos + 22, 12, 46, null, GUISprites.OIL_OVERLAY, GUISprites.LIQUID_TANK_OVERLAY, ingredientTank.getAmount(), ingredientTank.getMaxCapacity());
+        addRenderableWidget(ingredientTankGauge);
+
+        FluidTank resultTank = blockEntity.getResultTank();
+        resultTankGauge = new Gauge(leftPos + 100, topPos + 22, 12, 46, null, GUISprites.FUEL_OVERLAY, GUISprites.LIQUID_TANK_OVERLAY, resultTank.getAmount(), resultTank.getMaxCapacity());
+        addRenderableWidget(resultTankGauge);
+
+        EnergyContainer energyContainer = blockEntity.getWrappedEnergyContainer().container();
+        energyGauge = new Gauge(leftPos + 150, topPos + 21, 13, 47, Component.translatable("stellaris.screen.energy"), GUISprites.ENERGY_FULL, GUISprites.BATTERY_OVERLAY, (int) energyContainer.getStoredEnergy(), (int) energyContainer.getMaxCapacity());
+        addRenderableWidget(energyGauge);
+    }
+
+    @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         renderBackground(guiGraphics, mouseX, mouseY, partialTick);
         super.render(guiGraphics, mouseX, mouseY, partialTick);
         renderTooltip(guiGraphics, mouseX, mouseY);
-        FuelRefineryBlockEntity blockEntity = this.getMenu().getBlockEntity();
-        if (blockEntity != null){
-            renderFuelGauge(blockEntity,guiGraphics,mouseX,mouseY);
-            renderOilGauge(blockEntity,guiGraphics,mouseX,mouseY);
-            renderEnergyGauge(blockEntity,guiGraphics,mouseX,mouseY);
+
+        if (blockEntity == null) {
+            return;
         }
+
+        ingredientTankGauge.update(blockEntity.getIngredientTank().getAmount());
+        resultTankGauge.update(blockEntity.getResultTank().getAmount());
+        energyGauge.update(blockEntity.getWrappedEnergyContainer().getStoredEnergy());
+
+//        ingredientTankGauge.renderTooltip(guiGraphics, mouseX, mouseY, font);
+//        resultTankGauge.renderTooltip(guiGraphics, mouseX, mouseY, font);
+//        energyGauge.renderTooltip(guiGraphics, mouseX, mouseY, font);
     }
 
     @Override
@@ -45,37 +76,5 @@ public class FuelRefineryScreen extends AbstractContainerScreen<FuelRefineryMenu
         RenderSystem.setShaderColor(1, 1, 1, 1);
         RenderSystem.setShaderTexture(0, TEXTURE);
         guiGraphics.blit(TEXTURE, leftPos, topPos, 0, 0, imageWidth, imageHeight, imageWidth, imageHeight);
-    }
-
-    private void renderOilGauge(FuelRefineryBlockEntity blockEntity, GuiGraphics guiGraphics, int mouseX, int mouseY) {
-        ResourceLocation oil_overlay = new ResourceLocation(Stellaris.MODID, "textures/gui/util/oil_gui_overlay.png");
-
-        FluidTank oilTank = blockEntity.getIngredientTank();
-        Gauge oilGauge = new Gauge( this.leftPos + 43,  this.topPos + 22, 12, 46, null, oil_overlay, liquid_tank_overlay, oilTank.getAmount(), oilTank.getMaxCapacity());
-
-        this.addRenderableWidget(oilGauge);
-        //oilGauge.renderTooltip(guiGraphics, mouseX, mouseY, this.font);
-    }
-
-    private void renderFuelGauge(FuelRefineryBlockEntity blockEntity, GuiGraphics guiGraphics, int mouseX, int mouseY) {
-        ResourceLocation fuel_overlay = new ResourceLocation(Stellaris.MODID, "textures/gui/util/fuel_overlay.png");
-
-        FluidTank fuelTank = blockEntity.getResultTank();
-        Gauge fuelGauge = new Gauge( this.leftPos + 100,  this.topPos + 22, 12, 46, null, fuel_overlay, liquid_tank_overlay, fuelTank.getAmount(), fuelTank.getMaxCapacity());
-
-        this.addRenderableWidget(fuelGauge);
-        //fuelGauge.renderTooltip(guiGraphics, mouseX, mouseY, this.font);
-    }
-
-    private void renderEnergyGauge(FuelRefineryBlockEntity blockEntity, GuiGraphics guiGraphics, int mouseX, int mouseY) {
-        ResourceLocation energy_overlay = new ResourceLocation(Stellaris.MODID, "textures/gui/util/energy_full.png");
-        ResourceLocation battery_overlay = new ResourceLocation(Stellaris.MODID, "textures/gui/util/battery_overlay.png");
-
-        EnergyContainer energyContainer = blockEntity.getWrappedEnergyContainer().container();
-
-        Gauge energyGauge = new Gauge( this.leftPos + 150, this.topPos + 21, 13, 47, Component.translatable("stellaris.screen.energy"), energy_overlay, battery_overlay, (int) energyContainer.getStoredEnergy(),(int) energyContainer.getMaxCapacity());
-
-        this.addRenderableWidget(energyGauge);
-        //energyGauge.renderTooltip(guiGraphics, mouseX, mouseY, this.font);
     }
 }

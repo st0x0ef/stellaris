@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.menus;
 
+import com.st0x0ef.stellaris.common.blocks.entities.machines.FluidTank;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.WaterSeparatorBlockEntity;
 import com.st0x0ef.stellaris.common.menus.slot.FluidContainerSlot;
 import com.st0x0ef.stellaris.common.menus.slot.ResultSlot;
@@ -55,13 +56,11 @@ public class WaterSeparatorMenu extends BaseContainer {
 
     public void syncWidgets(ServerPlayer player) {
         if (!player.level().isClientSide()) {
-            Map<Long, ResourceLocation> values = new HashMap<>();
-
-            blockEntity.getResultTanks().forEach((tank -> values.put(tank.getAmount(), tank.getStack().getFluid().arch$registryName())));
-
+            FluidTank resultTank1 = blockEntity.getResultTanks().getFirst();
+            FluidTank resultTank2 = blockEntity.getResultTanks().get(1);
             NetworkRegistry.sendToPlayer(player, NetworkRegistry.SYNC_FLUID_TANKS_ID, SyncWidgetsTanks.encode(new SyncWidgetsTanks(
-                    values.keySet().stream().toList(),
-                    values.values().toArray(new ResourceLocation[0])
+                    new long[] {resultTank1.getAmount(), resultTank2.getAmount()},
+                    new ResourceLocation[] {resultTank1.getStack().getFluid().arch$registryName(), resultTank2.getStack().getFluid().arch$registryName()}
             ), createBuf(player)));
             NetworkRegistry.sendToPlayer(player, NetworkRegistry.SYNC_FLUID_TANKS_ID, SyncWidgetsTanks.encode(new SyncWidgetsTanks(
                     new long[] {blockEntity.ingredientTank.getAmount()},

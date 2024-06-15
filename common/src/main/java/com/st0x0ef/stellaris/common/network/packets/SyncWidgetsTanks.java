@@ -2,18 +2,13 @@ package com.st0x0ef.stellaris.common.network.packets;
 
 import com.st0x0ef.stellaris.common.blocks.entities.machines.FuelRefineryBlockEntity;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.WaterSeparatorBlockEntity;
-import com.st0x0ef.stellaris.common.menus.CoalGeneratorMenu;
-import com.st0x0ef.stellaris.common.menus.FuelRefineryMenu;
-import com.st0x0ef.stellaris.common.menus.SolarPanelMenu;
-import com.st0x0ef.stellaris.common.menus.WaterSeparatorMenu;
+import com.st0x0ef.stellaris.common.menus.*;
 import dev.architectury.networking.NetworkManager;
 import net.fabricmc.api.EnvType;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-
-import java.util.List;
 
 public class SyncWidgetsTanks {
 
@@ -37,15 +32,6 @@ public class SyncWidgetsTanks {
     public SyncWidgetsTanks(long[] values, ResourceLocation[] locations) {
         this.component = values;
         this.locations = locations;
-    }
-
-    public SyncWidgetsTanks(List<Long> values, ResourceLocation[] locations) {
-        this.component = new long[values.size()];
-        this.locations = locations;
-
-        for (int i = 0; i < component.length; i++) {
-            this.component[i] = values.get(i);
-        }
     }
 
     public static RegistryFriendlyByteBuf encode(SyncWidgetsTanks message, RegistryFriendlyByteBuf buffer) {
@@ -82,8 +68,8 @@ public class SyncWidgetsTanks {
             case FuelRefineryMenu menu -> {
                 FuelRefineryBlockEntity blockEntity = menu.getBlockEntity();
                 if (syncWidgetsTanks.component.length == 2 && syncWidgetsTanks.locations.length == 2) {
-                    blockEntity.getIngredientTank().setAmount(syncWidgetsTanks.component[0]);
-                    blockEntity.getResultTank().setAmount(syncWidgetsTanks.component[1]);
+                    blockEntity.getIngredientTank().setFluid(BuiltInRegistries.FLUID.get(syncWidgetsTanks.locations[0]), syncWidgetsTanks.component[0]);
+                    blockEntity.getResultTank().setFluid(BuiltInRegistries.FLUID.get(syncWidgetsTanks.locations[1]), syncWidgetsTanks.component[1]);
                 }
                 else if (syncWidgetsTanks.component.length == 1) {
                     blockEntity.getWrappedEnergyContainer().setEnergy(syncWidgetsTanks.component[0]);
@@ -92,6 +78,8 @@ public class SyncWidgetsTanks {
             case SolarPanelMenu menu -> menu.getEnergyContainer().setEnergy(syncWidgetsTanks.component[0]);
             case CoalGeneratorMenu menu ->
                     menu.getBlockEntity().getWrappedEnergyContainer().setEnergy(syncWidgetsTanks.component[0]);
+            case RadioactiveGeneratorMenu menu ->
+                menu.getBlockEntity().getWrappedEnergyContainer().setEnergy(syncWidgetsTanks.component[0]);
             default -> {
             }
         }

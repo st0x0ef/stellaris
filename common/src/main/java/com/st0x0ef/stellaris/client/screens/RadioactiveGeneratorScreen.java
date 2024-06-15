@@ -3,9 +3,9 @@ package com.st0x0ef.stellaris.client.screens;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.components.Gauge;
-import com.st0x0ef.stellaris.common.blocks.entities.machines.CoalGeneratorEntity;
-import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedBlockEnergyContainer;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.RadioactiveGeneratorEntity;
 import com.st0x0ef.stellaris.common.menus.RadioactiveGeneratorMenu;
+import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedBlockEnergyContainer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.GuiGraphics;
@@ -20,43 +20,54 @@ import java.util.List;
 
 @Environment(EnvType.CLIENT)
 public class RadioactiveGeneratorScreen extends AbstractContainerScreen<RadioactiveGeneratorMenu> {
-	public static final ResourceLocation texture = new ResourceLocation(Stellaris.MODID, "textures/gui/radioactive_generator.png");
-	public static final ResourceLocation BATTERY_OVERLAY = new ResourceLocation(Stellaris.MODID, "textures/gui/util/battery_overlay.png");
-	public static final ResourceLocation ENERGY_TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/util/energy_full.png");
 
-	public RadioactiveGeneratorScreen(RadioactiveGeneratorMenu abstractContainerMenu, Inventory inventory, Component component) {
-		super(abstractContainerMenu, inventory, component);
-		this.imageWidth = 177;
-		this.imageHeight = 228;
-		this.inventoryLabelY = this.imageHeight - 92;
-	}
+    public static final ResourceLocation TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/radioactive_generator.png");
 
-	@Override
-	public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
-		this.renderBackground(graphics,mouseX,mouseY,partialTicks);
-		super.render(graphics, mouseX, mouseY, partialTicks);
-		this.renderTooltip(graphics, mouseX, mouseY);
+    private final RadioactiveGeneratorEntity blockEntity = getMenu().getBlockEntity();
+    private Gauge energyGauge;
 
-		CoalGeneratorEntity blockEntity = this.getMenu().getBlockEntity();
-		if(blockEntity != null)
-		{
-			WrappedBlockEnergyContainer energyStorage = blockEntity.getWrappedEnergyContainer();
+    public RadioactiveGeneratorScreen(RadioactiveGeneratorMenu abstractContainerMenu, Inventory inventory, Component component) {
+        super(abstractContainerMenu, inventory, component);
+        imageWidth = 177;
+        imageHeight = 228;
+        inventoryLabelY = imageHeight - 92;
+    }
 
-			Gauge gauge = new Gauge(this.leftPos + 147, this.topPos + 51, 13, 49, Component.translatable("stellaris.screen.energy"), ENERGY_TEXTURE, BATTERY_OVERLAY, (int) energyStorage.getStoredEnergy(), (int) energyStorage.getMaxCapacity());
-			this.addRenderableWidget(gauge);
-			List<Component> components = new ArrayList<>();
-			components.add(Component.translatable("gauge_text.stellaris.max_generation", blockEntity.getEnergyGeneratedPT()));
-			gauge.renderTooltips(graphics, mouseX, mouseY, this.font, components);
-		}
+    @Override
+    protected void init() {
+        super.init();
 
-	}
+        if (blockEntity == null) {
+            return;
+        }
 
-	@Override
-	protected void renderBg(GuiGraphics graphics, float var2,int var3, int var4) {
-		RenderSystem.setShader(GameRenderer::getPositionTexShader);
-		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-		RenderSystem.setShaderTexture(0, texture);
-		graphics.blit(texture, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
-	}
+        WrappedBlockEnergyContainer energyStorage = blockEntity.getWrappedEnergyContainer();
+        energyGauge = new Gauge(leftPos + 147, topPos + 51, 13, 49, Component.translatable("stellaris.screen.energy"), GUISprites.ENERGY_FULL, GUISprites.BATTERY_OVERLAY, (int) energyStorage.getStoredEnergy(), (int) energyStorage.getMaxCapacity());
+        addRenderableWidget(energyGauge);
+    }
 
+    @Override
+    public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+        renderBackground(graphics, mouseX, mouseY, partialTicks);
+        super.render(graphics, mouseX, mouseY, partialTicks);
+        renderTooltip(graphics, mouseX, mouseY);
+
+        if (blockEntity == null) {
+            return;
+        }
+
+        energyGauge.update(blockEntity.getWrappedEnergyContainer().getStoredEnergy());
+
+        List<Component> components = new ArrayList<>();
+        components.add(Component.translatable("gauge_text.stellaris.max_generation", blockEntity.getEnergyGeneratedPT()));
+        energyGauge.renderTooltips(graphics, mouseX, mouseY, font, components);
+    }
+
+    @Override
+    protected void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.setShaderTexture(0, TEXTURE);
+        graphics.blit(TEXTURE, leftPos, topPos, 0, 0, imageWidth, imageHeight, imageWidth, imageHeight);
+    }
 }

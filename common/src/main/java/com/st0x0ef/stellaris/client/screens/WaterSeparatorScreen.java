@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.components.Gauge;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.FluidTank;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.WaterSeparatorBlockEntity;
 import com.st0x0ef.stellaris.common.menus.WaterSeparatorMenu;
 import com.st0x0ef.stellaris.platform.systems.energy.EnergyContainer;
 import net.fabricmc.api.EnvType;
@@ -19,13 +20,43 @@ import net.minecraft.world.entity.player.Inventory;
 public class WaterSeparatorScreen extends AbstractContainerScreen<WaterSeparatorMenu> {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/water_separator.png");
-    ResourceLocation liquid_tank_overlay = new ResourceLocation(Stellaris.MODID, "textures/gui/util/water_tank_overlay.png");
+
+    private final WaterSeparatorBlockEntity blockEntity = getMenu().getBlockEntity();
+    private Gauge ingredientTankGauge;
+    private Gauge resultTank1Gauge;
+    private Gauge resultTank2Gauge;
+    private Gauge.SidewayGauge energyGauge;
 
     public WaterSeparatorScreen(WaterSeparatorMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
         imageWidth = 177;
         imageHeight = 224;
-        this.inventoryLabelY = this.imageHeight - 92;
+        inventoryLabelY = imageHeight - 92;
+    }
+
+    @Override
+    protected void init() {
+        super.init();
+
+        if (blockEntity == null) {
+            return;
+        }
+
+        FluidTank ingredientTank = blockEntity.getIngredientTank();
+        ingredientTankGauge = new Gauge(leftPos + 50, topPos + 58, 76, 42, Component.translatable("stellaris.screen.water"), GUISprites.WATER_OVERLAY, GUISprites.WATER_SEPARATOR_OVERLAY, ingredientTank.getAmount(), ingredientTank.getMaxCapacity());
+        addRenderableWidget(ingredientTankGauge);
+
+        FluidTank resultTank1 = blockEntity.getResultTanks().getFirst();
+        resultTank1Gauge = new Gauge(leftPos + 22, topPos + 54, 12, 46, Component.translatable("stellaris.screen.hydrogen"), GUISprites.HYDROGEN_OVERLAY, GUISprites.LIQUID_TANK_OVERLAY, resultTank1.getAmount(), resultTank1.getMaxCapacity());
+        addRenderableWidget(resultTank1Gauge);
+
+        FluidTank resultTank2 = blockEntity.getResultTanks().get(1);
+        resultTank2Gauge = new Gauge(leftPos + 142, topPos + 54, 12, 46, Component.translatable("stellaris.screen.oxygen"), GUISprites.OXYGEN_OVERLAY, GUISprites.LIQUID_TANK_OVERLAY, resultTank2.getAmount(), resultTank2.getMaxCapacity());
+        addRenderableWidget(resultTank2Gauge);
+
+        EnergyContainer energyContainer = blockEntity.getWrappedEnergyContainer();
+        energyGauge = new Gauge.SidewayGauge(leftPos + 64, topPos + 24, 47, 13, Component.translatable("stellaris.screen.energy"), GUISprites.SIDEWAYS_ENERGY_FULL, GUISprites.SIDEWAYS_ENERGY_OVERLAY, (int) energyContainer.getStoredEnergy(), (int) energyContainer.getMaxCapacity());
+        addRenderableWidget(energyGauge);
     }
 
     @Override
@@ -34,10 +65,14 @@ public class WaterSeparatorScreen extends AbstractContainerScreen<WaterSeparator
         super.render(guiGraphics, mouseX, mouseY, partialTick);
         renderTooltip(guiGraphics, mouseX, mouseY);
 
-        renderWaterGauge();
-        renderHydrogenGauge();
-        renderOxygenGauge();
-        renderEnergyGauge();
+        if (blockEntity == null) {
+            return;
+        }
+
+        ingredientTankGauge.update(blockEntity.getIngredientTank().getAmount());
+        resultTank1Gauge.update(blockEntity.getResultTanks().getFirst().getAmount());
+        resultTank2Gauge.update(blockEntity.getResultTanks().getLast().getAmount());
+        energyGauge.update(blockEntity.getWrappedEnergyContainer().getStoredEnergy());
     }
 
     @Override
@@ -46,44 +81,5 @@ public class WaterSeparatorScreen extends AbstractContainerScreen<WaterSeparator
         RenderSystem.setShaderColor(1, 1, 1, 1);
         RenderSystem.setShaderTexture(0, TEXTURE);
         guiGraphics.blit(TEXTURE, leftPos, topPos, 0, 0, imageWidth, imageHeight, imageWidth, imageHeight);
-    }
-
-    private void renderWaterGauge() {
-        ResourceLocation water_overlay = new ResourceLocation(Stellaris.MODID, "textures/gui/util/water_overlay.png");
-        ResourceLocation fluid_tank_overlay = new ResourceLocation(Stellaris.MODID, "textures/gui/util/water_separator_overlay.png");
-
-        FluidTank waterTank = this.getMenu().getBlockEntity().getIngredientTank();
-        Gauge waterGauge = new Gauge( this.leftPos + 50,  this.topPos + 58, 76, 42, Component.translatable("stellaris.screen.water"), water_overlay, fluid_tank_overlay, waterTank.getAmount(), waterTank.getMaxCapacity());
-
-        this.addRenderableWidget(waterGauge);
-    }
-
-    private void renderHydrogenGauge() {
-        ResourceLocation hydrogen_overlay = new ResourceLocation(Stellaris.MODID, "textures/gui/util/hydrogen_gui_overlay.png");
-
-        FluidTank hydrogenTank = this.getMenu().getBlockEntity().getResultTanks().getFirst();
-        Gauge hydrogenGauge = new Gauge( this.leftPos + 22,  this.topPos + 54, 12, 46, Component.translatable("stellaris.screen.hydrogen"), hydrogen_overlay, liquid_tank_overlay, hydrogenTank.getAmount(), hydrogenTank.getMaxCapacity());
-
-        this.addRenderableWidget(hydrogenGauge);
-    }
-
-    private void renderOxygenGauge() {
-        ResourceLocation oxygen_overlay = new ResourceLocation(Stellaris.MODID, "textures/gui/util/oxygen_gui_overlay.png");
-
-        FluidTank oxygenTank = this.getMenu().getBlockEntity().getResultTanks().get(1);
-        Gauge oxygenGauge = new Gauge( this.leftPos + 142,  this.topPos + 54, 12, 46, Component.translatable("stellaris.screen.oxygen"), oxygen_overlay, liquid_tank_overlay, oxygenTank.getAmount(), oxygenTank.getMaxCapacity());
-
-        this.addRenderableWidget(oxygenGauge);
-    }
-
-    private void renderEnergyGauge() {
-        ResourceLocation energy_overlay = new ResourceLocation(Stellaris.MODID, "textures/gui/util/sideway_energy_full.png");
-        ResourceLocation sideway_battery_overlay = new ResourceLocation(Stellaris.MODID, "textures/gui/util/sideway_battery_overlay.png");
-
-        EnergyContainer energyContainer = this.getMenu().getBlockEntity().getWrappedEnergyContainer().container();
-
-        Gauge.SidewayGauge energyGauge = new Gauge.SidewayGauge( this.leftPos + 64,  this.topPos + 24, 47, 13, Component.translatable("stellaris.screen.energy"), energy_overlay, sideway_battery_overlay, (int) energyContainer.getStoredEnergy(),(int) energyContainer.getMaxCapacity());
-
-        this.addRenderableWidget(energyGauge);
     }
 }
