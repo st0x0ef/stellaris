@@ -107,4 +107,12 @@ public class FluidTankHelper {
         }
         return false;
     }
+
+    public static long convertFromMb(long amount) {
+        return amount * 81;
+    }
+
+    public static long convertToMb(long amount) {
+        return amount / 81;
+    }
 }
