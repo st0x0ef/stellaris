@@ -1,39 +1,43 @@
 package com.st0x0ef.stellaris.client.skys.renderer;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.*;
+import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.blaze3d.vertex.VertexBuffer;
 import com.mojang.math.Axis;
 import com.st0x0ef.stellaris.client.skys.helper.SkyHelper;
 import com.st0x0ef.stellaris.client.skys.helper.StarHelper;
 import com.st0x0ef.stellaris.client.skys.type.RenderableType;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.DimensionSpecialEffects;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
-public class SkyRenderer {
+public class SkyRenderer extends DimensionSpecialEffects {
     public static final List<RenderableType> renderableList = new ArrayList<>();
-    private static final Random random = new Random();
     private static final Minecraft mc = Minecraft.getInstance();
-    private static final boolean colorSystem = false;
 
     @Nullable
     private static VertexBuffer starBuffer = null;
+
+    public SkyRenderer() {
+        super(Float.NaN, false, SkyType.NONE, false, false);
+    }
 
     public static void render(ResourceKey<Level> dimension, float partialTicks, Matrix4f projectionMatrix, PoseStack poseStack, Matrix4f viewMatrix) {
         LevelRenderer renderer = mc.levelRenderer;
         Tesselator tesselator = Tesselator.getInstance();
         BufferBuilder buffer = tesselator.getBuilder();
         starBuffer = StarHelper.createStars(0.15F, 190, 160, -1);
-
-        RenderableType renderable = getRenderableType(mc.player.level().dimension());
 
         renderSky(buffer, tesselator, partialTicks, projectionMatrix, renderer, poseStack, viewMatrix);
     }
@@ -71,5 +75,15 @@ public class SkyRenderer {
             }
         }
         return null;
+    }
+
+    @Override
+    public Vec3 getBrightnessDependentFogColor(Vec3 fogColor, float brightness) {
+        return fogColor.multiply(brightness * 0.94F + 0.06F, brightness * 0.94F + 0.06F, brightness * 0.91F + 0.09F);
+    }
+
+    @Override
+    public boolean isFoggyAt(int x, int y) {
+        return false;
     }
 }
