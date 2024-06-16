@@ -160,7 +160,7 @@ public class EnergyApi {
         List<EnergyContainer> list = Direction.stream()
                 .map(direction -> EnergyContainer.of(level, energyPos.relative(direction), direction.getOpposite()))
                 .filter(Objects::nonNull)
-                .sorted(Comparator.comparingLong(energy -> energy.insertEnergy(amount, true)))
+                //.sorted(Comparator.comparingLong(energy -> energy.insertEnergy(amount, true)))
                 .toList();
         int receiverCount = list.size();
         for (EnergyContainer energy : list) {
