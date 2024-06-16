@@ -8,7 +8,7 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
+import org.jetbrains.annotations.NotNull;
 
 public class RadioactiveEffect extends MobEffect {
 
@@ -17,6 +17,7 @@ public class RadioactiveEffect extends MobEffect {
         super(mobEffectCategory, color);
     }
 
+    @Override
     public boolean applyEffectTick(LivingEntity livingEntity, int level) {
         if (livingEntity.getHealth() > 0.0F) {
             if (level == 0) {
@@ -34,13 +35,14 @@ public class RadioactiveEffect extends MobEffect {
         return true;
     }
 
+    @Override
     public boolean shouldApplyEffectTickThisTick(int i, int j) {
         int k = 25 >> j;
         return k == 0 || i % k == 0;
     }
 
-    public void onEffectAdded(LivingEntity livingEntity, int level) {
-        super.onEffectAdded(livingEntity, level);
-        livingEntity.level().playSound((Player) livingEntity, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), soundOnAdded, livingEntity.getSoundSource(), 3.0F, 1.0F);
+    @Override
+    public @NotNull MobEffect withSoundOnAdded(SoundEvent event) {
+        return super.withSoundOnAdded(soundOnAdded);
     }
 }
