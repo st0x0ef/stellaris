@@ -94,6 +94,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     private boolean isPausePressed = false;
     private boolean isShiftPressed = false;
+    private boolean isWheelButtonDown = false;
     public boolean isPlanetScreenOpened;
 
     private double zoomLevel = 1.0;
@@ -256,9 +257,19 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
         drawOrbits();
 
+
         renderBodiesAndPlanets(graphics, partialTicks);
         renderHighlighter(graphics, mouseX, mouseY);
+
+        if (hoveredBody != null) {
+            updateHighlighterPosition(graphics, hoveredBody);
+        }
+        if (focusedBody != null) {
+            updateHighlighterPosition(graphics, focusedBody);
+        }
+
         renderLargeMenu(graphics);
+
 
         this.renderTooltip(graphics, mouseX, mouseY);
     }
@@ -884,6 +895,9 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        if (button == GLFW.GLFW_MOUSE_BUTTON_MIDDLE) {
+            isWheelButtonDown = true;
+        }
         if (button == GLFW.GLFW_MOUSE_BUTTON_LEFT || button == GLFW.GLFW_MOUSE_BUTTON_RIGHT) {
             dragging = true;
             lastMouseX = mouseX;
@@ -908,19 +922,54 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         if (button == GLFW.GLFW_MOUSE_BUTTON_LEFT || button == GLFW.GLFW_MOUSE_BUTTON_RIGHT) {
             dragging = false;
         }
+        if (button == GLFW.GLFW_MOUSE_BUTTON_MIDDLE) {
+            isWheelButtonDown = false;
+        }
         return super.mouseReleased(mouseX, mouseY, button);
     }
 
     @Override
     public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
         if (dragging) {
-            offsetX += Utils.changeLastDigitToEven((mouseX - lastMouseX) / zoomLevel);
-            offsetY += Utils.changeLastDigitToEven((mouseY - lastMouseY) / zoomLevel);
-            lastMouseX = mouseX;
-            lastMouseY = mouseY;
+            if (isWheelButtonDown) {
+                double rotationSpeed = 0.005;
+                double deltaAngle = deltaX * rotationSpeed;
+
+                for (PlanetInfo planet : PLANETS) {
+                    planet.currentAngle += deltaAngle;
+                    planet.updatePosition();
+                }
+                for (MoonInfo moon : MOONS) {
+                    moon.currentAngle += deltaAngle;
+                    moon.updatePosition();
+                }
+
+            } else {
+                offsetX += Utils.changeLastDigitToEven((mouseX - lastMouseX) / zoomLevel);
+                offsetY += Utils.changeLastDigitToEven((mouseY - lastMouseY) / zoomLevel);
+                lastMouseX = mouseX;
+                lastMouseY = mouseY;
+            }
         }
         return super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
     }
+
+    private void updateHighlighterPosition(GuiGraphics graphics, CelestialBody body) {
+        int highlightWidth = (int) (body.width * zoomLevel);
+        int highlightHeight = (int) (body.height * zoomLevel);
+        float highlightX = (float) ((body.x + offsetX) * zoomLevel - (double) highlightWidth / 2);
+        float highlightY = (float) ((body.y + offsetY) * zoomLevel - (double) highlightHeight / 2);
+
+        currentHighlighterFrame = (currentHighlighterFrame + 1) % totalHighlighterFrames;
+
+        int frameY = currentHighlighterFrame * highlightHeight;
+
+        float currentAngle = body instanceof PlanetInfo ? (float) ((PlanetInfo) body).currentAngle : (float) ((MoonInfo) body).currentAngle;
+
+        ScreenHelper.drawTexturewithRotation(graphics, HIGHLIGHTER_TEXTURE, (int) highlightX, (int) highlightY, 0, frameY, highlightWidth, highlightHeight, highlightWidth, totalHighlighterFrames * highlightHeight, currentAngle);
+    }
+
+
 
     @Override
     public PlanetSelectionMenu getMenu() {
