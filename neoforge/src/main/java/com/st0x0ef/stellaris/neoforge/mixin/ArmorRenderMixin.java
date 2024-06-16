@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.neoforge.mixin;
 import com.st0x0ef.stellaris.common.armors.JetSuit;
 import com.st0x0ef.stellaris.common.items.CustomArmorItem;
 import com.st0x0ef.stellaris.platform.neoforge.ClientUtilsPlatformImpl;
+import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.core.Holder;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
@@ -46,11 +47,9 @@ public abstract class ArmorRenderMixin extends Item{
                 }
                 if (renderer == null) return original;
 
-                var root = Minecraft.getInstance().getEntityModels().bakeLayer(renderer.layer());
-                var model = renderer.factory().create(root, slot, stack, (HumanoidModel<LivingEntity>) original);
+                ModelPart root = Minecraft.getInstance().getEntityModels().bakeLayer(renderer.layer());
 
-
-                return model;
+                return renderer.factory().create(root, slot, stack, (HumanoidModel<LivingEntity>) original);
             }
 
             @Override
