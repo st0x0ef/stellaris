@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:raw_gold"
+          "name": "stellaris:fuel_refinery"
         }
       ],
       "rolls": 1.0

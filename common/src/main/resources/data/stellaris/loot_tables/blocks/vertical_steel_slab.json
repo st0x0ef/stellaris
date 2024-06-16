@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:raw_gold"
+          "name": "stellaris:vertical_steel_slab"
         }
       ],
       "rolls": 1.0

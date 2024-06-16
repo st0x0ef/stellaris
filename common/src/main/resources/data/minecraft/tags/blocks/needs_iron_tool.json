@@ -122,6 +122,11 @@
     "stellaris:vertical_mars_slab",
     "stellaris:vertical_venus_slab",
     "stellaris:vertical_mercury_slab",
+    "stellaris:vertical_iron_plating_slab",
+    "stellaris:vertical_steel_plating_slab",
+    "stellaris:vertical_steel_slab",
+    "stellaris:vertical_desh_slab",
+    "stellaris:vertical_desh_plating_slab",
 
     "stellaris:cheese_block",
     "stellaris:vacumator",
@@ -133,6 +138,7 @@
     "stellaris:plutonium_block",
 
     "stellaris:oxygen_propagator",
+    "stellaris:oxygen_distributor",
 
     "stellaris:water_separator",
     "stellaris:flag",
@@ -140,6 +146,8 @@
     "stellaris:radioactive_generator",
     "stellaris:coal_generator",
     "stellaris:rocket_station",
-    "stellaris:rocket_launch_pad"
+    "stellaris:rocket_launch_pad",
+    "stellaris:fuel_refinery",
+    "stellaris:cable"
   ]
 }

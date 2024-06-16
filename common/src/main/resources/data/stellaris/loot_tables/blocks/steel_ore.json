@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "stellaris:steel_ore"
+          "name": "stellaris:raw_steel_ingot"
         }
       ],
       "rolls": 1.0
