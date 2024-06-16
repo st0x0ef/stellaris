@@ -25,7 +25,6 @@ public record PlatformEnergyManager(EnergyStorage energy) implements EnergyConta
 
     @Override
     public long insertEnergy(long maxAmount, boolean simulate) {
-        if(energy==null) return 0;
         try (Transaction txn = Transaction.openOuter()) {
             long insert = energy.insert(maxAmount, txn);
             if (simulate) txn.abort();
@@ -36,7 +35,6 @@ public record PlatformEnergyManager(EnergyStorage energy) implements EnergyConta
 
     @Override
     public long extractEnergy(long maxAmount, boolean simulate) {
-        if(energy==null) return 0;
         try (Transaction txn = Transaction.openOuter()) {
             long extract = energy.extract(maxAmount, txn);
             if (simulate) txn.abort();
@@ -47,7 +45,6 @@ public record PlatformEnergyManager(EnergyStorage energy) implements EnergyConta
 
     @Override
     public void setEnergy(long energy) {
-        if(this.energy==null) return ;
         if (energy > this.energy.getAmount()) {
             insertEnergy(energy - this.energy.getAmount(), false);
         } else if (energy < this.energy.getAmount()) {
@@ -57,37 +54,31 @@ public record PlatformEnergyManager(EnergyStorage energy) implements EnergyConta
 
     @Override
     public long getStoredEnergy() {
-        if(energy==null) return 0;
         return energy.getAmount();
     }
 
     @Override
     public long getMaxCapacity() {
-        if(energy==null) return 0;
         return energy.getCapacity();
     }
 
     @Override
     public long maxInsert() {
-        if(energy==null) return 0;
         return energy.getCapacity();
     }
 
     @Override
     public long maxExtract() {
-        if(energy==null) return 0;
         return energy.getCapacity();
     }
 
     @Override
     public boolean allowsInsertion() {
-        if(energy==null) return false;
         return energy.supportsInsertion();
     }
 
     @Override
     public boolean allowsExtraction() {
-        if(energy==null) return false;
         return energy.supportsExtraction();
     }
 
