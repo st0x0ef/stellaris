@@ -1,18 +1,19 @@
-package com.st0x0ef.stellaris.client.renderers.armors;
+package com.st0x0ef.stellaris.client.renderers.armors;// Made with Blockbench 4.10.3
+// Exported for Minecraft version 1.17 or later with Mojang mappings
+// Paste this class into your mod and generate all required imports
+
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+
 import com.st0x0ef.stellaris.Stellaris;
 import dev.architectury.injectables.targets.ArchitecturyTarget;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
-
 import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartNames;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -25,134 +26,142 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
-
 public class JetSuitModel extends HumanoidModel<LivingEntity> {
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(Stellaris.MODID, "jet_suit"), "main");
+	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
+	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(Stellaris.MODID, "spacesuit"), "main");
     public static final ResourceLocation TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/entity/armor/jet_suit.png");
 
-    private final ModelPart visor;
-    private final ModelPart belt;
-    private final ModelPart rightBoot;
-    private final ModelPart leftBoot;
-    private final ModelPart hat;
 
-    private final EquipmentSlot slot;
-    @Nullable
+    private final ModelPart head;
+	private final ModelPart Body;
+	private final ModelPart right_arm;
+	private final ModelPart left_arm;
+	private final ModelPart left_boot;
+	private final ModelPart right_boot;
+	private final ModelPart left_leg;
+	private final ModelPart right_leg;
     private final HumanoidModel<LivingEntity> parentModel;
+	private final EquipmentSlot slot;
 
-    public JetSuitModel(ModelPart root, EquipmentSlot slot, ItemStack stack, @Nullable HumanoidModel<LivingEntity> parentModel) {
+	public JetSuitModel(ModelPart root, EquipmentSlot slot, ItemStack stack, @Nullable HumanoidModel<LivingEntity> parentModel) {
         super(root, RenderType::entityTranslucent);
-
-        this.visor = root.getChild("visor");
-        this.belt = root.getChild("belt");
-        this.rightBoot = root.getChild("right_boot");
-        this.leftBoot = root.getChild("left_boot");
-        this.slot = slot;
-        this.hat = root.getChild("hat");
         this.parentModel = parentModel;
-        this.setVisible();
-    }
 
-    @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+        this.head = root.getChild("head");
+		this.Body = root.getChild("body");
+		this.right_arm = root.getChild("right_arm");
+		this.left_arm = root.getChild("left_arm");
+		this.left_boot = root.getChild("left_boot");
+		this.right_boot = root.getChild("right_boot");
+		this.left_leg = root.getChild("left_leg");
+		this.right_leg = root.getChild("right_leg");
+		this.slot = slot;
+		this.setVisible();
+
+	}
+
+	public static LayerDefinition createBodyLayer() {
+		MeshDefinition meshdefinition = new MeshDefinition();
+		PartDefinition partdefinition = meshdefinition.getRoot();
+
+		PartDefinition hat = partdefinition.addOrReplaceChild(PartNames.HAT, CubeListBuilder.create().texOffs(0, 0), PartPose.ZERO);
+
+		PartDefinition visor = partdefinition.addOrReplaceChild("visor", CubeListBuilder.create().texOffs(0, 0), PartPose.ZERO);
+
+
+
+		PartDefinition head = partdefinition.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 16).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.5F))
+		.texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.75F))
+		.texOffs(14, 59).addBox(3.0F, -13.0F, 1.0F, 1.0F, 5.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, -0.0175F, 0.0873F, 0.0F));
+
+		PartDefinition Body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 32).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F, new CubeDeformation(0.25F))
+		.texOffs(28, 28).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F, new CubeDeformation(0.25F))
+		.texOffs(50, 29).addBox(-3.0F, 5.0F, -2.5F, 6.0F, 4.0F, 1.0F, new CubeDeformation(0.25F))
+		.texOffs(0, 55).addBox(-2.5F, 1.0F, 2.75F, 5.0F, 8.0F, 1.0F, new CubeDeformation(0.75F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+
+		PartDefinition Body_r1 = Body.addOrReplaceChild("Body_r1", CubeListBuilder.create().texOffs(32, 31).addBox(-2.0F, -5.0F, 0.75F, 0.0F, 11.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 6.0F, 2.0F, 0.0F, -0.3491F, 0.0F));
+
+		PartDefinition Body_r2 = Body.addOrReplaceChild("Body_r2", CubeListBuilder.create().texOffs(32, 31).addBox(2.0F, -5.0F, 0.75F, 0.0F, 11.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 6.0F, 2.0F, 0.0F, 0.3491F, 0.0F));
+
+		PartDefinition armr = partdefinition.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(20, 44).addBox(-3.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.26F))
+		.texOffs(48, 8).addBox(-3.0F, 6.0F, -2.0F, 4.0F, 4.0F, 4.0F, new CubeDeformation(0.5F)), PartPose.offset(-5.0F, 2.0F, 0.0F));
+
+		PartDefinition arml = partdefinition.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(32, 0).addBox(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.26F))
+		.texOffs(48, 0).addBox(-1.0F, 6.0F, -2.0F, 4.0F, 4.0F, 4.0F, new CubeDeformation(0.5F)), PartPose.offset(5.0F, 2.0F, 0.0F));
+
+		PartDefinition Left_Foot = partdefinition.addOrReplaceChild("left_boot", CubeListBuilder.create().texOffs(48, 44).addBox(-2.0F, 5.7F, -2.0F, 4.0F, 6.0F, 4.0F, new CubeDeformation(0.5F))
+		.texOffs(48, 54).addBox(-2.0F, 5.7F, -2.0F, 4.0F, 6.0F, 4.0F, new CubeDeformation(0.27F)), PartPose.offset(2.0F, 12.0F, 0.0F));
+
+		PartDefinition Right_Foot = partdefinition.addOrReplaceChild("right_boot", CubeListBuilder.create().texOffs(48, 44).addBox(-2.0F, 5.7F, -2.0F, 4.0F, 6.0F, 4.0F, new CubeDeformation(0.5F))
+		.texOffs(48, 54).addBox(-2.0F, 5.7F, -2.0F, 4.0F, 6.0F, 4.0F, new CubeDeformation(0.27F)), PartPose.offset(-2.0F, 12.0F, 0.0F));
+
+		PartDefinition RightLeg = partdefinition.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(33, 19).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.6F)), PartPose.offset(-1.9F, 12.0F, 0.0F));
+
+		PartDefinition RightLeg2 = partdefinition.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(33, 19).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.6F)), PartPose.offset(2.1F, 12.0F, 0.0F));
+
+		return LayerDefinition.create(meshdefinition, 64, 64);
+	}
+
+
+	@Override
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         if (Objects.equals(ArchitecturyTarget.getCurrentTarget(), "neoforge")) {
             MultiBufferSource.BufferSource bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
-            buffer = bufferSource.getBuffer(RenderType.entityTranslucent(TEXTURE));
+            vertexConsumer = bufferSource.getBuffer(RenderType.entityTranslucent(TEXTURE));
         }
 
-        if (this.parentModel == null) return;
-        this.visor.copyFrom(parentModel.head);
-        this.belt.copyFrom(parentModel.body);
-        this.rightBoot.copyFrom(parentModel.rightLeg);
-        this.leftBoot.copyFrom(parentModel.leftLeg);
-        this.hat.copyFrom(parentModel.hat);
+
+        head.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		Body.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+        right_arm.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		left_arm.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		left_boot.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		right_boot.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		right_leg.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		left_leg.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+
         parentModel.copyPropertiesTo(this);
 
-        super.renderToBuffer(poseStack, buffer, packedLight, packedOverlay, 0, 0, 0, alpha); // TODO : check rgb
+        super.renderToBuffer(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
     }
 
-    @Override
-    public void setAllVisible(boolean visible) {
-        super.setAllVisible(visible);
-        this.visor.visible = visible;
-        this.belt.visible = visible;
-        this.rightBoot.visible = visible;
-        this.leftBoot.visible = visible;
-    }
+	@Override
+	protected Iterable<ModelPart> headParts() {
+		return ImmutableList.of(head);
+	}
 
-    private void setVisible() {
-        this.setAllVisible(false);
-        switch (this.slot) {
-            case HEAD -> {
-                this.head.visible = true;
-                this.visor.visible = true;
-            }
-            case CHEST -> {
-                this.body.visible = true;
-                this.rightArm.visible = true;
-                this.leftArm.visible = true;
-            }
-            case LEGS -> {
-                this.belt.visible = true;
-                this.rightLeg.visible = true;
-                this.leftLeg.visible = true;
-            }
-            case FEET -> {
-                this.rightBoot.visible = true;
-                this.leftBoot.visible = true;
-            }
-        }
-    }
+	@Override
+	protected Iterable<ModelPart> bodyParts() {
+		return ImmutableList.of(body, rightArm, leftArm, rightLeg, leftLeg, hat, left_boot, right_boot);
+	}
 
-    @Override
-    protected Iterable<ModelPart> headParts() {
-        return ImmutableList.of( head);
-    }
+	@Override
+	public void setAllVisible(boolean visible) {
+		super.setAllVisible(visible);
+		this.right_boot.visible = visible;
+		this.left_boot.visible = visible;
+	}
 
-    @Override
-    protected Iterable<ModelPart> bodyParts() {
-        return ImmutableList.of(body, rightArm, leftArm, rightLeg, leftLeg,  belt, rightBoot, leftBoot);
-    }
+	private void setVisible() {
+		this.setAllVisible(false);
+		switch (this.slot) {
+			case HEAD -> {
+				this.head.visible = true;
+			}
+			case CHEST -> {
+				this.body.visible = true;
+				this.rightArm.visible = true;
+				this.leftArm.visible = true;
+			}
+			case LEGS -> {
+				this.rightLeg.visible = true;
+				this.leftLeg.visible = true;
+			}
+			case FEET -> {
+				this.right_boot.visible = true;
+				this.left_boot.visible = true;
+			}
+		}
+	}
 
-    public static LayerDefinition createBodyLayer() {
-        MeshDefinition meshdefinition = new MeshDefinition();
-        PartDefinition partdefinition = meshdefinition.getRoot();
-
-        PartDefinition hat = partdefinition.addOrReplaceChild("hat", CubeListBuilder.create().texOffs(32, 31).addBox(-2.0F, -5.0F, 0.75F, 0.0F, 11.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 6.0F, 2.0F, 0.0F, -0.3491F, 0.0F));
-        PartDefinition visor = partdefinition.addOrReplaceChild("visor", CubeListBuilder.create().texOffs(32, 31).addBox(-2.0F, -5.0F, 0.75F, 0.0F, 11.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 6.0F, 2.0F, 0.0F, -0.3491F, 0.0F));
-
-        PartDefinition belt = partdefinition.addOrReplaceChild("belt", CubeListBuilder.create().texOffs(32, 31).addBox(-2.0F, -5.0F, 0.75F, 0.0F, 11.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 6.0F, 2.0F, 0.0F, -0.3491F, 0.0F));
-
-        PartDefinition head = partdefinition.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 16).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.5F))
-                .texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.75F))
-                .texOffs(0, 32).addBox(3.0F, -13.0F, 1.0F, 1.0F, 5.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, -0.0175F, 0.0873F, 0.0F));
-
-        PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 32).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F, new CubeDeformation(0.25F))
-                .texOffs(28, 28).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F, new CubeDeformation(0.25F))
-                .texOffs(50, 29).addBox(-3.0F, 5.0F, -2.5F, 6.0F, 4.0F, 1.0F, new CubeDeformation(0.25F))
-                .texOffs(0, 55).addBox(-2.5F, 1.0F, 2.75F, 5.0F, 8.0F, 1.0F, new CubeDeformation(0.75F)), PartPose.offset(0.0F, 0.0F, 0.0F));
-
-        PartDefinition body_r1 = body.addOrReplaceChild("body_r1", CubeListBuilder.create().texOffs(32, 31).addBox(-2.0F, -5.0F, 0.75F, 0.0F, 11.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 6.0F, 2.0F, 0.0F, -0.3491F, 0.0F));
-
-        PartDefinition body_r2 = body.addOrReplaceChild("body_r2", CubeListBuilder.create().texOffs(32, 31).addBox(2.0F, -5.0F, 0.75F, 0.0F, 11.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 6.0F, 2.0F, 0.0F, 0.3491F, 0.0F));
-
-        PartDefinition rightArm = partdefinition.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(20, 44).addBox(-3.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.26F)).texOffs(48, 8).addBox(-3.0F, 6.0F, -2.0F, 4.0F, 4.0F, 4.0F, new CubeDeformation(0.5F)), PartPose.offset(-5.0F, 2.0F, 0.0F));
-
-        PartDefinition leftArm = partdefinition.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(32, 0).addBox(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.26F)).texOffs(48, 0).addBox(-1.0F, 6.0F, -2.0F, 4.0F, 4.0F, 4.0F, new CubeDeformation(0.5F)), PartPose.offset(5.0F, 2.0F, 0.0F));
-
-        PartDefinition rightLeg = partdefinition.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(48, 44).addBox(-2.0F, 5.7F, -2.0F, 4.0F, 6.0F, 4.0F, new CubeDeformation(0.5F))
-                .texOffs(48, 54).addBox(-2.0F, 5.7F, -2.0F, 4.0F, 6.0F, 4.0F, new CubeDeformation(0.27F)), PartPose.offset(-2.0F, 12.0F, 0.0F));
-
-        PartDefinition leftLeg = partdefinition.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(48, 44).addBox(-2.0F, 5.7F, -2.0F, 4.0F, 6.0F, 4.0F, new CubeDeformation(0.5F))
-                .texOffs(48, 54).addBox(-2.0F, 5.7F, -2.0F, 4.0F, 6.0F, 4.0F, new CubeDeformation(0.27F)), PartPose.offset(2.0F, 12.0F, 0.0F));
-
-        PartDefinition let_boot = partdefinition.addOrReplaceChild("left_boot", CubeListBuilder.create().texOffs(48, 44).addBox(-2.0F, 5.7F, -2.0F, 4.0F, 6.0F, 4.0F, new CubeDeformation(0.5F))
-                .texOffs(48, 54).addBox(-2.0F, 5.7F, -2.0F, 4.0F, 6.0F, 4.0F, new CubeDeformation(0.27F)), PartPose.offset(-2.0F, 12.0F, 0.0F));
-
-        PartDefinition right_boot = partdefinition.addOrReplaceChild("right_boot", CubeListBuilder.create().texOffs(48, 44).addBox(-2.0F, 5.7F, -2.0F, 4.0F, 6.0F, 4.0F, new CubeDeformation(0.5F))
-                .texOffs(48, 54).addBox(-2.0F, 5.7F, -2.0F, 4.0F, 6.0F, 4.0F, new CubeDeformation(0.27F)), PartPose.offset(2.0F, 12.0F, 0.0F));
-
-
-        return LayerDefinition.create(meshdefinition, 64, 64);
-    }
 }
