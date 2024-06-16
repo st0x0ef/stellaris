@@ -20,7 +20,6 @@ import org.joml.Matrix4f;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class SkyRenderer extends DimensionSpecialEffects {
     public static final List<RenderableType> renderableList = new ArrayList<>();
@@ -61,15 +60,17 @@ public class SkyRenderer extends DimensionSpecialEffects {
         float worldTime = mc.level.getDayTime() + partialTicks;
         float dayAngle = dayTime * 360f % 360f;
         float skyLight = 1 - 2 * Math.abs(dayTime - 0.5f);
-        float starLight;
+        float rainLevel = 1.0F - mc.level.getRainLevel(partialTicks);
+        float starLight = mc.level.getStarBrightness(partialTicks) * rainLevel + 0.2F;;
 
         Matrix4f matrix4f;
 
-        if (getRenderableType(mc.player.level().dimension()).isAllDaysVisible()) {
-            starLight = 1.0F;
-        } else {
-            float rainLevel = 1.0F - mc.level.getRainLevel(partialTicks);
-            starLight = mc.level.getStarBrightness(partialTicks) * rainLevel + 0.2F;
+        if (getRenderableType(mc.player.level().dimension()) != null) {
+            if (getRenderableType(mc.player.level().dimension()).isAllDaysVisible()) {
+                starLight = 1.0F;
+            } else {
+                starLight = mc.level.getStarBrightness(partialTicks) * rainLevel + 0.2F;
+            }
         }
 
         if (starLight > 0.0F) {
