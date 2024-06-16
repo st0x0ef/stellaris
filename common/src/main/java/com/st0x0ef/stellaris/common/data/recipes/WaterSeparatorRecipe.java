@@ -22,12 +22,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public record WaterSeparatorRecipe(FluidStack stack, List<FluidStack> resultStacks, boolean isMb, long energy) implements Recipe<WaterSeparatorBlockEntity> {
+public record WaterSeparatorRecipe(FluidStack ingredientStack, List<FluidStack> resultStacks, boolean isMb, long energy) implements Recipe<WaterSeparatorBlockEntity> {
 
     @Override
     public boolean matches(WaterSeparatorBlockEntity container, Level level) {
         FluidStack stack = container.getIngredientTank().getStack();
-        return stack.isFluidEqual(stack) && stack.getAmount() >= stack.getAmount();
+        return stack.isFluidEqual(ingredientStack) && stack.getAmount() >= ingredientStack.getAmount();
     }
 
     @Override
@@ -58,7 +58,7 @@ public record WaterSeparatorRecipe(FluidStack stack, List<FluidStack> resultStac
     public static class Serializer implements RecipeSerializer<WaterSeparatorRecipe> {
 
         private static final MapCodec<WaterSeparatorRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-                FluidStack.CODEC.fieldOf("ingredient").forGetter(WaterSeparatorRecipe::stack),
+                FluidStack.CODEC.fieldOf("ingredient").forGetter(WaterSeparatorRecipe::ingredientStack),
                 FluidStack.CODEC.listOf(1, 2).fieldOf("results").forGetter(WaterSeparatorRecipe::resultStacks),
                 Codec.BOOL.optionalFieldOf("isFluidMB").forGetter(recipe -> Optional.of(recipe.isMb)),
                 Codec.LONG.fieldOf("energy").forGetter(WaterSeparatorRecipe::energy)
@@ -72,7 +72,7 @@ public record WaterSeparatorRecipe(FluidStack stack, List<FluidStack> resultStac
         public static final StreamCodec<RegistryFriendlyByteBuf, List<FluidStack>> FLUID_STACK_LIST_STREAM_CODEC =
                 ByteBufCodecs.collection(ArrayList::new, FluidStack.STREAM_CODEC, 2);
         private static final StreamCodec<RegistryFriendlyByteBuf, WaterSeparatorRecipe> STREAM_CODEC = StreamCodec.of((buf, recipe) -> {
-            recipe.stack().write(buf);
+            recipe.ingredientStack().write(buf);
             FLUID_STACK_LIST_STREAM_CODEC.encode(buf, recipe.resultStacks);
             buf.writeBoolean(recipe.isMb);
             buf.writeLong(recipe.energy);

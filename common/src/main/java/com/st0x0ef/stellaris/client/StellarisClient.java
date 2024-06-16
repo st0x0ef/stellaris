@@ -73,15 +73,9 @@ public class StellarisClient {
             Thread.setDefaultUncaughtExceptionHandler(new GlobalExceptionHandler());
         });
 
-        registerParticle();
-
-        if(Platform.isFabric()) {
-            registerEntityRenderer();
-            registerEntityModelLayer();
-        }
-
         KeyMappingsRegistry.register();
 
+        registerParticle();
         registerScreen();
         registerOverlays();
     }

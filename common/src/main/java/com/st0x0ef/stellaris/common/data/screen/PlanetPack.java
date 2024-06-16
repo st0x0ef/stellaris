@@ -51,7 +51,7 @@ public class PlanetPack extends SimpleJsonResourceReloadListener {
             );
 
             PlanetSelectionScreen.PLANETS.add(screenPlanet);
-            Stellaris.LOG.info("Added a planet to PlanetSelectionScreen : " + planet.name());
+            Stellaris.LOG.info("Added a planet to PlanetSelectionScreen : {}", planet.name());
         });
     }
 }

@@ -3,8 +3,6 @@ package com.st0x0ef.stellaris.client.skys.helper;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
-import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.client.StellarisClient;
 import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.RenderType;

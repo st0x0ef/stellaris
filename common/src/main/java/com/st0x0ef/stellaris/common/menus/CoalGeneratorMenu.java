@@ -30,7 +30,7 @@ public class CoalGeneratorMenu extends AbstractContainerMenu {
     public static CoalGeneratorMenu create(int syncId, Inventory inventory, FriendlyByteBuf data) {
         CoalGeneratorEntity entity = (CoalGeneratorEntity) inventory.player.level().getBlockEntity(data.readBlockPos());
 
-        return new CoalGeneratorMenu(syncId, inventory, new SimpleContainer(1), entity, new SimpleContainerData(4));
+        return new CoalGeneratorMenu(syncId, inventory, new SimpleContainer(1), entity, new SimpleContainerData(2));
     }
 
     public CoalGeneratorMenu(int syncId, Inventory playerInventory, Container container, CoalGeneratorEntity entity, ContainerData containerData)

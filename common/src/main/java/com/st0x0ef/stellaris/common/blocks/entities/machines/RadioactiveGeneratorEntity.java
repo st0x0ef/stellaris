@@ -18,7 +18,7 @@ public class RadioactiveGeneratorEntity extends CoalGeneratorEntity {
 
     @Override
     protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
-        return new RadioactiveGeneratorMenu(containerId, inventory, this, this);
+        return new RadioactiveGeneratorMenu(containerId, inventory, this, this, dataAccess);
     }
 
     @Override

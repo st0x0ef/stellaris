@@ -163,7 +163,7 @@ public class CableBlock extends BaseTickingEntityBlock {
         int i = 0;
 
         for(int j = 0; j < DIRECTIONS.length; ++j) {
-            if ((Boolean)state.getValue((Property)PROPERTY_BY_DIRECTION.get(DIRECTIONS[j]))) {
+            if ((Boolean) state.getValue((Property)PROPERTY_BY_DIRECTION.get(DIRECTIONS[j]))) {
                 i |= 1 << j;
             }
         }

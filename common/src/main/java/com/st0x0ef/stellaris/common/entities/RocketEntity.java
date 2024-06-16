@@ -126,7 +126,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     @Override
     protected void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        ListTag inventoryCustom = compound.getList("InventoryCustom", 10);
+        ListTag inventoryCustom = compound.getList("InventoryCustom", 14);
         this.inventory.fromTag(inventoryCustom, registryAccess());
         FUEL = compound.getInt("fuel");
 

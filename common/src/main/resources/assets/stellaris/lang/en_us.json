@@ -321,6 +321,9 @@
   "gauge_text.stellaris.capacity" : "Capacity : %s",
   "gauge_text.stellaris.max_generation" : "Max Generation : %s",
   "stellaris.screen.fuel": "Fuel",
+  "stellaris.screen.water": "Water",
+  "stellaris.screen.hydrogen": "Hydrogen",
+  "stellaris.screen.oxygen": "Oxygen",
   "stellaris.screen.energy": "Energy",
 
   "general.stellaris.jet_suit_mode": "Mode",

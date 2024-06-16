@@ -8,6 +8,7 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+import org.jetbrains.annotations.NotNull;
 
 public class RadioactiveEffect extends MobEffect {
 
@@ -20,7 +21,7 @@ public class RadioactiveEffect extends MobEffect {
     public boolean applyEffectTick(LivingEntity livingEntity, int level) {
         if (livingEntity.getHealth() > 0.0F) {
             if (level == 0) {
-                livingEntity.hurt(DamageSourceRegistry.of(livingEntity.level(), DamageSourceRegistry.RADIATIONS), 0.7f);
+                livingEntity.hurt(DamageSourceRegistry.of(livingEntity.level(), DamageSourceRegistry.RADIATIONS), 0.5f);
             } else if (level == 1) {
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 80));
                 livingEntity.hurt(DamageSourceRegistry.of(livingEntity.level(), DamageSourceRegistry.RADIATIONS), 0.5f);
@@ -29,34 +30,19 @@ public class RadioactiveEffect extends MobEffect {
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80));
                 livingEntity.hurt(DamageSourceRegistry.of(livingEntity.level(), DamageSourceRegistry.RADIATIONS), 1f);
             }
-
-            return true;
         }
 
-
-        return false;
+        return true;
     }
 
     @Override
     public boolean shouldApplyEffectTickThisTick(int i, int j) {
         int k = 25 >> j;
-        if (k > 0) {
-            return i % k == 0;
-        } else {
-            return true;
-        }
+        return k == 0 || i % k == 0;
     }
-
 
     @Override
-    public void onEffectStarted(LivingEntity livingEntity, int i) {
-        if (i == 1 || i == 2) {
-            livingEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 80));
-            livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80));
-        }
-    }
-
-    public void onEffectAdded(LivingEntity livingEntity, int amplifier){
-        livingEntity.level().playSound(null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), soundOnAdded, livingEntity.getSoundSource(), 3.0F, 1.0F);
+    public @NotNull MobEffect withSoundOnAdded(SoundEvent event) {
+        return super.withSoundOnAdded(soundOnAdded);
     }
 }

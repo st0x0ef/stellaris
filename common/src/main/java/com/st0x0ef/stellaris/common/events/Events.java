@@ -21,7 +21,7 @@ import java.util.Objects;
 public class Events {
 
     // Check every 10 seconds
-    private static final long RADIOACTIVE_CHECK = 1000 * (long) CustomConfig.getValue("radioactivityCheckInterval");
+    private static final Long RADIOACTIVE_CHECK = 1000 * (Long) CustomConfig.getValue("radioactivityCheckInterval");
     private static long lastRadioactiveCheck;
     public static boolean isCustomClouds;
 

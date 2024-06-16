@@ -4,7 +4,6 @@ import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import com.st0x0ef.stellaris.neoforge.client.StellarisNeoforgeClient;
 import com.st0x0ef.stellaris.neoforge.client.renderer.MarsFog;
-import com.st0x0ef.stellaris.neoforge.client.renderer.SkyRendererNeoForge;
 import com.st0x0ef.stellaris.neoforge.systems.SystemsNeoForge;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
@@ -21,9 +20,9 @@ public class StellarisNeoForge {
 
         NeoForge.EVENT_BUS.addListener(StellarisNeoForge::onDatapackSync);
         NeoForge.EVENT_BUS.addListener(StellarisNeoForge::onAddReloadListenerEvent);
-        bus.addListener(StellarisNeoForge::onAttributes);
         NeoForge.EVENT_BUS.addListener(MarsFog::setupFog);
-        NeoForge.EVENT_BUS.addListener(SkyRendererNeoForge::RenderWorldSky);
+        //NeoForge.EVENT_BUS.addListener(SkyRendererNeoForge::RenderWorldSky);
+        bus.addListener(StellarisNeoForge::onAttributes);
         SystemsNeoForge.init(bus);
 
         if (FMLEnvironment.dist.isClient()) {

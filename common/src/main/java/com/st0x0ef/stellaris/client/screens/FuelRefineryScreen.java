@@ -2,7 +2,11 @@ package com.st0x0ef.stellaris.client.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.client.screens.components.Gauge;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.FluidTank;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.FuelRefineryBlockEntity;
 import com.st0x0ef.stellaris.common.menus.FuelRefineryMenu;
+import com.st0x0ef.stellaris.platform.systems.energy.EnergyContainer;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -14,6 +18,11 @@ public class FuelRefineryScreen extends AbstractContainerScreen<FuelRefineryMenu
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/fuel_refinery.png");
 
+    private final FuelRefineryBlockEntity blockEntity = getMenu().getBlockEntity();
+    private Gauge ingredientTankGauge;
+    private Gauge resultTankGauge;
+    private Gauge energyGauge;
+
     public FuelRefineryScreen(FuelRefineryMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
         imageWidth = 177;
@@ -22,10 +31,43 @@ public class FuelRefineryScreen extends AbstractContainerScreen<FuelRefineryMenu
     }
 
     @Override
+    protected void init() {
+        super.init();
+
+        if (blockEntity == null) {
+            return;
+        }
+
+        FluidTank ingredientTank = blockEntity.getIngredientTank();
+        ingredientTankGauge = new Gauge(leftPos + 43, topPos + 22, 12, 46, null, GUISprites.OIL_OVERLAY, GUISprites.LIQUID_TANK_OVERLAY, ingredientTank.getAmount(), ingredientTank.getMaxCapacity());
+        addRenderableWidget(ingredientTankGauge);
+
+        FluidTank resultTank = blockEntity.getResultTank();
+        resultTankGauge = new Gauge(leftPos + 100, topPos + 22, 12, 46, null, GUISprites.FUEL_OVERLAY, GUISprites.LIQUID_TANK_OVERLAY, resultTank.getAmount(), resultTank.getMaxCapacity());
+        addRenderableWidget(resultTankGauge);
+
+        EnergyContainer energyContainer = blockEntity.getWrappedEnergyContainer().container();
+        energyGauge = new Gauge(leftPos + 150, topPos + 21, 13, 47, Component.translatable("stellaris.screen.energy"), GUISprites.ENERGY_FULL, GUISprites.BATTERY_OVERLAY, (int) energyContainer.getStoredEnergy(), (int) energyContainer.getMaxCapacity());
+        addRenderableWidget(energyGauge);
+    }
+
+    @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         renderBackground(guiGraphics, mouseX, mouseY, partialTick);
         super.render(guiGraphics, mouseX, mouseY, partialTick);
         renderTooltip(guiGraphics, mouseX, mouseY);
+
+        if (blockEntity == null) {
+            return;
+        }
+
+        ingredientTankGauge.update(blockEntity.getIngredientTank().getAmount());
+        resultTankGauge.update(blockEntity.getResultTank().getAmount());
+        energyGauge.update(blockEntity.getWrappedEnergyContainer().getStoredEnergy());
+
+//        ingredientTankGauge.renderTooltip(guiGraphics, mouseX, mouseY, font);
+//        resultTankGauge.renderTooltip(guiGraphics, mouseX, mouseY, font);
+//        energyGauge.renderTooltip(guiGraphics, mouseX, mouseY, font);
     }
 
     @Override

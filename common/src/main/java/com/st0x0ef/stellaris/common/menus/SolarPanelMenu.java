@@ -5,9 +5,7 @@ import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import com.st0x0ef.stellaris.common.network.packets.SyncWidgetsTanks;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import com.st0x0ef.stellaris.platform.systems.energy.EnergyContainer;
-import io.netty.buffer.Unpooled;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
@@ -28,8 +26,7 @@ public class SolarPanelMenu extends AbstractContainerMenu {
         return new SolarPanelMenu(syncId, inventory, new SimpleContainer(), entity);
     }
 
-    public SolarPanelMenu(int syncId, Inventory playerInventory, Container container, SolarPanelEntity entity)
-    {
+    public SolarPanelMenu(int syncId, Inventory playerInventory, Container container, SolarPanelEntity entity) {
         super(MenuTypesRegistry.SOLAR_PANEL_MENU.get(), syncId);
 
         //checkContainerSize(container, 1);
@@ -58,13 +55,15 @@ public class SolarPanelMenu extends AbstractContainerMenu {
                 if (!this.moveItemStackTo(originalStack, this.inventory.getContainerSize(), this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.moveItemStackTo(originalStack, 0, this.inventory.getContainerSize(), false)) {
+            }
+            else if (!this.moveItemStackTo(originalStack, 0, this.inventory.getContainerSize(), false)) {
                 return ItemStack.EMPTY;
             }
 
             if (originalStack.isEmpty()) {
                 slot.set(ItemStack.EMPTY);
-            } else {
+            }
+            else {
                 slot.setChanged();
             }
         }
@@ -96,15 +95,12 @@ public class SolarPanelMenu extends AbstractContainerMenu {
     }
 
     public EnergyContainer getEnergyContainer() {
-        return this.entity.getWrappedEnergyContainer().container();
+        return this.entity.getWrappedEnergyContainer();
     }
 
     public void syncBattery(ServerPlayer player) {
         if (!player.level().isClientSide()) {
-            RegistryFriendlyByteBuf buffer = new RegistryFriendlyByteBuf(Unpooled.buffer(), player.level().getServer().registryAccess());
-            buffer = SyncWidgetsTanks.encode(new SyncWidgetsTanks(new long[]{this.getEnergyContainer().getStoredEnergy()}), buffer);
-            NetworkRegistry.sendToPlayer(player, NetworkRegistry.SYNC_FLUID_TANKS_ID, buffer);
-
+            NetworkRegistry.sendToPlayer(player, NetworkRegistry.SYNC_FLUID_TANKS_ID, SyncWidgetsTanks.encode(new SyncWidgetsTanks(new long[] {getEnergyContainer().getStoredEnergy()}), WaterSeparatorMenu.createBuf(player)));
         }
     }
 }

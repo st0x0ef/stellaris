@@ -76,30 +76,30 @@ public class ConfigScreen extends Screen {
 
     public void addTypeWidgets(ConfigEntry entry, GridLayout.RowHelper rowHelper, String entryName) {
         if(entry.getType() == Boolean.class) {
-            Checkbox checkbox = Checkbox.builder(Component.literal(entry.getValue().toString()), this.font)
-                    .selected((Boolean) entry.getValue())
-                    .tooltip(Tooltip.create(Component.literal(entry.getDescription()),null))
+            Checkbox checkbox = Checkbox.builder(Component.literal(entry.value().toString()), this.font)
+                    .selected((Boolean) entry.value())
+                    .tooltip(Tooltip.create(Component.literal(entry.description()),null))
                     .onValueChange((checkbox1, aBoolean) -> {
-                        CustomConfig.CONFIG.replace(entryName, new ConfigEntry<Boolean>(aBoolean,  entry.getDescription()));
+                        CustomConfig.CONFIG.replace(entryName, new ConfigEntry<>(aBoolean, entry.description()));
                     })
                     .build();
             rowHelper.addChild(checkbox);
 
         } else if (entry.getType() == String.class ) {
-            EditBox button = new EditBox(this.font, 50, 15, Component.literal(entry.getValue().toString()));
+            EditBox button = new EditBox(this.font, 50, 15, Component.literal(entry.value().toString()));
             button.setMaxLength(100);
-            button.setTooltip(Tooltip.create(Component.literal(entry.getDescription()),null));
-            button.setValue(entry.getValue().toString());
+            button.setTooltip(Tooltip.create(Component.literal(entry.description()),null));
+            button.setValue(entry.value().toString());
             button.setResponder((string) -> {
-                CustomConfig.CONFIG.replace(entryName, new ConfigEntry<String>(string, entry.getDescription()));
+                CustomConfig.CONFIG.replace(entryName, new ConfigEntry<>(string, entry.description()));
             });
             rowHelper.addChild(button);
 
         } else if (entry.getType() == Integer.class || entry.getType() == Double.class || entry.getType() == Float.class){
-            EditBox button = new EditBox(this.font, 50, 15, Component.literal(entry.getValue().toString()));
+            EditBox button = new EditBox(this.font, 50, 15, Component.literal(entry.value().toString()));
             button.setMaxLength(100);
-            button.setValue(entry.getValue().toString());
-            button.setTooltip(Tooltip.create(Component.literal(entry.getDescription()),null));
+            button.setValue(entry.value().toString());
+            button.setTooltip(Tooltip.create(Component.literal(entry.description()),null));
 
             button.setResponder((string) -> {
                 int foo;
@@ -110,7 +110,7 @@ public class ConfigScreen extends Screen {
                     foo = 0;
                 }
 
-                CustomConfig.CONFIG.replace(entryName, new ConfigEntry<Integer>(foo, entry.getDescription()));
+                CustomConfig.CONFIG.replace(entryName, new ConfigEntry<>(foo, entry.description()));
 
             });
             rowHelper.addChild(button);

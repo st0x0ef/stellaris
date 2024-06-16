@@ -19,13 +19,11 @@ import java.util.List;
 @Environment(EnvType.CLIENT)
 public class Gauge extends AbstractWidget {
 
-    ResourceLocation texture;
-    int value;
-    int max_value;
-
     public static final ResourceLocation FLUID_TANK_OVERLAY = new ResourceLocation(Stellaris.MODID, "textures/gui/util/fluid_tank_overlay.png");
+    protected final ResourceLocation texture;
+    protected final int max_value;
+    protected int value;
     public final ResourceLocation overlay_texture;
-
 
     public Gauge(int x, int y, int width, int height, Component message, ResourceLocation texture, @Nullable ResourceLocation overlay_texture, long value, int max_value) {
         this(x, y, width, height, message, texture, overlay_texture,(int) value, max_value);
@@ -37,6 +35,14 @@ public class Gauge extends AbstractWidget {
         this.max_value = max_value;
         this.value = value;
         this.overlay_texture = overlay_texture;
+    }
+
+    public void update(long value) {
+        update((int) value);
+    }
+
+    public void update(int value) {
+        this.value = value;
     }
 
     @Override
@@ -61,7 +67,6 @@ public class Gauge extends AbstractWidget {
     }
 
     public void renderTooltips(GuiGraphics graphics, int mouseX, int mouseY, Font font, List<Component> components) {
-
         String GaugeComponent = getMessage().getString() + " : " + value + " / " + max_value;
         Component capacity;
 
@@ -98,8 +103,6 @@ public class Gauge extends AbstractWidget {
             if (overlay_texture != null) {
                 ScreenHelper.drawTexture(getX(), getY(), width, height, overlay_texture, false);
             }
-
         }
     }
-
 }
