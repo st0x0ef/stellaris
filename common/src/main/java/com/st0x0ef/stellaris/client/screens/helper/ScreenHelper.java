@@ -57,6 +57,26 @@ public class ScreenHelper {
         }
     }
 
+    public static void drawVertical(GuiGraphics graphics, int leftPos, int topPos, int width, int height, double min, double max, ResourceLocation resourceLocation, boolean blend) {
+        double ratio = min / max;
+        int ratioHeight = (int) Math.ceil(height * ratio);
+        int remainHeight = height - ratioHeight;
+
+        if (blend) {
+            RenderSystem.enableBlend();
+            RenderSystem.defaultBlendFunc();
+        }
+
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderTexture(0, resourceLocation);
+        renderWithFloat.blit(graphics.pose(), leftPos, topPos + remainHeight, 0, remainHeight, width, ratioHeight, width, height);
+
+        if (blend) {
+            RenderSystem.disableBlend();
+        }
+    }
+
+
     public static class PlanetScreenHelper {
         public static final Component CATALOG_TEXT = tl("catalog");
         public static final Component BACK_TEXT = tl("back");

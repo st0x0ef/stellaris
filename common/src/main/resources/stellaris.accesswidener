@@ -6,3 +6,4 @@ accessible field net/minecraft/world/entity/npc/Villager assignProfessionWhenSpa
 transitive-accessible method net/minecraft/world/entity/ai/sensing/SensorType <init> (Ljava/util/function/Supplier;)V
 accessible method net/minecraft/core/particles/SimpleParticleType <init> (Z)V
 accessible method net/minecraft/world/entity/LivingEntity addEatEffect (Lnet/minecraft/world/food/FoodProperties;)V
+accessible method net/minecraft/client/renderer/entity/player/PlayerRenderer getArmPose (Lnet/minecraft/client/player/AbstractClientPlayer;Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/client/model/HumanoidModel$ArmPose;

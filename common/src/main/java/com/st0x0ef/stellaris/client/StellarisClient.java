@@ -41,10 +41,7 @@ import com.st0x0ef.stellaris.common.data.screen.MoonPack;
 import com.st0x0ef.stellaris.common.data.screen.PlanetPack;
 import com.st0x0ef.stellaris.common.data.screen.StarPack;
 import com.st0x0ef.stellaris.common.handlers.GlobalExceptionHandler;
-import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
-import com.st0x0ef.stellaris.common.registry.EntityRegistry;
-import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
-import com.st0x0ef.stellaris.common.registry.ParticleRegistry;
+import com.st0x0ef.stellaris.common.registry.*;
 import dev.architectury.event.events.client.ClientGuiEvent;
 import dev.architectury.platform.Platform;
 import dev.architectury.registry.ReloadListenerRegistry;
@@ -73,11 +70,24 @@ public class StellarisClient {
             Thread.setDefaultUncaughtExceptionHandler(new GlobalExceptionHandler());
         });
 
+        registerParticle();
+
+        if(Platform.isFabric()) {
+            registerEntityRenderer();
+            registerEntityModelLayer();
+        }
+
         KeyMappingsRegistry.register();
 
-        registerParticle();
         registerScreen();
         registerOverlays();
+        registerJetSuitModel();
+    }
+
+    private static void registerJetSuitModel() {
+        ClientUtilsPlatform.registerArmor(JetSuitModel.TEXTURE, JetSuitModel.LAYER_LOCATION, JetSuitModel::new,
+                ItemsRegistry.JETSUIT_BOOTS.get(), ItemsRegistry.JETSUIT_LEGGINGS.get(),
+                ItemsRegistry.JETSUIT_HELMET.get(), ItemsRegistry.JETSUIT_SUIT.get());
     }
 
     public static void registerEntityModelLayer() {

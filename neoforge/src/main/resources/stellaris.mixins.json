@@ -7,7 +7,8 @@
 
   ],
   "client": [
-    "MainMenuMixin"
+    "MainMenuMixin",
+    "ArmorRenderMixin"
   ],
   "injectors": {
     "defaultRequire": 1
