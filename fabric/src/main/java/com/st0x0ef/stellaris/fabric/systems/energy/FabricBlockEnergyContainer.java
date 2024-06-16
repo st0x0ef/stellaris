@@ -16,6 +16,7 @@ public class FabricBlockEnergyContainer<T extends EnergyContainer & Updatable> e
 
     @Override
     public long insert(long maxAmount, TransactionContext transaction) {
+        if(container==null) return 0;
         if (maxAmount <= 0) return 0;
         this.updateSnapshots(transaction);
         return container.insertEnergy(maxAmount, false);
@@ -23,6 +24,7 @@ public class FabricBlockEnergyContainer<T extends EnergyContainer & Updatable> e
 
     @Override
     public long extract(long maxAmount, TransactionContext transaction) {
+        if(container==null) return 0;
         if (maxAmount <= 0) return 0;
         this.updateSnapshots(transaction);
         return container.extractEnergy(maxAmount, false);
@@ -30,36 +32,43 @@ public class FabricBlockEnergyContainer<T extends EnergyContainer & Updatable> e
 
     @Override
     public long getAmount() {
+        if(container==null) return 0;
         return container.getStoredEnergy();
     }
 
     @Override
     public long getCapacity() {
+        if(container==null) return 0;
         return container.getMaxCapacity();
     }
 
     @Override
     public boolean supportsInsertion() {
+        if(container==null) return false;
         return container.allowsInsertion();
     }
 
     @Override
     public boolean supportsExtraction() {
+        if(container==null) return false;
         return container.allowsExtraction();
     }
 
     @Override
     protected EnergySnapshot createSnapshot() {
+        if(container==null) return null;
         return container.createSnapshot();
     }
 
     @Override
     protected void readSnapshot(EnergySnapshot snapshot) {
+        if(container==null) return;
         container.readSnapshot(snapshot);
     }
 
     @Override
     protected void onFinalCommit() {
+        if(container==null) return;
         container.update();
     }
 }
