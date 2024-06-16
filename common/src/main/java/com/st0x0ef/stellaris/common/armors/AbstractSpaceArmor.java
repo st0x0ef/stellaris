@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.common.armors;
 
 import com.st0x0ef.stellaris.common.data_components.SpaceArmorComponent;
+import com.st0x0ef.stellaris.common.items.CustomArmorItem;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import net.minecraft.core.Holder;
@@ -14,7 +15,7 @@ import net.minecraft.world.level.Level;
 
 import java.util.List;
 
-public abstract class AbstractSpaceArmor extends ArmorItem {
+public abstract class AbstractSpaceArmor extends CustomArmorItem {
 
 
     public AbstractSpaceArmor(Holder<ArmorMaterial> material, Type type, Properties properties) {

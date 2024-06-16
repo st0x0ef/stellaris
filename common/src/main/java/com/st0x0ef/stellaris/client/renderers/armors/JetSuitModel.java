@@ -10,6 +10,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 
 import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -33,6 +34,7 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
     private final ModelPart belt;
     private final ModelPart rightBoot;
     private final ModelPart leftBoot;
+    private final ModelPart hat;
 
     private final EquipmentSlot slot;
     @Nullable
@@ -46,6 +48,7 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
         this.rightBoot = root.getChild("left_boot");
         this.leftBoot = root.getChild("right_boot");
         this.slot = slot;
+        this.hat = root.getChild("right_boot");
         this.parentModel = parentModel;
         this.setVisible();
     }
@@ -102,7 +105,7 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
 
     @Override
     protected Iterable<ModelPart> headParts() {
-        return ImmutableList.of(head, visor);
+        return ImmutableList.of(hat, head, visor);
     }
 
     @Override
@@ -113,6 +116,11 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
     public static LayerDefinition createBodyLayer() {
         MeshDefinition meshdefinition = new MeshDefinition();
         PartDefinition partdefinition = meshdefinition.getRoot();
+
+        PartDefinition hat = partdefinition.addOrReplaceChild("hat", CubeListBuilder.create().texOffs(32, 31).addBox(-2.0F, -5.0F, 0.75F, 0.0F, 11.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 6.0F, 2.0F, 0.0F, -0.3491F, 0.0F));
+        PartDefinition visor = partdefinition.addOrReplaceChild("visor", CubeListBuilder.create().texOffs(32, 31).addBox(-2.0F, -5.0F, 0.75F, 0.0F, 11.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 6.0F, 2.0F, 0.0F, -0.3491F, 0.0F));
+
+        PartDefinition belt = partdefinition.addOrReplaceChild("belt", CubeListBuilder.create().texOffs(32, 31).addBox(-2.0F, -5.0F, 0.75F, 0.0F, 11.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 6.0F, 2.0F, 0.0F, -0.3491F, 0.0F));
 
         PartDefinition head = partdefinition.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 16).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.5F))
                 .texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.75F))
@@ -136,6 +144,13 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
 
         PartDefinition leftLeg = partdefinition.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(48, 44).addBox(-2.0F, 5.7F, -2.0F, 4.0F, 6.0F, 4.0F, new CubeDeformation(0.5F))
                 .texOffs(48, 54).addBox(-2.0F, 5.7F, -2.0F, 4.0F, 6.0F, 4.0F, new CubeDeformation(0.27F)), PartPose.offset(2.0F, 12.0F, 0.0F));
+
+        PartDefinition let_boot = partdefinition.addOrReplaceChild("left_boot", CubeListBuilder.create().texOffs(48, 44).addBox(-2.0F, 5.7F, -2.0F, 4.0F, 6.0F, 4.0F, new CubeDeformation(0.5F))
+                .texOffs(48, 54).addBox(-2.0F, 5.7F, -2.0F, 4.0F, 6.0F, 4.0F, new CubeDeformation(0.27F)), PartPose.offset(-2.0F, 12.0F, 0.0F));
+
+        PartDefinition right_boot = partdefinition.addOrReplaceChild("right_boot", CubeListBuilder.create().texOffs(48, 44).addBox(-2.0F, 5.7F, -2.0F, 4.0F, 6.0F, 4.0F, new CubeDeformation(0.5F))
+                .texOffs(48, 54).addBox(-2.0F, 5.7F, -2.0F, 4.0F, 6.0F, 4.0F, new CubeDeformation(0.27F)), PartPose.offset(2.0F, 12.0F, 0.0F));
+
 
         return LayerDefinition.create(meshdefinition, 64, 64);
     }

@@ -1,10 +1,7 @@
 package com.st0x0ef.stellaris.common.oxygen;
 
-import com.st0x0ef.stellaris.common.armors.AbstractSpaceArmor;
 import com.st0x0ef.stellaris.common.armors.JetSuit;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.oxygen.OxygenContainerBlockEntity;
-import com.st0x0ef.stellaris.common.data_components.JetSuitComponent;
-import com.st0x0ef.stellaris.common.items.JetSuitItem;
 import com.st0x0ef.stellaris.common.registry.DamageSourceRegistry;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
