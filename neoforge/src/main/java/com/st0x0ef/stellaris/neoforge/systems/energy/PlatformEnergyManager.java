@@ -32,16 +32,20 @@ public record PlatformEnergyManager(IEnergyStorage energy) implements EnergyCont
 
     @Override
     public long insertEnergy(long maxAmount, boolean simulate) {
+        if(energy==null) return 0;
         return energy.receiveEnergy((int) maxAmount, simulate);
     }
 
     @Override
     public long extractEnergy(long maxAmount, boolean simulate) {
+        if(energy==null) return 0;
+
         return energy.extractEnergy((int) maxAmount, simulate);
     }
 
     @Override
     public void setEnergy(long energy) {
+        if(this.energy==null) return ;
         if (energy > this.energy.getEnergyStored()) {
             this.energy.receiveEnergy((int) (energy - this.energy.getEnergyStored()), false);
         } else if (energy < this.energy.getEnergyStored()) {
@@ -51,11 +55,13 @@ public record PlatformEnergyManager(IEnergyStorage energy) implements EnergyCont
 
     @Override
     public long getStoredEnergy() {
+        if(energy==null) return 0;
         return energy.getEnergyStored();
     }
 
     @Override
     public long getMaxCapacity() {
+        if(energy==null) return 0;
         return energy.getMaxEnergyStored();
     }
 
@@ -71,11 +77,13 @@ public record PlatformEnergyManager(IEnergyStorage energy) implements EnergyCont
 
     @Override
     public boolean allowsInsertion() {
+        if(energy==null) return false;
         return energy.canReceive();
     }
 
     @Override
     public boolean allowsExtraction() {
+        if(energy==null) return false;
         return energy.canExtract();
     }
 
