@@ -7,6 +7,8 @@ public class StellarisFabricClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         StellarisClient.initClient();
+        StellarisClient.registerEntityRenderer();
+        StellarisClient.registerEntityModelLayer();
 
         //WorldRenderEvents.AFTER_SETUP.register(SkyRendererFabric::RegisterSkyRenderer);
     }
