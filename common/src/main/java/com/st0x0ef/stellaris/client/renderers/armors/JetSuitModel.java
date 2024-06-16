@@ -49,10 +49,11 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
 		this.body = root.getChild("body");
 		this.right_arm = root.getChild("right_arm");
 		this.left_arm = root.getChild("left_arm");
-		this.left_boot = root.getChild("left_boot");
-		this.right_boot = root.getChild("right_boot");
 		this.left_leg = root.getChild("left_leg");
 		this.right_leg = root.getChild("right_leg");
+		this.left_boot = left_leg.getChild("left_boot");
+		this.right_boot = right_leg.getChild("right_boot");
+
 		this.slot = slot;
 		this.setVisible();
 
@@ -85,15 +86,15 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
 		PartDefinition arml = partdefinition.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(32, 0).addBox(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.26F))
 		.texOffs(48, 0).addBox(-1.0F, 6.0F, -2.0F, 4.0F, 4.0F, 4.0F, new CubeDeformation(0.5F)), PartPose.offset(5.0F, 2.0F, 0.0F));
 
-		PartDefinition Left_Foot = partdefinition.addOrReplaceChild("left_boot", CubeListBuilder.create().texOffs(48, 44).addBox(-2.0F, 5.7F, -2.0F, 4.0F, 6.0F, 4.0F, new CubeDeformation(0.5F))
-		.texOffs(48, 54).addBox(-2.0F, 5.7F, -2.0F, 4.0F, 6.0F, 4.0F, new CubeDeformation(0.27F)), PartPose.offset(2.0F, 12.0F, 0.0F));
-
-		PartDefinition Right_Foot = partdefinition.addOrReplaceChild("right_boot", CubeListBuilder.create().texOffs(48, 44).addBox(-2.0F, 5.7F, -2.0F, 4.0F, 6.0F, 4.0F, new CubeDeformation(0.5F))
-		.texOffs(48, 54).addBox(-2.0F, 5.7F, -2.0F, 4.0F, 6.0F, 4.0F, new CubeDeformation(0.27F)), PartPose.offset(-2.0F, 12.0F, 0.0F));
 
 		PartDefinition LeftLeg = partdefinition.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(33, 19).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.6F)), PartPose.offset(-1.9F, 12.0F, 0.0F));
 
 		PartDefinition RightLeg = partdefinition.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(33, 19).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.6F)), PartPose.offset(2.1F, 12.0F, 0.0F));
+
+		PartDefinition Right_boot = RightLeg.addOrReplaceChild("right_boot", CubeListBuilder.create().texOffs(48, 44).addBox(-2.0F, 5.7F, -2.0F, 4.0F, 6.0F, 4.0F, new CubeDeformation(0.5F))
+				.texOffs(48, 54).addBox(-2.0F, 5.7F, -2.0F, 4.0F, 6.0F, 4.0F, new CubeDeformation(0.27F)), PartPose.offset(-0.1F, 0.0F, 0.0F));
+		PartDefinition Left_boot = LeftLeg.addOrReplaceChild("left_boot", CubeListBuilder.create().texOffs(48, 44).addBox(-2.0F, 5.7F, -2.0F, 4.0F, 6.0F, 4.0F, new CubeDeformation(0.5F))
+				.texOffs(48, 54).addBox(-2.0F, 5.7F, -2.0F, 4.0F, 6.0F, 4.0F, new CubeDeformation(0.27F)), PartPose.offset(-0.1F, 0.0F, 0.0F));
 
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
@@ -122,6 +123,7 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
 	}
 
 	private void setVisible() {
+		this.setAllVisible(false);
 		switch (this.slot) {
 			case HEAD -> {
 				this.head.visible = true;
