@@ -106,12 +106,12 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
 
     @Override
     protected Iterable<ModelPart> headParts() {
-        return ImmutableList.of(hat, head, visor);
+        return ImmutableList.of( head);
     }
 
     @Override
     protected Iterable<ModelPart> bodyParts() {
-        return ImmutableList.of(body, rightArm, leftArm, rightLeg, leftLeg, hat, belt, rightBoot, leftBoot);
+        return ImmutableList.of(body, rightArm, leftArm, rightLeg, leftLeg,  belt, rightBoot, leftBoot);
     }
 
     public static LayerDefinition createBodyLayer() {
