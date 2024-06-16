@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "group": "plutonium",
+  "ingredient": {
+    "item": "stellaris:mars_plutonium_ore"
+  },
+  "result": {
+    "id": "stellaris:plutonium_ingot"
+  }
+}
