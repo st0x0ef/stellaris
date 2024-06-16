@@ -85,14 +85,15 @@ public class JetSuit {
                 this.boost(player, 0.9, false);
             }
 
-            /** NORMAL FLY MOVEMENT */
-            this.normalFlyModeMovement(player, stack);
+            switch (this.getMode(stack)) {
+                case 1 -> this.normalFlyModeMovement(player, stack);
+                case 2 -> this.hoverModeMovement(player, stack);
+                case 3 -> this.elytraModeMovement(player, stack);
+            }
 
             /** CALCULATE PRESS SPACE TIME */
             this.calculateSpacePressTime(player, stack);
 
-            /** HOVER MOVEMENT **/
-            this.hoverModeMovement(player,stack);
         }
 
         private void normalFlyModeMovement(Player player, ItemStack stack) {
@@ -122,9 +123,10 @@ public class JetSuit {
             double gravity = player.getAttribute(Attributes.GRAVITY).getValue();
             Vec3 vec3 = player.getDeltaMovement();
 
+
             // Main movement logic
             if (!player.onGround() && !player.isInWater()) {
-                player.setDeltaMovement(vec3.x, vec3.y + gravity / 1.1 - 0.02, vec3.z);
+                player.setDeltaMovement(vec3.x, vec3.y + 0.04, vec3.z);
                 player.resetFallDistance();
                 Utils.disableFlyAntiCheat(player, true);
                 this.addFuel(stack, -2);
@@ -132,7 +134,6 @@ public class JetSuit {
 
             // Move up
             if (KeyVariables.isHoldingJump(player)) {
-                player.moveRelative(0.05F, new Vec3(0, 0.08, 0));
                 Utils.disableFlyAntiCheat(player, true);
             }
 
@@ -161,11 +162,10 @@ public class JetSuit {
         }
 
         private void elytraModeMovement(Player player, ItemStack stack) {
-            // Implement elytra mode movement logic here
-            if (KeyVariables.isHoldingJump(player) && player.isFallFlying()) {
-                double speed = player.isSprinting() ? 1.5 : 1.0;
-                player.moveRelative(0.05F, player.getLookAngle().scale(speed));
+            if (player.isSprinting() && !player.onGround()) {
+                player.startFallFlying();
                 Utils.disableFlyAntiCheat(player, true);
+                this.addFuel(stack, -2);
             }
         }
 
