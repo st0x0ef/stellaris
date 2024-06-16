@@ -45,10 +45,10 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
 
         this.visor = root.getChild("visor");
         this.belt = root.getChild("belt");
-        this.rightBoot = root.getChild("left_boot");
-        this.leftBoot = root.getChild("right_boot");
+        this.rightBoot = root.getChild("right_boot");
+        this.leftBoot = root.getChild("left_boot");
         this.slot = slot;
-        this.hat = root.getChild("right_boot");
+        this.hat = root.getChild("hat");
         this.parentModel = parentModel;
         this.setVisible();
     }
@@ -65,6 +65,7 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
         this.belt.copyFrom(parentModel.body);
         this.rightBoot.copyFrom(parentModel.rightLeg);
         this.leftBoot.copyFrom(parentModel.leftLeg);
+        this.hat.copyFrom(parentModel.hat);
         parentModel.copyPropertiesTo(this);
 
         super.renderToBuffer(poseStack, buffer, packedLight, packedOverlay, 0, 0, 0, alpha); // TODO : check rgb
