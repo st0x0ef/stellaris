@@ -1,6 +1,6 @@
 package com.st0x0ef.stellaris.common.menus.slot;
 
-import com.st0x0ef.stellaris.common.items.oxygen.OxygenContainerItem;
+import com.st0x0ef.stellaris.common.items.oxygen.OxygenTankItem;
 import dev.architectury.hooks.fluid.FluidBucketHooks;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.Slot;
@@ -23,7 +23,7 @@ public class FluidContainerSlot extends Slot {
     public boolean mayPlace(ItemStack stack) {
         return (stack.getItem() instanceof BucketItem item
                 && (!emptyOnly || FluidBucketHooks.getFluid(item).isSame(Fluids.EMPTY)))
-                || (allowTanks && stack.getItem() instanceof OxygenContainerItem);
+                || (allowTanks && stack.getItem() instanceof OxygenTankItem);
     }
 
     @Override

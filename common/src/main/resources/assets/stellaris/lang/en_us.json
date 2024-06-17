@@ -302,6 +302,7 @@
   "tooltip.item.stellaris.can.empty": "Empty",
   "tooltip.item.stellaris.can.nutrition": "Nutrition: %s/%s",
   "tooltip.item.stellaris.can.saturation": "Saturation: %s",
+  "tooltip.item.stellaris.oxygen_tank": "Oxygen: %s/%s",
 
   "container.entity.stellaris.lander": "Lander",
   "container.entity.stellaris.rocket": "Rocket",
