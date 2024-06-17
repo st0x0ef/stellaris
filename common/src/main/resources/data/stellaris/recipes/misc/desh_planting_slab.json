@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "   ",
-    "###",
+    "   ",
     "###"
   ],
   "key": {
@@ -10,6 +10,6 @@
   },
   "result": {
     "id": "stellaris:desh_planting_slab",
-    "count": 4
+    "count": 6
   }
 }

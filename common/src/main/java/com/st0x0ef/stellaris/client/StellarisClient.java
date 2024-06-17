@@ -7,6 +7,7 @@ import com.st0x0ef.stellaris.client.overlays.RocketBarOverlay;
 import com.st0x0ef.stellaris.client.overlays.RocketStartOverlay;
 import com.st0x0ef.stellaris.client.particles.*;
 import com.st0x0ef.stellaris.client.registries.KeyMappingsRegistry;
+import com.st0x0ef.stellaris.client.renderers.armors.JetSuitModel;
 import com.st0x0ef.stellaris.client.renderers.entities.alien.AlienModel;
 import com.st0x0ef.stellaris.client.renderers.entities.alien.AlienRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.alienzombie.AlienZombieModel;
@@ -41,10 +42,8 @@ import com.st0x0ef.stellaris.common.data.screen.MoonPack;
 import com.st0x0ef.stellaris.common.data.screen.PlanetPack;
 import com.st0x0ef.stellaris.common.data.screen.StarPack;
 import com.st0x0ef.stellaris.common.handlers.GlobalExceptionHandler;
-import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
-import com.st0x0ef.stellaris.common.registry.EntityRegistry;
-import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
-import com.st0x0ef.stellaris.common.registry.ParticleRegistry;
+import com.st0x0ef.stellaris.common.registry.*;
+import com.st0x0ef.stellaris.platform.ClientUtilsPlatform;
 import dev.architectury.event.events.client.ClientGuiEvent;
 import dev.architectury.platform.Platform;
 import dev.architectury.registry.ReloadListenerRegistry;
@@ -78,6 +77,13 @@ public class StellarisClient {
         registerParticle();
         registerScreen();
         registerOverlays();
+        registerJetSuitModel();
+    }
+
+    private static void registerJetSuitModel() {
+        ClientUtilsPlatform.registerArmor(JetSuitModel.TEXTURE, JetSuitModel.LAYER_LOCATION, JetSuitModel::new,
+                ItemsRegistry.JETSUIT_BOOTS.get(), ItemsRegistry.JETSUIT_LEGGINGS.get(),
+                ItemsRegistry.JETSUIT_HELMET.get(), ItemsRegistry.JETSUIT_SUIT.get());
     }
 
     public static void registerEntityModelLayer() {
@@ -96,6 +102,8 @@ public class StellarisClient {
         EntityModelLayerRegistry.register(SmallRocketModel.LAYER_LOCATION, SmallRocketModel::createBodyLayer);
         EntityModelLayerRegistry.register(NormalRocketModel.LAYER_LOCATION, NormalRocketModel::createBodyLayer);
         EntityModelLayerRegistry.register(BigRocketModel.LAYER_LOCATION, BigRocketModel::createBodyLayer);
+
+        EntityModelLayerRegistry.register(JetSuitModel.LAYER_LOCATION, JetSuitModel::createBodyLayer);
     }
 
     public static void registerEntityRenderer() {

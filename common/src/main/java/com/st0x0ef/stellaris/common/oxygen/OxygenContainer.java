@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.common.oxygen;
 
-import com.st0x0ef.stellaris.common.items.oxygen.OxygenContainerItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 
@@ -93,25 +92,34 @@ public class OxygenContainer {
     }
 
     public boolean removeOxygenStored(boolean simulate) {
+        return removeOxygenStored(1, simulate);
+    }
+
+    public boolean removeOxygenStored(int amount, boolean simulate) {
         if (getOxygenStored() > 0) {
             if (!simulate) {
-                oxygenStored--;
+                oxygenStored -= amount;
             }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean addOxygenStored(int amount, boolean simulate) {
+        if (amount + getOxygenStored() <= maxOxygen) {
+            if (!simulate) {
+                oxygenStored += amount;
+                removeAllOxygenStored();
+            }
+
             return true;
         }
         return false;
     }
 
-    public boolean addOxygenStored(OxygenContainerItem container, boolean simulate) {
-        int oxygenToAdd = container.getOxygenContainer().getOxygenStored();
-        if (oxygenToAdd + getOxygenStored() <= maxOxygen) {
-            if (!simulate) {
-                oxygenStored += oxygenToAdd;
-                container.getOxygenContainer().removeAllOxygenStored();
-            }
-
-            return true;
-        }
-        return false;
+    public void setOxygenStored(int amount) {
+        oxygenStored = amount;
     }
 }

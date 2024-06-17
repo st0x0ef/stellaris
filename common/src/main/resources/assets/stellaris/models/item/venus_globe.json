@@ -1,6 +1,6 @@
 {
-  "parent": "stellaris:template/globe",
+  "parent": "minecraft:item/generated",
   "textures": {
-    "particle": "stellaris:block/globes/venus_globe"
+    "layer0": "stellaris:block/venus_globe"
   }
 }

@@ -4,7 +4,7 @@
       "model": "stellaris:block/desh_planting_slab"
     },
     "type=double": {
-      "model": "stellaris:block/desh_planting_block"
+      "model": "stellaris:block/desh_plating_block"
     },
     "type=top": {
       "model": "stellaris:block/desh_planting_slab_top"

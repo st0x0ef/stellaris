@@ -7,7 +7,7 @@ import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
-public class WaterSeparatorBlock extends BaseMachineBlock {
+public class WaterSeparatorBlock extends BaseLitMachineBlock {
 
     public WaterSeparatorBlock(BlockBehaviour.Properties properties) {
         super(properties);
