@@ -163,9 +163,12 @@ public class JetSuit {
 
         private void elytraModeMovement(Player player, ItemStack stack) {
             if (player.isSprinting() && !player.onGround()) {
+
                 player.startFallFlying();
                 Utils.disableFlyAntiCheat(player, true);
                 this.addFuel(stack, -2);
+            } else if (player.isSprinting() && player.onGround() && KeyVariables.isHoldingJump(player)) {
+                player.moveTo(player.getX(), player.getY() + 2, player.getZ());
             }
         }
 

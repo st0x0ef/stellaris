@@ -1,29 +1,23 @@
 package com.st0x0ef.stellaris.neoforge.mixin;
 
-import com.st0x0ef.stellaris.common.armors.JetSuit;
 import com.st0x0ef.stellaris.common.items.CustomArmorItem;
 import com.st0x0ef.stellaris.platform.neoforge.ClientUtilsPlatformImpl;
 import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.core.Holder;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Item;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.Model;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 
 import java.util.function.Consumer;
 
 @Mixin(CustomArmorItem.class)
-public abstract class ArmorRenderMixin extends Item{
+public abstract class ArmorRenderMixin extends Item {
 
     public ArmorRenderMixin(Properties properties) {
         super(properties);
