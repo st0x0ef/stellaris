@@ -48,6 +48,7 @@ public class ScreenHelper {
 
             RenderSystem.setShader(GameRenderer::getPositionColorTexShader);
             BufferBuilder bufferbuilder = Tesselator.getInstance().getBuilder();
+            if (bufferbuilder.building()) return;
             bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR_TEX);
             bufferbuilder.vertex(matrix4f, (float) x, (float) p_93117_, (float) p_93118_).color(r, g, b, 255).uv(p_93119_, p_93122_).endVertex();
             bufferbuilder.vertex(matrix4f, (float) y, (float) p_93117_, (float) p_93118_).color(r, g, b, 255).uv(p_93120_, p_93122_).endVertex();
