@@ -324,7 +324,7 @@
 
   "gauge_text.stellaris.stored" : "Stored : %s",
   "gauge_text.stellaris.capacity" : "Capacity : %s",
-  "gauge_text.stellaris.max_generation" : "Max Generation : %s",
+  "gauge_text.stellaris.max_generation" : "Max Generation : %s Fe/tick",
   "stellaris.screen.fuel": "Fuel",
   "stellaris.screen.water": "Water",
   "stellaris.screen.hydrogen": "Hydrogen",

@@ -54,6 +54,7 @@ public class OxygenDistributorScreen extends AbstractContainerScreen<OxygenDistr
         }
 
         energyGauge.update(blockEntity.getWrappedEnergyContainer().getStoredEnergy());
+        energyGauge.renderTooltip(graphics, mouseX, mouseY, this.font);
     }
 
     @Override
