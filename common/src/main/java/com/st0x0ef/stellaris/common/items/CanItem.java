@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.items;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
@@ -58,16 +59,16 @@ public class CanItem extends Item {
         FoodProperties properties = getFoodProperties(stack);
 
         if (properties == null || (properties.nutrition() <= 0 && properties.saturation() <= 0)) {
-            tooltip.add(Component.translatable("tooltip.item.stellaris.can.empty"));
+            tooltip.add(Component.translatable("tooltip.item.stellaris.can.empty").withStyle(ChatFormatting.GRAY));
             return;
         }
 
         if (properties.nutrition() > 0) {
-            tooltip.add(Component.translatable("tooltip.item.stellaris.can.nutrition", properties.nutrition(), getMaxNutrition()));
+            tooltip.add(Component.translatable("tooltip.item.stellaris.can.nutrition", properties.nutrition(), getMaxNutrition()).withStyle(ChatFormatting.GRAY));
         }
 
         if (properties.saturation() > 0) {
-            tooltip.add(Component.translatable("tooltip.item.stellaris.can.saturation", properties.saturation()));
+            tooltip.add(Component.translatable("tooltip.item.stellaris.can.saturation", properties.saturation()).withStyle(ChatFormatting.GRAY));
         }
     }
 
