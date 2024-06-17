@@ -45,7 +45,7 @@ public class Stellaris {
         StellarisClient.registerPacks();
         SoundRegistry.SOUNDS.register();
         FluidRegistry.FLUIDS.register();
-        EffectsRegistry.MOB_EFFECT.register();
+        EffectsRegistry.RADIOACTIVEEFFECT.register();
         ParticleRegistry.PARTICLES.register();
         BlocksRegistry.BLOCKS.register();
         EntityRegistry.ENTITY_TYPE.register();
