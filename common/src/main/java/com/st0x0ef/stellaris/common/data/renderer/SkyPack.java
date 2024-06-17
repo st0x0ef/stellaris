@@ -21,8 +21,8 @@ public class SkyPack extends SimpleJsonResourceReloadListener {
 
     public static final Map<String, Renderable> RENDERABLE_MAP = new HashMap<>();
 
-    public SkyPack(Gson gson) {
-        super(gson, "renderer/sky");
+    public SkyPack() {
+        super(Stellaris.GSON, "renderer/sky");
     }
 
     @Override
