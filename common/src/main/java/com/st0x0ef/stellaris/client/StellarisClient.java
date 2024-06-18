@@ -65,7 +65,9 @@ import org.lwjgl.opengl.GLDebugMessageCallback;
 public class StellarisClient {
     @Environment(EnvType.CLIENT)
     public static void initClient() {
-        registerPacks();
+
+
+        //registerPacks();
 
         Minecraft.getInstance().execute(() -> {
             setupOpenGLDebugMessageCallback();
@@ -176,9 +178,9 @@ public class StellarisClient {
     }
 
     public static void registerPacks() {
-        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new StarPack(Stellaris.GSON));
-        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new PlanetPack(Stellaris.GSON));
-        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new MoonPack(Stellaris.GSON));
-        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new SkyPack(Stellaris.GSON));
+        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new StarPack());
+        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new PlanetPack());
+        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new MoonPack());
+        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new SkyPack());
     }
 }

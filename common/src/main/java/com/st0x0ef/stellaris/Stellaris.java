@@ -3,16 +3,23 @@ package com.st0x0ef.stellaris;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.ToNumberPolicy;
+import com.st0x0ef.stellaris.client.StellarisClient;
 import com.st0x0ef.stellaris.common.config.CustomConfig;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
+import com.st0x0ef.stellaris.common.data.renderer.SkyPack;
+import com.st0x0ef.stellaris.common.data.screen.MoonPack;
+import com.st0x0ef.stellaris.common.data.screen.PlanetPack;
+import com.st0x0ef.stellaris.common.data.screen.StarPack;
 import com.st0x0ef.stellaris.common.events.Events;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import com.st0x0ef.stellaris.common.network.packets.SyncPlanetsDatapack;
 import com.st0x0ef.stellaris.common.registry.*;
+import dev.architectury.registry.ReloadListenerRegistry;
 import io.netty.buffer.Unpooled;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,10 +42,10 @@ public class Stellaris {
 
         DataComponentsRegistry.DATA_COMPONENT_TYPE.register();
         RecipesRegistry.register();
-
+        StellarisClient.registerPacks();
         SoundRegistry.SOUNDS.register();
         FluidRegistry.FLUIDS.register();
-        EffectsRegistry.MOB_EFFECT.register();
+        EffectsRegistry.RADIOACTIVEEFFECT.register();
         ParticleRegistry.PARTICLES.register();
         BlocksRegistry.BLOCKS.register();
         EntityRegistry.ENTITY_TYPE.register();
@@ -64,5 +71,11 @@ public class Stellaris {
 
     public static void onAddReloadListenerEvent(BiConsumer<ResourceLocation, PreparableReloadListener> registry) {
         registry.accept(new ResourceLocation(Stellaris.MODID, "planets"), new StellarisData());
+
+        registry.accept(new ResourceLocation(Stellaris.MODID, "stars_pack"), new StarPack());
+        registry.accept(new ResourceLocation(Stellaris.MODID, "planets_pack"), new PlanetPack());
+        registry.accept(new ResourceLocation(Stellaris.MODID, "moon_packs"), new MoonPack());
+        registry.accept(new ResourceLocation(Stellaris.MODID, "sky_packs"), new SkyPack());
+
     }
 }

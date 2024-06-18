@@ -5,6 +5,7 @@ import com.st0x0ef.stellaris.common.data_components.RocketComponent;
 import com.st0x0ef.stellaris.common.entities.RocketEntity;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -125,11 +126,9 @@ public class RocketItem extends Item {
         RocketComponent rocketComponent = stack.get(DataComponentsRegistry.ROCKET_COMPONENT.get());
         if(rocketComponent == null) return;
 
-        tooltipComponents.add(Component.literal("Rocket Skin: " + rocketComponent.skin()));
-        tooltipComponents.add(Component.literal("Fuel: " + rocketComponent.fuel()));
-        tooltipComponents.add(Component.literal("Model: " + rocketComponent.model()));
-
-
+        tooltipComponents.add(Component.translatable("tooltip.item.stellaris.rocket.skin", rocketComponent.skin()).withStyle(ChatFormatting.GRAY));
+        tooltipComponents.add(Component.translatable("tooltip.item.stellaris.rocket.fuel", rocketComponent.fuel()).withStyle(ChatFormatting.GRAY));
+        tooltipComponents.add(Component.translatable("tooltip.item.stellaris.rocket.model", rocketComponent.model()).withStyle(ChatFormatting.GRAY));
     }
 
     public float getRocketPlaceHigh() {

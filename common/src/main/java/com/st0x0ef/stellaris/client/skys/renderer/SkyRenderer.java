@@ -8,6 +8,7 @@ import com.st0x0ef.stellaris.client.skys.helper.StarHelper;
 import com.st0x0ef.stellaris.client.skys.type.RenderableType;
 import com.st0x0ef.stellaris.common.events.Events;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.DimensionSpecialEffects;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.LevelRenderer;
@@ -34,6 +35,7 @@ public class SkyRenderer extends DimensionSpecialEffects {
 
     @Nullable
     private static VertexBuffer starBuffer = null;
+
 
     public static void render(ResourceKey<Level> dimension, float partialTicks, Matrix4f projectionMatrix, PoseStack poseStack, Matrix4f viewMatrix) {
         LevelRenderer renderer = mc.levelRenderer;

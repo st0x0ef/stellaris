@@ -22,8 +22,8 @@ public class PlanetPack extends SimpleJsonResourceReloadListener {
 
     public static final Map<String, PlanetRecord> PLANET = new HashMap<>();
 
-    public PlanetPack(Gson gson) {
-        super(gson, "renderer/planet_screen/planet");
+    public PlanetPack() {
+        super(Stellaris.GSON, "renderer/planet_screen/planet");
     }
 
     @Override
