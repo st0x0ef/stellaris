@@ -16,10 +16,6 @@ import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import java.util.List;
 
 public class ModPlacedFeatures {
-
-    // EARTH
-    public static final ResourceKey<PlacedFeature> EARTH_STEEL_PLACED_KEY = createKey("earth_steel_ore");
-
     // MARS
     public static final ResourceKey<PlacedFeature> MARS_DIAMOND_PLACED_KEY = createKey("mars_diamond_ore");
 
@@ -51,11 +47,6 @@ public class ModPlacedFeatures {
 
     public static void bootstrap(BootstrapContext<PlacedFeature> context) {
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
-
-        // EARTH
-        register(context, EARTH_STEEL_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.EARTH_STEEL_ORE_KEY),
-                OrePlacement.commonOrePlacement(6,
-                        HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-64), VerticalAnchor.aboveBottom(32))));
 
         // MARS
         register(context, MARS_DIAMOND_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.MARS_DIAMOND_ORE_KEY),
