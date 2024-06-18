@@ -23,6 +23,7 @@ public class RocketStationRecipe implements Recipe<RocketStationEntity> {
 
     private final ItemStack output;
     private final List<Ingredient> recipeItems;
+    public static RecipeType<RocketStationRecipe> Type = RecipesRegistry.ROCKET_STATION_TYPE.get();
 
     public RocketStationRecipe(List<Ingredient> recipeItems, ItemStack output) {
         this.recipeItems = recipeItems;
@@ -69,7 +70,7 @@ public class RocketStationRecipe implements Recipe<RocketStationEntity> {
 
     @Override
     public RecipeType<?> getType() {
-        return RecipesRegistry.ROCKET_STATION_TYPE.get();
+        return Type;
     }
 
     public static class Serializer implements RecipeSerializer<RocketStationRecipe> {
