@@ -23,8 +23,8 @@ public class StarPack extends SimpleJsonResourceReloadListener {
 
     public static final Map<String, StarRecord> STAR = new HashMap<>();
 
-    public StarPack(Gson gson) {
-        super(gson, "renderer/planet_screen/star");
+    public StarPack() {
+        super(Stellaris.GSON, "renderer/planet_screen/star");
     }
 
     @Override

@@ -1,12 +1,14 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
-import com.st0x0ef.stellaris.common.items.oxygen.OxygenContainerItem;
+import com.st0x0ef.stellaris.common.items.oxygen.OxygenTankItem;
 import com.st0x0ef.stellaris.common.registry.FluidRegistry;
 import dev.architectury.fluid.FluidStack;
 import dev.architectury.hooks.fluid.FluidBucketHooks;
 import dev.architectury.hooks.fluid.FluidStackHooks;
+import dev.architectury.platform.Platform;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.BucketItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -16,23 +18,38 @@ import net.minecraft.world.level.material.Fluids;
 public class FluidTankHelper {
 
     public static final long BUCKET_AMOUNT = FluidStackHooks.bucketAmount();
+    public static final long OXYGEN_TANK_FILL_AMOUNT = Platform.isFabric() ? 810 : 10;
 
     public static <T extends BlockEntity & Container> void extractFluidToItem(T blockEntity, FluidTank tank, int slot) {
         ItemStack inputStack = blockEntity.getItem(slot);
         if (!inputStack.isEmpty()) {
-            if (!tank.isEmpty() && tank.getAmount() >= BUCKET_AMOUNT) {
-                ItemStack resultStack;
-                if (tank.getStack().getFluid().isSame(FluidRegistry.OXYGEN_STILL.get()) && inputStack.getItem() instanceof OxygenContainerItem) {
-                    resultStack = inputStack.copy(); // TODO modify oxygen amount
-                }
-                else {
-                    resultStack = new ItemStack(tank.getStack().getFluid().getBucket());
-                }
+            if (!tank.isEmpty()) {
+                Item item = inputStack.getItem();
+                boolean isTank = item instanceof OxygenTankItem;
 
-                if (!resultStack.isEmpty()) {
-                    blockEntity.setItem(slot, resultStack);
-                    tank.grow(-BUCKET_AMOUNT);
-                    blockEntity.setChanged();
+                if (tank.getAmount() >= BUCKET_AMOUNT || (isTank && tank.getAmount() >= OXYGEN_TANK_FILL_AMOUNT)) {
+                    ItemStack resultStack;
+
+                    if (isTank && tank.getStack().getFluid().isSame(FluidRegistry.OXYGEN_STILL.get())) {
+                        resultStack = inputStack.copy();
+                        long storedOxygen = OxygenTankItem.getStoredOxygen(resultStack);
+
+                        if (storedOxygen + OXYGEN_TANK_FILL_AMOUNT > ((OxygenTankItem) item).getCapacity()) {
+                            return;
+                        }
+
+                        OxygenTankItem.setStoredOxygen(resultStack, storedOxygen + OXYGEN_TANK_FILL_AMOUNT);
+                        tank.grow(-OXYGEN_TANK_FILL_AMOUNT);
+                    }
+                    else {
+                        resultStack = new ItemStack(tank.getStack().getFluid().getBucket());
+                        tank.grow(-BUCKET_AMOUNT);
+                    }
+
+                    if (!resultStack.isEmpty()) {
+                        blockEntity.setItem(slot, resultStack);
+                        blockEntity.setChanged();
+                    }
                 }
             }
         }
@@ -95,7 +112,9 @@ public class FluidTankHelper {
                         else if (outputStack.is(Items.BUCKET) && hasSpace) {
                             outputStack.grow(1);
                         }
-                        else return false;
+                        else {
+                            return false;
+                        }
 
                         blockEntity.setItem(inputSlot, ItemStack.EMPTY);
                         addToTank(tank, FluidStack.create(fluid, BUCKET_AMOUNT));

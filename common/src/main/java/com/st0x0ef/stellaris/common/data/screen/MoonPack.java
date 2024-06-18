@@ -22,8 +22,8 @@ public class MoonPack extends SimpleJsonResourceReloadListener {
 
     public static final Map<String, MoonRecord> MOON = new HashMap<>();
 
-    public MoonPack(Gson gson) {
-        super(gson, "renderer/planet_screen/moon");
+    public MoonPack() {
+        super(Stellaris.GSON, "renderer/planet_screen/moon");
     }
 
     @Override
