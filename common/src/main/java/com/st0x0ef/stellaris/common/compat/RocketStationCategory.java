@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.common.compat;
 
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.client.screens.RocketStationScreen;
 import com.st0x0ef.stellaris.common.registry.BlocksRegistry;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
@@ -41,11 +40,12 @@ public class RocketStationCategory implements DisplayCategory<BasicDisplay> {
 
     @Override
     public List<Widget> setupDisplay(BasicDisplay display, Rectangle bounds) {
-        final Point startPoint = new Point(bounds.getX() /**- 87*/, bounds.getY() /**- 69*/);
+        final Point startPoint = new Point(bounds.getX(), bounds.getY());
         List<Widget> widgets = new LinkedList<>();
         //widgets.add(Widgets.createRecipeBase(bounds));
 
-        widgets.add(Widgets.createTexturedWidget(TEXTURE, new Rectangle(startPoint.x,startPoint.y,177,132)));
+        //THIS LINE
+        widgets.add(Widgets.createTexturedWidget(TEXTURE, bounds));
 
         inputSlotAdder(widgets,0, 56, 20 , startPoint, display);
         inputSlotAdder(widgets,1, 47, 38 , startPoint, display);
@@ -77,7 +77,6 @@ public class RocketStationCategory implements DisplayCategory<BasicDisplay> {
     public int getDisplayWidth(BasicDisplay display) {
         return 177;
     }
-
 
     private static void inputSlotAdder(List<Widget> widgets, int slotIndex, int x, int y, Point startPoint, BasicDisplay display) {
         widgets.add(Widgets.createSlot(new Point(startPoint.x + x,startPoint.y + y)).entries(display.getInputEntries().get(slotIndex)).markInput().disableBackground());
