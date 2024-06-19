@@ -28,8 +28,6 @@ public class StellarisNeoForge {
 
         if (FMLEnvironment.dist.isClient()) {
             bus.addListener(StellarisNeoforgeClient::clientSetup);
-        } else {
-            NetworkRegistry.registerC2S();
         }
     }
 
