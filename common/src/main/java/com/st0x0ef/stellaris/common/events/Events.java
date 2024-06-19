@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.common.events;
 import com.st0x0ef.stellaris.client.skys.renderer.SkyRenderer;
 import com.st0x0ef.stellaris.client.skys.type.RenderableType;
 import com.st0x0ef.stellaris.common.config.CustomConfig;
+import com.st0x0ef.stellaris.common.items.RadiationItem;
 import com.st0x0ef.stellaris.common.items.RadioactiveBlockItem;
 import com.st0x0ef.stellaris.common.items.RadioactiveItem;
 import com.st0x0ef.stellaris.common.registry.EffectsRegistry;
@@ -19,10 +20,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.Objects;
 
 public class Events {
-
-    // Check every 10 seconds
-    private static final Long RADIOACTIVE_CHECK = 1000 * (Long) CustomConfig.getValue("radioactivityCheckInterval");
-    private static long lastRadioactiveCheck;
+    private static int tickSinceLastRadioactiveCheck;
     public static boolean isCustomClouds;
 
     public static void registerEvents() {
@@ -39,18 +37,16 @@ public class Events {
        });
 
        TickEvent.PLAYER_POST.register(player -> {
-           long now = System.currentTimeMillis();
-
-           if((now - lastRadioactiveCheck) > RADIOACTIVE_CHECK) {
+           if(tickSinceLastRadioactiveCheck == 100) {
                player.getInventory().items.forEach(itemStack -> {
-                   if(itemStack.getItem() instanceof RadioactiveItem radioactiveItem) {
+                   if(itemStack.getItem() instanceof RadiationItem radioactiveItem) {
                        player.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE, 100, radioactiveItem.getRadiationLevel()));
-                   } else if (itemStack.getItem() instanceof RadioactiveBlockItem radioactiveBlockItem){
-                       player.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE, 100, radioactiveBlockItem.getRadiationLevel()));
                    }
                });
-               lastRadioactiveCheck = now;
+               tickSinceLastRadioactiveCheck = 0;
            }
+
+           tickSinceLastRadioactiveCheck++;
 
            RenderableType renderableType = SkyRenderer.getRenderableType(player.level().dimension());
 

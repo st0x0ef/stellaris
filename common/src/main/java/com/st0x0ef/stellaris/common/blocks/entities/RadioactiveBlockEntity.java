@@ -27,22 +27,14 @@ public class RadioactiveBlockEntity extends BlockEntity {
     int tickCount=0;
     public void tick() {
         AABB area = new AABB(this.getBlockPos()).inflate(5);
-        if (tickCount==0||tickCount==99) {
+        if (tickCount == 100) {
             List<LivingEntity> entities = this.level.getEntitiesOfClass(LivingEntity.class, area);
             for (LivingEntity entity : entities) {
                 if (/**!Methods.isLivingInJetSuit(entity) ||*/!entity.getType().is(TagRegistry.ENTITY_RADIATION_INVULNERABLE_TAG)) {
-                    if (radioactivityLevel == 1) {
-                        entity.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE, 100, 0));
-                    } else if (radioactivityLevel == 2) {
-                        entity.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE, 100, 1));
-                    } else if (radioactivityLevel == 3) {
-                        entity.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE, 100, 2));
-                    } else {
-                        Stellaris.LOG.info(String.valueOf(radioactivityLevel));
-                    }
+                    entity.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE, 100, radioactivityLevel - 1));
                 }
             }
-            tickCount=1;
+            tickCount = 0;
         }
         tickCount++;
     }

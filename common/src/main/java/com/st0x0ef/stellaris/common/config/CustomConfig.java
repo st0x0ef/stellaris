@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.common.config;
 import com.google.gson.JsonObject;
 import com.st0x0ef.stellaris.Stellaris;
 import dev.architectury.platform.Platform;
+import dev.architectury.utils.Env;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -23,8 +24,6 @@ public class CustomConfig {
 
 
     public static void addEntries() {
-
-        addEntry("radioactivityCheckInterval", new ConfigEntry<>(5L, "This is a ranged Int"));
         addEntry("planetScreenGravityColor", new ConfigEntry<>("White", "Yeah"));
         //do we need this?
         //addEntry("test", new ConfigEntry<Integer>(5, "This is a ranged Int"));
@@ -51,8 +50,8 @@ public class CustomConfig {
     }
 
     public static void loadConfigFile() {
-
-        String path = Platform.getConfigFolder() + "/stellaris.json";
+        String path = null;
+        if(Platform.getEnvironment() == Env.SERVER) path = Platform.getConfigFolder() + "/stellaris.json";
 
         String jsonString;
 

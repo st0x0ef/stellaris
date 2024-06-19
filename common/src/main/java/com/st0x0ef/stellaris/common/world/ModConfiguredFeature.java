@@ -20,9 +20,6 @@ import java.util.List;
 import java.util.function.Supplier;
 
 public class ModConfiguredFeature {
-    // EARTH
-    public static final ResourceKey<ConfiguredFeature<?, ?>> EARTH_STEEL_ORE_KEY = registerKey("earth_steel_ore_key");
-
     // MARS
     public static final ResourceKey<ConfiguredFeature<?, ?>> MARS_DIAMOND_ORE_KEY = registerKey("mars_diamond_ore_key");
 
@@ -51,12 +48,6 @@ public class ModConfiguredFeature {
     public static final ResourceKey<ConfiguredFeature<?, ?>> VENUS_DIAMOND_ORE_KEY = registerKey("venus_diamond_ore_key");
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> VENUS_GOLD_ORE_KEY = registerKey("venus_gold_ore_key");
-
-
-    // EARTH
-    public static final Supplier<List<OreConfiguration.TargetBlockState>> EARTH_STEEL_ORE_REPLEACEABLES = Suppliers.memoize(() -> List.of(
-            OreConfiguration.target(new BlockMatchTest(Blocks.STONE), BlocksRegistry.STEEL_ORE.get().defaultBlockState()),
-            OreConfiguration.target(new BlockMatchTest(Blocks.DEEPSLATE), BlocksRegistry.DEEPSLATE_STEEL_ORE.get().defaultBlockState())));
 
 
     // MARS
@@ -112,9 +103,6 @@ public class ModConfiguredFeature {
 
     public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
         HolderGetter<PlacedFeature> placedFeatures = context.lookup(Registries.PLACED_FEATURE);
-
-        // EARTH
-        register(context, EARTH_STEEL_ORE_KEY, Feature.ORE, new OreConfiguration(EARTH_STEEL_ORE_REPLEACEABLES.get(), 8));
 
         // MARS
 //        register(context, MARS_DIAMOND_ORE_KEY, Feature.ORE, new OreConfiguration(MARS_DIAMOND_ORE_REPLACEABLES.get(), 7));
