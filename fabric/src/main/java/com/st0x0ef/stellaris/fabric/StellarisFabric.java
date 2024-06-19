@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.fabric;
 
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import com.st0x0ef.stellaris.fabric.systems.SystemsFabric;
 import net.fabricmc.api.ModInitializer;
@@ -24,6 +25,7 @@ public class StellarisFabric implements ModInitializer {
         onAddReloadListener();
         ServerLifecycleEvents.SYNC_DATA_PACK_CONTENTS.register((player, joined) -> Stellaris.onDatapackSyncEvent(player));
 
+        ServerLifecycleEvents.SERVER_STARTING.register((server) -> NetworkRegistry.registerC2S());
 
         EntityRegistry.registerAttributes((type, builder) -> FabricDefaultAttributeRegistry.register(type.get(), builder.get()));
         SystemsFabric.init();

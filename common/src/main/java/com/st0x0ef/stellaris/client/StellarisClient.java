@@ -37,6 +37,7 @@ import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.tiny.TinyR
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeBlockRenderer;
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeModel;
 import com.st0x0ef.stellaris.client.screens.*;
+import com.st0x0ef.stellaris.common.data.planets.StellarisData;
 import com.st0x0ef.stellaris.common.data.renderer.SkyPack;
 import com.st0x0ef.stellaris.common.data.screen.MoonPack;
 import com.st0x0ef.stellaris.common.data.screen.PlanetPack;
@@ -46,7 +47,6 @@ import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import com.st0x0ef.stellaris.common.registry.*;
 import com.st0x0ef.stellaris.platform.ClientUtilsPlatform;
 import dev.architectury.event.events.client.ClientGuiEvent;
-import dev.architectury.platform.Platform;
 import dev.architectury.registry.ReloadListenerRegistry;
 import dev.architectury.registry.client.level.entity.EntityModelLayerRegistry;
 import dev.architectury.registry.client.level.entity.EntityRendererRegistry;
@@ -66,9 +66,8 @@ import org.lwjgl.opengl.GLDebugMessageCallback;
 public class StellarisClient {
     @Environment(EnvType.CLIENT)
     public static void initClient() {
-
-
-        //registerPacks();
+        NetworkRegistry.registerS2C();
+        registerPacks();
 
         Minecraft.getInstance().execute(() -> {
             setupOpenGLDebugMessageCallback();
@@ -81,8 +80,6 @@ public class StellarisClient {
         registerScreen();
         registerOverlays();
         registerJetSuitModel();
-        StellarisClient.registerPacks();
-        //NetworkRegistry.registerS2C();
     }
 
     private static void registerJetSuitModel() {
@@ -181,6 +178,8 @@ public class StellarisClient {
     }
 
     public static void registerPacks() {
+        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new StellarisData());
+
         ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new StarPack());
         ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new PlanetPack());
         ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new MoonPack());

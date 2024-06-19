@@ -96,13 +96,14 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         this.rocketExplosion();
         this.burnEntities();
         this.checkContainer();
+
         if (ROCKET_START) {
             this.spawnParticle();
             this.startTimerAndFlyMovement();
+        }
 
-            if (this.getY() > 600) {
-                this.openPlanetMenu(this.getFirstPlayerPassenger());
-            }
+        if (this.getY() > 600) {
+            this.openPlanetMenu(this.getFirstPlayerPassenger());
         }
     }
 
