@@ -34,7 +34,7 @@ public class Stellaris {
 
     public static void init() {
         CustomConfig.init();
-        NetworkRegistry.registerC2S();
+        //NetworkRegistry.registerC2S();
 
         EntityData.register();
 

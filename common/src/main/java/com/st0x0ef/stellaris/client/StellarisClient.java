@@ -82,7 +82,7 @@ public class StellarisClient {
         registerOverlays();
         registerJetSuitModel();
         StellarisClient.registerPacks();
-        NetworkRegistry.registerS2C();
+        //NetworkRegistry.registerS2C();
     }
 
     private static void registerJetSuitModel() {

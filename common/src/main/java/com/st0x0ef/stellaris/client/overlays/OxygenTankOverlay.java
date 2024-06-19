@@ -51,8 +51,6 @@ public class OxygenTankOverlay {
                 graphics.drawString(font, text, (x + (textureWidth - font.width(text)) / 2), y + textureHeight + 3, 0xFFFFFF);
             }
 
-            /** OXYGEN TANK IMAGE */
-
         }
 
     }
