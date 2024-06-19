@@ -34,16 +34,14 @@ public class Stellaris {
 
     public static void init() {
         CustomConfig.init();
+        NetworkRegistry.registerC2S();
 
-        NetworkRegistry.register();
         EntityData.register();
 
-        DataComponentsRegistry.DATA_COMPONENT_TYPE.register();
-        RecipesRegistry.register();
-        StellarisClient.registerPacks();
         SoundRegistry.SOUNDS.register();
-        FluidRegistry.FLUIDS.register();
         EffectsRegistry.MOB_EFFECTS.register();
+        DataComponentsRegistry.DATA_COMPONENT_TYPE.register();
+        FluidRegistry.FLUIDS.register();
         ParticleRegistry.PARTICLES.register();
         BlocksRegistry.BLOCKS.register();
         EntityRegistry.ENTITY_TYPE.register();
@@ -58,6 +56,7 @@ public class Stellaris {
         BiomeModificationsRegistry.register();
         Events.registerEvents();
         LookupApiRegistry.register();
+        RecipesRegistry.register();
     }
 
     public static void onDatapackSyncEvent(ServerPlayer player) {
