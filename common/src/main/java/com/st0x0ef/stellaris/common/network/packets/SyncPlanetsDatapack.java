@@ -7,29 +7,30 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
+import org.apache.commons.lang3.SerializationUtils;
+
+import java.io.Serializable;
+import java.util.Map;
 
 public class SyncPlanetsDatapack {
-
-    private final ResourceKey<Level> resourceKey;
-    private final Planet planet;
+    private final Map<ResourceKey<Level>, Planet> planetData;
 
     public SyncPlanetsDatapack(RegistryFriendlyByteBuf buffer) {
-        this(buffer.readResourceKey(Registries.DIMENSION), Planet.fromNetwork(buffer));
+        this.planetData = SerializationUtils.deserialize(buffer.readByteArray());
     }
-    public SyncPlanetsDatapack(ResourceKey<Level> resourceKey, Planet planet) {
-        this.planet = planet;
-        this.resourceKey = resourceKey;
+
+    public SyncPlanetsDatapack(Map<ResourceKey<Level>, Planet> planetData) {
+        this.planetData = planetData;
     }
 
     public static RegistryFriendlyByteBuf encode(SyncPlanetsDatapack message, RegistryFriendlyByteBuf buffer) {
-        buffer.writeResourceKey(message.resourceKey);
-        return message.planet.toNetwork(buffer);
+        return (RegistryFriendlyByteBuf) buffer.writeByteArray(SerializationUtils.serialize((Serializable) message.planetData));
     }
 
     public static void apply(RegistryFriendlyByteBuf buffer, NetworkManager.PacketContext context) {
         SyncPlanetsDatapack syncPlanetsDatapack = new SyncPlanetsDatapack(buffer);
         context.queue(() -> {
-            StellarisData.addPlanet(syncPlanetsDatapack.resourceKey, syncPlanetsDatapack.planet);
+            syncPlanetsDatapack.planetData.forEach(StellarisData::addPlanet);
         });
     }
 

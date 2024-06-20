@@ -32,23 +32,6 @@ public record Planet (
             PlanetTextures.CODEC.fieldOf("textures").forGetter(Planet::textures)
     ).apply(instance, Planet::new));
 
-    public static Planet fromNetwork(RegistryFriendlyByteBuf buffer) {
-        return new Planet(buffer.readUtf(), buffer.readUtf(), buffer.readUtf(), buffer.readResourceKey(Registries.DIMENSION), buffer.readBoolean(), buffer.readFloat(), buffer.readInt(), buffer.readFloat(), PlanetTextures.fromNetwork(buffer));
-    }
-
-    public RegistryFriendlyByteBuf toNetwork(RegistryFriendlyByteBuf buffer) {
-        buffer.writeUtf(this.system);
-        buffer.writeUtf(this.translatable);
-        buffer.writeUtf(this.name);
-        buffer.writeResourceKey(this.dimension);
-        buffer.writeBoolean(this.oxygen);
-        buffer.writeFloat(this.temperature);
-        buffer.writeInt(this.distanceFromEarth);
-        buffer.writeFloat(this.gravity);
-        this.textures.toNetwork(buffer);
-        return buffer;
-    }
-
     public Component getTranslation() {
         return Component.translatable(this.translatable);
     }
