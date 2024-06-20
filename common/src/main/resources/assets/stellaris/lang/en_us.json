@@ -311,12 +311,12 @@
 
   "container.entity.stellaris.lander": "Lander",
   "container.entity.stellaris.rocket": "Rocket",
-  "advancements.stellaris.moon.root.title" : "That's small step for man...",
-  "advancements.moon.root.description" : "land on the moon",
+  "advancements.moon.root.title" : "That's small step for man, one giant leap for mankind ",
+  "advancements.moon.root.description" : "Land on the moon",
   "advancements.mars.root.title" : "Red wasteland",
-  "advancements.mars.root.description" : "land on the mars",
+  "advancements.mars.root.description" : "Land on the mars",
   "death.attack.radiation": "%1$s received a lethal dose of radiation",
-
+  "death.attack.oxygen" : "%1$s died from lack of oxygen",
   "event.stellaris.cheeseboss": "Cheese Boss",
 
   "entity.stellaris.cheese_boss": "Cheese Boss",
