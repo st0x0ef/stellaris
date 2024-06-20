@@ -2,8 +2,6 @@ package com.st0x0ef.stellaris.common.data.planets;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
@@ -24,7 +22,7 @@ public record Planet (
             Codec.STRING.fieldOf("system").forGetter(Planet::system),
             Codec.STRING.fieldOf("translatable").forGetter(Planet::translatable),
             Codec.STRING.fieldOf("name").forGetter(Planet::name),
-            ResourceKey.codec(Registries.DIMENSION).fieldOf("level").forGetter(Planet::dimension),
+            Level.RESOURCE_KEY_CODEC.fieldOf("level").forGetter(Planet::dimension),
             Codec.BOOL.fieldOf("oxygen").forGetter(Planet::oxygen),
             Codec.FLOAT.fieldOf("temperature").forGetter(Planet::temperature),
             Codec.INT.fieldOf("distanceFromEarth").forGetter(Planet::distanceFromEarth), // in megameters

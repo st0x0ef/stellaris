@@ -4,7 +4,6 @@ import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import com.st0x0ef.stellaris.fabric.systems.SystemsFabric;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
@@ -22,14 +21,11 @@ public class StellarisFabric implements ModInitializer {
     public void onInitialize() {
         Stellaris.init();
         onAddReloadListener();
-
-        ServerLifecycleEvents.SYNC_DATA_PACK_CONTENTS.register(Stellaris::onDatapackSyncEvent);
-
         EntityRegistry.registerAttributes((type, builder) -> FabricDefaultAttributeRegistry.register(type.get(), builder.get()));
         SystemsFabric.init();
     }
 
-    public static void onAddReloadListener() {
+    public void onAddReloadListener() {
         Stellaris.onAddReloadListenerEvent((id, listener) -> ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(new IdentifiableResourceReloadListener() {
             @Override
             public ResourceLocation getFabricId() {
