@@ -14,6 +14,8 @@ import com.st0x0ef.stellaris.common.events.Events;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import com.st0x0ef.stellaris.common.network.packets.SyncPlanetsDatapack;
 import com.st0x0ef.stellaris.common.registry.*;
+import dev.architectury.platform.Platform;
+import dev.architectury.utils.Env;
 import io.netty.buffer.Unpooled;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -37,7 +39,9 @@ public class Stellaris {
         NetworkRegistry.registerC2S();
         NetworkRegistry.registerS2C();
         EntityData.register();
-        StellarisClient.registerPacks();
+        if(!Platform.getEnvironment().equals(Env.SERVER)) {
+            StellarisClient.registerPacks();
+        }
 
         SoundRegistry.SOUNDS.register();
         EffectsRegistry.MOB_EFFECTS.register();
