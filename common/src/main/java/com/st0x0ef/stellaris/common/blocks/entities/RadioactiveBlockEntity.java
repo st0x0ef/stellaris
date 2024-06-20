@@ -1,9 +1,9 @@
 package com.st0x0ef.stellaris.common.blocks.entities;
 
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.registry.EffectsRegistry;
 import com.st0x0ef.stellaris.common.registry.TagRegistry;
+import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
@@ -30,7 +30,7 @@ public class RadioactiveBlockEntity extends BlockEntity {
         if (tickCount == 100) {
             List<LivingEntity> entities = this.level.getEntitiesOfClass(LivingEntity.class, area);
             for (LivingEntity entity : entities) {
-                if (/**!Methods.isLivingInJetSuit(entity) ||*/!entity.getType().is(TagRegistry.ENTITY_RADIATION_INVULNERABLE_TAG)) {
+                if (Utils.isLivingInJetSuit(entity) || !entity.getType().is(TagRegistry.ENTITY_RADIATION_INVULNERABLE_TAG)) {
                     entity.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE, 100, radioactivityLevel - 1));
                 }
             }

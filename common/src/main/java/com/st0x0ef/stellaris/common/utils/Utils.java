@@ -220,8 +220,8 @@ public class Utils {
      * @return Minecraft Gravity Unit (blocks/t²)
      */
     public static double MPS2ToMCG(float MPS2) {
-        if (MPS2>0) return Math.floor(0.0081577297038234259406d * MPS2* 10000000) / 10000000;
-        else if (MPS2<0) return Math.ceil(0.0081577297038234259406d * MPS2* 10000000) / 10000000;
+        if (MPS2>0) return Math.floor(0.00816d * MPS2 * 100000) / 100000;
+        else if (MPS2<0) return Math.ceil(0.00816d * MPS2 * 100000) / 100000;
         else return 0;
     }
 
