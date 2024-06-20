@@ -60,10 +60,8 @@ public class Stellaris {
 
     public static void onDatapackSyncEvent(ServerPlayer player, boolean joined) {
         if (!joined) {
-            StellarisData.PLANETS.forEach(((resourceKey, planet) -> {
-                RegistryFriendlyByteBuf buffer = new RegistryFriendlyByteBuf(Unpooled.buffer(), player.getServer().registryAccess());
-                NetworkRegistry.sendToPlayer(player, NetworkRegistry.SYNC_PLANET_DATAPACK_ID, SyncPlanetsDatapack.encode(new SyncPlanetsDatapack(resourceKey, planet), buffer));
-            }));
+            RegistryFriendlyByteBuf buffer = new RegistryFriendlyByteBuf(Unpooled.buffer(), player.registryAccess());
+            NetworkRegistry.sendToPlayer(player, NetworkRegistry.SYNC_PLANET_DATAPACK_ID, SyncPlanetsDatapack.encode(new SyncPlanetsDatapack(StellarisData.PLANETS), buffer));
         }
     }
 
