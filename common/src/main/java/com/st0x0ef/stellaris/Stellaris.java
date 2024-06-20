@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.ToNumberPolicy;
+import com.st0x0ef.stellaris.client.StellarisClient;
 import com.st0x0ef.stellaris.common.config.CustomConfig;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
 import com.st0x0ef.stellaris.common.data.renderer.SkyPack;
@@ -36,6 +37,7 @@ public class Stellaris {
         NetworkRegistry.registerC2S();
         NetworkRegistry.registerS2C();
         EntityData.register();
+        StellarisClient.registerPacks();
 
         SoundRegistry.SOUNDS.register();
         EffectsRegistry.MOB_EFFECTS.register();

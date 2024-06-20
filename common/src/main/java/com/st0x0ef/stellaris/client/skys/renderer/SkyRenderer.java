@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.client.skys.renderer;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Axis;
+import com.st0x0ef.stellaris.client.events.ClientEvents;
 import com.st0x0ef.stellaris.client.skys.helper.SkyHelper;
 import com.st0x0ef.stellaris.client.skys.helper.StarHelper;
 import com.st0x0ef.stellaris.client.skys.type.RenderableType;
@@ -53,7 +54,7 @@ public class SkyRenderer extends DimensionSpecialEffects {
 
         renderSky(buffer, tesselator, partialTicks, projectionMatrix, renderer, poseStack, viewMatrix);
 
-        if (Events.isCustomClouds && clouds_texture != null && poseStack != null) {
+        if (ClientEvents.isCustomClouds && clouds_texture != null && poseStack != null) {
             SkyHelper.renderCustomClouds(poseStack, projectionMatrix, viewMatrix, partialTicks, mc.player.getX(), mc.player.getY(), mc.player.getZ(), clouds_texture);
         }}
 
