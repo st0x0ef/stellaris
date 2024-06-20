@@ -8,7 +8,6 @@
 
   ],
   "client": [
-    "MainMenuMixin"
   ],
   "injectors": {
     "defaultRequire": 1
