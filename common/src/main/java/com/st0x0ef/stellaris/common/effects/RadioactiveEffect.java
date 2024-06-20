@@ -38,8 +38,7 @@ public class RadioactiveEffect extends MobEffect {
 
     @Override
     public boolean shouldApplyEffectTickThisTick(int i, int j) {
-        int k = 25 >> j;
-        return k == 0 || i % k == 0;
+        return true;
     }
 
     @Override
