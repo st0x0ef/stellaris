@@ -14,6 +14,7 @@ import org.jetbrains.annotations.NotNull;
 public class RadioactiveEffect extends MobEffect {
 
     private final SoundEvent soundOnAdded = SoundRegistry.RADIOACTIVE.get();
+
     public RadioactiveEffect(MobEffectCategory mobEffectCategory, int color) {
         super(mobEffectCategory, color);
     }

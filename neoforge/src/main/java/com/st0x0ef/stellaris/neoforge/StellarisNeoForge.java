@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.neoforge;
 
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import com.st0x0ef.stellaris.neoforge.client.StellarisNeoforgeClient;
 import com.st0x0ef.stellaris.neoforge.client.renderer.MarsFog;

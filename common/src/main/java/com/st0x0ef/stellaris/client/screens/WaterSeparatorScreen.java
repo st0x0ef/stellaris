@@ -82,4 +82,14 @@ public class WaterSeparatorScreen extends AbstractContainerScreen<WaterSeparator
         RenderSystem.setShaderTexture(0, TEXTURE);
         guiGraphics.blit(TEXTURE, leftPos, topPos, 0, 0, imageWidth, imageHeight, imageWidth, imageHeight);
     }
+
+    @Override
+    protected void renderTooltip(GuiGraphics guiGraphics, int x, int y) {
+        super.renderTooltip(guiGraphics, x, y);
+        ingredientTankGauge.renderTooltip(guiGraphics, x, y, this.font);
+        resultTank1Gauge.renderTooltip(guiGraphics, x, y, this.font);
+        resultTank2Gauge.renderTooltip(guiGraphics, x, y, this.font);
+        energyGauge.renderTooltip(guiGraphics, x, y, this.font);
+
+    }
 }

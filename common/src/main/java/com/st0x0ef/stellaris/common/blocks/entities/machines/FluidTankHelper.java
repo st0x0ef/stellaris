@@ -17,7 +17,7 @@ import net.minecraft.world.level.material.Fluids;
 
 public class FluidTankHelper {
 
-    public static final long BUCKET_AMOUNT = FluidStackHooks.bucketAmount();
+    public static final long BUCKET_AMOUNT = 1000;
     public static final long OXYGEN_TANK_FILL_AMOUNT = Platform.isFabric() ? 810 : 10;
 
     public static <T extends BlockEntity & Container> void extractFluidToItem(T blockEntity, FluidTank tank, int slot) {
