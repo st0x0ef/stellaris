@@ -69,6 +69,8 @@ public class StellarisClient {
     public static void initClient() {
         NetworkRegistry.registerS2C();
 
+        registerPacks();
+
         Minecraft.getInstance().execute(() -> {
             setupOpenGLDebugMessageCallback();
             Thread.setDefaultUncaughtExceptionHandler(new GlobalExceptionHandler());
@@ -176,5 +178,14 @@ public class StellarisClient {
             GL43.glEnable(GL43.GL_DEBUG_OUTPUT);
             GL43.glEnable(GL43.GL_DEBUG_OUTPUT_SYNCHRONOUS);
         }
+    }
+
+    public static void registerPacks() {
+        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new StellarisData());
+
+        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new StarPack());
+        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new PlanetPack());
+        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new MoonPack());
+        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new SkyPack());
     }
 }

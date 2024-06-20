@@ -11,8 +11,12 @@ import com.st0x0ef.stellaris.common.data.screen.PlanetPack;
 import com.st0x0ef.stellaris.common.data.screen.StarPack;
 import com.st0x0ef.stellaris.common.events.Events;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
+import com.st0x0ef.stellaris.common.network.packets.SyncPlanetsDatapack;
 import com.st0x0ef.stellaris.common.registry.*;
+import io.netty.buffer.Unpooled;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,11 +58,20 @@ public class Stellaris {
         RecipesRegistry.register();
     }
 
+    public static void onDatapackSyncEvent(ServerPlayer player, boolean joined) {
+        if (!joined) {
+            RegistryFriendlyByteBuf buffer = new RegistryFriendlyByteBuf(Unpooled.buffer(), player.registryAccess());
+            NetworkRegistry.sendToPlayer(player, NetworkRegistry.SYNC_PLANET_DATAPACK_ID, SyncPlanetsDatapack.encode(new SyncPlanetsDatapack(StellarisData.PLANETS), buffer));
+        }
+    }
+
     public static void onAddReloadListenerEvent(BiConsumer<ResourceLocation, PreparableReloadListener> registry) {
         registry.accept(new ResourceLocation(Stellaris.MODID, "planets"), new StellarisData());
+
         registry.accept(new ResourceLocation(Stellaris.MODID, "stars_pack"), new StarPack());
         registry.accept(new ResourceLocation(Stellaris.MODID, "planets_pack"), new PlanetPack());
         registry.accept(new ResourceLocation(Stellaris.MODID, "moon_packs"), new MoonPack());
         registry.accept(new ResourceLocation(Stellaris.MODID, "sky_packs"), new SkyPack());
+
     }
 }
