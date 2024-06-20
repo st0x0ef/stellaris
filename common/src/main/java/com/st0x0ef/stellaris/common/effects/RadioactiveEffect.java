@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.common.effects;
 
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.registry.DamageSourceRegistry;
 import com.st0x0ef.stellaris.common.registry.SoundRegistry;
 import net.minecraft.sounds.SoundEvent;

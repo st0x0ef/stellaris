@@ -4,7 +4,6 @@ import com.st0x0ef.stellaris.common.items.oxygen.OxygenTankItem;
 import com.st0x0ef.stellaris.common.registry.FluidRegistry;
 import dev.architectury.fluid.FluidStack;
 import dev.architectury.hooks.fluid.FluidBucketHooks;
-import dev.architectury.hooks.fluid.FluidStackHooks;
 import dev.architectury.platform.Platform;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.BucketItem;

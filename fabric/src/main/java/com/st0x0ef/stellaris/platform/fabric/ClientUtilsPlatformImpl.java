@@ -9,9 +9,6 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class ClientUtilsPlatformImpl {
 
     public static void registerArmor(ResourceLocation texture, ModelLayerLocation layer, ClientUtilsPlatform.ArmorFactory factory, Item... items) {
