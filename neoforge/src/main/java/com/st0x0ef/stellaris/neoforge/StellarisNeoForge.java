@@ -32,9 +32,9 @@ public class StellarisNeoForge {
 
     public static void onDatapackSync(OnDatapackSyncEvent event) {
         if (event.getPlayer() != null) {
-            Stellaris.onDatapackSyncEvent(event.getPlayer());
+            Stellaris.onDatapackSyncEvent(event.getPlayer(), true);
         } else {
-            event.getPlayerList().getPlayers().forEach((Stellaris::onDatapackSyncEvent));
+            event.getPlayerList().getPlayers().forEach((player) -> Stellaris.onDatapackSyncEvent(player, true));
         }
     }
 
