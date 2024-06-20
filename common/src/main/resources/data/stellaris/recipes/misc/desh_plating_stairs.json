@@ -6,10 +6,10 @@
     "###"
   ],
   "key": {
-    "#": {"item": "stellaris:steel_planting_block"}
+    "#": {"item": "stellaris:desh_plating_block"}
   },
   "result": {
-    "id": "stellaris:steel_planting_stairs",
+    "id": "stellaris:desh_plating_stairs",
     "count": 4
   }
 }

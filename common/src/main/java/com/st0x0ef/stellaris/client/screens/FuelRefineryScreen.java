@@ -39,11 +39,11 @@ public class FuelRefineryScreen extends AbstractContainerScreen<FuelRefineryMenu
         }
 
         FluidTank ingredientTank = blockEntity.getIngredientTank();
-        ingredientTankGauge = new Gauge(leftPos + 43, topPos + 22, 12, 46, null, GUISprites.OIL_OVERLAY, GUISprites.LIQUID_TANK_OVERLAY, ingredientTank.getAmount(), ingredientTank.getMaxCapacity());
+        ingredientTankGauge = new Gauge(leftPos + 43, topPos + 22, 12, 46, Component.translatable("stellaris.screen.oil"), GUISprites.OIL_OVERLAY, GUISprites.LIQUID_TANK_OVERLAY, ingredientTank.getAmount(), ingredientTank.getMaxCapacity());
         addRenderableWidget(ingredientTankGauge);
 
         FluidTank resultTank = blockEntity.getResultTank();
-        resultTankGauge = new Gauge(leftPos + 100, topPos + 22, 12, 46, null, GUISprites.FUEL_OVERLAY, GUISprites.LIQUID_TANK_OVERLAY, resultTank.getAmount(), resultTank.getMaxCapacity());
+        resultTankGauge = new Gauge(leftPos + 100, topPos + 22, 12, 46, Component.translatable("stellaris.screen.fuel"), GUISprites.FUEL_OVERLAY, GUISprites.LIQUID_TANK_OVERLAY, resultTank.getAmount(), resultTank.getMaxCapacity());
         addRenderableWidget(resultTankGauge);
 
         EnergyContainer energyContainer = blockEntity.getWrappedEnergyContainer().container();
@@ -64,6 +64,10 @@ public class FuelRefineryScreen extends AbstractContainerScreen<FuelRefineryMenu
         ingredientTankGauge.update(blockEntity.getIngredientTank().getAmount());
         resultTankGauge.update(blockEntity.getResultTank().getAmount());
         energyGauge.update(blockEntity.getWrappedEnergyContainer().getStoredEnergy());
+
+        ingredientTankGauge.renderTooltip(guiGraphics, mouseX, mouseY, font);
+        resultTankGauge.renderTooltip(guiGraphics, mouseX, mouseY, font);
+        energyGauge.renderTooltip(guiGraphics, mouseX, mouseY, font);
 
 //        ingredientTankGauge.renderTooltip(guiGraphics, mouseX, mouseY, font);
 //        resultTankGauge.renderTooltip(guiGraphics, mouseX, mouseY, font);

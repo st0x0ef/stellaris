@@ -3,12 +3,13 @@
   "pattern": [
     "   ",
     "   ",
-    "#  "
+    "###"
   ],
   "key": {
-    "#": {"item": "stellaris:vertical_slab"}
+    "#": {"item": "stellaris:steel_plating_block"}
   },
   "result": {
-    "id": "stellaris:desh_plating_slab"
+    "id": "stellaris:steel_plating_slab",
+    "count": 6
   }
 }
