@@ -1,14 +1,9 @@
 package com.st0x0ef.stellaris.client.events;
 
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.skys.renderer.SkyRenderer;
 import com.st0x0ef.stellaris.client.skys.type.RenderableType;
-import com.st0x0ef.stellaris.common.items.RadiationItem;
-import com.st0x0ef.stellaris.common.registry.EffectsRegistry;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
-import com.st0x0ef.stellaris.common.utils.Utils;
 import dev.architectury.event.events.client.ClientTickEvent;
-import dev.architectury.event.events.common.TickEvent;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;

@@ -37,11 +37,8 @@ public class Stellaris {
     public static void init() {
         CustomConfig.init();
         NetworkRegistry.registerC2S();
-        NetworkRegistry.registerS2C();
+
         EntityData.register();
-        if(!Platform.getEnvironment().equals(Env.SERVER)) {
-            StellarisClient.registerPacks();
-        }
 
         SoundRegistry.SOUNDS.register();
         EffectsRegistry.MOB_EFFECTS.register();
