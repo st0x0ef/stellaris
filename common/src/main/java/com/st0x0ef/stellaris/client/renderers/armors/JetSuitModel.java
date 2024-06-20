@@ -137,10 +137,7 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
 				this.rightLeg.visible = true;
 				this.leftLeg.visible = true;
 			}
-			case FEET -> {
-				this.right_boot.visible = true;
-				this.left_boot.visible = true;
-			}
+
 		}
 	}
 

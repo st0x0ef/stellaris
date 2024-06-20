@@ -17,18 +17,16 @@ public class Events {
 
     public static void registerEvents() {
        TickEvent.PLAYER_POST.register(player -> {
-           if (tickBeforeNextRadioactiveCheck == 0 && !Utils.isLivingInJetSuit(player)) {
+           if ((tickBeforeNextRadioactiveCheck == 0 || tickBeforeNextRadioactiveCheck < 0) && !Utils.isLivingInJetSuit(player)) {
                AtomicBoolean addEffect = new AtomicBoolean();
                AtomicInteger level = new AtomicInteger();
                List<ItemStack> items = new ArrayList<>(player.getInventory().items);
 
-               if (player.hasContainerOpen() && !player.containerMenu.getItems().isEmpty()) {
-                   items.addAll(player.containerMenu.getItems());
-               }
-
                items.forEach(itemStack -> {
                    if (itemStack.getItem() instanceof RadiationItem radioactiveItem) {
-                       addEffect.set(true);
+                       if (addEffect.get() == false) {
+                           addEffect.set(true);
+                       }
                        if (level.get() < radioactiveItem.getRadiationLevel()) {
                            level.set(radioactiveItem.getRadiationLevel());
                        }
@@ -36,7 +34,9 @@ public class Events {
                });
 
                if (addEffect.get()) {
-                   player.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE, 100, level.get()));
+                   if(player.level().isClientSide()) return;
+                   player.removeEffect(EffectsRegistry.RADIOACTIVE);
+                   player.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE, 100, 1));
                }
 
                tickBeforeNextRadioactiveCheck = 100;
