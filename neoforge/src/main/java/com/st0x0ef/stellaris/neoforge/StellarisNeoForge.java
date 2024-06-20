@@ -18,7 +18,6 @@ public class StellarisNeoForge {
     public StellarisNeoForge(IEventBus bus) {
         Stellaris.init();
 
-        NeoForge.EVENT_BUS.addListener(StellarisNeoForge::onDatapackSync);
         NeoForge.EVENT_BUS.addListener(StellarisNeoForge::onAddReloadListenerEvent);
         NeoForge.EVENT_BUS.addListener(MarsFog::setupFog);
         //NeoForge.EVENT_BUS.addListener(SkyRendererNeoForge::RenderWorldSky);
@@ -27,14 +26,6 @@ public class StellarisNeoForge {
 
         if (FMLEnvironment.dist.isClient()) {
             bus.addListener(StellarisNeoforgeClient::clientSetup);
-        }
-    }
-
-    public static void onDatapackSync(OnDatapackSyncEvent event) {
-        if (event.getPlayer() != null) {
-            Stellaris.onDatapackSyncEvent(event.getPlayer(), true);
-        } else {
-            event.getPlayerList().getPlayers().forEach((player) -> Stellaris.onDatapackSyncEvent(player, true));
         }
     }
 

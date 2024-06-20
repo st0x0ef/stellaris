@@ -16,33 +16,32 @@ public class Events {
     private static int tickBeforeNextRadioactiveCheck = 100;
 
     public static void registerEvents() {
-       TickEvent.PLAYER_POST.register(player -> {
-           if ((tickBeforeNextRadioactiveCheck == 0 || tickBeforeNextRadioactiveCheck < 0) && !Utils.isLivingInJetSuit(player)) {
-               AtomicBoolean addEffect = new AtomicBoolean();
-               AtomicInteger level = new AtomicInteger();
-               List<ItemStack> items = new ArrayList<>(player.getInventory().items);
+        TickEvent.PLAYER_POST.register(player -> {
+            if ((tickBeforeNextRadioactiveCheck <= 0) && !Utils.isLivingInJetSuit(player)) {
+                AtomicBoolean addEffect = new AtomicBoolean();
+                AtomicInteger level = new AtomicInteger();
+                List<ItemStack> items = new ArrayList<>(player.getInventory().items);
 
-               items.forEach(itemStack -> {
-                   if (itemStack.getItem() instanceof RadiationItem radioactiveItem) {
-                       if (addEffect.get() == false) {
-                           addEffect.set(true);
-                       }
-                       if (level.get() < radioactiveItem.getRadiationLevel()) {
-                           level.set(radioactiveItem.getRadiationLevel());
-                       }
-                   }
-               });
+                items.forEach(itemStack -> {
+                    if (itemStack.getItem() instanceof RadiationItem radioactiveItem) {
+                        addEffect.set(true);
 
-               if (addEffect.get()) {
-                   if(player.level().isClientSide()) return;
-                   player.removeEffect(EffectsRegistry.RADIOACTIVE);
-                   player.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE, 100, 1));
-               }
+                        if (level.get() < radioactiveItem.getRadiationLevel()) {
+                            level.set(radioactiveItem.getRadiationLevel());
+                        }
+                    }
+                });
 
-               tickBeforeNextRadioactiveCheck = 100;
-           }
+                if (addEffect.get()) {
+                    if(player.level().isClientSide()) return;
+                    player.removeEffect(EffectsRegistry.RADIOACTIVE);
+                    player.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE, 100, 1));
+                }
 
-           tickBeforeNextRadioactiveCheck--;
+                tickBeforeNextRadioactiveCheck = 100;
+            }
+
+            tickBeforeNextRadioactiveCheck--;
         });
     }
 }
