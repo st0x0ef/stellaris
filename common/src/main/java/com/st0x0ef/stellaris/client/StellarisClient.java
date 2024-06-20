@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.client;
 
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.client.events.ClientEvents;
 import com.st0x0ef.stellaris.client.overlays.JetSuitOverlay;
 import com.st0x0ef.stellaris.client.overlays.LanderOverlay;
 import com.st0x0ef.stellaris.client.overlays.RocketBarOverlay;
@@ -66,7 +67,6 @@ import org.lwjgl.opengl.GLDebugMessageCallback;
 public class StellarisClient {
     @Environment(EnvType.CLIENT)
     public static void initClient() {
-        registerPacks();
 
         Minecraft.getInstance().execute(() -> {
             setupOpenGLDebugMessageCallback();
@@ -79,6 +79,7 @@ public class StellarisClient {
         registerScreen();
         registerOverlays();
         registerJetSuitModel();
+        ClientEvents.registerClientEvents();
     }
 
     private static void registerJetSuitModel() {
