@@ -48,6 +48,7 @@ import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import com.st0x0ef.stellaris.common.registry.*;
 import com.st0x0ef.stellaris.platform.ClientUtilsPlatform;
 import dev.architectury.event.events.client.ClientGuiEvent;
+import dev.architectury.platform.Platform;
 import dev.architectury.registry.ReloadListenerRegistry;
 import dev.architectury.registry.client.level.entity.EntityModelLayerRegistry;
 import dev.architectury.registry.client.level.entity.EntityRendererRegistry;
@@ -83,6 +84,7 @@ public class StellarisClient {
         registerOverlays();
         registerJetSuitModel();
         ClientEvents.registerClientEvents();
+        Platform.getMod(Stellaris.MODID).registerConfigurationScreen(ConfigScreen::new);
     }
 
     private static void registerJetSuitModel() {
