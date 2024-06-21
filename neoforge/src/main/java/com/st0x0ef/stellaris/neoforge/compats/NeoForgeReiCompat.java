@@ -1,6 +1,6 @@
-package com.st0x0ef.stellaris.neoforge.compat;
+package com.st0x0ef.stellaris.neoforge.compats;
 
-import com.st0x0ef.stellaris.common.compat.REIClient;
+import com.st0x0ef.stellaris.common.compats.REIClient;
 import me.shedaniel.rei.forge.REIPluginClient;
 
 @REIPluginClient

@@ -50,11 +50,10 @@ public class CustomConfig {
     }
 
     public static void loadConfigFile() {
-        String path = null;
-        if(Platform.getEnvironment() == Env.SERVER) path = Platform.getConfigFolder() + "/stellaris.json";
+        if (Platform.getEnvironment() == Env.CLIENT) return;
+        String path = Platform.getConfigFolder() + "/stellaris.json";
 
         String jsonString;
-
         try {
             jsonString = readFileAsString(path);
             JsonObject jsonObject = Stellaris.GSON.fromJson(jsonString, JsonObject.class);
