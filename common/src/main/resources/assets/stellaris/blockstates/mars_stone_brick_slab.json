@@ -4,7 +4,7 @@
       "model": "stellaris:block/mars_stone_brick_slab"
     },
     "type=double": {
-      "model": "stellaris:block/mars_stone_brick_slab"
+      "model": "stellaris:block/mars_stone_bricks"
     },
     "type=top": {
       "model": "stellaris:block/mars_stone_brick_slab_top"
