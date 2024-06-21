@@ -18,7 +18,7 @@ public class OxygenPropagatorBlockEntity extends BaseEnergyBlockEntity implement
     @Override
     public void tick() {
         if (getWrappedEnergyContainer().getStoredEnergy() > 0) {
-            if (PlanetUtil.isPlanet(level.dimension())) {
+            if (PlanetUtil.isPlanet(level.dimension().location())) {
                 for (int x = -16; x < 16; x++) {
                     for (int z = -16; z < 16; z++) {
                         for (int y = -16; y < 16; y++) {

@@ -17,7 +17,7 @@ public class ClientEvents {
 
     public static void registerClientEvents() {
         ClientTickEvent.CLIENT_LEVEL_POST.register(clientLevel -> {
-            ResourceKey<Level> dimension = clientLevel.dimension();
+            ResourceLocation dimension = clientLevel.dimension().location();
 
             RenderableType renderableType = SkyRenderer.getRenderableType(dimension);
             if (renderableType != null) {

@@ -31,7 +31,7 @@ public class RocketBarOverlay {
                 yHeight = 113;
             }
 
-            ResourceLocation planet = PlanetUtil.getPlanetBar(level.dimension());
+            ResourceLocation planet = PlanetUtil.getPlanetBar(level.dimension().location());
 
             /** ROCKET BAR IMAGE */
             RenderSystem.setShaderTexture(0, planet);

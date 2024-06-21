@@ -140,7 +140,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         }
         Entity vehicle = player.getVehicle();
         if (vehicle instanceof RocketEntity rocket) {
-            return rocket.canGoTo(PlanetUtil.getPlanet(player.level().dimension()), planet);
+            return rocket.canGoTo(PlanetUtil.getPlanet(player.level().dimension().location()), planet);
         }
         return false;
     }

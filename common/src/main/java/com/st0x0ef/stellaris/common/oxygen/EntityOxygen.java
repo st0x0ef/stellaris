@@ -13,7 +13,7 @@ import net.minecraft.world.entity.LivingEntity;
 public class EntityOxygen {
 
     public static void tick(Entity entity) {
-        if (PlanetUtil.hasOxygen(entity.level().dimension())) return;
+        if (PlanetUtil.hasOxygen(entity.level().dimension().location())) return;
 
         if (entity instanceof LivingEntity livingEntity && Utils.isLivingInJetSuit(livingEntity)) {
             JetSuit.Suit suit = (JetSuit.Suit) livingEntity.getItemBySlot(EquipmentSlot.CHEST).getItem();

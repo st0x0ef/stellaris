@@ -13,7 +13,7 @@ public class SkyRendererFabric {
 
     public static void RegisterSkyRenderer(WorldRenderContext context) {
 
-        if (p == null || SkyRenderer.getRenderableType(p.level().dimension()) == null) return;
+        if (p == null || SkyRenderer.getRenderableType(p.level().dimension().location()) == null) return;
 
         ResourceKey<Level> dim = p.level().dimension();
         SkyRenderer.render(dim, context.tickDelta(), context.projectionMatrix(), context.matrixStack(), context.positionMatrix());

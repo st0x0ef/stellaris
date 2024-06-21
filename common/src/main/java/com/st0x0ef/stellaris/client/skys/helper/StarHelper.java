@@ -51,9 +51,9 @@ public class StarHelper {
 
         RenderableType renderableType;
 
-        if (SkyRenderer.getRenderableType(Minecraft.getInstance().player.level().dimension()) != null) {
+        if (SkyRenderer.getRenderableType(Minecraft.getInstance().player.level().dimension().location()) != null) {
             GraphicsStatus graphicsMode = Minecraft.getInstance().options.graphicsMode().get();
-            renderableType = SkyRenderer.getRenderableType(Minecraft.getInstance().player.level().dimension());
+            renderableType = SkyRenderer.getRenderableType(Minecraft.getInstance().player.level().dimension().location());
 
             assert renderableType != null;
             if ((graphicsMode == GraphicsStatus.FABULOUS || graphicsMode == GraphicsStatus.FANCY)) {
@@ -63,7 +63,7 @@ public class StarHelper {
             }
         }
 
-        if (SkyRenderer.getRenderableType(Minecraft.getInstance().player.level().dimension()) == null && PlanetUtil.getPlanet(Minecraft.getInstance().player.level().dimension()) != null) stars = 1500;
+        if (SkyRenderer.getRenderableType(Minecraft.getInstance().player.level().dimension().location()) == null && PlanetUtil.getPlanet(Minecraft.getInstance().player.level().dimension().location()) != null) stars = 1500;
 
         if (!bufferBuilder.building()) bufferBuilder.begin(VertexFormat.Mode.QUADS, colorSystem ? DefaultVertexFormat.POSITION_COLOR : DefaultVertexFormat.POSITION);
 

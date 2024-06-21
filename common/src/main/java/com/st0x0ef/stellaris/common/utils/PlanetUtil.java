@@ -19,14 +19,14 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 public class PlanetUtil {
-    public static Planet getPlanet(ResourceKey<Level> level) {
+    public static Planet getPlanet(ResourceLocation level) {
         return StellarisData.PLANETS.get(level);
     }
 
-    public static boolean isPlanet(ResourceKey<Level> level) {
+    public static boolean isPlanet(ResourceLocation level) {
         return StellarisData.PLANETS.containsKey(level);
     }
-    public static boolean hasOxygen(ResourceKey<Level> level) {
+    public static boolean hasOxygen(ResourceLocation level) {
         if (isPlanet(level)) {
             return getPlanet(level).oxygen();
         }
@@ -34,7 +34,7 @@ public class PlanetUtil {
     }
 
     /** Get the resourcelocation of the planet bar set in the Planet file */
-    public static ResourceLocation getPlanetBar(ResourceKey<Level> level) {
+    public static ResourceLocation getPlanetBar(ResourceLocation level) {
         if (isPlanet(level)) {
             return getPlanet(level).textures().planet_bar();
         }
@@ -97,11 +97,11 @@ public class PlanetUtil {
         return 0;
     }
 
-    public static float getTemperature(ResourceKey<Level> dim) {
+    public static float getTemperature(ResourceLocation dim) {
         return getPlanet(dim).temperature();
     }
 
-    public static String getSystem(ResourceKey<Level> dim) {
+    public static String getSystem(ResourceLocation dim) {
         return getPlanet(dim).system();
     }
 }

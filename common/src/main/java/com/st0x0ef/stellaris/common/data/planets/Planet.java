@@ -6,6 +6,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 
 import java.io.Serializable;
@@ -14,7 +15,7 @@ public record Planet (
         String system,
         String translatable,
         String name,
-        ResourceKey<Level> dimension,
+        ResourceLocation dimension,
         boolean oxygen,
         float temperature,
         int distanceFromEarth,
@@ -26,7 +27,7 @@ public record Planet (
             Codec.STRING.fieldOf("system").forGetter(Planet::system),
             Codec.STRING.fieldOf("translatable").forGetter(Planet::translatable),
             Codec.STRING.fieldOf("name").forGetter(Planet::name),
-            ResourceKey.codec(Registries.DIMENSION).fieldOf("level").forGetter(Planet::dimension),
+            ResourceLocation.CODEC.fieldOf("level").forGetter(Planet::dimension),
             Codec.BOOL.fieldOf("oxygen").forGetter(Planet::oxygen),
             Codec.FLOAT.fieldOf("temperature").forGetter(Planet::temperature),
             Codec.INT.fieldOf("distanceFromEarth").forGetter(Planet::distanceFromEarth), // in megameters
