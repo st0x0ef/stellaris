@@ -60,15 +60,17 @@ public class Utils {
 
     /** Teleport an entity to the planet wanted */
     public static void teleportEntity(Entity entity, Planet destination) {
-        if(entity.level().isClientSide()) return;
+        if(entity.level().isClientSide() || !entity.canChangeDimensions()) return;
         entity.setNoGravity(false);
 
-        ServerLevel nextLevel = entity.level().getServer().getLevel(Utils.getPlanetLevel(destination.dimension()));
+        entity.level().getServer().getAllLevels().forEach(level -> {
+            if (level.dimension().location().equals(destination.dimension())) {
+                TeleportUtil.teleportToPlanet(entity, level, 600);
+                entity.setPos(entity.getX(), 600, entity.getZ());
+            }
+        });
 
-        if (!entity.canChangeDimensions()) return;
 
-        TeleportUtil.teleportToPlanet(entity, nextLevel, 600);
-        entity.setPos(entity.getX(), 600, entity.getZ());
     }
 
     /** To use with the planetSelection menu */
