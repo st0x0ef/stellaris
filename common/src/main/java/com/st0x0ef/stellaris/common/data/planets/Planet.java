@@ -26,7 +26,7 @@ public record Planet (
             Codec.STRING.fieldOf("system").forGetter(Planet::system),
             Codec.STRING.fieldOf("translatable").forGetter(Planet::translatable),
             Codec.STRING.fieldOf("name").forGetter(Planet::name),
-            Level.RESOURCE_KEY_CODEC.fieldOf("level").forGetter(Planet::dimension),
+            ResourceKey.codec(Registries.DIMENSION).fieldOf("level").forGetter(Planet::dimension),
             Codec.BOOL.fieldOf("oxygen").forGetter(Planet::oxygen),
             Codec.FLOAT.fieldOf("temperature").forGetter(Planet::temperature),
             Codec.INT.fieldOf("distanceFromEarth").forGetter(Planet::distanceFromEarth), // in megameters

@@ -14,6 +14,7 @@ import java.util.Collections;
 
 public class NetworkRegistry {
     public static final ResourceLocation KEY_HANDLER_ID = new ResourceLocation(Stellaris.MODID, "key_handler");
+    public static final ResourceLocation SYNC_PLANET_DATAPACK_ID = new ResourceLocation(Stellaris.MODID, "sync_planet_datapack");
     public static final ResourceLocation TELEPORT_ENTITY_ID = new ResourceLocation(Stellaris.MODID, "teleport_entity");
     public static final ResourceLocation SYNC_ROCKET_COMPONENT_ID = new ResourceLocation(Stellaris.MODID, "sync_rocket_component");
     public static final ResourceLocation SYNC_FLUID_TANKS_ID = new ResourceLocation(Stellaris.MODID, "sync_fluid_tanks");
@@ -24,6 +25,7 @@ public class NetworkRegistry {
     }
 
     public static void registerS2C() {
+        NetworkAggregator.registerReceiver(NetworkManager.Side.S2C, SYNC_PLANET_DATAPACK_ID, Collections.emptyList(), SyncPlanetsDatapack::apply);
         NetworkAggregator.registerReceiver(NetworkManager.Side.S2C, SYNC_ROCKET_COMPONENT_ID, Collections.emptyList(), SyncRocketComponent::apply);
         NetworkAggregator.registerReceiver(NetworkManager.Side.S2C, SYNC_FLUID_TANKS_ID, Collections.emptyList(), SyncWidgetsTanks::apply);
     }
