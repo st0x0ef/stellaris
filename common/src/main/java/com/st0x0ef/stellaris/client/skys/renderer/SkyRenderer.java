@@ -42,7 +42,7 @@ public class SkyRenderer extends DimensionSpecialEffects {
         BufferBuilder buffer = tesselator.getBuilder();
         starBuffer = StarHelper.createStars(0.15F, 190, 160, -1);
 
-        RenderableType renderable = getRenderableType(mc.player.level().dimension());
+        RenderableType renderable = getRenderableType(mc.player.level().dimension().location());
 
         if (renderable != null) {
             starBuffer = StarHelper.createStars(0.1F, 190, 160, -1);
@@ -66,8 +66,8 @@ public class SkyRenderer extends DimensionSpecialEffects {
 
         Matrix4f matrix4f;
 
-        if (getRenderableType(mc.player.level().dimension()) != null) {
-            if (getRenderableType(mc.player.level().dimension()).isAllDaysVisible()) {
+        if (getRenderableType(mc.player.level().dimension().location()) != null) {
+            if (getRenderableType(mc.player.level().dimension().location()).isAllDaysVisible()) {
                 starLight = 1.0F;
             } else {
                 starLight = mc.level.getStarBrightness(partialTicks) * rainLevel + 0.2F;
@@ -85,9 +85,9 @@ public class SkyRenderer extends DimensionSpecialEffects {
         RenderSystem.depthMask(true);
     }
 
-    public static synchronized RenderableType getRenderableType(ResourceKey<Level> dimension) {
+    public static synchronized RenderableType getRenderableType(ResourceLocation dimension) {
         for (RenderableType renderableType : renderableList) {
-            if (renderableType.getDimension() == dimension) {
+            if (renderableType.getDimension().location() == dimension) {
                 return renderableType;
             }
         }

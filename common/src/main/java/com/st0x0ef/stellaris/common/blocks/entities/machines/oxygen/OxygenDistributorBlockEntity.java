@@ -24,7 +24,7 @@ public class OxygenDistributorBlockEntity extends BaseEnergyContainerBlockEntity
     @Override
     public void tick() {
         if (getWrappedEnergyContainer().getStoredEnergy() > 0 && oxygenContainer.getOxygenStored() > 0) {
-            if (PlanetUtil.isPlanet(level.dimension())) {
+            if (PlanetUtil.isPlanet(level.dimension().location())) {
                 timer++;
                 if (timer >= 4) {
                     oxygenContainer.addOxygenAt(getBlockPos(), false);

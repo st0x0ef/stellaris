@@ -17,8 +17,8 @@ import java.util.Map;
 
 public class StellarisData extends SimpleJsonResourceReloadListener {
 
-    public static final Map<ResourceKey<Level>, Planet> PLANETS = new HashMap<>();
-    public static final Map<String, ResourceKey<Level>> SYSTEMS = new HashMap<>();
+    public static final Map<ResourceLocation, Planet> PLANETS = new HashMap<>();
+    public static final Map<String, ResourceLocation> SYSTEMS = new HashMap<>();
 
     public StellarisData() {
         super(Stellaris.GSON, "planets");
@@ -36,11 +36,11 @@ public class StellarisData extends SimpleJsonResourceReloadListener {
         });
     }
 
-    public static void addPlanet(ResourceKey<Level> resourceKey, Planet planet) {
-        PLANETS.put(resourceKey, planet);
+    public static void addPlanet(ResourceLocation location, Planet planet) {
+        PLANETS.put(location, planet);
     }
 
-    public static Planet getPlanet(ResourceKey<Level> resourceKey) {
-        return PLANETS.get(resourceKey);
+    public static Planet getPlanet(ResourceLocation location) {
+        return PLANETS.get(location);
     }
 }
