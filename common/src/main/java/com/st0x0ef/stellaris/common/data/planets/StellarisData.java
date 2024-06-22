@@ -4,21 +4,19 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
 import com.st0x0ef.stellaris.Stellaris;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.util.profiling.ProfilerFiller;
-import net.minecraft.world.level.Level;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class StellarisData extends SimpleJsonResourceReloadListener {
 
-    public static final Map<ResourceLocation, Planet> PLANETS = new HashMap<>();
-    public static final Map<String, ResourceLocation> SYSTEMS = new HashMap<>();
+    private static final List<Planet> PLANETS = new ArrayList<>();
 
     public StellarisData() {
         super(Stellaris.GSON, "planets");
@@ -27,20 +25,19 @@ public class StellarisData extends SimpleJsonResourceReloadListener {
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> resourceLocationJsonElementMap, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
         PLANETS.clear();
-        SYSTEMS.clear();
         resourceLocationJsonElementMap.forEach((key, value) -> {
             JsonObject json = GsonHelper.convertToJsonObject(value, "planets");
             Planet planet = Planet.CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
-            PLANETS.put(planet.dimension(), planet);
-            SYSTEMS.put(planet.system(), planet.dimension());
+            PLANETS.add(planet);
         });
     }
 
-    public static void addPlanet(ResourceLocation location, Planet planet) {
-        PLANETS.put(location, planet);
+    public static List<Planet> getPlanets() {
+        return PLANETS;
     }
 
-    public static Planet getPlanet(ResourceLocation location) {
-        return PLANETS.get(location);
+    public static void addPlanets(List<Planet> planets) {
+        PLANETS.clear();
+        PLANETS.addAll(planets);
     }
 }

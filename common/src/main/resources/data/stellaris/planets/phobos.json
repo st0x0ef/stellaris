@@ -3,7 +3,6 @@
   "level": "stellaris:phobos",
   "name": "Phobos",
   "translatable": "stellaris.moon.phobos",
-  "orbit": "minecraft:the_end",
   "oxygen": false,
   "temperature": -40,
   "distanceFromEarth": 55700,

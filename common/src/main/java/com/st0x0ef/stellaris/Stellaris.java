@@ -59,9 +59,9 @@ public class Stellaris {
     }
 
     public static void onDatapackSyncEvent(ServerPlayer player, boolean joined) {
-        if (!joined) {
+        if (joined) {
             RegistryFriendlyByteBuf buffer = new RegistryFriendlyByteBuf(Unpooled.buffer(), player.registryAccess());
-            NetworkRegistry.sendToPlayer(player, NetworkRegistry.SYNC_PLANET_DATAPACK_ID, SyncPlanetsDatapack.encode(new SyncPlanetsDatapack(StellarisData.PLANETS), buffer));
+            NetworkRegistry.sendToPlayer(player, NetworkRegistry.SYNC_PLANET_DATAPACK_ID, SyncPlanetsDatapack.encode(new SyncPlanetsDatapack(StellarisData.getPlanets()), buffer));
         }
     }
 
@@ -72,6 +72,5 @@ public class Stellaris {
         registry.accept(new ResourceLocation(Stellaris.MODID, "planets_pack"), new PlanetPack());
         registry.accept(new ResourceLocation(Stellaris.MODID, "moon_packs"), new MoonPack());
         registry.accept(new ResourceLocation(Stellaris.MODID, "sky_packs"), new SkyPack());
-
     }
 }

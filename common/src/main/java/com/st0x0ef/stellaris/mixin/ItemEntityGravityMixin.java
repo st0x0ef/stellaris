@@ -2,10 +2,8 @@ package com.st0x0ef.stellaris.mixin;
 
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Unique;

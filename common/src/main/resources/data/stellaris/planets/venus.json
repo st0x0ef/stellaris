@@ -3,7 +3,6 @@
   "level": "stellaris:venus",
   "name": "Venus",
   "translatable": "stellaris.planet.venus",
-  "orbit": "minecraft:the_end",
   "oxygen": false,
   "temperature": 462,
   "distanceFromEarth": 41000,

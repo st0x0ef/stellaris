@@ -4,9 +4,7 @@ import com.st0x0ef.stellaris.client.skys.renderer.SkyRenderer;
 import com.st0x0ef.stellaris.client.skys.type.RenderableType;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import dev.architectury.event.events.client.ClientTickEvent;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.Level;
 
 import java.util.Objects;
 

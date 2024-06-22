@@ -3,7 +3,6 @@
   "translatable": "stellaris.planet.mercury",
   "name": "Mercury",
   "level": "stellaris:mercury",
-  "orbit": "minecraft:the_end",
   "oxygen": false,
   "temperature": 430,
   "distanceFromEarth": 92000,
