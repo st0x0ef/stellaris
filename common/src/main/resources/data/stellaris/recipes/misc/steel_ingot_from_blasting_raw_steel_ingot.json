@@ -1,11 +1,10 @@
 {
-  "type": "minecraft:smelting",
+  "type": "minecraft:blasting",
   "category": "misc",
   "cookingtime": 100,
   "experience": 0.7,
-  "group": "steel",
   "ingredient": {
-    "item": "stellaris:deepslate_steel_ore"
+    "item": "stellaris:raw_steel_ingot"
   },
   "result": {
     "id": "stellaris:steel_ingot"
