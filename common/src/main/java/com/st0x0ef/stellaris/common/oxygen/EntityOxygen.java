@@ -7,13 +7,12 @@ import com.st0x0ef.stellaris.common.registry.TagRegistry;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 
 public class EntityOxygen {
 
-    public static void tick(Entity entity) {
+    public static void tick(LivingEntity entity) {
         if (PlanetUtil.hasOxygen(entity.level().dimension().location()) || entity.getType().is(TagRegistry.ENTITY_NO_OXYGEN_NEEDED_TAG)) return;
 
         if (entity instanceof LivingEntity livingEntity && Utils.isLivingInJetSuit(livingEntity)) {
