@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.common.oxygen;
 import com.st0x0ef.stellaris.common.armors.JetSuit;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.oxygen.OxygenContainerBlockEntity;
 import com.st0x0ef.stellaris.common.registry.DamageSourceRegistry;
+import com.st0x0ef.stellaris.common.registry.TagRegistry;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.core.BlockPos;
@@ -13,7 +14,7 @@ import net.minecraft.world.entity.LivingEntity;
 public class EntityOxygen {
 
     public static void tick(Entity entity) {
-        if (PlanetUtil.hasOxygen(entity.level().dimension().location())) return;
+        if (PlanetUtil.hasOxygen(entity.level().dimension().location()) || entity.getType().is(TagRegistry.ENTITY_NO_OXYGEN_NEEDED_TAG)) return;
 
         if (entity instanceof LivingEntity livingEntity && Utils.isLivingInJetSuit(livingEntity)) {
             JetSuit.Suit suit = (JetSuit.Suit) livingEntity.getItemBySlot(EquipmentSlot.CHEST).getItem();
