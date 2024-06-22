@@ -12,4 +12,9 @@ public class EffectsRegistry {
     public static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(Stellaris.MODID, Registries.MOB_EFFECT);
 
     public static final RegistrySupplier<MobEffect> RADIOACTIVE = MOB_EFFECTS.register("radioactive", () -> new RadioactiveEffect(MobEffectCategory.HARMFUL, 8889187));
+
+    public static void init() {
+    }
+
+
 }

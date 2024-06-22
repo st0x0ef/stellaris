@@ -14,7 +14,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class RadioactiveEffect extends MobEffect {
 
-    private final SoundEvent soundOnAdded = SoundRegistry.RADIOACTIVE.get();
 
     public RadioactiveEffect(MobEffectCategory mobEffectCategory, int color) {
         super(mobEffectCategory, color);
@@ -43,6 +42,6 @@ public class RadioactiveEffect extends MobEffect {
 
     @Override
     public @NotNull MobEffect withSoundOnAdded(SoundEvent event) {
-        return super.withSoundOnAdded(soundOnAdded);
+        return super.withSoundOnAdded(SoundRegistry.RADIOACTIVE.get());
     }
 }
