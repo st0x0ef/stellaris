@@ -64,14 +64,6 @@ public class FuelRefineryScreen extends AbstractContainerScreen<FuelRefineryMenu
         ingredientTankGauge.update(blockEntity.getIngredientTank().getAmount());
         resultTankGauge.update(blockEntity.getResultTank().getAmount());
         energyGauge.update(blockEntity.getWrappedEnergyContainer().getStoredEnergy());
-
-        ingredientTankGauge.renderTooltip(guiGraphics, mouseX, mouseY, font);
-        resultTankGauge.renderTooltip(guiGraphics, mouseX, mouseY, font);
-        energyGauge.renderTooltip(guiGraphics, mouseX, mouseY, font);
-
-//        ingredientTankGauge.renderTooltip(guiGraphics, mouseX, mouseY, font);
-//        resultTankGauge.renderTooltip(guiGraphics, mouseX, mouseY, font);
-//        energyGauge.renderTooltip(guiGraphics, mouseX, mouseY, font);
     }
 
     @Override
@@ -80,5 +72,13 @@ public class FuelRefineryScreen extends AbstractContainerScreen<FuelRefineryMenu
         RenderSystem.setShaderColor(1, 1, 1, 1);
         RenderSystem.setShaderTexture(0, TEXTURE);
         guiGraphics.blit(TEXTURE, leftPos, topPos, 0, 0, imageWidth, imageHeight, imageWidth, imageHeight);
+    }
+
+    @Override
+    protected void renderTooltip(GuiGraphics guiGraphics, int x, int y) {
+        super.renderTooltip(guiGraphics, x, y);
+        ingredientTankGauge.renderTooltip(guiGraphics, x, y, font);
+        resultTankGauge.renderTooltip(guiGraphics, x, y, font);
+        energyGauge.renderTooltip(guiGraphics, x, y, font);
     }
 }
