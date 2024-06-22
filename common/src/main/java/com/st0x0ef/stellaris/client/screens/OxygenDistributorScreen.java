@@ -34,9 +34,7 @@ public class OxygenDistributorScreen extends AbstractContainerScreen<OxygenDistr
     protected void init() {
         super.init();
 
-        if (blockEntity == null) {
-            return;
-        }
+        if (blockEntity == null) return;
 
         WrappedBlockEnergyContainer energyContainer = blockEntity.getWrappedEnergyContainer();
         energyGauge = new Gauge(leftPos + 147, topPos + 55, 13, 48, Component.translatable("stellaris.screen.energy"), GUISprites.ENERGY_FULL, GUISprites.BATTERY_OVERLAY, (int) energyContainer.getStoredEnergy(), (int) energyContainer.getMaxCapacity());
@@ -54,7 +52,6 @@ public class OxygenDistributorScreen extends AbstractContainerScreen<OxygenDistr
         }
 
         energyGauge.update(blockEntity.getWrappedEnergyContainer().getStoredEnergy());
-        energyGauge.renderTooltip(graphics, mouseX, mouseY, this.font);
     }
 
     @Override
@@ -63,5 +60,11 @@ public class OxygenDistributorScreen extends AbstractContainerScreen<OxygenDistr
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, TEXTURE);
         guiGraphics.blit(TEXTURE, leftPos, topPos, 0, 0, imageWidth, imageHeight, imageWidth, imageHeight);
+    }
+
+    @Override
+    protected void renderTooltip(GuiGraphics guiGraphics, int x, int y) {
+        super.renderTooltip(guiGraphics, x, y);
+        energyGauge.renderTooltip(guiGraphics, x, y, this.font);
     }
 }

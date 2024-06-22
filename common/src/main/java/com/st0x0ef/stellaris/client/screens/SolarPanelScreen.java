@@ -56,10 +56,6 @@ public class SolarPanelScreen extends AbstractContainerScreen<SolarPanelMenu> {
         }
 
         energyGauge.update(blockEntity.getWrappedEnergyContainer().getStoredEnergy());
-
-        List<Component> components = new ArrayList<>();
-        components.add(Component.translatable("gauge_text.stellaris.max_generation", getMenu().getBlockEntity().getEnergyGeneratedPT()));
-        energyGauge.renderTooltips(graphics, mouseX, mouseY, font, components);
     }
 
     @Override
@@ -68,5 +64,13 @@ public class SolarPanelScreen extends AbstractContainerScreen<SolarPanelMenu> {
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, TEXTURE);
         graphics.blit(TEXTURE, leftPos, topPos, 0, 0, imageWidth, imageHeight, imageWidth, imageHeight);
+    }
+
+    @Override
+    protected void renderTooltip(GuiGraphics guiGraphics, int x, int y) {
+        super.renderTooltip(guiGraphics, x, y);
+        List<Component> components = new ArrayList<>();
+        components.add(Component.translatable("gauge_text.stellaris.max_generation", getMenu().getBlockEntity().getEnergyGeneratedPT()));
+        energyGauge.renderTooltips(guiGraphics, x, y, font, components);
     }
 }

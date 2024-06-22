@@ -90,6 +90,5 @@ public class WaterSeparatorScreen extends AbstractContainerScreen<WaterSeparator
         resultTank1Gauge.renderTooltip(guiGraphics, x, y, this.font);
         resultTank2Gauge.renderTooltip(guiGraphics, x, y, this.font);
         energyGauge.renderTooltip(guiGraphics, x, y, this.font);
-
     }
 }
