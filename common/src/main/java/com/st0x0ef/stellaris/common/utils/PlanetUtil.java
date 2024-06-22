@@ -9,22 +9,27 @@ import dev.architectury.registry.menu.MenuRegistry;
 import io.netty.buffer.Unpooled;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class PlanetUtil {
     public static Planet getPlanet(ResourceLocation level) {
-        return StellarisData.PLANETS.get(level);
+        AtomicReference<Planet> p = new AtomicReference<>();
+        StellarisData.getPlanets().forEach(planet -> {if (planet.dimension().equals(level)) p.set(planet);});
+        return p.get();
     }
 
     public static boolean isPlanet(ResourceLocation level) {
-        return StellarisData.PLANETS.containsKey(level);
+        AtomicBoolean isPlanet = new AtomicBoolean(false);
+        StellarisData.getPlanets().forEach(planet -> {if (planet.dimension().equals(level)) isPlanet.set(true);});
+        return isPlanet.get();
     }
     public static boolean hasOxygen(ResourceLocation level) {
         if (isPlanet(level)) {

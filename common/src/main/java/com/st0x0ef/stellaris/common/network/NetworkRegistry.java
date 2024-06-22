@@ -6,6 +6,7 @@ import dev.architectury.impl.NetworkAggregator;
 import dev.architectury.networking.NetworkManager;
 import dev.architectury.networking.transformers.PacketSink;
 import dev.architectury.networking.transformers.SplitPacketTransformer;
+import dev.architectury.platform.Platform;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;

@@ -411,10 +411,14 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
             Component CELESTIAL_BODY_NAME = focusedBody.translatable;
 
-            float CELESTIAL_BODY_TEMPERATURE = PlanetUtil.getPlanet(focusedBody.dimension).temperature();
-            float CELESTIAL_BODY_GRAVITY = PlanetUtil.getPlanet(focusedBody.dimension).gravity();
-            boolean CELESTIAL_BODY_OXYGEN = PlanetUtil.getPlanet(focusedBody.dimension).oxygen();
-            String CELESTIAL_BODY_SYSTEM = PlanetUtil.getPlanet(focusedBody.dimension).system();
+            Planet planet = PlanetUtil.getPlanet(focusedBody.dimension);
+
+            if (planet == null) return;
+
+            float CELESTIAL_BODY_TEMPERATURE = planet.temperature();
+            float CELESTIAL_BODY_GRAVITY = planet.gravity();
+            boolean CELESTIAL_BODY_OXYGEN = planet.oxygen();
+            String CELESTIAL_BODY_SYSTEM = planet.system();
 
             Component systemTranslatable;
 
@@ -433,7 +437,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
                 systemV = Component.literal(system.getString() + " : " + systemTranslatable.getString());
             }
 
-            temperatureV = Component.literal(temperature.getString() + " : " + PlanetUtil.getPlanet(focusedBody.dimension).temperature() + "°C");
+            temperatureV = Component.literal(temperature.getString() + " : " + planet.temperature() + "°C");
 
             oxygenV = Component.literal(oxygen.getString() + " : " + CELESTIAL_BODY_OXYGEN);
 
@@ -493,7 +497,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
                 graphics.drawString(font, TranslatableRegistry.players.getString() + " : " + Utils.getPlayerCountInDimension(getPlayer().getServer(), focusedBody.dimension), textX, buttonY + buttonHeight / 4 + 135, 0xFFFFFF, false);
             }
 
-            if (canLaunch(PlanetUtil.getPlanet(focusedBody.dimension))) {
+            if (canLaunch(planet)) {
                 graphics.drawString(font, gravityV, textX, buttonY + buttonHeight / 4 + 75, Utils.getColorHexCode("White"), true);
 
                 RenderSystem.enableBlend();
