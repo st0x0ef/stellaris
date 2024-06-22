@@ -5,12 +5,9 @@ import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import dev.architectury.networking.NetworkManager;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
 
 public class TeleportEntityToPlanet {
 

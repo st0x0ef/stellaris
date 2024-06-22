@@ -2,17 +2,12 @@ package com.st0x0ef.stellaris.common.data.planets;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.Level;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public record Planet (
         String system,
@@ -59,7 +54,9 @@ public record Planet (
     public static List<Planet> readFromBuffer(RegistryFriendlyByteBuf buffer) {
         List<Planet> planets = new ArrayList<>();
 
-        for (int i = 0; i < buffer.readInt(); i++) {
+        int k = buffer.readInt();
+
+        for (int i = 0; i < k; i++) {
             planets.add(new Planet(
                     buffer.readUtf(),
                     buffer.readUtf(),

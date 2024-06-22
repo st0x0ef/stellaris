@@ -1,9 +1,7 @@
 package com.st0x0ef.stellaris.client.screens.info;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.Level;
 
 public class CelestialBody {
     public final ResourceLocation texture;

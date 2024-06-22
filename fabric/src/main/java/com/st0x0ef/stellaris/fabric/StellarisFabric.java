@@ -3,7 +3,6 @@ package com.st0x0ef.stellaris.fabric;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import com.st0x0ef.stellaris.fabric.systems.SystemsFabric;
-import dev.architectury.event.events.common.PlayerEvent;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
