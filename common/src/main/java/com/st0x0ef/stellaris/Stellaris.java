@@ -33,10 +33,9 @@ public class Stellaris {
 
     public static void init() {
         CustomConfig.init();
-        NetworkRegistry.registerC2S();
 
         EntityData.register();
-
+        NetworkRegistry.init();
         SoundRegistry.SOUNDS.register();
         EffectsRegistry.MOB_EFFECTS.register();
         DataComponentsRegistry.DATA_COMPONENT_TYPE.register();

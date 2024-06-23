@@ -68,7 +68,6 @@ import org.lwjgl.opengl.GLDebugMessageCallback;
 public class StellarisClient {
     @Environment(EnvType.CLIENT)
     public static void initClient() {
-        NetworkRegistry.registerS2C();
 
         registerPacks();
 
