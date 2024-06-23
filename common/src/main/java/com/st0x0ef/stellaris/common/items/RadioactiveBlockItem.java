@@ -4,7 +4,6 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
 
 public class RadioactiveBlockItem extends BlockItem implements RadiationItem {
-
     private final int radiationLevel;
 
     public RadioactiveBlockItem(Block block, Properties properties, int radiationLevel) {
@@ -14,6 +13,11 @@ public class RadioactiveBlockItem extends BlockItem implements RadiationItem {
 
     @Override
     public int getRadiationLevel() {
-        return radiationLevel - 1;
+        return radiationLevel;
+    }
+
+    @Override
+    public boolean isBlock() {
+        return true;
     }
 }

@@ -5,6 +5,4 @@ import com.st0x0ef.stellaris.common.oxygen.OxygenContainer;
 public interface OxygenContainerBlockEntity {
 
     OxygenContainer getOxygenContainer();
-
-    int getRange();
 }

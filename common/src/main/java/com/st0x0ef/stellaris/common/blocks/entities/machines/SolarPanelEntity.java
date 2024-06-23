@@ -35,4 +35,9 @@ public class SolarPanelEntity extends BaseGeneratorBlockEntity {
     public int getContainerSize() {
         return 0;
     }
+
+    @Override
+    protected int getMaxCapacity() {
+        return 128000;
+    }
 }

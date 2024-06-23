@@ -73,7 +73,7 @@ public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity {
 
     @Override
     protected int getMaxCapacity() {
-        return 128000;
+        return 6000;
     }
 
     @Override

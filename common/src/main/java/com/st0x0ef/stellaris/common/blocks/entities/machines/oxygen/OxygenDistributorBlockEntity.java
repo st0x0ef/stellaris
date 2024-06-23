@@ -61,9 +61,4 @@ public class OxygenDistributorBlockEntity extends BaseEnergyContainerBlockEntity
     public OxygenContainer getOxygenContainer() {
         return oxygenContainer;
     }
-
-    @Override
-    public int getRange() {
-        return 32;
-    }
 }
