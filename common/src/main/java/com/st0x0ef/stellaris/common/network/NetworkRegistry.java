@@ -38,4 +38,9 @@ public class NetworkRegistry {
     public static void sendToServer(ResourceLocation packet_id, RegistryFriendlyByteBuf buffer) {
         NetworkAggregator.collectPackets(PacketSink.client(), NetworkManager.Side.C2S, packet_id, buffer);
     }
+
+    public static void init() {
+        registerC2S();
+        registerS2C();
+    }
 }
