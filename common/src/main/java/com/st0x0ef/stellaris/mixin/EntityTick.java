@@ -1,10 +1,8 @@
 package com.st0x0ef.stellaris.mixin;
 
 import com.st0x0ef.stellaris.common.oxygen.EntityOxygen;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

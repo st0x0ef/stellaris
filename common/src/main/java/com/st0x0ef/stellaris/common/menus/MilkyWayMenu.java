@@ -10,7 +10,6 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 
 public class MilkyWayMenu extends AbstractContainerMenu {
-    private final Container inventory;
     private final Player player;
     public boolean freeze_gui = false;
 
@@ -21,7 +20,6 @@ public class MilkyWayMenu extends AbstractContainerMenu {
     public MilkyWayMenu(int syncId, Inventory playerInventory, Container container)
     {
         super(MenuTypesRegistry.MILKYWAY_MENU.get(), syncId);
-        this.inventory = container;
         this.player = playerInventory.player;
     }
     @Override

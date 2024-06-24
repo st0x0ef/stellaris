@@ -44,7 +44,6 @@ import com.st0x0ef.stellaris.common.data.screen.MoonPack;
 import com.st0x0ef.stellaris.common.data.screen.PlanetPack;
 import com.st0x0ef.stellaris.common.data.screen.StarPack;
 import com.st0x0ef.stellaris.common.handlers.GlobalExceptionHandler;
-import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import com.st0x0ef.stellaris.common.registry.*;
 import com.st0x0ef.stellaris.platform.ClientUtilsPlatform;
 import dev.architectury.event.events.client.ClientGuiEvent;
