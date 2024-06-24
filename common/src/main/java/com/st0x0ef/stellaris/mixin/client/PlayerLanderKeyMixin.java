@@ -2,7 +2,6 @@ package com.st0x0ef.stellaris.mixin.client;
 
 import com.st0x0ef.stellaris.common.entities.LanderEntity;
 import com.st0x0ef.stellaris.common.keybinds.KeyVariables;
-import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import com.st0x0ef.stellaris.common.network.packets.KeyHandler;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.KeyMapping;
@@ -50,12 +49,16 @@ public abstract class PlayerLanderKeyMixin {
     public void keyEvent(Player player, KeyMapping keyWanted, int key, int scanCode, int action, int modifiers) {
         if ((keyWanted.getDefaultKey().getValue() == key && action == GLFW.GLFW_RELEASE && KeyVariables.isHoldingJump(player))  || (KeyVariables.isHoldingJump(player))) {
             KeyVariables.KEY_JUMP.put(player.getUUID(), false);
-            RegistryFriendlyByteBuf buffer = new RegistryFriendlyByteBuf(Unpooled.buffer(), player.registryAccess());
-            NetworkRegistry.sendToServer(NetworkRegistry.KEY_HANDLER_ID, KeyHandler.encode(new KeyHandler("key_jump", false), buffer));
+
+            new KeyHandler(
+                    "key_jump", false
+            ).sendToServer();
         } else if (keyWanted.getDefaultKey().getValue() == key && action == GLFW.GLFW_PRESS && !KeyVariables.isHoldingJump(player)) {
             KeyVariables.KEY_JUMP.put(player.getUUID(), true);
-            RegistryFriendlyByteBuf buffer = new RegistryFriendlyByteBuf(Unpooled.buffer(), player.registryAccess());
-            NetworkRegistry.sendToServer(NetworkRegistry.KEY_HANDLER_ID, KeyHandler.encode(new KeyHandler("key_jump", true), buffer));
+
+            new KeyHandler(
+                    "key_jump", true
+            ).sendToServer();
         }
     }
 
@@ -67,14 +70,19 @@ public abstract class PlayerLanderKeyMixin {
 
         if ((keyWanted.getDefaultKey().getValue() == key && action == GLFW.GLFW_RELEASE && isPressed) || isPressed) {
             variableKey.put(player.getUUID(), false);
-            RegistryFriendlyByteBuf buffer = new RegistryFriendlyByteBuf(Unpooled.buffer(), player.registryAccess());
-            NetworkRegistry.sendToServer(NetworkRegistry.KEY_HANDLER_ID, KeyHandler.encode(new KeyHandler(keyString, false), buffer));
+
+            new KeyHandler(
+                    keyString, false
+            ).sendToServer();
         }
 
         if (keyWanted.getDefaultKey().getValue() == key && action == GLFW.GLFW_PRESS && !isPressed) {
             variableKey.put(player.getUUID(), true);
-            RegistryFriendlyByteBuf buffer = new RegistryFriendlyByteBuf(Unpooled.buffer(), player.registryAccess());
-            NetworkRegistry.sendToServer(NetworkRegistry.KEY_HANDLER_ID, KeyHandler.encode(new KeyHandler(keyString, true), buffer));
+
+            new KeyHandler(
+                    keyString, true
+            ).sendToServer();
+
         }
     }
 

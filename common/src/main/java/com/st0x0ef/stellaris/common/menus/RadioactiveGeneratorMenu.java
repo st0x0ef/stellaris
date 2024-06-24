@@ -2,7 +2,6 @@ package com.st0x0ef.stellaris.common.menus;
 
 import com.st0x0ef.stellaris.common.blocks.entities.machines.RadioactiveGeneratorEntity;
 import com.st0x0ef.stellaris.common.menus.slot.RadioactiveGeneratorSlot;
-import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import com.st0x0ef.stellaris.common.network.packets.SyncWidgetsTanks;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import net.minecraft.network.FriendlyByteBuf;
@@ -112,7 +111,9 @@ public class RadioactiveGeneratorMenu extends AbstractContainerMenu {
 
     public void syncBattery(ServerPlayer player) {
         if (!player.level().isClientSide()) {
-            NetworkRegistry.sendToPlayer(player, NetworkRegistry.SYNC_FLUID_TANKS_ID, SyncWidgetsTanks.encode(new SyncWidgetsTanks(new long[]{this.getBlockEntity().getWrappedEnergyContainer().getStoredEnergy()}), WaterSeparatorMenu.createBuf(player)));
+            new SyncWidgetsTanks(
+                    new long[] {this.getBlockEntity().getWrappedEnergyContainer().getStoredEnergy()}
+            ).sendTo(player);
         }
     }
 }

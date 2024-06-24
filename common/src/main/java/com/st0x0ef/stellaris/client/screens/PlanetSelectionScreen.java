@@ -11,7 +11,7 @@ import com.st0x0ef.stellaris.client.screens.info.PlanetInfo;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.entities.RocketEntity;
 import com.st0x0ef.stellaris.common.menus.PlanetSelectionMenu;
-import com.st0x0ef.stellaris.common.network.NetworkRegistry;
+import com.st0x0ef.stellaris.common.network.packets.SyncWidgetsTanks;
 import com.st0x0ef.stellaris.common.network.packets.TeleportEntityToPlanet;
 import com.st0x0ef.stellaris.common.registry.EntityData;
 import com.st0x0ef.stellaris.common.registry.TranslatableRegistry;
@@ -712,8 +712,9 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     public void tpToFocusedPlanet() {
         if (focusedBody != null) {
-            RegistryFriendlyByteBuf buffer = new RegistryFriendlyByteBuf(Unpooled.buffer(), getPlayer().registryAccess());
-            NetworkRegistry.sendToServer(NetworkRegistry.TELEPORT_ENTITY_ID, TeleportEntityToPlanet.encode(new TeleportEntityToPlanet(focusedBody.dimension), buffer));
+            new TeleportEntityToPlanet(
+                    focusedBody.dimension
+            ).sendToServer();
         } else {
             Stellaris.LOG.error("Focused body is null");
         }

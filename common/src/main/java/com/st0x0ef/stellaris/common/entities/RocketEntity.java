@@ -7,7 +7,7 @@ import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.data_components.RocketComponent;
 import com.st0x0ef.stellaris.common.items.upgrade.RocketUpgradeItem;
 import com.st0x0ef.stellaris.common.menus.RocketMenu;
-import com.st0x0ef.stellaris.common.network.NetworkRegistry;
+import com.st0x0ef.stellaris.common.network.packets.KeyHandler;
 import com.st0x0ef.stellaris.common.network.packets.SyncRocketComponent;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import com.st0x0ef.stellaris.common.registry.EntityData;
@@ -517,8 +517,10 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         this.rocketComponent = new RocketComponent(SKIN_UPGRADE.getRocketSkinLocation().toString(), RocketModel.fromString(MODEL_UPGRADE.getModel().toString()), currentFuelItem.toString(), FUEL, TANK_UPGRADE.getTankCapacity());
 
         if (!level().isClientSide()) {
-            RegistryFriendlyByteBuf buffer = new RegistryFriendlyByteBuf(Unpooled.buffer(), level().getServer().registryAccess());
-            NetworkRegistry.sendToPlayer(player, NetworkRegistry.SYNC_ROCKET_COMPONENT_ID, SyncRocketComponent.encode(new SyncRocketComponent(rocketComponent), buffer));
+
+            new SyncRocketComponent(
+                    rocketComponent
+            ).sendTo(player);
         }
     }
 }

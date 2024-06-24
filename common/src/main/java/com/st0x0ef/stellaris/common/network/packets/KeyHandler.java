@@ -5,14 +5,17 @@ import com.st0x0ef.stellaris.common.armors.JetSuit;
 import com.st0x0ef.stellaris.common.entities.RocketEntity;
 import com.st0x0ef.stellaris.common.keybinds.KeyVariables;
 import com.st0x0ef.stellaris.common.menus.PlanetSelectionMenu;
+import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import dev.architectury.networking.NetworkManager;
+import dev.architectury.networking.simple.BaseC2SMessage;
+import dev.architectury.networking.simple.MessageType;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-public class KeyHandler {
+public class KeyHandler extends BaseC2SMessage {
     public final String key;
     public final boolean condition;
 
@@ -26,15 +29,22 @@ public class KeyHandler {
         this.condition = buffer.readBoolean();
     }
 
-    public static RegistryFriendlyByteBuf encode(KeyHandler message, RegistryFriendlyByteBuf buffer) {
-        buffer.writeUtf(message.key);
-        buffer.writeBoolean(message.condition);
-        return buffer;
+    @Override
+    public MessageType getType() {
+        return NetworkRegistry.KEY_HANDLER_ID;
     }
 
-    public static void apply(RegistryFriendlyByteBuf buffer, NetworkManager.PacketContext context) {
+    @Override
+    public void write(RegistryFriendlyByteBuf buffer) {
+        buffer.writeUtf(this.key);
+        buffer.writeBoolean(this.condition);
+
+    }
+
+    @Override
+    public void handle(NetworkManager.PacketContext context) {
         Player player = context.getPlayer();
-        KeyHandler keyHandler = new KeyHandler(buffer);
+        KeyHandler keyHandler = this;
         context.queue(() -> {
             switch (keyHandler.key) {
                 case "key_up":
@@ -72,7 +82,6 @@ public class KeyHandler {
                     Stellaris.LOG.error("unknown key action {}", keyHandler.key);
             }
         });
+
     }
-
-
 }

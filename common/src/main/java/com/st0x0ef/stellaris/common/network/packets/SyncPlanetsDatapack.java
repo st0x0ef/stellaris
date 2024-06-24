@@ -2,12 +2,15 @@ package com.st0x0ef.stellaris.common.network.packets;
 
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
+import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import dev.architectury.networking.NetworkManager;
+import dev.architectury.networking.simple.BaseS2CMessage;
+import dev.architectury.networking.simple.MessageType;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 
 import java.util.List;
 
-public class SyncPlanetsDatapack {
+public class SyncPlanetsDatapack extends BaseS2CMessage {
     private final List<Planet> planets;
 
     public SyncPlanetsDatapack(RegistryFriendlyByteBuf buffer) {
@@ -18,11 +21,18 @@ public class SyncPlanetsDatapack {
         this.planets = planets;
     }
 
-    public static RegistryFriendlyByteBuf encode(SyncPlanetsDatapack message, RegistryFriendlyByteBuf buffer) {
-        return Planet.toBuffer(message.planets, buffer);
+    @Override
+    public MessageType getType() {
+        return NetworkRegistry.SYNC_PLANETS_DATAPACK;
     }
 
-    public static void apply(RegistryFriendlyByteBuf buffer, NetworkManager.PacketContext context) {
-        StellarisData.addPlanets(new SyncPlanetsDatapack(buffer).planets);
+    @Override
+    public void write(RegistryFriendlyByteBuf buf) {
+        Planet.toBuffer(this.planets, buf);
+    }
+
+    @Override
+    public void handle(NetworkManager.PacketContext context) {
+        StellarisData.addPlanets(this.planets);
     }
 }

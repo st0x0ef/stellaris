@@ -2,8 +2,8 @@ package com.st0x0ef.stellaris.client.registries;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import com.st0x0ef.stellaris.common.network.packets.KeyHandler;
+import com.st0x0ef.stellaris.common.network.packets.TeleportEntityToPlanet;
 import dev.architectury.event.events.client.ClientTickEvent;
 import dev.architectury.registry.client.keymappings.KeyMappingRegistry;
 import net.minecraft.client.KeyMapping;
@@ -23,18 +23,23 @@ public class KeyMappingsRegistry {
 
         ClientTickEvent.CLIENT_POST.register(minecraft -> {
             while (ROCKET_START.consumeClick()) {
-                RegistryFriendlyByteBuf buffer = new RegistryFriendlyByteBuf(buffer(), minecraft.level.registryAccess());
-                NetworkRegistry.sendToServer(NetworkRegistry.KEY_HANDLER_ID, KeyHandler.encode(new KeyHandler("rocket_start", true), buffer));
+
+                new KeyHandler(
+                        "rocket_start", true
+                ).sendToServer();
             }
 
             while (FREEZE_PLANET_MENU.consumeClick()) {
-                RegistryFriendlyByteBuf buffer = new RegistryFriendlyByteBuf(buffer(), minecraft.level.registryAccess());
-                NetworkRegistry.sendToServer(NetworkRegistry.KEY_HANDLER_ID, KeyHandler.encode(new KeyHandler("freeze_planet_menu", true), buffer));
+                new KeyHandler(
+                        "freeze_planet_menu", true
+                ).sendToServer();
+
             }
 
             while (CHANGE_JETSUIT_MODE.consumeClick()) {
-                RegistryFriendlyByteBuf buffer = new RegistryFriendlyByteBuf(buffer(), minecraft.level.registryAccess());
-                NetworkRegistry.sendToServer(NetworkRegistry.KEY_HANDLER_ID, KeyHandler.encode(new KeyHandler("switch_jet_suit_mode", true), buffer));
+                new KeyHandler(
+                        "switch_jet_suit_mode", true
+                ).sendToServer();
             }
         });
     }

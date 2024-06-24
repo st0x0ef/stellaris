@@ -4,7 +4,6 @@ import com.st0x0ef.stellaris.common.blocks.entities.machines.FluidTank;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.WaterSeparatorBlockEntity;
 import com.st0x0ef.stellaris.common.menus.slot.FluidContainerSlot;
 import com.st0x0ef.stellaris.common.menus.slot.ResultSlot;
-import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import com.st0x0ef.stellaris.common.network.packets.SyncWidgetsTanks;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import io.netty.buffer.Unpooled;
@@ -55,17 +54,14 @@ public class WaterSeparatorMenu extends BaseContainer {
         if (!player.level().isClientSide()) {
             FluidTank resultTank1 = blockEntity.getResultTanks().getFirst();
             FluidTank resultTank2 = blockEntity.getResultTanks().get(1);
-            NetworkRegistry.sendToPlayer(player, NetworkRegistry.SYNC_FLUID_TANKS_ID, SyncWidgetsTanks.encode(new SyncWidgetsTanks(
-                    new long[] {resultTank1.getAmount(), resultTank2.getAmount()},
-                    new ResourceLocation[] {resultTank1.getStack().getFluid().arch$registryName(), resultTank2.getStack().getFluid().arch$registryName()}
-            ), createBuf(player)));
-            NetworkRegistry.sendToPlayer(player, NetworkRegistry.SYNC_FLUID_TANKS_ID, SyncWidgetsTanks.encode(new SyncWidgetsTanks(
+            new SyncWidgetsTanks(new long[] {resultTank1.getAmount(), resultTank2.getAmount()},
+                    new ResourceLocation[] {resultTank1.getStack().getFluid().arch$registryName(), resultTank2.getStack().getFluid().arch$registryName()}).sendTo(player);
+            new SyncWidgetsTanks(
                     new long[] {blockEntity.ingredientTank.getAmount()},
                     new ResourceLocation[] {blockEntity.ingredientTank.getStack().getFluid().arch$registryName()}
-            ), createBuf(player)));
-            NetworkRegistry.sendToPlayer(player, NetworkRegistry.SYNC_FLUID_TANKS_ID, SyncWidgetsTanks.encode(new SyncWidgetsTanks(
-                    new long[] {blockEntity.getWrappedEnergyContainer().getStoredEnergy(), 0, 0} // The 0s are fillers, so the array size is 3
-            ), createBuf(player)));
+            ).sendTo(player);
+            new SyncWidgetsTanks(
+                    new long[] {blockEntity.getWrappedEnergyContainer().getStoredEnergy(), 0, 0}).sendTo(player);
         }
     }
 
