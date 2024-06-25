@@ -53,7 +53,7 @@ public class Stellaris {
         CommandsRegistry.register();
         BiomeModificationsRegistry.register();
         Events.registerEvents();
-        LookupApiRegistry.register();
+        LookupApiRegistry.registerEnergy();
         RecipesRegistry.register();
     }
 
