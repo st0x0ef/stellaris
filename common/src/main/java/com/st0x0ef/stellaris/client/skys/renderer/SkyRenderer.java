@@ -63,7 +63,7 @@ public class SkyRenderer extends DimensionSpecialEffects {
         float dayAngle = dayTime * 360f % 360f;
         float skyLight = 1 - 2 * Math.abs(dayTime - 0.5f);
         float rainLevel = 1.0F - mc.level.getRainLevel(partialTicks);
-        float starLight = mc.level.getStarBrightness(partialTicks) * rainLevel + 0.2F;;
+        float starLight = mc.level.getStarBrightness(partialTicks) * rainLevel;;
 
         Matrix4f matrix4f;
 
