@@ -1,8 +1,8 @@
 {
   "parent": "stellaris:custom/vertical_slab",
   "textures": {
-    "bottom": "stellaris:block/steel_planting_block",
-    "top": "stellaris:block/steel_planting_block",
-    "side": "stellaris:block/steel_planting_block"
+    "bottom": "stellaris:block/steel_plating_block",
+    "top": "stellaris:block/steel_plating_block",
+    "side": "stellaris:block/steel_plating_block"
   }
 }

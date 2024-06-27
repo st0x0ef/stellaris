@@ -4,7 +4,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
 import com.st0x0ef.stellaris.common.armors.AbstractSpaceArmor;
-import com.st0x0ef.stellaris.common.armors.JetSuit;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -50,8 +49,6 @@ public class OxygenTankOverlay {
                 Component text = Component.translatable("general." + Stellaris.MODID + ".oxygen").append(": ").withStyle(ChatFormatting.BLUE).append("§7" + oxygen / (maxOxygen / 100) + "%");
                 graphics.drawString(font, text, (x + (textureWidth - font.width(text)) / 2), y + textureHeight + 3, 0xFFFFFF);
             }
-
-            /** OXYGEN TANK IMAGE */
 
         }
 

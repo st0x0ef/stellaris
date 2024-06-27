@@ -3,7 +3,6 @@ package com.st0x0ef.stellaris;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.ToNumberPolicy;
-import com.st0x0ef.stellaris.client.StellarisClient;
 import com.st0x0ef.stellaris.common.config.CustomConfig;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
 import com.st0x0ef.stellaris.common.data.renderer.SkyPack;
@@ -35,15 +34,12 @@ public class Stellaris {
     public static void init() {
         CustomConfig.init();
 
-        NetworkRegistry.register();
         EntityData.register();
-
-        DataComponentsRegistry.DATA_COMPONENT_TYPE.register();
-        RecipesRegistry.register();
-        StellarisClient.registerPacks();
+        NetworkRegistry.init();
         SoundRegistry.SOUNDS.register();
-        FluidRegistry.FLUIDS.register();
         EffectsRegistry.MOB_EFFECTS.register();
+        DataComponentsRegistry.DATA_COMPONENT_TYPE.register();
+        FluidRegistry.FLUIDS.register();
         ParticleRegistry.PARTICLES.register();
         BlocksRegistry.BLOCKS.register();
         EntityRegistry.ENTITY_TYPE.register();
@@ -57,14 +53,15 @@ public class Stellaris {
         CommandsRegistry.register();
         BiomeModificationsRegistry.register();
         Events.registerEvents();
-        LookupApiRegistry.register();
+        LookupApiRegistry.registerEnergy();
+        RecipesRegistry.register();
     }
 
-    public static void onDatapackSyncEvent(ServerPlayer player) {
-        StellarisData.PLANETS.forEach(((resourceKey, planet) -> {
+    public static void onDatapackSyncEvent(ServerPlayer player, boolean joined) {
+        if (joined) {
             RegistryFriendlyByteBuf buffer = new RegistryFriendlyByteBuf(Unpooled.buffer(), player.registryAccess());
-            NetworkRegistry.sendToPlayer(player, NetworkRegistry.SYNC_PLANET_DATAPACK_ID, SyncPlanetsDatapack.encode(new SyncPlanetsDatapack(resourceKey, planet), buffer));
-        }));
+            NetworkRegistry.sendToPlayer(player, NetworkRegistry.SYNC_PLANET_DATAPACK_ID, SyncPlanetsDatapack.encode(new SyncPlanetsDatapack(StellarisData.getPlanets()), buffer));
+        }
     }
 
     public static void onAddReloadListenerEvent(BiConsumer<ResourceLocation, PreparableReloadListener> registry) {
@@ -74,6 +71,5 @@ public class Stellaris {
         registry.accept(new ResourceLocation(Stellaris.MODID, "planets_pack"), new PlanetPack());
         registry.accept(new ResourceLocation(Stellaris.MODID, "moon_packs"), new MoonPack());
         registry.accept(new ResourceLocation(Stellaris.MODID, "sky_packs"), new SkyPack());
-
     }
 }

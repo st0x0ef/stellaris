@@ -9,24 +9,29 @@ import dev.architectury.registry.menu.MenuRegistry;
 import io.netty.buffer.Unpooled;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
+
 public class PlanetUtil {
-    public static Planet getPlanet(ResourceKey<Level> level) {
-        return StellarisData.PLANETS.get(level);
+    public static Planet getPlanet(ResourceLocation level) {
+        AtomicReference<Planet> p = new AtomicReference<>();
+        StellarisData.getPlanets().forEach(planet -> {if (planet.dimension().equals(level)) p.set(planet);});
+        return p.get();
     }
 
-    public static boolean isPlanet(ResourceKey<Level> level) {
-        return StellarisData.PLANETS.containsKey(level);
+    public static boolean isPlanet(ResourceLocation level) {
+        AtomicBoolean isPlanet = new AtomicBoolean(false);
+        StellarisData.getPlanets().forEach(planet -> {if (planet.dimension().equals(level)) isPlanet.set(true);});
+        return isPlanet.get();
     }
-    public static boolean hasOxygen(ResourceKey<Level> level) {
+    public static boolean hasOxygen(ResourceLocation level) {
         if (isPlanet(level)) {
             return getPlanet(level).oxygen();
         }
@@ -34,7 +39,7 @@ public class PlanetUtil {
     }
 
     /** Get the resourcelocation of the planet bar set in the Planet file */
-    public static ResourceLocation getPlanetBar(ResourceKey<Level> level) {
+    public static ResourceLocation getPlanetBar(ResourceLocation level) {
         if (isPlanet(level)) {
             return getPlanet(level).textures().planet_bar();
         }
@@ -97,11 +102,11 @@ public class PlanetUtil {
         return 0;
     }
 
-    public static float getTemperature(ResourceKey<Level> dim) {
+    public static float getTemperature(ResourceLocation dim) {
         return getPlanet(dim).temperature();
     }
 
-    public static String getSystem(ResourceKey<Level> dim) {
+    public static String getSystem(ResourceLocation dim) {
         return getPlanet(dim).system();
     }
 }

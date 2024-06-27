@@ -14,7 +14,8 @@ public class FluidTank {
 
     public FluidTank(String name, int maxCapacity) {
         this.name = name;
-        this.maxCapacity = (int) (maxCapacity * FluidTankHelper.BUCKET_AMOUNT);
+        this.maxCapacity = ((int) (maxCapacity * FluidTankHelper.BUCKET_AMOUNT)) + 1;
+
     }
 
     public int getMaxCapacity() {
@@ -30,7 +31,7 @@ public class FluidTank {
     }
 
     public void setAmount(long amount) {
-        stack.setAmount(Mth.clamp(amount, 1, maxCapacity));
+        stack.setAmount(Mth.clamp(amount, 0, maxCapacity));
     }
 
     public void grow(long amount) {

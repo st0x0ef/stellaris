@@ -19,9 +19,9 @@ public record PlanetTextures(
         return new PlanetTextures(buffer.readResourceLocation(), buffer.readResourceLocation());
     }
 
-    public void toNetwork(RegistryFriendlyByteBuf buffer) {
+    public RegistryFriendlyByteBuf toNetwork(RegistryFriendlyByteBuf buffer) {
         buffer.writeResourceLocation(this.planet_bar);
         buffer.writeResourceLocation(this.planet);
-        //return buffer;
+        return buffer;
     }
 }

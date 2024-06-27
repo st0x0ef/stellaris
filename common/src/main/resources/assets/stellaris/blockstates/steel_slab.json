@@ -7,7 +7,7 @@
       "model": "stellaris:block/steel_block"
     },
     "type=top": {
-      "model": "stellaris:block/stel_slab_top"
+      "model": "stellaris:block/steel_slab_top"
     }
   }
 }

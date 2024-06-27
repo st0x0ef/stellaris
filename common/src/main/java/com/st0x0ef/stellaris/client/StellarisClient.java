@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.client;
 
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.client.events.ClientEvents;
 import com.st0x0ef.stellaris.client.overlays.JetSuitOverlay;
 import com.st0x0ef.stellaris.client.overlays.LanderOverlay;
 import com.st0x0ef.stellaris.client.overlays.RocketBarOverlay;
@@ -37,6 +38,7 @@ import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.tiny.TinyR
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeBlockRenderer;
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeModel;
 import com.st0x0ef.stellaris.client.screens.*;
+import com.st0x0ef.stellaris.common.data.planets.StellarisData;
 import com.st0x0ef.stellaris.common.data.renderer.SkyPack;
 import com.st0x0ef.stellaris.common.data.screen.MoonPack;
 import com.st0x0ef.stellaris.common.data.screen.PlanetPack;
@@ -66,8 +68,7 @@ public class StellarisClient {
     @Environment(EnvType.CLIENT)
     public static void initClient() {
 
-
-        //registerPacks();
+        registerPacks();
 
         Minecraft.getInstance().execute(() -> {
             setupOpenGLDebugMessageCallback();
@@ -80,6 +81,8 @@ public class StellarisClient {
         registerScreen();
         registerOverlays();
         registerJetSuitModel();
+        ClientEvents.registerClientEvents();
+        Platform.getMod(Stellaris.MODID).registerConfigurationScreen(ConfigScreen::new);
     }
 
     private static void registerJetSuitModel() {
@@ -178,6 +181,8 @@ public class StellarisClient {
     }
 
     public static void registerPacks() {
+        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new StellarisData());
+
         ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new StarPack());
         ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new PlanetPack());
         ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new MoonPack());

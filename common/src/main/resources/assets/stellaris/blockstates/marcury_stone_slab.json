@@ -4,7 +4,7 @@
       "model": "stellaris:block/marcury_stone_slab"
     },
     "type=double": {
-      "model": "stellaris:block/marcury_stone"
+      "model": "stellaris:block/mercury_stone"
     },
     "type=top": {
       "model": "stellaris:block/marcury_stone_slab_top"

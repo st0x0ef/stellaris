@@ -96,13 +96,14 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         this.rocketExplosion();
         this.burnEntities();
         this.checkContainer();
+
         if (ROCKET_START) {
             this.spawnParticle();
             this.startTimerAndFlyMovement();
+        }
 
-            if (this.getY() > 600) {
-                this.openPlanetMenu(this.getFirstPlayerPassenger());
-            }
+        if (this.getY() > 600) {
+            this.openPlanetMenu(this.getFirstPlayerPassenger());
         }
     }
 
@@ -173,7 +174,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
     @Override
     public Vec3 getPassengerRidingPosition(Entity entity) {
-        return this.position().add(this.getPassengerAttachmentPoint(entity, getDimensions(this.getPose()),1.0F)).add(0d,-3.15d,0d);
+        return this.position().add(this.getPassengerAttachmentPoint(entity, getDimensions(this.getPose()),1.0F)).subtract(0d,3.15d,0d);
     }
 
     @Override

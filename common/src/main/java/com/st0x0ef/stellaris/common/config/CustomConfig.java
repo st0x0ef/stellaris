@@ -31,8 +31,6 @@ public class CustomConfig {
         addEntry("uraniumBurnTime", new ConfigEntry<>(/*coalBurnTime*5 */8000, "Burn time for uranium ingot in Radioactive Generator"));
         addEntry("plutoniumBurnTime", new ConfigEntry<>(/*uraniumBurnTime*1.5 */12000, "Burn time for plutonium ingot in Radioactive Generator"));
         addEntry("neptuniumBurnTime", new ConfigEntry<>(/*uraniumBurnTime*2 */16000, "Burn time for neptunium ingot in Radioactive Generator"));
-
-        addEntry("maxOxygenPerBlock", new ConfigEntry<>(5, "The maximum amount of oxygen stored in each block"));
     }
 
     public static void addEntry(String name, ConfigEntry<?> entry) {
@@ -50,11 +48,10 @@ public class CustomConfig {
     }
 
     public static void loadConfigFile() {
-        String path = null;
-        if(Platform.getEnvironment() == Env.SERVER) path = Platform.getConfigFolder() + "/stellaris.json";
+        if (Platform.getEnvironment() == Env.CLIENT) return;
+        String path = Platform.getConfigFolder() + "/stellaris.json";
 
         String jsonString;
-
         try {
             jsonString = readFileAsString(path);
             JsonObject jsonObject = Stellaris.GSON.fromJson(jsonString, JsonObject.class);

@@ -1,9 +1,7 @@
 package com.st0x0ef.stellaris.client.screens.info;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.Level;
 
 public class CelestialBody {
     public final ResourceLocation texture;
@@ -13,11 +11,11 @@ public class CelestialBody {
     public final int orbitColor;
     public float x;
     public double y;
-    public ResourceKey<Level> dimension;
+    public ResourceLocation dimension;
     public Component translatable;
     public String id;
 
-    public CelestialBody(ResourceLocation texture, String name, float x, float y, float width, float height, int orbitColor, ResourceKey<Level> dimension, Component translatable, String id) {
+    public CelestialBody(ResourceLocation texture, String name, float x, float y, float width, float height, int orbitColor, ResourceLocation dimension, Component translatable, String id) {
         this.texture = texture;
         this.name = name;
         this.x = x;

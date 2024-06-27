@@ -3,7 +3,6 @@
   "level": "stellaris:mars",
   "name": "Mars",
   "translatable": "stellaris.planet.mars",
-  "orbit": "minecraft:the_end",
   "oxygen": false,
   "temperature": -63,
   "distanceFromEarth": 55700,

@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.common.data.screen;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;

@@ -19,16 +19,17 @@ public class NetworkRegistry {
     public static final ResourceLocation SYNC_ROCKET_COMPONENT_ID = new ResourceLocation(Stellaris.MODID, "sync_rocket_component");
     public static final ResourceLocation SYNC_FLUID_TANKS_ID = new ResourceLocation(Stellaris.MODID, "sync_fluid_tanks");
 
-    public static void register() {
-        /** C2S */
+    public static void registerC2S() {
         NetworkAggregator.registerReceiver(NetworkManager.Side.C2S, KEY_HANDLER_ID, Collections.singletonList(new SplitPacketTransformer()), KeyHandler::apply);
         NetworkAggregator.registerReceiver(NetworkManager.Side.C2S, TELEPORT_ENTITY_ID, Collections.singletonList(new SplitPacketTransformer()), TeleportEntityToPlanet::apply);
-
-        /** S2C */
-        NetworkAggregator.registerReceiver(NetworkManager.Side.S2C, SYNC_PLANET_DATAPACK_ID, Collections.singletonList(new SplitPacketTransformer()), SyncPlanetsDatapack::apply);
-        NetworkAggregator.registerReceiver(NetworkManager.Side.S2C, SYNC_ROCKET_COMPONENT_ID, Collections.singletonList(new SplitPacketTransformer()), SyncRocketComponent::apply);
-        NetworkAggregator.registerReceiver(NetworkManager.Side.S2C, SYNC_FLUID_TANKS_ID, Collections.singletonList(new SplitPacketTransformer()), SyncWidgetsTanks::apply);
     }
+
+    public static void registerS2C() {
+        NetworkAggregator.registerReceiver(NetworkManager.Side.S2C, SYNC_PLANET_DATAPACK_ID, Collections.emptyList(), SyncPlanetsDatapack::apply);
+        NetworkAggregator.registerReceiver(NetworkManager.Side.S2C, SYNC_ROCKET_COMPONENT_ID, Collections.emptyList(), SyncRocketComponent::apply);
+        NetworkAggregator.registerReceiver(NetworkManager.Side.S2C, SYNC_FLUID_TANKS_ID, Collections.emptyList(), SyncWidgetsTanks::apply);
+    }
+
 
     public static void sendToPlayer(ServerPlayer player, ResourceLocation packet_id, RegistryFriendlyByteBuf buffer) {
         NetworkAggregator.collectPackets(PacketSink.ofPlayer(player), NetworkManager.Side.S2C, packet_id, buffer);
@@ -36,5 +37,10 @@ public class NetworkRegistry {
 
     public static void sendToServer(ResourceLocation packet_id, RegistryFriendlyByteBuf buffer) {
         NetworkAggregator.collectPackets(PacketSink.client(), NetworkManager.Side.C2S, packet_id, buffer);
+    }
+
+    public static void init() {
+        registerC2S();
+        registerS2C();
     }
 }

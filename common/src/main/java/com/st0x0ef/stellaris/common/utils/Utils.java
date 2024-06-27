@@ -10,6 +10,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -57,17 +58,18 @@ public class Utils {
     }
 
     /** Teleport an entity to the planet wanted */
-    public static void teleportEntity(Entity entity, Planet destination, int yPos) {
-
-        if(entity.level().isClientSide()) return;
+    public static void teleportEntity(Entity entity, Planet destination) {
+        if(entity.level().isClientSide() || !entity.canChangeDimensions()) return;
         entity.setNoGravity(false);
 
-        ServerLevel nextLevel = entity.level().getServer().getLevel(destination.dimension());
+        entity.level().getServer().getAllLevels().forEach(level -> {
+            if (level.dimension().location().equals(destination.dimension())) {
+                TeleportUtil.teleportToPlanet(entity, level, 600);
+                entity.setPos(entity.getX(), 600, entity.getZ());
+            }
+        });
 
-        if (!entity.canChangeDimensions()) return;
 
-        TeleportUtil.teleportToPlanet(entity, nextLevel, yPos);
-        entity.setPos(entity.getX(), yPos, entity.getZ());
     }
 
     /** To use with the planetSelection menu */
@@ -77,14 +79,14 @@ public class Utils {
 
         Entity vehicle = player.getVehicle();
         if (vehicle instanceof RocketEntity rocket) {
+            player.stopRiding();
+
+            teleportEntity(player, destination);
 
             /** We create the lander */
             LanderEntity lander = createLanderFromRocket(player, rocket, 600);
 
             /** We remove the player from the Rocket */
-            player.stopRiding();
-
-            teleportEntity(player, destination, 600);
 
             player.closeContainer();
 
@@ -92,7 +94,7 @@ public class Utils {
             player.startRiding(lander);
         } else {
             player.closeContainer();
-            teleportEntity(player, destination, 600);
+            teleportEntity(player, destination);
         }
 
 
@@ -179,8 +181,8 @@ public class Utils {
     }
 
     /** dimension util */
-    public static int getPlayerCountInDimension(MinecraftServer server, ResourceKey<Level> dimensionKey) {
-        ServerLevel dimension = server.getLevel(dimensionKey);
+    public static int getPlayerCountInDimension(MinecraftServer server, ResourceLocation dimensionKey) {
+        ServerLevel dimension = server.getLevel(Utils.getPlanetLevel(dimensionKey));
         if (dimension == null) {
             return 0;
         }
@@ -220,8 +222,8 @@ public class Utils {
      * @return Minecraft Gravity Unit (blocks/t²)
      */
     public static double MPS2ToMCG(float MPS2) {
-        if (MPS2>0) return Math.floor(0.0081577297038234259406d * MPS2* 10000000) / 10000000;
-        else if (MPS2<0) return Math.ceil(0.0081577297038234259406d * MPS2* 10000000) / 10000000;
+        if (MPS2>0) return Math.floor(0.00816d * MPS2 * 100000) / 100000;
+        else if (MPS2<0) return Math.ceil(0.00816d * MPS2 * 100000) / 100000;
         else return 0;
     }
 
@@ -251,5 +253,9 @@ public class Utils {
 
     public static boolean isLivingInArmor(LivingEntity entity, EquipmentSlot slot, Item item) {
         return entity.getItemBySlot(slot).getItem() == item;
+    }
+
+    public static ResourceKey<Level> getPlanetLevel(ResourceLocation planet) {
+        return ResourceKey.create(ResourceKey.createRegistryKey(planet), planet);
     }
 }

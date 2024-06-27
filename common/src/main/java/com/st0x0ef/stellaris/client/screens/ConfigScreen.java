@@ -28,8 +28,6 @@ public class ConfigScreen extends Screen {
         this.parent = parent;
     }
 
-
-
     @Override
     protected void init() {
 
@@ -57,8 +55,6 @@ public class ConfigScreen extends Screen {
 
 
     }
-
-
 
     @Override
     public void onClose() {
@@ -122,7 +118,6 @@ public class ConfigScreen extends Screen {
         }
     }
 
-
     @Override
     public void removed() {
         this.minecraft.options.save();
@@ -136,6 +131,7 @@ public class ConfigScreen extends Screen {
         ));
 
     }
+
     private SpriteIconButton stellarisConfigButton(int i) {
         return SpriteIconButton.builder(Component.literal("Config"), (button) -> {
             Path path = Path.of(Platform.getConfigFolder() + "/stellaris.json");

@@ -3,12 +3,11 @@ package com.st0x0ef.stellaris.client.skys.renderer;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Axis;
+import com.st0x0ef.stellaris.client.events.ClientEvents;
 import com.st0x0ef.stellaris.client.skys.helper.SkyHelper;
 import com.st0x0ef.stellaris.client.skys.helper.StarHelper;
 import com.st0x0ef.stellaris.client.skys.type.RenderableType;
-import com.st0x0ef.stellaris.common.events.Events;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.DimensionSpecialEffects;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.LevelRenderer;
@@ -43,7 +42,7 @@ public class SkyRenderer extends DimensionSpecialEffects {
         BufferBuilder buffer = tesselator.getBuilder();
         starBuffer = StarHelper.createStars(0.15F, 190, 160, -1);
 
-        RenderableType renderable = getRenderableType(mc.player.level().dimension());
+        RenderableType renderable = getRenderableType(mc.player.level().dimension().location());
 
         if (renderable != null) {
             starBuffer = StarHelper.createStars(0.1F, 190, 160, -1);
@@ -53,7 +52,7 @@ public class SkyRenderer extends DimensionSpecialEffects {
 
         renderSky(buffer, tesselator, partialTicks, projectionMatrix, renderer, poseStack, viewMatrix);
 
-        if (Events.isCustomClouds && clouds_texture != null && poseStack != null) {
+        if (ClientEvents.isCustomClouds && clouds_texture != null && poseStack != null) {
             SkyHelper.renderCustomClouds(poseStack, projectionMatrix, viewMatrix, partialTicks, mc.player.getX(), mc.player.getY(), mc.player.getZ(), clouds_texture);
         }}
 
@@ -67,8 +66,8 @@ public class SkyRenderer extends DimensionSpecialEffects {
 
         Matrix4f matrix4f;
 
-        if (getRenderableType(mc.player.level().dimension()) != null) {
-            if (getRenderableType(mc.player.level().dimension()).isAllDaysVisible()) {
+        if (getRenderableType(mc.player.level().dimension().location()) != null) {
+            if (getRenderableType(mc.player.level().dimension().location()).isAllDaysVisible()) {
                 starLight = 1.0F;
             } else {
                 starLight = mc.level.getStarBrightness(partialTicks) * rainLevel + 0.2F;
@@ -86,9 +85,9 @@ public class SkyRenderer extends DimensionSpecialEffects {
         RenderSystem.depthMask(true);
     }
 
-    public static synchronized RenderableType getRenderableType(ResourceKey<Level> dimension) {
+    public static synchronized RenderableType getRenderableType(ResourceLocation dimension) {
         for (RenderableType renderableType : renderableList) {
-            if (renderableType.getDimension() == dimension) {
+            if (renderableType.getDimension().location() == dimension) {
                 return renderableType;
             }
         }

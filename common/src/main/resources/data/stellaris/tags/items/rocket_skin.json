@@ -1,7 +1,11 @@
 {
   "replace": false,
   "values": [
-    "stellaris:test_skin",
-    "stellaris:basic_rocket_skin"
+    "stellaris:skin_frozy",
+    "stellaris:skin_normal",
+    "stellaris:skin_galaxy",
+    "stellaris:skin_military",
+    "stellaris:skin_rusty"
+
   ]
 }

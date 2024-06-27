@@ -13,6 +13,11 @@ public class RadioactiveItem extends Item implements RadiationItem {
 
     @Override
     public int getRadiationLevel() {
-        return radiationLevel - 1;
+        return radiationLevel;
+    }
+
+    @Override
+    public boolean isBlock() {
+        return false;
     }
 }

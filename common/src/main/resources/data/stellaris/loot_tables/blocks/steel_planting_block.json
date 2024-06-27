@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "stellaris:steel_planting_block"
+          "name": "stellaris:steel_plating_block"
         }
       ],
       "rolls": 1.0

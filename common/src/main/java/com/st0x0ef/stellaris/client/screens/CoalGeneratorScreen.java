@@ -58,10 +58,6 @@ public class CoalGeneratorScreen extends AbstractContainerScreen<CoalGeneratorMe
         }
 
         energyGauge.update(blockEntity.getWrappedEnergyContainer().getStoredEnergy());
-
-        List<Component> components = new ArrayList<>();
-        components.add(Component.translatable("gauge_text.stellaris.max_generation", blockEntity.getEnergyGeneratedPT()));
-        energyGauge.renderTooltips(graphics, mouseX, mouseY, font, components);
     }
 
     @Override
@@ -75,5 +71,13 @@ public class CoalGeneratorScreen extends AbstractContainerScreen<CoalGeneratorMe
             int i = Mth.ceil(menu.getLitProgress() * 13.0F) + 1;
             graphics.blitSprite(GUISprites.LIT_PROGRESS_SPRITE, 14, 14, 0, 14 - i, leftPos + 84, topPos + 69 + 14 - i, 14, i);
         }
+    }
+
+    @Override
+    protected void renderTooltip(GuiGraphics guiGraphics, int x, int y) {
+        super.renderTooltip(guiGraphics, x, y);
+        List<Component> components = new ArrayList<>();
+        components.add(Component.translatable("gauge_text.stellaris.max_generation", blockEntity.getEnergyGeneratedPT()));
+        energyGauge.renderTooltips(guiGraphics, x, y, font, components);
     }
 }

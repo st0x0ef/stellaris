@@ -3,7 +3,6 @@
   "level": "stellaris:moon",
   "name": "Moon",
   "translatable": "stellaris.planet.moon",
-  "orbit": "minecraft:the_end",
   "oxygen": false,
   "temperature": -153,
   "distanceFromEarth": 384.4,

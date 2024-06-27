@@ -17,7 +17,7 @@ public class MarsFog {
     public static void setupFog(ViewportEvent.RenderFog event) {
         Minecraft mc = Minecraft.getInstance();
 
-        if (Objects.equals(PlanetUtil.getPlanet(mc.level.dimension()).name(), "Mars")) {
+        if (Objects.equals(PlanetUtil.getPlanet(mc.level.dimension().location()).name(), "Mars")) {
             float fogLevel = mc.level.getRainLevel((float) event.getPartialTick()) - 0.02F;
             float renderDistance = mc.gameRenderer.getRenderDistance();
 

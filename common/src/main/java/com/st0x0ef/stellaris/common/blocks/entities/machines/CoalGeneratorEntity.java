@@ -152,4 +152,9 @@ public class CoalGeneratorEntity extends BaseGeneratorBlockEntity {
     public int getContainerSize() {
         return 1;
     }
+
+    @Override
+    protected int getMaxCapacity() {
+        return 128000;
+    }
 }

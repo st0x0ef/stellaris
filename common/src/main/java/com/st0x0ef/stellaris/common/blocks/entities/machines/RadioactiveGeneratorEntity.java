@@ -28,12 +28,21 @@ public class RadioactiveGeneratorEntity extends CoalGeneratorEntity {
         }
 
         if (fuelStack.getItem() instanceof RadiationItem radiationItem) {
-            return switch (radiationItem.getRadiationLevel()) {
-                case 0 -> 200;
-                case 1 -> 500;
-                case 2 -> 1000;
-                default -> 0;
-            };
+            if (radiationItem.isBlock()) {
+                return switch (radiationItem.getRadiationLevel()) {
+                    case 0 -> 1800;
+                    case 1 -> 4500;
+                    case 2 -> 9000;
+                    default -> 0;
+                };
+            } else {
+                return switch (radiationItem.getRadiationLevel()) {
+                    case 0 -> 200;
+                    case 1 -> 500;
+                    case 2 -> 1000;
+                    default -> 0;
+                };
+            }
         }
 
         return 0;

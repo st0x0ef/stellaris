@@ -7,7 +7,6 @@ import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -29,7 +28,7 @@ public abstract class AbstractSpaceArmor extends CustomArmorItem {
         }
 
         public void onArmorTick(ItemStack stack, Level level, Player player) {
-            if (!PlanetUtil.hasOxygen(level.dimension())) {
+            if (!PlanetUtil.hasOxygen(level.dimension().location())) {
                 this.addOxygen(stack, -1);
             }
         }

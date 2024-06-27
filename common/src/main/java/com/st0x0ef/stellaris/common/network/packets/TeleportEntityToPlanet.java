@@ -5,26 +5,24 @@ import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import dev.architectury.networking.NetworkManager;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
 
 public class TeleportEntityToPlanet {
 
-    public final ResourceKey<Level> dimension;
+    public final ResourceLocation dimension;
 
-    public TeleportEntityToPlanet(ResourceKey<Level> dimension) {
+    public TeleportEntityToPlanet(ResourceLocation dimension) {
         this.dimension = dimension;
     }
 
     public TeleportEntityToPlanet(RegistryFriendlyByteBuf buffer) {
-        this.dimension = buffer.readResourceKey(Registries.DIMENSION);
+        this.dimension = buffer.readResourceLocation();
     }
 
     public static RegistryFriendlyByteBuf encode(TeleportEntityToPlanet message, RegistryFriendlyByteBuf buffer) {
-        buffer.writeResourceKey(message.dimension);
+        buffer.writeResourceLocation(message.dimension);
         return buffer;
     }
 
