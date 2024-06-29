@@ -9,7 +9,6 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 
 public class PlanetSelectionMenu extends AbstractContainerMenu {
-    private final Container inventory;
     private final Player player;
     public boolean freeze_gui = false;
 
@@ -20,7 +19,6 @@ public class PlanetSelectionMenu extends AbstractContainerMenu {
     public PlanetSelectionMenu(int syncId, Inventory playerInventory, Container container)
     {
         super(MenuTypesRegistry.PLANET_SELECTION_MENU.get(), syncId);
-        this.inventory = container;
         this.player = playerInventory.player;
     }
     @Override

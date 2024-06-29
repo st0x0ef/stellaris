@@ -52,4 +52,9 @@ public class RadioactiveGeneratorEntity extends CoalGeneratorEntity {
     protected Component getDefaultName() {
         return Component.translatable("block.stellaris.radioactive_generator");
     }
+
+    @Override
+    protected int getMaxCapacity() {
+        return 1000000;
+    }
 }

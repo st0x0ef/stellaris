@@ -1,7 +1,9 @@
 package com.st0x0ef.stellaris.common.events;
 
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.oxygen.OxygenContainerBlockEntity;
 import com.st0x0ef.stellaris.common.items.RadiationItem;
+import com.st0x0ef.stellaris.common.oxygen.OxygenManager;
 import com.st0x0ef.stellaris.common.registry.EffectsRegistry;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
@@ -53,23 +55,12 @@ public class Events {
             tickBeforeNextRadioactiveCheck--;
         });
 
-        BlockEvent.PLACE.register((level, pos, blockState, placer) -> {
-            if(level.isClientSide) return EventResult.pass();
-
-            ResourceLocation levelLocation = level.dimension().location();
-            Block block = blockState.getBlock();
-            if (PlanetUtil.isPlanet(levelLocation)) {
-                if (!PlanetUtil.hasOxygen(levelLocation)) {
-                    if(block instanceof CampfireBlock) {
-                        Stellaris.LOG.error("sssss");
-                        BlockState newCamp = Blocks.CAMPFIRE.defaultBlockState().setValue(CampfireBlock.LIT, false).setValue(CampfireBlock.SIGNAL_FIRE, false).setValue(CampfireBlock.WATERLOGGED, true);
-                        level.setBlock(pos, blockState, 1);
-                        return EventResult.pass();
-
-                    }
-
-                }
+      BlockEvent.BREAK.register((level, pos, state, player, value) -> {
+            if (level.getBlockEntity(pos) instanceof OxygenContainerBlockEntity oxygenContainer) {
+                OxygenManager.removeOxygenBlocksPerLevel(level, oxygenContainer);
             }
+
+            OxygenManager.distributeOxygenForLevel(level);
 
             return EventResult.pass();
         });
