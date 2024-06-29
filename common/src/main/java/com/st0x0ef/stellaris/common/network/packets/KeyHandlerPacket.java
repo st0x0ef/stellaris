@@ -5,36 +5,50 @@ import com.st0x0ef.stellaris.common.armors.JetSuit;
 import com.st0x0ef.stellaris.common.entities.RocketEntity;
 import com.st0x0ef.stellaris.common.keybinds.KeyVariables;
 import com.st0x0ef.stellaris.common.menus.PlanetSelectionMenu;
+import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import dev.architectury.networking.NetworkManager;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
-public class KeyHandler {
+public class KeyHandlerPacket implements CustomPacketPayload {
     public final String key;
     public final boolean condition;
 
-    public KeyHandler(String key, boolean condition) {
+
+    public static final StreamCodec<RegistryFriendlyByteBuf, KeyHandlerPacket> STREAM_CODEC = new StreamCodec<>() {
+        @Override
+        public @NotNull KeyHandlerPacket decode(RegistryFriendlyByteBuf buf) {
+            return new KeyHandlerPacket(buf);
+        }
+
+        @Override
+        public void encode(RegistryFriendlyByteBuf buf, KeyHandlerPacket packet) {
+            buf.writeUtf(packet.key);
+            buf.writeBoolean(packet.condition);
+
+        }
+    };
+
+
+    public KeyHandlerPacket(String key, boolean condition) {
         this.key = key;
         this.condition = condition;
     }
 
-    public KeyHandler(RegistryFriendlyByteBuf buffer) {
+    public KeyHandlerPacket(RegistryFriendlyByteBuf buffer) {
         this.key = buffer.readUtf();
         this.condition = buffer.readBoolean();
     }
 
-    public static RegistryFriendlyByteBuf encode(KeyHandler message, RegistryFriendlyByteBuf buffer) {
-        buffer.writeUtf(message.key);
-        buffer.writeBoolean(message.condition);
-        return buffer;
-    }
-
-    public static void apply(RegistryFriendlyByteBuf buffer, NetworkManager.PacketContext context) {
+    public static void handle(KeyHandlerPacket packet, NetworkManager.PacketContext context) {
         Player player = context.getPlayer();
-        KeyHandler keyHandler = new KeyHandler(buffer);
+        KeyHandlerPacket keyHandler = packet;
         context.queue(() -> {
             switch (keyHandler.key) {
                 case "key_up":
@@ -72,6 +86,12 @@ public class KeyHandler {
                     Stellaris.LOG.error("unknown key action {}", keyHandler.key);
             }
         });
+
+    }
+
+    @Override
+    public Type<? extends CustomPacketPayload> type() {
+        return NetworkRegistry.KEY_HANDLER_ID;
     }
 
 

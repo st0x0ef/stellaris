@@ -1,15 +1,22 @@
 package com.st0x0ef.stellaris.common.events;
 
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.oxygen.OxygenContainerBlockEntity;
 import com.st0x0ef.stellaris.common.items.RadiationItem;
 import com.st0x0ef.stellaris.common.oxygen.OxygenManager;
 import com.st0x0ef.stellaris.common.registry.EffectsRegistry;
+import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import dev.architectury.event.EventResult;
 import dev.architectury.event.events.common.BlockEvent;
 import dev.architectury.event.events.common.TickEvent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CampfireBlock;
+import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +54,8 @@ public class Events {
 
             tickBeforeNextRadioactiveCheck--;
         });
-        BlockEvent.BREAK.register((level, pos, state, player, value) -> {
+
+      BlockEvent.BREAK.register((level, pos, state, player, value) -> {
             if (level.getBlockEntity(pos) instanceof OxygenContainerBlockEntity oxygenContainer) {
                 OxygenManager.removeOxygenBlocksPerLevel(level, oxygenContainer);
             }
