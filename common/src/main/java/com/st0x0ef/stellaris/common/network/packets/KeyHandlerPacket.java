@@ -8,43 +8,47 @@ import com.st0x0ef.stellaris.common.menus.PlanetSelectionMenu;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import dev.architectury.networking.NetworkManager;
-import dev.architectury.networking.simple.BaseC2SMessage;
-import dev.architectury.networking.simple.MessageType;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
-public class KeyHandler extends BaseC2SMessage {
+public class KeyHandlerPacket implements CustomPacketPayload {
     public final String key;
     public final boolean condition;
 
-    public KeyHandler(String key, boolean condition) {
+
+    public static final StreamCodec<RegistryFriendlyByteBuf, KeyHandlerPacket> STREAM_CODEC = new StreamCodec<>() {
+        @Override
+        public @NotNull KeyHandlerPacket decode(RegistryFriendlyByteBuf buf) {
+            return new KeyHandlerPacket(buf);
+        }
+
+        @Override
+        public void encode(RegistryFriendlyByteBuf buf, KeyHandlerPacket packet) {
+            buf.writeUtf(packet.key);
+            buf.writeBoolean(packet.condition);
+
+        }
+    };
+
+
+    public KeyHandlerPacket(String key, boolean condition) {
         this.key = key;
         this.condition = condition;
     }
 
-    public KeyHandler(RegistryFriendlyByteBuf buffer) {
+    public KeyHandlerPacket(RegistryFriendlyByteBuf buffer) {
         this.key = buffer.readUtf();
         this.condition = buffer.readBoolean();
     }
 
-    @Override
-    public MessageType getType() {
-        return NetworkRegistry.KEY_HANDLER_ID;
-    }
-
-    @Override
-    public void write(RegistryFriendlyByteBuf buffer) {
-        buffer.writeUtf(this.key);
-        buffer.writeBoolean(this.condition);
-
-    }
-
-    @Override
-    public void handle(NetworkManager.PacketContext context) {
+    public static void handle(KeyHandlerPacket packet, NetworkManager.PacketContext context) {
         Player player = context.getPlayer();
-        KeyHandler keyHandler = this;
+        KeyHandlerPacket keyHandler = packet;
         context.queue(() -> {
             switch (keyHandler.key) {
                 case "key_up":
@@ -84,4 +88,11 @@ public class KeyHandler extends BaseC2SMessage {
         });
 
     }
+
+    @Override
+    public Type<? extends CustomPacketPayload> type() {
+        return NetworkRegistry.KEY_HANDLER_ID;
+    }
+
+
 }

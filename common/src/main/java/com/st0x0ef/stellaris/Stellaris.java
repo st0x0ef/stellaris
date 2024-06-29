@@ -3,7 +3,6 @@ package com.st0x0ef.stellaris;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.ToNumberPolicy;
-import com.st0x0ef.stellaris.client.StellarisClient;
 import com.st0x0ef.stellaris.common.config.CustomConfig;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
 import com.st0x0ef.stellaris.common.data.renderer.SkyPack;
@@ -12,12 +11,10 @@ import com.st0x0ef.stellaris.common.data.screen.PlanetPack;
 import com.st0x0ef.stellaris.common.data.screen.StarPack;
 import com.st0x0ef.stellaris.common.events.Events;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
-import com.st0x0ef.stellaris.common.network.packets.KeyHandler;
-import com.st0x0ef.stellaris.common.network.packets.SyncPlanetsDatapack;
+import com.st0x0ef.stellaris.common.network.packets.SyncPlanetsDatapackPacket;
 import com.st0x0ef.stellaris.common.registry.*;
+import dev.architectury.networking.NetworkManager;
 import dev.architectury.registry.ReloadListenerRegistry;
-import io.netty.buffer.Unpooled;
-import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
@@ -65,7 +62,7 @@ public class Stellaris {
 
     public static void onDatapackSyncEvent(ServerPlayer player, boolean joined) {
         if (joined) {
-            LOG.error("yee");
+            NetworkManager.sendToPlayer(player, new SyncPlanetsDatapackPacket(StellarisData.getPlanets()));
         }
     }
 

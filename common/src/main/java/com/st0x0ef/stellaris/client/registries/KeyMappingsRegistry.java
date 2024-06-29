@@ -2,14 +2,11 @@ package com.st0x0ef.stellaris.client.registries;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.network.packets.KeyHandler;
-import com.st0x0ef.stellaris.common.network.packets.TeleportEntityToPlanet;
+import com.st0x0ef.stellaris.common.network.packets.KeyHandlerPacket;
 import dev.architectury.event.events.client.ClientTickEvent;
+import dev.architectury.networking.NetworkManager;
 import dev.architectury.registry.client.keymappings.KeyMappingRegistry;
 import net.minecraft.client.KeyMapping;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-
-import static io.netty.buffer.Unpooled.*;
 
 public class KeyMappingsRegistry {
     public static void register() {
@@ -24,22 +21,24 @@ public class KeyMappingsRegistry {
         ClientTickEvent.CLIENT_POST.register(minecraft -> {
             while (ROCKET_START.consumeClick()) {
 
-                new KeyHandler(
+                NetworkManager.sendToServer(new KeyHandlerPacket(
                         "rocket_start", true
-                ).sendToServer();
+                ));
             }
 
             while (FREEZE_PLANET_MENU.consumeClick()) {
-                new KeyHandler(
+
+                NetworkManager.sendToServer(new KeyHandlerPacket(
                         "freeze_planet_menu", true
-                ).sendToServer();
+                ));
+
 
             }
 
             while (CHANGE_JETSUIT_MODE.consumeClick()) {
-                new KeyHandler(
+                NetworkManager.sendToServer(new KeyHandlerPacket(
                         "switch_jet_suit_mode", true
-                ).sendToServer();
+                ));
             }
         });
     }

@@ -4,8 +4,9 @@ import com.st0x0ef.stellaris.common.blocks.entities.machines.FluidTank;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.WaterSeparatorBlockEntity;
 import com.st0x0ef.stellaris.common.menus.slot.FluidContainerSlot;
 import com.st0x0ef.stellaris.common.menus.slot.ResultSlot;
-import com.st0x0ef.stellaris.common.network.packets.SyncWidgetsTanks;
+import com.st0x0ef.stellaris.common.network.packets.SyncWidgetsTanksPacket;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
+import dev.architectury.networking.NetworkManager;
 import io.netty.buffer.Unpooled;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -54,18 +55,21 @@ public class WaterSeparatorMenu extends BaseContainer {
         if (!player.level().isClientSide()) {
             FluidTank resultTank1 = blockEntity.getResultTanks().getFirst();
             FluidTank resultTank2 = blockEntity.getResultTanks().get(1);
-            new SyncWidgetsTanks(new long[] {resultTank1.getAmount(), resultTank2.getAmount()},
-                    new ResourceLocation[] {resultTank1.getStack().getFluid().arch$registryName(), resultTank2.getStack().getFluid().arch$registryName()}).sendTo(player);
-            new SyncWidgetsTanks(
+
+
+            NetworkManager.sendToPlayer(player, new SyncWidgetsTanksPacket(new long[] {resultTank1.getAmount(), resultTank2.getAmount()},
+                    new ResourceLocation[] {resultTank1.getStack().getFluid().arch$registryName(), resultTank2.getStack().getFluid().arch$registryName()}
+            ));
+
+            NetworkManager.sendToPlayer(player, new SyncWidgetsTanksPacket(
                     new long[] {blockEntity.ingredientTank.getAmount()},
                     new ResourceLocation[] {blockEntity.ingredientTank.getStack().getFluid().arch$registryName()}
-            ).sendTo(player);
-            new SyncWidgetsTanks(
-                    new long[] {blockEntity.getWrappedEnergyContainer().getStoredEnergy(), 0, 0}).sendTo(player);
+            ));
+
+            NetworkManager.sendToPlayer(player, new SyncWidgetsTanksPacket(
+                    new long[] {blockEntity.getWrappedEnergyContainer().getStoredEnergy(), 0, 0}
+            ));
         }
     }
 
-    public static RegistryFriendlyByteBuf createBuf(Player player) {
-        return new RegistryFriendlyByteBuf(Unpooled.buffer(), player.level().getServer().registryAccess());
-    }
 }

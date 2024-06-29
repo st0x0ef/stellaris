@@ -1,8 +1,9 @@
 package com.st0x0ef.stellaris.common.menus;
 
 import com.st0x0ef.stellaris.common.blocks.entities.machines.oxygen.OxygenDistributorBlockEntity;
-import com.st0x0ef.stellaris.common.network.packets.SyncWidgetsTanks;
+import com.st0x0ef.stellaris.common.network.packets.SyncWidgetsTanksPacket;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
+import dev.architectury.networking.NetworkManager;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
@@ -45,9 +46,8 @@ public class OxygenDistributorMenu extends BaseContainer {
     private void syncWidgets(ServerPlayer player) {
         if (!player.level().isClientSide) {
 
-            new SyncWidgetsTanks(
-                    new long[] {blockEntity.getWrappedEnergyContainer().getStoredEnergy()}
-            ).sendTo(player);
+            NetworkManager.sendToPlayer(player, new SyncWidgetsTanksPacket(new long[] {blockEntity.getWrappedEnergyContainer().getStoredEnergy()}));
+
         }
     }
 }
