@@ -31,7 +31,7 @@ public class StellarisNeoForge {
 
     public static void onDatapackSync(OnDatapackSyncEvent event) {
         if (event.getPlayer() != null) {
-            Stellaris.onDatapackSyncEvent(event.getPlayer(), true);
+            Stellaris.onDatapackSyncEvent(event.getPlayer(), false);
         } else {
             event.getPlayerList().getPlayers().forEach((player) -> Stellaris.onDatapackSyncEvent(player, true));
         }

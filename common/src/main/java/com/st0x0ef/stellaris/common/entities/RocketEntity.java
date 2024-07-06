@@ -7,14 +7,14 @@ import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.data_components.RocketComponent;
 import com.st0x0ef.stellaris.common.items.upgrade.RocketUpgradeItem;
 import com.st0x0ef.stellaris.common.menus.RocketMenu;
-import com.st0x0ef.stellaris.common.network.NetworkRegistry;
-import com.st0x0ef.stellaris.common.network.packets.SyncRocketComponent;
+import com.st0x0ef.stellaris.common.network.packets.SyncRocketComponentPacket;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import com.st0x0ef.stellaris.common.registry.EntityData;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import com.st0x0ef.stellaris.common.registry.SoundRegistry;
 import com.st0x0ef.stellaris.common.rocket_upgrade.*;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
+import dev.architectury.networking.NetworkManager;
 import dev.architectury.registry.menu.ExtendedMenuProvider;
 import dev.architectury.registry.menu.MenuRegistry;
 import io.netty.buffer.Unpooled;
@@ -25,7 +25,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -517,8 +516,9 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         this.rocketComponent = new RocketComponent(SKIN_UPGRADE.getRocketSkinLocation().toString(), RocketModel.fromString(MODEL_UPGRADE.getModel().toString()), currentFuelItem.toString(), FUEL, TANK_UPGRADE.getTankCapacity());
 
         if (!level().isClientSide()) {
-            RegistryFriendlyByteBuf buffer = new RegistryFriendlyByteBuf(Unpooled.buffer(), level().getServer().registryAccess());
-            NetworkRegistry.sendToPlayer(player, NetworkRegistry.SYNC_ROCKET_COMPONENT_ID, SyncRocketComponent.encode(new SyncRocketComponent(rocketComponent), buffer));
+
+            NetworkManager.sendToPlayer(player, new SyncRocketComponentPacket(rocketComponent
+            ));
         }
     }
 }

@@ -11,14 +11,13 @@ import com.st0x0ef.stellaris.client.screens.info.PlanetInfo;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.entities.RocketEntity;
 import com.st0x0ef.stellaris.common.menus.PlanetSelectionMenu;
-import com.st0x0ef.stellaris.common.network.NetworkRegistry;
-import com.st0x0ef.stellaris.common.network.packets.TeleportEntityToPlanet;
+import com.st0x0ef.stellaris.common.network.packets.TeleportEntityToPlanetPacket;
 import com.st0x0ef.stellaris.common.registry.EntityData;
 import com.st0x0ef.stellaris.common.registry.TranslatableRegistry;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
-import io.netty.buffer.Unpooled;
 
+import dev.architectury.networking.NetworkManager;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.Util;
@@ -29,7 +28,6 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
@@ -712,8 +710,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     public void tpToFocusedPlanet() {
         if (focusedBody != null) {
-            RegistryFriendlyByteBuf buffer = new RegistryFriendlyByteBuf(Unpooled.buffer(), getPlayer().registryAccess());
-            NetworkRegistry.sendToServer(NetworkRegistry.TELEPORT_ENTITY_ID, TeleportEntityToPlanet.encode(new TeleportEntityToPlanet(focusedBody.dimension), buffer));
+
+            NetworkManager.sendToServer(new TeleportEntityToPlanetPacket(focusedBody.dimension));
         } else {
             Stellaris.LOG.error("Focused body is null");
         }

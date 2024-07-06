@@ -1,10 +1,10 @@
 package com.st0x0ef.stellaris.common.menus;
 
 import com.st0x0ef.stellaris.common.blocks.entities.machines.SolarPanelEntity;
-import com.st0x0ef.stellaris.common.network.NetworkRegistry;
-import com.st0x0ef.stellaris.common.network.packets.SyncWidgetsTanks;
+import com.st0x0ef.stellaris.common.network.packets.SyncWidgetsTanksPacket;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import com.st0x0ef.stellaris.platform.systems.energy.EnergyContainer;
+import dev.architectury.networking.NetworkManager;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
@@ -100,7 +100,8 @@ public class SolarPanelMenu extends AbstractContainerMenu {
 
     public void syncBattery(ServerPlayer player) {
         if (!player.level().isClientSide()) {
-            NetworkRegistry.sendToPlayer(player, NetworkRegistry.SYNC_FLUID_TANKS_ID, SyncWidgetsTanks.encode(new SyncWidgetsTanks(new long[] {getEnergyContainer().getStoredEnergy()}), WaterSeparatorMenu.createBuf(player)));
+
+            NetworkManager.sendToPlayer(player, new SyncWidgetsTanksPacket(new long[] {getEnergyContainer().getStoredEnergy()}));
         }
     }
 }

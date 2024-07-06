@@ -28,8 +28,11 @@ public class OxygenManager {
                 oxygenBlocksPerLevel.put(level, new ArrayList<>());
             }
         }
-
-        oxygenInformationsPerLevel.get(level).clear();
+        if(oxygenInformationsPerLevel.get(level)!=null){
+            oxygenInformationsPerLevel.get(level).clear();
+        } else {
+            return;
+        }
 
         oxygenBlocksPerLevel.get(level).forEach((container) -> {
             if (container instanceof OxygenDistributorBlockEntity distributor) {

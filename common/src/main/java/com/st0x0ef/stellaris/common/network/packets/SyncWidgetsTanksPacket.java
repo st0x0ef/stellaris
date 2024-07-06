@@ -3,19 +3,42 @@ package com.st0x0ef.stellaris.common.network.packets;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.FuelRefineryBlockEntity;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.WaterSeparatorBlockEntity;
 import com.st0x0ef.stellaris.common.menus.*;
+import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import dev.architectury.networking.NetworkManager;
 import net.fabricmc.api.EnvType;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
 
-public class SyncWidgetsTanks {
+public class SyncWidgetsTanksPacket implements CustomPacketPayload {
 
     private final long[] component;
     private final ResourceLocation[] locations;
 
-    public SyncWidgetsTanks(RegistryFriendlyByteBuf buffer) {
+
+    public static final StreamCodec<RegistryFriendlyByteBuf, SyncWidgetsTanksPacket> STREAM_CODEC = new StreamCodec<>() {
+        @Override
+        public @NotNull SyncWidgetsTanksPacket decode(RegistryFriendlyByteBuf buf) {
+            return new SyncWidgetsTanksPacket(buf);
+        }
+
+        @Override
+        public void encode(RegistryFriendlyByteBuf buf, SyncWidgetsTanksPacket packet) {
+            buf.writeLongArray(packet.component);
+
+            buf.writeInt(packet.locations.length);
+            for (ResourceLocation location : packet.locations) {
+                buf.writeResourceLocation(location);
+            }
+        }
+    };
+
+
+    public SyncWidgetsTanksPacket(RegistryFriendlyByteBuf buffer) {
         this.component = buffer.readLongArray();
         int length = buffer.readInt();
         this.locations = new ResourceLocation[length];
@@ -25,32 +48,22 @@ public class SyncWidgetsTanks {
         }
     }
 
-    public SyncWidgetsTanks(long[] component) {
+    public SyncWidgetsTanksPacket(long[] component) {
         this(component, new ResourceLocation[] {});
     }
 
-    public SyncWidgetsTanks(long[] values, ResourceLocation[] locations) {
+    public SyncWidgetsTanksPacket(long[] values, ResourceLocation[] locations) {
         this.component = values;
         this.locations = locations;
     }
 
-    public static RegistryFriendlyByteBuf encode(SyncWidgetsTanks message, RegistryFriendlyByteBuf buffer) {
-        buffer.writeLongArray(message.component);
 
-        buffer.writeInt(message.locations.length);
-        for (ResourceLocation location : message.locations) {
-            buffer.writeResourceLocation(location);
-        }
-        return buffer;
-    }
-
-    public static void apply(RegistryFriendlyByteBuf buffer, NetworkManager.PacketContext context) {
+    public static void handle(SyncWidgetsTanksPacket syncWidgetsTanks, NetworkManager.PacketContext context) {
         if (context.getEnv() != EnvType.CLIENT) {
             return;
         }
 
         LocalPlayer player = (LocalPlayer) context.getPlayer();
-        SyncWidgetsTanks syncWidgetsTanks = new SyncWidgetsTanks(buffer);
         switch (player.containerMenu) {
             case WaterSeparatorMenu menu -> {
                 WaterSeparatorBlockEntity blockEntity = menu.getBlockEntity();
@@ -85,5 +98,11 @@ public class SyncWidgetsTanks {
             default -> {
             }
         }
+    }
+
+
+    @Override
+    public Type<? extends CustomPacketPayload> type() {
+        return NetworkRegistry.SYNC_FLUID_TANKS_ID;
     }
 }
