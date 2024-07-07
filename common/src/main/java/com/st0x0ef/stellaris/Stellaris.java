@@ -3,9 +3,9 @@ package com.st0x0ef.stellaris;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.ToNumberPolicy;
+import com.st0x0ef.stellaris.client.skys.record.SkyPropertiesData;
 import com.st0x0ef.stellaris.common.config.CustomConfig;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
-import com.st0x0ef.stellaris.common.data.renderer.SkyPack;
 import com.st0x0ef.stellaris.common.data.screen.MoonPack;
 import com.st0x0ef.stellaris.common.data.screen.PlanetPack;
 import com.st0x0ef.stellaris.common.data.screen.StarPack;
@@ -56,8 +56,8 @@ public class Stellaris {
         Events.registerEvents();
         LookupApiRegistry.registerEnergy();
         RecipesRegistry.register();
-        ReloadListenerRegistry.register(PackType.SERVER_DATA, new StellarisData());
 
+        ReloadListenerRegistry.register(PackType.SERVER_DATA, new StellarisData());
     }
 
     public static void onDatapackSyncEvent(ServerPlayer player, boolean joined) {
@@ -69,12 +69,9 @@ public class Stellaris {
     public static void onAddReloadListenerEvent(BiConsumer<ResourceLocation, PreparableReloadListener> registry) {
         registry.accept(new ResourceLocation(Stellaris.MODID, "planets"), new StellarisData());
 
+        registry.accept(new ResourceLocation(Stellaris.MODID, "sky_renderer"), new SkyPropertiesData());
         registry.accept(new ResourceLocation(Stellaris.MODID, "stars_pack"), new StarPack());
         registry.accept(new ResourceLocation(Stellaris.MODID, "planets_pack"), new PlanetPack());
         registry.accept(new ResourceLocation(Stellaris.MODID, "moon_packs"), new MoonPack());
-        registry.accept(new ResourceLocation(Stellaris.MODID, "sky_packs"), new SkyPack());
     }
-
-
-
 }

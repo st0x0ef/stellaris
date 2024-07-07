@@ -255,7 +255,6 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
         drawOrbits();
 
-
         renderBodiesAndPlanets(graphics, partialTicks);
         renderHighlighter(graphics, mouseX, mouseY);
 
@@ -267,7 +266,6 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         }
 
         renderLargeMenu(graphics);
-
 
         this.renderTooltip(graphics, mouseX, mouseY);
     }
@@ -859,7 +857,9 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         GLFW.glfwGetCursorPos(window, mouseX, mouseY);
 
         if (this.minecraft != null && this.minecraft.player != null) {
-            handleHotbarScroll(scrollY);
+            if (this.minecraft.screen != null) {
+                handleHotbarScroll(scrollY);
+            }
 
             if (this.minecraft.screen instanceof CreativeModeInventoryScreen creativeScreen) {
                 if (creativeScreen.mouseScrolled(mouseX[0], mouseY[0], scrollX, scrollY)) {

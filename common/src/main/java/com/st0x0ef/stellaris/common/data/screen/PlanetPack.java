@@ -28,6 +28,7 @@ public class PlanetPack extends SimpleJsonResourceReloadListener {
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> object, ResourceManager resourceManager, ProfilerFiller profiler) {
         PLANET.clear();
+        Stellaris.LOG.info("CLEARPLANET");
         object.forEach((key, value) -> {
             JsonObject json = GsonHelper.convertToJsonObject(value, "planets");
             PlanetRecord planet;

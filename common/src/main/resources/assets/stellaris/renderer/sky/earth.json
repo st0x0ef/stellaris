@@ -1,26 +1,31 @@
 {
   "id": "minecraft:overworld",
   "cloud": "vanilla",
-  "weather": true,
-  "sunrise_color": "Orange",
-  "star": [
+  "weather": [
     {
-     "count": 3000,
-     "colored": false,
-     "allDaysVisible": false
+      "rain": true,
+      "acid_rain": false
     }
   ],
-  "sky_object": [
+  "sunrise_color": "vanilla",
+  "stars": [
+    {
+      "count": 3000,
+      "colored": false,
+      "all_days_visible": false
+    }
+  ],
+  "sky_objects": [
     {
       "texture": "stellaris:textures/environment/solar_system/moon.png",
-      "blend":  true,
+      "blend": true,
       "size": 8.0,
       "rotation": [
         60.0,
         0.0,
         5.0
       ],
-      "rotation_type": "STATIC"
+      "rotation_type": "DAY"
     }
   ]
 }
