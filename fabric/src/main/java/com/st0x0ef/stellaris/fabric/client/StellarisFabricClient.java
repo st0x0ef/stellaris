@@ -1,5 +1,7 @@
 package com.st0x0ef.stellaris.fabric.client;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.StellarisClient;
 import com.st0x0ef.stellaris.client.skys.renderer.SkyRenderer;
 import com.st0x0ef.stellaris.mixin.client.LevelRendererAccessor;
@@ -12,7 +14,7 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.Map;
 
-public class StellarisFabricClient  {
+public class StellarisFabricClient {
 
     public void init() {
         StellarisClient.initClient();
@@ -23,7 +25,7 @@ public class StellarisFabricClient  {
     }
 
     public static void registerDimension(Map<ResourceKey<Level>, SkyRenderer> renderer) {
-        renderer.forEach( (levelResourceKey, skyRenderer) -> {
+        renderer.forEach((levelResourceKey, skyRenderer) -> {
             DimensionRenderingRegistry.registerDimensionEffects(levelResourceKey.location(), skyRenderer);
 
             DimensionRenderingRegistry.registerCloudRenderer(levelResourceKey, context -> {
@@ -32,17 +34,24 @@ public class StellarisFabricClient  {
                 skyRenderer.renderClouds();
             });
 
-            DimensionRenderingRegistry.registerSkyRenderer(levelResourceKey, context -> skyRenderer.render(
-                    context.world(),
-                    ((LevelRendererAccessor) Minecraft.getInstance().levelRenderer).stellaris$ticks(),
-                    context.tickDelta(),
-                    context.matrixStack(),
-                    context.camera(),
-                    context.projectionMatrix(),
-                    false,
-                    () -> {
-                    })
-            );
+            DimensionRenderingRegistry.registerSkyRenderer(levelResourceKey, context -> {
+                PoseStack poseStack = context.matrixStack();
+                if (poseStack != null) {
+                    skyRenderer.render(
+                            context.world(),
+                            ((LevelRendererAccessor) Minecraft.getInstance().levelRenderer).stellaris$ticks(),
+                            context.tickDelta(),
+                            poseStack,
+                            context.camera(),
+                            context.projectionMatrix(),
+                            false,
+                            () -> {
+                            }
+                    );
+                } else {
+                    Stellaris.LOG.error("PoseStack is null in DimensionRenderingRegistry.registerSkyRenderer");
+                }
+            });
         });
     }
 }
