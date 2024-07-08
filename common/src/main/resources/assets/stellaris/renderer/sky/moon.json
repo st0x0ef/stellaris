@@ -1,5 +1,5 @@
 {
-  "id": "minecraft:overworld",
+  "id": "stellaris:moon",
   "cloud": false,
   "fog": false,
   "weather": [
@@ -8,7 +8,7 @@
       "acid_rain": false
     }
   ],
-  "sunrise_color": 14180147,
+  "sunrise_color": 2105376,
   "stars": {
     "count": 30000,
     "colored": true,

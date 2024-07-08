@@ -6,6 +6,8 @@ import com.st0x0ef.stellaris.client.skys.renderer.SkyRenderer;
 import com.st0x0ef.stellaris.fabric.client.StellarisFabricClient;
 import com.st0x0ef.stellaris.mixin.client.LevelRendererAccessor;
 import com.st0x0ef.stellaris.platform.ClientUtilsPlatform;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
 import net.minecraft.client.Minecraft;
@@ -21,6 +23,7 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.Map;
 
+@Environment(EnvType.CLIENT)
 public class ClientUtilsPlatformImpl {
 
     public static void registerArmor(ResourceLocation texture, ModelLayerLocation layer, ClientUtilsPlatform.ArmorFactory factory, Item... items) {

@@ -171,9 +171,11 @@ public class SkyRenderer extends DimensionSpecialEffects {
         return false;
     }
 
-    public boolean renderClouds(ClientLevel level, int ticks, float partialTick, PoseStack poseStack, double camX, double camY, double camZ, Matrix4f projectionMatrix) {
+
+    public boolean renderClouds() {
         return skyProperties.cloud();
     }
+
 
 
     public static boolean inFog(Camera camera) {

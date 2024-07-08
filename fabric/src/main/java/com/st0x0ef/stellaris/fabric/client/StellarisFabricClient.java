@@ -30,29 +30,24 @@ public class StellarisFabricClient  {
             DimensionRenderingRegistry.registerCloudRenderer(levelResourceKey, context -> {
                 Vec3 camera = context.camera().getPosition();
                 int ticks = ((LevelRendererAccessor) Minecraft.getInstance().levelRenderer).stellaris$ticks();
-                skyRenderer.renderClouds(
-                        context.world(),
-                        ticks,
-                        context.tickDelta(),
-                        context.matrixStack(),
-                        camera.x, camera.y, camera.z,
-                        context.projectionMatrix());
+                skyRenderer.renderClouds();
             });
 
 
-//            DimensionRenderingRegistry.registerSkyRenderer(levelResourceKey, context -> {
-//
-//                        skyRenderer.render(
-//                                context.world(),
-//                                ((LevelRendererAccessor) Minecraft.getInstance().levelRenderer).stellaris$ticks(),
-//                                context.tickDelta(),
-//                                context.matrixStack(),
-//                                context.camera(),
-//                                context.projectionMatrix(),
-//                                false,
-//                                () -> {});
-//                    }
-//            );
+            DimensionRenderingRegistry.registerSkyRenderer(levelResourceKey, context -> {
+
+                        skyRenderer.render(
+                                context.world(),
+                                ((LevelRendererAccessor) Minecraft.getInstance().levelRenderer).stellaris$ticks(),
+                                context.tickDelta(),
+                                context.matrixStack(),
+                                context.camera(),
+                                context.projectionMatrix(),
+                                false,
+                                () -> {
+                                });
+                    }
+            );
         });
 
 
