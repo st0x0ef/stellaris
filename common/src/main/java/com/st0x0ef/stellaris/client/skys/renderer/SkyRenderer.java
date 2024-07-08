@@ -3,13 +3,10 @@ package com.st0x0ef.stellaris.client.skys.renderer;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
-import com.mojang.math.Axis;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.skys.record.SkyProperties;
 import com.st0x0ef.stellaris.client.skys.record.SkyPropertiesData;
-import com.st0x0ef.stellaris.client.skys.utils.SkyHelper;
 import com.st0x0ef.stellaris.client.skys.utils.StarHelper;
-import com.st0x0ef.stellaris.common.utils.Utils;
 import com.st0x0ef.stellaris.mixin.client.LevelRendererAccessor;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
@@ -22,28 +19,32 @@ import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.material.FogType;
 import net.minecraft.world.phys.Vec3;
-import org.apache.commons.lang3.tuple.Triple;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 
 public class SkyRenderer extends DimensionSpecialEffects {
     @Nullable
-    private final SkyProperties skyProperties;
+    private SkyProperties skyProperties;
     private VertexBuffer starBuffer;
 
     public SkyRenderer(SkyProperties skyProperties) {
         super(Float.NaN, true, SkyType.NONE, false, false);
-
         this.skyProperties = skyProperties;
-
     }
-
 
     public void render(ClientLevel level, int ticks, float partialTick, PoseStack poseStack, Camera camera, Matrix4f projectionMatrix, boolean isFoggy, Runnable setupFog) {
         setupFog.run();
         if (isFoggy || inFog(camera)) return;
         if (level.isRaining()) return;
-        if (starBuffer == null) starBuffer = StarHelper.createStars(0.1F, 50_000, 190, 160, -1);
+
+        if (skyProperties == null) skyProperties = SkyPropertiesData.SKY_PROPERTIES.get(Minecraft.getInstance().player.level().dimension()).skyProperties();
+
+        if (skyProperties.stars().colored() && starBuffer == null) {
+            starBuffer = StarHelper.createStars(0.1F, skyProperties.stars().count(), 190, 160, -1);
+        } else {
+            starBuffer = StarHelper.createStars(0.1F, skyProperties.stars().count(), 255, 255, 255);
+        }
+
         BufferBuilder bufferBuilder = Tesselator.getInstance().getBuilder();
 
         setSkyColor(level, camera, partialTick);
