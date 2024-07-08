@@ -14,18 +14,21 @@ import java.util.List;
 
 public record SkyProperties(
         ResourceKey<Level> id,
-        String cloud,
+        Boolean cloud,
+        Boolean fog,
         List<Weather> weather,
-        String sunriseColor,
-        List<Star> stars,
+        int sunriseColor,
+        Star stars,
         List<SkyObject> skyObjects
 ) {
     public static final Codec<SkyProperties> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             ResourceKey.codec(Registries.DIMENSION).fieldOf("id").forGetter(SkyProperties::id),
-            Codec.STRING.fieldOf("cloud").forGetter(SkyProperties::cloud),
+            Codec.BOOL.fieldOf("cloud").forGetter(SkyProperties::cloud),
+            Codec.BOOL.fieldOf("fog").forGetter(SkyProperties::fog),
+
             Weather.CODEC.listOf().fieldOf("weather").forGetter(SkyProperties::weather),
-            Codec.STRING.fieldOf("sunrise_color").forGetter(SkyProperties::sunriseColor),
-            Star.CODEC.listOf().fieldOf("stars").forGetter(SkyProperties::stars),
+            Codec.INT.fieldOf("sunrise_color").forGetter(SkyProperties::sunriseColor),
+            Star.CODEC.fieldOf("stars").forGetter(SkyProperties::stars),
             SkyObject.CODEC.listOf().fieldOf("sky_objects").forGetter(SkyProperties::skyObjects)
     ).apply(instance, SkyProperties::new));
 
@@ -33,17 +36,20 @@ public record SkyProperties(
         buffer.writeInt(properties.size());
         properties.forEach(property -> {
             writeResourceKey(buffer, property.id);
-            buffer.writeUtf(property.cloud);
+            buffer.writeBoolean(property.cloud);
+            buffer.writeBoolean(property.fog);
+
             buffer.writeCollection(property.weather, (buf, weather) -> {
                 buf.writeBoolean(weather.rain());
                 buf.writeBoolean(weather.acidRain());
             });
-            buffer.writeUtf(property.sunriseColor);
-            buffer.writeCollection(property.stars, (buf, star) -> {
-                buf.writeInt(star.count());
-                buf.writeBoolean(star.colored());
-                buf.writeBoolean(star.allDaysVisible());
-            });
+            buffer.writeInt(property.sunriseColor);
+
+            buffer.writeInt(property.stars.count());
+            buffer.writeBoolean(property.stars.colored());
+            buffer.writeBoolean(property.stars.allDaysVisible());
+
+
             buffer.writeCollection(property.skyObjects, (buf, skyObject) -> {
                 buf.writeUtf(skyObject.texture());
                 buf.writeBoolean(skyObject.blend());
@@ -62,7 +68,6 @@ public record SkyProperties(
 
         for (int i = 0; i < count; i++) {
             List<Weather> weatherList = buffer.readList(buf -> new Weather(buf.readBoolean(), buf.readBoolean()));
-            List<Star> starList = buffer.readList(buf -> new Star(buf.readInt(), buf.readBoolean(), buf.readBoolean()));
             List<SkyObject> skyObjectList = buffer.readList(buf -> new SkyObject(
                     buf.readUtf(),
                     buf.readBoolean(),
@@ -72,10 +77,11 @@ public record SkyProperties(
             ));
             properties.add(new SkyProperties(
                     readResourceKey(buffer),
-                    buffer.readUtf(),
+                    buffer.readBoolean(),
+                    buffer.readBoolean(),
                     weatherList,
-                    buffer.readUtf(),
-                    starList,
+                    buffer.readInt(),
+                    new Star(buffer.readInt(), buffer.readBoolean(), buffer.readBoolean()),
                     skyObjectList
             ));
         }

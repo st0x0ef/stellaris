@@ -271,7 +271,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     @Nullable
     @Override
     public ItemStack getPickResult() {
-        return this.getRocketItem();
+        return null;
     }
 
 
@@ -359,6 +359,10 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         ItemStack itemStack = new ItemStack(ItemsRegistry.ROCKET.get(), 1);
         rocketComponent = new RocketComponent(SKIN_UPGRADE.getRocketSkinLocation().toString(), RocketModel.fromString(MODEL_UPGRADE.getModel().toString()), currentFuelItem.toString(), FUEL, TANK_UPGRADE.getTankCapacity());Stellaris.LOG.error(MODEL_UPGRADE.getModel().getSerializedName());
         itemStack.set(DataComponentsRegistry.ROCKET_COMPONENT.get(), rocketComponent);
+        Stellaris.LOG.error("1");
+        Stellaris.LOG.error("Skin :"+ rocketComponent.getSkin());
+        Stellaris.LOG.error("Model :"+ rocketComponent.getModel());
+
         return itemStack;
     }
 
@@ -398,6 +402,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         if (this.getInventory().getItem(12).getItem() instanceof RocketUpgradeItem item) {
             if (item.getUpgrade() instanceof SkinUpgrade upgrade) {
                 this.SKIN_UPGRADE = upgrade;
+
             }
         } else if (this.getInventory().getItem(12).isEmpty()) {
             this.SKIN_UPGRADE = SkinUpgrade.getBasic();
@@ -517,8 +522,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
         if (!level().isClientSide()) {
 
-            NetworkManager.sendToPlayer(player, new SyncRocketComponentPacket(rocketComponent
-            ));
+            NetworkManager.sendToPlayer(player, new SyncRocketComponentPacket(rocketComponent));
         }
     }
 }

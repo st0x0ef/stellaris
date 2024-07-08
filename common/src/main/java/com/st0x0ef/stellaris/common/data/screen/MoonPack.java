@@ -30,9 +30,7 @@ public class MoonPack extends SimpleJsonResourceReloadListener {
         MOON.clear();
         object.forEach((key, value) -> {
             JsonObject json = GsonHelper.convertToJsonObject(value, "moons");
-            MoonRecord moon;
-
-            moon = MoonRecord.CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
+            MoonRecord moon = MoonRecord.CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
 
             MOON.put(moon.name(), moon);
 
