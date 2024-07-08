@@ -21,16 +21,7 @@ public class FabricSkyRenderer {
 
         if (SkyPropertiesData.SKY_PROPERTIES.containsKey(location)) {
             SkyRenderer skyRenderer = SkyPropertiesData.SKY_PROPERTIES.get(location);
-            Vec3 camera = context.camera().getPosition();
             int ticks = ((LevelRendererAccessor) Minecraft.getInstance().levelRenderer).stellaris$ticks();
-            skyRenderer.renderClouds(
-                    context.world(),
-                    ticks,
-                    context.tickDelta(),
-                    context.matrixStack(),
-                    camera.x, camera.y, camera.z,
-                    context.projectionMatrix());
-
             skyRenderer.render(
                     context.world(),
                     ticks,
@@ -40,7 +31,6 @@ public class FabricSkyRenderer {
                     context.projectionMatrix(),
                     false,
                     () -> {});
-
         }
 
     }

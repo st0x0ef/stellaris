@@ -21,25 +21,25 @@ public class StellarisFabricClient  {
         StellarisClient.registerEntityRenderer();
         StellarisClient.registerEntityModelLayer();
 
-        WorldRenderEvents.AFTER_ENTITIES.register(FabricSkyRenderer::renderSky);
+        WorldRenderEvents.LAST.register(FabricSkyRenderer::renderSky);
     }
 
     public static void registerDimension(Map<ResourceKey<Level>, SkyRenderer> renderer) {
         renderer.forEach( (levelResourceKey, skyRenderer) -> {
             DimensionRenderingRegistry.registerDimensionEffects(levelResourceKey.location(), skyRenderer);
-//            DimensionRenderingRegistry.registerCloudRenderer(levelResourceKey, context -> {
-//                Vec3 camera = context.camera().getPosition();
-//                int ticks = ((LevelRendererAccessor) Minecraft.getInstance().levelRenderer).stellaris$ticks();
-//                skyRenderer.renderClouds(
-//                        context.world(),
-//                        ticks,
-//                        context.tickDelta(),
-//                        context.matrixStack(),
-//                        camera.x, camera.y, camera.z,
-//                        context.projectionMatrix());
-//            });
-//
-//
+            DimensionRenderingRegistry.registerCloudRenderer(levelResourceKey, context -> {
+                Vec3 camera = context.camera().getPosition();
+                int ticks = ((LevelRendererAccessor) Minecraft.getInstance().levelRenderer).stellaris$ticks();
+                skyRenderer.renderClouds(
+                        context.world(),
+                        ticks,
+                        context.tickDelta(),
+                        context.matrixStack(),
+                        camera.x, camera.y, camera.z,
+                        context.projectionMatrix());
+            });
+
+
 //            DimensionRenderingRegistry.registerSkyRenderer(levelResourceKey, context -> {
 //
 //                        skyRenderer.render(

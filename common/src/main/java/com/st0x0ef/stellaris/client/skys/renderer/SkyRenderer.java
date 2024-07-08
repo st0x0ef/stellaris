@@ -115,8 +115,6 @@ public class SkyRenderer extends DimensionSpecialEffects {
 
 
     public void renderStars(ClientLevel level, float partialTick, PoseStack poseStack, Matrix4f projectionMatrix, Runnable setupFog) {
-        Stellaris.LOG.error("Stars");
-
         if(poseStack == null) return;
 
         float starLight =  level.getStarBrightness(partialTick) * (1 - level.getRainLevel(partialTick));
