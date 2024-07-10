@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.common.entities;
 import com.google.common.collect.Sets;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.RocketModel;
+import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.normal.NormalRocketRenderer;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.data_components.RocketComponent;
 import com.st0x0ef.stellaris.common.items.upgrade.RocketUpgradeItem;
@@ -26,6 +27,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -47,6 +50,7 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import org.apache.commons.lang3.SerializationUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -120,8 +124,25 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
                 compound.putString("currentFuelItemType", FuelType.Type.Radioactive.getTypeBasedOnItem(currentFuelItem).getSerializedName());
             }
         }
-    }
 
+        //stolen from AbstractChestedHorse
+        ListTag listTag = new ListTag();
+
+        for(int i = 1; i < this.inventory.getContainerSize(); ++i) {
+            ItemStack itemStack = this.inventory.getItem(i);
+            if (!itemStack.isEmpty()) {
+                CompoundTag compoundTag = new CompoundTag();
+                compoundTag.putByte("Slot", (byte)(i - 1));
+                listTag.add(itemStack.save(this.registryAccess(), compoundTag));
+            }
+        }
+        compound.put("Items", listTag);
+
+        compound.putString("model", MODEL_UPGRADE.getModel().toString());
+        compound.putString("skin", SKIN_UPGRADE.getRocketSkinLocation().toString());
+        compound.putString("motor", MOTOR_UPGRADE.getFuelType().getSerializedName());
+        compound.putInt("tank", TANK_UPGRADE.getTankCapacity());
+    }
 
     @Override
     protected void readAdditionalSaveData(CompoundTag compound) {
@@ -133,6 +154,21 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         if (FUEL != 0) {
             currentFuelItem = FuelType.getItemBasedOnTypeName(compound.getString("currentFuelItemType"));
         }
+
+        ListTag listTag = compound.getList("Items", 10);
+
+        for(int i = 0; i < listTag.size(); ++i) {
+            CompoundTag compoundTag = listTag.getCompound(i);
+            int j = compoundTag.getByte("Slot") & 255;
+            if (j < this.inventory.getContainerSize() - 1) {
+                this.inventory.setItem(j + 1, (ItemStack)ItemStack.parse(this.registryAccess(), compoundTag).orElse(ItemStack.EMPTY));
+            }
+        }
+
+        this.MODEL_UPGRADE = new ModelUpgrade(RocketModel.fromString(compound.getString("model")));
+        this.SKIN_UPGRADE = new SkinUpgrade(new ResourceLocation(compound.getString("skin")));
+        this.MOTOR_UPGRADE = new MotorUpgrade(FuelType.Type.fromString(compound.getString("motor")));
+        this.TANK_UPGRADE = new TankUpgrade(compound.getInt("tank"));
     }
 
 
@@ -520,5 +556,6 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
             NetworkManager.sendToPlayer(player, new SyncRocketComponentPacket(rocketComponent
             ));
         }
+
     }
 }
