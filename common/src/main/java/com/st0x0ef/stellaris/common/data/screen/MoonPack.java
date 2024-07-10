@@ -20,6 +20,7 @@ import java.util.Map;
 public class MoonPack extends SimpleJsonResourceReloadListener {
 
     public static final Map<String, MoonRecord> MOON = new HashMap<>();
+    public static int count = 0;
 
     public MoonPack() {
         super(Stellaris.GSON, "renderer/planet_screen/moon");
@@ -27,6 +28,7 @@ public class MoonPack extends SimpleJsonResourceReloadListener {
 
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> object, ResourceManager resourceManager, ProfilerFiller profiler) {
+        if (count > 0) return;
         MOON.clear();
         object.forEach((key, value) -> {
             JsonObject json = GsonHelper.convertToJsonObject(value, "moons");
@@ -50,5 +52,6 @@ public class MoonPack extends SimpleJsonResourceReloadListener {
             PlanetSelectionScreen.MOONS.add(screenMoon);
             Stellaris.LOG.info("Added a moon to PlanetSelectionScreen : {}", moon.name());
         });
+        count++;
     }
 }
