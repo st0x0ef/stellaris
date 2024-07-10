@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.client.skys.renderer;
 
+import com.mojang.authlib.minecraft.client.MinecraftClient;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Axis;
@@ -57,6 +58,9 @@ public class SkyRenderer extends DimensionSpecialEffects {
             renderSunrise(bufferBuilder, level, partialTick, poseStack, color);
         }
     }
+
+
+
 
     @Nullable
     public static float[] getSunriseColor(float timeOfDay, float partialTicks, int sunColor) {
@@ -125,4 +129,26 @@ public class SkyRenderer extends DimensionSpecialEffects {
                 || fogType == FogType.LAVA
                 || levelRenderer.invokeDoesMobEffectBlockSky(camera);
     }
+    public static void renderStars(BufferBuilder bufferBuilder, PoseStack poseStack) {
+        poseStack.pushPose();
+        poseStack.mulPose(Axis.YP.rotationDegrees(90.0F));
+
+        Matrix4f matrix = poseStack.last().pose();
+        bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
+
+        for (int i = 0; i < 1500; ++i) {
+            double x = (Math.random() * 2.0 - 1.0) * 100.0;
+            double y = (Math.random() * 2.0 - 1.0) * 100.0;
+            double z = (Math.random() * 2.0 - 1.0) * 100.0;
+            double size = 0.2;
+
+            bufferBuilder.vertex(matrix, (float)(x - size), (float)y, (float)(z - size)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
+            bufferBuilder.vertex(matrix, (float)(x + size), (float)y, (float)(z - size)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
+            bufferBuilder.vertex(matrix, (float)(x + size), (float)y, (float)(z + size)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
+            bufferBuilder.vertex(matrix, (float)(x - size), (float)y, (float)(z + size)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
+        }
+
+        BufferUploader.drawWithShader(bufferBuilder.end());
+        poseStack.popPose();
+}
 }
