@@ -342,9 +342,10 @@
 
   "general.stellaris.jet_suit_mode": "Mode",
   "general.stellaris.jet_suit_fuel": "Fuel",
-
+  "key.stellaris.jetsuit_mode": "Jet Suit Mode",
   "general.stellaris.jet_suit_disabled_mode": "Disabled",
   "general.stellaris.jet_suit_normal_mode": "Normal",
   "general.stellaris.jet_suit_hover_mode": "Hover",
   "general.stellaris.jet_suit_elytra_mode": "Elytra"
+
 }
