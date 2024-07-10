@@ -57,6 +57,7 @@ public class SkyRenderer extends DimensionSpecialEffects {
         if (color != null) {
             renderSunrise(bufferBuilder, level, partialTick, poseStack, color);
         }
+        renderStars(bufferBuilder, poseStack);
     }
 
 
