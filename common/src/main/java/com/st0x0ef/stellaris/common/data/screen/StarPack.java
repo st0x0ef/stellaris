@@ -21,6 +21,7 @@ import java.util.Map;
 public class StarPack extends SimpleJsonResourceReloadListener {
 
     public static final Map<String, StarRecord> STAR = new HashMap<>();
+    public static int count = 0;
 
     public StarPack() {
         super(Stellaris.GSON, "renderer/planet_screen/star");
@@ -28,6 +29,7 @@ public class StarPack extends SimpleJsonResourceReloadListener {
 
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> object, ResourceManager resourceManager, ProfilerFiller profiler) {
+        if (count > 0) return;
         STAR.clear();
         object.forEach((key, value) -> {
             JsonObject json = GsonHelper.convertToJsonObject(value, "stars");
@@ -40,22 +42,23 @@ public class StarPack extends SimpleJsonResourceReloadListener {
             int orbitColor = Utils.getColorHexCode(star.orbitColor());
 
             CelestialBody screenStar;
-                screenStar = new CelestialBody(
-                        star.texture(),
-                        star.name(),
-                        (int) star.x(),
-                        (int) star.y(),
-                        star.width(),
-                        star.height(),
-                        orbitColor,
-                        null,
-                        Component.translatable(star.translatable()),
-                        star.id()
-                );
+            screenStar = new CelestialBody(
+                    star.texture(),
+                    star.name(),
+                    (int) star.x(),
+                    (int) star.y(),
+                    star.width(),
+                    star.height(),
+                    orbitColor,
+                    null,
+                    Component.translatable(star.translatable()),
+                    star.id()
+            );
 
             PlanetSelectionScreen.STARS.add(screenStar);
             Stellaris.LOG.info("Added a star to PlanetSelectionScreen : {}", star.name());
         });
+        count++;
     }
 
 }

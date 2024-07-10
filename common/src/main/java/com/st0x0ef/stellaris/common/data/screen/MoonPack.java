@@ -20,6 +20,7 @@ import java.util.Map;
 public class MoonPack extends SimpleJsonResourceReloadListener {
 
     public static final Map<String, MoonRecord> MOON = new HashMap<>();
+    public static int count = 0;
 
     public MoonPack() {
         super(Stellaris.GSON, "renderer/planet_screen/moon");
@@ -27,30 +28,30 @@ public class MoonPack extends SimpleJsonResourceReloadListener {
 
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> object, ResourceManager resourceManager, ProfilerFiller profiler) {
+        if (count > 0) return;
         MOON.clear();
         object.forEach((key, value) -> {
             JsonObject json = GsonHelper.convertToJsonObject(value, "moons");
-            MoonRecord moon;
-
-            moon = MoonRecord.CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
+            MoonRecord moon = MoonRecord.CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
 
             MOON.put(moon.name(), moon);
 
             MoonInfo screenMoon = new MoonInfo(
-                moon.texture(),
-                moon.name(),
-                (int) moon.distance(),
-                moon.period(),
-                (int) moon.width(),
-                (int) moon.height(),
-                PlanetSelectionScreen.findByNamePlanet(moon.parent()),
-                moon.dimensionId(),
-                Component.translatable(moon.translatable()),
-                moon.id()
+                    moon.texture(),
+                    moon.name(),
+                    (int) moon.distance(),
+                    moon.period(),
+                    (int) moon.width(),
+                    (int) moon.height(),
+                    PlanetSelectionScreen.findByNamePlanet(moon.parent()),
+                    moon.dimensionId(),
+                    Component.translatable(moon.translatable()),
+                    moon.id()
             );
 
             PlanetSelectionScreen.MOONS.add(screenMoon);
             Stellaris.LOG.info("Added a moon to PlanetSelectionScreen : {}", moon.name());
         });
+        count++;
     }
 }
