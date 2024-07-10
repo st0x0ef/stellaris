@@ -114,22 +114,36 @@ public class SkyRenderer extends DimensionSpecialEffects {
         RenderSystem.setShaderColor(r, g, b, 1);
     }
 
-
     public void renderStars(ClientLevel level, float partialTick, PoseStack poseStack, Matrix4f projectionMatrix, Runnable setupFog) {
-        if(poseStack == null) return;
+        if (poseStack == null) return;
 
-        float starLight =  level.getStarBrightness(partialTick) * (1 - level.getRainLevel(partialTick));
+        float starLight = level.getStarBrightness(partialTick) * (1 - level.getRainLevel(partialTick));
         if (starLight <= 0) return;
         if (starBuffer == null) return;
+
         RenderSystem.setShaderColor(starLight, starLight, starLight, starLight);
         FogRenderer.setupNoFog();
         starBuffer.bind();
         var shader = GameRenderer.getPositionColorShader();
         if (shader == null || poseStack == null) return;
+        RenderSystem.depthMask(false);
+        RenderSystem.enableBlend();
+        RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        Camera camera = Minecraft.getInstance().gameRenderer.getMainCamera();
+        Vec3 cameraPosition = camera.getPosition();
+        Vec3 starsPosition = new Vec3(cameraPosition.x, cameraPosition.y, cameraPosition.z);
+        poseStack.pushPose();
+        poseStack.translate(starsPosition.x, starsPosition.y, starsPosition.z);
         starBuffer.drawWithShader(poseStack.last().pose(), projectionMatrix, shader);
         VertexBuffer.unbind();
+        RenderSystem.setShaderColor(1, 1, 1, 1);
+        RenderSystem.disableBlend();
+        RenderSystem.defaultBlendFunc();
+        poseStack.popPose();
+        RenderSystem.depthMask(true);
         setupFog.run();
     }
+
 
 
     @Nullable
