@@ -14,7 +14,7 @@
       "com.st0x0ef.stellaris.fabric.StellarisFabric"
     ],
     "client": [
-      "com.st0x0ef.stellaris.fabric.client.StellarisFabricClient"
+      "com.st0x0ef.stellaris.fabric.client.StellarisFabricClient::init"
     ],
     "rei_client": [ "com.st0x0ef.stellaris.common.compats.REIClient" ]
   },
