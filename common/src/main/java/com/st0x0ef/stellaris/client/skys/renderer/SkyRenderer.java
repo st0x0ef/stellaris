@@ -3,7 +3,6 @@ package com.st0x0ef.stellaris.client.skys.renderer;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.skys.record.SkyProperties;
 import com.st0x0ef.stellaris.client.skys.record.SkyPropertiesData;
 import com.st0x0ef.stellaris.client.skys.utils.StarHelper;

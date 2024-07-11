@@ -6,8 +6,6 @@ import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Axis;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.mixin.client.LevelRendererAccessor;
-import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
-import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.client.renderer.GameRenderer;

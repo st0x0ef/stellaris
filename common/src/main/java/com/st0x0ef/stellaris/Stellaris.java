@@ -3,7 +3,6 @@ package com.st0x0ef.stellaris;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.ToNumberPolicy;
-import com.st0x0ef.stellaris.client.StellarisClient;
 import com.st0x0ef.stellaris.client.skys.record.SkyPropertiesData;
 import com.st0x0ef.stellaris.common.config.CustomConfig;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
@@ -57,7 +56,6 @@ public class Stellaris {
         Events.registerEvents();
         LookupApiRegistry.registerEnergy();
         RecipesRegistry.register();
-        StellarisClient.registerPacks();
 
         ReloadListenerRegistry.register(PackType.SERVER_DATA, new StellarisData());
     }

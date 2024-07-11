@@ -127,10 +127,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         initializeAllButtons();
     }
 
-    public static boolean commandablelol;
-
     public boolean canLaunch(Planet planet) {
-        if (commandablelol) return true;
+        if (this.getMenu().getForceCanGoTo()) return true;
 
         Player player = this.getPlayer();
         if (player == null) {
@@ -231,7 +229,6 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
                     tpToFocusedPlanet();
                 }
             }
-            commandablelol = false;
             showLargeMenu = false;
         }
     }

@@ -3,7 +3,6 @@ package com.st0x0ef.stellaris.neoforge.client;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.StellarisClient;
 import com.st0x0ef.stellaris.client.skys.renderer.SkyRenderer;
-import com.st0x0ef.stellaris.platform.ClientUtilsPlatform;
 import com.st0x0ef.stellaris.platform.neoforge.ClientUtilsPlatformImpl;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;

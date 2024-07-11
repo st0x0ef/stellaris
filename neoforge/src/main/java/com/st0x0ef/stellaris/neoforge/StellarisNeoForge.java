@@ -4,7 +4,6 @@ import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import com.st0x0ef.stellaris.neoforge.client.StellarisNeoforgeClient;
 import com.st0x0ef.stellaris.neoforge.systems.SystemsNeoForge;
-import net.neoforged.bus.api.Event;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.loading.FMLEnvironment;
@@ -30,7 +29,7 @@ public class StellarisNeoForge {
 
     public static void onDatapackSync(OnDatapackSyncEvent event) {
         if (event.getPlayer() != null) {
-            Stellaris.onDatapackSyncEvent(event.getPlayer(), false);
+            Stellaris.onDatapackSyncEvent(event.getPlayer(), true);
         } else {
             event.getPlayerList().getPlayers().forEach((player) -> Stellaris.onDatapackSyncEvent(player, true));
         }

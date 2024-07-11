@@ -46,12 +46,11 @@ public class PlanetUtil {
         return new ResourceLocation("stellaris", "textures/planet_bar/earth_planet_bar.png");
     }
 
-    public static int openPlanetSelectionMenu(Player player) {
+    public static int openPlanetSelectionMenu(Player player, boolean forceCanGoTo) {
         ExtendedMenuProvider provider = new ExtendedMenuProvider() {
-
             @Override
-            public void saveExtraData(FriendlyByteBuf buf) {
-
+            public void saveExtraData(FriendlyByteBuf buffer) {
+                buffer.writeBoolean(forceCanGoTo);
             }
 
             @Override
@@ -62,7 +61,7 @@ public class PlanetUtil {
             @Override
             public @NotNull AbstractContainerMenu createMenu(int syncId, Inventory inv, Player player) {
                 FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
-                return PlanetSelectionMenu.create(syncId, inv, buffer);
+                return PlanetSelectionMenu.create(syncId, inv, buffer.writeBoolean(forceCanGoTo));
             }
         };
 
@@ -100,13 +99,5 @@ public class PlanetUtil {
         }
 
         return 0;
-    }
-
-    public static float getTemperature(ResourceLocation dim) {
-        return getPlanet(dim).temperature();
-    }
-
-    public static String getSystem(ResourceLocation dim) {
-        return getPlanet(dim).system();
     }
 }

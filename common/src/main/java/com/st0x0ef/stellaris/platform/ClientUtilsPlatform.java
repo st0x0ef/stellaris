@@ -19,7 +19,6 @@ public class ClientUtilsPlatform {
 
     @FunctionalInterface
     public interface ArmorFactory {
-
         HumanoidModel<?> create(ModelPart root, EquipmentSlot slot, ItemStack stack, HumanoidModel<LivingEntity> parentModel);
     }
 
@@ -33,5 +32,4 @@ public class ClientUtilsPlatform {
     public static void registerPlanetsSkies(Map<ResourceKey<Level>, SkyRenderer> renderer) {
         throw new AssertionError();
     }
-
 }

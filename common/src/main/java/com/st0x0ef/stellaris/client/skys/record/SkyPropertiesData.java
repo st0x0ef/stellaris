@@ -2,12 +2,12 @@ package com.st0x0ef.stellaris.client.skys.record;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.client.screens.record.MoonRecord;
 import com.st0x0ef.stellaris.client.skys.renderer.SkyRenderer;
 import com.st0x0ef.stellaris.platform.ClientUtilsPlatform;
+import dev.architectury.platform.Platform;
+import dev.architectury.utils.Env;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -29,8 +29,8 @@ public class SkyPropertiesData extends SimpleJsonResourceReloadListener {
 
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> object, ResourceManager resourceManager, ProfilerFiller profiler) {
-
-        object.forEach((key, value) -> {
+        if (Platform.getEnvironment() == Env.CLIENT) {
+            object.forEach((key, value) -> {
 //            Stellaris.LOG.info("Processing key: {}", key);
 //            try {
 //                JsonObject json = GsonHelper.convertToJsonObject(value, "sky_properties");
@@ -46,15 +46,16 @@ public class SkyPropertiesData extends SimpleJsonResourceReloadListener {
 //                Stellaris.LOG.error("Error processing key: {}", key, e);
 //            }
 
-            JsonObject json = GsonHelper.convertToJsonObject(value, "sky_renderer");
-            SkyProperties skyProperties = SkyProperties.CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
-            SkyRenderer skyRenderer = new SkyRenderer(skyProperties);
+                JsonObject json = GsonHelper.convertToJsonObject(value, "sky_renderer");
+                SkyProperties skyProperties = SkyProperties.CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
+                SkyRenderer skyRenderer = new SkyRenderer(skyProperties);
 
-            SKY_PROPERTIES.put(skyProperties.id(), skyRenderer);
+                SKY_PROPERTIES.put(skyProperties.id(), skyRenderer);
 
-        });
-        ClientUtilsPlatform.registerPlanetsSkies(SKY_PROPERTIES);
-        Stellaris.LOG.info("Finished loading sky properties. Total properties: {}", SKY_PROPERTIES.size());
+            });
+            ClientUtilsPlatform.registerPlanetsSkies(SKY_PROPERTIES);
+            Stellaris.LOG.info("Finished loading sky properties. Total properties: {}", SKY_PROPERTIES.size());
+        }
     }
 
     public static SkyRenderer getSkyRenderersById(ResourceKey<Level> id) {

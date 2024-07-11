@@ -1,12 +1,5 @@
 package com.st0x0ef.stellaris.client.events;
 
-import com.st0x0ef.stellaris.client.skys.renderer.SkyRenderer;
-import com.st0x0ef.stellaris.common.utils.PlanetUtil;
-import dev.architectury.event.events.client.ClientTickEvent;
-import net.minecraft.resources.ResourceLocation;
-
-import java.util.Objects;
-
 public class ClientEvents {
 
     public static boolean isCustomClouds;
