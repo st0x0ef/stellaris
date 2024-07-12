@@ -563,9 +563,12 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (keyCode == GLFW.GLFW_KEY_Z) {
-            if (canLaunch(PlanetUtil.getPlanet(focusedBody.dimension))) {
-                if (focusedBody != null) tpToFocusedPlanet();
+            if (focusedBody != null) {
+                if (canLaunch(PlanetUtil.getPlanet(focusedBody.dimension))) {
+                    tpToFocusedPlanet();
+                }
             }
+
         } else if (keyCode == GLFW.GLFW_KEY_X) {
             isPausePressed = !isPausePressed;
         } else if (keyCode == GLFW.GLFW_KEY_LEFT_SHIFT || keyCode == GLFW.GLFW_KEY_RIGHT_SHIFT) {
