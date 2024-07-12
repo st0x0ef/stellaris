@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.common.data_components;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.RocketModel;
+import com.st0x0ef.stellaris.common.rocket_upgrade.*;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -32,9 +33,25 @@ public record RocketComponent(String skin, RocketModel model, String fuelType, i
         return new ResourceLocation(skin);
     }
 
+    public SkinUpgrade getSkinUpgrade() {
+        return new SkinUpgrade(getSkin()) ;
+    }
+
     public RocketModel getModel() {
         return model;
     }
+    public ModelUpgrade getModelUpgrade() {
+        return new ModelUpgrade(model) ;
+    }
+
+    public MotorUpgrade getMotorUpgrade() {
+        return new MotorUpgrade(FuelType.Type.fromString(fuelType));
+    }
+
+    public TankUpgrade getTankUpgrade() {
+        return new TankUpgrade(tankCapacity);
+    }
+
 
     public int getTankCapacity() {
         return tankCapacity;
