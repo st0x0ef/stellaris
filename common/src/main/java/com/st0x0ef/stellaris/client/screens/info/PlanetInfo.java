@@ -12,7 +12,7 @@ public class PlanetInfo extends CelestialBody {
     public double currentAngle;
 
     public PlanetInfo(ResourceLocation texture, String name, double orbitRadius, long orbitDuration, int width, int height, CelestialBody orbitCenter, ResourceKey<Level> dimension, Component translatable, String id) {
-        super(texture, name, 0, 0, width, height, 0xFFFFFF, dimension, translatable, id);
+        super(texture, name, 0, 0, width, height, 0xFFFFFF, dimension.location(), translatable, id);
         this.orbitRadius = orbitRadius;
         this.orbitDuration = orbitDuration;
         this.orbitCenter = orbitCenter;

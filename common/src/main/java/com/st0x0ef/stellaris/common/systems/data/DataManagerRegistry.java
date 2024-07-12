@@ -15,6 +15,4 @@ public interface DataManagerRegistry {
     <T> DataManager<T> register(@NotNull String name, @NotNull Supplier<T> factory, @Nullable Codec<T> codec, boolean copyOnDeath);
 
     <T> DataManagerBuilder<T> builder(Supplier<T> factory);
-
-    void initialize();
 }

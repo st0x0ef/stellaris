@@ -2,7 +2,9 @@ package com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.small;
 
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.VehicleRenderer;
+import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.RocketModel;
 import com.st0x0ef.stellaris.common.entities.RocketEntity;
+import com.st0x0ef.stellaris.common.rocket_upgrade.ModelUpgrade;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 
@@ -16,6 +18,8 @@ public class SmallRocketRenderer extends VehicleRenderer<RocketEntity, SmallRock
 
     @Override
     public ResourceLocation getTextureLocation(RocketEntity rocket) {
+        rocket.MODEL_UPGRADE = new ModelUpgrade(RocketModel.SMALL);
+
         return new ResourceLocation(rocket.getFullSkinTexture());
     }
 

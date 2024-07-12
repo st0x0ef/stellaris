@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.common.blocks.machines;
 
-import com.mojang.serialization.MapCodec;
 import dev.architectury.registry.menu.ExtendedMenuProvider;
 import dev.architectury.registry.menu.MenuRegistry;
 import net.minecraft.core.BlockPos;
@@ -88,11 +87,6 @@ public abstract class BaseMachineBlock extends BaseTickingEntityBlock {
     @Override
     protected BlockState mirror(BlockState state, Mirror mirror) {
         return state.rotate(mirror.getRotation(state.getValue(FACING)));
-    }
-
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return null;
     }
 
     @Override

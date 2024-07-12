@@ -6,6 +6,7 @@ import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.registry.TagRegistry;
 import com.st0x0ef.stellaris.common.systems.energy.EnergyApi;
 import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedBlockEnergyContainer;
+import com.st0x0ef.stellaris.platform.systems.energy.EnergyContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -53,7 +54,7 @@ public class CoalGeneratorEntity extends BaseGeneratorBlockEntity {
     };
 
     public CoalGeneratorEntity(BlockPos blockPos, BlockState blockState) {
-        this(BlockEntityRegistry.COAL_GENERATOR.get(), blockPos, blockState, 1, 30000);
+        this(BlockEntityRegistry.COAL_GENERATOR.get(), blockPos, blockState, 3, 30000);
     }
 
     public CoalGeneratorEntity(BlockEntityType<?> entityType, BlockPos blockPos, BlockState blockState, int energyGeneratedPT, int maxCapacity) {
@@ -70,23 +71,21 @@ public class CoalGeneratorEntity extends BaseGeneratorBlockEntity {
         boolean wasLit = isLit();
         boolean shouldUpdate = false;
 
-        if (isLit()) {
+        if (canGenerate()) {
             --litTime;
         }
 
-        ItemStack stack = getItems().get(0);
-        if (isLit() || !stack.isEmpty()) {
-            if (!isLit() && !stack.isEmpty()) {
-                litTime = getBurnDuration(stack);
-                litDuration = litTime;
-                if (isLit()) {
-                    shouldUpdate = true;
-                    Item item = stack.getItem();
-                    stack.shrink(1);
-                    if (stack.isEmpty()) {
-                        Item item2 = item.getCraftingRemainingItem();
-                        getItems().set(0, item2 == null ? ItemStack.EMPTY : new ItemStack(item2));
-                    }
+        ItemStack stack = getItems().getFirst();
+        if (!isLit() && !stack.isEmpty()) {
+            litTime = getBurnDuration(stack);
+            litDuration = litTime;
+            if (isLit()) {
+                shouldUpdate = true;
+                Item item = stack.getItem();
+                stack.shrink(1);
+                if (stack.isEmpty()) {
+                    Item item2 = item.getCraftingRemainingItem();
+                    getItems().set(0, item2 == null ? ItemStack.EMPTY : new ItemStack(item2));
                 }
             }
         }
@@ -127,7 +126,9 @@ public class CoalGeneratorEntity extends BaseGeneratorBlockEntity {
 
     @Override
     public boolean canGenerate() {
-        return isLit();
+        EnergyContainer energyContainer = getWrappedEnergyContainer();
+        boolean isMaxEnergy = energyContainer.getStoredEnergy()==energyContainer.getMaxCapacity();
+        return isLit() && !isMaxEnergy;
     }
 
     @Override
@@ -150,5 +151,10 @@ public class CoalGeneratorEntity extends BaseGeneratorBlockEntity {
     @Override
     public int getContainerSize() {
         return 1;
+    }
+
+    @Override
+    protected int getMaxCapacity() {
+        return 128000;
     }
 }

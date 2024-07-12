@@ -35,9 +35,10 @@ subprojects {
             officialMojangMappings()
             parchment("org.parchmentmc.data:parchment-${rootProject.minecraft_version}:${rootProject.parchment_mapping_version}@zip")
         }
-        if(!isCommon) {
-            modImplementation("me.shedaniel:RoughlyEnoughItems-${modLoader}:${rootProject.rei_version}")
-        }
+
+        modCompileOnly "me.shedaniel:RoughlyEnoughItems-api:${rootProject.rei_version}"
+        modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin:${rootProject.rei_version}"
+
     }
 
     java {

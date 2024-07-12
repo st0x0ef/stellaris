@@ -1,51 +1,61 @@
 package com.st0x0ef.stellaris.common.events;
 
-import com.st0x0ef.stellaris.common.config.CustomConfig;
-import com.st0x0ef.stellaris.common.items.RadioactiveBlockItem;
-import com.st0x0ef.stellaris.common.items.RadioactiveItem;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.oxygen.OxygenContainerBlockEntity;
+import com.st0x0ef.stellaris.common.items.RadiationItem;
+import com.st0x0ef.stellaris.common.oxygen.OxygenManager;
 import com.st0x0ef.stellaris.common.registry.EffectsRegistry;
-import dev.architectury.event.events.common.PlayerEvent;
+import com.st0x0ef.stellaris.common.utils.Utils;
+import dev.architectury.event.EventResult;
+import dev.architectury.event.events.common.BlockEvent;
 import dev.architectury.event.events.common.TickEvent;
-import net.minecraft.core.NonNullList;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 
-public class Events {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
-    // Check every 10 seconds
-    private static final long RADIOACTIVE_CHECK = 1000 * (long) CustomConfig.getValue("radioactivityCheckInterval");
-    private static long lastRadioactiveCheck;
+public class Events {
+    private static int tickBeforeNextRadioactiveCheck = 100;
 
     public static void registerEvents() {
+        TickEvent.PLAYER_POST.register(player -> {
+            if ((tickBeforeNextRadioactiveCheck <= 0) && !Utils.isLivingInJetSuit(player)) {
+                AtomicBoolean addEffect = new AtomicBoolean();
+                AtomicInteger level = new AtomicInteger();
+                List<ItemStack> items = new ArrayList<>(player.getInventory().items);
 
-       PlayerEvent.OPEN_MENU.register((Player player, AbstractContainerMenu menu) -> {
-          NonNullList<ItemStack> items =  menu.getItems();
-          items.forEach(item -> {
-              if(item.getItem() instanceof RadioactiveItem radioactiveItem) {
-                    player.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE, 100, radioactiveItem.getRadiationLevel()));
-              } else if (item.getItem() instanceof RadioactiveBlockItem radioactiveBlockItem){
-                  player.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE, 100, radioactiveBlockItem.getRadiationLevel()));
-              }
-          });
-       });
+                items.forEach(itemStack -> {
+                    if (itemStack.getItem() instanceof RadiationItem radioactiveItem) {
+                        addEffect.set(true);
 
-       TickEvent.PLAYER_POST.register(player -> {
-           long now = System.currentTimeMillis();
+                        if (level.get() < radioactiveItem.getRadiationLevel()) {
+                            level.set(radioactiveItem.getRadiationLevel());
+                        }
+                    }
+                });
 
-           if((now - lastRadioactiveCheck) > RADIOACTIVE_CHECK) {
-               player.getInventory().items.forEach(itemStack -> {
-                   if(itemStack.getItem() instanceof RadioactiveItem radioactiveItem) {
-                       player.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE, 100, radioactiveItem.getRadiationLevel()));
-                   } else if (itemStack.getItem() instanceof RadioactiveBlockItem radioactiveBlockItem){
-                       player.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE, 100, radioactiveBlockItem.getRadiationLevel()));
-                   }
-               });
-               lastRadioactiveCheck = now;
-           }
+                if (addEffect.get()) {
+                    if(player.level().isClientSide()) return;
+                    player.removeEffect(EffectsRegistry.RADIOACTIVE);
+                    player.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE, 100, 1));
+                }
 
-       });
+                tickBeforeNextRadioactiveCheck = 100;
+            }
 
-   }
+            tickBeforeNextRadioactiveCheck--;
+        });
+
+        BlockEvent.BREAK.register((level, pos, state, player, value) -> {
+            if (level.getBlockEntity(pos) instanceof OxygenContainerBlockEntity oxygenContainer) {
+                OxygenManager.removeOxygenBlocksPerLevel(level, oxygenContainer);
+            }
+
+            OxygenManager.distributeOxygenForLevel(level);
+
+            return EventResult.pass();
+        });
+    }
 }

@@ -20,7 +20,7 @@
     "stellaris:deepslate_steel_ore",
     "stellaris:raw_steel_block",
     "stellaris:steel_block",
-    "stellaris:steel_planting_block",
+    "stellaris:steel_plating_block",
     "stellaris:steel_ore",
     "stellaris:heavy_metal_plate",
     "stellaris:heavy_metal_casing",
@@ -34,9 +34,9 @@
 
     "stellaris:steel_pillar",
     "stellaris:steel_stairs",
-    "stellaris:steel_planting_stairs",
+    "stellaris:steel_plating_stairs",
     "stellaris:steel_slab",
-    "stellaris:steel_planting_slab",
+    "stellaris:steel_plating_slab",
     "stellaris:heavy_metal_stairs",
     "stellaris:heavy_metal_slab",
     "stellaris:iron_pillar",
@@ -60,8 +60,8 @@
     "stellaris:venus_smooth_sandstone_brick_slab",
     "stellaris:venus_smooth_sandstone_slab",
     "stellaris:venus_stone_slab",
-    "stellaris:desh_planting_stairs",
-    "stellaris:desh_planting_slab",
+    "stellaris:desh_plating_stairs",
+    "stellaris:desh_plating_slab",
     "stellaris:moon_pillar",
     "stellaris:moon_stone_stairs",
     "stellaris:moon_stone_slab",
@@ -122,6 +122,11 @@
     "stellaris:vertical_mars_slab",
     "stellaris:vertical_venus_slab",
     "stellaris:vertical_mercury_slab",
+    "stellaris:vertical_iron_plating_slab",
+    "stellaris:vertical_steel_plating_slab",
+    "stellaris:vertical_steel_slab",
+    "stellaris:vertical_desh_slab",
+    "stellaris:vertical_desh_plating_slab",
 
     "stellaris:cheese_block",
     "stellaris:vacumator",
@@ -133,6 +138,7 @@
     "stellaris:plutonium_block",
 
     "stellaris:oxygen_propagator",
+    "stellaris:oxygen_distributor",
 
     "stellaris:water_separator",
     "stellaris:flag",
@@ -140,6 +146,8 @@
     "stellaris:radioactive_generator",
     "stellaris:coal_generator",
     "stellaris:rocket_station",
-    "stellaris:rocket_launch_pad"
+    "stellaris:rocket_launch_pad",
+    "stellaris:fuel_refinery",
+    "stellaris:cable"
   ]
 }

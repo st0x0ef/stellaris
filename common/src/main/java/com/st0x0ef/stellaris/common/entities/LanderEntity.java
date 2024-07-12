@@ -14,6 +14,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -71,6 +72,10 @@ public class LanderEntity extends IVehicleEntity implements HasCustomInventorySc
         return true;
     }
 
+    @Override
+    public Vec3 getPassengerRidingPosition(Entity entity) {
+        return this.position().add(this.getPassengerAttachmentPoint(entity, getDimensions(this.getPose()),1.0F)).add(0d,2d,0d);
+    }
 
     @Override
     public void kill() {
@@ -129,7 +134,7 @@ public class LanderEntity extends IVehicleEntity implements HasCustomInventorySc
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
-        ListTag inventoryCustom = compound.getList("InventoryCustom", 10);
+        ListTag inventoryCustom = compound.getList("InventoryCustom", 15);
         this.inventory.fromTag(inventoryCustom, registryAccess());
 
     }
@@ -160,15 +165,6 @@ public class LanderEntity extends IVehicleEntity implements HasCustomInventorySc
         this.slowDownLander();
     }
 
-//    @Override
-//    public void onAddedToWorld() {
-//        super.onAddedToWorld();
-//        this.beepWarningSound();
-//        this.boostSound();
-//    }
-//
-
-
     public void beepWarningSound() {
         if (level().isClientSide())
             playBeep.accept(this);
@@ -180,8 +176,11 @@ public class LanderEntity extends IVehicleEntity implements HasCustomInventorySc
     }
 
     public Player getFirstPlayerPassenger() {
-        if (!this.getPassengers().isEmpty() && this.getPassengers().get(0) instanceof Player player) {
+        if (this.getPassengers().isEmpty()) {
+            return null;
+        }
 
+        if (this.getPassengers().getFirst() instanceof Player player) {
             return player;
         }
 
@@ -229,7 +228,7 @@ public class LanderEntity extends IVehicleEntity implements HasCustomInventorySc
 
             @Override
             public AbstractContainerMenu createMenu(int id, Inventory playerInv, Player player) {
-                FriendlyByteBuf packetBuffer = new FriendlyByteBuf(Unpooled.buffer());
+                RegistryFriendlyByteBuf packetBuffer = new RegistryFriendlyByteBuf(Unpooled.buffer(), player.registryAccess());
                 packetBuffer.writeVarInt(LanderEntity.this.getId());
                 return new LanderMenu(id, playerInv, inventory);
             }

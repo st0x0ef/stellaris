@@ -4,21 +4,19 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
 import com.st0x0ef.stellaris.Stellaris;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.util.profiling.ProfilerFiller;
-import net.minecraft.world.level.Level;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class StellarisData extends SimpleJsonResourceReloadListener {
 
-    public static final Map<ResourceKey<Level>, Planet> PLANETS = new HashMap<>();
-    public static final Map<String, ResourceKey<Level>> SYSTEMS = new HashMap<>();
+    private static final List<Planet> PLANETS = new ArrayList<>();
 
     public StellarisData() {
         super(Stellaris.GSON, "planets");
@@ -27,24 +25,19 @@ public class StellarisData extends SimpleJsonResourceReloadListener {
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> resourceLocationJsonElementMap, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
         PLANETS.clear();
-        SYSTEMS.clear();
         resourceLocationJsonElementMap.forEach((key, value) -> {
             JsonObject json = GsonHelper.convertToJsonObject(value, "planets");
             Planet planet = Planet.CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
-            PLANETS.put(planet.dimension(), planet);
-//            Stellaris.LOG.error("Adding" + planet.dimension().toString() + "  : " + planet.system() + " to the system list.");
-//            Stellaris.LOG.info(String.valueOf(planet.temperature()));
-            SYSTEMS.put(planet.system(), planet.dimension());
-
+            PLANETS.add(planet);
         });
     }
 
-    public static void addPlanet(ResourceKey<Level> resourceKey, Planet planet) {
-        PLANETS.put(resourceKey, planet);
+    public static List<Planet> getPlanets() {
+        return PLANETS;
     }
 
-    public static Planet getPlanet(ResourceKey<Level> resourceKey) {
-        return PLANETS.get(resourceKey);
+    public static void addPlanets(List<Planet> planets) {
+        PLANETS.clear();
+        PLANETS.addAll(planets);
     }
-
 }

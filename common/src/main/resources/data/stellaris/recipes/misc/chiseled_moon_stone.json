@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "   ",
+    "#  ",
+    "#  "
+  ],
+  "key": {
+    "#": {"item": "stellaris:moon_stone_slab"}
+  },
+  "result": {
+    "id": "stellaris:chiseled_moon_stone"
+  }
+}

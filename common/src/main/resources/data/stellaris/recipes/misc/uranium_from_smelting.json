@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "group": "uranium",
+  "ingredient": {
+    "item": "stellaris:mercury_uranium_ore"
+  },
+  "result": {
+    "id": "stellaris:uranium_ingot"
+  }
+}

@@ -3,7 +3,6 @@
   "level": "stellaris:deimos",
   "name": "Deimos",
   "translatable": "stellaris.moon.deimos",
-  "orbit": "minecraft:the_end",
   "oxygen": false,
   "temperature": -40,
   "distanceFromEarth": 55700,

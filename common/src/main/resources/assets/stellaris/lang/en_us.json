@@ -2,7 +2,7 @@
   "block.stellaris.deepslate_steel_ore": "Deepslate Steel Ore",
   "block.stellaris.raw_steel_block": "Raw Steel Block",
   "block.stellaris.steel_block": "Steel Block",
-  "block.stellaris.steel_planting_block": "Steel Plating Block",
+  "block.stellaris.steel_plating_block": "Steel Plating Block",
   "block.stellaris.steel_ore": "Steel Ore",
 
   "block.stellaris.heavy_metal_plate": "Heavy Metal Plate",
@@ -22,19 +22,19 @@
   "block.stellaris.moon_desh_ore": "Moon Desh Ore",
   "block.stellaris.moon_stone_brick_slab": "Moon Stone Brick Slab",
   "block.stellaris.moon_stone_brick_stairs": "Moon Stone Brick Stairs",
-  "block.stellaris.moon_polished_stone_brick_slab": "Moon Polished Stone Brick Slab",
-  "block.stellaris.moon_polished_stone_brick_stairs": "Moon Polished Stone Brick Stairs",
+  "block.stellaris.moon_polished_stone_brick_slab": "Moon Polished Stone Slab",
+  "block.stellaris.moon_polished_stone_brick_stairs": "Moon Polished Stone Stairs",
 
   "block.stellaris.mars_pillar": "Mars Pillar",
   "block.stellaris.mars_polished_stone_stairs": "Mars Polished Stone Stairs",
   "block.stellaris.mars_stone_stairs": "Mars Stone Stairs",
   "block.stellaris.mars_polished_stone_slab": "Mars Polished Stone Slab",
-  "block.stellaris.mars_stone_slab": "Mars_stone_slab",
+  "block.stellaris.mars_stone_slab": "Mars Stone Slab",
   "block.stellaris.steel_pillar": "Steel Pillar",
   "block.stellaris.steel_stairs": "Steel Stairs",
-  "block.stellaris.steel_planting_stairs": "Steel Plating Stairs",
+  "block.stellaris.steel_plating_stairs": "Steel Plating Stairs",
   "block.stellaris.steel_slab": "Steel Slab",
-  "block.stellaris.steel_planting_slab": "Steel Plating Slab",
+  "block.stellaris.steel_plating_slab": "Steel Plating Slab",
   "block.stellaris.heavy_metal_stairs": "Heavy Metal Stairs",
   "block.stellaris.heavy_metal_slab": "Heavy Metal Slab",
   "block.stellaris.iron_pillar": "Iron Pillar",
@@ -54,12 +54,12 @@
   "block.stellaris.venus_smooth_sandstone_stairs": "Venus Smooth Sandstone Stairs",
   "block.stellaris.venus_stone_stairs": "Venus Stone Stairs",
   "block.stellaris.venus_polished_stone_slab": "Venus Polished Stone Slab",
-  "block.stellaris.venus_sandstone_brick_slab": "Venus Smooth Sandstone Brick Slab",
+  "block.stellaris.venus_sandstone_brick_slab": "Venus Sandstone Brick Slab",
   "block.stellaris.venus_smooth_sandstone_brick_slab": "Venus Smooth Sandstone Brick Slab",
   "block.stellaris.venus_smooth_sandstone_slab": "Venus Smooth Sandstone Slab",
   "block.stellaris.venus_stone_slab": "Venus Stone Slab",
-  "block.stellaris.desh_planting_stairs": "Desh Plating Stairs",
-  "block.stellaris.desh_planting_slab": "Desh Plating Slab",
+  "block.stellaris.desh_plating_stairs": "Desh Plating Stairs",
+  "block.stellaris.desh_plating_slab": "Desh Plating Slab",
   "block.stellaris.moon_pillar": "Moon Pillar",
   "block.stellaris.moon_stone_stairs": "Moon Stone Stairs",
   "block.stellaris.moon_stone_slab": "Moon Stone Slab",
@@ -98,6 +98,7 @@
   "block.stellaris.polished_mars_stone" : "Polished Mars Stone",
   "block.stellaris.mars_stone_brick_slab": "Mars Stone Brick Slab",
   "block.stellaris.mars_stone_brick_stairs": "Mars Stone Brick Stairs",
+  "block.stellaris.mars_plutonium_ore": "Mars Plutonium Ore",
 
 
   "block.stellaris.conglomorate" : "Conglomorate",
@@ -117,6 +118,7 @@
   "block.stellaris.venus_stone_bricks" : "Venus Stone Bricks",
   "block.stellaris.venus_stone_brick_slab": "Venus Stone Brick Slab",
   "block.stellaris.venus_stone_brick_stairs": "Venus Stone Brick Stairs",
+  "block.stellaris.venus_neptunium_ore": "Venus Neptunium Ore",
 
   "block.stellaris.vertical_moon_slab": "Vertical Moon Stone Slab",
   "block.stellaris.vertical_mars_slab": "Vertical Mars Stone Slab",
@@ -124,13 +126,20 @@
   "block.stellaris.vertical_mercury_slab": "Vertical Mercury Stone Slab",
   "block.stellaris.vertical_steel_slab": "Vertical Steel Slab",
   "block.stellaris.vertical_heavy_metal_slab": "Vertical Heavy Metal Slab",
+  "block.stellaris.vertical_heavy_metal_plate_slab": "Vertical Heavy Metal Plate Slab",
   "block.stellaris.vertical_steel_plating_slab": "Vertical Steel Plating Slab",
+  "block.stellaris.vertical_iron_plating_slab": "Vertical Iron Plating Slab",
   "block.stellaris.vertical_desh_plating_slab": "Vertical Desh Plating Slab",
   "block.stellaris.vertical_desh_slab": "Vertical Desh Slab",
 
   "block.stellaris.cheese_block": "Cheese Block",
   "block.stellaris.vacumator": "Vacumator",
 
+  "block.stellaris.earth_globe": "Earth Globe",
+  "block.stellaris.moon_globe": "Moon Globe",
+  "block.stellaris.mars_globe": "Mars Globe",
+  "block.stellaris.mercury_globe": "Mercury Globe",
+  "block.stellaris.venus_globe": "Venus Globe",
 
   "block.stellaris.uranium_block" : "Uranium Block",
   "block.stellaris.raw_uranium_block" : "Raw Uranium Block",
@@ -143,14 +152,24 @@
   "block.stellaris.cable": "Cable",
   "block.stellaris.flag": "Flag",
   "block.stellaris.water_separator": "Water Separator",
+  "block.stellaris.fuel_refinery": "Fuel Refinery",
 
   "block.stellaris.oxygen_propagator": "Oxygen Propagator",
   "block.stellaris.oxygen_distributor": "Oxygen Distributor",
 
+  "fluid.stellaris.fuel": "Fuel",
+  "fluid.stellaris.hydrogen": "Hydrogen",
+  "fluid.stellaris.oil": "Oil",
+  "fluid.stellaris.oxygen": "Oxygen",
+
+
   "categorie.stellaris.main": "Stellaris",
   "categorie.stellaris_blocks.main": "Stellaris Blocks",
+
   "item.stellaris.raw_steel_ingot": "Raw Steel Ingot",
   "item.stellaris.steel_ingot": "Steel Ingot",
+  "item.stellaris.raw_desh_ingot": "Raw Desh Ingot",
+  "item.stellaris.desh_ingot": "Desh Ingot",
   "item.stellaris.ice_shard": "Ice Shard",
   "item.stellaris.steel_nugget": "Steel Nugget",
   "item.stellaris.heavy_metal_ingot": "Heavy Metal Ingot",
@@ -159,12 +178,21 @@
   "item.stellaris.uranium_ingot": "Uranium Ingot",
 
 
-
   "item.stellaris.rocket_fin": "Rocket Fin",
   "item.stellaris.engine_fan": "Engine Fan",
   "item.stellaris.rocket_engine": "Rocket Engine",
-  "item.stellaris.fuel_rocket_motor": "Fuel Rocket Motor",
+  "item.stellaris.rocket_nose_cone": "Rocket Nose Cone",
 
+  "item.stellaris.skin_frozy": "Frozy Skin",
+  "item.stellaris.skin_normal": "Normal Skin",
+  "item.stellaris.skin_galaxy": "Galaxy Skin",
+  "item.stellaris.skin_military": "Military Skin",
+  "item.stellaris.skin_rusty": "Rusty Skin",
+
+  "item.stellaris.tiny_rocket_upgrade": "Tiny Rocket Model",
+  "item.stellaris.small_rocket_upgrade": "Small Rocket Model",
+  "item.stellaris.normal_rocket_upgrade": "Normal Rocket Model",
+  "item.stellaris.big_rocket_upgrade": "Big Rocket Model",
 
 
   "item.stellaris.pygro_spawn_egg": "Pygro Spawn Egg",
@@ -187,6 +215,11 @@
   "item.stellaris.basic_rocket_skin": "Basic Rocket Skin",
   "item.stellaris.frozy_rocket_skin": "Frozy Rocket Skin",
 
+  "item.stellaris.hydrogen_motor": "Hydrogen Motor",
+  "item.stellaris.radioactive_motor": "Radioactive Motor",
+
+  "item.stellaris.big_fuel_tank_upgrade": "Big Fuel Tank",
+
   "item.stellaris.big_blue_can": "Blue Can",
   "item.stellaris.big_green_can": "Green Can",
   "item.stellaris.big_purple_can": "Purple Can",
@@ -199,11 +232,20 @@
   "item.stellaris.small_red_can": "Small Red Can",
   "item.stellaris.small_yellow_can": "Small Yellow Can",
 
+  "item.stellaris.jet_suit_boots": "Jet Suit Boots",
+  "item.stellaris.jet_suit_leggings": "Jet Suit Leggings",
+  "item.stellaris.jet_suit_chestplate": "Jet Suit Chestplate",
+  "item.stellaris.jet_suit_helmet": "Jet Suit Helmet",
+
   "item.stellaris.cannon_steak": "Canned Steak",
   "item.stellaris.cosmo_bread": "Cosmo Bread",
   "item.stellaris.cheese": "Cheese",
   "item.stellaris.cosmo_coffee": "Cosmo coffee",
 
+  "item.stellaris.jetsuit_helmet": "Jet Suit Helmet",
+  "item.stellaris.jetsuit_leggings": "Jet Suit Leggings",
+  "item.stellaris.jetsuit_boots": "Jet Suit Boots",
+  "item.stellaris.jetsuit_suit": "Jet Suit Chest",
 
   "item.stellaris.ice_shard_arrow": "Ice Shard Arrow",
 
@@ -262,15 +304,19 @@
   "tooltip.item.stellaris.can.empty": "Empty",
   "tooltip.item.stellaris.can.nutrition": "Nutrition: %s/%s",
   "tooltip.item.stellaris.can.saturation": "Saturation: %s",
+  "tooltip.item.stellaris.oxygen_tank": "Oxygen: %s/%s",
+  "tooltip.item.stellaris.rocket.skin": "Skin: %s",
+  "tooltip.item.stellaris.rocket.fuel": "Fuel: %s",
+  "tooltip.item.stellaris.rocket.model": "Model: %s",
 
   "container.entity.stellaris.lander": "Lander",
   "container.entity.stellaris.rocket": "Rocket",
-  "advancements.stellaris.moon.root.title" : "That's small step for man...",
-  "advancements.moon.root.description" : "land on the moon",
+  "advancements.moon.root.title" : "That's small step for man, one giant leap for mankind ",
+  "advancements.moon.root.description" : "Land on the moon",
   "advancements.mars.root.title" : "Red wasteland",
-  "advancements.mars.root.description" : "land on the mars",
+  "advancements.mars.root.description" : "Land on the mars",
   "death.attack.radiation": "%1$s received a lethal dose of radiation",
-
+  "death.attack.oxygen" : "%1$s died from lack of oxygen",
   "event.stellaris.cheeseboss": "Cheese Boss",
 
   "entity.stellaris.cheese_boss": "Cheese Boss",
@@ -284,6 +330,29 @@
 
   "gauge_text.stellaris.stored" : "Stored : %s",
   "gauge_text.stellaris.capacity" : "Capacity : %s",
-  "gauge_text.stellaris.max_generation" : "Max Generation : %s"
+  "gauge_text.stellaris.max_generation" : "Max Generation : %s Fe/tick",
+  "stellaris.screen.fuel": "Fuel",
+  "stellaris.screen.water": "Water",
+  "stellaris.screen.hydrogen": "Hydrogen",
+  "stellaris.screen.oxygen": "Oxygen",
+  "stellaris.screen.energy": "Energy",
+  "stellaris.screen.oil": "Oil",
+
+  "stellaris.compat.rocket_crafting": "Rocket Crafting",
+
+  "general.stellaris.rocket_crafting_mode": "Mode",
+  "general.stellaris.rocket_crafting_fuel": "Fuel",
+  "key.stellaris.rocket_crafting_mode": "Rocket crafting mode",
+  "general.stellaris.rocket_crafting_disabled_mode": "Disabled",
+  "general.stellaris.rocket_crafting_normal_mode": "Normal",
+  "general.stellaris.jet_suit_mode": "Mode",
+  "general.stellaris.jet_suit_fuel": "Fuel",
+  "key.stellaris.jetsuit_mode": "Jet Suit Mode",
+  "general.stellaris.jet_suit_disabled_mode": "Disabled",
+  "general.stellaris.jet_suit_normal_mode": "Normal",
+  "general.stellaris.jet_suit_hover_mode": "Hover",
+  "general.stellaris.jet_suit_elytra_mode": "Elytra",
+
+  "text.stellaris.rocket.fuel": "You need to put %s in the rocket to be able to fly"
 
 }

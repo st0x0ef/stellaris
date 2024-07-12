@@ -19,8 +19,9 @@ public class MenuTypesRegistry {
     public static final RegistrySupplier<MenuType<RadioactiveGeneratorMenu>> RADIOACTIVE_GENERATOR_MENU = MENU_TYPE.register("radioactive_generator", () -> MenuRegistry.ofExtended(RadioactiveGeneratorMenu::create));
 
     public static final RegistrySupplier<MenuType<VacumatorMenu>> VACUMATOR_MENU = MENU_TYPE.register("vacumator", () -> MenuRegistry.ofExtended(VacumatorMenu::new));
-    public static final RegistrySupplier<MenuType<WaterSeparatorMenu>> WATER_SEPARATOR_MENU = MENU_TYPE.register("water_separator", () -> MenuRegistry.ofExtended(WaterSeparatorMenu::new));
+    public static final RegistrySupplier<MenuType<WaterSeparatorMenu>> WATER_SEPARATOR_MENU = MENU_TYPE.register("water_separator", () -> MenuRegistry.ofExtended(WaterSeparatorMenu::create));
     public static final RegistrySupplier<MenuType<OxygenDistributorMenu>> OXYGEN_DISTRIBUTOR = MENU_TYPE.register("oxygen_distributor", () -> MenuRegistry.ofExtended(OxygenDistributorMenu::create));
+    public static final RegistrySupplier<MenuType<FuelRefineryMenu>> FUEL_REFINERY = MENU_TYPE.register("fuel_refinery", () -> MenuRegistry.ofExtended(FuelRefineryMenu::create));
 
     public static final RegistrySupplier<MenuType<PlanetSelectionMenu>> PLANET_SELECTION_MENU = MENU_TYPE.register("planet_selection_menu", () -> MenuRegistry.ofExtended(PlanetSelectionMenu::create));
     public static final RegistrySupplier<MenuType<MilkyWayMenu>> MILKYWAY_MENU = MENU_TYPE.register("milkyway_menu", () -> MenuRegistry.ofExtended(MilkyWayMenu::create));

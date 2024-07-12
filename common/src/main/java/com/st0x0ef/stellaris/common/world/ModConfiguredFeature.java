@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.function.Supplier;
 
 public class ModConfiguredFeature {
-
     // MARS
     public static final ResourceKey<ConfiguredFeature<?, ?>> MARS_DIAMOND_ORE_KEY = registerKey("mars_diamond_ore_key");
 
@@ -104,7 +103,6 @@ public class ModConfiguredFeature {
 
     public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
         HolderGetter<PlacedFeature> placedFeatures = context.lookup(Registries.PLACED_FEATURE);
-
 
         // MARS
 //        register(context, MARS_DIAMOND_ORE_KEY, Feature.ORE, new OreConfiguration(MARS_DIAMOND_ORE_REPLACEABLES.get(), 7));

@@ -8,10 +8,7 @@ import com.mojang.serialization.Dynamic;
 import com.st0x0ef.stellaris.common.entities.AlienZombie;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
-import dev.architectury.networking.NetworkManager;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
@@ -251,8 +248,5 @@ public class Alien extends Villager implements Merchant, Npc {
 		}
 	}
 
-	@Override
-	public Packet<ClientGamePacketListener> getAddEntityPacket() {
-		return NetworkManager.createAddEntityPacket(this);
-	}
+
 }

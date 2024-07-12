@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "stellaris:block/steel_plating_slab"
+    },
+    "type=double": {
+      "model": "stellaris:block/steel_plating_block"
+    },
+    "type=top": {
+      "model": "stellaris:block/steel_plating_slab_top"
+    }
+  }
+}

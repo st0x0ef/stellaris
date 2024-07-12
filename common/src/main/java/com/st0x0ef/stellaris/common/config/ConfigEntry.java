@@ -3,24 +3,8 @@ package com.st0x0ef.stellaris.common.config;
 import java.io.Serializable;
 import java.lang.reflect.Type;
 
-public class ConfigEntry<T> implements Serializable {
-    private final T value;
-    private final String description;
-
-    public ConfigEntry(T value, String description) {
-        this.value = value;
-        this.description = description;
-    }
-
-    public T getValue() {
-        return value;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
+public record ConfigEntry<T>(T value, String description) implements Serializable {
     public Type getType() {
-        return this.getValue().getClass();
+        return this.value().getClass();
     }
 }

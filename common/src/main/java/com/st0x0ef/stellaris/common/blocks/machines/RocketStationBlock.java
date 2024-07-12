@@ -65,7 +65,7 @@ public class RocketStationBlock extends BaseEntityBlock {
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> blockEntityType) {
         return createTickerHelper(blockEntityType, BlockEntityRegistry.ROCKET_STATION.get(),
-                (world1, pos, state1, blockEntity) -> blockEntity.tick(world1, pos, state1));
+                (world1, pos, state1, blockEntity) -> blockEntity.tick(world1));
     }
 
     @Override

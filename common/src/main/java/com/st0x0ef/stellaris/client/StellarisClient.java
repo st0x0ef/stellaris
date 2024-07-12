@@ -2,11 +2,13 @@ package com.st0x0ef.stellaris.client;
 
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.events.ClientEvents;
+import com.st0x0ef.stellaris.client.overlays.JetSuitOverlay;
 import com.st0x0ef.stellaris.client.overlays.LanderOverlay;
 import com.st0x0ef.stellaris.client.overlays.RocketBarOverlay;
 import com.st0x0ef.stellaris.client.overlays.RocketStartOverlay;
 import com.st0x0ef.stellaris.client.particles.*;
-import com.st0x0ef.stellaris.client.registries.KeyMappings;
+import com.st0x0ef.stellaris.client.registries.KeyMappingsRegistry;
+import com.st0x0ef.stellaris.client.renderers.armors.JetSuitModel;
 import com.st0x0ef.stellaris.client.renderers.entities.alien.AlienModel;
 import com.st0x0ef.stellaris.client.renderers.entities.alien.AlienRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.alienzombie.AlienZombieModel;
@@ -36,24 +38,23 @@ import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.tiny.TinyR
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeBlockRenderer;
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeModel;
 import com.st0x0ef.stellaris.client.screens.*;
+import com.st0x0ef.stellaris.client.skys.record.SkyPropertiesData;
 import com.st0x0ef.stellaris.common.data.screen.MoonPack;
 import com.st0x0ef.stellaris.common.data.screen.PlanetPack;
 import com.st0x0ef.stellaris.common.data.screen.StarPack;
 import com.st0x0ef.stellaris.common.handlers.GlobalExceptionHandler;
-import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
-import com.st0x0ef.stellaris.common.registry.EntityRegistry;
-import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
-import com.st0x0ef.stellaris.common.registry.ParticleRegistry;
+import com.st0x0ef.stellaris.common.registry.*;
+import com.st0x0ef.stellaris.platform.ClientUtilsPlatform;
 import dev.architectury.event.events.client.ClientGuiEvent;
 import dev.architectury.platform.Platform;
 import dev.architectury.registry.ReloadListenerRegistry;
-import dev.architectury.registry.client.keymappings.KeyMappingRegistry;
 import dev.architectury.registry.client.level.entity.EntityModelLayerRegistry;
 import dev.architectury.registry.client.level.entity.EntityRendererRegistry;
 import dev.architectury.registry.client.particle.ParticleProviderRegistry;
 import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
 import dev.architectury.registry.menu.MenuRegistry;
 import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.server.packs.PackType;
@@ -61,28 +62,31 @@ import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL43;
 import org.lwjgl.opengl.GLDebugMessageCallback;
 
-public class StellarisClient {
 
+public class StellarisClient {
+    @Environment(EnvType.CLIENT)
     public static void initClient() {
         registerPacks();
 
-        if (Platform.getEnv() == EnvType.CLIENT) {
-            Minecraft.getInstance().execute(() -> {
-                setupOpenGLDebugMessageCallback();
-                Thread.setDefaultUncaughtExceptionHandler(new GlobalExceptionHandler());
-            });
-        }
+        Minecraft.getInstance().execute(() -> {
+            setupOpenGLDebugMessageCallback();
+            Thread.setDefaultUncaughtExceptionHandler(new GlobalExceptionHandler());
+        });
+
+        KeyMappingsRegistry.register();
+
         registerParticle();
-
-        if(Platform.isFabric()) {
-            registerEntityRenderer();
-            registerEntityModelLayer();
-        }
-
         registerScreen();
-        registerKey();
-        ClientEvents.registerEvents();
         registerOverlays();
+        registerJetSuitModel();
+        ClientEvents.registerClientEvents();
+        Platform.getMod(Stellaris.MODID).registerConfigurationScreen(ConfigScreen::new);
+    }
+
+    private static void registerJetSuitModel() {
+        ClientUtilsPlatform.registerArmor(JetSuitModel.TEXTURE, JetSuitModel.LAYER_LOCATION, JetSuitModel::new,
+                ItemsRegistry.JETSUIT_BOOTS.get(), ItemsRegistry.JETSUIT_LEGGINGS.get(),
+                ItemsRegistry.JETSUIT_HELMET.get(), ItemsRegistry.JETSUIT_SUIT.get());
     }
 
     public static void registerEntityModelLayer() {
@@ -101,6 +105,8 @@ public class StellarisClient {
         EntityModelLayerRegistry.register(SmallRocketModel.LAYER_LOCATION, SmallRocketModel::createBodyLayer);
         EntityModelLayerRegistry.register(NormalRocketModel.LAYER_LOCATION, NormalRocketModel::createBodyLayer);
         EntityModelLayerRegistry.register(BigRocketModel.LAYER_LOCATION, BigRocketModel::createBodyLayer);
+
+        EntityModelLayerRegistry.register(JetSuitModel.LAYER_LOCATION, JetSuitModel::createBodyLayer);
     }
 
     public static void registerEntityRenderer() {
@@ -145,17 +151,15 @@ public class StellarisClient {
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.MILKYWAY_MENU.get(), MilkyWayScreen::new);
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.LANDER_MENU.get(), LanderScreen::new);
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.OXYGEN_DISTRIBUTOR.get(), OxygenDistributorScreen::new);
-    }
-
-    public static void registerKey() {
-        KeyMappingRegistry.register(KeyMappings.ROCKET_START);
-        KeyMappingRegistry.register(KeyMappings.FREEZE_PLANET_MENU);
+        MenuRegistry.registerScreenFactory(MenuTypesRegistry.WATER_SEPARATOR_MENU.get(), WaterSeparatorScreen::new);
+        MenuRegistry.registerScreenFactory(MenuTypesRegistry.FUEL_REFINERY.get(), FuelRefineryScreen::new);
     }
 
     public static void registerOverlays() {
         ClientGuiEvent.RENDER_HUD.register(RocketStartOverlay::render);
         ClientGuiEvent.RENDER_HUD.register(RocketBarOverlay::render);
         ClientGuiEvent.RENDER_HUD.register(LanderOverlay::render);
+        ClientGuiEvent.RENDER_HUD.register(JetSuitOverlay::render);
     }
 
     public static void setupOpenGLDebugMessageCallback() {
@@ -174,8 +178,9 @@ public class StellarisClient {
     }
 
     public static void registerPacks() {
-        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new StarPack(Stellaris.GSON));
-        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new PlanetPack(Stellaris.GSON));
-        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new MoonPack(Stellaris.GSON));
+        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new StarPack());
+        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new PlanetPack());
+        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new MoonPack());
+        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new SkyPropertiesData());
     }
 }

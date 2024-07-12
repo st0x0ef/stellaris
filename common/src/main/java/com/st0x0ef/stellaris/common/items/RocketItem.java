@@ -5,6 +5,7 @@ import com.st0x0ef.stellaris.common.data_components.RocketComponent;
 import com.st0x0ef.stellaris.common.entities.RocketEntity;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -106,6 +107,7 @@ public class RocketItem extends Item {
     public EntityType<? extends RocketEntity> getEntityType(ItemStack stack) {
         RocketComponent rocketComponent = stack.get(DataComponentsRegistry.ROCKET_COMPONENT.get());
         return switch (rocketComponent.getModel().toString()) {
+            case "tiny" -> EntityRegistry.TINY_ROCKET.get();
             case "small" -> EntityRegistry.SMALL_ROCKET.get();
             case "normal" -> EntityRegistry.NORMAL_ROCKET.get();
             case "big" -> EntityRegistry.BIG_ROCKET.get();
@@ -124,10 +126,9 @@ public class RocketItem extends Item {
         RocketComponent rocketComponent = stack.get(DataComponentsRegistry.ROCKET_COMPONENT.get());
         if(rocketComponent == null) return;
 
-        tooltipComponents.add(Component.literal("Rocket Skin: " + rocketComponent.skin()));
-        tooltipComponents.add(Component.literal("Fuel: " + rocketComponent.fuel()));
-
-
+        tooltipComponents.add(Component.translatable("tooltip.item.stellaris.rocket.skin", rocketComponent.skin()).withStyle(ChatFormatting.GRAY));
+        tooltipComponents.add(Component.translatable("tooltip.item.stellaris.rocket.fuel", rocketComponent.fuel()).withStyle(ChatFormatting.GRAY));
+        tooltipComponents.add(Component.translatable("tooltip.item.stellaris.rocket.model", rocketComponent.model().toString()).withStyle(ChatFormatting.GRAY));
     }
 
     public float getRocketPlaceHigh() {
@@ -151,5 +152,10 @@ public class RocketItem extends Item {
     private void addRocketInfos(RocketEntity rocket, ItemStack stack) {
         RocketComponent rocketComponent = stack.get(DataComponentsRegistry.ROCKET_COMPONENT.get());
         rocket.FUEL = rocketComponent.getFuel();
+
+        rocket.MODEL_UPGRADE = rocketComponent.getModelUpgrade();
+        rocket.SKIN_UPGRADE = rocketComponent.getSkinUpgrade();
+        rocket.MOTOR_UPGRADE = rocketComponent.getMotorUpgrade();
+        rocket.TANK_UPGRADE = rocketComponent.getTankUpgrade();
     }
 }

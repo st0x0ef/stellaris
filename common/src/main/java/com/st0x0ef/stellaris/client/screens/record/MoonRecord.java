@@ -25,4 +25,5 @@ public record MoonRecord(
             Codec.STRING.fieldOf("translatable").forGetter(MoonRecord::translatable),
             Codec.STRING.fieldOf("id").forGetter(MoonRecord::id)
     ).apply(instance, MoonRecord::new));
+
 }

@@ -25,7 +25,7 @@ public class RocketStationMenu extends AbstractContainerMenu {
 
 
         checkContainerSize(container, 15);
-        this.inventory = (container);
+        this.inventory = container;
 
         addSlots(inventory);
 
@@ -38,7 +38,7 @@ public class RocketStationMenu extends AbstractContainerMenu {
     public ItemStack quickMoveStack(Player player, int invSlot) {
         ItemStack newStack = ItemStack.EMPTY;
         Slot slot = this.slots.get(invSlot);
-        if (slot != null && slot.hasItem()) {
+        if (slot.hasItem()) {
             ItemStack originalStack = slot.getItem();
             newStack = originalStack.copy();
             if (invSlot < this.inventory.getContainerSize()) {
@@ -69,11 +69,12 @@ public class RocketStationMenu extends AbstractContainerMenu {
         this.addSlot(new Slot(inventory, 0, 56, 20));
 
         this.addSlot(new Slot(inventory, 1, 47, 38));
-        this.addSlot(new Slot(inventory, 3, 47, 56));
-        this.addSlot(new Slot(inventory, 5, 47, 74));
-
         this.addSlot(new Slot(inventory, 2, 65, 38));
+
+        this.addSlot(new Slot(inventory, 3, 47, 56));
         this.addSlot(new Slot(inventory, 4, 65, 56));
+
+        this.addSlot(new Slot(inventory, 5, 47, 74));
         this.addSlot(new Slot(inventory, 6, 65, 74));
 
         this.addSlot(new Slot(inventory, 7, 29, 92));

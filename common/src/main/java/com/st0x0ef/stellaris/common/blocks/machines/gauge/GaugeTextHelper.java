@@ -14,7 +14,7 @@ public class GaugeTextHelper
     public static final ResourceLocation USING_NAME = new ResourceLocation(Stellaris.MODID, "using");
     public static final ResourceLocation USING2_NAME = new ResourceLocation(Stellaris.MODID, "using2");
     public static final ResourceLocation GENERATING_NAME = new ResourceLocation(Stellaris.MODID, "generating");
-    public static final ResourceLocation MAXGENERATION_NAME = new ResourceLocation(Stellaris.MODID, "maxgeneration");
+    public static final ResourceLocation MAXGENERATION_NAME = new ResourceLocation(Stellaris.MODID, "max_generation");
     public static final ResourceLocation TOTAL_NAME = new ResourceLocation(Stellaris.MODID, "total");
     public static final ResourceLocation STORED_NAME = new ResourceLocation(Stellaris.MODID, "stored");
     public static final ResourceLocation CAPACITY_NAME = new ResourceLocation(Stellaris.MODID, "capacity");

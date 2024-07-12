@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.client.renderers.entities.vehicle;
 
-
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -31,10 +30,10 @@ public abstract class VehicleRenderer<T extends IVehicleEntity, M extends Entity
     protected final M model;
     protected final List<RenderLayer<T, M>> layers = Lists.newArrayList();
 
-    public VehicleRenderer(EntityRendererProvider.Context p_174289_, M p_174290_, float p_174291_) {
-        super(p_174289_);
-        this.model = p_174290_;
-        this.shadowRadius = p_174291_;
+    public VehicleRenderer(EntityRendererProvider.Context context, M model, float shadowRadius) {
+        super(context);
+        this.model = model;
+        this.shadowRadius = shadowRadius;
     }
 
     public final boolean addLayer(RenderLayer<T, M> p_115327_) {

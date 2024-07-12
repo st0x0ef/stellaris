@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.utils;
 
+import com.mojang.serialization.Codec;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.entities.LanderEntity;
 import com.st0x0ef.stellaris.common.entities.RocketEntity;
@@ -9,13 +10,22 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+
+import java.util.Locale;
+import java.util.Random;
+import java.util.function.Function;
 
 public class Utils {
 
@@ -48,42 +58,35 @@ public class Utils {
     }
 
     /** Teleport an entity to the planet wanted */
-    public static void teleportEntity(Entity entity, Planet destination, int yPos, boolean orbit) {
-
-        if(entity.level().isClientSide()) return;
+    public static void teleportEntity(Entity entity, Planet destination) {
+        if(entity.level().isClientSide() || !entity.canChangeDimensions()) return;
         entity.setNoGravity(false);
 
-        ServerLevel nextLevel;
-        if(orbit) {
+        entity.level().getServer().getAllLevels().forEach(level -> {
+            if (level.dimension().location().equals(destination.dimension())) {
+                TeleportUtil.teleportToPlanet(entity, level, 600);
+                entity.setPos(entity.getX(), 600, entity.getZ());
+            }
+        });
 
-            nextLevel = entity.level().getServer().getLevel(destination.orbit());
-        } else {
-
-            nextLevel = entity.level().getServer().getLevel(destination.dimension());
-        }
-
-        if (!entity.canChangeDimensions()) return;
-
-        TeleportUtil.teleportToPlanet(entity, nextLevel, yPos);
-        entity.setPos(entity.getX(), yPos, entity.getZ());
 
     }
 
     /** To use with the planetSelection menu */
-    public static void changeDimension(Player player, Planet destination, boolean orbit) {
+    public static void changeDimension(Player player, Planet destination) {
 
         if(player.level().isClientSide()) return;
 
         Entity vehicle = player.getVehicle();
         if (vehicle instanceof RocketEntity rocket) {
+            player.stopRiding();
+
+            teleportEntity(player, destination);
 
             /** We create the lander */
             LanderEntity lander = createLanderFromRocket(player, rocket, 600);
 
             /** We remove the player from the Rocket */
-            player.stopRiding();
-
-            teleportEntity(player, destination, 600, orbit);
 
             player.closeContainer();
 
@@ -91,7 +94,7 @@ public class Utils {
             player.startRiding(lander);
         } else {
             player.closeContainer();
-            teleportEntity(player, destination, 600, orbit);
+            teleportEntity(player, destination);
         }
 
 
@@ -119,66 +122,43 @@ public class Utils {
 
     /** COLOR!!! */
     public static int getColorHexCode(String colorName) {
-        switch (colorName.toLowerCase()) {
-            case "black":
-                return 0x000000;
-            case "white":
-                return 0xFFFFFF;
-            case "red":
-                return 0xFF0000;
-            case "green":
-                return 0x008000;
-            case "blue":
-                return 0x0000FF;
-            case "yellow":
-                return 0xFFFF00;
-            case "cyan":
-                return 0x00FFFF;
-            case "magenta":
-                return 0xFF00FF;
-            case "gray":
-                return 0x808080;
-            case "maroon":
-                return 0x800000;
-            case "olive":
-                return 0x808000;
-            case "purple":
-                return 0x800080;
-            case "teal":
-                return 0x008080;
-            case "navy":
-                return 0x000080;
-            case "orange":
-                return 0xFFA500;
-            case "brown":
-                return 0xA52A2A;
-            case "lime":
-                return 0x00FF00;
-            case "pink":
-                return 0xFFC0CB;
-            case "coral":
-                return 0xFF7F50;
-            case "gold":
-                return 0xFFD700;
-            case "silver":
-                return 0xC0C0C0;
-            case "beige":
-                return 0xF5F5DC;
-            case "lavender":
-                return 0xE6E6FA;
-            case "turquoise":
-                return 0x40E0D0;
-            case "salmon":
-                return 0xFA8072;
-            case "khaki":
-                return 0xF0E68C;
-            case "darkred":
-                return 0x8B0000;
-            case "dark_red":
-                return 0x8B0000;
-            default:
-                return 0xFFFFFF;
-        }
+        return switch (colorName.toLowerCase()) {
+            case "black" -> 0x000000;
+            case "white" -> 0xFFFFFF;
+            case "red" -> 0xFF0000;
+            case "green" -> 0x008000;
+            case "blue" -> 0x0000FF;
+            case "yellow" -> 0xFFFF00;
+            case "cyan" -> 0x00FFFF;
+            case "magenta" -> 0xFF00FF;
+            case "gray" -> 0x808080;
+            case "maroon" -> 0x800000;
+            case "olive" -> 0x808000;
+            case "purple" -> 0x800080;
+            case "teal" -> 0x008080;
+            case "navy" -> 0x000080;
+            case "orange" -> 0xFFA500;
+            case "brown" -> 0xA52A2A;
+            case "lime" -> 0x00FF00;
+            case "pink" -> 0xFFC0CB;
+            case "coral" -> 0xFF7F50;
+            case "gold" -> 0xFFD700;
+            case "silver" -> 0xC0C0C0;
+            case "beige" -> 0xF5F5DC;
+            case "lavender" -> 0xE6E6FA;
+            case "turquoise" -> 0x40E0D0;
+            case "salmon" -> 0xFA8072;
+            case "khaki" -> 0xF0E68C;
+            case "darkred" -> 0x8B0000;
+            case "dark_red" -> 0x8B0000;
+            case "rainbow" -> generateRandomHexColor();
+            default -> 0xFFFFFF;
+        };
+    }
+
+    public static int generateRandomHexColor() {
+        Random random = new Random();
+        return random.nextInt(0xFFFFFF + 1);
     }
 
     public static String betterIntToString(int i) {
@@ -201,28 +181,50 @@ public class Utils {
     }
 
     /** dimension util */
-    public static int getPlayerCountInDimension(MinecraftServer server, ResourceKey<Level> dimensionKey) {
-        ServerLevel dimension = server.getLevel(dimensionKey);
+    public static int getPlayerCountInDimension(MinecraftServer server, ResourceLocation dimensionKey) {
+        ServerLevel dimension = server.getLevel(Utils.getPlanetLevel(dimensionKey));
         if (dimension == null) {
             return 0;
         }
-        return (int) dimension.players().stream().count();
+        return dimension.players().size();
     }
 
+    /** codec */
+    public static <T extends Enum<T>> Codec<T> EnumCodec(Class<T> e) {
+        Function<String, T> stringToEnum = new Function<>() {
+            @Override
+            public T apply(String s) {
+                return Enum.valueOf(e, s.toUpperCase(Locale.ROOT));
+            }
+        };
+
+        Function<T, String> enumToString = new Function<>() {
+            @Override
+            public String apply(T enumValue) {
+                return enumValue.name();
+            }
+        };
+
+        return Codec.STRING.xmap(stringToEnum, enumToString);
+    }
+
+
     /**
-     * @param MCG Minecraft Gravity Unit
+     * @param MCG Minecraft Gravity Unit (blocks/t²)
      * @return m/s²
      */
-    public static double MCGToMPS2(float MCG){
+    public static float MCGToMPS2(float MCG){
         return 122.583125f*MCG;
     }
 
     /**
      * @param MPS2 m/s²
-     * @return Minecraft Gravity Unit
+     * @return Minecraft Gravity Unit (blocks/t²)
      */
-    public static double MPS2ToMCG(float MPS2){
-        return 0.0081577297f*MPS2;
+    public static double MPS2ToMCG(float MPS2) {
+        if (MPS2>0) return Math.floor(0.00816d * MPS2 * 100000) / 100000;
+        else if (MPS2<0) return Math.ceil(0.00816d * MPS2 * 100000) / 100000;
+        else return 0;
     }
 
     public static int findSmallerNumber(int value1, int value2) {
@@ -231,5 +233,29 @@ public class Utils {
 
     public static int findBiggerNumber(int value1, int value2) {
         return Math.max(value1, value2);
+    }
+
+    public static void disableFlyAntiCheat(Player player, boolean condition) {
+        if (player instanceof ServerPlayer) {
+            if (condition) {
+//                ((ServerPlayer) player).connection.aboveGroundTickCount = 0;
+            }
+        }
+    }
+
+    public static boolean isLivingInJetSuit(LivingEntity entity) {
+        if (!isLivingInArmor(entity, EquipmentSlot.HEAD, ItemsRegistry.JETSUIT_HELMET.get())) return false;
+        if (!isLivingInArmor(entity, EquipmentSlot.CHEST, ItemsRegistry.JETSUIT_SUIT.get())) return false;
+        if (!isLivingInArmor(entity, EquipmentSlot.LEGS, ItemsRegistry.JETSUIT_LEGGINGS.get())) return false;
+        return isLivingInArmor(entity, EquipmentSlot.FEET, ItemsRegistry.JETSUIT_BOOTS.get());
+    }
+
+
+    public static boolean isLivingInArmor(LivingEntity entity, EquipmentSlot slot, Item item) {
+        return entity.getItemBySlot(slot).getItem() == item;
+    }
+
+    public static ResourceKey<Level> getPlanetLevel(ResourceLocation planet) {
+        return ResourceKey.create(ResourceKey.createRegistryKey(planet), planet);
     }
 }
