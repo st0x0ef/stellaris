@@ -1,0 +1,30 @@
+{
+  "id": "stellaris:mercury",
+  "cloud": false,
+  "fog": false,
+  "weather": [
+    {
+      "rain": true,
+      "acid_rain": false
+    }
+  ],
+  "sunrise_color": -16777216,
+  "stars": {
+    "count": 30000,
+    "colored": true,
+    "all_days_visible": true
+  },
+  "sky_objects": [
+    {
+      "texture": "stellaris:textures/environment/solar_system/moon.png",
+      "blend": true,
+      "size": 8.0,
+      "rotation": [
+        60.0,
+        0.0,
+        5.0
+      ],
+      "rotation_type": "DAY"
+    }
+  ]
+}

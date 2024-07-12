@@ -1,8 +1,5 @@
 package com.st0x0ef.stellaris.common.entities;
 
-import dev.architectury.networking.NetworkManager;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
@@ -63,10 +60,5 @@ public class StarCrawler extends Monster {
 		if (source.getDirectEntity() instanceof Arrow)
 			return false;
 		return super.hurt(source, amount);
-	}
-
-	@Override
-	public Packet<ClientGamePacketListener> getAddEntityPacket() {
-		return NetworkManager.createAddEntityPacket(this);
 	}
 }

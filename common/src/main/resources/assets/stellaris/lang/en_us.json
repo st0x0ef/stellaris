@@ -340,11 +340,17 @@
 
   "stellaris.compat.rocket_crafting": "Rocket Crafting",
 
+  "general.stellaris.rocket_crafting_mode": "Mode",
+  "general.stellaris.rocket_crafting_fuel": "Fuel",
+  "key.stellaris.rocket_crafting_mode": "Rocket crafting mode",
+  "general.stellaris.rocket_crafting_disabled_mode": "Disabled",
+  "general.stellaris.rocket_crafting_normal_mode": "Normal",
   "general.stellaris.jet_suit_mode": "Mode",
   "general.stellaris.jet_suit_fuel": "Fuel",
-
+  "key.stellaris.jetsuit_mode": "Jet Suit Mode",
   "general.stellaris.jet_suit_disabled_mode": "Disabled",
   "general.stellaris.jet_suit_normal_mode": "Normal",
   "general.stellaris.jet_suit_hover_mode": "Hover",
   "general.stellaris.jet_suit_elytra_mode": "Elytra"
+
 }

@@ -142,6 +142,9 @@ public class OxygenManager {
     }
 
     public static boolean hasOxygenAt(Level level, BlockPos pos) {
+
+        if (oxygenInformationsPerLevel == null) return false;
+
         if (!oxygenInformationsPerLevel.containsKey(level)) {
             oxygenInformationsPerLevel.put(level, new ArrayList<>());
         }

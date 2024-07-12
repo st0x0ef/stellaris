@@ -120,8 +120,25 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
                 compound.putString("currentFuelItemType", FuelType.Type.Radioactive.getTypeBasedOnItem(currentFuelItem).getSerializedName());
             }
         }
-    }
 
+        //stolen from AbstractChestedHorse
+        ListTag listTag = new ListTag();
+
+        for(int i = 1; i < this.inventory.getContainerSize(); ++i) {
+            ItemStack itemStack = this.inventory.getItem(i);
+            if (!itemStack.isEmpty()) {
+                CompoundTag compoundTag = new CompoundTag();
+                compoundTag.putByte("Slot", (byte)(i - 1));
+                listTag.add(itemStack.save(this.registryAccess(), compoundTag));
+            }
+        }
+        compound.put("Items", listTag);
+
+        compound.putString("model", MODEL_UPGRADE.getModel().toString());
+        compound.putString("skin", SKIN_UPGRADE.getRocketSkinLocation().toString());
+        compound.putString("motor", MOTOR_UPGRADE.getFuelType().getSerializedName());
+        compound.putInt("tank", TANK_UPGRADE.getTankCapacity());
+    }
 
     @Override
     protected void readAdditionalSaveData(CompoundTag compound) {
@@ -133,6 +150,21 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         if (FUEL != 0) {
             currentFuelItem = FuelType.getItemBasedOnTypeName(compound.getString("currentFuelItemType"));
         }
+
+        ListTag listTag = compound.getList("Items", 10);
+
+        for(int i = 0; i < listTag.size(); ++i) {
+            CompoundTag compoundTag = listTag.getCompound(i);
+            int j = compoundTag.getByte("Slot") & 255;
+            if (j < this.inventory.getContainerSize() - 1) {
+                this.inventory.setItem(j + 1, (ItemStack)ItemStack.parse(this.registryAccess(), compoundTag).orElse(ItemStack.EMPTY));
+            }
+        }
+
+        this.MODEL_UPGRADE = new ModelUpgrade(RocketModel.fromString(compound.getString("model")));
+        this.SKIN_UPGRADE = new SkinUpgrade(new ResourceLocation(compound.getString("skin")));
+        this.MOTOR_UPGRADE = new MotorUpgrade(FuelType.Type.fromString(compound.getString("motor")));
+        this.TANK_UPGRADE = new TankUpgrade(compound.getInt("tank"));
     }
 
 
@@ -271,7 +303,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     @Nullable
     @Override
     public ItemStack getPickResult() {
-        return this.getRocketItem();
+        return null;
     }
 
 
@@ -359,6 +391,10 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         ItemStack itemStack = new ItemStack(ItemsRegistry.ROCKET.get(), 1);
         rocketComponent = new RocketComponent(SKIN_UPGRADE.getRocketSkinLocation().toString(), RocketModel.fromString(MODEL_UPGRADE.getModel().toString()), currentFuelItem.toString(), FUEL, TANK_UPGRADE.getTankCapacity());Stellaris.LOG.error(MODEL_UPGRADE.getModel().getSerializedName());
         itemStack.set(DataComponentsRegistry.ROCKET_COMPONENT.get(), rocketComponent);
+        Stellaris.LOG.error("1");
+        Stellaris.LOG.error("Skin :"+ rocketComponent.getSkin());
+        Stellaris.LOG.error("Model :"+ rocketComponent.getModel());
+
         return itemStack;
     }
 
@@ -398,6 +434,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         if (this.getInventory().getItem(12).getItem() instanceof RocketUpgradeItem item) {
             if (item.getUpgrade() instanceof SkinUpgrade upgrade) {
                 this.SKIN_UPGRADE = upgrade;
+
             }
         } else if (this.getInventory().getItem(12).isEmpty()) {
             this.SKIN_UPGRADE = SkinUpgrade.getBasic();
@@ -464,7 +501,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         if(!player.getEntityData().get(EntityData.DATA_PLANET_MENU_OPEN)) {
             player.setNoGravity(true);
             player.getVehicle().setNoGravity(true);
-            PlanetUtil.openPlanetSelectionMenu(player);
+            PlanetUtil.openPlanetSelectionMenu(player, false);
             player.getEntityData().set(EntityData.DATA_PLANET_MENU_OPEN, true);
         }
     }
@@ -517,8 +554,8 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
         if (!level().isClientSide()) {
 
-            NetworkManager.sendToPlayer(player, new SyncRocketComponentPacket(rocketComponent
-            ));
+            NetworkManager.sendToPlayer(player, new SyncRocketComponentPacket(rocketComponent));
         }
+
     }
 }
