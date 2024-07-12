@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.platform.fabric;
 import com.st0x0ef.stellaris.client.skys.renderer.SkyRenderer;
 import com.st0x0ef.stellaris.platform.ClientUtilsPlatform;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
+import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -28,6 +29,10 @@ public class ClientUtilsPlatformImpl {
     }
 
     public static void registerPlanetsSkies(Map<ResourceKey<Level>, SkyRenderer> renderer)  {
-        // We do nothing in fabric
+        renderer.forEach( (level, skyRenderer) -> {
+            DimensionRenderingRegistry.registerCloudRenderer( level, context -> {
+                skyRenderer.renderClouds();
+            });
+        });
     }
 }
