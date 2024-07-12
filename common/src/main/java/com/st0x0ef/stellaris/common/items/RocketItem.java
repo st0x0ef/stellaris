@@ -152,5 +152,10 @@ public class RocketItem extends Item {
     private void addRocketInfos(RocketEntity rocket, ItemStack stack) {
         RocketComponent rocketComponent = stack.get(DataComponentsRegistry.ROCKET_COMPONENT.get());
         rocket.FUEL = rocketComponent.getFuel();
+
+        rocket.MODEL_UPGRADE = rocketComponent.getModelUpgrade();
+        rocket.SKIN_UPGRADE = rocketComponent.getSkinUpgrade();
+        rocket.MOTOR_UPGRADE = rocketComponent.getMotorUpgrade();
+        rocket.TANK_UPGRADE = rocketComponent.getTankUpgrade();
     }
 }
