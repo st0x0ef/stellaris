@@ -1,8 +1,9 @@
-package com.st0x0ef.stellaris.platform.systems.energy;
+package com.st0x0ef.stellaris.common.systems.energy.base;
 
 import com.st0x0ef.stellaris.common.systems.energy.base.EnergySnapshot;
 import com.st0x0ef.stellaris.common.systems.item.ItemStackHolder;
 import com.st0x0ef.stellaris.common.systems.util.Serializable;
+import com.st0x0ef.stellaris.platform.systems.energy.EnergyContainerHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.Clearable;
