@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "stellaris:meteor",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "salt": 1224466881,
+    "spacing": 33,
+    "separation": 18,
+    "type": "minecraft:random_spread"
+  }
+}
