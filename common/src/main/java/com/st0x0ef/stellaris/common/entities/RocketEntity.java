@@ -328,13 +328,13 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         Player player = (Player) this.getFirstPassenger();
 
         if (player != null) {
-            if (this.FUEL > 0) {
+            if (this.FUEL > 0 || player.isCreative()) {
                 if (!this.ROCKET_START) {
                     this.ROCKET_START = true;
                     this.level().playSound(null, this, SoundRegistry.ROCKET_SOUND.get(), SoundSource.NEUTRAL, 1, 1);
                 }
             } else {
-                player.displayClientMessage(Component.literal("You need to put " + this.MOTOR_UPGRADE.getFuelType().getSerializedName() + " in the rocket to be able to fly"), true);
+                player.displayClientMessage(Component.translatable("text.stellaris.rocket.fuel", this.MOTOR_UPGRADE.getFuelType().getSerializedName()), true);
             }
         }
     }
@@ -391,9 +391,6 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         ItemStack itemStack = new ItemStack(ItemsRegistry.ROCKET.get(), 1);
         rocketComponent = new RocketComponent(SKIN_UPGRADE.getRocketSkinLocation().toString(), RocketModel.fromString(MODEL_UPGRADE.getModel().toString()), currentFuelItem.toString(), FUEL, TANK_UPGRADE.getTankCapacity());Stellaris.LOG.error(MODEL_UPGRADE.getModel().getSerializedName());
         itemStack.set(DataComponentsRegistry.ROCKET_COMPONENT.get(), rocketComponent);
-        Stellaris.LOG.error("1");
-        Stellaris.LOG.error("Skin :"+ rocketComponent.getSkin());
-        Stellaris.LOG.error("Model :"+ rocketComponent.getModel());
 
         return itemStack;
     }
