@@ -191,7 +191,6 @@ public class SkyRenderer extends DimensionSpecialEffects {
     }
 
 
-
     public static boolean inFog(Camera camera) {
         LevelRendererAccessor levelRenderer = (LevelRendererAccessor) Minecraft.getInstance().levelRenderer;
         FogType fogType = camera.getFluidInCamera();
