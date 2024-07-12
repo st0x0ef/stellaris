@@ -30,7 +30,6 @@ public enum RocketModel implements StringRepresentable {
         };
     }
 
-
     @Override
     public String getSerializedName() {
         return name().toLowerCase();
@@ -44,6 +43,5 @@ public enum RocketModel implements StringRepresentable {
             case "big" -> BIG;
             default -> NORMAL;
         };
-
     }
 }

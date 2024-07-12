@@ -48,7 +48,7 @@ public class Events {
             tickBeforeNextRadioactiveCheck--;
         });
 
-      BlockEvent.BREAK.register((level, pos, state, player, value) -> {
+        BlockEvent.BREAK.register((level, pos, state, player, value) -> {
             if (level.getBlockEntity(pos) instanceof OxygenContainerBlockEntity oxygenContainer) {
                 OxygenManager.removeOxygenBlocksPerLevel(level, oxygenContainer);
             }

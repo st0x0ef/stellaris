@@ -53,6 +53,7 @@ public class SkyPropertiesData extends SimpleJsonResourceReloadListener {
                 SKY_PROPERTIES.put(skyProperties.id(), skyRenderer);
 
             });
+
             ClientUtilsPlatform.registerPlanetsSkies(SKY_PROPERTIES);
             Stellaris.LOG.info("Finished loading sky properties. Total properties: {}", SKY_PROPERTIES.size());
         }
