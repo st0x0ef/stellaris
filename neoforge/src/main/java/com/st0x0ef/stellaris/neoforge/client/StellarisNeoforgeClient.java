@@ -46,7 +46,6 @@ public class StellarisNeoforgeClient {
             if(level == null) return;
 
             if (ClientUtilsPlatformImpl.DIMENSION_RENDERERS.containsKey(level.dimension())) {
-                Stellaris.LOG.error("renderingh ");
                 SkyRenderer renderer = ClientUtilsPlatformImpl.DIMENSION_RENDERERS.get(level.dimension());
                 renderer.render(level, event.getRenderTick(), event.getPartialTick(), event.getPoseStack(), event.getCamera(), event.getProjectionMatrix(), false, () -> {});
             }
