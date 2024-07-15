@@ -5,21 +5,21 @@ import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.RocketModel;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.data_components.RocketComponent;
+import com.st0x0ef.stellaris.common.items.RocketItem;
 import com.st0x0ef.stellaris.common.items.upgrade.RocketUpgradeItem;
 import com.st0x0ef.stellaris.common.menus.RocketMenu;
 import com.st0x0ef.stellaris.common.network.packets.SyncRocketComponentPacket;
-import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
-import com.st0x0ef.stellaris.common.registry.EntityData;
-import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
-import com.st0x0ef.stellaris.common.registry.SoundRegistry;
+import com.st0x0ef.stellaris.common.registry.*;
 import com.st0x0ef.stellaris.common.rocket_upgrade.*;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import dev.architectury.networking.NetworkManager;
 import dev.architectury.registry.menu.ExtendedMenuProvider;
 import dev.architectury.registry.menu.MenuRegistry;
 import io.netty.buffer.Unpooled;
+import net.fabricmc.loader.impl.lib.sat4j.core.Vec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.NonNullList;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -439,7 +439,10 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
         if (this.getInventory().getItem(13).getItem() instanceof RocketUpgradeItem item) {
             if (item.getUpgrade() instanceof ModelUpgrade upgrade) {
-                this.MODEL_UPGRADE = upgrade;
+                if (this.MODEL_UPGRADE != upgrade){
+                    this.MODEL_UPGRADE = upgrade;
+                    changeRocketModel();
+                }
             }
         } else if (this.getInventory().getItem(13).isEmpty()) {
             this.MODEL_UPGRADE = ModelUpgrade.getBasic();
@@ -553,6 +556,26 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
             NetworkManager.sendToPlayer(player, new SyncRocketComponentPacket(rocketComponent));
         }
+    }
 
+    public void changeRocketModel() {
+        ListTag items = this.inventory.createTag(registryAccess());
+        EntityType<? extends RocketEntity> newRocket = this.getEntityType(this.MODEL_UPGRADE);
+        Vec3 pos = this.position();
+        this.remove(RemovalReason.DISCARDED);
+        RocketEntity newRocketEntity = newRocket.create(this.level());
+        newRocketEntity.setPos(pos);
+        this.level().addFreshEntity(newRocketEntity);
+        newRocketEntity.inventory.fromTag(items, registryAccess());
+    }
+
+    public EntityType<? extends RocketEntity> getEntityType(ModelUpgrade upgrade) {
+        return switch (upgrade.getModel()) {
+            case TINY -> EntityRegistry.TINY_ROCKET.get();
+            case SMALL -> EntityRegistry.SMALL_ROCKET.get();
+            case NORMAL -> EntityRegistry.NORMAL_ROCKET.get();
+            case BIG -> EntityRegistry.BIG_ROCKET.get();
+            default -> EntityRegistry.TINY_ROCKET.get();
+        };
     }
 }

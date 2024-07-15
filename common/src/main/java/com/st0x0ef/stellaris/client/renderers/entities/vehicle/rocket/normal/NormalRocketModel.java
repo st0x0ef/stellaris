@@ -24,7 +24,6 @@ public class NormalRocketModel<T extends RocketEntity> extends EntityModel<T> {
         PartDefinition partdefinition = meshdefinition.getRoot();
 
         PartDefinition rocket = partdefinition.addOrReplaceChild("rocket", CubeListBuilder.create(), PartPose.offset(0.0F, 25.0F, 0.0F));
-
         PartDefinition body = rocket.addOrReplaceChild("body", CubeListBuilder.create().texOffs(36, -18).addBox(9.0F, -51.0F, -9.0F, 0.0F, 52.0F, 18.0F, new CubeDeformation(0.0F))
                 .texOffs(0, 0).addBox(-9.0F, -51.0F, -9.0F, 18.0F, 52.0F, 0.0F, new CubeDeformation(0.0F))
                 .texOffs(80, 74).addBox(-9.0F, -51.0F, -9.0F, 2.0F, 52.0F, 2.0F, new CubeDeformation(0.0F))
