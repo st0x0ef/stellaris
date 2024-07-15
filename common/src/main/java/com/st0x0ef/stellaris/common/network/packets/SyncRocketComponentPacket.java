@@ -42,6 +42,12 @@ public class SyncRocketComponentPacket implements CustomPacketPayload {
         LocalPlayer player = (LocalPlayer) context.getPlayer();
         if (player.containerMenu instanceof RocketMenu menu) {
             menu.getRocket().rocketComponent = packet.component;
+
+            menu.getRocket().MODEL_UPGRADE = packet.component.getModelUpgrade();
+            menu.getRocket().SKIN_UPGRADE = packet.component.getSkinUpgrade();
+            menu.getRocket().TANK_UPGRADE = packet.component.getTankUpgrade();
+            menu.getRocket().MOTOR_UPGRADE = packet.component.getMotorUpgrade();
+
         }
     }
 

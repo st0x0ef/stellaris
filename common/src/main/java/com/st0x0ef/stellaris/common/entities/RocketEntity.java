@@ -421,6 +421,9 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     }
 
     private void checkContainer() {
+
+        if (this.level().isClientSide) return;
+
         if (this.getInventory().getItem(10).getItem() instanceof RocketUpgradeItem item) {
             if (item.getUpgrade() instanceof MotorUpgrade upgrade) {
                 this.MOTOR_UPGRADE = upgrade;
@@ -450,7 +453,9 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
         if (this.getInventory().getItem(13).getItem() instanceof RocketUpgradeItem item) {
             if (item.getUpgrade() instanceof ModelUpgrade upgrade) {
-                if (this.MODEL_UPGRADE != upgrade){
+                Stellaris.LOG.error(this.MODEL_UPGRADE.getModel().toString());
+                Stellaris.LOG.error(upgrade.getModel().toString());
+                if (this.MODEL_UPGRADE.getModel() != upgrade.getModel()){
                     this.MODEL_UPGRADE = upgrade;
                     if (lastPlayer!=null) lastPlayer.closeContainer();
                     changeRocketModelAndSkin();
