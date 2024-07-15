@@ -22,8 +22,8 @@ public class BiomeModificationsRegistry {
         BiomeModifications.addProperties(
                 (context) -> context.hasTag(TagRegistry.MARS_BIOMES_TAG),
                 ((biomeContext, mutable) -> {
-                    mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.MARS_DIAMOND_PLACED_KEY);
-                    mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.MARS_ICE_SHARD_PLACED_KEY);
+                    //mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.MARS_DIAMOND_PLACED_KEY);
+                    //mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.MARS_ICE_SHARD_PLACED_KEY);
                     mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.MARS_OSTRUM_PLACED_KEY);
                     mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.MARS_IRON_PLACED_KEY);
                 })
@@ -33,9 +33,9 @@ public class BiomeModificationsRegistry {
         BiomeModifications.addProperties(
                 (context) -> context.hasTag(TagRegistry.VENUS_BIOMES_TAG),
                 ((biomeContext, mutable) -> {
-                    mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.VENUS_CALORITE_PLACED_KEY);
+                    //mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.VENUS_CALORITE_PLACED_KEY);
                     mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.VENUS_COAL_PLACED_KEY);
-                    mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.VENUS_DIAMOND_PLACED_KEY);
+                    //mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.VENUS_DIAMOND_PLACED_KEY);
                     mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.VENUS_GOLD_PLACED_KEY);
                 })
         );
@@ -44,10 +44,10 @@ public class BiomeModificationsRegistry {
         BiomeModifications.addProperties(
                 (context) -> context.hasTag(TagRegistry.MOON_BIOMES_TAG),
                 ((biomeContext, mutable) -> {
-                    mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.MOON_CHEESE_PLACED_KEY);
+                    //mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.MOON_CHEESE_PLACED_KEY);
                     mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.MOON_DESH_PLACED_KEY);
-                    mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.MOON_ICE_SHARD_PLACED_KEY);
-                    mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.MOON_IRON_PLACED_KEY);
+                    //mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.MOON_ICE_SHARD_PLACED_KEY);
+                    //mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.MOON_IRON_PLACED_KEY);
                     mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.MOON_SOUL_SOIL_PLACED_KEY);
 
                 })
