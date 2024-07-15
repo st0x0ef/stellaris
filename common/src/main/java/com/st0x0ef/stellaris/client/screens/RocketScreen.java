@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 
 @Environment(EnvType.CLIENT)
 public class RocketScreen extends AbstractContainerScreen<RocketMenu> {
@@ -36,7 +37,6 @@ public class RocketScreen extends AbstractContainerScreen<RocketMenu> {
         if (rocket == null) {
             return;
         }
-
         fuelGauge = new Gauge(leftPos + 51, topPos + 27, 12, 46, Component.translatable("stellaris.screen.fuel"), GUISprites.FUEL_OVERLAY, GUISprites.FLUID_TANK_OVERLAY, rocket.rocketComponent.getFuel(), rocket.rocketComponent.getTankCapacity());
         addRenderableWidget(fuelGauge);
     }

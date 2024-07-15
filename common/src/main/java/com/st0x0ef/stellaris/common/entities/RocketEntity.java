@@ -5,7 +5,6 @@ import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.RocketModel;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.data_components.RocketComponent;
-import com.st0x0ef.stellaris.common.items.RocketItem;
 import com.st0x0ef.stellaris.common.items.upgrade.RocketUpgradeItem;
 import com.st0x0ef.stellaris.common.menus.RocketMenu;
 import com.st0x0ef.stellaris.common.network.packets.SyncRocketComponentPacket;
@@ -16,7 +15,6 @@ import dev.architectury.networking.NetworkManager;
 import dev.architectury.registry.menu.ExtendedMenuProvider;
 import dev.architectury.registry.menu.MenuRegistry;
 import io.netty.buffer.Unpooled;
-import net.fabricmc.loader.impl.lib.sat4j.core.Vec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -70,10 +68,20 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
     public RocketComponent rocketComponent;
 
-    public RocketEntity(EntityType<?> entityType, Level level) {
-        super(entityType, level);
+    private Player lastPlayer;
 
-        this.SKIN_UPGRADE = SkinUpgrade.getBasic();
+    public RocketEntity(EntityType<?> entityType, Level level) {
+        this(entityType, level, SkinUpgrade.getBasic());
+    }
+
+    protected RocketEntity(EntityType<?> entityType, Level level, SkinUpgrade skinUpgrade) {
+        super(entityType,level);
+
+
+        if(!this.level().isClientSide()) this.SKIN_UPGRADE = skinUpgrade;
+        this.SKIN_UPGRADE = skinUpgrade;
+        Stellaris.LOG.warn(this.SKIN_UPGRADE.getRocketSkinLocation().toString());
+
         this.MODEL_UPGRADE = ModelUpgrade.getBasic();
         this.MOTOR_UPGRADE = MotorUpgrade.getBasic();
         this.TANK_UPGRADE = TankUpgrade.getBasic();
@@ -210,6 +218,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
     @Override
     public void openCustomInventoryScreen(Player player) {
+        lastPlayer=player;
         if (player instanceof ServerPlayer serverPlayer) {
             MenuRegistry.openExtendedMenu(serverPlayer, new ExtendedMenuProvider() {
                 @Override
@@ -431,22 +440,26 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         if (this.getInventory().getItem(12).getItem() instanceof RocketUpgradeItem item) {
             if (item.getUpgrade() instanceof SkinUpgrade upgrade) {
                 this.SKIN_UPGRADE = upgrade;
-
+                if (lastPlayer!=null) lastPlayer.closeContainer();
+                changeRocketModelAndSkin();
             }
-        } else if (this.getInventory().getItem(12).isEmpty()) {
-            this.SKIN_UPGRADE = SkinUpgrade.getBasic();
         }
+//        else if (this.getInventory().getItem(12).isEmpty()) {
+//            this.SKIN_UPGRADE = SkinUpgrade.getBasic();
+//        }
 
         if (this.getInventory().getItem(13).getItem() instanceof RocketUpgradeItem item) {
             if (item.getUpgrade() instanceof ModelUpgrade upgrade) {
                 if (this.MODEL_UPGRADE != upgrade){
                     this.MODEL_UPGRADE = upgrade;
-                    changeRocketModel();
+                    if (lastPlayer!=null) lastPlayer.closeContainer();
+                    changeRocketModelAndSkin();
                 }
             }
-        } else if (this.getInventory().getItem(13).isEmpty()) {
-            this.MODEL_UPGRADE = ModelUpgrade.getBasic();
         }
+//        else if (this.getInventory().getItem(13).isEmpty()) {
+//            this.MODEL_UPGRADE = ModelUpgrade.getBasic();
+//        }
 
         tryFillUpRocket(this.getInventory().getItem(0).getItem());
     }
@@ -558,15 +571,31 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         }
     }
 
-    public void changeRocketModel() {
-        ListTag items = this.inventory.createTag(registryAccess());
-        EntityType<? extends RocketEntity> newRocket = this.getEntityType(this.MODEL_UPGRADE);
+    public void changeRocketModelAndSkin() {
+        NonNullList<ItemStack> itemStacks = this.inventory.getItems();
         Vec3 pos = this.position();
-        this.remove(RemovalReason.DISCARDED);
-        RocketEntity newRocketEntity = newRocket.create(this.level());
+        Player passenger = this.getFirstPlayerPassenger();
+        EntityType<? extends RocketEntity> newRocketType = getEntityType(this.MODEL_UPGRADE);
+        RocketEntity newRocketEntity = new RocketEntity(newRocketType, this.level(), this.SKIN_UPGRADE);
         newRocketEntity.setPos(pos);
-        this.level().addFreshEntity(newRocketEntity);
-        newRocketEntity.inventory.fromTag(items, registryAccess());
+        newRocketEntity.MODEL_UPGRADE = this.MODEL_UPGRADE;
+        newRocketEntity.SKIN_UPGRADE = this.SKIN_UPGRADE;
+        newRocketEntity.MOTOR_UPGRADE = this.MOTOR_UPGRADE;
+        newRocketEntity.TANK_UPGRADE = this.TANK_UPGRADE;
+        newRocketEntity.FUEL = this.FUEL;
+
+        for (int i = 0; i < inventory.getContainerSize(); i++) {
+            if (i != 13 && i != 12) { newRocketEntity.inventory.setItem(i, itemStacks.get(i)); }
+            else {
+                ItemStack itemStack13 = itemStacks.get(13);
+                ItemStack itemStack12 = itemStacks.get(12);
+                newRocketEntity.inventory.setItem(i, new ItemStack(itemStack13.getItem(),itemStack13.getCount()-1));
+                newRocketEntity.inventory.setItem(i, new ItemStack(itemStack12.getItem(),itemStack12.getCount()-1));
+            }
+        }
+        this.remove(RemovalReason.DISCARDED);
+        newRocketEntity.level().addFreshEntity(newRocketEntity);
+        if (passenger!=null) newRocketEntity.doPlayerRide(passenger);
     }
 
     public EntityType<? extends RocketEntity> getEntityType(ModelUpgrade upgrade) {

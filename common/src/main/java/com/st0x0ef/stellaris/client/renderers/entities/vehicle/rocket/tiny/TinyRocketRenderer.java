@@ -18,7 +18,7 @@ public class TinyRocketRenderer extends VehicleRenderer<RocketEntity, TinyRocket
     @Override
     public ResourceLocation getTextureLocation(RocketEntity rocket) {
         rocket.MODEL_UPGRADE = new ModelUpgrade(RocketModel.TINY);
-        return new ResourceLocation( rocket.getFullSkinTexture());
+        return new ResourceLocation(rocket.getFullSkinTexture());
     }
 
     @Override

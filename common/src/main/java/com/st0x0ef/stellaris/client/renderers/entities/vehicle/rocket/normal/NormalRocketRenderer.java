@@ -16,10 +16,9 @@ public class NormalRocketRenderer extends VehicleRenderer<RocketEntity, NormalRo
     }
 
     @Override
-    public ResourceLocation getTextureLocation(RocketEntity entity) {
-        entity.MODEL_UPGRADE = new ModelUpgrade(RocketModel.NORMAL);
-        return new ResourceLocation(entity.getFullSkinTexture());
-    }
+    public ResourceLocation getTextureLocation(RocketEntity rocket) {
+        rocket.MODEL_UPGRADE = new ModelUpgrade(RocketModel.NORMAL);
+        return new ResourceLocation(rocket.getFullSkinTexture());    }
 
     @Override
     protected boolean isShaking(RocketEntity rocket) {

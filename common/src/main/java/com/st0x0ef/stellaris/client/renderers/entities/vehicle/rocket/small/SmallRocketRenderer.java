@@ -19,9 +19,7 @@ public class SmallRocketRenderer extends VehicleRenderer<RocketEntity, SmallRock
     @Override
     public ResourceLocation getTextureLocation(RocketEntity rocket) {
         rocket.MODEL_UPGRADE = new ModelUpgrade(RocketModel.SMALL);
-
-        return new ResourceLocation(rocket.getFullSkinTexture());
-    }
+        return new ResourceLocation(rocket.getFullSkinTexture());}
 
     @Override
     protected boolean isShaking(RocketEntity rocket) {
