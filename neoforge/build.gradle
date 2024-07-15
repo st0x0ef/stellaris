@@ -2,13 +2,36 @@ plugins {
     id "com.github.johnrengelman.shadow"
 }
 
+def generatedResources = file("src/generated")
+
 architectury {
     platformSetupLoomIde()
     neoForge()
 }
 
+sourceSets {
+    main {
+        resources {
+            srcDirs += project(":neoforge").file("src/generated").absolutePath
+            exclude '.cache'
+        }
+    }
+}
+
+
 loom {
     accessWidenerPath = project(":common").loom.accessWidenerPath
+    neoForge {
+        runs {
+            data {
+                data()
+                programArgs "--all", "--mod", "stellaris"
+                programArgs "--output", generatedResources.absolutePath
+            }
+        }
+    }
+
+
 }
 
 
@@ -38,6 +61,12 @@ dependencies {
     modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-neoforge:${rootProject.rei_version}"
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowBundle project(path: ":common", configuration: "transformProductionNeoForge")
+
+    if (System.getenv("CI") != null) {
+        modLocalRuntime "com.github.jab125.architectury-data-generation-fix:architectury-data-generation-fix-neoforge:20.6.0"
+    }
+
+
 }
 
 processResources {

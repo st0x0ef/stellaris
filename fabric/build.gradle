@@ -37,6 +37,14 @@ loom {
     }
 }
 
+sourceSets {
+    main {
+        resources {
+            srcDirs += project(":neoforge").file("src/generated").absolutePath
+            exclude '.cache'
+        }
+    }
+}
 
 configurations {
     common

@@ -472,6 +472,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
 
     public boolean tryFillUpRocket(Item item) {
+        if (this.level().isClientSide) return false;
         if (FUEL == TANK_UPGRADE.getTankCapacity() || item == null) {
             return false;
         }
