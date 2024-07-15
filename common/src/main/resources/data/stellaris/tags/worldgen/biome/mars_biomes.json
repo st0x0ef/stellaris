@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "stellaris:mars_desert",
+    "stellaris:mars_ice_spikes",
+    "stellaris:mars_rocky_plains"
+
+  ]
+}

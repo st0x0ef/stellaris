@@ -25,10 +25,10 @@ public class TagRegistry {
     public static final TagKey<Fluid> FLUID_OIL_FLUID_TAG = TagKey.create(Registries.FLUID, new ResourceLocation(Stellaris.MODID, "oil"));
 
     /** BIOMES */
-    public static final TagKey<Biome> MARS_BIOMES_TAG = TagKey.create(Registries.BIOME, new ResourceLocation(Stellaris.MODID, "mars"));
-    public static final TagKey<Biome> MERCURY_BIOMES_TAG = TagKey.create(Registries.BIOME, new ResourceLocation(Stellaris.MODID, "mercury"));
-    public static final TagKey<Biome> MOON_BIOMES_TAG = TagKey.create(Registries.BIOME, new ResourceLocation(Stellaris.MODID, "moon"));
-    public static final TagKey<Biome> VENUS_BIOMES_TAG = TagKey.create(Registries.BIOME, new ResourceLocation(Stellaris.MODID, "venus"));
+    public static final TagKey<Biome> MARS_BIOMES_TAG = TagKey.create(Registries.BIOME, new ResourceLocation(Stellaris.MODID, "mars_biomes"));
+    public static final TagKey<Biome> MERCURY_BIOMES_TAG = TagKey.create(Registries.BIOME, new ResourceLocation(Stellaris.MODID, "mercury_biomes"));
+    public static final TagKey<Biome> MOON_BIOMES_TAG = TagKey.create(Registries.BIOME, new ResourceLocation(Stellaris.MODID, "moon_biomes"));
+    public static final TagKey<Biome> VENUS_BIOMES_TAG = TagKey.create(Registries.BIOME, new ResourceLocation(Stellaris.MODID, "venus_biomes"));
 
     /** ROCKET UPGRADE */
     public static final TagKey<Item> ROCKET_UPGRADE_TAG = TagKey.create(Registries.ITEM, new ResourceLocation(Stellaris.MODID, "rocket_upgrade"));
