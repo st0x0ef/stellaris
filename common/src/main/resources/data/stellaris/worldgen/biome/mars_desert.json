@@ -43,6 +43,16 @@
     ]
   },
   "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "stellaris:mars_iron_ore",
+      "stellaris:mars_ostrum_ore"
+    ],
     [
       "minecraft:fossil_upper",
       "minecraft:fossil_lower",

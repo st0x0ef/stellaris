@@ -47,6 +47,15 @@
     ]
   },
   "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "stellaris:moon_desh_ore"
+    ],
     [
       "minecraft:large_dripstone",
       "minecraft:dripstone_cluster",

@@ -28,16 +28,32 @@
     ]
   },
   "features": [
+
+    [],
+    [],
+    [],
+    [],
+    [
+      "minecraft:ice_spike",
+      "minecraft:ice_patch"
+    ],
+    [],
+    [
+      "stellaris:mars_iron_ore",
+      "stellaris:mars_ostrum_ore"
+    ],
     [
       "minecraft:fossil_upper",
       "minecraft:fossil_lower",
       "minecraft:lush_caves_ceiling_vegetation",
-	  "minecraft:cave_vines",
+      "minecraft:cave_vines",
       "minecraft:lush_caves_clay",
-	  "minecraft:lush_caves_vegetation",
-	  "minecraft:classic_vines_cave_feature",
-      "minecraft:ice_spike",
-      "minecraft:ice_patch",
+      "minecraft:lush_caves_vegetation",
+      "minecraft:classic_vines_cave_feature"
+    ],
+    [],
+    [],
+    [
       "minecraft:freeze_top_layer"
     ]
   ]
