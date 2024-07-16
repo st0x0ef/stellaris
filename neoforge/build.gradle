@@ -56,7 +56,7 @@ dependencies {
     neoForge "net.neoforged:neoforge:${rootProject.neoforge_version}"
     // Remove the next line if you don't want to depend on the API
     modApi "dev.architectury:architectury-neoforge:${rootProject.architectury_version}"
-
+    modImplementation include ("io.github.amerebagatelle.mods:nuit-neoforge:$rootProject.nuit_version")
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-neoforge:${rootProject.rei_version}"
     modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-neoforge:${rootProject.rei_version}"
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
