@@ -1,11 +1,11 @@
 {
-  "id": "stellaris:venus",
+  "id": "minecraft:overworld",
   "cloud": false,
   "fog": false,
   "custom_vanilla_objects": {
     "sun": true,
-    "sun_texture": "stellaris:textures/environment/star/sun.png",
-    "moon": false,
+    "sun_texture": "textures/environment/sun.png",
+    "moon": true,
     "moon_texture": "textures/environment/moon_phases.png"
   },
   "weather": [
@@ -14,11 +14,11 @@
       "acid_rain": false
     }
   ],
-  "sunrise_color": -3044526,
+  "sunrise_color": 16755035,
   "stars": {
     "count": 30000,
     "colored": true,
-    "all_days_visible": true
+    "all_days_visible": false
   },
   "sky_objects": []
 }

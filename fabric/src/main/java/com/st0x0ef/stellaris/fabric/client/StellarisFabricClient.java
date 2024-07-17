@@ -11,6 +11,6 @@ public class StellarisFabricClient implements ClientModInitializer {
         StellarisClient.registerEntityRenderer();
         StellarisClient.registerEntityModelLayer();
 
-        WorldRenderEvents.AFTER_ENTITIES.register(FabricSkyRenderer::renderSky);
+       //WorldRenderEvents.AFTER_ENTITIES.register(FabricSkyRenderer::renderSky);
     }
 }

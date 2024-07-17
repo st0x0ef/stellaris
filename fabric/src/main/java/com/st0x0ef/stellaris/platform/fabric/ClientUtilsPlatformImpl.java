@@ -31,7 +31,7 @@ public class ClientUtilsPlatformImpl {
     public static void registerPlanetsSkies(Map<ResourceKey<Level>, SkyRenderer> renderer)  {
         renderer.forEach( (level, skyRenderer) -> {
             DimensionRenderingRegistry.registerCloudRenderer( level, context -> {
-                skyRenderer.renderClouds();
+                skyRenderer.hasCloud();
             });
         });
     }

@@ -10,6 +10,8 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
 
     modApi "dev.architectury:architectury:${rootProject.architectury_version}"
+
+    modImplementation include("io.github.amerebagatelle.mods:nuit-common:$rootProject.nuit_version")
 }
 
 publishing {

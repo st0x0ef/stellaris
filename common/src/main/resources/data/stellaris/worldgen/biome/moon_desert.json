@@ -1,5 +1,5 @@
 {
-  "temperature": -0.7,
+  "temperature": 0,
   "downfall": 0,
   "precipitation": "none",
   "has_precipitation": false,
@@ -58,7 +58,7 @@
     ],
     [
       "minecraft:large_dripstone",
-      "minecraft:dripstone_cluster",
+      "stellaris:moon_dripstone_cluster",
       "minecraft:pointed_dripstone"
     ]
   ]

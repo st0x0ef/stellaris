@@ -8,6 +8,7 @@ import com.st0x0ef.stellaris.client.skys.renderer.SkyRenderer;
 import com.st0x0ef.stellaris.platform.ClientUtilsPlatform;
 import dev.architectury.platform.Platform;
 import dev.architectury.utils.Env;
+import io.github.amerebagatelle.mods.nuit.api.NuitApi;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -51,13 +52,16 @@ public class SkyPropertiesData extends SimpleJsonResourceReloadListener {
                 SkyRenderer skyRenderer = new SkyRenderer(skyProperties);
 
                 SKY_PROPERTIES.put(skyProperties.id(), skyRenderer);
+                //Register the Skybox with Nuit
+                NuitApi.getInstance().addPermanentSkybox(new ResourceLocation(Stellaris.MODID, skyProperties.id().location().getPath()), skyRenderer);
+                Stellaris.LOG.error("Registering a skybox for {}", skyProperties.id());
 
             });
-
             ClientUtilsPlatform.registerPlanetsSkies(SKY_PROPERTIES);
-            Stellaris.LOG.info("Finished loading sky properties. Total properties: {}", SKY_PROPERTIES.size());
+
         }
     }
+
 
     public static SkyRenderer getSkyRenderersById(ResourceKey<Level> id) {
         SkyRenderer skyRenderer = SKY_PROPERTIES.get(id);

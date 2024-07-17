@@ -2,6 +2,13 @@
   "id": "stellaris:moon",
   "cloud": false,
   "fog": false,
+  "custom_vanilla_objects": {
+    "sun": true,
+    "sun_texture": "stellaris:textures/environment/star/sun.png",
+    "moon": true,
+    "moon_texture": "stellaris:textures/environment/solar_system/moon.png"
+  },
+
   "weather": [
     {
       "rain": true,
@@ -16,9 +23,9 @@
   },
   "sky_objects": [
     {
-      "texture": "stellaris:textures/environment/solar_system/moon.png",
+      "texture": "stellaris:textures/environment/solar_system/earth.png",
       "blend": true,
-      "size": 8.0,
+      "size": 15.0,
       "rotation": [
         60.0,
         0.0,

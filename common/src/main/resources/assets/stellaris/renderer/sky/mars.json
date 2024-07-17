@@ -2,6 +2,12 @@
   "id": "stellaris:mars",
   "cloud": false,
   "fog": false,
+  "custom_vanilla_objects": {
+    "sun": true,
+    "sun_texture": "stellaris:textures/environment/star/sun.png",
+    "moon": false,
+    "moon_texture": "textures/environment/moon_phases.png"
+  },
   "weather": [
     {
       "rain": true,
@@ -16,7 +22,7 @@
   },
   "sky_objects": [
     {
-      "texture": "stellaris:textures/environment/solar_system/moon.png",
+      "texture": "stellaris:textures/environment/solar_system/earth.png",
       "blend": true,
       "size": 8.0,
       "rotation": [

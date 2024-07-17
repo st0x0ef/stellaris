@@ -4,6 +4,7 @@ import com.st0x0ef.stellaris.common.blocks.entities.machines.oxygen.OxygenContai
 import com.st0x0ef.stellaris.common.items.RadiationItem;
 import com.st0x0ef.stellaris.common.oxygen.OxygenManager;
 import com.st0x0ef.stellaris.common.registry.EffectsRegistry;
+import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import dev.architectury.event.EventResult;
 import dev.architectury.event.events.common.BlockEvent;
@@ -53,7 +54,9 @@ public class Events {
                 OxygenManager.removeOxygenBlocksPerLevel(level, oxygenContainer);
             }
 
-            OxygenManager.distributeOxygenForLevel(level);
+            if (PlanetUtil.isPlanet(level.dimension().location())) {
+                OxygenManager.distributeOxygenForLevel(level);
+            }
 
             return EventResult.pass();
         });
