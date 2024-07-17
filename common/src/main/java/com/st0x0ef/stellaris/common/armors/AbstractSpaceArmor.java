@@ -42,7 +42,7 @@ public abstract class AbstractSpaceArmor extends CustomArmorItem {
 
             if (component != null) {
                 tooltipComponents.add(Component.translatable("jetsuit.stellaris.fuel", component.fuel()));
-                tooltipComponents.add(Component.translatable("jetsuit.stellaris.oxygen", component.fuel()));
+                tooltipComponents.add(Component.translatable("jetsuit.stellaris.oxygen", component.oxygen()));
             }
         }
 
