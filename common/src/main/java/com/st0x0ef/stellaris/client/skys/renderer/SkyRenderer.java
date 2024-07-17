@@ -10,11 +10,13 @@ import com.st0x0ef.stellaris.client.skys.record.SkyProperties;
 import com.st0x0ef.stellaris.client.skys.utils.StarHelper;
 import io.github.amerebagatelle.mods.nuit.mixin.LevelRendererAccessor;
 import io.github.amerebagatelle.mods.nuit.skybox.AbstractSkybox;
+import io.github.amerebagatelle.mods.nuit.skybox.decorations.DecorationBox;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.resources.ResourceLocation;
 import org.joml.Matrix4f;
 
 /**
@@ -114,12 +116,29 @@ public class SkyRenderer extends AbstractSkybox {
 
 
     public void renderMoon(BufferBuilder bufferBuilder, Matrix4f matrix4f, CustomVanillaObject customVanillaObject) {
+
+        float startX = 0;
+        float startY = 1;
+        float endX = 1;
+        float endY = 0;
+
+        if (customVanillaObject.moonTexture().equals(new ResourceLocation("textures/environment/moon_phases.png"))) {
+            int moonPhase = Minecraft.getInstance().level.getMoonPhase();
+            int xCoord = moonPhase % 4;
+            int yCoord = moonPhase / 4 % 2;
+            startX = xCoord / 4.0F;
+            startY = yCoord / 2.0F;
+            endX = (xCoord + 1) / 4.0F;
+            endY = (yCoord + 1) / 2.0F;
+        }
+
         RenderSystem.setShaderTexture(0, customVanillaObject.moonTexture());
+
         bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-        bufferBuilder.vertex(matrix4f, -20.0F, -100.0F, 20.0F).uv(1, 0).endVertex();
-        bufferBuilder.vertex(matrix4f, 20.0F, -100.0F, 20.0F).uv(0, 0).endVertex();
-        bufferBuilder.vertex(matrix4f, 20.0F, -100.0F, -20.0F).uv(0, 1).endVertex();
-        bufferBuilder.vertex(matrix4f, -20.0F, -100.0F, -20.0F).uv(1, 1).endVertex();
+        bufferBuilder.vertex(matrix4f, -20.0F, -100.0F, 20.0F).uv(endX, endY).endVertex();
+        bufferBuilder.vertex(matrix4f, 20.0F, -100.0F, 20.0F).uv(startX, endY).endVertex();
+        bufferBuilder.vertex(matrix4f, 20.0F, -100.0F, -20.0F).uv(startX, startY).endVertex();
+        bufferBuilder.vertex(matrix4f, -20.0F, -100.0F, -20.0F).uv(endX, startY).endVertex();
         BufferUploader.drawWithShader(bufferBuilder.end());
     }
 

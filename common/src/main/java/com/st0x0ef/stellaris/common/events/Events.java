@@ -54,7 +54,7 @@ public class Events {
                 OxygenManager.removeOxygenBlocksPerLevel(level, oxygenContainer);
             }
 
-            if (PlanetUtil.getPlanet(level.dimension().location()) != null) {
+            if (PlanetUtil.isPlanet(level.dimension().location())) {
                 OxygenManager.distributeOxygenForLevel(level);
             }
 
