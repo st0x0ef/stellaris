@@ -2,6 +2,13 @@
   "id": "stellaris:moon",
   "cloud": false,
   "fog": false,
+  "custom_vanilla_objects": {
+    "sun": true,
+    "sun_texture": "textures/environment/sun.png",
+    "moon": true,
+    "moon_texture": "textures/environment/moon_phases.png"
+  },
+
   "weather": [
     {
       "rain": true,
