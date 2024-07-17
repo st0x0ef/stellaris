@@ -20,7 +20,6 @@ public class StellarisNeoforgeClient {
     @SubscribeEvent
     public static void clientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(StellarisClient::initClient);
-        NeoForge.EVENT_BUS.addListener(StellarisNeoforgeClient::renderSky);
     }
 
     @SubscribeEvent
@@ -38,16 +37,4 @@ public class StellarisNeoforgeClient {
         StellarisClient.registerScreen();
     }
 
-    public static void renderSky(RenderLevelStageEvent event) {
-        if (event.getStage().equals(RenderLevelStageEvent.Stage.AFTER_SKY)) {
-            Minecraft mc = Minecraft.getInstance();
-            ClientLevel level = mc.player.clientLevel;
-            if(level == null) return;
-
-            if (ClientUtilsPlatformImpl.DIMENSION_RENDERERS.containsKey(level.dimension())) {
-                //SkyRenderer renderer = ClientUtilsPlatformImpl.DIMENSION_RENDERERS.get(level.dimension());
-                //renderer.render(level, event.getRenderTick(), event.getPartialTick(), event.getPoseStack(), event.getCamera(), event.getProjectionMatrix(), false, () -> {});
-            }
-        }
-    }
 }

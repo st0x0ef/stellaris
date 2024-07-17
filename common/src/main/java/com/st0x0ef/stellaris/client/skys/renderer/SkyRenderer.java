@@ -3,24 +3,25 @@ package com.st0x0ef.stellaris.client.skys.renderer;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Axis;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.skys.record.CustomVanillaObject;
 import com.st0x0ef.stellaris.client.skys.record.SkyObject;
 import com.st0x0ef.stellaris.client.skys.record.SkyProperties;
 import com.st0x0ef.stellaris.client.skys.utils.StarHelper;
 import io.github.amerebagatelle.mods.nuit.mixin.LevelRendererAccessor;
 import io.github.amerebagatelle.mods.nuit.skybox.AbstractSkybox;
-import io.github.amerebagatelle.mods.nuit.skybox.decorations.DecorationBox;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.dimension.LevelStem;
 import org.joml.Matrix4f;
 
 /**
  * Our own implementation for custom Sky
+ * This part of the Stellaris Project mod use the Mod "Nuit" created by AMereBagatelle and it's licensed under the MIT license.
+ * Find the repository here : <a href="https://github.com/AMereBagatelle/fabricskyboxes/tree/1.20.x/dev">Nuit Repository</a>
  */
 public class SkyRenderer extends AbstractSkybox {
 
@@ -154,7 +155,7 @@ public class SkyRenderer extends AbstractSkybox {
             starBuffer.drawWithShader(poseStack.last().pose(), matrix4f, GameRenderer.getPositionShader());
             VertexBuffer.unbind();
 
-        } else if (brightness > 0.0F) {
+        } else if (brightness == 0.0F) {
             RenderSystem.setShaderColor(brightness, brightness, brightness, brightness);
             FogRenderer.setupNoFog();
             starBuffer.bind();
@@ -165,6 +166,17 @@ public class SkyRenderer extends AbstractSkybox {
 
     public boolean hasCloud() {
         return this.properties.cloud();
+    }
+
+    @Override
+    public boolean isActive() {
+        Minecraft client = Minecraft.getInstance();
+        if(client != null) {
+            if(client.level.dimension().location() == LevelStem.OVERWORLD.location()) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }
