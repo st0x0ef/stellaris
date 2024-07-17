@@ -13,6 +13,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.Slot;
 
 public class FuelRefineryMenu extends BaseContainer {
 
@@ -34,7 +35,7 @@ public class FuelRefineryMenu extends BaseContainer {
         addSlot(new ResultSlot(container, 1, 12, 52));
 
         // Result tank
-        addSlot(new FluidContainerSlot(container, 2, 127, 22, true, false));
+        addSlot(new Slot(container, 2, 127, 22));
         addSlot(new ResultSlot(container, 3, 127, 52));
     }
 

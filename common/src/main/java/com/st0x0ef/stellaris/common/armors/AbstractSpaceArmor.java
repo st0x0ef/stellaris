@@ -4,6 +4,7 @@ import com.st0x0ef.stellaris.common.data_components.SpaceArmorComponent;
 import com.st0x0ef.stellaris.common.items.CustomArmorItem;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
@@ -40,8 +41,8 @@ public abstract class AbstractSpaceArmor extends CustomArmorItem {
             SpaceArmorComponent component = stack.get(DataComponentsRegistry.SPACE_ARMOR_ROCKET.get());
 
             if (component != null) {
-                tooltipComponents.add(Component.literal("Fuel " + component.fuel()));
-                tooltipComponents.add(Component.literal("Oxygen " + component.oxygen()));
+                tooltipComponents.add(Component.translatable("jetsuit.stellaris.fuel", component.fuel()));
+                tooltipComponents.add(Component.translatable("jetsuit.stellaris.oxygen", component.fuel()));
             }
         }
 

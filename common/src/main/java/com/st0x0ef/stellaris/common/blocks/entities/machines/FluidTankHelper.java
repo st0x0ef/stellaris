@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.items.oxygen.OxygenTankItem;
 import com.st0x0ef.stellaris.common.registry.FluidRegistry;
 import dev.architectury.fluid.FluidStack;
@@ -58,7 +59,6 @@ public class FluidTankHelper {
         ItemStack inputStack = blockEntity.getItem(inputSlot);
         ItemStack outputStack = blockEntity.getItem(outputSlot);
         boolean hasSpace = outputStack.getCount() < outputStack.getMaxStackSize();
-
         if (!inputStack.isEmpty() && (outputStack.isEmpty() || hasSpace)) {
             if (!tank.isEmpty() && tank.getAmount() >= BUCKET_AMOUNT) {
                 if (inputStack.getItem() instanceof BucketItem item && FluidBucketHooks.getFluid(item).isSame(Fluids.EMPTY)) {

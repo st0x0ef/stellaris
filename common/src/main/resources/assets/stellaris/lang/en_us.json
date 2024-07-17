@@ -353,6 +353,9 @@
   "general.stellaris.jet_suit_hover_mode": "Hover",
   "general.stellaris.jet_suit_elytra_mode": "Elytra",
 
-  "text.stellaris.rocket.fuel": "You need to put %s in the rocket to be able to fly"
+  "text.stellaris.rocket.fuel": "You need to put %s in the rocket to be able to fly",
+
+  "jetsuit.stellaris.fuel": "§7Fuel : §8%s",
+  "jetsuit.stellaris.oxygen": "§7Oxygen : §8%s"
 
 }
