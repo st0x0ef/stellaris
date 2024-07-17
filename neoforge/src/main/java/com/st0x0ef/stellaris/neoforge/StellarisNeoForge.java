@@ -17,7 +17,7 @@ import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 public class StellarisNeoForge {
     public StellarisNeoForge(IEventBus bus) {
         Stellaris.init();
-        //StellarisClient.registerPacks();
+        StellarisClient.registerPacks();
         NeoForge.EVENT_BUS.addListener(StellarisNeoForge::onAddReloadListenerEvent);
         NeoForge.EVENT_BUS.addListener(StellarisNeoForge::onDatapackSync);
         bus.addListener(StellarisNeoForge::onAttributes);
