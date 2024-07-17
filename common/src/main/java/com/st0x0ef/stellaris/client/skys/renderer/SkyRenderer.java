@@ -2,7 +2,10 @@ package com.st0x0ef.stellaris.client.skys.renderer;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
+import com.mojang.math.Axis;
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.skys.record.CustomVanillaObject;
+import com.st0x0ef.stellaris.client.skys.record.SkyObject;
 import com.st0x0ef.stellaris.client.skys.record.SkyProperties;
 import com.st0x0ef.stellaris.client.skys.utils.StarHelper;
 import io.github.amerebagatelle.mods.nuit.mixin.LevelRendererAccessor;
@@ -14,6 +17,9 @@ import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.client.renderer.GameRenderer;
 import org.joml.Matrix4f;
 
+/**
+ * Our own implementation for custom Sky
+ */
 public class SkyRenderer extends AbstractSkybox {
 
     private final SkyProperties properties;
@@ -38,12 +44,7 @@ public class SkyRenderer extends AbstractSkybox {
         }
 
 
-        // Custom Blender
         poseStack.pushPose();
-
-        // Iris Compat
-        //poseStack.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(IrisCompat.getSunPathRotation()));
-        //poseStack.multiply(RotationAxis.POSITIVE_X.rotationDegrees(world.getSkyAngle(tickDelta) * 360.0F * this.decorations.getRotation().getRotationSpeed()));
 
         Matrix4f matrix4f2 = poseStack.last().pose();
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
@@ -59,8 +60,16 @@ public class SkyRenderer extends AbstractSkybox {
         if (customVanillaObject.moon()) {
             this.renderMoon(bufferBuilder, matrix4f2, customVanillaObject);
         }
+
+        properties.skyObjects().forEach( (skyObject) -> {
+            renderSkyObject(bufferBuilder, matrix4f, poseStack, skyObject);
+        });
+
+        poseStack.pushPose();
         // Stars
         this.renderStars(levelRendererAccessor, tickDelta, poseStack, matrix4f);
+
+
 
         poseStack.popPose();
 
@@ -82,20 +91,41 @@ public class SkyRenderer extends AbstractSkybox {
         BufferUploader.drawWithShader(bufferBuilder.end());
     }
 
+    public void renderSkyObject(BufferBuilder bufferBuilder, Matrix4f matrix4f, PoseStack poseStack, SkyObject skyObject) {
+
+        poseStack.pushPose();
+        if (skyObject.blend()) RenderSystem.enableBlend();
+        poseStack.pushPose();
+
+        poseStack.mulPose(Axis.XP.rotationDegrees((float) skyObject.rotation().x));
+        poseStack.mulPose(Axis.YP.rotationDegrees((float) skyObject.rotation().y));
+        poseStack.mulPose(Axis.ZP.rotationDegrees((float) skyObject.rotation().z));
+
+
+        var matrix = poseStack.last().pose();
+        var size = skyObject.size();
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderTexture(0, skyObject.texture());
+        bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+        bufferBuilder.vertex(matrix, -size, 100, -size).uv(1, 0).endVertex();
+        bufferBuilder.vertex(matrix, size, 100, -size).uv(0, 0).endVertex();
+        bufferBuilder.vertex(matrix, size, 100, size).uv(0, 1).endVertex();
+        bufferBuilder.vertex(matrix, -size, 100, size).uv(1, 1).endVertex();
+        BufferUploader.drawWithShader(bufferBuilder.end());
+        poseStack.popPose();
+        RenderSystem.disableBlend();
+    }
+
+
+
     public void renderMoon(BufferBuilder bufferBuilder, Matrix4f matrix4f, CustomVanillaObject customVanillaObject) {
         RenderSystem.setShaderTexture(0, customVanillaObject.moonTexture());
-        int moonPhase = Minecraft.getInstance().level.getMoonPhase();
-        int xCoord = moonPhase % 4;
-        int yCoord = moonPhase / 4 % 2;
-        float startX = xCoord / 4.0F;
-        float startY = yCoord / 2.0F;
-        float endX = (xCoord + 1) / 4.0F;
-        float endY = (yCoord + 1) / 2.0F;
+
         bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-        bufferBuilder.vertex(matrix4f, -20.0F, -100.0F, 20.0F).uv(endX, endY).endVertex();
-        bufferBuilder.vertex(matrix4f, 20.0F, -100.0F, 20.0F).uv(startX, endY).endVertex();
-        bufferBuilder.vertex(matrix4f, 20.0F, -100.0F, -20.0F).uv(startX, startY).endVertex();
-        bufferBuilder.vertex(matrix4f, -20.0F, -100.0F, -20.0F).uv(endX, startY).endVertex();
+        bufferBuilder.vertex(matrix4f, -20.0F, -100.0F, 20.0F).uv(1, 0).endVertex();
+        bufferBuilder.vertex(matrix4f, 20.0F, -100.0F, 20.0F).uv(0, 0).endVertex();
+        bufferBuilder.vertex(matrix4f, 20.0F, -100.0F, -20.0F).uv(0, 1).endVertex();
+        bufferBuilder.vertex(matrix4f, -20.0F, -100.0F, -20.0F).uv(1, 1).endVertex();
         BufferUploader.drawWithShader(bufferBuilder.end());
     }
 
@@ -103,13 +133,15 @@ public class SkyRenderer extends AbstractSkybox {
         ClientLevel world = Minecraft.getInstance().level;
         float i = 1.0F - world.getRainLevel(tickDelta);
         float brightness = world.getStarBrightness(tickDelta) * i;
-        if (brightness > 0.0F && !this.properties.stars().allDaysVisible()) {
+
+        if (this.properties.stars().allDaysVisible()) {
             RenderSystem.setShaderColor(brightness, brightness, brightness, brightness);
             FogRenderer.setupNoFog();
             starBuffer.bind();
             starBuffer.drawWithShader(poseStack.last().pose(), matrix4f, GameRenderer.getPositionShader());
             VertexBuffer.unbind();
-        } else {
+
+        } else if (brightness > 0.0F) {
             RenderSystem.setShaderColor(brightness, brightness, brightness, brightness);
             FogRenderer.setupNoFog();
             starBuffer.bind();

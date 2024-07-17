@@ -4,11 +4,10 @@
   "fog": false,
   "custom_vanilla_objects": {
     "sun": true,
-    "sun_texture": "textures/environment/sun.png",
-    "moon": true,
+    "sun_texture": "stellaris:textures/environment/star/sun.png",
+    "moon": false,
     "moon_texture": "textures/environment/moon_phases.png"
   },
-
   "weather": [
     {
       "rain": true,
@@ -21,17 +20,5 @@
     "colored": true,
     "all_days_visible": true
   },
-  "sky_objects": [
-    {
-      "texture": "stellaris:textures/environment/solar_system/moon.png",
-      "blend": true,
-      "size": 8.0,
-      "rotation": [
-        60.0,
-        0.0,
-        5.0
-      ],
-      "rotation_type": "DAY"
-    }
-  ]
+  "sky_objects": []
 }

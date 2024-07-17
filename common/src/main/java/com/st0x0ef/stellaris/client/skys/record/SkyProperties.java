@@ -53,7 +53,7 @@ public record SkyProperties(
 
 
             buffer.writeCollection(property.skyObjects, (buf, skyObject) -> {
-                buf.writeUtf(skyObject.texture());
+                buf.writeResourceLocation(skyObject.texture());
                 buf.writeBoolean(skyObject.blend());
                 buf.writeFloat(skyObject.size());
                 buf.writeDouble(skyObject.rotation().x());
@@ -71,7 +71,7 @@ public record SkyProperties(
         for (int i = 0; i < count; i++) {
             List<Weather> weatherList = buffer.readList(buf -> new Weather(buf.readBoolean(), buf.readBoolean()));
             List<SkyObject> skyObjectList = buffer.readList(buf -> new SkyObject(
-                    buf.readUtf(),
+                    buf.readResourceLocation(),
                     buf.readBoolean(),
                     buf.readFloat(),
                     new Vec3(buf.readDouble(), buf.readDouble(), buf.readDouble()),
