@@ -58,7 +58,7 @@
     ],
     [
       "minecraft:large_dripstone",
-      "minecraft:dripstone_cluster",
+      "stellaris:moon_dripstone_cluster",
       "minecraft:pointed_dripstone"
     ]
   ]
