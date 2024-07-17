@@ -14,10 +14,12 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 public class BiomeModificationsRegistry {
 
     public static void register() {
-        ResourceKey<PlacedFeature> UNDERGROUND_OIL_LAKE = ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(Stellaris.MODID,"underground_oil_lake"));
 
-        BiomeModifications.addProperties((context) -> context.hasTag(BiomeTags.IS_OVERWORLD), ((biomeContext, mutable) -> mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.LAKES, UNDERGROUND_OIL_LAKE)));
+        BiomeModifications.addProperties((context) -> context.hasTag(BiomeTags.IS_OVERWORLD), ((biomeContext, mutable) -> {
+            mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, ModPlacedFeatures.LAKE_OIL_SURFACE);
 
+            mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, ModPlacedFeatures.LAKE_OIL_UNDERGROUND);
+        }));
 
     }
 }

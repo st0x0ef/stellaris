@@ -6,13 +6,16 @@ import com.st0x0ef.stellaris.common.registry.BlocksRegistry;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.LakeFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
 
@@ -48,6 +51,8 @@ public class ModConfiguredFeature {
     public static final ResourceKey<ConfiguredFeature<?, ?>> VENUS_DIAMOND_ORE_KEY = registerKey("venus_diamond_ore_key");
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> VENUS_GOLD_ORE_KEY = registerKey("venus_gold_ore_key");
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> LAKE_OIL = registerKey("lake_oil");
 
 
     // MARS
@@ -102,7 +107,6 @@ public class ModConfiguredFeature {
     }
 
     public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
-        HolderGetter<PlacedFeature> placedFeatures = context.lookup(Registries.PLACED_FEATURE);
 
         // MARS
 //        register(context, MARS_DIAMOND_ORE_KEY, Feature.ORE, new OreConfiguration(MARS_DIAMOND_ORE_REPLACEABLES.get(), 7));
@@ -125,6 +129,9 @@ public class ModConfiguredFeature {
         register(context, VENUS_COAL_ORE_KEY, Feature.ORE, new OreConfiguration(VENUS_COAL_ORE_REPLACEABLES.get(), 17));
 //        register(context, VENUS_DIAMOND_ORE_KEY, Feature.ORE, new OreConfiguration(VENUS_DIAMOND_ORE_REPLACEABLES.get(), 9));
         register(context, VENUS_GOLD_ORE_KEY, Feature.ORE, new OreConfiguration(VENUS_GOLD_ORE_REPLACEABLES.get(), 10));
+
+        register(context, LAKE_OIL, Feature.LAKE, new LakeFeature.Configuration(BlockStateProvider.simple(BlocksRegistry.OIL_BLOCK.get().defaultBlockState()), BlockStateProvider.simple(Blocks.STONE.defaultBlockState())));
+
     }
 
 }
