@@ -1,4 +1,5 @@
-// 1.20.6	2024-07-15T23:59:49.1578066	Registries
+// 1.20.6	2024-07-18T00:51:30.0855815	Registries
+eeb2680da24182699bb54f6abe8fc2b270f25d13 data/stellaris/worldgen/configured_feature/lake_oil.json
 4cca9b0f331ab5742f8ed806cb3ab4cd733584b1 data/stellaris/worldgen/configured_feature/mars_iron_ore_key.json
 d2e8e6e1d3e117656abde3428f22e6e18680d1db data/stellaris/worldgen/configured_feature/mars_ostrum_ore_key.json
 11cc08d0f2b6e24b0c8a2b695e347261d3edcb3d data/stellaris/worldgen/configured_feature/mercury_iron_ore_key.json
@@ -6,6 +7,8 @@ ab3c7e6b2d32ba2b632c7b6e32d7e1ab77717d48 data/stellaris/worldgen/configured_feat
 ff1f616cefa9cde03a51ac2a060e675441d425c1 data/stellaris/worldgen/configured_feature/moon_soul_soil_key.json
 8bf69bfb1e2ee5efcc3f1c392286d0d0a122a117 data/stellaris/worldgen/configured_feature/venus_coal_ore_key.json
 ae9dd05da3b6ec85f63d94b7d65687ac0db34788 data/stellaris/worldgen/configured_feature/venus_gold_ore_key.json
+9ec8c177938ac0617b97f80d939f8e73c8284e1f data/stellaris/worldgen/placed_feature/lake_oil_surface.json
+8a6d7fe4db936bc9a0db3497525d1b1c9dab7088 data/stellaris/worldgen/placed_feature/lake_oil_underground.json
 ee7fd9b228656897005540eeaeeda0cfda2fb8f6 data/stellaris/worldgen/placed_feature/mars_iron_ore.json
 89eac48d6182310554ce62ef72c59c85ac3b93cb data/stellaris/worldgen/placed_feature/mars_ostrum_ore.json
 2f769a675c4c37c0d91971bfeeea077de78c3ede data/stellaris/worldgen/placed_feature/mercury_iron_ore.json
