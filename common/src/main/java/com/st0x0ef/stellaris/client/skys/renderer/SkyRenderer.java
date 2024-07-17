@@ -11,12 +11,14 @@ import com.st0x0ef.stellaris.client.skys.utils.StarHelper;
 import io.github.amerebagatelle.mods.nuit.mixin.LevelRendererAccessor;
 import io.github.amerebagatelle.mods.nuit.skybox.AbstractSkybox;
 import io.github.amerebagatelle.mods.nuit.skybox.decorations.DecorationBox;
+import io.github.amerebagatelle.mods.nuit.skybox.vanilla.OverworldSkybox;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.dimension.LevelStem;
 import org.joml.Matrix4f;
 
 /**
@@ -154,7 +156,7 @@ public class SkyRenderer extends AbstractSkybox {
             starBuffer.drawWithShader(poseStack.last().pose(), matrix4f, GameRenderer.getPositionShader());
             VertexBuffer.unbind();
 
-        } else if (brightness > 0.0F) {
+        } else if (brightness == 0.0F) {
             RenderSystem.setShaderColor(brightness, brightness, brightness, brightness);
             FogRenderer.setupNoFog();
             starBuffer.bind();
@@ -165,6 +167,17 @@ public class SkyRenderer extends AbstractSkybox {
 
     public boolean hasCloud() {
         return this.properties.cloud();
+    }
+
+    @Override
+    public boolean isActive() {
+        Minecraft client = Minecraft.getInstance();
+        if(client != null) {
+            if(client.level.dimension().location() == LevelStem.OVERWORLD.location()) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }

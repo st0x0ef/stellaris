@@ -31,6 +31,8 @@ public class SkyPropertiesData extends SimpleJsonResourceReloadListener {
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> object, ResourceManager resourceManager, ProfilerFiller profiler) {
         if (Platform.getEnvironment() == Env.CLIENT) {
+            NuitApi.getInstance().clearSkyboxes();
+
             object.forEach((key, value) -> {
 //            Stellaris.LOG.info("Processing key: {}", key);
 //            try {
