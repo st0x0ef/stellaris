@@ -10,6 +10,7 @@ import dev.architectury.event.EventResult;
 import dev.architectury.event.events.common.BlockEvent;
 import dev.architectury.event.events.common.TickEvent;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
@@ -39,8 +40,8 @@ public class Events {
 
                 if (addEffect.get()) {
                     if(player.level().isClientSide()) return;
-                    player.removeEffect(EffectsRegistry.RADIOACTIVE);
-                    player.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE, 100, 1));
+                    player.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 80));
+                    player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80));
                 }
 
                 tickBeforeNextRadioactiveCheck = 100;
