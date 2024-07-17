@@ -61,23 +61,18 @@ public class SkyRenderer extends AbstractSkybox {
             this.renderMoon(bufferBuilder, matrix4f2, customVanillaObject);
         }
 
-        properties.skyObjects().forEach( (skyObject) -> {
-            renderSkyObject(bufferBuilder, matrix4f, poseStack, skyObject);
-        });
+        for (SkyObject skyObject : this.properties.skyObjects()) {
+            renderSkyObject(bufferBuilder, poseStack, skyObject);
+        }
 
-        poseStack.pushPose();
         // Stars
         this.renderStars(levelRendererAccessor, tickDelta, poseStack, matrix4f);
-
-
 
         poseStack.popPose();
 
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.disableBlend();
         RenderSystem.defaultBlendFunc();
-
-
     }
 
 
@@ -91,7 +86,7 @@ public class SkyRenderer extends AbstractSkybox {
         BufferUploader.drawWithShader(bufferBuilder.end());
     }
 
-    public void renderSkyObject(BufferBuilder bufferBuilder, Matrix4f matrix4f, PoseStack poseStack, SkyObject skyObject) {
+    public void renderSkyObject(BufferBuilder bufferBuilder, PoseStack poseStack, SkyObject skyObject) {
 
         poseStack.pushPose();
         if (skyObject.blend()) RenderSystem.enableBlend();
@@ -120,7 +115,6 @@ public class SkyRenderer extends AbstractSkybox {
 
     public void renderMoon(BufferBuilder bufferBuilder, Matrix4f matrix4f, CustomVanillaObject customVanillaObject) {
         RenderSystem.setShaderTexture(0, customVanillaObject.moonTexture());
-
         bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
         bufferBuilder.vertex(matrix4f, -20.0F, -100.0F, 20.0F).uv(1, 0).endVertex();
         bufferBuilder.vertex(matrix4f, 20.0F, -100.0F, 20.0F).uv(0, 0).endVertex();
@@ -135,7 +129,7 @@ public class SkyRenderer extends AbstractSkybox {
         float brightness = world.getStarBrightness(tickDelta) * i;
 
         if (this.properties.stars().allDaysVisible()) {
-            RenderSystem.setShaderColor(brightness, brightness, brightness, brightness);
+            RenderSystem.setShaderColor(0.5F, 0.5F, 0.5F, 0.5F);
             FogRenderer.setupNoFog();
             starBuffer.bind();
             starBuffer.drawWithShader(poseStack.last().pose(), matrix4f, GameRenderer.getPositionShader());
