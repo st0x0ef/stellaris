@@ -149,6 +149,10 @@ public class OxygenManager {
             oxygenInformationsPerLevel.put(level, new ArrayList<>());
         }
 
+        if (oxygenInformationsPerLevel.get(level) == null) {
+            return true;
+        }
+
         return oxygenInformationsPerLevel.get(level).contains(new Integer[] {1, pos.getX(), pos.getY(), pos.getZ()}) || oxygenInformationsPerLevel.get(level).contains(new Integer[] {0, pos.getX(), pos.getY(), pos.getZ()});
     }
 }
