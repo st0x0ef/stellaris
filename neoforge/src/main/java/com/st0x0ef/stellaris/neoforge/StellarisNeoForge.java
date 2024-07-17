@@ -20,7 +20,6 @@ public class StellarisNeoForge {
         StellarisClient.registerPacks();
         NeoForge.EVENT_BUS.addListener(StellarisNeoForge::onAddReloadListenerEvent);
         NeoForge.EVENT_BUS.addListener(StellarisNeoForge::onDatapackSync);
-        //NeoForge.EVENT_BUS.addListener(SkyRendererNeoForge::RenderWorldSky);
         bus.addListener(StellarisNeoForge::onAttributes);
         SystemsNeoForge.init(bus);
 

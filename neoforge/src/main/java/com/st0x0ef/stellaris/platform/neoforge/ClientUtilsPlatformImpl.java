@@ -14,7 +14,6 @@ import java.util.Map;
 public class ClientUtilsPlatformImpl {
 
     public static final Map<Item, ArmorRenderer> ARMOR_RENDERERS = new HashMap<>();
-    public static final Map<ResourceKey<Level>, SkyRenderer> DIMENSION_RENDERERS = new HashMap<>();
 
 
     public static void registerArmor(ResourceLocation texture, ModelLayerLocation layer, ClientUtilsPlatform.ArmorFactory factory, Item... items) {
@@ -23,10 +22,6 @@ public class ClientUtilsPlatformImpl {
         }
     }
 
-    public static void registerPlanetsSkies(Map<ResourceKey<Level>, SkyRenderer> renderers) {
-        DIMENSION_RENDERERS.clear();
-        DIMENSION_RENDERERS.putAll(renderers);
-    }
 
 
     public record ArmorRenderer(ResourceLocation texture, ModelLayerLocation layer,

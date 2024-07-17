@@ -34,36 +34,19 @@ public class SkyPropertiesData extends SimpleJsonResourceReloadListener {
             NuitApi.getInstance().clearSkyboxes();
 
             object.forEach((key, value) -> {
-//            Stellaris.LOG.info("Processing key: {}", key);
-//            try {
-//                JsonObject json = GsonHelper.convertToJsonObject(value, "sky_properties");
-//                Stellaris.LOG.info("Loaded JSON: {}", json);
-//                DataResult<SkyProperties> result = SkyProperties.CODEC.parse(JsonOps.INSTANCE, json);
-//                result.resultOrPartial(error -> Stellaris.LOG.error("Failed to parse SkyProperties: " + error)).ifPresent(skyProperties -> {
-//                    Stellaris.LOG.info("Adding SkyProperty: {}", skyProperties.id());
-//                    SkyRenderer skyRenderer = new SkyRenderer(skyProperties);
-//                    SKY_PROPERTIES.put(skyProperties.id(), skyRenderer);
-//                    Stellaris.LOG.info("Loaded SkyProperty: {}", skyProperties.id());
-//                });
-//            } catch (Exception e) {
-//                Stellaris.LOG.error("Error processing key: {}", key, e);
-//            }
-
                 JsonObject json = GsonHelper.convertToJsonObject(value, "sky_renderer");
                 SkyProperties skyProperties = SkyProperties.CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
                 SkyRenderer skyRenderer = new SkyRenderer(skyProperties);
 
                 SKY_PROPERTIES.put(skyProperties.id(), skyRenderer);
+
                 //Register the Skybox with Nuit
                 NuitApi.getInstance().addPermanentSkybox(new ResourceLocation(Stellaris.MODID, skyProperties.id().location().getPath()), skyRenderer);
                 Stellaris.LOG.error("Registering a skybox for {}", skyProperties.id());
-
             });
-            ClientUtilsPlatform.registerPlanetsSkies(SKY_PROPERTIES);
 
         }
     }
-
 
     public static SkyRenderer getSkyRenderersById(ResourceKey<Level> id) {
         SkyRenderer skyRenderer = SKY_PROPERTIES.get(id);

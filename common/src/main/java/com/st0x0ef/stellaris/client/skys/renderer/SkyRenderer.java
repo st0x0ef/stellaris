@@ -3,15 +3,12 @@ package com.st0x0ef.stellaris.client.skys.renderer;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Axis;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.skys.record.CustomVanillaObject;
 import com.st0x0ef.stellaris.client.skys.record.SkyObject;
 import com.st0x0ef.stellaris.client.skys.record.SkyProperties;
 import com.st0x0ef.stellaris.client.skys.utils.StarHelper;
 import io.github.amerebagatelle.mods.nuit.mixin.LevelRendererAccessor;
 import io.github.amerebagatelle.mods.nuit.skybox.AbstractSkybox;
-import io.github.amerebagatelle.mods.nuit.skybox.decorations.DecorationBox;
-import io.github.amerebagatelle.mods.nuit.skybox.vanilla.OverworldSkybox;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -23,6 +20,8 @@ import org.joml.Matrix4f;
 
 /**
  * Our own implementation for custom Sky
+ * This part of the Stellaris Project mod use the Mod "Nuit" created by AMereBagatelle and it's licensed under the MIT license.
+ * Find the repository here : <a href="https://github.com/AMereBagatelle/fabricskyboxes/tree/1.20.x/dev">Nuit Repository</a>
  */
 public class SkyRenderer extends AbstractSkybox {
 

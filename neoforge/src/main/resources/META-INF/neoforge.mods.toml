@@ -10,8 +10,9 @@ displayName = "Stellaris"
 authors = "The Stellaris Team"
 logoFile = "logo.png"
 description = '''
-Fly into new world!
+Stellaris introduces an expansive and immersive space exploration experience within the familiar Minecraft universe. Players can discover new planets, moon and galaxies !
 '''
+credits = "The mod Nuit is used in this mod. It has been created by AMereBagatelle and it's licensed under the MIT license."
 
 [[dependencies.stellaris]]
 modId = "neoforge"
