@@ -30,6 +30,8 @@ export default defineConfig({
           { text: 'Getting Started', link: '/wiki/getting-started' },
           { text: 'Fuel', link: '/wiki/fuel' },
           { text: 'Electricity', link: '/wiki/electricity' },
+          { text: 'Rocket', link: '/wiki/rocket' },
+
           { text: 'FAQ', link: '/wiki/faq' }
 
         ]
