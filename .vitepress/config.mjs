@@ -10,8 +10,8 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Create a planet', link: '/custom-planets' },
-      { text: 'Configure the screen', link: '/custom-screen' },
+      { text: 'Documention', link: '/custom-planets' },
+      { text: 'Wiki', link: '/wiki/getting-started' },
       { text: 'Team', link: '/team' }
 
     ],
@@ -29,7 +29,9 @@ export default defineConfig({
         items: [
           { text: 'Getting Started', link: '/wiki/getting-started' },
           { text: 'Fuel', link: '/wiki/fuel' },
-          { text: 'Electricity', link: '/wiki/electricity' }
+          { text: 'Electricity', link: '/wiki/electricity' },
+          { text: 'FAQ', link: '/wiki/faq' }
+
         ]
       }
     ],
