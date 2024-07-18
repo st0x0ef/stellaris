@@ -3,7 +3,7 @@ import { defineConfig } from 'vitepress'
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   base: '/stellaris/',
-  title: "The Stellaris Project Documentation",
+  title: "Stellaris Wiki",
   description: "Learn how to create your own planets !",
   head: [['link', { rel: 'icon', href: '/favicon.ico' }]],
   themeConfig: {
