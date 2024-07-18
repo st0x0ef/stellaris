@@ -9,6 +9,7 @@ The mod contains multiple blocks that can generate electricity
 | Blocks                |      Use                      |  Max Generation (Fe/Tick)|
 | --------------------- | :---------------------------: | ----: |
 | Solar Panel           | Need to be set under the sun  | 1     |
+| Coal Generator        |   Need coal                   | 3     |
 | Radioactive Generator |   Need Radioactive blocks     | 500   |
 
 
