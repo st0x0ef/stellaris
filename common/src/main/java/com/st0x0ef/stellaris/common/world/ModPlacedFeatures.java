@@ -20,6 +20,14 @@ import net.minecraft.world.level.levelgen.placement.*;
 import java.util.List;
 
 public class ModPlacedFeatures {
+
+    // OVERWORLD
+    public static final ResourceKey<PlacedFeature> STEEL_ORE_PLACED_KEY = createKey("steel_ore");
+
+    public static final ResourceKey<PlacedFeature> STEEL_ORE_DEEPSLATE_PLACED_KEY = createKey("steel_ore_deepslate");
+
+
+
     // MARS
     public static final ResourceKey<PlacedFeature> MARS_DIAMOND_PLACED_KEY = createKey("mars_diamond_ore");
 
@@ -55,6 +63,18 @@ public class ModPlacedFeatures {
 
     public static void bootstrap(BootstrapContext<PlacedFeature> context) {
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
+
+
+        // OVEROWORLD
+        register(context, STEEL_ORE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.MARS_IRON_ORE_KEY),
+                OrePlacement.commonOrePlacement(6,
+                        HeightRangePlacement.triangle(VerticalAnchor.absolute(-24), VerticalAnchor.absolute(56))));
+
+        register(context, STEEL_ORE_DEEPSLATE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.MARS_IRON_ORE_KEY),
+                OrePlacement.commonOrePlacement(6,
+                        HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(25))));
+
+
 
         // MARS
 //        register(context, MARS_DIAMOND_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.MARS_DIAMOND_ORE_KEY),

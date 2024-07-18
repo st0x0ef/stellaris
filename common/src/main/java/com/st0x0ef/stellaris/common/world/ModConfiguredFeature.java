@@ -23,6 +23,12 @@ import java.util.List;
 import java.util.function.Supplier;
 
 public class ModConfiguredFeature {
+    // OVERWORLD
+    static final ResourceKey<ConfiguredFeature<?, ?>> STEEL_ORE_KEY = registerKey("steel_ore_key");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> STEEL_ORE_DEEPSLATE_ORE_KEY = registerKey("steel_ore_deepslate_key");
+
+
+
     // MARS
     public static final ResourceKey<ConfiguredFeature<?, ?>> MARS_DIAMOND_ORE_KEY = registerKey("mars_diamond_ore_key");
 
@@ -61,6 +67,13 @@ public class ModConfiguredFeature {
 
 //    public static final Supplier<List<OreConfiguration.TargetBlockState>> MARS_ICE_SHARD_ORE_REPLACEABLES = Suppliers.memoize(() -> List.of(
 //            OreConfiguration.target(new BlockMatchTest(BlocksRegistry.MARS_STONE.get()), BlocksRegistry.MARS_ICE_SHARD_ORE.get().defaultBlockState())));
+
+    public static final Supplier<List<OreConfiguration.TargetBlockState>> STEEL_ORE_REPLACEABLES = Suppliers.memoize(() -> List.of(
+            OreConfiguration.target(new BlockMatchTest(Blocks.STONE), BlocksRegistry.STEEL_ORE.get().defaultBlockState())));
+    public static final Supplier<List<OreConfiguration.TargetBlockState>> STEEL_ORE_DEEPSLATE_REPLACEABLES = Suppliers.memoize(() -> List.of(
+            OreConfiguration.target(new BlockMatchTest(Blocks.DEEPSLATE), BlocksRegistry.DEEPSLATE_STEEL_ORE.get().defaultBlockState())));
+
+
 
     public static final Supplier<List<OreConfiguration.TargetBlockState>> MARS_IRON_ORE_REPLACEABLES = Suppliers.memoize(() -> List.of(
             OreConfiguration.target(new BlockMatchTest(BlocksRegistry.MARS_STONE.get()), BlocksRegistry.MARS_IRON_ORE.get().defaultBlockState())));
@@ -107,6 +120,9 @@ public class ModConfiguredFeature {
     }
 
     public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
+
+        register(context, STEEL_ORE_KEY, Feature.ORE, new OreConfiguration(STEEL_ORE_REPLACEABLES.get(), 9));
+        register(context, STEEL_ORE_DEEPSLATE_ORE_KEY, Feature.ORE, new OreConfiguration(STEEL_ORE_DEEPSLATE_REPLACEABLES.get(), 6));
 
         // MARS
 //        register(context, MARS_DIAMOND_ORE_KEY, Feature.ORE, new OreConfiguration(MARS_DIAMOND_ORE_REPLACEABLES.get(), 7));
