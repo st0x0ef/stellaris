@@ -14,8 +14,8 @@ hero:
       text: Custom Screen
       link: /custom-screen
     - theme: brand
-      text: Add Stellaris to your project
-      link: /maven-repo
+      text: Wiki
+      link: /wiki/fuel
 features:
   - title: Easy as cake
     details: Creating addons is very easy with the datapacks support
