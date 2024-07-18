@@ -82,6 +82,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         this.SKIN_UPGRADE = skinUpgrade;
         Stellaris.LOG.warn(this.SKIN_UPGRADE.getRocketSkinLocation().toString());
 
+        this.SKIN_UPGRADE = new SkinUpgrade(new ResourceLocation(this.getFullSkinTexture()));
         this.MODEL_UPGRADE = ModelUpgrade.getBasic();
         this.MOTOR_UPGRADE = MotorUpgrade.getBasic();
         this.TANK_UPGRADE = TankUpgrade.getBasic();
