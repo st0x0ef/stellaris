@@ -45,9 +45,9 @@ public class FluidTankHelper {
                         tank.shrink(OXYGEN_TANK_FILL_AMOUNT);
                     }
                     else if (!isTank && isEmptyBucket(inputStack.getItem())) {
-                        Item bucket = tank.getStack().getFluid().getBucket();
-                        if (!isEmptyBucket(bucket)) {
-                            resultStack = new ItemStack(bucket);
+                        ItemStack stack = new ItemStack(tank.getStack().getFluid().getBucket());
+                        if (!stack.isEmpty() && !isEmptyBucket(stack.getItem())) {
+                            resultStack = stack;
                             tank.shrink(BUCKET_AMOUNT);
                         }
                     }
@@ -83,7 +83,7 @@ public class FluidTankHelper {
                     resultStack = inputStack.copy();
                 }
 
-                if (resultStack.isEmpty()) {
+                if (!resultStack.isEmpty()) {
                     boolean success = false;
                     long amount = BUCKET_AMOUNT;
 
