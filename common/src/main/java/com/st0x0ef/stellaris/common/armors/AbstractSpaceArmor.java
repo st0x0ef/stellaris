@@ -58,11 +58,11 @@ public abstract class AbstractSpaceArmor extends CustomArmorItem {
             stack.set(DataComponentsRegistry.SPACE_ARMOR_ROCKET.get(), newComponent);
         }
 
-        public int getFuel(ItemStack stack) {
-            return stack.get(DataComponentsRegistry.SPACE_ARMOR_ROCKET.get()).getFuel();
+        public long getFuel(ItemStack stack) {
+            return stack.get(DataComponentsRegistry.SPACE_ARMOR_ROCKET.get()).fuel();
         }
         public int getOxygen(ItemStack stack) {
-            return stack.get(DataComponentsRegistry.SPACE_ARMOR_ROCKET.get()).getOxygen();
+            return stack.get(DataComponentsRegistry.SPACE_ARMOR_ROCKET.get()).oxygen();
         }
 
         public int getMaxOxygen() {

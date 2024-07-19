@@ -1,9 +1,6 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
-import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.armors.JetSuit;
 import com.st0x0ef.stellaris.common.data.recipes.FuelRefineryRecipe;
-import com.st0x0ef.stellaris.common.data_components.JetSuitComponent;
 import com.st0x0ef.stellaris.common.data_components.SpaceArmorComponent;
 import com.st0x0ef.stellaris.common.menus.FuelRefineryMenu;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
@@ -38,12 +35,7 @@ public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity {
 
     @Override
     public void tick() {
-        if(this.getItem(2).is(Items.BUCKET)) {
-            FluidTankHelper.extractFluidToItem(this, resultTank, 2, 3);
-        } else if (getItem(2).get(DataComponentsRegistry.SPACE_ARMOR_ROCKET.get()) != null){
-            setFuelToJetSuit(this.getItem(2));
-        }
-
+        FluidTankHelper.extractFluidToItem(this, resultTank, 2, 3);
 
         if (!FluidTankHelper.addFluidFromBucket(this, ingredientTank, 0, 1)) {
             FluidTankHelper.extractFluidToItem(this, ingredientTank, 0, 1);
@@ -60,7 +52,7 @@ public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity {
                 if (resultTank.isEmpty() || resultTank.getStack().isFluidEqual(resultStack)) {
                     if (resultTank.getAmount() + resultStack.getAmount() < resultTank.getMaxCapacity()) {
                         energyContainer.extractEnergy(recipe.energy(), false);
-                        ingredientTank.grow(-recipe.ingredientStack().getAmount());
+                        ingredientTank.shrink(recipe.ingredientStack().getAmount());
                         FluidTankHelper.addToTank(resultTank, resultStack);
                         setChanged();
                     }
@@ -109,26 +101,5 @@ public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity {
 
     public FluidTank getResultTank() {
         return resultTank;
-    }
-
-    public void setFuelToJetSuit(ItemStack oldStack) {
-
-        SpaceArmorComponent oldSpaceArmorComponent = oldStack.get(DataComponentsRegistry.SPACE_ARMOR_ROCKET.get());
-        ItemStack newStack = new ItemStack(ItemsRegistry.JETSUIT_SUIT);
-        this.removeItem(2, 1);
-
-        int amountToGive = 0;
-        if (resultTank.getAmount() >= 3000) {
-            amountToGive = 3000;
-        } else {
-            amountToGive = (int) resultTank.getAmount();
-        }
-        resultTank.grow(-amountToGive);
-        SpaceArmorComponent newSpaceArmorComponent = new SpaceArmorComponent(
-                oldSpaceArmorComponent.fuel() + amountToGive, oldSpaceArmorComponent.oxygen());
-
-        newStack.set(DataComponentsRegistry.SPACE_ARMOR_ROCKET.get(), newSpaceArmorComponent);
-        this.setItem(3, newStack);
-        setChanged();
     }
 }

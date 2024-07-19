@@ -25,8 +25,8 @@ public class Gauge extends AbstractWidget {
     protected int value;
     public final ResourceLocation overlay_texture;
 
-    public Gauge(int x, int y, int width, int height, Component message, ResourceLocation texture, @Nullable ResourceLocation overlay_texture, long value, int max_value) {
-        this(x, y, width, height, message, texture, overlay_texture,(int) value, max_value);
+    public Gauge(int x, int y, int width, int height, Component message, ResourceLocation texture, @Nullable ResourceLocation overlay_texture, long value, long max_value) {
+        this(x, y, width, height, message, texture, overlay_texture, (int) value, (int) max_value);
     }
 
     public Gauge(int x, int y, int width, int height, Component message, ResourceLocation texture, @Nullable ResourceLocation overlay_texture, int value, int max_value) {

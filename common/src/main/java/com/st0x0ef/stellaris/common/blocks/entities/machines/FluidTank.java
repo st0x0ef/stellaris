@@ -9,16 +9,15 @@ import net.minecraft.world.level.material.Fluid;
 public class FluidTank {
 
     private final String name;
-    private final int maxCapacity;
+    private final long maxCapacity;
     private FluidStack stack = FluidStack.empty();
 
-    public FluidTank(String name, int maxCapacity) {
+    public FluidTank(String name, long maxCapacity) {
         this.name = name;
-        this.maxCapacity = ((int) (maxCapacity * FluidTankHelper.BUCKET_AMOUNT)) + 1;
-
+        this.maxCapacity = (maxCapacity * FluidTankHelper.BUCKET_AMOUNT) + 1;
     }
 
-    public int getMaxCapacity() {
+    public long getMaxCapacity() {
         return maxCapacity;
     }
 
@@ -36,6 +35,10 @@ public class FluidTank {
 
     public void grow(long amount) {
         setAmount(getAmount() + amount);
+    }
+
+    public void shrink(long amount) {
+        grow(-amount);
     }
 
     public boolean isEmpty() {

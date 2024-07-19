@@ -1,11 +1,14 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
-import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.common.data_components.SpaceArmorComponent;
 import com.st0x0ef.stellaris.common.items.oxygen.OxygenTankItem;
+import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import com.st0x0ef.stellaris.common.registry.FluidRegistry;
 import dev.architectury.fluid.FluidStack;
 import dev.architectury.hooks.fluid.FluidBucketHooks;
+import dev.architectury.hooks.fluid.FluidStackHooks;
 import dev.architectury.platform.Platform;
+import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
@@ -17,7 +20,7 @@ import net.minecraft.world.level.material.Fluids;
 
 public class FluidTankHelper {
 
-    public static final long BUCKET_AMOUNT = 1000;
+    public static final long BUCKET_AMOUNT = FluidStackHooks.bucketAmount();
     public static final long OXYGEN_TANK_FILL_AMOUNT = Platform.isFabric() ? 810 : 10;
 
     public static <T extends BlockEntity & Container> void extractFluidToItem(T blockEntity, FluidTank tank, int slot) {
@@ -28,7 +31,7 @@ public class FluidTankHelper {
                 boolean isTank = item instanceof OxygenTankItem;
 
                 if (tank.getAmount() >= BUCKET_AMOUNT || (isTank && tank.getAmount() >= OXYGEN_TANK_FILL_AMOUNT)) {
-                    ItemStack resultStack;
+                    ItemStack resultStack = ItemStack.EMPTY;
 
                     if (isTank && tank.getStack().getFluid().isSame(FluidRegistry.OXYGEN_STILL.get())) {
                         resultStack = inputStack.copy();
@@ -39,11 +42,14 @@ public class FluidTankHelper {
                         }
 
                         OxygenTankItem.setStoredOxygen(resultStack, storedOxygen + OXYGEN_TANK_FILL_AMOUNT);
-                        tank.grow(-OXYGEN_TANK_FILL_AMOUNT);
+                        tank.shrink(OXYGEN_TANK_FILL_AMOUNT);
                     }
-                    else {
-                        resultStack = new ItemStack(tank.getStack().getFluid().getBucket());
-                        tank.grow(-BUCKET_AMOUNT);
+                    else if (!isTank && isEmptyBucket(inputStack.getItem())) {
+                        Item bucket = tank.getStack().getFluid().getBucket();
+                        if (!isEmptyBucket(bucket)) {
+                            resultStack = new ItemStack(bucket);
+                            tank.shrink(BUCKET_AMOUNT);
+                        }
                     }
 
                     if (!resultStack.isEmpty()) {
@@ -55,15 +61,31 @@ public class FluidTankHelper {
         }
     }
 
+    public static boolean isEmptyBucket(Item item) {
+        return item instanceof BucketItem bucketItem && FluidBucketHooks.getFluid(bucketItem).isSame(Fluids.EMPTY);
+    }
+
     public static <T extends BlockEntity & Container> void extractFluidToItem(T blockEntity, FluidTank tank, int inputSlot, int outputSlot) {
-        ItemStack inputStack = blockEntity.getItem(inputSlot);
         ItemStack outputStack = blockEntity.getItem(outputSlot);
+        ItemStack inputStack = blockEntity.getItem(inputSlot);
         boolean hasSpace = outputStack.getCount() < outputStack.getMaxStackSize();
+
         if (!inputStack.isEmpty() && (outputStack.isEmpty() || hasSpace)) {
-            if (!tank.isEmpty() && tank.getAmount() >= BUCKET_AMOUNT) {
-                if (inputStack.getItem() instanceof BucketItem item && FluidBucketHooks.getFluid(item).isSame(Fluids.EMPTY)) {
-                    ItemStack resultStack = new ItemStack(tank.getStack().getFluid().getBucket());
+            boolean canFuel = inputStack.has(DataComponentsRegistry.SPACE_ARMOR_ROCKET.get());
+
+            if (!tank.isEmpty() && (tank.getAmount() >= BUCKET_AMOUNT || canFuel)) {
+                ItemStack resultStack = ItemStack.EMPTY;
+
+                if (isEmptyBucket(inputStack.getItem())) {
+                    resultStack = new ItemStack(tank.getStack().getFluid().getBucket());
+                }
+                else if (canFuel) {
+                    resultStack = inputStack.copy();
+                }
+
+                if (resultStack.isEmpty()) {
                     boolean success = false;
+                    long amount = BUCKET_AMOUNT;
 
                     if (outputStack.isEmpty()) {
                         blockEntity.setItem(outputSlot, resultStack);
@@ -75,8 +97,17 @@ public class FluidTankHelper {
                     }
 
                     if (success) {
+                        if (canFuel) {
+                            SpaceArmorComponent component = inputStack.get(DataComponentsRegistry.SPACE_ARMOR_ROCKET.get());
+                            long fuel = component.fuel();
+                            amount = Math.min(SpaceArmorComponent.MAX_CAPACITY - fuel, tank.getAmount());
+                            resultStack.set(DataComponentsRegistry.SPACE_ARMOR_ROCKET.get(),
+                                    new SpaceArmorComponent(Mth.clamp(fuel + amount, 0, SpaceArmorComponent.MAX_CAPACITY), component.oxygen())
+                            );
+                        }
+
                         inputStack.shrink(1);
-                        tank.grow(-BUCKET_AMOUNT);
+                        tank.shrink(amount);
                         blockEntity.setChanged();
                     }
                 }

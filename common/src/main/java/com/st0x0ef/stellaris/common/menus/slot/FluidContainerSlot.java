@@ -22,7 +22,6 @@ public class FluidContainerSlot extends Slot {
 
     @Override
     public boolean mayPlace(ItemStack stack) {
-
         return (stack.getItem() instanceof BucketItem item
                 && (!emptyOnly || FluidBucketHooks.getFluid(item).isSame(Fluids.EMPTY)))
                 || (allowTanks && stack.getItem() instanceof OxygenTankItem)
@@ -33,5 +32,4 @@ public class FluidContainerSlot extends Slot {
     public int getMaxStackSize() {
         return 1;
     }
-
 }
