@@ -4,7 +4,7 @@ import com.st0x0ef.stellaris.common.data.recipes.FuelRefineryRecipe;
 import com.st0x0ef.stellaris.common.menus.FuelRefineryMenu;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.registry.RecipesRegistry;
-import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedBlockEnergyContainer;
+import com.st0x0ef.stellaris.common.systems.core.energy.impl.SimpleValueStorage;
 import dev.architectury.fluid.FluidStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -39,14 +39,14 @@ public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity {
         Optional<RecipeHolder<FuelRefineryRecipe>> recipeHolder = cachedCheck.getRecipeFor(this, level);
         if (recipeHolder.isPresent()) {
             FuelRefineryRecipe recipe = recipeHolder.get().value();
-            WrappedBlockEnergyContainer energyContainer = getWrappedEnergyContainer();
+            SimpleValueStorage energyContainer = getEnergy(null);
 
-            if (energyContainer.getStoredEnergy() >= recipe.energy()) {
+            if (energyContainer.getStoredAmount() >= recipe.energy()) {
                 FluidStack resultStack = recipe.resultStack();
 
                 if (resultTank.isEmpty() || resultTank.getStack().isFluidEqual(resultStack)) {
                     if (resultTank.getAmount() + resultStack.getAmount() <= resultTank.getMaxCapacity()) {
-                        energyContainer.extractEnergy(recipe.energy(), false);
+                        energyContainer.extract(recipe.energy(), false);
                         ingredientTank.grow(-recipe.ingredientStack().getAmount());
                         FluidTankHelper.addToTank(resultTank, resultStack);
                         setChanged();
@@ -72,7 +72,7 @@ public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity {
     }
 
     @Override
-    protected int getMaxCapacity() {
+    protected int getMaxEnergyCapacity() {
         return 6000;
     }
 

@@ -24,7 +24,7 @@ public class OxygenDistributorBlockEntity extends BaseEnergyContainerBlockEntity
     public void tick() {
         OxygenManager.addOxygenBlocksPerLevel(this.level, this);
 
-        if (getWrappedEnergyContainer().getStoredEnergy() > 0 && oxygenContainer.getOxygenStored() > 0) {
+        if (getEnergy(null).getStoredAmount() > 0 && oxygenContainer.getOxygenStored() > 0) {
             if (this.getItem(1).getItem() instanceof JetSuit.Suit jetSuit) {
                 if (oxygenContainer.removeOxygenStored(100, true) && jetSuit.oxygenContainer.addOxygenStored(100, true)) {
                     oxygenContainer.removeOxygenStored(100, false);
@@ -57,5 +57,10 @@ public class OxygenDistributorBlockEntity extends BaseEnergyContainerBlockEntity
     @Override
     public BlockPos getBlockPosition() {
         return this.getBlockPos();
+    }
+
+    @Override
+    protected int getMaxEnergyCapacity() {
+        return 150000;
     }
 }

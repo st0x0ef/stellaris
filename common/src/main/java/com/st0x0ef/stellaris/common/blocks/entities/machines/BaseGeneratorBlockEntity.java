@@ -1,32 +1,17 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
-import com.st0x0ef.stellaris.common.systems.energy.EnergyApi;
-import com.st0x0ef.stellaris.common.systems.energy.impl.ExtractOnlyEnergyContainer;
-import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedBlockEnergyContainer;
+import com.st0x0ef.stellaris.common.systems.core.energy.impl.SimpleValueStorage;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.Nullable;
 
 public abstract class BaseGeneratorBlockEntity extends BaseEnergyContainerBlockEntity {
 
-    private WrappedBlockEnergyContainer energyContainer;
-
     protected int energyGeneratedPT;
-    private final int maxCapacity;
 
-    public BaseGeneratorBlockEntity(BlockEntityType<?> entityType, BlockPos blockPos, BlockState blockState, int energyGeneratedPT, int maxCapacity) {
+    public BaseGeneratorBlockEntity(BlockEntityType<?> entityType, BlockPos blockPos, BlockState blockState, int energyGeneratedPT) {
         super(entityType, blockPos, blockState);
         this.energyGeneratedPT = energyGeneratedPT;
-        this.maxCapacity = maxCapacity;
-    }
-
-    @Override
-    public final WrappedBlockEnergyContainer getEnergyStorage(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity entity, @Nullable Direction direction) {
-        return energyContainer == null ? energyContainer = new WrappedBlockEnergyContainer(entity, new ExtractOnlyEnergyContainer(maxCapacity, Integer.MAX_VALUE)) : energyContainer;
     }
 
     public int getEnergyGeneratedPT() {
@@ -44,14 +29,14 @@ public abstract class BaseGeneratorBlockEntity extends BaseEnergyContainerBlockE
     @Override
     public void tick() {
         if (canGenerate()) {
-            WrappedBlockEnergyContainer container = getWrappedEnergyContainer();
-            if (container.getStoredEnergy() < container.getMaxCapacity()) {
-                container.setEnergy(container.getStoredEnergy() + energyGeneratedPT);
+            SimpleValueStorage energy = getEnergy(null);
+            if (energy.getStoredAmount() < energy.getCapacity()) {
+                energy.insert(energyGeneratedPT,false);
             }
-            else if (container.getStoredEnergy() > container.getMaxCapacity()) {
-                container.setEnergy(container.getMaxCapacity());
+            else if (energy.getStoredAmount() > energy.getCapacity()) {
+                energy.set(energy.getCapacity());
             }
         }
-        EnergyApi.distributeEnergyNearby(this, 100);
+        //EnergyApi.distributeEnergyNearby(this, 100); TODO add equivalent to this
     }
 }

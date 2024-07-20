@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class RadioactiveGeneratorEntity extends CoalGeneratorEntity {
 
     public RadioactiveGeneratorEntity(BlockPos blockPos, BlockState blockState) {
-        super(BlockEntityRegistry.RADIOACTIVE_GENERATOR.get(), blockPos, blockState, 500, 1000000);
+        super(BlockEntityRegistry.RADIOACTIVE_GENERATOR.get(), blockPos, blockState, 500);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class RadioactiveGeneratorEntity extends CoalGeneratorEntity {
     }
 
     @Override
-    protected int getMaxCapacity() {
+    protected int getMaxEnergyCapacity() {
         return 1000000;
     }
 }

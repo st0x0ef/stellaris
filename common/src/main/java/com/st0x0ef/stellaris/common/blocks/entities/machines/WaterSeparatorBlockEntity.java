@@ -4,6 +4,7 @@ import com.st0x0ef.stellaris.common.data.recipes.WaterSeparatorRecipe;
 import com.st0x0ef.stellaris.common.menus.WaterSeparatorMenu;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.registry.RecipesRegistry;
+import com.st0x0ef.stellaris.common.systems.core.energy.impl.SimpleValueStorage;
 import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedBlockEnergyContainer;
 import dev.architectury.fluid.FluidStack;
 import net.minecraft.Util;
@@ -68,9 +69,9 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity {
         Optional<RecipeHolder<WaterSeparatorRecipe>> recipeHolder = cachedCheck.getRecipeFor(this, level);
         if (recipeHolder.isPresent()) {
             WaterSeparatorRecipe recipe = recipeHolder.get().value();
-            WrappedBlockEnergyContainer energyContainer = getWrappedEnergyContainer();
+            SimpleValueStorage energyContainer = getEnergy(null);
 
-            if (energyContainer.getStoredEnergy() >= recipe.energy()) {
+            if (energyContainer.getStoredAmount() >= recipe.energy()) {
                 List<FluidStack> stacks = recipe.resultStacks();
                 FluidStack stack1 = stacks.getFirst();
                 FluidStack stack2 = stacks.get(1);
@@ -79,7 +80,7 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity {
 
                 if ((tank1.isEmpty() || tank1.getStack().isFluidEqual(stack1)) && (tank2.isEmpty() || tank2.getStack().isFluidEqual(stack2))) {
                     if (tank1.getAmount() + stack1.getAmount() <= tank1.getMaxCapacity() && tank2.getAmount() + stack2.getAmount() <= tank2.getMaxCapacity()) {
-                        energyContainer.extractEnergy(recipe.energy(), false);
+                        energyContainer.extract(recipe.energy(), false);
                         ingredientTank.grow(-recipe.ingredientStack().getAmount());
                         FluidTankHelper.addToTank(tank1, stack1);
                         FluidTankHelper.addToTank(tank2, stack2);
@@ -105,7 +106,7 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity {
     }
 
     @Override
-    protected int getMaxCapacity() {
+    protected int getMaxEnergyCapacity() {
         return 12000;
     }
 

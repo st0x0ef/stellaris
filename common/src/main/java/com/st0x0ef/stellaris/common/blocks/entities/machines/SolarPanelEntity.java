@@ -37,7 +37,7 @@ public class SolarPanelEntity extends BaseGeneratorBlockEntity {
     }
 
     @Override
-    protected int getMaxCapacity() {
+    protected int getMaxEnergyCapacity() {
         return 128000;
     }
 }

@@ -4,9 +4,7 @@ import com.st0x0ef.stellaris.common.blocks.machines.CoalGeneratorBlock;
 import com.st0x0ef.stellaris.common.menus.CoalGeneratorMenu;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.registry.TagRegistry;
-import com.st0x0ef.stellaris.common.systems.energy.EnergyApi;
-import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedBlockEnergyContainer;
-import com.st0x0ef.stellaris.platform.systems.energy.EnergyContainer;
+import com.st0x0ef.stellaris.common.systems.core.energy.impl.SimpleValueStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -54,11 +52,11 @@ public class CoalGeneratorEntity extends BaseGeneratorBlockEntity {
     };
 
     public CoalGeneratorEntity(BlockPos blockPos, BlockState blockState) {
-        this(BlockEntityRegistry.COAL_GENERATOR.get(), blockPos, blockState, 3, 30000);
+        this(BlockEntityRegistry.COAL_GENERATOR.get(), blockPos, blockState, 3);
     }
 
-    public CoalGeneratorEntity(BlockEntityType<?> entityType, BlockPos blockPos, BlockState blockState, int energyGeneratedPT, int maxCapacity) {
-        super(entityType, blockPos, blockState, energyGeneratedPT, maxCapacity);
+    public CoalGeneratorEntity(BlockEntityType<?> entityType, BlockPos blockPos, BlockState blockState, int energyGeneratedPT) {
+        super(entityType, blockPos, blockState, energyGeneratedPT);
     }
 
     @Override
@@ -67,7 +65,7 @@ public class CoalGeneratorEntity extends BaseGeneratorBlockEntity {
     }
 
     public void tick() {
-        WrappedBlockEnergyContainer energyContainer = getWrappedEnergyContainer();
+        SimpleValueStorage energyContainer = getEnergy(null);
         boolean wasLit = isLit();
         boolean shouldUpdate = false;
 
@@ -101,15 +99,15 @@ public class CoalGeneratorEntity extends BaseGeneratorBlockEntity {
         }
 
         if (isLit()) {
-            if (energyContainer.getStoredEnergy() < energyContainer.getMaxCapacity()) {
-                energyContainer.setEnergy(energyContainer.getStoredEnergy() + getEnergyGeneratedPT());
+            if (energyContainer.getStoredAmount() < energyContainer.getCapacity()) {
+                energyContainer.insert(getEnergyGeneratedPT(), false);
             }
-            else if (energyContainer.getStoredEnergy() > energyContainer.getMaxCapacity()) {
-                energyContainer.setEnergy(energyContainer.getMaxCapacity());
+            else if (energyContainer.getStoredAmount() > energyContainer.getCapacity()) {
+                energyContainer.set(energyContainer.getCapacity());
             }
         }
 
-        EnergyApi.distributeEnergyNearby(this,100);
+        //EnergyApi.distributeEnergyNearby(this,100);
     }
 
     protected int getBurnDuration(ItemStack fuelStack) {
@@ -126,8 +124,8 @@ public class CoalGeneratorEntity extends BaseGeneratorBlockEntity {
 
     @Override
     public boolean canGenerate() {
-        EnergyContainer energyContainer = getWrappedEnergyContainer();
-        boolean isMaxEnergy = energyContainer.getStoredEnergy()==energyContainer.getMaxCapacity();
+        SimpleValueStorage energyContainer = getEnergy(null);
+        boolean isMaxEnergy = energyContainer.getStoredAmount()==energyContainer.getCapacity();
         return isLit() && !isMaxEnergy;
     }
 
@@ -154,7 +152,7 @@ public class CoalGeneratorEntity extends BaseGeneratorBlockEntity {
     }
 
     @Override
-    protected int getMaxCapacity() {
+    protected int getMaxEnergyCapacity() {
         return 128000;
     }
 }

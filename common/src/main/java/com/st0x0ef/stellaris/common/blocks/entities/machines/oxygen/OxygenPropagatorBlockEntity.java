@@ -21,8 +21,8 @@ public class OxygenPropagatorBlockEntity extends BaseEnergyBlockEntity implement
     }
 
     @Override
-    public int getMaxCapacity() {
-        return 6000;
+    public int getMaxEnergyCapacity() {
+        return 18000;
     }
 
     @Override
