@@ -4,7 +4,7 @@ import com.mojang.serialization.MapCodec;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.CableBlockEntity;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.registry.TagRegistry;
-import com.st0x0ef.stellaris.common.systems.energy.base.EnergyBlock;
+import com.st0x0ef.stellaris.common.systems.core.energy.EnergyApi;
 import com.st0x0ef.stellaris.platform.CableUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -85,7 +85,7 @@ public class CableBlock extends BaseTickingEntityBlock {
 
     private boolean isConnectable(BlockEntity blockEntity,BlockEntity blockEntityTo, BlockState blockStateTo, Direction direction) {
         return blockStateTo.is(this) || blockStateTo.is(TagRegistry.ENERGY_BLOCK_TAG) ||
-                blockEntityTo instanceof EnergyBlock<?> || CableUtil.isEnergyContainer(blockEntityTo, direction);
+                 CableUtil.isEnergyContainer(blockEntityTo, direction) || EnergyApi.BLOCK.isPresent(blockEntity, direction);
     }
 
     @Override

@@ -41,7 +41,7 @@ public class SolarPanelScreen extends AbstractContainerScreen<SolarPanelMenu> {
             return;
         }
 
-        energyGauge = new Gauge(leftPos + 108, topPos + 69, 13, 47, Component.translatable("stellaris.screen.energy"), GUISprites.ENERGY_FULL, null, (int) menu.getEnergyContainer().getStoredEnergy(), (int) menu.getEnergyContainer().getMaxCapacity());
+        energyGauge = new Gauge(leftPos + 108, topPos + 69, 13, 47, Component.translatable("stellaris.screen.energy"), GUISprites.ENERGY_FULL, null, (int) menu.getEnergyContainer().getStoredAmount(), (int) menu.getEnergyContainer().getCapacity());
         addRenderableWidget(energyGauge);
     }
 
@@ -55,7 +55,7 @@ public class SolarPanelScreen extends AbstractContainerScreen<SolarPanelMenu> {
             return;
         }
 
-        energyGauge.update(blockEntity.getWrappedEnergyContainer().getStoredEnergy());
+        energyGauge.update(blockEntity.getEnergy(null).getStoredAmount());
     }
 
     @Override

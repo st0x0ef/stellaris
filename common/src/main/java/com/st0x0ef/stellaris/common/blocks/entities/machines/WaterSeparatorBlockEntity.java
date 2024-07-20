@@ -5,7 +5,6 @@ import com.st0x0ef.stellaris.common.menus.WaterSeparatorMenu;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.registry.RecipesRegistry;
 import com.st0x0ef.stellaris.common.systems.core.energy.impl.SimpleValueStorage;
-import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedBlockEnergyContainer;
 import dev.architectury.fluid.FluidStack;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;

@@ -42,7 +42,7 @@ public record FluidConsumer(SizedFluidIngredient ingredient, Component name) imp
     public ItemStack modifyDisplay(ItemStack stack) {
         ItemLore lore = stack.getOrDefault(DataComponents.LORE, ItemLore.EMPTY);
         lore = lore.withLineAdded(Component.translatable("misc.common_storage_lib.consume", Component.translatable("misc.common_storage_lib.fluid", Component.literal(String.valueOf(ingredient.getAmountAsMb())), name).withStyle(ChatFormatting.AQUA)).withStyle(ChatFormatting.GRAY));
-        stack.set(DataComponents.LORE, lore);
+        stack.set(DataComponents.LORE, lore); //TODO add translations ^
         return stack;
     }
 

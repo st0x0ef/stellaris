@@ -1,4 +1,4 @@
-package com.st0x0ef.stellaris.common.systems.core.impl.noops;
+package com.st0x0ef.stellaris.common.systems.core.item.impl.noops;
 
 import com.st0x0ef.stellaris.common.systems.core.storage.base.CommonStorage;
 import com.st0x0ef.stellaris.common.systems.core.storage.base.StorageSlot;

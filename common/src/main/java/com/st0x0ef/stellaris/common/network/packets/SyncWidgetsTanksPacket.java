@@ -75,7 +75,7 @@ public class SyncWidgetsTanksPacket implements CustomPacketPayload {
                     blockEntity.ingredientTank.setFluid(BuiltInRegistries.FLUID.get(syncWidgetsTanks.locations[0]), syncWidgetsTanks.component[0]);
                 }
                 else if (syncWidgetsTanks.component.length == 3) {
-                    blockEntity.getWrappedEnergyContainer().setEnergy(syncWidgetsTanks.component[0]);
+                    blockEntity.getEnergy().set(syncWidgetsTanks.component[0]);
                 }
             }
             case FuelRefineryMenu menu -> {
@@ -85,16 +85,16 @@ public class SyncWidgetsTanksPacket implements CustomPacketPayload {
                     blockEntity.getResultTank().setFluid(BuiltInRegistries.FLUID.get(syncWidgetsTanks.locations[1]), syncWidgetsTanks.component[1]);
                 }
                 else if (syncWidgetsTanks.component.length == 1) {
-                    blockEntity.getWrappedEnergyContainer().setEnergy(syncWidgetsTanks.component[0]);
+                    blockEntity.getEnergy().set(syncWidgetsTanks.component[0]);
                 }
             }
-            case SolarPanelMenu menu -> menu.getEnergyContainer().setEnergy(syncWidgetsTanks.component[0]);
+            case SolarPanelMenu menu -> menu.getEnergyContainer().set(syncWidgetsTanks.component[0]);
             case CoalGeneratorMenu menu ->
-                    menu.getBlockEntity().getWrappedEnergyContainer().setEnergy(syncWidgetsTanks.component[0]);
+                    menu.getBlockEntity().getEnergy().set(syncWidgetsTanks.component[0]);
             case RadioactiveGeneratorMenu menu ->
-                    menu.getBlockEntity().getWrappedEnergyContainer().setEnergy(syncWidgetsTanks.component[0]);
+                    menu.getBlockEntity().getEnergy().set(syncWidgetsTanks.component[0]);
             case OxygenDistributorMenu menu ->
-                    menu.getBlockEntity().getWrappedEnergyContainer().setEnergy(syncWidgetsTanks.component[0]);
+                    menu.getBlockEntity().getEnergy().set(syncWidgetsTanks.component[0]);
             default -> {
             }
         }

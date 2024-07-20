@@ -5,7 +5,7 @@ import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.components.Gauge;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.RadioactiveGeneratorEntity;
 import com.st0x0ef.stellaris.common.menus.RadioactiveGeneratorMenu;
-import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedBlockEnergyContainer;
+import com.st0x0ef.stellaris.common.systems.core.energy.impl.SimpleValueStorage;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.GuiGraphics;
@@ -42,8 +42,8 @@ public class RadioactiveGeneratorScreen extends AbstractContainerScreen<Radioact
             return;
         }
 
-        WrappedBlockEnergyContainer energyStorage = blockEntity.getWrappedEnergyContainer();
-        energyGauge = new Gauge(leftPos + 147, topPos + 51, 13, 49, Component.translatable("stellaris.screen.energy"), GUISprites.ENERGY_FULL, GUISprites.BATTERY_OVERLAY, (int) energyStorage.getStoredEnergy(), (int) energyStorage.getMaxCapacity());
+        SimpleValueStorage energyStorage = blockEntity.getEnergy(null);
+        energyGauge = new Gauge(leftPos + 147, topPos + 51, 13, 49, Component.translatable("stellaris.screen.energy"), GUISprites.ENERGY_FULL, GUISprites.BATTERY_OVERLAY, (int) energyStorage.getStoredAmount(), (int) energyStorage.getCapacity());
         addRenderableWidget(energyGauge);
     }
 
@@ -57,7 +57,7 @@ public class RadioactiveGeneratorScreen extends AbstractContainerScreen<Radioact
             return;
         }
 
-        energyGauge.update(blockEntity.getWrappedEnergyContainer().getStoredEnergy());
+        energyGauge.update(blockEntity.getEnergy(null).getStoredAmount());
     }
 
     @Override

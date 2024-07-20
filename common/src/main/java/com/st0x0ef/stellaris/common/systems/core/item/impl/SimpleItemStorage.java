@@ -1,4 +1,4 @@
-package com.st0x0ef.stellaris.common.systems.core.impl;
+package com.st0x0ef.stellaris.common.systems.core.item.impl;
 
 import com.st0x0ef.stellaris.common.systems.core.context.ItemContext;
 import com.st0x0ef.stellaris.common.systems.core.item.util.ItemStorageData;

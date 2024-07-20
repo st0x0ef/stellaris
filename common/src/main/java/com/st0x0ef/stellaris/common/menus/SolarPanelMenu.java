@@ -3,7 +3,7 @@ package com.st0x0ef.stellaris.common.menus;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.SolarPanelEntity;
 import com.st0x0ef.stellaris.common.network.packets.SyncWidgetsTanksPacket;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
-import com.st0x0ef.stellaris.platform.systems.energy.EnergyContainer;
+import com.st0x0ef.stellaris.common.systems.core.energy.impl.SimpleValueStorage;
 import dev.architectury.networking.NetworkManager;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
@@ -94,14 +94,14 @@ public class SolarPanelMenu extends AbstractContainerMenu {
         }
     }
 
-    public EnergyContainer getEnergyContainer() {
-        return this.entity.getWrappedEnergyContainer();
+    public SimpleValueStorage getEnergyContainer() {
+        return this.entity.getEnergy();
     }
 
     public void syncBattery(ServerPlayer player) {
         if (!player.level().isClientSide()) {
 
-            NetworkManager.sendToPlayer(player, new SyncWidgetsTanksPacket(new long[] {getEnergyContainer().getStoredEnergy()}));
+            NetworkManager.sendToPlayer(player, new SyncWidgetsTanksPacket(new long[] {getEnergyContainer().getStoredAmount()}));
         }
     }
 }

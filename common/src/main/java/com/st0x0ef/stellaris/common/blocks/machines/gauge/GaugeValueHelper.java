@@ -1,8 +1,9 @@
 package com.st0x0ef.stellaris.common.blocks.machines.gauge;
 
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedBlockEnergyContainer;
-import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedItemEnergyContainer;
+import com.st0x0ef.stellaris.common.systems.core.energy.EnergyProvider;
+import com.st0x0ef.stellaris.common.systems.core.energy.impl.SimpleValueStorage;
+import com.st0x0ef.stellaris.common.systems.core.storage.base.ValueStorage;
 import net.minecraft.resources.ResourceLocation;
 
 public class GaugeValueHelper
@@ -66,12 +67,16 @@ public class GaugeValueHelper
         return new GaugeValueSimple(ENERGY_NAME, stored, capacity, null, ENERGY_UNIT).color(ENERGY_COLOR);
     }
 
-    public static IGaugeValue getEnergy(WrappedItemEnergyContainer energyStorage) {
-        return getEnergy(energyStorage.getStoredEnergy(), energyStorage.getMaxCapacity());
+//    public static IGaugeValue getEnergy(WrappedItemEnergyContainer energyStorage) {
+//        return getEnergy(energyStorage.getStoredEnergy(), energyStorage.getMaxCapacity()); todo check if an item variant is needed
+//    }
+
+    public static IGaugeValue getEnergy(ValueStorage energy) {
+        return getEnergy(energy.getStoredAmount(), energy.getCapacity());
     }
 
-    public static IGaugeValue getEnergy(WrappedBlockEnergyContainer blockEntity) {
-        return getEnergy(blockEntity.getStoredEnergy(), blockEntity.getMaxCapacity());
+    public static IGaugeValue getEnergy(EnergyProvider.BlockEntity blockEntity) {
+        return getEnergy(blockEntity.getEnergy(null));
     }
 
 //    public static IGaugeValue getOxygen(int amount) {
@@ -106,8 +111,8 @@ public class GaugeValueHelper
         return new GaugeValueSimple(BURNTIME_NAME, amount, capacity).color(BURNTIME_COLOR);
     }
 
-    public static IGaugeValue getBurnTime(WrappedBlockEnergyContainer fuelPowerSystem) {
-        return getBurnTime(fuelPowerSystem.getStoredEnergy(), fuelPowerSystem.getMaxCapacity());
+    public static IGaugeValue getBurnTime(SimpleValueStorage fuelPowerSystem) {
+        return getBurnTime(fuelPowerSystem.getStoredAmount(), fuelPowerSystem.getCapacity());
     }
 
     public static IGaugeValue getCookTime(int timer, int maxTimer) {

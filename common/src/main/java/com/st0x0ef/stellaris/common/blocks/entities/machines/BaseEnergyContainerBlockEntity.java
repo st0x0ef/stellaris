@@ -73,4 +73,8 @@ public abstract class BaseEnergyContainerBlockEntity extends BaseContainerBlockE
     public SimpleValueStorage getEnergy(@Nullable Direction direction) {
         return energy;
     }
+
+    public SimpleValueStorage getEnergy() {
+        return getEnergy(null);
+    }
 }

@@ -6,7 +6,7 @@ import com.st0x0ef.stellaris.client.screens.components.Gauge;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.FluidTank;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.FuelRefineryBlockEntity;
 import com.st0x0ef.stellaris.common.menus.FuelRefineryMenu;
-import com.st0x0ef.stellaris.platform.systems.energy.EnergyContainer;
+import com.st0x0ef.stellaris.common.systems.core.energy.impl.SimpleValueStorage;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -46,8 +46,8 @@ public class FuelRefineryScreen extends AbstractContainerScreen<FuelRefineryMenu
         resultTankGauge = new Gauge(leftPos + 100, topPos + 22, 12, 46, Component.translatable("stellaris.screen.fuel"), GUISprites.FUEL_OVERLAY, GUISprites.LIQUID_TANK_OVERLAY, resultTank.getAmount(), resultTank.getMaxCapacity());
         addRenderableWidget(resultTankGauge);
 
-        EnergyContainer energyContainer = blockEntity.getWrappedEnergyContainer().container();
-        energyGauge = new Gauge(leftPos + 150, topPos + 21, 13, 47, Component.translatable("stellaris.screen.energy"), GUISprites.ENERGY_FULL, GUISprites.BATTERY_OVERLAY, (int) energyContainer.getStoredEnergy(), (int) energyContainer.getMaxCapacity());
+        SimpleValueStorage energyContainer = blockEntity.getEnergy(null);
+        energyGauge = new Gauge(leftPos + 150, topPos + 21, 13, 47, Component.translatable("stellaris.screen.energy"), GUISprites.ENERGY_FULL, GUISprites.BATTERY_OVERLAY, (int) energyContainer.getStoredAmount(), (int) energyContainer.getCapacity());
         addRenderableWidget(energyGauge);
     }
 
@@ -63,7 +63,7 @@ public class FuelRefineryScreen extends AbstractContainerScreen<FuelRefineryMenu
 
         ingredientTankGauge.update(blockEntity.getIngredientTank().getAmount());
         resultTankGauge.update(blockEntity.getResultTank().getAmount());
-        energyGauge.update(blockEntity.getWrappedEnergyContainer().getStoredEnergy());
+        energyGauge.update(blockEntity.getEnergy(null).getStoredAmount());
     }
 
     @Override

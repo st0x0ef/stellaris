@@ -37,7 +37,7 @@ public record EnergyConsumer(long energy) implements ItemConsumer {
     public ItemStack modifyDisplay(ItemStack stack) {
         ItemLore lore = stack.getOrDefault(DataComponents.LORE, ItemLore.EMPTY);
         lore = lore.withLineAdded(Component.translatable("misc.common_storage_lib.consume", Component.translatable("misc.common_storage_lib.energy", Component.literal(String.valueOf(energy)).withStyle(ChatFormatting.DARK_RED)).withStyle(ChatFormatting.RED)).withStyle(ChatFormatting.GRAY));
-        stack.set(DataComponents.LORE, lore);
+        stack.set(DataComponents.LORE, lore); //TODO add translations ^
         return stack;
     }
 

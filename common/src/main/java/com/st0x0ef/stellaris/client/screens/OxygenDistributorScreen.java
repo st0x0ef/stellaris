@@ -5,7 +5,7 @@ import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.components.Gauge;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.oxygen.OxygenDistributorBlockEntity;
 import com.st0x0ef.stellaris.common.menus.OxygenDistributorMenu;
-import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedBlockEnergyContainer;
+import com.st0x0ef.stellaris.common.systems.core.energy.impl.SimpleValueStorage;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.GuiGraphics;
@@ -36,8 +36,8 @@ public class OxygenDistributorScreen extends AbstractContainerScreen<OxygenDistr
 
         if (blockEntity == null) return;
 
-        WrappedBlockEnergyContainer energyContainer = blockEntity.getWrappedEnergyContainer();
-        energyGauge = new Gauge(leftPos + 147, topPos + 55, 13, 48, Component.translatable("stellaris.screen.energy"), GUISprites.ENERGY_FULL, GUISprites.BATTERY_OVERLAY, (int) energyContainer.getStoredEnergy(), (int) energyContainer.getMaxCapacity());
+        SimpleValueStorage energyContainer = blockEntity.getEnergy(null);
+        energyGauge = new Gauge(leftPos + 147, topPos + 55, 13, 48, Component.translatable("stellaris.screen.energy"), GUISprites.ENERGY_FULL, GUISprites.BATTERY_OVERLAY, (int) energyContainer.getStoredAmount(), (int) energyContainer.getCapacity());
         addRenderableWidget(energyGauge);
     }
 
@@ -51,7 +51,7 @@ public class OxygenDistributorScreen extends AbstractContainerScreen<OxygenDistr
             return;
         }
 
-        energyGauge.update(blockEntity.getWrappedEnergyContainer().getStoredEnergy());
+        energyGauge.update(blockEntity.getEnergy(null).getStoredAmount());
     }
 
     @Override

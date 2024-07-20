@@ -1,4 +1,4 @@
-package com.st0x0ef.stellaris.common.systems.core.impl.vanilla;
+package com.st0x0ef.stellaris.common.systems.core.item.impl.vanilla;
 
 import com.st0x0ef.stellaris.common.systems.core.storage.base.StorageSlot;
 import com.st0x0ef.stellaris.common.systems.core.storage.base.UpdateManager;

@@ -1,7 +1,7 @@
 package com.st0x0ef.stellaris.common.systems.core.context.impl;
 
 import com.st0x0ef.stellaris.common.systems.core.context.ItemContext;
-import com.st0x0ef.stellaris.common.systems.core.impl.vanilla.PlayerContainer;
+import com.st0x0ef.stellaris.common.systems.core.item.impl.vanilla.PlayerContainer;
 import com.st0x0ef.stellaris.common.systems.core.storage.base.StorageSlot;
 import com.st0x0ef.stellaris.common.systems.resources.item.ItemResource;
 import net.minecraft.world.InteractionHand;
