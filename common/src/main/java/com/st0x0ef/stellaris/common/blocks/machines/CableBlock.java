@@ -5,7 +5,7 @@ import com.st0x0ef.stellaris.common.blocks.entities.machines.CableBlockEntity;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.registry.TagRegistry;
 import com.st0x0ef.stellaris.common.systems.energy.base.EnergyBlock;
-import com.st0x0ef.stellaris.platform.systems.energy.CableUtil;
+import com.st0x0ef.stellaris.platform.CableUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;

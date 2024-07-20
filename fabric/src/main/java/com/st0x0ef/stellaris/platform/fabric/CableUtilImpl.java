@@ -1,4 +1,4 @@
-package com.st0x0ef.stellaris.platform.systems.energy.fabric;
+package com.st0x0ef.stellaris.platform.fabric;
 
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.entity.BlockEntity;

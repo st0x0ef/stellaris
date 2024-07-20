@@ -1,4 +1,4 @@
-package com.st0x0ef.stellaris.platform.systems.energy.neoforge;
+package com.st0x0ef.stellaris.platform.neoforge;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

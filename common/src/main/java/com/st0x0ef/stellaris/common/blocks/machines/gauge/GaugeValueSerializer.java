@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.common.blocks.machines.gauge;
 
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.systems.util.Serializable;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -11,7 +10,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class GaugeValueSerializer<T extends Serializable> {
+public class GaugeValueSerializer<T extends GaugeSerializable> {
     public static final GaugeValueSerializer Serializer = new GaugeValueSerializer<>();
 
     static {
