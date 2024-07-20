@@ -68,6 +68,7 @@ public class Stellaris {
         BiomeModificationsRegistry.register();
         Events.registerEvents();
         RecipesRegistry.register();
+        DATA_MANAGER_REGISTRY.init();
         CommonStorageLib.init();
 
         ReloadListenerRegistry.register(PackType.SERVER_DATA, new StellarisData());

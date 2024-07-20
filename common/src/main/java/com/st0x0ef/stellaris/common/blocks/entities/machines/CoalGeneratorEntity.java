@@ -4,6 +4,7 @@ import com.st0x0ef.stellaris.common.blocks.machines.CoalGeneratorBlock;
 import com.st0x0ef.stellaris.common.menus.CoalGeneratorMenu;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.registry.TagRegistry;
+import com.st0x0ef.stellaris.common.systems.core.energy.EnergyUtils;
 import com.st0x0ef.stellaris.common.systems.core.energy.impl.SimpleValueStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -107,7 +108,7 @@ public class CoalGeneratorEntity extends BaseGeneratorBlockEntity {
             }
         }
 
-        //EnergyApi.distributeEnergyNearby(this,100);
+        EnergyUtils.distributeEnergyNearby(this,500);
     }
 
     protected int getBurnDuration(ItemStack fuelStack) {
