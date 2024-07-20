@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.fabric.client;
 
 import com.st0x0ef.stellaris.client.StellarisClient;
+import com.st0x0ef.stellaris.fabric.systems.data.FabricDataLibClient;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 
@@ -12,5 +13,7 @@ public class StellarisFabricClient implements ClientModInitializer {
         StellarisClient.registerEntityModelLayer();
 
         WorldRenderEvents.AFTER_ENTITIES.register(FabricSkyRenderer::renderSky);
+
+        new FabricDataLibClient().onInitializeClient();
     }
 }

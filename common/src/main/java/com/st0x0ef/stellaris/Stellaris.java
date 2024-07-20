@@ -3,7 +3,7 @@ package com.st0x0ef.stellaris;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.ToNumberPolicy;
-import com.st0x0ef.stellaris.client.StellarisClient;
+import com.mojang.serialization.Codec;
 import com.st0x0ef.stellaris.client.skys.record.SkyPropertiesData;
 import com.st0x0ef.stellaris.common.config.CustomConfig;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
@@ -14,8 +14,14 @@ import com.st0x0ef.stellaris.common.events.Events;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import com.st0x0ef.stellaris.common.network.packets.SyncPlanetsDatapackPacket;
 import com.st0x0ef.stellaris.common.registry.*;
+import com.st0x0ef.stellaris.common.systems.core.CommonStorageLib;
+import com.st0x0ef.stellaris.common.systems.core.fluid.util.FluidStorageData;
+import com.st0x0ef.stellaris.common.systems.core.item.util.ItemStorageData;
+import com.st0x0ef.stellaris.common.systems.data.DataManager;
+import com.st0x0ef.stellaris.common.systems.data.DataManagerRegistry;
 import dev.architectury.networking.NetworkManager;
 import dev.architectury.registry.ReloadListenerRegistry;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
@@ -32,6 +38,11 @@ public class Stellaris {
             .setPrettyPrinting()
             .setObjectToNumberStrategy(ToNumberPolicy.LONG_OR_DOUBLE)
             .create();
+
+    public static final DataManagerRegistry DATA_MANAGER_REGISTRY = new DataManagerRegistry(MODID);
+    public static final DataManager<FluidStorageData> FLUID_CONTENTS = DATA_MANAGER_REGISTRY.builder(FluidStorageData.DEFAULT).serialize(FluidStorageData.CODEC).networkSerializer(FluidStorageData.NETWORK_CODEC).withDataComponent().copyOnDeath().buildAndRegister("fluids");
+    public static final DataManager<ItemStorageData> ITEM_CONTENTS = DATA_MANAGER_REGISTRY.builder(ItemStorageData.DEFAULT).serialize(ItemStorageData.CODEC).networkSerializer(ItemStorageData.NETWORK_CODEC).withDataComponent().copyOnDeath().buildAndRegister("items");
+    public static final DataManager<Long> VALUE_CONTENT = DATA_MANAGER_REGISTRY.builder(() -> 0L).serialize(Codec.LONG).networkSerializer(ByteBufCodecs.VAR_LONG).withDataComponent().copyOnDeath().buildAndRegister("energy");
 
     public static void init() {
         CustomConfig.init();
@@ -56,8 +67,8 @@ public class Stellaris {
         CommandsRegistry.register();
         BiomeModificationsRegistry.register();
         Events.registerEvents();
-        LookupApiRegistry.registerEnergy();
         RecipesRegistry.register();
+        CommonStorageLib.init();
 
         ReloadListenerRegistry.register(PackType.SERVER_DATA, new StellarisData());
     }

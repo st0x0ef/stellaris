@@ -3,7 +3,9 @@ package com.st0x0ef.stellaris.neoforge;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import com.st0x0ef.stellaris.neoforge.client.StellarisNeoforgeClient;
-import com.st0x0ef.stellaris.neoforge.systems.SystemsNeoForge;
+import com.st0x0ef.stellaris.neoforge.systems.data.NeoDataLib;
+import com.st0x0ef.stellaris.neoforge.systems.lookup.NeoLookupLib;
+import com.st0x0ef.stellaris.neoforge.systems.resources.NeoResourceLib;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.loading.FMLEnvironment;
@@ -20,8 +22,9 @@ public class StellarisNeoForge {
         NeoForge.EVENT_BUS.addListener(StellarisNeoForge::onDatapackSync);
         //NeoForge.EVENT_BUS.addListener(SkyRendererNeoForge::RenderWorldSky);
         bus.addListener(StellarisNeoForge::onAttributes);
-        SystemsNeoForge.init(bus);
-
+        new NeoDataLib(bus);
+        new NeoLookupLib(bus);
+        new NeoResourceLib();
         if (FMLEnvironment.dist.isClient()) {
             bus.addListener(StellarisNeoforgeClient::clientSetup);
         }

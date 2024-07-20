@@ -19,7 +19,8 @@
     "rei_client": [ "com.st0x0ef.stellaris.common.compats.REIClient" ]
   },
   "mixins": [
-    "stellaris-common.mixins.json"
+    "stellaris-common.mixins.json",
+    "stellaris-fabric-systems.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.15.11",
