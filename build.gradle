@@ -26,6 +26,7 @@ subprojects {
         maven { url "https://maven.terraformersmc.com/releases" }
         maven { url "https://maven.parchmentmc.org" }
         maven { url "https://maven.neoforged.net/releases" }
+        maven { url "https://maven.msrandom.net/repository/root" }
     }
 
     dependencies {
@@ -38,6 +39,9 @@ subprojects {
 
         modCompileOnly "me.shedaniel:RoughlyEnoughItems-api:${rootProject.rei_version}"
         modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin:${rootProject.rei_version}"
+
+        annotationProcessor "net.msrandom:multiplatform-processor:1.0.7"
+        compileOnly "net.msrandom:multiplatform-annotations:1.0.0"
 
     }
 
