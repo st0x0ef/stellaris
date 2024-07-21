@@ -47,6 +47,7 @@ public class Stellaris {
     public static void init() {
         CustomConfig.init();
 
+        DATA_MANAGER_REGISTRY.init();
         ProcessorsRegistry.STRUCTURE_PROCESSORS.register();
         EntityData.register();
         NetworkRegistry.init();
@@ -60,6 +61,7 @@ public class Stellaris {
         EntityRegistry.SENSOR.register();
         BlockEntityRegistry.BLOCK_ENTITY_TYPE.register();
         ItemsRegistry.ITEMS.register();
+        CommonStorageLib.init();
         ArmorMaterialsRegistry.ARMOR_MATERIAL.register();
         CreativeTabsRegistry.TABS.register();
         MenuTypesRegistry.MENU_TYPE.register();
@@ -68,8 +70,6 @@ public class Stellaris {
         BiomeModificationsRegistry.register();
         Events.registerEvents();
         RecipesRegistry.register();
-        DATA_MANAGER_REGISTRY.init();
-        CommonStorageLib.init();
 
         ReloadListenerRegistry.register(PackType.SERVER_DATA, new StellarisData());
     }
