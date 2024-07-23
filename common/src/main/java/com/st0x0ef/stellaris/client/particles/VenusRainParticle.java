@@ -1,14 +1,12 @@
 package com.st0x0ef.stellaris.client.particles;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.SimpleParticleType;
 
-@Environment(EnvType.CLIENT)
 public class VenusRainParticle extends TextureSheetParticle {
     private final SpriteSet spriteSet;
     private final float angularVelocity;
@@ -65,8 +63,7 @@ public class VenusRainParticle extends TextureSheetParticle {
         }
     }
 
-    @Environment(EnvType.CLIENT)
-    public static class ParticleFactory implements ParticleProvider<SimpleParticleType> {
+        public static class ParticleFactory implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet spriteSet;
 
         public ParticleFactory(SpriteSet  spriteSet) {

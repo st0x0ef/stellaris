@@ -5,7 +5,7 @@ import com.st0x0ef.stellaris.common.blocks.entities.machines.WaterSeparatorBlock
 import com.st0x0ef.stellaris.common.menus.*;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import dev.architectury.networking.NetworkManager;
-import net.fabricmc.api.EnvType;
+import dev.architectury.utils.Env;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -59,7 +59,7 @@ public class SyncWidgetsTanksPacket implements CustomPacketPayload {
 
 
     public static void handle(SyncWidgetsTanksPacket syncWidgetsTanks, NetworkManager.PacketContext context) {
-        if (context.getEnv() != EnvType.CLIENT) {
+        if (context.getEnvironment() == Env.CLIENT) {
             return;
         }
 

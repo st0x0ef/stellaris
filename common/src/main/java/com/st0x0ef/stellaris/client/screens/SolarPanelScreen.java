@@ -5,8 +5,7 @@ import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.components.Gauge;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.SolarPanelEntity;
 import com.st0x0ef.stellaris.common.menus.SolarPanelMenu;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -17,7 +16,6 @@ import net.minecraft.world.entity.player.Inventory;
 import java.util.ArrayList;
 import java.util.List;
 
-@Environment(EnvType.CLIENT)
 public class SolarPanelScreen extends AbstractContainerScreen<SolarPanelMenu> {
 
     public static final ResourceLocation TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/solar_panel.png");

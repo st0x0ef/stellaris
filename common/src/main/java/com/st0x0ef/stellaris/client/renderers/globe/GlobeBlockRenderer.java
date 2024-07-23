@@ -6,8 +6,7 @@ import com.mojang.math.Axis;
 import com.st0x0ef.stellaris.common.blocks.GlobeBlock;
 import com.st0x0ef.stellaris.common.blocks.entities.GlobeBlockEntity;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -18,7 +17,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 
-@Environment(EnvType.CLIENT)
 public class GlobeBlockRenderer<T extends GlobeBlockEntity> implements BlockEntityRenderer<GlobeBlockEntity> {
 
     private static ItemStack stack1 = new ItemStack(ItemsRegistry.EARTH_GLOBE_ITEM);

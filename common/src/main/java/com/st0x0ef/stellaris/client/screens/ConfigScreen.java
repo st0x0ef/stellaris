@@ -4,8 +4,7 @@ import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.config.ConfigEntry;
 import com.st0x0ef.stellaris.common.config.CustomConfig;
 import dev.architectury.platform.Platform;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+
 import net.minecraft.Util;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.*;
@@ -20,7 +19,6 @@ import net.minecraft.resources.ResourceLocation;
 
 import java.nio.file.Path;
 
-@Environment(EnvType.CLIENT)
 public class ConfigScreen extends Screen {
     private final Screen parent;
     public ConfigScreen(Screen parent) {

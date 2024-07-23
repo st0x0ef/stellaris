@@ -4,8 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
 import com.st0x0ef.stellaris.common.menus.MilkyWayMenu;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -16,7 +15,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import org.lwjgl.glfw.GLFW;
 
-@Environment(EnvType.CLIENT)
 public class MilkyWayScreen extends AbstractContainerScreen<MilkyWayMenu> {
     public static final ResourceLocation MILKY_WAY_TEXTURE = new ResourceLocation(Stellaris.MODID,
             "textures/environment/milky_way.png");

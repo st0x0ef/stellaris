@@ -1,9 +1,8 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.systems.core.energy.EnergyProvider;
-import com.st0x0ef.stellaris.common.systems.core.energy.impl.SimpleValueStorage;
-import com.st0x0ef.stellaris.common.systems.core.storage.base.ValueStorage;
+import com.st0x0ef.stellaris.platform.systems.core.energy.EnergyProvider;
+import com.st0x0ef.stellaris.platform.systems.core.energy.impl.SimpleValueStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -43,6 +42,7 @@ public abstract class BaseEnergyBlockEntity extends BlockEntity implements Energ
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
         super.saveAdditional(tag, provider);
         tag.putLong(ENERGY_TAG, energy.getStoredAmount());
+        energy.createSnapshot();
     }
 
     @Override

@@ -53,8 +53,14 @@ dependencies {
     modApi "com.terraformersmc:modmenu:10.0.0-beta.1"
     include modApi('teamreborn:energy:4.0.1') { transitive = false }
     modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rootProject.rei_version}"
-    common(project(path: ":common", configuration: "namedElements")) { transitive false }
-    shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
+
+    //common(project(path: ":common", configuration: "namedElements")) { transitive false }
+    //shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
+
+    //this is for the annotation processor
+    if (System.getProperty("idea.sync.active", "false").toBoolean()) {
+        compileOnly(project(path: ':common', configuration: 'namedElements'))
+    }
 }
 
 processResources {
@@ -62,6 +68,14 @@ processResources {
 
     filesMatching("fabric.mod.json") {
         expand "version": project.version
+    }
+}
+
+//this is for the annotation processor
+sourceSets {
+    main {
+        java.srcDirs += project(':common').sourceSets.main.java.srcDirs
+        resources.srcDirs += project(':common').sourceSets.main.resources.srcDirs
     }
 }
 

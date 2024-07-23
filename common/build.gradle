@@ -12,6 +12,11 @@ dependencies {
     modApi "dev.architectury:architectury:${rootProject.architectury_version}"
 }
 
+//this is for the annotation processor
+tasks.compileJava {
+    options.compilerArgs.add("-AgenerateExpectStubs")
+}
+
 publishing {
     publications {
         mavenCommon(MavenPublication) {

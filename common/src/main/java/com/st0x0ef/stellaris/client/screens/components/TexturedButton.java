@@ -3,8 +3,7 @@ package com.st0x0ef.stellaris.client.screens.components;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -14,7 +13,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
 
-@Environment(EnvType.CLIENT)
 public class TexturedButton extends Button {
     private ResourceLocation buttonTexture;
     private ResourceLocation hoverButtonTexture;

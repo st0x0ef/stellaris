@@ -1,9 +1,9 @@
 package com.st0x0ef.stellaris.common.blocks.machines.gauge;
 
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.systems.core.energy.EnergyProvider;
-import com.st0x0ef.stellaris.common.systems.core.energy.impl.SimpleValueStorage;
-import com.st0x0ef.stellaris.common.systems.core.storage.base.ValueStorage;
+import com.st0x0ef.stellaris.platform.systems.core.energy.EnergyProvider;
+import com.st0x0ef.stellaris.platform.systems.core.energy.impl.SimpleValueStorage;
+import com.st0x0ef.stellaris.platform.systems.core.storage.base.ValueStorage;
 import net.minecraft.resources.ResourceLocation;
 
 public class GaugeValueHelper

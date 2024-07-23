@@ -1,7 +1,7 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
-import com.st0x0ef.stellaris.common.systems.core.energy.EnergyUtils;
-import com.st0x0ef.stellaris.common.systems.core.energy.impl.SimpleValueStorage;
+import com.st0x0ef.stellaris.platform.systems.core.energy.EnergyUtils;
+import com.st0x0ef.stellaris.platform.systems.core.energy.impl.SimpleValueStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;

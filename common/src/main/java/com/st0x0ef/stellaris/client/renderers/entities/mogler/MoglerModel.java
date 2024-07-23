@@ -4,8 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.st0x0ef.stellaris.Stellaris;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+
 import net.minecraft.client.model.AgeableListModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
@@ -16,7 +15,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.hoglin.HoglinBase;
 
-@Environment(EnvType.CLIENT)
 public class MoglerModel<T extends Mob & HoglinBase> extends AgeableListModel<T> {
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(Stellaris.MODID, "mogler"), "main");
     private final ModelPart body;

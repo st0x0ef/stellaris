@@ -4,7 +4,7 @@ import com.st0x0ef.stellaris.common.data.recipes.FuelRefineryRecipe;
 import com.st0x0ef.stellaris.common.menus.FuelRefineryMenu;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.registry.RecipesRegistry;
-import com.st0x0ef.stellaris.common.systems.core.energy.impl.SimpleValueStorage;
+import com.st0x0ef.stellaris.platform.systems.core.energy.impl.SimpleValueStorage;
 import dev.architectury.fluid.FluidStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -20,6 +20,7 @@ import java.util.Optional;
 
 public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity {
 
+    //private final SimpleFluidStorage fluids = new SimpleFluidStorage(this, Stellaris.FLUID_CONTENTS, 2, 5*FluidAmounts.BUCKET);
     private final FluidTank ingredientTank = new FluidTank("ingredientTank", 5);
     private final FluidTank resultTank = new FluidTank("resultTank", 5);
     private final RecipeManager.CachedCheck<FuelRefineryBlockEntity, FuelRefineryRecipe> cachedCheck = RecipeManager.createCheck(RecipesRegistry.FUEL_REFINERY_TYPE.get());
@@ -35,7 +36,6 @@ public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity {
         if (!FluidTankHelper.addFluidFromBucket(this, ingredientTank, 0, 1)) {
             FluidTankHelper.extractFluidToItem(this, ingredientTank, 0, 1);
         }
-
         Optional<RecipeHolder<FuelRefineryRecipe>> recipeHolder = cachedCheck.getRecipeFor(this, level);
         if (recipeHolder.isPresent()) {
             FuelRefineryRecipe recipe = recipeHolder.get().value();
@@ -81,6 +81,7 @@ public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity {
         super.loadAdditional(tag, provider);
         ingredientTank.load(provider, tag);
         resultTank.load(provider, tag);
+
     }
 
     @Override

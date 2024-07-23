@@ -6,7 +6,7 @@ import com.st0x0ef.stellaris.client.screens.components.Gauge;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.FluidTank;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.FuelRefineryBlockEntity;
 import com.st0x0ef.stellaris.common.menus.FuelRefineryMenu;
-import com.st0x0ef.stellaris.common.systems.core.energy.impl.SimpleValueStorage;
+import com.st0x0ef.stellaris.platform.systems.core.energy.impl.SimpleValueStorage;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;

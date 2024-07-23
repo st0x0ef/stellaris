@@ -5,7 +5,7 @@ import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.skys.renderer.SkyRenderer;
-import com.st0x0ef.stellaris.platform.ClientUtilsPlatform;
+import com.st0x0ef.stellaris.platform.PlatformClientUtils;
 import dev.architectury.platform.Platform;
 import dev.architectury.utils.Env;
 import net.minecraft.resources.ResourceKey;
@@ -54,7 +54,7 @@ public class SkyPropertiesData extends SimpleJsonResourceReloadListener {
 
             });
 
-            ClientUtilsPlatform.registerPlanetsSkies(SKY_PROPERTIES);
+            PlatformClientUtils.registerPlanetsSkies(SKY_PROPERTIES);
             Stellaris.LOG.info("Finished loading sky properties. Total properties: {}", SKY_PROPERTIES.size());
         }
     }

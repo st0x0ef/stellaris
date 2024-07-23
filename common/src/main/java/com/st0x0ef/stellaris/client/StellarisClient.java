@@ -44,7 +44,7 @@ import com.st0x0ef.stellaris.common.data.screen.PlanetPack;
 import com.st0x0ef.stellaris.common.data.screen.StarPack;
 import com.st0x0ef.stellaris.common.handlers.GlobalExceptionHandler;
 import com.st0x0ef.stellaris.common.registry.*;
-import com.st0x0ef.stellaris.platform.ClientUtilsPlatform;
+import com.st0x0ef.stellaris.platform.PlatformClientUtils;
 import dev.architectury.event.events.client.ClientGuiEvent;
 import dev.architectury.platform.Platform;
 import dev.architectury.registry.ReloadListenerRegistry;
@@ -53,8 +53,7 @@ import dev.architectury.registry.client.level.entity.EntityRendererRegistry;
 import dev.architectury.registry.client.particle.ParticleProviderRegistry;
 import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
 import dev.architectury.registry.menu.MenuRegistry;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.server.packs.PackType;
@@ -64,7 +63,6 @@ import org.lwjgl.opengl.GLDebugMessageCallback;
 
 
 public class StellarisClient {
-    @Environment(EnvType.CLIENT)
     public static void initClient() {
         registerPacks();
 
@@ -84,7 +82,7 @@ public class StellarisClient {
     }
 
     private static void registerJetSuitModel() {
-        ClientUtilsPlatform.registerArmor(JetSuitModel.TEXTURE, JetSuitModel.LAYER_LOCATION, JetSuitModel::new,
+        PlatformClientUtils.registerArmor(JetSuitModel.TEXTURE, JetSuitModel.LAYER_LOCATION, JetSuitModel::new,
                 ItemsRegistry.JETSUIT_BOOTS.get(), ItemsRegistry.JETSUIT_LEGGINGS.get(),
                 ItemsRegistry.JETSUIT_HELMET.get(), ItemsRegistry.JETSUIT_SUIT.get());
     }

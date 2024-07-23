@@ -1,7 +1,7 @@
 package com.st0x0ef.stellaris.fabric.client;
 
 import com.st0x0ef.stellaris.client.StellarisClient;
-import com.st0x0ef.stellaris.fabric.systems.data.FabricDataLibClient;
+import com.st0x0ef.stellaris.platform.systems.data.FabricDataLibClient;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 

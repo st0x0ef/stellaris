@@ -3,7 +3,7 @@ package com.st0x0ef.stellaris.neoforge.client;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.StellarisClient;
 import com.st0x0ef.stellaris.client.skys.renderer.SkyRenderer;
-import com.st0x0ef.stellaris.platform.neoforge.ClientUtilsPlatformImpl;
+import com.st0x0ef.stellaris.platform.PlatformClientUtilsHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.neoforged.api.distmarker.Dist;
@@ -45,9 +45,9 @@ public class StellarisNeoforgeClient {
             ClientLevel level = mc.player.clientLevel;
             if(level == null) return;
 
-            if (ClientUtilsPlatformImpl.DIMENSION_RENDERERS.containsKey(level.dimension())) {
+            if (PlatformClientUtilsHelper.DIMENSION_RENDERERS.containsKey(level.dimension())) {
                 Stellaris.LOG.error("renderingh ");
-                SkyRenderer renderer = ClientUtilsPlatformImpl.DIMENSION_RENDERERS.get(level.dimension());
+                SkyRenderer renderer = PlatformClientUtilsHelper.DIMENSION_RENDERERS.get(level.dimension());
                 renderer.render(level, event.getRenderTick(), event.getPartialTick(), event.getPoseStack(), event.getCamera(), event.getProjectionMatrix(), false, () -> {});
             }
         }

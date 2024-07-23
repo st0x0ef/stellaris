@@ -46,7 +46,7 @@ public class OxygenDistributorMenu extends BaseContainer {
     private void syncWidgets(ServerPlayer player) {
         if (!player.level().isClientSide) {
 
-            NetworkManager.sendToPlayer(player, new SyncWidgetsTanksPacket(new long[] {blockEntity.getWrappedEnergyContainer().getStoredEnergy()}));
+            NetworkManager.sendToPlayer(player, new SyncWidgetsTanksPacket(new long[] {blockEntity.getEnergy().getStoredAmount()}));
 
         }
     }

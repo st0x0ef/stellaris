@@ -1,7 +1,7 @@
 package com.st0x0ef.stellaris.neoforge.mixin;
 
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.platform.neoforge.ClientUtilsPlatformImpl;
+import com.st0x0ef.stellaris.platform.PlatformClientUtilsHelper;
 import net.minecraft.client.renderer.DimensionSpecialEffects;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -16,11 +16,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class SkyRendererMixin {
 
     @Inject(method = "forType", at = @At("HEAD"), cancellable = true)
-    private static void adastra$forType(DimensionType type, CallbackInfoReturnable<DimensionSpecialEffects> cir) {
+    private static void stellaris$forType(DimensionType type, CallbackInfoReturnable<DimensionSpecialEffects> cir) {
         ResourceKey<Level> dimension = ResourceKey.create(Registries.DIMENSION, type.effectsLocation());
-        if (ClientUtilsPlatformImpl.DIMENSION_RENDERERS.containsKey(dimension)) {
+        if (PlatformClientUtilsHelper.DIMENSION_RENDERERS.containsKey(dimension)) {
             Stellaris.LOG.error("Uee");
-            cir.setReturnValue(ClientUtilsPlatformImpl.DIMENSION_RENDERERS.get(dimension));
+            cir.setReturnValue(PlatformClientUtilsHelper.DIMENSION_RENDERERS.get(dimension));
         }
     }
 

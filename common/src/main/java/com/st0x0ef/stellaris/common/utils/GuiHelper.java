@@ -111,9 +111,9 @@ public class GuiHelper
 //        return new Rectangle2d(left, top, HYDROGEN_TANK_WIDTH, HYDROGEN_TANK_HEIGHT);
 //    }
 
-    public static void drawEnergy(GuiGraphics graphics, int left, int top, WrappedBlockEnergyContainer energyStorage) {
-        drawEnergy(graphics, left, top,(double) energyStorage.getStoredEnergy() / (double) energyStorage.getMaxCapacity());
-    }
+//    public static void drawEnergy(GuiGraphics graphics, int left, int top, WrappedBlockEnergyContainer energyStorage) {
+//        drawEnergy(graphics, left, top,(double) energyStorage.getStoredEnergy() / (double) energyStorage.getMaxCapacity());
+//    }
 
     public static void drawEnergy(GuiGraphics graphics, int left, int top, double ratio) {
         drawVertical(graphics, left, top, ENERGY_WIDTH, ENERGY_HEIGHT, ENERGY_PATH, ratio);

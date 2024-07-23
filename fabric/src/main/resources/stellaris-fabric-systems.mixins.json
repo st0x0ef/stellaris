@@ -4,7 +4,7 @@
   "package": "com.st0x0ef.stellaris.fabric.systems.data.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "BlockEntityMixin"
+    "com.st0x0ef.stellaris.platform.systems.data.mixin.BlockEntityMixin"
   ],
   "client": [
   ],

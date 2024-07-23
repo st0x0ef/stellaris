@@ -2,8 +2,8 @@ package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.entities.ImplementedInventory;
-import com.st0x0ef.stellaris.common.systems.core.energy.EnergyProvider;
-import com.st0x0ef.stellaris.common.systems.core.energy.impl.SimpleValueStorage;
+import com.st0x0ef.stellaris.platform.systems.core.energy.EnergyProvider;
+import com.st0x0ef.stellaris.platform.systems.core.energy.impl.SimpleValueStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;

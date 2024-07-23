@@ -5,8 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import com.st0x0ef.stellaris.common.entities.IVehicleEntity;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -25,7 +24,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-@Environment(EnvType.CLIENT)
 public abstract class VehicleRenderer<T extends IVehicleEntity, M extends EntityModel<T>> extends EntityRenderer<T> implements RenderLayerParent<T, M> {
     protected final M model;
     protected final List<RenderLayer<T, M>> layers = Lists.newArrayList();

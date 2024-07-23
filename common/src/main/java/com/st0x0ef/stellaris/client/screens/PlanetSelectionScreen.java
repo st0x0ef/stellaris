@@ -18,8 +18,7 @@ import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
 
 import dev.architectury.networking.NetworkManager;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -43,7 +42,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.*;
 
-@Environment(EnvType.CLIENT)
 public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelectionMenu> {
 
     public static final ResourceLocation HIGHLIGHTER_TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/util/planet_highlighter.png");

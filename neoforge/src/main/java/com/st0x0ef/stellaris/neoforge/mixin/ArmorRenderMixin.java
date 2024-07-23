@@ -1,7 +1,7 @@
 package com.st0x0ef.stellaris.neoforge.mixin;
 
 import com.st0x0ef.stellaris.common.items.CustomArmorItem;
-import com.st0x0ef.stellaris.platform.neoforge.ClientUtilsPlatformImpl;
+import com.st0x0ef.stellaris.platform.PlatformClientUtilsHelper;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.world.item.Item;
 import net.minecraft.client.Minecraft;
@@ -26,7 +26,7 @@ public abstract class ArmorRenderMixin extends Item {
     @Override
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(new IClientItemExtensions() {
-            private ClientUtilsPlatformImpl.ArmorRenderer renderer;
+            private PlatformClientUtilsHelper.ArmorRenderer renderer;
 
             @SuppressWarnings("unchecked")
             private static <T extends LivingEntity> void uncheckedCopyTo(HumanoidModel<T> from, HumanoidModel<?> to) {
@@ -37,7 +37,7 @@ public abstract class ArmorRenderMixin extends Item {
             @Override
             public @NotNull HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack, EquipmentSlot slot, HumanoidModel<?> original) {
                 if (renderer == null) {
-                    renderer = ClientUtilsPlatformImpl.ARMOR_RENDERERS.get(stack.getItem());
+                    renderer = PlatformClientUtilsHelper.ARMOR_RENDERERS.get(stack.getItem());
                 }
                 if (renderer == null) return original;
 
