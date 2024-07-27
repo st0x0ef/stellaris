@@ -3,7 +3,6 @@ package com.st0x0ef.stellaris.common.events;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.oxygen.OxygenContainerBlockEntity;
 import com.st0x0ef.stellaris.common.items.RadiationItem;
 import com.st0x0ef.stellaris.common.oxygen.OxygenManager;
-import com.st0x0ef.stellaris.common.registry.EffectsRegistry;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import dev.architectury.event.EventResult;

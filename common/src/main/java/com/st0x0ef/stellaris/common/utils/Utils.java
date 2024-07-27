@@ -238,7 +238,7 @@ public class Utils {
     public static void disableFlyAntiCheat(Player player, boolean condition) {
         if (player instanceof ServerPlayer) {
             if (condition) {
-//                ((ServerPlayer) player).connection.aboveGroundTickCount = 0;
+                ((ServerPlayer) player).connection.aboveGroundTickCount = 0;
             }
         }
     }

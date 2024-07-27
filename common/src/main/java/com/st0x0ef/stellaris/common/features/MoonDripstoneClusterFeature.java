@@ -23,7 +23,7 @@ public class MoonDripstoneClusterFeature extends DripstoneClusterFeature {
     public boolean place(FeaturePlaceContext<DripstoneClusterConfiguration> context) {
         WorldGenLevel worldGenLevel = context.level();
         BlockPos blockPos = context.origin();
-        DripstoneClusterConfiguration dripstoneClusterConfiguration = (DripstoneClusterConfiguration)context.config();
+        DripstoneClusterConfiguration dripstoneClusterConfiguration = context.config();
         RandomSource randomSource = context.random();
         if (!DripstoneUtils.isEmptyOrWater(worldGenLevel, blockPos)) {
             return false;
@@ -49,18 +49,18 @@ public class MoonDripstoneClusterFeature extends DripstoneClusterFeature {
 
     private void placeColumn(WorldGenLevel level, RandomSource random, BlockPos pos, int x, int z, float wetness, double chance, int height, float density, DripstoneClusterConfiguration config) {
         Optional<Column> optional = Column.scan(level, pos, config.floorToCeilingSearchRange, DripstoneUtils::isEmptyOrWater, DripstoneUtils::isNeitherEmptyNorWater);
-        if (!optional.isEmpty()) {
-            OptionalInt optionalInt = ((Column)optional.get()).getCeiling();
-            OptionalInt optionalInt2 = ((Column)optional.get()).getFloor();
-            if (!optionalInt.isEmpty() || !optionalInt2.isEmpty()) {
+        if (optional.isPresent()) {
+            OptionalInt optionalInt = optional.get().getCeiling();
+            OptionalInt optionalInt2 = optional.get().getFloor();
+            if (optionalInt.isPresent() || optionalInt2.isPresent()) {
                 boolean bl = random.nextFloat() < wetness;
                 Column column;
                 if (bl && optionalInt2.isPresent() && this.canPlacePool(level, pos.atY(optionalInt2.getAsInt()))) {
                     int i = optionalInt2.getAsInt();
-                    column = ((Column)optional.get()).withFloor(OptionalInt.of(i - 1));
+                    column = optional.get().withFloor(OptionalInt.of(i - 1));
                     level.setBlock(pos.atY(i), Blocks.AIR.defaultBlockState(), 2);
                 } else {
-                    column = (Column)optional.get();
+                    column = optional.get();
                 }
 
                 OptionalInt optionalInt3 = column.getFloor();
