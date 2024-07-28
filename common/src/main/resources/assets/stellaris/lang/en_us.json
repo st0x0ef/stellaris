@@ -58,6 +58,7 @@
   "block.stellaris.venus_smooth_sandstone_brick_slab": "Venus Smooth Sandstone Brick Slab",
   "block.stellaris.venus_smooth_sandstone_slab": "Venus Smooth Sandstone Slab",
   "block.stellaris.venus_stone_slab": "Venus Stone Slab",
+  "block.stellaris.venus_diamond_ore": "Venus Diamond Ore",
   "block.stellaris.desh_plating_stairs": "Desh Plating Stairs",
   "block.stellaris.desh_plating_slab": "Desh Plating Slab",
   "block.stellaris.moon_pillar": "Moon Pillar",
@@ -67,6 +68,11 @@
   "block.stellaris.mercury_stone_stairs": "Mercury Stone Stairs",
   "block.stellaris.marcury_polished_stone_slab": "Mercury Polished Stone Slab",
   "block.stellaris.marcury_stone_slab": "Mercury Stone Slab",
+  "block.stellaris.moon_iron_ore": "Moon Iron Ore",
+  "block.stellaris.moon_ice_shard_ore": "Moon Ice Shard Ore",
+
+
+
 
   "block.stellaris.desh_plating_block": "Desh Plating Block",
   "block.stellaris.desh_pillar": "Desh Pillar",
@@ -99,6 +105,9 @@
   "block.stellaris.mars_stone_brick_slab": "Mars Stone Brick Slab",
   "block.stellaris.mars_stone_brick_stairs": "Mars Stone Brick Stairs",
   "block.stellaris.mars_plutonium_ore": "Mars Plutonium Ore",
+  "block.stellaris.mars_diamond_ore": "Mars Diamond Ore",
+  "block.stellaris.mars_ice_shard_ore": "Mars Ice Shard Ore",
+
 
 
   "block.stellaris.conglomorate" : "Conglomorate",
