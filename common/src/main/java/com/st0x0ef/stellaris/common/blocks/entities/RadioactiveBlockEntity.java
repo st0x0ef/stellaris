@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.common.blocks.entities;
 
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
-import com.st0x0ef.stellaris.common.registry.EffectsRegistry;
 import com.st0x0ef.stellaris.common.registry.TagRegistry;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.core.BlockPos;

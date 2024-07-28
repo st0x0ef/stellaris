@@ -77,12 +77,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     protected RocketEntity(EntityType<?> entityType, Level level, SkinUpgrade skinUpgrade) {
         super(entityType,level);
 
-
-        if(!this.level().isClientSide()) this.SKIN_UPGRADE = skinUpgrade;
         this.SKIN_UPGRADE = skinUpgrade;
-        Stellaris.LOG.warn(this.SKIN_UPGRADE.getRocketSkinLocation().toString());
-
-        this.SKIN_UPGRADE = new SkinUpgrade(new ResourceLocation(this.getFullSkinTexture()));
         this.MODEL_UPGRADE = ModelUpgrade.getBasic();
         this.MOTOR_UPGRADE = MotorUpgrade.getBasic();
         this.TANK_UPGRADE = TankUpgrade.getBasic();
@@ -166,7 +161,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
             CompoundTag compoundTag = listTag.getCompound(i);
             int j = compoundTag.getByte("Slot") & 255;
             if (j < this.inventory.getContainerSize() - 1) {
-                this.inventory.setItem(j + 1, (ItemStack)ItemStack.parse(this.registryAccess(), compoundTag).orElse(ItemStack.EMPTY));
+                this.inventory.setItem(j + 1, ItemStack.parse(this.registryAccess(), compoundTag).orElse(ItemStack.EMPTY));
             }
         }
 
@@ -611,7 +606,6 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
             case SMALL -> EntityRegistry.SMALL_ROCKET.get();
             case NORMAL -> EntityRegistry.NORMAL_ROCKET.get();
             case BIG -> EntityRegistry.BIG_ROCKET.get();
-            default -> EntityRegistry.TINY_ROCKET.get();
         };
     }
 }

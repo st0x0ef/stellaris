@@ -5,7 +5,6 @@ import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.skys.renderer.SkyRenderer;
-import com.st0x0ef.stellaris.platform.ClientUtilsPlatform;
 import dev.architectury.platform.Platform;
 import dev.architectury.utils.Env;
 import io.github.amerebagatelle.mods.nuit.api.NuitApi;

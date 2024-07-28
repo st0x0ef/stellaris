@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.common.world.processor;
 
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.st0x0ef.stellaris.common.registry.ProcessorsRegistry;
 import net.minecraft.core.BlockPos;

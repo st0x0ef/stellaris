@@ -32,7 +32,7 @@ subprojects {
 
     dependencies {
         minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
-        // The following line declares the mojmap mappings, you may use other mappings as well
+
         mappings loom.layered() {
             officialMojangMappings()
             parchment("org.parchmentmc.data:parchment-${rootProject.minecraft_version}:${rootProject.parchment_mapping_version}@zip")
@@ -65,7 +65,6 @@ subprojects {
                     pom {
                         name = "Stellaris ${modLoader}"
                         url = "https://github.com/st0x0ef/stellaris"
-
                     }
                 }
             }
