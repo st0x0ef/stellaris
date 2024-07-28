@@ -41,9 +41,7 @@ public class SkyPropertiesData extends SimpleJsonResourceReloadListener {
 
                 //Register the Skybox with Nuit
                 NuitApi.getInstance().addPermanentSkybox(new ResourceLocation(Stellaris.MODID, skyProperties.id().location().getPath()), skyRenderer);
-                Stellaris.LOG.error("Registering a skybox for {}", skyProperties.id());
             });
-
         }
     }
 
