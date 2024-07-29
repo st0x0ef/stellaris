@@ -108,10 +108,10 @@ public class SkyHelper {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, texture);
         bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-        bufferBuilder.vertex(matrix4f, -size, 100, -size).uv(1.0F, 0.0F).endVertex();
-        bufferBuilder.vertex(matrix4f, size, 100, -size).uv(0.0F, 0.0F).endVertex();
-        bufferBuilder.vertex(matrix4f, size, 100, size).uv(0.0F, 1.0F).endVertex();
-        bufferBuilder.vertex(matrix4f, -size, 100, size).uv(1.0F, 1.0F).endVertex();
+        bufferBuilder.vertex(matrix4f, -size, -100.0F, size).uv(endX, endY).endVertex();
+        bufferBuilder.vertex(matrix4f, size, -100.0F, size).uv(startX, endY).endVertex();
+        bufferBuilder.vertex(matrix4f, size, -100.0F, -size).uv(startX, startY).endVertex();
+        bufferBuilder.vertex(matrix4f, -size, -100.0F, -size).uv(endX, startY).endVertex();
         BufferUploader.drawWithShader(bufferBuilder.end());
 
         if (blend) {
