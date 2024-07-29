@@ -73,6 +73,4 @@ public class StarHelper {
         }
         return bufferBuilder.end();
     }
-
-
 }

@@ -11,7 +11,7 @@
   "weather": [
     {
       "rain": true,
-      "acid_rain": false
+      "acid_rain": true
     }
   ],
   "sunrise_color": -3044526,

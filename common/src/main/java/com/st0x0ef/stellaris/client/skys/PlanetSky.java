@@ -33,15 +33,11 @@ public class PlanetSky extends DimensionSpecialEffects {
         getRenderer().render(level, partialTick, poseStack, projectionMatrix);
     }
 
-    public void renderSnowAndRain() {
-        // TODO : acid rain on venus
+    public SkyRenderer getRenderer() {
+        return renderer;
     }
 
     public SkyProperties getProperties() {
         return properties;
-    }
-
-    public SkyRenderer getRenderer() {
-        return renderer;
     }
 }

@@ -19,9 +19,13 @@ public class FabricSkyRenderer {
 
             DimensionRenderingRegistry.registerDimensionEffects(location.location(), planetSky);
 
-            DimensionRenderingRegistry.registerCloudRenderer(location, context -> planetSky.getRenderer().renderCloud());
+            if (!planetSky.getProperties().cloud()) {
+                DimensionRenderingRegistry.registerCloudRenderer(location, context -> planetSky.getRenderer().removeCloud());
+            }
 
-            DimensionRenderingRegistry.registerWeatherRenderer(location, context -> planetSky.renderSnowAndRain());
+            if (planetSky.getProperties().weather().isEmpty()) {
+                DimensionRenderingRegistry.registerWeatherRenderer(location, context -> planetSky.getRenderer().removeSnowAndRain());
+            }
 
             PoseStack poseStack = worldRenderContext.matrixStack(); // For an unknow reason, this is only not null if it's outside the registerSkyRenderer method. So this is the only workaround I've found.
             DimensionRenderingRegistry.registerSkyRenderer(location, context -> planetSky.renderSky(
