@@ -33,6 +33,9 @@
     "stellaris:mars_polished_stone_slab",
     "stellaris:mars_stone_slab",
     "stellaris:mars_plutonium_ore",
+    "stellaris:mars_diamond_ore",
+    "stellaris:mars_ice_shard_ore",
+
 
     "stellaris:steel_pillar",
     "stellaris:steel_stairs",
@@ -64,12 +67,17 @@
     "stellaris:venus_stone_slab",
     "stellaris:venus_neptunium_ore",
 
+
+
     "stellaris:desh_plating_stairs",
     "stellaris:desh_plating_slab",
 
     "stellaris:moon_pillar",
     "stellaris:moon_stone_stairs",
     "stellaris:moon_stone_slab",
+    "stellaris:moon_iron_ore",
+    "stellaris:moon_ice_shard_ore",
+
 
     "stellaris:mercury_polished_stone_stairs",
     "stellaris:mercury_stone_stairs",
@@ -123,6 +131,7 @@
     "stellaris:venus_stone_bricks",
     "stellaris:venus_stone_brick_slab",
     "stellaris:venus_stone_brick_stairs",
+    "stellaris:venus_diamond_ore",
 
     "stellaris:vertical_moon_slab",
     "stellaris:vertical_mars_slab",
