@@ -9,43 +9,25 @@ import net.minecraft.client.renderer.GameRenderer;
 import java.util.Random;
 
 public class StarHelper {
-
-    public static VertexBuffer createStars(float scale, int amount, int r, int g, int b) {
-        return createStars(scale, false, amount / 2 , amount / 2, true, r, g, b);
-    }
-
-    public static VertexBuffer createStars(float scale, int r, int g, int b) {
-        return createStars(scale, true, 0, 0, true, r, g, b);
-    }
-
-    public static VertexBuffer createStars(float scale, int amountFast, int amountFancy) {
-        return createStars(scale, false, amountFast, amountFancy, false, 0, 0, 0);
-    }
-
-    public static VertexBuffer createStars(float scale) {
-        return createStars(scale, true, 0, 0, false, 0, 0, 0);
-    }
-
-    private static VertexBuffer createStars(float scale, boolean amountDefault, int amountFast, int amountFancy, boolean colorSystem, int r, int g, int b) {
-        Tesselator tesselator = Tesselator.getInstance();
-        BufferBuilder bufferbuilder = tesselator.getBuilder();
-        RenderSystem.setShader(colorSystem ? GameRenderer::getPositionColorShader : GameRenderer::getPositionShader);
+    public static VertexBuffer createStars(float scale, int amountFancy, int r, int g, int b) {
+        BufferBuilder bufferbuilder = Tesselator.getInstance().getBuilder();
+        RenderSystem.setShader(GameRenderer::getPositionColorShader);
 
         VertexBuffer vertexBuffer = new VertexBuffer(VertexBuffer.Usage.STATIC);
 
-        BufferBuilder.RenderedBuffer renderedBuffer = drawStars(bufferbuilder, scale, amountDefault, amountFast, amountFancy, colorSystem, r, g, b);
+        BufferBuilder.RenderedBuffer renderedBuffer = drawStars(bufferbuilder, scale, amountFancy / 2, amountFancy, r, g, b);
         vertexBuffer.bind();
         vertexBuffer.upload(renderedBuffer);
         VertexBuffer.unbind();
         return vertexBuffer;
     }
 
-    private static BufferBuilder.RenderedBuffer drawStars(BufferBuilder bufferBuilder, float scale, boolean amountDefault, int amountFast, int amountFancy, boolean colorSystem, int r, int g, int b) {
-        Random random = new Random(10842L);
-        bufferBuilder.begin(VertexFormat.Mode.QUADS, colorSystem ? DefaultVertexFormat.POSITION_COLOR : DefaultVertexFormat.POSITION);
+    private static BufferBuilder.RenderedBuffer drawStars(BufferBuilder bufferBuilder, float scale, int amountFast, int amountFancy, int r, int g, int b) {
+        Random random = new Random();
+        bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
 
         GraphicsStatus graphicsMode = Minecraft.getInstance().options.graphicsMode().get();
-        int stars = amountDefault ? 1500 : (graphicsMode == GraphicsStatus.FANCY || graphicsMode == GraphicsStatus.FABULOUS) ? amountFancy : amountFast;
+        int stars = (graphicsMode == GraphicsStatus.FANCY || graphicsMode == GraphicsStatus.FABULOUS) ? amountFancy : amountFast;
 
         for (int i = 0; i < stars; i++) {
             double d0 = random.nextFloat() * 2.0F - 1.0F;
@@ -80,15 +62,12 @@ public class StarHelper {
                     double d24 = 0.0D * d12 - d21 * d13;
                     double d25 = d24 * d9 - d22 * d10;
                     double d26 = d22 * d9 + d24 * d10;
-                    if (colorSystem) {
-                        int color1 = r == -1 ? i : r;
-                        int color2 = g == -1 ? i : g;
-                        int color3 = b == -1 ? i : b;
 
-                        bufferBuilder.vertex(d5 + d25, d6 + d23, d7 + d26).color(color1, color2, color3, 0xAA).endVertex();
-                    } else {
-                        bufferBuilder.vertex(d5 + d25, d6 + d23, d7 + d26).endVertex();
-                    }
+                    int color1 = r == -1 ? i : r;
+                    int color2 = g == -1 ? i : g;
+                    int color3 = b == -1 ? i : b;
+
+                    bufferBuilder.vertex(d5 + d25, d6 + d23, d7 + d26).color(color1, color2, color3, 0xAA).endVertex();
                 }
             }
         }

@@ -21,5 +21,4 @@ public class ClientUtilsPlatformImpl {
             model.renderToBuffer(poseStack, buffer.getBuffer(RenderType.entityTranslucent(texture)), packedLight, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
         }, items);
     }
-
 }

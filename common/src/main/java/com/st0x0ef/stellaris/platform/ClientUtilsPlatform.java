@@ -17,10 +17,8 @@ public class ClientUtilsPlatform {
         HumanoidModel<?> create(ModelPart root, EquipmentSlot slot, ItemStack stack, HumanoidModel<LivingEntity> parentModel);
     }
 
-
     @ExpectPlatform
     public static void registerArmor(ResourceLocation texture, ModelLayerLocation layer, ArmorFactory factory, Item... items) {
         throw new AssertionError();
     }
-
 }

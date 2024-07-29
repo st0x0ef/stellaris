@@ -191,19 +191,9 @@ public class Utils {
 
     /** codec */
     public static <T extends Enum<T>> Codec<T> EnumCodec(Class<T> e) {
-        Function<String, T> stringToEnum = new Function<>() {
-            @Override
-            public T apply(String s) {
-                return Enum.valueOf(e, s.toUpperCase(Locale.ROOT));
-            }
-        };
+        Function<String, T> stringToEnum = s -> Enum.valueOf(e, s.toUpperCase(Locale.ROOT));
 
-        Function<T, String> enumToString = new Function<>() {
-            @Override
-            public String apply(T enumValue) {
-                return enumValue.name();
-            }
-        };
+        Function<T, String> enumToString = enumValue -> enumValue.name();
 
         return Codec.STRING.xmap(stringToEnum, enumToString);
     }

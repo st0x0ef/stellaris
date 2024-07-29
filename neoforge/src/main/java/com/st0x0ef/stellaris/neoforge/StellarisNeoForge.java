@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.neoforge;
 
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.client.StellarisClient;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import com.st0x0ef.stellaris.neoforge.client.StellarisNeoforgeClient;
 import com.st0x0ef.stellaris.neoforge.systems.SystemsNeoForge;
@@ -17,7 +16,6 @@ import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 public class StellarisNeoForge {
     public StellarisNeoForge(IEventBus bus) {
         Stellaris.init();
-        StellarisClient.registerPacks();
         NeoForge.EVENT_BUS.addListener(StellarisNeoForge::onAddReloadListenerEvent);
         NeoForge.EVENT_BUS.addListener(StellarisNeoForge::onDatapackSync);
         bus.addListener(StellarisNeoForge::onAttributes);
