@@ -23,7 +23,7 @@ public class SkyRenderer {
     private final VertexBuffer starBuffer;
 
     public SkyRenderer(SkyProperties properties) {
-       this.properties = properties;
+        this.properties = properties;
 
         if (properties.stars().colored()) {
             starBuffer = StarHelper.createStars(0.1F, properties.stars().count(), 190, 160, -1);
@@ -71,7 +71,7 @@ public class SkyRenderer {
 
         // Moon
         if (customVanillaObject.moon()) {
-            SkyHelper.drawMoonWithPhase(bufferBuilder, poseStack, camera,customVanillaObject, (dayAngle + 180 % 360));
+            SkyHelper.drawMoonWithPhase(bufferBuilder, poseStack, camera,customVanillaObject, dayAngle);
         }
 
         // Other sky object

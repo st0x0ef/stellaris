@@ -77,30 +77,15 @@ public class SkyHelper {
     }
 
     public static void drawMoonWithPhase(BufferBuilder bufferBuilder, PoseStack poseStack, Camera camera, CustomVanillaObject customVanillaObject, float dayAngle) {
-        float startX = 0;
-        float startY = 1;
-        float endX = 1;
-        float endY = 0;
+        int moonPhase = Minecraft.getInstance().level.getMoonPhase();
+        int xCoord = moonPhase % 4;
+        int yCoord = moonPhase / 4 % 2;
+        float startX = xCoord / 4.0F;
+        float startY = yCoord / 2.0F;
+        float endX = (xCoord + 1) / 4.0F;
+        float endY = (yCoord + 1) / 2.0F;
 
-        if (customVanillaObject.moonTexture().equals(new ResourceLocation("textures/environment/moon_phases.png"))) {
-            int moonPhase = Minecraft.getInstance().level.getMoonPhase();
-            int xCoord = moonPhase % 4;
-            int yCoord = moonPhase / 4 % 2;
-            startX = xCoord / 4.0F;
-            startY = yCoord / 2.0F;
-            endX = (xCoord + 1) / 4.0F;
-            endY = (yCoord + 1) / 2.0F;
-        }
-
-        Matrix4f matrix4f = setMatrixRot(poseStack, Triple.of(Axis.YP.rotationDegrees(camera.getYRot() - 90), Axis.XP.rotationDegrees(dayAngle), Axis.ZP.rotationDegrees(camera.getXRot())));
-
-        RenderSystem.setShaderTexture(0, customVanillaObject.moonTexture());
-        bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-        bufferBuilder.vertex(matrix4f, -16.0F, -100.0F, 16.0F).uv(endX, endY).endVertex();
-        bufferBuilder.vertex(matrix4f, 16.0F, -100.0F, 16.0F).uv(startX, endY).endVertex();
-        bufferBuilder.vertex(matrix4f, 16.0F, -100.0F, -16.0F).uv(startX, startY).endVertex();
-        bufferBuilder.vertex(matrix4f, -16.0F, -100.0F, -16.0F).uv(endX, startY).endVertex();
-        BufferUploader.drawWithShader(bufferBuilder.end());
+        drawCelestialBody(customVanillaObject.moonTexture(), bufferBuilder, poseStack, camera, 16f, dayAngle + 180, startX, endX, startY, endY, true);
     }
 
     public static void drawCelestialBody(SkyObject skyObject, BufferBuilder bufferBuilder, PoseStack poseStack, Camera camera, float dayAngle, boolean blend) {
@@ -108,6 +93,10 @@ public class SkyHelper {
     }
 
     public static void drawCelestialBody(ResourceLocation texture, BufferBuilder bufferBuilder, PoseStack poseStack, Camera camera, float size, float dayAngle, boolean blend) {
+        drawCelestialBody(texture, bufferBuilder, poseStack, camera, size, dayAngle, 0f, 1f, 1f, 0f, blend);
+    }
+
+    public static void drawCelestialBody(ResourceLocation texture, BufferBuilder bufferBuilder, PoseStack poseStack, Camera camera, float size, float dayAngle, float startX, float endX, float startY, float endY, boolean blend) {
         if (blend) {
             RenderSystem.enableBlend();
             RenderSystem.defaultBlendFunc();
@@ -116,7 +105,7 @@ public class SkyHelper {
 
         Matrix4f matrix4f = setMatrixRot(poseStack, Triple.of(Axis.YP.rotationDegrees(camera.getYRot() - 90), Axis.XP.rotationDegrees(dayAngle), Axis.ZP.rotationDegrees(camera.getXRot())));
 
-        RenderSystem.setShader(GameRenderer::getPositionColorTexShader);
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, texture);
         bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
         bufferBuilder.vertex(matrix4f, -size, 100, -size).uv(1.0F, 0.0F).endVertex();
