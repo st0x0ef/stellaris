@@ -125,9 +125,7 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
 	private void setVisible() {
 		this.setAllVisible(false);
 		switch (this.slot) {
-			case HEAD -> {
-				this.head.visible = true;
-			}
+			case HEAD -> this.head.visible = true;
 			case CHEST -> {
 				this.body.visible = true;
 				this.rightArm.visible = true;

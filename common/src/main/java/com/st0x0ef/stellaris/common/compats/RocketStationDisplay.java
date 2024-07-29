@@ -26,9 +26,7 @@ public class RocketStationDisplay extends BasicDisplay {
     private static List<EntryIngredient> getInputList(RocketStationRecipe recipe){
         if (recipe==null) return Collections.emptyList();
         List<EntryIngredient> list = new ArrayList<>();
-        recipe.getIngredients().forEach(ingredient -> {
-            list.add(EntryIngredients.ofIngredient(ingredient));
-        });
+        recipe.getIngredients().forEach(ingredient -> list.add(EntryIngredients.ofIngredient(ingredient)));
 
         return list;
     }

@@ -1,0 +1,47 @@
+package com.st0x0ef.stellaris.client.skys;
+
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.st0x0ef.stellaris.client.skys.record.SkyProperties;
+import com.st0x0ef.stellaris.client.skys.renderer.SkyRenderer;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.renderer.DimensionSpecialEffects;
+import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
+import org.joml.Matrix4f;
+
+public class PlanetSky extends DimensionSpecialEffects {
+    private final SkyRenderer renderer;
+    private final SkyProperties properties;
+
+    public PlanetSky(SkyProperties properties) {
+        super(Float.NaN, true, SkyType.NONE, false, false);
+        this.properties = properties;
+        this.renderer = new SkyRenderer(properties);
+    }
+
+    @Override
+    public @NotNull Vec3 getBrightnessDependentFogColor(Vec3 fogColor, float brightness) {
+        return getProperties().fog() ? fogColor.multiply(brightness * 0.94F + 0.06F, brightness * 0.94F + 0.06F, brightness * 0.91F + 0.09F) : fogColor;
+    }
+
+    @Override
+    public boolean isFoggyAt(int x, int y) {
+        return false;
+    }
+
+    public void renderSky(ClientLevel level, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick) {
+        getRenderer().render(level, partialTick, poseStack, projectionMatrix);
+    }
+
+    public void renderSnowAndRain() {
+        // TODO : acid rain on venus
+    }
+
+    public SkyProperties getProperties() {
+        return properties;
+    }
+
+    public SkyRenderer getRenderer() {
+        return renderer;
+    }
+}

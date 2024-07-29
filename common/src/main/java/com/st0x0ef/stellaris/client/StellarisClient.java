@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.client;
 
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.client.events.ClientEvents;
 import com.st0x0ef.stellaris.client.overlays.JetSuitOverlay;
 import com.st0x0ef.stellaris.client.overlays.LanderOverlay;
 import com.st0x0ef.stellaris.client.overlays.RocketBarOverlay;
@@ -62,9 +61,8 @@ import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL43;
 import org.lwjgl.opengl.GLDebugMessageCallback;
 
-
+@Environment(EnvType.CLIENT)
 public class StellarisClient {
-    @Environment(EnvType.CLIENT)
     public static void initClient() {
         registerPacks();
 
@@ -79,7 +77,6 @@ public class StellarisClient {
         registerScreen();
         registerOverlays();
         registerJetSuitModel();
-        ClientEvents.registerClientEvents();
         Platform.getMod(Stellaris.MODID).registerConfigurationScreen(ConfigScreen::new);
     }
 

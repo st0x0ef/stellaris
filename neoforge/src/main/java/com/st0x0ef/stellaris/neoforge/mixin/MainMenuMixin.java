@@ -25,9 +25,7 @@ public abstract class MainMenuMixin extends Screen {
         int l = this.height / 4 + 48;
 
 
-        SpriteIconButton spriteIconButton = this.addRenderableWidget(stellarisConfigButton(20, (button) -> {
-            this.minecraft.setScreen(new ConfigScreen(this));
-        }, true));
+        SpriteIconButton spriteIconButton = this.addRenderableWidget(stellarisConfigButton(20, (button) -> this.minecraft.setScreen(new ConfigScreen(this)), true));
         spriteIconButton.setPosition(this.width / 2 - 124, l);
     }
 

@@ -43,9 +43,7 @@ public class ConfigScreen extends Screen {
 
         });
 
-        Button doneButton = Button.builder(CommonComponents.GUI_DONE, (button) -> {
-            this.onClose();
-        }).width(200).build();
+        Button doneButton = Button.builder(CommonComponents.GUI_DONE, (button) -> this.onClose()).width(200).build();
 
         rowHelper.addChild(doneButton, 2, rowHelper.newCellSettings().paddingTop(10));
 
@@ -75,9 +73,7 @@ public class ConfigScreen extends Screen {
             Checkbox checkbox = Checkbox.builder(Component.literal(entry.value().toString()), this.font)
                     .selected((Boolean) entry.value())
                     .tooltip(Tooltip.create(Component.literal(entry.description()),null))
-                    .onValueChange((checkbox1, aBoolean) -> {
-                        CustomConfig.CONFIG.replace(entryName, new ConfigEntry<>(aBoolean, entry.description()));
-                    })
+                    .onValueChange((checkbox1, aBoolean) -> CustomConfig.CONFIG.replace(entryName, new ConfigEntry<>(aBoolean, entry.description())))
                     .build();
             rowHelper.addChild(checkbox);
 
@@ -86,9 +82,7 @@ public class ConfigScreen extends Screen {
             button.setMaxLength(100);
             button.setTooltip(Tooltip.create(Component.literal(entry.description()),null));
             button.setValue(entry.value().toString());
-            button.setResponder((string) -> {
-                CustomConfig.CONFIG.replace(entryName, new ConfigEntry<>(string, entry.description()));
-            });
+            button.setResponder((string) -> CustomConfig.CONFIG.replace(entryName, new ConfigEntry<>(string, entry.description())));
             rowHelper.addChild(button);
 
         } else if (entry.getType() == Integer.class || entry.getType() == Double.class || entry.getType() == Float.class){

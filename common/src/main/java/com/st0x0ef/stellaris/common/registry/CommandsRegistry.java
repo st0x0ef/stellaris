@@ -6,9 +6,7 @@ import dev.architectury.event.events.common.CommandRegistrationEvent;
 public class CommandsRegistry {
 
     public static void register() {
-        CommandRegistrationEvent.EVENT.register((dispatcher, registry, selection) -> {
-            new StellarisCommands(dispatcher);
-        });
+        CommandRegistrationEvent.EVENT.register((dispatcher, registry, selection) -> new StellarisCommands(dispatcher));
     }
 
 }

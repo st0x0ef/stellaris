@@ -411,7 +411,6 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
             player.setPosRaw(entityPos.x, entityPos.y + 40.0, entityPos.z);
 
             player.startRiding(this);
-
         }
 
     }
@@ -443,14 +442,12 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
                 changeRocketModelAndSkin();
             }
         }
-//        else if (this.getInventory().getItem(12).isEmpty()) {
-//            this.SKIN_UPGRADE = SkinUpgrade.getBasic();
-//        }
+        else if (this.getInventory().getItem(12).isEmpty()) {
+            this.SKIN_UPGRADE = SkinUpgrade.getBasic();
+        }
 
         if (this.getInventory().getItem(13).getItem() instanceof RocketUpgradeItem item) {
             if (item.getUpgrade() instanceof ModelUpgrade upgrade) {
-                Stellaris.LOG.error(this.MODEL_UPGRADE.getModel().toString());
-                Stellaris.LOG.error(upgrade.getModel().toString());
                 if (this.MODEL_UPGRADE.getModel() != upgrade.getModel()){
                     this.MODEL_UPGRADE = upgrade;
                     if (lastPlayer!=null) lastPlayer.closeContainer();
@@ -458,9 +455,9 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
                 }
             }
         }
-//        else if (this.getInventory().getItem(13).isEmpty()) {
-//            this.MODEL_UPGRADE = ModelUpgrade.getBasic();
-//        }
+        else if (this.getInventory().getItem(13).isEmpty()) {
+            this.MODEL_UPGRADE = ModelUpgrade.getBasic();
+        }
 
         tryFillUpRocket(this.getInventory().getItem(0).getItem());
     }
