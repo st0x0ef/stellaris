@@ -27,12 +27,11 @@ public class FabricSkyRenderer {
                 DimensionRenderingRegistry.registerWeatherRenderer(location, context -> planetSky.getRenderer().removeSnowAndRain());
             }
 
-            PoseStack poseStack = worldRenderContext.matrixStack(); // For an unknow reason, this is only not null if it's outside the registerSkyRenderer method. So this is the only workaround I've found.
+            PoseStack poseStack = worldRenderContext.matrixStack(); // For an unknown reason, this is only not null if it's outside the registerSkyRenderer method. This is the only workaround I've found.
             DimensionRenderingRegistry.registerSkyRenderer(location, context -> planetSky.renderSky(
                     worldRenderContext.world(),
                     poseStack,
-                    worldRenderContext.projectionMatrix(),
-                    ((LevelRendererAccessor) Minecraft.getInstance().levelRenderer).stellaris$ticks()
+                    worldRenderContext.projectionMatrix()
             ));
         }
     }

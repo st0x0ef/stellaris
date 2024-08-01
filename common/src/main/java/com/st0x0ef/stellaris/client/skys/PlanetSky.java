@@ -29,8 +29,8 @@ public class PlanetSky extends DimensionSpecialEffects {
         return false;
     }
 
-    public void renderSky(ClientLevel level, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick) {
-        getRenderer().render(level, partialTick, poseStack, projectionMatrix);
+    public void renderSky(ClientLevel level, PoseStack poseStack, Matrix4f projectionMatrix) {
+        //getRenderer().render(level, ((LevelRendererAccessor) Minecraft.getInstance().levelRenderer).stellaris$ticks(), poseStack, projectionMatrix);
     }
 
     public SkyRenderer getRenderer() {

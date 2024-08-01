@@ -12,8 +12,8 @@ public interface LevelRendererAccessor {
     @Accessor("skyBuffer")
     VertexBuffer stellaris$getSkyBuffer();
 
-    @Invoker
-    boolean invokeDoesMobEffectBlockSky(Camera camera);
+    @Accessor("darkBuffer")
+    VertexBuffer stellaris$getDarkBuffer();
 
     @Accessor("ticks")
     int stellaris$ticks();

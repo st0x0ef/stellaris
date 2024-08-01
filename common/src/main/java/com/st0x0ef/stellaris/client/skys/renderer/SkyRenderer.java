@@ -7,12 +7,14 @@ import com.st0x0ef.stellaris.client.skys.record.SkyObject;
 import com.st0x0ef.stellaris.client.skys.record.SkyProperties;
 import com.st0x0ef.stellaris.client.skys.utils.SkyHelper;
 import com.st0x0ef.stellaris.client.skys.utils.StarHelper;
+import com.st0x0ef.stellaris.mixin.client.LevelRendererAccessor;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.ShaderInstance;
+import net.minecraft.util.Mth;
 import net.minecraft.world.level.material.FogType;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
@@ -34,20 +36,20 @@ public class SkyRenderer {
 
     public void render(ClientLevel level, float partialTick, PoseStack poseStack, Matrix4f projectionMatrix) {
         Minecraft mc = Minecraft.getInstance();
-        Matrix4f matrix4f = poseStack.last().pose();
-        ShaderInstance shaderInstance = RenderSystem.getShader();
-        BufferBuilder bufferBuilder = Tesselator.getInstance().getBuilder();
         Camera camera = mc.gameRenderer.getMainCamera();
-        CustomVanillaObject customVanillaObject = this.properties.customVanillaObject();
-
-        float dayAngle = level.getTimeOfDay(partialTick) * 360f % 360f;
 
         FogType cameraSubmersionType = camera.getFluidInCamera();
-        if (cameraSubmersionType.equals(FogType.POWDER_SNOW) || cameraSubmersionType.equals(FogType.LAVA) || mc.levelRenderer.doesMobEffectBlockSky(camera)) {
-            return;
-        }
+        if (cameraSubmersionType.equals(FogType.POWDER_SNOW) || cameraSubmersionType.equals(FogType.LAVA) || mc.levelRenderer.doesMobEffectBlockSky(camera)) return;
 
-        Vec3 vec3 = mc.level.getSkyColor(camera.getPosition(), partialTick);
+        BufferBuilder bufferBuilder = Tesselator.getInstance().getBuilder();
+        ShaderInstance shaderInstance = RenderSystem.getShader();
+        CustomVanillaObject customVanillaObject = this.properties.customVanillaObject();
+        VertexBuffer darkBuffer = ((LevelRendererAccessor) Minecraft.getInstance().levelRenderer).stellaris$getDarkBuffer();
+
+        float dayAngle = level.getTimeOfDay(partialTick) * 360f % 360f;
+        float sunAngle = Mth.sin(level.getSunAngle(partialTick)) < 0.0F ? 180.0F : 0.0F;
+
+        Vec3 vec3 = level.getSkyColor(camera.getPosition(), partialTick);
         float r = (float) vec3.x;
         float g = (float) vec3.y;
         float b = (float) vec3.z;
@@ -56,43 +58,52 @@ public class SkyRenderer {
         RenderSystem.depthMask(false);
 
         RenderSystem.setShaderColor(r, g, b, 1.0f);
-        SkyHelper.drawSky(mc, matrix4f, projectionMatrix, shaderInstance);
-        VertexBuffer.unbind();
-        RenderSystem.enableBlend();
-        RenderSystem.defaultBlendFunc();
+        SkyHelper.drawSky(mc, poseStack.last().pose(), projectionMatrix, shaderInstance);
 
         // Star
-        renderStars(dayAngle, partialTick, poseStack, projectionMatrix, camera);
+        renderStars(level, dayAngle, partialTick, poseStack, projectionMatrix, camera);
 
         // Sun
         if (customVanillaObject.sun()) {
-            SkyHelper.drawCelestialBody(customVanillaObject.sunTexture(), bufferBuilder, poseStack, camera, 30f, dayAngle, true);
+            SkyHelper.drawCelestialBody(customVanillaObject.sunTexture(), bufferBuilder, poseStack, 100f, 30f, sunAngle, true);
         }
 
         // Moon
         if (customVanillaObject.moon()) {
-            SkyHelper.drawMoonWithPhase(bufferBuilder, poseStack, camera,customVanillaObject, dayAngle);
+            SkyHelper.drawMoonWithPhase(level, bufferBuilder, poseStack, -100f, customVanillaObject, dayAngle);
         }
 
         // Other sky object
         for (SkyObject skyObject : this.properties.skyObjects()) {
-            SkyHelper.drawCelestialBody(skyObject, bufferBuilder, poseStack, camera, dayAngle, true);
+            SkyHelper.drawCelestialBody(skyObject, bufferBuilder, poseStack, 100f, dayAngle, skyObject.blend());
         }
 
-        SkyHelper.setupShaderColor(mc, r, g, b);
+        double d = mc.player.getEyePosition(partialTick).y - level.getLevelData().getHorizonHeight(level);
+        if (d < 0.0) {
+            poseStack.pushPose();
+            poseStack.translate(0.0F, 12.0F, 0.0F);
+
+            darkBuffer.bind();
+            darkBuffer.drawWithShader(poseStack.last().pose(), projectionMatrix, shaderInstance);
+            VertexBuffer.unbind();
+            poseStack.popPose();
+        }
+
         RenderSystem.depthMask(true);
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
     }
 
-    private void renderStars(float dayAngle, float partialTick, PoseStack poseStack, Matrix4f projectionMatrix, Camera camera) {
-        float rainLevel = 1.0F - Minecraft.getInstance().level.getRainLevel(partialTick);
-        float starLight = Minecraft.getInstance().level.getStarBrightness(partialTick) * rainLevel;
+    private void renderStars(ClientLevel level, float dayAngle, float partialTick, PoseStack poseStack, Matrix4f projectionMatrix, Camera camera) {
+        float rainLevel = 1.0F - level.getRainLevel(partialTick);
+        float starLight = level.getStarBrightness(partialTick) * rainLevel;
         if (starLight > 0.0F) {
+            RenderSystem.setShader(GameRenderer::getPositionColorShader);
             RenderSystem.setShaderColor(starLight + 0.5F, starLight + 0.5F, starLight + 0.5F, starLight + 0.5F);
-            SkyHelper.drawStars(starBuffer, poseStack, projectionMatrix, GameRenderer.getPositionColorShader(), camera, dayAngle, true);
+            StarHelper.drawStars(starBuffer, poseStack, projectionMatrix, camera, dayAngle);
         } else if(this.properties.stars().allDaysVisible()){
+            RenderSystem.setShader(GameRenderer::getPositionColorShader);
             RenderSystem.setShaderColor(starLight + 1F, starLight + 1F, starLight + 1F, starLight + 1F);
-            SkyHelper.drawStars(starBuffer, poseStack, projectionMatrix, GameRenderer.getPositionColorShader(), camera, dayAngle, true);
+            StarHelper.drawStars(starBuffer, poseStack, projectionMatrix, camera, dayAngle);
         }
     }
 

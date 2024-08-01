@@ -1,33 +1,33 @@
 package com.st0x0ef.stellaris.client.skys.utils;
 
+import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
+import com.mojang.math.Axis;
+import net.minecraft.client.Camera;
 import net.minecraft.client.GraphicsStatus;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.util.Mth;
+import org.apache.commons.lang3.BooleanUtils;
+import org.joml.Matrix4f;
+import org.joml.Vector3f;
 
 import java.util.Random;
 
 public class StarHelper {
     public static VertexBuffer createStars(float scale, int amountFancy, int r, int g, int b) {
-        BufferBuilder bufferbuilder = Tesselator.getInstance().getBuilder();
+        BufferBuilder bufferBuilder = Tesselator.getInstance().getBuilder();
         RenderSystem.setShader(GameRenderer::getPositionColorShader);
 
         VertexBuffer vertexBuffer = new VertexBuffer(VertexBuffer.Usage.STATIC);
 
-        BufferBuilder.RenderedBuffer renderedBuffer = drawStars(bufferbuilder, scale, amountFancy / 2, amountFancy, r, g, b);
-        vertexBuffer.bind();
-        vertexBuffer.upload(renderedBuffer);
-        VertexBuffer.unbind();
-        return vertexBuffer;
-    }
-
-    private static BufferBuilder.RenderedBuffer drawStars(BufferBuilder bufferBuilder, float scale, int amountFast, int amountFancy, int r, int g, int b) {
         Random random = new Random();
         bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
 
         GraphicsStatus graphicsMode = Minecraft.getInstance().options.graphicsMode().get();
-        int stars = (graphicsMode == GraphicsStatus.FANCY || graphicsMode == GraphicsStatus.FABULOUS) ? amountFancy : amountFast;
+        int stars = amountFancy / (BooleanUtils.toInteger(graphicsMode == GraphicsStatus.FANCY || graphicsMode == GraphicsStatus.FABULOUS) + 1);
 
         for (int i = 0; i < stars; i++) {
             double d0 = random.nextFloat() * 2.0F - 1.0F;
@@ -35,8 +35,8 @@ public class StarHelper {
             double d2 = random.nextFloat() * 2.0F - 1.0F;
             double d3 = scale + random.nextFloat() * 0.1F;
             double d4 = d0 * d0 + d1 * d1 + d2 * d2;
-            if (d4 < 1.0D && d4 > 0.01D) {
-                d4 = 1.0D / Math.sqrt(d4);
+            if (d4 < 1.0 && d4 > 0.01) {
+                d4 = 1.0 / Math.sqrt(d4);
                 d0 *= d4;
                 d1 *= d4;
                 d2 *= d4;
@@ -71,6 +71,36 @@ public class StarHelper {
                 }
             }
         }
-        return bufferBuilder.end();
+
+        BufferBuilder.RenderedBuffer renderedBuffer = bufferBuilder.end();
+        vertexBuffer.bind();
+        vertexBuffer.upload(renderedBuffer);
+        VertexBuffer.unbind();
+        return vertexBuffer;
     }
+
+    public static void drawStars(VertexBuffer vertexBuffer, PoseStack poseStack, Matrix4f projectionMatrix, Camera camera, float dayAngle) {
+        poseStack.pushPose();
+
+        poseStack.mulPose(Axis.XP.rotationDegrees(dayAngle));
+
+        Vector3f lookVector = camera.getLookVector();
+        float lookX = lookVector.x();
+        float lookY = lookVector.y();
+        float lookZ = lookVector.z();
+
+        float theta = (float) Math.atan2(lookZ, lookX);
+        float phi = (float) Math.asin(lookY / lookVector.length());
+
+        poseStack.mulPose(Axis.ZP.rotationDegrees((float) Math.toDegrees(theta)));
+        poseStack.mulPose(Axis.XP.rotationDegrees((float) Math.toDegrees(-phi)));
+
+        FogRenderer.setupNoFog();
+        vertexBuffer.bind();
+        vertexBuffer.drawWithShader(poseStack.last().pose(), projectionMatrix, GameRenderer.getPositionColorShader());
+        VertexBuffer.unbind();
+        poseStack.popPose();
+    }
+
+
 }
