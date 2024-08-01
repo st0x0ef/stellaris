@@ -9,6 +9,7 @@
           "children": [
             {
               "type": "minecraft:item",
+              "name": "stellaris:moon_desh_ore",
               "conditions": [
                 {
                   "condition": "minecraft:match_tool",
@@ -25,11 +26,11 @@
                     }
                   }
                 }
-              ],
-              "name": "stellaris:moon_desh_ore"
+              ]
             },
             {
               "type": "minecraft:item",
+              "name": "stellaris:raw_desh_ingot",
               "functions": [
                 {
                   "enchantment": "minecraft:fortune",
@@ -39,8 +40,7 @@
                 {
                   "function": "minecraft:explosion_decay"
                 }
-              ],
-              "name": "stellaris:raw_desh_ingot"
+              ]
             }
           ]
         }

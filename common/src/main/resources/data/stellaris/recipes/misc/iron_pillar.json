@@ -6,7 +6,9 @@
     "## "
   ],
   "key": {
-    "#": {"item": "stellaris:iron_plating_block"}
+    "#": {
+      "item": "stellaris:iron_plating_block"
+    }
   },
   "result": {
     "id": "stellaris:iron_pillar",

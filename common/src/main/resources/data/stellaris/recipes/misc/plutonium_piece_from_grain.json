@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {"item": "stellaris:plutonium_grain"}
+  },
+  "result": {
+    "id": "stellaris:plutonium_piece",
+    "count": 1
+  }
+}
