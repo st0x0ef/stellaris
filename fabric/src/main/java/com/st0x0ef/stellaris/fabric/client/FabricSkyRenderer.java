@@ -3,10 +3,8 @@ package com.st0x0ef.stellaris.fabric.client;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.st0x0ef.stellaris.client.skys.PlanetSky;
 import com.st0x0ef.stellaris.client.skys.record.SkyPropertiesData;
-import com.st0x0ef.stellaris.mixin.client.LevelRendererAccessor;
 import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
-import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
 

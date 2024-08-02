@@ -7,16 +7,12 @@ import com.mojang.math.Axis;
 import com.st0x0ef.stellaris.client.skys.record.CustomVanillaObject;
 import com.st0x0ef.stellaris.client.skys.record.SkyObject;
 import com.st0x0ef.stellaris.mixin.client.LevelRendererAccessor;
-import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.resources.ResourceLocation;
-import org.apache.commons.lang3.tuple.Triple;
 import org.joml.Matrix4f;
-import org.joml.Quaternionf;
 
 public class SkyHelper {
     public static void drawSky(Minecraft mc, Matrix4f matrix4f, Matrix4f projectionMatrix, ShaderInstance shaderInstance) {

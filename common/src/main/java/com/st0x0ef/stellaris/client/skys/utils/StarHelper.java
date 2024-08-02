@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.client.skys.utils;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Axis;
@@ -9,7 +8,6 @@ import net.minecraft.client.GraphicsStatus;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.util.Mth;
 import org.apache.commons.lang3.BooleanUtils;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;

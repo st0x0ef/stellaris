@@ -12,6 +12,7 @@ import org.lwjgl.glfw.GLFW;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -28,7 +29,7 @@ public abstract class PlayerLanderKeyMixin {
 
 
 
-    @Inject(at = @At(value = "TAIL"), method = "keyPress", cancellable = true)
+    @Inject(at = @At(value = "TAIL"), method = "keyPress")
     private void keyPress(long windowPointer, int key, int scanCode, int action, int modifiers, CallbackInfo info) {
         if (windowPointer == this.minecraft.getWindow().getWindow()) {
             if (minecraft.player == null) return;
@@ -45,6 +46,7 @@ public abstract class PlayerLanderKeyMixin {
         }
     }
 
+    @Unique
     public void keyEvent(Player player, KeyMapping keyWanted, int key, int scanCode, int action, int modifiers) {
         if ((keyWanted.getDefaultKey().getValue() == key && action == GLFW.GLFW_RELEASE && KeyVariables.isHoldingJump(player))  || (KeyVariables.isHoldingJump(player))) {
             KeyVariables.KEY_JUMP.put(player.getUUID(), false);
@@ -63,6 +65,7 @@ public abstract class PlayerLanderKeyMixin {
     }
 
 
+    @Unique
     private static void sendKeyToServerAndClientHashMap(int key, int action, Player player, KeyMapping keyWanted, Map<UUID, Boolean> variableKey, String keyString, boolean isPressed) {
         if (player == null) {
             return;
