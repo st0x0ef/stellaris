@@ -3,7 +3,8 @@ package com.st0x0ef.stellaris.client.skys;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.st0x0ef.stellaris.client.skys.record.SkyProperties;
 import com.st0x0ef.stellaris.client.skys.renderer.SkyRenderer;
-import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.Camera;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.DimensionSpecialEffects;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -29,8 +30,8 @@ public class PlanetSky extends DimensionSpecialEffects {
         return false;
     }
 
-    public void renderSky(ClientLevel level, PoseStack poseStack, Matrix4f projectionMatrix) {
-        //getRenderer().render(level, ((LevelRendererAccessor) Minecraft.getInstance().levelRenderer).stellaris$ticks(), poseStack, projectionMatrix);
+    public void renderSky(PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, Camera camera) {
+        getRenderer().render(Minecraft.getInstance(), Minecraft.getInstance().level, poseStack, projectionMatrix, partialTick, camera);
     }
 
     public SkyRenderer getRenderer() {

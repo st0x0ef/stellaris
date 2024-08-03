@@ -14,7 +14,6 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.ShaderInstance;
-import net.minecraft.util.Mth;
 import net.minecraft.world.level.material.FogType;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
@@ -34,20 +33,16 @@ public class SkyRenderer {
         }
     }
 
-    public void render(ClientLevel level, float partialTick, PoseStack poseStack, Matrix4f projectionMatrix) {
-        Minecraft mc = Minecraft.getInstance();
-        Camera camera = mc.gameRenderer.getMainCamera();
-
+    public void render(Minecraft mc, ClientLevel level, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, Camera camera) {
         FogType cameraSubmersionType = camera.getFluidInCamera();
         if (cameraSubmersionType.equals(FogType.POWDER_SNOW) || cameraSubmersionType.equals(FogType.LAVA) || mc.levelRenderer.doesMobEffectBlockSky(camera)) return;
 
         BufferBuilder bufferBuilder = Tesselator.getInstance().getBuilder();
         ShaderInstance shaderInstance = RenderSystem.getShader();
-        CustomVanillaObject customVanillaObject = this.properties.customVanillaObject();
+        CustomVanillaObject customVanillaObject = properties.customVanillaObject();
         VertexBuffer darkBuffer = ((LevelRendererAccessor) Minecraft.getInstance().levelRenderer).stellaris$getDarkBuffer();
 
         float dayAngle = level.getTimeOfDay(partialTick) * 360f % 360f;
-        float sunAngle = Mth.sin(level.getSunAngle(partialTick)) < 0.0F ? 180.0F : 0.0F;
 
         Vec3 vec3 = level.getSkyColor(camera.getPosition(), partialTick);
         float r = (float) vec3.x;
@@ -65,7 +60,7 @@ public class SkyRenderer {
 
         // Sun
         if (customVanillaObject.sun()) {
-            SkyHelper.drawCelestialBody(customVanillaObject.sunTexture(), bufferBuilder, poseStack, 100f, 30f, sunAngle, true);
+            SkyHelper.drawCelestialBody(customVanillaObject.sunTexture(), bufferBuilder, poseStack, 100f, 30f, dayAngle, true);
         }
 
         // Moon
@@ -74,7 +69,7 @@ public class SkyRenderer {
         }
 
         // Other sky object
-        for (SkyObject skyObject : this.properties.skyObjects()) {
+        for (SkyObject skyObject : properties.skyObjects()) {
             SkyHelper.drawCelestialBody(skyObject, bufferBuilder, poseStack, 100f, dayAngle, skyObject.blend());
         }
 
@@ -100,18 +95,18 @@ public class SkyRenderer {
             RenderSystem.setShader(GameRenderer::getPositionColorShader);
             RenderSystem.setShaderColor(starLight + 0.5F, starLight + 0.5F, starLight + 0.5F, starLight + 0.5F);
             StarHelper.drawStars(starBuffer, poseStack, projectionMatrix, camera, dayAngle);
-        } else if(this.properties.stars().allDaysVisible()){
+        } else if(properties.stars().allDaysVisible()){
             RenderSystem.setShader(GameRenderer::getPositionColorShader);
             RenderSystem.setShaderColor(starLight + 1F, starLight + 1F, starLight + 1F, starLight + 1F);
             StarHelper.drawStars(starBuffer, poseStack, projectionMatrix, camera, dayAngle);
         }
     }
 
-    public void removeCloud() {
-        // Doing nothing remove cloud
+    public Boolean shouldRemoveCloud() {
+        return !properties.cloud();
     }
 
-    public void removeSnowAndRain() {
-        // Doing nothing remove snow and rain
+    public Boolean shouldRemoveSnowAndRain() {
+        return properties.weather().isEmpty();
     }
 }

@@ -10,7 +10,6 @@ import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.client.renderer.GameRenderer;
 import org.apache.commons.lang3.BooleanUtils;
 import org.joml.Matrix4f;
-import org.joml.Vector3f;
 
 import java.util.Random;
 
@@ -79,26 +78,11 @@ public class StarHelper {
 
     public static void drawStars(VertexBuffer vertexBuffer, PoseStack poseStack, Matrix4f projectionMatrix, Camera camera, float dayAngle) {
         poseStack.pushPose();
-
-        poseStack.mulPose(Axis.XP.rotationDegrees(dayAngle));
-
-        Vector3f lookVector = camera.getLookVector();
-        float lookX = lookVector.x();
-        float lookY = lookVector.y();
-        float lookZ = lookVector.z();
-
-        float theta = (float) Math.atan2(lookZ, lookX);
-        float phi = (float) Math.asin(lookY / lookVector.length());
-
-        poseStack.mulPose(Axis.ZP.rotationDegrees((float) Math.toDegrees(theta)));
-        poseStack.mulPose(Axis.XP.rotationDegrees((float) Math.toDegrees(-phi)));
-
+        poseStack.mulPose(Axis.YP.rotationDegrees(-90));
         FogRenderer.setupNoFog();
         vertexBuffer.bind();
         vertexBuffer.drawWithShader(poseStack.last().pose(), projectionMatrix, GameRenderer.getPositionColorShader());
         VertexBuffer.unbind();
         poseStack.popPose();
     }
-
-
 }

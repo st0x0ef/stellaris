@@ -31,7 +31,7 @@
             },
             {
               "type": "minecraft:item",
-              "name": "minecraft:raw_iron",
+              "name": "minecraft:diamond",
               "functions": [
                 {
                   "function": "minecraft:apply_bonus",

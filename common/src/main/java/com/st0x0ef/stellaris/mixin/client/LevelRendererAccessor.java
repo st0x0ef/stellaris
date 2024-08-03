@@ -12,8 +12,4 @@ public interface LevelRendererAccessor {
 
     @Accessor("darkBuffer")
     VertexBuffer stellaris$getDarkBuffer();
-
-    @Accessor("ticks")
-    int stellaris$ticks();
-
 }
