@@ -56,7 +56,7 @@ public class GlobeItemRenderer<T extends GlobeBlockEntity> extends BlockEntityWi
             }
         }
 
-        this.model.renderToBuffer(matrixStackIn, vertexBuilder, combinedLight, OverlayTexture.NO_OVERLAY, 16777215);
+        this.model.renderToBuffer(matrixStackIn, vertexBuilder, combinedLight, OverlayTexture.NO_OVERLAY, -1);
 
         matrixStackIn.popPose();
     }

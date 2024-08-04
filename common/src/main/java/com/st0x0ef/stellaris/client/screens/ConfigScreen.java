@@ -65,7 +65,7 @@ public class ConfigScreen extends Screen {
     @Override
     public void render(GuiGraphics guiGraphics, int i, int j, float f) {
         super.render(guiGraphics, i, j, f);
-        guiGraphics.drawCenteredString(this.font, this.title, this.width / 2, 20, 16777215);
+        guiGraphics.drawCenteredString(this.font, this.title, this.width / 2, 20, -1);
     }
 
     public void addTypeWidgets(ConfigEntry entry, GridLayout.RowHelper rowHelper, String entryName) {
