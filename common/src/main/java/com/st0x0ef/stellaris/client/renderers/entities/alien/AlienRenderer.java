@@ -15,21 +15,21 @@ import net.minecraft.world.entity.npc.VillagerProfession;
 public class AlienRenderer extends MobRenderer<Alien, AlienModel<Alien>> {
 
     /** TEXTURES */
-    public static final ResourceLocation ALIEN = new ResourceLocation(Stellaris.MODID,"textures/entity/alien/alien.png");
+    public static final ResourceLocation ALIEN = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/alien/alien.png");
 
-    public static final ResourceLocation FARMER = new ResourceLocation(Stellaris.MODID,"textures/entity/alien/farmer.png");
-    public static final ResourceLocation FISHERMAN = new ResourceLocation(Stellaris.MODID,"textures/entity/alien/fisherman.png");
-    public static final ResourceLocation SHEPHERD = new ResourceLocation(Stellaris.MODID,"textures/entity/alien/shepherd.png");
-    public static final ResourceLocation FLETCHER = new ResourceLocation(Stellaris.MODID,"textures/entity/alien/fletcher.png");
-    public static final ResourceLocation LIBRARIAN = new ResourceLocation(Stellaris.MODID,"textures/entity/alien/librarian.png");
-    public static final ResourceLocation CARTOGRAPHER = new ResourceLocation(Stellaris.MODID,"textures/entity/alien/cartographer.png");
-    public static final ResourceLocation CLERIC = new ResourceLocation(Stellaris.MODID,"textures/entity/alien/cleric.png");
-    public static final ResourceLocation ARMORER = new ResourceLocation(Stellaris.MODID,"textures/entity/alien/armorer.png");
-    public static final ResourceLocation WEAPON_SMITH = new ResourceLocation(Stellaris.MODID,"textures/entity/alien/weapon_smith.png");
-    public static final ResourceLocation TOOL_SMITH = new ResourceLocation(Stellaris.MODID,"textures/entity/alien/tool_smith.png");
-    public static final ResourceLocation BUTCHER = new ResourceLocation(Stellaris.MODID,"textures/entity/alien/butcher.png");
-    public static final ResourceLocation LEATHER_WORKER = new ResourceLocation(Stellaris.MODID,"textures/entity/alien/leather_worker.png");
-    public static final ResourceLocation MASON = new ResourceLocation(Stellaris.MODID,"textures/entity/alien/mason.png");
+    public static final ResourceLocation FARMER = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/alien/farmer.png");
+    public static final ResourceLocation FISHERMAN = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/alien/fisherman.png");
+    public static final ResourceLocation SHEPHERD = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/alien/shepherd.png");
+    public static final ResourceLocation FLETCHER = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/alien/fletcher.png");
+    public static final ResourceLocation LIBRARIAN = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/alien/librarian.png");
+    public static final ResourceLocation CARTOGRAPHER = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/alien/cartographer.png");
+    public static final ResourceLocation CLERIC = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/alien/cleric.png");
+    public static final ResourceLocation ARMORER = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/alien/armorer.png");
+    public static final ResourceLocation WEAPON_SMITH = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/alien/weapon_smith.png");
+    public static final ResourceLocation TOOL_SMITH = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/alien/tool_smith.png");
+    public static final ResourceLocation BUTCHER = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/alien/butcher.png");
+    public static final ResourceLocation LEATHER_WORKER = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/alien/leather_worker.png");
+    public static final ResourceLocation MASON = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/alien/mason.png");
 
 
     public AlienRenderer(EntityRendererProvider.Context renderManagerIn) {

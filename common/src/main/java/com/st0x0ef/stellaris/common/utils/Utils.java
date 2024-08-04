@@ -5,7 +5,6 @@ import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.entities.LanderEntity;
 import com.st0x0ef.stellaris.common.entities.RocketEntity;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
-import com.st0x0ef.stellaris.platform.TeleportUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
@@ -59,7 +58,7 @@ public class Utils {
 
     /** Teleport an entity to the planet wanted */
     public static void teleportEntity(Entity entity, Planet destination) {
-        if(entity.level().isClientSide() || !entity.canChangeDimensions()) return;
+        if(entity.level().isClientSide()) return;
         entity.setNoGravity(false);
 
         entity.level().getServer().getAllLevels().forEach(level -> {

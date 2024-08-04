@@ -14,7 +14,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 @Environment(EnvType.CLIENT)
 public class VacumatorScreen extends AbstractContainerScreen<VacumatorMenu> {
-	public static final ResourceLocation texture = new ResourceLocation(Stellaris.MODID, "textures/gui/vacumator.png");
+	public static final ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/vacumator.png");
 
 	public VacumatorScreen(VacumatorMenu abstractContainerMenu, Inventory inventory, Component component) {
 		super(abstractContainerMenu, inventory, component);

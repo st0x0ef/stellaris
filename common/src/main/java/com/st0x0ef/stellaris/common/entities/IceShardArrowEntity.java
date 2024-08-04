@@ -5,6 +5,7 @@ import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import dev.architectury.networking.NetworkManager;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.server.level.ServerEntity;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -20,11 +21,11 @@ public class IceShardArrowEntity extends AbstractArrow {
     private static final ItemStack DEFAULT_ARROW_STACK;
 
     public IceShardArrowEntity(EntityType<? extends IceShardArrowEntity> entityType, Level level) {
-        super(entityType, level, DEFAULT_ARROW_STACK);
+        super(entityType, level);
     }
 
     public IceShardArrowEntity(Level level, LivingEntity livingEntity, ItemStack itemStack) {
-        super(EntityRegistry.ICE_SHARD_ARROW.get(), livingEntity, level, itemStack);
+        super(EntityRegistry.ICE_SHARD_ARROW.get(), livingEntity, level, itemStack, null);
     }
 
 
@@ -48,7 +49,7 @@ public class IceShardArrowEntity extends AbstractArrow {
     }
 
     @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
-        return NetworkManager.createAddEntityPacket(this);
+    public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity entity) {
+        return NetworkManager.createAddEntityPacket(this, entity);
     }
 }

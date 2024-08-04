@@ -52,11 +52,11 @@ public class GlobeItemRenderer<T extends GlobeBlockEntity> extends BlockEntityWi
         /** Animation */
         if (level != null) {
             if (!mc.isPaused()) {
-                model.globe.getChild("planet").yRot = (level.getGameTime() + mc.getFrameTime()) / -20;
+                model.globe.getChild("planet").yRot = (float) (level.getGameTime() + (1 / mc.getFps())) / -20;
             }
         }
 
-        this.model.renderToBuffer(matrixStackIn, vertexBuilder, combinedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+        this.model.renderToBuffer(matrixStackIn, vertexBuilder, combinedLight, OverlayTexture.NO_OVERLAY, 16777215);
 
         matrixStackIn.popPose();
     }

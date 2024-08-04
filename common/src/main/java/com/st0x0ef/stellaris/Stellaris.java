@@ -68,11 +68,11 @@ public class Stellaris {
     }
 
     public static void onAddReloadListenerEvent(BiConsumer<ResourceLocation, PreparableReloadListener> registry) {
-        registry.accept(new ResourceLocation(Stellaris.MODID, "planets"), new StellarisData());
+        registry.accept(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "planets"), new StellarisData());
 
-        registry.accept(new ResourceLocation(Stellaris.MODID, "sky_renderer"), new SkyPropertiesData());
-        registry.accept(new ResourceLocation(Stellaris.MODID, "stars_pack"), new StarPack());
-        registry.accept(new ResourceLocation(Stellaris.MODID, "planets_pack"), new PlanetPack());
-        registry.accept(new ResourceLocation(Stellaris.MODID, "moon_packs"), new MoonPack());
+        registry.accept(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "sky_renderer"), new SkyPropertiesData());
+        registry.accept(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "stars_pack"), new StarPack());
+        registry.accept(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "planets_pack"), new PlanetPack());
+        registry.accept(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "moon_packs"), new MoonPack());
     }
 }

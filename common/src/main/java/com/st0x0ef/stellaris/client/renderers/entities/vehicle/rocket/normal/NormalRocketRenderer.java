@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 
 public class NormalRocketRenderer extends VehicleRenderer<RocketEntity, NormalRocketModel<RocketEntity>> {
-    public ResourceLocation TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/vehicle/rocket_skin/normal/standard.png");
+    public ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/vehicle/rocket_skin/normal/standard.png");
 
     public NormalRocketRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new NormalRocketModel<>(renderManagerIn.bakeLayer(NormalRocketModel.LAYER_LOCATION)), 0.5f);
@@ -18,7 +18,8 @@ public class NormalRocketRenderer extends VehicleRenderer<RocketEntity, NormalRo
     @Override
     public ResourceLocation getTextureLocation(RocketEntity rocket) {
         rocket.MODEL_UPGRADE = new ModelUpgrade(RocketModel.NORMAL);
-        return new ResourceLocation(rocket.getFullSkinTexture());    }
+        return rocket.getFullSkinTexture();
+    }
 
     @Override
     protected boolean isShaking(RocketEntity rocket) {

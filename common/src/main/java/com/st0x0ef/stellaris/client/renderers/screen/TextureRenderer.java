@@ -9,7 +9,7 @@ public class TextureRenderer {
     private ResourceLocation resourceLocation;
 
     public void loadTexture(String texturePath) {
-        this.resourceLocation = new ResourceLocation(texturePath);
+        this.resourceLocation = ResourceLocation.parse(texturePath);
     }
 
     public void renderTexture(GuiGraphics graphics, int x, int y, int width, int height) {

@@ -17,7 +17,7 @@ import net.minecraft.util.Mth;
 @Environment(EnvType.CLIENT)
 public class MartianRaptorModel<T extends MartianRaptor> extends EntityModel<T> {
 
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(Stellaris.MODID, "martian_raptor"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "martian_raptor"), "main");
 
     private final ModelPart body;
     private final ModelPart leg1;
@@ -106,9 +106,9 @@ public class MartianRaptorModel<T extends MartianRaptor> extends EntityModel<T> 
     }
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        body.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-        leg1.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-        leg2.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
+        body.render(poseStack, buffer, packedLight, packedOverlay, color);
+        leg1.render(poseStack, buffer, packedLight, packedOverlay, color);
+        leg2.render(poseStack, buffer, packedLight, packedOverlay, color);
     }
 }

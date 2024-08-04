@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 
 public class LanderRenderer extends VehicleRenderer<LanderEntity, LanderModel<LanderEntity>> {
-    public static final ResourceLocation TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/vehicle/lander.png");
+    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/vehicle/lander.png");
 
     public LanderRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new LanderModel<>(renderManagerIn.bakeLayer(LanderModel.LAYER_LOCATION)), 0.5f);

@@ -32,6 +32,6 @@ public abstract class MainMenuMixin extends Screen {
     @Unique
     private static SpriteIconButton stellarisConfigButton(int i, Button.OnPress onPress, boolean bl) {
         Component component = Component.translatable("screens.stellaris.config");
-        return SpriteIconButton.builder(component, onPress, bl).width(i).sprite(new ResourceLocation(Stellaris.MODID, "textures/item/engine_fan.png"), 16, 16).build();
+        return SpriteIconButton.builder(component, onPress, bl).width(i).sprite(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/item/engine_fan.png"), 16, 16).build();
     }
 }

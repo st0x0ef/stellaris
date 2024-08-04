@@ -34,7 +34,7 @@ public class FabricDataManagerBuilder<T> implements DataManagerBuilder<T> {
 
     @Override
     public DataManager<T> buildAndRegister(String name) {
-        AttachmentType<T> tAttachmentType = this.builder.buildAndRegister(new ResourceLocation(modid, name));
+        AttachmentType<T> tAttachmentType = this.builder.buildAndRegister(ResourceLocation.fromNamespaceAndPath(modid, name));
         return new FabricDataManager<>(tAttachmentType);
     }
 }

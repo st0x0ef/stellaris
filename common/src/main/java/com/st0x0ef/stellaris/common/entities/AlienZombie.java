@@ -1,7 +1,11 @@
 package com.st0x0ef.stellaris.common.entities;
 
 import com.st0x0ef.stellaris.common.entities.alien.Alien;
+import dev.architectury.networking.NetworkManager;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.server.level.ServerEntity;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
@@ -70,7 +74,7 @@ public class AlienZombie extends Monster implements RangedAttackMob {
 	}
 
 	protected AbstractArrow getArrow(ItemStack itemStack, float f) {
-		return ProjectileUtil.getMobArrow(this, itemStack, f);
+		return ProjectileUtil.getMobArrow(this, itemStack, f, null);
 	}
 
 	@Override
@@ -84,5 +88,8 @@ public class AlienZombie extends Monster implements RangedAttackMob {
 		return super.checkSpawnRules(p_21686_, p_21687_);
 	}
 
-
+	@Override
+	public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity entity) {
+		return NetworkManager.createAddEntityPacket(this, entity);
+	}
 }

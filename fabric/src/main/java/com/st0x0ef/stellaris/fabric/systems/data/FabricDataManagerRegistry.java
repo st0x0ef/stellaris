@@ -22,7 +22,7 @@ public class FabricDataManagerRegistry implements DataManagerRegistry {
 
     @Override
     public <T> DataManager<T> register(@NotNull String name, @NotNull Supplier<T> factory, @Nullable Codec<T> codec, boolean copyOnDeath) {
-        ResourceLocation id = new ResourceLocation(modid, name);
+        ResourceLocation id = ResourceLocation.fromNamespaceAndPath(modid, name);
         var type = new AttachmentTypeImpl<>(id, factory, codec, copyOnDeath);
         AttachmentRegistryImpl.register(id, type);
         return new FabricDataManager<>(type);

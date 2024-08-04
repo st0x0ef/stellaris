@@ -19,7 +19,7 @@ import java.util.List;
 
 public class RocketStationCategory implements DisplayCategory<BasicDisplay> {
 
-    public static final ResourceLocation TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/rocket_station_no_inventory.png");
+    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/rocket_station_no_inventory.png");
     public static final CategoryIdentifier<RocketStationDisplay> ROCKET_CRAFTING = CategoryIdentifier.of(Stellaris.MODID,"rocket_crafting");
 
     @Override

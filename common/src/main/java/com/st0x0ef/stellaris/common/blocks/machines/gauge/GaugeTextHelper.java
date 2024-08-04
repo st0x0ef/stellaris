@@ -11,14 +11,14 @@ import java.text.NumberFormat;
 
 public class GaugeTextHelper
 {
-    public static final ResourceLocation USING_NAME = new ResourceLocation(Stellaris.MODID, "using");
-    public static final ResourceLocation USING2_NAME = new ResourceLocation(Stellaris.MODID, "using2");
-    public static final ResourceLocation GENERATING_NAME = new ResourceLocation(Stellaris.MODID, "generating");
-    public static final ResourceLocation MAXGENERATION_NAME = new ResourceLocation(Stellaris.MODID, "max_generation");
-    public static final ResourceLocation TOTAL_NAME = new ResourceLocation(Stellaris.MODID, "total");
-    public static final ResourceLocation STORED_NAME = new ResourceLocation(Stellaris.MODID, "stored");
-    public static final ResourceLocation CAPACITY_NAME = new ResourceLocation(Stellaris.MODID, "capacity");
-    public static final ResourceLocation TRANSFER_NAME = new ResourceLocation(Stellaris.MODID, "transfer");
+    public static final ResourceLocation USING_NAME = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "using");
+    public static final ResourceLocation USING2_NAME = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "using2");
+    public static final ResourceLocation GENERATING_NAME = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "generating");
+    public static final ResourceLocation MAXGENERATION_NAME = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "max_generation");
+    public static final ResourceLocation TOTAL_NAME = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "total");
+    public static final ResourceLocation STORED_NAME = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "stored");
+    public static final ResourceLocation CAPACITY_NAME = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "capacity");
+    public static final ResourceLocation TRANSFER_NAME = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "transfer");
 
     public static final String USING_KEY = makeTranslationKey(USING_NAME);
     public static final String USING2_KEY = makeTranslationKey(USING2_NAME);

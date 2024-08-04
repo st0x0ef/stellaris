@@ -21,7 +21,7 @@ public class SkyHelper {
         VertexBuffer.unbind();
     }
 
-    public static void drawMoonWithPhase(ClientLevel level, BufferBuilder bufferBuilder, PoseStack poseStack, float y, CustomVanillaObject customVanillaObject, float dayAngle) {
+    public static void drawMoonWithPhase(ClientLevel level, Tesselator tesselator, PoseStack poseStack, float y, CustomVanillaObject customVanillaObject, float dayAngle) {
         int moonPhase = level.getMoonPhase();
         int xCoord = moonPhase % 4;
         int yCoord = moonPhase / 4 % 2;
@@ -30,18 +30,18 @@ public class SkyHelper {
         float endX = (xCoord + 1) / 4.0F;
         float endY = (yCoord + 1) / 2.0F;
 
-        drawCelestialBody(customVanillaObject.moonTexture(), bufferBuilder, poseStack, y, 20f, dayAngle, startX, endX, startY, endY, true);
+        drawCelestialBody(customVanillaObject.moonTexture(), tesselator, poseStack, y, 20f, dayAngle, startX, endX, startY, endY, true);
     }
 
-    public static void drawCelestialBody(SkyObject skyObject, BufferBuilder bufferBuilder, PoseStack poseStack, float y, float dayAngle, boolean blend) {
-        drawCelestialBody(skyObject.texture(), bufferBuilder, poseStack, y, skyObject.size(), dayAngle, blend);
+    public static void drawCelestialBody(SkyObject skyObject, Tesselator tesselator, PoseStack poseStack, float y, float dayAngle, boolean blend) {
+        drawCelestialBody(skyObject.texture(), tesselator, poseStack, y, skyObject.size(), dayAngle, blend);
     }
 
-    public static void drawCelestialBody(ResourceLocation texture, BufferBuilder bufferBuilder, PoseStack poseStack, float y, float size, float dayAngle, boolean blend) {
-        drawCelestialBody(texture, bufferBuilder, poseStack, y, size, dayAngle, 0f, 1f, 1f, 0f, blend);
+    public static void drawCelestialBody(ResourceLocation texture, Tesselator tesselator, PoseStack poseStack, float y, float size, float dayAngle, boolean blend) {
+        drawCelestialBody(texture, tesselator, poseStack, y, size, dayAngle, 0f, 1f, 1f, 0f, blend);
     }
 
-    public static void drawCelestialBody(ResourceLocation texture, BufferBuilder bufferBuilder, PoseStack poseStack, float y, float size, float dayAngle, float startX, float endX, float startY, float endY, boolean blend) {
+    public static void drawCelestialBody(ResourceLocation texture, Tesselator tesselator, PoseStack poseStack, float y, float size, float dayAngle, float startX, float endX, float startY, float endY, boolean blend) {
         if (blend) {
             RenderSystem.enableBlend();
             RenderSystem.defaultBlendFunc();
@@ -57,12 +57,12 @@ public class SkyHelper {
 
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, texture);
-        bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-        bufferBuilder.vertex(matrix4f, -size, y, size).uv(endX, endY).endVertex();
-        bufferBuilder.vertex(matrix4f, size, y, size).uv(startX, endY).endVertex();
-        bufferBuilder.vertex(matrix4f, size, y, -size).uv(startX, startY).endVertex();
-        bufferBuilder.vertex(matrix4f, -size, y, -size).uv(endX, startY).endVertex();
-        BufferUploader.drawWithShader(bufferBuilder.end());
+        BufferBuilder bufferBuilder = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+        bufferBuilder.addVertex(matrix4f, -size, y, size).setUv(endX, endY);
+        bufferBuilder.addVertex(matrix4f, size, y, size).setUv(startX, endY);
+        bufferBuilder.addVertex(matrix4f, size, y, -size).setUv(startX, startY);
+        bufferBuilder.addVertex(matrix4f, -size, y, -size).setUv(endX, startY);
+        BufferUploader.drawWithShader(bufferBuilder.buildOrThrow());
         poseStack.popPose();
 
         if (blend) {

@@ -46,20 +46,20 @@ import java.util.concurrent.*;
 @Environment(EnvType.CLIENT)
 public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelectionMenu> {
 
-    public static final ResourceLocation HIGHLIGHTER_TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/util/planet_highlighter.png");
-    public static final ResourceLocation BLACK_TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/util/black.png");
+    public static final ResourceLocation HIGHLIGHTER_TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/planet_highlighter.png");
+    public static final ResourceLocation BLACK_TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/black.png");
 
-    public static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/planet_selection.png");
-    public static final ResourceLocation SCROLLER_TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/util/scroller.png");
+    public static final ResourceLocation BACKGROUND_TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/planet_selection.png");
+    public static final ResourceLocation SCROLLER_TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/scroller.png");
 
-    public static final ResourceLocation SMALL_BUTTON_TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/util/buttons/small_button.png");
-    public static final ResourceLocation BUTTON_TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/util/buttons/button.png");
-    public static final ResourceLocation LARGE_BUTTON_TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/util/buttons/large_button.png");
-    public static final ResourceLocation LAUNCH_BUTTON_TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/util/buttons/launch_button.png");
+    public static final ResourceLocation SMALL_BUTTON_TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/small_button.png");
+    public static final ResourceLocation BUTTON_TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/button.png");
+    public static final ResourceLocation LARGE_BUTTON_TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/large_button.png");
+    public static final ResourceLocation LAUNCH_BUTTON_TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button.png");
 
-    public static final ResourceLocation SMALL_MENU_LIST = new ResourceLocation(Stellaris.MODID, "textures/gui/util/planet_menu.png");
-    public static final ResourceLocation LARGE_MENU_TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/util/large_planet_menu.png");
-    public static final ResourceLocation LARGE_MENU_TEXTURE_RED = new ResourceLocation(Stellaris.MODID, "textures/gui/util/large_planet_menu_red.png");
+    public static final ResourceLocation SMALL_MENU_LIST = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/planet_menu.png");
+    public static final ResourceLocation LARGE_MENU_TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/large_planet_menu.png");
+    public static final ResourceLocation LARGE_MENU_TEXTURE_RED = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/large_planet_menu_red.png");
 
     public static final List<CelestialBody> STARS = new ArrayList<>();
     public static final List<PlanetInfo> PLANETS = new ArrayList<>();
@@ -501,8 +501,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
                 RenderSystem.setShaderTexture(0, LARGE_MENU_TEXTURE);
                 graphics.blit(LARGE_MENU_TEXTURE, centerX, centerY, 0, 0, menuWidth, menuHeight, menuWidth, menuHeight);
                 launchButton.setButtonTexture(
-                        new ResourceLocation("stellaris:textures/gui/util/buttons/launch_button.png"),
-                        new ResourceLocation("stellaris:textures/gui/util/buttons/launch_button_hovered.png")
+                        ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "launch_button.png"),
+                        ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "launch_button_hovered.png")
                 );
             } else {
                 if (Objects.equals(focusedBody.name, "Earth")) {
@@ -515,8 +515,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
                     RenderSystem.setShaderTexture(0, LARGE_MENU_TEXTURE);
                     launchButton.setButtonTexture(
-                            new ResourceLocation("stellaris:textures/gui/util/buttons/launch_button.png"),
-                            new ResourceLocation("stellaris:textures/gui/util/buttons/launch_button_hovered.png")
+                            ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "launch_button.png"),
+                            ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "launch_button_hovered.png")
                     );
                     graphics.blit(LARGE_MENU_TEXTURE, centerX, centerY, 0, 0, menuWidth, menuHeight, menuWidth, menuHeight);
                 } else {
@@ -530,8 +530,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
                     RenderSystem.setShaderTexture(0, LARGE_MENU_TEXTURE_RED);
                     graphics.blit(LARGE_MENU_TEXTURE_RED, centerX, centerY, 0, 0, menuWidth, menuHeight, menuWidth, menuHeight);
                     launchButton.setButtonTexture(
-                            new ResourceLocation("stellaris:textures/gui/util/buttons/no_launch_button.png"),
-                            new ResourceLocation("stellaris:textures/gui/util/buttons/no_launch_button_hovered.png")
+                            ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "no_launch_button.png"),
+                            ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "no_launch_button_hovered.png")
                     );
                 }
             }
@@ -750,8 +750,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
         GL11.glLineWidth(2.0F);
 
-        BufferBuilder bufferBuilder = Tesselator.getInstance().getBuilder();
-        bufferBuilder.begin(VertexFormat.Mode.DEBUG_LINES, DefaultVertexFormat.POSITION_COLOR);
+        Tesselator tesselator = Tesselator.getInstance();
+        BufferBuilder bufferBuilder = tesselator.begin(VertexFormat.Mode.DEBUG_LINES, DefaultVertexFormat.POSITION_COLOR);
 
         for (PlanetInfo planet : PLANETS) {
             CelestialBody orbitCenter = planet.orbitCenter;
@@ -771,7 +771,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             renderOrbits(bufferBuilder, orbitCenterX, orbitCenterY, moon.orbitRadius * zoomLevel, 75, 0x888888, 0.5F);
         }
 
-        Tesselator.getInstance().end();
+
+        bufferBuilder.buildOrThrow();
 
         RenderSystem.disableBlend();
     }
@@ -781,21 +782,20 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         float green = ((color >> 8) & 0xFF) / 255.0F;
         float blue = (color & 0xFF) / 255.0F;
 
-        double angleStep = 2.0 * Math.PI / sides;
+        float angleStep = (float) (2.0 * Math.PI / sides);
 
         for (int i = 0; i < sides; i++) {
-            double currentAngle = i * angleStep;
-            double nextAngle = currentAngle + angleStep;
+            float currentAngle = i * angleStep;
+            float nextAngle = currentAngle + angleStep;
 
-            double vertex1X = centerX + radius * Math.cos(currentAngle);
-            double vertex1Y = centerY + radius * Math.sin(currentAngle);
-            double vertex2X = centerX + radius * Math.cos(nextAngle);
-            double vertex2Y = centerY + radius * Math.sin(nextAngle);
+            float vertex1X = (float) (centerX + radius * Math.cos(currentAngle));
+            float vertex1Y = (float) (centerY + radius * Math.sin(currentAngle));
+            float vertex2X = (float) (centerX + radius * Math.cos(nextAngle));
+            float vertex2Y = (float) (centerY + radius * Math.sin(nextAngle));
 
-            bufferBuilder.vertex(vertex1X, vertex1Y, 0).color(red, green, blue, alphaL).endVertex();
-            bufferBuilder.vertex(vertex2X, vertex2Y, 0).color(red, green, blue, alphaL).endVertex();
+            bufferBuilder.addVertex(vertex1X, vertex1Y, 0).setColor(red, green, blue, alphaL);
+            bufferBuilder.addVertex(vertex2X, vertex2Y, 0).setColor(red, green, blue, alphaL);
         }
-
     }
 
     private void centerSun() {

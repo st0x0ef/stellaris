@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 
 public class BigRocketRenderer extends VehicleRenderer<RocketEntity, BigRocketModel<RocketEntity>> {
-    public ResourceLocation TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/vehicle/rocket_skin/big/standard.png");
+    public ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/vehicle/rocket_skin/big/standard.png");
 
     public BigRocketRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new BigRocketModel<>(renderManagerIn.bakeLayer(BigRocketModel.LAYER_LOCATION)), 0.5f);
@@ -18,7 +18,7 @@ public class BigRocketRenderer extends VehicleRenderer<RocketEntity, BigRocketMo
     @Override
     public ResourceLocation getTextureLocation(RocketEntity rocket) {
         rocket.MODEL_UPGRADE = new ModelUpgrade(RocketModel.BIG);
-        return new ResourceLocation(rocket.getFullSkinTexture());
+        return rocket.getFullSkinTexture();
     }
 
     @Override

@@ -37,7 +37,7 @@ public class SkyRenderer {
         FogType cameraSubmersionType = camera.getFluidInCamera();
         if (cameraSubmersionType.equals(FogType.POWDER_SNOW) || cameraSubmersionType.equals(FogType.LAVA) || mc.levelRenderer.doesMobEffectBlockSky(camera)) return;
 
-        BufferBuilder bufferBuilder = Tesselator.getInstance().getBuilder();
+        Tesselator tesselator = Tesselator.getInstance();
         ShaderInstance shaderInstance = RenderSystem.getShader();
         CustomVanillaObject customVanillaObject = properties.customVanillaObject();
         VertexBuffer darkBuffer = ((LevelRendererAccessor) Minecraft.getInstance().levelRenderer).stellaris$getDarkBuffer();
@@ -60,17 +60,17 @@ public class SkyRenderer {
 
         // Sun
         if (customVanillaObject.sun()) {
-            SkyHelper.drawCelestialBody(customVanillaObject.sunTexture(), bufferBuilder, poseStack, 100f, 30f, dayAngle, true);
+            SkyHelper.drawCelestialBody(customVanillaObject.sunTexture(), tesselator, poseStack, 100f, 30f, dayAngle, true);
         }
 
         // Moon
         if (customVanillaObject.moon()) {
-            SkyHelper.drawMoonWithPhase(level, bufferBuilder, poseStack, -100f, customVanillaObject, dayAngle);
+            SkyHelper.drawMoonWithPhase(level, tesselator, poseStack, -100f, customVanillaObject, dayAngle);
         }
 
         // Other sky object
         for (SkyObject skyObject : properties.skyObjects()) {
-            SkyHelper.drawCelestialBody(skyObject, bufferBuilder, poseStack, 100f, dayAngle, skyObject.blend());
+            SkyHelper.drawCelestialBody(skyObject, tesselator, poseStack, 100f, dayAngle, skyObject.blend());
         }
 
         double d = mc.player.getEyePosition(partialTick).y - level.getLevelData().getHorizonHeight(level);

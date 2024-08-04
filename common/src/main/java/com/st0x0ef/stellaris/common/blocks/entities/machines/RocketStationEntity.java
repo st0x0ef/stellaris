@@ -16,6 +16,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
@@ -24,7 +25,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public class RocketStationEntity extends BaseContainerBlockEntity implements ImplementedInventory {
+public class RocketStationEntity extends BaseContainerBlockEntity implements ImplementedInventory, RecipeInput {
 
     private NonNullList<ItemStack> items = NonNullList.withSize(15, ItemStack.EMPTY);
     private final RecipeManager.CachedCheck<RocketStationEntity, RocketStationRecipe> quickCheck = RecipeManager.createCheck(RecipesRegistry.ROCKET_STATION_TYPE.get());
@@ -121,5 +122,10 @@ public class RocketStationEntity extends BaseContainerBlockEntity implements Imp
                 }
             }
         }
+    }
+
+    @Override
+    public int size() {
+        return 14;
     }
 }

@@ -58,7 +58,7 @@ public class GlobeBlockRenderer<T extends GlobeBlockEntity> implements BlockEnti
 
         VertexConsumer vertexBuilder = buffer.getBuffer(RenderType.entityTranslucent(((GlobeBlock) state.getBlock()).texture));
 
-        this.model.renderToBuffer(matrixStackIn, vertexBuilder, combinedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+        this.model.renderToBuffer(matrixStackIn, vertexBuilder, combinedLight, OverlayTexture.NO_OVERLAY, 16777215);
         mc.renderBuffers().bufferSource().endBatch();
 
         matrixStackIn.popPose();

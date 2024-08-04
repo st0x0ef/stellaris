@@ -28,7 +28,7 @@ public class ArmorMaterialsRegistry {
             10,
             SoundEvents.ARMOR_EQUIP_ELYTRA,
             () -> Ingredient.of(ItemsRegistry.DESH_INGOT.get()),
-            List.of(new ArmorMaterial.Layer(new ResourceLocation("jetsuit"))),
+            List.of(new ArmorMaterial.Layer(ResourceLocation.parse("jetsuit"))),
             2.0F, 0.0F);
 
 

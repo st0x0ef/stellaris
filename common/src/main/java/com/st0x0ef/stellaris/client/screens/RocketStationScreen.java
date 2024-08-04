@@ -15,7 +15,7 @@ import net.minecraft.world.entity.player.Inventory;
 @Environment(EnvType.CLIENT)
 public class RocketStationScreen extends AbstractContainerScreen<RocketStationMenu> {
 
-    public static final ResourceLocation texture = new ResourceLocation(Stellaris.MODID, "textures/gui/rocket_station.png");
+    public static final ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/rocket_station.png");
 
     public RocketStationScreen(RocketStationMenu abstractContainerMenu, Inventory inventory, Component component) {
         super(abstractContainerMenu, inventory, component);

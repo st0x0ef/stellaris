@@ -18,7 +18,7 @@ public class ClientUtilsPlatformImpl {
             ModelPart root = Minecraft.getInstance().getEntityModels().bakeLayer(layer);
             HumanoidModel<?> model = factory.create(root, slot, stack, original);
 
-            model.renderToBuffer(poseStack, buffer.getBuffer(RenderType.entityTranslucent(texture)), packedLight, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
+            model.renderToBuffer(poseStack, buffer.getBuffer(RenderType.entityTranslucent(texture)), packedLight, OverlayTexture.NO_OVERLAY, 16777215);
         }, items);
     }
 }

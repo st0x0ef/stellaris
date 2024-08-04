@@ -120,7 +120,7 @@ public class LanderEntity extends IVehicleEntity implements HasCustomInventorySc
     protected void dropEquipment() {
         for (int i = 0; i < this.inventory.getItems().size(); ++i) {
             ItemStack itemstack = this.inventory.getItem(i);
-            if (!itemstack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(itemstack)) {
+            if (!itemstack.isEmpty()) {
                 this.spawnAtLocation(itemstack);
             }
         }

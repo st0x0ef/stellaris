@@ -17,32 +17,32 @@ import org.joml.Matrix4f;
 public class GuiHelper
 {
 
-    public static final ResourceLocation FLUID_TANK_OVERLAY = new ResourceLocation(Stellaris.MODID,
+    public static final ResourceLocation FLUID_TANK_OVERLAY = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,
             "textures/gui/util/fluid_tank_overlay.png");
-    public static final ResourceLocation OXYGEN_CONTENT_PATH = new ResourceLocation(Stellaris.MODID,
+    public static final ResourceLocation OXYGEN_CONTENT_PATH = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,
             "textures/gui/util/oxygen.png");
     public static final int OXYGEN_TANK_WIDTH = 12;
     public static final int OXYGEN_TANK_HEIGHT = 46;
 
-    public static final ResourceLocation HYDROGEN_CONTENT_PATH = new ResourceLocation(Stellaris.MODID,
+    public static final ResourceLocation HYDROGEN_CONTENT_PATH = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,
             "textures/gui/util/hydrogen.png");
     public static final int HYDROGEN_TANK_WIDTH = 12;
     public static final int HYDROGEN_TANK_HEIGHT = 46;
-    public static final ResourceLocation ENERGY_PATH = new ResourceLocation(Stellaris.MODID,
+    public static final ResourceLocation ENERGY_PATH = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,
             "textures/gui/util/energy_full.png");
     public static final int ENERGY_WIDTH = 13;
     public static final int ENERGY_HEIGHT = 46;
     public static final int FUEL_WIDTH = 48;
     public static final int FUEL_HEIGHT = 48;
-    public static final ResourceLocation FLUID_TANK_PATH = new ResourceLocation(Stellaris.MODID,
+    public static final ResourceLocation FLUID_TANK_PATH = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,
             "textures/gui/util/fluid_tank_overlay.png");
     public static final int FLUID_TANK_WIDTH = 12;
     public static final int FLUID_TANK_HEIGHT = 46;
-    public static final ResourceLocation ARROW_PATH = new ResourceLocation(Stellaris.MODID,
+    public static final ResourceLocation ARROW_PATH = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,
             "textures/gui/util/arrow_full.png");
     public static final int ARROW_WIDTH = 24;
     public static final int ARROW_HEIGHT = 17;
-    public static final ResourceLocation HAMMER_PATH = new ResourceLocation(Stellaris.MODID,
+    public static final ResourceLocation HAMMER_PATH = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,
             "textures/gui/util/hammer_full.png");
     public static final int HAMMER_WIDTH = 16;
     public static final int HAMMER_HEIGHT = 16;
@@ -121,7 +121,7 @@ public class GuiHelper
     }
 
     public static void drawFuel(GuiGraphics matrixStack, int left, int top, double ratio) {
-        ResourceLocation full = new ResourceLocation(Stellaris.MODID, "textures/gui/util/rocket_fuel_bar_full.png");
+        ResourceLocation full = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/rocket_fuel_bar_full.png");
         drawVertical(matrixStack, left, top, FUEL_WIDTH, FUEL_HEIGHT, full, ratio);
     }
 
@@ -251,13 +251,12 @@ public class GuiHelper
         vMax = vMax - (maskTop / tileHeight * (vMax - vMin));
 
         Tesselator tessellator = Tesselator.getInstance();
-        BufferBuilder bufferBuilder = tessellator.getBuilder();
-        bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-        bufferBuilder.vertex(matrix, left, top + tileHeight, zLevel).uv(uMin, vMax).endVertex();
-        bufferBuilder.vertex(matrix, left + tileWidth - maskRight, top + tileHeight, zLevel).uv(uMax, vMax).endVertex();
-        bufferBuilder.vertex(matrix, left + tileWidth - maskRight, top + maskTop, zLevel).uv(uMax, vMin).endVertex();
-        bufferBuilder.vertex(matrix, left, top + maskTop, zLevel).uv(uMin, vMin).endVertex();
-        tessellator.end();
+        BufferBuilder bufferBuilder = tessellator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+        bufferBuilder.addVertex(matrix, left, top + tileHeight, zLevel).setUv(uMin, vMax);
+        bufferBuilder.addVertex(matrix, left + tileWidth - maskRight, top + tileHeight, zLevel).setUv(uMax, vMax);
+        bufferBuilder.addVertex(matrix, left + tileWidth - maskRight, top + maskTop, zLevel).setUv(uMax, vMin);
+        bufferBuilder.addVertex(matrix, left, top + maskTop, zLevel).setUv(uMin, vMin);
+        bufferBuilder.buildOrThrow();
     }
 
     public static void setGLColorFromInt(int color) {
@@ -270,7 +269,7 @@ public class GuiHelper
 
     }
 
-    private static final ResourceLocation MISSING_TEXTURE_LOCATION = new ResourceLocation("missingno");
+    private static final ResourceLocation MISSING_TEXTURE_LOCATION = ResourceLocation.parse("missingno");
 
     public static TextureAtlasSprite getStillFluidSprite(FluidStack stack) {
         Fluid fluid = stack.getFluid();
@@ -322,13 +321,13 @@ public class GuiHelper
 
     public static void innerBlit(Matrix4f matrix, float x1, float x2, float y1, float y2, int blitOffset, float minU,
                                  float maxU, float minV, float maxV) {
-        BufferBuilder bufferbuilder = Tesselator.getInstance().getBuilder();
-        bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-        bufferbuilder.vertex(matrix, x1, y2, (float) blitOffset).uv(minU, maxV).endVertex();
-        bufferbuilder.vertex(matrix, x2, y2, (float) blitOffset).uv(maxU, maxV).endVertex();
-        bufferbuilder.vertex(matrix, x2, y1, (float) blitOffset).uv(maxU, minV).endVertex();
-        bufferbuilder.vertex(matrix, x1, y1, (float) blitOffset).uv(minU, minV).endVertex();
-        bufferbuilder.end();
+        Tesselator tesselator = Tesselator.getInstance();
+        BufferBuilder bufferBuilder = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+        bufferBuilder.addVertex(matrix, x1, y2, (float) blitOffset).setUv(minU, maxV);
+        bufferBuilder.addVertex(matrix, x2, y2, (float) blitOffset).setUv(maxU, maxV);
+        bufferBuilder.addVertex(matrix, x2, y1, (float) blitOffset).setUv(maxU, minV);
+        bufferBuilder.addVertex(matrix, x1, y1, (float) blitOffset).setUv(minU, minV);
+        bufferBuilder.buildOrThrow();
     }
 
     public static void blit(PoseStack matrixStack, float x, float y, float width, float height, float uOffset,

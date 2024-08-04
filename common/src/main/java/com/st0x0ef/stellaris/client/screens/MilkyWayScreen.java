@@ -18,9 +18,9 @@ import org.lwjgl.glfw.GLFW;
 
 @Environment(EnvType.CLIENT)
 public class MilkyWayScreen extends AbstractContainerScreen<MilkyWayMenu> {
-    public static final ResourceLocation MILKY_WAY_TEXTURE = new ResourceLocation(Stellaris.MODID,
+    public static final ResourceLocation MILKY_WAY_TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,
             "textures/environment/milky_way.png");
-    public static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(Stellaris.MODID,
+    public static final ResourceLocation BACKGROUND_TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,
             "textures/gui/planet_selection.png");
 
     public static float rotationAngle = 0;

@@ -15,7 +15,7 @@ import net.minecraft.world.entity.player.Inventory;
 @Environment(EnvType.CLIENT)
 public class LanderScreen extends AbstractContainerScreen<LanderMenu> {
 
-    public static final ResourceLocation texture = new ResourceLocation(Stellaris.MODID, "textures/gui/lander.png");
+    public static final ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/lander.png");
 
 
     public LanderScreen(LanderMenu abstractContainerMenu, Inventory inventory, Component component) {

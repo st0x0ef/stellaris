@@ -24,7 +24,10 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerEntity;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
@@ -166,7 +169,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         }
 
         this.MODEL_UPGRADE = new ModelUpgrade(RocketModel.fromString(compound.getString("model")));
-        this.SKIN_UPGRADE = new SkinUpgrade(new ResourceLocation(compound.getString("skin")));
+        this.SKIN_UPGRADE = new SkinUpgrade(ResourceLocation.parse(compound.getString("skin")));
         this.MOTOR_UPGRADE = new MotorUpgrade(FuelType.Type.fromString(compound.getString("motor")));
         this.TANK_UPGRADE = new TankUpgrade(compound.getInt("tank"));
     }
@@ -387,7 +390,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     protected void dropEquipment() {
         for (int i = 0; i < this.inventory.getItems().size(); ++i) {
             ItemStack itemstack = this.inventory.getItem(i);
-            if (!itemstack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(itemstack)) {
+            if (!itemstack.isEmpty()) {
                 this.spawnAtLocation(itemstack);
             }
         }
@@ -549,16 +552,17 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         return 0.8;
     }
 
-    public String getFullSkinTexture() {
+    public ResourceLocation getFullSkinTexture() {
         String texture = SKIN_UPGRADE.getRocketSkinLocation().toString();
         if (MODEL_UPGRADE != null) {
             texture = texture.replace("normal", MODEL_UPGRADE.getModel().toString());
         }
-        return texture;
+
+        return ResourceLocation.parse(texture);
     }
 
     public boolean canGoTo (Planet actual, Planet destination) {
-        return Mth.abs(actual.distanceFromEarth() - destination.distanceFromEarth()) <= FuelType.getMegametersTraveled(this.rocketComponent.fuel(), FuelType.getItemBasedOnLoacation(new ResourceLocation(Stellaris.MODID, this.rocketComponent.fuelType())));
+        return Mth.abs(actual.distanceFromEarth() - destination.distanceFromEarth()) <= FuelType.getMegametersTraveled(this.rocketComponent.fuel(), FuelType.getItemBasedOnLoacation(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, this.rocketComponent.fuelType())));
     }
 
     public void syncRocketData(ServerPlayer player) {
@@ -604,5 +608,10 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
             case NORMAL -> EntityRegistry.NORMAL_ROCKET.get();
             case BIG -> EntityRegistry.BIG_ROCKET.get();
         };
+    }
+
+    @Override
+    public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity entity) {
+        return NetworkManager.createAddEntityPacket(this, entity);
     }
 }
