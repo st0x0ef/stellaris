@@ -120,6 +120,6 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity im
 
     @Override
     public int size() {
-        return 1;
+        return this.getContainerSize();
     }
 }

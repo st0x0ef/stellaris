@@ -101,6 +101,6 @@ public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity impl
 
     @Override
     public int size() {
-        return 1;
+        return this.getContainerSize();
     }
 }
