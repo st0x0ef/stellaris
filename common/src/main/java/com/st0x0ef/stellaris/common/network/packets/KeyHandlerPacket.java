@@ -48,23 +48,22 @@ public class KeyHandlerPacket implements CustomPacketPayload {
 
     public static void handle(KeyHandlerPacket packet, NetworkManager.PacketContext context) {
         Player player = context.getPlayer();
-        KeyHandlerPacket keyHandler = packet;
         context.queue(() -> {
-            switch (keyHandler.key) {
+            switch (packet.key) {
                 case "key_up":
-                    KeyVariables.KEY_UP.put(player.getUUID(), keyHandler.condition);
+                    KeyVariables.KEY_UP.put(player.getUUID(), packet.condition);
                     break;
 
                 case "key_down":
-                    KeyVariables.KEY_DOWN.put(player.getUUID(), keyHandler.condition);
+                    KeyVariables.KEY_DOWN.put(player.getUUID(), packet.condition);
                     break;
 
                 case "key_right":
-                    KeyVariables.KEY_RIGHT.put(player.getUUID(), keyHandler.condition);
+                    KeyVariables.KEY_RIGHT.put(player.getUUID(), packet.condition);
                     break;
 
                 case "key_left":
-                    KeyVariables.KEY_LEFT.put(player.getUUID(), keyHandler.condition);
+                    KeyVariables.KEY_LEFT.put(player.getUUID(), packet.condition);
                     break;
                 case "switch_jet_suit_mode":
                     if (Utils.isLivingInJetSuit(player)) {
@@ -77,16 +76,15 @@ public class KeyHandlerPacket implements CustomPacketPayload {
                     if (player.getVehicle() instanceof RocketEntity rocketEntity) rocketEntity.startRocket();
                     break;
                 case "key_jump":
-                    KeyVariables.KEY_JUMP.put(player.getUUID(), keyHandler.condition);
+                    KeyVariables.KEY_JUMP.put(player.getUUID(), packet.condition);
                     break;
                 case "freeze_planet_menu":
                     if (player.containerMenu instanceof PlanetSelectionMenu menu) menu.switchFreezeGui();
                     break;
                 default:
-                    Stellaris.LOG.error("unknown key action {}", keyHandler.key);
+                    Stellaris.LOG.error("unknown key action {}", packet.key);
             }
         });
-
     }
 
     @Override
