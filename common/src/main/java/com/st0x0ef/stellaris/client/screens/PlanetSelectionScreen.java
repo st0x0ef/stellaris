@@ -252,7 +252,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
         drawOrbits();
 
-        renderBodiesAndPlanets(graphics, partialTicks);
+        renderBodiesAndPlanets(graphics);
         renderHighlighter(graphics, mouseX, mouseY);
 
         if (hoveredBody != null) {
@@ -275,7 +275,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         graphics.blit(BACKGROUND_TEXTURE, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
     }
 
-    public void renderBodiesAndPlanets(GuiGraphics graphics, float partialTicks) {
+    public void renderBodiesAndPlanets(GuiGraphics graphics) {
         renderStars(graphics);
         renderPlanets(graphics);
         renderMoons(graphics);
@@ -501,8 +501,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
                 RenderSystem.setShaderTexture(0, LARGE_MENU_TEXTURE);
                 graphics.blit(LARGE_MENU_TEXTURE, centerX, centerY, 0, 0, menuWidth, menuHeight, menuWidth, menuHeight);
                 launchButton.setButtonTexture(
-                        ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "launch_button.png"),
-                        ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "launch_button_hovered.png")
+                        ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button.png"),
+                        ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button_hovered.png")
                 );
             } else {
                 if (Objects.equals(focusedBody.name, "Earth")) {
@@ -515,8 +515,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
                     RenderSystem.setShaderTexture(0, LARGE_MENU_TEXTURE);
                     launchButton.setButtonTexture(
-                            ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "launch_button.png"),
-                            ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "launch_button_hovered.png")
+                            ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button.png"),
+                            ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button_hovered.png")
                     );
                     graphics.blit(LARGE_MENU_TEXTURE, centerX, centerY, 0, 0, menuWidth, menuHeight, menuWidth, menuHeight);
                 } else {
@@ -530,8 +530,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
                     RenderSystem.setShaderTexture(0, LARGE_MENU_TEXTURE_RED);
                     graphics.blit(LARGE_MENU_TEXTURE_RED, centerX, centerY, 0, 0, menuWidth, menuHeight, menuWidth, menuHeight);
                     launchButton.setButtonTexture(
-                            ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "no_launch_button.png"),
-                            ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "no_launch_button_hovered.png")
+                            ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/no_launch_button.png"),
+                            ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/  no_launch_button_hovered.png")
                     );
                 }
             }
@@ -772,7 +772,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         }
 
 
-        bufferBuilder.buildOrThrow();
+        BufferUploader.drawWithShader(bufferBuilder.buildOrThrow());
 
         RenderSystem.disableBlend();
     }

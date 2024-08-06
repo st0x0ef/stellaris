@@ -562,14 +562,13 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     }
 
     public boolean canGoTo (Planet actual, Planet destination) {
-        return Mth.abs(actual.distanceFromEarth() - destination.distanceFromEarth()) <= FuelType.getMegametersTraveled(this.rocketComponent.fuel(), FuelType.getItemBasedOnLoacation(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, this.rocketComponent.fuelType())));
+        return Mth.abs(actual.distanceFromEarth() - destination.distanceFromEarth()) <= FuelType.getMegametersTraveled(this.rocketComponent.fuel(), FuelType.getItemBasedOnLoacation(ResourceLocation.parse(this.rocketComponent.fuelType())));
     }
 
     public void syncRocketData(ServerPlayer player) {
         this.rocketComponent = new RocketComponent(SKIN_UPGRADE.getRocketSkinLocation().toString(), RocketModel.fromString(MODEL_UPGRADE.getModel().toString()), currentFuelItem.toString(), FUEL, TANK_UPGRADE.getTankCapacity());
 
         if (!level().isClientSide()) {
-
             NetworkManager.sendToPlayer(player, new SyncRocketComponentPacket(rocketComponent));
         }
     }
