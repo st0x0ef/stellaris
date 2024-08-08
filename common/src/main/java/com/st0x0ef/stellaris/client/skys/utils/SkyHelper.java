@@ -30,7 +30,14 @@ public class SkyHelper {
         float endX = (xCoord + 1) / 4.0F;
         float endY = (yCoord + 1) / 2.0F;
 
-        drawCelestialBody(customVanillaObject.moonTexture(), bufferBuilder, poseStack, y, 20f, dayAngle, startX, endX, startY, endY, true);
+        //If it's the default texture, we use moonPhase
+        if (customVanillaObject.moonTexture() == new ResourceLocation("textures/environment/moon_phases.png")) {
+            drawCelestialBody(customVanillaObject.moonTexture(), bufferBuilder, poseStack, y, 20f, dayAngle, startX, endX, startY, endY, true);
+        } else {
+            drawCelestialBody(customVanillaObject.moonTexture(), bufferBuilder, poseStack, y, 20f, dayAngle, 0, 1, 0, 1, true);
+
+        }
+
     }
 
     public static void drawCelestialBody(SkyObject skyObject, BufferBuilder bufferBuilder, PoseStack poseStack, float y, float dayAngle, boolean blend) {
