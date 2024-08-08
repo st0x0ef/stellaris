@@ -55,13 +55,14 @@ public class SkyHelper {
 
         Matrix4f matrix4f = poseStack.last().pose();
 
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, texture);
         BufferBuilder bufferBuilder = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-        bufferBuilder.addVertex(matrix4f, -size, y, size).setUv(endX, endY);
-        bufferBuilder.addVertex(matrix4f, size, y, size).setUv(startX, endY);
-        bufferBuilder.addVertex(matrix4f, size, y, -size).setUv(startX, startY);
-        bufferBuilder.addVertex(matrix4f, -size, y, -size).setUv(endX, startY);
+        bufferBuilder.addVertex(matrix4f, -size, y, -size).setUv(startX, endY);
+        bufferBuilder.addVertex(matrix4f, size, y, -size).setUv(endX, endY);
+        bufferBuilder.addVertex(matrix4f, size, y, size).setUv(endX, startY);
+        bufferBuilder.addVertex(matrix4f, -size, y, size).setUv(startX, startY);
         BufferUploader.drawWithShader(bufferBuilder.buildOrThrow());
         poseStack.popPose();
 

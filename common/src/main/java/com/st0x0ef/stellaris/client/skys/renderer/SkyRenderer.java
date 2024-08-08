@@ -84,8 +84,8 @@ public class SkyRenderer {
             poseStack.popPose();
         }
 
-        RenderSystem.depthMask(true);
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
+        RenderSystem.depthMask(true);
     }
 
     private void renderStars(ClientLevel level, float dayAngle, float partialTick, PoseStack poseStack, Matrix4f projectionMatrix, Camera camera) {

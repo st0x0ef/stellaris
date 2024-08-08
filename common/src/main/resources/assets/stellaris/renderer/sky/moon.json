@@ -5,8 +5,8 @@
   "custom_vanilla_objects": {
     "sun": true,
     "sun_texture": "stellaris:textures/environment/star/sun.png",
-    "moon": true,
-    "moon_texture": "stellaris:textures/environment/solar_system/moon.png"
+    "moon": false,
+    "moon_texture": ""
   },
 
   "weather": [
