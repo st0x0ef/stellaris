@@ -26,8 +26,6 @@ subprojects {
         maven { url "https://maven.terraformersmc.com/releases" }
         maven { url "https://maven.parchmentmc.org" }
         maven { url "https://maven.neoforged.net/releases" }
-        maven { url "https://maven.flashyreese.me/snapshots" }
-        maven { url "https://api.modrinth.com/maven" }
     }
 
     dependencies {
