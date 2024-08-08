@@ -32,9 +32,9 @@ public class SkyHelper {
 
         //If it's the default texture, we use moonPhase
         if (customVanillaObject.moonTexture() == new ResourceLocation("textures/environment/moon_phases.png")) {
-            drawCelestialBody(customVanillaObject.moonTexture(), bufferBuilder, poseStack, y, 20f, dayAngle, startX, endX, startY, endY, true);
+            drawCelestialBody(customVanillaObject.moonTexture(), bufferBuilder, poseStack, y, 20f, dayAngle, startX, endX, startY, endY, false);
         } else {
-            drawCelestialBody(customVanillaObject.moonTexture(), bufferBuilder, poseStack, y, 20f, dayAngle, 0, 1, 0, 1, true);
+            drawCelestialBody(customVanillaObject.moonTexture(), bufferBuilder, poseStack, y, 20f, dayAngle, 0, 1, 0, 1, false);
 
         }
 
