@@ -1,21 +1,22 @@
 {
-  "id": "stellaris:venus",
+  "id": "stellaris:phobos",
   "cloud": false,
   "fog": false,
   "custom_vanilla_objects": {
     "sun": true,
     "sun_texture": "stellaris:textures/environment/star/sun.png",
-    "moon": false,
+    "moon": true,
     "moon_phase": false,
-    "moon_texture": ""
+    "moon_texture": "stellaris:textures/environment/solar_system/mars.png"
   },
+
   "weather": [
     {
       "rain": false,
-      "acid_rain": true
+      "acid_rain": false
     }
   ],
-  "sunrise_color": -3044526,
+  "sunrise_color": 2105376,
   "stars": {
     "count": 30000,
     "colored": true,

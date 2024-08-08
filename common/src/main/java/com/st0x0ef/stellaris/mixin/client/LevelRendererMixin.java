@@ -49,7 +49,7 @@ public abstract class LevelRendererMixin {
     @Inject(method = "renderSnowAndRain", at = @At(value = "HEAD"), cancellable = true)
     private void cancelSnowAndRainRenderer(LightTexture lightTexture, float partialTick, double camX, double camY, double camZ, CallbackInfo ci) {
         if (SkyPropertiesData.SKY_PROPERTIES.containsKey(level.dimension())) {
-            if(SkyPropertiesData.SKY_PROPERTIES.get(level.dimension()).getRenderer().shouldRemoveSnowAndRain()) {
+            if (SkyPropertiesData.SKY_PROPERTIES.get(level.dimension()).getRenderer().shouldRemoveSnowAndRain()) {
                 ci.cancel();
             }
         }

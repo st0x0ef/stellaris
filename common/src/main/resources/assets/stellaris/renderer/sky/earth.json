@@ -4,8 +4,9 @@
   "fog": false,
   "custom_vanilla_objects": {
     "sun": true,
-    "sun_texture": "textures/environment/sun.png",
+    "sun_texture": "stellaris:textures/environment/star/sun.png",
     "moon": true,
+    "moon_phase": true,
     "moon_texture": "textures/environment/moon_phases.png"
   },
   "weather": [

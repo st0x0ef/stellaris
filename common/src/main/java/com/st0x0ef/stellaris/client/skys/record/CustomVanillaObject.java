@@ -6,7 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public record CustomVanillaObject(
         boolean sun, ResourceLocation sunTexture,
-        boolean moon,  ResourceLocation moonTexture
+        boolean moon, boolean moonPhase,  ResourceLocation moonTexture
 ) {
 
 
@@ -15,6 +15,7 @@ public record CustomVanillaObject(
             ResourceLocation.CODEC.fieldOf("sun_texture").forGetter(CustomVanillaObject::sunTexture),
 
             Codec.BOOL.fieldOf("moon").forGetter(CustomVanillaObject::moon),
+            Codec.BOOL.fieldOf("moon_phase").forGetter(CustomVanillaObject::moonPhase),
             ResourceLocation.CODEC.fieldOf("moon_texture").forGetter(CustomVanillaObject::moonTexture)
     ).apply(instance, CustomVanillaObject::new));
 }

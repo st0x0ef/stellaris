@@ -38,9 +38,8 @@ public class SkyRenderer {
         if (cameraSubmersionType.equals(FogType.POWDER_SNOW) || cameraSubmersionType.equals(FogType.LAVA) || mc.levelRenderer.doesMobEffectBlockSky(camera)) return;
 
         Tesselator tesselator = Tesselator.getInstance();
-        ShaderInstance shaderInstance = RenderSystem.getShader();
+
         CustomVanillaObject customVanillaObject = properties.customVanillaObject();
-        VertexBuffer darkBuffer = ((LevelRendererAccessor) Minecraft.getInstance().levelRenderer).stellaris$getDarkBuffer();
 
         float dayAngle = level.getTimeOfDay(partialTick) * 360f % 360f;
 
@@ -51,16 +50,17 @@ public class SkyRenderer {
 
         FogRenderer.levelFogColor();
         RenderSystem.depthMask(false);
-
         RenderSystem.setShaderColor(r, g, b, 1.0f);
-        SkyHelper.drawSky(mc, poseStack.last().pose(), projectionMatrix, shaderInstance);
+
+        ShaderInstance shaderInstance = RenderSystem.getShader();
+        SkyHelper.drawSky(mc, poseStack.last().pose(), projectionMatrix, shaderInstance, tesselator, poseStack, partialTick);
 
         // Star
         renderStars(level, dayAngle, partialTick, poseStack, projectionMatrix, camera);
 
         // Sun
         if (customVanillaObject.sun()) {
-            SkyHelper.drawCelestialBody(customVanillaObject.sunTexture(), tesselator, poseStack, 100f, 30f, dayAngle, true);
+            SkyHelper.drawCelestialBody(customVanillaObject.sunTexture(), tesselator, poseStack, 100f, 30f, dayAngle, false);
         }
 
         // Moon
@@ -78,8 +78,8 @@ public class SkyRenderer {
             poseStack.pushPose();
             poseStack.translate(0.0F, 12.0F, 0.0F);
 
-            darkBuffer.bind();
-            darkBuffer.drawWithShader(poseStack.last().pose(), projectionMatrix, shaderInstance);
+            ((LevelRendererAccessor) Minecraft.getInstance().levelRenderer).stellaris$getDarkBuffer().bind();
+            ((LevelRendererAccessor) Minecraft.getInstance().levelRenderer).stellaris$getDarkBuffer().drawWithShader(poseStack.last().pose(), projectionMatrix, shaderInstance);
             VertexBuffer.unbind();
             poseStack.popPose();
         }

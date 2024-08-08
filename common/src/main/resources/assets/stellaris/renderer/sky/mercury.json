@@ -6,12 +6,13 @@
     "sun": true,
     "sun_texture": "stellaris:textures/environment/star/sun.png",
     "moon": false,
+    "moon_phase": false,
     "moon_texture": ""
   },
 
   "weather": [
     {
-      "rain": true,
+      "rain": false,
       "acid_rain": false
     }
   ],
