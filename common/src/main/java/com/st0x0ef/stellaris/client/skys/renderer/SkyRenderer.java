@@ -33,10 +33,7 @@ public class SkyRenderer {
         }
     }
 
-    public void render(Minecraft mc, ClientLevel level, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, Camera camera) {
-        FogType cameraSubmersionType = camera.getFluidInCamera();
-        if (cameraSubmersionType.equals(FogType.POWDER_SNOW) || cameraSubmersionType.equals(FogType.LAVA) || mc.levelRenderer.doesMobEffectBlockSky(camera)) return;
-
+    public void render(ClientLevel level, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, Camera camera) {
         Tesselator tesselator = Tesselator.getInstance();
 
         CustomVanillaObject customVanillaObject = properties.customVanillaObject();
@@ -53,7 +50,7 @@ public class SkyRenderer {
         RenderSystem.setShaderColor(r, g, b, 1.0f);
 
         ShaderInstance shaderInstance = RenderSystem.getShader();
-        SkyHelper.drawSky(mc, poseStack.last().pose(), projectionMatrix, shaderInstance, tesselator, poseStack, partialTick);
+        SkyHelper.drawSky(poseStack.last().pose(), projectionMatrix, shaderInstance, tesselator, poseStack, partialTick);
 
         // Star
         renderStars(level, dayAngle, partialTick, poseStack, projectionMatrix, camera);
@@ -65,23 +62,16 @@ public class SkyRenderer {
 
         // Moon
         if (customVanillaObject.moon()) {
-            SkyHelper.drawMoonWithPhase(level, tesselator, poseStack, -100f, customVanillaObject, dayAngle);
+            if (customVanillaObject.moonPhase()) {
+                SkyHelper.drawMoonWithPhase(level, tesselator, poseStack, -100f, customVanillaObject, dayAngle);
+            } else {
+                SkyHelper.drawCelestialBody(customVanillaObject.moonTexture(), tesselator, poseStack, -100f, 20f, dayAngle, 0, 1, 0, 1, false);
+            }
         }
 
         // Other sky object
         for (SkyObject skyObject : properties.skyObjects()) {
             SkyHelper.drawCelestialBody(skyObject, tesselator, poseStack, 100f, dayAngle, skyObject.blend());
-        }
-
-        double d = mc.player.getEyePosition(partialTick).y - level.getLevelData().getHorizonHeight(level);
-        if (d < 0.0) {
-            poseStack.pushPose();
-            poseStack.translate(0.0F, 12.0F, 0.0F);
-
-            ((LevelRendererAccessor) Minecraft.getInstance().levelRenderer).stellaris$getDarkBuffer().bind();
-            ((LevelRendererAccessor) Minecraft.getInstance().levelRenderer).stellaris$getDarkBuffer().drawWithShader(poseStack.last().pose(), projectionMatrix, shaderInstance);
-            VertexBuffer.unbind();
-            poseStack.popPose();
         }
 
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);

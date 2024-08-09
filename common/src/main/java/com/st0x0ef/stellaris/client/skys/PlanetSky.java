@@ -6,8 +6,10 @@ import com.st0x0ef.stellaris.client.skys.renderer.SkyRenderer;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.DimensionSpecialEffects;
+import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 
 public class PlanetSky extends DimensionSpecialEffects {
@@ -28,10 +30,6 @@ public class PlanetSky extends DimensionSpecialEffects {
     @Override
     public boolean isFoggyAt(int x, int y) {
         return false;
-    }
-
-    public void renderSky(PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, Camera camera) {
-        getRenderer().render(Minecraft.getInstance(), Minecraft.getInstance().level, poseStack, projectionMatrix, partialTick, camera);
     }
 
     public SkyRenderer getRenderer() {

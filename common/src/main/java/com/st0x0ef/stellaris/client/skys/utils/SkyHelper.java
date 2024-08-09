@@ -15,26 +15,22 @@ import net.minecraft.resources.ResourceLocation;
 import org.joml.Matrix4f;
 
 public class SkyHelper {
-    public static void drawSky(Minecraft mc, Matrix4f matrix4f, Matrix4f projectionMatrix, ShaderInstance shaderInstance, Tesselator tesselator, PoseStack poseStack, float partialTick) {
-        ((LevelRendererAccessor) mc.levelRenderer).stellaris$getSkyBuffer().bind();
-        ((LevelRendererAccessor) mc.levelRenderer).stellaris$getSkyBuffer().drawWithShader(matrix4f, projectionMatrix, shaderInstance);
+    public static void drawSky(Matrix4f matrix4f, Matrix4f projectionMatrix, ShaderInstance shaderInstance, Tesselator tesselator, PoseStack poseStack, float partialTick) {
+        ((LevelRendererAccessor) Minecraft.getInstance().levelRenderer).stellaris$getSkyBuffer().bind();
+        ((LevelRendererAccessor) Minecraft.getInstance().levelRenderer).stellaris$getSkyBuffer().drawWithShader(matrix4f, projectionMatrix, shaderInstance);
         VertexBuffer.unbind();
     }
 
     public static void drawMoonWithPhase(ClientLevel level, Tesselator tesselator, PoseStack poseStack, float y, CustomVanillaObject moon, float dayAngle) {
-        if (moon.moonPhase()) {
-            int moonPhase = level.getMoonPhase();
-            int xCoord = moonPhase % 4;
-            int yCoord = moonPhase / 4 % 2;
-            float startX = xCoord / 4.0F;
-            float startY = yCoord / 2.0F;
-            float endX = (xCoord + 1) / 4.0F;
-            float endY = (yCoord + 1) / 2.0F;
+        int moonPhase = level.getMoonPhase();
+        int xCoord = moonPhase % 4;
+        int yCoord = moonPhase / 4 % 2;
+        float startX = xCoord / 4.0F;
+        float startY = yCoord / 2.0F;
+        float endX = (xCoord + 1) / 4.0F;
+        float endY = (yCoord + 1) / 2.0F;
 
-            drawCelestialBody(moon.moonTexture(), tesselator, poseStack, y, 20f, dayAngle, startX, endX, startY, endY, false);
-        } else {
-            drawCelestialBody(moon.moonTexture(), tesselator, poseStack, y, 20f, dayAngle, 0, 1, 0, 1, false);
-        }
+        drawCelestialBody(moon.moonTexture(), tesselator, poseStack, y, 20f, dayAngle, startX, endX, startY, endY, false);
     }
 
     public static void drawCelestialBody(SkyObject skyObject, Tesselator tesselator, PoseStack poseStack, float y, float dayAngle, boolean blend) {
@@ -48,7 +44,6 @@ public class SkyHelper {
     public static void drawCelestialBody(ResourceLocation texture, Tesselator tesselator, PoseStack poseStack, float y, float size, float dayAngle, float startX, float endX, float startY, float endY, boolean blend) {
         if (blend) {
             RenderSystem.enableBlend();
-            RenderSystem.defaultBlendFunc();
             RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
         }
 
