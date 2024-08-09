@@ -1,27 +1,27 @@
 {
   "display": {
     "description": {
-      "translate": "advancements.moon.root.description"
+      "translate": "advancements.mercury.root.description"
     },
     "icon": {
       "count": 1,
-      "id": "stellaris:moon_sand"
+      "id": "stellaris:mercury_sand"
     },
     "title": {
-      "translate": "advancements.moon.root.title"
+      "translate": "advancements.mercury.root.title"
     }
   },
   "criteria": {
-    "moon_land": {
+    "mercury_land": {
       "trigger": "minecraft:changed_dimension",
       "conditions": {
-        "to": "stellaris:moon"
+        "to": "stellaris:mercury"
       }
     }
   },
   "requirements": [
     [
-      "moon_land"
+      "mercury_land"
     ]
   ],
   "sends_telemetry_event": true

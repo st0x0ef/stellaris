@@ -1,27 +1,27 @@
 {
   "display": {
     "description": {
-      "translate": "advancements.moon.root.description"
+      "translate": "advancements.venus.root.description"
     },
     "icon": {
       "count": 1,
-      "id": "stellaris:moon_sand"
+      "id": "stellaris:venus_sand"
     },
     "title": {
-      "translate": "advancements.moon.root.title"
+      "translate": "advancements.venus.root.title"
     }
   },
   "criteria": {
-    "moon_land": {
+    "venus_land": {
       "trigger": "minecraft:changed_dimension",
       "conditions": {
-        "to": "stellaris:moon"
+        "to": "stellaris:venus"
       }
     }
   },
   "requirements": [
     [
-      "moon_land"
+      "venus_land"
     ]
   ],
   "sends_telemetry_event": true
