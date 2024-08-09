@@ -1,6 +1,7 @@
 {
   "id": "stellaris:phobos",
   "cloud": false,
+  "cloud_height": 0,
   "fog": false,
   "custom_vanilla_objects": {
     "sun": true,
@@ -22,5 +23,6 @@
     "colored": true,
     "all_days_visible": true
   },
+  "sky_type": "NONE",
   "sky_objects": []
 }
