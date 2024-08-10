@@ -1,8 +1,11 @@
 package com.st0x0ef.stellaris.mixin.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.renderers.armors.JetSuitModel;
 import com.st0x0ef.stellaris.common.armors.JetSuit;
+import com.st0x0ef.stellaris.common.entities.LanderEntity;
+import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -24,11 +27,11 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PlayerRenderer.class)
-public abstract class RenderPlayerArmMixin extends LivingEntityRenderer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> {
+public abstract class RenderPlayerMixin extends LivingEntityRenderer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> {
     @Shadow
     protected abstract void setModelProperties(AbstractClientPlayer clientPlayer);
 
-    public RenderPlayerArmMixin(EntityRendererProvider.Context context, PlayerModel<AbstractClientPlayer> model, float shadowRadius) {
+    public RenderPlayerMixin(EntityRendererProvider.Context context, PlayerModel<AbstractClientPlayer> model, float shadowRadius) {
         super(context, model, shadowRadius);
     }
 
@@ -60,6 +63,13 @@ public abstract class RenderPlayerArmMixin extends LivingEntityRenderer<Abstract
         } else {
             spaceSuitModel.leftArm.copyFrom(renderedArm);
             spaceSuitModel.leftArm.render(poseStack, buffer.getBuffer(RenderType.entityTranslucent(texture)), packedLight, OverlayTexture.NO_OVERLAY);
+        }
+    }
+
+    @Inject(method = "render", at = @At("HEAD"), cancellable = true)
+    public void renderPlayer(AbstractClientPlayer entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight, CallbackInfo ci) {
+        if (entity.getVehicle() instanceof LanderEntity) {
+            ci.cancel();
         }
     }
 
