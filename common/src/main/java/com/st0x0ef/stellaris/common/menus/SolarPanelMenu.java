@@ -22,19 +22,17 @@ public class SolarPanelMenu extends AbstractContainerMenu {
 
     public static SolarPanelMenu create(int syncId, Inventory inventory, FriendlyByteBuf data) {
         SolarPanelEntity entity = (SolarPanelEntity) inventory.player.level().getBlockEntity(data.readBlockPos());
-
-        return new SolarPanelMenu(syncId, inventory, new SimpleContainer(), entity);
+        return new SolarPanelMenu(syncId, inventory, new SimpleContainer(1), entity);
     }
 
     public SolarPanelMenu(int syncId, Inventory playerInventory, Container container, SolarPanelEntity entity) {
         super(MenuTypesRegistry.SOLAR_PANEL_MENU.get(), syncId);
 
-        //checkContainerSize(container, 1);
-        this.inventory = (container);
+        checkContainerSize(container, 1);
+        this.inventory = container;
         this.entity = entity;
 
-        //TODO fix the slot i didnt have time
-        //this.addSlot(new Slot(inventory, 0, 41, 63));
+        addSlot(new Slot(inventory, 0, 41, 63));
 
         addPlayerHotbar(playerInventory);
         addPlayerInventory(playerInventory);
@@ -100,7 +98,6 @@ public class SolarPanelMenu extends AbstractContainerMenu {
 
     public void syncBattery(ServerPlayer player) {
         if (!player.level().isClientSide()) {
-
             NetworkManager.sendToPlayer(player, new SyncWidgetsTanksPacket(new long[] {getEnergyContainer().getStoredEnergy()}));
         }
     }

@@ -20,9 +20,7 @@ public class RocketStationMenu extends AbstractContainerMenu {
 
     public RocketStationMenu(int syncId, Inventory playerInventory, Container container)
     {
-
         super(MenuTypesRegistry.ROCKET_STATION.get(), syncId);
-
 
         checkContainerSize(container, 15);
         this.inventory = container;
@@ -31,7 +29,6 @@ public class RocketStationMenu extends AbstractContainerMenu {
 
         addPlayerHotbar(playerInventory);
         addPlayerInventory(playerInventory);
-
     }
 
     @Override

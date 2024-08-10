@@ -26,13 +26,12 @@ public class RocketMenu extends AbstractContainerMenu {
         this(syncId, inventory, new SimpleContainer(15), buffer.readVarInt());
     }
 
-    public RocketMenu(int syncId, Inventory playerInventory, Container container, int entityId)
-    {
+    public RocketMenu(int syncId, Inventory playerInventory, Container container, int entityId) {
         super(MenuTypesRegistry.ROCKET_MENU.get(), syncId);
 
         this.rocket = (RocketEntity) playerInventory.player.level().getEntity(entityId);
         checkContainerSize(container, 14);
-        this.inventory = (container);
+        this.inventory = container;
 
         addSlots(inventory);
 

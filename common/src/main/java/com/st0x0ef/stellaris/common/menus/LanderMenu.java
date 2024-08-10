@@ -22,9 +22,7 @@ public class LanderMenu extends AbstractContainerMenu {
 
     public LanderMenu(int syncId, Inventory playerInventory, Container container)
     {
-
         super(MenuTypesRegistry.LANDER_MENU.get(), syncId);
-
 
         checkContainerSize(container, 15);
         this.inventory = (container);

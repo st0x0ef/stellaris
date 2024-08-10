@@ -35,17 +35,8 @@ public class VacumatorMenu extends AbstractContainerMenu {
         addSlot(new ResultSlot(container, 3, 58, 99));
         addSlot(new ResultSlot(container, 4, 104, 99));
 
-        // Player hotbar
-        for (int i = 0; i < 9; ++i) {
-            addSlot(new Slot(inventory, i, 8 + i * 18, 204));
-        }
-
-        // Player inventory
-        for (int i = 0; i < 3; ++i) {
-            for (int l = 0; l < 9; ++l) {
-                addSlot(new Slot(inventory, l + i * 9 + 9, 8 + l * 18, (84 + i * 18) + 62));
-            }
-        }
+        addPlayerHotbar(inventory);
+        addPlayerInventory(inventory);
     }
 
     @Override
@@ -78,5 +69,19 @@ public class VacumatorMenu extends AbstractContainerMenu {
     @Override
     public boolean stillValid(Player player) {
         return this.container.stillValid(player);
+    }
+
+    private void addPlayerInventory(Inventory playerInventory) {
+        for (int i = 0; i < 3; ++i) {
+            for (int l = 0; l < 9; ++l) {
+                this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 8 + l * 18, (84 + i * 18) + 62));
+            }
+        }
+    }
+
+    private void addPlayerHotbar(Inventory playerInventory) {
+        for (int i = 0; i < 9; ++i) {
+            this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 204));
+        }
     }
 }
