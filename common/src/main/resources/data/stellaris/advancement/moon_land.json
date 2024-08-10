@@ -1,0 +1,28 @@
+{
+  "display": {
+    "description": {
+      "translate": "advancements.moon.root.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "stellaris:moon_sand"
+    },
+    "title": {
+      "translate": "advancements.moon.root.title"
+    }
+  },
+  "criteria": {
+    "moon_land": {
+      "trigger": "minecraft:changed_dimension",
+      "conditions": {
+        "to": "stellaris:moon"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "moon_land"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "stellaris:big_blue_can",
+    "stellaris:big_green_can",
+    "stellaris:big_purple_can",
+    "stellaris:big_red_can",
+    "stellaris:big_yellow_can",
+
+    "stellaris:small_blue_can",
+    "stellaris:small_green_can",
+    "stellaris:small_purple_can",
+    "stellaris:small_red_can",
+    "stellaris:small_yellow_can"
+
+
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "stellaris:solar_panel",
+    "stellaris:radioactive_generator",
+    "stellaris:coal_generator"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.7,
+  "ingredient": {
+    "item": "stellaris:raw_steel_ingot"
+  },
+  "result": {
+    "id": "stellaris:steel_ingot"
+  }
+}

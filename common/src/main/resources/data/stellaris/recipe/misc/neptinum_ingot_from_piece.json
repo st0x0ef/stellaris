@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {"item": "stellaris:neptunium_piece"}
+  },
+  "result": {
+    "id": "stellaris:neptunium_ingot",
+    "count": 1
+  }
+}

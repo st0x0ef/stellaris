@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.1,
+  "group": "iron",
+  "ingredient": {
+    "item": "minecraft:iron_block"
+  },
+  "result": {
+    "id": "stellaris:heavy_metal_plate"
+  }
+}

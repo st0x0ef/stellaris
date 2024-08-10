@@ -1,0 +1,28 @@
+{
+  "display": {
+    "description": {
+      "translate": "advancements.venus.root.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "stellaris:venus_sand"
+    },
+    "title": {
+      "translate": "advancements.venus.root.title"
+    }
+  },
+  "criteria": {
+    "venus_land": {
+      "trigger": "minecraft:changed_dimension",
+      "conditions": {
+        "to": "stellaris:venus"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "venus_land"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

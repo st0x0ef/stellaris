@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "   ",
+    "   ",
+    "#  "
+  ],
+  "key": {
+    "#": {"item": "stellaris:steel_plating_slab"}
+  },
+  "result": {
+    "id": "stellaris:vertical_steel_plating_slab"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.7,
+  "ingredient": {
+    "item": "stellaris:raw_desh_ingot"
+  },
+  "result": {
+    "id": "stellaris:desh_ingot"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "#  ",
+    "#  "
+  ],
+  "key": {
+    "#": {"item": "stellaris:venus_stone"}
+  },
+  "result": {
+    "id": "stellaris:vertical_venus_slab",
+    "count": 6
+  }
+}

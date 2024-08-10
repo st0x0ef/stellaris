@@ -7,15 +7,17 @@
     "sun": true,
     "sun_texture": "stellaris:textures/environment/star/sun.png",
     "moon": false,
-    "moon_texture": "textures/environment/moon_phases.png"
+    "moon_phase": false,
+    "moon_texture": ""
   },
 
   "weather": [
     {
-      "rain": true,
+      "rain": false,
       "acid_rain": false
     }
   ],
+  "sunrise_color": -16777216,
   "stars": {
     "count": 30000,
     "colored": true,

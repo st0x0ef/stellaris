@@ -1,0 +1,28 @@
+{
+  "id": "stellaris:phobos",
+  "cloud": false,
+  "cloud_height": 0,
+  "fog": false,
+  "custom_vanilla_objects": {
+    "sun": true,
+    "sun_texture": "stellaris:textures/environment/star/sun.png",
+    "moon": true,
+    "moon_phase": false,
+    "moon_texture": "stellaris:textures/environment/solar_system/mars.png"
+  },
+
+  "weather": [
+    {
+      "rain": false,
+      "acid_rain": false
+    }
+  ],
+  "sunrise_color": 2105376,
+  "stars": {
+    "count": 30000,
+    "colored": true,
+    "all_days_visible": true
+  },
+  "sky_type": "NONE",
+  "sky_objects": []
+}

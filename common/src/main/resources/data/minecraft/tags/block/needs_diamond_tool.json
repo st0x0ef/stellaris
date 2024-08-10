@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "stellaris:raw_steel_block",
+    "stellaris:steel_block",
+    "stellaris:steel_ore",
+    "stellaris:steel_plating_block",
+    "stellaris:deepslate_steel_ore",
+    "stellaris:mars_plutonium_ore",
+    "stellaris:venus_neptunium_ore",
+
+    "stellaris:mercury_uranium_ore",
+    "stellaris:uranium_block",
+    "stellaris:raw_uranium_block"
+  ]
+}
