@@ -13,7 +13,7 @@
   "client": [
     "client.PlayerRiddingVehicleMixin",
     "client.PlayerLanderKeyMixin",
-    "client.RenderPlayerArmMixin",
+    "client.RenderPlayerMixin",
     "client.LevelRendererAccessor",
     "client.LevelRendererMixin"
   ],
