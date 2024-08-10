@@ -710,6 +710,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         if (focusedBody != null) {
 
             NetworkManager.sendToServer(new TeleportEntityToPlanetPacket(focusedBody.dimension));
+            long windowHandle = Minecraft.getInstance().getWindow().getWindow();
+            prevScrollCallback = GLFW.glfwSetScrollCallback(windowHandle, Minecraft.getInstance().mouseHandler::onScroll);
         } else {
             Stellaris.LOG.error("Focused body is null");
         }
