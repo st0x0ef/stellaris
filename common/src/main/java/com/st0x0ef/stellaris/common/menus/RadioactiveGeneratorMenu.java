@@ -34,7 +34,7 @@ public class RadioactiveGeneratorMenu extends AbstractContainerMenu {
         super(MenuTypesRegistry.RADIOACTIVE_GENERATOR_MENU.get(), syncId);
 
         checkContainerSize(container, 1);
-        this.inventory = (container);
+        this.inventory = container;
         this.entity = entity;
         this.data = data;
 

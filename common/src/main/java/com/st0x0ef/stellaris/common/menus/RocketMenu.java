@@ -32,7 +32,7 @@ public class RocketMenu extends AbstractContainerMenu {
 
         this.rocket = (RocketEntity) playerInventory.player.level().getEntity(entityId);
         checkContainerSize(container, 14);
-        this.inventory = (container);
+        this.inventory = container;
 
         addSlots(inventory);
 

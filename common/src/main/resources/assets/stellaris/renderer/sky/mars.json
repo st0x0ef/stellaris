@@ -1,6 +1,7 @@
 {
   "id": "stellaris:mars",
   "cloud": false,
+  "cloud_height": 0,
   "fog": false,
   "custom_vanilla_objects": {
     "sun": true,
@@ -14,12 +15,12 @@
       "acid_rain": false
     }
   ],
-  "sunrise_color": 16755035,
   "stars": {
     "count": 30000,
     "colored": true,
     "all_days_visible": true
   },
+  "sky_type": "NONE",
   "sky_objects": [
     {
       "texture": "stellaris:textures/environment/solar_system/earth.png",
