@@ -1,16 +1,4 @@
 {
-  "criteria": {
-    "iron": {
-      "conditions": {
-        "items": [
-          {
-            "items": "stellaris:moon_sand"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    }
-  },
   "display": {
     "description": {
       "translate": "advancements.moon.root.description"
@@ -23,9 +11,17 @@
       "translate": "advancements.moon.root.title"
     }
   },
+  "criteria": {
+    "moon_land": {
+      "trigger": "minecraft:changed_dimension",
+      "conditions": {
+        "to": "stellaris:moon"
+      }
+    }
+  },
   "requirements": [
     [
-      "moon_sand"
+      "moon_land"
     ]
   ],
   "sends_telemetry_event": true
