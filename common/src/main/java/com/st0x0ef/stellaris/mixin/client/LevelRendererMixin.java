@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.mixin.client;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.st0x0ef.stellaris.client.skys.record.SkyPropertiesData;
 import net.minecraft.client.Camera;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.LightTexture;
@@ -25,14 +26,12 @@ public abstract class LevelRendererMixin {
     protected abstract boolean doesMobEffectBlockSky(Camera camera);
 
     @Inject(method = "renderSky", at = @At("HEAD"), cancellable = true)
-    private void renderCustomSkyboxes(Matrix4f matrix4f, Matrix4f projectionMatrix, float tickDelta, Camera camera, boolean thickFog, Runnable fogCallback, CallbackInfo ci) {
+    private void renderCustomSkyboxes(Matrix4f matrix4f, Matrix4f projectionMatrix, float partialTick, Camera camera, boolean thickFog, Runnable fogCallback, CallbackInfo ci) {
         FogType cameraSubmersionType = camera.getFluidInCamera();
-        if (!thickFog && cameraSubmersionType != FogType.POWDER_SNOW && cameraSubmersionType != FogType.LAVA && cameraSubmersionType != FogType.WATER && !this.doesMobEffectBlockSky(camera)) {
-            PoseStack matrixStack = new PoseStack();
-            matrixStack.mulPose(matrix4f);
-            if (SkyPropertiesData.SKY_PROPERTIES.containsKey(level.dimension())) {
-                SkyPropertiesData.SKY_PROPERTIES.get(level.dimension()).renderSky(matrixStack, projectionMatrix, tickDelta, camera);
-            }
+        if (!thickFog && cameraSubmersionType != FogType.POWDER_SNOW && cameraSubmersionType != FogType.LAVA && cameraSubmersionType != FogType.WATER && !this.doesMobEffectBlockSky(camera) && SkyPropertiesData.SKY_PROPERTIES.containsKey(level.dimension())) {
+            PoseStack poseStack = new PoseStack();
+            poseStack.mulPose(matrix4f);
+            SkyPropertiesData.SKY_PROPERTIES.get(level.dimension()).getRenderer().render(Minecraft.getInstance().level, poseStack, projectionMatrix, partialTick, camera);
         }
         ci.cancel();
     }

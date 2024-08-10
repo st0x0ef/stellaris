@@ -33,14 +33,10 @@ public class SkyRenderer {
         }
     }
 
-    public void render(Minecraft mc, ClientLevel level, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, Camera camera) {
-        FogType cameraSubmersionType = camera.getFluidInCamera();
-        if (cameraSubmersionType.equals(FogType.POWDER_SNOW) || cameraSubmersionType.equals(FogType.LAVA) || mc.levelRenderer.doesMobEffectBlockSky(camera)) return;
-
+    public void render(ClientLevel level, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, Camera camera) {
         BufferBuilder bufferBuilder = Tesselator.getInstance().getBuilder();
-        ShaderInstance shaderInstance = RenderSystem.getShader();
+
         CustomVanillaObject customVanillaObject = properties.customVanillaObject();
-        VertexBuffer darkBuffer = ((LevelRendererAccessor) Minecraft.getInstance().levelRenderer).stellaris$getDarkBuffer();
 
         float dayAngle = level.getTimeOfDay(partialTick) * 360f % 360f;
 
@@ -51,9 +47,10 @@ public class SkyRenderer {
 
         FogRenderer.levelFogColor();
         RenderSystem.depthMask(false);
-
         RenderSystem.setShaderColor(r, g, b, 1.0f);
-        SkyHelper.drawSky(mc, poseStack.last().pose(), projectionMatrix, shaderInstance);
+
+        ShaderInstance shaderInstance = RenderSystem.getShader();
+        SkyHelper.drawSky(poseStack.last().pose(), projectionMatrix, shaderInstance);
 
         // Star
         renderStars(level, dayAngle, partialTick, poseStack, projectionMatrix, camera);
@@ -65,7 +62,11 @@ public class SkyRenderer {
 
         // Moon
         if (customVanillaObject.moon()) {
-            SkyHelper.drawMoonWithPhase(level, bufferBuilder, poseStack, -100f, customVanillaObject, dayAngle);
+            if (customVanillaObject.moonPhase()) {
+                SkyHelper.drawMoonWithPhase(level, bufferBuilder, poseStack, -100f, customVanillaObject, dayAngle);
+            } else {
+                SkyHelper.drawCelestialBody(customVanillaObject.moonTexture(), bufferBuilder, poseStack, -100f, 20f, dayAngle, false);
+            }
         }
 
         // Other sky object
@@ -73,19 +74,8 @@ public class SkyRenderer {
             SkyHelper.drawCelestialBody(skyObject, bufferBuilder, poseStack, 100f, dayAngle, skyObject.blend());
         }
 
-        double d = mc.player.getEyePosition(partialTick).y - level.getLevelData().getHorizonHeight(level);
-        if (d < 0.0) {
-            poseStack.pushPose();
-            poseStack.translate(0.0F, 12.0F, 0.0F);
-
-            darkBuffer.bind();
-            darkBuffer.drawWithShader(poseStack.last().pose(), projectionMatrix, shaderInstance);
-            VertexBuffer.unbind();
-            poseStack.popPose();
-        }
-
-        RenderSystem.depthMask(true);
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
+        RenderSystem.depthMask(true);
     }
 
     private void renderStars(ClientLevel level, float dayAngle, float partialTick, PoseStack poseStack, Matrix4f projectionMatrix, Camera camera) {

@@ -9,7 +9,4 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 public interface LevelRendererAccessor {
     @Accessor("skyBuffer")
     VertexBuffer stellaris$getSkyBuffer();
-
-    @Accessor("darkBuffer")
-    VertexBuffer stellaris$getDarkBuffer();
 }

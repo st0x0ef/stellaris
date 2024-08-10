@@ -30,10 +30,6 @@ public class PlanetSky extends DimensionSpecialEffects {
         return false;
     }
 
-    public void renderSky(PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, Camera camera) {
-        getRenderer().render(Minecraft.getInstance(), Minecraft.getInstance().level, poseStack, projectionMatrix, partialTick, camera);
-    }
-
     public SkyRenderer getRenderer() {
         return renderer;
     }
