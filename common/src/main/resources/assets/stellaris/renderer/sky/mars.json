@@ -5,7 +5,7 @@
   "fog": false,
   "custom_vanilla_objects": {
     "sun": true,
-    "sun_texture": "stellaris:textures/environment/star/sun.png",
+    "sun_texture": "textures/environment/sun.png",
     "moon": true,
     "moon_phase": false,
     "moon_texture": "stellaris:textures/environment/solar_system/phobos.png"

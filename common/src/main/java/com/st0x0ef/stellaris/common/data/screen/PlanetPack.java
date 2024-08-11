@@ -29,22 +29,17 @@ public class PlanetPack extends SimpleJsonResourceReloadListener {
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> object, ResourceManager resourceManager, ProfilerFiller profiler) {
         if (count > 0) return;
-        PLANET.clear();
         object.forEach((key, value) -> {
             JsonObject json = GsonHelper.convertToJsonObject(value, "planets");
-            PlanetRecord planet;
-
-            planet = PlanetRecord.CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
-
-            PLANET.put(planet.name(), planet);
+            PlanetRecord planet = PlanetRecord.CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
 
             PlanetInfo screenPlanet = new PlanetInfo(
                     planet.texture(),
                     planet.name(),
-                    (int) planet.distance(),
+                    planet.distance(),
                     planet.period(),
-                    (int) planet.width(),
-                    (int) planet.height(),
+                    planet.width(),
+                    planet.height(),
                     PlanetSelectionScreen.findByNameStar(planet.parent()),
                     planet.dimensionId(),
                     Component.translatable(planet.translatable()),

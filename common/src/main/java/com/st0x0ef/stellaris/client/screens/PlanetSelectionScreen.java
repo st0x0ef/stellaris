@@ -753,7 +753,6 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         GL11.glLineWidth(2.0F);
 
         Tesselator tesselator = Tesselator.getInstance();
-        BufferBuilder bufferBuilder = tesselator.begin(VertexFormat.Mode.DEBUG_LINES, DefaultVertexFormat.POSITION_COLOR);
 
         for (PlanetInfo planet : PLANETS) {
             CelestialBody orbitCenter = planet.orbitCenter;
@@ -761,7 +760,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             float orbitCenterX = (float) ((orbitCenter.x + offsetX) * zoomLevel);
             float orbitCenterY = (float) ((orbitCenter.y + offsetY) * zoomLevel);
 
-            renderOrbits(bufferBuilder, orbitCenterX, orbitCenterY, planet.orbitRadius * zoomLevel, 75, orbitCenter.orbitColor, 1.0F);
+            renderOrbits(tesselator, orbitCenterX, orbitCenterY, planet.orbitRadius * zoomLevel, 75, orbitCenter.orbitColor, 1.0F);
         }
 
         for (MoonInfo moon : MOONS) {
@@ -770,21 +769,20 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             float orbitCenterX = (float) ((orbitCenter.x + offsetX) * zoomLevel);
             float orbitCenterY = (float) ((orbitCenter.y + offsetY) * zoomLevel);
 
-            renderOrbits(bufferBuilder, orbitCenterX, orbitCenterY, moon.orbitRadius * zoomLevel, 75, 0x888888, 0.5F);
+            renderOrbits(tesselator, orbitCenterX, orbitCenterY, moon.orbitRadius * zoomLevel, 75, 0x888888, 0.5F);
         }
-
-
-        BufferUploader.drawWithShader(bufferBuilder.buildOrThrow());
 
         RenderSystem.disableBlend();
     }
 
-    public static void renderOrbits(BufferBuilder bufferBuilder, double centerX, double centerY, double radius, int sides, int color, float alphaL) {
+    public static void renderOrbits(Tesselator tesselator, double centerX, double centerY, double radius, int sides, int color, float alphaL) {
         float red = ((color >> 16) & 0xFF) / 255.0F;
         float green = ((color >> 8) & 0xFF) / 255.0F;
         float blue = (color & 0xFF) / 255.0F;
 
         float angleStep = (float) (2.0 * Math.PI / sides);
+
+        BufferBuilder bufferBuilder = tesselator.begin(VertexFormat.Mode.DEBUG_LINES, DefaultVertexFormat.POSITION_COLOR);
 
         for (int i = 0; i < sides; i++) {
             float currentAngle = i * angleStep;
@@ -795,9 +793,13 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             float vertex2X = (float) (centerX + radius * Math.cos(nextAngle));
             float vertex2Y = (float) (centerY + radius * Math.sin(nextAngle));
 
+
+
             bufferBuilder.addVertex(vertex1X, vertex1Y, 0).setColor(red, green, blue, alphaL);
             bufferBuilder.addVertex(vertex2X, vertex2Y, 0).setColor(red, green, blue, alphaL);
         }
+
+        BufferUploader.drawWithShader(bufferBuilder.buildOrThrow());
     }
 
     private void centerSun() {

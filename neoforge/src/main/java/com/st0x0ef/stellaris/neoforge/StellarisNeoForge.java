@@ -20,10 +20,6 @@ public class StellarisNeoForge {
         NeoForge.EVENT_BUS.addListener(StellarisNeoForge::onDatapackSync);
         bus.addListener(StellarisNeoForge::onAttributes);
         SystemsNeoForge.init(bus);
-
-        if (FMLEnvironment.dist.isClient()) {
-            bus.addListener(StellarisNeoforgeClient::clientSetup);
-        }
     }
 
     public static void onDatapackSync(OnDatapackSyncEvent event) {
