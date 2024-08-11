@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.neoforge;
 
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.client.StellarisClient;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import com.st0x0ef.stellaris.neoforge.client.StellarisNeoforgeClient;
 import com.st0x0ef.stellaris.neoforge.systems.SystemsNeoForge;
@@ -20,6 +21,10 @@ public class StellarisNeoForge {
         NeoForge.EVENT_BUS.addListener(StellarisNeoForge::onDatapackSync);
         bus.addListener(StellarisNeoForge::onAttributes);
         SystemsNeoForge.init(bus);
+
+        if (FMLEnvironment.dist.isClient()) {
+            StellarisClient.registerPacks();
+        }
     }
 
     public static void onDatapackSync(OnDatapackSyncEvent event) {

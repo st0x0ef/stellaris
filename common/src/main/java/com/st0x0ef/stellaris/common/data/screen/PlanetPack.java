@@ -18,17 +18,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PlanetPack extends SimpleJsonResourceReloadListener {
-
-    public static final Map<String, PlanetRecord> PLANET = new HashMap<>();
-    public static int count = 0;
-
     public PlanetPack() {
         super(Stellaris.GSON, "renderer/planet_screen/planet");
     }
 
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> object, ResourceManager resourceManager, ProfilerFiller profiler) {
-        if (count > 0) return;
         object.forEach((key, value) -> {
             JsonObject json = GsonHelper.convertToJsonObject(value, "planets");
             PlanetRecord planet = PlanetRecord.CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
@@ -49,6 +44,5 @@ public class PlanetPack extends SimpleJsonResourceReloadListener {
             PlanetSelectionScreen.PLANETS.add(screenPlanet);
             Stellaris.LOG.info("Added a planet to PlanetSelectionScreen : {}", planet.name());
         });
-        count++;
     }
 }

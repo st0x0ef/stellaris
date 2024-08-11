@@ -57,7 +57,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL43;
@@ -177,8 +176,6 @@ public class StellarisClient {
     }
 
     public static void registerPacks() {
-        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new StellarisData());
-
         ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new StarPack());
         ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new PlanetPack());
         ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new MoonPack());

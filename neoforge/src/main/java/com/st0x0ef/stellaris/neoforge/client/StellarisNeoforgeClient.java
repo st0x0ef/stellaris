@@ -14,7 +14,7 @@ public class StellarisNeoforgeClient {
 
     @SubscribeEvent
     public static void clientSetup(FMLClientSetupEvent event) {
-        StellarisClient.initClient();
+        event.enqueueWork(StellarisClient::initClient);
     }
 
     @SubscribeEvent
