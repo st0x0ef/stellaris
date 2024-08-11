@@ -30,8 +30,6 @@ loom {
             }
         }
     }
-
-
 }
 
 
@@ -61,7 +59,7 @@ dependencies {
     shadowBundle project(path: ":common", configuration: "transformProductionNeoForge")
 
     if (System.getenv("CI") != null) {
-        modLocalRuntime "com.github.jab125.architectury-data-generation-fix:architectury-data-generation-fix-neoforge:20.6.0"
+        modLocalRuntime "com.github.jab125.architectury-data-generation-fix:architectury-data-generation-fix-neoforge:21.0.0"
     }
 }
 
