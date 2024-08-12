@@ -2,7 +2,7 @@ package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
 import com.st0x0ef.stellaris.common.blocks.entities.ImplementedInventory;
 import com.st0x0ef.stellaris.common.items.CanItem;
-import com.st0x0ef.stellaris.common.menus.VacumatorMenu;
+import com.st0x0ef.stellaris.common.menus.VacuumatorMenu;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -22,17 +22,17 @@ import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-public class VacumatorBlockEntity extends BaseContainerBlockEntity implements ImplementedInventory, TickingBlockEntity {
+public class VacuumatorBlockEntity extends BaseContainerBlockEntity implements ImplementedInventory, TickingBlockEntity {
 
     private NonNullList<ItemStack> items = NonNullList.withSize(5, ItemStack.EMPTY);
 
-    public VacumatorBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(BlockEntityRegistry.VACUMATOR_ENTITY.get(), blockPos, blockState);
+    public VacuumatorBlockEntity(BlockPos blockPos, BlockState blockState) {
+        super(BlockEntityRegistry.VACUUMATOR_ENTITY.get(), blockPos, blockState);
     }
 
     @Override
     protected AbstractContainerMenu createMenu(int i, Inventory inventory) {
-        return new VacumatorMenu(i, inventory, this);
+        return new VacuumatorMenu(i, inventory, this);
     }
 
     @Override
@@ -56,7 +56,7 @@ public class VacumatorBlockEntity extends BaseContainerBlockEntity implements Im
 
     @Override
     protected Component getDefaultName() {
-        return Component.translatable("block.stellaris.vacumator");
+        return Component.translatable("block.stellaris.vacuumator");
     }
 
     @Override

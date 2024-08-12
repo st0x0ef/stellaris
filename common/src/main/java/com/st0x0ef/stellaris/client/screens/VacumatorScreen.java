@@ -2,7 +2,7 @@ package com.st0x0ef.stellaris.client.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.menus.VacumatorMenu;
+import com.st0x0ef.stellaris.common.menus.VacuumatorMenu;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.GuiGraphics;
@@ -13,10 +13,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 @Environment(EnvType.CLIENT)
-public class VacumatorScreen extends AbstractContainerScreen<VacumatorMenu> {
-	public static final ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/vacumator.png");
+public class VacumatorScreen extends AbstractContainerScreen<VacuumatorMenu> {
+	public static final ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/vacuumator.png");
 
-	public VacumatorScreen(VacumatorMenu abstractContainerMenu, Inventory inventory, Component component) {
+	public VacumatorScreen(VacuumatorMenu abstractContainerMenu, Inventory inventory, Component component) {
 		super(abstractContainerMenu, inventory, component);
 		this.imageWidth = 177;
 		this.imageHeight = 227;
