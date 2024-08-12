@@ -14,7 +14,6 @@ import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.util.profiling.ProfilerFiller;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class PlanetPack extends SimpleJsonResourceReloadListener {
