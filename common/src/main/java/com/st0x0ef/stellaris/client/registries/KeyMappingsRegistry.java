@@ -20,25 +20,15 @@ public class KeyMappingsRegistry {
 
         ClientTickEvent.CLIENT_POST.register(minecraft -> {
             while (ROCKET_START.consumeClick()) {
-
-                NetworkManager.sendToServer(new KeyHandlerPacket(
-                        "rocket_start", true
-                ));
+                new KeyHandlerPacket("rocket_start", true).sendToServer();
             }
 
             while (FREEZE_PLANET_MENU.consumeClick()) {
-
-                NetworkManager.sendToServer(new KeyHandlerPacket(
-                        "freeze_planet_menu", true
-                ));
-
-
+                new KeyHandlerPacket("freeze_planet_menu", true).sendToServer();
             }
 
             while (CHANGE_JETSUIT_MODE.consumeClick()) {
-                NetworkManager.sendToServer(new KeyHandlerPacket(
-                        "switch_jet_suit_mode", true
-                ));
+                new KeyHandlerPacket("switch_jet_suit_mode", true).sendToServer();
             }
         });
     }

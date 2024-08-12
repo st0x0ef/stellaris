@@ -28,6 +28,5 @@ public abstract class ItemEntityGravityMixin {
             return 0.04;
         }
     }
-
 }
 

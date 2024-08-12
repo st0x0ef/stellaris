@@ -13,8 +13,8 @@ public class EntityOxygen {
     public static void tick(LivingEntity entity) {
         if (PlanetUtil.hasOxygen(entity.level().dimension().location()) || entity.getType().is(TagRegistry.ENTITY_NO_OXYGEN_NEEDED_TAG)) return;
 
-        if (entity instanceof LivingEntity livingEntity && Utils.isLivingInJetSuit(livingEntity)) {
-            JetSuit.Suit suit = (JetSuit.Suit) livingEntity.getItemBySlot(EquipmentSlot.CHEST).getItem();
+        if (Utils.isLivingInJetSuit(entity)) {
+            JetSuit.Suit suit = (JetSuit.Suit) entity.getItemBySlot(EquipmentSlot.CHEST).getItem();
             if (!suit.oxygenContainer.removeOxygenStored(false)) {
                 if (!OxygenManager.hasOxygenAt(entity.level(), entity.getOnPos())) {
                     entity.hurt(DamageSourceRegistry.of(entity.level(), DamageSourceRegistry.OXYGEN), 0.5f);

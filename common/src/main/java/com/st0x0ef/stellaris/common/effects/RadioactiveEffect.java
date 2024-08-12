@@ -36,12 +36,4 @@ public class RadioactiveEffect extends MobEffect {
         }
 
     }
-
-
-
-
-    @Override
-    public @NotNull MobEffect withSoundOnAdded(SoundEvent event) {
-        return super.withSoundOnAdded(SoundRegistry.RADIOACTIVE.get());
-    }
 }

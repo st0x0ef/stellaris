@@ -29,11 +29,6 @@ public class IceSpit extends AbstractArrow implements ItemSupplier {
         super(entityType, livingEntity, level, new ItemStack(ItemsRegistry.ICE_SHARD.get()));
     }
 
-    @Override
-    protected ItemStack getDefaultPickupItem() {
-        return null;
-    }
-
     public @NotNull ItemStack getItem() {
         return new ItemStack(ItemsRegistry.ICE_SHARD.get());
     }

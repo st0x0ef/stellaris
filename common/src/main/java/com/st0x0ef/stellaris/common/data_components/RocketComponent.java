@@ -4,10 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.RocketModel;
 import com.st0x0ef.stellaris.common.rocket_upgrade.*;
-import io.netty.buffer.ByteBuf;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 
 import java.io.Serializable;
@@ -21,8 +18,6 @@ public record RocketComponent(String skin, RocketModel model, String fuelType, i
             Codec.INT.fieldOf("fuel").forGetter(RocketComponent::fuel),
             Codec.INT.fieldOf("fuel_capacity").forGetter(RocketComponent::tankCapacity)
     ).apply(instance, RocketComponent::new));
-
-    public static final StreamCodec<ByteBuf, RocketComponent> STREAM_CODEC;
 
 
     public int getFuel() {
@@ -57,21 +52,16 @@ public record RocketComponent(String skin, RocketModel model, String fuelType, i
         return tankCapacity;
     }
 
-    public static RocketComponent fromNetwork(RegistryFriendlyByteBuf buffer) {
+    public static RocketComponent fromNetwork(FriendlyByteBuf buffer) {
         return new RocketComponent(buffer.readUtf(), RocketModel.fromString(buffer.readUtf()), buffer.readUtf(), buffer.readInt(), buffer.readInt());
     }
 
-    public RegistryFriendlyByteBuf toNetwork(RegistryFriendlyByteBuf buffer) {
+    public FriendlyByteBuf toNetwork(FriendlyByteBuf buffer) {
         buffer.writeUtf(this.skin);
         buffer.writeUtf(this.model().getSerializedName());
         buffer.writeUtf(this.fuelType);
         buffer.writeInt(this.fuel);
         buffer.writeInt(this.tankCapacity);
         return buffer;
-    }
-
-
-    static {
-        STREAM_CODEC = StreamCodec.composite(ByteBufCodecs.STRING_UTF8, RocketComponent::skin, ByteBufCodecs.fromCodec(RocketModel.CODEC), RocketComponent::model, ByteBufCodecs.STRING_UTF8, RocketComponent::fuelType, ByteBufCodecs.INT, RocketComponent::fuel, ByteBufCodecs.INT, RocketComponent::tankCapacity, RocketComponent::new);
     }
 }

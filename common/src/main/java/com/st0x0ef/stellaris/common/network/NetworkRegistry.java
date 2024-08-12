@@ -2,44 +2,16 @@ package com.st0x0ef.stellaris.common.network;
 
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.network.packets.*;
-import dev.architectury.impl.NetworkAggregator;
-import dev.architectury.networking.NetworkManager;
-import dev.architectury.platform.Platform;
-import dev.architectury.utils.Env;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
-
-import java.util.Collections;
-import java.util.List;
+import dev.architectury.networking.simple.MessageType;
+import dev.architectury.networking.simple.SimpleNetworkManager;
 
 public interface NetworkRegistry {
-    CustomPacketPayload.Type<KeyHandlerPacket> KEY_HANDLER_ID = new CustomPacketPayload.Type<>(new ResourceLocation(Stellaris.MODID, "key_handler"));
-    CustomPacketPayload.Type<TeleportEntityToPlanetPacket> TELEPORT_ENTITY_ID = new CustomPacketPayload.Type<>(new ResourceLocation(Stellaris.MODID, "teleport_entity"));
+    SimpleNetworkManager NETWORK_MANAGER = SimpleNetworkManager.create(Stellaris.MODID);
+    
+    MessageType KEY_HANDLER_ID = NETWORK_MANAGER.registerC2S("key_handler", KeyHandlerPacket::new);
+    MessageType TELEPORT_ENTITY_ID = NETWORK_MANAGER.registerC2S("teleport_entity", TeleportEntityToPlanetPacket::new);
 
-    CustomPacketPayload.Type<SyncPlanetsDatapackPacket> SYNC_PLANETS_DATAPACK = new CustomPacketPayload.Type<>(new ResourceLocation(Stellaris.MODID, "sync_planet_datapack"));
-    CustomPacketPayload.Type<SyncWidgetsTanksPacket> SYNC_FLUID_TANKS_ID = new CustomPacketPayload.Type<>(new ResourceLocation(Stellaris.MODID, "sync_fluid_tanks"));
-    CustomPacketPayload.Type<SyncRocketComponentPacket> SYNC_ROCKET_COMPONENT_ID = new CustomPacketPayload.Type<>(new ResourceLocation(Stellaris.MODID, "sync_rocket_component"));
-
-    static void init() {
-        registerC2S(KEY_HANDLER_ID, KeyHandlerPacket.STREAM_CODEC, KeyHandlerPacket::handle);
-        registerC2S(TELEPORT_ENTITY_ID, TeleportEntityToPlanetPacket.STREAM_CODEC, TeleportEntityToPlanetPacket::handle);
-
-        registerS2C(SYNC_PLANETS_DATAPACK, SyncPlanetsDatapackPacket.STREAM_CODEC, SyncPlanetsDatapackPacket::handle);
-        registerS2C(SYNC_FLUID_TANKS_ID, SyncWidgetsTanksPacket.STREAM_CODEC, SyncWidgetsTanksPacket::handle);
-        registerS2C(SYNC_ROCKET_COMPONENT_ID, SyncRocketComponentPacket.STREAM_CODEC, SyncRocketComponentPacket::handle);
-    }
-
-    static <T extends CustomPacketPayload> void registerS2C(CustomPacketPayload.Type<T> packetType, StreamCodec<? super RegistryFriendlyByteBuf, T> codec, NetworkManager.NetworkReceiver<T> receiver) {
-        if (Platform.getEnvironment().equals(Env.SERVER)) {
-            NetworkAggregator.registerS2CType(packetType, codec, List.of());
-        } else {
-            NetworkAggregator.registerReceiver(NetworkManager.s2c(), packetType, codec, Collections.emptyList(), receiver);
-        }
-    }
-
-    static <T extends CustomPacketPayload> void registerC2S(CustomPacketPayload.Type<T> packetType, StreamCodec<? super RegistryFriendlyByteBuf, T> codec, NetworkManager.NetworkReceiver<T> receiver) {
-        NetworkAggregator.registerReceiver(NetworkManager.c2s(), packetType, codec, Collections.emptyList(), receiver);
-    }
+    MessageType SYNC_PLANETS_DATAPACK = NETWORK_MANAGER.registerS2C("sync_planet_datapack", SyncPlanetsDatapackPacket::new);
+    MessageType SYNC_FLUID_TANKS_ID = NETWORK_MANAGER.registerS2C("sync_fluid_tanks", SyncWidgetsTanksPacket::new);
+    MessageType SYNC_ROCKET_COMPONENT_ID = NETWORK_MANAGER.registerS2C("sync_rocket_component", SyncRocketComponentPacket::new);
 }

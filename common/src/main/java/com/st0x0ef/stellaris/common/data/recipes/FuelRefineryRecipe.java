@@ -1,23 +1,14 @@
 package com.st0x0ef.stellaris.common.data.recipes;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.FuelRefineryBlockEntity;
 import com.st0x0ef.stellaris.common.registry.RecipesRegistry;
 import dev.architectury.fluid.FluidStack;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-
-import java.util.Optional;
-
-import static com.st0x0ef.stellaris.common.data.recipes.WaterSeparatorRecipe.Serializer.convertFluidStack;
 
 public record FuelRefineryRecipe(FluidStack ingredientStack, FluidStack resultStack, boolean isMb,
                                  long energy) implements Recipe<FuelRefineryBlockEntity> {
@@ -29,7 +20,7 @@ public record FuelRefineryRecipe(FluidStack ingredientStack, FluidStack resultSt
     }
 
     @Override
-    public ItemStack assemble(FuelRefineryBlockEntity container, HolderLookup.Provider registries) {
+    public ItemStack assemble(FuelRefineryBlockEntity container, RegistryAccess registryAccess) {
         return null;
     }
 
@@ -39,7 +30,7 @@ public record FuelRefineryRecipe(FluidStack ingredientStack, FluidStack resultSt
     }
 
     @Override
-    public ItemStack getResultItem(HolderLookup.Provider registries) {
+    public ItemStack getResultItem(RegistryAccess registryAccess) {
         return null;
     }
 
@@ -51,37 +42,5 @@ public record FuelRefineryRecipe(FluidStack ingredientStack, FluidStack resultSt
     @Override
     public RecipeType<?> getType() {
         return RecipesRegistry.FUEL_REFINERY_TYPE.get();
-    }
-
-    public static class Serializer implements RecipeSerializer<FuelRefineryRecipe> {
-
-        private static final MapCodec<FuelRefineryRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-                FluidStack.CODEC.fieldOf("ingredient").forGetter(FuelRefineryRecipe::ingredientStack),
-                FluidStack.CODEC.fieldOf("result").forGetter(FuelRefineryRecipe::resultStack),
-                Codec.BOOL.optionalFieldOf("isFluidMB").forGetter(recipe -> Optional.of(recipe.isMb)),
-                Codec.LONG.fieldOf("energy").forGetter(FuelRefineryRecipe::energy)
-        ).apply(instance, (ingredientStack, resultStack, isFluidMb, energy) -> {
-            boolean isMb = isFluidMb.orElse(true);
-            convertFluidStack(ingredientStack, isMb);
-            convertFluidStack(resultStack, isMb);
-            return new FuelRefineryRecipe(ingredientStack, resultStack, isMb, energy);
-        }));
-
-        private static final StreamCodec<RegistryFriendlyByteBuf, FuelRefineryRecipe> STREAM_CODEC = StreamCodec.of((buf, recipe) -> {
-            recipe.ingredientStack().write(buf);
-            recipe.resultStack().write(buf);
-            buf.writeBoolean(recipe.isMb());
-            buf.writeLong(recipe.energy());
-        }, buf -> new FuelRefineryRecipe(FluidStack.read(buf), FluidStack.read(buf), buf.readBoolean(), buf.readLong()));
-
-        @Override
-        public MapCodec<FuelRefineryRecipe> codec() {
-            return CODEC;
-        }
-
-        @Override
-        public StreamCodec<RegistryFriendlyByteBuf, FuelRefineryRecipe> streamCodec() {
-            return STREAM_CODEC;
-        }
     }
 }

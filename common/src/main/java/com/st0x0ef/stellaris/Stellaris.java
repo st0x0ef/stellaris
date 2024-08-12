@@ -37,7 +37,6 @@ public class Stellaris {
 
         ProcessorsRegistry.STRUCTURE_PROCESSORS.register();
         EntityData.register();
-        NetworkRegistry.init();
         SoundRegistry.SOUNDS.register();
         EffectsRegistry.MOB_EFFECTS.register();
         DataComponentsRegistry.DATA_COMPONENT_TYPE.register();
@@ -63,7 +62,7 @@ public class Stellaris {
 
     public static void onDatapackSyncEvent(ServerPlayer player, boolean joined) {
         if (joined) {
-            NetworkManager.sendToPlayer(player, new SyncPlanetsDatapackPacket(StellarisData.getPlanets()));
+            new SyncPlanetsDatapackPacket(StellarisData.getPlanets()).sendTo(player);
         }
     }
 

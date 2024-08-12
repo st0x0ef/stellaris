@@ -61,14 +61,14 @@ dependencies {
     shadowBundle project(path: ":common", configuration: "transformProductionNeoForge")
 
     if (System.getenv("CI") != null) {
-        modLocalRuntime "com.github.jab125.architectury-data-generation-fix:architectury-data-generation-fix-neoforge:20.6.0"
+        modLocalRuntime "com.github.jab125.architectury-data-generation-fix:architectury-data-generation-fix-neoforge:20.4.0"
     }
 }
 
 processResources {
     inputs.property 'version', project.version
 
-    filesMatching('META-INF/neoforge.mods.toml') {
+    filesMatching('META-INF/mods.toml') {
         expand version: project.version
     }
 }

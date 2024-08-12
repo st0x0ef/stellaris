@@ -1,8 +1,5 @@
 package com.st0x0ef.stellaris.common.entities;
 
-import java.util.function.Consumer;
-
-
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.keybinds.KeyVariables;
 import com.st0x0ef.stellaris.common.menus.LanderMenu;
@@ -14,12 +11,14 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.world.*;
+import net.minecraft.world.Container;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -31,6 +30,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+
+import java.util.function.Consumer;
 
 public class LanderEntity extends IVehicleEntity implements HasCustomInventoryScreen {
 
@@ -74,7 +75,7 @@ public class LanderEntity extends IVehicleEntity implements HasCustomInventorySc
 
     @Override
     public Vec3 getPassengerRidingPosition(Entity entity) {
-        return this.position().add(this.getPassengerAttachmentPoint(entity, getDimensions(this.getPose()),1.0F)).add(0d,2d,0d);
+        return this.position().add(0d, getDimensions(this.getPose()).height + 2d, 0d);
     }
 
     @Override
@@ -128,14 +129,14 @@ public class LanderEntity extends IVehicleEntity implements HasCustomInventorySc
 
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
-        compound.put("InventoryCustom", this.inventory.createTag(registryAccess()));
+        compound.put("InventoryCustom", this.inventory.createTag());
 
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         ListTag inventoryCustom = compound.getList("InventoryCustom", 15);
-        this.inventory.fromTag(inventoryCustom, registryAccess());
+        this.inventory.fromTag(inventoryCustom);
 
     }
 
@@ -228,7 +229,7 @@ public class LanderEntity extends IVehicleEntity implements HasCustomInventorySc
 
             @Override
             public AbstractContainerMenu createMenu(int id, Inventory playerInv, Player player) {
-                RegistryFriendlyByteBuf packetBuffer = new RegistryFriendlyByteBuf(Unpooled.buffer(), player.registryAccess());
+                FriendlyByteBuf packetBuffer = new FriendlyByteBuf(Unpooled.buffer());
                 packetBuffer.writeVarInt(LanderEntity.this.getId());
                 return new LanderMenu(id, playerInv, inventory);
             }

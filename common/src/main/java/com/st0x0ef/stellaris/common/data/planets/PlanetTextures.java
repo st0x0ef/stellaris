@@ -2,7 +2,7 @@ package com.st0x0ef.stellaris.common.data.planets;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 
 public record PlanetTextures(
@@ -15,11 +15,11 @@ public record PlanetTextures(
             ResourceLocation.CODEC.fieldOf("planet").forGetter(PlanetTextures::planet)
     ).apply(instance, PlanetTextures::new));
 
-    public static PlanetTextures fromNetwork(RegistryFriendlyByteBuf buffer) {
+    public static PlanetTextures fromNetwork(FriendlyByteBuf buffer) {
         return new PlanetTextures(buffer.readResourceLocation(), buffer.readResourceLocation());
     }
 
-    public RegistryFriendlyByteBuf toNetwork(RegistryFriendlyByteBuf buffer) {
+    public FriendlyByteBuf toNetwork(FriendlyByteBuf buffer) {
         buffer.writeResourceLocation(this.planet_bar);
         buffer.writeResourceLocation(this.planet);
         return buffer;

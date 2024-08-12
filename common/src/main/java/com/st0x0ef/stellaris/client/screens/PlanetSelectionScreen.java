@@ -600,41 +600,33 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     }
 
     private CelestialBody getNextBodyByDistance(CelestialBody currentBody) {
-        switch (currentBody) {
-            case null -> {
-                return null;
-            }
-            case PlanetInfo planetInfo -> {
-                List<PlanetInfo> bodies = new ArrayList<>(PLANETS);
+        if (currentBody instanceof PlanetInfo) {
+            List<PlanetInfo> bodies = new ArrayList<>(PLANETS);
 
-                bodies.sort(Comparator.comparingDouble(b -> b.orbitRadius));
+            bodies.sort(Comparator.comparingDouble(b -> b.orbitRadius));
 
-                for (int i = 0; i < bodies.size(); i++) {
-                    if (bodies.get(i) == currentBody) {
-                        for (int j = i + 1; j < bodies.size(); j++) {
-                            if (bodies.get(j).orbitCenter == ((PlanetInfo) currentBody).orbitCenter) {
-                                return bodies.get(j);
-                            }
+            for (int i = 0; i < bodies.size(); i++) {
+                if (bodies.get(i) == currentBody) {
+                    for (int j = i + 1; j < bodies.size(); j++) {
+                        if (bodies.get(j).orbitCenter == ((PlanetInfo) currentBody).orbitCenter) {
+                            return bodies.get(j);
                         }
                     }
                 }
             }
-            case MoonInfo moonInfo -> {
-                List<MoonInfo> bodies = new ArrayList<>(MOONS);
+        } else if (currentBody instanceof MoonInfo) {
+            List<MoonInfo> bodies = new ArrayList<>(MOONS);
 
-                bodies.sort(Comparator.comparingDouble(b -> b.orbitRadius));
+            bodies.sort(Comparator.comparingDouble(b -> b.orbitRadius));
 
-                for (int i = 0; i < bodies.size(); i++) {
-                    if (bodies.get(i) == currentBody) {
-                        for (int j = i + 1; j < bodies.size(); j++) {
-                            if (bodies.get(j).orbitCenter == ((MoonInfo) currentBody).orbitCenter) {
-                                return bodies.get(j);
-                            }
+            for (int i = 0; i < bodies.size(); i++) {
+                if (bodies.get(i) == currentBody) {
+                    for (int j = i + 1; j < bodies.size(); j++) {
+                        if (bodies.get(j).orbitCenter == ((MoonInfo) currentBody).orbitCenter) {
+                            return bodies.get(j);
                         }
                     }
                 }
-            }
-            default -> {
             }
         }
 
@@ -642,41 +634,33 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     }
 
     private CelestialBody getPreviousBodyByDistance(CelestialBody currentBody) {
-        switch (currentBody) {
-            case null -> {
-                return null;
-            }
-            case PlanetInfo planetInfo -> {
-                List<PlanetInfo> bodies = new ArrayList<>(PLANETS);
+        if (currentBody instanceof PlanetInfo) {
+            List<PlanetInfo> bodies = new ArrayList<>(PLANETS);
 
-                bodies.sort(Comparator.comparingDouble(b -> b.orbitRadius));
+            bodies.sort(Comparator.comparingDouble(b -> b.orbitRadius));
 
-                for (int i = bodies.size() - 1; i >= 0; i--) {
-                    if (bodies.get(i) == currentBody) {
-                        for (int j = i - 1; j >= 0; j--) {
-                            if (bodies.get(j).orbitCenter == ((PlanetInfo) currentBody).orbitCenter) {
-                                return bodies.get(j);
-                            }
+            for (int i = bodies.size() - 1; i >= 0; i--) {
+                if (bodies.get(i) == currentBody) {
+                    for (int j = i - 1; j >= 0; j--) {
+                        if (bodies.get(j).orbitCenter == ((PlanetInfo) currentBody).orbitCenter) {
+                            return bodies.get(j);
                         }
                     }
                 }
             }
-            case MoonInfo moonInfo -> {
-                List<MoonInfo> bodies = new ArrayList<>(MOONS);
+        } else if (currentBody instanceof MoonInfo) {
+            List<MoonInfo> bodies = new ArrayList<>(MOONS);
 
-                bodies.sort(Comparator.comparingDouble(b -> b.orbitRadius));
+            bodies.sort(Comparator.comparingDouble(b -> b.orbitRadius));
 
-                for (int i = bodies.size() - 1; i >= 0; i--) {
-                    if (bodies.get(i) == currentBody) {
-                        for (int j = i - 1; j >= 0; j--) {
-                            if (bodies.get(j).orbitCenter == ((MoonInfo) currentBody).orbitCenter) {
-                                return bodies.get(j);
-                            }
+            for (int i = bodies.size() - 1; i >= 0; i--) {
+                if (bodies.get(i) == currentBody) {
+                    for (int j = i - 1; j >= 0; j--) {
+                        if (bodies.get(j).orbitCenter == ((MoonInfo) currentBody).orbitCenter) {
+                            return bodies.get(j);
                         }
                     }
                 }
-            }
-            default -> {
             }
         }
 
@@ -709,8 +693,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     public void tpToFocusedPlanet() {
         if (focusedBody != null) {
-
-            NetworkManager.sendToServer(new TeleportEntityToPlanetPacket(focusedBody.dimension));
+            new TeleportEntityToPlanetPacket(focusedBody.dimension).sendToServer();
             long windowHandle = Minecraft.getInstance().getWindow().getWindow();
             prevScrollCallback = GLFW.glfwSetScrollCallback(windowHandle, Minecraft.getInstance().mouseHandler::onScroll);
 

@@ -114,7 +114,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     protected void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
 
-        compound.put("InventoryCustom", this.inventory.createTag(registryAccess()));
+        compound.put("InventoryCustom", this.inventory.createTag());
         compound.putInt("fuel", FUEL);
 
         if (FUEL != 0 && currentFuelItem != null) {
@@ -133,7 +133,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
             if (!itemStack.isEmpty()) {
                 CompoundTag compoundTag = new CompoundTag();
                 compoundTag.putByte("Slot", (byte)(i - 1));
-                listTag.add(itemStack.save(this.registryAccess(), compoundTag));
+                listTag.add(itemStack.save(compoundTag));
             }
         }
         compound.put("Items", listTag);
@@ -148,7 +148,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     protected void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         ListTag inventoryCustom = compound.getList("InventoryCustom", 14);
-        this.inventory.fromTag(inventoryCustom, registryAccess());
+        this.inventory.fromTag(inventoryCustom);
         FUEL = compound.getInt("fuel");
 
         if (FUEL != 0) {
@@ -161,7 +161,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
             CompoundTag compoundTag = listTag.getCompound(i);
             int j = compoundTag.getByte("Slot") & 255;
             if (j < this.inventory.getContainerSize() - 1) {
-                this.inventory.setItem(j + 1, ItemStack.parse(this.registryAccess(), compoundTag).orElse(ItemStack.EMPTY));
+                this.inventory.setItem(j + 1, ItemStack.of(compoundTag));
             }
         }
 
@@ -209,7 +209,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
     @Override
     public Vec3 getPassengerRidingPosition(Entity entity) {
-        return this.position().add(this.getPassengerAttachmentPoint(entity, getDimensions(this.getPose()),1.0F)).subtract(0d,3.15d,0d);
+        return this.position().add(0d, getDimensions(this.getPose()).height + 3.15d, 0d);
     }
 
     @Override
@@ -565,8 +565,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         this.rocketComponent = new RocketComponent(SKIN_UPGRADE.getRocketSkinLocation().toString(), RocketModel.fromString(MODEL_UPGRADE.getModel().toString()), currentFuelItem.toString(), FUEL, TANK_UPGRADE.getTankCapacity());
 
         if (!level().isClientSide()) {
-
-            NetworkManager.sendToPlayer(player, new SyncRocketComponentPacket(rocketComponent));
+            new SyncRocketComponentPacket(rocketComponent).sendTo(player);
         }
     }
 

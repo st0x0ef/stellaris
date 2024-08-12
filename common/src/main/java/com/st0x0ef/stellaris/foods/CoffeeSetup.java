@@ -28,8 +28,6 @@ public class CoffeeSetup extends Item {
             serverPlayer.awardStat(Stats.ITEM_USED.get(this));
         }
 
-
-
         return stack;
     }
 
@@ -52,11 +50,6 @@ public class CoffeeSetup extends Item {
 
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
         return ItemUtils.startUsingInstantly(level, player, usedHand);
-    }
-
-    @Override
-    public int getDefaultMaxStackSize() {
-        return 64;
     }
 
     @Override

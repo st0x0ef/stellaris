@@ -4,32 +4,16 @@ import com.st0x0ef.stellaris.common.data_components.RocketComponent;
 import com.st0x0ef.stellaris.common.menus.RocketMenu;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import dev.architectury.networking.NetworkManager;
+import dev.architectury.networking.simple.BaseS2CMessage;
+import dev.architectury.networking.simple.MessageType;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.network.FriendlyByteBuf;
 
-public class SyncRocketComponentPacket implements CustomPacketPayload {
+public class SyncRocketComponentPacket extends BaseS2CMessage {
 
     private final RocketComponent component;
 
-
-    public static final StreamCodec<RegistryFriendlyByteBuf, SyncRocketComponentPacket> STREAM_CODEC = new StreamCodec<>() {
-        @Override
-        public @NotNull SyncRocketComponentPacket decode(RegistryFriendlyByteBuf buf) {
-            return new SyncRocketComponentPacket(buf);
-        }
-
-        @Override
-        public void encode(RegistryFriendlyByteBuf buf, SyncRocketComponentPacket packet) {
-            packet.component.toNetwork(buf);
-        }
-    };
-
-
-
-    public SyncRocketComponentPacket(RegistryFriendlyByteBuf buffer) {
+    public SyncRocketComponentPacket(FriendlyByteBuf buffer) {
         this(RocketComponent.fromNetwork(buffer));
     }
 
@@ -37,22 +21,26 @@ public class SyncRocketComponentPacket implements CustomPacketPayload {
         this.component = component;
     }
 
-
-    public static void handle(SyncRocketComponentPacket packet,  NetworkManager.PacketContext context) {
-        LocalPlayer player = (LocalPlayer) context.getPlayer();
-        if (player.containerMenu instanceof RocketMenu menu) {
-            menu.getRocket().rocketComponent = packet.component;
-
-            menu.getRocket().MODEL_UPGRADE = packet.component.getModelUpgrade();
-            menu.getRocket().SKIN_UPGRADE = packet.component.getSkinUpgrade();
-            menu.getRocket().TANK_UPGRADE = packet.component.getTankUpgrade();
-            menu.getRocket().MOTOR_UPGRADE = packet.component.getMotorUpgrade();
-
-        }
+    @Override
+    public MessageType getType() {
+        return NetworkRegistry.SYNC_ROCKET_COMPONENT_ID;
     }
 
     @Override
-    public Type<? extends CustomPacketPayload> type() {
-        return NetworkRegistry.SYNC_ROCKET_COMPONENT_ID;
+    public void write(FriendlyByteBuf buf) {
+        component.toNetwork(buf);
+    }
+
+    @Override
+    public void handle(NetworkManager.PacketContext context) {
+        LocalPlayer player = (LocalPlayer) context.getPlayer();
+        if (player.containerMenu instanceof RocketMenu menu) {
+            menu.getRocket().rocketComponent = component;
+
+            menu.getRocket().MODEL_UPGRADE = component.getModelUpgrade();
+            menu.getRocket().SKIN_UPGRADE = component.getSkinUpgrade();
+            menu.getRocket().TANK_UPGRADE = component.getTankUpgrade();
+            menu.getRocket().MOTOR_UPGRADE = component.getMotorUpgrade();
+        }
     }
 }

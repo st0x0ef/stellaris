@@ -107,12 +107,10 @@ public class FlagBlock extends Block implements SimpleWaterloggedBlock {
 
     }
 
-
     @Override
-    protected boolean isPathfindable(BlockState blockState, PathComputationType pathComputationType) {
+    public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType type) {
         return false;
     }
-
 
     public interface ISkullType {
     }

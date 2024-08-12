@@ -2,7 +2,7 @@ package com.st0x0ef.stellaris.common.data.planets;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
@@ -33,7 +33,7 @@ public record Planet (
             PlanetTextures.CODEC.fieldOf("textures").forGetter(Planet::textures)
     ).apply(instance, Planet::new));
 
-    public static RegistryFriendlyByteBuf toBuffer(List<Planet> planets, final RegistryFriendlyByteBuf buffer) {
+    public static FriendlyByteBuf toBuffer(List<Planet> planets, final FriendlyByteBuf buffer) {
         buffer.writeInt(planets.size());
 
         planets.forEach(((planet) -> {
@@ -51,7 +51,7 @@ public record Planet (
         return buffer;
 
     }
-    public static List<Planet> readFromBuffer(RegistryFriendlyByteBuf buffer) {
+    public static List<Planet> readFromBuffer(FriendlyByteBuf buffer) {
         List<Planet> planets = new ArrayList<>();
 
         int k = buffer.readInt();

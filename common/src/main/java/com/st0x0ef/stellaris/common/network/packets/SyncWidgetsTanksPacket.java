@@ -5,40 +5,19 @@ import com.st0x0ef.stellaris.common.blocks.entities.machines.WaterSeparatorBlock
 import com.st0x0ef.stellaris.common.menus.*;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import dev.architectury.networking.NetworkManager;
-import net.fabricmc.api.EnvType;
+import dev.architectury.networking.simple.BaseS2CMessage;
+import dev.architectury.networking.simple.MessageType;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import org.jetbrains.annotations.NotNull;
 
-public class SyncWidgetsTanksPacket implements CustomPacketPayload {
+public class SyncWidgetsTanksPacket extends BaseS2CMessage {
 
     private final long[] component;
     private final ResourceLocation[] locations;
 
-
-    public static final StreamCodec<RegistryFriendlyByteBuf, SyncWidgetsTanksPacket> STREAM_CODEC = new StreamCodec<>() {
-        @Override
-        public @NotNull SyncWidgetsTanksPacket decode(RegistryFriendlyByteBuf buf) {
-            return new SyncWidgetsTanksPacket(buf);
-        }
-
-        @Override
-        public void encode(RegistryFriendlyByteBuf buf, SyncWidgetsTanksPacket packet) {
-            buf.writeLongArray(packet.component);
-
-            buf.writeInt(packet.locations.length);
-            for (ResourceLocation location : packet.locations) {
-                buf.writeResourceLocation(location);
-            }
-        }
-    };
-
-
-    public SyncWidgetsTanksPacket(RegistryFriendlyByteBuf buffer) {
+    public SyncWidgetsTanksPacket(FriendlyByteBuf buffer) {
         this.component = buffer.readLongArray();
         int length = buffer.readInt();
         this.locations = new ResourceLocation[length];
@@ -57,52 +36,53 @@ public class SyncWidgetsTanksPacket implements CustomPacketPayload {
         this.locations = locations;
     }
 
+    @Override
+    public MessageType getType() {
+        return NetworkRegistry.SYNC_FLUID_TANKS_ID;
+    }
 
-    public static void handle(SyncWidgetsTanksPacket syncWidgetsTanks, NetworkManager.PacketContext context) {
-        if (context.getEnv() != EnvType.CLIENT) {
-            return;
-        }
+    @Override
+    public void write(FriendlyByteBuf buf) {
+        buf.writeLongArray(component);
 
-        LocalPlayer player = (LocalPlayer) context.getPlayer();
-        switch (player.containerMenu) {
-            case WaterSeparatorMenu menu -> {
-                WaterSeparatorBlockEntity blockEntity = menu.getBlockEntity();
-                if (syncWidgetsTanks.component.length == 2 && syncWidgetsTanks.locations.length == 2) {
-                    blockEntity.resultTanks.getFirst().setFluid(BuiltInRegistries.FLUID.get(syncWidgetsTanks.locations[0]), syncWidgetsTanks.component[0]);
-                    blockEntity.resultTanks.getLast().setFluid(BuiltInRegistries.FLUID.get(syncWidgetsTanks.locations[1]), syncWidgetsTanks.component[1]);
-                }
-                else if (syncWidgetsTanks.component.length == 1 && syncWidgetsTanks.locations.length == 1) {
-                    blockEntity.ingredientTank.setFluid(BuiltInRegistries.FLUID.get(syncWidgetsTanks.locations[0]), syncWidgetsTanks.component[0]);
-                }
-                else if (syncWidgetsTanks.component.length == 3) {
-                    blockEntity.getWrappedEnergyContainer().setEnergy(syncWidgetsTanks.component[0]);
-                }
-            }
-            case FuelRefineryMenu menu -> {
-                FuelRefineryBlockEntity blockEntity = menu.getBlockEntity();
-                if (syncWidgetsTanks.component.length == 2 && syncWidgetsTanks.locations.length == 2) {
-                    blockEntity.getIngredientTank().setFluid(BuiltInRegistries.FLUID.get(syncWidgetsTanks.locations[0]), syncWidgetsTanks.component[0]);
-                    blockEntity.getResultTank().setFluid(BuiltInRegistries.FLUID.get(syncWidgetsTanks.locations[1]), syncWidgetsTanks.component[1]);
-                }
-                else if (syncWidgetsTanks.component.length == 1) {
-                    blockEntity.getWrappedEnergyContainer().setEnergy(syncWidgetsTanks.component[0]);
-                }
-            }
-            case SolarPanelMenu menu -> menu.getEnergyContainer().setEnergy(syncWidgetsTanks.component[0]);
-            case CoalGeneratorMenu menu ->
-                    menu.getBlockEntity().getWrappedEnergyContainer().setEnergy(syncWidgetsTanks.component[0]);
-            case RadioactiveGeneratorMenu menu ->
-                    menu.getBlockEntity().getWrappedEnergyContainer().setEnergy(syncWidgetsTanks.component[0]);
-            case OxygenDistributorMenu menu ->
-                    menu.getBlockEntity().getWrappedEnergyContainer().setEnergy(syncWidgetsTanks.component[0]);
-            default -> {
-            }
+        buf.writeInt(locations.length);
+        for (ResourceLocation location : locations) {
+            buf.writeResourceLocation(location);
         }
     }
 
-
     @Override
-    public Type<? extends CustomPacketPayload> type() {
-        return NetworkRegistry.SYNC_FLUID_TANKS_ID;
+    public void handle(NetworkManager.PacketContext context) {
+        LocalPlayer player = (LocalPlayer) context.getPlayer();
+        if (player.containerMenu instanceof WaterSeparatorMenu menu) {
+            WaterSeparatorBlockEntity blockEntity = menu.getBlockEntity();
+            if (component.length == 2 && locations.length == 2) {
+                blockEntity.resultTanks.getFirst().setFluid(BuiltInRegistries.FLUID.get(locations[0]), component[0]);
+                blockEntity.resultTanks.getLast().setFluid(BuiltInRegistries.FLUID.get(locations[1]), component[1]);
+            }
+            else if (component.length == 1 && locations.length == 1) {
+                blockEntity.ingredientTank.setFluid(BuiltInRegistries.FLUID.get(locations[0]), component[0]);
+            }
+            else if (component.length == 3) {
+                blockEntity.getWrappedEnergyContainer().setEnergy(component[0]);
+            }
+        } else if (player.containerMenu instanceof FuelRefineryMenu menu) {
+            FuelRefineryBlockEntity blockEntity = menu.getBlockEntity();
+            if (component.length == 2 && locations.length == 2) {
+                blockEntity.getIngredientTank().setFluid(BuiltInRegistries.FLUID.get(locations[0]), component[0]);
+                blockEntity.getResultTank().setFluid(BuiltInRegistries.FLUID.get(locations[1]), component[1]);
+            }
+            else if (component.length == 1) {
+                blockEntity.getWrappedEnergyContainer().setEnergy(component[0]);
+            }
+        } else if (player.containerMenu instanceof SolarPanelMenu menu) {
+            menu.getEnergyContainer().setEnergy(component[0]);
+        } else if (player.containerMenu instanceof CoalGeneratorMenu menu) {
+            menu.getBlockEntity().getWrappedEnergyContainer().setEnergy(component[0]);
+        } else if (player.containerMenu instanceof RadioactiveGeneratorMenu menu) {
+            menu.getBlockEntity().getWrappedEnergyContainer().setEnergy(component[0]);
+        } else if (player.containerMenu instanceof OxygenDistributorMenu menu) {
+            menu.getBlockEntity().getWrappedEnergyContainer().setEnergy(component[0]);
+        }
     }
 }
