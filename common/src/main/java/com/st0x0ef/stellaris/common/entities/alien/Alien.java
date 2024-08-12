@@ -80,27 +80,10 @@ public class Alien extends Villager implements Merchant, Npc {
 			if (this.isBaby()) {
 				this.shakeHead();
 				return InteractionResult.sidedSuccess(this.level().isClientSide);
-			} else {
-				boolean flag = this.getOffers().isEmpty();
-				if (hand == InteractionHand.MAIN_HAND) {
-					if (flag && !this.level().isClientSide) {
-						this.shakeHead();
-					}
-
-					player.awardStat(Stats.TALKED_TO_VILLAGER);
-				}
-
-                if (!flag) {
-                    if (!this.level().isClientSide && !this.offers.isEmpty()) {
-                        this.displayMerchantGui(player);
-                    }
-
-                }
-                return InteractionResult.sidedSuccess(this.level().isClientSide);
-            }
-		} else {
-			return InteractionResult.PASS;
+			}
 		}
+
+		return InteractionResult.PASS;
 	}
 
 	private void displayMerchantGui(Player player) {

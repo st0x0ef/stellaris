@@ -118,4 +118,9 @@ public class VacumatorBlockEntity extends BaseContainerBlockEntity implements Im
     public static boolean isFood(ItemStack food) {
         return food.has(DataComponents.FOOD);
     }
+
+    @Override
+    public int getContainerSize() {
+        return 5;
+    }
 }

@@ -7,6 +7,7 @@ public class StellarisFabricClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         StellarisClient.initClient();
+        StellarisClient.registerPacks();
         StellarisClient.registerEntityRenderer();
         StellarisClient.registerEntityModelLayer();
     }

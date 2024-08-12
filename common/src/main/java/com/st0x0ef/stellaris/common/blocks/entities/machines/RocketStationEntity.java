@@ -122,4 +122,9 @@ public class RocketStationEntity extends BaseContainerBlockEntity implements Imp
             }
         }
     }
+
+    @Override
+    public int getContainerSize() {
+        return 15;
+    }
 }

@@ -19,32 +19,23 @@ import java.util.Map;
 
 public class PlanetPack extends SimpleJsonResourceReloadListener {
 
-    public static final Map<String, PlanetRecord> PLANET = new HashMap<>();
-    public static int count = 0;
-
     public PlanetPack() {
         super(Stellaris.GSON, "renderer/planet_screen/planet");
     }
 
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> object, ResourceManager resourceManager, ProfilerFiller profiler) {
-        if (count > 0) return;
-        PLANET.clear();
         object.forEach((key, value) -> {
             JsonObject json = GsonHelper.convertToJsonObject(value, "planets");
-            PlanetRecord planet;
-
-            planet = PlanetRecord.CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
-
-            PLANET.put(planet.name(), planet);
+            PlanetRecord planet = PlanetRecord.CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
 
             PlanetInfo screenPlanet = new PlanetInfo(
                     planet.texture(),
                     planet.name(),
-                    (int) planet.distance(),
+                    planet.distance(),
                     planet.period(),
-                    (int) planet.width(),
-                    (int) planet.height(),
+                    planet.width(),
+                    planet.height(),
                     PlanetSelectionScreen.findByNameStar(planet.parent()),
                     planet.dimensionId(),
                     Component.translatable(planet.translatable()),
@@ -54,6 +45,5 @@ public class PlanetPack extends SimpleJsonResourceReloadListener {
             PlanetSelectionScreen.PLANETS.add(screenPlanet);
             Stellaris.LOG.info("Added a planet to PlanetSelectionScreen : {}", planet.name());
         });
-        count++;
     }
 }
