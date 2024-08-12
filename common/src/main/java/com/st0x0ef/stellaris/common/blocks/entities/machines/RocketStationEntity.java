@@ -21,6 +21,7 @@ import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -66,6 +67,11 @@ public class RocketStationEntity extends BaseContainerBlockEntity implements Imp
     @Override
     public NonNullList<ItemStack> getItems() {
         return items;
+    }
+
+    @Override
+    public ItemStack getItem(int slot) {
+        return this.getItems().get(slot);
     }
 
     @Override
