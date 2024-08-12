@@ -65,8 +65,6 @@ import org.lwjgl.opengl.GLDebugMessageCallback;
 @Environment(EnvType.CLIENT)
 public class StellarisClient {
     public static void initClient() {
-        registerPacks();
-
         Minecraft.getInstance().execute(() -> {
             setupOpenGLDebugMessageCallback();
             Thread.setDefaultUncaughtExceptionHandler(new GlobalExceptionHandler());
