@@ -27,18 +27,16 @@ public abstract class LevelRendererMixin {
     protected abstract boolean doesMobEffectBlockSky(Camera camera);
 
     @Inject(method = "renderSky", at = @At("HEAD"), cancellable = true)
-    private void renderCustomSkyboxes(Matrix4f matrix4f, Matrix4f projectionMatrix, float partialTick, Camera camera, boolean thickFog, Runnable fogCallback, CallbackInfo ci) {
+    private void renderCustomSkyboxes(PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, Camera camera, boolean isFoggy, Runnable skyFogSetup, CallbackInfo ci) {
         FogType cameraSubmersionType = camera.getFluidInCamera();
-        if ((boolean) CustomConfig.getValue("customSky") && !thickFog && cameraSubmersionType != FogType.POWDER_SNOW && cameraSubmersionType != FogType.LAVA && cameraSubmersionType != FogType.WATER && !this.doesMobEffectBlockSky(camera) && SkyPropertiesData.SKY_PROPERTIES.containsKey(level.dimension())) {
-            PoseStack poseStack = new PoseStack();
-            poseStack.mulPose(matrix4f);
+        if ((boolean) CustomConfig.getValue("customSky") && !isFoggy && cameraSubmersionType != FogType.POWDER_SNOW && cameraSubmersionType != FogType.LAVA && cameraSubmersionType != FogType.WATER && !this.doesMobEffectBlockSky(camera) && SkyPropertiesData.SKY_PROPERTIES.containsKey(level.dimension())) {
             SkyPropertiesData.SKY_PROPERTIES.get(level.dimension()).getRenderer().render(Minecraft.getInstance().level, poseStack, projectionMatrix, partialTick, camera);
             ci.cancel();
         }
     }
 
     @Inject(method = "renderClouds", at = @At(value = "HEAD"), cancellable = true)
-    private void cancelCloudRenderer(PoseStack poseStack, Matrix4f frustumMatrix, Matrix4f projectionMatrix, float partialTick, double camX, double camY, double camZ, CallbackInfo ci) {
+    private void cancelCloudRenderer(PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, double camX, double camY, double camZ, CallbackInfo ci) {
         if (SkyPropertiesData.SKY_PROPERTIES.containsKey(level.dimension())) {
             if(SkyPropertiesData.SKY_PROPERTIES.get(level.dimension()).getRenderer().shouldRemoveCloud()) {
                 ci.cancel();

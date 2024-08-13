@@ -44,7 +44,6 @@ public class Stellaris {
         EntityRegistry.SENSOR.register();
         BlockEntityRegistry.BLOCK_ENTITY_TYPE.register();
         ItemsRegistry.ITEMS.register();
-        ArmorMaterialsRegistry.ARMOR_MATERIAL.register();
         CreativeTabsRegistry.TABS.register();
         MenuTypesRegistry.MENU_TYPE.register();
         FeaturesRegistry.FEATURES.register();
