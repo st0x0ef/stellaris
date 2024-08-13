@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
 import dev.architectury.fluid.FluidStack;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.material.Fluid;
@@ -49,14 +48,14 @@ public class FluidTank {
         return stack;
     }
 
-    public void load(HolderLookup.Provider provider, CompoundTag tag) {
+    public void load(CompoundTag tag) {
         CompoundTag containerTag = tag.getCompound(name);
-        stack = FluidStack.read(provider, containerTag).orElse(FluidStack.empty());
+        stack = FluidStack.read(containerTag);
     }
 
-    public void save(HolderLookup.Provider provider, CompoundTag tag) {
+    public void save(CompoundTag tag) {
         if (!isEmpty()) {
-            tag.put(name, stack.write(provider, new CompoundTag()));
+            tag.put(name, stack.write(new CompoundTag()));
         }
     }
 }

@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.common.data_components;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.FluidTankHelper;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 
 import java.io.Serializable;
@@ -23,5 +24,18 @@ public record SpaceArmorComponent(long fuel, int oxygen) implements Serializable
         buffer.writeLong(this.fuel);
         buffer.writeInt(this.oxygen);
         return buffer;
+    }
+
+    public static SpaceArmorComponent getData(CompoundTag tag) {
+        return new SpaceArmorComponent(tag.getLong("fuel"), tag.getInt("oxygen"));
+    }
+
+    public static boolean hasData(CompoundTag tag) {
+        return tag.contains("fuel");
+    }
+
+    public void savaData(CompoundTag tag) {
+        tag.putLong("fuel", this.fuel);
+        tag.putInt("oxygen", this.oxygen);
     }
 }

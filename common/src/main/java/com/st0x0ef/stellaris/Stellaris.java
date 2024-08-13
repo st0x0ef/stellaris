@@ -10,10 +10,8 @@ import com.st0x0ef.stellaris.common.data.screen.MoonPack;
 import com.st0x0ef.stellaris.common.data.screen.PlanetPack;
 import com.st0x0ef.stellaris.common.data.screen.StarPack;
 import com.st0x0ef.stellaris.common.events.Events;
-import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import com.st0x0ef.stellaris.common.network.packets.SyncPlanetsDatapackPacket;
 import com.st0x0ef.stellaris.common.registry.*;
-import dev.architectury.networking.NetworkManager;
 import dev.architectury.registry.ReloadListenerRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -39,7 +37,6 @@ public class Stellaris {
         EntityData.register();
         SoundRegistry.SOUNDS.register();
         EffectsRegistry.MOB_EFFECTS.register();
-        DataComponentsRegistry.DATA_COMPONENT_TYPE.register();
         FluidRegistry.FLUIDS.register();
         ParticleRegistry.PARTICLES.register();
         BlocksRegistry.BLOCKS.register();

@@ -82,11 +82,9 @@ public class ModifiedButton extends TexturedButton{
     /** MILKY WAY TYPE MANAGER */
     private void milkyWayCategoryManager(Minecraft minecraft, GuiGraphics graphics, int mouseX, int mouseY) {
         if (this.isHovered && this.type == ButtonTypes.MILKY_WAY_CATEGORY) {
-            Screen screen = minecraft.screen;
-
             List<Component> list = new ArrayList<>();
 
-            list.add(Component.literal("§9" + ScreenHelper.PlanetScreenHelper.CATEGORY_TEXT.getString() + ": §b" + this.list.getFirst()));
+            list.add(Component.literal("§9" + ScreenHelper.PlanetScreenHelper.CATEGORY_TEXT.getString() + ": §b" + this.list.get(0)));
             list.add(Component.literal("§9" + ScreenHelper.PlanetScreenHelper.TYPE_TEXT.getString() + ": §3" + ScreenHelper.PlanetScreenHelper.SOLAR_SYSTEM_TEXT.getString()));
 
             graphics.renderComponentTooltip(Minecraft.getInstance().font, list, mouseX, mouseY);

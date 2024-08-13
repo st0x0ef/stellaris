@@ -31,7 +31,7 @@ public class SkyPropertiesData extends SimpleJsonResourceReloadListener {
         if (Platform.getEnvironment() == Env.CLIENT) {
             object.forEach((key, value) -> {
                 JsonObject json = GsonHelper.convertToJsonObject(value, "sky_renderer");
-                SkyProperties skyProperties = SkyProperties.CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
+                SkyProperties skyProperties = SkyProperties.CODEC.parse(JsonOps.INSTANCE, json).get().orThrow();
                 PlanetSky planetSky = new PlanetSky(skyProperties);
 
                 SKY_PROPERTIES.putIfAbsent(skyProperties.id(), planetSky);

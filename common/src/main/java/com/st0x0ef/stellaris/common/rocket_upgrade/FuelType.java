@@ -37,18 +37,18 @@ public class FuelType {
     public static Item getFuelItem(Type type, Type.Radioactive radioactiveElement) {
         if (radioactiveElement == null) {
             return switch (type) {
-                case Type.FUEL -> ItemsRegistry.FUEL_BUCKET.get();
-                case Type.HYDROGEN -> ItemsRegistry.HYDROGEN_BUCKET.get();
+                case FUEL -> ItemsRegistry.FUEL_BUCKET.get();
+                case HYDROGEN -> ItemsRegistry.HYDROGEN_BUCKET.get();
                 case RADIOACTIVE -> null;
             };
         } else {
             return switch (type) {
-                case Type.FUEL -> ItemsRegistry.FUEL_BUCKET.get();
-                case Type.HYDROGEN -> ItemsRegistry.HYDROGEN_BUCKET.get();
-                case Type.RADIOACTIVE -> switch (radioactiveElement) {
-                    case Type.Radioactive.URANIUM -> ItemsRegistry.URANIUM_INGOT.get();
-                    case Type.Radioactive.NEPTUNIUM -> ItemsRegistry.NEPTUNIUM_INGOT.get();
-                    case Type.Radioactive.PLUTONIUM -> ItemsRegistry.PLUTONIUM_INGOT.get();
+                case FUEL -> ItemsRegistry.FUEL_BUCKET.get();
+                case HYDROGEN -> ItemsRegistry.HYDROGEN_BUCKET.get();
+                case RADIOACTIVE -> switch (radioactiveElement) {
+                    case URANIUM -> ItemsRegistry.URANIUM_INGOT.get();
+                    case NEPTUNIUM -> ItemsRegistry.NEPTUNIUM_INGOT.get();
+                    case PLUTONIUM -> ItemsRegistry.PLUTONIUM_INGOT.get();
                 };
             };
         }

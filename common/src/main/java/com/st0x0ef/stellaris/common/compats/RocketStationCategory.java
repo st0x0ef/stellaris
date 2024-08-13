@@ -63,7 +63,7 @@ public class RocketStationCategory implements DisplayCategory<BasicDisplay> {
         inputSlotAdder(widgets,13, 83, 110 , startPoint, display);
 
         widgets.add(Widgets.createSlot(new Point(startPoint.x + 129,startPoint.y + 56))
-                .entries(display.getOutputEntries().getFirst()).markOutput().disableBackground());
+                .entries(display.getOutputEntries().get(0)).markOutput().disableBackground());
 
         return widgets;
     }

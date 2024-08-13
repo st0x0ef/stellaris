@@ -8,7 +8,6 @@ import com.st0x0ef.stellaris.common.systems.energy.EnergyApi;
 import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedBlockEnergyContainer;
 import com.st0x0ef.stellaris.platform.systems.energy.EnergyContainer;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -75,7 +74,7 @@ public class CoalGeneratorEntity extends BaseGeneratorBlockEntity {
             --litTime;
         }
 
-        ItemStack stack = getItems().getFirst();
+        ItemStack stack = getItems().get(0);
         if (!isLit() && !stack.isEmpty()) {
             litTime = getBurnDuration(stack);
             litDuration = litTime;
@@ -132,14 +131,14 @@ public class CoalGeneratorEntity extends BaseGeneratorBlockEntity {
     }
 
     @Override
-    public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
-        super.loadAdditional(tag, provider);
+    public void loadAdditional(CompoundTag tag) {
+        super.load(tag);
         litTime = tag.getShort("BurnTime");
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
-        super.saveAdditional(tag, provider);
+    protected void saveAdditional(CompoundTag tag) {
+        super.saveAdditional(tag);
         tag.putShort("BurnTime", (short) this.litTime);
     }
 

@@ -46,7 +46,7 @@ public class WaterSeparatorScreen extends AbstractContainerScreen<WaterSeparator
         ingredientTankGauge = new Gauge(leftPos + 50, topPos + 58, 76, 42, Component.translatable("stellaris.screen.water"), GUISprites.WATER_OVERLAY, GUISprites.WATER_SEPARATOR_OVERLAY, ingredientTank.getAmount(), ingredientTank.getMaxCapacity()-1);
         addRenderableWidget(ingredientTankGauge);
 
-        FluidTank resultTank1 = blockEntity.getResultTanks().getFirst();
+        FluidTank resultTank1 = blockEntity.getResultTanks().get(0);
         resultTank1Gauge = new Gauge(leftPos + 22, topPos + 54, 12, 46, Component.translatable("stellaris.screen.hydrogen"), GUISprites.HYDROGEN_OVERLAY, GUISprites.LIQUID_TANK_OVERLAY, resultTank1.getAmount(), resultTank1.getMaxCapacity()-1);
         addRenderableWidget(resultTank1Gauge);
 
@@ -70,8 +70,8 @@ public class WaterSeparatorScreen extends AbstractContainerScreen<WaterSeparator
         }
 
         ingredientTankGauge.update(blockEntity.getIngredientTank().getAmount());
-        resultTank1Gauge.update(blockEntity.getResultTanks().getFirst().getAmount());
-        resultTank2Gauge.update(blockEntity.getResultTanks().getLast().getAmount());
+        resultTank1Gauge.update(blockEntity.getResultTanks().get(0).getAmount());
+        resultTank2Gauge.update(blockEntity.getResultTanks().get(blockEntity.getResultTanks().size() - 1).getAmount());
         energyGauge.update(blockEntity.getWrappedEnergyContainer().getStoredEnergy());
     }
 

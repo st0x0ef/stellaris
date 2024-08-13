@@ -71,7 +71,7 @@ public class OxygenManager {
         }
 
         while (!unverified.isEmpty()) {
-            Integer[] base = unverified.getFirst();
+            Integer[] base = unverified.get(0);
             BlockPos basePos = new BlockPos(base[1], base[2], base[3]);
 
             if (Mth.abs(oxygenBlockPos.getX() - basePos.getX()) < 16 && Mth.abs(oxygenBlockPos.getY() - basePos.getY()) < 16 && Mth.abs(oxygenBlockPos.getZ() - basePos.getZ()) < 16) {

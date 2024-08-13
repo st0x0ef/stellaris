@@ -78,7 +78,7 @@ public class Gauge extends AbstractWidget {
             capacity = Utils.getMessageComponent(GaugeComponent, "Orange");
         }
 
-        components.addFirst(capacity);
+        components.add(0, capacity);
         if (mouseX >= this.getX() && mouseX <= this.getX() + width && mouseY >= this.getY() && mouseY <= this.getY() + this.height) {
             graphics.renderComponentTooltip(font, components, mouseX, mouseY);
         }

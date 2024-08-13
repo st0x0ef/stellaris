@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.RocketModel;
 import com.st0x0ef.stellaris.common.rocket_upgrade.*;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 
@@ -58,10 +59,22 @@ public record RocketComponent(String skin, RocketModel model, String fuelType, i
 
     public FriendlyByteBuf toNetwork(FriendlyByteBuf buffer) {
         buffer.writeUtf(this.skin);
-        buffer.writeUtf(this.model().getSerializedName());
+        buffer.writeUtf(this.model.getSerializedName());
         buffer.writeUtf(this.fuelType);
         buffer.writeInt(this.fuel);
         buffer.writeInt(this.tankCapacity);
         return buffer;
+    }
+
+    public void saveData(CompoundTag tag) {
+        tag.putString("skin", this.skin);
+        tag.putString("model", this.model.getSerializedName());
+        tag.putString("fuel_type", this.fuelType);
+        tag.putInt("fuel", this.fuel);
+        tag.putInt("tank_capacity", this.tankCapacity);
+    }
+
+    public static RocketComponent loadData(CompoundTag tag) {
+        return new RocketComponent(tag.getString("skin"), RocketModel.fromString(tag.getString("model")), tag.getString("fuel_type"), tag.getInt("fuel"), tag.getInt("tank_capacity"));
     }
 }

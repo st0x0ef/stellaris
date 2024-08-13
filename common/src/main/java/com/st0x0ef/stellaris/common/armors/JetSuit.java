@@ -5,7 +5,6 @@ import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.data_components.JetSuitComponent;
 import com.st0x0ef.stellaris.common.keybinds.KeyVariables;
 import com.st0x0ef.stellaris.common.oxygen.OxygenContainer;
-import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
@@ -27,14 +26,14 @@ public class JetSuit {
 
         public OxygenContainer oxygenContainer;
 
-        public Suit(Holder<ArmorMaterial> material, Properties properties) {
+        public Suit(ArmorMaterial material, Properties properties) {
             super(material, Type.CHESTPLATE, properties);
 
             oxygenContainer = new OxygenContainer(3000);
         }
 
         public int getMode(ItemStack itemStack) {
-            return itemStack.get(DataComponentsRegistry.JET_SUIT_COMPONENT.get()).type().getMode();
+            return JetSuitComponent.getData(itemStack.getOrCreateTag()).type().getMode();
         }
 
         public ModeType getModeType(ItemStack itemStack) {
@@ -120,9 +119,7 @@ public class JetSuit {
             }
         }
         private void hoverModeMovement(Player player, ItemStack stack) {
-            double gravity = player.getAttribute(Attributes.GRAVITY).getValue();
             Vec3 vec3 = player.getDeltaMovement();
-
 
             // Main movement logic
             if (!player.onGround() && !player.isInWater()) {
@@ -180,8 +177,8 @@ public class JetSuit {
             } else {
                 jetSuitComponent = new JetSuitComponent(ModeType.fromInt(0));
             }
-            itemStack.set(DataComponentsRegistry.JET_SUIT_COMPONENT.get(), jetSuitComponent);
 
+            jetSuitComponent.savaData(itemStack.getOrCreateTag());
         }
 
         public void calculateSpacePressTime(Player player, ItemStack itemStack) {
@@ -300,8 +297,7 @@ public class JetSuit {
 
 
         public static ModeType fromInt(int integer) {
-            Stellaris.LOG.error(Integer.toString(integer));
-           return fromString(Integer.toString(integer));
+            return fromString(Integer.toString(integer));
         }
 
         public static ModeType fromString(String string) {

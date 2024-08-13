@@ -57,8 +57,8 @@ public class SyncWidgetsTanksPacket extends BaseS2CMessage {
         if (player.containerMenu instanceof WaterSeparatorMenu menu) {
             WaterSeparatorBlockEntity blockEntity = menu.getBlockEntity();
             if (component.length == 2 && locations.length == 2) {
-                blockEntity.resultTanks.getFirst().setFluid(BuiltInRegistries.FLUID.get(locations[0]), component[0]);
-                blockEntity.resultTanks.getLast().setFluid(BuiltInRegistries.FLUID.get(locations[1]), component[1]);
+                blockEntity.resultTanks.get(0).setFluid(BuiltInRegistries.FLUID.get(locations[0]), component[0]);
+                blockEntity.resultTanks.get(blockEntity.resultTanks.size() - 1).setFluid(BuiltInRegistries.FLUID.get(locations[1]), component[1]);
             }
             else if (component.length == 1 && locations.length == 1) {
                 blockEntity.ingredientTank.setFluid(BuiltInRegistries.FLUID.get(locations[0]), component[0]);

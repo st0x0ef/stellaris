@@ -14,7 +14,6 @@ import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.util.profiling.ProfilerFiller;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class PlanetPack extends SimpleJsonResourceReloadListener {
@@ -27,7 +26,7 @@ public class PlanetPack extends SimpleJsonResourceReloadListener {
     protected void apply(Map<ResourceLocation, JsonElement> object, ResourceManager resourceManager, ProfilerFiller profiler) {
         object.forEach((key, value) -> {
             JsonObject json = GsonHelper.convertToJsonObject(value, "planets");
-            PlanetRecord planet = PlanetRecord.CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
+            PlanetRecord planet = PlanetRecord.CODEC.parse(JsonOps.INSTANCE, json).get().orThrow();
 
             PlanetInfo screenPlanet = new PlanetInfo(
                     planet.texture(),

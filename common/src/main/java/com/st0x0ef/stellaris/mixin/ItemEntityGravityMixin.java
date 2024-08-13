@@ -11,15 +11,8 @@ import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(ItemEntity.class)
 public abstract class ItemEntityGravityMixin {
-
-    @Unique
-    ItemEntity stellaris$itemEntity = (ItemEntity) ((Object) this);
-
-    /**
-     * @author TATHAN
-     * @reason rewrite gravity system
-     */
-    @Overwrite
+    // TODO : remake the gravity system
+    /*@Overwrite
     public double getDefaultGravity() {
         ResourceLocation dimension = stellaris$itemEntity.level().dimension().location();
         if (PlanetUtil.isPlanet(dimension)) {
@@ -27,6 +20,6 @@ public abstract class ItemEntityGravityMixin {
         } else {
             return 0.04;
         }
-    }
+    }*/
 }
 

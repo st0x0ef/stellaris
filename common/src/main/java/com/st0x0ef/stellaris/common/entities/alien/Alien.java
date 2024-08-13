@@ -9,9 +9,9 @@ import com.st0x0ef.stellaris.common.entities.AlienZombie;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.stats.Stats;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -42,6 +42,7 @@ import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.item.trading.MerchantOffers;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 import java.util.Set;
@@ -69,7 +70,7 @@ public class Alien extends Villager implements Merchant, Npc {
 	public Villager getBreedOffspring(ServerLevel level, AgeableMob p_241840_2_) {
 		Alien alien = new Alien(EntityRegistry.ALIEN.get(), level);
 
-		alien.finalizeSpawn(level, level.getCurrentDifficultyAt(new BlockPos((int)p_241840_2_.getX(), (int)p_241840_2_.getY(), (int)p_241840_2_.getZ())), MobSpawnType.BREEDING, null);
+		alien.finalizeSpawn(level, level.getCurrentDifficultyAt(new BlockPos((int)p_241840_2_.getX(), (int)p_241840_2_.getY(), (int)p_241840_2_.getZ())), MobSpawnType.BREEDING, null, null);
 		return alien;
 	}
 
@@ -165,21 +166,18 @@ public class Alien extends Villager implements Merchant, Npc {
 		p_35425_.updateActivityFromSchedule(this.level().getDayTime(), this.level().getGameTime());
 	}
 
-
-
 	@Override
-	public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn) {
-
+	public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
 		if (reason == MobSpawnType.COMMAND || reason == MobSpawnType.SPAWN_EGG || reason == MobSpawnType.SPAWNER || reason == MobSpawnType.DISPENSER) {
-			this.setVillagerData(this.getVillagerData().setType(VillagerType.byBiome(worldIn.getBiome(this.blockPosition()))));
+			this.setVillagerData(this.getVillagerData().setType(VillagerType.byBiome(level.getBiome(this.blockPosition()))));
 		}
 
 		if (reason == MobSpawnType.STRUCTURE) {
 			this.assignProfessionWhenSpawned = true;
 		}
 
-		if (spawnDataIn == null) {
-			spawnDataIn = new AgeableMobGroupData(false);
+		if (spawnData == null) {
+			spawnData = new AgeableMobGroupData(false);
 		}
 
 		int max = 13;
@@ -192,7 +190,7 @@ public class Alien extends Villager implements Merchant, Npc {
 			this.setVillagerData(this.getVillagerData().setProfession(j.getAlienJobs()));
 		}
 
-		return spawnDataIn;
+		return spawnData;
 	}
 
 	@Override

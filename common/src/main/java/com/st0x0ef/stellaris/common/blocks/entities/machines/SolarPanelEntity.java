@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.common.blocks.entities.machines;
 import com.st0x0ef.stellaris.common.menus.SolarPanelMenu;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -29,6 +30,11 @@ public class SolarPanelEntity extends BaseGeneratorBlockEntity {
 
     protected Component getDefaultName() {
         return Component.translatable("block.stellaris.solar_panel");
+    }
+
+    @Override
+    public void loadAdditional(CompoundTag compoundTag) {
+
     }
 
     @Override

@@ -6,7 +6,6 @@ import com.st0x0ef.stellaris.common.systems.energy.impl.SimpleEnergyContainer;
 import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedBlockEnergyContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.Container;
@@ -37,11 +36,6 @@ public abstract class BaseEnergyContainerBlockEntity extends BaseContainerBlockE
         return items;
     }
 
-    @Override
-    protected void setItems(NonNullList<ItemStack> items) {
-        this.items = items;
-    }
-
     protected int getMaxCapacity() {
         return 15000;
     }
@@ -57,24 +51,24 @@ public abstract class BaseEnergyContainerBlockEntity extends BaseContainerBlockE
     }
 
     @Override
-    public @NotNull CompoundTag getUpdateTag(HolderLookup.Provider provider) {
+    public @NotNull CompoundTag getUpdateTag() {
         CompoundTag tag = new CompoundTag();
-        saveAdditional(tag, provider);
+        saveAdditional(tag);
         return tag;
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
-        super.loadAdditional(tag, provider);
+    public void loadAdditional(CompoundTag tag) {
+        super.load(tag);
         getWrappedEnergyContainer().setEnergy(tag.getLong(ENERGY_TAG));
-        ContainerHelper.loadAllItems(tag, items, provider);
+        ContainerHelper.loadAllItems(tag, items);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
-        super.saveAdditional(tag, provider);
+    protected void saveAdditional(CompoundTag tag) {
+        super.saveAdditional(tag);
         tag.putLong(ENERGY_TAG, getWrappedEnergyContainer().getStoredEnergy());
-        ContainerHelper.saveAllItems(tag, items, provider);
+        ContainerHelper.saveAllItems(tag, items);
     }
 
     @Override

@@ -11,7 +11,6 @@ import com.st0x0ef.stellaris.common.network.packets.SyncRocketComponentPacket;
 import com.st0x0ef.stellaris.common.registry.*;
 import com.st0x0ef.stellaris.common.rocket_upgrade.*;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
-import dev.architectury.networking.NetworkManager;
 import dev.architectury.registry.menu.ExtendedMenuProvider;
 import dev.architectury.registry.menu.MenuRegistry;
 import io.netty.buffer.Unpooled;
@@ -377,7 +376,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         }
     }
     public Player getFirstPlayerPassenger() {
-        if (!this.getPassengers().isEmpty() && this.getPassengers().getFirst() instanceof Player player) {
+        if (!this.getPassengers().isEmpty() && this.getPassengers().get(0) instanceof Player player) {
             return player;
         }
 
@@ -395,7 +394,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     public ItemStack getRocketItem() {
         ItemStack itemStack = new ItemStack(ItemsRegistry.ROCKET.get(), 1);
         rocketComponent = new RocketComponent(SKIN_UPGRADE.getRocketSkinLocation().toString(), RocketModel.fromString(MODEL_UPGRADE.getModel().toString()), currentFuelItem.toString(), FUEL, TANK_UPGRADE.getTankCapacity());Stellaris.LOG.error(MODEL_UPGRADE.getModel().getSerializedName());
-        itemStack.set(DataComponentsRegistry.ROCKET_COMPONENT.get(), rocketComponent);
+        rocketComponent.saveData(itemStack.getOrCreateTag());
 
         return itemStack;
     }

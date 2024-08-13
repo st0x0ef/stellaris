@@ -99,8 +99,7 @@ public class SolarPanelMenu extends AbstractContainerMenu {
 
     public void syncBattery(ServerPlayer player) {
         if (!player.level().isClientSide()) {
-
-            NetworkManager.sendToPlayer(player, new SyncWidgetsTanksPacket(new long[] {getEnergyContainer().getStoredEnergy()}));
+            new SyncWidgetsTanksPacket(new long[] {getEnergyContainer().getStoredEnergy()}).sendTo(player);
         }
     }
 }

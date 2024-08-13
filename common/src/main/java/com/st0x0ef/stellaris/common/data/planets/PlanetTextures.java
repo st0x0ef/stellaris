@@ -8,7 +8,6 @@ import net.minecraft.resources.ResourceLocation;
 public record PlanetTextures(
         ResourceLocation planet_bar,
         ResourceLocation planet
-
 ) {
     public static final Codec<PlanetTextures> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             ResourceLocation.CODEC.fieldOf("planet_bar").forGetter(PlanetTextures::planet_bar),

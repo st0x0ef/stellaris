@@ -1,14 +1,10 @@
 package com.st0x0ef.stellaris.client.skys;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.st0x0ef.stellaris.client.skys.record.SkyProperties;
 import com.st0x0ef.stellaris.client.skys.renderer.SkyRenderer;
-import net.minecraft.client.Camera;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.DimensionSpecialEffects;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import org.joml.Matrix4f;
 
 public class PlanetSky extends DimensionSpecialEffects {
     private final SkyRenderer renderer;

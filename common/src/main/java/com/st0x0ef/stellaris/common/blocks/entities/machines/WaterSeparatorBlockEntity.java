@@ -8,7 +8,6 @@ import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedBlockEnergyContai
 import dev.architectury.fluid.FluidStack;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -72,9 +71,9 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity {
 
             if (energyContainer.getStoredEnergy() >= recipe.energy()) {
                 List<FluidStack> stacks = recipe.resultStacks();
-                FluidStack stack1 = stacks.getFirst();
+                FluidStack stack1 = stacks.get(0);
                 FluidStack stack2 = stacks.get(1);
-                FluidTank tank1 = resultTanks.getFirst();
+                FluidTank tank1 = resultTanks.get(0);
                 FluidTank tank2 = resultTanks.get(1);
 
                 if ((tank1.isEmpty() || tank1.getStack().isFluidEqual(stack1)) && (tank2.isEmpty() || tank2.getStack().isFluidEqual(stack2))) {
@@ -91,17 +90,17 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
-        super.saveAdditional(tag, provider);
-        ingredientTank.save(provider, tag);
-        resultTanks.forEach(tank -> tank.save(provider, tag));
+    protected void saveAdditional(CompoundTag tag) {
+        super.saveAdditional(tag);
+        ingredientTank.save(tag);
+        resultTanks.forEach(tank -> tank.save(tag));
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
-        super.loadAdditional(tag, provider);
-        ingredientTank.load(provider, tag);
-        resultTanks.forEach(tank -> tank.load(provider, tag));
+    public void loadAdditional(CompoundTag tag) {
+        super.loadAdditional(tag);
+        ingredientTank.load(tag);
+        resultTanks.forEach(tank -> tank.load(tag));
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.common.items.oxygen;
 
 import com.st0x0ef.stellaris.common.blocks.entities.machines.FluidTankHelper;
-import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import dev.architectury.platform.Platform;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -9,6 +8,8 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -22,16 +23,16 @@ public class OxygenTankItem extends Item {
     }
 
     public static void setStoredOxygen(ItemStack stack, long amount) {
-        stack.set(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get(), Mth.clamp(amount, 0, ((OxygenTankItem) stack.getItem()).getCapacity()));
+        stack.getOrCreateTagElement("oxygen").putLong("stored", Mth.clamp(amount, 0, ((OxygenTankItem) stack.getItem()).getCapacity()));
     }
 
     public static long getStoredOxygen(ItemStack stack) {
-        return stack.has(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get()) ? stack.get(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get()) : 0;
+        return stack.getOrCreateTagElement("oxygen").getLong("stored");
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        if (stack.has(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get())) {
+    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
+        if (stack.getOrCreateTagElement("oxygen").contains("stored")) {
             tooltip.add(Component.translatable("tooltip.item.stellaris.oxygen_tank", getStoredOxygen(stack), capacity).withStyle(ChatFormatting.GRAY));
         }
     }

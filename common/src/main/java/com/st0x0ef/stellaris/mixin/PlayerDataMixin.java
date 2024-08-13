@@ -2,7 +2,6 @@ package com.st0x0ef.stellaris.mixin;
 
 import com.st0x0ef.stellaris.common.armors.JetSuit;
 import com.st0x0ef.stellaris.common.registry.EntityData;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -29,8 +28,8 @@ public abstract class PlayerDataMixin extends LivingEntity {
     }
 
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
-    protected void defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
-        builder.define(EntityData.DATA_PLANET_MENU_OPEN, false);
+    protected void defineSynchedData(CallbackInfo ci) {
+        entityData.define(EntityData.DATA_PLANET_MENU_OPEN, false);
     }
 
     @Inject(method = "tick", at = @At("TAIL"))

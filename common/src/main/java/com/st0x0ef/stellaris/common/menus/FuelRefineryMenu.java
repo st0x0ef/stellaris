@@ -5,7 +5,6 @@ import com.st0x0ef.stellaris.common.menus.slot.FluidContainerSlot;
 import com.st0x0ef.stellaris.common.menus.slot.ResultSlot;
 import com.st0x0ef.stellaris.common.network.packets.SyncWidgetsTanksPacket;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
-import dev.architectury.networking.NetworkManager;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -52,16 +51,8 @@ public class FuelRefineryMenu extends BaseContainer {
 
     public void syncWidgets(ServerPlayer player) {
         if (!player.level().isClientSide()) {
-
-            NetworkManager.sendToPlayer(player, new SyncWidgetsTanksPacket(
-                    new long[] {blockEntity.getIngredientTank().getAmount(), blockEntity.getResultTank().getAmount()},
-                    new ResourceLocation[] {blockEntity.getIngredientTank().getStack().getFluid().arch$registryName(), blockEntity.getResultTank().getStack().getFluid().arch$registryName()}
-            ));
-
-            NetworkManager.sendToPlayer(player, new SyncWidgetsTanksPacket(
-                    new long[] {blockEntity.getWrappedEnergyContainer().getStoredEnergy()}
-            ));
-
+            new SyncWidgetsTanksPacket(new long[] {blockEntity.getIngredientTank().getAmount(), blockEntity.getResultTank().getAmount()}, new ResourceLocation[] {blockEntity.getIngredientTank().getStack().getFluid().arch$registryName(), blockEntity.getResultTank().getStack().getFluid().arch$registryName()}).sendTo(player);
+            new SyncWidgetsTanksPacket(new long[] {blockEntity.getWrappedEnergyContainer().getStoredEnergy()}).sendTo(player);
         }
     }
 }

@@ -2,7 +2,6 @@ package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
 import com.st0x0ef.stellaris.common.data_components.SpaceArmorComponent;
 import com.st0x0ef.stellaris.common.items.oxygen.OxygenTankItem;
-import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import com.st0x0ef.stellaris.common.registry.FluidRegistry;
 import dev.architectury.fluid.FluidStack;
 import dev.architectury.hooks.fluid.FluidBucketHooks;
@@ -71,7 +70,7 @@ public class FluidTankHelper {
         boolean hasSpace = outputStack.getCount() < outputStack.getMaxStackSize();
 
         if (!inputStack.isEmpty() && (outputStack.isEmpty() || hasSpace)) {
-            boolean canFuel = inputStack.has(DataComponentsRegistry.SPACE_ARMOR_ROCKET.get());
+            boolean canFuel = SpaceArmorComponent.hasData(inputStack.getOrCreateTag());
 
             if (!tank.isEmpty() && (tank.getAmount() >= BUCKET_AMOUNT || canFuel)) {
                 ItemStack resultStack = ItemStack.EMPTY;
@@ -98,12 +97,10 @@ public class FluidTankHelper {
 
                     if (success) {
                         if (canFuel) {
-                            SpaceArmorComponent component = inputStack.get(DataComponentsRegistry.SPACE_ARMOR_ROCKET.get());
+                            SpaceArmorComponent component = SpaceArmorComponent.getData(inputStack.getOrCreateTag());
                             long fuel = component.fuel();
                             amount = Math.min(SpaceArmorComponent.MAX_CAPACITY - fuel, tank.getAmount());
-                            resultStack.set(DataComponentsRegistry.SPACE_ARMOR_ROCKET.get(),
-                                    new SpaceArmorComponent(Mth.clamp(fuel + amount, 0, SpaceArmorComponent.MAX_CAPACITY), component.oxygen())
-                            );
+                            new SpaceArmorComponent(Mth.clamp(fuel + amount, 0, SpaceArmorComponent.MAX_CAPACITY), component.oxygen()).savaData(resultStack.getOrCreateTag());
                         }
 
                         inputStack.shrink(1);

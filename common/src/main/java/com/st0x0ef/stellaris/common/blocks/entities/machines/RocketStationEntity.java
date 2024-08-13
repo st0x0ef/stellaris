@@ -7,7 +7,6 @@ import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.registry.RecipesRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -20,6 +19,7 @@ import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -50,16 +50,16 @@ public class RocketStationEntity extends BaseContainerBlockEntity implements Imp
     }
 
     @Override
-    public void loadAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
-        super.loadAdditional(compoundTag, provider);
+    public void loadAdditional(CompoundTag compoundTag) {
+        super.load(compoundTag);
         this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
-        ContainerHelper.loadAllItems(compoundTag, this.items, provider);
+        ContainerHelper.loadAllItems(compoundTag, this.items);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
-        super.saveAdditional(compoundTag, provider);
-        ContainerHelper.saveAllItems(compoundTag, this.items, provider);
+    protected void saveAdditional(CompoundTag compoundTag) {
+        super.saveAdditional(compoundTag);
+        ContainerHelper.saveAllItems(compoundTag, this.items);
     }
 
     @Override
@@ -68,12 +68,7 @@ public class RocketStationEntity extends BaseContainerBlockEntity implements Imp
     }
 
     @Override
-    protected void setItems(NonNullList<ItemStack> nonNullList) {
-        this.items = nonNullList;
-    }
-
-    @Override
-    public int[] getSlotsForFace(Direction direction) {
+    public int @NotNull [] getSlotsForFace(Direction direction) {
         return new int[0];
     }
 
@@ -98,13 +93,13 @@ public class RocketStationEntity extends BaseContainerBlockEntity implements Imp
             if (recipeHolder.isPresent()) {
                 RocketStationRecipe recipe = recipeHolder.get().value();
                 ItemStack resultStack = recipe.getResultItem(level.registryAccess());
-                if (outputStack.isEmpty() || (ItemStack.isSameItemSameComponents(outputStack, resultStack)
+                if (outputStack.isEmpty() || (ItemStack.isSameItemSameTags(outputStack, resultStack)
                         && outputStack.getCount() + resultStack.getCount() <= outputStack.getMaxStackSize())) {
 
                     if (outputStack.isEmpty()) {
                         setItem(14, resultStack.copy());
                     }
-                    else if (ItemStack.isSameItemSameComponents(outputStack, resultStack)) {
+                    else if (ItemStack.isSameItemSameTags(outputStack, resultStack)) {
                         outputStack.grow(1);
                     }
                     else return;

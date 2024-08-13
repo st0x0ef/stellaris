@@ -7,7 +7,6 @@ import com.st0x0ef.stellaris.common.registry.RecipesRegistry;
 import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedBlockEnergyContainer;
 import dev.architectury.fluid.FluidStack;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -77,17 +76,17 @@ public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity {
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
-        super.loadAdditional(tag, provider);
-        ingredientTank.load(provider, tag);
-        resultTank.load(provider, tag);
+    public void load(CompoundTag tag) {
+        super.load(tag);
+        ingredientTank.load(tag);
+        resultTank.load(tag);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
-        super.saveAdditional(tag, provider);
-        ingredientTank.save(provider, tag);
-        resultTank.save(provider, tag);
+    protected void saveAdditional(CompoundTag tag) {
+        super.saveAdditional(tag);
+        ingredientTank.save(tag);
+        resultTank.save(tag);
     }
 
     public FluidTank getIngredientTank() {

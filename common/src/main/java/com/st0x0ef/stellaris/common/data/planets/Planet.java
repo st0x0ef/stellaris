@@ -72,7 +72,6 @@ public record Planet (
         return planets;
     }
 
-
     public Component getTranslation() {
         return Component.translatable(this.translatable);
     }

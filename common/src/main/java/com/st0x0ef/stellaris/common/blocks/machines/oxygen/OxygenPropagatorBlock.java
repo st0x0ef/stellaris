@@ -27,7 +27,7 @@ public class OxygenPropagatorBlock extends BaseTickingEntityBlock {
     }
 
     @Override
-    protected RenderShape getRenderShape(BlockState state) {
+    public RenderShape getRenderShape(BlockState state) {
         return RenderShape.MODEL;
     }
 
@@ -42,12 +42,12 @@ public class OxygenPropagatorBlock extends BaseTickingEntityBlock {
     }
 
     @Override
-    protected BlockState rotate(BlockState blockState, Rotation rotation) {
+    public BlockState rotate(BlockState blockState, Rotation rotation) {
         return blockState.setValue(FACING, rotation.rotate(blockState.getValue(FACING)));
     }
 
     @Override
-    protected BlockState mirror(BlockState blockState, Mirror mirror) {
+    public BlockState mirror(BlockState blockState, Mirror mirror) {
         return blockState.rotate(mirror.getRotation(blockState.getValue(FACING)));
     }
 

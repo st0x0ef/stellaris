@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.common.items;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -11,6 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -23,28 +23,28 @@ public class CanItem extends Item {
         this.maxNutrition = maxNutrition;
     }
 
-    public static void setFoodProperties(ItemStack stack, FoodProperties foodProperties) {
-        stack.set(DataComponents.FOOD, foodProperties);
+    public static void setFoodProperties(Item item, FoodProperties foodProperties) {
+        item.foodProperties = foodProperties;
     }
 
-    public static FoodProperties getFoodProperties(ItemStack stack) {
-        return stack.get(DataComponents.FOOD);
+    public static FoodProperties getFoodProperties(Item item) {
+        return item.getFoodProperties();
     }
 
-    public static int getNutrition(ItemStack stack) {
-        FoodProperties properties = getFoodProperties(stack);
-        return properties != null ? properties.nutrition() : 0;
+    public static int getNutrition(Item item) {
+        FoodProperties properties = getFoodProperties(item);
+        return properties != null ? properties.getNutrition() : 0;
     }
 
-    public static float getSaturation(ItemStack stack) {
-        FoodProperties properties = getFoodProperties(stack);
-        return properties != null ? properties.saturation() : 0;
+    public static float getSaturation(Item item) {
+        FoodProperties properties = getFoodProperties(item);
+        return properties != null ? properties.getSaturationModifier() : 0;
     }
 
     public static boolean addFoodToCan(ItemStack canStack, ItemStack foodStack) {
-        int canNutrition = getNutrition(canStack) + getNutrition(foodStack);
+        int canNutrition = getNutrition(canStack.getItem()) + getNutrition(foodStack.getItem());
         if (canNutrition <= ((CanItem) canStack.getItem()).getMaxNutrition()) {
-            setFoodProperties(canStack, new FoodProperties(canNutrition, Math.round((getSaturation(canStack) + getSaturation(foodStack)) * 10F) / 10F, false, 1.6F, List.of()));
+            setFoodProperties(canStack.getItem(), new FoodProperties.Builder().nutrition(canNutrition).saturationMod(Math.round((getSaturation(canStack.getItem()) + getSaturation(foodStack.getItem())) * 10F) / 10F).build());
             return true;
         }
         return false;
@@ -55,27 +55,29 @@ public class CanItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        FoodProperties properties = getFoodProperties(stack);
+    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
+        super.appendHoverText(stack, level, tooltip, isAdvanced);
 
-        if (properties == null || (properties.nutrition() <= 0 && properties.saturation() <= 0)) {
+        FoodProperties properties = getFoodProperties(stack.getItem());
+
+        if (properties == null || (properties.getNutrition() <= 0 && properties.getSaturationModifier() <= 0)) {
             tooltip.add(Component.translatable("tooltip.item.stellaris.can.empty").withStyle(ChatFormatting.GRAY));
             return;
         }
 
-        if (properties.nutrition() > 0) {
-            tooltip.add(Component.translatable("tooltip.item.stellaris.can.nutrition", properties.nutrition(), getMaxNutrition()).withStyle(ChatFormatting.GRAY));
+        if (properties.getNutrition() > 0) {
+            tooltip.add(Component.translatable("tooltip.item.stellaris.can.nutrition", properties.getNutrition(), getMaxNutrition()).withStyle(ChatFormatting.GRAY));
         }
 
-        if (properties.saturation() > 0) {
-            tooltip.add(Component.translatable("tooltip.item.stellaris.can.saturation", properties.saturation()).withStyle(ChatFormatting.GRAY));
+        if (properties.getSaturationModifier() > 0) {
+            tooltip.add(Component.translatable("tooltip.item.stellaris.can.saturation", properties.getSaturationModifier()).withStyle(ChatFormatting.GRAY));
         }
     }
 
     @Override
     public @NotNull ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
         super.finishUsingItem(stack, level, entity);
-        if (entity instanceof Player player && !player.hasInfiniteMaterials()) {
+        if (entity instanceof Player player) {
             ItemStack emptyCanStack = new ItemStack(stack.getItem());
             if (stack.isEmpty()) {
                 return emptyCanStack;

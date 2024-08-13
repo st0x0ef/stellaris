@@ -8,6 +8,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -34,7 +35,7 @@ public abstract class BaseMachineBlock extends BaseTickingEntityBlock {
     }
 
     @Override
-    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if (!level.isClientSide) {
             BlockEntity blockEntity = level.getBlockEntity(pos);
             if (blockEntity instanceof BaseContainerBlockEntity) {
@@ -46,7 +47,7 @@ public abstract class BaseMachineBlock extends BaseTickingEntityBlock {
 
     @Nullable
     @Override
-    protected ExtendedMenuProvider getMenuProvider(BlockState state, Level level, BlockPos pos) {
+    public ExtendedMenuProvider getMenuProvider(BlockState state, Level level, BlockPos pos) {
         BlockEntity blockEntity = level.getBlockEntity(pos);
         if (blockEntity instanceof BaseContainerBlockEntity containerBlockEntity) {
             return new MenuProvider(pos, containerBlockEntity);
@@ -55,7 +56,7 @@ public abstract class BaseMachineBlock extends BaseTickingEntityBlock {
     }
 
     @Override
-    protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
         if (!state.is(newState.getBlock())) {
             BlockEntity blockEntity = level.getBlockEntity(pos);
             if (blockEntity instanceof BaseContainerBlockEntity containerBlockEntity) {
@@ -80,22 +81,21 @@ public abstract class BaseMachineBlock extends BaseTickingEntityBlock {
     }
 
     @Override
-    protected BlockState rotate(BlockState state, Rotation rotation) {
+    public BlockState rotate(BlockState state, Rotation rotation) {
         return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
     }
 
     @Override
-    protected BlockState mirror(BlockState state, Mirror mirror) {
+    public BlockState mirror(BlockState state, Mirror mirror) {
         return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 
     @Override
-    protected RenderShape getRenderShape(BlockState state) {
+    public RenderShape getRenderShape(BlockState state) {
         return RenderShape.MODEL;
     }
 
-    private record MenuProvider(BlockPos pos,
-                                BaseContainerBlockEntity containerBlockEntity) implements ExtendedMenuProvider {
+    private record MenuProvider(BlockPos pos, BaseContainerBlockEntity containerBlockEntity) implements ExtendedMenuProvider {
 
         @Override
         public void saveExtraData(FriendlyByteBuf buf) {

@@ -35,7 +35,7 @@ public class StarPack extends SimpleJsonResourceReloadListener {
             JsonObject json = GsonHelper.convertToJsonObject(value, "stars");
             StarRecord star;
 
-            star = StarRecord.CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
+            star = StarRecord.CODEC.parse(JsonOps.INSTANCE, json).get().orThrow();
 
             STAR.put(star.name(), star);
 

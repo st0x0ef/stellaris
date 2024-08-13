@@ -10,6 +10,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
+import org.joml.Quaternionf;
+import org.joml.Quaternionfc;
 
 public class ScreenHelper {
 
@@ -169,7 +171,7 @@ public class ScreenHelper {
         poseStack.pushPose();
 
         poseStack.translate(x + width / 2.0f, y + height / 2.0f, 0);
-        poseStack.mulPose(new Matrix4f().rotation(rotationAngle, 0.0f, 0.0f, 1.0f));
+        poseStack.mulPose(new Quaternionf((Quaternionfc) new Matrix4f().rotation(rotationAngle, 0.0f, 0.0f, 1.0f)));
         poseStack.translate(-(x + width / 2.0f), -(y + height / 2.0f), 0);
 
         RenderSystem.setShaderTexture(0, resourceLocation);

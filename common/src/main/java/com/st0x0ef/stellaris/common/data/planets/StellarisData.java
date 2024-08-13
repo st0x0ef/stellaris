@@ -27,7 +27,7 @@ public class StellarisData extends SimpleJsonResourceReloadListener {
         PLANETS.clear();
         resourceLocationJsonElementMap.forEach((key, value) -> {
             JsonObject json = GsonHelper.convertToJsonObject(value, "planets");
-            Planet planet = Planet.CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
+            Planet planet = Planet.CODEC.parse(JsonOps.INSTANCE, json).get().orThrow();
             PLANETS.add(planet);
         });
     }
