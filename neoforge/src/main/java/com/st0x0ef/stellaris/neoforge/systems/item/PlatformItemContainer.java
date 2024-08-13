@@ -57,7 +57,7 @@ public record PlatformItemContainer(IItemHandler itemHandler) implements ItemCon
             if (extracted.isEmpty()) {
                 extracted = itemHandler.extractItem(i, amount, simulate);
             } else {
-                if (ItemStack.isSameItemSameComponents(extracted, itemHandler.getStackInSlot(i))) {
+                if (ItemStack.isSameItemSameTags(extracted, itemHandler.getStackInSlot(i))) {
                     extracted.grow(itemHandler.extractItem(i, amount - extracted.getCount(), simulate).getCount());
                 }
             }

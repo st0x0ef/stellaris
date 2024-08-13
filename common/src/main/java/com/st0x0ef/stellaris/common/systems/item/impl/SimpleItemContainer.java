@@ -94,7 +94,7 @@ public class SimpleItemContainer implements ItemContainer, ItemContainerExtras, 
                 stacks.set(slot, stack.copyWithCount(amount));
             }
             return stack.copyWithCount(amount);
-        } else if (ItemStack.isSameItemSameComponents(stack, itemStack)) {
+        } else if (ItemStack.isSameItemSameTags(stack, itemStack)) {
             int amount = Math.min(stack.getCount(), getSlotLimit(slot) - itemStack.getCount());
             if (amount > 0) {
                 if (!simulate) {
@@ -116,7 +116,7 @@ public class SimpleItemContainer implements ItemContainer, ItemContainerExtras, 
                 int toExtract = Math.min(amount - extracted.getCount(), stack.getCount());
                 if (extracted.isEmpty()) {
                     extracted = stack.copyWithCount(toExtract);
-                } else if (ItemStack.isSameItemSameComponents(extracted, stack)) {
+                } else if (ItemStack.isSameItemSameTags(extracted, stack)) {
                     extracted.grow(toExtract);
                 }
                 if (!simulate) {

@@ -29,14 +29,14 @@ public class RecipesRegistry {
             "rocket_station",
             RocketStationRecipe.Serializer::new
     );
-    public static final RegistrySupplier<RecipeSerializer<WaterSeparatorRecipe>> WATER_SEPERATOR_SERIALIZER = RECIPE_SERIALIZERS.register(
+    /*public static final RegistrySupplier<RecipeSerializer<WaterSeparatorRecipe>> WATER_SEPERATOR_SERIALIZER = RECIPE_SERIALIZERS.register(
             "water_seperator",
             WaterSeparatorRecipe.Serializer::new
     );
     public static final RegistrySupplier<RecipeSerializer<FuelRefineryRecipe>> FUEL_REFINERY_SERIALIZER = RECIPE_SERIALIZERS.register(
             "fuel_refinery",
             FuelRefineryRecipe.Serializer::new
-    );
+    );*/
 
     public static void register() {
         RECIPE_TYPES.register();

@@ -36,7 +36,8 @@ public record FuelRefineryRecipe(FluidStack ingredientStack, FluidStack resultSt
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return RecipesRegistry.FUEL_REFINERY_SERIALIZER.get();
+        //return RecipesRegistry.FUEL_REFINERY_SERIALIZER.get();
+        return null;
     }
 
     @Override

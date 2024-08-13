@@ -1,24 +1,16 @@
 package com.st0x0ef.stellaris.common.data.recipes;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.st0x0ef.stellaris.common.blocks.entities.machines.FluidTankHelper;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.WaterSeparatorBlockEntity;
 import com.st0x0ef.stellaris.common.registry.RecipesRegistry;
 import dev.architectury.fluid.FluidStack;
-import dev.architectury.platform.Platform;
-import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
-import java.util.Optional;
 
 public record WaterSeparatorRecipe(FluidStack ingredientStack, List<FluidStack> resultStacks, boolean isMb,
                                    long energy) implements Recipe<WaterSeparatorBlockEntity> {
@@ -46,7 +38,8 @@ public record WaterSeparatorRecipe(FluidStack ingredientStack, List<FluidStack> 
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return RecipesRegistry.WATER_SEPERATOR_SERIALIZER.get();
+        //return RecipesRegistry.WATER_SEPERATOR_SERIALIZER.get();
+        return null;
     }
 
     @Override
@@ -54,7 +47,7 @@ public record WaterSeparatorRecipe(FluidStack ingredientStack, List<FluidStack> 
         return RecipesRegistry.WATER_SEPERATOR_TYPE.get();
     }
 
-    public static class Serializer implements RecipeSerializer<WaterSeparatorRecipe> {
+    /*public static class Serializer implements RecipeSerializer<WaterSeparatorRecipe> {
 
         private static final Codec<WaterSeparatorRecipe> CODEC = RecordCodecBuilder.create(in -> in.group(
                 FluidStack.CODEC.fieldOf("ingredient").forGetter(WaterSeparatorRecipe::ingredientStack),
@@ -91,5 +84,5 @@ public record WaterSeparatorRecipe(FluidStack ingredientStack, List<FluidStack> 
             }
             friendlyByteBuf.writeItem(recipe.getResultItem(null));
         }
-    }
+    }*/
 }

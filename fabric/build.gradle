@@ -58,8 +58,8 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
     modApi "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}+${rootProject.minecraft_version}"
     modApi "dev.architectury:architectury-fabric:${rootProject.architectury_version}"
-    modApi "com.terraformersmc:modmenu:10.0.0-beta.1"
-    include modApi('teamreborn:energy:4.0.1') { transitive = false }
+    modApi "com.terraformersmc:modmenu:9.2.0-beta.2"
+    include modApi('teamreborn:energy:3.0.0') { transitive = false }
     modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rootProject.rei_version}"
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
