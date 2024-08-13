@@ -2,36 +2,14 @@ plugins {
     id "com.github.johnrengelman.shadow"
 }
 
-def generatedResources = file("src/generated")
-
 architectury {
     platformSetupLoomIde()
     neoForge()
 }
 
-sourceSets {
-    main {
-        resources {
-            srcDirs += project(":neoforge").file("src/generated").absolutePath
-            exclude '.cache'
-        }
-    }
-}
-
-
 loom {
     accessWidenerPath = project(":common").loom.accessWidenerPath
-    neoForge {
-        runs {
-            data {
-                data()
-                programArgs "--all", "--mod", "stellaris"
-                programArgs "--output", generatedResources.absolutePath
-            }
-        }
-    }
 }
-
 
 configurations {
     common {
