@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "stellaris:vacumator"
+          "name": "stellaris:vacuumator"
         }
       ],
       "rolls": 1.0
