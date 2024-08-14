@@ -27,9 +27,4 @@ public class StellarisNeoforgeClient {
         StellarisClient.registerEntityModelLayer();
     }
 
-    @SubscribeEvent
-    public static void registerScreen(RegisterMenuScreensEvent event) {
-        StellarisClient.registerScreen();
-    }
-
 }
