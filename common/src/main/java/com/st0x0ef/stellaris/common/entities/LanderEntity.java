@@ -75,7 +75,7 @@ public class LanderEntity extends IVehicleEntity implements HasCustomInventorySc
 
     @Override
     public Vec3 getPassengerRidingPosition(Entity entity) {
-        return this.position().add(0d, getDimensions(this.getPose()).height + 2d, 0d);
+        return this.position().add(0d, getDimensions(this.getPose()).height - 2d, 0d);
     }
 
     @Override

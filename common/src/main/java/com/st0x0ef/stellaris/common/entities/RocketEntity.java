@@ -124,7 +124,6 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
             }
         }
 
-        //stolen from AbstractChestedHorse
         ListTag listTag = new ListTag();
 
         for(int i = 1; i < this.inventory.getContainerSize(); ++i) {
@@ -208,7 +207,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
     @Override
     public Vec3 getPassengerRidingPosition(Entity entity) {
-        return this.position().add(0d, getDimensions(this.getPose()).height + 3.15d, 0d);
+        return this.position().add(0d, getDimensions(this.getPose()).height - 3.15d, 0d);
     }
 
     @Override
