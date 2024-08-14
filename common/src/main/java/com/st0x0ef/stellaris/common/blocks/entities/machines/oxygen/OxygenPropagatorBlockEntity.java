@@ -8,9 +8,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class OxygenPropagatorBlockEntity extends BaseEnergyBlockEntity implements OxygenContainerBlockEntity {
-
-    private final OxygenContainer oxygenContainer = new OxygenContainer(0);
-
     public OxygenPropagatorBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.OXYGEN_PROPAGATOR.get(), pos, state);
     }
@@ -23,11 +20,6 @@ public class OxygenPropagatorBlockEntity extends BaseEnergyBlockEntity implement
     @Override
     public int getMaxCapacity() {
         return 6000;
-    }
-
-    @Override
-    public OxygenContainer getOxygenContainer() {
-        return oxygenContainer;
     }
 
     @Override

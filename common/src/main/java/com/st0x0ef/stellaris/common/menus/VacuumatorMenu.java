@@ -15,15 +15,15 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
-public class VacumatorMenu extends AbstractContainerMenu {
+public class VacuumatorMenu extends AbstractContainerMenu {
 
     private final Container container;
 
-    public VacumatorMenu(int syncId, Inventory inventory, FriendlyByteBuf buffer) {
+    public VacuumatorMenu(int syncId, Inventory inventory, FriendlyByteBuf buffer) {
         this(syncId, inventory, new SimpleContainer(5));
     }
 
-    public VacumatorMenu(int syncId, Inventory inventory, Container container) {
+    public VacuumatorMenu(int syncId, Inventory inventory, Container container) {
         super(MenuTypesRegistry.VACUMATOR_MENU.get(), syncId);
         checkContainerSize(container, 5);
         this.container = container;

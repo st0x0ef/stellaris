@@ -9,18 +9,18 @@ import net.minecraft.world.level.Level;
 
 public record PlanetRecord(
         ResourceLocation texture, String name,
-        float distance, long period, float width,
-        float height, String parent,
+        int distance, long period, int width,
+        int height, String parent,
         ResourceKey<Level> dimensionId, String translatable, String id) {
 
 
     public static final Codec<PlanetRecord> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             ResourceLocation.CODEC.fieldOf("texture").forGetter(PlanetRecord::texture),
             Codec.STRING.fieldOf("name").forGetter(PlanetRecord::name),
-            Codec.FLOAT.fieldOf("distance").forGetter(PlanetRecord::distance),
+            Codec.INT.fieldOf("distance").forGetter(PlanetRecord::distance),
             Codec.LONG.fieldOf("period").forGetter(PlanetRecord::period),
-            Codec.FLOAT.fieldOf("width").forGetter(PlanetRecord::width),
-            Codec.FLOAT.fieldOf("height").forGetter(PlanetRecord::height),
+            Codec.INT.fieldOf("width").forGetter(PlanetRecord::width),
+            Codec.INT.fieldOf("height").forGetter(PlanetRecord::height),
             Codec.STRING.fieldOf("parent").forGetter(PlanetRecord::parent),
             ResourceKey.codec(Registries.DIMENSION).fieldOf("dimensionId").forGetter(PlanetRecord::dimensionId),
             Codec.STRING.fieldOf("translatable").forGetter(PlanetRecord::translatable),

@@ -1,8 +1,8 @@
 package com.st0x0ef.stellaris.neoforge;
 
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.client.StellarisClient;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
-import com.st0x0ef.stellaris.neoforge.client.StellarisNeoforgeClient;
 import com.st0x0ef.stellaris.neoforge.systems.SystemsNeoForge;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
@@ -22,7 +22,7 @@ public class StellarisNeoForge {
         SystemsNeoForge.init(bus);
 
         if (FMLEnvironment.dist.isClient()) {
-            bus.addListener(StellarisNeoforgeClient::clientSetup);
+            StellarisClient.registerPacks();
         }
     }
 

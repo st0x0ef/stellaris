@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-
     "stellaris:chiseled_moon_stone",
     "stellaris:moon_cobblestone",
     "stellaris:moon_sand",
@@ -66,8 +65,6 @@
     "stellaris:venus_smooth_sandstone_slab",
     "stellaris:venus_stone_slab",
     "stellaris:venus_neptunium_ore",
-
-
 
     "stellaris:desh_plating_stairs",
     "stellaris:desh_plating_slab",
@@ -144,7 +141,7 @@
     "stellaris:vertical_desh_plating_slab",
 
     "stellaris:cheese_block",
-    "stellaris:vacumator",
+    "stellaris:vacuumator",
 
    "stellaris:uranium_block",
     "stellaris:raw_uranium_block",
