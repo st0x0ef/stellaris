@@ -171,7 +171,7 @@ public class ScreenHelper {
         poseStack.pushPose();
 
         poseStack.translate(x + width / 2.0f, y + height / 2.0f, 0);
-        poseStack.mulPose(new Quaternionf(0.0f, 0.0f, 1.0f, 1.0f).rotateZ(rotationAngle));
+        poseStack.mulPose(new Quaternionf(0.0f, 0.0f, 1.0f, 0.0f).rotateZ(rotationAngle));
         poseStack.translate(-(x + width / 2.0f), -(y + height / 2.0f), 0);
 
         RenderSystem.setShaderTexture(0, resourceLocation);
