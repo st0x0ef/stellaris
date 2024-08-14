@@ -9,7 +9,7 @@
     "#": {"item": "minecraft:iron_block"}
   },
   "result": {
-    "id": "stellaris:iron_plating_block",
+    "item": "stellaris:iron_plating_block",
     "count": 6
   }
 }

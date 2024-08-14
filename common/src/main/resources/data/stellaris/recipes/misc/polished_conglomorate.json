@@ -9,7 +9,7 @@
     "#": {"item": "stellaris:conglomorate"}
   },
   "result": {
-    "id": "stellaris:polished_conglomorate",
+    "item": "stellaris:polished_conglomorate",
     "count": 6
   }
 }

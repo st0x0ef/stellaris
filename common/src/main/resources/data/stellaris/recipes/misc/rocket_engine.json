@@ -11,6 +11,6 @@
     "X": {"item": "minecraft:redstone"}
   },
   "result": {
-    "id": "stellaris:rocket_engine"
+    "item": "stellaris:rocket_engine"
   }
 }

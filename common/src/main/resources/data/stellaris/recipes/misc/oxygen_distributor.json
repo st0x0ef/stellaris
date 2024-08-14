@@ -11,6 +11,6 @@
     "T": {"item": "stellaris:big_oxygen_tank"}
   },
   "result": {
-    "id": "stellaris:oxygen_distributor"
+    "item": "stellaris:oxygen_distributor"
   }
 }

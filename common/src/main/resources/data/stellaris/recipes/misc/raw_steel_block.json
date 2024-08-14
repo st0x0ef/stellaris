@@ -9,6 +9,6 @@
     "#": {"item": "stellaris:raw_steel_ingot"}
   },
   "result": {
-    "id": "stellaris:raw_steel_block"
+    "item": "stellaris:raw_steel_block"
   }
 }

@@ -17,7 +17,7 @@
     }
   },
   "result": {
-    "id": "stellaris:hydrogen_motor",
+    "item": "stellaris:hydrogen_motor",
     "count": 1
   }
 }

@@ -9,7 +9,7 @@
     "#": {"item": "stellaris:mars_stone_bricks"}
   },
   "result": {
-    "id": "stellaris:mars_stone_brick_slab",
+    "item": "stellaris:mars_stone_brick_slab",
     "count": 6
   }
 }

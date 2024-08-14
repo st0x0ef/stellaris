@@ -9,7 +9,7 @@
     "#": {"item": "stellaris:raw_steel_block"}
   },
   "result": {
-    "id": "stellaris:raw_steel_ingot",
+    "item": "stellaris:raw_steel_ingot",
     "count": 9
   }
 }

@@ -9,7 +9,7 @@
     "#": {"item": "stellaris:polished_mercury_stone"}
   },
   "result": {
-    "id": "stellaris:mercury_polished_stone_stairs",
+    "item": "stellaris:mercury_polished_stone_stairs",
     "count": 4
   }
 }

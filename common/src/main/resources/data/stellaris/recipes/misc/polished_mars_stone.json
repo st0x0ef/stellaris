@@ -9,7 +9,7 @@
     "#": {"item": "stellaris:mars_cobblestone"}
   },
   "result": {
-    "id": "stellaris:polished_mars_stone",
+    "item": "stellaris:polished_mars_stone",
     "count": 4
   }
 }

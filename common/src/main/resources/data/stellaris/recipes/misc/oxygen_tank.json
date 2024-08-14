@@ -10,6 +10,6 @@
     "X": {"item": "stellaris:steel_nugget"}
   },
   "result": {
-    "id": "stellaris:oxygen_tank"
+    "item": "stellaris:oxygen_tank"
   }
 }

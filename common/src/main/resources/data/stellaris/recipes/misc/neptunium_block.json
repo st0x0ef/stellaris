@@ -9,6 +9,6 @@
     "#": {"item": "stellaris:neptunium_ingot"}
   },
   "result": {
-    "id": "stellaris:neptunium_block"
+    "item": "stellaris:neptunium_block"
   }
 }

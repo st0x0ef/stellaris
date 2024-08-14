@@ -9,7 +9,7 @@
     "#": {"item": "stellaris:iron_plating_block"}
   },
   "result": {
-    "id": "stellaris:iron_plating_stairs",
+    "item": "stellaris:iron_plating_stairs",
     "count": 4
   }
 }

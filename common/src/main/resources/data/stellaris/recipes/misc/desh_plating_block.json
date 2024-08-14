@@ -9,7 +9,7 @@
     "#": {"item": "stellaris:desh_block"}
   },
   "result": {
-    "id": "stellaris:desh_plating_block",
+    "item": "stellaris:desh_plating_block",
     "count": 6
   }
 }

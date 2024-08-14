@@ -10,6 +10,6 @@
     "X": {"item": "minecraft:blast_furnace"}
   },
   "result": {
-    "id": "stellaris:coal_generator"
+    "item": "stellaris:coal_generator"
   }
 }

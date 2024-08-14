@@ -9,7 +9,7 @@
     "#": {"item": "stellaris:moon_stone"}
   },
   "result": {
-    "id": "stellaris:moon_stone_pillar",
+    "item": "stellaris:moon_stone_pillar",
     "count": 6
   }
 }

@@ -10,6 +10,6 @@
     "#": {"item": "minecraft:purple_dye"}
   },
   "result": {
-    "id": "stellaris:small_purple_can"
+    "item": "stellaris:small_purple_can"
   }
 }

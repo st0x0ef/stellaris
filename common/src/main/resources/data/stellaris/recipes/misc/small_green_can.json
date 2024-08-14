@@ -9,6 +9,6 @@
     "X": {"item": "minecraft:iron_nugget"}
   },
   "result": {
-    "id": "stellaris:small_green_can"
+    "item": "stellaris:small_green_can"
   }
 }

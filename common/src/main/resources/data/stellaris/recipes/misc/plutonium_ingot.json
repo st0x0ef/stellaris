@@ -9,7 +9,7 @@
     "#": {"item": "stellaris:plutonium_block"}
   },
   "result": {
-    "id": "stellaris:plutonium_ingot",
+    "item": "stellaris:plutonium_ingot",
     "count": 9
   }
 }

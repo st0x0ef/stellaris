@@ -11,6 +11,6 @@
     "R": {"item": "minecraft:amethyst_block"}
   },
   "result": {
-    "id": "stellaris:solar_panel"
+    "item": "stellaris:solar_panel"
   }
 }

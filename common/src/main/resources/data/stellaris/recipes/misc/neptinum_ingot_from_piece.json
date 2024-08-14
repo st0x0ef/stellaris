@@ -9,7 +9,7 @@
     "#": {"item": "stellaris:neptunium_piece"}
   },
   "result": {
-    "id": "stellaris:neptunium_ingot",
+    "item": "stellaris:neptunium_ingot",
     "count": 1
   }
 }

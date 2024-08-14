@@ -10,6 +10,6 @@
     "#": {"item": "stellaris:steel_nugget"}
   },
   "result": {
-    "id": "stellaris:engine_fan"
+    "item": "stellaris:engine_fan"
   }
 }

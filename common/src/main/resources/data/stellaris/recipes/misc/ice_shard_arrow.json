@@ -10,7 +10,7 @@
     "R": {"item": "stellaris:ice_shard"}
   },
   "result": {
-    "id": "stellaris:ice_shard_arrow",
+    "item": "stellaris:ice_shard_arrow",
     "count": 2
   }
 }

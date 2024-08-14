@@ -9,7 +9,7 @@
     "#": {"item": "stellaris:steel_ingot"}
   },
   "result": {
-    "id": "stellaris:rocket_launch_pad",
+    "item": "stellaris:rocket_launch_pad",
     "count": 3
   }
 }

@@ -9,6 +9,6 @@
     "#": {"item": "stellaris:steel_ingot"}
   },
   "result": {
-    "id": "stellaris:rocket_fin"
+    "item": "stellaris:rocket_fin"
   }
 }

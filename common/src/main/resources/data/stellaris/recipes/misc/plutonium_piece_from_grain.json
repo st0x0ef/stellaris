@@ -9,7 +9,7 @@
     "#": {"item": "stellaris:plutonium_grain"}
   },
   "result": {
-    "id": "stellaris:plutonium_piece",
+    "item": "stellaris:plutonium_piece",
     "count": 1
   }
 }

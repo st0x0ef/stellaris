@@ -8,6 +8,6 @@
     "item": "stellaris:mars_plutonium_ore"
   },
   "result": {
-    "id": "stellaris:plutonium_ingot"
+    "item": "stellaris:plutonium_ingot"
   }
 }

@@ -10,6 +10,6 @@
     "X": {"item": "minecraft:redstone"}
   },
   "result": {
-    "id": "stellaris:rocket_nose_cone"
+    "item": "stellaris:rocket_nose_cone"
   }
 }

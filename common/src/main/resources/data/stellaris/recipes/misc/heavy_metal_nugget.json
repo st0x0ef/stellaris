@@ -7,7 +7,7 @@
     "#": {"item": "stellaris:heavy_metal_ingot"}
   },
   "result": {
-    "id": "stellaris:heavy_metal_nugget",
+    "item": "stellaris:heavy_metal_nugget",
     "count": 9
   }
 }

@@ -9,7 +9,7 @@
     "#": {"item": "stellaris:plutonium_ingot"}
   },
   "result": {
-    "id": "stellaris:plutonium_nugget",
+    "item": "stellaris:plutonium_nugget",
     "count": 9
   }
 }

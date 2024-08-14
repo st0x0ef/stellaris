@@ -9,7 +9,7 @@
     "#": {"item": "stellaris:mercury_stone"}
   },
   "result": {
-    "id": "stellaris:mercury_stone_pillar",
+    "item": "stellaris:mercury_stone_pillar",
     "count": 6
   }
 }

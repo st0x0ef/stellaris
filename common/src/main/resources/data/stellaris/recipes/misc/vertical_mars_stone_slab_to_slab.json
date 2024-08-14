@@ -9,6 +9,6 @@
     "#": {"item": "stellaris:vertical_mars_slab"}
   },
   "result": {
-    "id": "stellaris:mars_stone_slab"
+    "item": "stellaris:mars_stone_slab"
   }
 }

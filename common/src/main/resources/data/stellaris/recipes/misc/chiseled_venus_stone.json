@@ -9,6 +9,6 @@
     "#": {"item": "stellaris:venus_stone_slab"}
   },
   "result": {
-    "id": "stellaris:chiseled_venus_stone"
+    "item": "stellaris:chiseled_venus_stone"
   }
 }

@@ -10,6 +10,6 @@
     "X": {"item": "stellaris:engine_fan"}
   },
   "result": {
-    "id": "stellaris:oxygen_propagator"
+    "item": "stellaris:oxygen_propagator"
   }
 }

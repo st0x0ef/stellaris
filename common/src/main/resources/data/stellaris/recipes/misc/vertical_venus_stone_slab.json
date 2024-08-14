@@ -9,7 +9,7 @@
     "#": {"item": "stellaris:venus_stone"}
   },
   "result": {
-    "id": "stellaris:vertical_venus_slab",
+    "item": "stellaris:vertical_venus_slab",
     "count": 6
   }
 }

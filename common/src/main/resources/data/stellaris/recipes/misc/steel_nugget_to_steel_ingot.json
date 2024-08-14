@@ -9,7 +9,7 @@
     "#": {"item": "stellaris:steel_nugget"}
   },
   "result": {
-    "id": "stellaris:steel_ingot",
+    "item": "stellaris:steel_ingot",
     "count": 1
   }
 }

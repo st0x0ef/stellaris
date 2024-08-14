@@ -14,7 +14,7 @@
     }
   },
   "result": {
-    "id": "stellaris:big_fuel_tank_upgrade",
+    "item": "stellaris:big_fuel_tank_upgrade",
     "count": 1
   }
 }

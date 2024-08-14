@@ -9,7 +9,7 @@
     "#": {"item": "stellaris:venus_smooth_sandstone"}
   },
   "result": {
-    "id": "stellaris:venus_smooth_sandstone_stairs",
+    "item": "stellaris:venus_smooth_sandstone_stairs",
     "count": 4
   }
 }

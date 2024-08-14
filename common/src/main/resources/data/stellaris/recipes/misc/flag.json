@@ -10,6 +10,6 @@
     "R": {"item": "minecraft:gray_wool"}
   },
   "result": {
-    "id": "stellaris:flag"
+    "item": "stellaris:flag"
   }
 }

@@ -9,6 +9,6 @@
     "#": {"item": "stellaris:plutonium_ingot"}
   },
   "result": {
-    "id": "stellaris:plutonium_block"
+    "item": "stellaris:plutonium_block"
   }
 }

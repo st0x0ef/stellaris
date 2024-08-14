@@ -9,6 +9,6 @@
     "#": {"item": "stellaris:marcury_stone_slab"}
   },
   "result": {
-    "id": "stellaris:vertical_mercury_slab"
+    "item": "stellaris:vertical_mercury_slab"
   }
 }

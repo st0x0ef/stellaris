@@ -8,6 +8,6 @@
     "item": "stellaris:mercury_iron_ore"
   },
   "result": {
-    "id": "minecraft:iron_ingot"
+    "item": "minecraft:iron_ingot"
   }
 }

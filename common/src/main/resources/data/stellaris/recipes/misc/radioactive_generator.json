@@ -10,6 +10,6 @@
     "X": {"item": "stellaris:uranium_block"}
   },
   "result": {
-    "id": "stellaris:radioactive_generator"
+    "item": "stellaris:radioactive_generator"
   }
 }

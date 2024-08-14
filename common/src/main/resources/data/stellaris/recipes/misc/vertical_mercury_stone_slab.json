@@ -9,7 +9,7 @@
     "#": {"item": "stellaris:mars_stone"}
   },
   "result": {
-    "id": "stellaris:vertical_mercury_slab",
+    "item": "stellaris:vertical_mercury_slab",
     "count": 6
   }
 }

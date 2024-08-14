@@ -9,6 +9,6 @@
     "#": {"item": "stellaris:steel_slab"}
   },
   "result": {
-    "id": "stellaris:vertical_steel_slab"
+    "item": "stellaris:vertical_steel_slab"
   }
 }

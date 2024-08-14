@@ -9,7 +9,7 @@
     "#": {"item": "stellaris:steel_block"}
   },
   "result": {
-    "id": "stellaris:steel_slab",
+    "item": "stellaris:steel_slab",
     "count": 6
   }
 }

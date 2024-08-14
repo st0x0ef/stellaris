@@ -9,7 +9,7 @@
     "#": {"item": "stellaris:raw_uranium_block"}
   },
   "result": {
-    "id": "stellaris:raw_uranium",
+    "item": "stellaris:raw_uranium",
     "count": 9
   }
 }

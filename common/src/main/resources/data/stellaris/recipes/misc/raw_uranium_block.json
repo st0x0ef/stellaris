@@ -9,6 +9,6 @@
     "#": {"item": "stellaris:raw_uranium"}
   },
   "result": {
-    "id": "stellaris:raw_uranium_block"
+    "item": "stellaris:raw_uranium_block"
   }
 }

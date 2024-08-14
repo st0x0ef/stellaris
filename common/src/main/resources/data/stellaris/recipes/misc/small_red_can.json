@@ -10,6 +10,6 @@
     "#": {"item": "minecraft:red_dye"}
   },
   "result": {
-    "id": "stellaris:small_red_can"
+    "item": "stellaris:small_red_can"
   }
 }

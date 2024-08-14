@@ -9,7 +9,7 @@
     "#": {"item": "stellaris:desh_block"}
   },
   "result": {
-    "id": "stellaris:vertical_desh_slab",
+    "item": "stellaris:vertical_desh_slab",
     "count": 6
   }
 }
