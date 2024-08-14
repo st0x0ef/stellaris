@@ -80,11 +80,6 @@ public class VacuumatorBlockEntity extends BaseContainerBlockEntity implements I
     }
 
     @Override
-    public ItemStack getItem(int slot) {
-        return this.getItems().get(slot);
-    }
-
-    @Override
     protected void setItems(NonNullList<ItemStack> nonNullList) {
         this.items = nonNullList;
     }

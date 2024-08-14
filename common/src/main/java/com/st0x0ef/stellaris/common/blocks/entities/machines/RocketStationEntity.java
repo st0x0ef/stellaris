@@ -70,11 +70,6 @@ public class RocketStationEntity extends BaseContainerBlockEntity implements Imp
     }
 
     @Override
-    public ItemStack getItem(int slot) {
-        return this.getItems().get(slot);
-    }
-
-    @Override
     protected void setItems(NonNullList<ItemStack> nonNullList) {
         this.items = nonNullList;
     }
