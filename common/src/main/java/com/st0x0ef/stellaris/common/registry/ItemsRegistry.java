@@ -7,7 +7,7 @@ import com.st0x0ef.stellaris.common.items.*;
 import com.st0x0ef.stellaris.common.items.oxygen.OxygenTankItem;
 import com.st0x0ef.stellaris.common.items.upgrade.RocketUpgradeItem;
 import com.st0x0ef.stellaris.common.rocket_upgrade.*;
-import com.st0x0ef.stellaris.foods.CoffeeSetup;
+import com.st0x0ef.stellaris.common.items.CoffeeItem;
 import dev.architectury.core.item.ArchitecturyBucketItem;
 import dev.architectury.core.item.ArchitecturySpawnEggItem;
 import dev.architectury.registry.registries.DeferredRegister;
@@ -49,7 +49,7 @@ public class ItemsRegistry {
 
     public static final RegistrySupplier<Item> COSMO_BREAD = ITEMS.register("cosmo_bread", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).food(FoodRegistry.COSMO_BREAD)));
     public static final RegistrySupplier<Item> CHEESE = ITEMS.register("cheese", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).food(FoodRegistry.CHEESE)));
-    public static final RegistrySupplier<Item> COSMO_COFFEE = ITEMS.register("cosmo_coffee", () -> new CoffeeSetup(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).food(FoodRegistry.COSMO_COFFEE)));
+    public static final RegistrySupplier<Item> COSMO_COFFEE = ITEMS.register("cosmo_coffee", () -> new CoffeeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).food(FoodRegistry.COSMO_COFFEE)));
     public static final RegistrySupplier<Item> CHEESE_BLOCK_ITEM = ITEMS.register("cheese_block", () -> new BlockItem(BlocksRegistry.CHEESE_BLOCK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
 
     /** Other */
