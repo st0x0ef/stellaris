@@ -1,4 +1,4 @@
-package com.st0x0ef.stellaris.foods;
+package com.st0x0ef.stellaris.common.items;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.Holder;
@@ -13,10 +13,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 
-public class CoffeeSetup extends Item {
+public class CoffeeItem extends Item {
     private static final int DRINK_DURATION = 40;
 
-    public CoffeeSetup(Properties properties) {
+    public CoffeeItem(Properties properties) {
         super(properties);
     }
 

@@ -27,6 +27,13 @@ versionRange = "[1.20.6,)"
 ordering = "NONE"
 side = "BOTH"
 
+[[dependencies.stellaris]]
+modId = "architectury"
+type = "required"
+versionRange = "[13.0.6,)"
+ordering = "AFTER"
+side = "BOTH"
+
 [[mixins]]
 config = "stellaris.mixins.json"
 [[mixins]]

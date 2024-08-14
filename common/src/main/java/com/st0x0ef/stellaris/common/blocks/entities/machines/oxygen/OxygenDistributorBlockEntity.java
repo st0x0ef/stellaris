@@ -14,7 +14,6 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class OxygenDistributorBlockEntity extends BaseEnergyContainerBlockEntity implements OxygenContainerBlockEntity {
     public final OxygenContainer oxygenContainer = new OxygenContainer(6000);
-    private int timer = 0;
 
     public OxygenDistributorBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.OXYGEN_DISTRIBUTOR.get(), pos, state);
@@ -47,11 +46,6 @@ public class OxygenDistributorBlockEntity extends BaseEnergyContainerBlockEntity
     @Override
     public int getContainerSize() {
         return 2;
-    }
-
-    @Override
-    public OxygenContainer getOxygenContainer() {
-        return oxygenContainer;
     }
 
     @Override

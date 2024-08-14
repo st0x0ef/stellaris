@@ -123,4 +123,9 @@ public class VacumatorBlockEntity extends BaseContainerBlockEntity implements Im
     public int getContainerSize() {
         return 5;
     }
+
+    @Override
+    public ItemStack getItem(int slot) {
+        return this.getItems().get(slot);
+    }
 }
