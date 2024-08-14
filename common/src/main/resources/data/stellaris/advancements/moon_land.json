@@ -5,7 +5,7 @@
     },
     "icon": {
       "count": 1,
-      "id": "stellaris:moon_sand"
+      "item": "stellaris:moon_sand"
     },
     "title": {
       "translate": "advancements.moon.root.title"

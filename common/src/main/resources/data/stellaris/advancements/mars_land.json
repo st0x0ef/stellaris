@@ -5,7 +5,7 @@
     },
     "icon": {
       "count": 1,
-      "id": "stellaris:mars_sand"
+      "item": "stellaris:mars_sand"
     },
     "title": {
       "translate": "advancements.mars.root.title"

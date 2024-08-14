@@ -5,7 +5,7 @@
     },
     "icon": {
       "count": 1,
-      "id": "stellaris:venus_sand"
+      "item": "stellaris:venus_sand"
     },
     "title": {
       "translate": "advancements.venus.root.title"
