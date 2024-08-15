@@ -33,7 +33,7 @@ public abstract class LevelRendererMixin {
         if ((boolean) CustomConfig.getValue("customSky") && !thickFog && cameraSubmersionType != FogType.POWDER_SNOW && cameraSubmersionType != FogType.LAVA && cameraSubmersionType != FogType.WATER && !this.doesMobEffectBlockSky(camera) && SkyPropertiesData.SKY_PROPERTIES.containsKey(level.dimension())) {
             PoseStack poseStack = new PoseStack();
             poseStack.mulPose(matrix4f);
-            SkyPropertiesData.SKY_PROPERTIES.get(level.dimension()).getRenderer().render(Minecraft.getInstance().level, poseStack, projectionMatrix, partialTick, camera);
+            SkyPropertiesData.SKY_PROPERTIES.get(level.dimension()).getRenderer().render(Minecraft.getInstance().level, poseStack, projectionMatrix, partialTick, camera, fogCallback);
             ci.cancel();
         }
     }

@@ -30,7 +30,9 @@ public class SkyRenderer {
         }
     }
 
-    public void render(ClientLevel level, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, Camera camera) {
+    public void render(ClientLevel level, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, Camera camera, Runnable fogCallback) {
+        fogCallback.run();
+
         Tesselator tesselator = Tesselator.getInstance();
 
         CustomVanillaObject customVanillaObject = properties.customVanillaObject();

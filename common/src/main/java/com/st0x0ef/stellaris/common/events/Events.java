@@ -8,6 +8,7 @@ import com.st0x0ef.stellaris.common.utils.Utils;
 import dev.architectury.event.EventResult;
 import dev.architectury.event.events.common.BlockEvent;
 import dev.architectury.event.events.common.TickEvent;
+import net.minecraft.client.renderer.entity.EndermanRenderer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.ItemStack;
@@ -48,6 +49,8 @@ public class Events {
 
             tickBeforeNextRadioactiveCheck--;
         });
+
+        EndermanRenderer
 
         BlockEvent.BREAK.register((level, pos, state, player, value) -> {
             if (level.getBlockEntity(pos) instanceof OxygenContainerBlockEntity oxygenContainer) {
