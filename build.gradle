@@ -33,7 +33,7 @@ subprojects {
 
         mappings loom.layered() {
             officialMojangMappings()
-            parchment("org.parchmentmc.data:parchment-${rootProject.minecraft_version}:${rootProject.parchment_mapping_version}@zip")
+            parchment("org.parchmentmc.data:parchment-1.21:${rootProject.parchment_mapping_version}@zip")
         }
 
         modCompileOnly "me.shedaniel:RoughlyEnoughItems-api:${rootProject.rei_version}"
@@ -67,7 +67,8 @@ subprojects {
             }
             repositories {
                 maven {
-                    url = "https://maven.odysseyus.fr/releases/"
+                    url = "http://maven.odysseyus.fr/releases/"
+                    allowInsecureProtocol = true
                     credentials {
                         username = System.getenv("MAVEN_USER")
                         password = System.getenv("MAVEN_PASS")
