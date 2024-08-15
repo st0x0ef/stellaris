@@ -1,10 +1,10 @@
-package com.st0x0ef.stellaris.client.skys.record;
+package com.st0x0ef.stellaris.client.skies.record;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.client.skys.PlanetSky;
+import com.st0x0ef.stellaris.client.skies.PlanetSky;
 import dev.architectury.platform.Platform;
 import dev.architectury.utils.Env;
 import net.minecraft.resources.ResourceKey;

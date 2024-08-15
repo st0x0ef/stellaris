@@ -1,12 +1,12 @@
-package com.st0x0ef.stellaris.client.skys.renderer;
+package com.st0x0ef.stellaris.client.skies.renderer;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
-import com.st0x0ef.stellaris.client.skys.record.CustomVanillaObject;
-import com.st0x0ef.stellaris.client.skys.record.SkyObject;
-import com.st0x0ef.stellaris.client.skys.record.SkyProperties;
-import com.st0x0ef.stellaris.client.skys.utils.SkyHelper;
-import com.st0x0ef.stellaris.client.skys.utils.StarHelper;
+import com.st0x0ef.stellaris.client.skies.record.CustomVanillaObject;
+import com.st0x0ef.stellaris.client.skies.record.SkyObject;
+import com.st0x0ef.stellaris.client.skies.record.SkyProperties;
+import com.st0x0ef.stellaris.client.skies.utils.SkyHelper;
+import com.st0x0ef.stellaris.client.skies.utils.StarHelper;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.FogRenderer;

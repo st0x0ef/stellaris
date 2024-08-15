@@ -1,4 +1,4 @@
-package com.st0x0ef.stellaris.client.skys.record;
+package com.st0x0ef.stellaris.client.skies.record;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
