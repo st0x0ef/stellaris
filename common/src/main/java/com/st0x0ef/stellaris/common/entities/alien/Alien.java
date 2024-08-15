@@ -228,6 +228,4 @@ public class Alien extends Villager implements Merchant, Npc {
 			this.remove(RemovalReason.DISCARDED);
 		}
 	}
-
-
 }
