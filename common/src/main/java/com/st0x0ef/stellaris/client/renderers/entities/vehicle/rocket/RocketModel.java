@@ -44,6 +44,4 @@ public enum RocketModel implements StringRepresentable {
             default -> NORMAL;
         };
     }
-
-
 }

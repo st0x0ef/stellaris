@@ -34,8 +34,8 @@ public class Mogler extends Hoglin {
                 .add(Attributes.ATTACK_DAMAGE, 6);
     }
 
-    public static boolean checkMoglerSpawnRules(EntityType<Mogler> p_219182_, LevelAccessor p_219183_, MobSpawnType p_219184_, BlockPos p_219185_, RandomSource p_219186_) {
-        return !p_219183_.getBlockState(p_219185_.below()).is(Blocks.NETHER_WART_BLOCK);
+    public static boolean checkMoglerSpawnRules(EntityType<Mogler> entity, LevelAccessor levelAccessor, MobSpawnType spawnType, BlockPos blockPos, RandomSource random) {
+        return !levelAccessor.getBlockState(blockPos.below()).is(Blocks.NETHER_WART_BLOCK);
     }
 
 

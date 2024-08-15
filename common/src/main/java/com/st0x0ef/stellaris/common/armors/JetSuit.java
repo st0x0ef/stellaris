@@ -305,7 +305,7 @@ public class JetSuit {
         }
 
         public static ModeType fromString(String string) {
-            Stellaris.LOG.error("From String : " + Integer.decode(string));
+            Stellaris.LOG.error("From String : {}", Integer.decode(string));
 
             return switch (Integer.decode(string)) {
                case 0 -> DISABLED;

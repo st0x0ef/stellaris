@@ -9,15 +9,15 @@ import com.st0x0ef.stellaris.common.entities.mobs.pygro.Pygro;
 import com.st0x0ef.stellaris.common.entities.mobs.pygro.PygroMobsSensor;
 import com.st0x0ef.stellaris.common.entities.vehicles.LanderEntity;
 import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
+import dev.architectury.registry.level.entity.SpawnPlacementsRegistry;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.sensing.SensorType;
+import net.minecraft.world.level.levelgen.Heightmap;
 
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
@@ -64,14 +64,25 @@ public class EntityRegistry {
 
     //Entity Attributes
     public static void registerAttributes(BiConsumer<Supplier<? extends EntityType<? extends LivingEntity>>, Supplier<AttributeSupplier.Builder>> attributes) {
-        attributes.accept(EntityRegistry.ALIEN,  Alien::setCustomAttributes);
-        attributes.accept(EntityRegistry.ALIEN_ZOMBIE,  AlienZombie::setCustomAttributes);
-        attributes.accept(EntityRegistry.MARTIAN_RAPTOR,  MartianRaptor::setCustomAttributes);
-        attributes.accept(EntityRegistry.PYGRO_BRUTE, PygroBrute::setCustomAttributes);
-        attributes.accept(EntityRegistry.PYGRO, Pygro::setCustomAttributes);
-        attributes.accept(EntityRegistry.MOGLER, Mogler::setCustomAttributes);
-        attributes.accept(EntityRegistry.STAR_CRAWLER, StarCrawler::setCustomAttributes);
-        attributes.accept(EntityRegistry.CHEESE_BOSS, CheeseBoss::setCustomAttributes);
+        attributes.accept(ALIEN,  Alien::setCustomAttributes);
+        attributes.accept(ALIEN_ZOMBIE,  AlienZombie::setCustomAttributes);
+        attributes.accept(MARTIAN_RAPTOR,  MartianRaptor::setCustomAttributes);
+        attributes.accept(PYGRO_BRUTE, PygroBrute::setCustomAttributes);
+        attributes.accept(PYGRO, Pygro::setCustomAttributes);
+        attributes.accept(MOGLER, Mogler::setCustomAttributes);
+        attributes.accept(STAR_CRAWLER, StarCrawler::setCustomAttributes);
+        attributes.accept(CHEESE_BOSS, CheeseBoss::setCustomAttributes);
+    }
+
+    public static void registerSpawnPlacements() {
+        SpawnPlacementsRegistry.register(ALIEN, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Alien::checkMobSpawnRules);
+        SpawnPlacementsRegistry.register(ALIEN_ZOMBIE, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AlienZombie::checkMonsterSpawnRules);
+        SpawnPlacementsRegistry.register(MARTIAN_RAPTOR, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MartianRaptor::checkMonsterSpawnRules);
+        SpawnPlacementsRegistry.register(PYGRO_BRUTE, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, PygroBrute::checkMonsterSpawnRules);
+        SpawnPlacementsRegistry.register(PYGRO, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Pygro::checkMonsterSpawnRules);
+        SpawnPlacementsRegistry.register(MOGLER, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mogler::checkMoglerSpawnRules);
+        SpawnPlacementsRegistry.register(STAR_CRAWLER, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, StarCrawler::checkMonsterSpawnRules);
+        SpawnPlacementsRegistry.register(CHEESE_BOSS, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CheeseBoss::checkMonsterSpawnRules);
     }
 
     //Entity Sensor
