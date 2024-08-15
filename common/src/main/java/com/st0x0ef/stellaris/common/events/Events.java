@@ -50,8 +50,6 @@ public class Events {
             tickBeforeNextRadioactiveCheck--;
         });
 
-        EndermanRenderer
-
         BlockEvent.BREAK.register((level, pos, state, player, value) -> {
             if (level.getBlockEntity(pos) instanceof OxygenContainerBlockEntity oxygenContainer) {
                 OxygenManager.removeOxygenBlocksPerLevel(level, oxygenContainer);
