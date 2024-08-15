@@ -1,17 +1,18 @@
-package com.st0x0ef.stellaris.client.skys.renderer;
+package com.st0x0ef.stellaris.client.skies.renderer;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
-import com.st0x0ef.stellaris.client.skys.record.CustomVanillaObject;
-import com.st0x0ef.stellaris.client.skys.record.SkyObject;
-import com.st0x0ef.stellaris.client.skys.record.SkyProperties;
-import com.st0x0ef.stellaris.client.skys.utils.SkyHelper;
-import com.st0x0ef.stellaris.client.skys.utils.StarHelper;
+import com.st0x0ef.stellaris.client.skies.record.CustomVanillaObject;
+import com.st0x0ef.stellaris.client.skies.record.SkyObject;
+import com.st0x0ef.stellaris.client.skies.record.SkyProperties;
+import com.st0x0ef.stellaris.client.skies.utils.SkyHelper;
+import com.st0x0ef.stellaris.client.skies.utils.StarHelper;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.ShaderInstance;
+import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
 
@@ -30,7 +31,8 @@ public class SkyRenderer {
         }
     }
 
-    public void render(ClientLevel level, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, Camera camera) {
+    public void render(ClientLevel level, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, Camera camera, Runnable fogCallback) {
+        fogCallback.run();
         Tesselator tesselator = Tesselator.getInstance();
 
         CustomVanillaObject customVanillaObject = properties.customVanillaObject();
@@ -79,10 +81,12 @@ public class SkyRenderer {
         float rainLevel = 1.0F - level.getRainLevel(partialTick);
         float starLight = level.getStarBrightness(partialTick) * rainLevel;
         if (starLight > 0.0F) {
+            FogRenderer.setupNoFog();
             RenderSystem.setShader(GameRenderer::getPositionColorShader);
             RenderSystem.setShaderColor(starLight + 0.5F, starLight + 0.5F, starLight + 0.5F, starLight + 0.5F);
             StarHelper.drawStars(starBuffer, poseStack, projectionMatrix, camera, dayAngle);
         } else if(properties.stars().allDaysVisible()){
+            FogRenderer.setupNoFog();
             RenderSystem.setShader(GameRenderer::getPositionColorShader);
             RenderSystem.setShaderColor(starLight + 1F, starLight + 1F, starLight + 1F, starLight + 1F);
             StarHelper.drawStars(starBuffer, poseStack, projectionMatrix, camera, dayAngle);

@@ -1,7 +1,7 @@
-package com.st0x0ef.stellaris.client.skys;
+package com.st0x0ef.stellaris.client.skies;
 
-import com.st0x0ef.stellaris.client.skys.record.SkyProperties;
-import com.st0x0ef.stellaris.client.skys.renderer.SkyRenderer;
+import com.st0x0ef.stellaris.client.skies.record.SkyProperties;
+import com.st0x0ef.stellaris.client.skies.renderer.SkyRenderer;
 import net.minecraft.client.renderer.DimensionSpecialEffects;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;

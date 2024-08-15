@@ -1,4 +1,4 @@
-package com.st0x0ef.stellaris.client.skys.utils;
+package com.st0x0ef.stellaris.client.skies.utils;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
