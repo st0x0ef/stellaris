@@ -63,7 +63,7 @@ public class EntityRegistry {
     public static void registerAttributes(BiConsumer<Supplier<? extends EntityType<? extends LivingEntity>>, Supplier<AttributeSupplier.Builder>> attributes) {
         attributes.accept(EntityRegistry.ALIEN,  Alien::setCustomAttributes);
         attributes.accept(EntityRegistry.ALIEN_ZOMBIE,  AlienZombie::setCustomAttributes);
-        attributes.accept(EntityRegistry.MARTIAN_RAPTOR,  MartianRaptor::CreateRaptorAttributes);
+        attributes.accept(EntityRegistry.MARTIAN_RAPTOR,  MartianRaptor::setCustomAttributes);
         attributes.accept(EntityRegistry.PYGRO_BRUTE, PygroBrute::setCustomAttributes);
         attributes.accept(EntityRegistry.PYGRO, Pygro::setCustomAttributes);
         attributes.accept(EntityRegistry.MOGLER, Mogler::setCustomAttributes);

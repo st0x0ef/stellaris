@@ -72,7 +72,6 @@ public class StellarisClient {
         KeyMappingsRegistry.register();
 
         registerParticle();
-        registerScreen();
         registerOverlays();
         registerJetSuitModel();
         Platform.getMod(Stellaris.MODID).registerConfigurationScreen(ConfigScreen::new);

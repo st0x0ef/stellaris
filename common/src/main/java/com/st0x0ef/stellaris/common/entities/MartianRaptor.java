@@ -31,7 +31,7 @@ public class MartianRaptor extends Monster {
         this.xpReward = 5;
     }
 
-    public static AttributeSupplier.Builder CreateRaptorAttributes() {
+    public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MOVEMENT_SPEED, 0.3)
                 .add(Attributes.MAX_HEALTH, 20)
