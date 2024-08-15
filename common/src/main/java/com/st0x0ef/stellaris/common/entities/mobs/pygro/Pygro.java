@@ -1,4 +1,4 @@
-package com.st0x0ef.stellaris.common.entities.pygro;
+package com.st0x0ef.stellaris.common.entities.mobs.pygro;
 
 import com.google.common.collect.ImmutableList;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;

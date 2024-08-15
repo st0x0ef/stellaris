@@ -1,4 +1,4 @@
-package com.st0x0ef.stellaris.common.entities.alien;
+package com.st0x0ef.stellaris.common.entities.mobs.alien;
 
 import net.minecraft.world.entity.npc.VillagerProfession;
 

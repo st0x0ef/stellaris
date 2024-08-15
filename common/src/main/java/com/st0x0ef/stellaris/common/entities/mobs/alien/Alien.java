@@ -1,11 +1,11 @@
-package com.st0x0ef.stellaris.common.entities.alien;
+package com.st0x0ef.stellaris.common.entities.mobs.alien;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
-import com.st0x0ef.stellaris.common.entities.AlienZombie;
+import com.st0x0ef.stellaris.common.entities.mobs.AlienZombie;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import net.minecraft.core.BlockPos;

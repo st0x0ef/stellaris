@@ -1,4 +1,4 @@
-package com.st0x0ef.stellaris.common.entities;
+package com.st0x0ef.stellaris.common.entities.mobs;
 
 import dev.architectury.networking.NetworkManager;
 import net.minecraft.network.protocol.Packet;

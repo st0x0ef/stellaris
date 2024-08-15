@@ -3,7 +3,7 @@ package com.st0x0ef.stellaris.client.renderers.entities.alienzombie;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.entities.AlienZombie;
+import com.st0x0ef.stellaris.common.entities.mobs.AlienZombie;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.EntityModel;

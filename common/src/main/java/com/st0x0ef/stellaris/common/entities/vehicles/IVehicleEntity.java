@@ -1,4 +1,4 @@
-package com.st0x0ef.stellaris.common.entities;
+package com.st0x0ef.stellaris.common.entities.vehicles;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
