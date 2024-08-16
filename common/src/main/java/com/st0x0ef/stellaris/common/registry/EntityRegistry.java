@@ -4,6 +4,9 @@ import com.google.common.base.Suppliers;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.entities.*;
 import com.st0x0ef.stellaris.common.entities.alien.Alien;
+import com.st0x0ef.stellaris.common.entities.cheese_boss.CheeseBoss;
+import com.st0x0ef.stellaris.common.entities.cheese_boss.CheeseBossEntitySensor;
+import com.st0x0ef.stellaris.common.entities.cheese_boss.attack_entities.CheeseSpit;
 import com.st0x0ef.stellaris.common.entities.pygro.Pygro;
 import com.st0x0ef.stellaris.common.entities.pygro.PygroMobsSensor;
 import dev.architectury.registry.registries.DeferredRegister;
@@ -44,7 +47,8 @@ public class EntityRegistry {
             Suppliers.memoize(() -> EntityType.Builder.<IceShardArrowEntity>of(IceShardArrowEntity::new, MobCategory.MISC).sized(0.5f, 0.5f).build(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "ice_shard_arrow").toString())));
     public static final RegistrySupplier<EntityType<CheeseBoss>> CHEESE_BOSS = ENTITY_TYPE.register("cheese_boss",
             Suppliers.memoize(() -> EntityType.Builder.of(CheeseBoss::new, MobCategory.MONSTER).sized(1.0f, 3.7f).eyeHeight(3.5f).build(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "cheese_boss").toString())));
-
+    public static final RegistrySupplier<EntityType<? extends CheeseSpit>> CHEESE_SPIT = ENTITY_TYPE.register("cheese_spit",
+            Suppliers.memoize(() -> EntityType.Builder.of(CheeseSpit::new, MobCategory.MISC).sized(0.5f, 0.5f).build(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "cheese_spit").toString())));
     /**
      * Vehicles
      */
@@ -73,5 +77,6 @@ public class EntityRegistry {
 
     //Entity Sensor
     public static final DeferredRegister<SensorType<?>> SENSOR = DeferredRegister.create(Stellaris.MODID, Registries.SENSOR_TYPE);
-    public static final RegistrySupplier<SensorType<PygroMobsSensor>> PYGRO_SENSOR = SENSOR.register("pygro_sensor", ()-> new SensorType<>(PygroMobsSensor::new));
+    public static final RegistrySupplier<SensorType<PygroMobsSensor>> PYGRO_SENSOR = SENSOR.register("pygro_sensor", () -> new SensorType<>(PygroMobsSensor::new));
+    public static final RegistrySupplier<SensorType<CheeseBossEntitySensor>> CHEESE_BOSS_SENSOR = SENSOR.register("cheese_boss_sensor", () -> new SensorType<>(CheeseBossEntitySensor::new));
 }

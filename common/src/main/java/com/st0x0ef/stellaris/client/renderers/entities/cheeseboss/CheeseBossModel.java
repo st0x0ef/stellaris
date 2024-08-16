@@ -3,7 +3,7 @@ package com.st0x0ef.stellaris.client.renderers.entities.cheeseboss;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.entities.CheeseBoss;
+import com.st0x0ef.stellaris.common.entities.cheese_boss.CheeseBoss;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.HierarchicalModel;
@@ -109,8 +109,11 @@ public class CheeseBossModel<T extends CheeseBoss> extends HierarchicalModel<T> 
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 		this.applyHeadRotation(netHeadYaw,headPitch);
 
-		this.animateWalk(CheeseBossAnim.walking,limbSwing,limbSwingAmount,4.1f,2.5f);
+		this.animateWalk(CheeseBossAnim.walking, limbSwing,limbSwingAmount,4.1f,2.5f);
 		this.animate(entity.idleAnimationState, CheeseBossAnim.idle, ageInTicks, 1f);
+		this.animate(entity.punchAnimationState, CheeseBossAnim.punching, ageInTicks, 1f);
+		this.animate(entity.spitAnimationState, CheeseBossAnim.cheese_shooting, ageInTicks, 1f);
+
 	}
 
 	private void applyHeadRotation(float netHeadYaw, float headPitch) {
