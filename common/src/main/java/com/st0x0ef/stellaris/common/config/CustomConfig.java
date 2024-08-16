@@ -48,7 +48,7 @@ public class CustomConfig {
     }
 
     public static void loadConfigFile() {
-        if (Platform.getEnvironment() == Env.CLIENT) return;
+
         String path = Platform.getConfigFolder() + "/stellaris.json";
 
         String jsonString;
