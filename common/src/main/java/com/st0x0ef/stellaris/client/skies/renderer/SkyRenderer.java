@@ -70,23 +70,25 @@ public class SkyRenderer {
         }
 
         // Star
-        renderStars(level, dayAngle, partialTick, poseStack, projectionMatrix, camera);
+        renderStars(level, partialTick, poseStack, projectionMatrix);
+
+        if (properties.fog()) fogCallback.run();
 
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         RenderSystem.depthMask(true);
     }
 
-    private void renderStars(ClientLevel level, float dayAngle, float partialTick, PoseStack poseStack, Matrix4f projectionMatrix, Camera camera) {
-        float rainLevel = 1.0F - level.getRainLevel(partialTick);
-        float starLight = level.getStarBrightness(partialTick) * rainLevel;
-        if (starLight > 0.0F) {
+    private void renderStars(ClientLevel level, float partialTick, PoseStack poseStack, Matrix4f projectionMatrix) {
+        float starLight = level.getStarBrightness(partialTick) * (1.0f - level.getRainLevel(partialTick));
+
+        if (properties.stars().allDaysVisible()){
             RenderSystem.setShader(GameRenderer::getPositionColorShader);
-            RenderSystem.setShaderColor(starLight + 0.5F, starLight + 0.5F, starLight + 0.5F, starLight + 0.5F);
-            StarHelper.drawStars(starBuffer, poseStack, projectionMatrix, camera, dayAngle);
-        } else if(properties.stars().allDaysVisible()){
+            RenderSystem.setShaderColor(starLight + 1f, starLight + 1f, starLight + 1f, starLight + 1f);
+            StarHelper.drawStars(starBuffer, poseStack, projectionMatrix);
+        } else if (starLight > 0.0F) {
             RenderSystem.setShader(GameRenderer::getPositionColorShader);
-            RenderSystem.setShaderColor(starLight + 1F, starLight + 1F, starLight + 1F, starLight + 1F);
-            StarHelper.drawStars(starBuffer, poseStack, projectionMatrix, camera, dayAngle);
+            RenderSystem.setShaderColor(starLight + 0.5f, starLight + 0.5f, starLight + 0.5f, starLight + 0.5f);
+            StarHelper.drawStars(starBuffer, poseStack, projectionMatrix);
         }
     }
 

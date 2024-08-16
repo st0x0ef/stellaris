@@ -75,7 +75,7 @@ public class StarHelper {
         return vertexBuffer;
     }
 
-    public static void drawStars(VertexBuffer vertexBuffer, PoseStack poseStack, Matrix4f projectionMatrix, Camera camera, float dayAngle) {
+    public static void drawStars(VertexBuffer vertexBuffer, PoseStack poseStack, Matrix4f projectionMatrix) {
         poseStack.pushPose();
         poseStack.mulPose(Axis.YP.rotationDegrees(-90));
         FogRenderer.setupNoFog();

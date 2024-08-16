@@ -1,4 +1,4 @@
-package com.st0x0ef.stellaris.common.compats;
+package com.st0x0ef.stellaris.common.compats.rei;
 
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.registry.BlocksRegistry;
@@ -42,9 +42,7 @@ public class RocketStationCategory implements DisplayCategory<BasicDisplay> {
     public List<Widget> setupDisplay(BasicDisplay display, Rectangle bounds) {
         final Point startPoint = new Point(bounds.getX(), bounds.getY());
         List<Widget> widgets = new LinkedList<>();
-        //widgets.add(Widgets.createRecipeBase(bounds));
 
-        //THIS LINE
         widgets.add(Widgets.createTexturedWidget(TEXTURE, bounds));
 
         inputSlotAdder(widgets,0, 56, 20 , startPoint, display);
@@ -62,8 +60,7 @@ public class RocketStationCategory implements DisplayCategory<BasicDisplay> {
         inputSlotAdder(widgets,12, 56, 110 , startPoint, display);
         inputSlotAdder(widgets,13, 83, 110 , startPoint, display);
 
-        widgets.add(Widgets.createSlot(new Point(startPoint.x + 129,startPoint.y + 56))
-                .entries(display.getOutputEntries().getFirst()).markOutput().disableBackground());
+        widgets.add(Widgets.createSlot(new Point(startPoint.x + 129,startPoint.y + 56)).entries(display.getOutputEntries().getFirst()).markOutput().disableBackground());
 
         return widgets;
     }
