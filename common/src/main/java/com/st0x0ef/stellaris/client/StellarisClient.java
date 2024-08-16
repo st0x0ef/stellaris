@@ -83,49 +83,6 @@ public class StellarisClient {
                 ItemsRegistry.JETSUIT_HELMET.get(), ItemsRegistry.JETSUIT_SUIT.get());
     }
 
-    public static void registerEntityModelLayer() {
-        EntityModelLayerRegistry.register(AlienModel.LAYER_LOCATION, AlienModel::createBodyLayer);
-        EntityModelLayerRegistry.register(AlienZombieModel.LAYER_LOCATION, AlienZombieModel::createBodyLayer);
-        EntityModelLayerRegistry.register(MartianRaptorModel.LAYER_LOCATION, MartianRaptorModel::createBodyLayer);
-        EntityModelLayerRegistry.register(PygroModel.LAYER_LOCATION, PygroModel::createBodyLayer);
-        EntityModelLayerRegistry.register(MoglerModel.LAYER_LOCATION, MoglerModel::createBodyLayer);
-        EntityModelLayerRegistry.register(StarCrawlerModel.LAYER_LOCATION, StarCrawlerModel::createBodyLayer);
-        EntityModelLayerRegistry.register(CheeseBossModel.LAYER_LOCATION, CheeseBossModel::createBodyLayer);
-
-        EntityModelLayerRegistry.register(GlobeModel.LAYER_LOCATION, GlobeModel::createLayer);
-        EntityModelLayerRegistry.register(LanderModel.LAYER_LOCATION, LanderModel::createBodyLayer);
-
-        EntityModelLayerRegistry.register(TinyRocketModel.LAYER_LOCATION, TinyRocketModel::createBodyLayer);
-        EntityModelLayerRegistry.register(SmallRocketModel.LAYER_LOCATION, SmallRocketModel::createBodyLayer);
-        EntityModelLayerRegistry.register(NormalRocketModel.LAYER_LOCATION, NormalRocketModel::createBodyLayer);
-        EntityModelLayerRegistry.register(BigRocketModel.LAYER_LOCATION, BigRocketModel::createBodyLayer);
-
-        EntityModelLayerRegistry.register(JetSuitModel.LAYER_LOCATION, JetSuitModel::createBodyLayer);
-    }
-
-    public static void registerEntityRenderer() {
-        EntityRendererRegistry.register(EntityRegistry.ALIEN, AlienRenderer::new);
-        EntityRendererRegistry.register(EntityRegistry.ALIEN_ZOMBIE, AlienZombieRenderer::new);
-        EntityRendererRegistry.register(EntityRegistry.MARTIAN_RAPTOR, MartianRaptorRenderer::new);
-        EntityRendererRegistry.register(EntityRegistry.PYGRO, PygroRenderer::new);
-        EntityRendererRegistry.register(EntityRegistry.PYGRO_BRUTE, PygroBruteRenderer::new);
-        EntityRendererRegistry.register(EntityRegistry.MOGLER, MoglerRenderer::new);
-        EntityRendererRegistry.register(EntityRegistry.STAR_CRAWLER, StarCrawlerRenderer::new);
-        EntityRendererRegistry.register(EntityRegistry.CHEESE_BOSS, CheeseBossRenderer::new);
-
-        EntityRendererRegistry.register(EntityRegistry.ICE_SPIT, renderManager -> new ThrownItemRenderer<>(renderManager, 1, true));
-        EntityRendererRegistry.register(EntityRegistry.ICE_SHARD_ARROW, IceShardArrowRenderer::new);
-
-        EntityRendererRegistry.register(EntityRegistry.NORMAL_ROCKET, NormalRocketRenderer::new);
-        EntityRendererRegistry.register(EntityRegistry.TINY_ROCKET, TinyRocketRenderer::new);
-        EntityRendererRegistry.register(EntityRegistry.SMALL_ROCKET, SmallRocketRenderer::new);
-        EntityRendererRegistry.register(EntityRegistry.BIG_ROCKET, BigRocketRenderer::new);
-
-        EntityRendererRegistry.register(EntityRegistry.LANDER, LanderRenderer::new);
-
-        BlockEntityRendererRegistry.register(BlockEntityRegistry.GLOBE_BLOCK_ENTITY.get(), GlobeBlockRenderer::new);
-    }
-
     public static void registerParticle() {
         ParticleProviderRegistry.register(ParticleRegistry.VENUS_RAIN_PARTICLE.get(), VenusRainParticle.ParticleFactory::new);
         ParticleProviderRegistry.register(ParticleRegistry.LARGE_FLAME_PARTICLE.get(), LargeFlameParticle.ParticleFactory::new);

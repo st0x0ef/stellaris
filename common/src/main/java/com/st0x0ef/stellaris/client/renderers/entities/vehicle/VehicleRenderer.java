@@ -36,8 +36,8 @@ public abstract class VehicleRenderer<T extends IVehicleEntity, M extends Entity
         this.shadowRadius = shadowRadius;
     }
 
-    public final boolean addLayer(RenderLayer<T, M> p_115327_) {
-        return this.layers.add(p_115327_);
+    public final boolean addLayer(RenderLayer<T, M> layer) {
+        return this.layers.add(layer);
     }
 
     public M getModel() {
@@ -47,7 +47,6 @@ public abstract class VehicleRenderer<T extends IVehicleEntity, M extends Entity
     @Override
     public void render(T entity, float entityYaw, float partialTick, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
         poseStack.pushPose();
-        //&& entity.getVehicle().shouldRiderSit()
         boolean shouldSit = entity.isPassenger() && (entity.getVehicle() != null);
         this.model.riding = shouldSit;
         float f = Mth.rotLerp(partialTick, entity.yRotO, entity.getYRot());

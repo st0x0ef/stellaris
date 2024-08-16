@@ -127,7 +127,6 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
             }
         }
 
-        //stolen from AbstractChestedHorse
         ListTag listTag = new ListTag();
 
         for(int i = 1; i < this.inventory.getContainerSize(); ++i) {

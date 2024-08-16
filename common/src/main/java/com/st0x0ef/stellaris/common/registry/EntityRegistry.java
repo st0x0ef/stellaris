@@ -52,17 +52,12 @@ public class EntityRegistry {
      * Vehicles
      */
     public static final RegistrySupplier<EntityType<RocketEntity>> TINY_ROCKET = ENTITY_TYPE.register("tiny_rocket", () -> EntityType.Builder.of(RocketEntity::new, MobCategory.MISC).sized(1.1f, 4.4f).fireImmune().build(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "tiny_rocket").toString()));
+    public static final RegistrySupplier<EntityType<RocketEntity>> SMALL_ROCKET = ENTITY_TYPE.register("small_rocket", () -> EntityType.Builder.of(RocketEntity::new, MobCategory.MISC).sized(0.8f, 3.2f).build(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "small_rocket").toString()));
+    public static final RegistrySupplier<EntityType<RocketEntity>> NORMAL_ROCKET = ENTITY_TYPE.register("normal_rocket", () -> EntityType.Builder.of(RocketEntity::new, MobCategory.MISC).sized(1.1f, 4.4f).build(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "normal_rocket").toString()));
     public static final RegistrySupplier<EntityType<RocketEntity>> BIG_ROCKET = ENTITY_TYPE.register("big_rocket", () -> EntityType.Builder.of(RocketEntity::new, MobCategory.MISC).sized(1.1f, 4.4f).fireImmune().build(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "big_rocket").toString()));
 
-    public static final RegistrySupplier<EntityType<RocketEntity>> NORMAL_ROCKET = ENTITY_TYPE.register("normal_rocket",
-            () -> EntityType.Builder.of(RocketEntity::new, MobCategory.MISC).sized(1.1f, 4.4f).build(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "normal_rocket").toString()));
-    public static final RegistrySupplier<EntityType<RocketEntity>> SMALL_ROCKET = ENTITY_TYPE.register("small_rocket",
-            () -> EntityType.Builder.of(RocketEntity::new, MobCategory.MISC).sized(0.8f, 3.2f).build(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "small_rocket").toString()));
+    public static final RegistrySupplier<EntityType<LanderEntity>> LANDER = ENTITY_TYPE.register("lander", () -> EntityType.Builder.<LanderEntity>of(LanderEntity::new, MobCategory.MISC).sized(2.5f, 1.0f).build(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "lander").toString()));
 
-    public static final RegistrySupplier<EntityType<LanderEntity>> LANDER = ENTITY_TYPE.register("lander",
-            () -> EntityType.Builder.<LanderEntity>of(LanderEntity::new, MobCategory.MISC).sized(2.5f, 1.0f).build(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "lander").toString()));
-
-    //Entity Attributes
     public static void registerAttributes(BiConsumer<Supplier<? extends EntityType<? extends LivingEntity>>, Supplier<AttributeSupplier.Builder>> attributes) {
         attributes.accept(ALIEN,  Alien::setCustomAttributes);
         attributes.accept(ALIEN_ZOMBIE,  AlienZombie::setCustomAttributes);

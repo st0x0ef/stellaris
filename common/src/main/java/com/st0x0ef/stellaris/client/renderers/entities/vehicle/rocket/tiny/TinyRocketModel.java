@@ -13,7 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class TinyRocketModel<T extends RocketEntity> extends EntityModel<T> {
 
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "rocket_tiny"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "tiny_rocket"), "main");
     private final ModelPart rocket;
 
     public TinyRocketModel(ModelPart root) {
