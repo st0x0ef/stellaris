@@ -85,7 +85,7 @@ public class SkyRenderer {
             RenderSystem.setShader(GameRenderer::getPositionColorShader);
             RenderSystem.setShaderColor(starLight + 1f, starLight + 1f, starLight + 1f, starLight + 1f);
             StarHelper.drawStars(starBuffer, poseStack, projectionMatrix);
-        } else if (starLight > 0.0F) {
+        } else if (starLight > 0.2F) {
             RenderSystem.setShader(GameRenderer::getPositionColorShader);
             RenderSystem.setShaderColor(starLight + 0.5f, starLight + 0.5f, starLight + 0.5f, starLight + 0.5f);
             StarHelper.drawStars(starBuffer, poseStack, projectionMatrix);
