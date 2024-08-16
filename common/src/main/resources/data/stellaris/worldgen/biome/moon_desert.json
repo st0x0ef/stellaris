@@ -17,7 +17,7 @@
     "monster": [
 	  {
         "type": "stellaris:alien_zombie",
-        "weight": 55,
+        "weight": 35,
         "minCount": 1,
         "maxCount": 1
       },
