@@ -2,7 +2,7 @@
   "id": "minecraft:overworld",
   "cloud": true,
   "cloud_height": 192,
-  "fog": false,
+  "fog": true,
   "custom_vanilla_objects": {
     "sun": true,
     "sun_texture": "textures/environment/sun.png",
@@ -24,5 +24,4 @@
   },
   "sky_type": "NORMAL",
   "sky_objects": []
-
 }

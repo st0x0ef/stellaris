@@ -31,9 +31,10 @@ import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.tiny.TinyR
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.tiny.TinyRocketRenderer;
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeBlockRenderer;
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeModel;
+import com.st0x0ef.stellaris.client.screens.*;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
-import dev.architectury.registry.client.level.entity.EntityModelLayerRegistry;
+import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -97,7 +98,17 @@ public class StellarisNeoforgeClient {
 
     @SubscribeEvent
     public static void registerScreen(RegisterMenuScreensEvent event) {
-        StellarisClient.registerScreen();
+        event.register(MenuTypesRegistry.ROCKET_STATION.get(), RocketStationScreen::new);
+        event.register(MenuTypesRegistry.ROCKET_MENU.get(), RocketScreen::new);
+        event.register(MenuTypesRegistry.VACUMATOR_MENU.get(), VacumatorScreen::new);
+        event.register(MenuTypesRegistry.SOLAR_PANEL_MENU.get(), SolarPanelScreen::new);
+        event.register(MenuTypesRegistry.COAL_GENERATOR_MENU.get(), CoalGeneratorScreen::new);
+        event.register(MenuTypesRegistry.RADIOACTIVE_GENERATOR_MENU.get(), RadioactiveGeneratorScreen::new);
+        event.register(MenuTypesRegistry.PLANET_SELECTION_MENU.get(), PlanetSelectionScreen::new);
+        event.register(MenuTypesRegistry.MILKYWAY_MENU.get(), MilkyWayScreen::new);
+        event.register(MenuTypesRegistry.LANDER_MENU.get(), LanderScreen::new);
+        event.register(MenuTypesRegistry.OXYGEN_DISTRIBUTOR.get(), OxygenDistributorScreen::new);
+        event.register(MenuTypesRegistry.WATER_SEPARATOR_MENU.get(), WaterSeparatorScreen::new);
+        event.register(MenuTypesRegistry.FUEL_REFINERY.get(), FuelRefineryScreen::new);
     }
-
 }

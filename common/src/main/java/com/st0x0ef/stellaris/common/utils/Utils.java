@@ -192,7 +192,7 @@ public class Utils {
     public static <T extends Enum<T>> Codec<T> EnumCodec(Class<T> e) {
         Function<String, T> stringToEnum = s -> Enum.valueOf(e, s.toUpperCase(Locale.ROOT));
 
-        Function<T, String> enumToString = enumValue -> enumValue.name();
+        Function<T, String> enumToString = Enum::name;
 
         return Codec.STRING.xmap(stringToEnum, enumToString);
     }

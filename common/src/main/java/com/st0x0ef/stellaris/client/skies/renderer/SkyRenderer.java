@@ -31,10 +31,9 @@ public class SkyRenderer {
     }
 
     public void render(ClientLevel level, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, Camera camera, Runnable fogCallback) {
-        fogCallback.run();
+        if (properties.fog()) fogCallback.run();
 
         Tesselator tesselator = Tesselator.getInstance();
-
         CustomVanillaObject customVanillaObject = properties.customVanillaObject();
 
         float dayAngle = level.getTimeOfDay(partialTick) * 360f % 360f;
@@ -50,9 +49,6 @@ public class SkyRenderer {
 
         ShaderInstance shaderInstance = RenderSystem.getShader();
         SkyHelper.drawSky(poseStack.last().pose(), projectionMatrix, shaderInstance, tesselator, poseStack, partialTick);
-
-        // Star
-        renderStars(level, dayAngle, partialTick, poseStack, projectionMatrix, camera);
 
         // Sun
         if (customVanillaObject.sun()) {
@@ -72,6 +68,9 @@ public class SkyRenderer {
         for (SkyObject skyObject : properties.skyObjects()) {
             SkyHelper.drawCelestialBody(skyObject, tesselator, poseStack, 100f, dayAngle, skyObject.blend());
         }
+
+        // Star
+        renderStars(level, dayAngle, partialTick, poseStack, projectionMatrix, camera);
 
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         RenderSystem.depthMask(true);
