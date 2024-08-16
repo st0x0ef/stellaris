@@ -1,8 +1,6 @@
 package com.st0x0ef.stellaris.common.compats.jei;
 
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.client.screens.RocketStationScreen;
-import com.st0x0ef.stellaris.common.registry.CreativeTabsRegistry;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import com.st0x0ef.stellaris.common.registry.RecipesRegistry;
 import mezz.jei.api.IModPlugin;
