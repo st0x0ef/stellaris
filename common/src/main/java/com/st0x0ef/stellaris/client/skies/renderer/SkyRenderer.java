@@ -52,7 +52,7 @@ public class SkyRenderer {
 
         // Sun
         if (customVanillaObject.sun()) {
-            SkyHelper.drawCelestialBody(customVanillaObject.sunTexture(), tesselator, poseStack, 100f, 30f, dayAngle, true);
+            SkyHelper.drawCelestialBody(customVanillaObject.sunTexture(), tesselator, poseStack, 100f, customVanillaObject.sunSize(), dayAngle, true);
         }
 
         // Moon
@@ -60,7 +60,7 @@ public class SkyRenderer {
             if (customVanillaObject.moonPhase()) {
                 SkyHelper.drawMoonWithPhase(level, tesselator, poseStack, -100f, customVanillaObject, dayAngle);
             } else {
-                SkyHelper.drawCelestialBody(customVanillaObject.moonTexture(), tesselator, poseStack, -100f, 20f, dayAngle, 0, 1, 0, 1, false);
+                SkyHelper.drawCelestialBody(customVanillaObject.moonTexture(), tesselator, poseStack, -100f, customVanillaObject.moonSize(), dayAngle, 0, 1, 0, 1, false);
             }
         }
 
@@ -70,7 +70,7 @@ public class SkyRenderer {
         }
 
         // Star
-        renderStars(level, partialTick, poseStack, projectionMatrix);
+        renderStars(level, partialTick, poseStack, projectionMatrix, fogCallback);
 
         if (properties.fog()) fogCallback.run();
 
@@ -78,7 +78,7 @@ public class SkyRenderer {
         RenderSystem.depthMask(true);
     }
 
-    private void renderStars(ClientLevel level, float partialTick, PoseStack poseStack, Matrix4f projectionMatrix) {
+    private void renderStars(ClientLevel level, float partialTick, PoseStack poseStack, Matrix4f projectionMatrix, Runnable fogCallback) {
         float starLight = level.getStarBrightness(partialTick) * (1.0f - level.getRainLevel(partialTick));
 
         if (properties.stars().allDaysVisible()){
@@ -90,6 +90,8 @@ public class SkyRenderer {
             RenderSystem.setShaderColor(starLight + 0.5f, starLight + 0.5f, starLight + 0.5f, starLight + 0.5f);
             StarHelper.drawStars(starBuffer, poseStack, projectionMatrix);
         }
+        if (properties.fog()) fogCallback.run();
+
     }
 
     public Boolean shouldRemoveCloud() {
