@@ -11,7 +11,7 @@ You have questions ? We have answers !
 
 
 ### Is this mod will be available for this minecraft version ?
-- We have planned to backport Stellaris on multiple minecraft version like `1.18.2`, `1.19.X` and `1.20.1`. If the minecraft version you want is not in this list, you can join the [discord](https://discord.gg/project-stellaris-698598471896268931) to ask if we can backport it. But remember : we are making the mod in our free time !
+- We have planned to backport Stellaris on multiple minecraft version like `1.18.2`, `1.19.X`, `1.20.1` and `1.20.1`. If the minecraft version you want is not in this list, you can join the [discord](https://discord.gg/project-stellaris-698598471896268931) to ask if we can backport it. But remember : we are making the mod in our free time !
 
 ::: info
 If you have others question, join the [discord](https://discord.gg/project-stellaris-698598471896268931) to ask them to the team
