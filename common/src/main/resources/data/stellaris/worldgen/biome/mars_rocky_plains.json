@@ -23,7 +23,7 @@
     "monster": [
 	  {
         "type": "stellaris:martian_raptor",
-        "weight": 100,
+        "weight": 56,
         "minCount": 1,
         "maxCount": 3
       }
