@@ -3,7 +3,7 @@ package com.st0x0ef.stellaris.client.screens;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.components.Gauge;
-import com.st0x0ef.stellaris.common.entities.RocketEntity;
+import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
 import com.st0x0ef.stellaris.common.menus.RocketMenu;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -17,7 +17,7 @@ import net.minecraft.world.entity.player.Inventory;
 @Environment(EnvType.CLIENT)
 public class RocketScreen extends AbstractContainerScreen<RocketMenu> {
 
-    private static final ResourceLocation TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/rocket.png");
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/rocket.png");
 
     private final RocketEntity rocket = getMenu().getRocket();
     private Gauge fuelGauge;

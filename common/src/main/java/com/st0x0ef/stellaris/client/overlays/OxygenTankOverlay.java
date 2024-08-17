@@ -17,8 +17,8 @@ import net.minecraft.world.item.ItemStack;
 
 public class OxygenTankOverlay {
 
-    public static final ResourceLocation OXYGEN_TANK = new ResourceLocation(Stellaris.MODID, "textures/overlay/oxygen_tank.png");
-    public static final ResourceLocation OXYGEN_TANK_FULL = new ResourceLocation(Stellaris.MODID, "textures/overlay/oxygen_tank_full.png");
+    public static final ResourceLocation OXYGEN_TANK = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/overlay/oxygen_tank.png");
+    public static final ResourceLocation OXYGEN_TANK_FULL = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/overlay/oxygen_tank_full.png");
 
 
     public static void render(GuiGraphics graphics, float partialTick) {

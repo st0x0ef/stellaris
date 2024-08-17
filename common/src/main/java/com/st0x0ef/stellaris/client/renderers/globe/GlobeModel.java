@@ -17,7 +17,7 @@ import net.minecraft.util.Mth;
 
 @Environment(EnvType.CLIENT)
 public class GlobeModel<T extends GlobeBlockEntity> extends Model {
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(Stellaris.MODID, "globe"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "globe"), "main");
     public final ModelPart globe;
 
     public GlobeModel(ModelPart root) {
@@ -39,8 +39,8 @@ public class GlobeModel<T extends GlobeBlockEntity> extends Model {
     }
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        globe.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
+        globe.render(poseStack, buffer, packedLight, packedOverlay, color);
     }
 
     public void setupAnim(GlobeBlockEntity entity, float partialTicks) {

@@ -6,6 +6,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
@@ -25,7 +26,7 @@ public abstract class EntityEatMixin extends LivingEntity {
 
 
     @Inject(at = @At(value = "HEAD"), method = "eat", cancellable = true)
-    private void cancelEat(Level level, ItemStack food, CallbackInfoReturnable<ItemStack> cir) {
+    private void cancelEat(Level level, ItemStack food, FoodProperties foodProperties, CallbackInfoReturnable<ItemStack> cir) {
         if(PlanetUtil.isPlanet(level.dimension().location())) {
             if(!PlanetUtil.hasOxygen(level.dimension().location()) && !food.is(TagRegistry.SPACE_FOOD)) {
                 cir.setReturnValue(food);

@@ -3,7 +3,7 @@ package com.st0x0ef.stellaris.client.renderers.entities.vehicle.lander;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.entities.LanderEntity;
+import com.st0x0ef.stellaris.common.entities.vehicles.LanderEntity;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
@@ -13,7 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class LanderModel<T extends LanderEntity> extends EntityModel<T> {
 
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(Stellaris.MODID, "lander"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "lander"), "main");
     private final ModelPart leg1;
     private final ModelPart leg2;
     private final ModelPart leg3;
@@ -125,11 +125,11 @@ public class LanderModel<T extends LanderEntity> extends EntityModel<T> {
     }
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        this.leg1.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-        this.leg2.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-        this.leg3.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-        this.leg4.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-        this.lander.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
+        this.leg1.render(poseStack, buffer, packedLight, packedOverlay, color);
+        this.leg2.render(poseStack, buffer, packedLight, packedOverlay, color);
+        this.leg3.render(poseStack, buffer, packedLight, packedOverlay, color);
+        this.leg4.render(poseStack, buffer, packedLight, packedOverlay, color);
+        this.lander.render(poseStack, buffer, packedLight, packedOverlay, color);
     }
 }

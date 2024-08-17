@@ -18,7 +18,7 @@ import net.minecraft.world.entity.player.Inventory;
 @Environment(EnvType.CLIENT)
 public class OxygenDistributorScreen extends AbstractContainerScreen<OxygenDistributorMenu> {
 
-    private static final ResourceLocation TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/oxygen_distributor.png");
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/oxygen_distributor.png");
 
     private final OxygenDistributorBlockEntity blockEntity = getMenu().getBlockEntity();
     private Gauge energyGauge;

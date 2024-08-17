@@ -2,7 +2,8 @@ package com.st0x0ef.stellaris.client.overlays;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.entities.RocketEntity;
+import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
@@ -11,18 +12,18 @@ import net.minecraft.world.entity.player.Player;
 
 public class RocketStartOverlay {
 
-    public static final ResourceLocation TIMER_1 = new ResourceLocation(Stellaris.MODID, "textures/overlay/timer/timer_1.png");
-    public static final ResourceLocation TIMER_2 = new ResourceLocation(Stellaris.MODID, "textures/overlay/timer/timer_2.png");
-    public static final ResourceLocation TIMER_3 = new ResourceLocation(Stellaris.MODID, "textures/overlay/timer/timer_3.png");
-    public static final ResourceLocation TIMER_4 = new ResourceLocation(Stellaris.MODID, "textures/overlay/timer/timer_4.png");
-    public static final ResourceLocation TIMER_5 = new ResourceLocation(Stellaris.MODID, "textures/overlay/timer/timer_5.png");
-    public static final ResourceLocation TIMER_6 = new ResourceLocation(Stellaris.MODID, "textures/overlay/timer/timer_6.png");
-    public static final ResourceLocation TIMER_7 = new ResourceLocation(Stellaris.MODID, "textures/overlay/timer/timer_7.png");
-    public static final ResourceLocation TIMER_8 = new ResourceLocation(Stellaris.MODID, "textures/overlay/timer/timer_8.png");
-    public static final ResourceLocation TIMER_9 = new ResourceLocation(Stellaris.MODID, "textures/overlay/timer/timer_9.png");
-    public static final ResourceLocation TIMER_10 = new ResourceLocation(Stellaris.MODID, "textures/overlay/timer/timer_10.png");
+    public static final ResourceLocation TIMER_1 = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/overlay/timer/timer_1.png");
+    public static final ResourceLocation TIMER_2 = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/overlay/timer/timer_2.png");
+    public static final ResourceLocation TIMER_3 = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/overlay/timer/timer_3.png");
+    public static final ResourceLocation TIMER_4 = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/overlay/timer/timer_4.png");
+    public static final ResourceLocation TIMER_5 = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/overlay/timer/timer_5.png");
+    public static final ResourceLocation TIMER_6 = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/overlay/timer/timer_6.png");
+    public static final ResourceLocation TIMER_7 = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/overlay/timer/timer_7.png");
+    public static final ResourceLocation TIMER_8 = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/overlay/timer/timer_8.png");
+    public static final ResourceLocation TIMER_9 = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/overlay/timer/timer_9.png");
+    public static final ResourceLocation TIMER_10 = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/overlay/timer/timer_10.png");
 
-    public static void render(GuiGraphics graphics, float tickDelta) {
+    public static void render(GuiGraphics graphics, DeltaTracker deltaTracker) {
         Minecraft mc = Minecraft.getInstance();
         Player player = mc.player;
 

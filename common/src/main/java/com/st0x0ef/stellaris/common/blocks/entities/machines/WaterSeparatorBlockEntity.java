@@ -15,13 +15,14 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.List;
 import java.util.Optional;
 
-public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity {
+public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity implements RecipeInput {
 
     private static final int TANK_CAPACITY = 3;
 
@@ -115,5 +116,10 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity {
 
     public NonNullList<FluidTank> getResultTanks() {
         return resultTanks;
+    }
+
+    @Override
+    public int size() {
+        return this.getContainerSize();
     }
 }

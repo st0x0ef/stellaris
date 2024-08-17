@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "stellaris:alien",
+    "stellaris:alien_zombie",
+    "stellaris:star_crawler",
+    "stellaris:pygro",
+    "stellaris:pygro_brute",
+    "stellaris:mogler",
+    "stellaris:martian_raptor",
+    "stellaris:cheese_boss",
+    "minecraft:magma_cube"
+  ]
+}

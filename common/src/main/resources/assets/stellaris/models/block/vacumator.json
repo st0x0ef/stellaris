@@ -1,9 +1,0 @@
-{
-  "parent": "minecraft:block/orientable_with_bottom",
-  "textures": {
-    "bottom": "stellaris:block/machines/vacumator_bottom",
-    "front": "stellaris:block/machines/vacumator_front",
-    "side": "stellaris:block/machines/vacumator_side",
-    "top": "stellaris:block/machines/vacumator_top"
-  }
-}

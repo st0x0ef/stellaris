@@ -1,5 +1,5 @@
 plugins {
-    id "dev.architectury.loom" version "1.6-SNAPSHOT" apply false
+    id "dev.architectury.loom" version "1.7-SNAPSHOT" apply false
     id "architectury-plugin" version "3.4-SNAPSHOT"
     id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
 }
@@ -26,6 +26,7 @@ subprojects {
         maven { url "https://maven.terraformersmc.com/releases" }
         maven { url "https://maven.parchmentmc.org" }
         maven { url "https://maven.neoforged.net/releases" }
+        maven { url "https://maven.blamejared.com/" }
     }
 
     dependencies {
@@ -38,6 +39,7 @@ subprojects {
 
         modCompileOnly "me.shedaniel:RoughlyEnoughItems-api:${rootProject.rei_version}"
         modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin:${rootProject.rei_version}"
+        modCompileOnly("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
     }
 
     java {
@@ -67,7 +69,8 @@ subprojects {
             }
             repositories {
                 maven {
-                    url = "https://maven.odysseyus.fr/releases/"
+                    url = "http://maven.odysseyus.fr/releases/"
+                    allowInsecureProtocol = true
                     credentials {
                         username = System.getenv("MAVEN_USER")
                         password = System.getenv("MAVEN_PASS")

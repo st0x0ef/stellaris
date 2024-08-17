@@ -14,12 +14,10 @@ import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.resources.ResourceLocation;
 import org.joml.Matrix4f;
 
-import java.util.Objects;
-
 public class SkyHelper {
-    public static void drawSky(Matrix4f matrix4f, Matrix4f projectionMatrix, ShaderInstance shaderInstance) {
-        ((LevelRendererAccessor) Minecraft.getInstance().levelRenderer).stellaris$getSkyBuffer().bind();
-        ((LevelRendererAccessor) Minecraft.getInstance().levelRenderer).stellaris$getSkyBuffer().drawWithShader(matrix4f, projectionMatrix, shaderInstance);
+    public static void drawSky(Minecraft mc, Matrix4f matrix4f, Matrix4f projectionMatrix, ShaderInstance shaderInstance) {
+        ((LevelRendererAccessor) mc.levelRenderer).stellaris$getSkyBuffer().bind();
+        ((LevelRendererAccessor) mc.levelRenderer).stellaris$getSkyBuffer().drawWithShader(matrix4f, projectionMatrix, shaderInstance);
         VertexBuffer.unbind();
     }
 
@@ -31,10 +29,11 @@ public class SkyHelper {
         float startY = yCoord / 2.0F;
         float endX = (xCoord + 1) / 4.0F;
         float endY = (yCoord + 1) / 2.0F;
+
         drawCelestialBody(customVanillaObject.moonTexture(), bufferBuilder, poseStack, y, 20f, dayAngle, startX, endX, startY, endY, true);
     }
 
-        public static void drawCelestialBody(SkyObject skyObject, BufferBuilder bufferBuilder, PoseStack poseStack, float y, float dayAngle, boolean blend) {
+    public static void drawCelestialBody(SkyObject skyObject, BufferBuilder bufferBuilder, PoseStack poseStack, float y, float dayAngle, boolean blend) {
         drawCelestialBody(skyObject.texture(), bufferBuilder, poseStack, y, skyObject.size(), dayAngle, blend);
     }
 
@@ -45,6 +44,7 @@ public class SkyHelper {
     public static void drawCelestialBody(ResourceLocation texture, BufferBuilder bufferBuilder, PoseStack poseStack, float y, float size, float dayAngle, float startX, float endX, float startY, float endY, boolean blend) {
         if (blend) {
             RenderSystem.enableBlend();
+            RenderSystem.defaultBlendFunc();
             RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
         }
 

@@ -24,6 +24,6 @@ public class SkinUpgrade extends RocketUpgrade {
     }
 
     public static SkinUpgrade getBasic() {
-        return new SkinUpgrade(new ResourceLocation(Stellaris.MODID, "textures/vehicle/rocket_skin/normal/standard.png"));
+        return new SkinUpgrade(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/vehicle/rocket_skin/normal/standard.png"));
     }
 }

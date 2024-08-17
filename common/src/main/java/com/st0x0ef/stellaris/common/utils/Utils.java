@@ -2,10 +2,9 @@ package com.st0x0ef.stellaris.common.utils;
 
 import com.mojang.serialization.Codec;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
-import com.st0x0ef.stellaris.common.entities.LanderEntity;
-import com.st0x0ef.stellaris.common.entities.RocketEntity;
+import com.st0x0ef.stellaris.common.entities.vehicles.LanderEntity;
+import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
-import com.st0x0ef.stellaris.platform.TeleportUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
@@ -59,7 +58,7 @@ public class Utils {
 
     /** Teleport an entity to the planet wanted */
     public static void teleportEntity(Entity entity, Planet destination) {
-        if(entity.level().isClientSide() || !entity.canChangeDimensions()) return;
+        if(entity.level().isClientSide()) return;
         entity.setNoGravity(false);
 
         entity.level().getServer().getAllLevels().forEach(level -> {
@@ -193,7 +192,7 @@ public class Utils {
     public static <T extends Enum<T>> Codec<T> EnumCodec(Class<T> e) {
         Function<String, T> stringToEnum = s -> Enum.valueOf(e, s.toUpperCase(Locale.ROOT));
 
-        Function<T, String> enumToString = enumValue -> enumValue.name();
+        Function<T, String> enumToString = Enum::name;
 
         return Codec.STRING.xmap(stringToEnum, enumToString);
     }

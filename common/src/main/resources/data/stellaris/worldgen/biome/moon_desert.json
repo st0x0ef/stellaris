@@ -17,13 +17,13 @@
     "monster": [
 	  {
         "type": "stellaris:alien_zombie",
-        "weight": 100,
+        "weight": 55,
         "minCount": 1,
-        "maxCount": 3
+        "maxCount": 1
       },
 	  {
         "type": "stellaris:star_crawler",
-        "weight": 100,
+        "weight": 45,
         "minCount": 1,
         "maxCount": 3
       }

@@ -20,7 +20,7 @@ import net.minecraft.world.entity.monster.piglin.PiglinArmPose;
 @Environment(EnvType.CLIENT)
 public class PygroModel<T extends Mob> extends PlayerModel<T> {
 
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(Stellaris.MODID, "pygro"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "pygro"), "main");
 
     public final ModelPart rightEar = this.head.getChild("right_ear");
     private final ModelPart leftEar = this.head.getChild("left_ear");

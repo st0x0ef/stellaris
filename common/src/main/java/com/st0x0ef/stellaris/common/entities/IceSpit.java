@@ -5,6 +5,7 @@ import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import dev.architectury.networking.NetworkManager;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.server.level.ServerEntity;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.EntityType;
@@ -21,12 +22,12 @@ public class IceSpit extends AbstractArrow implements ItemSupplier {
 
 
     public IceSpit(EntityType<? extends IceSpit> entityType, Level level) {
-        super(entityType, level, new ItemStack(ItemsRegistry.ICE_SHARD.get()));
+        super(entityType, level);
     }
 
 
     protected IceSpit(EntityType<? extends AbstractArrow> entityType, LivingEntity livingEntity, Level level, ItemStack itemStack) {
-        super(entityType, livingEntity, level, new ItemStack(ItemsRegistry.ICE_SHARD.get()));
+        super(entityType, livingEntity, level, new ItemStack(ItemsRegistry.ICE_SHARD.get()), null);
     }
 
     @Override
@@ -48,7 +49,6 @@ public class IceSpit extends AbstractArrow implements ItemSupplier {
         entityArrow.shoot(d1, d0 - entityArrow.getY() + Math.sqrt(d1 * d1 + d3 * d3) * 0.2F, d3, 0.7f * 2, 12.0F);
         entityArrow.setSilent(true);
         entityArrow.setBaseDamage(damage);
-        entityArrow.setKnockback(1);
         entityArrow.setCritArrow(false);
 
         entity.level().addFreshEntity(entityArrow);
@@ -58,7 +58,7 @@ public class IceSpit extends AbstractArrow implements ItemSupplier {
     }
 
     @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
-        return NetworkManager.createAddEntityPacket(this);
+    public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity entity) {
+        return NetworkManager.createAddEntityPacket(this, entity);
     }
 }

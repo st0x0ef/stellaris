@@ -22,7 +22,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.MouseHandler;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -709,11 +708,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     public void tpToFocusedPlanet() {
         if (focusedBody != null) {
-
             NetworkManager.sendToServer(new TeleportEntityToPlanetPacket(focusedBody.dimension));
-            long windowHandle = Minecraft.getInstance().getWindow().getWindow();
-            prevScrollCallback = GLFW.glfwSetScrollCallback(windowHandle, Minecraft.getInstance().mouseHandler::onScroll);
-
         } else {
             Stellaris.LOG.error("Focused body is null");
         }

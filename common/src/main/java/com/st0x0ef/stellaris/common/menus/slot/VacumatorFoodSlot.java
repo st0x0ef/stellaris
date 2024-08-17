@@ -1,6 +1,6 @@
 package com.st0x0ef.stellaris.common.menus.slot;
 
-import com.st0x0ef.stellaris.common.blocks.entities.machines.VacumatorBlockEntity;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.VacuumatorBlockEntity;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
@@ -13,6 +13,6 @@ public class VacumatorFoodSlot extends Slot {
 
     @Override
     public boolean mayPlace(ItemStack stack) {
-        return VacumatorBlockEntity.isFood(stack);
+        return VacuumatorBlockEntity.isFood(stack);
     }
 }

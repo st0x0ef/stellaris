@@ -7,14 +7,14 @@ import net.minecraft.resources.ResourceLocation;
 
 public class GaugeValueHelper
 {
-    public static final ResourceLocation ENERGY_NAME = new ResourceLocation(Stellaris.MODID, "energy");
-    public static final ResourceLocation OXYGEN_NAME = new ResourceLocation(Stellaris.MODID, "oxygen");
+    public static final ResourceLocation ENERGY_NAME = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "energy");
+    public static final ResourceLocation OXYGEN_NAME = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "oxygen");
 
-    public static final ResourceLocation HYDROGEN_NAME = new ResourceLocation(Stellaris.MODID, "hydrogen");
-    public static final ResourceLocation FLUID_NAME = new ResourceLocation(Stellaris.MODID, "fluid");
-    public static final ResourceLocation FUEL_NAME = new ResourceLocation(Stellaris.MODID, "fuel");
-    public static final ResourceLocation BURNTIME_NAME = new ResourceLocation(Stellaris.MODID, "burntime");
-    public static final ResourceLocation COOKTIME_NAME = new ResourceLocation(Stellaris.MODID, "cooktime");
+    public static final ResourceLocation HYDROGEN_NAME = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "hydrogen");
+    public static final ResourceLocation FLUID_NAME = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "fluid");
+    public static final ResourceLocation FUEL_NAME = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "fuel");
+    public static final ResourceLocation BURNTIME_NAME = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "burntime");
+    public static final ResourceLocation COOKTIME_NAME = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "cooktime");
 
     public static final int ENERGY_COLOR = 0xA0FF404B;
     public static final int OXYGEN_COLOR = 0xA000FFFF;

@@ -19,7 +19,7 @@ import net.minecraft.world.entity.player.Inventory;
 @Environment(EnvType.CLIENT)
 public class WaterSeparatorScreen extends AbstractContainerScreen<WaterSeparatorMenu> {
 
-    private static final ResourceLocation TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/water_separator.png");
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/water_separator.png");
 
     private final WaterSeparatorBlockEntity blockEntity = getMenu().getBlockEntity();
     private Gauge ingredientTankGauge;

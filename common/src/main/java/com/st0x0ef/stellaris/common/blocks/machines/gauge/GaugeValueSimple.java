@@ -1,9 +1,12 @@
 package com.st0x0ef.stellaris.common.blocks.machines.gauge;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.Nullable;
+
+import static com.ibm.icu.impl.CurrencyData.provider;
 
 public class GaugeValueSimple implements IGaugeValue
 {
@@ -146,12 +149,12 @@ public class GaugeValueSimple implements IGaugeValue
     }
     @Override
     public void deserialize(CompoundTag nbt) {
-        this.name(new ResourceLocation(nbt.getString("name")));
+        this.name(ResourceLocation.parse(nbt.getString("name")));
         this.amount(nbt.getInt("amount"));
         this.capacity(nbt.getInt("capacity"));
 
         if (nbt.contains("displayName")) {
-            //this.displayeName(Component.Serializer.fromJson(nbt.getString("displayName"), provider));
+            this.displayeName(Component.Serializer.fromJson(nbt.getString("displayName"), (HolderLookup.Provider) provider));
         }
 
         this.unit(nbt.getString("unit"));

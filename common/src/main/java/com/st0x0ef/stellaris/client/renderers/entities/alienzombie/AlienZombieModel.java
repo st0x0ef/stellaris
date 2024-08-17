@@ -3,7 +3,7 @@ package com.st0x0ef.stellaris.client.renderers.entities.alienzombie;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.entities.AlienZombie;
+import com.st0x0ef.stellaris.common.entities.mobs.AlienZombie;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.EntityModel;
@@ -17,7 +17,7 @@ import net.minecraft.util.Mth;
 @Environment(EnvType.CLIENT)
 public class AlienZombieModel<T extends AlienZombie> extends EntityModel<T> {
 
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(Stellaris.MODID, "alien_zombie"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "alien_zombie"), "main");
 
     private final ModelPart head;
     private final ModelPart body;
@@ -94,17 +94,17 @@ public class AlienZombieModel<T extends AlienZombie> extends EntityModel<T> {
     }
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        head.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-        body.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-        leg0.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-        leg1.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-        arm1.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-        arm2.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-        monsterarm1.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-        monsterarm2.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-        monsterarm3.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-        monsterarm4.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
+        head.render(poseStack, buffer, packedLight, packedOverlay, color);
+        body.render(poseStack, buffer, packedLight, packedOverlay, color);
+        leg0.render(poseStack, buffer, packedLight, packedOverlay, color);
+        leg1.render(poseStack, buffer, packedLight, packedOverlay, color);
+        arm1.render(poseStack, buffer, packedLight, packedOverlay, color);
+        arm2.render(poseStack, buffer, packedLight, packedOverlay, color);
+        monsterarm1.render(poseStack, buffer, packedLight, packedOverlay, color);
+        monsterarm2.render(poseStack, buffer, packedLight, packedOverlay, color);
+        monsterarm3.render(poseStack, buffer, packedLight, packedOverlay, color);
+        monsterarm4.render(poseStack, buffer, packedLight, packedOverlay, color);
     }
 
     @Override

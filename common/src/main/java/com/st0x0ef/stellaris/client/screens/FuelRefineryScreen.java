@@ -16,7 +16,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 public class FuelRefineryScreen extends AbstractContainerScreen<FuelRefineryMenu> {
 
-    private static final ResourceLocation TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/fuel_refinery.png");
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/fuel_refinery.png");
 
     private final FuelRefineryBlockEntity blockEntity = getMenu().getBlockEntity();
     private Gauge ingredientTankGauge;

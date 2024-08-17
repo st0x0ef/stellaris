@@ -18,7 +18,12 @@
       "probability": 0.014
     }
   },
-  "spawners": {},
+  "spawners": {
+    "type": "stellaris:mogler",
+    "weight": 55,
+    "minCount": 1,
+    "maxCount": 1
+  },
   "spawn_costs": {},
   "carvers": {
     "air": [
@@ -34,7 +39,7 @@
     [],
     [],
     [],
-    [],
+    [    ],
     []
   ]
 }

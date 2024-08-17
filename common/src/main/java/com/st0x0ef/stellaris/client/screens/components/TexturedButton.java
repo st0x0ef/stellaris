@@ -43,8 +43,8 @@ public class TexturedButton extends Button {
         this.yDiffText = 0;
         this.xTexStart = 0;
         this.yTexStart = 0;
-        this.buttonTexture = new ResourceLocation(Stellaris.MODID, "textures/gui/util/buttons/button.png");
-        this.hoverButtonTexture = new ResourceLocation(Stellaris.MODID, "textures/gui/util/buttons/button.png");
+        this.buttonTexture = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/button.png");
+        this.hoverButtonTexture = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/button.png");
     }
 
     @SuppressWarnings("unchecked")

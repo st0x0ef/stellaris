@@ -11,7 +11,6 @@ loom {
     accessWidenerPath = project(":common").loom.accessWidenerPath
 }
 
-
 configurations {
     common {
         canBeResolved = true
@@ -30,15 +29,18 @@ configurations {
 }
 
 dependencies {
-    neoForge "net.neoforged:neoforge:${rootProject.neoforge_version}"
-    modApi "dev.architectury:architectury-neoforge:${rootProject.architectury_version}"
-    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-neoforge:${rootProject.rei_version}"
-    modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-neoforge:${rootProject.rei_version}"
+    neoForge "net.neoforged:neoforge:${neoforge_version}"
+    modApi "dev.architectury:architectury-neoforge:${architectury_version}"
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-neoforge:${rei_version}"
+    modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}"
+    compileOnly("mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}")
+    runtimeOnly("mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}")
+
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowBundle project(path: ":common", configuration: "transformProductionNeoForge")
 
     if (System.getenv("CI") != null) {
-        modLocalRuntime "com.github.jab125.architectury-data-generation-fix:architectury-data-generation-fix-neoforge:20.6.0"
+        modLocalRuntime "com.github.jab125.architectury-data-generation-fix:architectury-data-generation-fix-neoforge:21.0.0"
     }
 }
 

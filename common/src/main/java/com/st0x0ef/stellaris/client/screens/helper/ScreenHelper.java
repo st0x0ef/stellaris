@@ -46,15 +46,13 @@ public class ScreenHelper {
             int g = (int) color.y();
             int b = (int) color.z();
 
-            RenderSystem.setShader(GameRenderer::getPositionColorTexShader);
-            BufferBuilder bufferbuilder = Tesselator.getInstance().getBuilder();
-            if (bufferbuilder.building()) return;
-            bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR_TEX);
-            bufferbuilder.vertex(matrix4f, (float) x, (float) p_93117_, (float) p_93118_).color(r, g, b, 255).uv(p_93119_, p_93122_).endVertex();
-            bufferbuilder.vertex(matrix4f, (float) y, (float) p_93117_, (float) p_93118_).color(r, g, b, 255).uv(p_93120_, p_93122_).endVertex();
-            bufferbuilder.vertex(matrix4f, (float) y, (float) p_93116_, (float) p_93118_).color(r, g, b, 255).uv(p_93120_, p_93121_).endVertex();
-            bufferbuilder.vertex(matrix4f, (float) x, (float) p_93116_, (float) p_93118_).color(r, g, b, 255).uv(p_93119_, p_93121_).endVertex();
-            BufferUploader.drawWithShader(bufferbuilder.end());
+            RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
+            BufferBuilder bufferBuilder = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
+            bufferBuilder.addVertex(matrix4f, (float) x, (float) p_93117_, (float) p_93118_).setColor(r, g, b, 255).setUv(p_93119_, p_93122_);
+            bufferBuilder.addVertex(matrix4f, (float) y, (float) p_93117_, (float) p_93118_).setColor(r, g, b, 255).setUv(p_93120_, p_93122_);
+            bufferBuilder.addVertex(matrix4f, (float) y, (float) p_93116_, (float) p_93118_).setColor(r, g, b, 255).setUv(p_93120_, p_93121_);
+            bufferBuilder.addVertex(matrix4f, (float) x, (float) p_93116_, (float) p_93118_).setColor(r, g, b, 255).setUv(p_93119_, p_93121_);
+            BufferUploader.drawWithShader(bufferBuilder.buildOrThrow());
         }
     }
 
@@ -139,13 +137,12 @@ public class ScreenHelper {
 
         private static void innerBlit(Matrix4f p_93113_, float p_93114_, float p_93115_, float p_93116_, float p_93117_, float p_93118_, float p_93119_, float p_93120_, float p_93121_, float p_93122_) {
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
-            BufferBuilder bufferbuilder = Tesselator.getInstance().getBuilder();
-            bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-            bufferbuilder.vertex(p_93113_, p_93114_, p_93117_, p_93118_).uv(p_93119_, p_93122_).endVertex();
-            bufferbuilder.vertex(p_93113_, p_93115_, p_93117_, p_93118_).uv(p_93120_, p_93122_).endVertex();
-            bufferbuilder.vertex(p_93113_, p_93115_, p_93116_, p_93118_).uv(p_93120_, p_93121_).endVertex();
-            bufferbuilder.vertex(p_93113_, p_93114_, p_93116_, p_93118_).uv(p_93119_, p_93121_).endVertex();
-            BufferUploader.drawWithShader(bufferbuilder.end());
+            BufferBuilder bufferBuilder = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+            bufferBuilder.addVertex(p_93113_, p_93114_, p_93117_, p_93118_).setUv(p_93119_, p_93122_);
+            bufferBuilder.addVertex(p_93113_, p_93115_, p_93117_, p_93118_).setUv(p_93120_, p_93122_);
+            bufferBuilder.addVertex(p_93113_, p_93115_, p_93116_, p_93118_).setUv(p_93120_, p_93121_);
+            bufferBuilder.addVertex(p_93113_, p_93114_, p_93116_, p_93118_).setUv(p_93119_, p_93121_);
+            BufferUploader.drawWithShader(bufferBuilder.buildOrThrow());
         }
     }
 

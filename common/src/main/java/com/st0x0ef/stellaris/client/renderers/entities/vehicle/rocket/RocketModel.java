@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.util.StringRepresentable;
+import org.jetbrains.annotations.NotNull;
 
 public enum RocketModel implements StringRepresentable {
     TINY(0),
@@ -31,7 +32,7 @@ public enum RocketModel implements StringRepresentable {
     }
 
     @Override
-    public String getSerializedName() {
+    public @NotNull String getSerializedName() {
         return name().toLowerCase();
     }
 
@@ -44,6 +45,4 @@ public enum RocketModel implements StringRepresentable {
             default -> NORMAL;
         };
     }
-
-
 }
