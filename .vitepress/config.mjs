@@ -21,7 +21,9 @@ export default defineConfig({
         text: 'Documentation',
         items: [
           { text: 'The Planet file', link: '/custom-planets' },
-          { text: 'The Screen files', link: '/custom-screen' }
+          { text: 'The Screen files', link: '/custom-screen' },
+          { text: 'Custom Sky', link: '/custom-sky' }
+
         ]
       },
       {

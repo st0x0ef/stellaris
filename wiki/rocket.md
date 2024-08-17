@@ -45,3 +45,5 @@ There are four type of Rocket Upgrades :
 To applied theses upgrade, enter the rocket, open your inventory and place the upgrade in the good slot (It's one of the four slots at the bottom)
 
 ![Launch Pads](/screens/rocket.png)
+
+Some planets are far away and need a big amount of Fuel. This can be achieve with the `Tank upgrade`.
