@@ -11,7 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 
 @Environment(EnvType.CLIENT)
 public class IceShardArrowRenderer extends ArrowRenderer<IceShardArrowEntity> {
-    private static final ResourceLocation LAYER_LOCATION = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/ice_shard_arrow.png");
+    private static final ResourceLocation LAYER_LOCATION = new ResourceLocation(Stellaris.MODID,"textures/entity/ice_shard_arrow.png");
 
     public IceShardArrowRenderer(EntityRendererProvider.Context p_174165_) {
         super(p_174165_);

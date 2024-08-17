@@ -167,7 +167,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         }
 
         this.MODEL_UPGRADE = new ModelUpgrade(RocketModel.fromString(compound.getString("model")));
-        this.SKIN_UPGRADE = new SkinUpgrade(ResourceLocation.parse(compound.getString("skin")));
+        this.SKIN_UPGRADE = new SkinUpgrade(new ResourceLocation(compound.getString("skin")));
         this.MOTOR_UPGRADE = new MotorUpgrade(FuelType.Type.fromString(compound.getString("motor")));
         this.TANK_UPGRADE = new TankUpgrade(compound.getInt("tank"));
     }
@@ -556,11 +556,11 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
             texture = texture.replace("normal", MODEL_UPGRADE.getModel().toString());
         }
 
-        return ResourceLocation.parse(texture);
+        return new ResourceLocation(texture);
     }
 
     public boolean canGoTo (Planet actual, Planet destination) {
-        return Mth.abs(actual.distanceFromEarth() - destination.distanceFromEarth()) <= FuelType.getMegametersTraveled(this.rocketComponent.fuel(), FuelType.getItemBasedOnLoacation(ResourceLocation.parse(this.rocketComponent.fuelType())));
+        return Mth.abs(actual.distanceFromEarth() - destination.distanceFromEarth()) <= FuelType.getMegametersTraveled(this.rocketComponent.fuel(), FuelType.getItemBasedOnLoacation(new ResourceLocation(this.rocketComponent.fuelType())));
     }
 
     public void syncRocketData(ServerPlayer player) {
@@ -608,7 +608,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     }
 
     @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity entity) {
-        return NetworkManager.createAddEntityPacket(this, entity);
-    }
+	public Packet<ClientGamePacketListener> getAddEntityPacket() {
+		return NetworkManager.createAddEntityPacket(this);
+	}
 }

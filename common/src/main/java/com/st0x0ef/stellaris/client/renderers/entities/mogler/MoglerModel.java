@@ -18,7 +18,7 @@ import net.minecraft.world.entity.monster.hoglin.HoglinBase;
 
 @Environment(EnvType.CLIENT)
 public class MoglerModel<T extends Mob & HoglinBase> extends AgeableListModel<T> {
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "mogler"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(Stellaris.MODID, "mogler"), "main");
     private final ModelPart body;
     private final ModelPart head;
     private final ModelPart leg1;
@@ -90,17 +90,17 @@ public class MoglerModel<T extends Mob & HoglinBase> extends AgeableListModel<T>
     }
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         if (young) {
             poseStack.scale(0.5f, 0.5f, 0.5f);
             poseStack.translate(0, 1.5f, 0);
         }
-        body.render(poseStack, buffer, packedLight, packedOverlay, color);
-        head.render(poseStack, buffer, packedLight, packedOverlay, color);
-        leg1.render(poseStack, buffer, packedLight, packedOverlay, color);
-        leg2.render(poseStack, buffer, packedLight, packedOverlay, color);
-        leg3.render(poseStack, buffer, packedLight, packedOverlay, color);
-        leg4.render(poseStack, buffer, packedLight, packedOverlay, color);
+        body.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        head.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        leg1.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        leg2.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        leg3.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        leg4.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
     }
 
     @Override

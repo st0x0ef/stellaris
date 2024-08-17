@@ -20,7 +20,7 @@ import java.util.List;
 @Environment(EnvType.CLIENT)
 public class SolarPanelScreen extends AbstractContainerScreen<SolarPanelMenu> {
 
-    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/solar_panel.png");
+    public static final ResourceLocation TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/solar_panel.png");
 
     private final SolarPanelEntity blockEntity = getMenu().getBlockEntity();
     private Gauge energyGauge;

@@ -13,7 +13,7 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 public class JEIPlugin implements IModPlugin {
     @Override
     public ResourceLocation getPluginUid() {
-        return ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "jei");
+        return new ResourceLocation(Stellaris.MODID, "jei");
     }
 
     @Override

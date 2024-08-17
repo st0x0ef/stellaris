@@ -22,7 +22,7 @@ import java.util.List;
 @Environment(EnvType.CLIENT)
 public class CoalGeneratorScreen extends AbstractContainerScreen<CoalGeneratorMenu> {
 
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/coal_generator.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/coal_generator.png");
 
     private final CoalGeneratorEntity blockEntity = getMenu().getBlockEntity();
     private Gauge energyGauge;

@@ -45,7 +45,7 @@ public class PlanetUtil {
         if (isPlanet(level)) {
             return getPlanet(level).textures().planet_bar();
         }
-        return ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/planet_bar/earth_planet_bar.png");
+        return new ResourceLocation(Stellaris.MODID, "textures/planet_bar/earth_planet_bar.png");
     }
 
     public static int openPlanetSelectionMenu(Player player, boolean forceCanGoTo) {

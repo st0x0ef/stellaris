@@ -15,8 +15,8 @@ public class GaugeValueSerializer<T extends Serializable> {
     public static final GaugeValueSerializer Serializer = new GaugeValueSerializer<>();
 
     static {
-        Serializer.addCodec(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "fluidstack"), GaugeValueFluidStack.class);
-        Serializer.addCodec(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "simple"), GaugeValueSimple.class);
+        Serializer.addCodec(new ResourceLocation(Stellaris.MODID, "fluidstack"), GaugeValueFluidStack.class);
+        Serializer.addCodec(new ResourceLocation(Stellaris.MODID, "simple"), GaugeValueSimple.class);
     }
 
     private final Map<ResourceLocation, Class<? extends T>> locationClassMap = new LinkedHashMap<>();
@@ -27,7 +27,7 @@ public class GaugeValueSerializer<T extends Serializable> {
     public T deserialize(CompoundTag compound, HolderLookup.Provider provider) {
         String locationToString = compound.getString("location");
         CompoundTag valueNBT = compound.getCompound("value");
-        Class<? extends T> clazz = locationClassMap.get(ResourceLocation.parse(locationToString));
+        Class<? extends T> clazz = locationClassMap.get(new ResourceLocation(locationToString));
 
         if (clazz == null) {
             throw new IllegalArgumentException("Unknown class for location: " + locationToString);

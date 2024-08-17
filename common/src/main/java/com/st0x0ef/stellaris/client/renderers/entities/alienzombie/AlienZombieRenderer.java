@@ -12,7 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 @Environment(EnvType.CLIENT)
 public class AlienZombieRenderer extends MobRenderer<AlienZombie, AlienZombieModel<AlienZombie>> {
 
-    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/entity/alien_zombie.png");
+    public static final ResourceLocation TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/entity/alien_zombie.png");
 
     public AlienZombieRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new AlienZombieModel<>(renderManagerIn.bakeLayer(AlienZombieModel.LAYER_LOCATION)), 0.5f);

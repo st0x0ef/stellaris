@@ -12,7 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class GaugeValueRenderer extends AbstractGaugeDataRenderer {
 
-    private static final ResourceLocation DEFAULT_TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,
+    private static final ResourceLocation DEFAULT_TEXTURE = new ResourceLocation(Stellaris.MODID,
             "textures/simplegaugevalue.png");
 
     public GaugeValueRenderer(IGaugeValue value) {

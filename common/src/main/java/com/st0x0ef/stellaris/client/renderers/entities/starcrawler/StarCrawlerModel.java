@@ -17,7 +17,7 @@ import net.minecraft.util.Mth;
 @Environment(EnvType.CLIENT)
 public class StarCrawlerModel<T extends StarCrawler> extends EntityModel<T> {
 
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "star_crawler"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(Stellaris.MODID, "star_crawler"), "main");
 
     private final ModelPart body;
     private final ModelPart arm1g;
@@ -150,11 +150,11 @@ public class StarCrawlerModel<T extends StarCrawler> extends EntityModel<T> {
     }
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
-        body.render(poseStack, buffer, packedLight, packedOverlay, color);
-        arm1g.render(poseStack, buffer, packedLight, packedOverlay, color);
-        arm2g.render(poseStack, buffer, packedLight, packedOverlay, color);
-        arm3g.render(poseStack, buffer, packedLight, packedOverlay, color);
-        arm4g.render(poseStack, buffer, packedLight, packedOverlay, color);
+public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+        body.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        arm1g.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        arm2g.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        arm3g.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        arm4g.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
     }
 }

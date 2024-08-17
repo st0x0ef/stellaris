@@ -15,7 +15,7 @@ import net.minecraft.world.entity.Mob;
 @Environment(EnvType.CLIENT)
 public class PygroBruteRenderer extends HumanoidMobRenderer<PygroBrute, PygroModel<PygroBrute>> {
 
-    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/entity/pygro_brute.png");
+    public static final ResourceLocation TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/entity/pygro_brute.png");
 
     public PygroBruteRenderer(EntityRendererProvider.Context context) {
         super(context, new PygroModel<>(context.bakeLayer(PygroModel.LAYER_LOCATION)), 0.5f);

@@ -12,7 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 
 @Environment(EnvType.CLIENT)
 public class MoglerRenderer extends MobRenderer<Mogler, MoglerModel<Mogler>> {
-    private static final ResourceLocation LAYER_LOCATION = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/mogler.png");
+    private static final ResourceLocation LAYER_LOCATION = new ResourceLocation(Stellaris.MODID,"textures/entity/mogler.png");
 
     public MoglerRenderer(EntityRendererProvider.Context context) {
         super(context, new MoglerModel<>(context.bakeLayer(MoglerModel.LAYER_LOCATION)), 0.7F);

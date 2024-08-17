@@ -22,9 +22,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
 
 public class JetSuitModel extends HumanoidModel<LivingEntity> {
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "jetsuit"), "main");
-    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/entity/armor/jet_suit.png");
-
+	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(Stellaris.MODID, "jetsuit"), "main");
+    public static final ResourceLocation TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/entity/armor/jet_suit.png");
 
     private final ModelPart head;
 	private final ModelPart body;
@@ -96,15 +95,15 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
 		if (Objects.equals(ArchitecturyTarget.getCurrentTarget(), "neoforge")) {
 			MultiBufferSource.BufferSource bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
-			vertexConsumer = bufferSource.getBuffer(RenderType.entityTranslucent(TEXTURE));
+			buffer = bufferSource.getBuffer(RenderType.entityTranslucent(TEXTURE));
 		}
 
 		parentModel.copyPropertiesTo(this);
 
-		super.renderToBuffer(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+		super.renderToBuffer(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 
 	@Override
@@ -133,5 +132,4 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
 
 		}
 	}
-
 }

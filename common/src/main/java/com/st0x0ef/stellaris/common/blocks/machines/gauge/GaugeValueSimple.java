@@ -149,7 +149,7 @@ public class GaugeValueSimple implements IGaugeValue
     }
     @Override
     public void deserialize(CompoundTag nbt) {
-        this.name(ResourceLocation.parse(nbt.getString("name")));
+        this.name(new ResourceLocation(nbt.getString("name")));
         this.amount(nbt.getInt("amount"));
         this.capacity(nbt.getInt("capacity"));
 

@@ -3,7 +3,6 @@ package com.st0x0ef.stellaris.client.overlays;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.entities.vehicles.LanderEntity;
-import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.GameRenderer;
@@ -15,9 +14,9 @@ import net.minecraft.world.entity.player.Player;
 
 public class LanderOverlay {
 
-    public static final ResourceLocation WARNING = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/overlay/warning.png");
+    public static final ResourceLocation WARNING = new ResourceLocation(Stellaris.MODID, "textures/overlay/warning.png");
 
-    public static void render(GuiGraphics graphics, DeltaTracker deltaTracker) {
+    public static void render(GuiGraphics graphics, float partialTick) {
         Minecraft mc = Minecraft.getInstance();
         Player player = mc.player;
         Entity vehicle = player.getVehicle();
@@ -26,7 +25,7 @@ public class LanderOverlay {
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
 
             /** FLASHING */
-            float sin = (float) Math.sin((mc.level.getDayTime() + deltaTracker.getGameTimeDeltaPartialTick(true)) / 6.0f);
+            float sin = (float) Math.sin((mc.level.getDayTime() + partialTick) / 6.0f);
             float flash = Mth.clamp(sin, 0.0f, 4.0f);
 
             RenderSystem.setShaderColor(flash, flash, flash, flash);

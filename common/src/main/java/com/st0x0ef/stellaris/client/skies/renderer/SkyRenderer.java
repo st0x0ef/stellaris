@@ -1,7 +1,10 @@
 package com.st0x0ef.stellaris.client.skies.renderer;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.*;
+import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.blaze3d.vertex.VertexBuffer;
 import com.st0x0ef.stellaris.client.skies.record.CustomVanillaObject;
 import com.st0x0ef.stellaris.client.skies.record.SkyObject;
 import com.st0x0ef.stellaris.client.skies.record.SkyProperties;
@@ -33,7 +36,7 @@ public class SkyRenderer {
     public void render(ClientLevel level, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, Camera camera, Runnable fogCallback) {
         if (properties.fog()) fogCallback.run();
 
-        Tesselator tesselator = Tesselator.getInstance();
+        BufferBuilder bufferBuilder = Tesselator.getInstance().getBuilder();
         CustomVanillaObject customVanillaObject = properties.customVanillaObject();
 
         float dayAngle = level.getTimeOfDay(partialTick) * 360f % 360f;
@@ -48,25 +51,25 @@ public class SkyRenderer {
         RenderSystem.setShaderColor(r, g, b, 1.0f);
 
         ShaderInstance shaderInstance = RenderSystem.getShader();
-        SkyHelper.drawSky(poseStack.last().pose(), projectionMatrix, shaderInstance, tesselator, poseStack, partialTick);
+        SkyHelper.drawSky(poseStack.last().pose(), projectionMatrix, shaderInstance);
 
         // Sun
         if (customVanillaObject.sun()) {
-            SkyHelper.drawCelestialBody(customVanillaObject.sunTexture(), tesselator, poseStack, 100f, customVanillaObject.sunSize(), dayAngle, true);
+            SkyHelper.drawCelestialBody(customVanillaObject.sunTexture(), bufferBuilder, poseStack, 100f, customVanillaObject.sunSize(), dayAngle, true);
         }
 
         // Moon
         if (customVanillaObject.moon()) {
             if (customVanillaObject.moonPhase()) {
-                SkyHelper.drawMoonWithPhase(level, tesselator, poseStack, -100f, customVanillaObject, dayAngle);
+                SkyHelper.drawMoonWithPhase(level, bufferBuilder, poseStack, -100f, customVanillaObject, dayAngle);
             } else {
-                SkyHelper.drawCelestialBody(customVanillaObject.moonTexture(), tesselator, poseStack, -100f, customVanillaObject.moonSize(), dayAngle, 0, 1, 0, 1, false);
+                SkyHelper.drawCelestialBody(customVanillaObject.moonTexture(), bufferBuilder, poseStack, -100f, customVanillaObject.moonSize(), dayAngle, 0, 1, 0, 1, false);
             }
         }
 
         // Other sky object
         for (SkyObject skyObject : properties.skyObjects()) {
-            SkyHelper.drawCelestialBody(skyObject, tesselator, poseStack, 100f, dayAngle, skyObject.blend());
+            SkyHelper.drawCelestialBody(skyObject, bufferBuilder, poseStack, 100f, dayAngle, skyObject.blend());
         }
 
         // Star

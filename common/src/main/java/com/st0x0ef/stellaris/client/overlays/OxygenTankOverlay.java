@@ -17,8 +17,8 @@ import net.minecraft.world.item.ItemStack;
 
 public class OxygenTankOverlay {
 
-    public static final ResourceLocation OXYGEN_TANK = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/overlay/oxygen_tank.png");
-    public static final ResourceLocation OXYGEN_TANK_FULL = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/overlay/oxygen_tank_full.png");
+    public static final ResourceLocation OXYGEN_TANK = new ResourceLocation(Stellaris.MODID, "textures/overlay/oxygen_tank.png");
+    public static final ResourceLocation OXYGEN_TANK_FULL = new ResourceLocation(Stellaris.MODID, "textures/overlay/oxygen_tank_full.png");
 
 
     public static void render(GuiGraphics graphics, float partialTick) {
@@ -49,8 +49,6 @@ public class OxygenTankOverlay {
                 Component text = Component.translatable("general." + Stellaris.MODID + ".oxygen").append(": ").withStyle(ChatFormatting.BLUE).append("§7" + oxygen / (maxOxygen / 100) + "%");
                 graphics.drawString(font, text, (x + (textureWidth - font.width(text)) / 2), y + textureHeight + 3, 0xFFFFFF);
             }
-
         }
-
     }
 }

@@ -30,7 +30,7 @@ public record RocketComponent(String skin, RocketModel model, String fuelType, i
     }
 
     public ResourceLocation getSkin() {
-        return ResourceLocation.parse(skin);
+        return new ResourceLocation(skin);
     }
 
     public SkinUpgrade getSkinUpgrade() {

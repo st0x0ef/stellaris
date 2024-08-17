@@ -93,7 +93,7 @@ public abstract class VehicleRenderer<T extends IVehicleEntity, M extends Entity
         if (rendertype != null) {
             VertexConsumer vertexconsumer = buffer.getBuffer(rendertype);
             int i = getOverlayCoords(entity, this.getWhiteOverlayProgress(entity, partialTick));
-            this.model.renderToBuffer(poseStack, vertexconsumer, packedLight, i, -1);
+            this.model.renderToBuffer(poseStack, vertexconsumer, packedLight, i, 1.0F, 1.0F, 1.0F, flag1 ? 0.15F : 1.0F);
         }
 
         if (!entity.isSpectator()) {

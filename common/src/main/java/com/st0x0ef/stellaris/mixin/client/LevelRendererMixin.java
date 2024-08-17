@@ -1,8 +1,10 @@
 package com.st0x0ef.stellaris.mixin.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.st0x0ef.stellaris.client.skys.record.SkyPropertiesData;
+import com.st0x0ef.stellaris.client.skies.record.SkyPropertiesData;
+import com.st0x0ef.stellaris.common.config.CustomConfig;
 import net.minecraft.client.Camera;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.LightTexture;
@@ -31,7 +33,7 @@ public abstract class LevelRendererMixin {
         if ((boolean) CustomConfig.getValue("customSky") && !thickFog && cameraSubmersionType != FogType.POWDER_SNOW && cameraSubmersionType != FogType.LAVA && cameraSubmersionType != FogType.WATER && !this.doesMobEffectBlockSky(camera) && SkyPropertiesData.SKY_PROPERTIES.containsKey(level.dimension())) {
             PoseStack poseStack = new PoseStack();
             poseStack.mulPose(matrix4f);
-            SkyPropertiesData.SKY_PROPERTIES.get(level.dimension()).getRenderer().render(Minecraft.getInstance().level, poseStack, projectionMatrix, partialTick, camera, fogCallback);
+            SkyPropertiesData.SKY_PROPERTIES.get(level.dimension()).getRenderer().render(Minecraft.getInstance().level, poseStack, projectionMatrix, tickDelta, camera, fogCallback);
             ci.cancel();
         }
     }

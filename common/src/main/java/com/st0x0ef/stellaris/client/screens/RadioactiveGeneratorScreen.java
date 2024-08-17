@@ -22,7 +22,7 @@ import java.util.List;
 @Environment(EnvType.CLIENT)
 public class RadioactiveGeneratorScreen extends AbstractContainerScreen<RadioactiveGeneratorMenu> {
 
-    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/radioactive_generator.png");
+    public static final ResourceLocation TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/radioactive_generator.png");
 
     private final RadioactiveGeneratorEntity blockEntity = getMenu().getBlockEntity();
     private Gauge energyGauge;

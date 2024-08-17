@@ -13,13 +13,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.Optional;
 
-public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity implements RecipeInput {
+public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity {
 
     private final FluidTank ingredientTank = new FluidTank("ingredientTank", 5);
     private final FluidTank resultTank = new FluidTank("resultTank", 5);
@@ -97,10 +96,5 @@ public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity impl
 
     public FluidTank getResultTank() {
         return resultTank;
-    }
-
-    @Override
-    public int size() {
-        return this.getContainerSize();
     }
 }

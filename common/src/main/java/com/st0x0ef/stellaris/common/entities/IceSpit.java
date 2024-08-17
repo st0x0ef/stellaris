@@ -27,7 +27,7 @@ public class IceSpit extends AbstractArrow implements ItemSupplier {
 
 
     protected IceSpit(EntityType<? extends AbstractArrow> entityType, LivingEntity livingEntity, Level level, ItemStack itemStack) {
-        super(entityType, livingEntity, level, new ItemStack(ItemsRegistry.ICE_SHARD.get()), null);
+        super(entityType, livingEntity, level, new ItemStack(ItemsRegistry.ICE_SHARD.get()));
     }
 
     @Override
@@ -58,7 +58,7 @@ public class IceSpit extends AbstractArrow implements ItemSupplier {
     }
 
     @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity entity) {
-        return NetworkManager.createAddEntityPacket(this, entity);
-    }
+	public Packet<ClientGamePacketListener> getAddEntityPacket() {
+		return NetworkManager.createAddEntityPacket(this);
+	}
 }

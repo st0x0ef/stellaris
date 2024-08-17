@@ -14,13 +14,13 @@ import java.util.Random;
 
 public class StarHelper {
     public static VertexBuffer createStars(float scale, int amountFancy, int r, int g, int b) {
-        Tesselator tesselator = Tesselator.getInstance();
         RenderSystem.setShader(GameRenderer::getPositionColorShader);
 
         VertexBuffer vertexBuffer = new VertexBuffer(VertexBuffer.Usage.STATIC);
 
         Random random = new Random();
-        BufferBuilder bufferBuilder = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
+        BufferBuilder bufferBuilder = Tesselator.getInstance().getBuilder();
+        bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
 
         GraphicsStatus graphicsMode = Minecraft.getInstance().options.graphicsMode().get();
         int stars = amountFancy / (BooleanUtils.toInteger(graphicsMode == GraphicsStatus.FANCY || graphicsMode == GraphicsStatus.FABULOUS) + 1);
@@ -63,13 +63,13 @@ public class StarHelper {
                     int color2 = g == -1 ? i : g;
                     int color3 = b == -1 ? i : b;
 
-                    bufferBuilder.addVertex(d5 + d25, d6 + d23, d7 + d26).setColor(color1, color2, color3, 0xAA);
+                    bufferBuilder.vertex(d5 + d25, d6 + d23, d7 + d26).color(color1, color2, color3, 0xAA).endVertex();
                 }
             }
         }
 
         vertexBuffer.bind();
-        vertexBuffer.upload(bufferBuilder.buildOrThrow());
+        vertexBuffer.upload(bufferBuilder.end());
         VertexBuffer.unbind();
         return vertexBuffer;
     }

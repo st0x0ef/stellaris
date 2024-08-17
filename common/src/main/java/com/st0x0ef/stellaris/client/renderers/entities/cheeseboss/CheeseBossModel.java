@@ -17,7 +17,7 @@ import net.minecraft.util.Mth;
 @Environment(EnvType.CLIENT)
 public class CheeseBossModel<T extends CheeseBoss> extends HierarchicalModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "cheese_boss"), "main");
+	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(Stellaris.MODID, "cheese_boss"), "main");
 	private final ModelPart CheeseBoss;
 	private final ModelPart Head;
 
@@ -121,7 +121,7 @@ public class CheeseBossModel<T extends CheeseBoss> extends HierarchicalModel<T> 
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-		CheeseBoss.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+		CheeseBoss.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 }

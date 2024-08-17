@@ -19,7 +19,7 @@ import java.util.List;
 @Environment(EnvType.CLIENT)
 public class Gauge extends AbstractWidget {
 
-    public static final ResourceLocation FLUID_TANK_OVERLAY = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/fluid_tank_overlay.png");
+    public static final ResourceLocation FLUID_TANK_OVERLAY = new ResourceLocation(Stellaris.MODID, "textures/gui/util/fluid_tank_overlay.png");
     protected final ResourceLocation texture;
     protected final int max_value;
     protected int value;

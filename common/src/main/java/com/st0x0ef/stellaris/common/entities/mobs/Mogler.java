@@ -54,8 +54,8 @@ public class Mogler extends Hoglin {
         return moglerentity;
     }
     @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity entity) {
-        return NetworkManager.createAddEntityPacket(this, entity);
-    }
+	public Packet<ClientGamePacketListener> getAddEntityPacket() {
+		return NetworkManager.createAddEntityPacket(this);
+	}
 
 }

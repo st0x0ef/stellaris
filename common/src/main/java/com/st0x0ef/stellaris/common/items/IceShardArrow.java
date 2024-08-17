@@ -15,7 +15,7 @@ public class IceShardArrow extends ArrowItem {
     }
 
     @Override
-    public AbstractArrow createArrow(Level level, ItemStack itemStack, LivingEntity livingEntity, @Nullable ItemStack weapon) {
+    public AbstractArrow createArrow(Level level, ItemStack itemStack, LivingEntity livingEntity) {
         return new IceShardArrowEntity(level, livingEntity, itemStack.copyWithCount(1));
     }
 }

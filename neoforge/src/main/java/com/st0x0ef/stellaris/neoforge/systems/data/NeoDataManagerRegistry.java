@@ -24,7 +24,7 @@ public class NeoDataManagerRegistry implements DataManagerRegistry {
 
     @Override
     public <T> DataManager<T> register(@NotNull String name, @NotNull Supplier<T> factory, @Nullable Codec<T> codec, boolean copyOnDeath) {
-        ResourceLocation id = ResourceLocation.fromNamespaceAndPath(modid, name);
+        ResourceLocation id = new ResourceLocation(modid, name);
         var builder = AttachmentType.builder(factory);
         if (codec != null) {
             builder.serialize(codec);

@@ -130,6 +130,6 @@ public class ConfigScreen extends Screen {
         return SpriteIconButton.builder(Component.literal("Config"), (button) -> {
             Path path = Path.of(Platform.getConfigFolder() + "/stellaris.json");
             Util.getPlatform().openUri(path.toUri());
-        }, true).width(i).sprite(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/item/engine_fan.png"), 16, 16).build();
+        }, true).width(i).sprite(new ResourceLocation(Stellaris.MODID, "textures/item/engine_fan.png"), 16, 16).build();
     }
 }

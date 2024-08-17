@@ -13,7 +13,7 @@ public class FabricItemApiEntityAutomationLookup extends FabricEntityContainerLo
     public static final FabricItemApiEntityAutomationLookup INSTANCE = new FabricItemApiEntityAutomationLookup();
 
     public FabricItemApiEntityAutomationLookup() {
-        super(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "entity_automation"), ItemContainer.class, Direction.class);
+        super(new ResourceLocation(Stellaris.MODID, "entity_automation"), ItemContainer.class, Direction.class);
     }
 
     @Override

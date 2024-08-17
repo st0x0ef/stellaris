@@ -10,7 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 
 
 public class SmallRocketRenderer extends VehicleRenderer<RocketEntity, SmallRocketModel<RocketEntity>> {
-    public ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/vehicle/rocket_skin/small/standard.png");
+    public ResourceLocation TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/vehicle/rocket_skin/small/standard.png");
 
     public SmallRocketRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new SmallRocketModel<>(renderManagerIn.bakeLayer(SmallRocketModel.LAYER_LOCATION)), 0.5f);

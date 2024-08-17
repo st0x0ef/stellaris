@@ -74,10 +74,6 @@ public class AlienZombie extends Monster implements RangedAttackMob {
 		IceSpit.shoot(this, livingEntity, 2);
 	}
 
-	protected AbstractArrow getArrow(ItemStack itemStack, float f) {
-		return ProjectileUtil.getMobArrow(this, itemStack, f, null);
-	}
-
 	@Override
 	public boolean checkSpawnRules(LevelAccessor p_21686_, MobSpawnType p_21687_) {
 		BlockState blockState = level().getBlockState(new BlockPos((int)this.getX(), (int)this.getY() - 1, (int)this.getZ()));
@@ -90,7 +86,7 @@ public class AlienZombie extends Monster implements RangedAttackMob {
 	}
 
 	@Override
-	public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity entity) {
-		return NetworkManager.createAddEntityPacket(this, entity);
+	public Packet<ClientGamePacketListener> getAddEntityPacket() {
+		return NetworkManager.createAddEntityPacket(this);
 	}
 }

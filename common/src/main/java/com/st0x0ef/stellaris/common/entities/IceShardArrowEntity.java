@@ -25,7 +25,7 @@ public class IceShardArrowEntity extends AbstractArrow {
     }
 
     public IceShardArrowEntity(Level level, LivingEntity livingEntity, ItemStack itemStack) {
-        super(EntityRegistry.ICE_SHARD_ARROW.get(), livingEntity, level, itemStack, null);
+        super(EntityRegistry.ICE_SHARD_ARROW.get(), livingEntity, level, itemStack);
     }
 
 
@@ -49,7 +49,7 @@ public class IceShardArrowEntity extends AbstractArrow {
     }
 
     @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity entity) {
-        return NetworkManager.createAddEntityPacket(this, entity);
-    }
+	public Packet<ClientGamePacketListener> getAddEntityPacket() {
+		return NetworkManager.createAddEntityPacket(this);
+	}
 }

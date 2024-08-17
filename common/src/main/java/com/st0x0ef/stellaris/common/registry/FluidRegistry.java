@@ -24,8 +24,8 @@ public class FluidRegistry {
             .tickDelay(8)
             .explosionResistance(100.0F)
             .convertToSource(false)
-            .sourceTexture(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "block/fluids/fuel_still"))
-            .flowingTexture(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "block/fluids/fuel_flow"));
+            .sourceTexture(new ResourceLocation(Stellaris.MODID, "block/fluids/fuel_still"))
+            .flowingTexture(new ResourceLocation(Stellaris.MODID, "block/fluids/fuel_flow"));
 
 
 
@@ -42,8 +42,8 @@ public class FluidRegistry {
             .tickDelay(8)
             .explosionResistance(100.0F)
             .convertToSource(true)
-            .sourceTexture(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "block/fluids/oil_still"))
-            .flowingTexture(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "block/fluids/oil_flow"));
+            .sourceTexture(new ResourceLocation(Stellaris.MODID, "block/fluids/oil_still"))
+            .flowingTexture(new ResourceLocation(Stellaris.MODID, "block/fluids/oil_flow"));
 
     public static final RegistrySupplier<FlowingFluid> FLOWING_OIL = FLUIDS.register("flowing_oil", () -> new ArchitecturyFlowingFluid.Flowing(OIL_ATTRIBUTES));
     public static final RegistrySupplier<FlowingFluid> OIL_STILL = FLUIDS.register("oil", () -> new ArchitecturyFlowingFluid.Source(OIL_ATTRIBUTES));
@@ -57,8 +57,8 @@ public class FluidRegistry {
             .tickDelay(8)
             .explosionResistance(100.0F)
             .convertToSource(false)
-            .sourceTexture(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "block/fluids/hydrogen_still"))
-            .flowingTexture(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "block/fluids/hydrogen_flow"));
+            .sourceTexture(new ResourceLocation(Stellaris.MODID, "block/fluids/hydrogen_still"))
+            .flowingTexture(new ResourceLocation(Stellaris.MODID, "block/fluids/hydrogen_flow"));
 
     public static final RegistrySupplier<FlowingFluid> FLOWING_HYDROGEN = FLUIDS.register("flowing_hydrogen", () -> new ArchitecturyFlowingFluid.Flowing(HYDROGEN_ATTRIBUTES));
     public static final RegistrySupplier<FlowingFluid> HYDROGEN_STILL = FLUIDS.register("hydrogen", () -> new ArchitecturyFlowingFluid.Source(HYDROGEN_ATTRIBUTES));
@@ -71,8 +71,8 @@ public class FluidRegistry {
             .tickDelay(8)
             .explosionResistance(100)
             .convertToSource(false)
-            .sourceTexture(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "block/fluids/oxygen_still"))
-            .flowingTexture(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "block/fluids/oxygen_flow"));
+            .sourceTexture(new ResourceLocation(Stellaris.MODID, "block/fluids/oxygen_still"))
+            .flowingTexture(new ResourceLocation(Stellaris.MODID, "block/fluids/oxygen_flow"));
 
     public static final RegistrySupplier<FlowingFluid> FLOWING_OXYGEN = FLUIDS.register("flowing_oxygen", () -> new ArchitecturyFlowingFluid.Flowing(OXYGEN_ATTRIBUTES));
     public static final RegistrySupplier<FlowingFluid> OXYGEN_STILL = FLUIDS.register("oxygen", () -> new ArchitecturyFlowingFluid.Source(OXYGEN_ATTRIBUTES));
