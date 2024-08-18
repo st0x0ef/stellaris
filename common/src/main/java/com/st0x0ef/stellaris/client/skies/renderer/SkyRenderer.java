@@ -11,6 +11,7 @@ import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
@@ -37,6 +38,7 @@ public class SkyRenderer {
         CustomVanillaObject customVanillaObject = properties.customVanillaObject();
 
         float dayAngle = level.getTimeOfDay(partialTick) * 360f % 360f;
+        float nightAngle = dayAngle + 180;
 
         Vec3 vec3 = level.getSkyColor(camera.getPosition(), partialTick);
         float r = (float) vec3.x;
@@ -50,27 +52,30 @@ public class SkyRenderer {
         ShaderInstance shaderInstance = RenderSystem.getShader();
         SkyHelper.drawSky(poseStack.last().pose(), projectionMatrix, shaderInstance, tesselator, poseStack, partialTick);
 
+        // Star
+        renderStars(level, partialTick, poseStack, projectionMatrix, fogCallback);
+
+
         // Sun
         if (customVanillaObject.sun()) {
-            SkyHelper.drawCelestialBody(customVanillaObject.sunTexture(), tesselator, poseStack, 100f, customVanillaObject.sunSize(), dayAngle, true);
+            SkyHelper.drawCelestialBody(customVanillaObject.sunTexture(), tesselator, poseStack, customVanillaObject.sunSize(), customVanillaObject.sunSize(), dayAngle, true);
         }
 
         // Moon
         if (customVanillaObject.moon()) {
             if (customVanillaObject.moonPhase()) {
-                SkyHelper.drawMoonWithPhase(level, tesselator, poseStack, -100f, customVanillaObject, dayAngle);
+                SkyHelper.drawMoonWithPhase(level, tesselator, poseStack, customVanillaObject.moonSize(), customVanillaObject, nightAngle);
             } else {
-                SkyHelper.drawCelestialBody(customVanillaObject.moonTexture(), tesselator, poseStack, -100f, customVanillaObject.moonSize(), dayAngle, 0, 1, 0, 1, false);
+                SkyHelper.drawCelestialBody(customVanillaObject.moonTexture(), tesselator, poseStack, customVanillaObject.moonSize(), customVanillaObject.moonSize(), nightAngle, 0, 1, 0, 1, false);
             }
         }
+
 
         // Other sky object
         for (SkyObject skyObject : properties.skyObjects()) {
             SkyHelper.drawCelestialBody(skyObject, tesselator, poseStack, 100f, dayAngle, skyObject.blend());
         }
 
-        // Star
-        renderStars(level, partialTick, poseStack, projectionMatrix, fogCallback);
 
         if (properties.fog()) fogCallback.run();
 

@@ -5,6 +5,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.FluidTankHelper;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.WaterSeparatorBlockEntity;
+import com.st0x0ef.stellaris.common.data.recipes.input.FluidInput;
 import com.st0x0ef.stellaris.common.registry.RecipesRegistry;
 import dev.architectury.fluid.FluidStack;
 import dev.architectury.platform.Platform;
@@ -22,16 +23,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public record WaterSeparatorRecipe(FluidStack ingredientStack, List<FluidStack> resultStacks, boolean isMb, long energy) implements Recipe<WaterSeparatorBlockEntity> {
+public record WaterSeparatorRecipe(FluidStack ingredientStack, List<FluidStack> resultStacks, boolean isMb, long energy) implements Recipe<FluidInput> {
 
     @Override
-    public boolean matches(WaterSeparatorBlockEntity container, Level level) {
-        FluidStack stack = container.getIngredientTank().getStack();
+    public boolean matches(FluidInput container, Level level) {
+        FluidStack stack = ((WaterSeparatorBlockEntity) container.entity()).getIngredientTank().getStack();
         return stack.isFluidEqual(ingredientStack) && stack.getAmount() >= ingredientStack.getAmount();
     }
 
     @Override
-    public ItemStack assemble(WaterSeparatorBlockEntity container, HolderLookup.Provider registries) {
+    public ItemStack assemble(FluidInput container, HolderLookup.Provider registries) {
         return null;
     }
 
