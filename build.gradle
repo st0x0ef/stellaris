@@ -39,7 +39,7 @@ subprojects {
 
         modCompileOnly "me.shedaniel:RoughlyEnoughItems-api:${rootProject.rei_version}"
         modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin:${rootProject.rei_version}"
-        compileOnly("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
+        modCompileOnly("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
     }
 
     java {

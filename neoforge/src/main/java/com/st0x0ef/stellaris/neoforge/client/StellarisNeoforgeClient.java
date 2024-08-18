@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.neoforge.client;
 
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.StellarisClient;
+import com.st0x0ef.stellaris.client.registries.KeyMappingsRegistry;
 import com.st0x0ef.stellaris.client.renderers.armors.JetSuitModel;
 import com.st0x0ef.stellaris.client.renderers.entities.alien.AlienModel;
 import com.st0x0ef.stellaris.client.renderers.entities.alien.AlienRenderer;
@@ -35,13 +36,17 @@ import com.st0x0ef.stellaris.client.screens.*;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.common.NeoForge;
 
 @EventBusSubscriber(modid = Stellaris.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
 public class StellarisNeoforgeClient {
@@ -110,5 +115,18 @@ public class StellarisNeoforgeClient {
         event.register(MenuTypesRegistry.OXYGEN_DISTRIBUTOR.get(), OxygenDistributorScreen::new);
         event.register(MenuTypesRegistry.WATER_SEPARATOR_MENU.get(), WaterSeparatorScreen::new);
         event.register(MenuTypesRegistry.FUEL_REFINERY.get(), FuelRefineryScreen::new);
+    }
+
+    @SubscribeEvent
+    public static void registerKeyBindings(RegisterKeyMappingsEvent event) {
+        event.register(KeyMappingsRegistry.ROCKET_START);
+        event.register(KeyMappingsRegistry.CHANGE_JETSUIT_MODE);
+        event.register(KeyMappingsRegistry.FREEZE_PLANET_MENU);
+
+        NeoForge.EVENT_BUS.addListener(StellarisNeoforgeClient::clientTick);
+    }
+
+    private static void clientTick(ClientTickEvent.Pre event) {
+        KeyMappingsRegistry.clientTick(Minecraft.getInstance());
     }
 }

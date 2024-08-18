@@ -36,8 +36,6 @@ public class StellarisClient {
             Thread.setDefaultUncaughtExceptionHandler(new GlobalExceptionHandler());
         });
 
-        KeyMappingsRegistry.register();
-
         registerParticle();
         registerOverlays();
         registerJetSuitModel();
