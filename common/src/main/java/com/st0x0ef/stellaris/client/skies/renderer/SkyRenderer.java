@@ -58,15 +58,15 @@ public class SkyRenderer {
 
         // Sun
         if (customVanillaObject.sun()) {
-            SkyHelper.drawCelestialBody(customVanillaObject.sunTexture(), tesselator, poseStack, 100f, customVanillaObject.sunSize(), dayAngle, true);
+            SkyHelper.drawCelestialBody(customVanillaObject.sunTexture(), tesselator, poseStack, customVanillaObject.sunSize(), customVanillaObject.sunSize(), dayAngle, true);
         }
 
         // Moon
         if (customVanillaObject.moon()) {
             if (customVanillaObject.moonPhase()) {
-                SkyHelper.drawMoonWithPhase(level, tesselator, poseStack, 100, customVanillaObject, nightAngle);
+                SkyHelper.drawMoonWithPhase(level, tesselator, poseStack, customVanillaObject.moonSize(), customVanillaObject, nightAngle);
             } else {
-                SkyHelper.drawCelestialBody(customVanillaObject.moonTexture(), tesselator, poseStack, 100, customVanillaObject.moonSize(), nightAngle, 0, 1, 0, 1, false);
+                SkyHelper.drawCelestialBody(customVanillaObject.moonTexture(), tesselator, poseStack, customVanillaObject.moonSize(), customVanillaObject.moonSize(), nightAngle, 0, 1, 0, 1, false);
             }
         }
 
