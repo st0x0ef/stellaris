@@ -126,9 +126,7 @@ public class RocketItem extends Item {
         RocketComponent rocketComponent = stack.get(DataComponentsRegistry.ROCKET_COMPONENT.get());
         if(rocketComponent == null) return;
 
-        tooltipComponents.add(Component.translatable("tooltip.item.stellaris.rocket.skin", rocketComponent.skin()).withStyle(ChatFormatting.GRAY));
         tooltipComponents.add(Component.translatable("tooltip.item.stellaris.rocket.fuel", rocketComponent.fuel()).withStyle(ChatFormatting.GRAY));
-        tooltipComponents.add(Component.translatable("tooltip.item.stellaris.rocket.model", rocketComponent.model().toString()).withStyle(ChatFormatting.GRAY));
     }
 
     public float getRocketPlaceHigh() {
