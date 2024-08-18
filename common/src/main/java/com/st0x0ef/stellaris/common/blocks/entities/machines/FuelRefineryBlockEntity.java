@@ -12,6 +12,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeManager;
@@ -28,6 +29,7 @@ public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity impl
     public FuelRefineryBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.FUEL_REFINERY.get(), pos, state);
     }
+
 
     @Override
     public void tick() {
