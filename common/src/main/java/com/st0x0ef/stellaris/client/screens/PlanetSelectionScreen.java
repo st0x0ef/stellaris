@@ -987,6 +987,9 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         if(getPlayer().getEntityData().get(EntityData.DATA_PLANET_MENU_OPEN)) {
             return;
         }
+        long windowHandle = Minecraft.getInstance().getWindow().getWindow();
+        prevScrollCallback = GLFW.glfwSetScrollCallback(windowHandle, Minecraft.getInstance().mouseHandler::onScroll);
+
         super.onClose();
     }
 
