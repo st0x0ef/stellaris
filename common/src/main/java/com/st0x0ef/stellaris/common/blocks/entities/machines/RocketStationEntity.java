@@ -88,6 +88,11 @@ public class RocketStationEntity extends BaseContainerBlockEntity implements Imp
         return false;
     }
 
+    @Override
+    public ItemStack getItem(int slot) {
+        return getItems().get(slot);
+    }
+
     public void tick(Level level) {
         if (level.isClientSide()) {
             return;
