@@ -28,7 +28,12 @@
       }
     ]
   },
-  "spawn_costs": {},
+  "spawn_costs": {
+    "stellaris:mogler": {
+      "energy_budget": 0.015,
+      "charge": 0.2
+    }
+  },
   "carvers": {
     "air": [
       "minecraft:cave",
