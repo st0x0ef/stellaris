@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.common.data.recipes;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.RocketStationEntity;
+import com.st0x0ef.stellaris.common.data.recipes.input.RocketStationInput;
 import com.st0x0ef.stellaris.common.registry.RecipesRegistry;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
@@ -19,7 +20,7 @@ import net.minecraft.world.level.Level;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RocketStationRecipe implements Recipe<RocketStationEntity> {
+public class RocketStationRecipe implements Recipe<RocketStationInput> {
 
     private final ItemStack output;
     private final List<Ingredient> recipeItems;
@@ -31,8 +32,8 @@ public class RocketStationRecipe implements Recipe<RocketStationEntity> {
     }
 
     @Override
-    public boolean matches(RocketStationEntity container, Level level) {
-        for (int i = 0; i < container.getContainerSize() - 1; i++) {
+    public boolean matches(RocketStationInput container, Level level) {
+        for (int i = 0; i < ((RocketStationEntity) container.entity()).getContainerSize() - 1; i++) {
             if (!recipeItems.get(i).test(container.getItem(i))) {
                 return false;
             }
@@ -42,7 +43,7 @@ public class RocketStationRecipe implements Recipe<RocketStationEntity> {
     }
 
     @Override
-    public ItemStack assemble(RocketStationEntity container, HolderLookup.Provider provider) {
+    public ItemStack assemble(RocketStationInput container, HolderLookup.Provider provider) {
         return output;
     }
 
