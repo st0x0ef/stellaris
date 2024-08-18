@@ -30,10 +30,6 @@ public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity impl
         super(BlockEntityRegistry.FUEL_REFINERY.get(), pos, state);
     }
 
-    @Override
-    public ItemStack getItem(int slot) {
-        return this.getItems().get(slot);
-    }
 
     @Override
     public void tick() {

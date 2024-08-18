@@ -56,11 +56,6 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity im
     }
 
     @Override
-    public ItemStack getItem(int slot) {
-        return this.getItems().get(slot);
-    }
-
-    @Override
     public void tick() {
         for (int i = 0; i < 2; i++) {
             int slot = i + 2;
