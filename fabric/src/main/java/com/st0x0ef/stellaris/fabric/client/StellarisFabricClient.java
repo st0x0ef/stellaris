@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.fabric.client;
 
 import com.st0x0ef.stellaris.client.StellarisClient;
+import com.st0x0ef.stellaris.client.registries.KeyMappingsRegistry;
 import com.st0x0ef.stellaris.client.renderers.armors.JetSuitModel;
 import com.st0x0ef.stellaris.client.renderers.entities.alien.AlienModel;
 import com.st0x0ef.stellaris.client.renderers.entities.alien.AlienRenderer;
@@ -36,6 +37,8 @@ import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import dev.architectury.registry.menu.MenuRegistry;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
@@ -49,6 +52,7 @@ public class StellarisFabricClient implements ClientModInitializer {
         registerScreen();
         registerEntityRenderer();
         registerEntityModelLayer();
+        registerKeyBinding();
     }
 
     public static void registerEntityRenderer() {
@@ -107,5 +111,13 @@ public class StellarisFabricClient implements ClientModInitializer {
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.OXYGEN_DISTRIBUTOR.get(), OxygenDistributorScreen::new);
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.WATER_SEPARATOR_MENU.get(), WaterSeparatorScreen::new);
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.FUEL_REFINERY.get(), FuelRefineryScreen::new);
+    }
+
+    public static void registerKeyBinding() {
+        KeyBindingHelper.registerKeyBinding(KeyMappingsRegistry.ROCKET_START);
+        KeyBindingHelper.registerKeyBinding(KeyMappingsRegistry.CHANGE_JETSUIT_MODE);
+        KeyBindingHelper.registerKeyBinding(KeyMappingsRegistry.FREEZE_PLANET_MENU);
+
+        ClientTickEvents.START_CLIENT_TICK.register(KeyMappingsRegistry::clientTick);
     }
 }
