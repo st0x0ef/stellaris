@@ -288,9 +288,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     private void renderHelp(GuiGraphics graphics) {
         if(showHelpMenu) {
-            graphics.drawCenteredString(this.font, Component.translatable("text.stellaris.planetscreen.press_space"), this.width/2, this.height - 30 , 16777212);
-            graphics.drawCenteredString(this.font, Component.translatable("text.stellaris.planetscreen.arrows"), this.width/2, this.height - 20 , 16777212);
-            graphics.drawCenteredString(this.font, Component.translatable("text.stellaris.planetscreen.help"), this.width/2, this.height - 10 , 16777212);
+            graphics.drawCenteredString(this.font, Component.translatable("text.stellaris.planetscreen.press_space"), this.width/2, this.height - 20 , 16777212);
+            graphics.drawCenteredString(this.font, Component.translatable("text.stellaris.planetscreen.arrows"), this.width/2, this.height - 10 , 16777212);
 
         }
 
