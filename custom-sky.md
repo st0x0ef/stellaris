@@ -32,11 +32,11 @@ This folder will contains all of the custom skies for our planets.
   "custom_vanilla_objects": {
     "sun": true,
     "sun_texture": "textures/environment/sun.png",
-    "sun_size": 30,
+    "sun_height": 300,
     "moon": true,
     "moon_phase": true,
     "moon_texture": "textures/environment/moon_phases.png",
-    "moon_size": 20
+    "moon_height": 75
   },
   "weather": [
     {
@@ -68,7 +68,7 @@ This folder will contains all of the custom skies for our planets.
 
 `sun_texture`: The texture of the sun
 
-`sun_size`: The size of the sun
+`sun_height`: The size of the sun
 
 `moon`: If there is a moon in the dimension
 
@@ -76,7 +76,7 @@ This folder will contains all of the custom skies for our planets.
 
 `moon_texture`: The texture of the moon
 
-`moon_size`: The size of the moon
+`moon_height`: The height of the moon
 
 **Weather**
 
