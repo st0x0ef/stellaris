@@ -10,9 +10,11 @@ import net.minecraft.client.KeyMapping;
 
 public class KeyMappingsRegistry {
     public static void register() {
-        KeyMapping ROCKET_START = new KeyMapping("key." + Stellaris.MODID + ".rocket_start", InputConstants.Type.KEYSYM, InputConstants.KEY_SPACE, "category." + Stellaris.MODID + ".default");
-        KeyMapping FREEZE_PLANET_MENU = new KeyMapping("key." + Stellaris.MODID + ".freeze_planet_menu", InputConstants.Type.KEYSYM, InputConstants.KEY_X, "category." + Stellaris.MODID + ".default");
-        KeyMapping CHANGE_JETSUIT_MODE = new KeyMapping("key." + Stellaris.MODID + ".jetsuit_mode", InputConstants.Type.KEYSYM, InputConstants.KEY_V, "category." + Stellaris.MODID + ".default");
+        String category = "category." + Stellaris.MODID + ".default";
+
+        KeyMapping ROCKET_START = new KeyMapping("key." + Stellaris.MODID + ".rocket_start", InputConstants.KEY_SPACE, category);
+        KeyMapping FREEZE_PLANET_MENU = new KeyMapping("key." + Stellaris.MODID + ".freeze_planet_menu", InputConstants.KEY_X, category);
+        KeyMapping CHANGE_JETSUIT_MODE = new KeyMapping("key." + Stellaris.MODID + ".jetsuit_mode", InputConstants.KEY_V, category);
 
         KeyMappingRegistry.register(ROCKET_START);
         KeyMappingRegistry.register(FREEZE_PLANET_MENU);
@@ -20,25 +22,15 @@ public class KeyMappingsRegistry {
 
         ClientTickEvent.CLIENT_POST.register(minecraft -> {
             while (ROCKET_START.consumeClick()) {
-
-                NetworkManager.sendToServer(new KeyHandlerPacket(
-                        "rocket_start", true
-                ));
+                NetworkManager.sendToServer(new KeyHandlerPacket("rocket_start", true));
             }
 
             while (FREEZE_PLANET_MENU.consumeClick()) {
-
-                NetworkManager.sendToServer(new KeyHandlerPacket(
-                        "freeze_planet_menu", true
-                ));
-
-
+                NetworkManager.sendToServer(new KeyHandlerPacket("freeze_planet_menu", true));
             }
 
             while (CHANGE_JETSUIT_MODE.consumeClick()) {
-                NetworkManager.sendToServer(new KeyHandlerPacket(
-                        "switch_jet_suit_mode", true
-                ));
+                NetworkManager.sendToServer(new KeyHandlerPacket("switch_jet_suit_mode", true));
             }
         });
     }
