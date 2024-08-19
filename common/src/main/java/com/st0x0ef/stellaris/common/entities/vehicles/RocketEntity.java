@@ -631,6 +631,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         this.remove(RemovalReason.DISCARDED);
         newRocketEntity.level().addFreshEntity(newRocketEntity);
         if (passenger!=null) newRocketEntity.doPlayerRide(passenger);
+        newRocketEntity.openCustomInventoryScreen(lastPlayer);
     }
 
     public EntityType<? extends RocketEntity> getEntityType(ModelUpgrade upgrade) {
