@@ -861,9 +861,6 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         GLFW.glfwGetCursorPos(window, mouseX, mouseY);
 
         if (this.minecraft != null && this.minecraft.player != null) {
-            if (this.minecraft.screen != null) {
-                handleHotbarScroll(scrollY);
-            }
 
             if (this.minecraft.screen instanceof CreativeModeInventoryScreen creativeScreen) {
                 if (creativeScreen.mouseScrolled(mouseX[0], mouseY[0], scrollX, scrollY)) {
@@ -880,6 +877,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
                     }
                     zoomLevel = Math.max(0.02, Math.min(zoomLevel, 2.0));
                 }
+            } else {
+                handleHotbarScroll(scrollY);
             }
         }
     }
