@@ -9,11 +9,11 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class RadioactiveEffect extends MobEffect {
-
 
     public RadioactiveEffect(MobEffectCategory mobEffectCategory, int color) {
         super(mobEffectCategory, color);
@@ -23,22 +23,32 @@ public class RadioactiveEffect extends MobEffect {
     public void applyInstantenousEffect(@Nullable Entity source, @Nullable Entity indirectSource, LivingEntity livingEntity, int amplifier, double health) {
         this.applyEffectTick(livingEntity, amplifier);
         if (livingEntity.getHealth() > 0.0F) {
+            Level level = livingEntity.level();
+
             if (amplifier == 0) {
-                livingEntity.hurt(DamageSourceRegistry.of(livingEntity.level(), DamageSourceRegistry.RADIATIONS), 0.5f);
-            } else if (amplifier == 1) {
+                this.playSound(level, livingEntity);
+                livingEntity.hurt(DamageSourceRegistry.of(level, DamageSourceRegistry.RADIATIONS), 0.5f);
+            }
+            else if (amplifier == 1) {
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 80));
-                livingEntity.hurt(DamageSourceRegistry.of(livingEntity.level(), DamageSourceRegistry.RADIATIONS), 0.5f);
-            } else if (amplifier == 2) {
+                this.playSound(level, livingEntity);
+                livingEntity.hurt(DamageSourceRegistry.of(level, DamageSourceRegistry.RADIATIONS), 0.5f);
+            }
+            else if (amplifier == 2) {
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 80));
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80));
-                livingEntity.hurt(DamageSourceRegistry.of(livingEntity.level(), DamageSourceRegistry.RADIATIONS), 1f);
+                this.playSound(level, livingEntity);
+                livingEntity.hurt(DamageSourceRegistry.of(level, DamageSourceRegistry.RADIATIONS), 1f);
             }
         }
-
     }
 
-
-
+    private void playSound(Level level, LivingEntity entity) {
+        if (!level.isClientSide) {
+            level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundRegistry.RADIOACTIVE.get(),
+                    entity.getSoundSource(), 3.0F, 1.0F);
+        }
+    }
 
     @Override
     public @NotNull MobEffect withSoundOnAdded(SoundEvent event) {
