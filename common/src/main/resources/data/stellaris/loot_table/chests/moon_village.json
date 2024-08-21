@@ -63,7 +63,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "stellaris:blue_can",
+          "name": "stellaris:small_blue_can",
           "weight": 5
         },
         {
@@ -73,7 +73,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "stellaris:red_can",
+          "name": "stellaris:small_red_can",
           "weight": 5
         },
         {
@@ -83,22 +83,32 @@
         },
         {
           "type": "minecraft:item",
-          "name": "stellaris:green_can",
+          "name": "stellaris:small_green_can",
           "weight": 5
         },
         {
           "type": "minecraft:item",
-          "name": "stellaris:purple_can",
+          "name": "stellaris:big_green_can",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "stellaris:small_purple_can",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "stellaris:big_purple_can",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "stellaris:small_yellow_can",
           "weight": 5
         },
         {
           "type": "minecraft:item",
           "name": "stellaris:big_yellow_can",
-          "weight": 5
-        },
-        {
-          "type": "minecraft:item",
-          "name": "stellaris:yellow_can",
           "weight": 5
         },
         {
