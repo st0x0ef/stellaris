@@ -3,93 +3,13 @@
     {
       "rolls": {
         "min": 3,
-        "max": 6
+        "max": 8
       },
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "stellaris:moon_sand",
-          "weight": 25,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 1,
-                "max": 4
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "stellaris:moon_stone",
-          "weight": 25,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 1,
-                "max": 4
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
           "name": "stellaris:flag",
           "weight": 15
-        },
-        {
-          "type": "minecraft:item",
-          "name": "stellaris:small_blue_can",
-          "weight": 5
-        },
-        {
-          "type": "minecraft:item",
-          "name": "stellaris:big_blue_can",
-          "weight": 5
-        },
-        {
-          "type": "minecraft:item",
-          "name": "stellaris:small_red_can",
-          "weight": 5
-        },
-        {
-          "type": "minecraft:item",
-          "name": "stellaris:big_red_can",
-          "weight": 5
-        },
-        {
-          "type": "minecraft:item",
-          "name": "stellaris:small_green_can",
-          "weight": 5
-        },
-        {
-          "type": "minecraft:item",
-          "name": "stellaris:big_green_can",
-          "weight": 5
-        },
-        {
-          "type": "minecraft:item",
-          "name": "stellaris:small_purple_can",
-          "weight": 5
-        },
-        {
-          "type": "minecraft:item",
-          "name": "stellaris:big_purple_can",
-          "weight": 5
-        },
-        {
-          "type": "minecraft:item",
-          "name": "stellaris:small_yellow_can",
-          "weight": 5
-        },
-        {
-          "type": "minecraft:item",
-          "name": "stellaris:big_yellow_can",
-          "weight": 5
         },
         {
           "type": "minecraft:item",
@@ -123,22 +43,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:coal",
-          "weight": 20,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 1,
-                "max": 16
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:iron_sword",
+          "name": "minecraft:diamond_sword",
           "weight": 10,
           "functions": [
             {
@@ -148,7 +53,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:iron_axe",
+          "name": "minecraft:diamond_axe",
           "weight": 10,
           "functions": [
             {
@@ -158,7 +63,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:iron_hoe",
+          "name": "minecraft:diamond_hoe",
           "weight": 10,
           "functions": [
             {
@@ -168,7 +73,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:iron_shovel",
+          "name": "minecraft:diamond_shovel",
           "weight": 10,
           "functions": [
             {
@@ -179,7 +84,7 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:diamond",
-          "weight": 5,
+          "weight": 10,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -228,7 +133,17 @@
         },
         {
           "type": "minecraft:item",
-          "name": "stellaris:chesse",
+          "name": "minecraft:netherite_ingot",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "stellaris:hydrogen_motor",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "stellaris:cheese",
           "weight": 10,
           "functions": [
             {
@@ -240,6 +155,36 @@
               }
             }
           ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "stellaris:skin_frozy",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "stellaris:tiny_rocket_upgrade",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "stellaris:heavy_metal_ingot",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 4
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "stellaris:big_oxygen_tank",
+          "weight": 10
         }
       ]
     }
