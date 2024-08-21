@@ -1,6 +1,6 @@
 package com.st0x0ef.stellaris.common.menus;
 
-import com.st0x0ef.stellaris.common.entities.RocketEntity;
+import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
 import com.st0x0ef.stellaris.common.menus.slot.ResultSlot;
 import com.st0x0ef.stellaris.common.menus.slot.upgrade.MotorUpgradeSlot;
 import com.st0x0ef.stellaris.common.menus.slot.upgrade.RocketModelSlot;

@@ -1,7 +1,7 @@
 package com.st0x0ef.stellaris.client.renderers.entities.pygro;
 
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.entities.pygro.Pygro;
+import com.st0x0ef.stellaris.common.entities.mobs.pygro.Pygro;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.geom.EntityModelSet;

@@ -2,7 +2,7 @@ package com.st0x0ef.stellaris.common.items;
 
 import com.st0x0ef.stellaris.common.blocks.RocketLaunchPad;
 import com.st0x0ef.stellaris.common.data_components.RocketComponent;
-import com.st0x0ef.stellaris.common.entities.RocketEntity;
+import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import net.minecraft.ChatFormatting;
@@ -126,9 +126,7 @@ public class RocketItem extends Item {
         RocketComponent rocketComponent = stack.get(DataComponentsRegistry.ROCKET_COMPONENT.get());
         if(rocketComponent == null) return;
 
-        tooltipComponents.add(Component.translatable("tooltip.item.stellaris.rocket.skin", rocketComponent.skin()).withStyle(ChatFormatting.GRAY));
         tooltipComponents.add(Component.translatable("tooltip.item.stellaris.rocket.fuel", rocketComponent.fuel()).withStyle(ChatFormatting.GRAY));
-        tooltipComponents.add(Component.translatable("tooltip.item.stellaris.rocket.model", rocketComponent.model().toString()).withStyle(ChatFormatting.GRAY));
     }
 
     public float getRocketPlaceHigh() {

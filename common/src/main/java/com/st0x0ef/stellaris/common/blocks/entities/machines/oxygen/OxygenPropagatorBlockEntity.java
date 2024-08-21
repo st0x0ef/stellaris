@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines.oxygen;
 
 import com.st0x0ef.stellaris.common.blocks.entities.machines.BaseEnergyBlockEntity;
-import com.st0x0ef.stellaris.common.oxygen.OxygenContainer;
 import com.st0x0ef.stellaris.common.oxygen.OxygenManager;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;

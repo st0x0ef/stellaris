@@ -85,7 +85,7 @@ public class ConfigScreen extends Screen {
             button.setResponder((string) -> CustomConfig.CONFIG.replace(entryName, new ConfigEntry<>(string, entry.description())));
             rowHelper.addChild(button);
 
-        } else if (entry.getType() == Integer.class || entry.getType() == Double.class || entry.getType() == Float.class){
+        } else if (entry.getType() == Integer.class || entry.getType() == Double.class || entry.getType() == Float.class || entry.getType() == Long.class){
             EditBox button = new EditBox(this.font, 50, 15, Component.literal(entry.value().toString()));
             button.setMaxLength(100);
             button.setValue(entry.value().toString());

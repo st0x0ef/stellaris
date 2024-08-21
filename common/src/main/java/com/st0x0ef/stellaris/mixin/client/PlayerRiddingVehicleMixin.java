@@ -1,6 +1,6 @@
 package com.st0x0ef.stellaris.mixin.client;
 
-import com.st0x0ef.stellaris.common.entities.IVehicleEntity;
+import com.st0x0ef.stellaris.common.entities.vehicles.IVehicleEntity;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.world.entity.LivingEntity;
 import org.spongepowered.asm.mixin.Mixin;
