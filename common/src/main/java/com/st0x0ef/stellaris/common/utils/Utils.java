@@ -2,8 +2,8 @@ package com.st0x0ef.stellaris.common.utils;
 
 import com.mojang.serialization.Codec;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
-import com.st0x0ef.stellaris.common.entities.LanderEntity;
-import com.st0x0ef.stellaris.common.entities.RocketEntity;
+import com.st0x0ef.stellaris.common.entities.vehicles.LanderEntity;
+import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -192,7 +192,7 @@ public class Utils {
     public static <T extends Enum<T>> Codec<T> EnumCodec(Class<T> e) {
         Function<String, T> stringToEnum = s -> Enum.valueOf(e, s.toUpperCase(Locale.ROOT));
 
-        Function<T, String> enumToString = enumValue -> enumValue.name();
+        Function<T, String> enumToString = Enum::name;
 
         return Codec.STRING.xmap(stringToEnum, enumToString);
     }

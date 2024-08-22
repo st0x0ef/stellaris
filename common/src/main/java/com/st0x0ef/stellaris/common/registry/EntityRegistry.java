@@ -4,9 +4,6 @@ import com.google.common.base.Suppliers;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.entities.*;
 import com.st0x0ef.stellaris.common.entities.alien.Alien;
-import com.st0x0ef.stellaris.common.entities.cheese_boss.CheeseBoss;
-import com.st0x0ef.stellaris.common.entities.cheese_boss.CheeseBossEntitySensor;
-import com.st0x0ef.stellaris.common.entities.cheese_boss.attack_entities.CheeseSpit;
 import com.st0x0ef.stellaris.common.entities.pygro.Pygro;
 import com.st0x0ef.stellaris.common.entities.pygro.PygroMobsSensor;
 import dev.architectury.registry.registries.DeferredRegister;
@@ -53,26 +50,32 @@ public class EntityRegistry {
      * Vehicles
      */
     public static final RegistrySupplier<EntityType<RocketEntity>> TINY_ROCKET = ENTITY_TYPE.register("tiny_rocket", () -> EntityType.Builder.of(RocketEntity::new, MobCategory.MISC).sized(1.1f, 4.4f).fireImmune().build(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "tiny_rocket").toString()));
+    public static final RegistrySupplier<EntityType<RocketEntity>> SMALL_ROCKET = ENTITY_TYPE.register("small_rocket", () -> EntityType.Builder.of(RocketEntity::new, MobCategory.MISC).sized(0.8f, 3.2f).build(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "small_rocket").toString()));
+    public static final RegistrySupplier<EntityType<RocketEntity>> NORMAL_ROCKET = ENTITY_TYPE.register("normal_rocket", () -> EntityType.Builder.of(RocketEntity::new, MobCategory.MISC).sized(1.1f, 4.4f).build(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "normal_rocket").toString()));
     public static final RegistrySupplier<EntityType<RocketEntity>> BIG_ROCKET = ENTITY_TYPE.register("big_rocket", () -> EntityType.Builder.of(RocketEntity::new, MobCategory.MISC).sized(1.1f, 4.4f).fireImmune().build(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "big_rocket").toString()));
 
-    public static final RegistrySupplier<EntityType<RocketEntity>> NORMAL_ROCKET = ENTITY_TYPE.register("normal_rocket",
-            () -> EntityType.Builder.of(RocketEntity::new, MobCategory.MISC).sized(1.1f, 4.4f).build(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "normal_rocket").toString()));
-    public static final RegistrySupplier<EntityType<RocketEntity>> SMALL_ROCKET = ENTITY_TYPE.register("small_rocket",
-            () -> EntityType.Builder.of(RocketEntity::new, MobCategory.MISC).sized(0.8f, 3.2f).build(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "small_rocket").toString()));
+    public static final RegistrySupplier<EntityType<LanderEntity>> LANDER = ENTITY_TYPE.register("lander", () -> EntityType.Builder.<LanderEntity>of(LanderEntity::new, MobCategory.MISC).sized(2.5f, 1.0f).build(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "lander").toString()));
 
-    public static final RegistrySupplier<EntityType<LanderEntity>> LANDER = ENTITY_TYPE.register("lander",
-            () -> EntityType.Builder.<LanderEntity>of(LanderEntity::new, MobCategory.MISC).sized(2.5f, 1.0f).build(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "lander").toString()));
-
-    //Entity Attributes
     public static void registerAttributes(BiConsumer<Supplier<? extends EntityType<? extends LivingEntity>>, Supplier<AttributeSupplier.Builder>> attributes) {
-        attributes.accept(EntityRegistry.ALIEN,  Alien::setCustomAttributes);
-        attributes.accept(EntityRegistry.ALIEN_ZOMBIE,  AlienZombie::setCustomAttributes);
-        attributes.accept(EntityRegistry.MARTIAN_RAPTOR,  MartianRaptor::CreateRaptorAttributes);
-        attributes.accept(EntityRegistry.PYGRO_BRUTE, PygroBrute::setCustomAttributes);
-        attributes.accept(EntityRegistry.PYGRO, Pygro::setCustomAttributes);
-        attributes.accept(EntityRegistry.MOGLER, Mogler::setCustomAttributes);
-        attributes.accept(EntityRegistry.STAR_CRAWLER, StarCrawler::setCustomAttributes);
-        attributes.accept(EntityRegistry.CHEESE_BOSS, CheeseBoss::setCustomAttributes);
+        attributes.accept(ALIEN,  Alien::setCustomAttributes);
+        attributes.accept(ALIEN_ZOMBIE,  AlienZombie::setCustomAttributes);
+        attributes.accept(MARTIAN_RAPTOR,  MartianRaptor::setCustomAttributes);
+        attributes.accept(PYGRO_BRUTE, PygroBrute::setCustomAttributes);
+        attributes.accept(PYGRO, Pygro::setCustomAttributes);
+        attributes.accept(MOGLER, Mogler::setCustomAttributes);
+        attributes.accept(STAR_CRAWLER, StarCrawler::setCustomAttributes);
+        attributes.accept(CHEESE_BOSS, CheeseBoss::setCustomAttributes);
+    }
+
+    public static void registerSpawnPlacements() {
+        SpawnPlacementsRegistry.register(ALIEN, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Alien::checkMobSpawnRules);
+        SpawnPlacementsRegistry.register(ALIEN_ZOMBIE, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AlienZombie::checkMonsterSpawnRules);
+        SpawnPlacementsRegistry.register(MARTIAN_RAPTOR, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MartianRaptor::checkMonsterSpawnRules);
+        SpawnPlacementsRegistry.register(PYGRO_BRUTE, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, PygroBrute::checkMonsterSpawnRules);
+        SpawnPlacementsRegistry.register(PYGRO, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Pygro::checkMonsterSpawnRules);
+        SpawnPlacementsRegistry.register(MOGLER, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mogler::checkMoglerSpawnRules);
+        SpawnPlacementsRegistry.register(STAR_CRAWLER, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, StarCrawler::checkMonsterSpawnRules);
+        SpawnPlacementsRegistry.register(CHEESE_BOSS, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CheeseBoss::checkMonsterSpawnRules);
     }
 
     //Entity Sensor

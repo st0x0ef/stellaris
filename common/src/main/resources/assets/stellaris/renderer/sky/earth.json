@@ -2,13 +2,15 @@
   "id": "minecraft:overworld",
   "cloud": true,
   "cloud_height": 192,
-  "fog": false,
+  "fog": true,
   "custom_vanilla_objects": {
     "sun": true,
     "sun_texture": "textures/environment/sun.png",
+    "sun_height": 300,
     "moon": true,
     "moon_phase": true,
-    "moon_texture": "textures/environment/moon_phases.png"
+    "moon_texture": "textures/environment/moon_phases.png",
+    "moon_height": 75
   },
   "weather": [
     {
@@ -24,5 +26,4 @@
   },
   "sky_type": "NORMAL",
   "sky_objects": []
-
 }
