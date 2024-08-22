@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.common.entities.vehicles;
 
 import com.google.common.collect.Sets;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.RocketModel;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.data_components.RocketComponent;
@@ -26,8 +25,10 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerEntity;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
@@ -59,6 +60,8 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     public boolean ROCKET_START;
     public int FUEL;
 
+    public boolean needsModelChange = false;
+
     public SkinUpgrade SKIN_UPGRADE;
     public ModelUpgrade MODEL_UPGRADE;
     public MotorUpgrade MOTOR_UPGRADE;
@@ -69,8 +72,10 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     protected SimpleContainer inventory;
 
     public RocketComponent rocketComponent;
-
     private Player lastPlayer;
+
+    private static final EntityDataAccessor<String> DATA_SKIN;
+    private static final EntityDataAccessor<String> DATA_MODEL;
 
     public RocketEntity(EntityType<?> entityType, Level level) {
         this(entityType, level, SkinUpgrade.getBasic());
@@ -172,6 +177,29 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         this.TANK_UPGRADE = new TankUpgrade(compound.getInt("tank"));
     }
 
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(DATA_SKIN, SkinUpgrade.getBasic().getRocketSkinLocation().toString());
+        builder.define(DATA_MODEL, ModelUpgrade.getBasic().getModel().toString());
+    }
+
+    public SkinUpgrade getSkinData() {
+        return new SkinUpgrade(ResourceLocation.tryParse(this.entityData.get(DATA_SKIN)));
+    }
+
+    public void setSkinData(SkinUpgrade skinUpgrade) {
+        this.entityData.set(DATA_SKIN, skinUpgrade.getRocketSkinLocation().toString());
+    }
+
+    public ModelUpgrade getModelData() { // not sure if this is needed yet
+        return new ModelUpgrade(RocketModel.fromString(this.entityData.get(DATA_MODEL)));
+    }
+
+    public void setModelData(ModelUpgrade modelUpgrade) {
+        this.entityData.set(DATA_MODEL, modelUpgrade.getModel().toString());
+    }
+
 
     @Override
     public boolean isPushable() {
@@ -215,7 +243,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
     @Override
     public void openCustomInventoryScreen(Player player) {
-        lastPlayer=player;
+        this.lastPlayer=player;
         if (player instanceof ServerPlayer serverPlayer) {
             MenuRegistry.openExtendedMenu(serverPlayer, new ExtendedMenuProvider() {
                 @Override
@@ -395,7 +423,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     }
     public ItemStack getRocketItem() {
         ItemStack itemStack = new ItemStack(ItemsRegistry.ROCKET.get(), 1);
-        rocketComponent = new RocketComponent(SKIN_UPGRADE.getRocketSkinLocation().toString(), RocketModel.fromString(MODEL_UPGRADE.getModel().toString()), currentFuelItem.toString(), FUEL, TANK_UPGRADE.getTankCapacity());Stellaris.LOG.error(MODEL_UPGRADE.getModel().getSerializedName());
+        rocketComponent = new RocketComponent(SkinUpgrade.getBasic().getNameSpace(), ModelUpgrade.getBasic().getModel(), currentFuelItem.toString(), FUEL, TANK_UPGRADE.getTankCapacity());
         itemStack.set(DataComponentsRegistry.ROCKET_COMPONENT.get(), rocketComponent);
 
         return itemStack;
@@ -439,25 +467,31 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         if (this.getInventory().getItem(12).getItem() instanceof RocketUpgradeItem item) {
             if (item.getUpgrade() instanceof SkinUpgrade upgrade) {
                 this.SKIN_UPGRADE = upgrade;
-                if (lastPlayer!=null) lastPlayer.closeContainer();
-                changeRocketModelAndSkin();
+                setSkinData(upgrade);
             }
         }
         else if (this.getInventory().getItem(12).isEmpty()) {
             this.SKIN_UPGRADE = SkinUpgrade.getBasic();
+            setSkinData(SkinUpgrade.getBasic());
         }
 
         if (this.getInventory().getItem(13).getItem() instanceof RocketUpgradeItem item) {
             if (item.getUpgrade() instanceof ModelUpgrade upgrade) {
                 if (this.MODEL_UPGRADE.getModel() != upgrade.getModel()){
                     this.MODEL_UPGRADE = upgrade;
-                    if (lastPlayer!=null) lastPlayer.closeContainer();
-                    changeRocketModelAndSkin();
+                    setModelData(upgrade);
+                    needsModelChange = true;
+                    changeRocketModel();
                 }
             }
         }
         else if (this.getInventory().getItem(13).isEmpty()) {
             this.MODEL_UPGRADE = ModelUpgrade.getBasic();
+            setModelData(this.MODEL_UPGRADE);
+            if (needsModelChange) {
+                needsModelChange = false;
+                changeRocketModel();
+            }
         }
 
         tryFillUpRocket(this.getInventory().getItem(0).getItem());
@@ -551,12 +585,12 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     }
 
     public ResourceLocation getFullSkinTexture() {
-        String texture = SKIN_UPGRADE.getRocketSkinLocation().toString();
+        String texture = getSkinData().getRocketSkinLocation().toString();
         if (MODEL_UPGRADE != null) {
-            texture = texture.replace("normal", MODEL_UPGRADE.getModel().toString());
+            texture = texture.replace("normal", getModelData().getModel().toString());
         }
 
-        return new ResourceLocation(texture);
+        return ResourceLocation.tryParse(texture);
     }
 
     public boolean canGoTo (Planet actual, Planet destination) {
@@ -571,31 +605,30 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         }
     }
 
-    public void changeRocketModelAndSkin() {
+    public void changeRocketModel() {
+        lastPlayer.closeContainer();
         NonNullList<ItemStack> itemStacks = this.inventory.getItems();
         Vec3 pos = this.position();
         Player passenger = this.getFirstPlayerPassenger();
         EntityType<? extends RocketEntity> newRocketType = getEntityType(this.MODEL_UPGRADE);
         RocketEntity newRocketEntity = new RocketEntity(newRocketType, this.level(), this.SKIN_UPGRADE);
         newRocketEntity.setPos(pos);
+        newRocketEntity.setYRot(this.getYRot());
         newRocketEntity.MODEL_UPGRADE = this.MODEL_UPGRADE;
+        newRocketEntity.setModelData(this.MODEL_UPGRADE);
         newRocketEntity.SKIN_UPGRADE = this.SKIN_UPGRADE;
+        newRocketEntity.setSkinData(this.SKIN_UPGRADE);
         newRocketEntity.MOTOR_UPGRADE = this.MOTOR_UPGRADE;
         newRocketEntity.TANK_UPGRADE = this.TANK_UPGRADE;
         newRocketEntity.FUEL = this.FUEL;
+        newRocketEntity.needsModelChange = this.needsModelChange;
 
-        for (int i = 0; i < inventory.getContainerSize(); i++) {
-            if (i != 13 && i != 12) { newRocketEntity.inventory.setItem(i, itemStacks.get(i)); }
-            else {
-                ItemStack itemStack13 = itemStacks.get(13);
-                ItemStack itemStack12 = itemStacks.get(12);
-                newRocketEntity.inventory.setItem(i, new ItemStack(itemStack13.getItem(),itemStack13.getCount()-1));
-                newRocketEntity.inventory.setItem(i, new ItemStack(itemStack12.getItem(),itemStack12.getCount()-1));
-            }
-        }
+        for (int i = 0; i < inventory.getContainerSize(); i++) newRocketEntity.inventory.setItem(i, itemStacks.get(i));
+
         this.remove(RemovalReason.DISCARDED);
         newRocketEntity.level().addFreshEntity(newRocketEntity);
         if (passenger!=null) newRocketEntity.doPlayerRide(passenger);
+        newRocketEntity.openCustomInventoryScreen(lastPlayer);
     }
 
     public EntityType<? extends RocketEntity> getEntityType(ModelUpgrade upgrade) {
@@ -611,4 +644,9 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 	public Packet<ClientGamePacketListener> getAddEntityPacket() {
 		return NetworkManager.createAddEntityPacket(this);
 	}
+
+    static {
+        DATA_SKIN = SynchedEntityData.defineId(RocketEntity.class, EntityDataSerializers.STRING);
+        DATA_MODEL = SynchedEntityData.defineId(RocketEntity.class, EntityDataSerializers.STRING);
+    }
 }

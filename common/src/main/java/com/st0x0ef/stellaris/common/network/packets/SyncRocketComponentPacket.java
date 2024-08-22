@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.common.network.packets;
 
 import com.st0x0ef.stellaris.common.data_components.RocketComponent;
+import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
 import com.st0x0ef.stellaris.common.menus.RocketMenu;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import dev.architectury.networking.NetworkManager;
@@ -41,12 +42,13 @@ public class SyncRocketComponentPacket implements CustomPacketPayload {
     public static void handle(SyncRocketComponentPacket packet,  NetworkManager.PacketContext context) {
         LocalPlayer player = (LocalPlayer) context.getPlayer();
         if (player.containerMenu instanceof RocketMenu menu) {
-            menu.getRocket().rocketComponent = packet.component;
+            RocketEntity rocket = menu.getRocket();
+            rocket.rocketComponent = packet.component;
 
-            menu.getRocket().MODEL_UPGRADE = packet.component.getModelUpgrade();
-            menu.getRocket().SKIN_UPGRADE = packet.component.getSkinUpgrade();
-            menu.getRocket().TANK_UPGRADE = packet.component.getTankUpgrade();
-            menu.getRocket().MOTOR_UPGRADE = packet.component.getMotorUpgrade();
+            rocket.MODEL_UPGRADE = packet.component.getModelUpgrade();
+            rocket.SKIN_UPGRADE = packet.component.getSkinUpgrade();
+            rocket.TANK_UPGRADE = packet.component.getTankUpgrade();
+            rocket.MOTOR_UPGRADE = packet.component.getMotorUpgrade();
 
         }
     }
