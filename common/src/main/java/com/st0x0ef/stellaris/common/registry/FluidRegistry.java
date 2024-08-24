@@ -11,12 +11,18 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class FluidRegistry {
 
     public static final DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(Stellaris.MODID, Registries.FLUID);
 
+    public static final List<ArchitecturyFluidAttributes> FLUIDS_INFOS = new ArrayList<>();
+
+
     /** FUEL FLUIDS */
-    private static final ArchitecturyFluidAttributes FUEL_ATTRIBUTES = SimpleArchitecturyFluidAttributes.ofSupplier(() -> FluidRegistry.FLOWING_FUEL, () -> FluidRegistry.FUEL_STILL)
+    public static final ArchitecturyFluidAttributes FUEL_ATTRIBUTES = SimpleArchitecturyFluidAttributes.ofSupplier(() -> FluidRegistry.FLOWING_FUEL, () -> FluidRegistry.FUEL_STILL)
             .blockSupplier(() -> BlocksRegistry.FUEL_BLOCK)
             .bucketItemSupplier(() -> ItemsRegistry.FUEL_BUCKET)
             .slopeFindDistance(4)
@@ -34,7 +40,7 @@ public class FluidRegistry {
 
 
     /** OIL FLUIDS */
-    private static final ArchitecturyFluidAttributes OIL_ATTRIBUTES = SimpleArchitecturyFluidAttributes.ofSupplier(() -> FluidRegistry.FLOWING_OIL, () -> FluidRegistry.OIL_STILL)
+    public static final ArchitecturyFluidAttributes OIL_ATTRIBUTES = SimpleArchitecturyFluidAttributes.ofSupplier(() -> FluidRegistry.FLOWING_OIL, () -> FluidRegistry.OIL_STILL)
             .blockSupplier(() -> BlocksRegistry.OIL_BLOCK)
             .bucketItemSupplier(() -> ItemsRegistry.OIL_BUCKET)
             .slopeFindDistance(4)
@@ -49,7 +55,7 @@ public class FluidRegistry {
     public static final RegistrySupplier<FlowingFluid> OIL_STILL = FLUIDS.register("oil", () -> new ArchitecturyFlowingFluid.Source(OIL_ATTRIBUTES));
 
     /** HYDROGEN FLUIDS */
-    private static final ArchitecturyFluidAttributes HYDROGEN_ATTRIBUTES = SimpleArchitecturyFluidAttributes.ofSupplier(() -> FluidRegistry.FLOWING_HYDROGEN, () -> FluidRegistry.HYDROGEN_STILL)
+    public static final ArchitecturyFluidAttributes HYDROGEN_ATTRIBUTES = SimpleArchitecturyFluidAttributes.ofSupplier(() -> FluidRegistry.FLOWING_HYDROGEN, () -> FluidRegistry.HYDROGEN_STILL)
             .blockSupplier(() -> BlocksRegistry.HYDROGEN_BLOCK)
             .bucketItemSupplier(() -> ItemsRegistry.HYDROGEN_BUCKET)
             .slopeFindDistance(4)
@@ -64,7 +70,7 @@ public class FluidRegistry {
     public static final RegistrySupplier<FlowingFluid> HYDROGEN_STILL = FLUIDS.register("hydrogen", () -> new ArchitecturyFlowingFluid.Source(HYDROGEN_ATTRIBUTES));
 
     /** OXYGEN FLUIDS **/
-    private static final ArchitecturyFluidAttributes OXYGEN_ATTRIBUTES = SimpleArchitecturyFluidAttributes.ofSupplier(() -> FluidRegistry.FLOWING_OXYGEN, () -> FluidRegistry.OXYGEN_STILL)
+    public static final ArchitecturyFluidAttributes OXYGEN_ATTRIBUTES = SimpleArchitecturyFluidAttributes.ofSupplier(() -> FluidRegistry.FLOWING_OXYGEN, () -> FluidRegistry.OXYGEN_STILL)
             .blockSupplier(() -> BlocksRegistry.OXYGEN_BLOCK)
             .slopeFindDistance(4)
             .dropOff(1)
@@ -76,4 +82,14 @@ public class FluidRegistry {
 
     public static final RegistrySupplier<FlowingFluid> FLOWING_OXYGEN = FLUIDS.register("flowing_oxygen", () -> new ArchitecturyFlowingFluid.Flowing(OXYGEN_ATTRIBUTES));
     public static final RegistrySupplier<FlowingFluid> OXYGEN_STILL = FLUIDS.register("oxygen", () -> new ArchitecturyFlowingFluid.Source(OXYGEN_ATTRIBUTES));
+
+    public static void init() {
+        FluidRegistry.FLUIDS.register();
+        FLUIDS_INFOS.add(OXYGEN_ATTRIBUTES);
+        FLUIDS_INFOS.add(OIL_ATTRIBUTES);
+        FLUIDS_INFOS.add(HYDROGEN_ATTRIBUTES);
+        FLUIDS_INFOS.add(FUEL_ATTRIBUTES);
+    }
+
+
 }

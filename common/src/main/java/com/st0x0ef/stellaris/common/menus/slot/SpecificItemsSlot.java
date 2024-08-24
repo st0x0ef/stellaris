@@ -33,17 +33,4 @@ public class SpecificItemsSlot {
             return stack.is(item);
         }
     }
-
-    public static class InstanceOfItem extends Slot {
-        Class item;
-        public InstanceOfItem(Container container, int slot, int x, int y, Class item) {
-            super(container, slot, x, y);
-            this.item = item;
-        }
-
-        @Override
-        public boolean mayPlace(ItemStack stack) {
-            return stack.getItem().getClass().isInstance(item);
-        }
-    }
 }

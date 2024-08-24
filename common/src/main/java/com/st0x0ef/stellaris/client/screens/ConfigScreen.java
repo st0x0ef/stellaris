@@ -68,7 +68,7 @@ public class ConfigScreen extends Screen {
         guiGraphics.drawCenteredString(this.font, this.title, this.width / 2, 20, -1);
     }
 
-    public void addTypeWidgets(ConfigEntry entry, GridLayout.RowHelper rowHelper, String entryName) {
+    public void addTypeWidgets(ConfigEntry<?> entry, GridLayout.RowHelper rowHelper, String entryName) {
         if(entry.getType() == Boolean.class) {
             Checkbox checkbox = Checkbox.builder(Component.literal(entry.value().toString()), this.font)
                     .selected((Boolean) entry.value())
