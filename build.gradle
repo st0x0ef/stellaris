@@ -83,9 +83,8 @@ subprojects {
         }
 
         publishMods {
-
-            file = file("../${modLoader.capitalize()}/build/libs/stellaris-${modLoader}-${minecraftVersion}-${version}.jar")
-            changelog = file("../changelog.md").readText(Charsets.UTF_8)
+            file = file("../${modLoader.capitalize()}/build/libs/stellaris-${modLoader}-${minecraft_version}-${mod_version}.jar")
+            changelog = file("../changelog.md").readText(Charset.UTF_8)
             type = STABLE
             modLoaders.add(modLoader)
             displayName = "[${modLoader.capitalize()}] Stellaris ${version}"
@@ -101,9 +100,8 @@ subprojects {
             modrinth {
                 projectId = "ItTQpuBn"
                 accessToken = providers.environmentVariable("MODRINTH_TOKEN")
-                minecraftVersions.add("${minecraftVersion}")
+                minecraftVersions.add("${minecraft_version}")
                 requires("architectury-api")
-
             }
         }
 
