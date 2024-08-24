@@ -2,6 +2,8 @@ plugins {
     id "dev.architectury.loom" version "1.7-SNAPSHOT" apply false
     id "architectury-plugin" version "3.4-SNAPSHOT"
     id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
+    id "me.modmuss50.mod-publish-plugin" version "0.6.3"
+
 }
 
 architectury {
@@ -12,6 +14,7 @@ subprojects {
     apply plugin: 'dev.architectury.loom'
     apply plugin: 'architectury-plugin'
     apply plugin: 'maven-publish'
+    apply plugin: 'me.modmuss50.mod-publish-plugin'
 
     base {
         archivesName = "${rootProject.modid}-${rootProject.minecraft_version}-${project.name}"
@@ -76,6 +79,31 @@ subprojects {
                         password = System.getenv("MAVEN_PASS")
                     }
                 }
+            }
+        }
+
+        publishMods {
+
+            file = file("../${modLoader.capitalize()}/build/libs/stellaris-${modLoader}-${minecraftVersion}-${version}.jar")
+            changelog = file("../changelog.md").readText(Charsets.UTF_8)
+            type = STABLE
+            modLoaders.add(modLoader)
+            displayName = "[${modLoader.capitalize()}] Stellaris ${version}"
+
+            curseforge {
+                projectId = "1036270"
+                projectSlug = "stellaris" // Required for discord webhook
+                accessToken = providers.environmentVariable("CURSEFORGE_API_KEY")
+                minecraftVersions.add("${minecraftVersion}")
+                requires("architectury-api")
+            }
+
+            modrinth {
+                projectId = "ItTQpuBn"
+                accessToken = providers.environmentVariable("MODRINTH_TOKEN")
+                minecraftVersions.add("${minecraftVersion}")
+                requires("architectury-api")
+
             }
         }
 
