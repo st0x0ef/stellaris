@@ -11,7 +11,6 @@ public class LookupApiRegistry {
     public static void registerEnergy() {
 
         registerToEnergyApi(BlocksRegistry.CABLE, BlockEntityRegistry.CABLE_ENTITY);
-        registerToEnergyApi(BlocksRegistry.OXYGEN_PROPAGATOR, BlockEntityRegistry.OXYGEN_PROPAGATOR);
         registerToEnergyApi(BlocksRegistry.OXYGEN_DISTRIBUTOR, BlockEntityRegistry.OXYGEN_DISTRIBUTOR);
         registerToEnergyApi(BlocksRegistry.WATER_SEPARATOR, BlockEntityRegistry.WATER_SEPARATOR_ENTITY);
         registerToEnergyApi(BlocksRegistry.FUEL_REFINERY, BlockEntityRegistry.FUEL_REFINERY);

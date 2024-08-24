@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.data_components.JetSuitComponent;
 import com.st0x0ef.stellaris.common.keybinds.KeyVariables;
-import com.st0x0ef.stellaris.common.oxygen.OxygenContainer;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.ChatFormatting;
@@ -25,12 +24,8 @@ public class JetSuit {
     public static class Suit extends AbstractSpaceArmor.Chestplate {
         public float spacePressTime;
 
-        public OxygenContainer oxygenContainer;
-
         public Suit(Holder<ArmorMaterial> material, Properties properties) {
             super(material, Type.CHESTPLATE, properties);
-
-            oxygenContainer = new OxygenContainer(3000);
         }
 
         public int getMode(ItemStack itemStack) {
@@ -38,19 +33,12 @@ public class JetSuit {
         }
 
         public ModeType getModeType(ItemStack itemStack) {
-            int mode = this.getMode(itemStack);
-
-            if (mode == 1) {
-                return ModeType.NORMAL;
-            }
-            else if (mode == 2) {
-                return ModeType.HOVER;
-            }
-            else if (mode == 3) {
-                return ModeType.ELYTRA;
-            }
-
-            return ModeType.DISABLED;
+            return switch (this.getMode(itemStack)) {
+                case 1 -> ModeType.NORMAL;
+                case 2 -> ModeType.HOVER;
+                case 3 -> ModeType.ELYTRA;
+                default -> ModeType.DISABLED;
+            };
         }
 
 
