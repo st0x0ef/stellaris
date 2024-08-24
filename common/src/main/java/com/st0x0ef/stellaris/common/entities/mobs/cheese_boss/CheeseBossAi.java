@@ -1,4 +1,4 @@
-package com.st0x0ef.stellaris.common.entities.cheese_boss;
+package com.st0x0ef.stellaris.common.entities.mobs.cheese_boss;
 
 import com.google.common.collect.ImmutableSet;
 import com.mojang.serialization.Dynamic;

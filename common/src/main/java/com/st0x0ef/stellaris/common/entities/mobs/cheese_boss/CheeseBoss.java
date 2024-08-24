@@ -1,15 +1,12 @@
-package com.st0x0ef.stellaris.common.entities.cheese_boss;
+package com.st0x0ef.stellaris.common.entities.mobs.cheese_boss;
 
 import com.mojang.serialization.Dynamic;
-import com.st0x0ef.stellaris.common.entities.cheese_boss.attack_entities.CheeseSpit;
-import com.st0x0ef.stellaris.common.entities.cheese_boss.goals.CheeseMeleeAttackGoal;
+import com.st0x0ef.stellaris.common.entities.mobs.cheese_boss.attack_entities.CheeseSpit;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import dev.architectury.networking.NetworkManager;
-import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerEntity;
 import net.minecraft.server.level.ServerPlayer;
@@ -29,8 +26,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Random;
 
 public class CheeseBoss extends Monster implements Enemy, RangedAttackMob {
 

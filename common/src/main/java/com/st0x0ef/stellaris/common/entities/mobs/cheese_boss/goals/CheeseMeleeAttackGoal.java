@@ -1,6 +1,6 @@
-package com.st0x0ef.stellaris.common.entities.cheese_boss.goals;
+package com.st0x0ef.stellaris.common.entities.mobs.cheese_boss.goals;
 
-import com.st0x0ef.stellaris.common.entities.cheese_boss.CheeseBoss;
+import com.st0x0ef.stellaris.common.entities.mobs.cheese_boss.CheeseBoss;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 
 public class CheeseMeleeAttackGoal extends MeleeAttackGoal {
