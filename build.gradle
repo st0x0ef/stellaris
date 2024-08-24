@@ -88,7 +88,7 @@ subprojects {
             changelog = file("../changelog.md").getText('UTF-8')
             type = STABLE
             modLoaders.add(modLoader)
-            displayName = "[${modLoader.capitalize()}] Stellaris ${version}"
+            displayName = "[${modLoader.capitalize()} ${minecraft_version}] Stellaris ${mod_version}"
 
             curseforge {
                 projectId = "1036270"
