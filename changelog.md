@@ -4,5 +4,5 @@
 - add planet screen help
 - fix moon
 - fix rocket skins
-- Fix accesswidener crash
+- fix accesswidener crash
 - fix fluid crash on neoforge
