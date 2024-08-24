@@ -3,7 +3,7 @@ package com.st0x0ef.stellaris.client.screens;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.components.Gauge;
-import com.st0x0ef.stellaris.common.blocks.entities.machines.oxygen.OxygenDistributorBlockEntity;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.OxygenGeneratorBlockEntity;
 import com.st0x0ef.stellaris.common.menus.OxygenDistributorMenu;
 import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedBlockEnergyContainer;
 import net.fabricmc.api.EnvType;
@@ -20,7 +20,7 @@ public class OxygenDistributorScreen extends AbstractContainerScreen<OxygenDistr
 
     private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/oxygen_distributor.png");
 
-    private final OxygenDistributorBlockEntity blockEntity = getMenu().getBlockEntity();
+    private final OxygenGeneratorBlockEntity blockEntity = getMenu().getBlockEntity();
     private Gauge energyGauge;
 
     public OxygenDistributorScreen(OxygenDistributorMenu menu, Inventory playerInventory, Component title) {

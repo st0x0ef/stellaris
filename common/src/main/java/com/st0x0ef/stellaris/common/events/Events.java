@@ -1,14 +1,16 @@
 package com.st0x0ef.stellaris.common.events;
 
-import com.st0x0ef.stellaris.common.blocks.entities.machines.oxygen.OxygenContainerBlockEntity;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.OxygenGeneratorBlockEntity;
 import com.st0x0ef.stellaris.common.items.RadiationItem;
-import com.st0x0ef.stellaris.common.oxygen.OxygenManager;
-import com.st0x0ef.stellaris.common.utils.PlanetUtil;
+import com.st0x0ef.stellaris.common.oxygen.DimensionOxygenManager;
+import com.st0x0ef.stellaris.common.oxygen.GlobalOxygenManager;
+import com.st0x0ef.stellaris.common.oxygen.OxygenRoom;
+import com.st0x0ef.stellaris.common.registry.BlocksRegistry;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import dev.architectury.event.EventResult;
 import dev.architectury.event.events.common.BlockEvent;
-import dev.architectury.event.events.common.LifecycleEvent;
 import dev.architectury.event.events.common.TickEvent;
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -52,24 +54,43 @@ public class Events {
         });
 
         BlockEvent.BREAK.register((level, pos, state, player, value) -> {
-            if (level.getBlockEntity(pos) instanceof OxygenContainerBlockEntity oxygenContainer) {
-                OxygenManager.removeOxygenBlocksPerLevel(level, oxygenContainer);
-            }
-
-            if (PlanetUtil.isPlanet(level.dimension().location())) {
-                OxygenManager.distributeOxygenForLevel(level);
-            }
-
+            if (level instanceof ServerLevel serverLevel) regenerateRoomIfNeeded(serverLevel, pos);
             return EventResult.pass();
         });
 
-        LifecycleEvent.SERVER_LEVEL_LOAD.register(OxygenManager::unmarkLevelAsClosing);
-        LifecycleEvent.SERVER_LEVEL_SAVE.register(OxygenManager::markLevelAsClosing);
-
-        LifecycleEvent.SERVER_STOPPING.register(server -> {
-            for (ServerLevel level : server.getAllLevels()) {
-                OxygenManager.markLevelAsClosing(level);
-            }
+        BlockEvent.PLACE.register((level, pos, state, player) -> {
+            if (level instanceof ServerLevel serverLevel) regenerateRoomIfNeeded(serverLevel, pos);
+            return EventResult.pass();
         });
+
+        TickEvent.SERVER_LEVEL_PRE.register((level) -> GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level.dimension()).updateOxygen(level));
+    }
+
+    private static void regenerateRoomIfNeeded(ServerLevel level, BlockPos pos) {
+        if (level.getBlockState(pos).equals(BlocksRegistry.OXYGEN_DISTRIBUTOR)) {
+            GlobalOxygenManager globalOxygenManager = GlobalOxygenManager.getInstance();
+            DimensionOxygenManager dimensionManager = globalOxygenManager.getDimensionManager(level.dimension());
+
+            OxygenRoom oxygenRoom = new OxygenRoom((OxygenGeneratorBlockEntity) level.getBlockEntity(pos));
+            dimensionManager.addOxygenSystem(oxygenRoom);
+
+            return;
+        }
+
+        for (DimensionOxygenManager manager : GlobalOxygenManager.getInstance().getDimensionManagers().values()) {
+            for (OxygenRoom system : manager.getOxygenSystems()) {
+                if (isWithinGeneratorArea(system.getGeneratorPosition(), pos)) {
+                    system.updateOxygenRoom(level);
+                    return;
+                }
+            }
+        }
+    }
+
+    private static boolean isWithinGeneratorArea(BlockPos generatorPos, BlockPos blockPos) {
+        int distanceX = Math.abs(blockPos.getX() - generatorPos.getX());
+        int distanceY = Math.abs(blockPos.getY() - generatorPos.getY());
+        int distanceZ = Math.abs(blockPos.getZ() - generatorPos.getZ());
+        return distanceX <= 16 && distanceY <= 16 && distanceZ <= 16;
     }
 }

@@ -33,6 +33,7 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity im
         list.add(0, new FluidTank("resultTank1", TANK_CAPACITY));
         list.add(1, new FluidTank("resultTank2", TANK_CAPACITY));
     });
+
     private final RecipeManager.CachedCheck<FluidInput, WaterSeparatorRecipe> cachedCheck = RecipeManager.createCheck(RecipesRegistry.WATER_SEPERATOR_TYPE.get());
 
     public WaterSeparatorBlockEntity(BlockPos pos, BlockState state) {

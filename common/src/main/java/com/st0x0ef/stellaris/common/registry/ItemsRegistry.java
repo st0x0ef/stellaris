@@ -84,9 +84,6 @@ public class ItemsRegistry {
     public static final RegistrySupplier<Item> POLISHED_CONGLOMORATE_STAIRS_ITEM = ITEMS.register("polished_conglomorate_stairs", () -> new BlockItem(BlocksRegistry.POLISHED_CONGLOMORATE_STAIRS.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
     public static final RegistrySupplier<Item> CONGLOMORATE_SLAB_ITEM = ITEMS.register("conglomorate_slab", () -> new BlockItem(BlocksRegistry.CONGLOMORATE_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
     public static final RegistrySupplier<Item> POLISHED_CONGLOMORATE_SLAB_ITEM = ITEMS.register("polished_conglomorate_slab", () -> new BlockItem(BlocksRegistry.POLISHED_CONGLOMORATE_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
-
-    // Oxygen
-    public static final RegistrySupplier<Item> OXYGEN_PROPAGATOR = ITEMS.register("oxygen_propagator", () -> new BlockItem(BlocksRegistry.OXYGEN_PROPAGATOR.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> OXYGEN_DISTRIBUTOR = ITEMS.register("oxygen_distributor", () -> new BlockItem(BlocksRegistry.OXYGEN_DISTRIBUTOR.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
 
     //Globes

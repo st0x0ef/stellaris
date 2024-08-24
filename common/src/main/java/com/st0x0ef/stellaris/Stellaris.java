@@ -34,10 +34,10 @@ public class Stellaris {
 
     public static void init() {
         CustomConfig.init();
-
-        ProcessorsRegistry.STRUCTURE_PROCESSORS.register();
         EntityData.register();
         NetworkRegistry.init();
+
+        ProcessorsRegistry.STRUCTURE_PROCESSORS.register();
         SoundRegistry.SOUNDS.register();
         EffectsRegistry.MOB_EFFECTS.register();
         DataComponentsRegistry.DATA_COMPONENT_TYPE.register();

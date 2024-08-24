@@ -35,19 +35,12 @@ public class JetSuit {
         }
 
         public ModeType getModeType(ItemStack itemStack) {
-            int mode = this.getMode(itemStack);
-
-            if (mode == 1) {
-                return ModeType.NORMAL;
-            }
-            else if (mode == 2) {
-                return ModeType.HOVER;
-            }
-            else if (mode == 3) {
-                return ModeType.ELYTRA;
-            }
-
-            return ModeType.DISABLED;
+            return switch (this.getMode(itemStack)) {
+                case 1 -> ModeType.NORMAL;
+                case 2 -> ModeType.HOVER;
+                case 3 -> ModeType.ELYTRA;
+                default -> ModeType.DISABLED;
+            };
         }
 
 
