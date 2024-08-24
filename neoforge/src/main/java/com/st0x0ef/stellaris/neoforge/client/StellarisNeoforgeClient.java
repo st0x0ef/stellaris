@@ -35,9 +35,11 @@ import com.st0x0ef.stellaris.client.renderers.globe.GlobeModel;
 import com.st0x0ef.stellaris.client.screens.*;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
+import com.st0x0ef.stellaris.common.registry.FluidRegistry;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -46,7 +48,10 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
+import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.common.NeoForge;
+import org.jetbrains.annotations.NotNull;
 
 @EventBusSubscriber(modid = Stellaris.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
 public class StellarisNeoforgeClient {
@@ -125,6 +130,28 @@ public class StellarisNeoforgeClient {
 
         NeoForge.EVENT_BUS.addListener(StellarisNeoforgeClient::clientTick);
     }
+
+    @SubscribeEvent
+    private static void initializeClient(RegisterClientExtensionsEvent event) {
+
+        FluidRegistry.FLUIDS_INFOS.forEach((attributes -> {
+            event.registerFluidType(new IClientFluidTypeExtensions() {
+                @Override
+                public @NotNull ResourceLocation getStillTexture() {
+                    return attributes.getSourceTexture();
+                }
+
+                @Override
+                public @NotNull ResourceLocation getFlowingTexture() {
+                    return attributes.getFlowingTexture();
+                }
+            }, attributes.getFlowingFluid().getFluidType());
+
+        }));
+
+
+    }
+
 
     private static void clientTick(ClientTickEvent.Pre event) {
         KeyMappingsRegistry.clientTick(Minecraft.getInstance());

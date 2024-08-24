@@ -60,5 +60,4 @@ shadowJar {
 remapJar {
     input.set shadowJar.archiveFile
     atAccessWideners.add("stellaris.accesswidener")
-
 }
