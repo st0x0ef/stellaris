@@ -3,7 +3,7 @@ package com.st0x0ef.stellaris.client.renderers.entities.cheeseboss;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.entities.mobs.CheeseBoss;
+import com.st0x0ef.stellaris.common.entities.mobs.cheese_boss.CheeseBoss;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.HierarchicalModel;
