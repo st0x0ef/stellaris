@@ -308,6 +308,7 @@
   "text.stellaris.planetscreen.press_space": "To pause the screen, press Space",
   "text.stellaris.planetscreen.arrows": "Select planets with the arrow keys",
   "text.stellaris.planetscreen.help": "To hide theses infos, press H",
+  "text.stellaris.waitscreen": "Waiting for %s to choose a location !",
 
   "translatable.stellaris.registry.holdshift": "Hold [↑ Shift] to view more info",
   "translatable.stellaris.registry.player": "Player",

@@ -285,7 +285,7 @@ public class ItemsRegistry {
     public static final RegistrySupplier<Item> VERTICAL_DESH_SLAB = ITEMS.register("vertical_desh_slab", () -> new BlockItem(BlocksRegistry.VERTICAL_DESH_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
 
     /** Rocket */
-    public static final RegistrySupplier<Item> ROCKET = ITEMS.register("rocket", () -> new RocketItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.ROCKET_COMPONENT.get(), new RocketComponent(SkinUpgrade.getBasic().getNameSpace(), ModelUpgrade.getBasic().getModel(), MotorUpgrade.getBasic().getFuelType().getSerializedName(), 0, TankUpgrade.getBasic().getTankCapacity()))));
+    public static final RegistrySupplier<Item> ROCKET = ITEMS.register("rocket", () -> new RocketItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.ROCKET_COMPONENT.get(), new RocketComponent(SkinUpgrade.getBasic().getNameSpace(), ModelUpgrade.getBasic().getModel(), 2, MotorUpgrade.getBasic().getFuelType().getSerializedName(), 0, TankUpgrade.getBasic().getTankCapacity()))));
 
     // Upgrade
     public static final RegistrySupplier<Item> FROSTY_ROCKET_SKIN = ITEMS.register("skin_frozy", () -> new RocketUpgradeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), new SkinUpgrade(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/vehicle/rocket_skin/normal/frozy.png"))));
@@ -294,10 +294,10 @@ public class ItemsRegistry {
     public static final RegistrySupplier<Item> MILITARY_ROCKET_SKIN = ITEMS.register("skin_military", () -> new RocketUpgradeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), new SkinUpgrade(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/vehicle/rocket_skin/normal/military.png"))));
     public static final RegistrySupplier<Item> RUSTY_ROCKET_SKIN = ITEMS.register("skin_rusty", () -> new RocketUpgradeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), new SkinUpgrade(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/vehicle/rocket_skin/normal/rusty.png"))));
 
-    public static final RegistrySupplier<Item> TINY_ROCKET_UPGRADE = ITEMS.register("tiny_rocket_upgrade", () -> new RocketUpgradeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), new ModelUpgrade(RocketModel.TINY)));
-    public static final RegistrySupplier<Item> SMALL_ROCKET_UPGRADE = ITEMS.register("small_rocket_upgrade", () -> new RocketUpgradeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), new ModelUpgrade(RocketModel.SMALL)));
-    public static final RegistrySupplier<Item> NORMAL_ROCKET_UPGRADE = ITEMS.register("normal_rocket_upgrade", () -> new RocketUpgradeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), new ModelUpgrade(RocketModel.NORMAL)));
-    public static final RegistrySupplier<Item> BIG_ROCKET_UPGRADE = ITEMS.register("big_rocket_upgrade", () -> new RocketUpgradeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), new ModelUpgrade(RocketModel.BIG)));
+    public static final RegistrySupplier<Item> TINY_ROCKET_UPGRADE = ITEMS.register("tiny_rocket_upgrade", () -> new RocketUpgradeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), new ModelUpgrade(RocketModel.TINY, 1)));
+    public static final RegistrySupplier<Item> SMALL_ROCKET_UPGRADE = ITEMS.register("small_rocket_upgrade", () -> new RocketUpgradeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), new ModelUpgrade(RocketModel.SMALL, 1)));
+    public static final RegistrySupplier<Item> NORMAL_ROCKET_UPGRADE = ITEMS.register("normal_rocket_upgrade", () -> new RocketUpgradeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), new ModelUpgrade(RocketModel.NORMAL, 2)));
+    public static final RegistrySupplier<Item> BIG_ROCKET_UPGRADE = ITEMS.register("big_rocket_upgrade", () -> new RocketUpgradeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), new ModelUpgrade(RocketModel.BIG, 3)));
 
     public static final RegistrySupplier<Item> BIG_FUEL_TANK_UPGRADE = ITEMS.register("big_fuel_tank_upgrade", () -> new RocketUpgradeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), new TankUpgrade(5000)));
 

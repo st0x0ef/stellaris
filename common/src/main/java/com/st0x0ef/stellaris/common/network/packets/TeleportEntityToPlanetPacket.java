@@ -44,7 +44,11 @@ public class TeleportEntityToPlanetPacket implements CustomPacketPayload {
         Player player = context.getPlayer();
         Planet planet = PlanetUtil.getPlanet(packet.dimension);
         if(planet != null) {
-            Utils.changeDimension(player, planet);
+            player.getVehicle().getPassengers().forEach((entity -> {
+                if(entity instanceof Player) {
+                    Utils.changeDimension((Player) entity, planet);
+                }
+            }));
         } else {
             Stellaris.LOG.error("Planet is null");
         }
