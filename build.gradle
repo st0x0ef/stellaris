@@ -84,7 +84,7 @@ subprojects {
         }
 
         publishMods {
-            file = file("../${modLoader.capitalize()}/build/libs/stellaris-${modLoader}-${minecraft_version}-${mod_version}.jar")
+            file = file("../${modLoader.capitalize()}/build/libs/stellaris-${minecraft_version}-${modLoader}-${mod_version}.jar")
             changelog = file("../changelog.md").getText('UTF-8')
             type = STABLE
             modLoaders.add(modLoader)
