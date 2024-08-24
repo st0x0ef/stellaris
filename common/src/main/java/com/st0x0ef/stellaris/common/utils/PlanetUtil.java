@@ -75,6 +75,33 @@ public class PlanetUtil {
         return 0;
     }
 
+    public static int openWaitMenu(Player player, String playerChoosing) {
+        ExtendedMenuProvider provider = new ExtendedMenuProvider() {
+            @Override
+            public void saveExtraData(FriendlyByteBuf buffer) {
+                buffer.writeUtf(playerChoosing);
+            }
+
+            @Override
+            public Component getDisplayName() {
+                return Component.literal("Waiting");
+            }
+
+            @Override
+            public @NotNull AbstractContainerMenu createMenu(int syncId, Inventory inv, Player player) {
+                FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
+                return PlanetSelectionMenu.create(syncId, inv, buffer.writeUtf(playerChoosing));
+            }
+        };
+
+        if (player instanceof ServerPlayer serverPlayer) {
+            MenuRegistry.openExtendedMenu(serverPlayer, provider);
+            return 1;
+        }
+
+        return 0;
+    }
+
     public static int openMilkyWayMenu(Player player) {
         ExtendedMenuProvider provider = new ExtendedMenuProvider() {
 

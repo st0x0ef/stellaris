@@ -3,7 +3,6 @@ package com.st0x0ef.stellaris.common.network.packets;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
-import com.st0x0ef.stellaris.common.registry.EntityData;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import dev.architectury.networking.NetworkManager;
@@ -45,8 +44,11 @@ public class TeleportEntityToPlanetPacket implements CustomPacketPayload {
         Player player = context.getPlayer();
         Planet planet = PlanetUtil.getPlanet(packet.dimension);
         if(planet != null) {
-            Utils.changeDimension(player, planet);
-            player.getEntityData().set(EntityData.DATA_PLANET_MENU_OPEN, false);
+            player.getVehicle().getPassengers().forEach((entity -> {
+                if(entity instanceof Player) {
+                    Utils.changeDimension((Player) entity, planet);
+                }
+            }));
         } else {
             Stellaris.LOG.error("Planet is null");
         }
