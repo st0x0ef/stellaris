@@ -23,6 +23,7 @@ subprojects {
     def modLoader = project.name
     def isCommon = (modLoader == "common")
 
+
     repositories {
         maven { url "https://maven.shedaniel.me" }
         maven { url "https://cursemaven.com" }
@@ -84,7 +85,7 @@ subprojects {
 
         publishMods {
 
-            file = file("../${modLoader.capitalize()}/build/libs/stellaris-${modLoader}-${minecraftVersion}-${version}.jar")
+            file = file("../${modLoader.capitalize()}/build/libs/stellaris-${modLoader}-${minecraft_version}-${version}.jar")
             changelog = file("../changelog.md").getText('UTF-8')
             type = STABLE
             modLoaders.add(modLoader)
@@ -94,14 +95,14 @@ subprojects {
                 projectId = "1036270"
                 projectSlug = "stellaris" // Required for discord webhook
                 accessToken = providers.environmentVariable("CURSEFORGE_API_KEY")
-                minecraftVersions.add("${minecraftVersion}")
+                minecraftVersions.add("${minecraft_version}")
                 requires("architectury-api")
             }
 
             modrinth {
                 projectId = "ItTQpuBn"
                 accessToken = providers.environmentVariable("MODRINTH_TOKEN")
-                minecraftVersions.add("${minecraftVersion}")
+                minecraftVersions.add("${minecraft_version}")
                 requires("architectury-api")
 
             }
