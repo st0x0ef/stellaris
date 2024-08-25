@@ -1,10 +1,7 @@
 package com.st0x0ef.stellaris.client.skies.renderer;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.BufferBuilder;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.Tesselator;
-import com.mojang.blaze3d.vertex.VertexBuffer;
+import com.mojang.blaze3d.vertex.*;
 import com.st0x0ef.stellaris.client.skies.record.CustomVanillaObject;
 import com.st0x0ef.stellaris.client.skies.record.SkyObject;
 import com.st0x0ef.stellaris.client.skies.record.SkyProperties;

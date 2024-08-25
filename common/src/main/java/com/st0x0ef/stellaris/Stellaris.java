@@ -41,7 +41,7 @@ public class Stellaris {
         SoundRegistry.SOUNDS.register();
         EffectsRegistry.MOB_EFFECTS.register();
         DataComponentsRegistry.DATA_COMPONENT_TYPE.register();
-        FluidRegistry.FLUIDS.register();
+        FluidRegistry.init();
         ParticleRegistry.PARTICLES.register();
         BlocksRegistry.BLOCKS.register();
         EntityRegistry.ENTITY_TYPE.register();

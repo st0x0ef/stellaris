@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
 import com.st0x0ef.stellaris.common.data.recipes.WaterSeparatorRecipe;
+import com.st0x0ef.stellaris.common.data.recipes.input.FluidInput;
 import com.st0x0ef.stellaris.common.menus.WaterSeparatorMenu;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.registry.RecipesRegistry;
@@ -32,7 +33,7 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity {
         list.add(0, new FluidTank("resultTank1", TANK_CAPACITY));
         list.add(1, new FluidTank("resultTank2", TANK_CAPACITY));
     });
-    private final RecipeManager.CachedCheck<WaterSeparatorBlockEntity, WaterSeparatorRecipe> cachedCheck = RecipeManager.createCheck(RecipesRegistry.WATER_SEPERATOR_TYPE.get());
+    private final RecipeManager.CachedCheck<FluidInput, WaterSeparatorRecipe> cachedCheck = RecipeManager.createCheck(RecipesRegistry.WATER_SEPERATOR_TYPE.get());
 
     public WaterSeparatorBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.WATER_SEPARATOR_ENTITY.get(), pos, state);
@@ -65,7 +66,7 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity {
             FluidTankHelper.extractFluidToItem(this, ingredientTank, 1, 0);
         }
 
-        Optional<RecipeHolder<WaterSeparatorRecipe>> recipeHolder = cachedCheck.getRecipeFor(this, level);
+        Optional<RecipeHolder<WaterSeparatorRecipe>> recipeHolder = cachedCheck.getRecipeFor(new FluidInput(getLevel().getBlockEntity(getBlockPos()), getItems()), level);
         if (recipeHolder.isPresent()) {
             WaterSeparatorRecipe recipe = recipeHolder.get().value();
             WrappedBlockEnergyContainer energyContainer = getWrappedEnergyContainer();

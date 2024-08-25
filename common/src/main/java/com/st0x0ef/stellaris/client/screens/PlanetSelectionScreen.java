@@ -81,6 +81,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     private boolean isLaunching = false;
     private boolean showLargeMenu = false;
+    private boolean showHelpMenu = true;
+
     LaunchButton launchButton;
 
     private double offsetX = 0;
@@ -250,6 +252,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             launchButton.visible = false;
         }
 
+        renderHelp(graphics);
         drawOrbits();
 
         renderBodiesAndPlanets(graphics, partialTicks);
@@ -281,6 +284,15 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         renderMoons(graphics);
         initializePlanetButtons();
         initializeMoonButtons();
+    }
+
+    private void renderHelp(GuiGraphics graphics) {
+        if(showHelpMenu) {
+            graphics.drawCenteredString(this.font, Component.translatable("text.stellaris.planetscreen.press_space"), this.width/2, this.height - 20 , 16777212);
+            graphics.drawCenteredString(this.font, Component.translatable("text.stellaris.planetscreen.arrows"), this.width/2, this.height - 10 , 16777212);
+
+        }
+
     }
 
     private void renderStars(GuiGraphics graphics) {
@@ -568,8 +580,10 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
                     tpToFocusedPlanet();
                 }
             }
-
-        } else if (keyCode == GLFW.GLFW_KEY_X) {
+        }
+        else if (keyCode == GLFW.GLFW_KEY_H) {
+            showHelpMenu = !showHelpMenu;
+        } else if (keyCode == GLFW.GLFW_KEY_SPACE) {
             isPausePressed = !isPausePressed;
         } else if (keyCode == GLFW.GLFW_KEY_LEFT_SHIFT || keyCode == GLFW.GLFW_KEY_RIGHT_SHIFT) {
             isShiftPressed = true;
@@ -982,6 +996,9 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         if(getPlayer().getEntityData().get(EntityData.DATA_PLANET_MENU_OPEN)) {
             return;
         }
+        long windowHandle = Minecraft.getInstance().getWindow().getWindow();
+        prevScrollCallback = GLFW.glfwSetScrollCallback(windowHandle, Minecraft.getInstance().mouseHandler::onScroll);
+
         super.onClose();
     }
 

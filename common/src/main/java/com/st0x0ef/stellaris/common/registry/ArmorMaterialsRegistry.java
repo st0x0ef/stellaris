@@ -18,7 +18,7 @@ public class ArmorMaterialsRegistry {
     public static final DeferredRegister<ArmorMaterial> ARMOR_MATERIAL = DeferredRegister.create(Stellaris.MODID, Registries.ARMOR_MATERIAL);
 
     public static final ArmorMaterial JET_SUIT_MATERIAL = new ArmorMaterial(
-            Util.make(new EnumMap(ArmorItem.Type.class), map -> {
+            Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
                 map.put(ArmorItem.Type.BOOTS, 3);
                 map.put(ArmorItem.Type.LEGGINGS, 6);
                 map.put(ArmorItem.Type.CHESTPLATE, 8);

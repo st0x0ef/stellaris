@@ -6,11 +6,11 @@
   "custom_vanilla_objects": {
     "sun": true,
     "sun_texture": "textures/environment/sun.png",
-    "sun_size": 30,
+    "sun_height": 30,
     "moon": true,
     "moon_phase": false,
     "moon_texture": "stellaris:textures/environment/solar_system/mars.png",
-    "moon_size": 20
+    "moon_height": 20
   },
 
   "weather": [

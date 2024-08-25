@@ -13,10 +13,10 @@ public record CustomVanillaObject(
     public static final Codec<CustomVanillaObject> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.BOOL.fieldOf("sun").forGetter(CustomVanillaObject::sun),
             ResourceLocation.CODEC.fieldOf("sun_texture").forGetter(CustomVanillaObject::sunTexture),
-            Codec.FLOAT.fieldOf("sun_size").forGetter(CustomVanillaObject::sunSize),
+            Codec.FLOAT.fieldOf("sun_height").forGetter(CustomVanillaObject::sunSize),
             Codec.BOOL.fieldOf("moon").forGetter(CustomVanillaObject::moon),
             Codec.BOOL.fieldOf("moon_phase").forGetter(CustomVanillaObject::moonPhase),
             ResourceLocation.CODEC.fieldOf("moon_texture").forGetter(CustomVanillaObject::moonTexture),
-            Codec.FLOAT.fieldOf("moon_size").forGetter(CustomVanillaObject::moonSize)
+            Codec.FLOAT.fieldOf("moon_height").forGetter(CustomVanillaObject::moonSize)
     ).apply(instance, CustomVanillaObject::new));
 }

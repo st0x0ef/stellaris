@@ -8,7 +8,6 @@ import dev.architectury.networking.NetworkManager;
 import dev.architectury.registry.client.keymappings.KeyMappingRegistry;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
 
 public class KeyMappingsRegistry {
     public static String category = "category." + Stellaris.MODID + ".default";

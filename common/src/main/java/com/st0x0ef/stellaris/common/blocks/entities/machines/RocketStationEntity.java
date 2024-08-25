@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
 import com.st0x0ef.stellaris.common.blocks.entities.ImplementedInventory;
 import com.st0x0ef.stellaris.common.data.recipes.RocketStationRecipe;
+import com.st0x0ef.stellaris.common.data.recipes.input.RocketStationInput;
 import com.st0x0ef.stellaris.common.menus.RocketStationMenu;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.registry.RecipesRegistry;
@@ -27,7 +28,7 @@ import java.util.Optional;
 public class RocketStationEntity extends BaseContainerBlockEntity implements ImplementedInventory {
 
     private NonNullList<ItemStack> items = NonNullList.withSize(15, ItemStack.EMPTY);
-    private final RecipeManager.CachedCheck<RocketStationEntity, RocketStationRecipe> quickCheck = RecipeManager.createCheck(RecipesRegistry.ROCKET_STATION_TYPE.get());
+    private final RecipeManager.CachedCheck<RocketStationInput, RocketStationRecipe> quickCheck = RecipeManager.createCheck(RecipesRegistry.ROCKET_STATION_TYPE.get());
 
     public RocketStationEntity(BlockPos blockPos, BlockState blockState) {
         super(BlockEntityRegistry.ROCKET_STATION.get(), blockPos, blockState);
@@ -94,7 +95,7 @@ public class RocketStationEntity extends BaseContainerBlockEntity implements Imp
 
         ItemStack outputStack = getItem(14);
         if (outputStack.isEmpty() || outputStack.getCount() < outputStack.getMaxStackSize()) {
-            Optional<RecipeHolder<RocketStationRecipe>> recipeHolder = quickCheck.getRecipeFor(this, level);
+            Optional<RecipeHolder<RocketStationRecipe>> recipeHolder = quickCheck.getRecipeFor(new RocketStationInput(getLevel().getBlockEntity(getBlockPos()), getItems()), level);
             if (recipeHolder.isPresent()) {
                 RocketStationRecipe recipe = recipeHolder.get().value();
                 ItemStack resultStack = recipe.getResultItem(level.registryAccess());
