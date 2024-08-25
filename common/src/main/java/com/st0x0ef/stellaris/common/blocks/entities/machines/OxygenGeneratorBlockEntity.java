@@ -1,7 +1,8 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
-import com.st0x0ef.stellaris.common.menus.OxygenDistributorMenu;
+import com.st0x0ef.stellaris.common.menus.OxygenGeneratorMenu;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
+import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -12,14 +13,23 @@ public class OxygenGeneratorBlockEntity extends BaseEnergyContainerBlockEntity {
     public OxygenGeneratorBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.OXYGEN_DISTRIBUTOR.get(), pos, state);
     }
-    private static final int TANK_CAPACITY = 3;
-    private final FluidTank oxygenTank = new FluidTank("ingredientTank", TANK_CAPACITY);
 
     @Override
     public void tick() {
-        if (!FluidTankHelper.addFluidFromBucket(this, oxygenTank, 1, 0)) {
-            FluidTankHelper.extractFluidToItem(this, oxygenTank, 1, 0);
+
+    }
+
+    public boolean takeOxygenFromTank(long amount) {
+        long amountStored = getItem(0).get(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get()).longValue();
+        if (amountStored >= amount) {
+            getItem(0).set(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get(), amountStored - amount);
+            return true;
+        } else if (amountStored > 0) {
+            getItem(0).set(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get(), 0L);
+            return true;
         }
+
+        return false;
     }
 
     @Override
@@ -29,15 +39,11 @@ public class OxygenGeneratorBlockEntity extends BaseEnergyContainerBlockEntity {
 
     @Override
     protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
-        return new OxygenDistributorMenu(containerId, inventory, this, this);
+        return new OxygenGeneratorMenu(containerId, inventory, this, this);
     }
 
     @Override
     public int getContainerSize() {
-        return 2;
-    }
-
-    public FluidTank getOxygenTank() {
-        return oxygenTank;
+        return 1;
     }
 }

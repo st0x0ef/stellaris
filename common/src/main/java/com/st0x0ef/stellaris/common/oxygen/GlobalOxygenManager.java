@@ -19,11 +19,7 @@ public class GlobalOxygenManager {
     }
 
     public DimensionOxygenManager getOrCreateDimensionManager(ResourceKey<Level> dimension) {
-        return dimensionManagers.computeIfAbsent(dimension, id -> new DimensionOxygenManager());
-    }
-
-    public DimensionOxygenManager getDimensionManager(ResourceKey<Level> dimensionKey) {
-        return dimensionManagers.computeIfAbsent(dimensionKey, level -> new DimensionOxygenManager());
+        return dimensionManagers.computeIfAbsent(dimension, DimensionOxygenManager::new);
     }
 
     public Map<ResourceKey<Level>, DimensionOxygenManager> getDimensionManagers() {

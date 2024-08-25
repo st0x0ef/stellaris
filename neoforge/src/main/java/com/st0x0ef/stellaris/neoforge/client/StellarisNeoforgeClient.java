@@ -117,7 +117,7 @@ public class StellarisNeoforgeClient {
         event.register(MenuTypesRegistry.PLANET_SELECTION_MENU.get(), PlanetSelectionScreen::new);
         event.register(MenuTypesRegistry.MILKYWAY_MENU.get(), MilkyWayScreen::new);
         event.register(MenuTypesRegistry.LANDER_MENU.get(), LanderScreen::new);
-        event.register(MenuTypesRegistry.OXYGEN_DISTRIBUTOR.get(), OxygenDistributorScreen::new);
+        event.register(MenuTypesRegistry.OXYGEN_DISTRIBUTOR.get(), OxygenGeneratorScreen::new);
         event.register(MenuTypesRegistry.WATER_SEPARATOR_MENU.get(), WaterSeparatorScreen::new);
         event.register(MenuTypesRegistry.FUEL_REFINERY.get(), FuelRefineryScreen::new);
     }
@@ -134,20 +134,17 @@ public class StellarisNeoforgeClient {
     @SubscribeEvent
     private static void initializeClient(RegisterClientExtensionsEvent event) {
 
-        FluidRegistry.FLUIDS_INFOS.forEach((attributes -> {
-            event.registerFluidType(new IClientFluidTypeExtensions() {
-                @Override
-                public @NotNull ResourceLocation getStillTexture() {
-                    return attributes.getSourceTexture();
-                }
+        FluidRegistry.FLUIDS_INFOS.forEach((attributes -> event.registerFluidType(new IClientFluidTypeExtensions() {
+            @Override
+            public @NotNull ResourceLocation getStillTexture() {
+                return attributes.getSourceTexture();
+            }
 
-                @Override
-                public @NotNull ResourceLocation getFlowingTexture() {
-                    return attributes.getFlowingTexture();
-                }
-            }, attributes.getFlowingFluid().getFluidType());
-
-        }));
+            @Override
+            public @NotNull ResourceLocation getFlowingTexture() {
+                return attributes.getFlowingTexture();
+            }
+        }, attributes.getFlowingFluid().getFluidType())));
 
 
     }

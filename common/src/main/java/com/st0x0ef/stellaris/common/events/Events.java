@@ -68,17 +68,13 @@ public class Events {
 
     private static void regenerateRoomIfNeeded(ServerLevel level, BlockPos pos) {
         if (level.getBlockState(pos).equals(BlocksRegistry.OXYGEN_DISTRIBUTOR)) {
-            GlobalOxygenManager globalOxygenManager = GlobalOxygenManager.getInstance();
-            DimensionOxygenManager dimensionManager = globalOxygenManager.getDimensionManager(level.dimension());
-
             OxygenRoom oxygenRoom = new OxygenRoom((OxygenGeneratorBlockEntity) level.getBlockEntity(pos));
-            dimensionManager.addOxygenSystem(oxygenRoom);
-
+            GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level.dimension()).addOxygenRoom(oxygenRoom);
             return;
         }
 
         for (DimensionOxygenManager manager : GlobalOxygenManager.getInstance().getDimensionManagers().values()) {
-            for (OxygenRoom system : manager.getOxygenSystems()) {
+            for (OxygenRoom system : manager.getOxygenRooms()) {
                 if (isWithinGeneratorArea(system.getGeneratorPosition(), pos)) {
                     system.updateOxygenRoom(level);
                     return;
