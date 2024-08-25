@@ -20,7 +20,7 @@ public abstract class EntityTick {
         LivingEntity entity = (LivingEntity) ((Object) this);
 
         if (stellaris$tickSinceLastOxygenCheck > 20){
-            if (GlobalOxygenManager.getInstance().getDimensionManager(entity.level().dimension()).entityHasOxygen(entity)) {
+            if (GlobalOxygenManager.getInstance().getOrCreateDimensionManager(entity.level().dimension()).entityHasOxygen(entity)) {
                 entity.hurt(DamageSourceRegistry.of(entity.level(), DamageSourceRegistry.OXYGEN), 0.5f);
             }
             stellaris$tickSinceLastOxygenCheck = 0;

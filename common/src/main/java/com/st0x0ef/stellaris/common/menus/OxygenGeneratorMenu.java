@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.common.menus;
 
 import com.st0x0ef.stellaris.common.blocks.entities.machines.OxygenGeneratorBlockEntity;
+import com.st0x0ef.stellaris.common.menus.slot.OxygenTankSlot;
 import com.st0x0ef.stellaris.common.network.packets.SyncWidgetsTanksPacket;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import dev.architectury.networking.NetworkManager;
@@ -10,29 +11,26 @@ import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.Slot;
 
-public class OxygenDistributorMenu extends BaseContainer {
+public class OxygenGeneratorMenu extends BaseContainer {
 
     private final Container container;
     private final OxygenGeneratorBlockEntity blockEntity;
 
-    public OxygenDistributorMenu(int containerId, Inventory inventory, Container container, OxygenGeneratorBlockEntity blockEntity) {
-        super(MenuTypesRegistry.OXYGEN_DISTRIBUTOR.get(), containerId, 2, inventory, 54);
+    public OxygenGeneratorMenu(int containerId, Inventory inventory, Container container, OxygenGeneratorBlockEntity blockEntity) {
+        super(MenuTypesRegistry.OXYGEN_DISTRIBUTOR.get(), containerId, 1, inventory, 54);
         this.container = container;
         this.blockEntity = blockEntity;
 
-        addSlot(new Slot(container, 0, 17, 58));
-        addSlot(new Slot(container, 1, 17, 88));
+        addSlot(new OxygenTankSlot(container, 0, 17, 58));
     }
 
-    public static OxygenDistributorMenu create(int syncId, Inventory inventory, FriendlyByteBuf data) {
-        OxygenGeneratorBlockEntity entity = (OxygenGeneratorBlockEntity) inventory.player.level().getBlockEntity(data.readBlockPos());
-        return new OxygenDistributorMenu(syncId, inventory, new SimpleContainer(2), entity);
+    public static OxygenGeneratorMenu create(int syncId, Inventory inventory, FriendlyByteBuf data) {
+        return new OxygenGeneratorMenu(syncId, inventory, new SimpleContainer(1), (OxygenGeneratorBlockEntity) inventory.player.level().getBlockEntity(data.readBlockPos()));
     }
 
     public OxygenGeneratorBlockEntity getBlockEntity() {
-        return blockEntity;
+        return this.blockEntity;
     }
 
     @Override

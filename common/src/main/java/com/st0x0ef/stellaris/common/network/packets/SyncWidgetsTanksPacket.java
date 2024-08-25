@@ -93,7 +93,7 @@ public class SyncWidgetsTanksPacket implements CustomPacketPayload {
                     menu.getBlockEntity().getWrappedEnergyContainer().setEnergy(syncWidgetsTanks.component[0]);
             case RadioactiveGeneratorMenu menu ->
                     menu.getBlockEntity().getWrappedEnergyContainer().setEnergy(syncWidgetsTanks.component[0]);
-            case OxygenDistributorMenu menu ->
+            case OxygenGeneratorMenu menu ->
                     menu.getBlockEntity().getWrappedEnergyContainer().setEnergy(syncWidgetsTanks.component[0]);
             default -> {
             }

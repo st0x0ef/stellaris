@@ -13,13 +13,11 @@ public class OxygenRoom {
     private final OxygenGeneratorBlockEntity generatorBlockEntity;
     private final Map<BlockPos, Boolean> oxygenMap;
     private final List<BlockPos> oxygenPosToCheck;
-    private boolean isOpen;
 
     public OxygenRoom(OxygenGeneratorBlockEntity generatorBlockEntity) {
         this.generatorBlockEntity = generatorBlockEntity;
         this.oxygenMap = new HashMap<>();
         this.oxygenPosToCheck = new ArrayList<>();
-        this.isOpen = false;
     }
 
     public BlockPos getGeneratorPosition() {
@@ -27,7 +25,7 @@ public class OxygenRoom {
     }
 
     public void updateOxygenRoom(ServerLevel level) {
-        if (!oxygenMap.getOrDefault(getGeneratorPosition(), false)) {
+        if (!oxygenMap.getOrDefault(getGeneratorPosition(), false) || GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level.dimension()).doesPlanetHasOxygen() || ((OxygenGeneratorBlockEntity) level.getBlockEntity(getGeneratorPosition())).takeOxygenFromTank(50)) {
             return;
         }
 
@@ -48,10 +46,10 @@ public class OxygenRoom {
     private void propagateOxygenInRoom(ServerLevel level, BlockPos currentPos, Map<BlockPos, Boolean> updatedOxygenMap) {
         oxygenPosToCheck.remove(currentPos);
 
-        if (level.getBlockState(currentPos).isAir() && !generatorBlockEntity.getOxygenTank().isEmpty()) {
+        if (level.getBlockState(currentPos).isAir() && !((OxygenGeneratorBlockEntity) level.getBlockEntity(getGeneratorPosition())).takeOxygenFromTank(50)) {
             updatedOxygenMap.put(currentPos, true);
             if (isOnBorderBox(currentPos)) {
-                GlobalOxygenManager.getInstance().getDimensionManager(level.dimension()).addRoomToCheckIfOpen(currentPos, this);
+                GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level.dimension()).addRoomToCheckIfOpen(currentPos, this);
             }
 
             for (int x = 0; x < 32; x++) {
@@ -70,7 +68,6 @@ public class OxygenRoom {
     }
 
     public void removeOxygenInRoom() {
-        isOpen = true;
         oxygenMap.replaceAll((pos, hasOxygen) -> false);
     }
 

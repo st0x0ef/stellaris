@@ -3,7 +3,6 @@ package com.st0x0ef.stellaris.common.registry;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.*;
 import com.st0x0ef.stellaris.common.blocks.machines.*;
-import com.st0x0ef.stellaris.common.blocks.machines.OxygenGeneratorBlock;
 import dev.architectury.core.block.ArchitecturyLiquidBlock;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
