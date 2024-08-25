@@ -24,6 +24,8 @@ public class WaitScreen extends AbstractContainerScreen<WaitMenu> {
 
     public Component milkywayTranslatable = Component.translatable("text.stellaris.milkywayscreen.milkyway");
     public final String playerChoosing;
+    public int timeOnTheScreen = 0;
+
 
     public WaitScreen(WaitMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
@@ -41,6 +43,7 @@ public class WaitScreen extends AbstractContainerScreen<WaitMenu> {
 
     @Override
     protected void init() {
+
         super.init();
     }
 
@@ -52,11 +55,25 @@ public class WaitScreen extends AbstractContainerScreen<WaitMenu> {
         guiGraphics.blit(BACKGROUND_TEXTURE, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
     }
 
-
+    @Override
+    protected void containerTick() {
+        timeOnTheScreen++;
+        super.containerTick();
+    }
 
     private void renderText(GuiGraphics guiGraphics, float partialTicks) {
         Font font = Minecraft.getInstance().font;
-        guiGraphics.drawCenteredString(font, Component.translatable("text.stellaris.waitscreen", playerChoosing), 10, this.height/2, 10000);
+        guiGraphics.drawCenteredString(font, Component.translatable("text.stellaris.waitscreen", playerChoosing), this.width / 2, this.height/2, 15067135);
+
+
+        if(timeOnTheScreen > 2500 && timeOnTheScreen < 3500) {
+            guiGraphics.drawCenteredString(font, Component.literal("He is taking very long..."), this.width / 2, this.height/2 + 20, 15067135);
+
+        } else if (timeOnTheScreen > 3500){
+            guiGraphics.drawCenteredString(font, Component.literal("Is bro sleeping ?"), this.width / 2, this.height/2 + 20, 15067135);
+
+        }
+
     }
 }
 

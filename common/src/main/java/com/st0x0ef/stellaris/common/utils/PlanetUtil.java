@@ -5,6 +5,7 @@ import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
 import com.st0x0ef.stellaris.common.menus.MilkyWayMenu;
 import com.st0x0ef.stellaris.common.menus.PlanetSelectionMenu;
+import com.st0x0ef.stellaris.common.menus.WaitMenu;
 import dev.architectury.registry.menu.ExtendedMenuProvider;
 import dev.architectury.registry.menu.MenuRegistry;
 import io.netty.buffer.Unpooled;
@@ -76,6 +77,7 @@ public class PlanetUtil {
     }
 
     public static int openWaitMenu(Player player, String playerChoosing) {
+        System.out.println("eee");
         ExtendedMenuProvider provider = new ExtendedMenuProvider() {
             @Override
             public void saveExtraData(FriendlyByteBuf buffer) {
@@ -90,7 +92,7 @@ public class PlanetUtil {
             @Override
             public @NotNull AbstractContainerMenu createMenu(int syncId, Inventory inv, Player player) {
                 FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
-                return PlanetSelectionMenu.create(syncId, inv, buffer.writeUtf(playerChoosing));
+                return WaitMenu.create(syncId, inv, buffer.writeUtf(playerChoosing));
             }
         };
 

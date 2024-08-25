@@ -41,6 +41,13 @@ public class StellarisCommands {
                         .executes((CommandContext<CommandSourceStack> context) -> {
                             PlanetUtil.openMilkyWayMenu(context.getSource().getPlayer());
                             return 0;
-                        })));
+                        }))
+                .then(Commands.literal("waitScreen")
+                        .requires(c -> c.hasPermission(2))
+                        .executes((CommandContext<CommandSourceStack> context) -> {
+                            PlanetUtil.openWaitMenu(context.getSource().getPlayer(), context.getSource().getPlayer().getDisplayName().getString());
+                            return 0;
+                        }))
+        );
     }
 }
