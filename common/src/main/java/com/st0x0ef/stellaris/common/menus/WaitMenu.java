@@ -16,7 +16,7 @@ public class WaitMenu extends AbstractContainerMenu {
     }
     public WaitMenu(int syncId, Inventory playerInventory, String firstPlayerName)
     {
-        super(MenuTypesRegistry.PLANET_SELECTION_MENU.get(), syncId);
+        super(MenuTypesRegistry.WAIT_MENU.get(), syncId);
         this.player = playerInventory.player;
         this.firstPlayerName = firstPlayerName;
     }
