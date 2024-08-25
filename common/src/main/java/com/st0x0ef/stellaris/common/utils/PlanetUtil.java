@@ -15,17 +15,28 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class PlanetUtil {
+
+    public static Planet getPlanet(Level level) {
+        return getPlanet(level.dimension().location());
+    }
+
     public static Planet getPlanet(ResourceLocation level) {
         AtomicReference<Planet> p = new AtomicReference<>();
         StellarisData.getPlanets().forEach(planet -> {if (planet.dimension().equals(level)) p.set(planet);});
         return p.get();
     }
+
+    public static boolean isPlanet(Level level) {
+        return isPlanet(level.dimension().location());
+    }
+
 
     public static boolean isPlanet(ResourceLocation level) {
         AtomicBoolean isPlanet = new AtomicBoolean(false);
