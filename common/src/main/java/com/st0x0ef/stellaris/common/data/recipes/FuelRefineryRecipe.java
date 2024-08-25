@@ -1,10 +1,8 @@
 package com.st0x0ef.stellaris.common.data.recipes;
-
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.FuelRefineryBlockEntity;
-import com.st0x0ef.stellaris.common.data.recipes.input.FluidInput;
 import com.st0x0ef.stellaris.common.registry.RecipesRegistry;
 import dev.architectury.fluid.FluidStack;
 import net.minecraft.core.HolderLookup;
@@ -20,15 +18,17 @@ import java.util.Optional;
 
 import static com.st0x0ef.stellaris.common.data.recipes.WaterSeparatorRecipe.Serializer.convertFluidStack;
 
-public record FuelRefineryRecipe(FluidStack ingredientStack, FluidStack resultStack, boolean isMb, long energy) implements Recipe<FluidInput> {
+public record FuelRefineryRecipe(FluidStack ingredientStack, FluidStack resultStack, boolean isMb,
+                                 long energy) implements Recipe<FuelRefineryBlockEntity> {
+
     @Override
-    public boolean matches(FluidInput input, Level level) {
-        FluidStack stack = ((FuelRefineryBlockEntity) input.entity()).getIngredientTank().getStack();
+    public boolean matches(FuelRefineryBlockEntity container, Level level) {
+        FluidStack stack = container.getIngredientTank().getStack();
         return stack.isFluidEqual(ingredientStack) && stack.getAmount() >= ingredientStack.getAmount();
     }
 
     @Override
-    public ItemStack assemble(FluidInput input, HolderLookup.Provider registries) {
+    public ItemStack assemble(FuelRefineryBlockEntity container, HolderLookup.Provider registries) {
         return null;
     }
 

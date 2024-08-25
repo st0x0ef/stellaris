@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
 import com.st0x0ef.stellaris.common.data.recipes.FuelRefineryRecipe;
-import com.st0x0ef.stellaris.common.data.recipes.input.FluidInput;
 import com.st0x0ef.stellaris.common.menus.FuelRefineryMenu;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.registry.RecipesRegistry;
@@ -23,12 +22,11 @@ public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity {
 
     private final FluidTank ingredientTank = new FluidTank("ingredientTank", 5);
     private final FluidTank resultTank = new FluidTank("resultTank", 5);
-    private final RecipeManager.CachedCheck<FluidInput, FuelRefineryRecipe> cachedCheck = RecipeManager.createCheck(RecipesRegistry.FUEL_REFINERY_TYPE.get());
+    private final RecipeManager.CachedCheck<FuelRefineryBlockEntity, FuelRefineryRecipe> cachedCheck = RecipeManager.createCheck(RecipesRegistry.FUEL_REFINERY_TYPE.get());
 
     public FuelRefineryBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.FUEL_REFINERY.get(), pos, state);
     }
-
 
     @Override
     public void tick() {
@@ -38,7 +36,7 @@ public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity {
             FluidTankHelper.extractFluidToItem(this, ingredientTank, 0, 1);
         }
 
-        Optional<RecipeHolder<FuelRefineryRecipe>> recipeHolder = cachedCheck.getRecipeFor(new FluidInput(getLevel().getBlockEntity(getBlockPos()), getItems()), level);
+        Optional<RecipeHolder<FuelRefineryRecipe>> recipeHolder = cachedCheck.getRecipeFor(this, level);
         if (recipeHolder.isPresent()) {
             FuelRefineryRecipe recipe = recipeHolder.get().value();
             WrappedBlockEnergyContainer energyContainer = getWrappedEnergyContainer();
