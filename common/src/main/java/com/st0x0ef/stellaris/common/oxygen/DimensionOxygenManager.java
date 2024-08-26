@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.common.oxygen;
 
 import com.st0x0ef.stellaris.common.armors.JetSuit;
 import com.st0x0ef.stellaris.common.registry.TagRegistry;
+import com.st0x0ef.stellaris.common.utils.OxygenUtils;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.core.BlockPos;
@@ -65,7 +66,7 @@ public class DimensionOxygenManager {
 
         if (entity instanceof LivingEntity livingEntity && Utils.isLivingInJetSuit(livingEntity)) {
             JetSuit.Suit suit = (JetSuit.Suit) livingEntity.getItemBySlot(EquipmentSlot.CHEST).getItem();
-            if (suit.getOxygen(livingEntity.getItemBySlot(EquipmentSlot.CHEST)) <= 0) {
+            if (OxygenUtils.getOxygen(livingEntity.getItemBySlot(EquipmentSlot.CHEST)) <= 0) {
                 return false;
             }
         } else {

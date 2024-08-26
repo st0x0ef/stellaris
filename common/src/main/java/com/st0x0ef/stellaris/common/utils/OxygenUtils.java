@@ -9,6 +9,10 @@ public class OxygenUtils {
         stack.set(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get(), new OxygenComponent(stack.get(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get()).oxygen() + amount, stack.get(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get()).max()));
     }
 
+    public static void setOxygen(ItemStack stack, long amount) {
+        stack.set(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get(), new OxygenComponent(amount, stack.get(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get()).max()));
+    }
+
     public static long getOxygen(ItemStack stack) {
         if (stack.has(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get())) {
             return stack.get(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get()).oxygen();
