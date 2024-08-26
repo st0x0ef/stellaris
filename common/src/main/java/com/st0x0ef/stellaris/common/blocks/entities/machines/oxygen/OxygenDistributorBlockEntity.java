@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines.oxygen;
 
-import com.st0x0ef.stellaris.common.armors.JetSuit;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.BaseEnergyContainerBlockEntity;
 import com.st0x0ef.stellaris.common.menus.OxygenDistributorMenu;
 import com.st0x0ef.stellaris.common.oxygen.OxygenContainer;

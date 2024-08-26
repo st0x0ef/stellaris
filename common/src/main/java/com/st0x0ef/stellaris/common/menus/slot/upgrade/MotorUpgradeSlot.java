@@ -1,6 +1,6 @@
 package com.st0x0ef.stellaris.common.menus.slot.upgrade;
 
-import com.st0x0ef.stellaris.common.items.upgrade.RocketUpgradeItem;
+import com.st0x0ef.stellaris.common.items.RocketUpgradeItem;
 import com.st0x0ef.stellaris.common.rocket_upgrade.MotorUpgrade;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.Slot;

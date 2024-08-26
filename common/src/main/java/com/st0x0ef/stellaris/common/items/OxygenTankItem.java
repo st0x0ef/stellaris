@@ -1,10 +1,7 @@
-package com.st0x0ef.stellaris.common.items.oxygen;
+package com.st0x0ef.stellaris.common.items;
 
-import com.st0x0ef.stellaris.common.blocks.entities.machines.FluidTankHelper;
-import com.st0x0ef.stellaris.common.data_components.OxygenComponent;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import com.st0x0ef.stellaris.common.utils.OxygenUtils;
-import dev.architectury.platform.Platform;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
