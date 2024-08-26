@@ -1,7 +1,9 @@
 package com.st0x0ef.stellaris.common.items.oxygen;
 
 import com.st0x0ef.stellaris.common.blocks.entities.machines.FluidTankHelper;
+import com.st0x0ef.stellaris.common.data_components.OxygenComponent;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
+import com.st0x0ef.stellaris.common.utils.OxygenUtils;
 import dev.architectury.platform.Platform;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -13,26 +15,14 @@ import net.minecraft.world.item.TooltipFlag;
 import java.util.List;
 
 public class OxygenTankItem extends Item {
-
-    private final long capacity;
-
-    public OxygenTankItem(Item.Properties properties, long capacity) {
+    public OxygenTankItem(Item.Properties properties) {
         super(properties);
-        this.capacity = Platform.isFabric() ? FluidTankHelper.convertFromMb(capacity) : capacity;
-    }
-
-    public static void setStoredOxygen(ItemStack stack, long amount) {
-        stack.set(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get(), Mth.clamp(amount, 0, ((OxygenTankItem) stack.getItem()).getCapacity()));
-    }
-
-    public static long getStoredOxygen(ItemStack stack) {
-        return stack.has(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get()) ? stack.get(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get()) : 0;
     }
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
         if (stack.has(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get())) {
-            tooltip.add(Component.translatable("tooltip.item.stellaris.oxygen_tank", getStoredOxygen(stack), capacity).withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.translatable("tooltip.item.stellaris.oxygen_tank", OxygenUtils.getOxygen(stack), OxygenUtils.getOxygenCapacity(stack)).withStyle(ChatFormatting.GRAY));
         }
     }
 
@@ -43,16 +33,12 @@ public class OxygenTankItem extends Item {
 
     @Override
     public int getBarWidth(ItemStack stack) {
-        long storedOxygen = getStoredOxygen(stack);
-        return (int) Mth.clamp((13 + storedOxygen * 13) / capacity, 0, 13);
+        long storedOxygen = OxygenUtils.getOxygen(stack);
+        return (int) Mth.clamp((13 + storedOxygen * 13) / OxygenUtils.getOxygenCapacity(stack), 0, 13);
     }
 
     @Override
     public int getBarColor(ItemStack stack) {
         return 0xA7E6ED;
-    }
-
-    public long getCapacity() {
-        return capacity;
     }
 }

@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.common.armors;
 
 import com.mojang.serialization.Codec;
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.FluidTankHelper;
 import com.st0x0ef.stellaris.common.data_components.JetSuitComponent;
 import com.st0x0ef.stellaris.common.keybinds.KeyVariables;
 import com.st0x0ef.stellaris.common.oxygen.OxygenContainer;
@@ -22,15 +23,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 public class JetSuit {
+    public static final long MAX_FUEL_CAPACITY = FluidTankHelper.convertFromMb(3000);
+
     public static class Suit extends AbstractSpaceArmor.Chestplate {
         public float spacePressTime;
 
-        public OxygenContainer oxygenContainer;
-
         public Suit(Holder<ArmorMaterial> material, Properties properties) {
             super(material, Type.CHESTPLATE, properties);
-
-            oxygenContainer = new OxygenContainer(3000);
         }
 
         public int getMode(ItemStack itemStack) {
@@ -120,7 +119,6 @@ public class JetSuit {
             }
         }
         private void hoverModeMovement(Player player, ItemStack stack) {
-            double gravity = player.getAttribute(Attributes.GRAVITY).getValue();
             Vec3 vec3 = player.getDeltaMovement();
 
 
@@ -173,7 +171,7 @@ public class JetSuit {
         }
 
 
-        public void switchJetSuitMode(Player player, ItemStack itemStack) {
+        public void switchJetSuitMode(ItemStack itemStack) {
             JetSuitComponent jetSuitComponent;
             if (this.getMode(itemStack) < 3) {
                 jetSuitComponent = new JetSuitComponent(ModeType.fromInt(this.getMode(itemStack) + 1));
@@ -256,10 +254,6 @@ public class JetSuit {
                 }
             }
         }
-
-        public int getOxygenCapacity() {
-            return 60000;
-        }
     }
 
     public enum ModeType implements StringRepresentable {
@@ -315,7 +309,5 @@ public class JetSuit {
                default -> DISABLED;
            };
         }
-
     }
-
 }

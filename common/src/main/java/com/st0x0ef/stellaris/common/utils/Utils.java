@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.common.utils;
 
 import com.mojang.serialization.Codec;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.FluidTankHelper;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.entities.vehicles.LanderEntity;
 import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
@@ -27,7 +28,6 @@ import java.util.Random;
 import java.util.function.Function;
 
 public class Utils {
-
 
     /** Transfert the rocket inventory inside the Lander inventory */
     public static void transfertInventory(RocketEntity rocket, LanderEntity lander) {

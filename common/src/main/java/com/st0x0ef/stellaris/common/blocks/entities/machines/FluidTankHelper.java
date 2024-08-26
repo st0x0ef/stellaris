@@ -1,9 +1,11 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
-import com.st0x0ef.stellaris.common.data_components.SpaceArmorComponent;
+import com.st0x0ef.stellaris.common.armors.JetSuit;
 import com.st0x0ef.stellaris.common.items.oxygen.OxygenTankItem;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import com.st0x0ef.stellaris.common.registry.FluidRegistry;
+import com.st0x0ef.stellaris.common.utils.OxygenUtils;
+import com.st0x0ef.stellaris.common.utils.Utils;
 import dev.architectury.fluid.FluidStack;
 import dev.architectury.hooks.fluid.FluidBucketHooks;
 import dev.architectury.hooks.fluid.FluidStackHooks;
@@ -27,21 +29,20 @@ public class FluidTankHelper {
         ItemStack inputStack = blockEntity.getItem(slot);
         if (!inputStack.isEmpty()) {
             if (!tank.isEmpty()) {
-                Item item = inputStack.getItem();
-                boolean isTank = item instanceof OxygenTankItem;
+                boolean isTank = inputStack.has(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get());
 
                 if (tank.getAmount() >= BUCKET_AMOUNT || (isTank && tank.getAmount() >= OXYGEN_TANK_FILL_AMOUNT)) {
                     ItemStack resultStack = ItemStack.EMPTY;
 
                     if (isTank && tank.getStack().getFluid().isSame(FluidRegistry.OXYGEN_STILL.get())) {
                         resultStack = inputStack.copy();
-                        long storedOxygen = OxygenTankItem.getStoredOxygen(resultStack);
+                        long storedOxygen = inputStack.get(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get()).oxygen();
 
-                        if (storedOxygen + OXYGEN_TANK_FILL_AMOUNT > ((OxygenTankItem) item).getCapacity()) {
+                        if (storedOxygen + OXYGEN_TANK_FILL_AMOUNT >= inputStack.get(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get()).max()) {
                             return;
                         }
 
-                        OxygenTankItem.setStoredOxygen(resultStack, storedOxygen + OXYGEN_TANK_FILL_AMOUNT);
+                        OxygenUtils.addOxygen(resultStack, OXYGEN_TANK_FILL_AMOUNT);
                         tank.shrink(OXYGEN_TANK_FILL_AMOUNT);
                     }
                     else if (!isTank && isEmptyBucket(inputStack.getItem())) {
@@ -71,7 +72,7 @@ public class FluidTankHelper {
         boolean hasSpace = outputStack.getCount() < outputStack.getMaxStackSize();
 
         if (!inputStack.isEmpty() && (outputStack.isEmpty() || hasSpace)) {
-            boolean canFuel = inputStack.has(DataComponentsRegistry.SPACE_ARMOR_ROCKET.get());
+            boolean canFuel = inputStack.has(DataComponentsRegistry.STORED_FUEL_COMPONENT.get());
 
             if (!tank.isEmpty() && (tank.getAmount() >= BUCKET_AMOUNT || canFuel)) {
                 ItemStack resultStack = ItemStack.EMPTY;
@@ -98,12 +99,9 @@ public class FluidTankHelper {
 
                     if (success) {
                         if (canFuel) {
-                            SpaceArmorComponent component = inputStack.get(DataComponentsRegistry.SPACE_ARMOR_ROCKET.get());
-                            long fuel = component.fuel();
-                            amount = Math.min(SpaceArmorComponent.MAX_CAPACITY - fuel, tank.getAmount());
-                            resultStack.set(DataComponentsRegistry.SPACE_ARMOR_ROCKET.get(),
-                                    new SpaceArmorComponent(Mth.clamp(fuel + amount, 0, SpaceArmorComponent.MAX_CAPACITY), component.oxygen())
-                            );
+                            long fuel = inputStack.getOrDefault(DataComponentsRegistry.STORED_FUEL_COMPONENT.get(), 0).longValue();
+                            amount = Math.min(JetSuit.MAX_FUEL_CAPACITY - fuel, tank.getAmount());
+                            resultStack.set(DataComponentsRegistry.STORED_FUEL_COMPONENT.get(), Mth.clamp(fuel + amount, 0, JetSuit.MAX_FUEL_CAPACITY));
                         }
 
                         inputStack.shrink(1);
