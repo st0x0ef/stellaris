@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "facing=east": {
+      "model": "stellaris:block/rocket_station",
+      "y": 90
+    },
+    "facing=north": {
       "model": "stellaris:block/rocket_station"
+    },
+    "facing=south": {
+      "model": "stellaris:block/rocket_station",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "stellaris:block/rocket_station",
+      "y": 270
     }
   }
 }
