@@ -2,7 +2,7 @@ package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
 import com.st0x0ef.stellaris.common.menus.OxygenGeneratorMenu;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
-import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
+import com.st0x0ef.stellaris.common.utils.OxygenUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -20,12 +20,12 @@ public class OxygenGeneratorBlockEntity extends BaseEnergyContainerBlockEntity {
     }
 
     public boolean takeOxygenFromTank(long amount) {
-        long amountStored = getItem(0).get(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get()).longValue();
+        long amountStored = OxygenUtils.getOxygen(getItem(0));
         if (amountStored >= amount) {
-            getItem(0).set(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get(), amountStored - amount);
+            OxygenUtils.addOxygen(getItem(0), -amount);
             return true;
         } else if (amountStored > 0) {
-            getItem(0).set(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get(), 0L);
+            OxygenUtils.setOxygen(getItem(0), 0L);
             return true;
         }
 
