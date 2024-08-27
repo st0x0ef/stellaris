@@ -11,7 +11,7 @@ The Stellaris Project is currently available for Minecraft `1.20.6` and `1.21`/`
 
 | Mod              |                                                               Link                                                               | Required |
 | ---------------- | :-------------------------------------------------------------------------------------------------------------------------------: | :------: |
-| Stellaris        |                              [Curseforge](https://legacy.curseforge.com/minecraft/mc-mods/stellaris)                              |   true   |
+| Stellaris        |     [Curseforge ](https://legacy.curseforge.com/minecraft/mc-mods/stellaris) [Modrinth](https://modrinth.com/mod/stellaris/)     |   true   |
 | Architectury API | [Curseforge](https://www.curseforge.com/minecraft/mc-mods/architectury-api) [Modrinth](https://modrinth.com/mod/architectury-api) |   true   |
 | JEI              |                                  [Curseforge](https://www.curseforge.com/minecraft/mc-mods/jei)                                  |  false  |
 
