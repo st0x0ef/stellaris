@@ -19,7 +19,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 
 public record RocketStationCategory(IGuiHelper guiHelper) implements IRecipeCategory<RocketStationRecipe> {
 
-    public static final ResourceLocation TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/rocket_station_no_inventory.png");
+    public static final ResourceLocation TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/gui/compats/rocket_station.png");
     public static final RecipeType<RocketStationRecipe> RECIPE = new RecipeType<>(new ResourceLocation(Stellaris.MODID, "rocket_station"), RocketStationRecipe.class);
 
     @Override

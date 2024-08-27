@@ -69,7 +69,7 @@ public class KeyHandlerPacket implements CustomPacketPayload {
                     if (Utils.isLivingInJetSuit(player)) {
                         ItemStack itemStack = player.getItemBySlot(EquipmentSlot.CHEST);
                         JetSuit.Suit item = (JetSuit.Suit) itemStack.getItem();
-                        item.switchJetSuitMode(player, itemStack);
+                        item.switchJetSuitMode(itemStack);
                     }
                     break;
                 case "rocket_start":

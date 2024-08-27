@@ -2,9 +2,9 @@ package com.st0x0ef.stellaris.common.armors;
 
 import com.mojang.serialization.Codec;
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.FluidTankHelper;
 import com.st0x0ef.stellaris.common.data_components.JetSuitComponent;
 import com.st0x0ef.stellaris.common.keybinds.KeyVariables;
-import com.st0x0ef.stellaris.common.oxygen.OxygenContainer;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.ChatFormatting;
@@ -14,7 +14,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.StringRepresentable;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
@@ -22,15 +21,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 public class JetSuit {
+    public static final long MAX_FUEL_CAPACITY = FluidTankHelper.convertFromMb(3000);
+
     public static class Suit extends AbstractSpaceArmor.Chestplate {
         public float spacePressTime;
 
-        public OxygenContainer oxygenContainer;
-
         public Suit(Holder<ArmorMaterial> material, Properties properties) {
             super(material, Type.CHESTPLATE, properties);
-
-            oxygenContainer = new OxygenContainer(3000);
         }
 
         public int getMode(ItemStack itemStack) {
@@ -120,7 +117,6 @@ public class JetSuit {
             }
         }
         private void hoverModeMovement(Player player, ItemStack stack) {
-            double gravity = player.getAttribute(Attributes.GRAVITY).getValue();
             Vec3 vec3 = player.getDeltaMovement();
 
 
@@ -173,7 +169,7 @@ public class JetSuit {
         }
 
 
-        public void switchJetSuitMode(Player player, ItemStack itemStack) {
+        public void switchJetSuitMode(ItemStack itemStack) {
             JetSuitComponent jetSuitComponent;
             if (this.getMode(itemStack) < 3) {
                 jetSuitComponent = new JetSuitComponent(ModeType.fromInt(this.getMode(itemStack) + 1));
@@ -256,10 +252,6 @@ public class JetSuit {
                 }
             }
         }
-
-        public int getOxygenCapacity() {
-            return 60000;
-        }
     }
 
     public enum ModeType implements StringRepresentable {
@@ -315,7 +307,5 @@ public class JetSuit {
                default -> DISABLED;
            };
         }
-
     }
-
 }

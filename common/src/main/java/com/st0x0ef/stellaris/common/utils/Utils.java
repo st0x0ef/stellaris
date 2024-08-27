@@ -29,7 +29,6 @@ import java.util.function.Function;
 
 public class Utils {
 
-
     /** Transfert the rocket inventory inside the Lander inventory */
     public static void transfertInventory(RocketEntity rocket, LanderEntity lander) {
         Container rocketContainer = rocket.getInventory();
