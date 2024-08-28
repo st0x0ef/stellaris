@@ -142,8 +142,7 @@
     "stellaris:neptunium_block",
     "stellaris:plutonium_block",
 
-    "stellaris:oxygen_propagator",
-    "stellaris:oxygen_distributor",
+    "stellaris:oxygen_generator",
 
     "stellaris:water_separator",
     "stellaris:flag",
