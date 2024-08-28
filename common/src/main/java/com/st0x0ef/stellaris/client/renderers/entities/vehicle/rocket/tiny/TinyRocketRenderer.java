@@ -23,6 +23,6 @@ public class TinyRocketRenderer extends VehicleRenderer<RocketEntity, TinyRocket
 
     @Override
     protected boolean isShaking(RocketEntity rocket) {
-        return rocket.ROCKET_START;
+        return rocket.getEntityData().get(RocketEntity.ROCKET_START);
     }
 }

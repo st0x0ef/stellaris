@@ -57,7 +57,7 @@ import java.util.Set;
 
 public class RocketEntity extends IVehicleEntity implements HasCustomInventoryScreen, ContainerListener {
     public int START_TIMER;
-    public boolean ROCKET_START;
+    //public boolean ROCKET_START;
     public int FUEL;
 
     public boolean needsModelChange = false;
@@ -75,7 +75,11 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     private Player lastPlayer;
 
     private static final EntityDataAccessor<String> DATA_SKIN;
+    public static final EntityDataAccessor<Boolean> ROCKET_START = SynchedEntityData.defineId(RocketEntity.class, EntityDataSerializers.BOOLEAN);
+    ;
     private static final EntityDataAccessor<String> DATA_MODEL;
+
+
 
     public RocketEntity(EntityType<?> entityType, Level level) {
         this(entityType, level, SkinUpgrade.getBasic());
@@ -90,7 +94,6 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         this.TANK_UPGRADE = TankUpgrade.getBasic();
 
         this.START_TIMER = 0;
-        this.ROCKET_START = false;
         this.FUEL = 0;
 
         this.currentFuelItem = ItemsRegistry.FUEL_BUCKET.get();
@@ -107,7 +110,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         this.burnEntities();
         this.checkContainer();
 
-        if (ROCKET_START) {
+        if (this.entityData.get(ROCKET_START)) {
             this.spawnParticle();
             this.startTimerAndFlyMovement();
         }
@@ -148,6 +151,8 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         compound.putString("skin", SKIN_UPGRADE.getRocketSkinLocation().toString());
         compound.putString("motor", MOTOR_UPGRADE.getFuelType().getSerializedName());
         compound.putInt("tank", TANK_UPGRADE.getTankCapacity());
+        compound.putBoolean("rocketStart", this.entityData.get(ROCKET_START));
+
     }
 
     @Override
@@ -156,6 +161,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         ListTag inventoryCustom = compound.getList("InventoryCustom", 14);
         this.inventory.fromTag(inventoryCustom, registryAccess());
         FUEL = compound.getInt("fuel");
+        entityData.set(ROCKET_START, compound.getBoolean("rocketStart"));
 
         if (FUEL != 0) {
             currentFuelItem = FuelType.getItemBasedOnTypeName(compound.getString("currentFuelItemType"));
@@ -181,6 +187,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(DATA_SKIN, SkinUpgrade.getBasic().getRocketSkinLocation().toString());
+        builder.define(ROCKET_START, false);
         builder.define(DATA_MODEL, ModelUpgrade.getBasic().getModel().toString());
     }
 
@@ -362,8 +369,8 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
         if (player != null) {
             if (this.FUEL > 0 || player.isCreative()) {
-                if (!this.ROCKET_START) {
-                    this.ROCKET_START = true;
+                if (!this.entityData.get(ROCKET_START)) {
+                    this.entityData.set(ROCKET_START, true);
                     this.level().playSound(null, this, SoundRegistry.ROCKET_SOUND.get(), SoundSource.NEUTRAL, 1, 1);
                 }
             } else {
