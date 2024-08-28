@@ -1,9 +1,14 @@
 package com.st0x0ef.stellaris.client.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.*;
+import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.blaze3d.vertex.VertexFormat;
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.client.screens.components.*;
+import com.st0x0ef.stellaris.client.screens.components.InvisibleButton;
+import com.st0x0ef.stellaris.client.screens.components.LaunchButton;
+import com.st0x0ef.stellaris.client.screens.components.ModifiedButton;
 import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
 import com.st0x0ef.stellaris.client.screens.info.CelestialBody;
 import com.st0x0ef.stellaris.client.screens.info.MoonInfo;
@@ -16,7 +21,6 @@ import com.st0x0ef.stellaris.common.registry.EntityData;
 import com.st0x0ef.stellaris.common.registry.TranslatableRegistry;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
-
 import dev.architectury.networking.NetworkManager;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -41,7 +45,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
 @Environment(EnvType.CLIENT)
 public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelectionMenu> {
@@ -613,84 +618,72 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     }
 
     private CelestialBody getNextBodyByDistance(CelestialBody currentBody) {
-        switch (currentBody) {
-            case null -> {
-                return null;
-            }
-            case PlanetInfo planetInfo -> {
-                List<PlanetInfo> bodies = new ArrayList<>(PLANETS);
+        if (currentBody instanceof PlanetInfo) {
+            List<PlanetInfo> bodies = new ArrayList<>(PLANETS);
 
-                bodies.sort(Comparator.comparingDouble(b -> b.orbitRadius));
+            bodies.sort(Comparator.comparingDouble(b -> b.orbitRadius));
 
-                for (int i = 0; i < bodies.size(); i++) {
-                    if (bodies.get(i) == currentBody) {
-                        for (int j = i + 1; j < bodies.size(); j++) {
-                            if (bodies.get(j).orbitCenter == ((PlanetInfo) currentBody).orbitCenter) {
-                                return bodies.get(j);
-                            }
+            for (int i = 0; i < bodies.size(); i++) {
+                if (bodies.get(i) == currentBody) {
+                    for (int j = i + 1; j < bodies.size(); j++) {
+                        if (bodies.get(j).orbitCenter == ((PlanetInfo) currentBody).orbitCenter) {
+                            return bodies.get(j);
                         }
                     }
                 }
             }
-            case MoonInfo moonInfo -> {
-                List<MoonInfo> bodies = new ArrayList<>(MOONS);
+        } else if (currentBody instanceof MoonInfo) {
+            List<MoonInfo> bodies = new ArrayList<>(MOONS);
 
-                bodies.sort(Comparator.comparingDouble(b -> b.orbitRadius));
+            bodies.sort(Comparator.comparingDouble(b -> b.orbitRadius));
 
-                for (int i = 0; i < bodies.size(); i++) {
-                    if (bodies.get(i) == currentBody) {
-                        for (int j = i + 1; j < bodies.size(); j++) {
-                            if (bodies.get(j).orbitCenter == ((MoonInfo) currentBody).orbitCenter) {
-                                return bodies.get(j);
-                            }
+            for (int i = 0; i < bodies.size(); i++) {
+                if (bodies.get(i) == currentBody) {
+                    for (int j = i + 1; j < bodies.size(); j++) {
+                        if (bodies.get(j).orbitCenter == ((MoonInfo) currentBody).orbitCenter) {
+                            return bodies.get(j);
                         }
                     }
                 }
             }
-            default -> {
-            }
+        } else if (currentBody == null) {
+            return null;
         }
 
         return currentBody;
     }
 
     private CelestialBody getPreviousBodyByDistance(CelestialBody currentBody) {
-        switch (currentBody) {
-            case null -> {
-                return null;
-            }
-            case PlanetInfo planetInfo -> {
-                List<PlanetInfo> bodies = new ArrayList<>(PLANETS);
+        if (currentBody instanceof PlanetInfo) {
+            List<PlanetInfo> bodies = new ArrayList<>(PLANETS);
 
-                bodies.sort(Comparator.comparingDouble(b -> b.orbitRadius));
+            bodies.sort(Comparator.comparingDouble(b -> b.orbitRadius));
 
-                for (int i = bodies.size() - 1; i >= 0; i--) {
-                    if (bodies.get(i) == currentBody) {
-                        for (int j = i - 1; j >= 0; j--) {
-                            if (bodies.get(j).orbitCenter == ((PlanetInfo) currentBody).orbitCenter) {
-                                return bodies.get(j);
-                            }
+            for (int i = bodies.size() - 1; i >= 0; i--) {
+                if (bodies.get(i) == currentBody) {
+                    for (int j = i - 1; j >= 0; j--) {
+                        if (bodies.get(j).orbitCenter == ((PlanetInfo) currentBody).orbitCenter) {
+                            return bodies.get(j);
                         }
                     }
                 }
             }
-            case MoonInfo moonInfo -> {
-                List<MoonInfo> bodies = new ArrayList<>(MOONS);
+        } else if (currentBody instanceof MoonInfo) {
+            List<MoonInfo> bodies = new ArrayList<>(MOONS);
 
-                bodies.sort(Comparator.comparingDouble(b -> b.orbitRadius));
+            bodies.sort(Comparator.comparingDouble(b -> b.orbitRadius));
 
-                for (int i = bodies.size() - 1; i >= 0; i--) {
-                    if (bodies.get(i) == currentBody) {
-                        for (int j = i - 1; j >= 0; j--) {
-                            if (bodies.get(j).orbitCenter == ((MoonInfo) currentBody).orbitCenter) {
-                                return bodies.get(j);
-                            }
+            for (int i = bodies.size() - 1; i >= 0; i--) {
+                if (bodies.get(i) == currentBody) {
+                    for (int j = i - 1; j >= 0; j--) {
+                        if (bodies.get(j).orbitCenter == ((MoonInfo) currentBody).orbitCenter) {
+                            return bodies.get(j);
                         }
                     }
                 }
             }
-            default -> {
-            }
+        } else if (currentBody == null) {
+            return null;
         }
 
         return currentBody;
@@ -722,7 +715,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     public void tpToFocusedPlanet() {
         if (focusedBody != null) {
-            NetworkManager.sendToServer(new TeleportEntityToPlanetPacket(focusedBody.dimension));
+            new TeleportEntityToPlanetPacket(focusedBody.dimension).sendToServer();
         } else {
             Stellaris.LOG.error("Focused body is null");
         }

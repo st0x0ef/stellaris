@@ -154,7 +154,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     protected void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         ListTag inventoryCustom = compound.getList("InventoryCustom", 14);
-        this.inventory.fromTag(inventoryCustom, registryAccess());
+        this.inventory.fromTag(inventoryCustom);
         FUEL = compound.getInt("fuel");
 
         if (FUEL != 0) {
@@ -167,7 +167,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
             CompoundTag compoundTag = listTag.getCompound(i);
             int j = compoundTag.getByte("Slot") & 255;
             if (j < this.inventory.getContainerSize() - 1) {
-                this.inventory.setItem(j + 1, ItemStack.parse(this.registryAccess(), compoundTag).orElse(ItemStack.EMPTY));
+                this.inventory.setItem(j + 1, ItemStack.of(compoundTag));
             }
         }
 
@@ -178,10 +178,10 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(DATA_SKIN, SkinUpgrade.getBasic().getRocketSkinLocation().toString());
-        builder.define(DATA_MODEL, ModelUpgrade.getBasic().getModel().toString());
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DATA_SKIN, SkinUpgrade.getBasic().getRocketSkinLocation().toString());
+        this.entityData.define(DATA_MODEL, ModelUpgrade.getBasic().getModel().toString());
     }
 
     public SkinUpgrade getSkinData() {
