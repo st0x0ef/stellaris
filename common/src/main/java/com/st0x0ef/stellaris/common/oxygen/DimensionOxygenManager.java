@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.common.oxygen;
 
-import com.st0x0ef.stellaris.common.armors.JetSuit;
 import com.st0x0ef.stellaris.common.registry.TagRegistry;
 import com.st0x0ef.stellaris.common.utils.OxygenUtils;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
@@ -65,7 +64,6 @@ public class DimensionOxygenManager {
         if (planetHasOxygen || entity.getType().is(TagRegistry.ENTITY_NO_OXYGEN_NEEDED_TAG)) return true;
 
         if (entity instanceof LivingEntity livingEntity && Utils.isLivingInJetSuit(livingEntity)) {
-            JetSuit.Suit suit = (JetSuit.Suit) livingEntity.getItemBySlot(EquipmentSlot.CHEST).getItem();
             if (OxygenUtils.getOxygen(livingEntity.getItemBySlot(EquipmentSlot.CHEST)) <= 0) {
                 return false;
             }
