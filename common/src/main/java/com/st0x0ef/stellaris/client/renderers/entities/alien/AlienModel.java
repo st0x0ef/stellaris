@@ -3,7 +3,7 @@ package com.st0x0ef.stellaris.client.renderers.entities.alien;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.entities.alien.Alien;
+import com.st0x0ef.stellaris.common.entities.mobs.alien.Alien;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.EntityModel;
@@ -69,16 +69,16 @@ public class AlienModel<T extends Alien> extends EntityModel<T> {
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack matrixStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
 		if (young) {
-			matrixStack.scale(0.5f, 0.5f, 0.5f);
-			matrixStack.translate(0, 1.5f, 0);
+			poseStack.scale(0.5f, 0.5f, 0.5f);
+			poseStack.translate(0, 1.5f, 0);
 		}
-		head.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-		body.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-		leg0.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-		leg1.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-		arms.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-		head2.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+		head.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+		body.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+		leg0.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+		leg1.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+		arms.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+		head2.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 }

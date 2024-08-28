@@ -2,7 +2,8 @@ package com.st0x0ef.stellaris.common.items;
 
 import com.st0x0ef.stellaris.common.blocks.RocketLaunchPad;
 import com.st0x0ef.stellaris.common.data_components.RocketComponent;
-import com.st0x0ef.stellaris.common.entities.RocketEntity;
+import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
+import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -28,7 +29,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -105,7 +105,7 @@ public class RocketItem extends Item {
     }
 
     public EntityType<? extends RocketEntity> getEntityType(ItemStack stack) {
-        RocketComponent rocketComponent = RocketComponent.loadData(stack.getOrCreateTag());
+        RocketComponent rocketComponent = stack.get(DataComponentsRegistry.ROCKET_COMPONENT.get());
         return switch (rocketComponent.getModel().toString()) {
             case "tiny" -> EntityRegistry.TINY_ROCKET.get();
             case "small" -> EntityRegistry.SMALL_ROCKET.get();
@@ -122,12 +122,11 @@ public class RocketItem extends Item {
 
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
-        RocketComponent rocketComponent = RocketComponent.loadData(stack.getOrCreateTag());
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+        RocketComponent rocketComponent = stack.get(DataComponentsRegistry.ROCKET_COMPONENT.get());
+        if(rocketComponent == null) return;
 
-        tooltip.add(Component.translatable("tooltip.item.stellaris.rocket.skin", rocketComponent.skin()).withStyle(ChatFormatting.GRAY));
-        tooltip.add(Component.translatable("tooltip.item.stellaris.rocket.fuel", rocketComponent.fuel()).withStyle(ChatFormatting.GRAY));
-        tooltip.add(Component.translatable("tooltip.item.stellaris.rocket.model", rocketComponent.model().toString()).withStyle(ChatFormatting.GRAY));
+        tooltipComponents.add(Component.translatable("tooltip.item.stellaris.rocket.fuel", rocketComponent.fuel()).withStyle(ChatFormatting.GRAY));
     }
 
     public float getRocketPlaceHigh() {
@@ -149,7 +148,7 @@ public class RocketItem extends Item {
     }
 
     private void addRocketInfos(RocketEntity rocket, ItemStack stack) {
-        RocketComponent rocketComponent = RocketComponent.loadData(stack.getOrCreateTag());
+        RocketComponent rocketComponent = stack.get(DataComponentsRegistry.ROCKET_COMPONENT.get());
         rocket.FUEL = rocketComponent.getFuel();
 
         rocket.MODEL_UPGRADE = rocketComponent.getModelUpgrade();

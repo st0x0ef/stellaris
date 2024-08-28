@@ -1,6 +1,6 @@
 package com.st0x0ef.stellaris.common.menus;
 
-import com.st0x0ef.stellaris.common.entities.RocketEntity;
+import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
 import com.st0x0ef.stellaris.common.menus.slot.ResultSlot;
 import com.st0x0ef.stellaris.common.menus.slot.upgrade.MotorUpgradeSlot;
 import com.st0x0ef.stellaris.common.menus.slot.upgrade.RocketModelSlot;
@@ -26,8 +26,7 @@ public class RocketMenu extends AbstractContainerMenu {
         this(syncId, inventory, new SimpleContainer(15), buffer.readVarInt());
     }
 
-    public RocketMenu(int syncId, Inventory playerInventory, Container container, int entityId)
-    {
+    public RocketMenu(int syncId, Inventory playerInventory, Container container, int entityId) {
         super(MenuTypesRegistry.ROCKET_MENU.get(), syncId);
 
         this.rocket = (RocketEntity) playerInventory.player.level().getEntity(entityId);

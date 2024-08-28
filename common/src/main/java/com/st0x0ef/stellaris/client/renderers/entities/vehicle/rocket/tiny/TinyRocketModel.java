@@ -3,7 +3,7 @@ package com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.tiny;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.entities.RocketEntity;
+import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
@@ -13,7 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class TinyRocketModel<T extends RocketEntity> extends EntityModel<T> {
 
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(Stellaris.MODID, "rocket_tiny"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(Stellaris.MODID, "tiny_rocket"), "main");
     private final ModelPart rocket;
 
     public TinyRocketModel(ModelPart root) {

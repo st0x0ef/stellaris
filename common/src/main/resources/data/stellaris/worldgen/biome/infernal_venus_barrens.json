@@ -18,8 +18,22 @@
       "probability": 0.014
     }
   },
-  "spawners": {},
-  "spawn_costs": {},
+  "spawners": {
+    "monster": [
+      {
+        "type": "stellaris:mogler",
+        "weight": 55,
+        "minCount": 1,
+        "maxCount": 1
+      }
+    ]
+  },
+  "spawn_costs": {
+    "stellaris:mogler": {
+      "energy_budget": 0.015,
+      "charge": 0.2
+    }
+  },
   "carvers": {
     "air": [
       "minecraft:cave",
@@ -38,7 +52,8 @@
       "minecraft:delta"
     ],
     [],
-    [],
+    [
+    ],
     [
       "minecraft:spring_lava",
       "minecraft:basalt_blobs"

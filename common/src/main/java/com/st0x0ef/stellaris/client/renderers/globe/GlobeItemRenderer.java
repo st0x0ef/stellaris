@@ -52,7 +52,7 @@ public class GlobeItemRenderer<T extends GlobeBlockEntity> extends BlockEntityWi
         /** Animation */
         if (level != null) {
             if (!mc.isPaused()) {
-                model.globe.getChild("planet").yRot = (level.getGameTime() + mc.getFrameTime()) / -20;
+                model.globe.getChild("planet").yRot = (float) (level.getGameTime() + (1 / mc.getFps())) / -20;
             }
         }
 

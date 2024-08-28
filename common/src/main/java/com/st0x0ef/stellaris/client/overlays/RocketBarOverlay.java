@@ -3,7 +3,7 @@ package com.st0x0ef.stellaris.client.overlays;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
-import com.st0x0ef.stellaris.common.entities.RocketEntity;
+import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -15,7 +15,7 @@ public class RocketBarOverlay {
 
     public static final ResourceLocation ROCKET = new ResourceLocation(Stellaris.MODID, "textures/planet_bar/rocket.png");
 
-    public static void render(GuiGraphics graphics, float tickDelta) {
+    public static void render(GuiGraphics graphics, float partialTick) {
         Player player = Minecraft.getInstance().player;
 
         if (player.getVehicle() instanceof RocketEntity

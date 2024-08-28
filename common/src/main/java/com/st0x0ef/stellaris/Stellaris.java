@@ -3,15 +3,17 @@ package com.st0x0ef.stellaris;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.ToNumberPolicy;
-import com.st0x0ef.stellaris.client.skys.record.SkyPropertiesData;
+import com.st0x0ef.stellaris.client.skies.record.SkyPropertiesData;
 import com.st0x0ef.stellaris.common.config.CustomConfig;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
 import com.st0x0ef.stellaris.common.data.screen.MoonPack;
 import com.st0x0ef.stellaris.common.data.screen.PlanetPack;
 import com.st0x0ef.stellaris.common.data.screen.StarPack;
 import com.st0x0ef.stellaris.common.events.Events;
+import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import com.st0x0ef.stellaris.common.network.packets.SyncPlanetsDatapackPacket;
 import com.st0x0ef.stellaris.common.registry.*;
+import dev.architectury.networking.NetworkManager;
 import dev.architectury.registry.ReloadListenerRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -35,15 +37,18 @@ public class Stellaris {
 
         ProcessorsRegistry.STRUCTURE_PROCESSORS.register();
         EntityData.register();
+        NetworkRegistry.init();
         SoundRegistry.SOUNDS.register();
         EffectsRegistry.MOB_EFFECTS.register();
-        FluidRegistry.FLUIDS.register();
+        DataComponentsRegistry.DATA_COMPONENT_TYPE.register();
+        FluidRegistry.init();
         ParticleRegistry.PARTICLES.register();
         BlocksRegistry.BLOCKS.register();
         EntityRegistry.ENTITY_TYPE.register();
         EntityRegistry.SENSOR.register();
         BlockEntityRegistry.BLOCK_ENTITY_TYPE.register();
         ItemsRegistry.ITEMS.register();
+        ArmorMaterialsRegistry.ARMOR_MATERIAL.register();
         CreativeTabsRegistry.TABS.register();
         MenuTypesRegistry.MENU_TYPE.register();
         FeaturesRegistry.FEATURES.register();
@@ -52,13 +57,14 @@ public class Stellaris {
         Events.registerEvents();
         LookupApiRegistry.registerEnergy();
         RecipesRegistry.register();
+        EntityRegistry.registerSpawnPlacements();
 
         ReloadListenerRegistry.register(PackType.SERVER_DATA, new StellarisData());
     }
 
     public static void onDatapackSyncEvent(ServerPlayer player, boolean joined) {
         if (joined) {
-            new SyncPlanetsDatapackPacket(StellarisData.getPlanets()).sendTo(player);
+            NetworkManager.sendToPlayer(player, new SyncPlanetsDatapackPacket(StellarisData.getPlanets()));
         }
     }
 

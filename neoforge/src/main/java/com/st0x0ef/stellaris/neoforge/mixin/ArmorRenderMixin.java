@@ -24,6 +24,7 @@ public abstract class ArmorRenderMixin extends Item {
     }
 
     @Override
+    @SuppressWarnings("removal")
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(new IClientItemExtensions() {
             private ClientUtilsPlatformImpl.ArmorRenderer renderer;

@@ -1,6 +1,6 @@
 package com.st0x0ef.stellaris.common.menus.slot;
 
-import com.st0x0ef.stellaris.common.items.oxygen.OxygenTankItem;
+import com.st0x0ef.stellaris.common.items.OxygenTankItem;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;

@@ -4,6 +4,7 @@ import com.st0x0ef.stellaris.common.blocks.entities.machines.SolarPanelEntity;
 import com.st0x0ef.stellaris.common.network.packets.SyncWidgetsTanksPacket;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import com.st0x0ef.stellaris.platform.systems.energy.EnergyContainer;
+import dev.architectury.networking.NetworkManager;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
@@ -21,18 +22,17 @@ public class SolarPanelMenu extends AbstractContainerMenu {
 
     public static SolarPanelMenu create(int syncId, Inventory inventory, FriendlyByteBuf data) {
         SolarPanelEntity entity = (SolarPanelEntity) inventory.player.level().getBlockEntity(data.readBlockPos());
-
-        return new SolarPanelMenu(syncId, inventory, new SimpleContainer(1), entity);
+        return new SolarPanelMenu(syncId, inventory, new SimpleContainer(), entity);
     }
 
     public SolarPanelMenu(int syncId, Inventory playerInventory, Container container, SolarPanelEntity entity) {
         super(MenuTypesRegistry.SOLAR_PANEL_MENU.get(), syncId);
 
         checkContainerSize(container, 1);
-        this.inventory = (container);
+        this.inventory = container;
         this.entity = entity;
 
-        this.addSlot(new Slot(inventory, 0, 41, 63));
+        addSlot(new Slot(inventory, 0, 41, 63));
 
         addPlayerHotbar(playerInventory);
         addPlayerInventory(playerInventory);
@@ -98,7 +98,7 @@ public class SolarPanelMenu extends AbstractContainerMenu {
 
     public void syncBattery(ServerPlayer player) {
         if (!player.level().isClientSide()) {
-            new SyncWidgetsTanksPacket(new long[] {getEnergyContainer().getStoredEnergy()}).sendTo(player);
+            NetworkManager.sendToPlayer(player, new SyncWidgetsTanksPacket(new long[] {getEnergyContainer().getStoredEnergy()}));
         }
     }
 }

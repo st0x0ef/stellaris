@@ -65,10 +65,10 @@ public class ConfigScreen extends Screen {
     @Override
     public void render(GuiGraphics guiGraphics, int i, int j, float f) {
         super.render(guiGraphics, i, j, f);
-        guiGraphics.drawCenteredString(this.font, this.title, this.width / 2, 20, 16777215);
+        guiGraphics.drawCenteredString(this.font, this.title, this.width / 2, 20, -1);
     }
 
-    public void addTypeWidgets(ConfigEntry entry, GridLayout.RowHelper rowHelper, String entryName) {
+    public void addTypeWidgets(ConfigEntry<?> entry, GridLayout.RowHelper rowHelper, String entryName) {
         if(entry.getType() == Boolean.class) {
             Checkbox checkbox = Checkbox.builder(Component.literal(entry.value().toString()), this.font)
                     .selected((Boolean) entry.value())
@@ -85,7 +85,7 @@ public class ConfigScreen extends Screen {
             button.setResponder((string) -> CustomConfig.CONFIG.replace(entryName, new ConfigEntry<>(string, entry.description())));
             rowHelper.addChild(button);
 
-        } else if (entry.getType() == Integer.class || entry.getType() == Double.class || entry.getType() == Float.class){
+        } else if (entry.getType() == Integer.class || entry.getType() == Double.class || entry.getType() == Float.class || entry.getType() == Long.class){
             EditBox button = new EditBox(this.font, 50, 15, Component.literal(entry.value().toString()));
             button.setMaxLength(100);
             button.setValue(entry.value().toString());

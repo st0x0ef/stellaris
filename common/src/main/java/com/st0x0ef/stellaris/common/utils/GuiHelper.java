@@ -320,8 +320,7 @@ public class GuiHelper
         graphics.blit(resource, left + ratioWidth, top, ratioWidth, 0, remainWidth, height, width, height);
     }
 
-    public static void innerBlit(Matrix4f matrix, float x1, float x2, float y1, float y2, int blitOffset, float minU,
-                                 float maxU, float minV, float maxV) {
+    public static void innerBlit(Matrix4f matrix, float x1, float x2, float y1, float y2, int blitOffset, float minU, float maxU, float minV, float maxV) {
         BufferBuilder bufferbuilder = Tesselator.getInstance().getBuilder();
         bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
         bufferbuilder.vertex(matrix, x1, y2, (float) blitOffset).uv(minU, maxV).endVertex();

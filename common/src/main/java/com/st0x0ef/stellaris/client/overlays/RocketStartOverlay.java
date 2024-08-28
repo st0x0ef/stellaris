@@ -2,7 +2,7 @@ package com.st0x0ef.stellaris.client.overlays;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.entities.RocketEntity;
+import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
@@ -22,7 +22,7 @@ public class RocketStartOverlay {
     public static final ResourceLocation TIMER_9 = new ResourceLocation(Stellaris.MODID, "textures/overlay/timer/timer_9.png");
     public static final ResourceLocation TIMER_10 = new ResourceLocation(Stellaris.MODID, "textures/overlay/timer/timer_10.png");
 
-    public static void render(GuiGraphics graphics, float tickDelta) {
+    public static void render(GuiGraphics graphics, float partialTick) {
         Minecraft mc = Minecraft.getInstance();
         Player player = mc.player;
 

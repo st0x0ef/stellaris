@@ -7,13 +7,10 @@ import net.minecraft.world.level.portal.PortalInfo;
 import net.minecraft.world.phys.Vec3;
 
 public class TeleportUtilImpl {
-
     public static void teleportToPlanet(Entity entity, ServerLevel level, int yPos) {
         Vec3 newPos = new Vec3(entity.getX(), yPos, entity.getZ());
         PortalInfo portalInfo = new PortalInfo(newPos, Vec3.ZERO, entity.yRotO, entity.xRotO);
 
-        if (level != null) {
-            FabricDimensions.teleport(entity, level, portalInfo);
-        }
+        FabricDimensions.teleport(entity, level, portalInfo);
     }
 }

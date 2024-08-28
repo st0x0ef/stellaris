@@ -36,6 +36,7 @@ public record RocketComponent(String skin, RocketModel model, String fuelType, i
     public RocketModel getModel() {
         return model;
     }
+
     public ModelUpgrade getModelUpgrade() {
         return new ModelUpgrade(model) ;
     }

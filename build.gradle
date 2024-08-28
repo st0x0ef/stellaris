@@ -1,7 +1,9 @@
 plugins {
-    id "dev.architectury.loom" version "1.6-SNAPSHOT" apply false
+    id "dev.architectury.loom" version "1.7-SNAPSHOT" apply false
     id "architectury-plugin" version "3.4-SNAPSHOT"
     id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
+    id "me.modmuss50.mod-publish-plugin" version "0.6.3"
+
 }
 
 architectury {
@@ -12,6 +14,7 @@ subprojects {
     apply plugin: 'dev.architectury.loom'
     apply plugin: 'architectury-plugin'
     apply plugin: 'maven-publish'
+    apply plugin: 'me.modmuss50.mod-publish-plugin'
 
     base {
         archivesName = "${rootProject.modid}-${rootProject.minecraft_version}-${project.name}"
@@ -20,12 +23,14 @@ subprojects {
     def modLoader = project.name
     def isCommon = (modLoader == "common")
 
+
     repositories {
         maven { url "https://maven.shedaniel.me" }
         maven { url "https://cursemaven.com" }
         maven { url "https://maven.terraformersmc.com/releases" }
         maven { url "https://maven.parchmentmc.org" }
         maven { url "https://maven.neoforged.net/releases" }
+        maven { url "https://maven.blamejared.com/" }
     }
 
     dependencies {
@@ -38,6 +43,7 @@ subprojects {
 
         modCompileOnly "me.shedaniel:RoughlyEnoughItems-api:${rootProject.rei_version}"
         modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin:${rootProject.rei_version}"
+        modCompileOnly("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
     }
 
     java {
@@ -67,7 +73,8 @@ subprojects {
             }
             repositories {
                 maven {
-                    url = "https://maven.odysseyus.fr/releases/"
+                    url = "http://maven.odysseyus.fr/releases/"
+                    allowInsecureProtocol = true
                     credentials {
                         username = System.getenv("MAVEN_USER")
                         password = System.getenv("MAVEN_PASS")
@@ -76,6 +83,28 @@ subprojects {
             }
         }
 
+        publishMods {
+            file = file("../${modLoader.capitalize()}/build/libs/stellaris-${minecraft_version}-${modLoader}-${mod_version}.jar")
+            changelog = file("../changelog.md").getText('UTF-8')
+            type = STABLE
+            modLoaders.add(modLoader)
+            displayName = "[${modLoader.capitalize()} ${minecraft_version}] Stellaris ${mod_version}"
+
+            curseforge {
+                projectId = "1036270"
+                projectSlug = "stellaris" // Required for discord webhook
+                accessToken = providers.environmentVariable("CURSEFORGE_API_KEY")
+                minecraftVersions.add("${minecraft_version}")
+                requires("architectury-api")
+            }
+
+            modrinth {
+                projectId = "ItTQpuBn"
+                accessToken = providers.environmentVariable("MODRINTH_TOKEN")
+                minecraftVersions.add("${minecraft_version}")
+                requires("architectury-api")
+            }
+        }
     }
 }
 

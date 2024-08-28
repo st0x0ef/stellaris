@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
-import com.st0x0ef.stellaris.common.entities.IVehicleEntity;
+import com.st0x0ef.stellaris.common.entities.vehicles.IVehicleEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -36,8 +36,8 @@ public abstract class VehicleRenderer<T extends IVehicleEntity, M extends Entity
         this.shadowRadius = shadowRadius;
     }
 
-    public final boolean addLayer(RenderLayer<T, M> p_115327_) {
-        return this.layers.add(p_115327_);
+    public final boolean addLayer(RenderLayer<T, M> layer) {
+        return this.layers.add(layer);
     }
 
     public M getModel() {
@@ -47,7 +47,6 @@ public abstract class VehicleRenderer<T extends IVehicleEntity, M extends Entity
     @Override
     public void render(T entity, float entityYaw, float partialTick, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
         poseStack.pushPose();
-        //&& entity.getVehicle().shouldRiderSit()
         boolean shouldSit = entity.isPassenger() && (entity.getVehicle() != null);
         this.model.riding = shouldSit;
         float f = Mth.rotLerp(partialTick, entity.yRotO, entity.getYRot());

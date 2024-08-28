@@ -5,7 +5,7 @@
     },
     "icon": {
       "count": 1,
-      "item": "stellaris:mercury_sand"
+      "id": "stellaris:mercury_stone"
     },
     "title": {
       "translate": "advancements.mercury.root.title"

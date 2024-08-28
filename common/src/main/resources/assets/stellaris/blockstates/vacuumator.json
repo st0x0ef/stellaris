@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "stellaris:block/vacuumator",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "stellaris:block/vacuumator"
+    },
+    "facing=south": {
+      "model": "stellaris:block/vacuumator",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "stellaris:block/vacuumator",
+      "y": 270
+    }
+  }
+}

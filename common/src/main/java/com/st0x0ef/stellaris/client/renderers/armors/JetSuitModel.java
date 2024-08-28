@@ -1,7 +1,4 @@
-package com.st0x0ef.stellaris.client.renderers.armors;// Made with Blockbench 4.10.3
-// Exported for Minecraft version 1.17 or later with Mojang mappings
-// Paste this class into your mod and generate all required imports
-
+package com.st0x0ef.stellaris.client.renderers.armors;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -25,10 +22,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
 
 public class JetSuitModel extends HumanoidModel<LivingEntity> {
-	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(Stellaris.MODID, "jetsuit"), "main");
     public static final ResourceLocation TEXTURE = new ResourceLocation(Stellaris.MODID, "textures/entity/armor/jet_suit.png");
-
 
     private final ModelPart head;
 	private final ModelPart body;
@@ -99,18 +94,17 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
 
-
 	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        if (Objects.equals(ArchitecturyTarget.getCurrentTarget(), "neoforge")) {
-            MultiBufferSource.BufferSource bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
-            vertexConsumer = bufferSource.getBuffer(RenderType.entityTranslucent(TEXTURE));
-        }
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+		if (Objects.equals(ArchitecturyTarget.getCurrentTarget(), "neoforge")) {
+			MultiBufferSource.BufferSource bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
+			buffer = bufferSource.getBuffer(RenderType.entityTranslucent(TEXTURE));
+		}
 
-        parentModel.copyPropertiesTo(this);
+		parentModel.copyPropertiesTo(this);
 
-        super.renderToBuffer(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-    }
+		super.renderToBuffer(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+	}
 
 	@Override
 	protected Iterable<ModelPart> headParts() {
@@ -138,5 +132,4 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
 
 		}
 	}
-
 }

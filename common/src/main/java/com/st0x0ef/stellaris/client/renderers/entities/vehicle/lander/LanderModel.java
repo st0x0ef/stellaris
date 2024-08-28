@@ -3,7 +3,7 @@ package com.st0x0ef.stellaris.client.renderers.entities.vehicle.lander;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.entities.LanderEntity;
+import com.st0x0ef.stellaris.common.entities.vehicles.LanderEntity;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
@@ -125,7 +125,7 @@ public class LanderModel<T extends LanderEntity> extends EntityModel<T> {
     }
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         this.leg1.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
         this.leg2.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
         this.leg3.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);

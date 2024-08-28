@@ -142,7 +142,7 @@
   "block.stellaris.vertical_desh_slab": "Vertical Desh Slab",
 
   "block.stellaris.cheese_block": "Cheese Block",
-  "block.stellaris.vacumator": "Vacumator",
+  "block.stellaris.vacuumator": "Vacuumator",
 
   "block.stellaris.earth_globe": "Earth Globe",
   "block.stellaris.moon_globe": "Moon Globe",
@@ -305,6 +305,10 @@
 
   "text.stellaris.milkywayscreen.milkyway": "Milky Way",
 
+  "text.stellaris.planetscreen.press_space": "To pause the screen, press Space",
+  "text.stellaris.planetscreen.arrows": "Select planets with the arrow keys",
+  "text.stellaris.planetscreen.help": "To hide theses infos, press H",
+
   "translatable.stellaris.registry.holdshift": "Hold [↑ Shift] to view more info",
   "translatable.stellaris.registry.player": "Player",
   "translatable.stellaris.registry.players": "player",
@@ -370,5 +374,4 @@
 
   "jetsuit.stellaris.fuel": "§7Fuel : §8%s",
   "jetsuit.stellaris.oxygen": "§7Oxygen : §8%s"
-
 }

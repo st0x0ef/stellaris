@@ -24,7 +24,6 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity {
 
     private static final int TANK_CAPACITY = 3;
 
-    //Water Tank (I guess)
     public final FluidTank ingredientTank = new FluidTank("ingredientTank", TANK_CAPACITY);
 
     public final NonNullList<FluidTank> resultTanks = Util.make(NonNullList.createWithCapacity(2), list -> {

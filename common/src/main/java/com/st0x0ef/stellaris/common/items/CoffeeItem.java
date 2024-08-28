@@ -20,7 +20,6 @@ public class CoffeeItem extends Item {
         super(properties);
     }
 
-
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity livingEntity) {
         super.finishUsingItem(stack, level, livingEntity);
         if (livingEntity instanceof ServerPlayer serverPlayer) {
@@ -30,7 +29,6 @@ public class CoffeeItem extends Item {
 
         return stack;
     }
-
 
     public int getUseDuration(ItemStack stack) {
         return 40;

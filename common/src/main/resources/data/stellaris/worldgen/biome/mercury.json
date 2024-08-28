@@ -49,8 +49,7 @@
       "minecraft:patch_soul_fire"
     ],
     [],
-    [
-      "minecraft:ore_magma"
+    ["minecraft:ore_magma"
     ],
     [
       "minecraft:spring_lava",

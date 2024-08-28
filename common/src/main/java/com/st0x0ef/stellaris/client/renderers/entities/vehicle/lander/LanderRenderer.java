@@ -2,7 +2,7 @@ package com.st0x0ef.stellaris.client.renderers.entities.vehicle.lander;
 
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.VehicleRenderer;
-import com.st0x0ef.stellaris.common.entities.LanderEntity;
+import com.st0x0ef.stellaris.common.entities.vehicles.LanderEntity;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;

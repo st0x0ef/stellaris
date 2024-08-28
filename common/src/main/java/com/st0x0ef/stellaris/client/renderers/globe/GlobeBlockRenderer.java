@@ -63,5 +63,4 @@ public class GlobeBlockRenderer<T extends GlobeBlockEntity> implements BlockEnti
 
         matrixStackIn.popPose();
     }
-
 }

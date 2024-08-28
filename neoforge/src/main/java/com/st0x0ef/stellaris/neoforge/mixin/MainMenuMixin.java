@@ -24,12 +24,12 @@ public abstract class MainMenuMixin extends Screen {
     protected void init(CallbackInfo ci) {
         int l = this.height / 4 + 48;
 
-        SpriteIconButton spriteIconButton = this.addRenderableWidget(stellaris$ConfigButton((button) -> this.minecraft.setScreen(new ConfigScreen(this))));
+        SpriteIconButton spriteIconButton = this.addRenderableWidget(stellaris$configButton((button) -> this.minecraft.setScreen(new ConfigScreen(this))));
         spriteIconButton.setPosition(this.width / 2 - 124, l);
     }
 
     @Unique
-    private static SpriteIconButton stellaris$ConfigButton(Button.OnPress onPress) {
-        return SpriteIconButton.builder(Component.translatable("screens.stellaris.config"), onPress, true).width(20).sprite(new ResourceLocation(Stellaris.MODID, "icon/logo.png"), 16, 16).build();
+    private static SpriteIconButton stellaris$configButton(Button.OnPress onPress) {
+        return SpriteIconButton.builder(Component.translatable("screens.stellaris.config"), onPress, true).width(20).sprite(new ResourceLocation(Stellaris.MODID, "icon/logo"), 16, 16).build();
     }
 }

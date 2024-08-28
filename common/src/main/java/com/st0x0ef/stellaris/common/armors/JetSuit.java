@@ -2,11 +2,13 @@ package com.st0x0ef.stellaris.common.armors;
 
 import com.mojang.serialization.Codec;
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.FluidTankHelper;
 import com.st0x0ef.stellaris.common.data_components.JetSuitComponent;
 import com.st0x0ef.stellaris.common.keybinds.KeyVariables;
-import com.st0x0ef.stellaris.common.oxygen.OxygenContainer;
+import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -19,19 +21,17 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 public class JetSuit {
+    public static final long MAX_FUEL_CAPACITY = FluidTankHelper.convertFromMb(3000);
+
     public static class Suit extends AbstractSpaceArmor.Chestplate {
         public float spacePressTime;
 
-        public OxygenContainer oxygenContainer;
-
-        public Suit(ArmorMaterial material, Properties properties) {
+        public Suit(Holder<ArmorMaterial> material, Properties properties) {
             super(material, Type.CHESTPLATE, properties);
-
-            oxygenContainer = new OxygenContainer(3000);
         }
 
         public int getMode(ItemStack itemStack) {
-            return JetSuitComponent.getData(itemStack.getOrCreateTag()).type().getMode();
+            return itemStack.get(DataComponentsRegistry.JET_SUIT_COMPONENT.get()).type().getMode();
         }
 
         public ModeType getModeType(ItemStack itemStack) {
@@ -119,6 +119,7 @@ public class JetSuit {
         private void hoverModeMovement(Player player, ItemStack stack) {
             Vec3 vec3 = player.getDeltaMovement();
 
+
             // Main movement logic
             if (!player.onGround() && !player.isInWater()) {
                 player.setDeltaMovement(vec3.x, vec3.y + 0.04, vec3.z);
@@ -168,15 +169,15 @@ public class JetSuit {
         }
 
 
-        public void switchJetSuitMode(Player player, ItemStack itemStack) {
+        public void switchJetSuitMode(ItemStack itemStack) {
             JetSuitComponent jetSuitComponent;
             if (this.getMode(itemStack) < 3) {
                 jetSuitComponent = new JetSuitComponent(ModeType.fromInt(this.getMode(itemStack) + 1));
             } else {
                 jetSuitComponent = new JetSuitComponent(ModeType.fromInt(0));
             }
+            itemStack.set(DataComponentsRegistry.JET_SUIT_COMPONENT.get(), jetSuitComponent);
 
-            jetSuitComponent.savaData(itemStack.getOrCreateTag());
         }
 
         public void calculateSpacePressTime(Player player, ItemStack itemStack) {
@@ -251,10 +252,6 @@ public class JetSuit {
                 }
             }
         }
-
-        public int getOxygenCapacity() {
-            return 60000;
-        }
     }
 
     public enum ModeType implements StringRepresentable {
@@ -295,11 +292,12 @@ public class JetSuit {
 
 
         public static ModeType fromInt(int integer) {
-            return fromString(Integer.toString(integer));
+            Stellaris.LOG.error(Integer.toString(integer));
+           return fromString(Integer.toString(integer));
         }
 
         public static ModeType fromString(String string) {
-            Stellaris.LOG.error("From String : " + Integer.decode(string));
+            Stellaris.LOG.error("From String : {}", Integer.decode(string));
 
             return switch (Integer.decode(string)) {
                case 0 -> DISABLED;
@@ -309,7 +307,5 @@ public class JetSuit {
                default -> DISABLED;
            };
         }
-
     }
-
 }

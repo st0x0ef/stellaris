@@ -10,7 +10,6 @@ import net.neoforged.neoforge.common.util.ITeleporter;
 import java.util.function.Function;
 
 public class TeleportUtilImpl {
-
     public static void teleportToPlanet(Entity entity, ServerLevel level, int yPos) {
         Vec3 newPos = new Vec3(entity.getX(), yPos, entity.getZ());
         PortalInfo portalInfo = new PortalInfo(newPos, Vec3.ZERO, entity.yRotO, entity.xRotO);
@@ -34,6 +33,4 @@ public class TeleportUtilImpl {
             }
         });
     }
-
-
 }

@@ -6,9 +6,11 @@
   "custom_vanilla_objects": {
     "sun": true,
     "sun_texture": "textures/environment/sun.png",
+    "sun_height": 150,
     "moon": true,
     "moon_phase": false,
-    "moon_texture": "stellaris:textures/environment/solar_system/earth.png"
+    "moon_texture": "stellaris:textures/environment/solar_system/earth.png",
+    "moon_height": 275
   },
 
   "weather": [
@@ -19,7 +21,7 @@
   ],
   "sunrise_color": 2105376,
   "stars": {
-    "count": 30000,
+    "count": 20000,
     "colored": true,
     "all_days_visible": true
   },

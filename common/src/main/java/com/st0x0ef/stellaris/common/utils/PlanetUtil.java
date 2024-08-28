@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.utils;
 
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
 import com.st0x0ef.stellaris.common.menus.MilkyWayMenu;
@@ -31,6 +32,7 @@ public class PlanetUtil {
         StellarisData.getPlanets().forEach(planet -> {if (planet.dimension().equals(level)) isPlanet.set(true);});
         return isPlanet.get();
     }
+
     public static boolean hasOxygen(ResourceLocation level) {
         if (isPlanet(level)) {
             return getPlanet(level).oxygen();
@@ -43,7 +45,7 @@ public class PlanetUtil {
         if (isPlanet(level)) {
             return getPlanet(level).textures().planet_bar();
         }
-        return new ResourceLocation("stellaris", "textures/planet_bar/earth_planet_bar.png");
+        return new ResourceLocation(Stellaris.MODID, "textures/planet_bar/earth_planet_bar.png");
     }
 
     public static int openPlanetSelectionMenu(Player player, boolean forceCanGoTo) {
