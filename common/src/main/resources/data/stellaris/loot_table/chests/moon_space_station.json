@@ -228,7 +228,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "stellaris:chesse",
+          "name": "stellaris:cheese",
           "weight": 10,
           "functions": [
             {
