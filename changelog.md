@@ -5,3 +5,4 @@
 - fix start rocket overlay
 - fix rocket screen always showing fuel texture
 - fix player can remove motor/tank upgrade when there is fuel in the rocket
+- fix rocket station model rotation
