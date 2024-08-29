@@ -36,7 +36,7 @@ public class RocketScreen extends AbstractContainerScreen<RocketMenu> {
         if (rocket == null) {
             return;
         }
-        fuelGauge = new Gauge(leftPos + 51, topPos + 27, 12, 46, Component.translatable("stellaris.screen.fuel"), GUISprites.FUEL_OVERLAY, GUISprites.FLUID_TANK_OVERLAY, rocket.rocketComponent.getFuel(), rocket.rocketComponent.getTankCapacity());
+        fuelGauge = new Gauge(leftPos + 51, topPos + 27, 12, 46, Component.translatable("stellaris.screen.fuel"), rocket.rocketComponent.getMotorUpgrade().getFluidTexture(), GUISprites.FLUID_TANK_OVERLAY, rocket.rocketComponent.getFuel(), rocket.rocketComponent.getTankCapacity());
         addRenderableWidget(fuelGauge);
     }
 
@@ -51,6 +51,7 @@ public class RocketScreen extends AbstractContainerScreen<RocketMenu> {
         }
 
         fuelGauge.update(rocket.rocketComponent.getFuel());
+        fuelGauge.updateFluidTexture(rocket.rocketComponent.fuelTexture());
 
         fuelGauge.renderTooltip(graphics, mouseX, mouseY, font);
     }

@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.client.screens.components;
 
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import net.fabricmc.api.EnvType;
@@ -18,16 +17,10 @@ import java.util.List;
 
 @Environment(EnvType.CLIENT)
 public class Gauge extends AbstractWidget {
-
-    public static final ResourceLocation FLUID_TANK_OVERLAY = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/fluid_tank_overlay.png");
-    protected final ResourceLocation texture;
+    protected ResourceLocation texture;
     protected final int max_value;
     protected int value;
     public final ResourceLocation overlay_texture;
-
-    public Gauge(int x, int y, int width, int height, Component message, ResourceLocation texture, @Nullable ResourceLocation overlay_texture, long value, long max_value) {
-        this(x, y, width, height, message, texture, overlay_texture, (int) value, (int) max_value);
-    }
 
     public Gauge(int x, int y, int width, int height, Component message, ResourceLocation texture, @Nullable ResourceLocation overlay_texture, int value, int max_value) {
         super(x, y, width, height, message);
@@ -37,12 +30,12 @@ public class Gauge extends AbstractWidget {
         this.overlay_texture = overlay_texture;
     }
 
-    public void update(long value) {
-        update((int) value);
-    }
-
     public void update(int value) {
         this.value = value;
+    }
+
+    public void updateFluidTexture(ResourceLocation texture) {
+        this.texture = texture;
     }
 
     @Override
@@ -91,7 +84,7 @@ public class Gauge extends AbstractWidget {
 
     public static class SidewayGauge extends Gauge {
 
-        public SidewayGauge(int x, int y, int width, int height, @Nullable Component message, ResourceLocation texture, @Nullable ResourceLocation overlay_texture, long value, int max_value) {
+        public SidewayGauge(int x, int y, int width, int height, @Nullable Component message, ResourceLocation texture, @Nullable ResourceLocation overlay_texture, int value, int max_value) {
             super(x, y, width, height, message, texture, overlay_texture, value, max_value);
         }
 

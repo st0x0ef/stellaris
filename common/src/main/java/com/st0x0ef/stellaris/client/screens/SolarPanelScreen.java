@@ -55,7 +55,7 @@ public class SolarPanelScreen extends AbstractContainerScreen<SolarPanelMenu> {
             return;
         }
 
-        energyGauge.update(blockEntity.getWrappedEnergyContainer().getStoredEnergy());
+        energyGauge.update((int)blockEntity.getWrappedEnergyContainer().getStoredEnergy());
     }
 
     @Override

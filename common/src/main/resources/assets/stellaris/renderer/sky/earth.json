@@ -6,11 +6,13 @@
   "custom_vanilla_objects": {
     "sun": true,
     "sun_texture": "textures/environment/sun.png",
-    "sun_height": 300,
+    "sun_height": 450,
+    "sun_size": 200,
     "moon": true,
     "moon_phase": true,
     "moon_texture": "textures/environment/moon_phases.png",
-    "moon_height": 75
+    "moon_height": 75,
+    "moon_size": 75
   },
   "weather": [
     {

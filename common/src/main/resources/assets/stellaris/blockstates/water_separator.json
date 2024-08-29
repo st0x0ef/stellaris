@@ -29,6 +29,18 @@
     "facing=west,lit=true": {
       "model": "stellaris:block/water_separator_on",
       "y": 270
+    },
+    "facing=down,lit=false": {
+      "model": "stellaris:block/water_separator"
+    },
+    "facing=down,lit=true": {
+      "model": "stellaris:block/water_separator_on"
+    },
+    "facing=up,lit=false": {
+      "model": "stellaris:block/water_separator"
+    },
+    "facing=up,lit=true": {
+      "model": "stellaris:block/water_separator_on"
     }
   }
 }

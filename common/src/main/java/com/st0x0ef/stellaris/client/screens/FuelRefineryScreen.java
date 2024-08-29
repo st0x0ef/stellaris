@@ -39,11 +39,11 @@ public class FuelRefineryScreen extends AbstractContainerScreen<FuelRefineryMenu
         }
 
         FluidTank ingredientTank = blockEntity.getIngredientTank();
-        ingredientTankGauge = new Gauge(leftPos + 43, topPos + 22, 12, 46, Component.translatable("stellaris.screen.oil"), GUISprites.OIL_OVERLAY, GUISprites.LIQUID_TANK_OVERLAY, ingredientTank.getAmount(), ingredientTank.getMaxCapacity() -1);
+        ingredientTankGauge = new Gauge(leftPos + 43, topPos + 22, 12, 46, Component.translatable("stellaris.screen.oil"), GUISprites.OIL_OVERLAY, GUISprites.LIQUID_TANK_OVERLAY, (int)ingredientTank.getAmount(), (int)ingredientTank.getMaxCapacity() -1);
         addRenderableWidget(ingredientTankGauge);
 
         FluidTank resultTank = blockEntity.getResultTank();
-        resultTankGauge = new Gauge(leftPos + 100, topPos + 22, 12, 46, Component.translatable("stellaris.screen.fuel"), GUISprites.FUEL_OVERLAY, GUISprites.LIQUID_TANK_OVERLAY, resultTank.getAmount(), resultTank.getMaxCapacity() -1);
+        resultTankGauge = new Gauge(leftPos + 100, topPos + 22, 12, 46, Component.translatable("stellaris.screen.fuel"), GUISprites.FUEL_OVERLAY, GUISprites.LIQUID_TANK_OVERLAY, (int)resultTank.getAmount(), (int)resultTank.getMaxCapacity() -1);
         addRenderableWidget(resultTankGauge);
 
         EnergyContainer energyContainer = blockEntity.getWrappedEnergyContainer().container();
@@ -61,9 +61,9 @@ public class FuelRefineryScreen extends AbstractContainerScreen<FuelRefineryMenu
             return;
         }
 
-        ingredientTankGauge.update(blockEntity.getIngredientTank().getAmount());
-        resultTankGauge.update(blockEntity.getResultTank().getAmount());
-        energyGauge.update(blockEntity.getWrappedEnergyContainer().getStoredEnergy());
+        ingredientTankGauge.update((int)blockEntity.getIngredientTank().getAmount());
+        resultTankGauge.update((int)blockEntity.getResultTank().getAmount());
+        energyGauge.update((int)blockEntity.getWrappedEnergyContainer().getStoredEnergy());
     }
 
     @Override

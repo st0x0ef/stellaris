@@ -7,10 +7,13 @@
     "sun": true,
     "sun_texture": "textures/environment/sun.png",
     "sun_height": 150,
+    "sun_size": 150,
+
     "moon": true,
     "moon_phase": false,
     "moon_texture": "stellaris:textures/environment/solar_system/earth.png",
-    "moon_height": 275
+    "moon_height": 275,
+    "moon_size": 275
   },
 
   "weather": [
