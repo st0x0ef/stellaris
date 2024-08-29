@@ -77,7 +77,6 @@ public abstract class VehicleRenderer<T extends IVehicleEntity, M extends Entity
         float f7 = this.getBob(entity, partialTick);
         this.setupRotations(entity, poseStack, f7, f, partialTick);
         poseStack.scale(-1.0F, -1.0F, 1.0F);
-        this.scale(entity, poseStack, partialTick);
         poseStack.translate(0.0D, -1.501F, 0.0D);
         float f8 = 0.0F;
         float f5 = 0.0F;
@@ -149,9 +148,6 @@ public abstract class VehicleRenderer<T extends IVehicleEntity, M extends Entity
 
     protected float getBob(T p_115305_, float p_115306_) {
         return (float)p_115305_.tickCount + p_115306_;
-    }
-
-    protected void scale(T p_115314_, PoseStack p_115315_, float p_115316_) {
     }
 
     @Override

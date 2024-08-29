@@ -3,3 +3,5 @@
 - fix datapack spam error in console
 - added options for moon/sun size
 - fix start rocket overlay
+- fix rocket screen always showing fuel texture
+- fix player can remove motor/tank upgrade when there is fuel in the rocket
