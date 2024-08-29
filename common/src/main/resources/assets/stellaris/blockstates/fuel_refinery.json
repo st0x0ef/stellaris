@@ -29,6 +29,18 @@
     "facing=west,lit=true": {
       "model": "stellaris:block/fuel_refinery_on",
       "y": 270
+    },
+    "facing=up,lit=false": {
+      "model": "stellaris:block/fuel_refinery"
+    },
+    "facing=up,lit=true": {
+      "model": "stellaris:block/fuel_refinery_on"
+    },
+    "facing=down,lit=false": {
+      "model": "stellaris:block/fuel_refinery"
+    },
+    "facing=down,lit=true": {
+      "model": "stellaris:block/fuel_refinery_on"
     }
   }
 }
