@@ -1,7 +1,3 @@
-## 1.0.9 changelog
+## 1.1.0 changelog
 
-- fix datapack spam error in console
-- added options for moon/sun size
-- fix start rocket overlay
-- fix rocket screen always showing fuel texture
-- fix player can remove motor/tank upgrade when there is fuel in the rocket
+- complete remake of the oxygen system
