@@ -108,17 +108,18 @@ This folder will contains all of the custom skies for our planets.
 Sky Objects allows you to add object to the sky.
 
 ```json
-{
-    "texture": "stellaris:textures/environment/solar_system/earth.png",
-    "blend": true,
-    "size": 8.0,
-    "rotation": [
-      60.0,
-      0.0,
-      5.0
-    ],
-    "rotation_type": "DAY"
-}
+    {
+      "texture": "stellaris:textures/environment/solar_system/earth.png",
+      "blend": true,
+      "size": 8.0,
+      "rotation": [
+        60.0,
+        0.0,
+        5.0
+      ],
+      "height": 100,
+      "rotation_type": "DAY"
+    }
 ```
 
 `texture`: The texture of the object
@@ -129,7 +130,9 @@ Sky Objects allows you to add object to the sky.
 
 `rotation`: A Vector3 that is the rotation of the object
 
-`rotation_type`: if the object should move with like the sun. Possibilities : DAY and STATIC
+`height`: The height of the object in the sky
+
+`rotation_type`: if the object should move with like the sun. Possibilities : DAY, NIGHT and STATIC
 
 ## Examples
 
