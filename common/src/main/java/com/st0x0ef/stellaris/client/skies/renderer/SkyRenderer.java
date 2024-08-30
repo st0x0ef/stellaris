@@ -72,10 +72,8 @@ public class SkyRenderer {
 
         // Other sky object
         for (SkyObject skyObject : properties.skyObjects()) {
-            SkyHelper.drawCelestialBody(skyObject, tesselator, poseStack, 100f, dayAngle, skyObject.blend());
+            SkyHelper.drawCelestialBody(skyObject, tesselator, poseStack,  dayAngle);
         }
-
-
         if (properties.fog()) fogCallback.run();
 
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
