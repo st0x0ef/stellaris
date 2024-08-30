@@ -6,5 +6,6 @@
 - fix rocket screen always showing fuel texture
 - fix player can remove motor/tank upgrade when there is fuel in the rocket
 - fix rocket station model rotation
-- Fix Vacuumator
-- Better Sky Objects
+- fix Vacuumator
+- improve sky objects
+- slow down lander faster (make it easier to land safely)

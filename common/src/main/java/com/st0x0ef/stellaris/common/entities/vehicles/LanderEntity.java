@@ -175,10 +175,6 @@ public class LanderEntity extends IVehicleEntity implements HasCustomInventorySc
     }
 
     public Player getFirstPlayerPassenger() {
-        if (this.getPassengers().isEmpty()) {
-            return null;
-        }
-
         if (this.getPassengers().getFirst() instanceof Player player) {
             return player;
         }
@@ -187,25 +183,20 @@ public class LanderEntity extends IVehicleEntity implements HasCustomInventorySc
     }
 
     public void slowDownLander() {
-        Player player = this.getFirstPlayerPassenger();
+        if (KeyVariables.isHoldingJump(this.getFirstPlayerPassenger())) {
+            Vec3 vec = this.getDeltaMovement();
 
-        if (player != null) {
-            if (KeyVariables.isHoldingJump(player)) {
+            if (!this.onGround()) {
+                if (vec.y() < -0.05) {
+                    this.setDeltaMovement(vec.x(), vec.y() * 0.75, vec.z());
+                }
 
-                Vec3 vec = this.getDeltaMovement();
+                this.fallDistance = (float) (vec.y() * (-1) * 4.5);
 
-                if (!this.onGround() && !this.isEyeInFluid(FluidTags.WATER)) {
-                    if (vec.y() < -0.05) {
-                        this.setDeltaMovement(vec.x(), vec.y() * 0.85, vec.z());
-                    }
-
-                    this.fallDistance = (float) (vec.y() * (-1) * 4.5);
-
-                    if (this.level() instanceof ServerLevel) {
-                        for (ServerPlayer p : ((ServerLevel) player.level()).getServer().getPlayerList().getPlayers()) {
-                            ((ServerLevel) this.level()).sendParticles(p, ParticleTypes.SPIT, true, this.getX(),
-                                    this.getY() - 0.3, this.getZ(), 3, 0.1, 0.1, 0.1, 0.001);
-                        }
+                if (this.level() instanceof ServerLevel) {
+                    for (ServerPlayer p : ((ServerLevel) this.level()).getServer().getPlayerList().getPlayers()) {
+                        ((ServerLevel) this.level()).sendParticles(p, ParticleTypes.SPIT, true, this.getX(),
+                                this.getY() - 0.3, this.getZ(), 3, 0.1, 0.1, 0.1, 0.001);
                     }
                 }
             }
