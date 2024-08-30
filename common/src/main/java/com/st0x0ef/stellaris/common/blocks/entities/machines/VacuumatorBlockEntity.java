@@ -1,9 +1,11 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.entities.ImplementedInventory;
 import com.st0x0ef.stellaris.common.items.CanItem;
 import com.st0x0ef.stellaris.common.menus.VacuumatorMenu;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
+import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -33,12 +35,6 @@ public class VacuumatorBlockEntity extends BaseContainerBlockEntity implements I
     @Override
     protected AbstractContainerMenu createMenu(int i, Inventory inventory) {
         return new VacuumatorMenu(i, inventory, this);
-    }
-
-    @Override
-    public void setChanged() {
-        level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
-        super.setChanged();
     }
 
     @Override
@@ -102,17 +98,24 @@ public class VacuumatorBlockEntity extends BaseContainerBlockEntity implements I
 
     public void craft() {
         ItemStack canStack = getItem(0);
+
         ItemStack resultStack = new ItemStack(canStack.getItem());
         CanItem.setFoodProperties(resultStack, CanItem.getFoodProperties(canStack));
 
+
         if (CanItem.addFoodToCan(resultStack, getItem(1))) {
             for (int i = 0; i < 3; i++) {
-                removeItem(i, 1);
+                if(getItem(i).getCount() >= 1) {
+                    removeItem(i, 1);
+                }
             }
 
             setItem(3, resultStack);
             setItem(4, PotionContents.createItemStack(Items.POTION, Potions.WATER));
+
         }
+
+
     }
 
     public static boolean isFood(ItemStack food) {
