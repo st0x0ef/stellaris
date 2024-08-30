@@ -5,7 +5,7 @@ export default defineConfig({
   base: '/stellaris/',
   title: "Stellaris Wiki",
   description: "Learn how to create your own planets !",
-  head: [['link', { rel: 'icon', href: '/favicon.ico' }]],
+  head: [['link', { rel: 'icon', href: '/stellaris/favicon.ico' }]],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
@@ -33,6 +33,7 @@ export default defineConfig({
           { text: 'Fuel', link: '/wiki/fuel' },
           { text: 'Electricity', link: '/wiki/electricity' },
           { text: 'Rocket', link: '/wiki/rocket' },
+          { text: 'Machines', link: '/wiki/machines' },
 
           { text: 'FAQ', link: '/wiki/faq' }
 
