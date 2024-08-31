@@ -9,3 +9,7 @@
 - fix Vacuumator
 - improve sky objects
 - slow down lander faster (make it easier to land safely)
+
+### Wiki
+- Add machines wiki
+- Fix sky Objects
