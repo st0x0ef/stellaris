@@ -49,7 +49,7 @@ public class SkyRenderer {
         RenderSystem.setShaderColor(r, g, b, 1.0f);
 
         ShaderInstance shaderInstance = RenderSystem.getShader();
-        SkyHelper.drawSky(poseStack.last().pose(), projectionMatrix, shaderInstance, bufferBuilder, poseStack, partialTick);
+        SkyHelper.drawSky(poseStack.last().pose(), projectionMatrix, shaderInstance);
 
         // Star
         renderStars(level, partialTick, poseStack, projectionMatrix, fogCallback);

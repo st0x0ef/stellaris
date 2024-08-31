@@ -73,7 +73,7 @@ public class SkyHelper {
         }
     }
 
-    public static void drawCelestialBody(SkyObject object, Tesselator tesselator, PoseStack poseStack, float dayAngle) {
+    public static void drawCelestialBody(SkyObject object, BufferBuilder builder, PoseStack poseStack, float dayAngle) {
         if (object.blend()) {
             RenderSystem.enableBlend();
             RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
@@ -96,12 +96,12 @@ public class SkyHelper {
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, object.texture());
-        BufferBuilder bufferBuilder = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-        bufferBuilder.addVertex(matrix4f, -object.size(), object.height(), -object.size()).setUv(0f, 0f);
-        bufferBuilder.addVertex(matrix4f, object.size(), object.height(), -object.size()).setUv(1f, 0f);
-        bufferBuilder.addVertex(matrix4f, object.size(), object.height(), object.size()).setUv(1f, 1f);
-        bufferBuilder.addVertex(matrix4f, -object.size(), object.height(), object.size()).setUv(0f, 1f);
-        BufferUploader.drawWithShader(bufferBuilder.buildOrThrow());
+        builder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+        builder.vertex(matrix4f, -object.size(), object.height(), -object.size()).uv(0f, 0f).endVertex();
+        builder.vertex(matrix4f, object.size(), object.height(), -object.size()).uv(1f, 0f).endVertex();
+        builder.vertex(matrix4f, object.size(), object.height(), object.size()).uv(1f, 1f).endVertex();
+        builder.vertex(matrix4f, -object.size(), object.height(), object.size()).uv(0f, 1f).endVertex();
+        BufferUploader.drawWithShader(builder.end());
         poseStack.popPose();
 
         if (object.blend()) {

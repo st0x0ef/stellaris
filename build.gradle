@@ -95,6 +95,7 @@ subprojects {
                 projectSlug = "stellaris" // Required for discord webhook
                 accessToken = providers.environmentVariable("CURSEFORGE_API_KEY")
                 minecraftVersions.add("${minecraft_version}")
+                javaVersions.add(JavaVersion.VERSION_21)
                 requires("architectury-api")
             }
 
