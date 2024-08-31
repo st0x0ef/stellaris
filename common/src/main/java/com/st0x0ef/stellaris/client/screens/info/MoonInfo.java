@@ -31,8 +31,4 @@ public class MoonInfo extends CelestialBody {
         this.x = (float) (orbitCenter.x + orbitRadius * Math.cos(currentAngle));
         this.y = orbitCenter.y + orbitRadius * Math.sin(currentAngle);
     }
-
-    public String getId() {
-        return super.getId();
-    }
 }

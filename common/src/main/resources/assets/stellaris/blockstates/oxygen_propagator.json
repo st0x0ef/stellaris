@@ -14,6 +14,12 @@
     "facing=west": {
       "model": "stellaris:block/oxygen_propagator",
       "y": 270
+    },
+    "facing=up": {
+      "model": "stellaris:block/oxygen_propagator"
+    },
+    "facing=down": {
+      "model": "stellaris:block/oxygen_propagator"
     }
   }
 }

@@ -57,7 +57,7 @@ public class RadioactiveGeneratorScreen extends AbstractContainerScreen<Radioact
             return;
         }
 
-        energyGauge.update(blockEntity.getWrappedEnergyContainer().getStoredEnergy());
+        energyGauge.update((int)blockEntity.getWrappedEnergyContainer().getStoredEnergy());
     }
 
     @Override

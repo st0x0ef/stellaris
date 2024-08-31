@@ -37,6 +37,7 @@ public class SkyRenderer {
         CustomVanillaObject customVanillaObject = properties.customVanillaObject();
 
         float dayAngle = level.getTimeOfDay(partialTick) * 360f % 360f;
+        float nightAngle = dayAngle + 180;
 
         Vec3 vec3 = level.getSkyColor(camera.getPosition(), partialTick);
         float r = (float) vec3.x;
@@ -48,7 +49,11 @@ public class SkyRenderer {
         RenderSystem.setShaderColor(r, g, b, 1.0f);
 
         ShaderInstance shaderInstance = RenderSystem.getShader();
-        SkyHelper.drawSky(poseStack.last().pose(), projectionMatrix, shaderInstance);
+        SkyHelper.drawSky(poseStack.last().pose(), projectionMatrix, shaderInstance, bufferBuilder, poseStack, partialTick);
+
+        // Star
+        renderStars(level, partialTick, poseStack, projectionMatrix, fogCallback);
+
 
         // Sun
         if (customVanillaObject.sun()) {
@@ -60,7 +65,7 @@ public class SkyRenderer {
             if (customVanillaObject.moonPhase()) {
                 SkyHelper.drawMoonWithPhase(level, bufferBuilder, poseStack, -100f, customVanillaObject, dayAngle);
             } else {
-                SkyHelper.drawCelestialBody(customVanillaObject.moonTexture(), bufferBuilder, poseStack, -100f, customVanillaObject.moonSize(), dayAngle, 0, 1, 0, 1, false);
+                SkyHelper.drawCelestialBody(customVanillaObject.moonTexture(), bufferBuilder, poseStack, -100f, customVanillaObject.moonSize(), nightAngle, 0, 1, 0, 1, false);
             }
         }
 
@@ -69,8 +74,6 @@ public class SkyRenderer {
             SkyHelper.drawCelestialBody(skyObject, bufferBuilder, poseStack, 100f, dayAngle, skyObject.blend());
         }
 
-        // Star
-        renderStars(level, partialTick, poseStack, projectionMatrix, fogCallback);
 
         if (properties.fog()) fogCallback.run();
 

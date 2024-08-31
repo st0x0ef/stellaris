@@ -7,10 +7,14 @@
     "sun": true,
     "sun_texture": "textures/environment/sun.png",
     "sun_height": 150,
+    "sun_size": 150,
+
     "moon": true,
     "moon_phase": false,
     "moon_texture": "stellaris:textures/environment/solar_system/phobos.png",
-    "moon_height": 150
+    "moon_height": 150,
+    "moon_size": 150
+
   },
   "weather": [
     {
@@ -35,6 +39,7 @@
         0.0,
         5.0
       ],
+      "height": 100,
       "rotation_type": "DAY"
     }
   ]

@@ -32,19 +32,13 @@ public abstract class AbstractGaugeDataRenderer
     public void render(GuiGraphics graphics, int left, int top, int width, int height) {
         this.drawBorder(graphics, left, top, width, height);
         int padding = this.getBorderWidth();
-        Rectangle2d innerBounds = new Rectangle2d(left + padding, top + padding, width - padding * 2,
-                height - padding * 2);
+        Rectangle2d innerBounds = new Rectangle2d(left + padding, top + padding, width - padding * 2, height - padding * 2);
         this.drawBackground(graphics, innerBounds);
-        this.drawContents(graphics, innerBounds);
         this.drawGaugeText(graphics, innerBounds);
     }
 
     public void render(GuiGraphics graphics, int left, int top) {
         this.render(graphics, left, top, this.getWidth(), this.getHeight());
-    }
-
-    protected void drawContents(GuiGraphics graphics, Rectangle2d innerBounds) {
-
     }
 
     @Nullable
@@ -56,12 +50,7 @@ public abstract class AbstractGaugeDataRenderer
         Component text = this.getGaugeText();
 
         if (text != null) {
-            int color = this.getTextColor();
-            int textPadding = 2;
-            Rectangle2d textBounds = new Rectangle2d(innerBounds.getX() + textPadding, innerBounds.getY(),
-                    innerBounds.getWidth() - textPadding, innerBounds.getHeight());
-
-            this.drawText(graphics, textBounds, text, color);
+            this.drawText(graphics, new Rectangle2d(innerBounds.getX() + 2, innerBounds.getY(), innerBounds.getWidth() - 2, innerBounds.getHeight()), text, this.getTextColor());
         }
     }
 
@@ -108,8 +97,7 @@ public abstract class AbstractGaugeDataRenderer
             ResourceLocation texture = this.getBackgroundTexture();
 
             if (texture != null) {
-                GuiHelper.drawHorizontal(graphics, innerBounds.getX(), innerBounds.getY(), innerBounds.getWidth(),
-                        innerBounds.getHeight(), texture, displayRatio);
+                GuiHelper.drawHorizontal(graphics, innerBounds.getX(), innerBounds.getY(), innerBounds.getWidth(), innerBounds.getHeight(), texture, displayRatio);
             }
 
         } finally {

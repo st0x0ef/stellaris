@@ -7,10 +7,13 @@
     "sun": true,
     "sun_texture": "textures/environment/sun.png",
     "sun_height": 150,
+    "sun_size": 150,
+
     "moon": false,
     "moon_phase": false,
     "moon_texture": "",
-    "moon_height": 150
+    "moon_height": 150,
+    "moon_size": 150
   },
 
   "weather": [

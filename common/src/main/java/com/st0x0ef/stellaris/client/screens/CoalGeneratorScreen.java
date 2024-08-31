@@ -57,7 +57,7 @@ public class CoalGeneratorScreen extends AbstractContainerScreen<CoalGeneratorMe
             return;
         }
 
-        energyGauge.update(blockEntity.getWrappedEnergyContainer().getStoredEnergy());
+        energyGauge.update((int)blockEntity.getWrappedEnergyContainer().getStoredEnergy());
     }
 
     @Override

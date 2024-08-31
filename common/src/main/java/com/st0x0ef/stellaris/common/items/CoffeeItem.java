@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.common.items;
 
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -53,10 +52,5 @@ public class CoffeeItem extends Item {
     @Override
     public int getDefaultMaxStackSize() {
         return 64;
-    }
-
-    @Override
-    public Holder<Item> arch$holder() {
-        return super.arch$holder();
     }
 }
