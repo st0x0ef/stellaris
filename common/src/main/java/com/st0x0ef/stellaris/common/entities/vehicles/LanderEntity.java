@@ -175,7 +175,7 @@ public class LanderEntity extends IVehicleEntity implements HasCustomInventorySc
     }
 
     public Player getFirstPlayerPassenger() {
-        if (this.getPassengers().getFirst() instanceof Player player) {
+        if (!this.getPassengers().isEmpty() && this.getPassengers().getFirst() instanceof Player player) {
             return player;
         }
 
