@@ -1,16 +1,3 @@
-## 1.0.9 changelog
+## 1.0.10 changelog
 
-- fix datapack spam error in console
-- added options for moon/sun size
-- fix start rocket overlay
-- fix rocket screen always showing fuel texture
-- fix player can remove motor/tank upgrade when there is fuel in the rocket
-- fix rocket station model rotation
-- fix vacuumator
-- improve sky objects
-- slow down lander faster (make it easier to land safely)
-- optimize oxygen system
-
-### Wiki
-- Add machines wiki
-- Fix sky Objects
+-  Fix bucket not disappearing when right clicking with fuel on rocket
