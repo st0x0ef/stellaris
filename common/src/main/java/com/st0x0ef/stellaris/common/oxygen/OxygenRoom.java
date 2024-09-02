@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.oxygen;
 
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.OxygenGeneratorBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -68,7 +69,7 @@ public class OxygenRoom {
     }
 
     public void removeOxygenInRoom() {
-        oxygenMap.replaceAll((pos, hasOxygen) -> false);
+        oxygenMap.clear();
     }
 
     private boolean isOnBorderBox(BlockPos pos) {
