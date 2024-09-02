@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.client.screens;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.components.Gauge;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.OxygenGeneratorBlockEntity;
 import com.st0x0ef.stellaris.common.menus.OxygenGeneratorMenu;
 import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedBlockEnergyContainer;
 import net.fabricmc.api.EnvType;
@@ -19,6 +20,7 @@ public class OxygenGeneratorScreen extends AbstractContainerScreen<OxygenGenerat
 
     private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/oxygen_distributor.png");
 
+    private final OxygenGeneratorBlockEntity blockEntity = getMenu().getBlockEntity();
     private Gauge energyGauge;
 
     public OxygenGeneratorScreen(OxygenGeneratorMenu menu, Inventory playerInventory, Component title) {
@@ -32,7 +34,9 @@ public class OxygenGeneratorScreen extends AbstractContainerScreen<OxygenGenerat
     protected void init() {
         super.init();
 
-        WrappedBlockEnergyContainer energyContainer = getMenu().getBlockEntity().getWrappedEnergyContainer();
+        if (blockEntity == null) return;
+
+        WrappedBlockEnergyContainer energyContainer = blockEntity.getWrappedEnergyContainer();
         energyGauge = new Gauge(leftPos + 147, topPos + 55, 13, 48, Component.translatable("stellaris.screen.energy"), GUISprites.ENERGY_FULL, GUISprites.BATTERY_OVERLAY, (int) energyContainer.getStoredEnergy(), (int) energyContainer.getMaxCapacity());
         addRenderableWidget(energyGauge);
     }
@@ -43,7 +47,11 @@ public class OxygenGeneratorScreen extends AbstractContainerScreen<OxygenGenerat
         super.render(graphics, mouseX, mouseY, partialTicks);
         renderTooltip(graphics, mouseX, mouseY);
 
-        energyGauge.update(getMenu().getBlockEntity().getWrappedEnergyContainer().getStoredEnergy());
+        if (blockEntity == null) {
+            return;
+        }
+
+        energyGauge.update((int)blockEntity.getWrappedEnergyContainer().getStoredEnergy());
     }
 
     @Override

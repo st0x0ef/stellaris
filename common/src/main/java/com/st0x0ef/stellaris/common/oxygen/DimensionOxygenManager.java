@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.oxygen;
 
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.registry.TagRegistry;
 import com.st0x0ef.stellaris.common.utils.OxygenUtils;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
