@@ -1,10 +1,13 @@
 package com.st0x0ef.stellaris.common.items;
 
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.RocketLaunchPad;
 import com.st0x0ef.stellaris.common.data_components.RocketComponent;
 import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
+import com.st0x0ef.stellaris.common.rocket_upgrade.FuelType;
+import com.st0x0ef.stellaris.common.utils.OxygenUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -156,4 +159,28 @@ public class RocketItem extends Item {
         rocket.MOTOR_UPGRADE = rocketComponent.getMotorUpgrade();
         rocket.TANK_UPGRADE = rocketComponent.getTankUpgrade();
     }
+
+    @Override
+    public boolean isBarVisible(ItemStack stack) {
+        return true;
+    }
+
+    @Override
+    public int getBarWidth(ItemStack stack) {
+        RocketComponent rocketComponent = stack.get(DataComponentsRegistry.ROCKET_COMPONENT.get());
+        return 13* rocketComponent.fuel() / rocketComponent.getTankCapacity();
+    }
+
+    @Override
+    public int getBarColor(ItemStack stack) {
+        RocketComponent rocketComponent = stack.get(DataComponentsRegistry.ROCKET_COMPONENT.get());
+        return switch (rocketComponent.getMotorUpgrade().getFuelType()) {
+            case FUEL -> 0xA7E6ED;
+            case HYDROGEN -> 0x00d8ff;
+            case RADIOACTIVE -> 0x00c12f;
+            case null -> 0xA7E6ED;
+
+        };
+    }
+
 }
