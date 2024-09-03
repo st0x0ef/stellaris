@@ -1,9 +1,6 @@
 package com.st0x0ef.stellaris.common.registry;
 
 import com.google.common.base.Suppliers;
-
-import net.minecraft.tags.BlockTags;
-
 import net.minecraft.tags.TagKey;
 
 import net.minecraft.world.item.Tier;
@@ -18,8 +15,9 @@ import java.util.function.Supplier;
 
 
 public enum ToolsRegister implements Tier {
-    STEEL(BlockTags.INCORRECT_FOR_NETHERITE_TOOL, 2031, 9.0F, 4.0F, 15, () -> Ingredient.of(new ItemLike[]{ItemsRegistry.STEEL_INGOT.get()}));
-
+    STEEL(TagRegistry.INCORRECT_FOR_STEEL_TOOL, 1561, 8.0F, 3.0F, 10, () -> {
+        return Ingredient.of(new ItemLike[]{ItemsRegistry.STEEL_INGOT.get()});
+    });
         private final TagKey<Block> incorrectBlocksForDrops;
         private final int uses;
         private final float speed;
