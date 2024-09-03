@@ -32,7 +32,7 @@ public enum ToolsRegister implements Tier {
             this.damage = damage;
             this.enchantmentValue = enchantmentValue;
             Objects.requireNonNull(repairIngredient);
-            this.repairIngredient = (Supplier<Ingredient>) Suppliers.memoize(repairIngredient::get);
+             this.repairIngredient = Suppliers.memoize(() -> (Ingredient) repairIngredient.get());
         }
 
         public int getUses() {
