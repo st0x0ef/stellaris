@@ -3,6 +3,8 @@
   "cloud": true,
   "cloud_height": 192,
   "fog": true,
+  "rain": true,
+
   "custom_vanilla_objects": {
     "sun": true,
     "sun_texture": "textures/environment/sun.png",
@@ -14,18 +16,24 @@
     "moon_height": 75,
     "moon_size": 75
   },
-  "weather": [
-    {
-      "rain": true,
-      "acid_rain": false
-    }
-  ],
   "sunrise_color": 16755035,
   "stars": {
+    "vanilla": false,
+    "moving_stars": true,
     "count": 30000,
-    "colored": true,
-    "all_days_visible": false
+    "all_days_visible": false,
+    "scale": 0.05,
+    "color": {
+      "r": 190,
+      "g": 160,
+      "b": -1
+    }
   },
+  "sky_color": {
+    "custom_color": false,
+    "color": [255, 255, 255]
+  },
+
   "sky_type": "NORMAL",
   "sky_objects": []
 }
