@@ -6,7 +6,6 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Tier;
 
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 
 
@@ -16,7 +15,7 @@ import java.util.function.Supplier;
 
 public enum ToolsRegister implements Tier {
     STEEL(TagRegistry.INCORRECT_FOR_STEEL_TOOL, 1561, 8.0F, 3.0F, 10, () -> {
-        return Ingredient.of(new ItemLike[]{ItemsRegistry.STEEL_INGOT.get()});
+        return Ingredient.of(ItemsRegistry.STEEL_INGOT.get());
     });
         private final TagKey<Block> incorrectBlocksForDrops;
         private final int uses;
@@ -25,14 +24,14 @@ public enum ToolsRegister implements Tier {
         private final int enchantmentValue;
         private final Supplier<Ingredient> repairIngredient;
 
-         ToolsRegister(final TagKey incorrectBlockForDrops, final int uses, final float speed, final float damage, final int enchantmentValue, final Supplier repairIngredient) {
+         ToolsRegister(final TagKey incorrectBlockForDrops, final int uses, final float speed, final float damage, final int enchantmentValue, final Supplier<Ingredient> repairIngredient) {
             this.incorrectBlocksForDrops = incorrectBlockForDrops;
             this.uses = uses;
             this.speed = speed;
             this.damage = damage;
             this.enchantmentValue = enchantmentValue;
             Objects.requireNonNull(repairIngredient);
-             this.repairIngredient = Suppliers.memoize(() -> (Ingredient) repairIngredient.get());
+             this.repairIngredient = Suppliers.memoize(repairIngredient::get);
         }
 
         public int getUses() {
@@ -56,7 +55,7 @@ public enum ToolsRegister implements Tier {
         }
 
         public Ingredient getRepairIngredient() {
-            return (Ingredient)this.repairIngredient.get();
+            return this.repairIngredient.get();
         }
     }
 
