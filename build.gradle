@@ -31,6 +31,17 @@ subprojects {
         maven { url "https://maven.parchmentmc.org" }
         maven { url "https://maven.neoforged.net/releases" }
         maven { url "https://maven.blamejared.com/" }
+        exclusiveContent {
+            forRepository {
+                maven {
+                    name = "Modrinth"
+                    url = "https://api.modrinth.com/maven"
+                }
+            }
+            filter {
+                includeGroup "maven.modrinth"
+            }
+        }
     }
 
     dependencies {
