@@ -108,6 +108,7 @@ subprojects {
                 minecraftVersions.add("${minecraft_version}")
                 javaVersions.add(JavaVersion.VERSION_21)
                 requires("architectury-api")
+                embeds("sky-aesthetics")
             }
 
             modrinth {
@@ -115,6 +116,8 @@ subprojects {
                 accessToken = providers.environmentVariable("MODRINTH_TOKEN")
                 minecraftVersions.add("${minecraft_version}")
                 requires("architectury-api")
+                embeds("sky-aesthetics")
+
             }
         }
     }
