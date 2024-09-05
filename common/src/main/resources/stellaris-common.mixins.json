@@ -13,9 +13,7 @@
   "client": [
     "client.PlayerRiddingVehicleMixin",
     "client.PlayerLanderKeyMixin",
-    "client.RenderPlayerMixin",
-    "client.LevelRendererAccessor",
-    "client.LevelRendererMixin"
+    "client.RenderPlayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

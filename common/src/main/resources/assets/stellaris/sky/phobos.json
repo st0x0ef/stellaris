@@ -1,8 +1,10 @@
 {
-  "id": "stellaris:deimos",
+  "id": "stellaris:phobos",
   "cloud": false,
-  "cloud_height": 0,
-  "fog": false,
+  "cloud_height": 192,
+  "fog": true,
+  "rain": false,
+
   "custom_vanilla_objects": {
     "sun": true,
     "sun_texture": "textures/environment/sun.png",
@@ -16,19 +18,24 @@
     "moon_size": 20
 
   },
-
-  "weather": [
-    {
-      "rain": false,
-      "acid_rain": false
-    }
-  ],
-  "sunrise_color": 2105376,
+  "sunrise_color": 16755035,
   "stars": {
+    "vanilla": false,
+    "moving_stars": true,
     "count": 30000,
-    "colored": true,
-    "all_days_visible": true
+    "all_days_visible": true,
+    "scale": 0.05,
+    "color": {
+      "r": 190,
+      "g": 160,
+      "b": -1
+    }
   },
-  "sky_type": "NONE",
+  "sky_color": {
+    "custom_color": false,
+    "color": [255, 255, 255]
+  },
+
+  "sky_type": "NORMAL",
   "sky_objects": []
 }
