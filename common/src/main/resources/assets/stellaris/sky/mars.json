@@ -1,8 +1,9 @@
 {
   "id": "stellaris:mars",
   "cloud": false,
-  "cloud_height": 0,
-  "fog": false,
+  "cloud_height": 192,
+  "fog": true,
+  "rain": false,
   "custom_vanilla_objects": {
     "sun": true,
     "sun_texture": "textures/environment/sun.png",
@@ -16,19 +17,24 @@
     "moon_size": 150
 
   },
-  "weather": [
-    {
-      "rain": false,
-      "acid_rain": false
-    }
-  ],
   "sunrise_color": 16755035,
   "stars": {
-    "count": 30000,
-    "colored": true,
-    "all_days_visible": true
+    "vanilla": false,
+    "moving_stars": true,
+    "count": 10000,
+    "all_days_visible": true,
+    "scale": 0.05,
+    "color": {
+      "r": 255,
+      "g": 255,
+      "b": 255
+    }
   },
-  "sky_type": "NONE",
+  "sky_type": "NORMAL",
+  "sky_color": {
+    "custom_color": false,
+    "color": [255, 255, 255]
+  },
   "sky_objects": [
     {
       "texture": "stellaris:textures/environment/solar_system/earth.png",
