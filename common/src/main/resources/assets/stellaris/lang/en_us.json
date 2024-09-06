@@ -372,5 +372,13 @@
   "text.stellaris.rocket.fuel": "You need to put %s in the rocket to be able to fly",
 
   "jetsuit.stellaris.fuel": "§7Fuel : §8%s",
-  "jetsuit.stellaris.oxygen": "§7Oxygen : §8%s"
+  "jetsuit.stellaris.oxygen": "§7Oxygen : §8%s",
+
+
+
+  "item.stellaris.steel_sword": "Steel Sword",
+  "item.stellaris.steel_axe": "Steel Axe",
+  "item.stellaris.steel_pickaxe": "Steel Pickaxe",
+  "item.stellaris.steel_hoe": "Steel Hoe",
+  "item.stellaris.steel_shovel": "Steel Shovel"
 }
