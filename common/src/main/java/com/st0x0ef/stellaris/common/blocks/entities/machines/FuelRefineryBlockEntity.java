@@ -1,9 +1,12 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
+import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.common.armors.JetSuit;
 import com.st0x0ef.stellaris.common.data.recipes.FuelRefineryRecipe;
 import com.st0x0ef.stellaris.common.data.recipes.input.FluidInput;
 import com.st0x0ef.stellaris.common.menus.FuelRefineryMenu;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
+import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import com.st0x0ef.stellaris.common.registry.RecipesRegistry;
 import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedBlockEnergyContainer;
 import dev.architectury.fluid.FluidStack;
@@ -33,6 +36,7 @@ public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity {
     @Override
     public void tick() {
         FluidTankHelper.extractFluidToItem(this, resultTank, 2, 3);
+        addFuelToJetSuit();
 
         if (!FluidTankHelper.addFluidFromBucket(this, ingredientTank, 0, 1)) {
             FluidTankHelper.extractFluidToItem(this, ingredientTank, 0, 1);
@@ -55,6 +59,25 @@ public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity {
                     }
                 }
             }
+        }
+    }
+
+    public void addFuelToJetSuit() {
+        if (this.level.isClientSide) return;
+
+        if (getItem(2).getItem() instanceof JetSuit.Suit) {
+            int fuel = 1000;
+
+            if(resultTank.getAmount() < 1000) {
+                fuel = (int) resultTank.getAmount();
+            }
+            if (JetSuit.Suit.getFuel(getItem(2)) + fuel > 243_000) {
+                fuel = 243000 -  (int)JetSuit.Suit.getFuel(getItem(2));
+            }
+
+            JetSuit.Suit.addFuel(getItem(2), (int) fuel);
+            resultTank.grow(-fuel);
+
         }
     }
 
