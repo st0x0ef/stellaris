@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.common.oxygen;
 
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.registry.TagRegistry;
 import com.st0x0ef.stellaris.common.utils.OxygenUtils;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
@@ -28,12 +27,12 @@ public class DimensionOxygenManager {
         this.planetHasOxygen = PlanetUtil.hasOxygen(level.location());
     }
 
-    public List<OxygenRoom> getOxygenRooms() {
-        return oxygenRooms;
+    public void addOxygenRoom(OxygenRoom room) {
+        oxygenRooms.add(room);
     }
 
-    public void addOxygenRoom(OxygenRoom system) {
-        oxygenRooms.add(system);
+    public void removeOxygenRoom(BlockPos pos) {
+        oxygenRooms.removeIf(room -> room.getGeneratorPosition().equals(pos));
     }
 
     public void addRoomToCheckIfOpen(BlockPos pos, OxygenRoom room) {
