@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.entities.vehicles.LanderEntity;
 import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
+import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -213,14 +214,6 @@ public class Utils {
         if (MPS2>0) return Math.floor(0.00816d * MPS2 * 100000) / 100000;
         else if (MPS2<0) return Math.ceil(0.00816d * MPS2 * 100000) / 100000;
         else return 0;
-    }
-
-    public static int findSmallerNumber(int value1, int value2) {
-        return Math.min(value1, value2);
-    }
-
-    public static int findBiggerNumber(int value1, int value2) {
-        return Math.max(value1, value2);
     }
 
     public static void disableFlyAntiCheat(Player player, boolean condition) {

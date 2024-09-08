@@ -78,8 +78,6 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     ;
     private static final EntityDataAccessor<String> DATA_MODEL;
 
-
-
     public RocketEntity(EntityType<?> entityType, Level level) {
         this(entityType, level, SkinUpgrade.getBasic());
     }
