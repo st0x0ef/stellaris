@@ -16,12 +16,10 @@ public class EntityOxygen {
 
         if (entity instanceof LivingEntity livingEntity && Utils.isLivingInJetSuit(livingEntity)) {
             ItemStack suit = livingEntity.getItemBySlot(EquipmentSlot.CHEST);
-            if (OxygenUtils.getOxygen(suit) == 0L) {
+            if (!OxygenUtils.removeOxygen(suit, 1)) {
                 if (!OxygenManager.hasOxygenAt(entity.level(), entity.getOnPos())) {
                     entity.hurt(DamageSourceRegistry.of(entity.level(), DamageSourceRegistry.OXYGEN), 0.5f);
                 }
-            } else {
-                OxygenUtils.addOxygen(suit, -1L);
             }
         } else if (!OxygenManager.hasOxygenAt(entity.level(), entity.getOnPos())) {
             entity.hurt(DamageSourceRegistry.of(entity.level(), DamageSourceRegistry.OXYGEN), 0.5f);

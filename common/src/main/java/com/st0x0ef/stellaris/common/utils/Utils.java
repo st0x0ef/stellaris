@@ -216,14 +216,6 @@ public class Utils {
         else return 0;
     }
 
-    public static int findSmallerNumber(int value1, int value2) {
-        return Math.min(value1, value2);
-    }
-
-    public static int findBiggerNumber(int value1, int value2) {
-        return Math.max(value1, value2);
-    }
-
     public static void disableFlyAntiCheat(Player player, boolean condition) {
         if (player instanceof ServerPlayer) {
             if (condition) {
