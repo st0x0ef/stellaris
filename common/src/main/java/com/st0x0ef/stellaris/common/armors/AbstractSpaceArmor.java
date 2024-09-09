@@ -25,7 +25,7 @@ public abstract class AbstractSpaceArmor extends CustomArmorItem {
         }
 
         public void onArmorTick(ItemStack stack, Level level, Player player) {
-            if (!PlanetUtil.hasOxygen(level.dimension().location()) || !player.isCreative()) {
+            if (!PlanetUtil.hasOxygen(level.dimension().location()) && !player.isCreative()) {
                 OxygenUtils.removeOxygen(stack, 1);
             }
         }
