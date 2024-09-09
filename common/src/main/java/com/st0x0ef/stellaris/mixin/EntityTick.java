@@ -22,6 +22,7 @@ public abstract class EntityTick {
             if (!GlobalOxygenManager.getInstance().getOrCreateDimensionManager(entity.level().dimension()).entityHasOxygen(entity)) {
                 entity.hurt(DamageSourceRegistry.of(entity.level(), DamageSourceRegistry.OXYGEN), 0.5f);
             }
+
             stellaris$tickSinceLastOxygenCheck = 0;
         }
 

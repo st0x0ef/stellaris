@@ -112,7 +112,6 @@ public class JetSuit {
         private void hoverModeMovement(Player player, ItemStack stack) {
             Vec3 vec3 = player.getDeltaMovement();
 
-
             // Main movement logic
             if (!player.onGround() && !player.isInWater()) {
                 player.setDeltaMovement(vec3.x, vec3.y + 0.04, vec3.z);

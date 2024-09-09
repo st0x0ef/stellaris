@@ -21,8 +21,4 @@ public class GlobalOxygenManager {
     public DimensionOxygenManager getOrCreateDimensionManager(ResourceKey<Level> dimension) {
         return dimensionManagers.computeIfAbsent(dimension, DimensionOxygenManager::new);
     }
-
-    public Map<ResourceKey<Level>, DimensionOxygenManager> getDimensionManagers() {
-        return dimensionManagers;
-    }
 }
