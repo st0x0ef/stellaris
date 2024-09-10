@@ -6,9 +6,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
-public class OxygenGeneratorBlock extends BaseLitMachineBlock {
+public class OxygenDistributorBlock extends BaseLitMachineBlock {
 
-    public OxygenGeneratorBlock(Properties properties) {
+    public OxygenDistributorBlock(Properties properties) {
         super(properties);
     }
 
@@ -24,6 +24,6 @@ public class OxygenGeneratorBlock extends BaseLitMachineBlock {
 
     @Override
     protected MapCodec<? extends BaseEntityBlock> codec() {
-        return simpleCodec(OxygenGeneratorBlock::new);
+        return simpleCodec(OxygenDistributorBlock::new);
     }
 }

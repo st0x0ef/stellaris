@@ -9,13 +9,13 @@ import net.minecraft.network.codec.StreamCodec;
 
 import java.io.Serializable;
 
-public record OxygenComponent(long oxygen, long max) implements Serializable {
+public record OxygenComponent(long oxygen, long capacity) implements Serializable {
     public static final Codec<OxygenComponent> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.LONG.fieldOf("oxygen").forGetter(OxygenComponent::oxygen),
-            Codec.LONG.fieldOf("max").forGetter(OxygenComponent::max)
+            Codec.LONG.fieldOf("capacity").forGetter(OxygenComponent::capacity)
     ).apply(instance, OxygenComponent::new));
 
-    public static final StreamCodec<ByteBuf, OxygenComponent> STREAM_CODEC = StreamCodec.composite(ByteBufCodecs.VAR_LONG, OxygenComponent::oxygen, ByteBufCodecs.VAR_LONG, OxygenComponent::max, OxygenComponent::new);
+    public static final StreamCodec<ByteBuf, OxygenComponent> STREAM_CODEC = StreamCodec.composite(ByteBufCodecs.VAR_LONG, OxygenComponent::oxygen, ByteBufCodecs.VAR_LONG, OxygenComponent::capacity, OxygenComponent::new);
 
     public static OxygenComponent fromNetwork(RegistryFriendlyByteBuf buffer) {
         return new OxygenComponent(buffer.readLong(), buffer.readLong());
@@ -23,7 +23,7 @@ public record OxygenComponent(long oxygen, long max) implements Serializable {
 
     public RegistryFriendlyByteBuf toNetwork(RegistryFriendlyByteBuf buffer) {
         buffer.writeLong(this.oxygen);
-        buffer.writeLong(this.max);
+        buffer.writeLong(this.capacity);
         return buffer;
     }
 }

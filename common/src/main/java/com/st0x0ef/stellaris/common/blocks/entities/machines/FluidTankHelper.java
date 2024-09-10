@@ -36,7 +36,7 @@ public class FluidTankHelper {
                         resultStack = inputStack.copy();
                         long storedOxygen = inputStack.get(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get()).oxygen();
 
-                        if (storedOxygen + OXYGEN_TANK_FILL_AMOUNT >= inputStack.get(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get()).max()) {
+                        if (storedOxygen + OXYGEN_TANK_FILL_AMOUNT >= inputStack.get(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get()).capacity()) {
                             return;
                         }
 
