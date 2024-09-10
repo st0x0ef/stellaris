@@ -9,20 +9,18 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class DimensionOxygenManager {
-    private final List<OxygenRoom> oxygenRooms;
+    private final Set<OxygenRoom> oxygenRooms;
     private final Map<BlockPos, OxygenRoom> roomToCheckIfOpen;
     private final boolean planetHasOxygen;
 
     public DimensionOxygenManager(ResourceKey<Level> level) {
-        this.oxygenRooms = new ArrayList<>();
+        this.oxygenRooms = new HashSet<>();
         this.roomToCheckIfOpen = new HashMap<>();
         this.planetHasOxygen = PlanetUtil.hasOxygen(level.location());
     }
@@ -53,27 +51,24 @@ public class DimensionOxygenManager {
     public void updateOxygen(ServerLevel level) {
         if (planetHasOxygen) return;
 
-        for (OxygenRoom system : oxygenRooms) {
-            system.updateOxygenRoom(level);
-        }
-
-        roomToCheckIfOpen.forEach((pos, room) -> room.removeOxygenInRoom());
+        oxygenRooms.parallelStream().forEach(room -> room.updateOxygenRoom(level));
+        roomToCheckIfOpen.values().forEach(OxygenRoom::removeOxygenInRoom);
+        roomToCheckIfOpen.clear();
     }
 
-    public boolean entityHasOxygen(LivingEntity entity) {
+    public boolean canBreath(LivingEntity entity) {
         if (planetHasOxygen || entity.getType().is(TagRegistry.ENTITY_NO_OXYGEN_NEEDED_TAG)) return true;
 
-        if (entity instanceof LivingEntity livingEntity && Utils.isLivingInJetSuit(livingEntity)) {
-            return OxygenUtils.getOxygen(livingEntity.getItemBySlot(EquipmentSlot.CHEST)) > 0;
-        } else {
-            for (OxygenRoom system : oxygenRooms) {
-                if (system.hasOxygenAt(entity.getOnPos())) {
-                    return true;
-                }
-            }
+        if (entity instanceof Player player && (player.isCreative() || player.isSpectator())) {
+            return true;
         }
 
-        return false;
+        if (Utils.isLivingInJetSuit(entity)) {
+            return OxygenUtils.getOxygen(entity.getItemBySlot(EquipmentSlot.CHEST)) > 0;
+        }
+
+        BlockPos entityPos = entity.getOnPos();
+        return oxygenRooms.stream().anyMatch(room -> room.hasOxygenAt(entityPos));
     }
 
     public boolean doesPlanetHasOxygen() {
