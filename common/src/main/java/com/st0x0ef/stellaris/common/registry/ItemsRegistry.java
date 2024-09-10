@@ -18,7 +18,6 @@ import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.*;
 
 public class ItemsRegistry {
@@ -63,6 +62,7 @@ public class ItemsRegistry {
     public static final RegistrySupplier<Item> CHEESE = ITEMS.register("cheese", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).food(FoodRegistry.CHEESE)));
     public static final RegistrySupplier<Item> COSMO_COFFEE = ITEMS.register("cosmo_coffee", () -> new CoffeeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).food(FoodRegistry.COSMO_COFFEE)));
     public static final RegistrySupplier<Item> CHEESE_BLOCK_ITEM = ITEMS.register("cheese_block", () -> new BlockItem(BlocksRegistry.CHEESE_BLOCK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> MARS_FRUIT = ITEMS.register("mars_fruit", () -> new ItemNameBlockItem(BlocksRegistry.MARS_CROP.get(), new Item.Properties().food(new FoodProperties.Builder().nutrition(3).saturationModifier(0.6F).build())));
 
     /**
      * Other

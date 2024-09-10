@@ -63,6 +63,8 @@ public class StellarisFabricClient implements ClientModInitializer {
 
     public static void registerBlockRendering(){
         BlockRenderLayerMap.INSTANCE.putBlock(BlocksRegistry.MOON_CROPS.get(), RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(BlocksRegistry.MARS_CROP.get(), RenderType.cutout());
+
     }
 
     public static void registerEntityRenderer() {

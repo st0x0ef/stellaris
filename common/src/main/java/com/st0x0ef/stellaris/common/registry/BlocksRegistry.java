@@ -60,6 +60,7 @@ public class BlocksRegistry {
 
     public static final RegistrySupplier<Block> MARS_ICE_SHARD_ORE = BLOCKS.register("mars_ice_shard_ore", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
     public static final RegistrySupplier<Block> MARS_DIAMOND_ORE = BLOCKS.register("mars_diamond_ore", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> MARS_CROP = BLOCKS.register("mars_crop", () -> new MarsCrop(BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT)));
 
 
 
