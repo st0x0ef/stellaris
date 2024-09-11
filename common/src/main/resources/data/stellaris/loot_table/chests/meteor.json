@@ -11,8 +11,20 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "weight": 40,
+          "name": "stellaris:moon_fruit",
+          "weight": 45,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 5,
+              "add": true
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
           "name": "minecraft:obsidian",
+          "weight": 40,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -27,8 +39,8 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 40,
           "name": "minecraft:iron_ingot",
+          "weight": 40,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -43,8 +55,8 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 40,
           "name": "minecraft:iron_nugget",
+          "weight": 40,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -59,23 +71,23 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 40,
-          "name": "minecraft:raw_gold"
+          "name": "minecraft:raw_gold",
+          "weight": 40
         },
         {
           "type": "minecraft:item",
-          "weight": 40,
-          "name": "minecraft:fire_charge"
+          "name": "minecraft:fire_charge",
+          "weight": 40
         },
         {
           "type": "minecraft:item",
-          "weight": 15,
-          "name": "stellaris:earth_globe"
+          "name": "stellaris:earth_globe",
+          "weight": 15
         },
         {
           "type": "minecraft:item",
-          "weight": 15,
           "name": "minecraft:gold_nugget",
+          "weight": 15,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -90,8 +102,8 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 15,
           "name": "minecraft:iron_sword",
+          "weight": 15,
           "functions": [
             {
               "function": "minecraft:enchant_randomly"
@@ -100,8 +112,8 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 15,
           "name": "minecraft:iron_axe",
+          "weight": 15,
           "functions": [
             {
               "function": "minecraft:enchant_randomly"
@@ -110,8 +122,8 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 15,
           "name": "minecraft:iron_hoe",
+          "weight": 15,
           "functions": [
             {
               "function": "minecraft:enchant_randomly"
@@ -120,8 +132,8 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 15,
           "name": "minecraft:iron_shovel",
+          "weight": 15,
           "functions": [
             {
               "function": "minecraft:enchant_randomly"
@@ -130,8 +142,8 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 15,
           "name": "minecraft:iron_pickaxe",
+          "weight": 15,
           "functions": [
             {
               "function": "minecraft:enchant_randomly"
@@ -140,8 +152,8 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 15,
           "name": "minecraft:iron_boots",
+          "weight": 15,
           "functions": [
             {
               "function": "minecraft:enchant_randomly"
@@ -150,8 +162,8 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 15,
           "name": "minecraft:iron_chestplate",
+          "weight": 15,
           "functions": [
             {
               "function": "minecraft:enchant_randomly"
@@ -160,18 +172,8 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 15,
           "name": "minecraft:iron_helmet",
-          "functions": [
-            {
-              "function": "minecraft:enchant_randomly"
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
           "weight": 15,
-          "name": "minecraft:golden_leggings",
           "functions": [
             {
               "function": "minecraft:enchant_randomly"
@@ -180,8 +182,18 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 5,
+          "name": "minecraft:golden_leggings",
+          "weight": 15,
+          "functions": [
+            {
+              "function": "minecraft:enchant_randomly"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
           "name": "minecraft:glistering_melon_slice",
+          "weight": 5,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -196,18 +208,18 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 5,
-          "name": "minecraft:golden_horse_armor"
+          "name": "minecraft:golden_horse_armor",
+          "weight": 5
         },
         {
           "type": "minecraft:item",
-          "weight": 5,
-          "name": "minecraft:light_weighted_pressure_plate"
+          "name": "minecraft:light_weighted_pressure_plate",
+          "weight": 5
         },
         {
           "type": "minecraft:item",
-          "weight": 5,
           "name": "minecraft:golden_carrot",
+          "weight": 5,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -222,8 +234,8 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 5,
           "name": "minecraft:flint",
+          "weight": 5,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -238,18 +250,18 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 5,
-          "name": "minecraft:bell"
+          "name": "minecraft:bell",
+          "weight": 5
         },
         {
           "type": "minecraft:item",
-          "weight": 5,
-          "name": "minecraft:enchanted_golden_apple"
+          "name": "minecraft:enchanted_golden_apple",
+          "weight": 5
         },
         {
           "type": "minecraft:item",
-          "weight": 5,
           "name": "stellaris:steel_block",
+          "weight": 5,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -264,28 +276,28 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 5,
-          "name": "stellaris:skin_normal"
+          "name": "stellaris:skin_normal",
+          "weight": 5
         },
         {
           "type": "minecraft:item",
-          "weight": 5,
-          "name": "stellaris:skin_frozy"
+          "name": "stellaris:skin_frozy",
+          "weight": 5
         },
         {
           "type": "minecraft:item",
-          "weight": 5,
-          "name": "stellaris:skin_galaxy"
+          "name": "stellaris:skin_galaxy",
+          "weight": 5
         },
         {
           "type": "minecraft:item",
-          "weight": 5,
-          "name": "stellaris:skin_military"
+          "name": "stellaris:skin_military",
+          "weight": 5
         },
         {
           "type": "minecraft:item",
-          "weight": 5,
-          "name": "stellaris:skin_rusty"
+          "name": "stellaris:skin_rusty",
+          "weight": 5
         }
       ]
     }
