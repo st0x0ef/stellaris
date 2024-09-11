@@ -7,6 +7,7 @@ import net.minecraft.world.level.LevelHeightAccessor;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.LevelChunkSection;
 import net.minecraft.world.level.chunk.UpgradeData;
+import net.minecraft.world.level.chunk.storage.ChunkSerializer;
 import net.minecraft.world.level.levelgen.blending.BlendingData;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -29,5 +30,10 @@ public class MixinChunkAccess implements ChunkOilLevelGetter {
     @Override
     public int stellaris$getChunkOilLevel() {
         return oilLevel;
+    }
+
+    @Override
+    public void stellaris$setChunkOilLevel(int level) {
+        oilLevel = level;
     }
 }
