@@ -64,7 +64,7 @@ public class StellarisClient {
     public static void setupOpenGLDebugMessageCallback() {
         if (GL.getCapabilities().GL_KHR_debug) {
             GL43.glDebugMessageCallback((source, type, id, severity, length, message, userParam) -> {
-                if (id == 1281) {
+                if (id == 1282 || id == 1281) {
                     return;
                 }
                 String errorMessage = GLDebugMessageCallback.getMessage(length, message);
