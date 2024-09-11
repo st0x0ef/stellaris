@@ -38,7 +38,7 @@ public class ItemsRegistry {
     public static final RegistrySupplier<Item> RAW_STEEL_INGOT = ITEMS.register("raw_steel_ingot", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> RAW_DESH_INGOT = ITEMS.register("raw_desh_ingot", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> DESH_INGOT = ITEMS.register("desh_ingot", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
-    public static final RegistrySupplier<Item> MOON_FRUIT = ITEMS.register("moon_fruit", () -> new ItemNameBlockItem(BlocksRegistry.MOON_CROPS.get(), new Item.Properties().food(new FoodProperties.Builder().nutrition(3).saturationModifier(0.6F).build())));
+    public static final RegistrySupplier<Item> MOON_FRUIT = ITEMS.register("moon_fruit", () -> new ItemNameBlockItem(BlocksRegistry.MOON_CROPS.get(), new Item.Properties().food(new FoodProperties.Builder().nutrition(3).saturationModifier(0.6F).build()).arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
 
     /**
      * Food Cans
@@ -62,7 +62,7 @@ public class ItemsRegistry {
     public static final RegistrySupplier<Item> CHEESE = ITEMS.register("cheese", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).food(FoodRegistry.CHEESE)));
     public static final RegistrySupplier<Item> COSMO_COFFEE = ITEMS.register("cosmo_coffee", () -> new CoffeeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).food(FoodRegistry.COSMO_COFFEE)));
     public static final RegistrySupplier<Item> CHEESE_BLOCK_ITEM = ITEMS.register("cheese_block", () -> new BlockItem(BlocksRegistry.CHEESE_BLOCK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
-    public static final RegistrySupplier<Item> MARS_FRUIT = ITEMS.register("mars_fruit", () -> new ItemNameBlockItem(BlocksRegistry.MARS_CROP.get(), new Item.Properties().food(new FoodProperties.Builder().nutrition(3).saturationModifier(0.6F).build())));
+    public static final RegistrySupplier<Item> MARS_FRUIT = ITEMS.register("mars_fruit", () -> new ItemNameBlockItem(BlocksRegistry.MARS_CROP.get(), new Item.Properties().food(new FoodProperties.Builder().nutrition(3).saturationModifier(0.6F).build()).arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
 
     /**
      * Other
