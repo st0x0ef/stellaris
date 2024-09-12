@@ -5,24 +5,26 @@ import com.st0x0ef.stellaris.common.utils.OxygenUtils;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class DimensionOxygenManager {
     private final Set<OxygenRoom> oxygenRooms;
     private final Map<BlockPos, OxygenRoom> roomToCheckIfOpen;
     private final boolean planetHasOxygen;
 
-    public DimensionOxygenManager(ResourceKey<Level> level) {
+    public DimensionOxygenManager(ServerLevel level) {
         this.oxygenRooms = new HashSet<>();
         this.roomToCheckIfOpen = new HashMap<>();
-        this.planetHasOxygen = PlanetUtil.hasOxygen(level.location());
+        this.planetHasOxygen = PlanetUtil.hasOxygen(level.dimension().location());
     }
 
     public void addOxygenRoom(OxygenRoom room) {
@@ -67,11 +69,27 @@ public class DimensionOxygenManager {
             return OxygenUtils.getOxygen(entity.getItemBySlot(EquipmentSlot.CHEST)) > 0;
         }
 
-        BlockPos entityPos = entity.getOnPos();
-        return oxygenRooms.stream().anyMatch(room -> room.hasOxygenAt(entityPos));
+        AtomicBoolean canBreath = new AtomicBoolean(false);
+        oxygenRooms.forEach(room -> {
+            if (room.hasOxygenAt(entity.getOnPos().above())) {
+                canBreath.set(true);
+            }
+        });
+
+        return canBreath.get();
     }
 
     public boolean doesPlanetHasOxygen() {
         return planetHasOxygen;
+    }
+
+    public OxygenRoom getOxygenRoom(BlockPos pos) {
+        for (OxygenRoom room : oxygenRooms) {
+            if (room.getGeneratorPosition().equals(pos)) {
+                return room;
+            }
+        }
+
+        return null;
     }
 }
