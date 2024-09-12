@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.mixin;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
+import com.st0x0ef.stellaris.common.oil.OilUtils;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
@@ -28,8 +29,7 @@ public class MixinChunkSerializer {
     private static void readOilLevel(ChunkAccess instance, boolean lightCorrect, Operation<Void> original, ServerLevel level, PoiManager poiManager, RegionStorageInfo regionStorageInfo, ChunkPos pos, CompoundTag tag) {
         original.call(instance, lightCorrect);
         if (instance.stellaris$getChunkOilLevel() == 0) {
-            Random random = new Random();
-            instance.stellaris$setChunkOilLevel(random.nextInt(0, 10000));
+            instance.stellaris$setChunkOilLevel(OilUtils.getRandomOilLevel());
 
         } else {
             instance.stellaris$setChunkOilLevel(tag.getInt("oilLevel"));
