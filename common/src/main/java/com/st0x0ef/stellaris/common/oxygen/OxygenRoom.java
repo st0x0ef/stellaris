@@ -6,6 +6,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 
 import java.util.*;
+import java.util.stream.IntStream;
 
 public class OxygenRoom {
     private final BlockPos distributorPos;
@@ -16,7 +17,7 @@ public class OxygenRoom {
 
     public OxygenRoom(BlockPos distributorPos) {
         this.distributorPos = distributorPos;
-        this.oxygenatedPositions = new HashSet<>();
+        this.oxygenatedPositions = new LinkedHashSet<>();
         this.positionsToCheck = new LinkedList<>();
     }
 
@@ -25,9 +26,9 @@ public class OxygenRoom {
     }
 
     public void updateOxygenRoom(ServerLevel level) {
-        if (oxygenatedPositions.contains(distributorPos) ||
-                GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level.dimension()).doesPlanetHasOxygen() ||
-                getOxygenDistributor(level).takeOxygenFromTank()) {
+
+
+        if (GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level).doesPlanetHasOxygen() || !getOxygenDistributor(level).takeOxygenFromTank()) {
             return;
         }
 
@@ -42,7 +43,7 @@ public class OxygenRoom {
         positionsToCheck.offer(startPos);
         Set<BlockPos> visited = new HashSet<>();
         OxygenDistributorBlockEntity distributor = getOxygenDistributor(level);
-        DimensionOxygenManager dimensionManager = GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level.dimension());
+        DimensionOxygenManager dimensionManager = GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level);
 
         while (!positionsToCheck.isEmpty()) {
             BlockPos currentPos = positionsToCheck.poll();
@@ -73,17 +74,6 @@ public class OxygenRoom {
     public boolean hasOxygenAt(BlockPos pos) {
         return oxygenatedPositions.contains(pos);
     }
-    private List<BlockPos> getAdjacentPositions(BlockPos pos) {
-        List<BlockPos> adjacent = new ArrayList<>();
-        adjacent.add(pos.above());
-        adjacent.add(pos.below());
-        adjacent.add(pos.north());
-        adjacent.add(pos.south());
-        adjacent.add(pos.east());
-        adjacent.add(pos.west());
-
-        return adjacent;
-    }
 
     private boolean isAirBlock(ServerLevel level, BlockPos pos) {
         return level.getBlockState(pos).isAir();
@@ -91,5 +81,22 @@ public class OxygenRoom {
 
     private OxygenDistributorBlockEntity getOxygenDistributor(ServerLevel level) {
         return (OxygenDistributorBlockEntity) level.getBlockEntity(distributorPos);
+    }
+
+    public int[] toIntArray() {
+        return oxygenatedPositions.stream()
+                .flatMapToInt(pos -> IntStream.of(pos.getX(), pos.getY(), pos.getZ()))
+                .toArray();
+    }
+
+    public Set<BlockPos> fromIntArray(int[] array) {
+        Set<BlockPos> positions = new LinkedHashSet<>();
+        for (int i = 0; i < array.length; i += 3) {
+            int x = array[i];
+            int y = array[i + 1];
+            int z = array[i + 2];
+            positions.add(new BlockPos(x, y, z));
+        }
+        return positions;
     }
 }
