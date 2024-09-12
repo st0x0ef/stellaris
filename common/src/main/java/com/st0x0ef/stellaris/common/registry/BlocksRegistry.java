@@ -141,7 +141,6 @@ public class BlocksRegistry {
     public static final RegistrySupplier<Block> VACUMATOR = BLOCKS.register("vacuumator", ()-> new VacuumatorBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_ORE)));
     public static final RegistrySupplier<Block> WATER_SEPARATOR = BLOCKS.register("water_separator", () -> new WaterSeparatorBlock(BlockBehaviour.Properties.ofFullCopy(STEEL_ORE.get()).mapColor(MapColor.DEEPSLATE).strength(4.5F, 3F).sound(SoundType.DEEPSLATE)));
     public static final RegistrySupplier<Block> FUEL_REFINERY = BLOCKS.register("fuel_refinery", () -> new FuelRefineryBlock(BlockBehaviour.Properties.ofFullCopy(STEEL_ORE.get()).mapColor(MapColor.DEEPSLATE).strength(4.5F, 3F).sound(SoundType.DEEPSLATE)));
-    public static final RegistrySupplier<Block> WATER_PUMP = BLOCKS.register("water_pump", () -> new WaterPumpBlock(BlockBehaviour.Properties.ofFullCopy(WATER_SEPARATOR.get())));
 
     /**Oxygen Blocks**/
     public static final RegistrySupplier<Block> OXYGEN_PROPAGATOR = BLOCKS.register("oxygen_propagator", () -> new OxygenPropagatorBlock(BlockBehaviour.Properties.ofFullCopy(WATER_SEPARATOR.get())));
