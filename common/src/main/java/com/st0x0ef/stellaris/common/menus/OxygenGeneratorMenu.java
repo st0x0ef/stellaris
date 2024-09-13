@@ -1,6 +1,6 @@
 package com.st0x0ef.stellaris.common.menus;
 
-import com.st0x0ef.stellaris.common.blocks.entities.machines.OxygenGeneratorBlockEntity;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.OxygenDistributorBlockEntity;
 import com.st0x0ef.stellaris.common.menus.slot.OxygenTankSlot;
 import com.st0x0ef.stellaris.common.network.packets.SyncWidgetsTanksPacket;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
@@ -15,9 +15,9 @@ import net.minecraft.world.entity.player.Player;
 public class OxygenGeneratorMenu extends BaseContainer {
 
     private final Container container;
-    private final OxygenGeneratorBlockEntity blockEntity;
+    private final OxygenDistributorBlockEntity blockEntity;
 
-    public OxygenGeneratorMenu(int containerId, Inventory inventory, Container container, OxygenGeneratorBlockEntity blockEntity) {
+    public OxygenGeneratorMenu(int containerId, Inventory inventory, Container container, OxygenDistributorBlockEntity blockEntity) {
         super(MenuTypesRegistry.OXYGEN_DISTRIBUTOR.get(), containerId, 1, inventory, 54);
         this.container = container;
         this.blockEntity = blockEntity;
@@ -26,10 +26,10 @@ public class OxygenGeneratorMenu extends BaseContainer {
     }
 
     public static OxygenGeneratorMenu create(int syncId, Inventory inventory, FriendlyByteBuf data) {
-        return new OxygenGeneratorMenu(syncId, inventory, new SimpleContainer(1), (OxygenGeneratorBlockEntity) inventory.player.level().getBlockEntity(data.readBlockPos()));
+        return new OxygenGeneratorMenu(syncId, inventory, new SimpleContainer(1), (OxygenDistributorBlockEntity) inventory.player.level().getBlockEntity(data.readBlockPos()));
     }
 
-    public OxygenGeneratorBlockEntity getBlockEntity() {
+    public OxygenDistributorBlockEntity getBlockEntity() {
         return this.blockEntity;
     }
 

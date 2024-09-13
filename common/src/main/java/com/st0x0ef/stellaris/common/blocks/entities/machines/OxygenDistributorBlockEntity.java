@@ -9,8 +9,8 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class OxygenGeneratorBlockEntity extends BaseEnergyContainerBlockEntity {
-    public OxygenGeneratorBlockEntity(BlockPos pos, BlockState state) {
+public class OxygenDistributorBlockEntity extends BaseEnergyContainerBlockEntity {
+    public OxygenDistributorBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.OXYGEN_DISTRIBUTOR.get(), pos, state);
     }
 
@@ -19,13 +19,10 @@ public class OxygenGeneratorBlockEntity extends BaseEnergyContainerBlockEntity {
 
     }
 
-    public boolean takeOxygenFromTank(long amount) {
+    public boolean takeOxygenFromTank() {
         long amountStored = OxygenUtils.getOxygen(getItem(0));
-        if (amountStored >= amount) {
-            OxygenUtils.addOxygen(getItem(0), -amount);
-            return true;
-        } else if (amountStored > 0) {
-            OxygenUtils.setOxygen(getItem(0), 0L);
+        if (amountStored > 0) {
+            OxygenUtils.removeOxygen(getItem(0), 1);
             return true;
         }
 

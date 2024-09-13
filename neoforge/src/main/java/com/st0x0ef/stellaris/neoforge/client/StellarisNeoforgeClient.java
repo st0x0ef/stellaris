@@ -120,6 +120,7 @@ public class StellarisNeoforgeClient {
         event.register(MenuTypesRegistry.OXYGEN_DISTRIBUTOR.get(), OxygenGeneratorScreen::new);
         event.register(MenuTypesRegistry.WATER_SEPARATOR_MENU.get(), WaterSeparatorScreen::new);
         event.register(MenuTypesRegistry.FUEL_REFINERY.get(), FuelRefineryScreen::new);
+        event.register(MenuTypesRegistry.WATER_PUMP_MENU.get(), WaterPumpScreen::new);
     }
 
     @SubscribeEvent

@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "stellaris:block/mars_crop_stage_0"
+    },
+    "age=1": {
+      "model": "stellaris:block/mars_crop_stage_1"
+    },
+    "age=2": {
+      "model": "stellaris:block/mars_crop_stage_2"
+    },
+    "age=3": {
+      "model": "stellaris:block/mars_crop_stage_3"
+    },
+    "age=4": {
+      "model": "stellaris:block/mars_crop_stage_4"
+    },
+    "age=5": {
+      "model": "stellaris:block/mars_crop_stage_5"
+    },
+    "age=6": {
+      "model": "stellaris:block/mars_crop_stage_6"
+    },
+    "age=7": {
+      "model": "stellaris:block/mars_crop_stage_7"
+    }
+  }
+}

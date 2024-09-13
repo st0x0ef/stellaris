@@ -20,14 +20,13 @@ public abstract class AbstractSpaceArmor extends CustomArmorItem {
     }
 
     public static class Chestplate extends AbstractSpaceArmor {
-
         public Chestplate(Holder<ArmorMaterial> material, Type type, Properties properties) {
             super(material, type, properties);
         }
 
         public void onArmorTick(ItemStack stack, Level level, Player player) {
-            if (!PlanetUtil.hasOxygen(level.dimension().location())) {
-                OxygenUtils.addOxygen(stack, -1);
+            if (!PlanetUtil.hasOxygen(level.dimension().location()) && !player.isCreative()) {
+                OxygenUtils.removeOxygen(stack, 1);
             }
         }
 

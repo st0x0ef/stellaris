@@ -555,7 +555,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
             RenderSystem.setShaderTexture(0, CELESTIAL_BODY_TEXTURE);
             if (focusedBody.width != focusedBody.height) {
-                if (Utils.findSmallerNumber((int) focusedBody.width, (int) focusedBody.height) == focusedBody.width) {
+                if (Math.min((int) focusedBody.width, (int) focusedBody.height) == focusedBody.width) {
                     float rate = focusedBody.height / focusedBody.width;
                     graphics.blit(CELESTIAL_BODY_TEXTURE, centerX + menuWidth - 46, centerY + menuHeight / 2 - 14, 0, 0, 12, (int) (12 * rate), 12, (int) (12 * rate));
                 } else {

@@ -1,89 +1,102 @@
 package com.st0x0ef.stellaris.common.oxygen;
 
-import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.blocks.entities.machines.OxygenGeneratorBlockEntity;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.OxygenDistributorBlockEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.IntStream;
 
 public class OxygenRoom {
-    private final OxygenGeneratorBlockEntity generatorBlockEntity;
-    private final Map<BlockPos, Boolean> oxygenMap;
-    private final List<BlockPos> oxygenPosToCheck;
+    private final BlockPos distributorPos;
+    private final Set<BlockPos> oxygenatedPositions;
+    private final Queue<BlockPos> positionsToCheck;
 
-    public OxygenRoom(OxygenGeneratorBlockEntity generatorBlockEntity) {
-        this.generatorBlockEntity = generatorBlockEntity;
-        this.oxygenMap = new HashMap<>();
-        this.oxygenPosToCheck = new ArrayList<>();
+    private static final int HALF_ROOM_SIZE = 16;
+
+    public OxygenRoom(BlockPos distributorPos) {
+        this.distributorPos = distributorPos;
+        this.oxygenatedPositions = new LinkedHashSet<>();
+        this.positionsToCheck = new LinkedList<>();
     }
 
     public BlockPos getGeneratorPosition() {
-        return generatorBlockEntity.getBlockPos();
+        return distributorPos;
     }
 
     public void updateOxygenRoom(ServerLevel level) {
-        if (!oxygenMap.getOrDefault(getGeneratorPosition(), false) || GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level.dimension()).doesPlanetHasOxygen() || ((OxygenGeneratorBlockEntity) level.getBlockEntity(getGeneratorPosition())).takeOxygenFromTank(50)) {
+
+
+        if (GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level).doesPlanetHasOxygen() || !getOxygenDistributor(level).takeOxygenFromTank()) {
             return;
         }
 
-        Map<BlockPos, Boolean> updatedOxygenMap = new HashMap<>(oxygenMap);
-
-        for (int x = -1; x <= 1; x++) {
-            for (int y = -1; y <= 1; y++) {
-                for (int z = -1; z <= 1; z++) {
-                    BlockPos currentPos = getGeneratorPosition().offset(x, y, z);
-                    propagateOxygenInRoom(level, currentPos, updatedOxygenMap);
-                }
-            }
+        BlockPos abovePos = distributorPos.above();
+        if (isAirBlock(level, abovePos)) {
+            propagateOxygenInRoom(level, abovePos);
         }
-
-        oxygenMap.putAll(updatedOxygenMap);
     }
 
-    private void propagateOxygenInRoom(ServerLevel level, BlockPos currentPos, Map<BlockPos, Boolean> updatedOxygenMap) {
-        oxygenPosToCheck.remove(currentPos);
+    private void propagateOxygenInRoom(ServerLevel level, BlockPos startPos) {
+        positionsToCheck.clear();
+        positionsToCheck.offer(startPos);
+        Set<BlockPos> visited = new HashSet<>();
+        OxygenDistributorBlockEntity distributor = getOxygenDistributor(level);
+        DimensionOxygenManager dimensionManager = GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level);
 
-        if (level.getBlockState(currentPos).isAir() && !((OxygenGeneratorBlockEntity) level.getBlockEntity(getGeneratorPosition())).takeOxygenFromTank(50)) {
-            updatedOxygenMap.put(currentPos, true);
-            if (isOnBorderBox(currentPos)) {
-                GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level.dimension()).addRoomToCheckIfOpen(currentPos, this);
-            }
-
-            for (int x = 0; x < 32; x++) {
-                for (int y = 0; y < 32; y++) {
-                    for (int z = 0; z < 32; z++) {
-                        BlockPos nextPos = new BlockPos(getGeneratorPosition().getX() + x - 16, getGeneratorPosition().getY() + y - 16, getGeneratorPosition().getZ() + z - 16);
-                        oxygenPosToCheck.add(nextPos);
-                    }
+        while (!positionsToCheck.isEmpty()) {
+            BlockPos currentPos = positionsToCheck.poll();
+            if (visited.add(currentPos) && isAirBlock(level, currentPos) && !distributor.takeOxygenFromTank()) {
+                oxygenatedPositions.add(currentPos);
+                if (isOnBorderBox(currentPos)) {
+                    dimensionManager.addRoomToCheckIfOpen(currentPos, this);
                 }
-            }
 
-            if (!oxygenPosToCheck.isEmpty() && !updatedOxygenMap.containsKey(oxygenPosToCheck.getFirst())) {
-                propagateOxygenInRoom(level, oxygenPosToCheck.getFirst(), updatedOxygenMap);
+                for (Direction direction : Direction.values()) {
+                    positionsToCheck.offer(currentPos.relative(direction));
+                }
             }
         }
     }
 
     public void removeOxygenInRoom() {
-        oxygenMap.clear();
+        oxygenatedPositions.clear();
     }
 
     private boolean isOnBorderBox(BlockPos pos) {
-        int startX = getGeneratorPosition().getX() - 16;
-        int endX = getGeneratorPosition().getX() + 16;
-        int startY = getGeneratorPosition().getY() - 16;
-        int endY = getGeneratorPosition().getY() + 16;
-        int startZ = getGeneratorPosition().getZ() - 16;
-        int endZ = getGeneratorPosition().getZ() + 16;
-
-        return pos.getX() == startX || pos.getX() == endX || pos.getY() == startY || pos.getY() == endY || pos.getZ() == startZ || pos.getZ() == endZ;
+        int dx = Math.abs(pos.getX() - distributorPos.getX());
+        int dy = Math.abs(pos.getY() - distributorPos.getY());
+        int dz = Math.abs(pos.getZ() - distributorPos.getZ());
+        return dx == HALF_ROOM_SIZE || dy == HALF_ROOM_SIZE || dz == HALF_ROOM_SIZE;
     }
 
     public boolean hasOxygenAt(BlockPos pos) {
-        return oxygenMap.get(pos);
+        return oxygenatedPositions.contains(pos);
+    }
+
+    private boolean isAirBlock(ServerLevel level, BlockPos pos) {
+        return level.getBlockState(pos).isAir();
+    }
+
+    private OxygenDistributorBlockEntity getOxygenDistributor(ServerLevel level) {
+        return (OxygenDistributorBlockEntity) level.getBlockEntity(distributorPos);
+    }
+
+    public int[] toIntArray() {
+        return oxygenatedPositions.stream()
+                .flatMapToInt(pos -> IntStream.of(pos.getX(), pos.getY(), pos.getZ()))
+                .toArray();
+    }
+
+    public Set<BlockPos> fromIntArray(int[] array) {
+        Set<BlockPos> positions = new LinkedHashSet<>();
+        for (int i = 0; i < array.length; i += 3) {
+            int x = array[i];
+            int y = array[i + 1];
+            int z = array[i + 2];
+            positions.add(new BlockPos(x, y, z));
+        }
+        return positions;
     }
 }
