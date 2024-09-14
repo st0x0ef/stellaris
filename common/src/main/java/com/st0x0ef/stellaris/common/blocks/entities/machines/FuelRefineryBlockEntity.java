@@ -30,7 +30,6 @@ public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity {
         super(BlockEntityRegistry.FUEL_REFINERY.get(), pos, state);
     }
 
-
     @Override
     public void tick() {
         FluidTankHelper.extractFluidToItem(this, resultTank, 2, 3);
