@@ -11,6 +11,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -30,8 +31,6 @@ public class TeleportEntityToPlanetPacket implements CustomPacketPayload {
         }
     };
 
-
-
     public TeleportEntityToPlanetPacket(ResourceLocation dimension) {
         this.dimension = dimension;
     }
@@ -44,13 +43,23 @@ public class TeleportEntityToPlanetPacket implements CustomPacketPayload {
     public static void handle(TeleportEntityToPlanetPacket packet, NetworkManager.PacketContext context) {
         Player player = context.getPlayer();
         Planet planet = PlanetUtil.getPlanet(packet.dimension);
-        if(planet != null) {
-            Utils.changeDimension(player, planet);
-            player.getEntityData().set(EntityData.DATA_PLANET_MENU_OPEN, false);
+        Entity rocket = player.getVehicle();
+        if(planet != null ) {
+
+            if(rocket == null) {
+                Utils.changeDimension(player, planet);
+                return;
+            }
+
+            rocket.getPassengers().forEach((entity -> {
+                if(entity instanceof Player) {
+                    Utils.changeDimension((Player) entity, planet);
+                    player.getEntityData().set(EntityData.DATA_PLANET_MENU_OPEN, false);
+                }
+            }));
         } else {
             Stellaris.LOG.error("Planet is null");
         }
-
     }
 
     @Override
