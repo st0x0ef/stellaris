@@ -7,5 +7,5 @@
 - add chunk oil system
 - add steel tools
 - allow more than 1 player to be in a rocket at the same time
-- add creative rocket
-- add creative oxygen tank
+- change default rocket model
+- add creative rocket, oxygen tank & jet suit

@@ -25,7 +25,6 @@ public class DataComponentsRegistry {
     public static final RegistrySupplier<DataComponentType<OxygenComponent>> STORED_OXYGEN_COMPONENT = DATA_COMPONENT_TYPE.register("stored_oxygen",
             () -> DataComponentType.<OxygenComponent>builder().persistent(OxygenComponent.CODEC).networkSynchronized(OxygenComponent.STREAM_CODEC).build());
 
-
     public static final RegistrySupplier<DataComponentType<Long>> STORED_FUEL_COMPONENT = DATA_COMPONENT_TYPE.register("stored_fuel",
             () -> DataComponentType.<Long>builder().persistent(
                     Codec.LONG.validate(l -> l.compareTo(0L) >= 0 && l.compareTo(Long.MAX_VALUE) <= 0
