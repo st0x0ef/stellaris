@@ -65,7 +65,7 @@ public class Events {
     }
 
     private static void addOxygenRoom(ServerLevel level, BlockPos pos) {
-        GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level).addOxygenRoom(new OxygenRoom(pos));
+        GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level).addOxygenRoom(new OxygenRoom(level, pos));
     }
 
     private static void checkIfNeedToAddOxygenRoom(ServerLevel level, BlockPos pos) {
@@ -101,6 +101,6 @@ public class Events {
 
 
     private static void updateOxygen(ServerLevel level) {
-        GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level).updateOxygen(level);
+        GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level).updateOxygen();
     }
 }

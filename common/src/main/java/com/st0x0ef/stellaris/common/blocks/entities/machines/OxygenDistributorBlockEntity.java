@@ -19,10 +19,13 @@ public class OxygenDistributorBlockEntity extends BaseEnergyContainerBlockEntity
 
     }
 
-    public boolean takeOxygenFromTank() {
+    public boolean useOxygenAndEnergy() {
         long amountStored = OxygenUtils.getOxygen(getItem(0));
-        if (amountStored > 0) {
+
+        if (amountStored > 0 && getWrappedEnergyContainer().getStoredEnergy() > 0) {
             OxygenUtils.removeOxygen(getItem(0), 1);
+            getWrappedEnergyContainer().extractEnergy(1, false);
+
             return true;
         }
 
