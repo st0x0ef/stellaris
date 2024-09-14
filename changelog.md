@@ -6,6 +6,6 @@
 - add pump jack
 - add chunk oil system
 - add steel tools
-- add 2-3 players rocket
+- allow more than 1 player to be in a rocket at the same time
 - add creative rocket
 - add creative oxygen tank
