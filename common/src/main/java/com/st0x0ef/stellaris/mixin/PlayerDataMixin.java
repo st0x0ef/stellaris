@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.mixin;
 
+import com.st0x0ef.stellaris.common.armors.AbstractSpaceArmor;
 import com.st0x0ef.stellaris.common.armors.JetSuit;
 import com.st0x0ef.stellaris.common.registry.EntityData;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -35,7 +36,7 @@ public abstract class PlayerDataMixin extends LivingEntity {
 
     @Inject(method = "tick", at = @At("TAIL"))
     public void tick(CallbackInfo ci) {
-        if(this.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof JetSuit.Suit suit) {
+        if(this.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof AbstractSpaceArmor.AbstractSpaceChestplate suit) {
             suit.onArmorTick(this.getItemBySlot(EquipmentSlot.CHEST), this.level(), stellaris$player);
         }
     }

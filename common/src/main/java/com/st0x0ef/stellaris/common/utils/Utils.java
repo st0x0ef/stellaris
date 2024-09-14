@@ -230,6 +230,13 @@ public class Utils {
         return isLivingInArmor(entity, EquipmentSlot.FEET, ItemsRegistry.JETSUIT_BOOTS.get());
     }
 
+    public static boolean isLivingInSpaceSuit(LivingEntity entity) {
+        if (!isLivingInArmor(entity, EquipmentSlot.HEAD, ItemsRegistry.SPACESUIT_HELMET.get())) return false;
+        if (!isLivingInArmor(entity, EquipmentSlot.CHEST, ItemsRegistry.SPACESUIT_SUIT.get())) return false;
+        if (!isLivingInArmor(entity, EquipmentSlot.LEGS, ItemsRegistry.SPACESUIT_LEGGINGS.get())) return false;
+        return isLivingInArmor(entity, EquipmentSlot.FEET, ItemsRegistry.SPACESUIT_BOOTS.get());
+    }
+
 
     public static boolean isLivingInArmor(LivingEntity entity, EquipmentSlot slot, Item item) {
         return entity.getItemBySlot(slot).getItem() == item;

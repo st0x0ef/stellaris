@@ -65,7 +65,7 @@ public class DimensionOxygenManager {
             return true;
         }
 
-        if (Utils.isLivingInJetSuit(entity)) {
+        if (Utils.isLivingInJetSuit(entity) || Utils.isLivingInSpaceSuit(entity)) {
             return OxygenUtils.getOxygen(entity.getItemBySlot(EquipmentSlot.CHEST)) > 0;
         }
 

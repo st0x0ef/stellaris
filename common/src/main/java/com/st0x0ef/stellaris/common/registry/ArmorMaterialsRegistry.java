@@ -9,6 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.EnumMap;
@@ -31,8 +32,23 @@ public class ArmorMaterialsRegistry {
             List.of(new ArmorMaterial.Layer(ResourceLocation.parse("jetsuit"))),
             2.0F, 0.0F);
 
+    public static final ArmorMaterial SPACE_SUIT_MATERIAL = new ArmorMaterial(
+            Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
+                map.put(ArmorItem.Type.BOOTS, 2);
+                map.put(ArmorItem.Type.LEGGINGS, 5);
+                map.put(ArmorItem.Type.CHESTPLATE, 6);
+                map.put(ArmorItem.Type.HELMET, 2);
+                map.put(ArmorItem.Type.BODY, 9);
+            }),
+            10,
+            SoundEvents.ARMOR_EQUIP_GENERIC,
+            () -> Ingredient.of(Items.IRON_INGOT),
+            List.of(new ArmorMaterial.Layer(ResourceLocation.parse("spacesuit"))),
+            2.0F, 0.0F);
+
 
     public static final RegistrySupplier<ArmorMaterial> JET_SUIT = ARMOR_MATERIAL.register("radioactive", () -> JET_SUIT_MATERIAL);
+    public static final RegistrySupplier<ArmorMaterial> SPACE_SUIT = ARMOR_MATERIAL.register("space_suit", () -> JET_SUIT_MATERIAL);
 
 
 }
