@@ -75,14 +75,20 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     private Player lastPlayer;
 
     private static final EntityDataAccessor<String> DATA_SKIN;
-    public static final EntityDataAccessor<Boolean> ROCKET_START = SynchedEntityData.defineId(RocketEntity.class, EntityDataSerializers.BOOLEAN);;
+    public static final EntityDataAccessor<Boolean> ROCKET_START;
     private static final EntityDataAccessor<String> DATA_MODEL;
 
-    public RocketEntity(EntityType<?> entityType, Level level) {
+    static {
+        DATA_SKIN = SynchedEntityData.defineId(RocketEntity.class, EntityDataSerializers.STRING);
+        DATA_MODEL = SynchedEntityData.defineId(RocketEntity.class, EntityDataSerializers.STRING);
+        ROCKET_START = SynchedEntityData.defineId(RocketEntity.class, EntityDataSerializers.BOOLEAN);
+    }
+
+    public RocketEntity(EntityType<? extends RocketEntity> entityType, Level level) {
         this(entityType, level, SkinUpgrade.getBasic());
     }
 
-    protected RocketEntity(EntityType<?> entityType, Level level, SkinUpgrade skinUpgrade) {
+    protected RocketEntity(EntityType<? extends RocketEntity> entityType, Level level, SkinUpgrade skinUpgrade) {
         super(entityType,level);
 
         this.SKIN_UPGRADE = skinUpgrade;
@@ -193,6 +199,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         super.defineSynchedData(builder);
         builder.define(DATA_SKIN, SkinUpgrade.getBasic().getRocketSkinLocation().toString());
         builder.define(DATA_MODEL, ModelUpgrade.getBasic().getModel().toString());
+        builder.define(ROCKET_START, false);
     }
 
     public SkinUpgrade getSkinData() {
@@ -674,10 +681,5 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     @Override
     public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity entity) {
         return NetworkManager.createAddEntityPacket(this, entity);
-    }
-
-    static {
-        DATA_SKIN = SynchedEntityData.defineId(RocketEntity.class, EntityDataSerializers.STRING);
-        DATA_MODEL = SynchedEntityData.defineId(RocketEntity.class, EntityDataSerializers.STRING);
     }
 }
