@@ -67,8 +67,6 @@ public class ItemsRegistry {
     /**
      * Other
      */
-    public static final RegistrySupplier<Item> OXYGEN_TANK = ITEMS.register("oxygen_tank", () -> new OxygenTankItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get(), new OxygenComponent(0L, Platform.isFabric() ? (int) FluidTankHelper.convertFromMb(3600) : 3600))));
-    public static final RegistrySupplier<Item> BIG_OXYGEN_TANK = ITEMS.register("big_oxygen_tank", () -> new OxygenTankItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get(), new OxygenComponent(0L, Platform.isFabric() ? (int) FluidTankHelper.convertFromMb(10800) : 10800))));
     public static final RegistrySupplier<Item> ICE_SHARD_ARROW = ITEMS.register("ice_shard_arrow", () -> new IceShardArrow(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
 
     /**
@@ -329,15 +327,27 @@ public class ItemsRegistry {
     public static final RegistrySupplier<Item> RADIOACTIVE_MOTOR_UPGRADE = ITEMS.register("radioactive_motor", () -> new RocketUpgradeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), new MotorUpgrade(FuelType.Type.RADIOACTIVE, GUISprites.ENERGY_FULL)));
 
     /**
+     * Oxygen
+     */
+
+    public static final RegistrySupplier<Item> OXYGEN_TANK = ITEMS.register("oxygen_tank", () -> new OxygenTankItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get(), new OxygenComponent(0L, Platform.isFabric() ? (int) FluidTankHelper.convertFromMb(3600) : 3600))));
+    public static final RegistrySupplier<Item> BIG_OXYGEN_TANK = ITEMS.register("big_oxygen_tank", () -> new OxygenTankItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get(), new OxygenComponent(0L, Platform.isFabric() ? (int) FluidTankHelper.convertFromMb(10800) : 10800))));
+    public static final RegistrySupplier<Item> OXYGEN_TANK_FULL = ITEMS.register("oxygen_tank", () -> new OxygenTankItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get(), new OxygenComponent(Platform.isFabric() ? (int) FluidTankHelper.convertFromMb(3600) : 3600, Platform.isFabric() ? (int) FluidTankHelper.convertFromMb(3600) : 3600))));
+    public static final RegistrySupplier<Item> BIG_OXYGEN_TANK_FULL = ITEMS.register("big_oxygen_tank", () -> new OxygenTankItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get(), new OxygenComponent(Platform.isFabric() ? (int) FluidTankHelper.convertFromMb(10800) : 10800, Platform.isFabric() ? (int) FluidTankHelper.convertFromMb(10800) : 10800))));
+
+    /**
      * Suit
      */
+
     public static final RegistrySupplier<Item> JETSUIT_HELMET = ITEMS.register("jet_suit_helmet", () -> new CustomArmorItem(ArmorMaterialsRegistry.JET_SUIT, ArmorItem.Type.HELMET, new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> JETSUIT_SUIT = ITEMS.register("jet_suit_chestplate", () -> new JetSuit.Suit(ArmorMaterialsRegistry.JET_SUIT, new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get(), new OxygenComponent(0L, Platform.isFabric() ? FluidTankHelper.convertFromMb(10800) : 10800)).component(DataComponentsRegistry.JET_SUIT_COMPONENT.get(), new JetSuitComponent(JetSuit.ModeType.DISABLED))));
     public static final RegistrySupplier<Item> JETSUIT_LEGGINGS = ITEMS.register("jet_suit_leggings", () -> new CustomArmorItem(ArmorMaterialsRegistry.JET_SUIT, ArmorItem.Type.LEGGINGS, new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> JETSUIT_BOOTS = ITEMS.register("jet_suit_boots", () -> new CustomArmorItem(ArmorMaterialsRegistry.JET_SUIT, ArmorItem.Type.BOOTS, new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+
     /**
      * Tools
      */
+
     public static final RegistrySupplier<Item> STEEL_SWORD = ITEMS.register("steel_sword", () -> new SwordItem(ToolsRegister.STEEL, (new Item.Properties()).attributes(SwordItem.createAttributes(ToolsRegister.STEEL, 3, -2.8F)).arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> STEEL_HOE = ITEMS.register("steel_hoe", () -> new HoeItem(ToolsRegister.STEEL, (new Item.Properties()).attributes(HoeItem.createAttributes(ToolsRegister.STEEL, -3.0F, -1.0F)).arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> STEEL_PICKAXE = ITEMS.register("steel_pickaxe", () -> new PickaxeItem(ToolsRegister.STEEL, (new Item.Properties()).attributes(PickaxeItem.createAttributes(ToolsRegister.STEEL, 1.0F, -2.8F)).arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
