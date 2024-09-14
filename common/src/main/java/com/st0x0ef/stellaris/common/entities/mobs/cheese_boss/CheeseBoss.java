@@ -43,7 +43,7 @@ public class CheeseBoss extends Monster implements Enemy, RangedAttackMob {
     private final ServerBossEvent bossEvent = (ServerBossEvent)new ServerBossEvent(CHEESE_BOSS_NAME_COMPONENT, BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.PROGRESS).setDarkenScreen(true);
 
 
-    public CheeseBoss(EntityType<? extends AlienZombie> type, Level level) {
+    public CheeseBoss(EntityType<? extends CheeseBoss> type, Level level) {
         super(type, level);
     }
 
