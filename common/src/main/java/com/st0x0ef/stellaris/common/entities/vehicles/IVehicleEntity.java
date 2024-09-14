@@ -35,7 +35,6 @@ public abstract class IVehicleEntity extends Entity{
         this.blocksBuilding = true;
     }
 
-
     @Override
     protected void readAdditionalSaveData(CompoundTag tag) {
 

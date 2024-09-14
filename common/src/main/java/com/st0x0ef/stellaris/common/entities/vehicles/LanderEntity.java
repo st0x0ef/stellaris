@@ -44,7 +44,7 @@ public class LanderEntity extends IVehicleEntity implements HasCustomInventorySc
         this(EntityRegistry.LANDER.get(), level);
     }
 
-    public LanderEntity(EntityType<?> type, Level level) {
+    public LanderEntity(EntityType<? extends LanderEntity> type, Level level) {
         super(type, level);
 
         this.inventory = new SimpleContainer(15);
