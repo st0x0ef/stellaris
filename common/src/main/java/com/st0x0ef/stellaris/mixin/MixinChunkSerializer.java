@@ -35,8 +35,14 @@ public class MixinChunkSerializer {
         }
     }
 
-    @Inject(method = "write", at= @At(value = "TAIL"))
-    private static void writeDataLevel(ServerLevel level, ChunkAccess chunk, CallbackInfoReturnable<CompoundTag> cir, @Local(name = "compoundTag") CompoundTag compoundTag) {
-        compoundTag.putInt("oilLevel", chunk.stellaris$getChunkOilLevel());
+    @WrapOperation(
+            method = "write",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/NbtUtils;addCurrentDataVersion(Lnet/minecraft/nbt/CompoundTag;)Lnet/minecraft/nbt/CompoundTag;")
+    )
+    private static CompoundTag writeOilLevel(CompoundTag tag, Operation<CompoundTag> original, ServerLevel level, ChunkAccess chunk) {
+        CompoundTag compoud = original.call(tag);
+        compoud.putInt("oilLevel", chunk.stellaris$getChunkOilLevel());
+
+        return compoud;
     }
 }
