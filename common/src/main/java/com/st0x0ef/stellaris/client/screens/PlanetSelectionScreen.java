@@ -764,8 +764,6 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         RenderSystem.defaultBlendFunc();
         RenderSystem.setShader(GameRenderer::getPositionColorShader);
 
-        GL11.glLineWidth(2.0F);
-
         Tesselator tesselator = Tesselator.getInstance();
 
         for (PlanetInfo planet : PLANETS) {
@@ -806,8 +804,6 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             float vertex1Y = (float) (centerY + radius * Math.sin(currentAngle));
             float vertex2X = (float) (centerX + radius * Math.cos(nextAngle));
             float vertex2Y = (float) (centerY + radius * Math.sin(nextAngle));
-
-
 
             bufferBuilder.addVertex(vertex1X, vertex1Y, 0).setColor(red, green, blue, alphaL);
             bufferBuilder.addVertex(vertex2X, vertex2Y, 0).setColor(red, green, blue, alphaL);
