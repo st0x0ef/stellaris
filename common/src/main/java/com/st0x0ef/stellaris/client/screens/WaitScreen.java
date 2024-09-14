@@ -2,8 +2,6 @@ package com.st0x0ef.stellaris.client.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
-import com.st0x0ef.stellaris.common.menus.MilkyWayMenu;
 import com.st0x0ef.stellaris.common.menus.WaitMenu;
 import com.st0x0ef.stellaris.common.registry.EntityData;
 import net.fabricmc.api.EnvType;
@@ -17,7 +15,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import org.lwjgl.glfw.GLFW;
 
 @Environment(EnvType.CLIENT)
 public class WaitScreen extends AbstractContainerScreen<WaitMenu> {

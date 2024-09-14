@@ -2,11 +2,7 @@ package com.st0x0ef.stellaris.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.llamalad7.mixinextras.sugar.Local;
 import com.st0x0ef.stellaris.common.oil.OilUtils;
-import com.st0x0ef.stellaris.common.oxygen.GlobalOxygenManager;
-import com.st0x0ef.stellaris.common.oxygen.OxygenRoom;
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
@@ -16,10 +12,6 @@ import net.minecraft.world.level.chunk.storage.ChunkSerializer;
 import net.minecraft.world.level.chunk.storage.RegionStorageInfo;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Mixin(ChunkSerializer.class)
 public class MixinChunkSerializer {
