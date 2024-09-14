@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.common.entities.mobs.cheese_boss;
 
 import com.mojang.serialization.Dynamic;
+import com.st0x0ef.stellaris.common.entities.mobs.AlienZombie;
 import com.st0x0ef.stellaris.common.entities.mobs.cheese_boss.attack_entities.CheeseSpit;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import dev.architectury.networking.NetworkManager;
@@ -42,8 +43,8 @@ public class CheeseBoss extends Monster implements Enemy, RangedAttackMob {
     private final ServerBossEvent bossEvent = (ServerBossEvent)new ServerBossEvent(CHEESE_BOSS_NAME_COMPONENT, BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.PROGRESS).setDarkenScreen(true);
 
 
-    public CheeseBoss(Level level) {
-        super(EntityRegistry.CHEESE_BOSS.get(), level);
+    public CheeseBoss(EntityType<? extends AlienZombie> type, Level level) {
+        super(type, level);
     }
 
     //TODO real attributes
