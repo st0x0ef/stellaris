@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.menus.slot;
 
+import com.st0x0ef.stellaris.common.armors.AbstractSpaceArmor;
 import com.st0x0ef.stellaris.common.armors.JetSuit;
 import com.st0x0ef.stellaris.common.items.OxygenTankItem;
 import dev.architectury.hooks.fluid.FluidBucketHooks;
@@ -25,7 +26,7 @@ public class FluidContainerSlot extends Slot {
         return (stack.getItem() instanceof BucketItem item
                 && (!emptyOnly || FluidBucketHooks.getFluid(item).isSame(Fluids.EMPTY)))
                 || (allowTanks && stack.getItem() instanceof OxygenTankItem)
-                || (allowTanks && stack.getItem() instanceof JetSuit.Suit);
+                || (allowTanks && stack.getItem() instanceof AbstractSpaceArmor.AbstractSpaceChestplate);
     }
 
     @Override

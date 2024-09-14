@@ -1,9 +1,11 @@
 package com.st0x0ef.stellaris.common.armors;
 
+import com.st0x0ef.stellaris.common.blocks.entities.machines.FluidTank;
 import com.st0x0ef.stellaris.common.items.CustomArmorItem;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import com.st0x0ef.stellaris.common.utils.OxygenUtils;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
+import dev.architectury.fluid.FluidStack;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
@@ -19,14 +21,14 @@ public abstract class AbstractSpaceArmor extends CustomArmorItem {
         super(material, type, properties);
     }
 
-    public static class Chestplate extends AbstractSpaceArmor {
-        public Chestplate(Holder<ArmorMaterial> material, Type type, Properties properties) {
+    public static class AbstractSpaceChestplate extends AbstractSpaceArmor {
+        public AbstractSpaceChestplate(Holder<ArmorMaterial> material, Type type, Properties properties) {
             super(material, type, properties);
         }
 
         public void onArmorTick(ItemStack stack, Level level, Player player) {
             if (!PlanetUtil.hasOxygen(level.dimension().location()) && !player.isCreative()) {
-                OxygenUtils.removeOxygen(stack, 1);
+                OxygenUtils.removeOxygen(stack, FluidStack.bucketAmount()/1000);
             }
         }
 
@@ -34,8 +36,20 @@ public abstract class AbstractSpaceArmor extends CustomArmorItem {
         public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
             super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
 
-            tooltipComponents.add(Component.translatable("jetsuit.stellaris.fuel", getFuel(stack)));
             tooltipComponents.add(Component.translatable("jetsuit.stellaris.oxygen", OxygenUtils.getOxygen(stack)));
+        }
+    }
+
+    public static class Chestplate extends AbstractSpaceChestplate {
+        public Chestplate(Holder<ArmorMaterial> material, Type type, Properties properties) {
+            super(material, type, properties);
+        }
+
+        @Override
+        public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+            super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+
+            tooltipComponents.add(Component.translatable("jetsuit.stellaris.fuel", getFuel(stack)));
         }
 
         public static void addFuel(ItemStack stack, int amount) {
