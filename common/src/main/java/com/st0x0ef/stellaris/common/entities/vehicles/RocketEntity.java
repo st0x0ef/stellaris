@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.common.entities.vehicles;
 
 import com.google.common.collect.Sets;
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.RocketModel;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.data_components.RocketComponent;
@@ -254,9 +255,10 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
     public boolean canPlayerRide() {
         int maxPlayer = this.MODEL_UPGRADE.getMaxPlayer();
-
         return this.getPassengers().size() < maxPlayer;
     }
+
+
 
     @Override
     public Vec3 getPassengerRidingPosition(Entity entity) {
@@ -460,8 +462,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         if (!this.level().isClientSide) {
             Vec3 entityPos = player.getPosition(0);
             player.setPosRaw(entityPos.x, entityPos.y + 40.0, entityPos.z);
-
-            player.startRiding(this);
+            player.startRiding(this, true);
         }
 
     }
