@@ -7,3 +7,4 @@
 - add chunk oil system
 - add steel tools
 - add 2-3 players rocket
+- add creative rocket (full fuel)
