@@ -32,7 +32,7 @@ public class DimensionOxygenManager {
     }
 
     public void removeOxygenRoom(BlockPos pos) {
-        oxygenRooms.removeIf(room -> room.getGeneratorPosition().equals(pos));
+        oxygenRooms.removeIf(room -> room.getDistributorPosition().equals(pos));
     }
 
     public void addRoomToCheckIfOpen(BlockPos pos, OxygenRoom room) {
@@ -50,10 +50,10 @@ public class DimensionOxygenManager {
         return true;
     }
 
-    public void updateOxygen(ServerLevel level) {
+    public void updateOxygen() {
         if (planetHasOxygen) return;
 
-        oxygenRooms.parallelStream().forEach(room -> room.updateOxygenRoom(level));
+        oxygenRooms.forEach(OxygenRoom::updateOxygenRoom);
         roomToCheckIfOpen.values().forEach(OxygenRoom::removeOxygenInRoom);
         roomToCheckIfOpen.clear();
     }
@@ -79,13 +79,9 @@ public class DimensionOxygenManager {
         return canBreath.get();
     }
 
-    public boolean doesPlanetHasOxygen() {
-        return planetHasOxygen;
-    }
-
     public OxygenRoom getOxygenRoom(BlockPos pos) {
         for (OxygenRoom room : oxygenRooms) {
-            if (room.getGeneratorPosition().equals(pos)) {
+            if (room.getDistributorPosition().equals(pos)) {
                 return room;
             }
         }
