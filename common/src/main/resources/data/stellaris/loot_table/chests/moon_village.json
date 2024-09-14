@@ -8,6 +8,18 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "name": "stellaris:moon_fruit",
+          "weight": 40,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 6,
+              "add": true
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
           "name": "stellaris:moon_sand",
           "weight": 25,
           "functions": [
@@ -213,7 +225,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "stellaris:chesse",
+          "name": "stellaris:cheese",
           "weight": 10,
           "functions": [
             {

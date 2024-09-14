@@ -8,14 +8,14 @@
     "EntityTick",
     "LivingEntityMixin",
     "PlayerDataMixin",
-    "ItemEntityGravityMixin"
+    "ItemEntityGravityMixin",
+    "MixinChunkAccess",
+    "MixinChunkSerializer"
   ],
   "client": [
     "client.PlayerRiddingVehicleMixin",
     "client.PlayerLanderKeyMixin",
-    "client.RenderPlayerMixin",
-    "client.LevelRendererAccessor",
-    "client.LevelRendererMixin"
+    "client.RenderPlayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

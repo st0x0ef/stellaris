@@ -1,8 +1,10 @@
 package com.st0x0ef.stellaris.common.menus.slot.upgrade;
 
-import com.st0x0ef.stellaris.common.items.upgrade.RocketUpgradeItem;
+import com.st0x0ef.stellaris.common.items.RocketUpgradeItem;
+import com.st0x0ef.stellaris.common.menus.RocketMenu;
 import com.st0x0ef.stellaris.common.rocket_upgrade.MotorUpgrade;
 import net.minecraft.world.Container;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
@@ -16,6 +18,15 @@ public class MotorUpgradeSlot extends Slot {
     public boolean mayPlace(ItemStack stack) {
         if (stack.getItem() instanceof RocketUpgradeItem item) {
             return item.getUpgrade() instanceof MotorUpgrade;
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean mayPickup(Player player) {
+        if (player.containerMenu instanceof RocketMenu menu) {
+            return menu.getRocket().getFuel() == 0;
         }
 
         return false;

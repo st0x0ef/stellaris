@@ -21,4 +21,8 @@ public abstract class BaseLitMachineBlock extends BaseMachineBlock {
         super.createBlockStateDefinition(builder);
         builder.add(LIT);
     }
+
+    public boolean isLit(BlockState state) {
+        return state.getValue(LIT);
+    }
 }

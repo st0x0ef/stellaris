@@ -23,7 +23,7 @@ public class NormalRocketRenderer extends VehicleRenderer<RocketEntity, NormalRo
 
     @Override
     protected boolean isShaking(RocketEntity rocket) {
-        return rocket.ROCKET_START;
+        return rocket.getEntityData().get(RocketEntity.ROCKET_START);
     }
 
 }

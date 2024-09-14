@@ -4,8 +4,6 @@ import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.entities.GlobeBlockEntity;
 import com.st0x0ef.stellaris.common.blocks.entities.RadioactiveBlockEntity;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.*;
-import com.st0x0ef.stellaris.common.blocks.entities.machines.oxygen.OxygenDistributorBlockEntity;
-import com.st0x0ef.stellaris.common.blocks.entities.machines.oxygen.OxygenPropagatorBlockEntity;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
@@ -46,11 +44,11 @@ public class BlockEntityRegistry {
             () -> BlockEntityType.Builder.of(VacuumatorBlockEntity::new, BlocksRegistry.VACUMATOR.get()).build(null));
     public static final Supplier<BlockEntityType<?>> WATER_SEPARATOR_ENTITY = BLOCK_ENTITY_TYPE.register("water_separator",
             () -> BlockEntityType.Builder.of(WaterSeparatorBlockEntity::new, BlocksRegistry.WATER_SEPARATOR.get()).build(null));
-    public static final Supplier<BlockEntityType<?>> OXYGEN_PROPAGATOR = BLOCK_ENTITY_TYPE.register("oxygen_propagator",
-            () -> BlockEntityType.Builder.of(OxygenPropagatorBlockEntity::new, BlocksRegistry.OXYGEN_PROPAGATOR.get()).build(null));
     public static final Supplier<BlockEntityType<?>> OXYGEN_DISTRIBUTOR = BLOCK_ENTITY_TYPE.register("oxygen_distributor",
             () -> BlockEntityType.Builder.of(OxygenDistributorBlockEntity::new, BlocksRegistry.OXYGEN_DISTRIBUTOR.get()).build(null));
     public static final Supplier<BlockEntityType<?>> FUEL_REFINERY = BLOCK_ENTITY_TYPE.register("fuel_refinery",
             () -> BlockEntityType.Builder.of(FuelRefineryBlockEntity::new, BlocksRegistry.FUEL_REFINERY.get()).build(null));
 
+    public static final Supplier<BlockEntityType<WaterPumpBlockEntity>> WATER_PUMP = BLOCK_ENTITY_TYPE.register("water_pump",
+            () -> BlockEntityType.Builder.of(WaterPumpBlockEntity::new, BlocksRegistry.WATER_PUMP.get()).build(null));
 }

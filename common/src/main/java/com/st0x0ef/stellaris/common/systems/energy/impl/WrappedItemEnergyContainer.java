@@ -17,9 +17,7 @@ import net.minecraft.world.item.ItemStack;
 public record WrappedItemEnergyContainer(ItemStack stack,
                                          EnergyContainer container) implements EnergyContainer, Updatable {
 
-    public WrappedItemEnergyContainer {
-        //container.deserialize(stack.getOrCreateTag()); TODO fix this
-    }
+    //container.deserialize(stack.getOrCreateTag()); TODO fix this
 
     @Override
     public long insertEnergy(long energy, boolean simulate) {

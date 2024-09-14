@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XX ",
+    "X# ",
+    " # "
+  ],
+  "key": {
+    "X": {"item": "stellaris:steel_ingot"},
+    "#": {"item": "minecraft:stick"}
+  },
+  "result": {
+    "id": "stellaris:steel_axe"
+  }
+}

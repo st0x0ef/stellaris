@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.common.network.packets;
 
 import com.st0x0ef.stellaris.common.blocks.entities.machines.FuelRefineryBlockEntity;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.WaterPumpBlockEntity;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.WaterSeparatorBlockEntity;
 import com.st0x0ef.stellaris.common.menus.*;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
@@ -88,12 +89,21 @@ public class SyncWidgetsTanksPacket implements CustomPacketPayload {
                     blockEntity.getWrappedEnergyContainer().setEnergy(syncWidgetsTanks.component[0]);
                 }
             }
+            case WaterPumpMenu menu -> {
+                WaterPumpBlockEntity blockEntity = menu.getBlockEntity();
+                if (syncWidgetsTanks.component.length == 1 && syncWidgetsTanks.locations.length == 1) {
+                    blockEntity.getWaterTank().setFluid(BuiltInRegistries.FLUID.get(syncWidgetsTanks.locations[0]), syncWidgetsTanks.component[0]);
+                }
+                else if (syncWidgetsTanks.component.length == 2) {
+                    blockEntity.getWrappedEnergyContainer().setEnergy(syncWidgetsTanks.component[0]);
+                }
+            }
             case SolarPanelMenu menu -> menu.getEnergyContainer().setEnergy(syncWidgetsTanks.component[0]);
             case CoalGeneratorMenu menu ->
                     menu.getBlockEntity().getWrappedEnergyContainer().setEnergy(syncWidgetsTanks.component[0]);
             case RadioactiveGeneratorMenu menu ->
                     menu.getBlockEntity().getWrappedEnergyContainer().setEnergy(syncWidgetsTanks.component[0]);
-            case OxygenDistributorMenu menu ->
+            case OxygenGeneratorMenu menu ->
                     menu.getBlockEntity().getWrappedEnergyContainer().setEnergy(syncWidgetsTanks.component[0]);
             default -> {
             }

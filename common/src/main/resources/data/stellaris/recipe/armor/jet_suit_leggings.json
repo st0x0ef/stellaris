@@ -1,12 +1,13 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "###",
-    "# #",
-    "# #"
+    "scs",
+    "c c",
+    "c c"
   ],
   "key": {
-    "#": {"item": "stellaris:desh_ingot"}
+    "c": {"item": "minecraft:copper_ingot"},
+    "s": {"item": "stellaris:steel_ingot"}
   },
   "result": {
     "id": "stellaris:jet_suit_leggings"
