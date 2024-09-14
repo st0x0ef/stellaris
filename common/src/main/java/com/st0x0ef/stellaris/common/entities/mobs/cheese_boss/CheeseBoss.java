@@ -42,7 +42,7 @@ public class CheeseBoss extends Monster implements Enemy, RangedAttackMob {
     private final ServerBossEvent bossEvent = (ServerBossEvent)new ServerBossEvent(CHEESE_BOSS_NAME_COMPONENT, BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.PROGRESS).setDarkenScreen(true);
 
 
-    public CheeseBoss(EntityType<? extends Monster> entityType, Level level) {
+    public CheeseBoss(Level level) {
         super(EntityRegistry.CHEESE_BOSS.get(), level);
     }
 
@@ -143,7 +143,7 @@ public class CheeseBoss extends Monster implements Enemy, RangedAttackMob {
 //            setSpitting(true);
 //            spit(target);
 //        }
-        spit(target);
+        //spit(target);
     }
 
     public void setSpitting(boolean spitting) {
