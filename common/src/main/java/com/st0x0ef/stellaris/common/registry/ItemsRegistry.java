@@ -21,6 +21,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 
+import java.util.ArrayList;
+
 public class ItemsRegistry {
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Stellaris.MODID, Registries.ITEM);
@@ -315,8 +317,6 @@ public class ItemsRegistry {
      * Rocket
      */
     public static final RegistrySupplier<Item> ROCKET = ITEMS.register("rocket", () -> new RocketItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.ROCKET_COMPONENT.get(), new RocketComponent(SkinUpgrade.getBasic().getNameSpace(), ModelUpgrade.getBasic().getModel(), MotorUpgrade.getBasic().getFuelType().getSerializedName(), 0, GUISprites.FUEL_OVERLAY, TankUpgrade.getBasic().getTankCapacity()))));
-    public static final RegistrySupplier<Item> ROCKET_FULL = ITEMS.register("rocket", () -> new RocketItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.ROCKET_COMPONENT.get(), new RocketComponent(SkinUpgrade.getBasic().getNameSpace(), ModelUpgrade.getBasic().getModel(), MotorUpgrade.getBasic().getFuelType().getSerializedName(), TankUpgrade.getBasic().getTankCapacity(), GUISprites.FUEL_OVERLAY, TankUpgrade.getBasic().getTankCapacity()))));
-
     // Upgrade
     public static final RegistrySupplier<Item> FROSTY_ROCKET_SKIN = ITEMS.register("skin_frozy", () -> new RocketUpgradeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), new SkinUpgrade(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/vehicle/rocket_skin/normal/frozy.png"))));
     public static final RegistrySupplier<Item> NORMAL_ROCKET_SKIN = ITEMS.register("skin_normal", () -> new RocketUpgradeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), new SkinUpgrade(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/vehicle/rocket_skin/normal/standard.png"))));
@@ -340,8 +340,6 @@ public class ItemsRegistry {
 
     public static final RegistrySupplier<Item> OXYGEN_TANK = ITEMS.register("oxygen_tank", () -> new OxygenTankItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get(), new OxygenComponent(0L, Platform.isFabric() ? (int) FluidTankHelper.convertFromMb(3600) : 3600))));
     public static final RegistrySupplier<Item> BIG_OXYGEN_TANK = ITEMS.register("big_oxygen_tank", () -> new OxygenTankItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get(), new OxygenComponent(0L, Platform.isFabric() ? (int) FluidTankHelper.convertFromMb(10800) : 10800))));
-    public static final RegistrySupplier<Item> OXYGEN_TANK_FULL = ITEMS.register("oxygen_tank", () -> new OxygenTankItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get(), new OxygenComponent(Platform.isFabric() ? (int) FluidTankHelper.convertFromMb(3600) : 3600, Platform.isFabric() ? (int) FluidTankHelper.convertFromMb(3600) : 3600))));
-    public static final RegistrySupplier<Item> BIG_OXYGEN_TANK_FULL = ITEMS.register("big_oxygen_tank", () -> new OxygenTankItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get(), new OxygenComponent(Platform.isFabric() ? (int) FluidTankHelper.convertFromMb(10800) : 10800, Platform.isFabric() ? (int) FluidTankHelper.convertFromMb(10800) : 10800))));
 
     /**
      * Suit
@@ -349,13 +347,13 @@ public class ItemsRegistry {
 
     public static final RegistrySupplier<Item> JETSUIT_HELMET = ITEMS.register("jet_suit_helmet", () -> new CustomArmorItem(ArmorMaterialsRegistry.JET_SUIT, ArmorItem.Type.HELMET, new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> JETSUIT_SUIT = ITEMS.register("jet_suit_chestplate", () -> new JetSuit.Suit(ArmorMaterialsRegistry.JET_SUIT, new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get(), new OxygenComponent(0L, Platform.isFabric() ? FluidTankHelper.convertFromMb(10800) : 10800)).component(DataComponentsRegistry.JET_SUIT_COMPONENT.get(), new JetSuitComponent(JetSuit.ModeType.DISABLED))));
-    public static final RegistrySupplier<Item> JETSUIT_SUIT_FULL = ITEMS.register("jet_suit_chestplate", () -> new JetSuit.Suit(ArmorMaterialsRegistry.JET_SUIT, new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get(), new OxygenComponent(Platform.isFabric() ? FluidTankHelper.convertFromMb(10800) : 10800, Platform.isFabric() ? FluidTankHelper.convertFromMb(10800) : 10800)).component(DataComponentsRegistry.JET_SUIT_COMPONENT.get(), new JetSuitComponent(JetSuit.ModeType.DISABLED))));
+    //public static final RegistrySupplier<Item> JETSUIT_SUIT_FULL = ITEMS.register("jet_suit_chestplate", () -> new JetSuit.Suit(ArmorMaterialsRegistry.JET_SUIT, new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get(), new OxygenComponent(Platform.isFabric() ? FluidTankHelper.convertFromMb(10800) : 10800, Platform.isFabric() ? FluidTankHelper.convertFromMb(10800) : 10800)).component(DataComponentsRegistry.JET_SUIT_COMPONENT.get(), new JetSuitComponent(JetSuit.ModeType.DISABLED))));
     public static final RegistrySupplier<Item> JETSUIT_LEGGINGS = ITEMS.register("jet_suit_leggings", () -> new CustomArmorItem(ArmorMaterialsRegistry.JET_SUIT, ArmorItem.Type.LEGGINGS, new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> JETSUIT_BOOTS = ITEMS.register("jet_suit_boots", () -> new CustomArmorItem(ArmorMaterialsRegistry.JET_SUIT, ArmorItem.Type.BOOTS, new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
 
     public static final RegistrySupplier<Item> SPACESUIT_HELMET = ITEMS.register("space_suit_helmet", () -> new CustomArmorItem(ArmorMaterialsRegistry.SPACE_SUIT, ArmorItem.Type.HELMET, new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> SPACESUIT_SUIT = ITEMS.register("space_suit_chestplate", () -> new AbstractSpaceArmor.AbstractSpaceChestplate(ArmorMaterialsRegistry.SPACE_SUIT, ArmorItem.Type.CHESTPLATE, new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get(), new OxygenComponent(0L, Platform.isFabric() ? FluidTankHelper.convertFromMb(10800) : 10800))));
-    public static final RegistrySupplier<Item> SPACESUIT_SUIT_FULL = ITEMS.register("space_suit_chestplate", () -> new AbstractSpaceArmor.AbstractSpaceChestplate(ArmorMaterialsRegistry.SPACE_SUIT, ArmorItem.Type.CHESTPLATE, new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get(), new OxygenComponent(Platform.isFabric() ? FluidTankHelper.convertFromMb(10800) : 10800, Platform.isFabric() ? FluidTankHelper.convertFromMb(10800) : 10800))));
+    //public static final RegistrySupplier<Item> SPACESUIT_SUIT_FULL = ITEMS.register("space_suit_chestplate", () -> new AbstractSpaceArmor.AbstractSpaceChestplate(ArmorMaterialsRegistry.SPACE_SUIT, ArmorItem.Type.CHESTPLATE, new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get(), new OxygenComponent(Platform.isFabric() ? FluidTankHelper.convertFromMb(10800) : 10800, Platform.isFabric() ? FluidTankHelper.convertFromMb(10800) : 10800))));
     public static final RegistrySupplier<Item> SPACESUIT_LEGGINGS = ITEMS.register("space_suit_leggings", () -> new CustomArmorItem(ArmorMaterialsRegistry.SPACE_SUIT, ArmorItem.Type.LEGGINGS, new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> SPACESUIT_BOOTS = ITEMS.register("space_suit_boots", () -> new CustomArmorItem(ArmorMaterialsRegistry.SPACE_SUIT, ArmorItem.Type.BOOTS, new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
 
@@ -368,4 +366,26 @@ public class ItemsRegistry {
     public static final RegistrySupplier<Item> STEEL_PICKAXE = ITEMS.register("steel_pickaxe", () -> new PickaxeItem(ToolsRegister.STEEL, (new Item.Properties()).attributes(PickaxeItem.createAttributes(ToolsRegister.STEEL, 1.0F, -2.8F)).arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> STEEL_SHOVEL = ITEMS.register("steel_shovel", () -> new ShovelItem(ToolsRegister.STEEL, (new Item.Properties()).attributes(ShovelItem.createAttributes(ToolsRegister.STEEL, 1.5F, -3.0F)).arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> STEEL_AXE = ITEMS.register("steel_axe", () -> new AxeItem(ToolsRegister.STEEL, (new Item.Properties()).attributes(AxeItem.createAttributes(ToolsRegister.STEEL, 6.0F, -3.1F)).arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+
+    public static ArrayList<ItemStack> fullItemsToAdd() {
+        ArrayList<ItemStack> list = new ArrayList<>();
+
+        ItemStack JET_SUIT_FULL = new ItemStack(ItemsRegistry.JETSUIT_SUIT);
+        JET_SUIT_FULL.set(DataComponentsRegistry.ROCKET_COMPONENT.get(), new RocketComponent(SkinUpgrade.getBasic().getNameSpace(), ModelUpgrade.getBasic().getModel(), MotorUpgrade.getBasic().getFuelType().getSerializedName(), 10000, GUISprites.FUEL_OVERLAY, TankUpgrade.getBasic().getTankCapacity()));
+        list.add(JET_SUIT_FULL);
+
+        ItemStack OXYGEN_TANK_FULL = new ItemStack(ItemsRegistry.OXYGEN_TANK);
+        OXYGEN_TANK_FULL.set(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get(), new OxygenComponent(Platform.isFabric() ? (int) FluidTankHelper.convertFromMb(3600) : 3600, Platform.isFabric() ? (int) FluidTankHelper.convertFromMb(3600) : 3600));
+        list.add(OXYGEN_TANK_FULL);
+
+        ItemStack BIG_OXYGEN_TANK_FULL = new ItemStack(ItemsRegistry.BIG_OXYGEN_TANK);
+        BIG_OXYGEN_TANK_FULL.set(DataComponentsRegistry.STORED_OXYGEN_COMPONENT.get(), new OxygenComponent(Platform.isFabric() ? (int) FluidTankHelper.convertFromMb(10800) : 10800, Platform.isFabric() ? (int) FluidTankHelper.convertFromMb(10800) : 10800));
+        list.add(BIG_OXYGEN_TANK_FULL);
+
+        ItemStack ROCKET_FULL = new ItemStack(ItemsRegistry.ROCKET);
+        ROCKET_FULL.set(DataComponentsRegistry.ROCKET_COMPONENT.get(), new RocketComponent(SkinUpgrade.getBasic().getNameSpace(), ModelUpgrade.getBasic().getModel(), MotorUpgrade.getBasic().getFuelType().getSerializedName(), 3000, GUISprites.FUEL_OVERLAY, TankUpgrade.getBasic().getTankCapacity()));
+        list.add(ROCKET_FULL);
+
+        return list;
+    }
 }
