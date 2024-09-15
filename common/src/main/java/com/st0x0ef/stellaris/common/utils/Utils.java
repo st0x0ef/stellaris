@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.entities.vehicles.LanderEntity;
 import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
+import com.st0x0ef.stellaris.common.registry.EntityData;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -22,6 +23,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 import java.util.function.Function;
@@ -43,7 +45,7 @@ public class Utils {
     }
 
     /** Should be call after teleporting the player */
-    public static LanderEntity createLanderFromRocket(Player player, RocketEntity rocket, int yPos) {
+    public static LanderEntity createLanderFromRocket(Entity player, RocketEntity rocket, int yPos) {
 
         LanderEntity lander = new LanderEntity(player.level());
         lander.setPos(player.getX(), yPos, player.getZ());
@@ -97,6 +99,34 @@ public class Utils {
 
 
     }
+
+    public static void changeDimensionForPlayers(List<Entity> entities, Planet destination) {
+
+        RocketEntity rocket = (RocketEntity) entities.getFirst().getVehicle();
+
+        for (Entity entity : entities) {
+            if (entity.level().isClientSide()) return;
+
+            Entity vehicle = entity.getVehicle();
+            if (vehicle instanceof RocketEntity playerRocket) {
+                entity.stopRiding();
+                rocket = playerRocket;
+                teleportEntity(entity, destination);
+
+                if(entity instanceof Player player) {
+                    player.closeContainer();
+                    player.getEntityData().set(EntityData.DATA_PLANET_MENU_OPEN, false);
+                }
+            }
+        }
+        LanderEntity lander = createLanderFromRocket(entities.getFirst(), rocket, 600);
+        entities.getFirst().level().addFreshEntity(lander);
+
+        for (Entity entity : entities) {
+            entity.startRiding(lander, true);
+        }
+    }
+
 
     public static double changeLastDigitToEven(double number) {
         String numberStr = Double.toString(number);
