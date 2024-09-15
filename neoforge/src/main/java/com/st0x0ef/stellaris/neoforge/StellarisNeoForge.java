@@ -2,13 +2,17 @@ package com.st0x0ef.stellaris.neoforge;
 
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.StellarisClient;
+import com.st0x0ef.stellaris.common.registry.CreativeTabsRegistry;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
+import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import com.st0x0ef.stellaris.neoforge.systems.SystemsNeoForge;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
+import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.OnDatapackSyncEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 
@@ -18,6 +22,8 @@ public class StellarisNeoForge {
         Stellaris.init();
         NeoForge.EVENT_BUS.addListener(StellarisNeoForge::onAddReloadListenerEvent);
         NeoForge.EVENT_BUS.addListener(StellarisNeoForge::onDatapackSync);
+        NeoForge.EVENT_BUS.addListener(StellarisNeoForge::addItemToTab);
+
         bus.addListener(StellarisNeoForge::onAttributes);
         SystemsNeoForge.init(bus);
 
@@ -33,6 +39,16 @@ public class StellarisNeoForge {
             event.getPlayerList().getPlayers().forEach((player) -> Stellaris.onDatapackSyncEvent(player, true));
         }
     }
+
+    public static void addItemToTab(BuildCreativeModeTabContentsEvent event) {
+        if (event.getTabKey() == CreativeTabsRegistry.STELLARIS_TAB) {
+            for (ItemStack stack : ItemsRegistry.fullItemsToAdd()) {
+                event.accept(stack);
+            }
+        }
+    }
+
+
 
     public static void onAddReloadListenerEvent(AddReloadListenerEvent event) {
         Stellaris.onAddReloadListenerEvent((id, listener) -> event.addListener(listener));
