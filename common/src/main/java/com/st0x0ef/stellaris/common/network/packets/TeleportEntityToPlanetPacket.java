@@ -51,12 +51,13 @@ public class TeleportEntityToPlanetPacket implements CustomPacketPayload {
                 return;
             }
 
-            rocket.getPassengers().forEach((entity -> {
-                if(entity instanceof Player) {
-                    Utils.changeDimension((Player) entity, planet);
-                    player.getEntityData().set(EntityData.DATA_PLANET_MENU_OPEN, false);
-                }
-            }));
+            if(rocket.getPassengers().size() == 1) {
+                Utils.changeDimension((Player) rocket.getPassengers().getFirst(), planet);
+                player.getEntityData().set(EntityData.DATA_PLANET_MENU_OPEN, false);
+            } else {
+                Utils.changeDimensionForPlayers(rocket.getPassengers(), planet);
+            }
+
         } else {
             Stellaris.LOG.error("Planet is null");
         }
