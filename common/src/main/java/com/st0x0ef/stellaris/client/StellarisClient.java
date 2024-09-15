@@ -7,6 +7,7 @@ import com.st0x0ef.stellaris.client.overlays.RocketBarOverlay;
 import com.st0x0ef.stellaris.client.overlays.RocketStartOverlay;
 import com.st0x0ef.stellaris.client.particles.*;
 import com.st0x0ef.stellaris.client.renderers.armors.JetSuitModel;
+import com.st0x0ef.stellaris.client.renderers.armors.SpaceSuitModel;
 import com.st0x0ef.stellaris.client.screens.*;
 import com.st0x0ef.stellaris.common.data.screen.MoonPack;
 import com.st0x0ef.stellaris.common.data.screen.PlanetPack;
@@ -44,6 +45,11 @@ public class StellarisClient {
         ClientUtilsPlatform.registerArmor(JetSuitModel.TEXTURE, JetSuitModel.LAYER_LOCATION, JetSuitModel::new,
                 ItemsRegistry.JETSUIT_BOOTS.get(), ItemsRegistry.JETSUIT_LEGGINGS.get(),
                 ItemsRegistry.JETSUIT_HELMET.get(), ItemsRegistry.JETSUIT_SUIT.get());
+
+        ClientUtilsPlatform.registerArmor(SpaceSuitModel.TEXTURE, SpaceSuitModel.LAYER_LOCATION, SpaceSuitModel::new,
+                ItemsRegistry.SPACESUIT_BOOTS.get(), ItemsRegistry.SPACESUIT_LEGGINGS.get(),
+                ItemsRegistry.SPACESUIT_HELMET.get(), ItemsRegistry.SPACESUIT_SUIT.get());
+
     }
 
     public static void registerParticle() {

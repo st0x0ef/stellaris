@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.fabric.client;
 import com.st0x0ef.stellaris.client.StellarisClient;
 import com.st0x0ef.stellaris.client.registries.KeyMappingsRegistry;
 import com.st0x0ef.stellaris.client.renderers.armors.JetSuitModel;
+import com.st0x0ef.stellaris.client.renderers.armors.SpaceSuitModel;
 import com.st0x0ef.stellaris.client.renderers.entities.alien.AlienModel;
 import com.st0x0ef.stellaris.client.renderers.entities.alien.AlienRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.alienzombie.AlienZombieModel;
@@ -33,20 +34,16 @@ import com.st0x0ef.stellaris.client.renderers.globe.GlobeBlockRenderer;
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeModel;
 import com.st0x0ef.stellaris.client.screens.*;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
-import com.st0x0ef.stellaris.common.registry.BlocksRegistry;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import dev.architectury.registry.menu.MenuRegistry;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
-
 
 public class StellarisFabricClient implements ClientModInitializer {
     @Override
@@ -57,14 +54,6 @@ public class StellarisFabricClient implements ClientModInitializer {
         registerEntityRenderer();
         registerEntityModelLayer();
         registerKeyBinding();
-        registerBlockRendering();
-    }
-
-    public static void registerBlockRendering(){
-        BlockRenderLayerMap.INSTANCE.putBlock(BlocksRegistry.MOON_CROPS.get(), RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(BlocksRegistry.MARS_CROP.get(), RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(BlocksRegistry.WATER_PUMP.get(), RenderType.cutout());
-
     }
 
     public static void registerEntityRenderer() {
@@ -107,6 +96,7 @@ public class StellarisFabricClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(NormalRocketModel.LAYER_LOCATION, NormalRocketModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(BigRocketModel.LAYER_LOCATION, BigRocketModel::createBodyLayer);
 
+        EntityModelLayerRegistry.registerModelLayer(SpaceSuitModel.LAYER_LOCATION, SpaceSuitModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(JetSuitModel.LAYER_LOCATION, JetSuitModel::createBodyLayer);
     }
 
@@ -123,7 +113,9 @@ public class StellarisFabricClient implements ClientModInitializer {
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.OXYGEN_DISTRIBUTOR.get(), OxygenGeneratorScreen::new);
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.WATER_SEPARATOR_MENU.get(), WaterSeparatorScreen::new);
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.FUEL_REFINERY.get(), FuelRefineryScreen::new);
+        MenuRegistry.registerScreenFactory(MenuTypesRegistry.WATER_PUMP_MENU.get(), WaterPumpScreen::new);
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.WAIT_MENU.get(), WaitScreen::new);
+        MenuRegistry.registerScreenFactory(MenuTypesRegistry.PUMPJACK_MENU.get(), PumpjackScreen::new);
 
     }
 
