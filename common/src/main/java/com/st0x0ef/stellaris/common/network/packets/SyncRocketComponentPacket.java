@@ -41,15 +41,8 @@ public class SyncRocketComponentPacket implements CustomPacketPayload {
 
     public static void handle(SyncRocketComponentPacket packet,  NetworkManager.PacketContext context) {
         LocalPlayer player = (LocalPlayer) context.getPlayer();
-        if (player.containerMenu instanceof RocketMenu menu) {
-            RocketEntity rocket = menu.getRocket();
-            rocket.rocketComponent = packet.component;
-
-            rocket.MODEL_UPGRADE = packet.component.getModelUpgrade();
-            rocket.SKIN_UPGRADE = packet.component.getSkinUpgrade();
-            rocket.TANK_UPGRADE = packet.component.getTankUpgrade();
-            rocket.MOTOR_UPGRADE = packet.component.getMotorUpgrade();
-
+        if (player.containerMenu instanceof RocketMenu menu && menu.getRocket() != null) {
+            menu.getRocket().setRocketComponent(packet.component);
         }
     }
 

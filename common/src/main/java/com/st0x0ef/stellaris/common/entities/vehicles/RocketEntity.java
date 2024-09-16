@@ -71,7 +71,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
     protected SimpleContainer inventory;
 
-    public RocketComponent rocketComponent;
+    private RocketComponent rocketComponent;
     private Player lastPlayer;
 
     private static final EntityDataAccessor<String> DATA_SKIN;
@@ -102,6 +102,17 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         this.currentFuelItem = ItemsRegistry.FUEL_BUCKET.get();
         this.rocketComponent = new RocketComponent(SKIN_UPGRADE.getRocketSkinLocation().toString(), RocketModel.fromString(MODEL_UPGRADE.getModel().toString()), currentFuelItem.toString(), FUEL, MOTOR_UPGRADE.getFluidTexture(), TANK_UPGRADE.getTankCapacity());
         this.inventory = new SimpleContainer(14);
+    }
+
+    public void setRocketComponent(RocketComponent rocketComponent) {
+        this.rocketComponent = rocketComponent;
+
+        this.MODEL_UPGRADE = rocketComponent.getModelUpgrade();
+        this.SKIN_UPGRADE = rocketComponent.getSkinUpgrade();
+        this.MOTOR_UPGRADE = rocketComponent.getMotorUpgrade();
+        this.TANK_UPGRADE = rocketComponent.getTankUpgrade();
+        this.FUEL = rocketComponent.getFuel();
+        this.currentFuelItem = FuelType.getItemBasedOnTypeName(rocketComponent.fuelType());
     }
 
     @Override
@@ -450,11 +461,10 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         }
     }
     public ItemStack getRocketItem() {
-        ItemStack itemStack = new ItemStack(ItemsRegistry.ROCKET.get(), 1);
-        rocketComponent = new RocketComponent(SkinUpgrade.getBasic().getNameSpace(), ModelUpgrade.getBasic().getModel(), currentFuelItem.toString(), FUEL, MOTOR_UPGRADE.getFluidTexture(), TANK_UPGRADE.getTankCapacity());
-        itemStack.set(DataComponentsRegistry.ROCKET_COMPONENT.get(), rocketComponent);
+        ItemStack rocket = new ItemStack(ItemsRegistry.ROCKET.get(), 1);
+        rocket.set(DataComponentsRegistry.ROCKET_COMPONENT.get(), rocketComponent);
 
-        return itemStack;
+        return rocket;
     }
 
 
@@ -462,13 +472,12 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     public void containerChanged(Container container) {
     }
 
-    protected void doPlayerRide(Player player) {
+    protected void doPlayerRide(Entity player) {
         if (!this.level().isClientSide) {
             Vec3 entityPos = player.getPosition(0);
             player.setPosRaw(entityPos.x, entityPos.y + 40.0, entityPos.z);
             player.startRiding(this, true);
         }
-
     }
 
     private void checkContainer() {
@@ -607,6 +616,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     protected void spawnRocketItem() {
         ItemEntity entityToSpawn = new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), this.getRocketItem());
         entityToSpawn.setPickUpDelay(10);
+        entityToSpawn.getItem().set(DataComponentsRegistry.ROCKET_COMPONENT.get(), rocketComponent);
 
         this.level().addFreshEntity(entityToSpawn);
     }
@@ -647,9 +657,8 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         lastPlayer.closeContainer();
         NonNullList<ItemStack> itemStacks = this.inventory.getItems();
         Vec3 pos = this.position();
-        Player passenger = this.getFirstPlayerPassenger();
         EntityType<? extends RocketEntity> newRocketType = getEntityType(this.MODEL_UPGRADE);
-        RocketEntity newRocketEntity = new RocketEntity(newRocketType, this.level(), this.SKIN_UPGRADE);
+        RocketEntity newRocketEntity = new RocketEntity(newRocketType, this.level());
         newRocketEntity.setPos(pos);
         newRocketEntity.setYRot(this.getYRot());
         newRocketEntity.MODEL_UPGRADE = this.MODEL_UPGRADE;
@@ -665,7 +674,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
         this.remove(RemovalReason.DISCARDED);
         newRocketEntity.level().addFreshEntity(newRocketEntity);
-        if (passenger!=null) newRocketEntity.doPlayerRide(passenger);
+        for (Entity passenger : getPassengers()) newRocketEntity.doPlayerRide(passenger);
         newRocketEntity.openCustomInventoryScreen(lastPlayer);
     }
 
@@ -681,5 +690,9 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     @Override
     public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity entity) {
         return NetworkManager.createAddEntityPacket(this, entity);
+    }
+
+    public RocketComponent getRocketComponent() {
+        return this.rocketComponent;
     }
 }

@@ -29,6 +29,10 @@ public record RocketComponent(String skin, RocketModel model, String fuelType, i
         return fuel;
     }
 
+    public ResourceLocation getFuelTexture() {
+        return fuelTexture;
+    }
+
     public ResourceLocation getSkin() {
         return ResourceLocation.parse(skin);
     }

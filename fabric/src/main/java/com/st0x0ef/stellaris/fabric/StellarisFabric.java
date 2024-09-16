@@ -34,7 +34,6 @@ public class StellarisFabric implements ModInitializer {
             for (ItemStack stack : ItemsRegistry.fullItemsToAdd()) {
                 itemGroup.accept(stack);
             }
-
         });
 
     }

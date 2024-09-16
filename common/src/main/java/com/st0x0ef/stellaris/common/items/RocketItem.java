@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.items;
 
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.RocketLaunchPad;
 import com.st0x0ef.stellaris.common.data_components.RocketComponent;
 import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
@@ -9,6 +10,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -40,21 +42,18 @@ public class RocketItem extends Item {
     @Override
     public InteractionResult useOn(UseOnContext context) {
         Player player = context.getPlayer();
-        Level level = context.getLevel();
         BlockPos pos = context.getClickedPos();
-        BlockState state = level.getBlockState(pos);
+        BlockState state = context.getLevel().getBlockState(pos);
         InteractionHand hand = context.getHand();
         ItemStack itemStack = context.getItemInHand();
+        RocketComponent rocketComponent = itemStack.get(DataComponentsRegistry.ROCKET_COMPONENT.get());
+        Stellaris.LOG.error(String.valueOf(rocketComponent.fuel()));
 
-        if (level.isClientSide()) {
-            return InteractionResult.PASS;
-        }
-
-        if (state.getBlock() instanceof RocketLaunchPad && state.getValue(RocketLaunchPad.STAGE)) {
+        if (state.getBlock() instanceof RocketLaunchPad && state.getValue(RocketLaunchPad.STAGE) && context.getLevel() instanceof ServerLevel level) {
             BlockPlaceContext blockplacecontext = new BlockPlaceContext(context);
             BlockPos blockpos = blockplacecontext.getClickedPos();
             Vec3 vec3 = Vec3.upFromBottomCenterOf(blockpos, this.getRocketPlaceHigh());
-            AABB aabb = EntityRegistry.NORMAL_ROCKET.get().getDimensions().makeBoundingBox(vec3.x(), vec3.y(), vec3.z());
+            AABB aabb = EntityRegistry.BIG_ROCKET.get().getDimensions().makeBoundingBox(vec3.x(), vec3.y(), vec3.z());
 
             if (level.noCollision(aabb)) {
                 /** POS */
@@ -69,8 +68,7 @@ public class RocketItem extends Item {
                 if (entities.isEmpty()) {
                     RocketEntity rocket = this.getRocket(context.getLevel(), itemStack);
                     /** SET PRE POS */
-                    rocket.setPos(pos.getX() + 0.5D,  pos.getY() + 1, pos.getZ() + 0.5D);
-
+                    rocket.setPos(pos.getX() + 0.5D,  pos.getY() + 1.0D, pos.getZ() + 0.5D);
 
                     double d0 = RocketItem.getYOffset(level, pos, true, rocket.getBoundingBox());
                     float f = (float) Mth.floor((Mth.wrapDegrees(context.getRotation() - 180.0F) + 45.0F) / 90.0F) * 90.0F;
@@ -80,23 +78,17 @@ public class RocketItem extends Item {
 
                     rocket.yRotO = rocket.getYRot();
 
-                    level.addFreshEntity(rocket);
+                    if (level.addFreshEntity(rocket)) {
+                        /** ITEM REMOVE */
+                        if (!player.getAbilities().instabuild) {
+                            player.setItemInHand(hand, ItemStack.EMPTY);
+                        }
 
-                    /** SET TAGS */
-                    this.addRocketInfos(rocket, itemStack);
+                        /** PLACE SOUND */
+                        this.rocketPlaceSound(pos, level);
 
-                    /** CALL PLACE ROCKET EVENT */
-                    //MinecraftForge.EVENT_BUS.post(new PlaceRocketEvent(rocket, context));
-
-                    /** ITEM REMOVE */
-                    if (!player.getAbilities().instabuild) {
-                        player.setItemInHand(hand, ItemStack.EMPTY);
+                        return InteractionResult.SUCCESS;
                     }
-
-                    /** PLACE SOUND */
-                    this.rocketPlaceSound(pos, level);
-
-                    return InteractionResult.SUCCESS;
                 }
             }
         }
@@ -116,10 +108,9 @@ public class RocketItem extends Item {
     }
 
     public RocketEntity getRocket(Level level, ItemStack stack) {
-        return new RocketEntity(getEntityType(stack), level);
+        RocketEntity rocket = new RocketEntity(this.getEntityType(stack), level);
+        return rocket;
     }
-
-
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
@@ -147,16 +138,6 @@ public class RocketItem extends Item {
         return 1.0D + Shapes.collide(Direction.Axis.Y, p_20629_, iterable, p_20628_ ? -2.0D : -1.0D);
     }
 
-    private void addRocketInfos(RocketEntity rocket, ItemStack stack) {
-        RocketComponent rocketComponent = stack.get(DataComponentsRegistry.ROCKET_COMPONENT.get());
-        rocket.FUEL = rocketComponent.getFuel();
-
-        rocket.MODEL_UPGRADE = rocketComponent.getModelUpgrade();
-        rocket.SKIN_UPGRADE = rocketComponent.getSkinUpgrade();
-        rocket.MOTOR_UPGRADE = rocketComponent.getMotorUpgrade();
-        rocket.TANK_UPGRADE = rocketComponent.getTankUpgrade();
-    }
-
     @Override
     public boolean isBarVisible(ItemStack stack) {
         return true;
@@ -165,7 +146,7 @@ public class RocketItem extends Item {
     @Override
     public int getBarWidth(ItemStack stack) {
         RocketComponent rocketComponent = stack.get(DataComponentsRegistry.ROCKET_COMPONENT.get());
-        return 13* rocketComponent.fuel() / rocketComponent.getTankCapacity();
+        return 13 * rocketComponent.fuel() / rocketComponent.getTankCapacity();
     }
 
     @Override
