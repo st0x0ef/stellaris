@@ -58,6 +58,7 @@ public class EntityRegistry {
     /**
      * Vehicles
      */
+
     public static final RegistrySupplier<EntityType<RocketEntity>> TINY_ROCKET = ENTITY_TYPE.register("tiny_rocket", () -> EntityType.Builder.of(RocketEntity::new, MobCategory.MISC).sized(1.1f, 4.4f).fireImmune().build(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "tiny_rocket").toString()));
     public static final RegistrySupplier<EntityType<RocketEntity>> SMALL_ROCKET = ENTITY_TYPE.register("small_rocket", () -> EntityType.Builder.of(RocketEntity::new, MobCategory.MISC).sized(0.8f, 3.2f).build(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "small_rocket").toString()));
     public static final RegistrySupplier<EntityType<RocketEntity>> NORMAL_ROCKET = ENTITY_TYPE.register("normal_rocket", () -> EntityType.Builder.of(RocketEntity::new, MobCategory.MISC).sized(1.1f, 4.4f).build(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "normal_rocket").toString()));

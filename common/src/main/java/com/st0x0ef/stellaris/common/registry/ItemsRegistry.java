@@ -381,7 +381,7 @@ public class ItemsRegistry {
         list.add(BIG_OXYGEN_TANK_FULL);
 
         ItemStack ROCKET_FULL = new ItemStack(ItemsRegistry.ROCKET);
-        ROCKET_FULL.set(DataComponentsRegistry.ROCKET_COMPONENT.get(), new RocketComponent(SkinUpgrade.getBasic().getNameSpace(), ModelUpgrade.getBasic().getModel(), MotorUpgrade.getBasic().getFuelType().getSerializedName(), 3000, GUISprites.FUEL_OVERLAY, TankUpgrade.getBasic().getTankCapacity()));
+        ROCKET_FULL.set(DataComponentsRegistry.ROCKET_COMPONENT.get(), new RocketComponent(SkinUpgrade.getBasic().getNameSpace(), RocketModel.NORMAL, FuelType.Type.RADIOACTIVE.getSerializedName(), 5000, GUISprites.ENERGY_FULL, 5000));
         list.add(ROCKET_FULL);
 
         return list;
