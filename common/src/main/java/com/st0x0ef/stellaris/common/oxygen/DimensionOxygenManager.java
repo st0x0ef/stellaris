@@ -79,6 +79,10 @@ public class DimensionOxygenManager {
         return canBreath.get();
     }
 
+    public Set<OxygenRoom> getOxygenRooms() {
+        return oxygenRooms;
+    }
+
     public OxygenRoom getOxygenRoom(BlockPos pos) {
         for (OxygenRoom room : oxygenRooms) {
             if (room.getDistributorPosition().equals(pos)) {
