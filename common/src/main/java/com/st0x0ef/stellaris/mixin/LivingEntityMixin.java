@@ -23,8 +23,10 @@ public abstract class LivingEntityMixin {
 
         if (PlanetUtil.isPlanet(dimension)) {
             stellaris$livingEntity.getAttribute(Attributes.GRAVITY).setBaseValue(Utils.MPS2ToMCG(PlanetUtil.getPlanet(dimension).gravity()));
+            stellaris$livingEntity.getAttribute(Attributes.SAFE_FALL_DISTANCE).setBaseValue(3.0/(Utils.MPS2ToMCG(PlanetUtil.getPlanet(dimension).gravity())/0.08));
         } else {
             stellaris$livingEntity.getAttribute(Attributes.GRAVITY).setBaseValue(0.08);
+            stellaris$livingEntity.getAttribute(Attributes.SAFE_FALL_DISTANCE).setBaseValue(3.0);
         }
     }
 }
