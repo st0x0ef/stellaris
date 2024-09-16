@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "stellaris:space_suit_helmet",
+    "stellaris:space_suit_chestplate",
+    "stellaris:space_suit_leggings",
+    "stellaris:space_suit_boots",
+
+    "stellaris:jet_suit_helmet",
+    "stellaris:jet_suit_chestplate",
+    "stellaris:jet_suit_boots",
+    "stellaris:jet_suit_leggings"
+  ]
+}
