@@ -27,6 +27,20 @@
       "r": 190,
       "g": 160,
       "b": -1
+    },
+    "shooting_stars": {
+      "percentage": 99,
+      "random_lifetime": [
+        20,
+        100
+      ],
+      "scale": 0.1,
+      "speed": 0.4,
+      "color": {
+        "r": 190,
+        "g": 160,
+        "b": -1
+      }
     }
   },
   "sky_color": {
