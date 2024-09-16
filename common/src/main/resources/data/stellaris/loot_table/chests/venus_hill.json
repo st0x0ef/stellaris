@@ -53,7 +53,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "stellaris:venus_neptuniom_ore",
+          "name": "stellaris:venus_neptunium_ore",
           "weight": 5,
           "functions": [
             {
