@@ -55,27 +55,27 @@ public class ModPlacedFeatures {
 
         // OVEROWORLD
         register(context, STEEL_ORE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.STEEL_ORE_KEY),
-                OrePlacement.commonOrePlacement(6,
+                OrePlacement.commonOrePlacement(9,
                         HeightRangePlacement.triangle(VerticalAnchor.absolute(-24), VerticalAnchor.absolute(56))));
 
         register(context, STEEL_ORE_DEEPSLATE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.STEEL_ORE_DEEPSLATE_ORE_KEY),
-                OrePlacement.commonOrePlacement(6,
+                OrePlacement.commonOrePlacement(17,
                         HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(25))));
 
 
 
         // MARS
         register(context, MARS_DIAMOND_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.MARS_DIAMOND_ORE_KEY),
-                OrePlacement.commonOrePlacement(7,
+                OrePlacement.commonOrePlacement(14,
                         HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-64), VerticalAnchor.aboveBottom(80))));
         register(context, MARS_ICE_SHARD_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.MARS_ICE_SHARD_ORE_KEY),
-                OrePlacement.commonOrePlacement(8,
+                OrePlacement.commonOrePlacement(16,
                         HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-32), VerticalAnchor.aboveBottom(32))));
         register(context, MARS_IRON_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.MARS_IRON_ORE_KEY),
-                OrePlacement.commonOrePlacement(8,
+                OrePlacement.commonOrePlacement(16,
                         HeightRangePlacement.triangle(VerticalAnchor.absolute(-24), VerticalAnchor.absolute(56))));
         register(context, MARS_OSTRUM_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.MARS_OSTRUM_ORE_KEY),
-                OrePlacement.commonOrePlacement(6,
+                OrePlacement.commonOrePlacement(12,
                         HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-64), VerticalAnchor.aboveBottom(80))));
 
         // MERCURY
@@ -85,10 +85,10 @@ public class ModPlacedFeatures {
 
         // MOON
         register(context, MOON_DESH_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.MOON_DESH_ORE_KEY),
-                OrePlacement.commonOrePlacement(7,
+                OrePlacement.commonOrePlacement(15,
                         HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(80))));
         register(context, MOON_ICE_SHARD_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.MOON_ICE_SHARD_ORE_KEY),
-                OrePlacement.commonOrePlacement(8,
+                OrePlacement.commonOrePlacement(12,
                         HeightRangePlacement.triangle(VerticalAnchor.absolute(-32), VerticalAnchor.absolute(32))));
         register(context, MOON_IRON_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.MOON_IRON_ORE_KEY),
                 OrePlacement.commonOrePlacement(10,
