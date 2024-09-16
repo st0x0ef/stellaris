@@ -35,7 +35,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWScrollCallback;
-import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 import java.util.Comparator;

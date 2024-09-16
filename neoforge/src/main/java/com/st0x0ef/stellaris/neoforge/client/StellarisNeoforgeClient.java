@@ -38,7 +38,6 @@ import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import com.st0x0ef.stellaris.common.registry.FluidRegistry;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
-import dev.architectury.registry.menu.MenuRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.resources.ResourceLocation;

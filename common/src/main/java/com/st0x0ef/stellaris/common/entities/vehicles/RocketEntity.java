@@ -89,7 +89,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     }
 
     protected RocketEntity(EntityType<? extends RocketEntity> entityType, Level level, SkinUpgrade skinUpgrade) {
-        super(entityType,level);
+        super(entityType, level);
 
         this.SKIN_UPGRADE = skinUpgrade;
         this.MODEL_UPGRADE = ModelUpgrade.getBasic();
@@ -169,13 +169,8 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
                 listTag.add(itemStack.save(this.registryAccess(), compoundTag));
             }
         }
-        compound.put("Items", listTag);
 
-        compound.putString("model", MODEL_UPGRADE.getModel().toString());
-        compound.putString("skin", SKIN_UPGRADE.getRocketSkinLocation().toString());
-        compound.putString("motor", MOTOR_UPGRADE.getFuelType().getSerializedName());
-        compound.putInt("tank", TANK_UPGRADE.getTankCapacity());
-        compound.putBoolean("rocketStart", this.entityData.get(ROCKET_START));
+        compound.put("Items", listTag);
     }
 
     @Override
@@ -191,18 +186,13 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
         ListTag listTag = compound.getList("Items", 10);
 
-        for(int i = 0; i < listTag.size(); ++i) {
+        for (int i = 0; i < listTag.size(); ++i) {
             CompoundTag compoundTag = listTag.getCompound(i);
             int j = compoundTag.getByte("Slot") & 255;
             if (j < this.inventory.getContainerSize() - 1) {
                 this.inventory.setItem(j + 1, ItemStack.parse(this.registryAccess(), compoundTag).orElse(ItemStack.EMPTY));
             }
         }
-
-        this.MODEL_UPGRADE = new ModelUpgrade(RocketModel.fromString(compound.getString("model")));
-        this.SKIN_UPGRADE = new SkinUpgrade(ResourceLocation.parse(compound.getString("skin")));
-        this.MOTOR_UPGRADE = new MotorUpgrade(FuelType.Type.fromString(compound.getString("motor")), ResourceLocation.parse(compound.getString("fuel_texture")));
-        this.TANK_UPGRADE = new TankUpgrade(compound.getInt("tank"));
     }
 
     @Override
@@ -217,16 +207,16 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         return new SkinUpgrade(ResourceLocation.parse(this.entityData.get(DATA_SKIN)));
     }
 
-    public void setSkinData(SkinUpgrade skinUpgrade) {
-        this.entityData.set(DATA_SKIN, skinUpgrade.getRocketSkinLocation().toString());
+    public void setSkinData() {
+        this.entityData.set(DATA_SKIN, SKIN_UPGRADE.getRocketSkinLocation().toString());
     }
 
     public ModelUpgrade getModelData() {
         return new ModelUpgrade(RocketModel.fromString(this.entityData.get(DATA_MODEL)));
     }
 
-    public void setModelData(ModelUpgrade modelUpgrade) {
-        this.entityData.set(DATA_MODEL, modelUpgrade.getModel().toString());
+    public void setModelData() {
+        this.entityData.set(DATA_MODEL, MODEL_UPGRADE.getModel().toString());
     }
 
     @Override
@@ -444,6 +434,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
             }
         }
     }
+
     public Player getFirstPlayerPassenger() {
         if (!this.getPassengers().isEmpty() && this.getPassengers().getFirst() instanceof Player player) {
             return player;
@@ -460,6 +451,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
             }
         }
     }
+
     public ItemStack getRocketItem() {
         ItemStack rocket = new ItemStack(ItemsRegistry.ROCKET.get(), 1);
         rocket.set(DataComponentsRegistry.ROCKET_COMPONENT.get(), rocketComponent);
@@ -467,9 +459,9 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         return rocket;
     }
 
-
     @Override
     public void containerChanged(Container container) {
+
     }
 
     protected void doPlayerRide(Entity player) {
@@ -481,7 +473,6 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     }
 
     private void checkContainer() {
-
         if (this.level().isClientSide) return;
 
         if (this.getInventory().getItem(10).getItem() instanceof RocketUpgradeItem item) {
@@ -503,27 +494,25 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         if (this.getInventory().getItem(12).getItem() instanceof RocketUpgradeItem item) {
             if (item.getUpgrade() instanceof SkinUpgrade upgrade) {
                 this.SKIN_UPGRADE = upgrade;
-                setSkinData(upgrade);
+                setSkinData();
             }
-        }
-        else if (this.getInventory().getItem(12).isEmpty()) {
+        } else if (this.getInventory().getItem(12).isEmpty()) {
             this.SKIN_UPGRADE = SkinUpgrade.getBasic();
-            setSkinData(SkinUpgrade.getBasic());
+            setSkinData();
         }
 
         if (this.getInventory().getItem(13).getItem() instanceof RocketUpgradeItem item) {
             if (item.getUpgrade() instanceof ModelUpgrade upgrade) {
                 if (this.MODEL_UPGRADE.getModel() != upgrade.getModel()){
                     this.MODEL_UPGRADE = upgrade;
-                    setModelData(upgrade);
+                    setModelData();
                     needsModelChange = true;
                     changeRocketModel();
                 }
             }
-        }
-        else if (this.getInventory().getItem(13).isEmpty()) {
+        } else if (this.getInventory().getItem(13).isEmpty()) {
             this.MODEL_UPGRADE = ModelUpgrade.getBasic();
-            setModelData(this.MODEL_UPGRADE);
+            setModelData();
             if (needsModelChange) {
                 needsModelChange = false;
                 changeRocketModel();
@@ -532,8 +521,6 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
         tryFillUpRocket(this.getInventory().getItem(0).getItem());
     }
-
-
 
     public boolean tryFillUpRocket(Item item) {
         if (this.level().isClientSide) return false;
@@ -577,7 +564,6 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         return currentFuelItem == item;
     }
 
-
     private void openPlanetMenu(Player player) {
         if(player == null) return;
 
@@ -598,9 +584,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
             PlanetUtil.openWaitMenu(player, this.getFirstPlayerPassenger().getDisplayName().getString());
             player.getEntityData().set(EntityData.DATA_PLANET_MENU_OPEN, true);
         }
-
     }
-
 
     public void burnEntities() {
         if (START_TIMER == 200) {
@@ -613,6 +597,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
             }
         }
     }
+
     protected void spawnRocketItem() {
         ItemEntity entityToSpawn = new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), this.getRocketItem());
         entityToSpawn.setPickUpDelay(10);
@@ -654,7 +639,10 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     }
 
     public void changeRocketModel() {
-        lastPlayer.closeContainer();
+        if (lastPlayer != null) {
+            lastPlayer.closeContainer();
+        }
+
         NonNullList<ItemStack> itemStacks = this.inventory.getItems();
         Vec3 pos = this.position();
         EntityType<? extends RocketEntity> newRocketType = getEntityType(this.MODEL_UPGRADE);
@@ -662,9 +650,9 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         newRocketEntity.setPos(pos);
         newRocketEntity.setYRot(this.getYRot());
         newRocketEntity.MODEL_UPGRADE = this.MODEL_UPGRADE;
-        newRocketEntity.setModelData(this.MODEL_UPGRADE);
+        newRocketEntity.setModelData();
         newRocketEntity.SKIN_UPGRADE = this.SKIN_UPGRADE;
-        newRocketEntity.setSkinData(this.SKIN_UPGRADE);
+        newRocketEntity.setSkinData();
         newRocketEntity.MOTOR_UPGRADE = this.MOTOR_UPGRADE;
         newRocketEntity.TANK_UPGRADE = this.TANK_UPGRADE;
         newRocketEntity.FUEL = this.FUEL;
@@ -674,7 +662,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
         this.remove(RemovalReason.DISCARDED);
         newRocketEntity.level().addFreshEntity(newRocketEntity);
-        for (Entity passenger : getPassengers()) newRocketEntity.doPlayerRide(passenger);
+        for (Entity passenger : getPassengers()) passenger.startRiding(newRocketEntity);
         newRocketEntity.openCustomInventoryScreen(lastPlayer);
     }
 

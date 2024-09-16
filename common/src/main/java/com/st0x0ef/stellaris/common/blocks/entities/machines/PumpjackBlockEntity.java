@@ -1,30 +1,19 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
-import com.st0x0ef.stellaris.common.armors.JetSuit;
 import com.st0x0ef.stellaris.common.blocks.machines.CoalGeneratorBlock;
-import com.st0x0ef.stellaris.common.data.recipes.FuelRefineryRecipe;
-import com.st0x0ef.stellaris.common.data.recipes.input.FluidInput;
-import com.st0x0ef.stellaris.common.menus.FuelRefineryMenu;
 import com.st0x0ef.stellaris.common.menus.PumpjackMenu;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.registry.FluidRegistry;
-import com.st0x0ef.stellaris.common.registry.RecipesRegistry;
 import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedBlockEnergyContainer;
 import dev.architectury.fluid.FluidStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ChunkHolder;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.crafting.RecipeManager;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkAccess;
-
-import java.util.Optional;
 
 public class PumpjackBlockEntity extends BaseEnergyContainerBlockEntity {
 
