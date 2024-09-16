@@ -9,4 +9,6 @@
 - allow more than 1 player to be in a rocket at the same time
 - change default rocket
 - add creative rocket, oxygen tank & jet suit
-- Add conventional tags for modders/pack makers
+- add conventional tags for modders/pack makers
+- now use Sky Aesthetic
+- change ore per chunk for most ores
