@@ -23,7 +23,7 @@ public final  class OxygenSavedData extends SavedData {
     }
 
     public static OxygenSavedData getData(ServerLevel level) {
-        OxygenSavedData worldData = level.getDataStorage().computeIfAbsent(factory(level), "OxygenSavedData.dataName");
+        OxygenSavedData worldData = level.getDataStorage().computeIfAbsent(factory(level), "oxygens-rooms");
         return worldData;
     }
 
@@ -59,7 +59,7 @@ public final  class OxygenSavedData extends SavedData {
             oxygenRoom.setOxygenatedPositions(OxygenRoom.fromIntArray(tag.getIntArray("oxygenDistributorPos" + rooms)));
             data.rooms.add(oxygenRoom);
         }
-
+        GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level).setOxygensRooms(data.rooms);
         return data;
     }
 }

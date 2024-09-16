@@ -17,22 +17,26 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class DimensionOxygenManager {
-    private final Set<OxygenRoom> oxygenRooms;
+    private Set<OxygenRoom> oxygenRooms;
     private final Map<BlockPos, OxygenRoom> roomToCheckIfOpen;
     private final boolean planetHasOxygen;
+    private final ServerLevel level;
 
     public DimensionOxygenManager(ServerLevel level) {
         this.oxygenRooms = new HashSet<>();
         this.roomToCheckIfOpen = new HashMap<>();
         this.planetHasOxygen = PlanetUtil.hasOxygen(level.dimension().location());
+        this.level = level;
     }
 
     public void addOxygenRoom(OxygenRoom room) {
         oxygenRooms.add(room);
+        this.setChanged();
     }
 
     public void removeOxygenRoom(BlockPos pos) {
         oxygenRooms.removeIf(room -> room.getDistributorPosition().equals(pos));
+        this.setChanged();
     }
 
     public void addRoomToCheckIfOpen(BlockPos pos, OxygenRoom room) {
@@ -50,12 +54,19 @@ public class DimensionOxygenManager {
         return true;
     }
 
+    private void setChanged() {
+        OxygenSavedData data = OxygenSavedData.getData(level);
+        data.setDirty();
+    }
+
     public void updateOxygen() {
         if (planetHasOxygen) return;
 
         oxygenRooms.forEach(OxygenRoom::updateOxygenRoom);
         roomToCheckIfOpen.values().forEach(OxygenRoom::removeOxygenInRoom);
         roomToCheckIfOpen.clear();
+        this.setChanged();
+
     }
 
     public boolean canBreath(LivingEntity entity) {
@@ -91,5 +102,10 @@ public class DimensionOxygenManager {
         }
 
         return null;
+    }
+
+    public void setOxygensRooms(Set<OxygenRoom> rooms) {
+        this.oxygenRooms = rooms;
+
     }
 }
