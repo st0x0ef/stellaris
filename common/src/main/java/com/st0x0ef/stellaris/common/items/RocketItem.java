@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.common.items;
 
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.RocketLaunchPad;
 import com.st0x0ef.stellaris.common.data_components.RocketComponent;
 import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
@@ -46,8 +45,6 @@ public class RocketItem extends Item {
         BlockState state = context.getLevel().getBlockState(pos);
         InteractionHand hand = context.getHand();
         ItemStack itemStack = context.getItemInHand();
-        RocketComponent rocketComponent = itemStack.get(DataComponentsRegistry.ROCKET_COMPONENT.get());
-        Stellaris.LOG.error(String.valueOf(rocketComponent.fuel()));
 
         if (state.getBlock() instanceof RocketLaunchPad && state.getValue(RocketLaunchPad.STAGE) && context.getLevel() instanceof ServerLevel level) {
             BlockPlaceContext blockplacecontext = new BlockPlaceContext(context);

@@ -36,10 +36,6 @@ public abstract class VehicleRenderer<T extends IVehicleEntity, M extends Entity
         this.shadowRadius = shadowRadius;
     }
 
-    public final boolean addLayer(RenderLayer<T, M> layer) {
-        return this.layers.add(layer);
-    }
-
     public M getModel() {
         return this.model;
     }
@@ -104,7 +100,6 @@ public abstract class VehicleRenderer<T extends IVehicleEntity, M extends Entity
         poseStack.popPose();
         super.render(entity, entityYaw, partialTick, poseStack, buffer, packedLight);
     }
-
 
     @Nullable
     protected RenderType getRenderType(T entity, boolean p_115323_, boolean p_115324_, boolean p_115325_) {

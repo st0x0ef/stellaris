@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.common.menus;
 
-import com.st0x0ef.stellaris.common.blocks.entities.machines.FuelRefineryBlockEntity;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.PumpjackBlockEntity;
 import com.st0x0ef.stellaris.common.menus.slot.FluidContainerSlot;
 import com.st0x0ef.stellaris.common.menus.slot.ResultSlot;

@@ -179,8 +179,7 @@ public class CheeseBoss extends Monster implements Enemy, RangedAttackMob {
 
     @Contract(value="null->false")
     public boolean canTargetEntity(@Nullable Entity entity) {
-        if (!(entity instanceof LivingEntity)) return false;
-        LivingEntity livingEntity = (LivingEntity)entity;
+        if (!(entity instanceof LivingEntity livingEntity)) return false;
         if (this.level() != entity.level()) return false;
         if (!EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(entity)) return false;
         if (this.isAlliedTo(entity)) return false;

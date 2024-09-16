@@ -279,12 +279,11 @@ public class JetSuit {
 
         @Override
         public String getSerializedName() {
-            return "" + mode;
+            return String.valueOf(this.mode);
         }
 
 
         public static ModeType fromInt(int integer) {
-            Stellaris.LOG.error(Integer.toString(integer));
            return fromString(Integer.toString(integer));
         }
 

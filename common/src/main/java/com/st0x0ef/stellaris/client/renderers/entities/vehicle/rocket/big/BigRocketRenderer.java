@@ -18,6 +18,7 @@ public class BigRocketRenderer extends VehicleRenderer<RocketEntity, BigRocketMo
     @Override
     public ResourceLocation getTextureLocation(RocketEntity rocket) {
         rocket.MODEL_UPGRADE = new ModelUpgrade(RocketModel.BIG);
+        rocket.setModelData();
         return rocket.getFullSkinTexture();
     }
 
