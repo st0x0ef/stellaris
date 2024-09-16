@@ -24,10 +24,10 @@ public class CustomConfig {
 
     public static void addEntries() {
         addEntry("planetScreenGravityColor", new ConfigEntry<>("White", "Yeah"));
-
-        addEntry("uraniumBurnTime", new ConfigEntry<>(/*coalBurnTime*5 */8000, "Burn time for uranium ingot in Radioactive Generator"));
-        addEntry("plutoniumBurnTime", new ConfigEntry<>(/*uraniumBurnTime*1.5 */12000, "Burn time for plutonium ingot in Radioactive Generator"));
-        addEntry("neptuniumBurnTime", new ConfigEntry<>(/*uraniumBurnTime*2 */16000, "Burn time for neptunium ingot in Radioactive Generator"));
+//
+//        addEntry("uraniumBurnTime", new ConfigEntry<>(/*coalBurnTime*5 */8000, "Burn time for uranium ingot in Radioactive Generator"));
+//        addEntry("plutoniumBurnTime", new ConfigEntry<>(/*uraniumBurnTime*1.5 */12000, "Burn time for plutonium ingot in Radioactive Generator"));
+//        addEntry("neptuniumBurnTime", new ConfigEntry<>(/*uraniumBurnTime*2 */16000, "Burn time for neptunium ingot in Radioactive Generator"));
 
         addEntry("customSky", new ConfigEntry<>(true, "Render custom sky on planet"));
     }
