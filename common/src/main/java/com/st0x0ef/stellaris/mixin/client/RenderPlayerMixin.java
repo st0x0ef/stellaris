@@ -44,7 +44,6 @@ public abstract class RenderPlayerMixin extends LivingEntityRenderer<AbstractCli
         ItemStack stack = player.getItemBySlot(EquipmentSlot.CHEST);
 
         if(stack.getItem() instanceof JetSuit.Suit || (stack.getItem() instanceof AbstractSpaceArmor)) {
-            Stellaris.LOG.error("eee");
             ci.cancel();
 
             PlayerModel<AbstractClientPlayer> playerModel = getModel();
