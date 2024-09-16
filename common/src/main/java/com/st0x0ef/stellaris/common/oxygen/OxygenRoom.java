@@ -10,7 +10,7 @@ import java.util.stream.IntStream;
 
 public class OxygenRoom {
     private final BlockPos distributorPos;
-    private final Set<BlockPos> oxygenatedPositions;
+    private Set<BlockPos> oxygenatedPositions;
     private final Queue<BlockPos> positionsToCheck;
     private final ServerLevel level;
 
@@ -95,7 +95,11 @@ public class OxygenRoom {
                 .toArray();
     }
 
-    public Set<BlockPos> fromIntArray(int[] array) {
+    public void setOxygenatedPositions(Set<BlockPos> pos){
+        this.oxygenatedPositions = pos;
+    }
+
+    public static Set<BlockPos> fromIntArray(int[] array) {
         Set<BlockPos> positions = new LinkedHashSet<>();
         for (int i = 0; i < array.length; i += 3) {
             int x = array[i];
