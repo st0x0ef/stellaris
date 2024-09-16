@@ -43,12 +43,12 @@ public class ArmorMaterialsRegistry {
             10,
             SoundEvents.ARMOR_EQUIP_GENERIC,
             () -> Ingredient.of(Items.IRON_INGOT),
-            List.of(new ArmorMaterial.Layer(ResourceLocation.parse("spacesuit"))),
+            List.of(new ArmorMaterial.Layer(ResourceLocation.parse("spacesuit"), "", true)),
             2.0F, 0.0F);
 
 
     public static final RegistrySupplier<ArmorMaterial> JET_SUIT = ARMOR_MATERIAL.register("radioactive", () -> JET_SUIT_MATERIAL);
-    public static final RegistrySupplier<ArmorMaterial> SPACE_SUIT = ARMOR_MATERIAL.register("space_suit", () -> JET_SUIT_MATERIAL);
+    public static final RegistrySupplier<ArmorMaterial> SPACE_SUIT = ARMOR_MATERIAL.register("space_suit", () -> SPACE_SUIT_MATERIAL);
 
 
 }
