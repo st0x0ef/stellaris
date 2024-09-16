@@ -3,9 +3,10 @@
 - complete remake of the oxygen system
 - add Mars and Moon crops
 - add water pump
-- add pump jack
+- add Pump jack
 - add chunk oil system
 - add steel tools
 - allow more than 1 player to be in a rocket at the same time
-- change default rocket model
+- change default rocket
 - add creative rocket, oxygen tank & jet suit
+- Add conventional tags for modders/pack makers
