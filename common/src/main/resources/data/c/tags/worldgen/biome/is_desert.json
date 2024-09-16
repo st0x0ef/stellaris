@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "stellaris:infernal_venus_barrens",
+    "stellaris:mars_desert",
+    "stellaris:moon_desert",
+    "stellaris:venus_desert"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "stellaris:mars_cobblestone",
+    "stellaris:venus_cobblestone",
+    "stellaris:moon_cobblestone",
+    "stellaris:mercury_cobblestone"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "stellaris:steel_axe",
+    "stellaris:steel_shovel",
+    "stellaris:steel_pickaxe",
+    "stellaris:steel_hoe"
+
+  ]
+}
