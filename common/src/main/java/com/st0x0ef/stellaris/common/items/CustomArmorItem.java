@@ -7,11 +7,7 @@ import net.minecraft.world.item.ArmorMaterial;
 public class CustomArmorItem extends ArmorItem {
 
     public CustomArmorItem(Holder<ArmorMaterial> material, Type type, Properties properties) {
-        super(material, type, properties);
+        super(material, type, properties.stacksTo(1));
     }
 
-    @Override
-    public int getDefaultMaxStackSize() {
-        return 1;
-    }
 }
