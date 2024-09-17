@@ -9,4 +9,9 @@ public class CustomArmorItem extends ArmorItem {
     public CustomArmorItem(Holder<ArmorMaterial> material, Type type, Properties properties) {
         super(material, type, properties);
     }
+
+    @Override
+    public int getDefaultMaxStackSize() {
+        return 1;
+    }
 }

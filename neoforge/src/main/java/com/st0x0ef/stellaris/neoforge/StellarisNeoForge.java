@@ -22,7 +22,7 @@ public class StellarisNeoForge {
         Stellaris.init();
         NeoForge.EVENT_BUS.addListener(StellarisNeoForge::onAddReloadListenerEvent);
         NeoForge.EVENT_BUS.addListener(StellarisNeoForge::onDatapackSync);
-        NeoForge.EVENT_BUS.addListener(StellarisNeoForge::addItemToTab);
+        //NeoForge.EVENT_BUS.addListener(StellarisNeoForge::addItemToTab);
 
         bus.addListener(StellarisNeoForge::onAttributes);
         SystemsNeoForge.init(bus);
