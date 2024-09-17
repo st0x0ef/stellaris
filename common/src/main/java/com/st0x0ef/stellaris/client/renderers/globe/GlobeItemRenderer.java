@@ -2,7 +2,9 @@ package com.st0x0ef.stellaris.client.renderers.globe;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.entities.GlobeBlockEntity;
+import com.st0x0ef.stellaris.common.items.GlobeItem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -34,7 +36,12 @@ public class GlobeItemRenderer<T extends GlobeBlockEntity> extends BlockEntityWi
     }
 
     @Override
-    public void renderByItem(ItemStack p_108830_, ItemDisplayContext p_108831_, PoseStack matrixStackIn, MultiBufferSource buffer, int combinedLight, int p_108835_) {
+    public void renderByItem(ItemStack stack, ItemDisplayContext displayContext, PoseStack matrixStackIn, MultiBufferSource buffer, int combinedLight, int packedOverlay) {
+        if (stack.getItem() instanceof GlobeItem globeItem) {
+            this.texture = globeItem.getTexture();
+        } else {
+            this.texture = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/block/globes/earth_globe.png");
+        }
         matrixStackIn.pushPose();
 
         matrixStackIn.translate(0.5D, 1.5D, 0.5D);
@@ -51,7 +58,7 @@ public class GlobeItemRenderer<T extends GlobeBlockEntity> extends BlockEntityWi
 
         /** Animation */
         if (level != null) {
-            if (!mc.isPaused()) {
+            if (!mc.isPaused() && mc.getFps()>0) {
                 model.globe.getChild("planet").yRot = (float) (level.getGameTime() + (1 / mc.getFps())) / -20;
             }
         }
