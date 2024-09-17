@@ -19,12 +19,12 @@ public abstract class LivingEntityMixin {
 
     @Inject(at = @At("HEAD"), method = "tick()V")
     private void tick(CallbackInfo ci){
-        ResourceLocation dimension = stellaris$livingEntity.level().dimension().location();
+        ResourceLocation stellaris$dimension = stellaris$livingEntity.level().dimension().location();
 
-        if (PlanetUtil.isPlanet(dimension)) {
-            stellaris$livingEntity.getAttribute(Attributes.GRAVITY).setBaseValue(Utils.MPS2ToMCG(PlanetUtil.getPlanet(dimension).gravity()));
-            stellaris$livingEntity.getAttribute(Attributes.SAFE_FALL_DISTANCE).setBaseValue(3.0/(Utils.MPS2ToMCG(PlanetUtil.getPlanet(dimension).gravity())/0.08));
-            stellaris$livingEntity.getAttribute(Attributes.SAFE_FALL_DISTANCE).setBaseValue(1.0/(Utils.MPS2ToMCG(PlanetUtil.getPlanet(dimension).gravity())/0.08));
+        if (!stellaris$dimension.equals(ResourceLocation.withDefaultNamespace("overworld")) && PlanetUtil.isPlanet(stellaris$dimension)) {
+            stellaris$livingEntity.getAttribute(Attributes.GRAVITY).setBaseValue(Utils.MPS2ToMCG(PlanetUtil.getPlanet(stellaris$dimension).gravity()));
+            stellaris$livingEntity.getAttribute(Attributes.SAFE_FALL_DISTANCE).setBaseValue(3.0/(Utils.MPS2ToMCG(PlanetUtil.getPlanet(stellaris$dimension).gravity())/0.08));
+            stellaris$livingEntity.getAttribute(Attributes.FALL_DAMAGE_MULTIPLIER).setBaseValue(Utils.MPS2ToMCG(PlanetUtil.getPlanet(stellaris$dimension).gravity())/0.08);
         } else {
             stellaris$livingEntity.getAttribute(Attributes.GRAVITY).setBaseValue(0.08);
             stellaris$livingEntity.getAttribute(Attributes.SAFE_FALL_DISTANCE).setBaseValue(3.0);
