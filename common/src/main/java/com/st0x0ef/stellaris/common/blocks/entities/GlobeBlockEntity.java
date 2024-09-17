@@ -105,4 +105,6 @@ public class GlobeBlockEntity extends BlockEntity {
     public void setYaw0(float value) {
         this.yaw0 = value;
     }
+
+
 }
