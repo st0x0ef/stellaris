@@ -360,7 +360,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         List<Component> bodyDescription = new ArrayList<>();
         bodyDescription.add(Utils.getMessageComponent("§f" + bodyToHighlight.translatable.getString()));
         if (!isShiftPressed) {
-            bodyDescription.add(Utils.getMessageComponent("§8" + TranslatableRegistry.holdShift.getString()));
+            bodyDescription.add(Utils.getMessageComponent("§8" + TranslatableRegistry.HOLD_SHIFT.getString()));
         } else {
             addDetailedDescription(bodyDescription, bodyToHighlight);
         }
@@ -382,12 +382,12 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
             if (bodyToHighlight instanceof PlanetInfo && getMoonsCount((PlanetInfo) bodyToHighlight) > 0) {
                 bodyDescription.add(Utils.getMessageComponent(""));
-                bodyDescription.add(Utils.getMessageComponent(TranslatableRegistry.moons.getString() + " : " + getMoonsCount((PlanetInfo) bodyToHighlight)));
+                bodyDescription.add(Utils.getMessageComponent(TranslatableRegistry.MOONS.getString() + " : " + getMoonsCount((PlanetInfo) bodyToHighlight)));
             }
 
             if (getPlayer().getServer() != null) {
                 bodyDescription.add(Utils.getMessageComponent(""));
-                bodyDescription.add(Utils.getMessageComponent(TranslatableRegistry.players.getString() + " : " + Utils.getPlayerCountInDimension(getPlayer().getServer(), bodyToHighlight.dimension)));
+                bodyDescription.add(Utils.getMessageComponent(TranslatableRegistry.PLAYERS.getString() + " : " + Utils.getPlayerCountInDimension(getPlayer().getServer(), bodyToHighlight.dimension)));
             }
         }
     }
@@ -494,11 +494,11 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             graphics.drawString(font, systemV, textX, buttonY + buttonHeight / 4 + 105, 0xFFFFFF, true);
 
             if (focusedBody instanceof PlanetInfo && getMoonsCount((PlanetInfo) focusedBody) > 0) {
-                graphics.drawString(font, TranslatableRegistry.moons.getString() + " : " + getMoonsCount((PlanetInfo) focusedBody), textX, buttonY + buttonHeight / 4 + 120, 0xD3D3D3, true);
+                graphics.drawString(font, TranslatableRegistry.MOONS.getString() + " : " + getMoonsCount((PlanetInfo) focusedBody), textX, buttonY + buttonHeight / 4 + 120, 0xD3D3D3, true);
             }
 
             if (getPlayer().getServer() != null) {
-                graphics.drawString(font, TranslatableRegistry.players.getString() + " : " + Utils.getPlayerCountInDimension(getPlayer().getServer(), focusedBody.dimension), textX, buttonY + buttonHeight / 4 + 135, 0xFFFFFF, false);
+                graphics.drawString(font, TranslatableRegistry.PLAYERS.getString() + " : " + Utils.getPlayerCountInDimension(getPlayer().getServer(), focusedBody.dimension), textX, buttonY + buttonHeight / 4 + 135, 0xFFFFFF, false);
             }
 
             if (canLaunch(planet)) {
