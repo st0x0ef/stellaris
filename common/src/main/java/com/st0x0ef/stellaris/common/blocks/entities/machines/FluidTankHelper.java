@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.armors.JetSuit;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import com.st0x0ef.stellaris.common.registry.FluidRegistry;
@@ -8,6 +9,8 @@ import dev.architectury.fluid.FluidStack;
 import dev.architectury.hooks.fluid.FluidBucketHooks;
 import dev.architectury.hooks.fluid.FluidStackHooks;
 import dev.architectury.platform.Platform;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.BucketItem;
@@ -17,6 +20,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
+
+import java.util.List;
 
 public class FluidTankHelper {
 
@@ -151,6 +156,34 @@ public class FluidTankHelper {
             }
         }
         return false;
+    }
+
+    public static void transferFluidNearby(BlockEntity entity, FluidTank fluidTank) {
+        BlockPos pos = entity.getBlockPos();
+        List<BlockPos> adjacentBlocks = List.of(pos.above(), pos.below(), pos.relative(Direction.SOUTH), pos.relative(Direction.EAST), pos.relative(Direction.NORTH),pos.relative(Direction.WEST));
+
+        BlockPos[] pos1 = adjacentBlocks.toArray(new BlockPos[0]);
+
+        for (BlockPos pos2 : pos1) {
+            BlockEntity block = entity.getLevel().getBlockEntity(pos2);
+            if(block == null) return;
+            if (block instanceof WrappedFluidBlockEntity fluidBlock) {
+
+                for (FluidTank tank : fluidBlock.getFluidTanks()) {
+
+                    if (tank.getStack().getFluid() == fluidTank.getStack().getFluid()) {
+                        Stellaris.LOG.error(tank.getStack().getTranslationKey());
+
+                        if (fluidTank.getAmount() - 10 > 0 && tank.canGrow(10)) {
+                            tank.grow(10);
+                            fluidTank.grow(-10);
+
+                            entity.setChanged();
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public static long convertFromMb(long amount) {

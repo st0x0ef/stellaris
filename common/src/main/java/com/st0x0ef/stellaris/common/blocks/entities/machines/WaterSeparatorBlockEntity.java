@@ -23,7 +23,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.util.List;
 import java.util.Optional;
 
-public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity implements RecipeInput {
+public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity implements RecipeInput, WrappedFluidBlockEntity {
 
     private static final int TANK_CAPACITY = 3;
 
@@ -122,5 +122,10 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity im
     @Override
     public int size() {
         return this.getContainerSize();
+    }
+
+    @Override
+    public FluidTank[] getFluidTanks() {
+        return new FluidTank[]{ingredientTank, resultTanks.getFirst(), resultTanks.getFirst()};
     }
 }
