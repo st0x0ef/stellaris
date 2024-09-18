@@ -60,7 +60,7 @@ public class DimensionOxygenManager {
     }
 
     public void updateOxygen() {
-        if (planetHasOxygen) return;
+        if (planetHasOxygen || this.oxygenRooms ==null) return;
 
         oxygenRooms.forEach(OxygenRoom::updateOxygenRoom);
         roomToCheckIfOpen.values().forEach(OxygenRoom::removeOxygenInRoom);

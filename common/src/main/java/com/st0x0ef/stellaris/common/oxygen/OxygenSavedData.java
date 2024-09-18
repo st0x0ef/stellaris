@@ -38,6 +38,7 @@ public final  class OxygenSavedData extends SavedData {
         DimensionOxygenManager dimensionOxygenManager = GlobalOxygenManager.getInstance().getOrCreateDimensionManager(this.level);
 
         int rooms = 0;
+        if(dimensionOxygenManager.getOxygenRooms() == null) return tag;
         for (OxygenRoom room : dimensionOxygenManager.getOxygenRooms()) {
             tag.putIntArray("oxygenatedBlocks" + rooms, room.toIntArray());
 
