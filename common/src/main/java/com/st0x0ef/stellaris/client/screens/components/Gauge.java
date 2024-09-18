@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.client.screens.components;
 
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import net.fabricmc.api.EnvType;
@@ -70,6 +71,7 @@ public class Gauge extends AbstractWidget {
         } else {
             capacity = Utils.getMessageComponent(GaugeComponent, "Orange");
         }
+
 
         components.addFirst(capacity);
         if (mouseX >= this.getX() && mouseX <= this.getX() + width && mouseY >= this.getY() && mouseY <= this.getY() + this.height) {

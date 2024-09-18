@@ -37,6 +37,10 @@ public class FluidTank {
         setAmount(getAmount() + amount);
     }
 
+    public boolean canGrow(long amount) {
+        return this.getAmount() + amount <= this.getMaxCapacity();
+    }
+
     public void shrink(long amount) {
         grow(-amount);
     }
