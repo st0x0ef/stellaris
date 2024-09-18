@@ -30,7 +30,7 @@
       "b": 255
     },
     "shooting_stars": {
-      "percentage": 99,
+      "percentage": 999,
       "random_lifetime": [
         20,
         100
