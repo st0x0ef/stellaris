@@ -15,7 +15,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkAccess;
 
-public class PumpjackBlockEntity extends BaseEnergyContainerBlockEntity {
+public class PumpjackBlockEntity extends BaseEnergyContainerBlockEntity implements WrappedFluidBlockEntity{
 
     private boolean isGenerating = false;
     private final FluidTank resultTank = new FluidTank("resultTank", 5);
@@ -95,5 +95,10 @@ public class PumpjackBlockEntity extends BaseEnergyContainerBlockEntity {
 
     public int chunkOilLevel() {
         return chunkOilLevel;
+    }
+
+    @Override
+    public FluidTank[] getFluidTanks() {
+        return new FluidTank[]{resultTank};
     }
 }

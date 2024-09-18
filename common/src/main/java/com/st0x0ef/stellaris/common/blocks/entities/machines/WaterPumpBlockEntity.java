@@ -11,7 +11,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 
-public class WaterPumpBlockEntity extends BaseEnergyBlockEntity {
+import java.util.ArrayList;
+
+public class WaterPumpBlockEntity extends BaseEnergyBlockEntity implements WrappedFluidBlockEntity{
 
     private static final long NEEDED_ENERGY = 100;
     private final FluidTank waterTank = new FluidTank("waterTank", 3);
@@ -33,6 +35,8 @@ public class WaterPumpBlockEntity extends BaseEnergyBlockEntity {
             BlockState belowState = level.getBlockState(belowPos);
             FluidState belowFluidState = level.getFluidState(belowPos);
 
+
+
             if (belowFluidState.is(Fluids.WATER) && belowFluidState.isSource()) {
                 if (waterTank.getAmount() + FluidTankHelper.BUCKET_AMOUNT <= waterTank.getMaxCapacity()) {
                     if (belowState.getBlock() instanceof BucketPickup bucketPickup) {
@@ -44,7 +48,10 @@ public class WaterPumpBlockEntity extends BaseEnergyBlockEntity {
                     }
                 }
             }
+
         }
+        FluidTankHelper.transferFluidNearby(this, waterTank);
+
     }
 
     @Override
@@ -61,5 +68,10 @@ public class WaterPumpBlockEntity extends BaseEnergyBlockEntity {
 
     public FluidTank getWaterTank() {
         return waterTank;
+    }
+
+    @Override
+    public FluidTank[] getFluidTanks() {
+        return new FluidTank[]{waterTank};
     }
 }

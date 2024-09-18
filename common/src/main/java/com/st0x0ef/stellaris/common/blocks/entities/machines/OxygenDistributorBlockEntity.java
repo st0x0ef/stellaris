@@ -14,7 +14,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class OxygenDistributorBlockEntity extends BaseEnergyContainerBlockEntity {
+public class OxygenDistributorBlockEntity extends BaseEnergyContainerBlockEntity implements WrappedFluidBlockEntity {
 
     public final FluidTank oxygenTank = new FluidTank("oxygenTank", 10);
 
@@ -76,4 +76,9 @@ public class OxygenDistributorBlockEntity extends BaseEnergyContainerBlockEntity
         oxygenTank.save(provider, tag);
     }
 
+
+    @Override
+    public FluidTank[] getFluidTanks() {
+        return new FluidTank[]{oxygenTank};
+    }
 }
