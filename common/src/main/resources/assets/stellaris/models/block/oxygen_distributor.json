@@ -1,11 +1,11 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "stellaris:block/machines/oxygen_distributor_bottom",
-		"1": "stellaris:block/machines/oxygen_distributor_face",
-		"3": "stellaris:block/machines/oxygen_distributor_side",
-		"4": "stellaris:block/machines/oxygen_distributor_top",
-		"particle": "stellaris:block/machines/oxygen_distributor_side"
+		"1": "stellaris:block/machines/oxygen_propagator_face",
+		"2": "stellaris:block/machines/oxygen_loader_bottom",
+		"3": "stellaris:block/machines/oxygen_distributor_top",
+		"4": "stellaris:block/machines/oxygen_propagator_side",
+		"particle": "stellaris:block/machines/oxygen_propagator_side"
 	},
 	"elements": [
 		{
@@ -13,11 +13,11 @@
 			"to": [16, 16, 16],
 			"faces": {
 				"north": {"uv": [0, 0, 16, 16], "texture": "#1"},
-				"east": {"uv": [0, 0, 16, 16], "texture": "#3"},
-				"south": {"uv": [0, 0, 16, 16], "texture": "#3"},
-				"west": {"uv": [0, 0, 16, 16], "texture": "#3"},
-				"up": {"uv": [0, 0, 16, 16], "texture": "#4"},
-				"down": {"uv": [0, 0, 16, 16], "texture": "#0"}
+				"east": {"uv": [0, 0, 16, 16], "texture": "#4"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#4"},
+				"west": {"uv": [0, 0, 16, 16], "texture": "#4"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#3"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#2"}
 			}
 		}
 	],
