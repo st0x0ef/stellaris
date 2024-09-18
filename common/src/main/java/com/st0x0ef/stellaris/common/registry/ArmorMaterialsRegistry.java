@@ -43,7 +43,9 @@ public class ArmorMaterialsRegistry {
             10,
             SoundEvents.ARMOR_EQUIP_GENERIC,
             () -> Ingredient.of(Items.IRON_INGOT),
-            List.of(new ArmorMaterial.Layer(ResourceLocation.parse("spacesuit"), "", true)),
+            List.of(new ArmorMaterial.Layer(ResourceLocation.parse("spacesuit"), "", true),
+                    new ArmorMaterial.Layer(ResourceLocation.parse("spacesuit"), "_overlay", false)
+                    ),
             2.0F, 0.0F);
 
 
