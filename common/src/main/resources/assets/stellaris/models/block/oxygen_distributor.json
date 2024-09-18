@@ -1,11 +1,11 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"1": "stellaris:block/machines/oxygen_propagator_face",
-		"2": "stellaris:block/machines/oxygen_loader_bottom",
+		"1": "stellaris:block/machines/oxygen_distributor_face",
+		"2": "stellaris:block/machines/oxygen_distributor_bottom",
 		"3": "stellaris:block/machines/oxygen_distributor_top",
-		"4": "stellaris:block/machines/oxygen_propagator_side",
-		"particle": "stellaris:block/machines/oxygen_propagator_side"
+		"4": "stellaris:block/machines/oxygen_distributor_side",
+		"particle": "stellaris:block/machines/oxygen_distributor_side"
 	},
 	"elements": [
 		{

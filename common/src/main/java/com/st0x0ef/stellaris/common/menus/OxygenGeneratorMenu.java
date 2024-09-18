@@ -18,11 +18,11 @@ public class OxygenGeneratorMenu extends BaseContainer {
     private final OxygenDistributorBlockEntity blockEntity;
 
     public OxygenGeneratorMenu(int containerId, Inventory inventory, Container container, OxygenDistributorBlockEntity blockEntity) {
-        super(MenuTypesRegistry.OXYGEN_DISTRIBUTOR.get(), containerId, 1, inventory, 54);
+        super(MenuTypesRegistry.OXYGEN_DISTRIBUTOR.get(), containerId, 1, inventory, 8);
         this.container = container;
         this.blockEntity = blockEntity;
 
-        addSlot(new OxygenTankSlot(container, 0, 17, 58));
+        addSlot(new OxygenTankSlot(container, 0, 80, 26));
     }
 
     public static OxygenGeneratorMenu create(int syncId, Inventory inventory, FriendlyByteBuf data) {
@@ -43,7 +43,10 @@ public class OxygenGeneratorMenu extends BaseContainer {
 
     private void syncWidgets(ServerPlayer player) {
         if (!player.level().isClientSide) {
-            NetworkManager.sendToPlayer(player, new SyncWidgetsTanksPacket(new long[] {blockEntity.getWrappedEnergyContainer().getStoredEnergy()}));
+            NetworkManager.sendToPlayer(player, new SyncWidgetsTanksPacket(new long[] {
+                    blockEntity.getWrappedEnergyContainer().getStoredEnergy(),
+                    blockEntity.oxygenTank.getAmount()
+            }));
         }
     }
 }
