@@ -23,7 +23,7 @@ public class ClientUtilsPlatformImpl {
     }
 
     public static void registerDyeableArmor(ModelLayerLocation layer, ClientUtilsPlatform.ArmorFactory factory, Item... items) {
-
+        registerArmor(ResourceLocation.fromNamespaceAndPath("", ""), layer, factory, items);
     }
 
 }

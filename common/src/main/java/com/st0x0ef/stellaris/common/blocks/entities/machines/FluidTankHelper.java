@@ -172,8 +172,6 @@ public class FluidTankHelper {
                 for (FluidTank tank : fluidBlock.getFluidTanks()) {
 
                     if (tank.getStack().getFluid() == fluidTank.getStack().getFluid()) {
-                        Stellaris.LOG.error(tank.getStack().getTranslationKey());
-
                         if (fluidTank.getAmount() - 10 > 0 && tank.canGrow(10)) {
                             tank.grow(10);
                             fluidTank.grow(-10);
