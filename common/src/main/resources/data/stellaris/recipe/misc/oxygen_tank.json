@@ -6,7 +6,7 @@
     " # "
   ],
   "key": {
-    "#": {"item": "stellaris:steel_ingot"},
+    "#": {"tag": "c:ingots/steel"},
     "X": {"item": "stellaris:steel_nugget"}
   },
   "result": {
