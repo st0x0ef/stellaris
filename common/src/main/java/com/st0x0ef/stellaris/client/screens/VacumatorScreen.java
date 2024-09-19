@@ -19,7 +19,7 @@ public class VacumatorScreen extends AbstractContainerScreen<VacuumatorMenu> {
 	public VacumatorScreen(VacuumatorMenu abstractContainerMenu, Inventory inventory, Component component) {
 		super(abstractContainerMenu, inventory, component);
 		this.imageWidth = 177;
-		this.imageHeight = 227;
+		this.imageHeight = 224;
 		this.inventoryLabelY = this.imageHeight - 95;
 		this.titleLabelY += 10;
 	}
