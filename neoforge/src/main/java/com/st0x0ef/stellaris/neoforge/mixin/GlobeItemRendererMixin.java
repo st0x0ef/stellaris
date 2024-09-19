@@ -2,11 +2,8 @@ package com.st0x0ef.stellaris.neoforge.mixin;
 
 import com.st0x0ef.stellaris.common.items.GlobeItem;
 import com.st0x0ef.stellaris.common.registry.ItemRendererRegistry;
-import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.NotNull;
