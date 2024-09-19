@@ -46,7 +46,7 @@ public class StellarisClient {
                 ItemsRegistry.JETSUIT_BOOTS.get(), ItemsRegistry.JETSUIT_LEGGINGS.get(),
                 ItemsRegistry.JETSUIT_HELMET.get(), ItemsRegistry.JETSUIT_SUIT.get());
 
-        ClientUtilsPlatform.registerArmor(SpaceSuitModel.TEXTURE, SpaceSuitModel.LAYER_LOCATION, SpaceSuitModel::new,
+        ClientUtilsPlatform.registerDyeableArmor(SpaceSuitModel.LAYER_LOCATION, SpaceSuitModel::new,
                 ItemsRegistry.SPACESUIT_BOOTS.get(), ItemsRegistry.SPACESUIT_LEGGINGS.get(),
                 ItemsRegistry.SPACESUIT_HELMET.get(), ItemsRegistry.SPACESUIT_SUIT.get());
 
