@@ -6,9 +6,7 @@
     "XXX"
   ],
   "key": {
-    "X": {
-      "item": "stellaris:steel_block"
-    },
+    "X": {"tag": "c:ore_blocks/steel"},
     "Z": {
       "item": "minecraft:bucket"
     },
