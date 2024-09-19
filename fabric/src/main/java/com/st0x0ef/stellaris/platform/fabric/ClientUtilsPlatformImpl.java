@@ -39,8 +39,4 @@ public class ClientUtilsPlatformImpl {
         }, items);
     }
 
-    private static <A extends HumanoidModel<?>> void renderModel(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, A model, int dyeColor, ResourceLocation textureLocation) {
-        VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderType.entityTranslucent(textureLocation));
-        model.renderToBuffer(poseStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY, dyeColor);
-    }
 }
