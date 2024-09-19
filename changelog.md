@@ -1,14 +1,26 @@
-## 1.1.0 changelog
+# 1.1.0 changelog
 
-- complete remake of the oxygen system
+## Aditions
 - add Mars and Moon crops
 - add water pump
 - add Pump jack
 - add chunk oil system
 - add steel tools
-- allow more than 1 player to be in a rocket at the same time
-- change default rocket
 - add creative rocket, oxygen tank & jet suit
 - add conventional tags for modders/pack makers
+- add 3d globe items rendering
+
+## Changes
+- complete remake of the oxygen system
+- allow more than 1 player to be in a rocket at the same time
+- change default rocket
 - now use Sky Aesthetic
 - change ore per chunk for most ores
+- water separator now transfer fluid to machines nearby
+
+## Fix
+- fix uranium and raw uranium block texture
+- fix fall damage with our custom gravity system
+
+## Removal
+- remove main menu config button (neoforge only)
