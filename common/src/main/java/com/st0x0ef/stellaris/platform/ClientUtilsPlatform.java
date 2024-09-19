@@ -22,7 +22,7 @@ public class ClientUtilsPlatform {
     }
 
     @ExpectPlatform
-    public static void registerCustomItemModel(ResourceLocation texture, ModelLayerLocation layer, ArmorFactory factory, Item... items) {
+    public static void registerDyeableArmor(ModelLayerLocation layer, ArmorFactory factory, Item... items) {
         throw new AssertionError();
     }
 }
