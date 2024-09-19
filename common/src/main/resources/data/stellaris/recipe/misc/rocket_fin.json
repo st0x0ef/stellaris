@@ -6,7 +6,7 @@
     "# #"
   ],
   "key": {
-    "#": {"item": "stellaris:steel_ingot"}
+    "#": {"tag": "c:ingots/steel"}
   },
   "result": {
     "id": "stellaris:rocket_fin"
