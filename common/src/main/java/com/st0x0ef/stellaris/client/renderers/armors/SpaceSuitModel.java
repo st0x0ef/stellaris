@@ -24,7 +24,7 @@ import java.util.Objects;
 public class SpaceSuitModel extends HumanoidModel<LivingEntity> {
 
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "spacesuit"), "main");
-    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/entity/armor/spacesuit_white.png");
+    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/models/armor/spacesuit_white.png");
 
 	private final ModelPart head;
 	private final ModelPart body;
