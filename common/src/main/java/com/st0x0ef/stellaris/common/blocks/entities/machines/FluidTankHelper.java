@@ -163,7 +163,6 @@ public class FluidTankHelper {
         List<BlockPos> adjacentBlocks = List.of(pos.above(), pos.below(), pos.relative(Direction.SOUTH), pos.relative(Direction.EAST), pos.relative(Direction.NORTH),pos.relative(Direction.WEST));
 
         BlockPos[] pos1 = adjacentBlocks.toArray(new BlockPos[0]);
-
         for (BlockPos pos2 : pos1) {
             BlockEntity block = entity.getLevel().getBlockEntity(pos2);
             if(block == null) return;
