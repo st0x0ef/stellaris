@@ -7,7 +7,7 @@
   ],
   "key": {
     "#": {"tag": "c:ingots/steel"},
-    "X": {"item": "stellaris:steel_nugget"}
+    "X": {"tag": "c:nuggets/steel"}
   },
   "result": {
     "id": "stellaris:oxygen_tank"
