@@ -21,4 +21,9 @@ public class ClientUtilsPlatformImpl {
     public record ArmorRenderer(ResourceLocation texture, ModelLayerLocation layer, ClientUtilsPlatform.ArmorFactory factory) {
 
     }
+
+    public static void registerDyeableArmor(ModelLayerLocation layer, ClientUtilsPlatform.ArmorFactory factory, Item... items) {
+
+    }
+
 }
