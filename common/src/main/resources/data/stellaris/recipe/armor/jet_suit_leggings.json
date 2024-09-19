@@ -7,7 +7,7 @@
   ],
   "key": {
     "c": {"item": "minecraft:copper_ingot"},
-    "s": {"item": "stellaris:steel_ingot"}
+    "s": {"tag": "c:ingots/steel"}
   },
   "result": {
     "id": "stellaris:jet_suit_leggings"
