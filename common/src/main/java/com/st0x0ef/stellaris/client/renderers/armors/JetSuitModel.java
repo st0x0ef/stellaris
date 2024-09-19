@@ -22,11 +22,11 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
 
 public class JetSuitModel extends HumanoidModel<LivingEntity> {
+
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "jetsuit"), "main");
-    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/entity/armor/jet_suit.png");
+	public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/models/armor/jetsuit_layer_1.png");
 
-
-    private final ModelPart head;
+	private final ModelPart head;
 	private final ModelPart body;
 	private final ModelPart right_arm;
 	private final ModelPart left_arm;
