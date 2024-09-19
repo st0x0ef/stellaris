@@ -17,7 +17,7 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class DimensionOxygenManager {
-    private Set<OxygenRoom> oxygenRooms;
+    private final Set<OxygenRoom> oxygenRooms;
     private final Map<BlockPos, OxygenRoom> roomToCheckIfOpen;
     private final boolean planetHasOxygen;
     private final ServerLevel level;
@@ -60,7 +60,7 @@ public class DimensionOxygenManager {
     }
 
     public void updateOxygen() {
-        if (planetHasOxygen || this.oxygenRooms ==null) return;
+        if (planetHasOxygen) return;
 
         oxygenRooms.forEach(OxygenRoom::updateOxygenRoom);
         roomToCheckIfOpen.values().forEach(OxygenRoom::removeOxygenInRoom);
@@ -105,7 +105,7 @@ public class DimensionOxygenManager {
     }
 
     public void setOxygensRooms(Set<OxygenRoom> rooms) {
-        this.oxygenRooms = rooms;
-
+        this.oxygenRooms.clear();
+        this.oxygenRooms.addAll(rooms);
     }
 }

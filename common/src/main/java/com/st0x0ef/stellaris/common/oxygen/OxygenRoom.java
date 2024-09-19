@@ -76,11 +76,7 @@ public class OxygenRoom {
     }
 
     private boolean addOxygenatedPosition(BlockPos pos) {
-        OxygenDistributorBlockEntity distributor = (OxygenDistributorBlockEntity) level.getBlockEntity(distributorPos);
-
-        if (distributor == null) return false;
-
-        if (distributor.useOxygenAndEnergy()) {
+        if (level.getBlockEntity(distributorPos) instanceof OxygenDistributorBlockEntity distributor && distributor.useOxygenAndEnergy()) {
             oxygenatedPositions.add(pos);
             return true;
         }
