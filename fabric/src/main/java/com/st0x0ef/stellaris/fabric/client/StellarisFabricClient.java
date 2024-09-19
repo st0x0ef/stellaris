@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.fabric.client;
 
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.StellarisClient;
 import com.st0x0ef.stellaris.client.registries.KeyMappingsRegistry;
 import com.st0x0ef.stellaris.client.renderers.armors.JetSuitModel;
@@ -32,10 +31,8 @@ import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.small.Smal
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.tiny.TinyRocketModel;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.tiny.TinyRocketRenderer;
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeBlockRenderer;
-import com.st0x0ef.stellaris.client.renderers.globe.GlobeItemRenderer;
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeModel;
 import com.st0x0ef.stellaris.client.screens.*;
-import com.st0x0ef.stellaris.common.items.GlobeItem;
 import com.st0x0ef.stellaris.common.registry.*;
 import dev.architectury.registry.menu.MenuRegistry;
 import net.fabricmc.api.ClientModInitializer;
@@ -45,11 +42,8 @@ import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
-import net.fabricmc.fabric.mixin.client.indigo.renderer.ItemRendererAccessor;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
-import net.minecraft.client.renderer.entity.ItemEntityRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
-import net.minecraft.resources.ResourceLocation;
 
 public class StellarisFabricClient implements ClientModInitializer {
     @Override
