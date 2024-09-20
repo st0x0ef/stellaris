@@ -10,7 +10,7 @@ import java.util.stream.IntStream;
 
 public class OxygenRoom {
     private final BlockPos distributorPos;
-    private Set<BlockPos> oxygenatedPositions;
+    private final Set<BlockPos> oxygenatedPositions;
     private final Queue<BlockPos> positionsToCheck;
     private final ServerLevel level;
 
@@ -84,7 +84,6 @@ public class OxygenRoom {
         return false;
     }
 
-
     public int[] toIntArray() {
         return oxygenatedPositions.stream()
                 .flatMapToInt(pos -> IntStream.of(pos.getX(), pos.getY(), pos.getZ()))
@@ -92,7 +91,8 @@ public class OxygenRoom {
     }
 
     public void setOxygenatedPositions(Set<BlockPos> pos){
-        this.oxygenatedPositions = pos;
+        this.oxygenatedPositions.clear();
+        this.oxygenatedPositions.addAll(pos);
     }
 
     public static Set<BlockPos> fromIntArray(int[] array) {
