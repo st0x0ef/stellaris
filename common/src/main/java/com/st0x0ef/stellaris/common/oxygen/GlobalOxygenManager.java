@@ -23,7 +23,7 @@ public class GlobalOxygenManager {
         return INSTANCE;
     }
 
-    public DimensionOxygenManager getOrCreateDimensionManager(Level level) {
-        return dimensionManagers.computeIfAbsent(level.dimension(), l -> new DimensionOxygenManager((ServerLevel) level));
+    public DimensionOxygenManager getOrCreateDimensionManager(ServerLevel level) {
+        return dimensionManagers.computeIfAbsent(level.dimension(), l -> new DimensionOxygenManager(level));
     }
 }

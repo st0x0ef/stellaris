@@ -5,11 +5,9 @@ import com.st0x0ef.stellaris.common.blocks.entities.machines.WaterPumpBlockEntit
 import com.st0x0ef.stellaris.common.menus.WaterPumpMenu;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import dev.architectury.registry.menu.ExtendedMenuProvider;
-import dev.architectury.registry.menu.MenuRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;

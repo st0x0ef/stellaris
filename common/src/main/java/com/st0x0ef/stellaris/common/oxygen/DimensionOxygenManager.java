@@ -25,8 +25,8 @@ public class DimensionOxygenManager {
     public DimensionOxygenManager(ServerLevel level) {
         this.oxygenRooms = new HashSet<>();
         this.roomToCheckIfOpen = new HashMap<>();
-        this.planetHasOxygen = PlanetUtil.hasOxygen(level.dimension().location());
         this.level = level;
+        this.planetHasOxygen = PlanetUtil.hasOxygen(level.dimension().location());
     }
 
     public void addOxygenRoom(OxygenRoom room) {
@@ -66,7 +66,6 @@ public class DimensionOxygenManager {
         roomToCheckIfOpen.values().forEach(OxygenRoom::removeOxygenInRoom);
         roomToCheckIfOpen.clear();
         this.setChanged();
-
     }
 
     public boolean canBreath(LivingEntity entity) {
@@ -79,6 +78,8 @@ public class DimensionOxygenManager {
         if (Utils.isLivingInJetSuit(entity) || Utils.isLivingInSpaceSuit(entity)) {
             return OxygenUtils.getOxygen(entity.getItemBySlot(EquipmentSlot.CHEST)) > 0;
         }
+
+        this.updateOxygen();
 
         AtomicBoolean canBreath = new AtomicBoolean(false);
         oxygenRooms.forEach(room -> {
