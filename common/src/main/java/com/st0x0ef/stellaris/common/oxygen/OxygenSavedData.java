@@ -57,9 +57,11 @@ public final  class OxygenSavedData extends SavedData {
         int rooms = tag.getInt("OxygenRooms");
 
         for (int i = 0; i != rooms; i++){
-            OxygenRoom oxygenRoom = new OxygenRoom(level, NbtUtils.readBlockPos(tag, "oxygenDistributorPos" + rooms).get());
-            oxygenRoom.setOxygenatedPositions(OxygenRoom.fromIntArray(tag.getIntArray("oxygenDistributorPos" + rooms)));
-            data.rooms.add(oxygenRoom);
+            if (NbtUtils.readBlockPos(tag, "oxygenDistributorPos" + rooms).isPresent()) {
+                OxygenRoom oxygenRoom = new OxygenRoom(level, NbtUtils.readBlockPos(tag, "oxygenDistributorPos" + rooms).get());
+                oxygenRoom.setOxygenatedPositions(OxygenRoom.fromIntArray(tag.getIntArray("oxygenDistributorPos" + rooms)));
+                data.rooms.add(oxygenRoom);
+            }
         }
 
         GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level).setOxygensRooms(data.rooms);
