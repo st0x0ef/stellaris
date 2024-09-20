@@ -6,7 +6,7 @@
     "# #"
   ],
   "key": {
-    "#": {"item": "stellaris:steel_ingot"},
+    "#": {"tag": "c:ingots/steel"},
     "R": {"item": "stellaris:heavy_metal_plate"},
     "X": {"item": "minecraft:redstone"}
   },

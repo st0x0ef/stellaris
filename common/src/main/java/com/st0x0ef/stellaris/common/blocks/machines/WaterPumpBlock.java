@@ -40,11 +40,7 @@ public class WaterPumpBlock extends BaseMachineBlock {
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-        if (!level.isClientSide) {
-            MenuRegistry.openExtendedMenu((ServerPlayer) player, getMenuProvider(state, level, pos));
-            return InteractionResult.SUCCESS;
-        }
-        return super.useWithoutItem(state, level, pos, player, hitResult);
+        return InteractionResult.CONSUME;
     }
 
     @Override

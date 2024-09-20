@@ -3,7 +3,8 @@
 	"render_type": "minecraft:cutout",
 	"texture_size": [64, 64],
 	"textures": {
-		"2": "stellaris:block/water_pump"
+		"2": "stellaris:block/water_pump",
+		"particle": "stellaris:block/water_pump"
 	},
 	"elements": [
 		{
@@ -83,5 +84,14 @@
 				"down": {"uv": [0, 0, 2, 2], "texture": "#2"}
 			}
 		}
-	]
+	],
+	"display": {
+		"ground": {
+			"translation": [0, 3, 0]
+		},
+		"gui": {
+			"rotation": [-180, 50, -180],
+			"scale": [0.94141, 0.90625, 0.87695]
+		}
+	}
 }

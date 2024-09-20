@@ -42,11 +42,11 @@ public class StellarisClient {
     }
 
     private static void registerJetSuitModel() {
-        ClientUtilsPlatform.registerArmor(JetSuitModel.TEXTURE, JetSuitModel.LAYER_LOCATION, JetSuitModel::new,
+        ClientUtilsPlatform.registerArmor(JetSuitModel.LAYER_LOCATION, JetSuitModel::new,
                 ItemsRegistry.JETSUIT_BOOTS.get(), ItemsRegistry.JETSUIT_LEGGINGS.get(),
                 ItemsRegistry.JETSUIT_HELMET.get(), ItemsRegistry.JETSUIT_SUIT.get());
 
-        ClientUtilsPlatform.registerArmor(SpaceSuitModel.TEXTURE, SpaceSuitModel.LAYER_LOCATION, SpaceSuitModel::new,
+        ClientUtilsPlatform.registerArmor(SpaceSuitModel.LAYER_LOCATION, SpaceSuitModel::new,
                 ItemsRegistry.SPACESUIT_BOOTS.get(), ItemsRegistry.SPACESUIT_LEGGINGS.get(),
                 ItemsRegistry.SPACESUIT_HELMET.get(), ItemsRegistry.SPACESUIT_SUIT.get());
 

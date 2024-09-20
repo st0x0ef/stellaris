@@ -6,8 +6,8 @@
     " # "
   ],
   "key": {
-    "X": {"item": "stellaris:steel_ingot"},
-    "#": {"item": "stellaris:steel_nugget"}
+    "X":  {"tag": "c:ingots/steel"},
+    "#": {"tag": "c:nuggets/steel"}
   },
   "result": {
     "id": "stellaris:engine_fan"

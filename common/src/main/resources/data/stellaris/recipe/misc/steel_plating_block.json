@@ -6,7 +6,7 @@
     "###"
   ],
   "key": {
-    "#": {"item": "stellaris:steel_block"}
+    "#": {"tag": "c:ore_blocks/steel"}
   },
   "result": {
     "id": "stellaris:steel_plating_block",

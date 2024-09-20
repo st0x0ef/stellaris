@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.st0x0ef.stellaris.Stellaris;
-import dev.architectury.injectables.targets.ArchitecturyTarget;
+import dev.architectury.platform.Platform;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -24,7 +24,7 @@ import java.util.Objects;
 public class SpaceSuitModel extends HumanoidModel<LivingEntity> {
 
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "spacesuit"), "main");
-    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/entity/armor/spacesuit_white.png");
+    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/models/armor/spacesuit_white.png");
 
 	private final ModelPart head;
 	private final ModelPart body;
@@ -96,7 +96,7 @@ public class SpaceSuitModel extends HumanoidModel<LivingEntity> {
 
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-		if (Objects.equals(ArchitecturyTarget.getCurrentTarget(), "neoforge")) {
+		if (Platform.isNeoForge()) {
 			MultiBufferSource.BufferSource bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
 			vertexConsumer = bufferSource.getBuffer(RenderType.entityTranslucent(TEXTURE));
 		}

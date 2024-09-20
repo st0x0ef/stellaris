@@ -29,7 +29,7 @@ public class ArmorMaterialsRegistry {
             10,
             SoundEvents.ARMOR_EQUIP_ELYTRA,
             () -> Ingredient.of(ItemsRegistry.DESH_INGOT.get()),
-            List.of(new ArmorMaterial.Layer(ResourceLocation.parse("jetsuit"))),
+            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"jetsuit"))),
             2.0F, 0.0F);
 
     public static final ArmorMaterial SPACE_SUIT_MATERIAL = new ArmorMaterial(
@@ -43,8 +43,8 @@ public class ArmorMaterialsRegistry {
             10,
             SoundEvents.ARMOR_EQUIP_GENERIC,
             () -> Ingredient.of(Items.IRON_INGOT),
-            List.of(new ArmorMaterial.Layer(ResourceLocation.parse("spacesuit"), "", true),
-                    new ArmorMaterial.Layer(ResourceLocation.parse("spacesuit"), "_overlay", false)
+            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"spacesuit")),
+                    new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"spacesuit"), "_overlay", true)
                     ),
             2.0F, 0.0F);
 

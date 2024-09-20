@@ -14,6 +14,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import org.jetbrains.annotations.NotNull;
 
 public class VacuumatorMenu extends AbstractContainerMenu {
 
@@ -28,19 +29,19 @@ public class VacuumatorMenu extends AbstractContainerMenu {
         checkContainerSize(container, 5);
         this.container = container;
 
-        addSlot(new VacumatorCanSlot(container, 0, 37, 57));
-        addSlot(new VacumatorFoodSlot(container, 1, 81, 48));
-        addSlot(new SpecificItemsSlot.Item(container, 2, 125, 57, Items.GLASS_BOTTLE));
+        addSlot(new VacumatorCanSlot(container, 0, 37, 56));
+        addSlot(new VacumatorFoodSlot(container, 1, 81, 47));
+        addSlot(new SpecificItemsSlot.Item(container, 2, 125, 56, Items.GLASS_BOTTLE));
 
-        addSlot(new ResultSlot(container, 3, 58, 99));
-        addSlot(new ResultSlot(container, 4, 104, 99));
+        addSlot(new ResultSlot(container, 3, 58, 97));
+        addSlot(new ResultSlot(container, 4, 104, 97));
 
         addPlayerHotbar(inventory);
         addPlayerInventory(inventory);
     }
 
     @Override
-    public ItemStack quickMoveStack(Player player, int invSlot) {
+    public @NotNull ItemStack quickMoveStack(Player player, int invSlot) {
         ItemStack newStack = ItemStack.EMPTY;
         Slot slot = this.slots.get(invSlot);
         if (slot.hasItem()) {
@@ -74,14 +75,14 @@ public class VacuumatorMenu extends AbstractContainerMenu {
     private void addPlayerInventory(Inventory playerInventory) {
         for (int i = 0; i < 3; ++i) {
             for (int l = 0; l < 9; ++l) {
-                this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 8 + l * 18, (84 + i * 18) + 62));
+                this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 8 + l * 18, (84 + i * 18) + 58));
             }
         }
     }
 
     private void addPlayerHotbar(Inventory playerInventory) {
         for (int i = 0; i < 9; ++i) {
-            this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 204));
+            this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 200));
         }
     }
 }
