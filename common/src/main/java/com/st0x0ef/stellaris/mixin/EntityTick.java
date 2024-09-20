@@ -1,7 +1,9 @@
 package com.st0x0ef.stellaris.mixin;
 
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.oxygen.GlobalOxygenManager;
 import com.st0x0ef.stellaris.common.registry.DamageSourceRegistry;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -20,7 +22,7 @@ public abstract class EntityTick {
 
         if (!entity.level().isClientSide()) {
             if (stellaris$tickSinceLastOxygenCheck > 20){
-                if (!GlobalOxygenManager.getInstance().getOrCreateDimensionManager(entity.level()).canBreath(entity)) {
+                if (!GlobalOxygenManager.getInstance().getOrCreateDimensionManager((ServerLevel) entity.level()).canBreath(entity)) {
                     entity.hurt(DamageSourceRegistry.of(entity.level(), DamageSourceRegistry.OXYGEN), 0.5f);
                 }
 

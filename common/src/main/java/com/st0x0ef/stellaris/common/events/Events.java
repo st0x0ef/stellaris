@@ -60,8 +60,6 @@ public class Events {
             }
             return EventResult.pass();
         });
-
-        TickEvent.SERVER_LEVEL_PRE.register(Events::updateOxygen);
     }
 
     private static void addOxygenRoom(ServerLevel level, BlockPos pos) {
@@ -97,10 +95,5 @@ public class Events {
                 removeOxygenRoom(level, pos);
             }
         }
-    }
-
-
-    private static void updateOxygen(ServerLevel level) {
-        GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level).updateOxygen();
     }
 }

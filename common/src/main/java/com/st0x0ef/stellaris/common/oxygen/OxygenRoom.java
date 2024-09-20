@@ -6,7 +6,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 
 import java.util.*;
-import java.util.stream.IntStream;
 
 public class OxygenRoom {
     private final BlockPos distributorPos;
@@ -30,26 +29,22 @@ public class OxygenRoom {
     public void updateOxygenRoom() {
         BlockPos abovePos = distributorPos.above();
         if (isAirBlock(abovePos)) {
-            propagateOxygenInRoom(abovePos);
-        }
-    }
+            positionsToCheck.clear();
+            positionsToCheck.offer(abovePos);
+            Set<BlockPos> visited = new HashSet<>();
+            DimensionOxygenManager dimensionManager = GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level);
 
-    private void propagateOxygenInRoom(BlockPos startPos) {
-        positionsToCheck.clear();
-        positionsToCheck.offer(startPos);
-        Set<BlockPos> visited = new HashSet<>();
-        DimensionOxygenManager dimensionManager = GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level);
+            while (!positionsToCheck.isEmpty()) {
+                BlockPos currentPos = positionsToCheck.poll();
+                if (visited.add(currentPos) && isAirBlock(currentPos)) {
+                    if (addOxygenatedPosition(currentPos)) {
+                        if (isOnBorderBox(currentPos)) {
+                            dimensionManager.addRoomToCheckIfOpen(currentPos, this);
+                        }
 
-        while (!positionsToCheck.isEmpty()) {
-            BlockPos currentPos = positionsToCheck.poll();
-            if (visited.add(currentPos) && isAirBlock(currentPos)) {
-                if (addOxygenatedPosition(currentPos)) {
-                    if (isOnBorderBox(currentPos)) {
-                        dimensionManager.addRoomToCheckIfOpen(currentPos, this);
-                    }
-
-                    for (Direction direction : Direction.values()) {
-                        positionsToCheck.offer(currentPos.relative(direction));
+                        for (Direction direction : Direction.values()) {
+                            positionsToCheck.offer(currentPos.relative(direction));
+                        }
                     }
                 }
             }
@@ -82,27 +77,5 @@ public class OxygenRoom {
         }
 
         return false;
-    }
-
-    public int[] toIntArray() {
-        return oxygenatedPositions.stream()
-                .flatMapToInt(pos -> IntStream.of(pos.getX(), pos.getY(), pos.getZ()))
-                .toArray();
-    }
-
-    public void setOxygenatedPositions(Set<BlockPos> pos){
-        this.oxygenatedPositions.clear();
-        this.oxygenatedPositions.addAll(pos);
-    }
-
-    public static Set<BlockPos> fromIntArray(int[] array) {
-        Set<BlockPos> positions = new LinkedHashSet<>();
-        for (int i = 0; i < array.length; i += 3) {
-            int x = array[i];
-            int y = array[i + 1];
-            int z = array[i + 2];
-            positions.add(new BlockPos(x, y, z));
-        }
-        return positions;
     }
 }
