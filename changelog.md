@@ -9,6 +9,8 @@
 - add creative rocket, oxygen tank & jet suit
 - add conventional tags for modders/pack makers
 - add 3d globe items rendering
+- add space suit
+- add 8 new supported languages
 
 ## Changes
 - complete remake of the oxygen system
@@ -21,6 +23,7 @@
 ## Fix
 - fix uranium and raw uranium block texture
 - fix fall damage with our custom gravity system
+- fix vacuumator GUI
 
 ## Removal
 - remove main menu config button (neoforge only)
