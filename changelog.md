@@ -10,6 +10,7 @@
 - add conventional tags for modders/pack makers
 - add 3d globe items rendering
 - add space suit
+- add coal torch & coal lantern
 - add 8 new supported languages
 
 ## Changes
@@ -24,6 +25,7 @@
 - fix uranium and raw uranium block texture
 - fix fall damage with our custom gravity system
 - fix vacuumator GUI
+- fix coal generator blockstate
 
 ## Removal
 - remove main menu config button (neoforge only)

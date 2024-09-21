@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.mixin;
 
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.oxygen.GlobalOxygenManager;
 import com.st0x0ef.stellaris.common.registry.DamageSourceRegistry;
 import net.minecraft.server.level.ServerLevel;

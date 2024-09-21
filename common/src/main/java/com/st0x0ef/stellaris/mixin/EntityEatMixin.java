@@ -28,7 +28,7 @@ public abstract class EntityEatMixin extends LivingEntity {
     @Inject(at = @At(value = "HEAD"), method = "eat", cancellable = true)
     private void cancelEat(Level level, ItemStack food, FoodProperties foodProperties, CallbackInfoReturnable<ItemStack> cir) {
         if(PlanetUtil.isPlanet(level.dimension().location())) {
-            if(!PlanetUtil.hasOxygen(level.dimension().location()) && !food.is(TagRegistry.SPACE_FOOD)) {
+            if(!PlanetUtil.hasOxygen(level) && !food.is(TagRegistry.SPACE_FOOD)) {
                 cir.setReturnValue(food);
             }
         }
