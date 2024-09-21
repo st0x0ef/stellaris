@@ -17,6 +17,11 @@ public class FluidTank {
         this.maxCapacity = (maxCapacity * FluidTankHelper.BUCKET_AMOUNT) + 1;
     }
 
+    public FluidTank(String name, long maxCapacity, Fluid fluid) {
+        this(name, maxCapacity);
+        this.stack = FluidStack.create(fluid, 0);
+    }
+
     public long getMaxCapacity() {
         return maxCapacity;
     }

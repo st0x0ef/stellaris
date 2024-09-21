@@ -51,12 +51,6 @@ public class StellarisFabricClient implements ClientModInitializer {
         registerEntityRenderer();
         registerEntityModelLayer();
         registerKeyBinding();
-        registerDyeItems();
-    }
-
-    public static void registerDyeItems() {
-        ColorProviderRegistry.ITEM.register((stack, tintIndex) -> 0xFFFFFF, ItemsRegistry.SPACESUIT_SUIT.get(), ItemsRegistry.SPACESUIT_HELMET.get(), ItemsRegistry.SPACESUIT_BOOTS.get(), ItemsRegistry.SPACESUIT_LEGGINGS.get());
-
     }
 
     public static void registerEntityRenderer() {
