@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XYZ",
+    "BYB",
+    "SSS"
+  ],
+  "key": {
+    "S": {
+      "tag": "c:ingots/steel"
+    },
+    "B": {
+      "item": "minecraft:bucket"
+    },
+    "Y": {
+      "tag": "c:ingots/heavy_metal"
+    },
+    "Z": {
+      "item": "stellaris:pumpjack_drill"
+    },
+    "X": {
+      "item": "minecraft:chain"
+    }
+  },
+  "result": {
+    "id": "stellaris:pumpjack"
+  }
+}
