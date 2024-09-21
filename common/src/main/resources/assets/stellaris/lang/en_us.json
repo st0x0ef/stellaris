@@ -165,6 +165,9 @@
   "block.stellaris.water_pump": "Water Pump",
   "block.stellaris.pumpjack": "Pumpjack",
 
+  "block.stellaris.coal_lantern": "Coal Lantern",
+  "block.stellaris.coal_torch": "Coal Torch",
+
   "block.stellaris.oxygen_distributor": "Oxygen Distributor",
 
   "fluid.stellaris.fuel": "Fuel",
@@ -262,7 +265,7 @@
   "item.stellaris.space_suit_leggings": "Space Suit Leggings",
   "item.stellaris.space_suit_boots": "Space Suit Boots",
 
-
+  "item.stellaris.pumpjack_drill": "Pumpjack Drill",
   "item.stellaris.ice_shard_arrow": "Ice Shard Arrow",
 
   "item.stellaris.moon_fruit": "Moon Fruit",
