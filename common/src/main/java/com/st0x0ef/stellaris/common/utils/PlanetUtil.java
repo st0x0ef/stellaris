@@ -16,6 +16,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -34,9 +35,9 @@ public class PlanetUtil {
         return isPlanet.get();
     }
 
-    public static boolean hasOxygen(ResourceLocation level) {
-        if (isPlanet(level)) {
-            return getPlanet(level).oxygen();
+    public static boolean hasOxygen(Level level) {
+        if (isPlanet(level.dimension().location())) {
+            return getPlanet(level.dimension().location()).oxygen();
         }
         return true;
     }

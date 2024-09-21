@@ -215,4 +215,9 @@ public class BlocksRegistry {
     public static final RegistrySupplier<Block> VERTICAL_DESH_PLATING_SLAB = BLOCKS.register("vertical_desh_plating_slab", () -> new VerticalSlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).sound(SoundType.METAL).strength(3f, 2.5f).requiresCorrectToolForDrops()));
     public static final RegistrySupplier<Block> VERTICAL_DESH_SLAB = BLOCKS.register("vertical_desh_slab", () -> new VerticalSlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).sound(SoundType.METAL).strength(3f, 2.5f).requiresCorrectToolForDrops()));
 
+    /** Coal */
+    public static final RegistrySupplier<Block> COAL_TORCH_BLOCK = BLOCKS.register("coal_torch", () -> new CoalTorchBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().instabreak().sound(SoundType.WOOD)));
+    public static final RegistrySupplier<Block> WALL_COAL_TORCH_BLOCK = BLOCKS.register("wall_coal_torch", () -> new WallCoalTorchBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().instabreak().sound(SoundType.WOOD)));
+    public static final RegistrySupplier<Block> COAL_LANTERN_BLOCK = BLOCKS.register("coal_lantern", () -> new CoalLanternBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(3.5F).sound(SoundType.LANTERN).noOcclusion().requiresCorrectToolForDrops()));
+
 }
