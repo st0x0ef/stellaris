@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "stellaris:item/spacesuit_leggings",
+    "layer1": "stellaris:item/spacesuit_leggings_overlay"
+  }
+}
