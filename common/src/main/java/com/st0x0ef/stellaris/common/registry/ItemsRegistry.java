@@ -75,7 +75,7 @@ public class ItemsRegistry {
      */
 
     public static final RegistrySupplier<Item> ICE_SHARD_ARROW = ITEMS.register("ice_shard_arrow", () -> new IceShardArrow(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
-    public static final RegistrySupplier<Item> OIL_FINDER = ITEMS.register("oil_finder", () -> new OilFinderItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).durability(2000)));
+    public static final RegistrySupplier<Item> OIL_FINDER = ITEMS.register("oil_finder", () -> new OilFinderItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).durability(1000)));
     public static final RegistrySupplier<Item> PUMPJACK_DRILL = ITEMS.register("pumpjack_drill", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
 
     /**
