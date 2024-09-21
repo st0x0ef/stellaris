@@ -6,6 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -25,6 +26,7 @@ public class OilFinderItem extends Item {
         Player player = context.getPlayer();
         Level level = context.getLevel();
         BlockPos pos = context.getClickedPos();
+        ItemStack stack = context.getItemInHand();
 
         if (level.isClientSide()) {
             return InteractionResult.PASS;
@@ -43,7 +45,7 @@ public class OilFinderItem extends Item {
             component = Component.literal("No oil found");
         }
 
-        context.getItemInHand().setDamageValue(context.getItemInHand().getDamageValue() - 1);
+        stack.hurtAndBreak(2, player, EquipmentSlot.MAINHAND);
         player.displayClientMessage(component, true);
 
         return super.useOn(context);
