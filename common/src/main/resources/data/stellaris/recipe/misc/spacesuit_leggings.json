@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SSS",
+    "XZX",
+    "X X"
+  ],
+  "key": {
+    "Z": {
+      "item": "minecraft:copper_ingot"
+    },
+    "X": {
+      "item": "minecraft:white_wool"
+    },
+    "S": {
+      "tag": "c:ingots/steel"
+    }
+  },
+  "result": {
+    "id": "stellaris:space_suit_leggings"
+  }
+}
