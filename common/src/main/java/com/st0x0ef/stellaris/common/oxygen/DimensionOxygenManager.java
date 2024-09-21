@@ -26,7 +26,7 @@ public class DimensionOxygenManager {
         this.oxygenRooms = new HashSet<>();
         this.roomToCheckIfOpen = new HashMap<>();
         this.level = level;
-        this.planetHasOxygen = PlanetUtil.hasOxygen(level.dimension().location());
+        this.planetHasOxygen = PlanetUtil.hasOxygen(level);
     }
 
     public void addOxygenRoom(OxygenRoom room) {

@@ -1,0 +1,9 @@
+{
+  "parent": "stellaris:template/torch_wall",
+  "textures": {
+    "all": "stellaris:block/coal_torch",
+    "particle": "stellaris:block/coal_torch",
+    "2": "stellaris:block/coal_torch",
+    "missing": "stellaris:block/coal_torch"
+  }
+}

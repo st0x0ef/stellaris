@@ -367,6 +367,14 @@ public class ItemsRegistry {
     public static final RegistrySupplier<Item> STEEL_SHOVEL = ITEMS.register("steel_shovel", () -> new ShovelItem(ToolsRegister.STEEL, (new Item.Properties()).attributes(ShovelItem.createAttributes(ToolsRegister.STEEL, 1.5F, -3.0F)).arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> STEEL_AXE = ITEMS.register("steel_axe", () -> new AxeItem(ToolsRegister.STEEL, (new Item.Properties()).attributes(AxeItem.createAttributes(ToolsRegister.STEEL, 6.0F, -3.1F)).arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
 
+    /**
+     * Coal
+     */
+
+    public static final RegistrySupplier<Item> COAL_TORCH_ITEM = ITEMS.register("coal_torch", () -> new CoalTorchItem(BlocksRegistry.COAL_TORCH_BLOCK.get(), BlocksRegistry.WALL_COAL_TORCH_BLOCK.get(),new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> COAL_LANTERN_ITEM = ITEMS.register("coal_lantern", () -> new BlockItem(BlocksRegistry.COAL_LANTERN_BLOCK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+
+
     public static ArrayList<ItemStack> fullItemsToAdd() {
         ArrayList<ItemStack> list = new ArrayList<>();
 
