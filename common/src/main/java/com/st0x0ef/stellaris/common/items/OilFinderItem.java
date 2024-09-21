@@ -43,7 +43,7 @@ public class OilFinderItem extends Item {
             component = Component.literal("No oil found");
         }
 
-
+        context.getItemInHand().setDamageValue(context.getItemInHand().getDamageValue() - 1);
         player.displayClientMessage(component, true);
 
         return super.useOn(context);

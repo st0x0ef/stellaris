@@ -26,7 +26,7 @@ public class PumpjackScreen extends AbstractContainerScreen<PumpjackMenu> {
     public PumpjackScreen(PumpjackMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
         imageWidth = 177;
-        imageHeight = 184;
+        imageHeight = 192;
         inventoryLabelY = imageHeight - 92;
     }
 

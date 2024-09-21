@@ -18,7 +18,7 @@ import net.minecraft.world.level.chunk.ChunkAccess;
 public class PumpjackBlockEntity extends BaseEnergyContainerBlockEntity implements WrappedFluidBlockEntity{
 
     private boolean isGenerating = false;
-    private final FluidTank resultTank = new FluidTank("resultTank", 5);
+    public final FluidTank resultTank = new FluidTank("resultTank", 5);
     public int chunkOilLevel = 0;
     public PumpjackBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.PUMPJACK.get(), pos, state);
@@ -48,11 +48,16 @@ public class PumpjackBlockEntity extends BaseEnergyContainerBlockEntity implemen
                 energyContainer.extractEnergy(20, false);
                 isGenerating = true;
                 setChanged();
+            } else {
+                isGenerating = false;
             }
         }
 
         if (isGenerating) {
-            BlockState state = getBlockState().setValue(CoalGeneratorBlock.LIT, isGenerating);
+            BlockState state = getBlockState().setValue(CoalGeneratorBlock.LIT, true);
+            level.setBlock(getBlockPos(), state, 3);
+        } else {
+            BlockState state = getBlockState().setValue(CoalGeneratorBlock.LIT, false);
             level.setBlock(getBlockPos(), state, 3);
         }
     }

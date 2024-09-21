@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " X ",
+    "YZY",
+    " Y "
+  ],
+  "key": {
+    "X": {
+      "item": "minecraft:redstone_torch"
+    },
+    "Y": {
+      "tag": "c:nuggets/steel"
+    },
+    "Z": {
+      "item": "minecraft:glass_pane"
+    }
+  },
+  "result": {
+    "id": "stellaris:oil_finder"
+  }
+}

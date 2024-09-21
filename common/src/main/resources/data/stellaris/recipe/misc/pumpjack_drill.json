@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "YXY",
+    "XZX",
+    "YXY"
+  ],
+  "key": {
+    "X": {
+      "tag": "c:ingots/heavy_metal"
+    },
+    "Z": {
+      "item": "minecraft:diamond"
+    },
+    "Y": {
+      "tag": "c:nuggets/steel"
+    }
+  },
+  "result": {
+    "id": "stellaris:pumpjack_drill"
+  }
+}
