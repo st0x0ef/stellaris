@@ -36,10 +36,10 @@
     "facing=down,lit=true": {
       "model": "stellaris:block/coal_generator_on"
     },
-    "facing=west,up=false": {
+    "facing=up,lit=false": {
       "model": "stellaris:block/coal_generator"
     },
-    "facing=west,up=true": {
+    "facing=up,lit=true": {
       "model": "stellaris:block/coal_generator_on"
     }
   }
