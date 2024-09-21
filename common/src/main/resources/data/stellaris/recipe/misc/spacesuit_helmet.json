@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XTX",
+    "XYX",
+    "SYS"
+  ],
+  "key": {
+    "Y": {
+      "item": "minecraft:tinted_glass"
+    },
+    "X": {
+      "item": "minecraft:white_wool"
+    },
+    "S": {
+      "tag": "c:ingots/steel"
+    },
+    "T": {
+      "item": "minecraft:redstone_lamp"
+    }
+  },
+  "result": {
+    "id": "stellaris:space_suit_helmet"
+  }
+}

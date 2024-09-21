@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "STS",
+    "XZX",
+    "XYX"
+  ],
+  "key": {
+    "Z": {
+      "item": "minecraft:copper_ingot"
+    },
+    "Y": {
+      "item": "minecraft:redstone"
+    },
+    "X": {
+      "item": "minecraft:white_wool"
+    },
+    "S": {
+      "tag": "c:ingots/steel"
+    },
+    "T": {
+      "item": "stellaris:oxygen_tank"
+    }
+  },
+  "result": {
+    "id": "stellaris:space_suit_chestplate"
+  }
+}
