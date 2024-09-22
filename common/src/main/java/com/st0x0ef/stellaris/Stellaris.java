@@ -52,7 +52,6 @@ public class Stellaris {
         MenuTypesRegistry.MENU_TYPE.register();
         FeaturesRegistry.FEATURES.register();
         CommandsRegistry.register();
-        BiomeModificationsRegistry.register();
         Events.registerEvents();
         LookupApiRegistry.registerEnergy();
         RecipesRegistry.register();

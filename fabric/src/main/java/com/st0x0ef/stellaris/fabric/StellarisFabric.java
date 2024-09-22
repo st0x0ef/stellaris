@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.fabric;
 
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.common.registry.BiomeModificationsRegistry;
 import com.st0x0ef.stellaris.common.registry.CreativeTabsRegistry;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
@@ -25,6 +26,7 @@ public class StellarisFabric implements ModInitializer {
     @Override
     public void onInitialize() {
         Stellaris.init();
+        BiomeModificationsRegistry.register();
         onAddReloadListener();
         ServerLifecycleEvents.SYNC_DATA_PACK_CONTENTS.register(Stellaris::onDatapackSyncEvent);
         EntityRegistry.registerAttributes((type, builder) -> FabricDefaultAttributeRegistry.register(type.get(), builder.get()));

@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#c:is_overworld",
+  "features": ["stellaris:steel_ore", "stellaris:steel_ore_deepslate"],
+  "step": "underground_ores"
+}

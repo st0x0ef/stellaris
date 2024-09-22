@@ -9,8 +9,8 @@
           "Name": "stellaris:steel_ore"
         },
         "target": {
-          "block": "minecraft:stone",
-          "predicate_type": "minecraft:block_match"
+          "predicate_type": "minecraft:tag_match",
+          "tag": "minecraft:stone_ore_replaceables"
         }
       }
     ]
