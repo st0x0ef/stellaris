@@ -61,7 +61,6 @@ public class TeleportEntityToPlanetPacket implements CustomPacketPayload {
         } else {
             Stellaris.LOG.error("Planet is null");
         }
-
     }
 
     @Override
