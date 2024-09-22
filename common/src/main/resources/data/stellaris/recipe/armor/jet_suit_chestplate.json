@@ -3,12 +3,14 @@
   "pattern": [
     "s s",
     "coc",
-    "ccc"
+    "crc"
   ],
   "key": {
-    "c": {"item": "minecraft:copper_ingot"},
+    "c": {"tag": "c:ingots/desh"},
     "s": {"tag": "c:ingots/steel"},
-    "o": {"item": "stellaris:big_oxygen_tank"}
+    "o": {"item": "stellaris:big_oxygen_tank"},
+    "r": {"item": "minecraft:redstone"}
+
   },
   "result": {
     "id": "stellaris:jet_suit_chestplate"
