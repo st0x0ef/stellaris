@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "T",
+    "X",
+    "S"
+  ],
+  "key": {
+    "T": {
+      "item": "stellaris:cable"
+    },
+    "S": {
+      "tag": "c:ingots/heavy_metal"
+    },
+    "X": {
+      "item": "minecraft:bucket"
+    }
+  },
+  "result": {
+    "id": "stellaris:water_pump"
+  }
+}
