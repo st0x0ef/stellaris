@@ -3,13 +3,29 @@
 In Project Stellaris, one of the main resource is the Fuel. It allow you to use Rocket and JetSuit.
 
 ## Get Oil
-
-First, you will need to find a oil lake. It spawn underground or rarely on the surface. This lake contains oil that you can retrieve with a bucket.
-
-![Underground Oil](/underground-oil.png)
+There are two ways to find oil
 
 
-## Craft the Fuel Rafinery
+## Oil Finder
+To get Oil, you will need to craft the oil finder. 
+
+![Oil finder](/recipes/oil_finder.png)
+
+With this item, you can right click on a block and it will tell you if there is oil in the chunk.
+
+When you finally found oil in a chunk, you can craft the `pumpjack drill` and then you will be able to craft the `pumpjack`
+
+![pumpjack drill](/recipes/pumpjack_drill.png)
+
+![pumpjack](/recipes/pumpjack.png)
+
+::: warning
+When placing the `pumpjack`, you wont be able to get the pumpjack drill ! Make sure to place in a good place
+:::
+
+When powered, the pumpjack will drain the oil in the chunk. Then, you will be able to getback the oil in buckets !
+
+## Craft the Fuel Refinery
 
 Now, you need to transform the oil to fuel. This is possible because of the Fuel Rafinery Block.
 
