@@ -1,5 +1,5 @@
 {
-  "id": "stellaris:moon",
+  "world": "stellaris:moon",
   "cloud": false,
   "cloud_height": 192,
   "fog": true,

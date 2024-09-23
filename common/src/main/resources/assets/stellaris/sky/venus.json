@@ -1,5 +1,5 @@
 {
-  "id": "stellaris:venus",
+  "world": "stellaris:venus",
   "cloud": false,
   "cloud_height": 192,
   "fog": true,

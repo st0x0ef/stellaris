@@ -1,5 +1,5 @@
 {
-  "id": "stellaris:mercury",
+  "world": "stellaris:mercury",
   "cloud": false,
   "cloud_height": 192,
   "fog": true,
