@@ -1,5 +1,8 @@
 # 1.1.1 changelog
 
+## Additions
+- Added Moon Steel Ore
+
 ## Fix
 - Jet suit recipes
 - Water Pump recipes
