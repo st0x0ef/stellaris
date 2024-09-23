@@ -15,7 +15,7 @@
     "moon_phase": false,
     "moon_texture": "stellaris:textures/environment/solar_system/earth.png",
     "moon_height": 275,
-    "moon_size": 275
+    "moon_size": 150
   },
   "sunrise_color": 2105376,
   "stars": {
