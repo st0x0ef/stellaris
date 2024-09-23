@@ -20,6 +20,7 @@ public class BiomeModificationsRegistry {
 
         BiomeModifications.addProperties((context) -> context.hasTag(TagRegistry.MOON_BIOMES_TAG), ((biomeContext, mutable) -> {
             mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.MOON_DESH_PLACED_KEY);
+            mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.MOON_STEEL_PLACED_KEY);
             mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.MOON_ICE_SHARD_PLACED_KEY);
             mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.MOON_IRON_PLACED_KEY);
             mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.MOON_SOUL_SOIL_PLACED_KEY);
