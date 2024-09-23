@@ -9,6 +9,7 @@ import com.st0x0ef.stellaris.common.blocks.entities.machines.FluidTankHelper;
 import com.st0x0ef.stellaris.common.data_components.JetSuitComponent;
 import com.st0x0ef.stellaris.common.data_components.OxygenComponent;
 import com.st0x0ef.stellaris.common.data_components.RocketComponent;
+import com.st0x0ef.stellaris.common.data_components.RoverComponent;
 import com.st0x0ef.stellaris.common.items.*;
 import com.st0x0ef.stellaris.common.rocket_upgrade.*;
 import dev.architectury.core.item.ArchitecturyBucketItem;
@@ -339,6 +340,8 @@ public class ItemsRegistry {
 
     public static final RegistrySupplier<Item> HYDROGEN_MOTOR_UPGRADE = ITEMS.register("hydrogen_motor", () -> new RocketUpgradeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), new MotorUpgrade(FuelType.Type.HYDROGEN, GUISprites.HYDROGEN_OVERLAY)));
     public static final RegistrySupplier<Item> RADIOACTIVE_MOTOR_UPGRADE = ITEMS.register("radioactive_motor", () -> new RocketUpgradeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), new MotorUpgrade(FuelType.Type.RADIOACTIVE, GUISprites.ENERGY_FULL)));
+
+    public static final RegistrySupplier<Item> ROVER = ITEMS.register("rover", () -> new RoverItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.ROVER_COMPONENT.get(), new RoverComponent( MotorUpgrade.getBasic().getFuelType().getSerializedName(), 0, GUISprites.FUEL_OVERLAY, TankUpgrade.getBasic().getTankCapacity()))));
 
     /**
      * Oxygen

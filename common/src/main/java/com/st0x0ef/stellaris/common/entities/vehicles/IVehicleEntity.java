@@ -253,4 +253,10 @@ public abstract class IVehicleEntity extends Entity{
     public void setDiscardFriction(boolean p_147245_) {
         this.discardFriction = p_147245_;
     }
+
+    public void setEntityRotation(Entity vehicle, float rotation) {
+        vehicle.setYRot(vehicle.getYRot() + rotation);
+        vehicle.setYBodyRot(vehicle.getYRot());
+        vehicle.yRotO = vehicle.getYRot();
+    }
 }

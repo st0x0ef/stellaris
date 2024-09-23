@@ -2,12 +2,17 @@ package com.st0x0ef.stellaris.common.entities.vehicles;
 
 import com.google.common.collect.Sets;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.FluidTankHelper;
+import com.st0x0ef.stellaris.common.data_components.RoverComponent;
 import com.st0x0ef.stellaris.common.keybinds.KeyVariables;
+import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
+import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
+import com.st0x0ef.stellaris.common.rocket_upgrade.FuelType;
+import com.st0x0ef.stellaris.common.rocket_upgrade.MotorUpgrade;
+import com.st0x0ef.stellaris.common.rocket_upgrade.TankUpgrade;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
-import net.minecraft.network.chat.Component;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -21,27 +26,34 @@ import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.DismountHelper;
-import net.minecraft.world.item.BucketItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Set;
 
 public class RoverEntity extends IVehicleEntity implements HasCustomInventoryScreen, ContainerListener {
     private double speed = 0;
     private final int fuelCapacityModifier = 0;
+    public int FUEL;
 
     public float flyingSpeed = 0.02F;
     public float animationSpeedOld;
     public float animationSpeed;
     public float animationPosition;
 
+    public MotorUpgrade MOTOR_UPGRADE;
+    public TankUpgrade TANK_UPGRADE;
+
     private float FUEL_TIMER = 0;
     protected SimpleContainer inventory;
 
-    public static final EntityDataAccessor<Integer> FUEL = SynchedEntityData.defineId(RoverEntity.class, EntityDataSerializers.INT);
+    private RoverComponent roverComponent;
+    private Item currentFuelItem;
+
 
     public static final EntityDataAccessor<Integer> FUEL_CAPACITY = SynchedEntityData.defineId(RoverEntity.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<Boolean> FORWARD = SynchedEntityData.defineId(RoverEntity.class, EntityDataSerializers.BOOLEAN);
@@ -52,27 +64,67 @@ public class RoverEntity extends IVehicleEntity implements HasCustomInventoryScr
         super(entityType, level);
         this.inventory = new SimpleContainer(14);
 
+        this.roverComponent = new RoverComponent( currentFuelItem.toString(), FUEL, MOTOR_UPGRADE.getFluidTexture(), TANK_UPGRADE.getTankCapacity());
+
     }
+
+
+    public void setRocketComponent(RoverComponent rocketComponent) {
+        this.MOTOR_UPGRADE = rocketComponent.getMotorUpgrade();
+        this.TANK_UPGRADE = rocketComponent.getTankUpgrade();
+        this.FUEL = rocketComponent.getFuel();
+        this.currentFuelItem = FuelType.getItemBasedOnTypeName(rocketComponent.fuelType());
+    }
+
 
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
         compound.put("InventoryCustom", this.inventory.createTag(registryAccess()));
+        compound.putInt("fuel", FUEL);
 
-        compound.putInt("fuel", this.getEntityData().get(FUEL));
-        compound.putInt("fuel_capacity", this.getEntityData().get(FUEL_CAPACITY));
-        compound.putBoolean("forward", this.getEntityData().get(FORWARD));
+        if (FUEL != 0 && currentFuelItem != null) {
+            if (FuelType.Type.getTypeBasedOnItem(currentFuelItem) != null) {
+                compound.putString("currentFuelItemType", FuelType.Type.getTypeBasedOnItem(currentFuelItem).getSerializedName());
+            } else if (FuelType.Type.Radioactive.getTypeBasedOnItem(currentFuelItem) != null) {
+                compound.putString("currentFuelItemType", FuelType.Type.Radioactive.getTypeBasedOnItem(currentFuelItem).getSerializedName());
+            }
+        }
+
+        ListTag listTag = new ListTag();
+
+        for(int i = 1; i < this.inventory.getContainerSize(); ++i) {
+            ItemStack itemStack = this.inventory.getItem(i);
+            if (!itemStack.isEmpty()) {
+                CompoundTag compoundTag = new CompoundTag();
+                compoundTag.putByte("Slot", (byte)(i - 1));
+                listTag.add(itemStack.save(this.registryAccess(), compoundTag));
+            }
+        }
+
+        compound.put("Items", listTag);
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
-        Tag inventoryCustom = compound.get("InventoryCustom");
-        if (inventoryCustom instanceof CompoundTag) {
-            inventory.deserializeNBT((CompoundTag) inventoryCustom);
+        super.readAdditionalSaveData(compound);
+        ListTag inventoryCustom = compound.getList("InventoryCustom", 14);
+        this.inventory.fromTag(inventoryCustom, registryAccess());
+        FUEL = compound.getInt("fuel");
+
+        if (FUEL != 0) {
+            currentFuelItem = FuelType.getItemBasedOnTypeName(compound.getString("currentFuelItemType"));
         }
 
-        this.getEntityData().set(FUEL, compound.getInt("fuel"));
-        this.getEntityData().set(FUEL_CAPACITY, compound.getInt("fuel_capacity"));
-        this.getEntityData().set(FORWARD, compound.getBoolean("forward"));
+        ListTag listTag = compound.getList("Items", 10);
+
+        for (int i = 0; i < listTag.size(); ++i) {
+            CompoundTag compoundTag = listTag.getCompound(i);
+            int j = compoundTag.getByte("Slot") & 255;
+            if (j < this.inventory.getContainerSize() - 1) {
+                this.inventory.setItem(j + 1, ItemStack.parse(this.registryAccess(), compoundTag).orElse(ItemStack.EMPTY));
+            }
+        }
     }
 
     public int getFuelCapacity() {
@@ -159,13 +211,12 @@ public class RoverEntity extends IVehicleEntity implements HasCustomInventoryScr
         super.removePassenger(passenger);
     }
 
+    @Nullable
     @Override
-    public ItemStack getPickedResult(HitResult target) {
-        ItemStack itemStack = new ItemStack(ItemsRegistry.ROVER_ITEM.get(), 1);
-        itemStack.getOrCreateTag().putInt(BeyondEarth.MODID + ":fuel", this.entityData.get(FUEL));
-
-        return itemStack;
+    public ItemStack getPickResult() {
+        return null;
     }
+
 
     @Override
     public void kill() {
@@ -177,7 +228,12 @@ public class RoverEntity extends IVehicleEntity implements HasCustomInventoryScr
         }
     }
 
+    public ItemStack getRoverItem() {
+        ItemStack rover = new ItemStack(ItemsRegistry.ROVER.get(), 1);
+        rover.set(DataComponentsRegistry.ROVER_COMPONENT.get(), roverComponent);
 
+        return rover;
+    }
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
@@ -194,24 +250,20 @@ public class RoverEntity extends IVehicleEntity implements HasCustomInventoryScr
     }
 
     protected void spawnRoverItem() {
-        ItemStack itemStack = new ItemStack(ItemsRegistry.ROVER_ITEM.get(), 1);
-        itemStack.getOrCreateTag().putInt(BeyondEarth.MODID + ":fuel", this.getEntityData().get(FUEL));
-
+        ItemStack itemStack = this.getRoverItem();
         ItemEntity entityToSpawn = new ItemEntity(level(), this.getX(), this.getY(), this.getZ(), itemStack);
         entityToSpawn.setPickUpDelay(10);
         level().addFreshEntity(entityToSpawn);
     }
 
     protected void dropEquipment() {
-        for (int i = 0; i < inventory.getSlots(); ++i) {
-            ItemStack itemstack = inventory.getStackInSlot(i);
-            if (!itemstack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(itemstack)) {
+        for (int i = 0; i < this.inventory.getItems().size(); ++i) {
+            ItemStack itemstack = this.inventory.getItem(i);
+            if (!itemstack.isEmpty()) {
                 this.spawnAtLocation(itemstack);
             }
         }
     }
-
-
 
 
     public Player getFirstPlayerPassenger() {
@@ -228,27 +280,27 @@ public class RoverEntity extends IVehicleEntity implements HasCustomInventoryScr
 
         if (player != null) {
 
-            if ((KeyVariables.isHoldingRight(player) && KeyVariables.isHoldingLeft(player)) || player.getVehicle().getEntityData().get(RoverEntity.FUEL) == 0 || player.getVehicle().isEyeInFluid(FluidTags.WATER)) {
+            if ((KeyVariables.isHoldingRight(player) && KeyVariables.isHoldingLeft(player)) || FUEL == 0 || player.getVehicle().isEyeInFluid(FluidTags.WATER)) {
                 return;
             }
 
             if (this.getforward()) {
                 if (KeyVariables.isHoldingRight(player)) {
-                    Methods.setEntityRotation(this, 1);
+                    this.setEntityRotation(this, 1);
                 }
             } else {
                 if (KeyVariables.isHoldingRight(player)) {
-                    Methods.setEntityRotation(this, -1);
+                    this.setEntityRotation(this, -1);
                 }
             }
 
             if (this.getforward()) {
                 if (KeyVariables.isHoldingLeft(player)) {
-                    Methods.setEntityRotation(this, -1);
+                    this.setEntityRotation(this, -1);
                 }
             } else {
                 if (KeyVariables.isHoldingLeft(player)) {
-                    Methods.setEntityRotation(this, 1);
+                    this.setEntityRotation(this, 1);
                 }
             }
         }
@@ -261,28 +313,65 @@ public class RoverEntity extends IVehicleEntity implements HasCustomInventoryScr
 
         if (!this.level().isClientSide) {
             if (player.isCrouching()) {
-                NetworkHooks.openScreen((ServerPlayer) player, new MenuProvider() {
-                    @Override
-                    public Component getDisplayName() {
-                        return RoverEntity.this.getDisplayName();
-                    }
-
-                    @Override
-                    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-                        FriendlyByteBuf packetBuffer = new FriendlyByteBuf(Unpooled.buffer());
-                        packetBuffer.writeVarInt(RoverEntity.this.getId());
-                        return new RoverMenu.GuiContainer(id, inventory, packetBuffer);
-                    }
-                }, buf -> buf.writeVarInt(this.getId()));
-
+                if (!tryFillUpRocket(player.getMainHandItem().getItem())) {
+                    this.openCustomInventoryScreen(player);
+                } else {
+                    player.getItemInHand(hand).grow(-1);
+                    player.getInventory().add(new ItemStack(Items.BUCKET));
+                }
                 return InteractionResult.CONSUME;
             }
 
-            player.startRiding(this);
+            player.startRiding(this, false);
+
+
             return InteractionResult.CONSUME;
         }
 
         return result;
+
+    }
+
+    public boolean tryFillUpRocket(Item item) {
+        if (this.level().isClientSide) return false;
+        if (FUEL == TANK_UPGRADE.getTankCapacity() || item == null) {
+            return false;
+        }
+
+        if (MOTOR_UPGRADE.getFuelType().equals(FuelType.Type.RADIOACTIVE) && FuelType.Type.Radioactive.getTypeBasedOnItem(item) != null && canPutFuelBasedOnCurrentFuelItem(item)) {
+            FUEL += 1000;
+            if (FUEL > TANK_UPGRADE.getTankCapacity()) {
+                FUEL = TANK_UPGRADE.getTankCapacity();
+            }
+
+            inventory.removeItem(0, 1);
+
+            return true;
+        }
+
+        if (FuelType.Type.getTypeBasedOnItem(item) == MOTOR_UPGRADE.getFuelType() && canPutFuelBasedOnCurrentFuelItem(item)) {
+            FUEL += 1000;
+            if (FUEL > TANK_UPGRADE.getTankCapacity()) {
+                FUEL = TANK_UPGRADE.getTankCapacity();
+            }
+
+            if (inventory.removeItem(0, 1).is(ItemsRegistry.FUEL_BUCKET.get())) {
+                inventory.setItem(1, new ItemStack(Items.BUCKET, inventory.getItem(1).getCount()+1));
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean canPutFuelBasedOnCurrentFuelItem(Item item) {
+        if (FUEL == 0) {
+            currentFuelItem = item;
+            return true;
+        }
+
+        return currentFuelItem == item;
     }
 
     public boolean getforward() {
@@ -297,15 +386,6 @@ public class RoverEntity extends IVehicleEntity implements HasCustomInventoryScr
         this.resetFallDistance();
         this.rotateRover();
 
-        //Fuel Load up
-        if (this.inventory.getStackInSlot(0).getItem() instanceof BucketItem) {
-            if (((BucketItem) this.getInventory().getStackInSlot(0).getItem()).getFluid().is(TagRegistry.FLUID_VEHICLE_FUEL_TAG)) {
-                if (this.entityData.get(FUEL) + FluidUtils.BUCKET_SIZE <= getFuelCapacity()) {
-                    this.getEntityData().set(FUEL, (this.getEntityData().get(FUEL) + FluidUtils.BUCKET_SIZE));
-                    this.inventory.setStackInSlot(0, new ItemStack(Items.BUCKET));
-                }
-            }
-        }
 
         if (this.getPassengers().isEmpty() || !(this.getPassengers().get(0) instanceof Player passanger) || this.isInWater()) {
             return;
@@ -316,17 +396,17 @@ public class RoverEntity extends IVehicleEntity implements HasCustomInventoryScr
         passanger.resetFallDistance();
 
         float FUEL_USE_TICK = 8;
-        if (passanger.zza > 0.01 && this.getEntityData().get(FUEL) != 0) {
+        if (passanger.zza > 0.01 && FUEL != 0) {
 
             if (FUEL_TIMER > FUEL_USE_TICK) {
-                this.entityData.set(FUEL, this.getEntityData().get(FUEL) - 1);
+                FUEL--;
                 FUEL_TIMER = 0;
             }
             this.entityData.set(FORWARD, true);
-        } else if (passanger.zza < -0.01 && this.getEntityData().get(FUEL) != 0) {
+        } else if (passanger.zza < -0.01 && FUEL != 0) {
 
             if (FUEL_TIMER > FUEL_USE_TICK) {
-                this.entityData.set(FUEL, this.getEntityData().get(FUEL) - 1);
+                FUEL--;
                 FUEL_TIMER = 0;
             }
             this.entityData.set(FORWARD, false);
@@ -345,11 +425,11 @@ public class RoverEntity extends IVehicleEntity implements HasCustomInventoryScr
         if (!this.getPassengers().isEmpty() && this.getPassengers().get(0) instanceof Player passanger) {
 
             this.flyingSpeed = this.getSpeed() * 0.15F;
-            this.setMaxUpStep(1.0F);
+            //this.setMaxUpStep(1.0F);
 
             double pmovement = passanger.zza;
 
-            if (pmovement == 0 || this.getEntityData().get(FUEL) == 0 || this.isEyeInFluid(FluidTags.WATER)) {
+            if (pmovement == 0 || FUEL == 0 || this.isEyeInFluid(FluidTags.WATER)) {
                 pmovement = 0;
                 this.setSpeed(0f);
 
@@ -358,7 +438,7 @@ public class RoverEntity extends IVehicleEntity implements HasCustomInventoryScr
                 }
             }
 
-            if (this.entityData.get(FORWARD) && this.getEntityData().get(FUEL) != 0) {
+            if (this.entityData.get(FORWARD) && FUEL != 0) {
                 if (this.getSpeed() >= 0.01) {
                     if (speed <= 0.32) {
                         speed = speed + 0.02;
@@ -373,7 +453,7 @@ public class RoverEntity extends IVehicleEntity implements HasCustomInventoryScr
 
             if (!this.entityData.get(FORWARD)) {
 
-                if (this.getEntityData().get(FUEL) != 0 && !this.isEyeInFluid(FluidTags.WATER)) {
+                if (FUEL != 0 && !this.isEyeInFluid(FluidTags.WATER)) {
 
                     if (this.getSpeed() <= 0.04) {
                         this.setSpeed(this.getSpeed() + 0.02f);
@@ -442,4 +522,9 @@ public class RoverEntity extends IVehicleEntity implements HasCustomInventoryScr
     public void openCustomInventoryScreen(Player player) {
 
     }
+
+    public RoverComponent getRocketComponent() {
+        return this.roverComponent;
+    }
+
 }
