@@ -9,13 +9,17 @@ import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import com.st0x0ef.stellaris.common.rocket_upgrade.FuelType;
 import com.st0x0ef.stellaris.common.rocket_upgrade.MotorUpgrade;
 import com.st0x0ef.stellaris.common.rocket_upgrade.TankUpgrade;
+import dev.architectury.networking.NetworkManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerEntity;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
@@ -38,7 +42,7 @@ import java.util.Set;
 public class RoverEntity extends IVehicleEntity implements HasCustomInventoryScreen, ContainerListener {
     private double speed = 0;
     private final int fuelCapacityModifier = 0;
-    public int FUEL;
+    public int FUEL = 100000;
 
     public float flyingSpeed = 0.02F;
     public float animationSpeedOld;
@@ -55,7 +59,6 @@ public class RoverEntity extends IVehicleEntity implements HasCustomInventoryScr
     private Item currentFuelItem;
 
 
-    public static final EntityDataAccessor<Integer> FUEL_CAPACITY = SynchedEntityData.defineId(RoverEntity.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<Boolean> FORWARD = SynchedEntityData.defineId(RoverEntity.class, EntityDataSerializers.BOOLEAN);
 
     public static final int DEFAULT_FUEL_BUCKETS = 3;
@@ -64,10 +67,20 @@ public class RoverEntity extends IVehicleEntity implements HasCustomInventoryScr
         super(entityType, level);
         this.inventory = new SimpleContainer(14);
 
+        this.MOTOR_UPGRADE = MotorUpgrade.getBasic();
+        this.TANK_UPGRADE = TankUpgrade.getBasic();
+
+
+        this.currentFuelItem = ItemsRegistry.FUEL_BUCKET.get();
         this.roverComponent = new RoverComponent( currentFuelItem.toString(), FUEL, MOTOR_UPGRADE.getFluidTexture(), TANK_UPGRADE.getTankCapacity());
 
     }
 
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(FORWARD, false);
+    }
 
     public void setRocketComponent(RoverComponent rocketComponent) {
         this.MOTOR_UPGRADE = rocketComponent.getMotorUpgrade();
@@ -525,6 +538,11 @@ public class RoverEntity extends IVehicleEntity implements HasCustomInventoryScr
 
     public RoverComponent getRocketComponent() {
         return this.roverComponent;
+    }
+
+    @Override
+    public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity entity) {
+        return NetworkManager.createAddEntityPacket(this, entity);
     }
 
 }

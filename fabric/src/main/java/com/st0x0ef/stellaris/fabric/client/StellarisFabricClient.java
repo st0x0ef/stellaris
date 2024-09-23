@@ -30,6 +30,8 @@ import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.small.Smal
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.small.SmallRocketRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.tiny.TinyRocketModel;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.tiny.TinyRocketRenderer;
+import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rover.RoverModel;
+import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rover.RoverRenderer;
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeBlockRenderer;
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeModel;
 import com.st0x0ef.stellaris.client.screens.*;
@@ -70,6 +72,7 @@ public class StellarisFabricClient implements ClientModInitializer {
         EntityRendererRegistry.register(EntityRegistry.SMALL_ROCKET.get(), SmallRocketRenderer::new);
         EntityRendererRegistry.register(EntityRegistry.NORMAL_ROCKET.get(), NormalRocketRenderer::new);
         EntityRendererRegistry.register(EntityRegistry.BIG_ROCKET.get(), BigRocketRenderer::new);
+        EntityRendererRegistry.register(EntityRegistry.ROVER.get(), RoverRenderer::new);
 
         EntityRendererRegistry.register(EntityRegistry.LANDER.get(), LanderRenderer::new);
 
@@ -98,6 +101,7 @@ public class StellarisFabricClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(SmallRocketModel.LAYER_LOCATION, SmallRocketModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(NormalRocketModel.LAYER_LOCATION, NormalRocketModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(BigRocketModel.LAYER_LOCATION, BigRocketModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(RoverModel.LAYER_LOCATION, RoverModel::createBodyLayer);
 
         EntityModelLayerRegistry.registerModelLayer(SpaceSuitModel.LAYER_LOCATION, SpaceSuitModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(JetSuitModel.LAYER_LOCATION, JetSuitModel::createBodyLayer);

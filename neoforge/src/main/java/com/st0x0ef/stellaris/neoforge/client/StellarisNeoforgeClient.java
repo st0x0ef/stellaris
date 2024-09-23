@@ -31,6 +31,8 @@ import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.small.Smal
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.small.SmallRocketRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.tiny.TinyRocketModel;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.tiny.TinyRocketRenderer;
+import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rover.RoverModel;
+import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rover.RoverRenderer;
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeBlockRenderer;
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeModel;
 import com.st0x0ef.stellaris.client.screens.*;
@@ -82,6 +84,7 @@ public class StellarisNeoforgeClient {
         event.registerEntityRenderer(EntityRegistry.BIG_ROCKET.get(), BigRocketRenderer::new);
 
         event.registerEntityRenderer(EntityRegistry.LANDER.get(), LanderRenderer::new);
+        event.registerEntityRenderer(EntityRegistry.ROVER.get(), RoverRenderer::new);
 
         event.registerBlockEntityRenderer(BlockEntityRegistry.GLOBE_BLOCK_ENTITY.get(), GlobeBlockRenderer::new);
     }
@@ -103,6 +106,7 @@ public class StellarisNeoforgeClient {
         event.registerLayerDefinition(SmallRocketModel.LAYER_LOCATION, SmallRocketModel::createBodyLayer);
         event.registerLayerDefinition(NormalRocketModel.LAYER_LOCATION, NormalRocketModel::createBodyLayer);
         event.registerLayerDefinition(BigRocketModel.LAYER_LOCATION, BigRocketModel::createBodyLayer);
+        event.registerLayerDefinition(RoverModel.LAYER_LOCATION, RoverModel::createBodyLayer);
 
         event.registerLayerDefinition(JetSuitModel.LAYER_LOCATION, JetSuitModel::createBodyLayer);
         event.registerLayerDefinition(SpaceSuitModel.LAYER_LOCATION, SpaceSuitModel::createBodyLayer);
