@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.data.recipes.WaterSeparatorRecipe;
 import com.st0x0ef.stellaris.common.data.recipes.input.FluidInput;
 import com.st0x0ef.stellaris.common.menus.WaterSeparatorMenu;
@@ -30,7 +31,10 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity im
     public final FluidTank ingredientTank = new FluidTank("ingredientTank", TANK_CAPACITY);
 
     public final NonNullList<FluidTank> resultTanks = Util.make(NonNullList.createWithCapacity(2), list -> {
+        //HYDROGEN
         list.add(0, new FluidTank("resultTank1", TANK_CAPACITY));
+
+        //OXYGEN
         list.add(1, new FluidTank("resultTank2", TANK_CAPACITY));
     });
 
@@ -89,6 +93,12 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity im
                     }
                 }
             }
+        }
+
+        if (!resultTanks.getLast().isEmpty()) {
+            FluidTankHelper.transferFluidNearby(this, resultTanks.getLast());
+
+
         }
     }
 

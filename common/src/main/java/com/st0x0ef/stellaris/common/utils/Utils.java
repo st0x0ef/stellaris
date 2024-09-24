@@ -92,6 +92,7 @@ public class Utils {
 
             player.level().addFreshEntity(lander);
             player.startRiding(lander);
+            player.sendSystemMessage(Component.translatable("message.stellaris.lander"));
         } else {
             player.closeContainer();
             teleportEntity(player, destination);
@@ -124,6 +125,8 @@ public class Utils {
 
         for (Entity entity : entities) {
             entity.startRiding(lander, true);
+            entity.sendSystemMessage(Component.translatable("message.stellaris.lander"));
+
         }
     }
 
