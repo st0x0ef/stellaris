@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.common.entities;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import dev.architectury.networking.NetworkManager;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.server.level.ServerEntity;
@@ -20,6 +21,9 @@ import java.util.Random;
 
 public class IceSpit extends AbstractArrow implements ItemSupplier {
 
+    public int life;
+    public int lifetime;
+
 
     public IceSpit(EntityType<? extends IceSpit> entityType, Level level) {
         super(entityType, level);
@@ -28,7 +32,26 @@ public class IceSpit extends AbstractArrow implements ItemSupplier {
 
     protected IceSpit(EntityType<? extends AbstractArrow> entityType, LivingEntity livingEntity, Level level, ItemStack itemStack) {
         super(entityType, livingEntity, level, new ItemStack(ItemsRegistry.ICE_SHARD.get()), null);
+        this.life = 0;
+        this.lifetime = 120;
+
     }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putInt("Life", this.life);
+        tag.putInt("LifeTime", this.lifetime);
+
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        this.life = tag.getInt("Life");
+        this.lifetime = tag.getInt("LifeTime");
+    }
+
 
     @Override
     protected ItemStack getDefaultPickupItem() {
@@ -60,5 +83,15 @@ public class IceSpit extends AbstractArrow implements ItemSupplier {
     @Override
     public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity entity) {
         return NetworkManager.createAddEntityPacket(this, entity);
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if(this.isInWater()) this.life += 6; else ++this.life;
+
+        if(!this.level().isClientSide && this.life > this.lifetime ) {
+            this.discard();
+        }
     }
 }
