@@ -64,7 +64,7 @@ public class PumpjackBlockEntity extends BaseEnergyContainerBlockEntity implemen
 
     @Override
     protected Component getDefaultName() {
-        return Component.translatable("block.stellaris.fuel_refinery");
+        return Component.translatable("block.stellaris.pumpjack");
     }
 
     @Override
