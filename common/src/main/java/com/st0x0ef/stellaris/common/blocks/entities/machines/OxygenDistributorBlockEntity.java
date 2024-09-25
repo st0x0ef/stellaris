@@ -48,6 +48,13 @@ public class OxygenDistributorBlockEntity extends BaseEnergyContainerBlockEntity
         return false;
     }
 
+    public void addOyxgen(long amount) {
+        if (oxygenTank.getStack().isEmpty()) {
+            oxygenTank.setFluid(FluidRegistry.OXYGEN_ATTRIBUTES.getSourceFluid(), amount);
+        }
+        oxygenTank.grow(amount);
+    }
+
     @Override
     protected Component getDefaultName() {
         return Component.translatable("block.stellaris.oxygen_distributor");
