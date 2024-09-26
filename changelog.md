@@ -1,11 +1,13 @@
-# 1.1.1 changelog
+# 1.1.2 changelog
 
 ## Additions
-- Added Moon Steel Ore
+- Right click with tank to fill space suit
+- Add oxygen to Oxygen Distributor when right-clicking
+- Add help message for lander
+
+## Changes
+- IceSpit is now removed after long time
 
 ## Fix
-- Jet suit recipes
-- Water Pump recipes
-- Fix tags problem
-- Fix Oxygen Tanks textures
-- Fix Snow on the Moon
+- Fix pump jack name in menu
+- Fix space suit model

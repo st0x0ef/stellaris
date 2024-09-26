@@ -52,7 +52,7 @@ public class GaugeTextBuilder
         for (int i = 0; i < this.getExtraValues().size(); i++) {
             Object extraValue = this.getExtraValues().get(i);
             Style extraStyle = this.getExtraStyle(i);
-            list.add( Component.translatable("%s", extraValue).setStyle(extraStyle));
+            list.add(Component.translatable("%s", extraValue).setStyle(extraStyle));
         }
 
         return Component.translatable(this.getTranslationKey(), list.toArray()).setStyle(this.getTextStyle());
