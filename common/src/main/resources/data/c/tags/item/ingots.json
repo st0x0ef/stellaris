@@ -1,14 +1,12 @@
 {
   "replace": false,
   "values": [
-    "stellaris:steel_ingot",
-    "stellaris:heavy_metal_ingot",
-    "stellaris:raw_steel_ingot",
-    "stellaris:raw_desh_ingot",
-    "stellaris:desh_ingot",
-    "stellaris:uranium_ingot",
-    "stellaris:neptunium_ingot",
-    "stellaris:plutonium_ingot"
+    "#c:ingots/steel",
+    "#c:ingots/desh",
+    "#c:ingots/heavy_metal",
+    "#c:ingots/neptunium",
+    "#c:ingots/uranium",
+    "#c:ingots/plutonium"
 
   ]
 }
