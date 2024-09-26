@@ -1,6 +1,6 @@
 package com.st0x0ef.stellaris.common.menus.slot;
 
-import com.st0x0ef.stellaris.common.items.RadiationItem;
+import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
@@ -13,6 +13,6 @@ public class RadioactiveGeneratorSlot extends Slot {
 
     @Override
     public boolean mayPlace(ItemStack stack) {
-        return stack.getItem() instanceof RadiationItem;
+        return stack.has(DataComponentsRegistry.RADIOACTIVE.get());
     }
 }

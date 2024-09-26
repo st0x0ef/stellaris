@@ -8,6 +8,7 @@ import com.st0x0ef.stellaris.common.armors.JetSuit;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.FluidTankHelper;
 import com.st0x0ef.stellaris.common.data_components.JetSuitComponent;
 import com.st0x0ef.stellaris.common.data_components.OxygenComponent;
+import com.st0x0ef.stellaris.common.data_components.RadioactiveComponent;
 import com.st0x0ef.stellaris.common.data_components.RocketComponent;
 import com.st0x0ef.stellaris.common.items.*;
 import com.st0x0ef.stellaris.common.rocket_upgrade.*;
@@ -116,20 +117,20 @@ public class ItemsRegistry {
     public static final RegistrySupplier<Item> VENUS_GLOBE_ITEM = ITEMS.register("venus_globe", () -> new GlobeItem(BlocksRegistry.VENUS_GLOBE_BLOCK.get(), ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/block/globes/venus_globe.png"), new Item.Properties().rarity(Rarity.EPIC).stacksTo(1).arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
 
     //RADIOACTIVITY
-    public static final RegistrySupplier<Item> MERCURY_URANIUM_ORE_ITEM = ITEMS.register("mercury_uranium_ore", () -> new RadioactiveBlockItem(BlocksRegistry.MERCURY_URANIUM_ORE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), 0));
-    public static final RegistrySupplier<Item> URANIUM_BLOCK_ITEM = ITEMS.register("uranium_block", () -> new RadioactiveBlockItem(BlocksRegistry.URANIUM_BLOCK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), 0));
-    public static final RegistrySupplier<Item> RAW_URANIUM_BLOCK_ITEM = ITEMS.register("raw_uranium_block", () -> new RadioactiveBlockItem(BlocksRegistry.RAW_URANIUM_BLOCK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), 0));
-    public static final RegistrySupplier<Item> URANIUM_INGOT = ITEMS.register("uranium_ingot", () -> new RadioactiveItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), 0));
-    public static final RegistrySupplier<Item> RAW_URANIUM = ITEMS.register("raw_uranium", () -> new RadioactiveItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), 0));
-    public static final RegistrySupplier<Item> NEPTUNIUM_BLOCK = ITEMS.register("neptunium_block", () -> new RadioactiveBlockItem(BlocksRegistry.NEPTUNIUM_BLOCK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), 1));
-    public static final RegistrySupplier<Item> NEPTUNIUM_PIECE = ITEMS.register("neptunium_piece", () -> new RadioactiveItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), 1));
-    public static final RegistrySupplier<Item> RAW_NEPTUNIUM = ITEMS.register("raw_neptunium", () -> new RadioactiveItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), 1));
-    public static final RegistrySupplier<Item> NEPTUNIUM_INGOT = ITEMS.register("neptunium_ingot", () -> new RadioactiveItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), 1));
-    public static final RegistrySupplier<Item> PLUTONIUM_BLOCK = ITEMS.register("plutonium_block", () -> new RadioactiveBlockItem(BlocksRegistry.PLUTONIUM_BLOCK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), 2));
-    public static final RegistrySupplier<Item> PLUTONIUM_GRAIN = ITEMS.register("plutonium_grain", () -> new RadioactiveItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), 2));
-    public static final RegistrySupplier<Item> PLUTONIUM_PIECE = ITEMS.register("plutonium_piece", () -> new RadioactiveItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), 2));
-    public static final RegistrySupplier<Item> PLUTONIUM_NUGGET = ITEMS.register("plutonium_nugget", () -> new RadioactiveItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), 2));
-    public static final RegistrySupplier<Item> PLUTONIUM_INGOT = ITEMS.register("plutonium_ingot", () -> new RadioactiveItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), 2));
+    public static final RegistrySupplier<Item> MERCURY_URANIUM_ORE_ITEM = ITEMS.register("mercury_uranium_ore", () -> new BlockItem(BlocksRegistry.MERCURY_URANIUM_ORE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.RADIOACTIVE.get(), new RadioactiveComponent(0, true))));
+    public static final RegistrySupplier<Item> URANIUM_BLOCK_ITEM = ITEMS.register("uranium_block", () -> new BlockItem(BlocksRegistry.URANIUM_BLOCK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.RADIOACTIVE.get(), new RadioactiveComponent(0, true))));
+    public static final RegistrySupplier<Item> RAW_URANIUM_BLOCK_ITEM = ITEMS.register("raw_uranium_block", () -> new BlockItem(BlocksRegistry.RAW_URANIUM_BLOCK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.RADIOACTIVE.get(), new RadioactiveComponent(0, true))));
+    public static final RegistrySupplier<Item> URANIUM_INGOT = ITEMS.register("uranium_ingot", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.RADIOACTIVE.get(), new RadioactiveComponent(0, false))));
+    public static final RegistrySupplier<Item> RAW_URANIUM = ITEMS.register("raw_uranium", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.RADIOACTIVE.get(), new RadioactiveComponent(0, false))));
+    public static final RegistrySupplier<Item> NEPTUNIUM_BLOCK = ITEMS.register("neptunium_block", () -> new BlockItem(BlocksRegistry.NEPTUNIUM_BLOCK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.RADIOACTIVE.get(), new RadioactiveComponent(1, true))));
+    public static final RegistrySupplier<Item> NEPTUNIUM_PIECE = ITEMS.register("neptunium_piece", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.RADIOACTIVE.get(), new RadioactiveComponent(1, false))));
+    public static final RegistrySupplier<Item> RAW_NEPTUNIUM = ITEMS.register("raw_neptunium", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.RADIOACTIVE.get(), new RadioactiveComponent(1, false))));
+    public static final RegistrySupplier<Item> NEPTUNIUM_INGOT = ITEMS.register("neptunium_ingot", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.RADIOACTIVE.get(), new RadioactiveComponent(1, false))));
+    public static final RegistrySupplier<Item> PLUTONIUM_BLOCK = ITEMS.register("plutonium_block", () -> new BlockItem(BlocksRegistry.PLUTONIUM_BLOCK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.RADIOACTIVE.get(), new RadioactiveComponent(2, true))));
+    public static final RegistrySupplier<Item> PLUTONIUM_GRAIN = ITEMS.register("plutonium_grain", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.RADIOACTIVE.get(), new RadioactiveComponent(2, false))));
+    public static final RegistrySupplier<Item> PLUTONIUM_PIECE = ITEMS.register("plutonium_piece", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.RADIOACTIVE.get(), new RadioactiveComponent(2, false))));
+    public static final RegistrySupplier<Item> PLUTONIUM_NUGGET = ITEMS.register("plutonium_nugget", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.RADIOACTIVE.get(), new RadioactiveComponent(2, false))));
+    public static final RegistrySupplier<Item> PLUTONIUM_INGOT = ITEMS.register("plutonium_ingot", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.RADIOACTIVE.get(), new RadioactiveComponent(2, false))));
 
     /**
      * Mars Items
