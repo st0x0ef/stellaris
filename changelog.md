@@ -7,6 +7,7 @@
 
 ## Changes
 - IceSpit is now removed after long time
+- Update Sky Aesthetic to 1.2.1
 
 ## Fix
 - Fix pump jack name in menu
