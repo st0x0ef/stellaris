@@ -63,6 +63,7 @@ public class JetSuit {
 
         public void onArmorTick(ItemStack stack, Level level, Player player) {
             super.onArmorTick(stack, level, player);
+
             if (getFuel(stack) <= 0) return;
 
             /** JET SUIT FAST BOOST */
@@ -83,7 +84,6 @@ public class JetSuit {
 
             /** CALCULATE PRESS SPACE TIME */
             this.calculateSpacePressTime(player, stack);
-
         }
 
         private void normalFlyModeMovement(Player player, ItemStack stack) {
