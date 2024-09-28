@@ -24,6 +24,7 @@ public class RadioactiveEffect extends MobEffect {
         this.applyEffectTick(livingEntity, amplifier);
         if (livingEntity.getHealth() > 0.0F) {
             if (amplifier == 0) {
+                livingEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 80));
                 livingEntity.hurt(DamageSourceRegistry.of(livingEntity.level(), DamageSourceRegistry.RADIATIONS), 0.5f);
             } else if (amplifier == 1) {
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 80));
