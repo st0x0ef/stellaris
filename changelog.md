@@ -7,8 +7,9 @@
 
 ## Changes
 - IceSpit is now removed after long time
-- Update Sky Aesthetic to 1.2.1
+- Update Sky Aesthetic to 1.2.2
 - Change radioactive to component
+- Increase the damage from lack of oxygen but decrease oxygen use (#31)
 
 ## Fix
 - Fix pump jack name in menu
