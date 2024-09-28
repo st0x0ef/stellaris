@@ -37,9 +37,9 @@ public class OilFinderItem extends Item {
         MutableComponent component = Component.literal("Found Oil " + level.getChunk(pos).stellaris$getChunkOilLevel());
         if(oilLevel > 5000) {
             component.withColor(Utils.getColorHexCode("green"));
-        } else if(oilLevel <= 5000 && oilLevel > 2500) {
+        } else if(oilLevel > 2500) {
             component.withColor(Utils.getColorHexCode("orange"));
-        } else if(oilLevel <= 2500 && oilLevel > 0) {
+        } else if(oilLevel > 0) {
             component.withColor(Utils.getColorHexCode("red"));
         } else {
             component = Component.literal("No oil found");

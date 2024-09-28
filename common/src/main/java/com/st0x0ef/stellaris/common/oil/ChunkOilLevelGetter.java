@@ -7,6 +7,4 @@ public interface ChunkOilLevelGetter {
     }
 
     void stellaris$setChunkOilLevel(int level);
-
-
 }
