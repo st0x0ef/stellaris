@@ -10,8 +10,9 @@
 - Update Sky Aesthetic to 1.2.2
 - Change radioactive to component
 - Increase the damage from lack of oxygen but decrease oxygen use (#31)
+- Update modmenu
 
 ## Fix
-- Fix pump jack name in menu
+- Fix pump jack menu
 - Fix space suit model
 - Fix oil save
