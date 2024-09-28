@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.items;
 
+import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -26,7 +27,20 @@ public class CoffeeItem extends Item {
             serverPlayer.awardStat(Stats.ITEM_USED.get(this));
         }
 
-        return stack;
+        if (stack.isEmpty()) {
+            return new ItemStack(ItemsRegistry.COFFEE_CUP);
+        } else {
+            if (livingEntity instanceof Player) {
+                Player player = (Player) livingEntity;
+                if (!player.hasInfiniteMaterials()) {
+                    ItemStack itemStack = new ItemStack(ItemsRegistry.COFFEE_CUP);
+                    if (!player.getInventory().add(itemStack)) {
+                        player.drop(itemStack, false);
+                    }
+                }
+            }
+            return stack;
+        }
     }
 
     public int getUseDuration(ItemStack stack) {
