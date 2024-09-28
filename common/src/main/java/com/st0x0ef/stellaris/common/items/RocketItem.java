@@ -105,8 +105,7 @@ public class RocketItem extends Item {
     }
 
     public RocketEntity getRocket(Level level, ItemStack stack) {
-        RocketEntity rocket = new RocketEntity(this.getEntityType(stack), level);
-        return rocket;
+        return new RocketEntity(this.getEntityType(stack), level);
     }
 
     @Override
