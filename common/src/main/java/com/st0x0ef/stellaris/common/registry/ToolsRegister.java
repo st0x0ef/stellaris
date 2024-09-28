@@ -14,7 +14,7 @@ import java.util.function.Supplier;
 
 
 public enum ToolsRegister implements Tier {
-    STEEL(TagRegistry.INCORRECT_FOR_STEEL_TOOL, 589, 7.0F, 2.6F, 10, () -> Ingredient.of(ItemsRegistry.STEEL_INGOT.get()));
+    STEEL(TagRegistry.INCORRECT_FOR_STEEL_TOOL, 589, 7.0F, 2.6F, 20, () -> Ingredient.of(ItemsRegistry.STEEL_INGOT.get()));
         private final TagKey<Block> incorrectBlocksForDrops;
         private final int uses;
         private final float speed;
