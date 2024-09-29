@@ -35,19 +35,44 @@ import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rover.RoverRender
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeBlockRenderer;
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeModel;
 import com.st0x0ef.stellaris.client.screens.*;
+import com.st0x0ef.stellaris.common.entities.vehicles.base.AbstractRoverBase;
 import com.st0x0ef.stellaris.common.menus.RoverMenu;
 import com.st0x0ef.stellaris.common.registry.*;
+import dev.architectury.event.events.common.TickEvent;
 import dev.architectury.registry.menu.MenuRegistry;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 
 public class StellarisFabricClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
+        TickEvent.LevelTick.PLAYER_POST.register(instance -> {
+            Minecraft minecraft = Minecraft.getInstance();
+
+            Player player = minecraft.player;
+
+            if (player == null) {
+                return;
+            }
+
+            Entity riding = player.getVehicle();
+
+            if (!(riding instanceof AbstractRoverBase car)) {
+                return;
+            }
+
+            if (player.equals(car.getDriver())) {
+                car.updateControls(minecraft.options.keyUp.isDown(), minecraft.options.keyDown.isDown(), minecraft.options.keyLeft.isDown(), minecraft.options.keyRight.isDown(), player);
+            }
+        });
+
         StellarisClient.initClient();
         StellarisClient.registerPacks();
         registerScreen();
