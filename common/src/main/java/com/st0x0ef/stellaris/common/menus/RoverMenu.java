@@ -96,7 +96,7 @@ public class RoverMenu extends AbstractContainerMenu implements IVehicleMenu
         //UPGRADE SLOTS
         this.addSlot(new MotorUpgradeSlot(inventory, 10, 88, 66));
         this.addSlot(new TankUpgradeSlot(inventory, 11, 138, 66));
-        this.addSlot(new SpeedUpgradeSlot(inventory,12,115,62));
+        this.addSlot(new SpeedUpgradeSlot(inventory,12,115,66));
 
     }
 
