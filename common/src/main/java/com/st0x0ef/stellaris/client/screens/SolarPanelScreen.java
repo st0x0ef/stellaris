@@ -28,9 +28,8 @@ public class SolarPanelScreen extends AbstractContainerScreen<SolarPanelMenu> {
     public SolarPanelScreen(SolarPanelMenu abstractContainerMenu, Inventory inventory, Component component) {
         super(abstractContainerMenu, inventory, component);
         imageWidth = 177;
-        imageHeight = 228;
+        imageHeight = 188;
         inventoryLabelY = imageHeight - 92;
-        titleLabelY += 40;
     }
 
     @Override
@@ -41,7 +40,7 @@ public class SolarPanelScreen extends AbstractContainerScreen<SolarPanelMenu> {
             return;
         }
 
-        energyGauge = new Gauge(leftPos + 108, topPos + 69, 13, 47, Component.translatable("stellaris.screen.energy"), GUISprites.ENERGY_FULL, null, (int) menu.getEnergyContainer().getStoredEnergy(), (int) menu.getEnergyContainer().getMaxCapacity());
+        energyGauge = new Gauge(leftPos + 109, topPos + 29  , 11, 47, Component.translatable("stellaris.screen.energy"), GUISprites.ENERGY_FULL, GUISprites.BATTERY_OVERLAY, (int) menu.getEnergyContainer().getStoredEnergy(), (int) menu.getEnergyContainer().getMaxCapacity());
         addRenderableWidget(energyGauge);
     }
 
