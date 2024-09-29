@@ -11,6 +11,7 @@ import com.st0x0ef.stellaris.common.utils.Utils;
 import dev.architectury.event.EventResult;
 import dev.architectury.event.events.common.BlockEvent;
 import dev.architectury.event.events.common.TickEvent;
+import net.minecraft.client.gui.screens.options.controls.KeyBindsList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -85,6 +86,7 @@ public class Events {
 
             return EventResult.pass();
         });
+
     }
 
     private static void addOxygenRoom(ServerLevel level, BlockPos pos) {

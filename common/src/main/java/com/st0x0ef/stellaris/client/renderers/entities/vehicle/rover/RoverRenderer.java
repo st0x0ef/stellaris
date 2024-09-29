@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 
-public class RoverRenderer extends VehicleRenderer<RoverEntity, RoverModel<RoverEntity>> {
+public class RoverRenderer extends AbstractRoverRenderer<RoverEntity, RoverModel<RoverEntity>> {
 
     public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/vehicle/rover.png");
 

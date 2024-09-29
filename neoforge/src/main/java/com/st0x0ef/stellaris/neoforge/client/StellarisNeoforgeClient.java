@@ -117,6 +117,7 @@ public class StellarisNeoforgeClient {
     public static void registerScreen(RegisterMenuScreensEvent event) {
         event.register(MenuTypesRegistry.ROCKET_STATION.get(), RocketStationScreen::new);
         event.register(MenuTypesRegistry.ROCKET_MENU.get(), RocketScreen::new);
+        event.register(MenuTypesRegistry.ROVER_MENU.get(), RoverScreen::new);
         event.register(MenuTypesRegistry.VACUMATOR_MENU.get(), VacumatorScreen::new);
         event.register(MenuTypesRegistry.SOLAR_PANEL_MENU.get(), SolarPanelScreen::new);
         event.register(MenuTypesRegistry.COAL_GENERATOR_MENU.get(), CoalGeneratorScreen::new);

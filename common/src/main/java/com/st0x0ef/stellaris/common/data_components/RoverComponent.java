@@ -5,19 +5,21 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.RocketModel;
 import com.st0x0ef.stellaris.common.rocket_upgrade.*;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 
 import java.io.Serializable;
 
-public record RoverComponent(String fuelType, int fuel, ResourceLocation fuelTexture, int tankCapacity) implements Serializable {
+public record RoverComponent(String fuelType, int fuel, ResourceLocation fuelTexture, int tankCapacity,int speedModifier) implements Serializable {
 
     public static final Codec<RoverComponent> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.STRING.fieldOf("fuel_type").forGetter(RoverComponent::fuelType),
             Codec.INT.fieldOf("fuel").forGetter(RoverComponent::fuel),
             ResourceLocation.CODEC.fieldOf("fuel_texture").forGetter(RoverComponent::fuelTexture),
-            Codec.INT.fieldOf("fuel_capacity").forGetter(RoverComponent::tankCapacity)
+            Codec.INT.fieldOf("fuel_capacity").forGetter(RoverComponent::tankCapacity),
+            Codec.INT.fieldOf("speed_modifier").forGetter(RoverComponent::speedModifier)
     ).apply(instance, RoverComponent::new));
 
     public static final StreamCodec<ByteBuf, RoverComponent> STREAM_CODEC;
@@ -40,12 +42,31 @@ public record RoverComponent(String fuelType, int fuel, ResourceLocation fuelTex
         return new TankUpgrade(tankCapacity);
     }
 
+    public static RoverComponent fromNetwork(RegistryFriendlyByteBuf buffer) {
+        return new RoverComponent(buffer.readUtf(), buffer.readInt(), buffer.readResourceLocation(), buffer.readInt(),buffer.readInt());
+    }
+
+    public RegistryFriendlyByteBuf toNetwork(RegistryFriendlyByteBuf buffer) {
+        buffer.writeUtf(this.fuelType);
+        buffer.writeInt(this.fuel);
+        buffer.writeResourceLocation(this.fuelTexture);
+        buffer.writeInt(this.tankCapacity);
+        buffer.writeInt(this.speedModifier);
+        return buffer;
+    }
 
     public int getTankCapacity() {
         return tankCapacity;
     }
 
+    public SpeedUpgrade getSpeedModifier()
+    {
+        return new SpeedUpgrade(speedModifier);
+    }
+
     static {
-        STREAM_CODEC = StreamCodec.composite( ByteBufCodecs.STRING_UTF8, RoverComponent::fuelType, ByteBufCodecs.INT, RoverComponent::fuel, ResourceLocation.STREAM_CODEC, RoverComponent::fuelTexture, ByteBufCodecs.INT, RoverComponent::tankCapacity, RoverComponent::new);
+        STREAM_CODEC = StreamCodec.composite( ByteBufCodecs.STRING_UTF8, RoverComponent::fuelType, ByteBufCodecs.INT,
+                RoverComponent::fuel, ResourceLocation.STREAM_CODEC, RoverComponent::fuelTexture,
+                ByteBufCodecs.INT, RoverComponent::tankCapacity,ByteBufCodecs.INT,RoverComponent::speedModifier,RoverComponent::new);
     }
 }
