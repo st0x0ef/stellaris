@@ -21,6 +21,9 @@ public class Gauge extends AbstractWidget {
     protected final int max_value;
     protected int value;
     public final ResourceLocation overlay_texture;
+    private int yOffSet = 0;
+
+
 
     public Gauge(int x, int y, int width, int height, Component message, ResourceLocation texture, @Nullable ResourceLocation overlay_texture, int value, int max_value) {
         super(x, y, width, height, message);
@@ -30,24 +33,31 @@ public class Gauge extends AbstractWidget {
         this.overlay_texture = overlay_texture;
     }
 
+    public Gauge(int x, int y, int width, int height, Component message, ResourceLocation texture, @Nullable ResourceLocation overlay_texture, int value, int max_value, int yOffSet) {
+        this(x, y, width, height, message, texture, overlay_texture, value, max_value);
+        this.yOffSet = yOffSet;
+    }
+
     public void update(int value) {
         this.value = value;
     }
 
-    public void updateFluidTexture(ResourceLocation texture) {
+    public Gauge updateFluidTexture(ResourceLocation texture) {
         this.texture = texture;
+        return this;
     }
 
     @Override
     public void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+
         if (value >= max_value) {
             value = max_value;
-            graphics.blit(texture, getX(), getY(), width, height - 1, width, height -1, width, height - 1);
+            graphics.blit(texture, getX(), getY(), width, height - 1, width, height - 1, width, height - 1);
         } else if (value <= 0) {
             graphics.blit(texture, getX(), getY(), width, height, width, 0, width, 45);
         } else {
-            float WidgetY = getY() + 45 - 45 / ((float) max_value / value);
-            graphics.blit(texture, getX(), (int) WidgetY, (float) width, (float) height, width, (int) (45 / ((float) max_value / value)), width, 45);
+            float widgetY = (getY() + 45 - 45 / ((float) max_value / value) + 3) + yOffSet;
+            graphics.blit(texture, getX(), (int) widgetY, (float) width, (float) height, width, (int) (45 / ((float) max_value / value)), width, 45);
         }
 
         if (overlay_texture != null) {
