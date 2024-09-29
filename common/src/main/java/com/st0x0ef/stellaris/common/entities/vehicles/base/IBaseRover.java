@@ -39,7 +39,7 @@ public abstract class IBaseRover extends Entity
 
     @Override
     public float maxUpStep() {
-        return 0.6F;
+        return 1f;
     }
 
     @Override
@@ -53,7 +53,7 @@ public abstract class IBaseRover extends Entity
         super.tick();
         tickLerp();
 
-        recalculateBoundingBox();
+        //recalculateBoundingBox();
     }
 
     public void recalculateBoundingBox() {
@@ -70,6 +70,7 @@ public abstract class IBaseRover extends Entity
         return 1.6D;
     }
 
+    //I Drive
     public Player getDriver() {
         List<Entity> passengers = getPassengers();
         if (passengers.size() <= 0) {

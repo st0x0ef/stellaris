@@ -181,43 +181,57 @@ public class RoverModel<T extends RoverEntity> extends EntityModel<T> {
 
         PartDefinition cube_r36 = Wheel6.addOrReplaceChild("cube_r36", CubeListBuilder.create().texOffs(108, 0).addBox(-1.0F, -5.0F, -2.0F, 3.0F, 2.0F, 4.0F, new CubeDeformation(0.121F)), PartPose.offsetAndRotation(2.0F, 0.0F, 0.0F, 0.7854F, 0.0F, 0.0F));
 
-        PartDefinition Antenna = Frame.addOrReplaceChild("Antenna", CubeListBuilder.create(), PartPose.offsetAndRotation(10.0F, -39.0F, 18.0F, -1.5708F, 1.1781F, -1.5708F));
+        //PartDefinition Antenna = Frame.addOrReplaceChild("Antenna", CubeListBuilder.create(), PartPose.offsetAndRotation(10.0F, -39.0F, 18.0F, -1.5708F, 1.1781F, -1.5708F));
 
         return LayerDefinition.create(meshdefinition, 256, 256);
     }
 
+
+
     @Override
-    public void setupAnim(T entity, float f, float f1, float f2, float f3, float f4) {
-        this.rover.yRot = f3 / (180F / (float) Math.PI);
+    public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        this.rover.yRot = netHeadYaw / (180F / (float) Math.PI);
 
-        float wheelRotation = entity.getKilometerPerHour() / 4.0F;
+        float wheelRotation = (float) entity.getDeltaMovement().x / 10f;
 
-//        if (entity.isForward()) {
-//            this.rover.getChild("wheels").getChild("wheel1").xRot = wheelRotation;
-//            this.rover.getChild("wheels").getChild("wheel2").xRot = wheelRotation;
-//            this.rover.getChild("wheels").getChild("wheel3").xRot = wheelRotation;
-//            this.rover.getChild("wheels").getChild("wheel4").xRot = wheelRotation;
-//        } else if (entity.isBackward()) {
-//            this.rover.getChild("wheels").getChild("wheel1").xRot = -wheelRotation;
-//            this.rover.getChild("wheels").getChild("wheel2").xRot = -wheelRotation;
-//            this.rover.getChild("wheels").getChild("wheel3").xRot = -wheelRotation;
-//            this.rover.getChild("wheels").getChild("wheel4").xRot = -wheelRotation;
-//        } else {
-//            this.rover.getChild("wheels").getChild("wheel1").xRot = 0;
-//            this.rover.getChild("wheels").getChild("wheel2").xRot = 0;
-//            this.rover.getChild("wheels").getChild("wheel3").xRot = 0;
-//            this.rover.getChild("wheels").getChild("wheel4").xRot = 0;
-//        }
-//
-//        if (entity.getXRot() > 0) {
-//            this.rover.getChild("wheels").getChild("wheel1").xRot += entity.getXRot() / 4;
-//            this.rover.getChild("wheels").getChild("wheel2").xRot += entity.getXRot() / 4;
-//            this.rover.getChild("wheels").getChild("wheel3").xRot += entity.getXRot() / 4;
-//            this.rover.getChild("wheels").getChild("wheel4").xRot += entity.getXRot() / 4;
-//        }
-//
-//
-//        this.rover.getChild("antenna").yRot = f2 / 20f;
+
+
+        if (entity.isForward()) {
+            this.rover.getChild("Wheels").getChild("Wheel1").xRot += wheelRotation;
+            this.rover.getChild("Wheels").getChild("Wheel2").xRot += wheelRotation;
+            this.rover.getChild("Wheels").getChild("Wheel3").xRot += wheelRotation;
+            this.rover.getChild("Wheels").getChild("Wheel4").xRot += wheelRotation;
+            this.rover.getChild("Wheels").getChild("Wheel5").xRot += wheelRotation;
+            this.rover.getChild("Wheels").getChild("Wheel6").xRot += wheelRotation;
+
+        } else if (entity.isBackward()) {
+            this.rover.getChild("Wheels").getChild("Wheel1").xRot -= -wheelRotation;
+            this.rover.getChild("Wheels").getChild("Wheel2").xRot -= -wheelRotation;
+            this.rover.getChild("Wheels").getChild("Wheel3").xRot -= -wheelRotation;
+            this.rover.getChild("Wheels").getChild("Wheel4").xRot -= -wheelRotation;
+            this.rover.getChild("Wheels").getChild("Wheel5").xRot -= -wheelRotation;
+            this.rover.getChild("Wheels").getChild("Wheel6").xRot -= -wheelRotation;
+
+        } else {
+            this.rover.getChild("Wheels").getChild("Wheel1").xRot = 0;
+            this.rover.getChild("Wheels").getChild("Wheel2").xRot = 0;
+            this.rover.getChild("Wheels").getChild("Wheel3").xRot = 0;
+            this.rover.getChild("Wheels").getChild("Wheel4").xRot = 0;
+            this.rover.getChild("Wheels").getChild("Wheel5").xRot = 0;
+            this.rover.getChild("Wheels").getChild("Wheel6").xRot = 0;
+
+        }
+
+        if (entity.getXRot() > 0) {
+            this.rover.getChild("Wheels").getChild("Wheel1").xRot += entity.getXRot() / 4;
+            this.rover.getChild("Wheels").getChild("Wheel2").xRot += entity.getXRot() / 4;
+            this.rover.getChild("Wheels").getChild("Wheel3").xRot += entity.getXRot() / 4;
+            this.rover.getChild("Wheels").getChild("Wheel4").xRot += entity.getXRot() / 4;
+        }
+
+
+        Stellaris.LOG.info("{}", ageInTicks);
+        this.rover.getChild("Antenna").xRot += ageInTicks;
     }
 
 

@@ -1,10 +1,8 @@
 package com.st0x0ef.stellaris.common.entities.vehicles;
 
-import com.st0x0ef.stellaris.common.data_components.RocketComponent;
 import com.st0x0ef.stellaris.common.data_components.RoverComponent;
 import com.st0x0ef.stellaris.common.entities.vehicles.base.AbstractRoverBase;
 import com.st0x0ef.stellaris.common.items.RocketUpgradeItem;
-import com.st0x0ef.stellaris.common.menus.RocketMenu;
 import com.st0x0ef.stellaris.common.menus.RoverMenu;
 import com.st0x0ef.stellaris.common.network.packets.SyncRoverComponentPacket;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;

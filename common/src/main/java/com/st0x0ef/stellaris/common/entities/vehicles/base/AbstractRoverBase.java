@@ -49,7 +49,7 @@ public abstract class AbstractRoverBase extends IBaseRover
 
     @Override
     public float maxUpStep() {
-        return 0.5F;
+        return 1F;
     }
 
     public abstract float getMaxSpeed();
