@@ -10,3 +10,4 @@
 
 ## Fix
 - Fix number of bucket of fuel per chunk (fabric only)
+- Fix oil overlay texture in the pumpjack screen
