@@ -186,7 +186,7 @@ public class FluidTankHelper {
         return amount * 81;
     }
 
-    public static long convertToMb(long amount) {
-        return amount / 81;
+    public static int convertFromMb(int amount) {
+        return amount * 81;
     }
 }
