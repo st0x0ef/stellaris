@@ -18,6 +18,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.*;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.HasCustomInventoryScreen;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -28,6 +29,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3d;
 
 public class RoverEntity extends AbstractRoverBase implements HasCustomInventoryScreen, ContainerListener {
@@ -81,7 +84,7 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
 
     @Override
     public float getAcceleration() {
-        return (1.8F*SpeedUpgrade.getSpeedModifier()*0.5f)/2;
+        return (1.8F * SpeedUpgrade.getSpeedModifier() * 0.5f) / 2;
     }
 
     @Override
@@ -109,7 +112,7 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
 
     @Override
     public double getPlayerYOffset() {
-        return 0.9F;
+        return 1f;
     }
 
     @Override

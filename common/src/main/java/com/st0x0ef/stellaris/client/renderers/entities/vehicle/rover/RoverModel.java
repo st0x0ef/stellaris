@@ -9,6 +9,7 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 
 
@@ -16,9 +17,11 @@ public class RoverModel<T extends RoverEntity> extends EntityModel<T> {
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "rover"), "main");
 
     private final ModelPart rover;
+    private final ModelPart antenna;
 
     public RoverModel(ModelPart root) {
         this.rover = root.getChild("Frame");
+        this.antenna = root.getChild("Antenna");
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -26,11 +29,6 @@ public class RoverModel<T extends RoverEntity> extends EntityModel<T> {
         PartDefinition partdefinition = meshdefinition.getRoot();
 
         PartDefinition Frame = partdefinition.addOrReplaceChild("Frame", CubeListBuilder.create().texOffs(0, 0).addBox(-15.0F, -11.0F, -26.0F, 30.0F, 2.0F, 48.0F, new CubeDeformation(0.0F))
-                .texOffs(39, 0).addBox(24.0F, -40.5F, 16.5F, 1.0F, 3.0F, 3.0F, new CubeDeformation(0.0F))
-                .texOffs(0, 0).addBox(18.0F, -41.0F, 16.0F, 1.0F, 4.0F, 4.0F, new CubeDeformation(0.0F))
-                .texOffs(100, 62).addBox(14.0F, -40.5F, 16.0F, 4.0F, 3.0F, 4.0F, new CubeDeformation(0.0F))
-                .texOffs(0, 45).addBox(10.0F, -39.5F, 17.0F, 14.0F, 1.0F, 2.0F, new CubeDeformation(0.0F))
-                .texOffs(0, 8).addBox(18.0F, -47.0F, 10.0F, 0.0F, 16.0F, 16.0F, new CubeDeformation(0.0F))
                 .texOffs(108, 0).addBox(9.0F, -9.0F, -23.0F, 4.0F, 2.0F, 42.0F, new CubeDeformation(0.0F))
                 .texOffs(0, 40).addBox(-11.0F, -11.0F, -35.0F, 22.0F, 3.0F, 2.0F, new CubeDeformation(0.0F))
                 .texOffs(51, 106).addBox(14.0F, -12.0F, -25.0F, 2.0F, 2.0F, 47.0F, new CubeDeformation(0.0F))
@@ -40,7 +38,6 @@ public class RoverModel<T extends RoverEntity> extends EntityModel<T> {
                 .texOffs(102, 106).addBox(-13.0F, -9.0F, -23.0F, 4.0F, 2.0F, 42.0F, new CubeDeformation(0.0F))
                 .texOffs(132, 80).addBox(-11.0F, -13.0F, -14.0F, 22.0F, 2.0F, 10.0F, new CubeDeformation(0.0F))
                 .texOffs(66, 50).addBox(-11.0F, -19.0F, -24.0F, 22.0F, 8.0F, 4.0F, new CubeDeformation(0.0F))
-                .texOffs(66, 62).addBox(9.0F, -40.0F, 17.0F, 2.0F, 29.0F, 2.0F, new CubeDeformation(0.0F))
                 .texOffs(0, 104).addBox(3.0F, -21.0F, -17.0F, 8.0F, 4.0F, 1.0F, new CubeDeformation(0.0F))
                 .texOffs(32, 45).addBox(6.0F, -20.0F, -18.0F, 2.0F, 2.0F, 1.0F, new CubeDeformation(0.0F))
                 .texOffs(132, 65).addBox(-12.0F, -15.0F, -15.0F, 24.0F, 3.0F, 12.0F, new CubeDeformation(0.0F))
@@ -181,7 +178,12 @@ public class RoverModel<T extends RoverEntity> extends EntityModel<T> {
 
         PartDefinition cube_r36 = Wheel6.addOrReplaceChild("cube_r36", CubeListBuilder.create().texOffs(108, 0).addBox(-1.0F, -5.0F, -2.0F, 3.0F, 2.0F, 4.0F, new CubeDeformation(0.121F)), PartPose.offsetAndRotation(2.0F, 0.0F, 0.0F, 0.7854F, 0.0F, 0.0F));
 
-        //PartDefinition Antenna = Frame.addOrReplaceChild("Antenna", CubeListBuilder.create(), PartPose.offsetAndRotation(10.0F, -39.0F, 18.0F, -1.5708F, 1.1781F, -1.5708F));
+        PartDefinition Antenna = partdefinition.addOrReplaceChild("Antenna", CubeListBuilder.create().texOffs(0, 0).addBox(8.0F, -29.0F, -2.0F, 1.0F, 4.0F, 4.0F, new CubeDeformation(0.0F))
+                .texOffs(39, 0).addBox(14.0F, -28.5F, -1.5F, 1.0F, 3.0F, 3.0F, new CubeDeformation(0.0F))
+                .texOffs(0, 45).addBox(0.0F, -27.5F, -1.0F, 14.0F, 1.0F, 2.0F, new CubeDeformation(0.0F))
+                .texOffs(0, 8).addBox(8.0F, -35.0F, -8.0F, 0.0F, 16.0F, 16.0F, new CubeDeformation(0.0F))
+                .texOffs(100, 62).addBox(4.0F, -28.5F, -2.0F, 4.0F, 3.0F, 4.0F, new CubeDeformation(0.0F))
+                .texOffs(66, 62).addBox(-1.0F, -28.0F, -1.0F, 2.0F, 29.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(10.0F, 9.0F, 20.0F));
 
         return LayerDefinition.create(meshdefinition, 256, 256);
     }
@@ -192,7 +194,10 @@ public class RoverModel<T extends RoverEntity> extends EntityModel<T> {
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.rover.yRot = netHeadYaw / (180F / (float) Math.PI);
 
-        float wheelRotation = (float) entity.getDeltaMovement().x / 10f;
+        float wheelRotation = (float) entity.getDeltaMovement().x / 5f;
+        if (entity.getDirection() == Direction.NORTH ||entity.getDirection() == Direction.SOUTH) {
+            wheelRotation = (float) entity.getDeltaMovement().z / 5f;
+        }
 
 
 
@@ -229,14 +234,14 @@ public class RoverModel<T extends RoverEntity> extends EntityModel<T> {
             this.rover.getChild("Wheels").getChild("Wheel4").xRot += entity.getXRot() / 4;
         }
 
-
-        Stellaris.LOG.info("{}", ageInTicks);
-        this.rover.getChild("Antenna").xRot += ageInTicks;
+        this.antenna.yRot = ageInTicks / 20;
     }
 
 
     @Override
     public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
         this.rover.render(poseStack, buffer, packedLight, packedOverlay);
+        this.antenna.render(poseStack, buffer, packedLight, packedOverlay);
+
     }
 }
