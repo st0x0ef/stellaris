@@ -8,7 +8,6 @@ import com.st0x0ef.stellaris.common.blocks.entities.machines.WaterSeparatorBlock
 import com.st0x0ef.stellaris.common.data.recipes.input.FluidInput;
 import com.st0x0ef.stellaris.common.registry.RecipesRegistry;
 import dev.architectury.fluid.FluidStack;
-import dev.architectury.platform.Platform;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
