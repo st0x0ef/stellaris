@@ -37,6 +37,7 @@ public class ModPlacedFeatures {
 
     // MERCURY
     public static final ResourceKey<PlacedFeature> MERCURY_IRON_PLACED_KEY = createKey("mercury_iron_ore");
+    public static final ResourceKey<PlacedFeature> MERCURY_URANIUM_PLACED_KEY = createKey("mercury_uranium_ore");
 
     // MOON
     public static final ResourceKey<PlacedFeature> MOON_DESH_PLACED_KEY = createKey("moon_desh_ore");
@@ -82,6 +83,9 @@ public class ModPlacedFeatures {
         // MERCURY
         register(context, MERCURY_IRON_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.MERCURY_IRON_ORE_KEY),
                 OrePlacement.commonOrePlacement(20,
+                        HeightRangePlacement.triangle(VerticalAnchor.absolute(-80), VerticalAnchor.absolute(192))));
+        register(context, MERCURY_URANIUM_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.MERCURY_URANIUM_ORE_KEY),
+                OrePlacement.commonOrePlacement(4,
                         HeightRangePlacement.triangle(VerticalAnchor.absolute(-80), VerticalAnchor.absolute(192))));
 
         // MOON

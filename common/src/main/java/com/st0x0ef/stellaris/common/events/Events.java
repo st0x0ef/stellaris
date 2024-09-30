@@ -2,10 +2,10 @@ package com.st0x0ef.stellaris.common.events;
 
 import com.st0x0ef.stellaris.common.blocks.CoalLanternBlock;
 import com.st0x0ef.stellaris.common.blocks.WallCoalTorchBlock;
-import com.st0x0ef.stellaris.common.items.RadiationItem;
 import com.st0x0ef.stellaris.common.oxygen.GlobalOxygenManager;
 import com.st0x0ef.stellaris.common.oxygen.OxygenRoom;
 import com.st0x0ef.stellaris.common.registry.BlocksRegistry;
+import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import dev.architectury.event.EventResult;
@@ -29,8 +29,8 @@ public class Events {
             if (tickBeforeNextRadioactiveCheck-- <= 0 && !Utils.isLivingInJetSuit(player)) {
                 if (!player.level().isClientSide()) {
                     int maxRadiationLevel = player.getInventory().items.stream()
-                            .filter(itemStack -> itemStack.getItem() instanceof RadiationItem)
-                            .mapToInt(itemStack -> ((RadiationItem) itemStack.getItem()).getRadiationLevel())
+                            .filter(itemStack -> itemStack.has(DataComponentsRegistry.RADIOACTIVE.get()))
+                            .mapToInt(itemStack -> itemStack.get(DataComponentsRegistry.RADIOACTIVE.get()).level())
                             .max()
                             .orElse(0);
 

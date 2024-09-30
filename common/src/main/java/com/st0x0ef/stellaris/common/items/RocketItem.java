@@ -20,7 +20,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
@@ -106,8 +105,7 @@ public class RocketItem extends Item {
     }
 
     public RocketEntity getRocket(Level level, ItemStack stack) {
-        RocketEntity rocket = new RocketEntity(this.getEntityType(stack), level);
-        return rocket;
+        return new RocketEntity(this.getEntityType(stack), level);
     }
 
     @Override

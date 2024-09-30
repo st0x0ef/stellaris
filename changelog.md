@@ -1,11 +1,18 @@
-# 1.1.1 changelog
+# 1.1.2 changelog
 
 ## Additions
-- Added Moon Steel Ore
+- Right click with tank to fill space suit
+- Add oxygen to Oxygen Distributor when right-clicking
+- Add help message for lander
+
+## Changes
+- IceSpit is now removed after long time
+- Update Sky Aesthetic to 1.2.2
+- Change radioactive to component
+- Increase the damage from lack of oxygen but decrease oxygen use (#31)
+- Update modmenu
 
 ## Fix
-- Jet suit recipes
-- Water Pump recipes
-- Fix tags problem
-- Fix Oxygen Tanks textures
-- Fix Snow on the Moon
+- Fix pump jack menu
+- Fix space suit model
+- Fix oil save

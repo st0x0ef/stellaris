@@ -1,5 +1,6 @@
 {
   "world": "minecraft:overworld",
+  "id": "stellaris:earth_sky",
   "cloud": true,
   "cloud_height": 192,
   "fog": true,
@@ -36,6 +37,7 @@
       ],
       "scale": 0.1,
       "speed": 0.4,
+      "rotation": 0,
       "color": {
         "r": 190,
         "g": 160,

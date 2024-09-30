@@ -21,13 +21,14 @@ public class PumpjackMenu extends BaseContainer {
 
     public static PumpjackMenu create(int containerId, Inventory inventory, FriendlyByteBuf buf) {
         PumpjackBlockEntity blockEntity = (PumpjackBlockEntity) inventory.player.level().getBlockEntity(buf.readBlockPos());
-        return new PumpjackMenu(containerId, inventory, new SimpleContainer(4), blockEntity);
+        return new PumpjackMenu(containerId, inventory, new SimpleContainer(2), blockEntity);
     }
 
     public PumpjackMenu(int containerId, Inventory inventory, Container container, PumpjackBlockEntity blockEntity) {
-        super(MenuTypesRegistry.PUMPJACK_MENU.get(), containerId, 4, inventory, 26);
+        super(MenuTypesRegistry.PUMPJACK_MENU.get(), containerId, 2, inventory, 26);
         this.container = container;
         this.blockEntity = blockEntity;
+        checkContainerSize(container, 2);
 
         // Result tank
         addSlot(new FluidContainerSlot(container, 0, 116, 32, true, true));

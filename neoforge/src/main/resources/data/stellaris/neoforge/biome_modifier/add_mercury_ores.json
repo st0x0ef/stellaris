@@ -1,6 +1,6 @@
 {
   "type": "neoforge:add_features",
   "biomes": "#stellaris:mercury_biomes",
-  "features": ["stellaris:mercury_iron_ore"],
+  "features": ["stellaris:mercury_iron_ore", "stellaris:mercury_uranium_ore"],
   "step": "underground_ores"
 }

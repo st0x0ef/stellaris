@@ -33,8 +33,12 @@ public class BiomeModificationsRegistry {
             mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.MARS_OSTRUM_PLACED_KEY);
         }));
 
-        BiomeModifications.addProperties((context) -> context.hasTag(TagRegistry.MERCURY_BIOMES_TAG), ((biomeContext, mutable) ->
-                mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.MERCURY_IRON_PLACED_KEY)));
+        BiomeModifications.addProperties((context) -> context.hasTag(TagRegistry.MERCURY_BIOMES_TAG), ((biomeContext, mutable) -> {
+            mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.MERCURY_IRON_PLACED_KEY);
+            mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.MERCURY_URANIUM_PLACED_KEY);
+
+
+        }));
 
         BiomeModifications.addProperties((context) -> context.hasTag(TagRegistry.VENUS_BIOMES_TAG), ((biomeContext, mutable) -> {
             mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.VENUS_COAL_PLACED_KEY);

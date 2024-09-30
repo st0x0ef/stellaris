@@ -18,6 +18,7 @@ import net.minecraft.world.level.chunk.ChunkAccess;
 public class PumpjackBlockEntity extends BaseEnergyContainerBlockEntity implements WrappedFluidBlockEntity{
 
     private boolean isGenerating = false;
+    private long oilToExtract =  FluidTankHelper.OXYGEN_TANK_FILL_AMOUNT / 10;
     public final FluidTank resultTank = new FluidTank("resultTank", 5);
     public int chunkOilLevel = 0;
     public PumpjackBlockEntity(BlockPos pos, BlockState state) {
@@ -36,15 +37,15 @@ public class PumpjackBlockEntity extends BaseEnergyContainerBlockEntity implemen
 
         WrappedBlockEnergyContainer energyContainer = getWrappedEnergyContainer();
 
-        if (energyContainer.getStoredEnergy() >= 20 && access.stellaris$getChunkOilLevel() >= 1) {
-            if (resultTank.getAmount() + 1 <= resultTank.getMaxCapacity()) {
+        if (energyContainer.getStoredEnergy() >= 20 && access.stellaris$getChunkOilLevel() >= oilToExtract) {
+            if (resultTank.getAmount() + oilToExtract <= resultTank.getMaxCapacity()) {
                 access.stellaris$setChunkOilLevel(access.stellaris$getChunkOilLevel() - 1);
                 FluidStack tankStack = resultTank.getStack();
 
                 if (tankStack.isEmpty()) {
                     resultTank.setFluid(FluidRegistry.OIL_ATTRIBUTES.getSourceFluid(), 1);
                 }
-                resultTank.grow(1);
+                resultTank.grow(oilToExtract);
                 energyContainer.extractEnergy(20, false);
                 isGenerating = true;
                 setChanged();
@@ -64,7 +65,7 @@ public class PumpjackBlockEntity extends BaseEnergyContainerBlockEntity implemen
 
     @Override
     protected Component getDefaultName() {
-        return Component.translatable("block.stellaris.fuel_refinery");
+        return Component.translatable("block.stellaris.pumpjack");
     }
 
     @Override
