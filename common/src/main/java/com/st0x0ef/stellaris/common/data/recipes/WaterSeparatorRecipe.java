@@ -80,7 +80,9 @@ public record WaterSeparatorRecipe(FluidStack ingredientStack, List<FluidStack> 
         }, buf -> new WaterSeparatorRecipe(FluidStack.read(buf), FLUID_STACK_LIST_STREAM_CODEC.decode(buf), buf.readBoolean(), buf.readLong()));
 
         public static void convertFluidStack(FluidStack stack, boolean isMb) {
-            stack.setAmount(isMb && Platform.isFabric() ? FluidTankHelper.convertFromMb(stack.getAmount()) : stack.getAmount());
+            if (isMb) {
+                stack.setAmount(FluidTankHelper.convertFromNeoMb(stack.getAmount()));
+            }
         }
 
         @Override

@@ -30,7 +30,7 @@ public abstract class AbstractSpaceArmor extends CustomArmorItem {
 
         public void onArmorTick(ItemStack stack, Level level, Player player) {
             if (!PlanetUtil.hasOxygen(level) && !player.isCreative() && tickBeforeNextOxygenCheck == 0) {
-                OxygenUtils.removeOxygen(stack, Platform.isFabric() ? FluidTankHelper.convertFromMb(1L) : 1L);
+                OxygenUtils.removeOxygen(stack, FluidTankHelper.convertFromNeoMb(1L));
 
             }
 

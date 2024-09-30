@@ -1,7 +1,7 @@
 # 1.1.3 changelog
 
 ## Additions
-
+- Add mercury uranium ore
 
 ## Changes
 - Improve water separator gauge
