@@ -1,14 +1,2 @@
-# 1.1.3 changelog
+# 1.2.0 changelog
 
-## Additions
-- Add mercury uranium ore
-
-## Changes
-- Improve water separator gauge
-- Double the quantity of fuel in one chunk
-- Change the solar panel gui
-
-## Fix
-- Fix number of bucket of fuel per chunk
-- Fix oil overlay texture in the pumpjack screen
-- Fix keybinding not always work
