@@ -1,4 +1,4 @@
-package com.st0x0ef.stellaris.common.rocket_upgrade;
+package com.st0x0ef.stellaris.common.vehicle_upgrade;
 
 public class TankUpgrade extends RocketUpgrade {
     private final int tankCapacity;

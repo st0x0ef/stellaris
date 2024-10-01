@@ -2,7 +2,7 @@ package com.st0x0ef.stellaris.common.menus.slot.upgrade;
 
 import com.st0x0ef.stellaris.common.items.RocketUpgradeItem;
 import com.st0x0ef.stellaris.common.menus.RocketMenu;
-import com.st0x0ef.stellaris.common.rocket_upgrade.TankUpgrade;
+import com.st0x0ef.stellaris.common.vehicle_upgrade.TankUpgrade;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;

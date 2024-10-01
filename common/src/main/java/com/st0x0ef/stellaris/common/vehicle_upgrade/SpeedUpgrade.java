@@ -1,7 +1,4 @@
-package com.st0x0ef.stellaris.common.rocket_upgrade;
-
-import com.st0x0ef.stellaris.common.entities.vehicles.base.AbstractRoverBase;
-import com.st0x0ef.stellaris.common.entities.vehicles.base.IBaseRover;
+package com.st0x0ef.stellaris.common.vehicle_upgrade;
 
 public class SpeedUpgrade extends RocketUpgrade
 {

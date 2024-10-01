@@ -36,7 +36,6 @@ import com.st0x0ef.stellaris.client.renderers.globe.GlobeBlockRenderer;
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeModel;
 import com.st0x0ef.stellaris.client.screens.*;
 import com.st0x0ef.stellaris.common.entities.vehicles.base.AbstractRoverBase;
-import com.st0x0ef.stellaris.common.menus.RoverMenu;
 import com.st0x0ef.stellaris.common.registry.*;
 import dev.architectury.event.events.common.TickEvent;
 import dev.architectury.registry.menu.MenuRegistry;

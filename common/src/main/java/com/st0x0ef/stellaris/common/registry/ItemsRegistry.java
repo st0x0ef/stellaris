@@ -11,7 +11,7 @@ import com.st0x0ef.stellaris.common.data_components.OxygenComponent;
 import com.st0x0ef.stellaris.common.data_components.RocketComponent;
 import com.st0x0ef.stellaris.common.data_components.RoverComponent;
 import com.st0x0ef.stellaris.common.items.*;
-import com.st0x0ef.stellaris.common.rocket_upgrade.*;
+import com.st0x0ef.stellaris.common.vehicle_upgrade.*;
 import dev.architectury.core.item.ArchitecturyBucketItem;
 import dev.architectury.core.item.ArchitecturySpawnEggItem;
 import dev.architectury.platform.Platform;

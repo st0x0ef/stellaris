@@ -1,8 +1,6 @@
 package com.st0x0ef.stellaris.common.network.packets;
 
-import com.st0x0ef.stellaris.common.data_components.RocketComponent;
 import com.st0x0ef.stellaris.common.data_components.RoverComponent;
-import com.st0x0ef.stellaris.common.menus.RocketMenu;
 import com.st0x0ef.stellaris.common.menus.RoverMenu;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import dev.architectury.networking.NetworkManager;

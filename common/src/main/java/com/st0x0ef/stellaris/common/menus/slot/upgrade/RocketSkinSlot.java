@@ -1,7 +1,7 @@
 package com.st0x0ef.stellaris.common.menus.slot.upgrade;
 
 import com.st0x0ef.stellaris.common.items.RocketUpgradeItem;
-import com.st0x0ef.stellaris.common.rocket_upgrade.SkinUpgrade;
+import com.st0x0ef.stellaris.common.vehicle_upgrade.SkinUpgrade;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;

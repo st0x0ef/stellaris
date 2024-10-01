@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.client.renderers.entities.vehicle.rover;
 
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.client.renderers.entities.vehicle.VehicleRenderer;
 import com.st0x0ef.stellaris.common.entities.vehicles.RoverEntity;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

@@ -7,7 +7,10 @@ import com.st0x0ef.stellaris.common.menus.RoverMenu;
 import com.st0x0ef.stellaris.common.network.packets.SyncRoverComponentPacket;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
-import com.st0x0ef.stellaris.common.rocket_upgrade.*;
+import com.st0x0ef.stellaris.common.vehicle_upgrade.FuelType;
+import com.st0x0ef.stellaris.common.vehicle_upgrade.MotorUpgrade;
+import com.st0x0ef.stellaris.common.vehicle_upgrade.SpeedUpgrade;
+import com.st0x0ef.stellaris.common.vehicle_upgrade.TankUpgrade;
 import dev.architectury.networking.NetworkManager;
 import dev.architectury.registry.menu.ExtendedMenuProvider;
 import dev.architectury.registry.menu.MenuRegistry;
@@ -18,7 +21,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.*;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.HasCustomInventoryScreen;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -29,8 +31,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3d;
 
 public class RoverEntity extends AbstractRoverBase implements HasCustomInventoryScreen, ContainerListener {
@@ -59,14 +59,14 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
 
     }
 
-    public void setRoverComponent(RoverComponent rocketComponent) {
-        this.roverComponent = rocketComponent;
+    public void setRoverComponent(RoverComponent roverComponent) {
+        this.roverComponent = roverComponent;
 
-        this.motorUpgrade = rocketComponent.getMotorUpgrade();
-        this.tankUpgrade = rocketComponent.getTankUpgrade();
-        this.speedUpgrade = rocketComponent.getSpeedModifier();
-        this.FUEL = rocketComponent.getFuel();
-        this.currentFuelItem = FuelType.getItemBasedOnTypeName(rocketComponent.fuelType());
+        this.motorUpgrade = roverComponent.getMotorUpgrade();
+        this.tankUpgrade = roverComponent.getTankUpgrade();
+        this.speedUpgrade = roverComponent.getSpeedModifier();
+        this.FUEL = roverComponent.getFuel();
+        this.currentFuelItem = FuelType.getItemBasedOnTypeName(roverComponent.fuelType());
     }
 
     public int getFuel() {

@@ -51,15 +51,17 @@ public class RoverItem extends Item {
                 int y = pos.getY();
                 int z = pos.getZ();
 
-                RoverEntity rocket = this.getRocket(context.getLevel(), itemStack);
-                rocket.setPos(pos.getX() + 0.5D,  pos.getY() + 1.0D, pos.getZ() + 0.5D);
+                RoverEntity rover = this.getRover(context.getLevel());
+                rover.setPos(pos.getX() + 0.5D,  pos.getY() + 1.0D, pos.getZ() + 0.5D);
 
-                if (level.addFreshEntity(rocket)) {
+                if (level.addFreshEntity(rover)) {
                     /** ITEM REMOVE */
                     if (!player.getAbilities().instabuild) {
                         player.setItemInHand(hand, ItemStack.EMPTY);
                     }
-                    level.addFreshEntity(rocket);
+
+                    level.addFreshEntity(rover);
+
                     /** PLACE SOUND */
                     this.rocketPlaceSound(pos, level);
 
@@ -72,9 +74,8 @@ public class RoverItem extends Item {
         return super.useOn(context);
     }
 
-    public RoverEntity getRocket(Level level, ItemStack stack) {
-        RoverEntity rocket = new RoverEntity(null, level);
-        return rocket;
+    public RoverEntity getRover(Level level) {
+        return new RoverEntity(null, level);
     }
 
     @Override

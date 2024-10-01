@@ -1,4 +1,4 @@
-package com.st0x0ef.stellaris.common.rocket_upgrade;
+package com.st0x0ef.stellaris.common.vehicle_upgrade;
 
 import com.st0x0ef.stellaris.Stellaris;
 import net.minecraft.resources.ResourceLocation;
