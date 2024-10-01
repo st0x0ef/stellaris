@@ -1,18 +1,14 @@
-# 1.1.2 changelog
+# 1.1.3 changelog
 
 ## Additions
-- Right click with tank to fill space suit
-- Add oxygen to Oxygen Distributor when right-clicking
-- Add help message for lander
+- Add mercury uranium ore
 
 ## Changes
-- IceSpit is now removed after long time
-- Update Sky Aesthetic to 1.2.2
-- Change radioactive to component
-- Increase the damage from lack of oxygen but decrease oxygen use (#31)
-- Update modmenu
+- Improve water separator gauge
+- Double the quantity of fuel in one chunk
+- Change the solar panel gui
 
 ## Fix
-- Fix pump jack menu
-- Fix space suit model
-- Fix oil save
+- Fix number of bucket of fuel per chunk
+- Fix oil overlay texture in the pumpjack screen
+- Fix keybinding not always work

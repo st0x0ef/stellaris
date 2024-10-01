@@ -157,7 +157,7 @@ public class StellarisNeoforgeClient {
     }
 
 
-    private static void clientTick(ClientTickEvent.Pre event) {
+    private static void clientTick(ClientTickEvent.Post event) {
         KeyMappingsRegistry.clientTick(Minecraft.getInstance());
     }
 }

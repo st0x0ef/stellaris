@@ -8,7 +8,7 @@ public class OilUtils {
     public static int getRandomOilLevel() {
         Random random = new Random();
         if(random.nextInt(0, 11) == 10) {
-            return random.nextInt(0, 10) * (int) FluidTankHelper.BUCKET_AMOUNT;
+            return FluidTankHelper.convertFromNeoMb(random.nextInt(0, 20) * 1000);
         }
 
         return 0;

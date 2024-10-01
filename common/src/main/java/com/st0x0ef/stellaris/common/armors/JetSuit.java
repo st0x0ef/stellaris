@@ -21,7 +21,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 public class JetSuit {
-    public static final long MAX_FUEL_CAPACITY = FluidTankHelper.convertFromMb(3000);
+    public static final long MAX_FUEL_CAPACITY = FluidTankHelper.convertFromNeoMb(3000);
 
     public static class Suit extends AbstractSpaceArmor.Chestplate {
         public float spacePressTime;

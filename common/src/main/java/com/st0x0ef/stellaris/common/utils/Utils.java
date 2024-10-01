@@ -65,16 +65,12 @@ public class Utils {
         entity.level().getServer().getAllLevels().forEach(level -> {
             if (level.dimension().location().equals(destination.dimension())) {
                 TeleportUtil.teleportToPlanet(entity, level, 600);
-                entity.setPos(entity.getX(), 600, entity.getZ());
             }
         });
-
-
     }
 
     /** To use with the planetSelection menu */
     public static void changeDimension(Player player, Planet destination) {
-
         if(player.level().isClientSide()) return;
 
         Entity vehicle = player.getVehicle();
