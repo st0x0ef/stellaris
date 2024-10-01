@@ -22,6 +22,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class RoverItem extends Item {
     }
 
     @Override
-    public InteractionResult useOn(UseOnContext context) {
+    public @NotNull InteractionResult useOn(UseOnContext context) {
         Player player = context.getPlayer();
         BlockPos pos = context.getClickedPos();
         BlockState state = context.getLevel().getBlockState(pos);
@@ -58,7 +59,7 @@ public class RoverItem extends Item {
                     if (!player.getAbilities().instabuild) {
                         player.setItemInHand(hand, ItemStack.EMPTY);
                     }
-
+                    level.addFreshEntity(rocket);
                     /** PLACE SOUND */
                     this.rocketPlaceSound(pos, level);
 

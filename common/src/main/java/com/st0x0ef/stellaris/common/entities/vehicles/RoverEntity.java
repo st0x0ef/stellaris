@@ -123,8 +123,8 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
     @Override
     public Vector3d[] getPlayerOffsets() {
         return new Vector3d[]{
-                new Vector3d(0.45D, 0D, -0.35D),
-                new Vector3d(0.45D, 0D, 0.35D)
+                new Vector3d(0.45D, 0.5D, -0.35D),
+                new Vector3d(0.45D, 0.5D, 0.35D)
         };
     }
 
