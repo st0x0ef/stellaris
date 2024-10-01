@@ -9,6 +9,6 @@
 - Change the solar panel gui
 
 ## Fix
-- Fix number of bucket of fuel per chunk (fabric only)
+- Fix number of bucket of fuel per chunk
 - Fix oil overlay texture in the pumpjack screen
 - Fix keybinding not always work
