@@ -1,6 +1,6 @@
 package com.st0x0ef.stellaris.common.vehicle_upgrade;
 
-public class SpeedUpgrade extends RocketUpgrade
+public class SpeedUpgrade extends VehicleUpgrade
 {
     public static int speedModifier;
 

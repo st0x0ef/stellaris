@@ -3,7 +3,7 @@ package com.st0x0ef.stellaris.common.vehicle_upgrade;
 import com.st0x0ef.stellaris.Stellaris;
 import net.minecraft.resources.ResourceLocation;
 
-public class SkinUpgrade extends RocketUpgrade {
+public class SkinUpgrade extends VehicleUpgrade {
     final private ResourceLocation rocketSkinLocation;
 
     public SkinUpgrade(ResourceLocation rocketSkinLocation) {
