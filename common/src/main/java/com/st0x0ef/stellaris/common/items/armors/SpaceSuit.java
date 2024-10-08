@@ -31,6 +31,7 @@ public class SpaceSuit extends AbstractSpaceArmor.AbstractSpaceChestplate {
         Iterable<ItemStack> items = stack.getOrDefault(DataComponentsRegistry.SPACE_SUIT_MODULES.get(), new SpaceSuitModules(List.of())).itemsCopy();
         NonNullList<ItemStack> itemsToReturn = NonNullList.create();
         items.forEach(itemsToReturn::add);
+        stack.set(DataComponentsRegistry.SPACE_SUIT_MODULES.get(), new SpaceSuitModules(List.of()));
         return itemsToReturn;
     }
 }
