@@ -18,7 +18,7 @@ import java.util.List;
 @Environment(EnvType.CLIENT)
 public class Gauge extends AbstractWidget {
     protected ResourceLocation texture;
-    protected final int max_value;
+    protected int max_value;
     protected int value;
     public final ResourceLocation overlay_texture;
     private int yOffSet = 0;
@@ -40,6 +40,10 @@ public class Gauge extends AbstractWidget {
 
     public void update(int value) {
         this.value = value;
+    }
+
+    public void updateMaxValue(int value) {
+        this.max_value = value;
     }
 
     public Gauge updateFluidTexture(ResourceLocation texture) {
