@@ -299,9 +299,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         if (!this.level().isClientSide) {
             this.remove(RemovalReason.DISCARDED);
         }
-
     }
-
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
