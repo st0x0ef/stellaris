@@ -46,22 +46,20 @@ public class Gauge extends AbstractWidget {
         this.max_value = value;
     }
 
-    public Gauge updateFluidTexture(ResourceLocation texture) {
+    public void updateFluidTexture(ResourceLocation texture) {
         this.texture = texture;
-        return this;
     }
 
     @Override
     public void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
-
         if (value >= max_value) {
             value = max_value;
             graphics.blit(texture, getX(), getY(), width, height - 1, width, height - 1, width, height - 1);
         } else if (value <= 0) {
             graphics.blit(texture, getX(), getY(), width, height, width, 0, width, 45);
         } else {
-            float widgetY = (getY() + 45 - 45 / ((float) max_value / value) + 3) + yOffSet;
-            graphics.blit(texture, getX(), (int) widgetY, (float) width, (float) height, width, (int) (45 / ((float) max_value / value)), width, 45);
+            int widgetY = getY() + 45 - (45 * value / max_value) + yOffSet;
+            graphics.blit(texture, getX(), widgetY, (float) width, (float) height, width, (int) (45 / ((float) max_value / value)), width, 45);
         }
 
         if (overlay_texture != null) {
