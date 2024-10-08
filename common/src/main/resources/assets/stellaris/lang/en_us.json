@@ -343,6 +343,7 @@
 
   "container.entity.stellaris.lander": "Lander",
   "container.entity.stellaris.rocket": "Rocket",
+  "container.stellaris.upgrade": "Upgrade",
   "advancements.moon.root.title" : "That's small step for man, one giant leap for mankind",
   "advancements.moon.root.description" : "Land on the moon",
   "advancements.mars.root.title" : "Red wasteland",

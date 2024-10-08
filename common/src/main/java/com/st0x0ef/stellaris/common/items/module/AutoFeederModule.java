@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.common.items.module;
 
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
@@ -23,6 +24,7 @@ public class AutoFeederModule extends Item implements SpaceSuitModule {
                 FoodProperties foodProperties = foodStack.get(DataComponents.FOOD);
                 if (foodProperties!=null) {
                     player.getFoodData().eat(foodProperties);
+                    player.playSound(SoundEvents.PLAYER_BURP);
                     foodStack.consume(1, player);
                     break;
                 }
@@ -30,9 +32,9 @@ public class AutoFeederModule extends Item implements SpaceSuitModule {
         }
     }
 
+
     @Override
     public Component displayName() {
         return Component.translatable("spacesuit.stellaris.auto_feeder");
     }
-
 }

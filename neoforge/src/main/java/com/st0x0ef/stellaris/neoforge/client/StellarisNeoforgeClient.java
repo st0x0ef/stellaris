@@ -112,6 +112,7 @@ public class StellarisNeoforgeClient {
     @SubscribeEvent
     public static void registerScreen(RegisterMenuScreensEvent event) {
         event.register(MenuTypesRegistry.ROCKET_STATION.get(), RocketStationScreen::new);
+        event.register(MenuTypesRegistry.UPGRADE_STATION_MENU.get(), UpgradeStationScreen::new);
         event.register(MenuTypesRegistry.ROCKET_MENU.get(), RocketScreen::new);
         event.register(MenuTypesRegistry.VACUMATOR_MENU.get(), VacumatorScreen::new);
         event.register(MenuTypesRegistry.SOLAR_PANEL_MENU.get(), SolarPanelScreen::new);

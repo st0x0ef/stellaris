@@ -7,9 +7,9 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.BundleContents;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -46,5 +46,24 @@ public record SpaceSuitModules(List<ItemStack> modules) implements Serializable 
     private SpaceSuitModule getModule(ItemStack itemStack) {
         if (itemStack.getItem() instanceof SpaceSuitModule spaceSuitModule) return spaceSuitModule;
         return null; //failsafe, shouldn't happen unless tampered with or incorrect checks for upgrade station
+    }
+
+    public static class Mutable {
+        private final List<ItemStack> modules;
+
+        public Mutable(SpaceSuitModules contents) {
+            this.modules = new ArrayList(contents.modules);
+        }
+
+        public Mutable insert(ItemStack stack) {
+            if (!stack.isEmpty() && stack.getItem().canFitInsideContainerItems()) {
+                    this.modules.add(stack);
+            }
+            return this;
+        }
+
+        public SpaceSuitModules toImmutable() {
+            return new SpaceSuitModules(List.copyOf(this.modules));
+        }
     }
 }
