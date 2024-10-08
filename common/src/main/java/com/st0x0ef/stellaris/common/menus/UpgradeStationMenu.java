@@ -35,8 +35,6 @@ public class UpgradeStationMenu extends ItemCombinerMenu {
     @Override
     protected void onTake(Player player, ItemStack stack) {
         this.inputSlots.setItem(0, ItemStack.EMPTY);
-//        ItemStack itemStack = this.inputSlots.getItem(1);
-//        itemStack.shrink(1);
         this.inputSlots.setItem(1, ItemStack.EMPTY);
     }
 
@@ -50,17 +48,18 @@ public class UpgradeStationMenu extends ItemCombinerMenu {
         ItemStack itemStack = this.inputSlots.getItem(0).copy();
         ItemStack module = this.inputSlots.getItem(1);
 
-        if (!itemStack.isEmpty() && !module.isEmpty()) {
+        if (!itemStack.isEmpty() && !module.isEmpty() && !SpaceSuitModules.existsInModules(itemStack, module)) {
             SpaceSuitModules.Mutable mutable = new SpaceSuitModules.Mutable(itemStack.getOrDefault(DataComponentsRegistry.SPACE_SUIT_MODULES.get(), SpaceSuitModules.EMPTY));
             mutable.insert(module);
             itemStack.set(DataComponentsRegistry.SPACE_SUIT_MODULES.get(), mutable.insert(module).toImmutable());
 
             this.resultSlots.setItem(0, itemStack);
             this.broadcastChanges();
-
         }
         else this.resultSlots.setItem(0, ItemStack.EMPTY);
     }
+
+
 
     @Override
     protected @NotNull ItemCombinerMenuSlotDefinition createInputSlotDefinitions() {

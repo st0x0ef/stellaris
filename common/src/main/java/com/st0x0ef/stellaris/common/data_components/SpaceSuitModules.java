@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.common.data_components;
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.st0x0ef.stellaris.common.items.module.SpaceSuitModule;
+import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -39,11 +40,34 @@ public record SpaceSuitModules(List<ItemStack> modules) implements Serializable 
         return Lists.<ItemStack, ItemStack>transform(this.modules, ItemStack::copy);
     }
 
+    public static boolean existsInModules(ItemStack stack, ItemStack module) {
+        return existsInModules(stack, getModuleStatic(module));
+    }
+
+    public static boolean existsInModules(ItemStack stack, SpaceSuitModule module) {
+        if (stack.isEmpty()) return false;
+        SpaceSuitModules spaceSuitModules = stack.get(DataComponentsRegistry.SPACE_SUIT_MODULES.get());
+        if (spaceSuitModules==null) return false;
+        boolean boolToReturn = false;
+        for (SpaceSuitModule module1: spaceSuitModules.getModules()) {
+            if (module1==module) {
+                boolToReturn = true;
+                break;
+            }
+        }
+
+        return boolToReturn;
+    }
+
     public List<SpaceSuitModule> getModules() {
         return Lists.<ItemStack, SpaceSuitModule>transform(this.modules, this::getModule);
     }
 
     private SpaceSuitModule getModule(ItemStack itemStack) {
+        return getModuleStatic(itemStack);
+    }
+
+    private static SpaceSuitModule getModuleStatic(ItemStack itemStack) {
         if (itemStack.getItem() instanceof SpaceSuitModule spaceSuitModule) return spaceSuitModule;
         return null; //failsafe, shouldn't happen unless tampered with or incorrect checks for upgrade station
     }
