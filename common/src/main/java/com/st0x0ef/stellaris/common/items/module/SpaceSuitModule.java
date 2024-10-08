@@ -8,10 +8,12 @@ import net.minecraft.world.level.Level;
 
 public interface SpaceSuitModule {
 
-    void tick(ItemStack stack, Level level, Player player);
+    default void tick(ItemStack stack, Level level, Player player) {}
 
-    Component displayName();
+    Component displayName(); //TODO add in gui
 
-    ResourceLocation texture();
+    default ResourceLocation modelTextureOverride() { //TODO layer this texture onto spacesuit texture
+        return null;
+    }
 
 }
