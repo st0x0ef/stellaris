@@ -2,7 +2,7 @@ plugins {
     id "dev.architectury.loom" version "1.7-SNAPSHOT" apply false
     id "architectury-plugin" version "3.4-SNAPSHOT"
     id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
-    id "me.modmuss50.mod-publish-plugin" version "0.6.3"
+    id "me.modmuss50.mod-publish-plugin" version "0.7.4"
 
 }
 
@@ -21,7 +21,7 @@ subprojects {
     }
 
     def modLoader = project.name
-    def isCommon = (modLoader == "common")
+    boolean isCommon = modLoader == "common"
 
 
     repositories {
