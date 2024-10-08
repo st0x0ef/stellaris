@@ -3,10 +3,7 @@ package com.st0x0ef.stellaris.common.registry;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.data_components.JetSuitComponent;
-import com.st0x0ef.stellaris.common.data_components.OxygenComponent;
-import com.st0x0ef.stellaris.common.data_components.RadioactiveComponent;
-import com.st0x0ef.stellaris.common.data_components.RocketComponent;
+import com.st0x0ef.stellaris.common.data_components.*;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.component.DataComponentType;
@@ -28,6 +25,9 @@ public class DataComponentsRegistry {
 
     public static final RegistrySupplier<DataComponentType<RadioactiveComponent>> RADIOACTIVE = DATA_COMPONENT_TYPE.register("radioactive_component",
             () -> DataComponentType.<RadioactiveComponent>builder().persistent(RadioactiveComponent.CODEC).networkSynchronized(RadioactiveComponent.STREAM_CODEC).build());
+
+    public static final RegistrySupplier<DataComponentType<SpaceSuitModules>> SPACE_SUIT_MODULES = DATA_COMPONENT_TYPE.register("space_suit_modules",
+            () -> DataComponentType.<SpaceSuitModules>builder().persistent(SpaceSuitModules.CODEC).networkSynchronized(SpaceSuitModules.STREAM_CODEC).build());
 
 
     public static final RegistrySupplier<DataComponentType<Long>> STORED_FUEL_COMPONENT = DATA_COMPONENT_TYPE.register("stored_fuel",

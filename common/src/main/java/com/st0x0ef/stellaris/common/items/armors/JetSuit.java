@@ -1,4 +1,4 @@
-package com.st0x0ef.stellaris.common.armors;
+package com.st0x0ef.stellaris.common.items.armors;
 
 import com.mojang.serialization.Codec;
 import com.st0x0ef.stellaris.Stellaris;
