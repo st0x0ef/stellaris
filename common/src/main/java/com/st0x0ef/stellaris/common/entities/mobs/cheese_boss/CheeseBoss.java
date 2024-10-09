@@ -187,7 +187,6 @@ public class CheeseBoss extends Monster implements Enemy, RangedAttackMob {
         if (livingEntity.getType() == EntityRegistry.CHEESE_BOSS) return false;
         if (livingEntity.isInvulnerable()) return false;
         if (livingEntity.isDeadOrDying()) return false;
-        if (!this.level().getWorldBorder().isWithinBounds(livingEntity.getBoundingBox())) return false;
-        return true;
+        return this.level().getWorldBorder().isWithinBounds(livingEntity.getBoundingBox());
     }
 }

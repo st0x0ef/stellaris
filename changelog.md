@@ -1,6 +1,9 @@
-# 1.1.4 changelog
+# 1.1.5 changelog
+
+## Change
+- steel ore & deepslate steel ore tab
 
 ## Fix
-- Fix fuel gauge
-- Fix allowing to change the motor while a different fuel type is already inside the rocket
-- Fix moon steel ore loot table
+- Fix gauge offset
+- Fix taking radioactive damage in jet suit
+- Fix fortune enchant on custom ore
