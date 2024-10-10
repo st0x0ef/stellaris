@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.common.items.module;
 
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
@@ -34,7 +35,7 @@ public class AutoFeederModule extends Item implements SpaceSuitModule {
 
 
     @Override
-    public Component displayName() {
+    public MutableComponent displayName() {
         return Component.translatable("spacesuit.stellaris.auto_feeder");
     }
 }

@@ -4,6 +4,7 @@ import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -31,13 +32,13 @@ public class OilFinderModule extends Item implements SpaceSuitModule {
     @Override
     public int renderToGui(GuiGraphics graphics, DeltaTracker deltaTracker, Player player, ItemStack itemStack, int layer) {
         int y = Minecraft.getInstance().font.lineHeight + layer;
-        graphics.drawString(Minecraft.getInstance().font, "Oil Level: " + oilLevel, 5, y, 0xFFFFFF);
+        graphics.drawString(Minecraft.getInstance().font, "Oil Level: " + oilLevel, 5, y, 0x3245A3);
 
         return y;
     }
 
     @Override
-    public Component displayName() {
+    public MutableComponent displayName() {
         return Component.translatable("spacesuit.stellaris.oil_finder");
     }
 

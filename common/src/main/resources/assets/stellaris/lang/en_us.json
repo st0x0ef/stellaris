@@ -397,7 +397,8 @@
   "jetsuit.stellaris.oxygen": "§7Oxygen : §8%s",
 
   "spacesuit.stellaris.auto_feeder": "Auto Feeder",
-
+  "spacesuit.stellaris.shift_for_modules": "Hold shift for module list",
+  "spacesuit.stellaris.modules": "Modules",
 
 
   "item.stellaris.steel_sword": "Steel Sword",

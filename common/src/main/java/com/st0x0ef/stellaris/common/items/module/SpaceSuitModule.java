@@ -5,6 +5,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -15,7 +16,7 @@ import java.util.List;
 
 public interface SpaceSuitModule {
 
-    Component displayName(); //TODO add in gui
+    MutableComponent displayName(); //TODO add in gui
 
     default void tick(ItemStack stack, Level level, Player player) {}
 

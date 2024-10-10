@@ -12,6 +12,7 @@ import com.st0x0ef.stellaris.common.items.*;
 import com.st0x0ef.stellaris.common.items.armors.JetSuit;
 import com.st0x0ef.stellaris.common.items.armors.SpaceSuit;
 import com.st0x0ef.stellaris.common.items.module.AutoFeederModule;
+import com.st0x0ef.stellaris.common.items.module.GravityNormalizerModule;
 import com.st0x0ef.stellaris.common.items.module.OilFinderModule;
 import com.st0x0ef.stellaris.common.rocket_upgrade.*;
 import dev.architectury.core.item.ArchitecturyBucketItem;
@@ -369,6 +370,7 @@ public class ItemsRegistry {
     //Modules
     public static final RegistrySupplier<Item> MODULE_AUTO_FEEDER = ITEMS.register("auto_feeder_module", ()-> new AutoFeederModule(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> MODULE_OIL_FINDER = ITEMS.register("oil_finder_module", ()-> new OilFinderModule(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> MODULE_GRAVITY_NORMALIZER = ITEMS.register("gravity_normalizer_module", ()-> new GravityNormalizerModule(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
 
 
 
