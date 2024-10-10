@@ -1,8 +1,5 @@
 package com.st0x0ef.stellaris.common.entities.vehicles;
 
-import java.util.function.Consumer;
-
-
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.keybinds.KeyVariables;
 import com.st0x0ef.stellaris.common.menus.LanderMenu;
@@ -18,7 +15,10 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.*;
+import net.minecraft.world.Container;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -29,6 +29,8 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+
+import java.util.function.Consumer;
 
 public class LanderEntity extends IVehicleEntity implements HasCustomInventoryScreen {
 

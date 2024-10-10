@@ -1,8 +1,8 @@
 package com.st0x0ef.stellaris.common.network.packets;
 
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.items.armors.JetSuit;
 import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
+import com.st0x0ef.stellaris.common.items.armors.JetSuit;
 import com.st0x0ef.stellaris.common.keybinds.KeyVariables;
 import com.st0x0ef.stellaris.common.menus.PlanetSelectionMenu;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;

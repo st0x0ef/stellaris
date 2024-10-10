@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.client.overlays;
 
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.items.armors.SpaceSuit;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import net.fabricmc.api.EnvType;
