@@ -23,7 +23,7 @@ public abstract class LivingEntityMixin {
 
         if (!stellaris$dimension.equals(ResourceLocation.withDefaultNamespace("overworld")) && PlanetUtil.isPlanet(stellaris$dimension)) {
             double stellaris$gravity = Utils.MPS2ToMCG(PlanetUtil.getPlanet(stellaris$dimension).gravity());
-            stellaris$livingEntity.getAttribute(Attributes.GRAVITY).setBaseValue(stellaris$gravity);
+                stellaris$livingEntity.getAttribute(Attributes.GRAVITY).setBaseValue(stellaris$gravity);
             stellaris$livingEntity.getAttribute(Attributes.SAFE_FALL_DISTANCE).setBaseValue(3.0/(stellaris$gravity/0.08));
             stellaris$livingEntity.getAttribute(Attributes.FALL_DAMAGE_MULTIPLIER).setBaseValue(stellaris$gravity/0.08);
         } else {

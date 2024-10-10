@@ -45,6 +45,8 @@ public class UpgradeStationMenu extends ItemCombinerMenu {
 
     @Override
     public void createResult() {
+        if (this.player.level().isClientSide) return;
+
         ItemStack itemStack = this.inputSlots.getItem(0).copy();
         ItemStack module = this.inputSlots.getItem(1);
 
