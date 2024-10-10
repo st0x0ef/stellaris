@@ -20,14 +20,24 @@ public interface SpaceSuitModule {
 
     default void tick(ItemStack stack, Level level, Player player) {}
 
-    default void addToTooltips(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-
-    }
+    default void addToTooltips(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {}
 
     @Environment(EnvType.CLIENT)
-    default int renderToGui(GuiGraphics graphics, DeltaTracker deltaTracker, Player player, ItemStack itemStack, int layer) {
-        return 0;
-    } //TODO add in gui
+    default void renderToGui(GuiGraphics graphics, DeltaTracker deltaTracker, Player player, ItemStack stack) {}
+
+    /**
+     *
+     * @param graphics
+     * @param deltaTracker
+     * @param player
+     * @param stack
+     * @param y Y level you use for your first render (increment by texture height/font length
+     * @return Y level of you used for your last render (usually var y)
+     */
+    @Environment(EnvType.CLIENT)
+    default int renderStackedGui(GuiGraphics graphics, DeltaTracker deltaTracker, Player player, ItemStack stack, int y) {
+        return y;
+    }
 
 //    @Environment(EnvType.CLIENT)
 //    default ResourceLocation modelTextureOverride() { //TODO layer this texture onto spacesuit texture
