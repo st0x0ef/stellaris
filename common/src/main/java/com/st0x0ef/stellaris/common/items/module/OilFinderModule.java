@@ -29,9 +29,11 @@ public class OilFinderModule extends Item implements SpaceSuitModule {
     }
 
     @Override
-    public void renderToGui(GuiGraphics graphics, DeltaTracker deltaTracker, Player player, ItemStack itemStack, int layer) {
-        int th = Minecraft.getInstance().font.lineHeight;
-        graphics.drawString(Minecraft.getInstance().font, "Oil Level: " + oilLevel, 5, (layer) * 10  + th, 0xFFFFFF);
+    public int renderToGui(GuiGraphics graphics, DeltaTracker deltaTracker, Player player, ItemStack itemStack, int layer) {
+        int y = Minecraft.getInstance().font.lineHeight + layer;
+        graphics.drawString(Minecraft.getInstance().font, "Oil Level: " + oilLevel, 5, y, 0xFFFFFF);
+
+        return y;
     }
 
     @Override

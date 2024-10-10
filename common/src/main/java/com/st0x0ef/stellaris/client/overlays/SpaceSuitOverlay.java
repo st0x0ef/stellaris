@@ -28,8 +28,7 @@ public class SpaceSuitOverlay {
                 if (itemStack.getItem() instanceof SpaceSuit spaceSuit) {
                     AtomicInteger layer = new AtomicInteger();
                     spaceSuit.getModules(itemStack).forEach(module -> {
-                        module.renderToGui(graphics, deltaTracker, player, itemStack, layer.get());
-                        layer.getAndIncrement();
+                        layer.addAndGet(module.renderToGui(graphics, deltaTracker, player, itemStack, layer.get()));
                     });
                     layer.set(0);
                 }

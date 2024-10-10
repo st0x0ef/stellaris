@@ -24,7 +24,9 @@ public interface SpaceSuitModule {
     }
 
     @Environment(EnvType.CLIENT)
-    default void renderToGui(GuiGraphics graphics, DeltaTracker deltaTracker, Player player, ItemStack itemStack, int layer) {} //TODO add in gui
+    default int renderToGui(GuiGraphics graphics, DeltaTracker deltaTracker, Player player, ItemStack itemStack, int layer) {
+        return 0;
+    } //TODO add in gui
 
 //    @Environment(EnvType.CLIENT)
 //    default ResourceLocation modelTextureOverride() { //TODO layer this texture onto spacesuit texture
