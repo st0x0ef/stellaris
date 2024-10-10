@@ -27,12 +27,12 @@ public class SpaceSuitOverlay {
                 //we can add default gui stuff for the space suit here
 
                 if (itemStack.getItem() instanceof SpaceSuit spaceSuit) {
-                    AtomicInteger level = new AtomicInteger();
+                    AtomicInteger layer = new AtomicInteger();
                     spaceSuit.getModules(itemStack).forEach(module -> {
-                        module.renderToGui(graphics, deltaTracker, player, itemStack, level.get());
-                        level.getAndIncrement();
+                        module.renderToGui(graphics, deltaTracker, player, itemStack, layer.get());
+                        layer.getAndIncrement();
                     });
-                    level.set(0);
+                    layer.set(0);
                 }
             }
         }
