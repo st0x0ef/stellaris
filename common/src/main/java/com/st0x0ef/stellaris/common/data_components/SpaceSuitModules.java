@@ -16,7 +16,9 @@ import java.util.stream.Stream;
 
 public record SpaceSuitModules(List<ItemStack> modules) implements Serializable {
 
-    public static final SpaceSuitModules EMPTY = new SpaceSuitModules(List.of());
+    public static SpaceSuitModules empty() {
+        return new SpaceSuitModules(List.of());
+    }
 
     public static final Codec<SpaceSuitModules> CODEC = ItemStack.CODEC.listOf().xmap(SpaceSuitModules::new, modules -> modules.modules);
     public static final StreamCodec<RegistryFriendlyByteBuf, SpaceSuitModules> STREAM_CODEC = ItemStack.STREAM_CODEC

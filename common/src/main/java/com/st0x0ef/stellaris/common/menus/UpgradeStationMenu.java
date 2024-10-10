@@ -49,7 +49,7 @@ public class UpgradeStationMenu extends ItemCombinerMenu {
         ItemStack module = this.inputSlots.getItem(1);
 
         if (!itemStack.isEmpty() && !module.isEmpty() && !SpaceSuitModules.existsInModules(itemStack, module)) {
-            SpaceSuitModules.Mutable mutable = new SpaceSuitModules.Mutable(itemStack.getOrDefault(DataComponentsRegistry.SPACE_SUIT_MODULES.get(), SpaceSuitModules.EMPTY));
+            SpaceSuitModules.Mutable mutable = new SpaceSuitModules.Mutable(itemStack.getOrDefault(DataComponentsRegistry.SPACE_SUIT_MODULES.get(), SpaceSuitModules.empty()));
             mutable.insert(module);
             itemStack.set(DataComponentsRegistry.SPACE_SUIT_MODULES.get(), mutable.insert(module).toImmutable());
 
