@@ -35,6 +35,8 @@ public class Events {
                             .orElse(0);
 
                     if (maxRadiationLevel > 0) {
+                        //player.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE, 100, maxRadiationLevel - 1));
+
                         player.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 80));
                         player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80));
                     }

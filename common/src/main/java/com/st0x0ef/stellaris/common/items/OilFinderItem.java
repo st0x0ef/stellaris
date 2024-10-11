@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.common.items;
 
 import com.st0x0ef.stellaris.common.blocks.entities.machines.FluidTankHelper;
-import com.st0x0ef.stellaris.common.oil.OilUtils;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
