@@ -230,11 +230,6 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     }
 
     @Override
-    public void push(Entity entity) {
-
-    }
-
-    @Override
     public InteractionResult interact(Player player, InteractionHand hand) {
         super.interact(player, hand);
         InteractionResult result = InteractionResult.sidedSuccess(this.level().isClientSide);
@@ -304,9 +299,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         if (!this.level().isClientSide) {
             this.remove(RemovalReason.DISCARDED);
         }
-
     }
-
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
@@ -435,8 +428,8 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         }
     }
 
-    public Player getFirstPlayerPassenger() {
-        if (!this.getPassengers().isEmpty() && this.getPassengers().getFirst() instanceof Player player) {
+    public ServerPlayer getFirstPlayerPassenger() {
+        if (!this.getPassengers().isEmpty() && this.getPassengers().getFirst() instanceof ServerPlayer player) {
             return player;
         }
 
@@ -608,6 +601,10 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
     public int getFuel() {
         return this.FUEL;
+    }
+
+    public int getTankCapacity() {
+        return this.TANK_UPGRADE.getTankCapacity();
     }
 
     public Container getInventory() {

@@ -189,4 +189,8 @@ public class FluidTankHelper {
     public static int convertFromNeoMb(int amount) {
         return Platform.isFabric() ? amount * 81 : amount;
     }
+
+    public static int convertToNeoMb(int amount) {
+        return Platform.isFabric() ? amount / 81 : amount;
+    }
 }

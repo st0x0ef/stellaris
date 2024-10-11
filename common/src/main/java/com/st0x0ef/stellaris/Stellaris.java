@@ -38,7 +38,7 @@ public class Stellaris {
 
         ProcessorsRegistry.STRUCTURE_PROCESSORS.register();
         SoundRegistry.SOUNDS.register();
-        EffectsRegistry.MOB_EFFECTS.register();
+        //EffectsRegistry.init();
         DataComponentsRegistry.DATA_COMPONENT_TYPE.register();
         FluidRegistry.init();
         ParticleRegistry.PARTICLES.register();
