@@ -213,7 +213,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     }
 
     private void onMoonButtonClick(MoonInfo moon) {
-        if (!showLargeMenu) {
+        if (!showLargeMenu && moon.clickable) {
             focusedBody = moon;
             centerOnBody(moon);
             showLargeMenu = true;
@@ -598,8 +598,12 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             }
         } else if (keyCode == GLFW.GLFW_KEY_DOWN) {
             if (focusedBody instanceof PlanetInfo) {
-                focusedBody = getMoonsByDistance((PlanetInfo) focusedBody);
-                centerOnBody(focusedBody);
+                var moonToBeFocused = getMoonsByDistance((PlanetInfo) focusedBody);
+
+                if(moonToBeFocused.clickable) {
+                    focusedBody = moonToBeFocused;
+                    centerOnBody(focusedBody);
+                }
             }
         } else if (keyCode == GLFW.GLFW_KEY_UP) {
             if (focusedBody instanceof MoonInfo) {
