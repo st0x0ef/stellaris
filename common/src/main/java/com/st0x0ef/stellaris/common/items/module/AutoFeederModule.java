@@ -1,5 +1,7 @@
 package com.st0x0ef.stellaris.common.items.module;
 
+import com.st0x0ef.stellaris.common.registry.TagRegistry;
+import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -24,13 +26,17 @@ public class AutoFeederModule extends Item implements SpaceSuitModule {
                 ItemStack foodStack = player.getInventory().getItem(i);
                 FoodProperties foodProperties = foodStack.get(DataComponents.FOOD);
                 if (foodProperties!=null) {
-                    player.getFoodData().eat(foodProperties);
-                    player.playSound(SoundEvents.PLAYER_BURP);
-                    foodStack.consume(1, player);
-                    break;
+                    if(PlanetUtil.hasOxygen(level) || foodStack.is(TagRegistry.SPACE_FOOD)) {
+                        player.eat(level, foodStack ,foodProperties);
+                        break;
+                    }
+
                 }
+
             }
+
         }
+
     }
 
 
