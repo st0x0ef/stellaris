@@ -32,6 +32,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import java.util.List;
+import java.util.Objects;
 
 public class RocketItem extends Item {
     public RocketItem(Properties properties) {
@@ -105,7 +106,12 @@ public class RocketItem extends Item {
     }
 
     public RocketEntity getRocket(Level level, ItemStack stack) {
-        return new RocketEntity(this.getEntityType(stack), level);
+        RocketEntity rocket = new RocketEntity(this.getEntityType(stack), level);
+        RocketComponent rocketComponent = stack.get(DataComponentsRegistry.ROCKET_COMPONENT.get());
+        if(rocketComponent != null) {
+            rocket.FUEL = rocketComponent.fuel();
+        }
+        return rocket;
     }
 
     @Override
