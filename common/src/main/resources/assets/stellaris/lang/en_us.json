@@ -558,6 +558,7 @@
 
   "tag.item.c.axes": "Axes",
   "tag.item.c.arrows": "Arrows",
+  "tag.item.c.crops": "Crops",
 
   "tag.item.c.raw_materials.desh": "Raw Desh",
   "tag.item.c.raw_materials.neptunium": "Raw Neptunium",
@@ -575,12 +576,15 @@
   "tag.item.c.ingots.uranium": "Uranium Ingots",
   "tag.item.c.ingots.desh": "Desh Ingots",
 
-
   "tag.block.c.ores.desh": "Desh Ores",
   "tag.block.c.ores.ostrum": "Ostrum Ores",
   "tag.block.c.ores.uranium": "Uranium Ores",
   "tag.block.c.ores.steel": "Steel Ores",
-  "tag.block.c.ores.neptunium": "Neptunium Ores"
+  "tag.block.c.ores.neptunium": "Neptunium Ores",
 
+  "tag.item.stellaris.can": "Cans",
+  "tag.item.stellaris.space_food": "Space Food",
+  "tag.item.stellaris.rocket_skin": "Rocket Skin",
+  "tag.item.stellaris.coal_generator_fuel": "Coal Generator Fuel"
 
 }
