@@ -556,14 +556,31 @@
   "translatable.stellaris.registry.players": "Player",
   "translatable.stellaris.registry.moons": "§7§l☾ §r§7Moons",
 
+  "tag.item.c.axes": "Axes",
+  "tag.item.c.arrows": "Arrows",
+
+  "tag.item.c.raw_materials.desh": "Raw Desh",
+  "tag.item.c.raw_materials.neptunium": "Raw Neptunium",
+  "tag.item.c.raw_materials.steel": "Raw Steel",
+  "tag.item.c.raw_materials.uranium": "Raw Uranium",
+  "tag.item.c.ore_blocks.steel": "Steel Block",
+  "tag.item.c.nuggets.steel": "Steel Nugget",
+  "tag.item.c.nuggets.heavy_metal": "Heavy Metal Nugget",
+  "tag.item.c.nuggets.plutonium": "Plutonium Nugget",
+
+  "tag.item.c.ingots.steel": "Steel Ingots",
+  "tag.item.c.ingots.heavy_metal": "Heavy Metal Ingots",
+  "tag.item.c.ingots.plutonium": "Plutonium Ingots",
+  "tag.item.c.ingots.neptunium": "Neptunium Ingots",
+  "tag.item.c.ingots.uranium": "Uranium Ingots",
+  "tag.item.c.ingots.desh": "Desh Ingots",
 
 
-  "TO BE DELETED":
-  "These are blocks that have been named incorrectly for their translation keys, the replacement names should already be defined above this, so you only should have to delete this section when you're done"
-,
+  "tag.block.c.ores.desh": "Desh Ores",
+  "tag.block.c.ores.ostrum": "Ostrum Ores",
+  "tag.block.c.ores.uranium": "Uranium Ores",
+  "tag.block.c.ores.steel": "Steel Ores",
+  "tag.block.c.ores.neptunium": "Neptunium Ores"
 
-  "Marcury": "rename to Mercury",
 
-  "block.stellaris.marcury_polished_stone_slab": "Mercury Polished Stone Slab",
-  "block.stellaris.marcury_stone_slab": "Mercury Stone Slab"
 }
