@@ -63,7 +63,6 @@ subprojects {
 
         if(!isCommon) {
             include "fr.tathan.tathan-config:tathan-config-$modLoader-$minecraft_version:$config_version"
-
         }
 
     }

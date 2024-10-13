@@ -20,9 +20,11 @@ import dev.architectury.platform.Platform;
 import dev.architectury.registry.ReloadListenerRegistry;
 import dev.architectury.registry.client.particle.ParticleProviderRegistry;
 import dev.architectury.registry.client.rendering.ColorHandlerRegistry;
+import fr.tathan.tathanconfig.screen.ConfigScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.world.item.component.DyedItemColor;
 import org.lwjgl.opengl.GL;
@@ -40,7 +42,7 @@ public class StellarisClient {
         registerParticle();
         registerOverlays();
         registerArmors();
-        Platform.getMod(Stellaris.MODID).registerConfigurationScreen(ConfigScreen::new);
+        Platform.getMod(Stellaris.MODID).registerConfigurationScreen((parent) -> new ConfigScreen(parent, Component.literal("Stellaris Config"), Stellaris.CONFIG));
     }
 
     private static void registerArmors() {
