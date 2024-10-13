@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.ToNumberPolicy;
 import com.st0x0ef.stellaris.common.config.CustomConfig;
+import com.st0x0ef.stellaris.common.config.StellarisConfig;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
 import com.st0x0ef.stellaris.common.data.screen.MoonPack;
 import com.st0x0ef.stellaris.common.data.screen.PlanetPack;
@@ -31,8 +32,10 @@ public class Stellaris {
             .setObjectToNumberStrategy(ToNumberPolicy.LONG_OR_DOUBLE)
             .create();
 
+    public static final StellarisConfig CONFIG = new StellarisConfig();
+
     public static void init() {
-        CustomConfig.init();
+        CONFIG.load();
         EntityData.register();
         NetworkRegistry.init();
 

@@ -31,6 +31,9 @@ subprojects {
         maven { url "https://maven.parchmentmc.org" }
         maven { url "https://maven.neoforged.net/releases" }
         maven { url "https://maven.blamejared.com/" }
+        maven { url "https://maven.odysseyus.fr/snapshots" }
+
+
         exclusiveContent {
             forRepository {
                 maven {
@@ -55,6 +58,14 @@ subprojects {
         modCompileOnly "me.shedaniel:RoughlyEnoughItems-api:${rootProject.rei_version}"
         modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin:${rootProject.rei_version}"
         modCompileOnly("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
+
+        modImplementation "fr.tathan.tathan-config:tathan-config-$modLoader-$minecraft_version:$config_version"
+
+        if(!isCommon) {
+            include "fr.tathan.tathan-config:tathan-config-$modLoader-$minecraft_version:$config_version"
+
+        }
+
     }
 
     java {
