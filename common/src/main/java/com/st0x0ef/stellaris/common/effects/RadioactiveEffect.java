@@ -8,12 +8,17 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Optional;
 
 public class RadioactiveEffect extends MobEffect {
     public RadioactiveEffect(MobEffectCategory mobEffectCategory, int color) {
         super(mobEffectCategory, color);
     }
+    private Optional<SoundEvent> soundOnAdded = Optional.empty();
+
 
     @Override
     public boolean applyEffectTick(LivingEntity livingEntity, int amplifier) {
@@ -29,6 +34,7 @@ public class RadioactiveEffect extends MobEffect {
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 80));
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80));
                 livingEntity.hurt(DamageSourceRegistry.of(livingEntity.level(), DamageSourceRegistry.RADIATIONS), 1f);
+
             }
         }
 
@@ -46,8 +52,10 @@ public class RadioactiveEffect extends MobEffect {
     }
 
     @Override
-    public void onEffectAdded(LivingEntity entity, int amplifier) {
-        super.onEffectAdded(entity, amplifier);
+    public void onEffectAdded(LivingEntity livingEntity, int amplifier) {
+        this.soundOnAdded.ifPresent((soundEvent) -> {
+            livingEntity.level().playSound((Player)null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), soundEvent, livingEntity.getSoundSource(), 1.0F, 1.0F);
+        });
     }
 
     @Override
