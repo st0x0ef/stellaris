@@ -18,7 +18,7 @@ public class RadioactiveEffect extends MobEffect {
         super(mobEffectCategory, color);
         this.soundOnAdded = Optional.of(SoundRegistry.RADIOACTIVE.get());
     }
-    private Optional<SoundEvent> soundOnAdded = Optional.empty();
+    private Optional<SoundEvent> soundOnAdded;
 
 
 
@@ -56,9 +56,7 @@ public class RadioactiveEffect extends MobEffect {
 
     @Override
     public void onEffectAdded(LivingEntity livingEntity, int amplifier) {
-        soundOnAdded.ifPresent(soundEvent -> {
-            livingEntity.level().playSound(null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), soundEvent, livingEntity.getSoundSource(), 1.0F, 1.0F);
-        });
+        soundOnAdded.ifPresent(soundEvent -> livingEntity.level().playSound(null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), soundEvent, livingEntity.getSoundSource(), 1.0F, 1.0F));
     }
 
     @Override
