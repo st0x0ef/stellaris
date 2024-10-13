@@ -16,8 +16,10 @@ import java.util.Optional;
 public class RadioactiveEffect extends MobEffect {
     public RadioactiveEffect(MobEffectCategory mobEffectCategory, int color) {
         super(mobEffectCategory, color);
+        this.soundOnAdded = Optional.of(SoundRegistry.RADIOACTIVE.get());
     }
     private Optional<SoundEvent> soundOnAdded = Optional.empty();
+
 
 
     @Override
@@ -48,19 +50,20 @@ public class RadioactiveEffect extends MobEffect {
 
     @Override
     public @NotNull MobEffect withSoundOnAdded(SoundEvent event) {
-        return super.withSoundOnAdded(SoundRegistry.RADIOACTIVE.get());
+        this.soundOnAdded = Optional.of(event);
+        return super.withSoundOnAdded(event);
     }
 
     @Override
     public void onEffectAdded(LivingEntity livingEntity, int amplifier) {
-        this.soundOnAdded.ifPresent((soundEvent) -> {
-            livingEntity.level().playSound((Player)null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), soundEvent, livingEntity.getSoundSource(), 1.0F, 1.0F);
+        soundOnAdded.ifPresent(soundEvent -> {
+            livingEntity.level().playSound(null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), soundEvent, livingEntity.getSoundSource(), 1.0F, 1.0F);
         });
     }
 
     @Override
     public void onEffectStarted(LivingEntity livingEntity, int amplifier) {
-         if (amplifier == 1) {
+        if (amplifier == 1) {
             livingEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 80));
         } else if (amplifier == 2) {
             livingEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 80));
