@@ -36,6 +36,14 @@ dependencies {
     modCompileOnly("mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}")
     runtimeOnly("mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}")
 
+    forgeRuntimeLibrary "com.electronwill.night-config:core:$nightconfig_version"
+    forgeRuntimeLibrary "com.electronwill.night-config:json:$nightconfig_version"
+    forgeRuntimeLibrary "com.electronwill.night-config:toml:$nightconfig_version"
+    forgeRuntimeLibrary "com.electronwill.night-config:yaml:$nightconfig_version"
+
+
+    modApi "fr.tathan.tathan-config:tathan-config-neoforge-$minecraft_version:$config_version"
+
     runtimeOnly "maven.modrinth:sky-aesthetics:${sky_version}-neoforge"
 
     include("maven.modrinth:sky-aesthetics:${sky_version}-neoforge")

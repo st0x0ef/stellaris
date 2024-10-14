@@ -59,7 +59,6 @@ subprojects {
         modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin:${rootProject.rei_version}"
         modCompileOnly("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
 
-        modImplementation "fr.tathan.tathan-config:tathan-config-$modLoader-$minecraft_version:$config_version"
 
         if(!isCommon) {
             include "fr.tathan.tathan-config:tathan-config-$modLoader-$minecraft_version:$config_version"

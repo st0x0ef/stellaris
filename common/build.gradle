@@ -9,6 +9,8 @@ loom {
 dependencies {
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
     modApi "dev.architectury:architectury:${rootProject.architectury_version}"
+    modApi "fr.tathan.tathan-config:tathan-config-common-$minecraft_version:$config_version"
+
 }
 
 publishing {
