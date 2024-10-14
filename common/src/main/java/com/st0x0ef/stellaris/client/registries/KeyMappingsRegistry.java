@@ -37,7 +37,7 @@ public class KeyMappingsRegistry {
             }
         }
 
-        if (Utils.isLivingInJetSuit(player)) {
+        if (Utils.isLivingInJetSuit(player) || Utils.isLivingInSpaceSuit(player)) {
             while (CHANGE_JETSUIT_MODE.consumeClick()) {
                 NetworkManager.sendToServer(new KeyHandlerPacket("switch_jet_suit_mode", true));
             }

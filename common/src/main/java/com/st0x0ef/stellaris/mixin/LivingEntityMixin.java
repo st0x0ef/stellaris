@@ -25,7 +25,7 @@ public abstract class LivingEntityMixin {
     private void tick(CallbackInfo ci){
         ResourceLocation stellaris$dimension = stellaris$livingEntity.level().dimension().location();
 
-        boolean stellaris$gravityNormalizer = SpaceSuitModules.existsInModules(stellaris$livingEntity.getItemBySlot(EquipmentSlot.CHEST), ItemsRegistry.MODULE_GRAVITY_NORMALIZER.get().getDefaultInstance());
+        boolean stellaris$gravityNormalizer = SpaceSuitModules.containsInModules(stellaris$livingEntity.getItemBySlot(EquipmentSlot.CHEST), ItemsRegistry.MODULE_GRAVITY_NORMALIZER.get().getDefaultInstance());
         Stellaris.LOG.debug("Gravity Normalizer: " + stellaris$gravityNormalizer);
         if (!stellaris$dimension.equals(ResourceLocation.withDefaultNamespace("overworld")) && PlanetUtil.isPlanet(stellaris$dimension) && !stellaris$gravityNormalizer) {
             double stellaris$gravity = Utils.MPS2ToMCG(PlanetUtil.getPlanet(stellaris$dimension).gravity());

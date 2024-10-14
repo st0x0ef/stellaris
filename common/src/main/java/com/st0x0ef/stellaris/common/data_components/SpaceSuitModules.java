@@ -7,6 +7,7 @@ import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import java.io.Serializable;
@@ -42,11 +43,34 @@ public record SpaceSuitModules(List<ItemStack> modules) implements Serializable 
         return Lists.<ItemStack, ItemStack>transform(this.modules, ItemStack::copy);
     }
 
-    public static boolean existsInModules(ItemStack stack, ItemStack module) {
-        return existsInModules(stack, getModuleStatic(module));
+    public static ItemStack getIfContains(ItemStack stack, Item module) {
+        ItemStack moduleToReturn = ItemStack.EMPTY;
+        SpaceSuitModules spaceSuitModules = stack.getOrDefault(DataComponentsRegistry.SPACE_SUIT_MODULES.get(), empty());
+        if (spaceSuitModules.items() == null) return moduleToReturn;
+        for (ItemStack moduleStack: spaceSuitModules.items()) {
+            if (moduleStack.is(module)) {
+                moduleToReturn=moduleStack;
+                break;
+            }
+        }
+        return moduleToReturn;
     }
 
-    public static boolean existsInModules(ItemStack stack, SpaceSuitModule module) {
+    public static boolean containsAllInModules(ItemStack stack, List<Item> modules) {
+        boolean containsAll = true;
+        for (Item item : modules) {
+            if (item instanceof SpaceSuitModule validModule) {
+                if(!containsInModules(stack, validModule)) containsAll = false; break;
+            }
+        }
+        return containsAll;
+    }
+
+    public static boolean containsInModules(ItemStack stack, ItemStack module) {
+        return containsInModules(stack, getModuleStatic(module));
+    }
+
+    public static boolean containsInModules(ItemStack stack, SpaceSuitModule module) {
         if (stack.isEmpty()) return false;
         SpaceSuitModules spaceSuitModules = stack.get(DataComponentsRegistry.SPACE_SUIT_MODULES.get());
         if (spaceSuitModules==null) return false;

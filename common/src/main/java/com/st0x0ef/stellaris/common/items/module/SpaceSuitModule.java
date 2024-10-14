@@ -18,6 +18,8 @@ public interface SpaceSuitModule {
 
     MutableComponent displayName(); //TODO add in gui
 
+    default List<Item> requires() {return List.of();}
+
     default void tick(ItemStack stack, Level level, Player player) {}
 
     default void addToTooltips(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {}

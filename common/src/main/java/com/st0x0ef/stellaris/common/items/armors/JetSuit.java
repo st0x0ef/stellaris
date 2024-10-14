@@ -175,53 +175,49 @@ public class JetSuit {
         public void calculateSpacePressTime(Player player, ItemStack itemStack) {
             int mode = this.getMode(itemStack);
 
-            if (Utils.isLivingInJetSuit(player)) {
+            /** NORMAL MODE */
+            if (mode == ModeType.NORMAL.getMode()) {
+                if (KeyVariables.isHoldingJump(player)) {
+                    if (this.spacePressTime < 2.2F) {this.spacePressTime = this.spacePressTime + 0.2F;
+                    }
+                }
+                else if (this.spacePressTime > 0.0F) {
+                    this.spacePressTime = this.spacePressTime - 0.2F;
+                }
+            }
 
-                /** NORMAL MODE */
-                if (mode == ModeType.NORMAL.getMode()) {
-                    if (KeyVariables.isHoldingJump(player)) {
+            /** HOVER MODE */
+            if (mode == ModeType.HOVER.getMode()) {
+                if (!player.onGround() && this.spacePressTime < 0.6F) {
+                    this.spacePressTime = this.spacePressTime + 0.2F;
+                }
+                else if (KeyVariables.isHoldingJump(player)) {
+                    if (this.spacePressTime < 1.4F) {
+                        this.spacePressTime = this.spacePressTime + 0.2F;
+                        hoverModeMovement(player,itemStack);
+                    }
+                }
+                else if (this.spacePressTime >= 0.6F) {
+                    this.spacePressTime = this.spacePressTime - 0.2F;
+                }
+
+            }
+
+            /** ELYTRA MODE */
+            if (mode == ModeType.ELYTRA.getMode()) {
+                if (KeyVariables.isHoldingUp(player) && player.isFallFlying()) {
+                    if (player.isSprinting()) {
+                           if (this.spacePressTime < 2.8F) {
+                               this.spacePressTime = this.spacePressTime + 0.2F;
+                           }
+                    } else {
                         if (this.spacePressTime < 2.2F) {
                             this.spacePressTime = this.spacePressTime + 0.2F;
                         }
                     }
-                    else if (this.spacePressTime > 0.0F) {
-                        this.spacePressTime = this.spacePressTime - 0.2F;
-                    }
                 }
-
-                /** HOVER MODE */
-                if (mode == ModeType.HOVER.getMode()) {
-                    if (!player.onGround() && this.spacePressTime < 0.6F) {
-                        this.spacePressTime = this.spacePressTime + 0.2F;
-                    }
-                    else if (KeyVariables.isHoldingJump(player)) {
-                        if (this.spacePressTime < 1.4F) {
-                            this.spacePressTime = this.spacePressTime + 0.2F;
-                            hoverModeMovement(player,itemStack);
-                        }
-                    }
-                    else if (this.spacePressTime >= 0.6F) {
-                        this.spacePressTime = this.spacePressTime - 0.2F;
-                    }
-
-                }
-
-                /** ELYTRA MODE */
-                if (mode == ModeType.ELYTRA.getMode()) {
-                    if (KeyVariables.isHoldingUp(player) && player.isFallFlying()) {
-                        if (player.isSprinting()) {
-                            if (this.spacePressTime < 2.8F) {
-                                this.spacePressTime = this.spacePressTime + 0.2F;
-                            }
-                        } else {
-                            if (this.spacePressTime < 2.2F) {
-                                this.spacePressTime = this.spacePressTime + 0.2F;
-                            }
-                        }
-                    }
-                    else if (this.spacePressTime > 0.0F) {
-                        this.spacePressTime = this.spacePressTime - 0.2F;
-                    }
+                else if (this.spacePressTime > 0.0F) {
+                    this.spacePressTime = this.spacePressTime - 0.2F;
                 }
             }
         }
@@ -229,7 +225,7 @@ public class JetSuit {
         public void boost(Player player, double boost, boolean sonicBoom) {
             Vec3 vec31 = player.getLookAngle();
 
-            if (Utils.isLivingInJetSuit(player) && player.isFallFlying()) {
+            if ((Utils.isLivingInJetSuit(player) || Utils.isLivingInSpaceSuit(player)) && player.isFallFlying()) {
                 Vec3 vec32 = player.getDeltaMovement();
                 player.setDeltaMovement(vec32.add(vec31.x * 0.1D + (vec31.x * boost - vec32.x) * 0.5D, vec31.y * 0.1D + (vec31.y * boost - vec32.y) * 0.5D, vec31.z * 0.1D + (vec31.z * boost - vec32.z) * 0.5D));
 
@@ -288,7 +284,7 @@ public class JetSuit {
         }
 
         public static ModeType fromString(String string) {
-            Stellaris.LOG.error("From String : {}", Integer.decode(string));
+            //Stellaris.LOG.error("From String : {}", Integer.decode(string));
 
             return switch (Integer.decode(string)) {
                case 0 -> DISABLED;

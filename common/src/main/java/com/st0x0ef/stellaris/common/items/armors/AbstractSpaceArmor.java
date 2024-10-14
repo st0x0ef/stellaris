@@ -2,7 +2,7 @@ package com.st0x0ef.stellaris.common.items.armors;
 
 import com.st0x0ef.stellaris.common.blocks.entities.machines.FluidTankHelper;
 import com.st0x0ef.stellaris.common.items.CustomArmorItem;
-import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
+import com.st0x0ef.stellaris.common.utils.FuelUtils;
 import com.st0x0ef.stellaris.common.utils.OxygenUtils;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import net.minecraft.core.Holder;
@@ -57,11 +57,11 @@ public abstract class AbstractSpaceArmor extends CustomArmorItem {
         }
 
         public static void addFuel(ItemStack stack, int amount) {
-            stack.set(DataComponentsRegistry.STORED_FUEL_COMPONENT.get(), stack.getOrDefault(DataComponentsRegistry.STORED_FUEL_COMPONENT.get(), 0).longValue() + amount);
+            FuelUtils.addFuel(stack, amount);
         }
 
         public static long getFuel(ItemStack stack) {
-            return stack.getOrDefault(DataComponentsRegistry.STORED_FUEL_COMPONENT.get(), 0).longValue();
+            return FuelUtils.getFuel(stack);
         }
     }
 }
