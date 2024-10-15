@@ -4,10 +4,10 @@
   "step": "surface_structures",
   "spawn_overrides": {},
   "terrain_adaptation": "none",
-  "start_pool": "stellaris:meteor/meteor",
+  "start_pool": "stellaris:earth_satellite/earth_satellite",
   "size": 1,
   "start_height": {
-    "absolute": -20
+    "absolute": 0
   },
   "project_start_to_heightmap": "WORLD_SURFACE_WG",
   "max_distance_from_center": 80,
