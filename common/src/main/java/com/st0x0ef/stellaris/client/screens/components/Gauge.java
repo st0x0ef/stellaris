@@ -15,6 +15,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+@Deprecated(forRemoval = true)
 @Environment(EnvType.CLIENT)
 public class Gauge extends AbstractWidget {
     protected ResourceLocation texture;
@@ -95,6 +96,7 @@ public class Gauge extends AbstractWidget {
     protected void updateWidgetNarration(NarrationElementOutput narrationElementOutput) {
     }
 
+    @Deprecated(forRemoval = true)
     public static class SidewayGauge extends Gauge {
 
         public SidewayGauge(int x, int y, int width, int height, @Nullable Component message, ResourceLocation texture, @Nullable ResourceLocation overlay_texture, int value, int max_value) {
