@@ -4,6 +4,10 @@
 - Structures :
   - Earth Operation Base
   - Earth Satellite
+  - Moon Space Base
+  - Moon Sphere
+  - Moon First Landing
+  - Moon Launchpad
 - Rover
 - Modular Space Suit
 
@@ -12,5 +16,5 @@
 - Rework config screen
 
 ## Fix
-- Crash when teleporting to machines
+- Potential crash when teleporting to machines
 

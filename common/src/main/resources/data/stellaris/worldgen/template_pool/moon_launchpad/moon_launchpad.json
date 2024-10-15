@@ -1,5 +1,5 @@
 {
-  "name": "stellaris:earth_operation_base/earth_operation_base",
+  "name": "stellaris:moon_launchpad/moon_launchpad",
   "fallback": "minecraft:empty",
   "elements": [
     {
@@ -7,7 +7,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "projection": "rigid",
-        "location": "stellaris:earth_operation_base",
+        "location": "stellaris:moon_launchpad",
         "processors": {
           "processors": []
         }
