@@ -40,7 +40,7 @@ public class WaterPumpScreen extends AbstractContainerScreen<WaterPumpMenu> {
         addRenderableWidget(waterTankGauge);
 
         EnergyContainer energyContainer = blockEntity.getWrappedEnergyContainer().container();
-        energyGauge = new GaugeWidget(leftPos + 150, topPos + 20, 13, 47, Component.translatable("stellaris.screen.energy"), GUISprites.ENERGY_FULL, GUISprites.BATTERY_OVERLAY, energyContainer.getMaxCapacity(), GaugeWidget.Direction4.DOWN_UP);
+        energyGauge = new GaugeWidget(leftPos + 150, topPos + 20, 13, 46, Component.translatable("stellaris.screen.energy"), GUISprites.ENERGY_FULL, GUISprites.BATTERY_OVERLAY, energyContainer.getMaxCapacity(), GaugeWidget.Direction4.DOWN_UP);
         addRenderableWidget(energyGauge);
     }
 

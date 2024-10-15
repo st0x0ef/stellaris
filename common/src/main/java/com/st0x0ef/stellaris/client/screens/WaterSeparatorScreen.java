@@ -43,15 +43,15 @@ public class WaterSeparatorScreen extends AbstractContainerScreen<WaterSeparator
         }
 
         FluidTank ingredientTank = blockEntity.getIngredientTank();
-        ingredientTankGauge = new GaugeWidget(leftPos + 50, topPos + 58, 76, 42, Component.translatable("stellaris.screen.water"), GUISprites.WATER_OVERLAY, GUISprites.WATER_SEPARATOR_OVERLAY, ingredientTank.getMaxCapacity()-1, GaugeWidget.Direction4.DOWN_UP);
+        ingredientTankGauge = new GaugeWidget(leftPos + 50, topPos + 58, 76, 40, Component.translatable("stellaris.screen.water"), GUISprites.WATER_OVERLAY, GUISprites.WATER_SEPARATOR_OVERLAY, ingredientTank.getMaxCapacity()-1, GaugeWidget.Direction4.DOWN_UP);
         addRenderableWidget(ingredientTankGauge);
 
         FluidTank resultTank1 = blockEntity.getResultTanks().getFirst();
-        resultTank1Gauge = new GaugeWidget(leftPos + 22, topPos + 54, 12, 46, Component.translatable("stellaris.screen.hydrogen"), GUISprites.HYDROGEN_OVERLAY, GUISprites.LIQUID_TANK_OVERLAY, resultTank1.getMaxCapacity()-1, GaugeWidget.Direction4.DOWN_UP);
+        resultTank1Gauge = new GaugeWidget(leftPos + 22, topPos + 52, 12, 46, Component.translatable("stellaris.screen.hydrogen"), GUISprites.HYDROGEN_OVERLAY, GUISprites.LIQUID_TANK_OVERLAY, resultTank1.getMaxCapacity()-1, GaugeWidget.Direction4.DOWN_UP);
         addRenderableWidget(resultTank1Gauge);
 
         FluidTank resultTank2 = blockEntity.getResultTanks().get(1);
-        resultTank2Gauge = new GaugeWidget(leftPos + 142, topPos + 54, 12, 46, Component.translatable("stellaris.screen.oxygen"), GUISprites.OXYGEN_OVERLAY, GUISprites.LIQUID_TANK_OVERLAY, resultTank2.getMaxCapacity()-1, GaugeWidget.Direction4.DOWN_UP);
+        resultTank2Gauge = new GaugeWidget(leftPos + 142, topPos + 52, 12, 46, Component.translatable("stellaris.screen.oxygen"), GUISprites.OXYGEN_OVERLAY, GUISprites.LIQUID_TANK_OVERLAY, resultTank2.getMaxCapacity()-1, GaugeWidget.Direction4.DOWN_UP);
         addRenderableWidget(resultTank2Gauge);
 
         EnergyContainer energyContainer = blockEntity.getWrappedEnergyContainer();
