@@ -23,13 +23,13 @@ public class GaugeWidget extends AbstractWidget {
     protected long capacity;
     protected long amount = 0L;
     protected ResourceLocation sprite;
-    protected ResourceLocation overlay_texture;
+    protected ResourceLocation overlay_sprite;
     protected final Direction4 DIRECTION;
 
-    public GaugeWidget(int x, int y, int width, int height, Component message, ResourceLocation sprite, @Nullable ResourceLocation overlay_texture, long capacity, Direction4 direction) {
+    public GaugeWidget(int x, int y, int width, int height, Component message, ResourceLocation sprite, @Nullable ResourceLocation overlay_sprite, long capacity, Direction4 direction) {
         super(x, y, width, height, message);
         this.sprite = sprite;
-        this.overlay_texture = overlay_texture;
+        this.overlay_sprite = overlay_sprite;
         this.capacity = capacity;
         this.DIRECTION = direction;
     }
@@ -54,8 +54,8 @@ public class GaugeWidget extends AbstractWidget {
                 guiGraphics.blitSprite(sprite, getWidth(), getHeight(), getWidth() -i, 0, getX() + getWidth() - i, getY(), i, getHeight());
             }
         }
-        if (this.overlay_texture != null) {
-            ScreenHelper.drawTexture(getX(), getY(), width, height, this.overlay_texture, false);
+        if (this.overlay_sprite != null) {
+            guiGraphics.blitSprite(overlay_sprite, getX(), getY(), width, height);
         }
     }
 
