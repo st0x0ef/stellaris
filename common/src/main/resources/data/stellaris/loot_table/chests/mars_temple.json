@@ -143,6 +143,22 @@
           "type": "minecraft:item",
           "name": "stellaris:hydrogen_motor",
           "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:obsidian",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 4
+              },
+              "add": false
+            }
+          ]
         }
       ]
     }
