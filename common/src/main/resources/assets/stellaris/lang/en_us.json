@@ -575,6 +575,8 @@
   "tag.item.c.ingots.neptunium": "Neptunium Ingots",
   "tag.item.c.ingots.uranium": "Uranium Ingots",
   "tag.item.c.ingots.desh": "Desh Ingots",
+  "tag.item.c.storage_blocks.raw_steel": "Raw Steel Block",
+  "tag.item.c.storage_blocks.raw_uranium": "Raw Uranium Block",
 
   "tag.block.c.ores.desh": "Desh Ores",
   "tag.block.c.ores.ostrum": "Ostrum Ores",
