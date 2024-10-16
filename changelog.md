@@ -1,13 +1,11 @@
-# 1.1.5 changelog
+# 1.1.6 changelog
 
-## Change
-- Steel ore & deepslate steel ore tab
-- Improve oil finder tooltip
+## Additions
+- More c blocks tags
+- Tags translations
 
 ## Fix
-- Fix gauge offset
-- Fix taking radioactive damage in jet suit
-- Fix fortune enchant on custom ore
-
-## Remove
-- Remove disable custom sky option in config, will be reintroduced later
+- Fix shaped recipes
+- Fix tags
+- Fix creative rockets
+- Potential crash when teleporting to a chunk containing a machine
