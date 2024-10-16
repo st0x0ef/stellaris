@@ -26,7 +26,7 @@ public class FuelRefineryScreen extends AbstractContainerScreen<FuelRefineryMenu
     public FuelRefineryScreen(FuelRefineryMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
         imageWidth = 177;
-        imageHeight = 184;
+        imageHeight = 192;
         inventoryLabelY = imageHeight - 92;
     }
 
@@ -39,17 +39,17 @@ public class FuelRefineryScreen extends AbstractContainerScreen<FuelRefineryMenu
         }
 
         FluidTank ingredientTank = blockEntity.getIngredientTank();
-        ingredientTankGauge = new GaugeWidget(leftPos + 43, topPos + 22, 12, 46, Component.translatable("stellaris.screen.oil"),
+        ingredientTankGauge = new GaugeWidget(leftPos + 41, topPos + 36, 12, 46, Component.translatable("stellaris.screen.oil"),
                 GUISprites.OIL_OVERLAY, GUISprites.LIQUID_TANK_OVERLAY, ingredientTank.getMaxCapacity() -1, GaugeWidget.Direction4.DOWN_UP);
         addRenderableWidget(ingredientTankGauge);
 
         FluidTank resultTank = blockEntity.getResultTank();
-        resultTankGauge = new GaugeWidget(leftPos + 100, topPos + 22, 12, 46, Component.translatable("stellaris.screen.fuel"),
+        resultTankGauge = new GaugeWidget(leftPos + 98, topPos + 36, 12, 46, Component.translatable("stellaris.screen.fuel"),
                 GUISprites.FUEL_OVERLAY, GUISprites.LIQUID_TANK_OVERLAY, resultTank.getMaxCapacity() -1, GaugeWidget.Direction4.DOWN_UP);
         addRenderableWidget(resultTankGauge);
 
         EnergyContainer energyContainer = blockEntity.getWrappedEnergyContainer().container();
-        energyGauge = new GaugeWidget(leftPos + 150, topPos + 21, 13, 47, Component.translatable("stellaris.screen.energy"),
+        energyGauge = new GaugeWidget(leftPos + 147, topPos + 32, 13, 46, Component.translatable("stellaris.screen.energy"),
                 GUISprites.ENERGY_FULL, GUISprites.BATTERY_OVERLAY, energyContainer.getMaxCapacity(), GaugeWidget.Direction4.DOWN_UP);
         addRenderableWidget(energyGauge);
     }

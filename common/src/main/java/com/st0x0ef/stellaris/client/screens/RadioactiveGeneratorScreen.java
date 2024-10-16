@@ -28,7 +28,7 @@ public class RadioactiveGeneratorScreen extends AbstractContainerScreen<Radioact
     public RadioactiveGeneratorScreen(RadioactiveGeneratorMenu abstractContainerMenu, Inventory inventory, Component component) {
         super(abstractContainerMenu, inventory, component);
         imageWidth = 177;
-        imageHeight = 228;
+        imageHeight = 224;
         inventoryLabelY = imageHeight - 92;
     }
 
@@ -41,7 +41,7 @@ public class RadioactiveGeneratorScreen extends AbstractContainerScreen<Radioact
         }
 
         WrappedBlockEnergyContainer energyStorage = blockEntity.getWrappedEnergyContainer();
-        energyGauge = new GaugeWidget(leftPos + 147, topPos + 51, 13, 49, Component.translatable("stellaris.screen.energy"), GUISprites.ENERGY_FULL, GUISprites.BATTERY_OVERLAY, (int) energyStorage.getMaxCapacity(), GaugeWidget.Direction4.DOWN_UP);
+        energyGauge = new GaugeWidget(leftPos + 147, topPos + 52, 13, 46, Component.translatable("stellaris.screen.energy"), GUISprites.ENERGY_FULL, GUISprites.BATTERY_OVERLAY, (int) energyStorage.getMaxCapacity(), GaugeWidget.Direction4.DOWN_UP);
         addRenderableWidget(energyGauge);
     }
 
