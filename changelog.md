@@ -14,7 +14,8 @@
 ## Changes
 - Meteor spawn rule
 - Rework config screen
+- GUI textures for all machines
 
 ## Fix
-- Potential crash when teleporting to machines
+- Potential crash when teleporting to machines or globes
 
