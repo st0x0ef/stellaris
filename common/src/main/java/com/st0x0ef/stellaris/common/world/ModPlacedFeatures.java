@@ -70,9 +70,6 @@ public class ModPlacedFeatures {
         register(context, STEEL_ORE_DEEPSLATE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.STEEL_ORE_DEEPSLATE_ORE_KEY),
                 OrePlacement.commonOrePlacement(17,
                         HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(25))));
-
-
-
         // MARS
         register(context, MARS_DIAMOND_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.MARS_DIAMOND_ORE_KEY),
                 OrePlacement.commonOrePlacement(14,

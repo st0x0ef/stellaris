@@ -38,7 +38,7 @@ public class StellarisNeoForge {
         SystemsNeoForge.init(bus);
 
         if (FMLEnvironment.dist.isClient()) {
-            StellarisClient.registerPacks();
+            //StellarisClient.registerPacks();
         }
     }
 

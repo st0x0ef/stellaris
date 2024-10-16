@@ -40,18 +40,22 @@ public class MoonVine extends GrowingPlantHeadBlock implements BonemealableBlock
         this.registerDefaultState((BlockState)((BlockState)((BlockState)this.stateDefinition.any()).setValue(AGE, 0)).setValue(BERRIES, false));
     }
 
+    @Override
     protected int getBlocksToGrowWhenBonemealed(RandomSource random) {
         return 1;
     }
 
+    @Override
     protected boolean canGrowInto(BlockState state) {
         return state.isAir();
     }
 
+    @Override
     protected Block getBodyBlock() {
         return BlocksRegistry.MOON_VINES_PLANT.get();
     }
 
+    @Override
     protected BlockState updateBodyAfterConvertedFromHead(BlockState head, BlockState body) {
         return body.setValue(BERRIES, head.getValue(BERRIES));
     }
@@ -84,6 +88,7 @@ public class MoonVine extends GrowingPlantHeadBlock implements BonemealableBlock
     public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
         level.setBlock(pos, state.setValue(BERRIES, true), 2);
     }
+
 
     public static InteractionResult use(@Nullable Entity entity, BlockState state, Level level, BlockPos pos) {
         if ((Boolean)state.getValue(BERRIES)) {
