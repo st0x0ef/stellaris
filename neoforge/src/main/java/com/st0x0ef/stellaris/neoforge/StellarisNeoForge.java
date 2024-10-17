@@ -6,8 +6,11 @@ import com.st0x0ef.stellaris.common.registry.CreativeTabsRegistry;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import com.st0x0ef.stellaris.neoforge.systems.SystemsNeoForge;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.common.NeoForge;
@@ -25,6 +28,7 @@ public class StellarisNeoForge {
         //NeoForge.EVENT_BUS.addListener(StellarisNeoForge::addItemToTab);
 
         bus.addListener(StellarisNeoForge::onAttributes);
+        bus.addListener(StellarisNeoForge::addItemToTab);
         SystemsNeoForge.init(bus);
 
         if (FMLEnvironment.dist.isClient()) {
@@ -40,8 +44,9 @@ public class StellarisNeoForge {
         }
     }
 
+    @SubscribeEvent
     public static void addItemToTab(BuildCreativeModeTabContentsEvent event) {
-        if (event.getTabKey() == CreativeTabsRegistry.STELLARIS_TAB) {
+        if (event.getTabKey() == CreativeModeTabs.REDSTONE_BLOCKS) {
             for (ItemStack stack : ItemsRegistry.fullItemsToAdd()) {
                 event.accept(stack);
             }
