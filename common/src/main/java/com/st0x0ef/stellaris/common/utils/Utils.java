@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.common.utils;
 
 import com.mojang.serialization.Codec;
+import com.st0x0ef.stellaris.client.registries.KeyMappingsRegistry;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.entities.vehicles.LanderEntity;
 import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
@@ -88,7 +89,7 @@ public class Utils {
 
             player.level().addFreshEntity(lander);
             player.startRiding(lander);
-            player.sendSystemMessage(Component.translatable("message.stellaris.lander"));
+            player.sendSystemMessage(Component.translatable("message.stellaris.lander",KeyMappingsRegistry.SLOW_LANDER.getTranslatedKeyMessage().getString()));
         } else {
             player.closeContainer();
             teleportEntity(player, destination);

@@ -160,7 +160,7 @@ public class LanderEntity extends IVehicleEntity implements HasCustomInventorySc
     @Override
     public void tick() {
         super.tick();
-        this.slowDownLander();
+        this.checkForSpace();
     }
 
     public void beepWarningSound() {
@@ -181,25 +181,30 @@ public class LanderEntity extends IVehicleEntity implements HasCustomInventorySc
         return null;
     }
 
-    public void slowDownLander() {
+    public void checkForSpace() {
         if (KeyVariables.isHoldingJump(this.getFirstPlayerPassenger())) {
-            Vec3 vec = this.getDeltaMovement();
+            slowDownLander();
+        }
+    }
 
-            if (!this.onGround()) {
-                if (vec.y() < -0.05) {
-                    this.setDeltaMovement(vec.x(), vec.y() * 0.75, vec.z());
-                }
+    public void slowDownLander() {
+        Vec3 vec = this.getDeltaMovement();
 
-                this.fallDistance = (float) (vec.y() * (-1) * 4.5);
+        if (!this.onGround()) {
+            if (vec.y() < -0.05) {
+                this.setDeltaMovement(vec.x(), vec.y() * 0.75, vec.z());
+            }
 
-                if (this.level() instanceof ServerLevel) {
-                    for (ServerPlayer p : ((ServerLevel) this.level()).getServer().getPlayerList().getPlayers()) {
-                        ((ServerLevel) this.level()).sendParticles(p, ParticleTypes.SPIT, true, this.getX(),
-                                this.getY() - 0.3, this.getZ(), 3, 0.1, 0.1, 0.1, 0.001);
-                    }
+            this.fallDistance = (float) (vec.y() * (-1) * 4.5);
+
+            if (this.level() instanceof ServerLevel) {
+                for (ServerPlayer p : ((ServerLevel) this.level()).getServer().getPlayerList().getPlayers()) {
+                    ((ServerLevel) this.level()).sendParticles(p, ParticleTypes.SPIT, true, this.getX(),
+                            this.getY() - 0.3, this.getZ(), 3, 0.1, 0.1, 0.1, 0.001);
                 }
             }
         }
+
     }
 
     @Override
