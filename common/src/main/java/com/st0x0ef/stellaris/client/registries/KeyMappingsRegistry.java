@@ -10,7 +10,6 @@ import com.st0x0ef.stellaris.common.utils.Utils;
 import dev.architectury.networking.NetworkManager;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
-import net.minecraft.world.entity.animal.camel.Camel;
 import net.minecraft.world.entity.player.Player;
 
 public class KeyMappingsRegistry {
@@ -28,26 +27,25 @@ public class KeyMappingsRegistry {
             return;
         }
 
-
         if (player.isPassenger() && player.getVehicle() instanceof RocketEntity) {
             while (ROCKET_START.consumeClick()) {
                 NetworkManager.sendToServer(new KeyHandlerPacket("rocket_start", true));
             }
         }
 
-        if (player.containerMenu == MenuTypesRegistry.PLANET_SELECTION_MENU) {
+        else if (player.containerMenu == MenuTypesRegistry.PLANET_SELECTION_MENU) {
             while (FREEZE_PLANET_MENU.consumeClick()) {
                 NetworkManager.sendToServer(new KeyHandlerPacket("freeze_planet_menu", true));
             }
         }
 
-        if (Utils.isLivingInJetSuit(player)) {
+        else if (Utils.isLivingInJetSuit(player)) {
             while (CHANGE_JETSUIT_MODE.consumeClick()) {
                 NetworkManager.sendToServer(new KeyHandlerPacket("switch_jet_suit_mode", true));
             }
         }
 
-        if(player.isPassenger() && player.getVehicle() instanceof LanderEntity) {
+        else if(player.isPassenger() && player.getVehicle() instanceof LanderEntity) {
             while (SLOW_LANDER.consumeClick()) {
                 NetworkManager.sendToServer(new KeyHandlerPacket("slow_lander", true));
             }

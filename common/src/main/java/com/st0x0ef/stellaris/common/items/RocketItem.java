@@ -32,7 +32,6 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import java.util.List;
-import java.util.Objects;
 
 public class RocketItem extends Item {
     public RocketItem(Properties properties) {

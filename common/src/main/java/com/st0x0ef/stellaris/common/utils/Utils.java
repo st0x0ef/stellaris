@@ -47,7 +47,6 @@ public class Utils {
 
     /** Should be call after teleporting the player */
     public static LanderEntity createLanderFromRocket(Entity player, RocketEntity rocket, int yPos) {
-
         LanderEntity lander = new LanderEntity(player.level());
         lander.setPos(player.getX(), yPos, player.getZ());
         transfertInventory(rocket, lander);
@@ -55,7 +54,6 @@ public class Utils {
         rocket.discard();
 
         return lander;
-
     }
 
     /** Teleport an entity to the planet wanted */
@@ -72,10 +70,9 @@ public class Utils {
 
     /** To use with the planetSelection menu */
     public static void changeDimension(Player player, Planet destination) {
-        if(player.level().isClientSide()) return;
+        if (player.level().isClientSide()) return;
 
-        Entity vehicle = player.getVehicle();
-        if (vehicle instanceof RocketEntity rocket) {
+        if (player.getVehicle() instanceof RocketEntity rocket) {
             player.stopRiding();
 
             teleportEntity(player, destination);
@@ -84,18 +81,15 @@ public class Utils {
             LanderEntity lander = createLanderFromRocket(player, rocket, 600);
 
             /** We remove the player from the Rocket */
-
             player.closeContainer();
 
             player.level().addFreshEntity(lander);
             player.startRiding(lander);
-            player.sendSystemMessage(Component.translatable("message.stellaris.lander",KeyMappingsRegistry.SLOW_LANDER.getTranslatedKeyMessage().getString()));
+            player.sendSystemMessage(Component.translatable("message.stellaris.lander", KeyMappingsRegistry.SLOW_LANDER.getTranslatedKeyMessage().getString().split("\\.")[2]));
         } else {
             player.closeContainer();
             teleportEntity(player, destination);
         }
-
-
     }
 
     public static void changeDimensionForPlayers(List<Entity> entities, Planet destination) {
