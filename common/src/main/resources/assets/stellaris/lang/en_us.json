@@ -411,8 +411,21 @@
   "container.entity.stellaris.lander": "Lander",
   "container.entity.stellaris.rocket": "Rocket",
   "entity.stellaris.cheese_boss": "Cheese Boss",
+  "entity.stellaris.lander": "Lander",
+  "entity.stellaris.big_rocket": "Big Rocket",
+  "entity.stellaris.normal_rocket": "Normal Rocket",
+  "entity.stellaris.tiny_rocket": "Tiny Rocket",
+  "entity.stellaris.small_rocket": "Small Rocket",
+  "entity.stellaris.ice_shard_arrow": "Ice Shard Arrow",
+  "entity.stellaris.cheese_spit": "Cheese Spit",
+  "entity.stellaris.alien": "Alien",
+  "entity.stellaris.alien_zombie": "Alien Zombie",
+  "entity.stellaris.mogler": "Mogler",
+  "entity.stellaris.martian_raptor": "Martian Raptor",
+  "entity.stellaris.pygro": "Pygro",
+  "entity.stellaris.pygro_brute": "Pygro Brute",
 
-
+  "entity.stellaris.star_crawler": "Star Crawler",
 
   "STELLARIS ADVANCEMENTS":
   ""
@@ -478,6 +491,9 @@
   "category.stellaris.default": "Stellaris",
   "key.stellaris.rocket_start": "Rocket Start",
   "key.stellaris.freeze_planet_menu": "Freeze Planet Selection Menu",
+  "key.stellaris.jetsuit_mode": "Jet Suit Mode",
+  "key.stellaris.rocket_crafting_mode": "Rocket Crafting Mode",
+  "key.stellaris.slow_lander": "Slow Lander",
 
 
 
@@ -495,7 +511,6 @@
 
   "jetsuit.stellaris.oxygen": "§7Oxygen : §8%s",
   "general.stellaris.jet_suit_mode": "Mode",
-  "key.stellaris.jetsuit_mode": "Jet Suit Mode",
   "general.stellaris.jet_suit_disabled_mode": "Disabled",
   "general.stellaris.jet_suit_normal_mode": "Normal",
   "general.stellaris.jet_suit_hover_mode": "Hover",
@@ -532,7 +547,6 @@
   "stellaris.compat.rocket_crafting": "Rocket Crafting",
   "general.stellaris.rocket_crafting_mode": "Mode",
   "general.stellaris.rocket_crafting_fuel": "Fuel",
-  "key.stellaris.rocket_crafting_mode": "Rocket Crafting Mode",
   "general.stellaris.rocket_crafting_disabled_mode": "Disabled",
   "general.stellaris.rocket_crafting_normal_mode": "Normal",
 
