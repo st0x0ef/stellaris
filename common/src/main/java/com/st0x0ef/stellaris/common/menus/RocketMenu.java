@@ -93,7 +93,7 @@ public class RocketMenu extends AbstractContainerMenu {
         this.addSlot(new Slot(inventory, 9, 140, 37));
 
         //UPGRADE SLOTS
-        this.addSlot(new MotorUpgradeSlot(inventory, 10, 76, 66));
+        this.addSlot(new MotorUpgradeSlot(inventory, 10, 76, 66, getRocket()));
         this.addSlot(new TankUpgradeSlot(inventory, 11, 101, 66));
 
         //SKIN SLOTS

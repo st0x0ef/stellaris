@@ -65,16 +65,12 @@ public class Utils {
         entity.level().getServer().getAllLevels().forEach(level -> {
             if (level.dimension().location().equals(destination.dimension())) {
                 TeleportUtil.teleportToPlanet(entity, level, 600);
-                entity.setPos(entity.getX(), 600, entity.getZ());
             }
         });
-
-
     }
 
     /** To use with the planetSelection menu */
     public static void changeDimension(Player player, Planet destination) {
-
         if(player.level().isClientSide()) return;
 
         Entity vehicle = player.getVehicle();
@@ -257,17 +253,11 @@ public class Utils {
     }
 
     public static boolean isLivingInJetSuit(LivingEntity entity) {
-        if (!isLivingInArmor(entity, EquipmentSlot.HEAD, ItemsRegistry.JETSUIT_HELMET.get())) return false;
-        if (!isLivingInArmor(entity, EquipmentSlot.CHEST, ItemsRegistry.JETSUIT_SUIT.get())) return false;
-        if (!isLivingInArmor(entity, EquipmentSlot.LEGS, ItemsRegistry.JETSUIT_LEGGINGS.get())) return false;
-        return isLivingInArmor(entity, EquipmentSlot.FEET, ItemsRegistry.JETSUIT_BOOTS.get());
+        return isLivingInArmor(entity, EquipmentSlot.FEET, ItemsRegistry.JETSUIT_BOOTS.get()) && isLivingInArmor(entity, EquipmentSlot.HEAD, ItemsRegistry.JETSUIT_HELMET.get()) && isLivingInArmor(entity, EquipmentSlot.CHEST, ItemsRegistry.JETSUIT_SUIT.get()) && isLivingInArmor(entity, EquipmentSlot.LEGS, ItemsRegistry.JETSUIT_LEGGINGS.get());
     }
 
     public static boolean isLivingInSpaceSuit(LivingEntity entity) {
-        if (!isLivingInArmor(entity, EquipmentSlot.HEAD, ItemsRegistry.SPACESUIT_HELMET.get())) return false;
-        if (!isLivingInArmor(entity, EquipmentSlot.CHEST, ItemsRegistry.SPACESUIT_SUIT.get())) return false;
-        if (!isLivingInArmor(entity, EquipmentSlot.LEGS, ItemsRegistry.SPACESUIT_LEGGINGS.get())) return false;
-        return isLivingInArmor(entity, EquipmentSlot.FEET, ItemsRegistry.SPACESUIT_BOOTS.get());
+        return isLivingInArmor(entity, EquipmentSlot.FEET, ItemsRegistry.SPACESUIT_BOOTS.get()) && isLivingInArmor(entity, EquipmentSlot.LEGS, ItemsRegistry.SPACESUIT_LEGGINGS.get()) && isLivingInArmor(entity, EquipmentSlot.CHEST, ItemsRegistry.SPACESUIT_SUIT.get()) && isLivingInArmor(entity, EquipmentSlot.HEAD, ItemsRegistry.SPACESUIT_HELMET.get());
     }
 
 

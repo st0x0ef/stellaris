@@ -34,10 +34,7 @@ import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.tiny.TinyR
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeBlockRenderer;
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeModel;
 import com.st0x0ef.stellaris.client.screens.*;
-import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
-import com.st0x0ef.stellaris.common.registry.EntityRegistry;
-import com.st0x0ef.stellaris.common.registry.FluidRegistry;
-import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
+import com.st0x0ef.stellaris.common.registry.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -140,7 +137,6 @@ public class StellarisNeoforgeClient {
 
     @SubscribeEvent
     private static void initializeClient(RegisterClientExtensionsEvent event) {
-
         FluidRegistry.FLUIDS_INFOS.forEach((attributes -> event.registerFluidType(new IClientFluidTypeExtensions() {
             @Override
             public @NotNull ResourceLocation getStillTexture() {
@@ -153,11 +149,10 @@ public class StellarisNeoforgeClient {
             }
         }, attributes.getFlowingFluid().getFluidType())));
 
-
+        //EffectsRegistry.MOB_EFFECTS_INFOS.forEach((effect -> event.registerMobEffect(new IClientMobEffectExtensions() {}, effect.get())));
     }
 
-
-    private static void clientTick(ClientTickEvent.Pre event) {
+    private static void clientTick(ClientTickEvent.Post event) {
         KeyMappingsRegistry.clientTick(Minecraft.getInstance());
     }
 }

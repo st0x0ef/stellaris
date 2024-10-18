@@ -30,8 +30,9 @@ public class RadioactiveBlockEntity extends BlockEntity {
         if (tickCount == 100) {
             List<LivingEntity> entities = this.level.getEntitiesOfClass(LivingEntity.class, area);
             for (LivingEntity entity : entities) {
-                if (Utils.isLivingInJetSuit(entity) || !entity.getType().is(TagRegistry.ENTITY_RADIATION_INVULNERABLE_TAG)) {
+                if (!Utils.isLivingInJetSuit(entity) && !entity.getType().is(TagRegistry.ENTITY_RADIATION_INVULNERABLE_TAG)) {
                     //entity.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE, 100, radioactivityLevel - 1));
+
                     entity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 80));
                     entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80));
 

@@ -32,5 +32,4 @@ public class KeyVariables {
     public static boolean isHoldingJump(Player player) {
         return player != null && KEY_JUMP.getOrDefault(player.getUUID(), false);
     }
-
 }

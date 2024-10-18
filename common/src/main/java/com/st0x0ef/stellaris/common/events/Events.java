@@ -16,9 +16,13 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CampfireBlock;
+import net.minecraft.world.level.block.LanternBlock;
+import net.minecraft.world.level.block.WallTorchBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+
 
 public class Events {
     private static final int RADIATION_CHECK_INTERVAL = 100;
@@ -35,6 +39,8 @@ public class Events {
                             .orElse(0);
 
                     if (maxRadiationLevel > 0) {
+                       // player.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE, 100, maxRadiationLevel - 1));
+
                         player.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 80));
                         player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80));
                     }
@@ -80,6 +86,25 @@ public class Events {
                 } else if (state.is(Blocks.LANTERN)) {
                     serverLevel.setBlock(pos, BlocksRegistry.COAL_LANTERN_BLOCK.get().defaultBlockState().setValue(CoalLanternBlock.HANGING, state.getValue(LanternBlock.HANGING)), 3);
                     return EventResult.interruptFalse();
+                } else if (state.is(Blocks.CAMPFIRE)) {
+                    serverLevel.setBlock(pos, state.setValue(CampfireBlock.LIT, false), 3);
+                    return EventResult.interruptFalse();
+                } else if (state.is(Blocks.SOUL_TORCH)) {
+                    serverLevel.setBlock(pos, BlocksRegistry.COAL_TORCH_BLOCK.get().defaultBlockState(), 3);
+                    return EventResult.interruptFalse();
+                } else if (state.is(Blocks.SOUL_WALL_TORCH)) {
+                    serverLevel.setBlock(pos, BlocksRegistry.WALL_COAL_TORCH_BLOCK.get().defaultBlockState().setValue(WallCoalTorchBlock.FACING, state.getValue(WallTorchBlock.FACING)), 3);
+                    return EventResult.interruptFalse();
+                } else if (state.is(Blocks.SOUL_LANTERN)) {
+                    serverLevel.setBlock(pos, BlocksRegistry.COAL_LANTERN_BLOCK.get().defaultBlockState().setValue(CoalLanternBlock.HANGING, state.getValue(LanternBlock.HANGING)), 3);
+                    return EventResult.interruptFalse();
+                } else if (state.is(Blocks.SOUL_CAMPFIRE)) {
+                    serverLevel.setBlock(pos, state.setValue(CampfireBlock.LIT, false), 3);
+                    return EventResult.interruptFalse();
+               // } else if (state.is(Blocks.CANDLE)){
+                  //  serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
+                  //  return EventResult.interruptFalse();
+
                 }
             }
 

@@ -1,18 +1,21 @@
-# 1.1.2 changelog
+# 1.2.0 changelog
 
-## Additions
-- Right click with tank to fill space suit
-- Add oxygen to Oxygen Distributor when right-clicking
-- Add help message for lander
+## Aditions
+- Structures :
+  - Earth Operation Base
+  - Earth Satellite
+  - Moon Space Base
+  - Moon Sphere
+  - Moon First Landing
+  - Moon Launchpad
+- Rover
+- Modular Space Suit
 
 ## Changes
-- IceSpit is now removed after long time
-- Update Sky Aesthetic to 1.2.2
-- Change radioactive to component
-- Increase the damage from lack of oxygen but decrease oxygen use (#31)
-- Update modmenu
+- Meteor spawn rule
+- Rework config screen
+- GUI textures for all machines
 
 ## Fix
-- Fix pump jack menu
-- Fix space suit model
-- Fix oil save
+- Potential crash when teleporting to machines or globes
+
