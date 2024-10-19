@@ -11,6 +11,7 @@
   - Moon Dungeon
   - Small Moon Dungeon
   - Moon Destroyed Village
+  - Moon Village
 - Rover
 - Modular Space Suit
 

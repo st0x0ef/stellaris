@@ -1,13 +1,13 @@
 {
   "structures": [
     {
-      "structure": "stellaris:moon_destroyed_village",
+      "structure": "stellaris:moon_village",
       "weight": 2
     }
   ],
   "placement": {
     "type": "minecraft:random_spread",
-    "salt": 77261376,
+    "salt": 385714280,
     "spacing": 60,
     "separation": 20
   }
