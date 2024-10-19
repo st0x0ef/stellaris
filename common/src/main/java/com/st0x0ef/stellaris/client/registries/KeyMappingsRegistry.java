@@ -13,12 +13,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
 
 public class KeyMappingsRegistry {
-    public static String category = "category." + Stellaris.MODID + ".default";
+    public static String CATEGORY = "category." + Stellaris.MODID + ".default";
 
-    public static KeyMapping ROCKET_START = new KeyMapping("key." + Stellaris.MODID + ".rocket_start", InputConstants.KEY_SPACE, category);
-    public static KeyMapping FREEZE_PLANET_MENU = new KeyMapping("key." + Stellaris.MODID + ".freeze_planet_menu", InputConstants.KEY_X, category);
-    public static KeyMapping CHANGE_JETSUIT_MODE = new KeyMapping("key." + Stellaris.MODID + ".jetsuit_mode", InputConstants.KEY_V, category);
-    public static KeyMapping SLOW_LANDER = new KeyMapping("key." + Stellaris.MODID + ".slow_lander", InputConstants.KEY_SPACE, category);
+    public static KeyMapping ROCKET_START = new KeyMapping("key." + Stellaris.MODID + ".rocket_start", InputConstants.KEY_SPACE, CATEGORY);
+    public static KeyMapping FREEZE_PLANET_MENU = new KeyMapping("key." + Stellaris.MODID + ".freeze_planet_menu", InputConstants.KEY_X, CATEGORY);
+    public static KeyMapping CHANGE_JETSUIT_MODE = new KeyMapping("key." + Stellaris.MODID + ".jetsuit_mode", InputConstants.KEY_V, CATEGORY);
+    public static KeyMapping SLOW_LANDER = new KeyMapping("key." + Stellaris.MODID + ".slow_lander", InputConstants.KEY_SPACE, CATEGORY);
 
     public static void clientTick(Minecraft minecraft) {
         Player player = minecraft.player;
