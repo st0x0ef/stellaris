@@ -131,6 +131,7 @@ public class StellarisNeoforgeClient {
         event.register(KeyMappingsRegistry.ROCKET_START);
         event.register(KeyMappingsRegistry.CHANGE_JETSUIT_MODE);
         event.register(KeyMappingsRegistry.FREEZE_PLANET_MENU);
+        event.register(KeyMappingsRegistry.SLOW_LANDER);
 
         NeoForge.EVENT_BUS.addListener(StellarisNeoforgeClient::clientTick);
     }
