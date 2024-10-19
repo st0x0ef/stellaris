@@ -1,5 +1,5 @@
 {
-  "name": "stellaris:moon_sphere/moon_sphere",
+  "name": "stellaris:moon/moon_space_base",
   "fallback": "minecraft:empty",
   "elements": [
     {
@@ -7,7 +7,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "projection": "rigid",
-        "location": "stellaris:moon_sphere",
+        "location": "stellaris:moon_space_base",
         "processors": {
           "processors": []
         }

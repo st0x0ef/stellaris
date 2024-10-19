@@ -8,6 +8,8 @@
   - Moon Sphere
   - Moon First Landing
   - Moon Launchpad
+  - Moon Dungeon
+  - Small Moon Dungeon
 - Rover
 - Modular Space Suit
 
