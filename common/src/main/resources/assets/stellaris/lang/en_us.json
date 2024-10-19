@@ -441,6 +441,16 @@
   "advancements.mercury.root.title": "Too Hot for Me!",
   "advancements.mercury.root.description": "Land on Mercury.",
 
+  "advancements.stellaris.rocket_station.description": "Crafted a Rocket Station.",
+  "advancements.stellaris.rocket_station.title": "An Other Kind of Workbench",
+
+  "advancements.stellaris.oil.description": "Find Oil.",
+  "advancements.stellaris.oil.title": "Did someone say Oil ?!!",
+  "advancements.stellaris.root.title": "What a weird metal...",
+  "advancements.stellaris.root.description": "Find Steel.",
+  "advancements.stellaris.rocket.description": "Crafted a rocket.",
+  "advancements.stellaris.rocket.title": "Fly Me to the Moon !",
+
 
 
   "STELLARIS EFFECTS":
