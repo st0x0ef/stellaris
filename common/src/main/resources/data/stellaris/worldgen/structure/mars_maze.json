@@ -1,7 +1,7 @@
 {
   "type": "minecraft:jigsaw",
   "biomes": "#stellaris:mars_biomes",
-  "step": "surface_structures",
+  "step": "underground_structures",
   "spawn_overrides": {},
   "terrain_adaptation": "bury",
   "start_pool": "stellaris:mars/mars_maze_entry",

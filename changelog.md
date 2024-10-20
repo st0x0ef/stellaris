@@ -13,6 +13,10 @@
   - Moon Destroyed Village
   - Moon Village
   - Mars Maze
+  - Mars Main Temple
+  - Mars Ruins
+  - Mars Temple
+  - Mars Tower
 - Rover
 - Modular Space Suit
 
