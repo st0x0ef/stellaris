@@ -17,6 +17,7 @@
   - Mars Ruins
   - Mars Temple
   - Mars Tower
+  - Venus Catacombs
 - Rover
 - Modular Space Suit
 
