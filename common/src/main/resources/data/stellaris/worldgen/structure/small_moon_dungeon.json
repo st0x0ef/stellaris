@@ -4,7 +4,7 @@
   "step": "underground_structures",
   "spawn_overrides": {},
   "terrain_adaptation": "bury",
-  "start_pool": "stellaris:moon/moon_dungeon",
+  "start_pool": "stellaris:moon/moon_dungeon_entry",
   "size": 4,
   "start_height": {
     "absolute": -16

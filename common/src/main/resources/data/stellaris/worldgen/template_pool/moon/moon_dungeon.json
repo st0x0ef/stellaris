@@ -64,16 +64,6 @@
     {
       "weight": 50,
       "element": {
-        "location": "stellaris:moon_dungeon_entry",
-        "processors": "minecraft:empty",
-        "projection": "rigid",
-        "element_type": "minecraft:single_pool_element"
-      }
-    }
-  ,
-    {
-      "weight": 50,
-      "element": {
         "location": "stellaris:moon_dungeon_hall",
         "processors": "minecraft:empty",
         "projection": "rigid",
