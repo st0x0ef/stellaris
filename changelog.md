@@ -27,9 +27,9 @@
   - Venus Tower
 - Rover
 - Modular Space Suit
+- Meteor can now spawn on moon
 
 ## Changes
-- Meteor spawn rule
 - Rework config screen
 - GUI textures for all machines
 
