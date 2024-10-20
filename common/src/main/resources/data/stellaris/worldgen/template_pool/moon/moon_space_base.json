@@ -1,5 +1,4 @@
 {
-  "name": "stellaris:moon/moon_space_base",
   "fallback": "minecraft:empty",
   "elements": [
     {

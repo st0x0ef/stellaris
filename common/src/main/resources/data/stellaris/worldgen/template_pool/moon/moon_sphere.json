@@ -1,5 +1,4 @@
 {
-  "name": "stellaris:moon/moon_sphere",
   "fallback": "minecraft:empty",
   "elements": [
     {

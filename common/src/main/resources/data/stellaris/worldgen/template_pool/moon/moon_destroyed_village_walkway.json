@@ -1,5 +1,5 @@
 {
-  "name": "stellaris:moon/moon_destroyed_village",
+  "name": "stellaris:moon/moon_destroyed_village_walkway",
   "fallback": "minecraft:empty",
   "elements": [
     {

@@ -1,5 +1,4 @@
 {
-  "name": "stellaris:moon/moon_destroyed_village",
   "fallback": "minecraft:empty",
   "elements": [
     {

@@ -1,5 +1,4 @@
 {
-  "name": "stellaris:moon/moon_dungeon",
   "fallback": "minecraft:empty",
   "elements": [
     {

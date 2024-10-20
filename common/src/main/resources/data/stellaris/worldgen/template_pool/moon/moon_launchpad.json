@@ -1,5 +1,4 @@
 {
-  "name": "stellaris:moon/moon_launchpad",
   "fallback": "minecraft:empty",
   "elements": [
     {
