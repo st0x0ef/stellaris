@@ -18,6 +18,13 @@
   - Mars Temple
   - Mars Tower
   - Venus Catacombs
+  - Venus Crash Site
+  - Venus Lava Outpost
+  - Venus Outpost
+  - Venus Outpost Dungeon
+  - Venus Plaza
+  - Venus Ruins
+  - Venus Tower
 - Rover
 - Modular Space Suit
 

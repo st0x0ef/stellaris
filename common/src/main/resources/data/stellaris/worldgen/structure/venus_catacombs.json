@@ -1,6 +1,6 @@
 {
   "type": "minecraft:jigsaw",
-  "biomes": "#stellaris:venus_biomes",
+  "biomes": "#stellaris:has_structure/venus_biomes",
   "step": "underground_structures",
   "spawn_overrides": {},
   "terrain_adaptation": "bury",
