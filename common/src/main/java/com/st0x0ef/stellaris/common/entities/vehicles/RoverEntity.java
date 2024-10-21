@@ -49,7 +49,7 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
 
         this.motorUpgrade = MotorUpgrade.getBasic();
         this.tankUpgrade = TankUpgrade.getBasic();
-        this.speedUpgrade = SpeedUpgrade.getBasicModifier();
+        this.speedUpgrade = SpeedUpgrade.getBasic();
         this.currentFuelItem = ItemsRegistry.FUEL_BUCKET.get();
         this.FUEL = 0;
         this.roverComponent = new RoverComponent(currentFuelItem.toString(), FUEL, motorUpgrade.getFluidTexture(), tankUpgrade.getTankCapacity(), speedUpgrade.getSpeedModifier());
@@ -171,10 +171,18 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
         }
 
         if (this.getInventory().getItem(11).getItem() instanceof VehicleUpgradeItem item) {
+            if (item.getUpgrade() instanceof SpeedUpgrade upgrade) {
+                this.speedUpgrade = upgrade;
+            }
+        } else if (this.getInventory().getItem(11).isEmpty()) {
+            this.speedUpgrade = SpeedUpgrade.getBasic();
+        }
+
+        if (this.getInventory().getItem(12).getItem() instanceof VehicleUpgradeItem item) {
             if (item.getUpgrade() instanceof TankUpgrade upgrade) {
                 this.tankUpgrade = upgrade;
             }
-        } else if (this.getInventory().getItem(11).isEmpty()) {
+        } else if (this.getInventory().getItem(12).isEmpty()) {
             this.tankUpgrade = TankUpgrade.getBasic();
         }
 

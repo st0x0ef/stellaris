@@ -13,7 +13,7 @@ public class SpeedUpgrade extends VehicleUpgrade
         return speedModifier;
     }
 
-    public static SpeedUpgrade getBasicModifier()
+    public static SpeedUpgrade getBasic()
     {
         return new SpeedUpgrade(1);
     }
