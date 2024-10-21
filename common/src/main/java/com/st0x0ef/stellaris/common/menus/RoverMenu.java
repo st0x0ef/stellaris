@@ -21,14 +21,14 @@ public class RoverMenu extends AbstractContainerMenu implements IVehicleMenu
     private final RoverEntity rover;
 
     public RoverMenu(int syncId, Inventory inventory, FriendlyByteBuf buffer) {
-        this(syncId, inventory, new SimpleContainer(15), buffer.readVarInt());
+        this(syncId, inventory, new SimpleContainer(13), buffer.readVarInt());
     }
 
     public RoverMenu(int syncId, Inventory playerInventory, Container container, int entityId) {
         super(MenuTypesRegistry.ROVER_MENU.get(), syncId);
 
         this.rover = (RoverEntity) playerInventory.player.level().getEntity(entityId);
-        checkContainerSize(container, 12);
+        checkContainerSize(container, 13);
         this.inventory = container;
 
         addSlots(inventory);
@@ -79,22 +79,21 @@ public class RoverMenu extends AbstractContainerMenu implements IVehicleMenu
 
         //INVENTORY SLOTS
         this.addSlot(new Slot(inventory, 2, 86, 20));
-        this.addSlot(new Slot(inventory, 3, 86, 37));
+        this.addSlot(new Slot(inventory, 3, 86, 38));
 
         this.addSlot(new Slot(inventory, 4, 104, 20));
-        this.addSlot(new Slot(inventory, 5, 104, 37));
+        this.addSlot(new Slot(inventory, 5, 104, 38));
 
         this.addSlot(new Slot(inventory, 6, 122, 20));
-        this.addSlot(new Slot(inventory, 7, 122, 37));
+        this.addSlot(new Slot(inventory, 7, 122, 38));
 
         this.addSlot(new Slot(inventory, 8, 140, 20));
-        this.addSlot(new Slot(inventory, 9, 140, 37));
+        this.addSlot(new Slot(inventory, 9, 140, 38));
 
         //UPGRADE SLOTS
         this.addSlot(new MotorUpgradeSlot(inventory, 10, 88, 66, this.rover));
-        this.addSlot(new TankUpgradeSlot(inventory, 11, 138, 66));
-        this.addSlot(new SpeedUpgradeSlot(inventory,12,115,66));
-
+        this.addSlot(new SpeedUpgradeSlot(inventory,12,114,66));
+        this.addSlot(new TankUpgradeSlot(inventory, 11, 140, 66));
     }
 
     private void addPlayerInventory(Inventory playerInventory) {

@@ -45,7 +45,7 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
 
     public RoverEntity(EntityType type, Level worldIn) {
         super(type, worldIn);
-        this.inventory = new SimpleContainer(12);
+        this.inventory = new SimpleContainer(13);
 
         this.motorUpgrade = MotorUpgrade.getBasic();
         this.tankUpgrade = TankUpgrade.getBasic();
