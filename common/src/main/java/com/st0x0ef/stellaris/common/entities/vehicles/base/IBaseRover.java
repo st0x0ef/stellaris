@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.entities.vehicles.base;
 
+import com.st0x0ef.stellaris.common.entities.vehicles.IVehicleEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
@@ -18,7 +19,7 @@ import org.joml.Vector3d;
 
 import java.util.List;
 
-public abstract class IBaseRover extends Entity
+public abstract class IBaseRover extends IVehicleEntity
 {
     public static float SCALE_FACTOR = 0.7F;
 

@@ -47,11 +47,6 @@ public abstract class AbstractRoverBase extends IBaseRover
         super(type, worldIn);
     }
 
-    @Override
-    public float maxUpStep() {
-        return 1F;
-    }
-
     public abstract float getMaxSpeed();
 
     public abstract float getMaxReverseSpeed();

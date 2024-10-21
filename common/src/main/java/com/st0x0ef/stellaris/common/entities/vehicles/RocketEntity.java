@@ -58,7 +58,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class RocketEntity extends IVehicleEntity implements HasCustomInventoryScreen, ContainerListener {
     public int START_TIMER;
-    public int FUEL;
 
     public boolean needsModelChange = false;
 
@@ -597,10 +596,6 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         entityToSpawn.getItem().set(DataComponentsRegistry.ROCKET_COMPONENT.get(), rocketComponent);
 
         this.level().addFreshEntity(entityToSpawn);
-    }
-
-    public int getFuel() {
-        return this.FUEL;
     }
 
     public int getTankCapacity() {

@@ -17,6 +17,8 @@ import net.minecraft.world.level.block.PowderSnowBlock;
 import net.minecraft.world.phys.Vec3;
 
 public abstract class IVehicleEntity extends Entity{
+    public int FUEL;
+
     private int lerpSteps;
     private double lerpX;
     private double lerpY;
@@ -259,4 +261,9 @@ public abstract class IVehicleEntity extends Entity{
         vehicle.setYBodyRot(vehicle.getYRot());
         vehicle.yRotO = vehicle.getYRot();
     }
+
+    public int getFuel() {
+        return this.FUEL;
+    }
+
 }

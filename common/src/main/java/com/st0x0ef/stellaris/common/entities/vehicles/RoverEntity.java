@@ -35,8 +35,6 @@ import org.joml.Vector3d;
 
 public class RoverEntity extends AbstractRoverBase implements HasCustomInventoryScreen, ContainerListener {
 
-    public int FUEL;
-
     public MotorUpgrade motorUpgrade;
     public TankUpgrade tankUpgrade;
     public SpeedUpgrade speedUpgrade;
@@ -69,9 +67,6 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
         this.currentFuelItem = FuelType.getItemBasedOnTypeName(roverComponent.fuelType());
     }
 
-    public int getFuel() {
-        return this.FUEL;
-    }
     @Override
     public float getMaxSpeed() {
         return 0.9F * SpeedUpgrade.getSpeedModifier();

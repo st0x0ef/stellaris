@@ -18,7 +18,7 @@ public class RoverMenu extends AbstractContainerMenu implements IVehicleMenu
 {
 
     private final Container inventory;
-    private final RoverEntity rocket;
+    private final RoverEntity rover;
 
     public RoverMenu(int syncId, Inventory inventory, FriendlyByteBuf buffer) {
         this(syncId, inventory, new SimpleContainer(15), buffer.readVarInt());
@@ -27,7 +27,7 @@ public class RoverMenu extends AbstractContainerMenu implements IVehicleMenu
     public RoverMenu(int syncId, Inventory playerInventory, Container container, int entityId) {
         super(MenuTypesRegistry.ROVER_MENU.get(), syncId);
 
-        this.rocket = (RoverEntity) playerInventory.player.level().getEntity(entityId);
+        this.rover = (RoverEntity) playerInventory.player.level().getEntity(entityId);
         checkContainerSize(container, 12);
         this.inventory = container;
 
@@ -91,7 +91,7 @@ public class RoverMenu extends AbstractContainerMenu implements IVehicleMenu
         this.addSlot(new Slot(inventory, 9, 140, 37));
 
         //UPGRADE SLOTS
-        this.addSlot(new MotorUpgradeSlot(inventory, 10, 88, 66));
+        this.addSlot(new MotorUpgradeSlot(inventory, 10, 88, 66, this.rover));
         this.addSlot(new TankUpgradeSlot(inventory, 11, 138, 66));
         this.addSlot(new SpeedUpgradeSlot(inventory,12,115,66));
 
@@ -112,7 +112,7 @@ public class RoverMenu extends AbstractContainerMenu implements IVehicleMenu
     }
 
     public RoverEntity getRover() {
-        return rocket;
+        return rover;
     }
 
     @Override
