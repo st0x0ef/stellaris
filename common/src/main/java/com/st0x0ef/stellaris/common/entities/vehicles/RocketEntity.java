@@ -4,7 +4,7 @@ import com.google.common.collect.Sets;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.RocketModel;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.data_components.RocketComponent;
-import com.st0x0ef.stellaris.common.items.RocketUpgradeItem;
+import com.st0x0ef.stellaris.common.items.VehicleUpgradeItem;
 import com.st0x0ef.stellaris.common.menus.RocketMenu;
 import com.st0x0ef.stellaris.common.network.packets.SyncRocketComponentPacket;
 import com.st0x0ef.stellaris.common.registry.*;
@@ -467,7 +467,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     private void checkContainer() {
         if (this.level().isClientSide) return;
 
-        if (this.getInventory().getItem(10).getItem() instanceof RocketUpgradeItem item) {
+        if (this.getInventory().getItem(10).getItem() instanceof VehicleUpgradeItem item) {
             if (item.getUpgrade() instanceof MotorUpgrade upgrade) {
                 this.MOTOR_UPGRADE = upgrade;
             }
@@ -475,7 +475,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
             this.MOTOR_UPGRADE = MotorUpgrade.getBasic();
         }
 
-        if (this.getInventory().getItem(11).getItem() instanceof RocketUpgradeItem item) {
+        if (this.getInventory().getItem(11).getItem() instanceof VehicleUpgradeItem item) {
             if (item.getUpgrade() instanceof TankUpgrade upgrade) {
                 this.TANK_UPGRADE = upgrade;
             }
@@ -483,7 +483,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
             this.TANK_UPGRADE = TankUpgrade.getBasic();
         }
 
-        if (this.getInventory().getItem(12).getItem() instanceof RocketUpgradeItem item) {
+        if (this.getInventory().getItem(12).getItem() instanceof VehicleUpgradeItem item) {
             if (item.getUpgrade() instanceof SkinUpgrade upgrade) {
                 this.SKIN_UPGRADE = upgrade;
                 setSkinData();
@@ -493,7 +493,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
             setSkinData();
         }
 
-        if (this.getInventory().getItem(13).getItem() instanceof RocketUpgradeItem item) {
+        if (this.getInventory().getItem(13).getItem() instanceof VehicleUpgradeItem item) {
             if (item.getUpgrade() instanceof ModelUpgrade upgrade) {
                 if (this.MODEL_UPGRADE.getModel() != upgrade.getModel()){
                     this.MODEL_UPGRADE = upgrade;

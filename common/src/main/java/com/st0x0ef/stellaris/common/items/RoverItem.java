@@ -19,7 +19,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -35,47 +34,38 @@ public class RoverItem extends Item {
     public @NotNull InteractionResult useOn(UseOnContext context) {
         Player player = context.getPlayer();
         BlockPos pos = context.getClickedPos();
-        BlockState state = context.getLevel().getBlockState(pos);
         InteractionHand hand = context.getHand();
         ItemStack itemStack = context.getItemInHand();
 
         if (context.getLevel() instanceof ServerLevel level) {
-            BlockPlaceContext blockplacecontext = new BlockPlaceContext(context);
-            BlockPos blockpos = blockplacecontext.getClickedPos();
-            Vec3 vec3 = Vec3.upFromBottomCenterOf(blockpos, -0.6f);
-            AABB aabb = EntityRegistry.ROVER.get().getDimensions().makeBoundingBox(vec3.x(), vec3.y(), vec3.z());
+            RoverEntity rover = this.getRover(context.getLevel(), itemStack);
+            rover.setPos(pos.getX() + 0.5D,  pos.getY() + 1.0D, pos.getZ() + 0.5D);
 
-            if (level.noCollision(aabb)) {
-                /** POS */
-                int x = pos.getX();
-                int y = pos.getY();
-                int z = pos.getZ();
-
-                RoverEntity rover = this.getRover(context.getLevel());
-                rover.setPos(pos.getX() + 0.5D,  pos.getY() + 1.0D, pos.getZ() + 0.5D);
-
-                if (level.addFreshEntity(rover)) {
-                    /** ITEM REMOVE */
-                    if (!player.getAbilities().instabuild) {
-                        player.setItemInHand(hand, ItemStack.EMPTY);
-                    }
-
-                    level.addFreshEntity(rover);
-
-                    /** PLACE SOUND */
-                    this.rocketPlaceSound(pos, level);
-
-                    return InteractionResult.SUCCESS;
+            if (level.addFreshEntity(rover)) {
+                if (!player.getAbilities().instabuild) {
+                    player.setItemInHand(hand, ItemStack.EMPTY);
                 }
 
+                level.addFreshEntity(rover);
+
+                /** PLACE SOUND */
+                this.roverPlaceSound(pos, level);
+
+                return InteractionResult.SUCCESS;
             }
         }
 
         return super.useOn(context);
     }
 
-    public RoverEntity getRover(Level level) {
-        return new RoverEntity(null, level);
+    public RoverEntity getRover(Level level ,ItemStack stack) {
+        RoverEntity rover = new RoverEntity(EntityRegistry.ROVER.get(), level);
+        RoverComponent roverComponent = stack.get(DataComponentsRegistry.ROVER_COMPONENT.get());
+        if(roverComponent != null) {
+            rover.FUEL = roverComponent.fuel();
+        }
+
+        return rover;
     }
 
     @Override
@@ -86,7 +76,7 @@ public class RoverItem extends Item {
     }
 
 
-    public void rocketPlaceSound(BlockPos pos, Level world) {
+    public void roverPlaceSound(BlockPos pos, Level world) {
         world.playSound(null, pos, SoundEvents.STONE_BREAK, SoundSource.BLOCKS, 1,1);
     }
 

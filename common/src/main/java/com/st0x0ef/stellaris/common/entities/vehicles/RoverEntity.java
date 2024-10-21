@@ -2,7 +2,7 @@ package com.st0x0ef.stellaris.common.entities.vehicles;
 
 import com.st0x0ef.stellaris.common.data_components.RoverComponent;
 import com.st0x0ef.stellaris.common.entities.vehicles.base.AbstractRoverBase;
-import com.st0x0ef.stellaris.common.items.RocketUpgradeItem;
+import com.st0x0ef.stellaris.common.items.VehicleUpgradeItem;
 import com.st0x0ef.stellaris.common.menus.RoverMenu;
 import com.st0x0ef.stellaris.common.network.packets.SyncRoverComponentPacket;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
@@ -164,7 +164,7 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
     private void checkContainer() {
         if (this.level().isClientSide) return;
 
-        if (this.getInventory().getItem(10).getItem() instanceof RocketUpgradeItem item) {
+        if (this.getInventory().getItem(10).getItem() instanceof VehicleUpgradeItem item) {
             if (item.getUpgrade() instanceof MotorUpgrade upgrade) {
                 this.motorUpgrade = upgrade;
             }
@@ -172,7 +172,7 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
             this.motorUpgrade = MotorUpgrade.getBasic();
         }
 
-        if (this.getInventory().getItem(11).getItem() instanceof RocketUpgradeItem item) {
+        if (this.getInventory().getItem(11).getItem() instanceof VehicleUpgradeItem item) {
             if (item.getUpgrade() instanceof TankUpgrade upgrade) {
                 this.tankUpgrade = upgrade;
             }
