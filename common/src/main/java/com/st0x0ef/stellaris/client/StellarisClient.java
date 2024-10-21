@@ -8,6 +8,7 @@ import com.st0x0ef.stellaris.client.overlays.RocketStartOverlay;
 import com.st0x0ef.stellaris.client.particles.*;
 import com.st0x0ef.stellaris.client.renderers.armors.JetSuitModel;
 import com.st0x0ef.stellaris.client.renderers.armors.SpaceSuitModel;
+import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rover.RoverItemRenderer;
 import com.st0x0ef.stellaris.client.screens.*;
 import com.st0x0ef.stellaris.common.data.screen.MoonPack;
 import com.st0x0ef.stellaris.common.data.screen.PlanetPack;
@@ -23,11 +24,15 @@ import dev.architectury.registry.client.rendering.ColorHandlerRegistry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.server.packs.PackType;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.component.DyedItemColor;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL43;
 import org.lwjgl.opengl.GLDebugMessageCallback;
+
+import java.util.function.BiConsumer;
 
 @Environment(EnvType.CLIENT)
 public class StellarisClient {

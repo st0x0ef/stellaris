@@ -20,12 +20,6 @@ import net.minecraft.world.level.block.state.BlockState;
 
 @Environment(EnvType.CLIENT)
 public class GlobeBlockRenderer<T extends GlobeBlockEntity> implements BlockEntityRenderer<GlobeBlockEntity> {
-
-    private static ItemStack stack1 = new ItemStack(ItemsRegistry.EARTH_GLOBE_ITEM);
-    private static ItemStack stack3 = new ItemStack(ItemsRegistry.MARS_GLOBE_ITEM);
-    private static ItemStack stack4 = new ItemStack(ItemsRegistry.MOON_GLOBE_ITEM);
-    private static ItemStack stack5 = new ItemStack(ItemsRegistry.MERCURY_GLOBE_ITEM);
-    private static ItemStack stack6 = new ItemStack(ItemsRegistry.VENUS_GLOBE_ITEM);
     private GlobeModel<?> model;
 
     public GlobeBlockRenderer(BlockEntityRendererProvider.Context Context) {}

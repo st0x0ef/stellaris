@@ -108,6 +108,8 @@ public class StellarisFabricClient implements ClientModInitializer {
         BuiltinItemRendererRegistry.INSTANCE.register(ItemsRegistry.MARS_GLOBE_ITEM.get(), ItemRendererRegistry.GLOBE_ITEM_RENDERER::renderByItem);
         BuiltinItemRendererRegistry.INSTANCE.register(ItemsRegistry.MERCURY_GLOBE_ITEM.get(), ItemRendererRegistry.GLOBE_ITEM_RENDERER::renderByItem);
         BuiltinItemRendererRegistry.INSTANCE.register(ItemsRegistry.VENUS_GLOBE_ITEM.get(), ItemRendererRegistry.GLOBE_ITEM_RENDERER::renderByItem);
+
+        BuiltinItemRendererRegistry.INSTANCE.register(ItemsRegistry.ROVER.get(), ItemRendererRegistry.ROVER_ITEM_RENDERER::renderByItem);
     }
 
     public static void registerEntityModelLayer() {

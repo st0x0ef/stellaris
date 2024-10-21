@@ -38,8 +38,10 @@ import com.st0x0ef.stellaris.client.renderers.globe.GlobeModel;
 import com.st0x0ef.stellaris.client.screens.*;
 import com.st0x0ef.stellaris.common.registry.*;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -53,9 +55,11 @@ import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsE
 import net.neoforged.neoforge.common.NeoForge;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @EventBusSubscriber(modid = Stellaris.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
 public class StellarisNeoforgeClient {
-
     @SubscribeEvent
     public static void clientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(StellarisClient::initClient);
@@ -103,11 +107,11 @@ public class StellarisNeoforgeClient {
         event.registerLayerDefinition(SmallRocketModel.LAYER_LOCATION, SmallRocketModel::createBodyLayer);
         event.registerLayerDefinition(NormalRocketModel.LAYER_LOCATION, NormalRocketModel::createBodyLayer);
         event.registerLayerDefinition(BigRocketModel.LAYER_LOCATION, BigRocketModel::createBodyLayer);
+
         event.registerLayerDefinition(RoverModel.LAYER_LOCATION, RoverModel::createBodyLayer);
 
         event.registerLayerDefinition(JetSuitModel.LAYER_LOCATION, JetSuitModel::createBodyLayer);
         event.registerLayerDefinition(SpaceSuitModel.LAYER_LOCATION, SpaceSuitModel::createBodyLayer);
-
     }
 
     @SubscribeEvent
@@ -154,8 +158,6 @@ public class StellarisNeoforgeClient {
                 return attributes.getFlowingTexture();
             }
         }, attributes.getFlowingFluid().getFluidType())));
-
-        //EffectsRegistry.MOB_EFFECTS_INFOS.forEach((effect -> event.registerMobEffect(new IClientMobEffectExtensions() {}, effect.get())));
     }
 
     private static void clientTick(ClientTickEvent.Post event) {
