@@ -2,14 +2,14 @@ package com.st0x0ef.stellaris.common.vehicle_upgrade;
 
 public class SpeedUpgrade extends VehicleUpgrade
 {
-    public static int speedModifier;
+    public float speedModifier;
 
-    public SpeedUpgrade(int speedModifier)
+    public SpeedUpgrade(float speedModifier)
     {
-        SpeedUpgrade.speedModifier = speedModifier;
+        this.speedModifier = speedModifier;
     }
 
-    public static int getSpeedModifier() {
+    public float getSpeedModifier() {
         return speedModifier;
     }
 

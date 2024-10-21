@@ -286,7 +286,7 @@
 
 
 
-  "STELLARIS ROCKET STUFF":
+  "STELLARIS VEHICLE STUFF":
   ""
 ,
 
@@ -312,8 +312,9 @@
   "item.stellaris.skin_military": "Military Skin",
   "item.stellaris.skin_galaxy": "Galaxy Skin",
 
-  "item.stellaris.basic_rocket_skin": "Basic Rocket Skin",
-  "item.stellaris.frozy_rocket_skin": "Frozen Rocket Skin",
+  "item.stellaris.rover": "Rover",
+
+  "item.stellaris.speed_upgrade": "Speed Upgrade",
 
 
 

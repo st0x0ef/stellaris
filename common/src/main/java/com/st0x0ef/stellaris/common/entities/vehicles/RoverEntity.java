@@ -52,7 +52,7 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
         this.speedUpgrade = SpeedUpgrade.getBasicModifier();
         this.currentFuelItem = ItemsRegistry.FUEL_BUCKET.get();
         this.FUEL = 0;
-        this.roverComponent = new RoverComponent(currentFuelItem.toString(), FUEL, motorUpgrade.getFluidTexture(), tankUpgrade.getTankCapacity(),speedUpgrade.getSpeedModifier());
+        this.roverComponent = new RoverComponent(currentFuelItem.toString(), FUEL, motorUpgrade.getFluidTexture(), tankUpgrade.getTankCapacity(), speedUpgrade.getSpeedModifier());
     }
 
     public void setRoverComponent(RoverComponent roverComponent) {
@@ -60,24 +60,24 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
 
         this.motorUpgrade = roverComponent.getMotorUpgrade();
         this.tankUpgrade = roverComponent.getTankUpgrade();
-        this.speedUpgrade = roverComponent.getSpeedModifier();
+        this.speedUpgrade = roverComponent.getSpeedUpgrade();
         this.FUEL = roverComponent.getFuel();
         this.currentFuelItem = FuelType.getItemBasedOnTypeName(roverComponent.fuelType());
     }
 
     @Override
     public float getMaxSpeed() {
-        return 0.8F * SpeedUpgrade.getSpeedModifier();
+        return 0.8F * speedUpgrade.getSpeedModifier();
     }
 
     @Override
     public float getMaxReverseSpeed() {
-        return 0.6F* SpeedUpgrade.getSpeedModifier();
+        return 0.6F * speedUpgrade.getSpeedModifier();
     }
 
     @Override
     public float getAcceleration() {
-        return (1.8F * SpeedUpgrade.getSpeedModifier() * 0.5f) / 2;
+        return (1.8F * speedUpgrade.getSpeedModifier() * 0.5f) / 2;
     }
 
     @Override
@@ -240,13 +240,12 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
     }
 
     public void syncRocketData(ServerPlayer player) {
-        this.roverComponent = new RoverComponent(currentFuelItem.toString(), FUEL, motorUpgrade.getFluidTexture(), tankUpgrade.getTankCapacity(),speedUpgrade.getSpeedModifier());
+        this.roverComponent = new RoverComponent(currentFuelItem.toString(), FUEL, motorUpgrade.getFluidTexture(), tankUpgrade.getTankCapacity(), speedUpgrade.getSpeedModifier());
         if (!level().isClientSide()) {
             NetworkManager.sendToPlayer(player, new SyncRoverComponentPacket(roverComponent));
         }
     }
-    private void spawnRoverItem()
-    {
+    private void spawnRoverItem() {
         ItemEntity entityToSpawn = new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), this.getRoverItem());
         entityToSpawn.setPickUpDelay(10);
         entityToSpawn.getItem().set(DataComponentsRegistry.ROVER_COMPONENT.get(), roverComponent);
@@ -254,8 +253,7 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
         this.level().addFreshEntity(entityToSpawn);
     }
 
-    private ItemStack getRoverItem()
-    {
+    private ItemStack getRoverItem() {
         return ItemsRegistry.ROVER.get().getDefaultInstance();
     }
 
