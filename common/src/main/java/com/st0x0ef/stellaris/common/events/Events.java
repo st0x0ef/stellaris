@@ -6,6 +6,7 @@ import com.st0x0ef.stellaris.common.oxygen.GlobalOxygenManager;
 import com.st0x0ef.stellaris.common.oxygen.OxygenRoom;
 import com.st0x0ef.stellaris.common.registry.BlocksRegistry;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
+import com.st0x0ef.stellaris.common.registry.EffectsRegistry;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import dev.architectury.event.EventResult;
@@ -16,13 +17,9 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.CampfireBlock;
-import net.minecraft.world.level.block.LanternBlock;
-import net.minecraft.world.level.block.WallTorchBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-
 
 public class Events {
     private static final int RADIATION_CHECK_INTERVAL = 100;
@@ -30,7 +27,7 @@ public class Events {
 
     public static void registerEvents() {
         TickEvent.PLAYER_POST.register(player -> {
-            if (tickBeforeNextRadioactiveCheck-- <= 0 && !Utils.isLivingInJetSuit(player)) {
+            if (tickBeforeNextRadioactiveCheck <= 0 && !Utils.isLivingInJetSuit(player)) {
                 if (!player.level().isClientSide()) {
                     int maxRadiationLevel = player.getInventory().items.stream()
                             .filter(itemStack -> itemStack.has(DataComponentsRegistry.RADIOACTIVE.get()))
@@ -39,14 +36,13 @@ public class Events {
                             .orElse(0);
 
                     if (maxRadiationLevel > 0) {
-                       // player.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE, 100, maxRadiationLevel - 1));
-
-                        player.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 80));
-                        player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80));
+                        player.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE, 100, maxRadiationLevel - 1));
                     }
                 }
                 tickBeforeNextRadioactiveCheck = RADIATION_CHECK_INTERVAL;
             }
+
+            tickBeforeNextRadioactiveCheck--;
         });
 
         BlockEvent.BREAK.register((level, pos, state, player, value) -> {
@@ -101,9 +97,9 @@ public class Events {
                 } else if (state.is(Blocks.SOUL_CAMPFIRE)) {
                     serverLevel.setBlock(pos, state.setValue(CampfireBlock.LIT, false), 3);
                     return EventResult.interruptFalse();
-               // } else if (state.is(Blocks.CANDLE)){
-                  //  serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
-                  //  return EventResult.interruptFalse();
+                    // } else if (state.is(Blocks.CANDLE)){
+                    //  serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
+                    //  return EventResult.interruptFalse();
 
                 }
             }
