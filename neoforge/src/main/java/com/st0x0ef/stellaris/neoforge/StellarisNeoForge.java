@@ -6,6 +6,7 @@ import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import com.st0x0ef.stellaris.neoforge.systems.SystemsNeoForge;
 import net.minecraft.world.item.CreativeModeTabs;
+import com.st0x0ef.stellaris.platform.neoforge.EffectRegisterImpl;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -24,6 +25,7 @@ public class StellarisNeoForge {
         NeoForge.EVENT_BUS.addListener(StellarisNeoForge::onAddReloadListenerEvent);
         NeoForge.EVENT_BUS.addListener(StellarisNeoForge::onDatapackSync);
         //NeoForge.EVENT_BUS.addListener(StellarisNeoForge::addItemToTab);
+        EffectRegisterImpl.MOB_EFFECTS.register(bus);
 
         bus.addListener(StellarisNeoForge::onAttributes);
         bus.addListener(StellarisNeoForge::addItemToTab);
