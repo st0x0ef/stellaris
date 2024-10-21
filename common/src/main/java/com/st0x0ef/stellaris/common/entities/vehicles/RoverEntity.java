@@ -42,7 +42,6 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
     public final SimpleContainer inventory;
 
     public RoverComponent roverComponent;
-    private Player lastPlayer;
 
     public RoverEntity(EntityType type, Level worldIn) {
         super(type, worldIn);
@@ -54,7 +53,6 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
         this.currentFuelItem = ItemsRegistry.FUEL_BUCKET.get();
         this.FUEL = 0;
         this.roverComponent = new RoverComponent(currentFuelItem.toString(), FUEL, motorUpgrade.getFluidTexture(), tankUpgrade.getTankCapacity(),speedUpgrade.getSpeedModifier());
-
     }
 
     public void setRoverComponent(RoverComponent roverComponent) {
@@ -69,12 +67,12 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
 
     @Override
     public float getMaxSpeed() {
-        return 0.9F * SpeedUpgrade.getSpeedModifier();
+        return 0.8F * SpeedUpgrade.getSpeedModifier();
     }
 
     @Override
     public float getMaxReverseSpeed() {
-        return 0.7F* SpeedUpgrade.getSpeedModifier();
+        return 0.6F* SpeedUpgrade.getSpeedModifier();
     }
 
     @Override
@@ -328,7 +326,6 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
 
     @Override
     public void openCustomInventoryScreen(Player player) {
-        this.lastPlayer = player;
         if (player instanceof ServerPlayer serverPlayer) {
             MenuRegistry.openExtendedMenu(serverPlayer, new ExtendedMenuProvider() {
                 @Override
