@@ -1,13 +1,11 @@
-# 1.1.5 changelog
+# 1.1.7 changelog
 
-## Change
-- Steel ore & deepslate steel ore tab
-- Improve oil finder tooltip
+## Additions
+- Configurable slow lander key
+- Entities translations
+
+## Changes
+- Update Sky Aesthetic to 1.2.5
 
 ## Fix
-- Fix gauge offset
-- Fix taking radioactive damage in jet suit
-- Fix fortune enchant on custom ore
-
-## Remove
-- Remove disable custom sky option in config, will be reintroduced later
+- Fix tags
