@@ -1,11 +1,8 @@
 package com.st0x0ef.stellaris.common.menus;
 
-import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
+import com.st0x0ef.stellaris.common.entities.vehicles.RoverEntity;
 import com.st0x0ef.stellaris.common.menus.slot.ResultSlot;
-import com.st0x0ef.stellaris.common.menus.slot.upgrade.MotorUpgradeSlot;
-import com.st0x0ef.stellaris.common.menus.slot.upgrade.RocketModelSlot;
-import com.st0x0ef.stellaris.common.menus.slot.upgrade.RocketSkinSlot;
-import com.st0x0ef.stellaris.common.menus.slot.upgrade.TankUpgradeSlot;
+import com.st0x0ef.stellaris.common.menus.slot.upgrade.*;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
@@ -17,20 +14,21 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
-public class RocketMenu extends AbstractContainerMenu implements IVehicleMenu {
+public class RoverMenu extends AbstractContainerMenu implements IVehicleMenu
+{
 
     private final Container inventory;
-    private final RocketEntity rocket;
+    private final RoverEntity rocket;
 
-    public RocketMenu(int syncId, Inventory inventory, FriendlyByteBuf buffer) {
+    public RoverMenu(int syncId, Inventory inventory, FriendlyByteBuf buffer) {
         this(syncId, inventory, new SimpleContainer(15), buffer.readVarInt());
     }
 
-    public RocketMenu(int syncId, Inventory playerInventory, Container container, int entityId) {
-        super(MenuTypesRegistry.ROCKET_MENU.get(), syncId);
+    public RoverMenu(int syncId, Inventory playerInventory, Container container, int entityId) {
+        super(MenuTypesRegistry.ROVER_MENU.get(), syncId);
 
-        this.rocket = (RocketEntity) playerInventory.player.level().getEntity(entityId);
-        checkContainerSize(container, 14);
+        this.rocket = (RoverEntity) playerInventory.player.level().getEntity(entityId);
+        checkContainerSize(container, 12);
         this.inventory = container;
 
         addSlots(inventory);
@@ -67,7 +65,7 @@ public class RocketMenu extends AbstractContainerMenu implements IVehicleMenu {
     @Override
     public boolean stillValid(Player player) {
         if (!player.isLocalPlayer()) {
-            this.getRocket().syncRocketData((ServerPlayer) player);
+            this.getRover().syncRocketData((ServerPlayer) player);
         }
 
         return this.inventory.stillValid(player);
@@ -93,13 +91,9 @@ public class RocketMenu extends AbstractContainerMenu implements IVehicleMenu {
         this.addSlot(new Slot(inventory, 9, 140, 37));
 
         //UPGRADE SLOTS
-        this.addSlot(new MotorUpgradeSlot(inventory, 10, 76, 66, getRocket()));
-        this.addSlot(new TankUpgradeSlot(inventory, 11, 101, 66));
-
-        //SKIN SLOTS
-        this.addSlot(new RocketSkinSlot(inventory, 12, 126, 66));
-        //MODEL SLOTS
-        this.addSlot(new RocketModelSlot(inventory, 13, 151, 66));
+        this.addSlot(new MotorUpgradeSlot(inventory, 10, 88, 66));
+        this.addSlot(new TankUpgradeSlot(inventory, 11, 138, 66));
+        this.addSlot(new SpeedUpgradeSlot(inventory,12,115,66));
 
     }
 
@@ -117,12 +111,12 @@ public class RocketMenu extends AbstractContainerMenu implements IVehicleMenu {
         }
     }
 
-    public RocketEntity getRocket() {
+    public RoverEntity getRover() {
         return rocket;
     }
 
     @Override
     public int getFuel() {
-        return getRocket().getFuel();
+        return getRover().getFuel();
     }
 }

@@ -1,10 +1,10 @@
-package com.st0x0ef.stellaris.client.renderers.entities.vehicle;
+package com.st0x0ef.stellaris.client.renderers.entities.vehicle.rover;
 
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
-import com.st0x0ef.stellaris.common.entities.vehicles.IVehicleEntity;
+import com.st0x0ef.stellaris.common.entities.vehicles.base.AbstractRoverBase;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -26,11 +26,11 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 @Environment(EnvType.CLIENT)
-public abstract class VehicleRenderer<T extends IVehicleEntity, M extends EntityModel<T>> extends EntityRenderer<T> implements RenderLayerParent<T, M> {
+public abstract class AbstractRoverRenderer<T extends AbstractRoverBase, M extends EntityModel<T>> extends EntityRenderer<T> implements RenderLayerParent<T, M> {
     protected final M model;
     protected final List<RenderLayer<T, M>> layers = Lists.newArrayList();
 
-    public VehicleRenderer(EntityRendererProvider.Context context, M model, float shadowRadius) {
+    public AbstractRoverRenderer(EntityRendererProvider.Context context, M model, float shadowRadius) {
         super(context);
         this.model = model;
         this.shadowRadius = shadowRadius;

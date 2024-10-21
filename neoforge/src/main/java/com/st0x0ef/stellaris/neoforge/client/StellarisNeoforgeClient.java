@@ -31,6 +31,8 @@ import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.small.Smal
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.small.SmallRocketRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.tiny.TinyRocketModel;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.tiny.TinyRocketRenderer;
+import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rover.RoverModel;
+import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rover.RoverRenderer;
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeBlockRenderer;
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeModel;
 import com.st0x0ef.stellaris.client.screens.*;
@@ -79,6 +81,7 @@ public class StellarisNeoforgeClient {
         event.registerEntityRenderer(EntityRegistry.BIG_ROCKET.get(), BigRocketRenderer::new);
 
         event.registerEntityRenderer(EntityRegistry.LANDER.get(), LanderRenderer::new);
+        event.registerEntityRenderer(EntityRegistry.ROVER.get(), RoverRenderer::new);
 
         event.registerBlockEntityRenderer(BlockEntityRegistry.GLOBE_BLOCK_ENTITY.get(), GlobeBlockRenderer::new);
     }
@@ -100,6 +103,7 @@ public class StellarisNeoforgeClient {
         event.registerLayerDefinition(SmallRocketModel.LAYER_LOCATION, SmallRocketModel::createBodyLayer);
         event.registerLayerDefinition(NormalRocketModel.LAYER_LOCATION, NormalRocketModel::createBodyLayer);
         event.registerLayerDefinition(BigRocketModel.LAYER_LOCATION, BigRocketModel::createBodyLayer);
+        event.registerLayerDefinition(RoverModel.LAYER_LOCATION, RoverModel::createBodyLayer);
 
         event.registerLayerDefinition(JetSuitModel.LAYER_LOCATION, JetSuitModel::createBodyLayer);
         event.registerLayerDefinition(SpaceSuitModel.LAYER_LOCATION, SpaceSuitModel::createBodyLayer);
@@ -110,6 +114,7 @@ public class StellarisNeoforgeClient {
     public static void registerScreen(RegisterMenuScreensEvent event) {
         event.register(MenuTypesRegistry.ROCKET_STATION.get(), RocketStationScreen::new);
         event.register(MenuTypesRegistry.ROCKET_MENU.get(), RocketScreen::new);
+        event.register(MenuTypesRegistry.ROVER_MENU.get(), RoverScreen::new);
         event.register(MenuTypesRegistry.VACUMATOR_MENU.get(), VacumatorScreen::new);
         event.register(MenuTypesRegistry.SOLAR_PANEL_MENU.get(), SolarPanelScreen::new);
         event.register(MenuTypesRegistry.COAL_GENERATOR_MENU.get(), CoalGeneratorScreen::new);

@@ -106,6 +106,7 @@ public class Events {
 
             return EventResult.pass();
         });
+
     }
 
     private static void addOxygenRoom(ServerLevel level, BlockPos pos) {

@@ -8,7 +8,7 @@ import com.st0x0ef.stellaris.common.items.RocketUpgradeItem;
 import com.st0x0ef.stellaris.common.menus.RocketMenu;
 import com.st0x0ef.stellaris.common.network.packets.SyncRocketComponentPacket;
 import com.st0x0ef.stellaris.common.registry.*;
-import com.st0x0ef.stellaris.common.rocket_upgrade.*;
+import com.st0x0ef.stellaris.common.vehicle_upgrade.*;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import dev.architectury.networking.NetworkManager;
 import dev.architectury.registry.menu.ExtendedMenuProvider;
