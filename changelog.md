@@ -25,7 +25,11 @@
   - Venus Plaza
   - Venus Ruins
   - Venus Tower
+- Biomes :
+  - Moon Caves
+  - Mercury Fire Land
 - Rover
+- Speed Upgrade
 - Modular Space Suit
 - Meteor can now spawn on moon
 

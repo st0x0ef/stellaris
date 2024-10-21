@@ -11,11 +11,9 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.InputEvent;
 
 @EventBusSubscriber(modid = Stellaris.MODID,bus = EventBusSubscriber.Bus.GAME,value = Dist.CLIENT)
-public class Events
-{
+public class Events {
     @SubscribeEvent
-    public static void onKeyInput(InputEvent.Key event)
-    {
+    public static void onKeyInput(InputEvent.Key event) {
         Minecraft minecraft = Minecraft.getInstance();
 
         Player player = minecraft.player;
@@ -26,12 +24,8 @@ public class Events
 
         Entity riding = player.getVehicle();
 
-        if (!(riding instanceof AbstractRoverBase car)) {
-            return;
-        }
-
-        if (player.equals(car.getDriver())) {
-            car.updateControls(minecraft.options.keyUp.isDown(), minecraft.options.keyDown.isDown(), minecraft.options.keyLeft.isDown(), minecraft.options.keyRight.isDown(), player);
+        if (riding instanceof AbstractRoverBase rover && player.equals(rover.getDriver())) {
+            rover.updateControls(minecraft.options.keyUp.isDown(), minecraft.options.keyDown.isDown(), minecraft.options.keyLeft.isDown(), minecraft.options.keyRight.isDown(), player);
         }
     }
 }

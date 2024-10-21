@@ -5,7 +5,6 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import com.st0x0ef.stellaris.common.blocks.GlobeBlock;
 import com.st0x0ef.stellaris.common.blocks.entities.GlobeBlockEntity;
-import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -15,7 +14,6 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 
 @Environment(EnvType.CLIENT)
