@@ -18,7 +18,7 @@ import net.minecraft.world.entity.player.Inventory;
 public class RoverScreen  extends AbstractContainerScreen<RoverMenu> {
     private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/rover_gui.png");
 
-    private final RoverEntity rocket = getMenu().getRover();
+    private final RoverEntity rover = getMenu().getRover();
     private GaugeWidget fuelGauge;
 
     public RoverScreen(RoverMenu abstractContainerMenu, Inventory inventory, Component component) {
@@ -32,11 +32,11 @@ public class RoverScreen  extends AbstractContainerScreen<RoverMenu> {
     protected void init() {
         super.init();
 
-        if (rocket == null) {
+        if (rover == null) {
             return;
         }
 
-        fuelGauge = new GaugeWidget(leftPos + 51, topPos + 27, 12, 46, Component.translatable("stellaris.screen.fuel"), rocket.getRoverComponent().getMotorUpgrade().getFluidTexture(), GUISprites.FLUID_TANK_OVERLAY, rocket.getRoverComponent().getTankCapacity(), GaugeWidget.Direction4.DOWN_UP);
+        fuelGauge = new GaugeWidget(leftPos + 51, topPos + 27, 12, 46, Component.translatable("stellaris.screen.fuel"), rover.getRoverComponent().getMotorUpgrade().getFluidTexture(), GUISprites.FLUID_TANK_OVERLAY, rover.getRoverComponent().getTankCapacity(), GaugeWidget.Direction4.DOWN_UP);
         addRenderableWidget(fuelGauge);
     }
 
@@ -46,12 +46,12 @@ public class RoverScreen  extends AbstractContainerScreen<RoverMenu> {
         super.render(graphics, mouseX, mouseY, partialTicks);
         renderTooltip(graphics, mouseX, mouseY);
 
-        if (rocket == null) {
+        if (rover == null) {
             return;
         }
 
-        fuelGauge.updateAmount(rocket.getFuel());
-        fuelGauge.updateSprite(rocket.getRoverComponent().getFuelTexture());
+        fuelGauge.updateAmount(rover.getFuel());
+        fuelGauge.updateSprite(rover.getRoverComponent().getFuelTexture());
 
         fuelGauge.renderTooltip(graphics, mouseX, mouseY, font);
     }
