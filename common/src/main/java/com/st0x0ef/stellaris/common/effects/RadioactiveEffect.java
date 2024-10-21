@@ -17,17 +17,13 @@ public class RadioactiveEffect extends MobEffect {
 
     @Override
     public boolean applyEffectTick(LivingEntity livingEntity, int amplifier) {
-        this.applyEffectTick(livingEntity, amplifier);
         if (livingEntity.getHealth() > 0.0F) {
             if (amplifier == 0) {
-                livingEntity.hurt(DamageSourceRegistry.of(livingEntity.level(), DamageSourceRegistry.RADIATIONS), 0.5f);
-            } else if (amplifier == 1) {
-                livingEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 80));
-                livingEntity.hurt(DamageSourceRegistry.of(livingEntity.level(), DamageSourceRegistry.RADIATIONS), 0.5f);
-            } else if (amplifier == 2) {
-                livingEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 80));
-                livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80));
                 livingEntity.hurt(DamageSourceRegistry.of(livingEntity.level(), DamageSourceRegistry.RADIATIONS), 1f);
+            } else if (amplifier == 1) {
+                livingEntity.hurt(DamageSourceRegistry.of(livingEntity.level(), DamageSourceRegistry.RADIATIONS), 1.5f);
+            } else if (amplifier == 2) {
+                livingEntity.hurt(DamageSourceRegistry.of(livingEntity.level(), DamageSourceRegistry.RADIATIONS), 2f);
             }
         }
 
@@ -47,15 +43,5 @@ public class RadioactiveEffect extends MobEffect {
     @Override
     public void onEffectAdded(LivingEntity entity, int amplifier) {
         super.onEffectAdded(entity, amplifier);
-    }
-
-    @Override
-    public void onEffectStarted(LivingEntity livingEntity, int amplifier) {
-         if (amplifier == 1) {
-            livingEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 80));
-        } else if (amplifier == 2) {
-            livingEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 80));
-            livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80));
-        }
     }
 }

@@ -53,8 +53,6 @@ public class StellarisNeoForge {
         }
     }
 
-
-
     public static void onAddReloadListenerEvent(AddReloadListenerEvent event) {
         Stellaris.onAddReloadListenerEvent((id, listener) -> event.addListener(listener));
     }
