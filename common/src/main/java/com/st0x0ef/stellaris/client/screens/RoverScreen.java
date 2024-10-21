@@ -2,7 +2,7 @@ package com.st0x0ef.stellaris.client.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.client.screens.components.Gauge;
+import com.st0x0ef.stellaris.client.screens.components.GaugeWidget;
 import com.st0x0ef.stellaris.common.entities.vehicles.RoverEntity;
 import com.st0x0ef.stellaris.common.menus.RoverMenu;
 import net.fabricmc.api.EnvType;
@@ -19,7 +19,7 @@ public class RoverScreen  extends AbstractContainerScreen<RoverMenu> {
     private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/rover_gui.png");
 
     private final RoverEntity rocket = getMenu().getRover();
-    private Gauge fuelGauge;
+    private GaugeWidget fuelGauge;
 
     public RoverScreen(RoverMenu abstractContainerMenu, Inventory inventory, Component component) {
         super(abstractContainerMenu, inventory, component);
@@ -36,7 +36,7 @@ public class RoverScreen  extends AbstractContainerScreen<RoverMenu> {
             return;
         }
 
-        fuelGauge = new Gauge(leftPos + 51, topPos + 27, 12, 46, Component.translatable("stellaris.screen.fuel"), rocket.getRoverComponent().getMotorUpgrade().getFluidTexture(), GUISprites.FLUID_TANK_OVERLAY, rocket.getRoverComponent().getFuel(), rocket.getRoverComponent().getTankCapacity());
+        fuelGauge = new GaugeWidget(leftPos + 51, topPos + 27, 12, 46, Component.translatable("stellaris.screen.fuel"), rocket.getRoverComponent().getMotorUpgrade().getFluidTexture(), GUISprites.FLUID_TANK_OVERLAY, rocket.getRoverComponent().getTankCapacity(), GaugeWidget.Direction4.DOWN_UP);
         addRenderableWidget(fuelGauge);
     }
 
@@ -50,8 +50,8 @@ public class RoverScreen  extends AbstractContainerScreen<RoverMenu> {
             return;
         }
 
-        fuelGauge.update(rocket.getFuel());
-        fuelGauge.updateFluidTexture(rocket.getRoverComponent().getFuelTexture());
+        fuelGauge.updateAmount(rocket.getFuel());
+        fuelGauge.updateSprite(rocket.getRoverComponent().getFuelTexture());
 
         fuelGauge.renderTooltip(graphics, mouseX, mouseY, font);
     }
