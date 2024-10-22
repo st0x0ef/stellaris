@@ -9,6 +9,7 @@
   - Moon First Landing
   - Moon Launchpad
   - Moon Dungeon
+  - Moon Destroyed Spaceship
   - Small Moon Dungeon
   - Moon Destroyed Village
   - Moon Village
