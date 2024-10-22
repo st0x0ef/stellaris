@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.common.vehicle_upgrade;
 
-public class SpeedUpgrade extends VehicleUpgrade
-{
+public class SpeedUpgrade extends VehicleUpgrade {
     public float speedModifier;
 
     public SpeedUpgrade(float speedModifier)
@@ -15,6 +14,6 @@ public class SpeedUpgrade extends VehicleUpgrade
 
     public static SpeedUpgrade getBasic()
     {
-        return new SpeedUpgrade(1);
+        return new SpeedUpgrade(1f);
     }
 }

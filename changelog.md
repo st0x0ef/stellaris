@@ -25,6 +25,7 @@
   - Venus Plaza
   - Venus Ruins
   - Venus Tower
+  - Mercury Big Castle
 - Biomes :
   - Moon Caves
   - Mercury Fire Land

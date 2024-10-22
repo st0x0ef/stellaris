@@ -585,7 +585,6 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
             for (LivingEntity entity : entities) {
                 entity.setRemainingFireTicks(40);
-
             }
         }
     }
