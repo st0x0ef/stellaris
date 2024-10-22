@@ -1,14 +1,14 @@
 {
   "structures": [
     {
-      "structure": "stellaris:mercury_big_castle",
+      "structure": "stellaris:mercury_volcano",
       "weight": 1
     }
   ],
   "placement": {
     "type": "minecraft:random_spread",
-    "salt": 2033109259,
-    "spacing": 60,
-    "separation": 40
+    "salt": 324957075,
+    "spacing": 45,
+    "separation": 20
   }
 }

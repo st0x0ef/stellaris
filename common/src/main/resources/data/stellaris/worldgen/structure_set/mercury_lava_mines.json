@@ -1,14 +1,14 @@
 {
   "structures": [
     {
-      "structure": "stellaris:mercury_big_castle",
+      "structure": "stellaris:mercury_lava_mines",
       "weight": 1
     }
   ],
   "placement": {
     "type": "minecraft:random_spread",
-    "salt": 2033109259,
+    "salt": 1143744966,
     "spacing": 60,
-    "separation": 40
+    "separation": 30
   }
 }

@@ -1,14 +1,14 @@
 {
   "structures": [
     {
-      "structure": "stellaris:mercury_big_castle",
+      "structure": "stellaris:mercury_factory",
       "weight": 1
     }
   ],
   "placement": {
     "type": "minecraft:random_spread",
-    "salt": 2033109259,
-    "spacing": 60,
-    "separation": 40
+    "salt": 1591924087,
+    "spacing": 50,
+    "separation": 30
   }
 }
