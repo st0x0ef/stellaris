@@ -21,6 +21,8 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.*;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.HasCustomInventoryScreen;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -244,7 +246,24 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
         if (!this.level().isClientSide) {
             this.remove(RemovalReason.DISCARDED);
         }
+    }
 
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        Entity sourceEntity = source.getEntity();
+
+        if (sourceEntity != null && sourceEntity.isCrouching() && !this.isVehicle()) {
+            this.dropEquipment();
+            this.spawnRoverItem();
+
+            if (!this.level().isClientSide) {
+                this.remove(RemovalReason.DISCARDED);
+            }
+
+            return true;
+        }
+
+        return false;
     }
 
     public void syncRocketData(ServerPlayer player) {

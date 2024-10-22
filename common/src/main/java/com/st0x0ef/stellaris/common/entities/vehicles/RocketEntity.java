@@ -145,8 +145,6 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
     @Override
     protected void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-
         compound.put("InventoryCustom", this.inventory.createTag(registryAccess()));
         compound.putInt("fuel", FUEL);
 
@@ -174,7 +172,6 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
     @Override
     protected void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
         ListTag inventoryCustom = compound.getList("InventoryCustom", 14);
         this.inventory.fromTag(inventoryCustom, registryAccess());
         FUEL = compound.getInt("fuel");
@@ -305,7 +302,6 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         Entity sourceEntity = source.getEntity();
 
         if (sourceEntity != null && sourceEntity.isCrouching() && !this.isVehicle()) {
-
             this.spawnRocketItem();
             this.dropEquipment();
 
@@ -664,11 +660,6 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
             case NORMAL -> EntityRegistry.NORMAL_ROCKET.get();
             case BIG -> EntityRegistry.BIG_ROCKET.get();
         };
-    }
-
-    @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity entity) {
-        return NetworkManager.createAddEntityPacket(this, entity);
     }
 
     public RocketComponent getRocketComponent() {
