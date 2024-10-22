@@ -39,6 +39,7 @@
 - Speed Upgrade
 - Modular Space Suit
 - Meteor can now spawn on moon
+- Moon Vines
 
 ## Changes
 - Rework config screen
