@@ -358,7 +358,8 @@
         "if_true": {
           "type": "minecraft:biome",
           "biome_is": [
-            "stellaris:mercury"
+            "stellaris:mercury",
+            "stellaris:mercury_fire_land"
           ]
         },
         "then_run": {
@@ -395,7 +396,8 @@
         "if_true": {
           "type": "minecraft:biome",
           "biome_is": [
-            "stellaris:mercury"
+            "stellaris:mercury",
+            "stellaris:mercury_fire_land"
           ]
         },
         "then_run": {
