@@ -32,6 +32,7 @@
   - Mercury Quarry
   - Mercury Volcano
   - Mercury Factory
+  - Mercury Mining Ship
 - Biomes :
   - Moon Caves
   - Mercury Fire Land
