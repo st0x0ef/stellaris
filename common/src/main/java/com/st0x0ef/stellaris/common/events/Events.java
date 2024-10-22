@@ -6,6 +6,7 @@ import com.st0x0ef.stellaris.common.oxygen.GlobalOxygenManager;
 import com.st0x0ef.stellaris.common.oxygen.OxygenRoom;
 import com.st0x0ef.stellaris.common.registry.BlocksRegistry;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
+import com.st0x0ef.stellaris.common.registry.EffectsRegistry;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import dev.architectury.event.EventResult;
@@ -26,7 +27,7 @@ public class Events {
 
     public static void registerEvents() {
         TickEvent.PLAYER_POST.register(player -> {
-            if (tickBeforeNextRadioactiveCheck-- <= 0 && !Utils.isLivingInJetSuit(player)) {
+            if (tickBeforeNextRadioactiveCheck <= 0 && !Utils.isLivingInJetSuit(player)) {
                 if (!player.level().isClientSide()) {
                     int maxRadiationLevel = player.getInventory().items.stream()
                             .filter(itemStack -> itemStack.has(DataComponentsRegistry.RADIOACTIVE.get()))
@@ -35,14 +36,13 @@ public class Events {
                             .orElse(0);
 
                     if (maxRadiationLevel > 0) {
-                        //player.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE, 100, maxRadiationLevel - 1));
-
-                        player.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 80));
-                        player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80));
+                        player.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE, 100, maxRadiationLevel - 1));
                     }
                 }
                 tickBeforeNextRadioactiveCheck = RADIATION_CHECK_INTERVAL;
             }
+
+            tickBeforeNextRadioactiveCheck--;
         });
 
         BlockEvent.BREAK.register((level, pos, state, player, value) -> {
