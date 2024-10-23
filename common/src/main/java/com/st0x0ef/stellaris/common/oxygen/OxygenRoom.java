@@ -27,23 +27,25 @@ public class OxygenRoom {
     }
 
     public void updateOxygenRoom() {
-        BlockPos abovePos = distributorPos.above();
-        if (isAirBlock(abovePos)) {
-            positionsToCheck.clear();
-            positionsToCheck.offer(abovePos);
-            Set<BlockPos> visited = new HashSet<>();
-            DimensionOxygenManager dimensionManager = GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level);
+        BlockPos[] sidePos = new BlockPos[] {distributorPos.above(), distributorPos.below(), distributorPos.east(), distributorPos.west(), distributorPos.south(), distributorPos.north()};
+        for (BlockPos pos : sidePos) {
+            if (isAirBlock(pos)) {
+                positionsToCheck.clear();
+                positionsToCheck.offer(pos);
+                Set<BlockPos> visited = new HashSet<>();
+                DimensionOxygenManager dimensionManager = GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level);
 
-            while (!positionsToCheck.isEmpty()) {
-                BlockPos currentPos = positionsToCheck.poll();
-                if (visited.add(currentPos) && isAirBlock(currentPos)) {
-                    if (addOxygenatedPosition(currentPos)) {
-                        if (isOnBorderBox(currentPos)) {
-                            dimensionManager.addRoomToCheckIfOpen(currentPos, this);
-                        }
+                while (!positionsToCheck.isEmpty()) {
+                    BlockPos currentPos = positionsToCheck.poll();
+                    if (visited.add(currentPos) && isAirBlock(currentPos)) {
+                        if (addOxygenatedPosition(currentPos)) {
+                            if (isOnBorderBox(currentPos)) {
+                                dimensionManager.addRoomToCheckIfOpen(currentPos, this);
+                            }
 
-                        for (Direction direction : Direction.values()) {
-                            positionsToCheck.offer(currentPos.relative(direction));
+                            for (Direction direction : Direction.values()) {
+                                positionsToCheck.offer(currentPos.relative(direction));
+                            }
                         }
                     }
                 }

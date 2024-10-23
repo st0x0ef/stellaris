@@ -44,4 +44,5 @@
 ## Changes
 - Rework config screen
 - GUI textures for all machines
+- Oxygen distributor now propagate in all directions
 
