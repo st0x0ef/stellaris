@@ -38,7 +38,6 @@
   - Mercury Fire Land
 - Rover
 - Speed Upgrade
-- Modular Space Suit
 - Meteor can now spawn on moon
 - Moon Vines
 
