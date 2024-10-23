@@ -3,7 +3,7 @@
   "biomes": "#stellaris:moon_biomes",
   "step": "underground_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "bury",
+  "terrain_adaptation": "beard_thin",
   "start_pool": "stellaris:moon/moon_dungeon_entry",
   "size": 12,
   "start_height": {

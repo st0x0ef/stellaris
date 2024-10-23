@@ -3,7 +3,7 @@
   "biomes": "#stellaris:mars_biomes",
   "step": "underground_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "bury",
+  "terrain_adaptation": "beard_thin",
   "start_pool": "stellaris:mars/mars_ruins",
   "size": 1,
   "start_height": {

@@ -3,7 +3,7 @@
   "biomes": "#stellaris:has_structure/mercury_biomes",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "beard_box",
+  "terrain_adaptation": "beard_thin",
   "start_pool": "stellaris:mercury/mercury_big_castle",
   "size": 1,
   "start_height": {

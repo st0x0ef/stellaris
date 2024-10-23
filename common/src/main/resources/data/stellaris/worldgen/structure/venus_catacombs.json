@@ -3,7 +3,7 @@
   "biomes": "#stellaris:has_structure/venus_biomes",
   "step": "underground_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "bury",
+  "terrain_adaptation": "beard_thin",
   "start_pool": "stellaris:venus/venus_catacombs_entry",
   "size": 8,
   "start_height": {

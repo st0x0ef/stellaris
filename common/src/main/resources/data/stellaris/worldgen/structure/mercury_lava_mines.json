@@ -3,7 +3,7 @@
   "biomes": "#stellaris:has_structure/mercury_biomes",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "bury",
+  "terrain_adaptation": "beard_thin",
   "start_pool": "stellaris:mercury/mercury_lava_mines",
   "size": 1,
   "start_height": {
