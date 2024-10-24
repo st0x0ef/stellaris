@@ -36,7 +36,7 @@ public abstract class BaseGeneratorBlockEntity extends BaseEnergyContainerBlockE
     @Override
     public void setChanged() {
         if (this.level != null) {
-            this.level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 1);
+            level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 1);
             super.setChanged();
         }
     }

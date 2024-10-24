@@ -16,7 +16,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -82,11 +81,31 @@ public class Events {
                 } else if (state.is(Blocks.LANTERN)) {
                     serverLevel.setBlock(pos, BlocksRegistry.COAL_LANTERN_BLOCK.get().defaultBlockState().setValue(CoalLanternBlock.HANGING, state.getValue(LanternBlock.HANGING)), 3);
                     return EventResult.interruptFalse();
+                } else if (state.is(Blocks.CAMPFIRE)) {
+                    serverLevel.setBlock(pos, state.setValue(CampfireBlock.LIT, false), 3);
+                    return EventResult.interruptFalse();
+                } else if (state.is(Blocks.SOUL_TORCH)) {
+                    serverLevel.setBlock(pos, BlocksRegistry.COAL_TORCH_BLOCK.get().defaultBlockState(), 3);
+                    return EventResult.interruptFalse();
+                } else if (state.is(Blocks.SOUL_WALL_TORCH)) {
+                    serverLevel.setBlock(pos, BlocksRegistry.WALL_COAL_TORCH_BLOCK.get().defaultBlockState().setValue(WallCoalTorchBlock.FACING, state.getValue(WallTorchBlock.FACING)), 3);
+                    return EventResult.interruptFalse();
+                } else if (state.is(Blocks.SOUL_LANTERN)) {
+                    serverLevel.setBlock(pos, BlocksRegistry.COAL_LANTERN_BLOCK.get().defaultBlockState().setValue(CoalLanternBlock.HANGING, state.getValue(LanternBlock.HANGING)), 3);
+                    return EventResult.interruptFalse();
+                } else if (state.is(Blocks.SOUL_CAMPFIRE)) {
+                    serverLevel.setBlock(pos, state.setValue(CampfireBlock.LIT, false), 3);
+                    return EventResult.interruptFalse();
+                    // } else if (state.is(Blocks.CANDLE)){
+                    //  serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
+                    //  return EventResult.interruptFalse();
+
                 }
             }
 
             return EventResult.pass();
         });
+
     }
 
     private static void addOxygenRoom(ServerLevel level, BlockPos pos) {

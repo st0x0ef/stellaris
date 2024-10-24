@@ -286,7 +286,7 @@
 
 
 
-  "STELLARIS ROCKET STUFF":
+  "STELLARIS VEHICLE STUFF":
   ""
 ,
 
@@ -312,8 +312,9 @@
   "item.stellaris.skin_military": "Military Skin",
   "item.stellaris.skin_galaxy": "Galaxy Skin",
 
-  "item.stellaris.basic_rocket_skin": "Basic Rocket Skin",
-  "item.stellaris.frozy_rocket_skin": "Frozen Rocket Skin",
+  "item.stellaris.rover": "Rover",
+
+  "item.stellaris.speed_upgrade": "Speed Upgrade",
 
 
 
@@ -361,6 +362,7 @@
   "item.stellaris.cheese": "Cheese",
   "block.stellaris.cheese_block": "Cheese Block",
   "item.stellaris.cosmo_coffee": "Cosmo Coffee",
+  "item.stellaris.coffee_cup": "Coffee Cup",
   "item.stellaris.moon_fruit": "Moon Fruit",
   "item.stellaris.mars_fruit": "Mars Fruit",
 
@@ -439,6 +441,16 @@
   "advancements.venus.root.description": "Land on Venus.",
   "advancements.mercury.root.title": "Too Hot for Me!",
   "advancements.mercury.root.description": "Land on Mercury.",
+
+  "advancements.stellaris.rocket_station.description": "Crafted a Rocket Station.",
+  "advancements.stellaris.rocket_station.title": "An Other Kind of Workbench",
+
+  "advancements.stellaris.oil.description": "Find Oil.",
+  "advancements.stellaris.oil.title": "Did someone say Oil ?!!",
+  "advancements.stellaris.root.title": "What a weird metal...",
+  "advancements.stellaris.root.description": "Find Steel.",
+  "advancements.stellaris.rocket.description": "Crafted a rocket.",
+  "advancements.stellaris.rocket.title": "Fly Me to the Moon !",
 
 
 
