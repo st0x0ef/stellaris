@@ -3,6 +3,7 @@
   "downfall": 0,
   "precipitation": "none",
   "has_precipitation": false,
+
   "effects": {
     "sky_color": -16777216,
     "fog_color": -16777216,
@@ -61,6 +62,9 @@
     ],
     [
       "minecraft:spring_lava"
+    ],
+    [
+      "minecraft:blackstone_blobs"
     ]
   ]
 }
