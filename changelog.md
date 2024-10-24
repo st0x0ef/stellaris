@@ -27,6 +27,8 @@
   - Venus Ruins
   - Venus Tower
   - Mercury Big Castle
+  - Mercury Biome
+  - Mercury Structure
   - Mercury Small Castle
   - Mercury Lava Mines
   - Mercury Quarry
