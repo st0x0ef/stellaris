@@ -1,11 +1,12 @@
 package com.st0x0ef.stellaris.common.items.armors;
 
+import com.fej1fun.potentials.capabilities.Capabilities;
+import com.fej1fun.potentials.fluid.UniversalFluidStorage;
 import com.mojang.serialization.Codec;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.data_components.JetSuitComponent;
 import com.st0x0ef.stellaris.common.keybinds.KeyVariables;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
-import com.st0x0ef.stellaris.common.utils.FuelUtils;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
@@ -54,8 +55,6 @@ public class JetSuit {
             if (entity instanceof Player player && player.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof JetSuit.Suit) {
                 ItemStack jetSuitItemStack = player.getItemBySlot(EquipmentSlot.CHEST);
 
-                if (FuelUtils.getFuel(jetSuitItemStack) <= 0) return;
-
                 /** JET SUIT FAST BOOST */
                 if (player.isSprinting()) {
                     this.boost(player, 1.3, true);
@@ -79,13 +78,16 @@ public class JetSuit {
 
         private void normalFlyModeMovement(Player player, ItemStack stack) {
             if (KeyVariables.isHoldingJump(player)) {
+                if (storage == null || storage.getFluidInTank(1).isEmpty()) return;
+
                 if (nextFuelCheckTick > 0) {
                     player.moveRelative(1.2F, new Vec3(0, 0.1, 0));
                     player.resetFallDistance();
                     Utils.disableFlyAntiCheat(player, true);
                 }
 
-                else if (FuelUtils.removeFuel(stack, 1)) {
+                else if (!storage.getFluidInTank(1).isEmpty()) {
+                    storage.drain(storage.getFluidInTank(1).copyWithAmount(1), false);
                     player.moveRelative(1.2F, new Vec3(0, 0.1, 0));
                     player.resetFallDistance();
                     Utils.disableFlyAntiCheat(player, true);
@@ -121,8 +123,8 @@ public class JetSuit {
                     player.resetFallDistance();
                     Utils.disableFlyAntiCheat(player, true);
                 }
-
-                else if (FuelUtils.removeFuel(stack, 1)) {
+                else if (!storage.getFluidInTank(1).isEmpty()) {
+                    storage.drain(storage.getFluidInTank(1).copyWithAmount(1), false);
                     player.setDeltaMovement(vec3.x, vec3.y + 0.04, vec3.z);
                     player.resetFallDistance();
                     Utils.disableFlyAntiCheat(player, true);

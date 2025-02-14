@@ -5,7 +5,6 @@ import com.fej1fun.potentials.fluid.UniversalFluidStorage;
 import com.fej1fun.potentials.providers.FluidProvider;
 import com.st0x0ef.stellaris.common.items.CustomArmorItem;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
-import com.st0x0ef.stellaris.common.utils.FuelUtils;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ArmorMaterial;
@@ -21,7 +20,7 @@ public abstract class AbstractSpaceArmor extends CustomArmorItem {
     }
 
     public static class AbstractSpaceChestplate extends AbstractSpaceArmor implements FluidProvider.ITEM {
-        private ItemFluidStorage storage;
+        protected ItemFluidStorage storage;
 
         public AbstractSpaceChestplate(Holder<ArmorMaterial> material, Type type, Properties properties) {
             super(material, type, properties);
@@ -43,7 +42,7 @@ public abstract class AbstractSpaceArmor extends CustomArmorItem {
         }
     }
 
-    public static class Chestplate extends AbstractSpaceChestplate {
+    public static class Chestplate extends AbstractSpaceChestplate implements FluidProvider.ITEM {
         public Chestplate(Holder<ArmorMaterial> material, Type type, Properties properties) {
             super(material, type, properties);
         }
@@ -51,8 +50,15 @@ public abstract class AbstractSpaceArmor extends CustomArmorItem {
         @Override
         public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
             super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+            tooltipComponents.add(Component.translatable("jetsuit.stellaris.fuel", getFluidTank(stack).getFluidInTank(1).getAmount()));
+        }
 
-            tooltipComponents.add(Component.translatable("jetsuit.stellaris.fuel", FuelUtils.getFuel(stack)));
+        @Override
+        public @NotNull UniversalFluidStorage getFluidTank(@NotNull ItemStack stack) {
+            if (storage == null || storage.getTanks() != 2) {
+                storage = new ItemFluidStorage(DataComponentsRegistry.FLUID_LIST.get(), stack, 2, 3000);
+            }
+            return storage;
         }
     }
 }

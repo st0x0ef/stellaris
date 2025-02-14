@@ -1,5 +1,7 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
+import com.fej1fun.potentials.capabilities.Capabilities;
+import com.fej1fun.potentials.fluid.UniversalFluidStorage;
 import com.fej1fun.potentials.providers.FluidProvider;
 import com.st0x0ef.stellaris.common.data.recipes.FuelRefineryRecipe;
 import com.st0x0ef.stellaris.common.data.recipes.input.FluidInput;
@@ -9,7 +11,6 @@ import com.st0x0ef.stellaris.common.network.packets.SyncFluidPacket;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.registry.FluidRegistry;
 import com.st0x0ef.stellaris.common.registry.RecipesRegistry;
-import com.st0x0ef.stellaris.common.utils.FuelUtils;
 import com.st0x0ef.stellaris.common.utils.capabilities.fluid.FilteredFluidStorage;
 import com.st0x0ef.stellaris.common.utils.capabilities.fluid.FluidStorage;
 import com.st0x0ef.stellaris.common.utils.capabilities.fluid.FluidUtil;
@@ -22,6 +23,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
@@ -62,32 +64,18 @@ public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity impl
 
     @Override
     public void tick() {
-        if (getItem(2).getItem() instanceof JetSuit.Suit) {
-            int fuel = 10;
-
-            if (outputTank.getFluidValueInTank(0) < fuel) {
-                fuel = (int) outputTank.getFluidValueInTank(0);
-            }
-
-            else if (FuelUtils.getFuel(getItem(2)) + fuel > JetSuit.MAX_FUEL_CAPACITY) {
-                fuel = (int) (JetSuit.MAX_FUEL_CAPACITY - (int) FuelUtils.getFuel(getItem(2)));
-            }
-
-            if (FuelUtils.addFuel(getItem(2), fuel)) {
-                outputTank.drain(FluidStack.create(FluidRegistry.FLOWING_FUEL.get(), fuel), false);
-                this.setChanged();
-            }
-        } else {
-            FluidUtil.moveFluidToItem(0, outputTank, getItem(3), 1000);
-        }
+        FluidUtil.moveFluidToItem(1, outputTank, getItem(2), 5);
 
         if (FluidUtil.moveFluidFromItem(0, getItem(0), inputTank, 1000)) {
-            getItem(0).setCount(getItem(0).getCount() - 1);
-            if (items.get(1).isEmpty()) {
-                items.set(1, Items.BUCKET.getDefaultInstance());
-            } else {
-                items.get(1).grow(1);
+            if (getItem(0).getItem() instanceof BucketItem) {
+                getItem(0).setCount(getItem(0).getCount() - 1);
+                if (items.get(1).isEmpty()) {
+                    items.set(1, Items.BUCKET.getDefaultInstance());
+                } else {
+                    items.get(1).grow(1);
+                }
             }
+
         } else {
             FluidUtil.moveFluidToItem(0, inputTank, getItem(1), 1000);
         }

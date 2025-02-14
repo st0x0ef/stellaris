@@ -369,7 +369,7 @@ public class ItemsRegistry {
      */
 
     public static final RegistrySupplier<Item> JETSUIT_HELMET = ITEMS.register("jet_suit_helmet", () -> new CustomArmorItem(ArmorMaterialsRegistry.JET_SUIT, ArmorItem.Type.HELMET, new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
-    public static final RegistrySupplier<Item> JETSUIT_SUIT = ITEMS.register("jet_suit_chestplate", () -> new com.st0x0ef.stellaris.common.items.armors.JetSuit.Suit(ArmorMaterialsRegistry.JET_SUIT, new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.STORED_FUEL_COMPONENT.get(), new CappedLongComponent(0L, 1000)).component(DataComponentsRegistry.JET_SUIT_COMPONENT.get(), new JetSuitComponent(com.st0x0ef.stellaris.common.items.armors.JetSuit.ModeType.DISABLED))));
+    public static final RegistrySupplier<Item> JETSUIT_SUIT = ITEMS.register("jet_suit_chestplate", () -> new com.st0x0ef.stellaris.common.items.armors.JetSuit.Suit(ArmorMaterialsRegistry.JET_SUIT, new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.JET_SUIT_COMPONENT.get(), new JetSuitComponent(com.st0x0ef.stellaris.common.items.armors.JetSuit.ModeType.DISABLED))));
     public static final RegistrySupplier<Item> JETSUIT_LEGGINGS = ITEMS.register("jet_suit_leggings", () -> new CustomArmorItem(ArmorMaterialsRegistry.JET_SUIT, ArmorItem.Type.LEGGINGS, new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> JETSUIT_BOOTS = ITEMS.register("jet_suit_boots", () -> new CustomArmorItem(ArmorMaterialsRegistry.JET_SUIT, ArmorItem.Type.BOOTS, new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
 
@@ -409,13 +409,6 @@ public class ItemsRegistry {
 
     public static ArrayList<ItemStack> fullItemsToAdd() {
         ArrayList<ItemStack> list = new ArrayList<>();
-
-        ItemStack JET_SUIT_FULL = new ItemStack(ItemsRegistry.JETSUIT_SUIT);
-        JET_SUIT_FULL.set(DataComponentsRegistry.STORED_FUEL_COMPONENT.get(),
-                new CappedLongComponent(1000, 1000));
-        JET_SUIT_FULL.set(DataComponentsRegistry.JET_SUIT_COMPONENT.get(),
-                new JetSuitComponent(JetSuit.ModeType.DISABLED));
-        list.add(JET_SUIT_FULL);
 
         ItemStack ROCKET_FULL = new ItemStack(ItemsRegistry.ROCKET);
         ROCKET_FULL.set(DataComponentsRegistry.ROCKET_COMPONENT.get(), new RocketComponent(SkinUpgrade.getBasic().getNameSpace(), RocketModel.TINY, FuelType.Type.RADIOACTIVE.getSerializedName(), 5000, GUISprites.ENERGY_FULL, 5000));
