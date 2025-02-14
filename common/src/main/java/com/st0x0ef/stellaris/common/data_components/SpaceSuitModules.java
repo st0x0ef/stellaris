@@ -67,7 +67,7 @@ public record SpaceSuitModules(List<ItemStack> modules) implements Serializable 
     }
 
     public static boolean containsInModules(ItemStack stack, ItemStack module) {
-        return containsInModules(stack, getModuleStatic(module));
+        return containsInModules(stack, getModule(module));
     }
 
     public static boolean containsInModules(ItemStack stack, SpaceSuitModule module) {
@@ -86,14 +86,10 @@ public record SpaceSuitModules(List<ItemStack> modules) implements Serializable 
     }
 
     public List<SpaceSuitModule> getModules() {
-        return Lists.transform(this.modules, this::getModule);
+        return Lists.transform(this.modules, SpaceSuitModules::getModule);
     }
 
-    private SpaceSuitModule getModule(ItemStack itemStack) {
-        return getModuleStatic(itemStack);
-    }
-
-    private static SpaceSuitModule getModuleStatic(ItemStack itemStack) {
+    private static SpaceSuitModule getModule(ItemStack itemStack) {
         if (itemStack.getItem() instanceof SpaceSuitModule spaceSuitModule) return spaceSuitModule;
         return null; //failsafe, shouldn't happen unless tampered with or incorrect checks for upgrade station
     }
