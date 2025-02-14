@@ -11,8 +11,8 @@ public class FluidUtil {
         if (stackTo.isEmpty()) return;
         UniversalFluidStorage to = Capabilities.Fluid.ITEM.getCapability(stackTo);
         if (to == null) return;
-        amount = Math.min(amount, to.getTankCapacity(0));
-        moveFluid(from, to, FluidStack.create(from.getFluidInTank(tank), amount));
+        amount = Math.min(amount, to.getTankCapacity(0) - to.getFluidInTank(0).getAmount());
+        moveFluid(from, to, from.getFluidInTank(tank).copyWithAmount(amount));
     }
 
     public static boolean moveFluidFromItem(int tank, ItemStack stackFrom, UniversalFluidStorage to, long amount) {
@@ -20,7 +20,7 @@ public class FluidUtil {
         UniversalFluidStorage from = Capabilities.Fluid.ITEM.getCapability(stackFrom);
         if (from == null) return false;
         amount = Math.min(amount, to.getTankCapacity(0));
-        return !moveFluid(from, to, FluidStack.create(from.getFluidInTank(tank), amount)).isEmpty();
+        return !moveFluid(from, to, from.getFluidInTank(tank).copyWithAmount(amount)).isEmpty();
     }
 
     public static FluidStack moveFluid(UniversalFluidStorage from, UniversalFluidStorage to, FluidStack stack) {
@@ -30,8 +30,9 @@ public class FluidUtil {
 
         if (inserted.isEmpty()) return FluidStack.empty();
 
-        from.drain(inserted, false);
-        to.fill(inserted, false);
+        from.drain(inserted.copy(), false);
+        to.fill(inserted.copy(), false);
+
         return inserted;
     }
 
