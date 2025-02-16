@@ -105,7 +105,7 @@ public class OxygenTankItem extends Item implements FluidProvider.ITEM {
             storage = new ItemFluidStorage(DataComponentsRegistry.FLUID_LIST.get(), stack, 1, capacity) {
                 @Override
                 public boolean isFluidValid(int tank, FluidStack stack) {
-                    if (tank == 1) {
+                    if (tank == 0) {
                         return stack.getFluid().isSame(FluidRegistry.OXYGEN_STILL.get());
                     }
                     return false;
