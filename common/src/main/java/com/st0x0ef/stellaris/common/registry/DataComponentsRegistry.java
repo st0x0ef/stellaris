@@ -32,10 +32,6 @@ public class DataComponentsRegistry {
     public static final RegistrySupplier<DataComponentType<SpaceSuitModules>> SPACE_SUIT_MODULES = register("space_suit_modules",
             builder -> builder.persistent(SpaceSuitModules.CODEC).networkSynchronized(SpaceSuitModules.STREAM_CODEC));
 
-    public static final RegistrySupplier<DataComponentType<CappedLongComponent>> STORED_FUEL_COMPONENT = register("stored_fuel",
-            builder -> builder.persistent(CappedLongComponent.CODEC).networkSynchronized(CappedLongComponent.STREAM_CODEC));
-    //TODO replace this with potentials
-
     public static final RegistrySupplier<DataComponentType<List<FluidStack>>> FLUID_LIST = register("fluid", builder -> builder
                     .persistent(Codec.list(FluidStack.CODEC))
             .networkSynchronized(FluidStack.STREAM_CODEC.apply(ByteBufCodecs.list())));

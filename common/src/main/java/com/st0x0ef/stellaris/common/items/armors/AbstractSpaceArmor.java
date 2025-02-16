@@ -5,6 +5,8 @@ import com.fej1fun.potentials.fluid.UniversalFluidStorage;
 import com.fej1fun.potentials.providers.FluidProvider;
 import com.st0x0ef.stellaris.common.items.CustomArmorItem;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
+import com.st0x0ef.stellaris.common.registry.FluidRegistry;
+import dev.architectury.fluid.FluidStack;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ArmorMaterial;
@@ -36,7 +38,15 @@ public abstract class AbstractSpaceArmor extends CustomArmorItem {
         @Override
         public @NotNull UniversalFluidStorage getFluidTank(@NotNull ItemStack stack) {
             if (storage == null) {
-                storage = new ItemFluidStorage(DataComponentsRegistry.FLUID_LIST.get(), stack, 1, 3000);
+                storage = new ItemFluidStorage(DataComponentsRegistry.FLUID_LIST.get(), stack, 1, 3000) {
+                    @Override
+                    public boolean isFluidValid(int tank, FluidStack stack) {
+                        if (tank == 1) {
+                            return stack.getFluid().isSame(FluidRegistry.OXYGEN_STILL.get());
+                        }
+                        return false;
+                    }
+                };
             }
             return storage;
         }
@@ -56,8 +66,18 @@ public abstract class AbstractSpaceArmor extends CustomArmorItem {
         @Override
         public @NotNull UniversalFluidStorage getFluidTank(@NotNull ItemStack stack) {
             if (storage == null || storage.getTanks() != 2) {
-                storage = new ItemFluidStorage(DataComponentsRegistry.FLUID_LIST.get(), stack, 2, 3000);
+                storage = new ItemFluidStorage(DataComponentsRegistry.FLUID_LIST.get(), stack, 2, 3000) {
+                    @Override
+                    public boolean isFluidValid(int tank, FluidStack stack) {
+                        return switch (tank) {
+                            case 0 -> stack.getFluid().isSame(FluidRegistry.OXYGEN_STILL.get());
+                            case 1 -> stack.getFluid().isSame(FluidRegistry.FUEL_STILL.get());
+                            default -> false;
+                        };
+                    }
+                };
             }
+
             return storage;
         }
     }

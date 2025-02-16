@@ -5,7 +5,6 @@ import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.RocketMode
 import com.st0x0ef.stellaris.client.screens.GUISprites;
 import com.st0x0ef.stellaris.common.data_components.*;
 import com.st0x0ef.stellaris.common.items.*;
-import com.st0x0ef.stellaris.common.items.armors.JetSuit;
 import com.st0x0ef.stellaris.common.items.armors.SpaceSuit;
 import com.st0x0ef.stellaris.common.items.module.*;
 import com.st0x0ef.stellaris.common.vehicle_upgrade.*;

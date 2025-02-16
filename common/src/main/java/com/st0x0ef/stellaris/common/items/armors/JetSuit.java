@@ -1,7 +1,5 @@
 package com.st0x0ef.stellaris.common.items.armors;
 
-import com.fej1fun.potentials.capabilities.Capabilities;
-import com.fej1fun.potentials.fluid.UniversalFluidStorage;
 import com.mojang.serialization.Codec;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.data_components.JetSuitComponent;

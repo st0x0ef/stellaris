@@ -6,6 +6,8 @@ import com.fej1fun.potentials.fluid.UniversalFluidStorage;
 import com.fej1fun.potentials.providers.FluidProvider;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.OxygenDistributorBlockEntity;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
+import com.st0x0ef.stellaris.common.registry.FluidRegistry;
+import dev.architectury.fluid.FluidStack;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
@@ -100,7 +102,15 @@ public class OxygenTankItem extends Item implements FluidProvider.ITEM {
     @Override
     public @NotNull ItemFluidStorage getFluidTank(@NotNull ItemStack stack) {
         if (storage == null) {
-            storage = new ItemFluidStorage(DataComponentsRegistry.FLUID_LIST.get(), stack, 1, capacity);
+            storage = new ItemFluidStorage(DataComponentsRegistry.FLUID_LIST.get(), stack, 1, capacity) {
+                @Override
+                public boolean isFluidValid(int tank, FluidStack stack) {
+                    if (tank == 1) {
+                        return stack.getFluid().isSame(FluidRegistry.OXYGEN_STILL.get());
+                    }
+                    return false;
+                }
+            };
         }
         return storage;
     }
