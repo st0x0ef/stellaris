@@ -64,7 +64,7 @@ public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity impl
 
     @Override
     public void tick() {
-        FluidUtil.moveFluidToItem(1, outputTank, getItem(2), 5);
+        FluidUtil.moveFluidToItem(0, outputTank, getItem(2), 5);
 
         if (FluidUtil.moveFluidFromItem(0, getItem(0), inputTank, 1000)) {
             if (getItem(0).getItem() instanceof BucketItem) {
