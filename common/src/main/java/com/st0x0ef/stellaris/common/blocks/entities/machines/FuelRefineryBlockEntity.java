@@ -64,7 +64,6 @@ public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity impl
 
         FluidUtil.moveFluidFromItem(0, 0, items, inputTank, 1000);
 
-
         if (level == null) return;
 
         Optional<RecipeHolder<FuelRefineryRecipe>> recipeHolder = cachedCheck.getRecipeFor(new FluidInput(level.getBlockEntity(getBlockPos())), level);
