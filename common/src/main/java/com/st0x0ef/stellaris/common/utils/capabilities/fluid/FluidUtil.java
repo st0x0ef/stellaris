@@ -16,10 +16,7 @@ public class FluidUtil {
         if (to == null) return;
         amount = Math.min(amount, to.getTankCapacity(0) - to.getFluidInTank(0).getAmount());
         moveFluid(from, to, from.getFluidInTank(tank).copyWithAmount(amount));
-
-        if (items.get(slot).getItem() instanceof BucketItem) {
-            items.set(slot, to.getContainer());
-        }
+        items.set(slot, to.getContainer());
     }
 
     public static void moveFluidFromItem(int tank, int slot, NonNullList<ItemStack> items, UniversalFluidStorage to, long amount) {
@@ -28,11 +25,7 @@ public class FluidUtil {
         if (from == null) return;
         amount = Math.min(amount, to.getTankCapacity(tank) - to.getFluidInTank(tank).getAmount());
         moveFluid(from, to, from.getFluidInTank(tank).copyWithAmount(amount));
-
-        if (items.get(slot).getItem() instanceof BucketItem) {
-            items.set(slot, from.getContainer());
-        }
-
+        items.set(slot, from.getContainer());
     }
 
     public static FluidStack moveFluid(UniversalFluidStorage from, UniversalFluidStorage to, FluidStack stack) {
