@@ -31,8 +31,9 @@ public abstract class AbstractSpaceArmor extends CustomArmorItem {
         @Override
         public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
             super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
-            tooltipComponents.add(Component.translatable("jetsuit.stellaris.oxygen", getFluidTank(stack).getFluidInTank(0).getAmount()));
-
+            if (storage != null) {
+                tooltipComponents.add(Component.translatable("jetsuit.stellaris.oxygen", storage.getFluidInTank(0).getAmount()));
+            }
         }
 
         @Override
@@ -60,7 +61,9 @@ public abstract class AbstractSpaceArmor extends CustomArmorItem {
         @Override
         public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
             super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
-            tooltipComponents.add(Component.translatable("jetsuit.stellaris.fuel", getFluidTank(stack).getFluidInTank(1).getAmount()));
+            if (storage != null) {
+                tooltipComponents.add(Component.translatable("jetsuit.stellaris.fuel", storage.getFluidInTank(1).getAmount()));
+            }
         }
 
         @Override

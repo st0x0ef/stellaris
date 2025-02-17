@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.common.items;
 
 import com.fej1fun.potentials.capabilities.Capabilities;
 import com.fej1fun.potentials.fluid.ItemFluidStorage;
+import com.fej1fun.potentials.fluid.UniversalFluidItemStorage;
 import com.fej1fun.potentials.fluid.UniversalFluidStorage;
 import com.fej1fun.potentials.providers.FluidProvider;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.OxygenDistributorBlockEntity;
@@ -37,7 +38,9 @@ public class OxygenTankItem extends Item implements FluidProvider.ITEM {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable("tooltip.item.stellaris.oxygen_tank", getFluidTank(stack).getFluidInTank(0).getAmount(), getFluidTank(stack).getTankCapacity(0)).withStyle(ChatFormatting.GRAY));
+        if (storage != null) {
+            tooltip.add(Component.translatable("tooltip.item.stellaris.oxygen_tank", storage.getFluidInTank(0).getAmount(), storage.getTankCapacity(0)).withStyle(ChatFormatting.GRAY));
+        }
     }
 
     @Override
@@ -85,12 +88,13 @@ public class OxygenTankItem extends Item implements FluidProvider.ITEM {
 
     @Override
     public boolean isBarVisible(ItemStack stack) {
-        return true;
+        return storage != null;
     }
 
     @Override
     public int getBarWidth(ItemStack stack) {
-        return (int) Mth.clamp(((getFluidTank(stack).getFluidInTank(0).getAmount() + 1) * 13) / getFluidTank(stack).getTankCapacity(0), 0, 13);
+        if (storage == null) return 0;
+        return (int) Mth.clamp(((storage.getFluidInTank(0).getAmount() + 1) * 13) / storage.getTankCapacity(0), 0, 13);
 
     }
 
@@ -100,7 +104,7 @@ public class OxygenTankItem extends Item implements FluidProvider.ITEM {
     }
 
     @Override
-    public @NotNull ItemFluidStorage getFluidTank(@NotNull ItemStack stack) {
+    public @NotNull UniversalFluidItemStorage getFluidTank(@NotNull ItemStack stack) {
         if (storage == null) {
             storage = new ItemFluidStorage(DataComponentsRegistry.FLUID_LIST.get(), stack, 1, capacity) {
                 @Override
