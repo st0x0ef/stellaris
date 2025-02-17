@@ -89,19 +89,10 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity im
 
     @Override
     public void tick() {
-        FluidUtil.moveFluidToItem(OXYGEN_TANK, resultTanks, items.get(3), 5);
-        FluidUtil.moveFluidToItem(HYDROGEN_TANK, resultTanks, items.get(2), 5);
+        FluidUtil.moveFluidToItem(OXYGEN_TANK, resultTanks,3, items, 1000);
+        FluidUtil.moveFluidToItem(HYDROGEN_TANK, resultTanks,2, items, 1000);
 
-        if (FluidUtil.moveFluidFromItem(0, items.get(1), ingredientTank, 1000)) {
-            if (items.get(1).getItem() instanceof BucketItem) {
-                if (items.getFirst().isEmpty()) {
-                    items.set(0, Items.BUCKET.getDefaultInstance());
-                } else {
-                    items.getFirst().grow(1);
-                }
-            }
-            items.get(1).shrink(1);
-        }
+        FluidUtil.moveFluidFromItem(0,1, items, ingredientTank, 1000);
 
         if (level == null) return;
 

@@ -2,25 +2,29 @@ package com.st0x0ef.stellaris.common.utils.capabilities.fluid;
 
 import com.fej1fun.potentials.capabilities.Capabilities;
 import com.fej1fun.potentials.fluid.BaseFluidStorage;
+import com.fej1fun.potentials.fluid.UniversalFluidItemStorage;
 import com.fej1fun.potentials.fluid.UniversalFluidStorage;
 import dev.architectury.fluid.FluidStack;
+import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
 
 public class FluidUtil {
-    public static void moveFluidToItem(int tank, UniversalFluidStorage from, ItemStack stackTo, long amount) {
-        if (stackTo.isEmpty()) return;
-        UniversalFluidStorage to = Capabilities.Fluid.ITEM.getCapability(stackTo);
+    public static void moveFluidToItem(int tank, UniversalFluidStorage from, int slot, NonNullList<ItemStack> items, long amount) {
+        if (items.get(slot).isEmpty()) return;
+        UniversalFluidItemStorage to = Capabilities.Fluid.ITEM.getCapability(items.get(slot));
         if (to == null) return;
         amount = Math.min(amount, to.getTankCapacity(0) - to.getFluidInTank(0).getAmount());
         moveFluid(from, to, from.getFluidInTank(tank).copyWithAmount(amount));
+        items.set(slot, to.getContainer());
     }
 
-    public static boolean moveFluidFromItem(int tank, ItemStack stackFrom, UniversalFluidStorage to, long amount) {
-        if (stackFrom.isEmpty()) return false;
-        UniversalFluidStorage from = Capabilities.Fluid.ITEM.getCapability(stackFrom);
-        if (from == null) return false;
+    public static void moveFluidFromItem(int tank, int slot, NonNullList<ItemStack> items, UniversalFluidStorage to, long amount) {
+        if (items.get(slot).isEmpty()) return;
+        UniversalFluidItemStorage from = Capabilities.Fluid.ITEM.getCapability(items.get(slot));
+        if (from == null) return;
         amount = Math.min(amount, to.getTankCapacity(0));
-        return !moveFluid(from, to, from.getFluidInTank(tank).copyWithAmount(amount)).isEmpty();
+        moveFluid(from, to, from.getFluidInTank(tank).copyWithAmount(amount));
+        items.set(slot, from.getContainer());
     }
 
     public static FluidStack moveFluid(UniversalFluidStorage from, UniversalFluidStorage to, FluidStack stack) {

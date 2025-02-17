@@ -47,7 +47,7 @@ public class PumpjackBlockEntity extends BaseEnergyContainerBlockEntity implemen
 
     @Override
     public void tick() {
-        FluidUtil.moveFluidToItem(resultTank.getTanks(), resultTank, getItem(1), 1000);
+        FluidUtil.moveFluidToItem(0, resultTank,1, items, 1000);
 
         ChunkAccess access = this.level.getChunk(this.worldPosition);
 
