@@ -3,7 +3,6 @@ package com.st0x0ef.stellaris.common.blocks.entities.machines;
 import com.fej1fun.potentials.capabilities.Capabilities;
 import com.fej1fun.potentials.fluid.UniversalFluidStorage;
 import com.fej1fun.potentials.providers.FluidProvider;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.menus.OxygenDistributorMenu;
 import com.st0x0ef.stellaris.common.network.packets.SyncFluidPacketWithoutDirection;
 import com.st0x0ef.stellaris.common.oxygen.GlobalOxygenManager;

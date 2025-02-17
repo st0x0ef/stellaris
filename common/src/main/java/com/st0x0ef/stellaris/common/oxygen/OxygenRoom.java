@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.common.oxygen;
 
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.OxygenDistributorBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
