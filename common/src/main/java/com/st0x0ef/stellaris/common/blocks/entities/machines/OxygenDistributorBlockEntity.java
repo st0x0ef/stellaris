@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.common.blocks.entities.machines;
 import com.fej1fun.potentials.capabilities.Capabilities;
 import com.fej1fun.potentials.fluid.UniversalFluidStorage;
 import com.fej1fun.potentials.providers.FluidProvider;
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.menus.OxygenDistributorMenu;
 import com.st0x0ef.stellaris.common.network.packets.SyncFluidPacketWithoutDirection;
 import com.st0x0ef.stellaris.common.oxygen.GlobalOxygenManager;
@@ -62,10 +63,8 @@ public class OxygenDistributorBlockEntity extends BaseEnergyContainerBlockEntity
         if (oxygenTank.getFluidValueInTank(0) > 0 && this.energyContainer.getEnergy() >= 3) {
             oxygenTank.drain(oxygenTank.getFluidInTank(0).copyWithAmount(1), false);
             this.energyContainer.extract(3, false);
-            this.setChanged();
             return true;
         }
-
         return false;
     }
 

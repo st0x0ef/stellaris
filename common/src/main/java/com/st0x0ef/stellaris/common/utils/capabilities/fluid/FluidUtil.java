@@ -6,6 +6,7 @@ import com.fej1fun.potentials.fluid.UniversalFluidItemStorage;
 import com.fej1fun.potentials.fluid.UniversalFluidStorage;
 import dev.architectury.fluid.FluidStack;
 import net.minecraft.core.NonNullList;
+import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.ItemStack;
 
 public class FluidUtil {
@@ -15,7 +16,9 @@ public class FluidUtil {
         if (to == null) return;
         amount = Math.min(amount, to.getTankCapacity(0) - to.getFluidInTank(0).getAmount());
         moveFluid(from, to, from.getFluidInTank(tank).copyWithAmount(amount));
-        items.set(slot, to.getContainer());
+        if (items.get(slot).getItem() instanceof BucketItem) {
+            items.set(slot, to.getContainer());
+        }
     }
 
     public static void moveFluidFromItem(int tank, int slot, NonNullList<ItemStack> items, UniversalFluidStorage to, long amount) {

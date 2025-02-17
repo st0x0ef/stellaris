@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.oxygen;
 
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.OxygenDistributorBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -9,15 +10,17 @@ import java.util.*;
 
 public class OxygenRoom {
     private final BlockPos distributorPos;
-    public final Set<BlockPos> oxygenatedPositions;
+    public final List<BlockPos> oxygenatedPositions;
     private final ServerLevel level;
+    private boolean isClosed;
 
     private static final int HALF_ROOM_SIZE = 16; // TODO : make this value configurable
 
     public OxygenRoom(ServerLevel level, BlockPos distributorPos) {
         this.distributorPos = distributorPos;
-        this.oxygenatedPositions = new LinkedHashSet<>();
+        this.oxygenatedPositions = new ArrayList<>();
         this.level = level;
+        isClosed = false;
     }
 
     public BlockPos getDistributorPosition() {
@@ -29,30 +32,43 @@ public class OxygenRoom {
     }
 
     public void tick() {
+        OxygenDistributorBlockEntity distributor = getDistributorBlockEntity();
+        if (distributor == null) return;
+
         for (Direction direction : Direction.values()) {
             BlockPos rel = distributorPos.relative(direction);
             if (!oxygenatedPositions.contains(rel) && level.getBlockState(rel).isAir()) {
-                oxygenatedPositions.add(rel);
+                if (distributor.useOxygenAndEnergy()) {
+                    oxygenatedPositions.add(rel);
+                    GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level).removeRoomToCheckIfOpen(rel);
+                }
             }
         }
 
-        oxygenatedPositions.forEach(pos -> {
+        List<BlockPos> oxygenatedPositionsCopy = new ArrayList<>(oxygenatedPositions);
+
+        for (BlockPos pos : oxygenatedPositionsCopy) {
             for (Direction direction : Direction.values()) {
                 BlockPos rel = pos.relative(direction);
-                if (!oxygenatedPositions.contains(rel) && level.getBlockState(rel).isAir()) {
-                    oxygenatedPositions.add(rel);
-                }
 
                 if (Math.abs(rel.getX() - distributorPos.getX()) > HALF_ROOM_SIZE ||
                         Math.abs(rel.getY() - distributorPos.getY()) > HALF_ROOM_SIZE ||
                         Math.abs(rel.getZ() - distributorPos.getZ()) > HALF_ROOM_SIZE) {
                     GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level).addRoomToCheckIfOpen(rel, this);
                 } else if (!oxygenatedPositions.contains(rel) && level.getBlockState(rel).isAir()) {
-                    oxygenatedPositions.add(rel);
-                    GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level).removeRoomToCheckIfOpen(rel);
+                    if (distributor.useOxygenAndEnergy()) {
+                        oxygenatedPositions.add(rel);
+                        GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level).removeRoomToCheckIfOpen(rel);
+                    }
                 }
             }
-        });
+        }
+
+        if (oxygenatedPositions.size() == oxygenatedPositionsCopy.size()) {
+            isClosed = true;
+        } else {
+            isClosed = false; // We don't know yet
+        }
     }
 
     public void removeOxygenInRoom() {
@@ -65,7 +81,7 @@ public class OxygenRoom {
 
 
     public boolean breathOxygenAt(BlockPos pos) {
-        if (hasOxygenAt(pos)) {
+        if (hasOxygenAt(pos) && isClosed) {
             OxygenDistributorBlockEntity distributor = getDistributorBlockEntity();
             if (getDistributorBlockEntity() == null || !distributor.useOxygenAndEnergy()) {
                 oxygenatedPositions.remove(pos);

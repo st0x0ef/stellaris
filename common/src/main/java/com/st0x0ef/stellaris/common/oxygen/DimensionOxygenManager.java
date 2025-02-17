@@ -34,7 +34,7 @@ public class DimensionOxygenManager {
             oxygenRooms.add(new OxygenRoom(level, distributorPos));
 
         }
-        this.updateOxygen();
+        this.updateOxygenTick();
         this.setChanged();
     }
 
@@ -59,7 +59,7 @@ public class DimensionOxygenManager {
         data.setDirty();
     }
 
-    public void updateOxygen() {
+    public void updateOxygenTick() {
         if (planetHasOxygen) return;
 
         oxygenRooms.forEach(OxygenRoom::tick);
@@ -113,6 +113,5 @@ public class DimensionOxygenManager {
     public void setOxygensRooms(Set<OxygenRoom> rooms) {
         this.oxygenRooms.clear();
         this.oxygenRooms.addAll(rooms);
-        this.updateOxygen();
     }
 }
