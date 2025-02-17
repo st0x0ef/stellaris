@@ -98,7 +98,8 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity im
         if (recipeHolder.isPresent()) {
             WaterSeparatorRecipe recipe = recipeHolder.get().value();
 
-            if (energyContainer.getEnergy() >= recipe.energy()) {
+            if (energyContainer.getEnergy() >= recipe.energy() &&
+                    (resultTanks.getFluidValueInTank(HYDROGEN_TANK) < resultTanks.getTankCapacity(HYDROGEN_TANK) || resultTanks.getFluidValueInTank(OXYGEN_TANK) < resultTanks.getTankCapacity(OXYGEN_TANK))) {
                 ingredientTank.drainWithoutLimits(recipe.ingredientStack(), false);
                 resultTanks.fillWithoutLimits(recipe.resultStacks().getFirst(), false);
                 resultTanks.fillWithoutLimits(recipe.resultStacks().getLast(), false);
