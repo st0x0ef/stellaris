@@ -1,11 +1,7 @@
 package com.st0x0ef.stellaris.common.events;
 
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.CoalLanternBlock;
 import com.st0x0ef.stellaris.common.blocks.WallCoalTorchBlock;
-import com.st0x0ef.stellaris.common.data.planets.Planet;
-import com.st0x0ef.stellaris.common.data.planets.PlanetTextures;
-import com.st0x0ef.stellaris.common.events.custom.PlanetEvents;
 import com.st0x0ef.stellaris.common.oxygen.GlobalOxygenManager;
 import com.st0x0ef.stellaris.common.registry.BlocksRegistry;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
@@ -16,13 +12,9 @@ import dev.architectury.event.EventResult;
 import dev.architectury.event.events.common.BlockEvent;
 import dev.architectury.event.events.common.TickEvent;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.CampfireBlock;
-import net.minecraft.world.level.block.LanternBlock;
-import net.minecraft.world.level.block.WallTorchBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.phys.AABB;
 
 public class Events {
