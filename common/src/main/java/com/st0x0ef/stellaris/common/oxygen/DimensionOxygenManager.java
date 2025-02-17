@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.common.oxygen;
 
 import com.fej1fun.potentials.capabilities.Capabilities;
 import com.fej1fun.potentials.fluid.UniversalFluidStorage;
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.registry.TagRegistry;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
@@ -43,14 +44,11 @@ public class DimensionOxygenManager {
     }
 
     public void addRoomToCheckIfOpen(BlockPos pos, OxygenRoom room) {
-        if (checkIfRoomOpen(pos)) {
+        if (roomToCheckIfOpen.remove(pos) == null) {
             roomToCheckIfOpen.put(pos, room);
         }
     }
 
-    public boolean checkIfRoomOpen(BlockPos pos) {
-        return roomToCheckIfOpen.remove(pos) == null;
-    }
 
     private void setChanged() {
         OxygenSavedData data = OxygenSavedData.getData(level);
@@ -63,6 +61,8 @@ public class DimensionOxygenManager {
         oxygenRooms.forEach(OxygenRoom::updateOxygenRoom);
         roomToCheckIfOpen.values().forEach(OxygenRoom::removeOxygenInRoom);
         roomToCheckIfOpen.clear();
+        Stellaris.LOG.error("after removal size : " + oxygenRooms.size());
+        oxygenRooms.forEach(room -> room.oxygenatedPositions.forEach(pos -> Stellaris.LOG.error(pos.toString())));
     }
 
     public boolean breath(LivingEntity entity) {

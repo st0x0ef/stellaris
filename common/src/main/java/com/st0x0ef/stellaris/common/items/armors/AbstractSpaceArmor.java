@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.common.items.armors;
 
 import com.fej1fun.potentials.fluid.ItemFluidStorage;
+import com.fej1fun.potentials.fluid.UniversalFluidItemStorage;
 import com.fej1fun.potentials.fluid.UniversalFluidStorage;
 import com.fej1fun.potentials.providers.FluidProvider;
 import com.st0x0ef.stellaris.common.items.CustomArmorItem;
@@ -36,7 +37,7 @@ public abstract class AbstractSpaceArmor extends CustomArmorItem {
         }
 
         @Override
-        public @NotNull UniversalFluidStorage getFluidTank(@NotNull ItemStack stack) {
+        public @NotNull UniversalFluidItemStorage getFluidTank(@NotNull ItemStack stack) {
             if (storage == null) {
                 storage = new ItemFluidStorage(DataComponentsRegistry.FLUID_LIST.get(), stack, 1, 3000) {
                     @Override
@@ -64,7 +65,7 @@ public abstract class AbstractSpaceArmor extends CustomArmorItem {
         }
 
         @Override
-        public @NotNull UniversalFluidStorage getFluidTank(@NotNull ItemStack stack) {
+        public @NotNull UniversalFluidItemStorage getFluidTank(@NotNull ItemStack stack) {
             if (storage == null || storage.getTanks() != 2) {
                 storage = new ItemFluidStorage(DataComponentsRegistry.FLUID_LIST.get(), stack, 2, 3000) {
                     @Override

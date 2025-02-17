@@ -117,8 +117,6 @@ public abstract class FluidStorage extends BaseFluidStorage {
                 compoundTag.put(name+"-fluid-"+i, FluidStackHooks.write(provider, getFluidInTank(i), new CompoundTag()));
             }
         }
-
-
     }
 
     public void load(CompoundTag compoundTag, HolderLookup.Provider provider, String name) {
@@ -135,10 +133,6 @@ public abstract class FluidStorage extends BaseFluidStorage {
             if (!stack.isEmpty()) return false;
 
         return true;
-    }
-
-    public boolean canGrow() {
-        return this.getFluidValueInTank(this.getTanks()) < this.getTankCapacity(this.getTanks());
     }
 
     protected abstract void onChange(int tank);

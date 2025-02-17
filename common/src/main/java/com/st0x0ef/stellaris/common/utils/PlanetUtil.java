@@ -36,32 +36,23 @@ public class PlanetUtil {
     public static boolean isPlanet(ResourceLocation level) {
         AtomicBoolean isPlanet = new AtomicBoolean(false);
         StellarisData.getPlanets().forEach(planet -> {if (planet.dimension().equals(level)) isPlanet.set(true);});
+
         return isPlanet.get();
     }
 
     public static boolean hasOxygen(Level level) {
-        if (level instanceof ServerLevel serverLevel) {
-            return hasOxygenAt(serverLevel, null);
-        }
-
-        return false;
+        return !isPlanet(level.dimension().location()) || getPlanet(level.dimension().location()).oxygen();
     }
 
-    public static boolean hasOxygenAt(ServerLevel level, @Nullable BlockPos pos) {
-        if (isPlanet(level.dimension().location())) {
-            if (!getPlanet(level.dimension().location()).oxygen()) {
-                if (pos == null){
-                    return false;
-                }
-
-                return GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level).hasOxygenAt(pos);
-            }
+    public static boolean hasOxygenAt(ServerLevel level, @NotNull BlockPos pos) {
+        if (!hasOxygen(level)) {
+            return GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level).hasOxygenAt(pos);
         }
 
         return true;
     }
 
-    /** Get the resourcelocation of the planet bar set in the Planet file */
+    /** Get the resource location of the planet bar set in the Planet file */
     public static ResourceLocation getPlanetBar(ResourceLocation level) {
         if (isPlanet(level)) {
             return getPlanet(level).textures().planet_bar();
@@ -97,7 +88,6 @@ public class PlanetUtil {
     }
 
     public static int openWaitMenu(Player player, String playerChoosing) {
-        System.out.println("eee");
         ExtendedMenuProvider provider = new ExtendedMenuProvider() {
             @Override
             public void saveExtraData(FriendlyByteBuf buffer) {

@@ -3,12 +3,17 @@ package com.st0x0ef.stellaris.common.blocks.entities.machines;
 import com.fej1fun.potentials.capabilities.Capabilities;
 import com.fej1fun.potentials.fluid.UniversalFluidStorage;
 import com.fej1fun.potentials.providers.FluidProvider;
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.menus.OxygenDistributorMenu;
+import com.st0x0ef.stellaris.common.network.packets.SyncFluidPacket;
+import com.st0x0ef.stellaris.common.network.packets.SyncFluidPacketWithoutDirection;
 import com.st0x0ef.stellaris.common.oxygen.GlobalOxygenManager;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.registry.FluidRegistry;
+import com.st0x0ef.stellaris.common.utils.capabilities.fluid.FilteredFluidStorage;
 import com.st0x0ef.stellaris.common.utils.capabilities.fluid.FluidStorage;
 import dev.architectury.fluid.FluidStack;
+import dev.architectury.networking.NetworkManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -22,48 +27,44 @@ import org.jetbrains.annotations.Nullable;
 
 public class OxygenDistributorBlockEntity extends BaseEnergyContainerBlockEntity implements FluidProvider.BLOCK {
 
-    public final FluidStorage oxygenTank = new FluidStorage(1, 10) {
-        @Override
-        protected void onChange(int tank) {
-            setChanged();
-        }
-    };
+    public final FluidStorage oxygenTank;
 
 
     public OxygenDistributorBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.OXYGEN_DISTRIBUTOR.get(), pos, state);
+
+        this.oxygenTank = new FilteredFluidStorage(1, 20000, (n,fluidStack) -> fluidStack.getFluid().isSame(FluidRegistry.OXYGEN_STILL.get())) {
+            @Override
+            protected void onChange(int i) {
+                setChanged();
+                if (level != null && level.getServer() != null && !level.getServer().getPlayerList().getPlayers().isEmpty() && !this.getFluidInTank(0).isEmpty())
+                    NetworkManager.sendToPlayers(level.getServer().getPlayerList().getPlayers(),
+                            new SyncFluidPacketWithoutDirection(this.getFluidInTank(0), 0, getBlockPos()));
+            }
+        };
     }
 
     @Override
     public void tick() {
-        if (level instanceof ServerLevel serverLevel) {
-            if (oxygenTank.canGrow()) {
-                if (useOxygenAndEnergy()) {
-                    addOxygen(1);
-                }
+        UniversalFluidStorage oxygenTankItemStorage = Capabilities.Fluid.ITEM.getCapability(getItem(0));
+        if (oxygenTankItemStorage != null) {
+            if (oxygenTankItemStorage.getFluidInTank(0).getAmount() > 0 && oxygenTank.getFluidValueInTank(0) < oxygenTank.getTankCapacity(0)) {
+                FluidStack stack = oxygenTankItemStorage.getFluidInTank(0).copyWithAmount(1);
+                oxygenTankItemStorage.drain(stack, false);
+                oxygenTank.fill(stack, false);
             }
+        }
 
-            if (oxygenTank.getFluidValueInTank(oxygenTank.getTanks()) > 0) {
-                GlobalOxygenManager.getInstance().getOrCreateDimensionManager(serverLevel).addOxygenRoomIfMissing(getBlockPos());
-            }
+        if (level instanceof ServerLevel serverLevel && !oxygenTank.isEmpty()) {
+            GlobalOxygenManager.getInstance().getOrCreateDimensionManager(serverLevel).addOxygenRoomIfMissing(getBlockPos());
         }
     }
 
     public boolean useOxygenAndEnergy() {
-        if (oxygenTank.getFluidInTank(oxygenTank.getTanks()).isEmpty() || oxygenTank.getFluidValueInTank(oxygenTank.getTanks()) == 0) {
-            if (this.energyContainer.getEnergy() > 0) {
-                UniversalFluidStorage storage = Capabilities.Fluid.ITEM.getCapability(getItem(0));
-                if (storage != null && !storage.getFluidInTank(0).isEmpty()) {
-                    storage.drain(storage.getFluidInTank(0).copyWithAmount(1), false);
-                    this.energyContainer.extract(1, false);
-                    return true;
-                }
-            }
-        }
-
-        if (oxygenTank.getFluidValueInTank(oxygenTank.getTanks()) > 0 && this.energyContainer.getEnergy() > 0) {
-            oxygenTank.drain(FluidStack.create(FluidRegistry.OXYGEN_ATTRIBUTES.getSourceFluid(), 1), false);
-            this.energyContainer.extract(1, false);
+        if (oxygenTank.getFluidValueInTank(0) > 0 && this.energyContainer.getEnergy() >= 3) {
+            oxygenTank.drain(oxygenTank.getFluidInTank(0).copyWithAmount(1), false);
+            this.energyContainer.extract(3, false);
+            this.setChanged();
             return true;
         }
 
@@ -71,7 +72,8 @@ public class OxygenDistributorBlockEntity extends BaseEnergyContainerBlockEntity
     }
 
     public long addOxygen(long amount) {
-        return oxygenTank.fill(FluidStack.create(FluidRegistry.OXYGEN_ATTRIBUTES.getSourceFluid(), amount), false);
+        FluidStack stack = oxygenTank.isEmpty() ? FluidStack.create(FluidRegistry.OXYGEN_STILL.get(), amount) : oxygenTank.getFluidInTank(0).copyWithAmount(amount);
+        return oxygenTank.fill(stack, false);
     }
 
     @Override
