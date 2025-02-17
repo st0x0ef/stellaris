@@ -18,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
 public class WaterPumpBlockEntity extends BaseEnergyBlockEntity implements FluidProvider.BLOCK {
 
     private static final int NEEDED_ENERGY = 100;
-    private final FluidStorage waterTank = new FluidStorage(1, 2000) {
+    private final FluidStorage waterTank = new FluidStorage(1, 1000) {
         @Override
         protected void onChange(int tank) {
             setChanged();
@@ -26,7 +26,7 @@ public class WaterPumpBlockEntity extends BaseEnergyBlockEntity implements Fluid
     };
 
     public WaterPumpBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockEntityRegistry.WATER_PUMP.get(), pos, state, 2000);
+        super(BlockEntityRegistry.WATER_PUMP.get(), pos, state, 1000);
     }
 
     @Override
@@ -39,14 +39,7 @@ public class WaterPumpBlockEntity extends BaseEnergyBlockEntity implements Fluid
         if (!(belowFluidState.is(Fluids.WATER) && belowFluidState.isSource())) return;
 
         BlockState belowState = level.getBlockState(belowPos);
-        if (belowState.getBlock() instanceof BucketPickup bucketPickup) {
-            if (!bucketPickup.pickupBlock(null, level, belowPos, belowState).isEmpty()) {
-                waterTank.fill(FluidStack.create(Fluids.WATER, 1000), false);
-                energyContainer.extract(NEEDED_ENERGY, false);
-                setChanged();
-            }
-        }
-        else if (waterTank.getFluidValueInTank(waterTank.getTanks()) + 1000 <= waterTank.getTankCapacity(waterTank.getTanks())) {
+        if (waterTank.getFluidInTank(0).isEmpty()) {
             if (belowState.getBlock() instanceof BucketPickup bucketPickup) {
                 if (!bucketPickup.pickupBlock(null, level, belowPos, belowState).isEmpty()) {
                     waterTank.fill(FluidStack.create(Fluids.WATER, 1000), false);
