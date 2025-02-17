@@ -22,7 +22,7 @@ public class FluidUtil {
         if (items.get(slot).isEmpty()) return;
         UniversalFluidItemStorage from = Capabilities.Fluid.ITEM.getCapability(items.get(slot));
         if (from == null) return;
-        amount = Math.min(amount, to.getTankCapacity(0));
+        amount = Math.min(amount, to.getTankCapacity(tank) - to.getFluidInTank(tank).getAmount());
         moveFluid(from, to, from.getFluidInTank(tank).copyWithAmount(amount));
         items.set(slot, from.getContainer());
     }
