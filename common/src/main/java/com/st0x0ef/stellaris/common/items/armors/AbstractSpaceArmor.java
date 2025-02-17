@@ -2,7 +2,6 @@ package com.st0x0ef.stellaris.common.items.armors;
 
 import com.fej1fun.potentials.fluid.ItemFluidStorage;
 import com.fej1fun.potentials.fluid.UniversalFluidItemStorage;
-import com.fej1fun.potentials.fluid.UniversalFluidStorage;
 import com.fej1fun.potentials.providers.FluidProvider;
 import com.st0x0ef.stellaris.common.items.CustomArmorItem;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;

@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.common.oxygen;
 
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.OxygenDistributorBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -29,51 +28,31 @@ public class OxygenRoom {
         return level.getBlockEntity(distributorPos) instanceof OxygenDistributorBlockEntity distributor ? distributor : null;
     }
 
-    public void updateOxygenRoom() {
-        OxygenDistributorBlockEntity distributor = getDistributorBlockEntity();
-
-        if (distributor == null) return;
-
-        oxygenatedPositions.clear();
-
-        Set<BlockPos> visited = new HashSet<>();
-        Queue<BlockPos> positionsToCheck = new LinkedList<>();
-
+    public void tick() {
         for (Direction direction : Direction.values()) {
-            positionsToCheck.offer(distributorPos.relative(direction));
-        }
-
-        Stellaris.LOG.error("size 1 : {}", positionsToCheck.size());
-
-        while (!positionsToCheck.isEmpty()) {
-            Stellaris.LOG.error("size : {}", positionsToCheck.size());
-
-            BlockPos currentPos = positionsToCheck.poll();
-            visited.add(currentPos);
-            if (level.getBlockState(currentPos).isAir()) {
-                if (distributor.useOxygenAndEnergy()) {
-                    oxygenatedPositions.add(currentPos);
-                    Stellaris.LOG.error(currentPos.toString());
-
-                    if (Math.abs(currentPos.getX() - distributorPos.getX()) > HALF_ROOM_SIZE ||
-                            Math.abs(currentPos.getY() - distributorPos.getY()) > HALF_ROOM_SIZE ||
-                            Math.abs(currentPos.getZ() - distributorPos.getZ()) > HALF_ROOM_SIZE) {
-                        GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level).addRoomToCheckIfOpen(currentPos, this);
-                    }
-
-                    for (Direction direction : Direction.values()) {
-                        BlockPos relativePos = currentPos.relative(direction);
-                        if (Math.abs(relativePos.getX() - distributorPos.getX()) <= HALF_ROOM_SIZE &&
-                                Math.abs(relativePos.getY() - distributorPos.getY()) <= HALF_ROOM_SIZE &&
-                                Math.abs(relativePos.getZ() - distributorPos.getZ()) <= HALF_ROOM_SIZE) {
-                            if (!visited.contains(relativePos)) {
-                                positionsToCheck.offer(relativePos);
-                            }
-                        }
-                    }
-                }
+            BlockPos rel = distributorPos.relative(direction);
+            if (!oxygenatedPositions.contains(rel) && level.getBlockState(rel).isAir()) {
+                oxygenatedPositions.add(rel);
             }
         }
+
+        oxygenatedPositions.forEach(pos -> {
+            for (Direction direction : Direction.values()) {
+                BlockPos rel = pos.relative(direction);
+                if (!oxygenatedPositions.contains(rel) && level.getBlockState(rel).isAir()) {
+                    oxygenatedPositions.add(rel);
+                }
+
+                if (Math.abs(rel.getX() - distributorPos.getX()) > HALF_ROOM_SIZE ||
+                        Math.abs(rel.getY() - distributorPos.getY()) > HALF_ROOM_SIZE ||
+                        Math.abs(rel.getZ() - distributorPos.getZ()) > HALF_ROOM_SIZE) {
+                    GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level).addRoomToCheckIfOpen(rel, this);
+                } else if (!oxygenatedPositions.contains(rel) && level.getBlockState(rel).isAir()) {
+                    oxygenatedPositions.add(rel);
+                    GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level).removeRoomToCheckIfOpen(rel);
+                }
+            }
+        });
     }
 
     public void removeOxygenInRoom() {
