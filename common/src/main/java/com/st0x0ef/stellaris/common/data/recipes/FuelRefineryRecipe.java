@@ -21,6 +21,8 @@ import java.util.Optional;
 import static com.st0x0ef.stellaris.common.data.recipes.WaterSeparatorRecipe.Serializer.convertFluidStack;
 
 public record FuelRefineryRecipe(FluidStack ingredientStack, FluidStack resultStack, boolean isMb, long energy) implements Recipe<FluidInput> {
+
+    public static RecipeType<FuelRefineryRecipe> Type = RecipesRegistry.FUEL_REFINERY_TYPE.get();
     @Override
     public boolean matches(FluidInput input, Level level) {
         FluidStack stack = ((FuelRefineryBlockEntity) input.entity()).getIngredientTank().getStack();
