@@ -34,7 +34,7 @@ public record FuelRefineryCategory(IGuiHelper guiHelper) implements IRecipeCateg
 
     @Override
     public IDrawable getBackground() {
-        return guiHelper.createBlankDrawable(177, 224);
+        return guiHelper.createBlankDrawable(177, 192);
     }
 
     @Override
