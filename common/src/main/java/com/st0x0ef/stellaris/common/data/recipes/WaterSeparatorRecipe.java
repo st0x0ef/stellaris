@@ -24,6 +24,7 @@ import java.util.Optional;
 
 public record WaterSeparatorRecipe(FluidStack ingredientStack, List<FluidStack> resultStacks, boolean isMb, long energy) implements Recipe<FluidInput> {
 
+    public static RecipeType<WaterSeparatorRecipe> Type = RecipesRegistry.WATER_SEPERATOR_TYPE.get();
     @Override
     public boolean matches(FluidInput container, Level level) {
         FluidStack stack = ((WaterSeparatorBlockEntity) container.entity()).getIngredientTank().getStack();
