@@ -309,8 +309,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
             graphics.blit(star.texture, (int) bodyX, (int) bodyY, 0, 0, bodyWidth, bodyHeight, bodyWidth, bodyHeight);
 
-            int nameWidth = font.width(star.translatable);
-            graphics.drawString(font, star.translatable, (int) (bodyX + (float) bodyWidth / 2 - (float) nameWidth / 2), (int) (bodyY + bodyHeight), 0xFFFFFF);
+            int nameWidth = font.width(star.getTranslatable());
+            graphics.drawString(font, star.getTranslatable(), (int) (bodyX + (float) bodyWidth / 2 - (float) nameWidth / 2), (int) (bodyY + bodyHeight), 0xFFFFFF);
         }
     }
 
@@ -330,8 +330,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
             ScreenHelper.drawTexturewithRotation(graphics, planet.texture, (int) planetX, (int) planetY, 0, 0, planetWidth, planetHeight, planetWidth, planetHeight, (float) planet.currentAngle);
 
-            int nameWidth = font.width(planet.translatable);
-            graphics.drawString(font, planet.translatable, (int) (planetX + (float) planetWidth / 2 - (float) nameWidth / 2), (int) (planetY + planetHeight), 0xFFFFFF);
+            int nameWidth = font.width(planet.getTranslatable());
+            graphics.drawString(font, planet.getTranslatable(), (int) (planetX + (float) planetWidth / 2 - (float) nameWidth / 2), (int) (planetY + planetHeight), 0xFFFFFF);
         }
     }
 
@@ -360,7 +360,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     private void renderBodyDescription(GuiGraphics graphics, CelestialBody bodyToHighlight, int mouseX, int mouseY) {
         List<Component> bodyDescription = new ArrayList<>();
-        bodyDescription.add(Utils.getMessageComponent("§f" + bodyToHighlight.translatable.getString()));
+        bodyDescription.add(Utils.getMessageComponent("§f" + bodyToHighlight.getTranslatable().getString()));
         if (!isShiftPressed) {
             bodyDescription.add(Utils.getMessageComponent("§8" + TranslatableRegistry.HOLD_SHIFT.getString()));
         } else {
@@ -415,7 +415,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             getMenu().freeze_gui = false;
             ResourceLocation CELESTIAL_BODY_TEXTURE = focusedBody.texture;
 
-            Component CELESTIAL_BODY_NAME = focusedBody.translatable;
+            Component CELESTIAL_BODY_NAME = focusedBody.getTranslatable();
 
             Planet planet = PlanetUtil.getPlanet(focusedBody.dimension);
 

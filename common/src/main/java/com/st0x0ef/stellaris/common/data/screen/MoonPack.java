@@ -48,8 +48,8 @@ public class MoonPack extends SimpleJsonResourceReloadListener {
                     (int) moon.width(),
                     (int) moon.height(),
                     PlanetSelectionScreen.findByNamePlanet(moon.parent()),
-                    moon.dimensionId(),
-                    Component.translatable(moon.translatable()),
+                    moon.dimensionId().location(),
+                    moon.translatable(),
                     moon.id()
             );
 

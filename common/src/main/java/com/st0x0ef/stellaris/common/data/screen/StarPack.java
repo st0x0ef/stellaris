@@ -49,13 +49,13 @@ public class StarPack extends SimpleJsonResourceReloadListener {
             screenStar = new CelestialBody(
                     star.texture(),
                     star.name(),
-                    (int) star.x(),
-                    (int) star.y(),
+                    star.x(),
+                    star.y(),
                     star.width(),
                     star.height(),
                     orbitColor,
                     null,
-                    Component.translatable(star.translatable()),
+                    star.translatable(),
                     star.id()
             );
 
