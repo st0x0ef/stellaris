@@ -22,6 +22,7 @@ public class JEIPlugin implements IModPlugin {
     public void registerCategories(IRecipeCategoryRegistration registry) {
         registry.addRecipeCategories(new RocketStationCategory(registry.getJeiHelpers().getGuiHelper()));
         registry.addRecipeCategories(new WaterSeparatorCategory(registry.getJeiHelpers().getGuiHelper()));
+        registry.addRecipeCategories(new FuelRefineryCategory(registry.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
@@ -30,11 +31,14 @@ public class JEIPlugin implements IModPlugin {
 
         registry.addRecipes(RocketStationCategory.RECIPE, level.getRecipeManager().getAllRecipesFor(RecipesRegistry.ROCKET_STATION_TYPE.get()).stream().map(RecipeHolder::value).toList());
         registry.addRecipes(WaterSeparatorCategory.RECIPE, level.getRecipeManager().getAllRecipesFor(RecipesRegistry.WATER_SEPERATOR_TYPE.get()).stream().map(RecipeHolder::value).toList());
+        registry.addRecipes(FuelRefineryCategory.RECIPE, level.getRecipeManager().getAllRecipesFor(RecipesRegistry.FUEL_REFINERY_TYPE.get()).stream().map(RecipeHolder::value).toList());
     }
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registry) {
         registry.addRecipeCatalyst(ItemsRegistry.ROCKET_STATION.get().getDefaultInstance(), RocketStationCategory.RECIPE);
         registry.addRecipeCatalyst(ItemsRegistry.WATER_SEPARATOR.get().getDefaultInstance(), WaterSeparatorCategory.RECIPE);
+        registry.addRecipeCatalyst(ItemsRegistry.FUEL_REFINERY.get().getDefaultInstance(), FuelRefineryCategory.RECIPE);
+
     }
 }
