@@ -51,7 +51,7 @@ public class OxygenTankItem extends Item implements FluidProvider.ITEM {
 
             UniversalFluidItemStorage chestplateStorage = Capabilities.Fluid.ITEM.getCapability(stack);
 
-            if (storage == null || chestplateStorage == null) return super.use(level, player, usedHand);
+            if (chestplateStorage == null) return super.use(level, player, usedHand);
 
             if (storage.getFluidInTank(0).isEmpty()) {
                 return super.use(level, player, usedHand);
