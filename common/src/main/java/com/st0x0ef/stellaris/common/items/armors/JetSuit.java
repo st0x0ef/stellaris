@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.items.armors;
 
+import com.fej1fun.potentials.fluid.UniversalFluidItemStorage;
 import com.mojang.serialization.Codec;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.data_components.JetSuitComponent;
@@ -76,7 +77,8 @@ public class JetSuit {
 
         private void normalFlyModeMovement(Player player, ItemStack stack) {
             if (KeyVariables.isHoldingJump(player)) {
-                if (storage == null || storage.getFluidInTank(1).isEmpty()) return;
+                UniversalFluidItemStorage storage =  getFluidTank(stack);
+                if (storage.getFluidInTank(1).isEmpty()) return;
 
                 if (nextFuelCheckTick > 0) {
                     player.moveRelative(1.2F, new Vec3(0, 0.1, 0));
@@ -116,6 +118,7 @@ public class JetSuit {
 
             // Main movement logic
             if (!player.onGround() && !player.isInWater()) {
+                UniversalFluidItemStorage storage = getFluidTank(stack);
                 if (nextFuelCheckTick > 0) {
                     player.setDeltaMovement(vec3.x, vec3.y + 0.04, vec3.z);
                     player.resetFallDistance();
