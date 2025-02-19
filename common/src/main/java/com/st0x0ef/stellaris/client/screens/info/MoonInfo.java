@@ -6,7 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class MoonInfo extends CelestialBody {
     public final PlanetInfo orbitCenter;
-    private final long orbitalPeriod;
+    public final long orbitalPeriod;
     public final double orbitRadius;
     public double currentAngle;
 

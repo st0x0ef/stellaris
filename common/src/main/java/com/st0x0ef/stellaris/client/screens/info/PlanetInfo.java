@@ -8,7 +8,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 
 public class PlanetInfo extends CelestialBody {
-    private final long orbitDuration;
+
+    public final long orbitDuration;
     public final CelestialBody orbitCenter;
     public final double orbitRadius;
     public double currentAngle;
