@@ -7,8 +7,10 @@ import com.st0x0ef.stellaris.common.data_components.JetSuitComponent;
 import com.st0x0ef.stellaris.common.items.armors.JetSuit;
 import com.st0x0ef.stellaris.common.keybinds.KeyVariables;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
+import com.st0x0ef.stellaris.common.registry.FluidRegistry;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import com.st0x0ef.stellaris.common.utils.Utils;
+import dev.architectury.fluid.FluidStack;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
@@ -149,7 +151,7 @@ public class JetModule extends Item implements SpaceSuitModule {
 
             UniversalFluidStorage storage = Capabilities.Fluid.ITEM.getCapability(stack);
             if (storage == null) return;
-            storage.drain(2, false);
+            storage.drain(FluidStack.create(FluidRegistry.FUEL_STILL.get(), 2), false);
         }
 
         // Move up
@@ -188,7 +190,7 @@ public class JetModule extends Item implements SpaceSuitModule {
 
             UniversalFluidStorage storage = Capabilities.Fluid.ITEM.getCapability(stack);
             if (storage == null) return;
-            storage.drain(2, false);
+            storage.drain(FluidStack.create(FluidRegistry.FUEL_STILL.get(), 2), false);
         } else if (player.isSprinting() && player.onGround() && KeyVariables.isHoldingJump(player)) {
             player.moveTo(player.getX(), player.getY() + 2, player.getZ());
         }

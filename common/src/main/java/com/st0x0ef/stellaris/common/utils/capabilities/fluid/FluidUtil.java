@@ -6,7 +6,6 @@ import com.fej1fun.potentials.fluid.UniversalFluidItemStorage;
 import com.fej1fun.potentials.fluid.UniversalFluidStorage;
 import dev.architectury.fluid.FluidStack;
 import net.minecraft.core.NonNullList;
-import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.ItemStack;
 
 public class FluidUtil {

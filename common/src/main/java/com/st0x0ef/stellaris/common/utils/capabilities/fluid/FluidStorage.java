@@ -54,27 +54,6 @@ public abstract class FluidStorage extends BaseFluidStorage {
         return FluidStack.create(stack, drained);
     }
 
-    // Really hate this method
-    // So don't use it pls (it's going to be way slower)
-    @Override
-    public FluidStack drain(long maxAmount, boolean simulate) {
-        AtomicReference<FluidStack> toReturn = new AtomicReference<>(FluidStack.empty());
-        fluidStacks.stream().filter(stack -> !stack.isEmpty()).max(Comparator.comparing(FluidStack::getAmount)).ifPresent(stack -> {
-            long removedAmount = Math.min(this.maxDrain, Math.min(maxAmount, stack.getAmount()));
-            toReturn.set(FluidStack.create(stack.getFluid(), removedAmount));
-            if (!simulate) {
-                stack.shrink(removedAmount);
-                for (int i = 0; i < getTanks(); i++) {
-                    if (fluidStacks.get(i).equals(stack)) {
-                        onChange(i);
-                        break;
-                    }
-                }
-            }
-        });
-        return toReturn.get();
-    }
-
     @Override
     public long fillWithoutLimits(FluidStack stack, boolean simulate) {
         long filled = 0;

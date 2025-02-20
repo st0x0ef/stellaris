@@ -64,16 +64,6 @@ public abstract class SingleFluidStorage implements UniversalFluidStorage {
     }
 
     @Override
-    public FluidStack drain(long maxAmount, boolean simulate) {
-        long drained = Math.min(Math.min(maxDrain, maxAmount), stack.getAmount());
-        if (!simulate) {
-            this.stack.shrink(drained);
-            onChange();
-        }
-        return FluidStack.create(stack.getFluid(), drained);
-    }
-
-    @Override
     public FluidStack drain(FluidStack stack, boolean simulate) {
 
         if (!isFluidValid(0, stack)) return FluidStack.empty();
