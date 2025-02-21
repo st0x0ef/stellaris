@@ -1,16 +1,13 @@
 package com.st0x0ef.stellaris.common.registry;
 
-import com.mojang.serialization.Codec;
+import com.fej1fun.potentials.components.FluidAmountMapDataComponent;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.data_components.*;
-import dev.architectury.fluid.FluidStack;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.codec.ByteBufCodecs;
 
-import java.util.List;
 import java.util.function.UnaryOperator;
 
 public class DataComponentsRegistry {
@@ -32,9 +29,9 @@ public class DataComponentsRegistry {
     public static final RegistrySupplier<DataComponentType<SpaceSuitModules>> SPACE_SUIT_MODULES = register("space_suit_modules",
             builder -> builder.persistent(SpaceSuitModules.CODEC).networkSynchronized(SpaceSuitModules.STREAM_CODEC));
 
-    public static final RegistrySupplier<DataComponentType<List<FluidStack>>> FLUID_LIST = register("fluid", builder -> builder
-                    .persistent(Codec.list(FluidStack.CODEC))
-            .networkSynchronized(FluidStack.STREAM_CODEC.apply(ByteBufCodecs.list())));
+    public static final RegistrySupplier<DataComponentType<FluidAmountMapDataComponent>> FLUID_LIST = register("fluid", builder -> builder
+                    .persistent(FluidAmountMapDataComponent.CODEC)
+            .networkSynchronized(FluidAmountMapDataComponent.STREAM_CODEC));
 
     private static <T> RegistrySupplier<DataComponentType<T>> register(String name, UnaryOperator<DataComponentType.Builder<T>> builderOperator) {
         return DATA_COMPONENT_TYPE.register(name, () -> builderOperator.apply(DataComponentType.builder()).build());

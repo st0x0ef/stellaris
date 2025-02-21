@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.common.registry;
 
-import com.fej1fun.potentials.fluid.ItemFluidStorage;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.RocketModel;
 import com.st0x0ef.stellaris.client.screens.GUISprites;
