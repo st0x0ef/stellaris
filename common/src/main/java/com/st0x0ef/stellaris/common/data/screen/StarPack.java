@@ -59,8 +59,15 @@ public class StarPack extends SimpleJsonResourceReloadListener {
                     star.id()
             );
 
+            for (int i = 0; i < PlanetSelectionScreen.STARS.size(); i++) {
+                if (PlanetSelectionScreen.STARS.get(i).getId().equals(star.id())) {
+                    PlanetSelectionScreen.STARS.set(i, screenStar);
+                    Stellaris.LOG.info("Replaced existing star in PlanetSelectionScreen : {}", star.id());
+                    return;
+                }
+            }
             PlanetSelectionScreen.STARS.add(screenStar);
-            Stellaris.LOG.info("Added a star to PlanetSelectionScreen : {}", star.name());
+            Stellaris.LOG.info("Added a new star to PlanetSelectionScreen : {}", star.id());
         });
 
         count++;
