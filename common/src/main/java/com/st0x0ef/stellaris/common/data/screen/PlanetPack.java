@@ -39,15 +39,22 @@ public class PlanetPack extends SimpleJsonResourceReloadListener {
                     planet.width(),
                     planet.height(),
                     PlanetSelectionScreen.findByNameStar(planet.parent()),
-                    planet.dimensionId(),
-                    Component.translatable(planet.translatable()),
+                    planet.dimensionId().location(),
+                    planet.translatable(),
                     planet.id()
             );
 
+            for (int i = 0; i < PlanetSelectionScreen.PLANETS.size(); i++) {
+                if (PlanetSelectionScreen.PLANETS.get(i).getId().equals(planet.id())) {
+                    PlanetSelectionScreen.PLANETS.set(i, screenPlanet);
+                    Stellaris.LOG.info("Replaced existing planet in PlanetSelectionScreen : {}", planet.name());
+                    return;
+                }
+            }
             PlanetSelectionScreen.PLANETS.add(screenPlanet);
-            Stellaris.LOG.info("Added a planet to PlanetSelectionScreen : {}", planet.name());
+            Stellaris.LOG.info("Added a new planet to PlanetSelectionScreen : {}", planet.name());
         });
-        PlanetSelectionClientEvents.POST_PLANET_PACK_REGISTRY.invoker().moonRegistered(PlanetSelectionScreen.PLANETS);
+        PlanetSelectionClientEvents.POST_PLANET_PACK_REGISTRY.invoker().planetRegistered(PlanetSelectionScreen.PLANETS);
 
     }
 }

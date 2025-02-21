@@ -51,6 +51,6 @@ public interface PlanetSelectionClientEvents {
          * @param planetInfos The list of all the planets.
          * @return A {@link EventResult} but this events can't be cancelled.
          */
-        EventResult moonRegistered(List<PlanetInfo> planetInfos);
+        EventResult planetRegistered(List<PlanetInfo> planetInfos);
     }
 }
