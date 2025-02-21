@@ -361,8 +361,8 @@ public class ItemsRegistry {
      * Oxygen
      */
 
-    public static final RegistrySupplier<Item> OXYGEN_TANK = ITEMS.register("oxygen_tank", () -> new OxygenTankItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.FLUID_LIST.get(), ItemFluidStorage.getEmpty(1)), 3600)); // we need potentials 0.4.1 to use this method
-    public static final RegistrySupplier<Item> BIG_OXYGEN_TANK = ITEMS.register("big_oxygen_tank", () -> new OxygenTankItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.FLUID_LIST.get(), ItemFluidStorage.getEmpty(1)), 10800));
+    public static final RegistrySupplier<Item> OXYGEN_TANK = ITEMS.register("oxygen_tank", () -> new OxygenTankItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), 3600));
+    public static final RegistrySupplier<Item> BIG_OXYGEN_TANK = ITEMS.register("big_oxygen_tank", () -> new OxygenTankItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), 10800));
 
     /**
      * Suit
