@@ -22,7 +22,7 @@ public class Datagen {
 
 
         generator.addProvider(
-                event.includeServer(),
+                event.includeDev(),
                 (DataProvider.Factory<DatapackBuiltinEntriesProvider>) output -> new DatapackBuiltinEntriesProvider(
                         output,
                         event.getLookupProvider(),

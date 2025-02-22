@@ -5,12 +5,16 @@ import com.st0x0ef.stellaris.platform.neoforge.ClientUtilsPlatformImpl;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.Model;
+import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.renderer.entity.layers.EquipmentLayerRenderer;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
+import net.minecraft.client.resources.model.EquipmentClientInfo;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.equipment.EquipmentModel;
+import net.minecraft.world.item.equipment.EquipmentAsset;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
@@ -33,7 +37,7 @@ public abstract class ArmorRenderMixin extends Item {
             }
 
             @Override
-            public Model getHumanoidArmorModel(ItemStack itemStack, EquipmentModel.LayerType layerType, Model original) {
+            public  Model getHumanoidArmorModel(ItemStack itemStack, EquipmentClientInfo.LayerType layerType, Model original) {
                 if (renderer == null) {
                     renderer = ClientUtilsPlatformImpl.ARMOR_RENDERERS.get(itemStack.getItem());
                 }
@@ -45,7 +49,7 @@ public abstract class ArmorRenderMixin extends Item {
             }
 
             @Override
-            public Model getGenericArmorModel(ItemStack itemStack, EquipmentModel.LayerType layerType, Model original) {
+            public Model getGenericArmorModel(ItemStack itemStack, EquipmentClientInfo.LayerType layerType, Model original) {
                 HumanoidModel<?> replacement = (HumanoidModel<?>) getHumanoidArmorModel(itemStack, layerType, original);
                 if (replacement != original) {
                     uncheckedCopyTo((HumanoidModel<? extends HumanoidRenderState>) original, replacement);
