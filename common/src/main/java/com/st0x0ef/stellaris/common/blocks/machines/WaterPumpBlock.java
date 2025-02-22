@@ -30,42 +30,11 @@ import org.jetbrains.annotations.Nullable;
 public class WaterPumpBlock extends BaseMachineBlock {
 
     public static final MapCodec<WaterPumpBlock> CODEC = simpleCodec(WaterPumpBlock::new);
-    private static final Component TITLE = Component.translatable("block.stellaris.water_pump");
+
     VoxelShape SHAPE = Block.box(5, 0, 5, 11, 16, 11);
 
     public WaterPumpBlock(BlockBehaviour.Properties properties) {
         super(properties);
-    }
-
-    @Override
-    protected @NotNull InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-        return InteractionResult.CONSUME;
-    }
-
-    @Override
-    protected @Nullable ExtendedMenuProvider getMenuProvider(BlockState state, Level level, BlockPos pos) {
-        return new ExtendedMenuProvider() {
-
-            @Override
-            public void saveExtraData(FriendlyByteBuf buf) {
-                buf.writeBlockPos(pos);
-            }
-
-            @Override
-            public @NotNull Component getDisplayName() {
-                return TITLE;
-            }
-
-            @Nullable
-            @Override
-            public AbstractContainerMenu createMenu(int containerId, Inventory inventory, Player player) {
-                BlockEntity blockEntity = level.getBlockEntity(pos);
-                if (blockEntity instanceof WaterPumpBlockEntity waterPumpBlockEntity) {
-                    return new WaterPumpMenu(containerId, inventory, ContainerLevelAccess.create(level, pos), waterPumpBlockEntity);
-                }
-                return null;
-            }
-        };
     }
 
     @Override
@@ -85,6 +54,6 @@ public class WaterPumpBlock extends BaseMachineBlock {
 
     @Override
     public boolean hasTicker(Level level) {
-        return true;
+        return !level.isClientSide;
     }
 }

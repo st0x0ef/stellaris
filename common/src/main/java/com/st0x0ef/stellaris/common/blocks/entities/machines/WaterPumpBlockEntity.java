@@ -3,7 +3,8 @@ package com.st0x0ef.stellaris.common.blocks.entities.machines;
 import com.fej1fun.potentials.components.FluidAmountMapDataComponent;
 import com.fej1fun.potentials.fluid.UniversalFluidStorage;
 import com.fej1fun.potentials.providers.FluidProvider;
-import com.st0x0ef.stellaris.common.network.packets.SyncFluidPacket;
+import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.common.network.packets.SyncFluidPacketWithoutDirection;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.utils.capabilities.fluid.SingleFluidStorage;
 import dev.architectury.fluid.FluidStack;
@@ -14,7 +15,6 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.BucketPickup;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.Nullable;
@@ -30,13 +30,13 @@ public class WaterPumpBlockEntity extends BaseEnergyBlockEntity implements Fluid
             setChanged();
             if (level != null && level.getServer() != null && !level.getServer().getPlayerList().getPlayers().isEmpty())
                 NetworkManager.sendToPlayers(level.getServer().getPlayerList().getPlayers(),
-                        new SyncFluidPacket(new FluidAmountMapDataComponent(List.of(getFluidInTank(0).getFluid()), List.of(getFluidValueInTank())), 0, getBlockPos(), getBlockState().getValue(BlockStateProperties.FACING).getClockWise()));
+                        new SyncFluidPacketWithoutDirection(new FluidAmountMapDataComponent(List.of(getFluidInTank(0).getFluid()), List.of(getFluidValueInTank())), 0, getBlockPos()));
 
         }
     };
 
     public WaterPumpBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockEntityRegistry.WATER_PUMP.get(), pos, state, 1000);
+        super(BlockEntityRegistry.WATER_PUMP.get(), pos, state, 100);
     }
 
     @Override
@@ -47,9 +47,8 @@ public class WaterPumpBlockEntity extends BaseEnergyBlockEntity implements Fluid
         FluidState belowFluidState = level.getFluidState(belowPos);
 
         if (!(belowFluidState.is(Fluids.WATER) && belowFluidState.isSource())) return;
-
         BlockState belowState = level.getBlockState(belowPos);
-        if (waterTank.getFluidInTank(0).isEmpty() && energyContainer.getEnergy() >= NEEDED_ENERGY) {
+        if (waterTank.getFluidInTank(0).isEmpty()) {
             if (belowState.getBlock() instanceof BucketPickup bucketPickup) {
                 if (!bucketPickup.pickupBlock(null, level, belowPos, belowState).isEmpty()) {
                     waterTank.fill(FluidStack.create(Fluids.WATER, 1000), false);
