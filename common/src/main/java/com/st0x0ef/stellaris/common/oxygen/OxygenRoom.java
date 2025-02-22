@@ -63,12 +63,12 @@ public class OxygenRoom {
             }
         }
 
-        // We don't know yet
+        // We don't know yet, but if true, then the room is closed
         isClosed = oxygenatedPositions.size() == oxygenatedPositionsCopy.size();
     }
 
     public void removeOxygenInRoom() {
-        oxygenatedPositions.clear();
+        if (!isClosed) oxygenatedPositions.clear();
     }
 
     public boolean hasOxygenAt(BlockPos pos) {
