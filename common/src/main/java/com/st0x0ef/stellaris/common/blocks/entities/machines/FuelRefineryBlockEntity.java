@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
+import com.fej1fun.potentials.components.FluidAmountMapDataComponent;
 import com.fej1fun.potentials.providers.FluidProvider;
 import com.st0x0ef.stellaris.common.data.recipes.FuelRefineryRecipe;
 import com.st0x0ef.stellaris.common.data.recipes.input.FluidInput;
@@ -26,6 +27,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.Optional;
 
 public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity implements FluidProvider.BLOCK {
@@ -41,18 +43,18 @@ public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity impl
             @Override
             protected void onChange(int i) {
                 setChanged();
-                if (level != null && level.getServer() != null && !level.getServer().getPlayerList().getPlayers().isEmpty() && !this.getFluidInTank(0).isEmpty())
+                if (level != null && level.getServer() != null && !level.getServer().getPlayerList().getPlayers().isEmpty() && !this.getFluidInTank(i).isEmpty())
                     NetworkManager.sendToPlayers(level.getServer().getPlayerList().getPlayers(),
-                            new SyncFluidPacket(this.getFluidInTank(0), 0, getBlockPos(), Direction.UP));
+                            new SyncFluidPacket(new FluidAmountMapDataComponent(List.of(getFluidInTank(i).getFluid()), List.of(getFluidValueInTank(i))), i, getBlockPos(), Direction.UP));
             }
         };
         this.outputTank = new FilteredFluidStorage(1, 10000, 0, 10000, (n,fluidStack) -> fluidStack.getFluid().isSame(FluidRegistry.FUEL_STILL.get())) {
             @Override
             protected void onChange(int i) {
                 setChanged();
-                if (level != null && level.getServer() != null && !level.getServer().getPlayerList().getPlayers().isEmpty() && !this.getFluidInTank(0).isEmpty())
+                if (level != null && level.getServer() != null && !level.getServer().getPlayerList().getPlayers().isEmpty() && !this.getFluidInTank(i).isEmpty())
                     NetworkManager.sendToPlayers(level.getServer().getPlayerList().getPlayers(),
-                            new SyncFluidPacket(this.getFluidInTank(0), 0, getBlockPos(), Direction.DOWN));
+                            new SyncFluidPacket(new FluidAmountMapDataComponent(List.of(getFluidInTank(i).getFluid()), List.of(getFluidValueInTank(i))), i, getBlockPos(), Direction.DOWN));
             }
         };
     }

@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
+import com.fej1fun.potentials.components.FluidAmountMapDataComponent;
 import com.fej1fun.potentials.fluid.UniversalFluidStorage;
 import com.fej1fun.potentials.providers.FluidProvider;
 import com.st0x0ef.stellaris.common.blocks.machines.CoalGeneratorBlock;
@@ -25,6 +26,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 public class PumpjackBlockEntity extends BaseEnergyContainerBlockEntity implements FluidProvider.BLOCK {
 
     private boolean isGenerating = false;
@@ -40,7 +43,7 @@ public class PumpjackBlockEntity extends BaseEnergyContainerBlockEntity implemen
                 setChanged();
                 if (level != null && level.getServer() != null && !level.getServer().getPlayerList().getPlayers().isEmpty() && !this.getFluidInTank(0).isEmpty())
                     NetworkManager.sendToPlayers(level.getServer().getPlayerList().getPlayers(),
-                            new SyncFluidPacketWithoutDirection(this.getFluidInTank(0), 0, getBlockPos()));
+                            new SyncFluidPacketWithoutDirection(new FluidAmountMapDataComponent(List.of(getFluidInTank(0).getFluid()), List.of(getFluidValueInTank())), 0, getBlockPos()));
             }
         };
     }
