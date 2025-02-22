@@ -2,7 +2,10 @@ package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
 import com.fej1fun.potentials.fluid.UniversalFluidStorage;
 import com.fej1fun.potentials.providers.FluidProvider;
+import com.st0x0ef.stellaris.common.blocks.machines.CableBlock;
+import com.st0x0ef.stellaris.common.blocks.machines.PipeBlock;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
+import com.st0x0ef.stellaris.common.utils.capabilities.fluid.FluidUtil;
 import com.st0x0ef.stellaris.common.utils.capabilities.fluid.SingleFluidStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -15,9 +18,6 @@ import org.jetbrains.annotations.Nullable;
 public class PipeBlockEntity extends BlockEntity implements FluidProvider.BLOCK, TickingBlockEntity {
     private final SingleFluidStorage fluidTank;
 
-    public PipeBlockEntity(BlockPos pos, BlockState blockState) {
-        this(pos, blockState, 0, 0, 0);
-    }
     public PipeBlockEntity(BlockPos pos, BlockState blockState, long capacity, long maxIn, long maxOut) {
         super(BlockEntityRegistry.PIPE_ENTITY.get(), pos, blockState);
         this.fluidTank = new SingleFluidStorage(capacity, maxIn, maxOut) {
@@ -26,6 +26,13 @@ public class PipeBlockEntity extends BlockEntity implements FluidProvider.BLOCK,
                 setChanged();
             }
         };
+    }
+
+    public static PipeBlockEntity create(BlockPos pos, BlockState state) {
+        if (state.getBlock() instanceof PipeBlock block) {
+            return new PipeBlockEntity(pos, state, block.capacity, block.maxIn, block.maxOut);
+        }
+        return new PipeBlockEntity(pos, state, 0, 0, 0);
     }
 
     @Override
@@ -47,6 +54,6 @@ public class PipeBlockEntity extends BlockEntity implements FluidProvider.BLOCK,
 
     @Override
     public void tick() {
-        //TODO distribute
+//        FluidUtil.
     }
 }

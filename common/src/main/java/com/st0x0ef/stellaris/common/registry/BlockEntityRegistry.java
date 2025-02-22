@@ -63,13 +63,13 @@ public class BlockEntityRegistry {
             ).build(null));
 
     public static final Supplier<BlockEntityType<?>> CABLE_ENTITY = BLOCK_ENTITY_TYPE.register("cable",
-            () -> BlockEntityType.Builder.of(CableBlockEntity::new,
+            () -> BlockEntityType.Builder.of(CableBlockEntity::create,
                             BlocksRegistry.T1_CABLE.get(),
                             BlocksRegistry.T2_CABLE.get(),
                             BlocksRegistry.T3_CABLE.get()
             ).build(null));
     public static final Supplier<BlockEntityType<?>> PIPE_ENTITY = BLOCK_ENTITY_TYPE.register("pipe",
-            () -> BlockEntityType.Builder.of(PipeBlockEntity::new,
+            () -> BlockEntityType.Builder.of(PipeBlockEntity::create,
                     BlocksRegistry.T1_PIPE.get(),
                     BlocksRegistry.T2_PIPE.get(),
                     BlocksRegistry.T3_PIPE.get()
