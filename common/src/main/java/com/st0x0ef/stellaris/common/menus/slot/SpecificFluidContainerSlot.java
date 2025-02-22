@@ -9,14 +9,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluid;
 
 public class SpecificFluidContainerSlot extends Slot {
-
-    private final boolean emptyOnly;
     private final boolean allowsEmpty;
     private final Fluid fluid;
 
-    public SpecificFluidContainerSlot(Container container, Fluid fluid, int slot, int x, int y, boolean emptyOnly, boolean allowsEmpty) {
+    public SpecificFluidContainerSlot(Container container, Fluid fluid, int slot, int x, int y, boolean allowsEmpty) {
         super(container, slot, x, y);
-        this.emptyOnly = emptyOnly;
         this.allowsEmpty = allowsEmpty;
         this.fluid = fluid;
     }
@@ -26,22 +23,16 @@ public class SpecificFluidContainerSlot extends Slot {
         UniversalFluidStorage fluidStorage = Capabilities.Fluid.ITEM.getCapability(stack);
         if(fluidStorage == null) return false;
 
-        if (emptyOnly) {
-            for (FluidStack fluidStack : fluidStorage)
-                if (!fluidStack.isEmpty()) return false;
-
-            return true;
-        }
-
-        if (allowsEmpty)
-            for (FluidStack fluidStack : fluidStorage)
+        if (allowsEmpty) {
+            for (FluidStack fluidStack : fluidStorage) {
                 if (fluidStack.isEmpty()) return true;
-
-
+            }
+        }
 
         for (FluidStack fluidStack : fluidStorage) {
             if (fluidStack.getFluid() == fluid) return true;
         }
+
         return false;
     }
 
