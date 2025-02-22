@@ -5,7 +5,6 @@ import com.fej1fun.potentials.fluid.UniversalFluidStorage;
 import com.fej1fun.potentials.providers.FluidProvider;
 import com.st0x0ef.stellaris.common.network.packets.SyncFluidPacket;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
-import com.st0x0ef.stellaris.common.utils.capabilities.fluid.FluidStorage;
 import com.st0x0ef.stellaris.common.utils.capabilities.fluid.SingleFluidStorage;
 import dev.architectury.fluid.FluidStack;
 import dev.architectury.networking.NetworkManager;

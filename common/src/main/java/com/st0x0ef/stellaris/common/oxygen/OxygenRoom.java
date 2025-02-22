@@ -63,11 +63,8 @@ public class OxygenRoom {
             }
         }
 
-        if (oxygenatedPositions.size() == oxygenatedPositionsCopy.size()) {
-            isClosed = true;
-        } else {
-            isClosed = false; // We don't know yet
-        }
+        // We don't know yet
+        isClosed = oxygenatedPositions.size() == oxygenatedPositionsCopy.size();
     }
 
     public void removeOxygenInRoom() {

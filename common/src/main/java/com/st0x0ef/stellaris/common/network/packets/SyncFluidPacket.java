@@ -16,7 +16,6 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.material.Fluid;
 import org.jetbrains.annotations.NotNull;
 
 public record SyncFluidPacket(FluidAmountMapDataComponent fluid, int tank, BlockPos pos, Direction direction) implements CustomPacketPayload {

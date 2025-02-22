@@ -5,7 +5,6 @@ import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.components.GaugeWidget;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.OxygenDistributorBlockEntity;
 import com.st0x0ef.stellaris.common.menus.OxygenDistributorMenu;
-import com.st0x0ef.stellaris.common.utils.capabilities.fluid.FluidStorage;
 import com.st0x0ef.stellaris.common.utils.capabilities.fluid.SingleFluidStorage;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

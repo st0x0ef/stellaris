@@ -6,7 +6,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.FuelRefineryBlockEntity;
 import com.st0x0ef.stellaris.common.data.recipes.input.FluidInput;
 import com.st0x0ef.stellaris.common.registry.RecipesRegistry;
-import com.st0x0ef.stellaris.common.utils.capabilities.fluid.FluidStorage;
 import com.st0x0ef.stellaris.common.utils.capabilities.fluid.SingleFluidStorage;
 import dev.architectury.fluid.FluidStack;
 import net.minecraft.core.HolderLookup;

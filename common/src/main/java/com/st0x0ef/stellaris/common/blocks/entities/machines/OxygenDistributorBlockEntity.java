@@ -8,7 +8,6 @@ import com.st0x0ef.stellaris.common.network.packets.SyncFluidPacketWithoutDirect
 import com.st0x0ef.stellaris.common.oxygen.GlobalOxygenManager;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.registry.FluidRegistry;
-import com.st0x0ef.stellaris.common.utils.capabilities.fluid.FluidStorage;
 import com.st0x0ef.stellaris.common.utils.capabilities.fluid.FluidUtil;
 import com.st0x0ef.stellaris.common.utils.capabilities.fluid.SingleFluidStorage;
 import dev.architectury.fluid.FluidStack;

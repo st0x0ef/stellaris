@@ -6,9 +6,6 @@ import dev.architectury.hooks.fluid.FluidStackHooks;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 
-import java.util.Comparator;
-import java.util.concurrent.atomic.AtomicReference;
-
 public abstract class FluidStorage extends BaseFluidStorage {
 
     
