@@ -41,7 +41,7 @@ public class PumpjackBlockEntity extends BaseEnergyContainerBlockEntity implemen
             @Override
             protected void onChange() {
                 setChanged();
-                if (level != null && level.getServer() != null && !level.getServer().getPlayerList().getPlayers().isEmpty() && !this.getFluidInTank(0).isEmpty())
+                if (level != null && level.getServer() != null && !level.getServer().getPlayerList().getPlayers().isEmpty())
                     NetworkManager.sendToPlayers(level.getServer().getPlayerList().getPlayers(),
                             new SyncFluidPacketWithoutDirection(new FluidAmountMapDataComponent(List.of(getFluidInTank(0).getFluid()), List.of(getFluidValueInTank())), 0, getBlockPos()));
             }
@@ -50,7 +50,7 @@ public class PumpjackBlockEntity extends BaseEnergyContainerBlockEntity implemen
 
     @Override
     public void tick() {
-        FluidUtil.moveFluidToItem(0, resultTank,1, items, 1000);
+        FluidUtil.moveFluidToItem(0, resultTank,0, items, 1000);
 
         ChunkAccess access = this.level.getChunk(this.worldPosition);
 
