@@ -3,16 +3,13 @@ package com.st0x0ef.stellaris.common.blocks.entities.machines;
 import com.fej1fun.potentials.components.FluidAmountMapDataComponent;
 import com.fej1fun.potentials.fluid.UniversalFluidStorage;
 import com.fej1fun.potentials.providers.FluidProvider;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.data.recipes.WaterSeparatorRecipe;
 import com.st0x0ef.stellaris.common.data.recipes.input.FluidInput;
 import com.st0x0ef.stellaris.common.menus.WaterSeparatorMenu;
 import com.st0x0ef.stellaris.common.network.packets.SyncFluidPacket;
-import com.st0x0ef.stellaris.common.network.packets.SyncFluidPacketWithoutDirection;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.registry.FluidRegistry;
 import com.st0x0ef.stellaris.common.registry.RecipesRegistry;
-import com.st0x0ef.stellaris.common.utils.capabilities.fluid.FilteredFluidStorage;
 import com.st0x0ef.stellaris.common.utils.capabilities.fluid.FluidStorage;
 import com.st0x0ef.stellaris.common.utils.capabilities.fluid.FluidUtil;
 import com.st0x0ef.stellaris.common.utils.capabilities.fluid.SingleFluidStorage;
@@ -55,15 +52,23 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity im
             return stack.getFluid() == Fluids.WATER;
         }
     };
-    public final FluidStorage resultTanks = new FilteredFluidStorage(2, 3000,0,3000, (tank, fluidStack) ->
-            tank == HYDROGEN_TANK ? fluidStack.getFluid() == FluidRegistry.HYDROGEN_STILL.get() : fluidStack.getFluid() == FluidRegistry.OXYGEN_STILL.get()
-    ) {
+    public final FluidStorage resultTanks = new FluidStorage(2, 3000,0,3000) {
         @Override
         protected void onChange(int tank) {
             setChanged();
             if (level != null && level.getServer() != null && !level.getServer().getPlayerList().getPlayers().isEmpty())
                 NetworkManager.sendToPlayers(level.getServer().getPlayerList().getPlayers(),
                         new SyncFluidPacket(new FluidAmountMapDataComponent(List.of(getFluidInTank(tank).getFluid()), List.of(getFluidValueInTank(tank))), tank, getBlockPos(), getBlockState().getValue(BlockStateProperties.FACING).getClockWise()));
+        }
+
+        @Override
+        public boolean isFluidValid(int tank, FluidStack stack) {
+            if (tank == HYDROGEN_TANK) {
+                return stack.getFluid() == FluidRegistry.HYDROGEN_STILL.get();
+            } else if (tank == OXYGEN_TANK) {
+                return stack.getFluid() == FluidRegistry.OXYGEN_STILL.get();
+            }
+            return false;
         }
     };
 

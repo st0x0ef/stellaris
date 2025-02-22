@@ -9,9 +9,9 @@ import com.st0x0ef.stellaris.common.network.packets.SyncFluidPacket;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.registry.FluidRegistry;
 import com.st0x0ef.stellaris.common.registry.RecipesRegistry;
-import com.st0x0ef.stellaris.common.utils.capabilities.fluid.FilteredFluidStorage;
 import com.st0x0ef.stellaris.common.utils.capabilities.fluid.FluidStorage;
 import com.st0x0ef.stellaris.common.utils.capabilities.fluid.FluidUtil;
+import com.st0x0ef.stellaris.common.utils.capabilities.fluid.SingleFluidStorage;
 import dev.architectury.fluid.FluidStack;
 import dev.architectury.networking.NetworkManager;
 import net.minecraft.core.BlockPos;
@@ -32,29 +32,34 @@ import java.util.Optional;
 
 public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity implements FluidProvider.BLOCK {
 
-    private final FluidStorage inputTank;
-    private final FluidStorage outputTank;
+    private final SingleFluidStorage inputTank;
+    private final SingleFluidStorage outputTank;
 
     private final RecipeManager.CachedCheck<FluidInput, FuelRefineryRecipe> cachedCheck = RecipeManager.createCheck(RecipesRegistry.FUEL_REFINERY_TYPE.get());
 
     public FuelRefineryBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.FUEL_REFINERY.get(), pos, state);
-        this.inputTank = new FilteredFluidStorage(1, 10000, 10000, 0, (n,fluidStack) -> fluidStack.getFluid().isSame(FluidRegistry.OIL_STILL.get())) {
+        this.inputTank = new SingleFluidStorage(10000, 10000, 0) {
             @Override
-            protected void onChange(int i) {
+            protected void onChange() {
                 setChanged();
                 if (level != null && level.getServer() != null && !level.getServer().getPlayerList().getPlayers().isEmpty())
                     NetworkManager.sendToPlayers(level.getServer().getPlayerList().getPlayers(),
-                            new SyncFluidPacket(new FluidAmountMapDataComponent(List.of(getFluidInTank(i).getFluid()), List.of(getFluidValueInTank(i))), i, getBlockPos(), Direction.UP));
+                            new SyncFluidPacket(new FluidAmountMapDataComponent(List.of(getFluidInTank(0).getFluid()), List.of(getFluidValueInTank())), 0, getBlockPos(), Direction.UP));
+            }
+
+            @Override
+            public boolean isFluidValid(int tank, FluidStack stack) {
+                return stack.getFluid().isSame(FluidRegistry.OIL_STILL.get());
             }
         };
-        this.outputTank = new FilteredFluidStorage(1, 10000, 0, 10000, (n,fluidStack) -> fluidStack.getFluid().isSame(FluidRegistry.FUEL_STILL.get())) {
+        this.outputTank = new SingleFluidStorage(10000, 0, 10000) {
             @Override
-            protected void onChange(int i) {
+            protected void onChange() {
                 setChanged();
                 if (level != null && level.getServer() != null && !level.getServer().getPlayerList().getPlayers().isEmpty())
                     NetworkManager.sendToPlayers(level.getServer().getPlayerList().getPlayers(),
-                            new SyncFluidPacket(new FluidAmountMapDataComponent(List.of(getFluidInTank(i).getFluid()), List.of(getFluidValueInTank(i))), i, getBlockPos(), Direction.DOWN));
+                            new SyncFluidPacket(new FluidAmountMapDataComponent(List.of(getFluidInTank(0).getFluid()), List.of(getFluidValueInTank())), 0, getBlockPos(), Direction.DOWN));
             }
         };
     }
@@ -76,7 +81,7 @@ public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity impl
                 FluidStack resultStack = recipe.resultStack().copy();
 
                 if (outputTank.getFluidInTank(0).isEmpty() || outputTank.getFluidInTank(0).isFluidEqual(resultStack)) {
-                    if (outputTank.getFluidValueInTank(0) + resultStack.getAmount() < outputTank.getTankCapacity(0)) {
+                    if (outputTank.getFluidValueInTank() + resultStack.getAmount() < outputTank.getTankCapacity(0)) {
                         energyContainer.extract(recipe.energy(), false);
                         inputTank.drainWithoutLimits(recipe.ingredientStack().copy(), false);
                         outputTank.fillWithoutLimits(resultStack, false);
@@ -116,15 +121,15 @@ public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity impl
         outputTank.save(tag, provider, "output");
     }
 
-    public FluidStorage getIngredientTank() {
+    public SingleFluidStorage getIngredientTank() {
         return inputTank;
     }
-    public FluidStorage getResultTank() {
+    public SingleFluidStorage getResultTank() {
         return outputTank;
     }
 
     @Override
-    public @Nullable FluidStorage getFluidTank(@Nullable Direction direction) {
+    public @Nullable SingleFluidStorage getFluidTank(@Nullable Direction direction) {
         //TODO better directions
         if (direction == null) {
             return outputTank;

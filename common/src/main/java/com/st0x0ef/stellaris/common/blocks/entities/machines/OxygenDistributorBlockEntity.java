@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
-import com.fej1fun.potentials.capabilities.Capabilities;
 import com.fej1fun.potentials.components.FluidAmountMapDataComponent;
 import com.fej1fun.potentials.fluid.UniversalFluidStorage;
 import com.fej1fun.potentials.providers.FluidProvider;
@@ -9,9 +8,9 @@ import com.st0x0ef.stellaris.common.network.packets.SyncFluidPacketWithoutDirect
 import com.st0x0ef.stellaris.common.oxygen.GlobalOxygenManager;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.registry.FluidRegistry;
-import com.st0x0ef.stellaris.common.utils.capabilities.fluid.FilteredFluidStorage;
 import com.st0x0ef.stellaris.common.utils.capabilities.fluid.FluidStorage;
 import com.st0x0ef.stellaris.common.utils.capabilities.fluid.FluidUtil;
+import com.st0x0ef.stellaris.common.utils.capabilities.fluid.SingleFluidStorage;
 import dev.architectury.fluid.FluidStack;
 import dev.architectury.networking.NetworkManager;
 import net.minecraft.core.BlockPos;
@@ -29,19 +28,24 @@ import java.util.List;
 
 public class OxygenDistributorBlockEntity extends BaseEnergyContainerBlockEntity implements FluidProvider.BLOCK {
 
-    public final FluidStorage oxygenTank;
+    public final SingleFluidStorage oxygenTank;
 
 
     public OxygenDistributorBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.OXYGEN_DISTRIBUTOR.get(), pos, state);
 
-        this.oxygenTank = new FilteredFluidStorage(1, 20000, (n,fluidStack) -> fluidStack.getFluid().isSame(FluidRegistry.OXYGEN_STILL.get())) {
+        this.oxygenTank = new SingleFluidStorage(20000) {
             @Override
-            protected void onChange(int i) {
+            protected void onChange() {
                 setChanged();
                 if (level != null && level.getServer() != null && !level.getServer().getPlayerList().getPlayers().isEmpty())
                     NetworkManager.sendToPlayers(level.getServer().getPlayerList().getPlayers(),
-                            new SyncFluidPacketWithoutDirection(new FluidAmountMapDataComponent(List.of(getFluidInTank(0).getFluid()), List.of(getFluidValueInTank(0))), 0, getBlockPos()));
+                            new SyncFluidPacketWithoutDirection(new FluidAmountMapDataComponent(List.of(getFluidInTank(0).getFluid()), List.of(getFluidValueInTank())), 0, getBlockPos()));
+            }
+
+            @Override
+            public boolean isFluidValid(int tank, FluidStack stack) {
+                return stack.getFluid().isSame(FluidRegistry.OXYGEN_STILL.get());
             }
         };
     }
@@ -56,7 +60,7 @@ public class OxygenDistributorBlockEntity extends BaseEnergyContainerBlockEntity
     }
 
     public boolean useOxygenAndEnergy() {
-        if (oxygenTank.getFluidValueInTank(0) > 0 && this.energyContainer.getEnergy() >= 3) {
+        if (oxygenTank.getFluidValueInTank() > 0 && this.energyContainer.getEnergy() >= 3) {
             oxygenTank.drain(oxygenTank.getFluidInTank(0).copyWithAmount(1), false);
             this.energyContainer.extract(3, false);
             return true;

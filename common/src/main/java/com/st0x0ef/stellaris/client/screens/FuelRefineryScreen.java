@@ -6,6 +6,7 @@ import com.st0x0ef.stellaris.client.screens.components.GaugeWidget;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.FuelRefineryBlockEntity;
 import com.st0x0ef.stellaris.common.menus.FuelRefineryMenu;
 import com.st0x0ef.stellaris.common.utils.capabilities.fluid.FluidStorage;
+import com.st0x0ef.stellaris.common.utils.capabilities.fluid.SingleFluidStorage;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -37,12 +38,12 @@ public class FuelRefineryScreen extends AbstractContainerScreen<FuelRefineryMenu
             return;
         }
 
-        FluidStorage ingredientTank = blockEntity.getIngredientTank();
+        SingleFluidStorage ingredientTank = blockEntity.getIngredientTank();
         ingredientTankGauge = new GaugeWidget(leftPos + 41, topPos + 36, 12, 46, Component.translatable("stellaris.screen.oil"),
                 GUISprites.OIL_OVERLAY, GUISprites.LIQUID_TANK_OVERLAY, ingredientTank.getTankCapacity(0), GaugeWidget.Direction4.DOWN_UP);
         addRenderableWidget(ingredientTankGauge);
 
-        FluidStorage resultTank = blockEntity.getResultTank();
+        SingleFluidStorage resultTank = blockEntity.getResultTank();
         resultTankGauge = new GaugeWidget(leftPos + 98, topPos + 36, 12, 46, Component.translatable("stellaris.screen.fuel"),
                 GUISprites.FUEL_OVERLAY, GUISprites.LIQUID_TANK_OVERLAY, resultTank.getTankCapacity(0), GaugeWidget.Direction4.DOWN_UP);
         addRenderableWidget(resultTankGauge);
@@ -62,8 +63,8 @@ public class FuelRefineryScreen extends AbstractContainerScreen<FuelRefineryMenu
             return;
         }
 
-        ingredientTankGauge.updateAmount(blockEntity.getIngredientTank().getFluidValueInTank(0));
-        resultTankGauge.updateAmount(blockEntity.getResultTank().getFluidValueInTank(0));
+        ingredientTankGauge.updateAmount(blockEntity.getIngredientTank().getFluidValueInTank());
+        resultTankGauge.updateAmount(blockEntity.getResultTank().getFluidValueInTank());
         energyGauge.updateAmount(blockEntity.getEnergy(null).getEnergy());
     }
 
