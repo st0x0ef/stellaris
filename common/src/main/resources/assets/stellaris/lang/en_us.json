@@ -579,7 +579,7 @@
   "tooltip.item.stellaris.can.empty": "Empty",
   "tooltip.item.stellaris.can.nutrition": "Nutrition: %s/%s",
   "tooltip.item.stellaris.can.saturation": "Saturation: %s",
-  "tooltip.item.stellaris.oxygen_tank": "Oxygen: §e %s §r§f/§r§e %s §rmb",
+  "tooltip.item.stellaris.oxygen_tank": "Oxygen: §e%s§r§f/§r§e%s§rmb",
   "tooltip.item.stellaris.rocket.skin": "Skin: %s",
   "tooltip.item.stellaris.rocket.fuel": "Fuel: %s",
   "tooltip.item.stellaris.rocket.model": "Model: %s",

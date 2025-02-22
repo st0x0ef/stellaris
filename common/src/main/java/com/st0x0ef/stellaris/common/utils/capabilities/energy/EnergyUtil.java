@@ -65,8 +65,8 @@ public class EnergyUtil {
         List<UniversalEnergyStorage> toSend = Direction.stream()
                 .map(direction -> Capabilities.Energy.BLOCK.getCapability(level, pos.relative(direction), direction.getOpposite()))
                 .filter(Objects::nonNull)
-                .sorted(Comparator.comparing(energyStorage -> energyStorage.insert(amount, true)))
                 .filter(UniversalEnergyStorage::canInsertEnergy)
+                .sorted(Comparator.comparing(energyStorage -> energyStorage.insert(amount, true)))
                 .toList();
         if (toSend.isEmpty()) return;
 
