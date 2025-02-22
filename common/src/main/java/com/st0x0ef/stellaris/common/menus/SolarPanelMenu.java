@@ -1,13 +1,13 @@
 package com.st0x0ef.stellaris.common.menus;
 
 import com.st0x0ef.stellaris.common.blocks.entities.machines.SolarPanelEntity;
+import com.st0x0ef.stellaris.common.menus.slot.EnergySlot;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.Slot;
 
 public class SolarPanelMenu extends BaseContainer {
 
@@ -26,7 +26,7 @@ public class SolarPanelMenu extends BaseContainer {
         this.inventory = container;
         this.blockEntity = entity;
 
-        addSlot(new Slot(inventory, 0, 38, 44));
+        addSlot(new EnergySlot(inventory, 0, 38, 44));
 
     }
 

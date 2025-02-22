@@ -8,6 +8,7 @@ import dev.architectury.fluid.FluidStack;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
 
+@SuppressWarnings("all")
 public class FluidUtil {
     public static void moveFluidToItem(int tank, UniversalFluidStorage from, int slot, NonNullList<ItemStack> items, long amount) {
         if (items.get(slot).isEmpty()) return;

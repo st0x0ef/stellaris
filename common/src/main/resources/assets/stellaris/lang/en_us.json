@@ -579,10 +579,11 @@
   "tooltip.item.stellaris.can.empty": "Empty",
   "tooltip.item.stellaris.can.nutrition": "Nutrition: %s/%s",
   "tooltip.item.stellaris.can.saturation": "Saturation: %s",
-  "tooltip.item.stellaris.oxygen_tank": "Oxygen: %s/%s",
+  "tooltip.item.stellaris.oxygen_tank": "Oxygen: §e %s §r§f/§r§e %s §rmb",
   "tooltip.item.stellaris.rocket.skin": "Skin: %s",
   "tooltip.item.stellaris.rocket.fuel": "Fuel: %s",
   "tooltip.item.stellaris.rocket.model": "Model: %s",
+  "tooltip.item.stellaris.energy": "Energy: §e%s§r§f/§r§e%s§r FE",
   "tooltip.item.stellaris.oil_finder": "Right click on a block to check if there is oil",
 
   "screens.stellaris.config": "Stellaris Config Screen",

@@ -4,6 +4,7 @@ import com.fej1fun.potentials.capabilities.Capabilities;
 
 public class CapabilitiesRegistry {
     public static void init() {
+        registerEnergyItems();
         registerFluidItems();
         registerEnergyBlockEntities();
         registerFluidBlockEntities();
@@ -18,14 +19,6 @@ public class CapabilitiesRegistry {
 //        Capabilities.Energy.BLOCK.registerForBlock(BlocksRegistry.COAL_GENERATOR);
 //        Capabilities.Energy.BLOCK.registerForBlock(BlocksRegistry.RADIOACTIVE_GENERATOR);
 //    }
-
-    static void registerFluidItems() {
-        Capabilities.Fluid.ITEM.registerForItem(ItemsRegistry.OXYGEN_TANK);
-        Capabilities.Fluid.ITEM.registerForItem(ItemsRegistry.BIG_OXYGEN_TANK);
-        Capabilities.Fluid.ITEM.registerForItem(ItemsRegistry.SPACESUIT_SUIT);
-        Capabilities.Fluid.ITEM.registerForItem(ItemsRegistry.JETSUIT_SUIT);
-    }
-
     static void registerEnergyBlockEntities() {
         Capabilities.Energy.BLOCK.registerForBlockEntity(BlockEntityRegistry.SOLAR_PANEL);
         Capabilities.Energy.BLOCK.registerForBlockEntity(BlockEntityRegistry.CABLE_ENTITY);
@@ -36,6 +29,9 @@ public class CapabilitiesRegistry {
         Capabilities.Energy.BLOCK.registerForBlockEntity(BlockEntityRegistry.FUEL_REFINERY);
         Capabilities.Energy.BLOCK.registerForBlockEntity(BlockEntityRegistry.PUMPJACK);
     }
+    static void registerEnergyItems() {
+        Capabilities.Energy.ITEM.registerForItem(ItemsRegistry.OIL_FINDER);
+    }
 
 //    static void registerFluidBlocks() {
 //
@@ -45,6 +41,12 @@ public class CapabilitiesRegistry {
         Capabilities.Fluid.BLOCK.registerForBlockEntity(BlockEntityRegistry.WATER_PUMP);
         Capabilities.Fluid.BLOCK.registerForBlockEntity(BlockEntityRegistry.PUMPJACK);
         Capabilities.Fluid.BLOCK.registerForBlockEntity(BlockEntityRegistry.OXYGEN_DISTRIBUTOR);
+    }
+    static void registerFluidItems() {
+        Capabilities.Fluid.ITEM.registerForItem(ItemsRegistry.OXYGEN_TANK);
+        Capabilities.Fluid.ITEM.registerForItem(ItemsRegistry.BIG_OXYGEN_TANK);
+        Capabilities.Fluid.ITEM.registerForItem(ItemsRegistry.SPACESUIT_SUIT);
+        Capabilities.Fluid.ITEM.registerForItem(ItemsRegistry.JETSUIT_SUIT);
     }
 
 }
