@@ -11,6 +11,7 @@ import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.registry.FluidRegistry;
 import com.st0x0ef.stellaris.common.utils.capabilities.fluid.FilteredFluidStorage;
 import com.st0x0ef.stellaris.common.utils.capabilities.fluid.FluidStorage;
+import com.st0x0ef.stellaris.common.utils.capabilities.fluid.FluidUtil;
 import dev.architectury.fluid.FluidStack;
 import dev.architectury.networking.NetworkManager;
 import net.minecraft.core.BlockPos;
@@ -38,7 +39,7 @@ public class OxygenDistributorBlockEntity extends BaseEnergyContainerBlockEntity
             @Override
             protected void onChange(int i) {
                 setChanged();
-                if (level != null && level.getServer() != null && !level.getServer().getPlayerList().getPlayers().isEmpty() && !this.getFluidInTank(0).isEmpty())
+                if (level != null && level.getServer() != null && !level.getServer().getPlayerList().getPlayers().isEmpty())
                     NetworkManager.sendToPlayers(level.getServer().getPlayerList().getPlayers(),
                             new SyncFluidPacketWithoutDirection(new FluidAmountMapDataComponent(List.of(getFluidInTank(0).getFluid()), List.of(getFluidValueInTank(0))), 0, getBlockPos()));
             }
@@ -47,14 +48,7 @@ public class OxygenDistributorBlockEntity extends BaseEnergyContainerBlockEntity
 
     @Override
     public void tick() {
-        UniversalFluidStorage oxygenTankItemStorage = Capabilities.Fluid.ITEM.getCapability(getItem(0));
-        if (oxygenTankItemStorage != null) {
-            if (oxygenTankItemStorage.getFluidInTank(0).getAmount() > 0 && oxygenTank.getFluidValueInTank(0) < oxygenTank.getTankCapacity(0)) {
-                FluidStack stack = oxygenTankItemStorage.getFluidInTank(0).copyWithAmount(1);
-                oxygenTankItemStorage.drain(stack, false);
-                oxygenTank.fill(stack, false);
-            }
-        }
+        FluidUtil.moveFluidFromItem(0, 0, items, oxygenTank, 5);
 
         if (level instanceof ServerLevel serverLevel && !oxygenTank.isEmpty()) {
             GlobalOxygenManager.getInstance().getOrCreateDimensionManager(serverLevel).tickOxygenRoom(getBlockPos());
