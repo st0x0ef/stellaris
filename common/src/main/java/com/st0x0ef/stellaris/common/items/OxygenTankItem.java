@@ -31,7 +31,7 @@ public class OxygenTankItem extends Item implements FluidProvider.ITEM {
     private final int capacity;
 
     public OxygenTankItem(Item.Properties properties, int capacity) {
-        super(properties);
+        super(properties.stacksTo(1));
         this.capacity = capacity;
     }
 

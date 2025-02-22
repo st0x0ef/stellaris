@@ -17,7 +17,7 @@ import java.util.List;
 
 public class OilFinderItem extends Item {
     public OilFinderItem(Properties properties) {
-        super(properties);
+        super(properties.stacksTo(1));
     }
 
     @Override
