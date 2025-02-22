@@ -17,12 +17,10 @@ import dev.architectury.event.events.client.ClientGuiEvent;
 import dev.architectury.platform.Platform;
 import dev.architectury.registry.ReloadListenerRegistry;
 import dev.architectury.registry.client.particle.ParticleProviderRegistry;
-import dev.architectury.registry.client.rendering.ColorHandlerRegistry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.server.packs.PackType;
-import net.minecraft.world.item.component.DyedItemColor;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL43;
 import org.lwjgl.opengl.GLDebugMessageCallback;
@@ -49,10 +47,6 @@ public class StellarisClient {
         ClientUtilsPlatform.registerArmor(SpaceSuitModel.LAYER_LOCATION, SpaceSuitModel::new,
                 ItemsRegistry.SPACESUIT_BOOTS.get(), ItemsRegistry.SPACESUIT_LEGGINGS.get(),
                 ItemsRegistry.SPACESUIT_HELMET.get(), ItemsRegistry.SPACESUIT_SUIT.get());
-
-        ColorHandlerRegistry.registerItemColors(
-                (stack, color) -> color > 0 ? -1 : DyedItemColor.getOrDefault(stack, -1),
-                ItemsRegistry.SPACESUIT_SUIT.get(), ItemsRegistry.SPACESUIT_HELMET.get(), ItemsRegistry.SPACESUIT_LEGGINGS.get());
     }
 
     public static void registerParticle() {
