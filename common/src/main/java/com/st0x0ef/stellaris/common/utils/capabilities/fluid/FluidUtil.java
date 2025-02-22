@@ -58,19 +58,19 @@ public class FluidUtil {
         return inserted;
     }
 
-    public static void distributeFluidNearby(Level level, BlockPos pos, long amount) {
-        distributeFluidNearby(level, pos, amount, null);
+    public static void distributeFluidNearby(Level level, BlockPos pos, FluidStack stack) {
+        distributeFluidNearby(level, pos, stack, null);
     }
 
-    public static void distributeFluidNearby(Level level, BlockPos pos, long amount, List<Direction> outputDirections) {
+    public static void distributeFluidNearby(Level level, BlockPos pos, FluidStack stack, List<Direction> outputDirections) {
         if (outputDirections == null || outputDirections.isEmpty()) {
-            distributeInAllDirections(level, pos, amount);
+            distributeInAllDirections(level, pos, stack);
             return;
         }
-        distributeInDirections(level, pos, amount, outputDirections);
+        distributeInDirections(level, pos, stack, outputDirections);
     }
 
-    private static long distributeInDirections(Level level, BlockPos pos, long amount, List<Direction> outputDirections) {
+    private static long distributeInDirections(Level level, BlockPos pos, FluidStack stack, List<Direction> outputDirections) {
         Map<UniversalFluidStorage, UniversalFluidStorage> pairs = new HashMap<>();
         UniversalFluidStorage from;
         UniversalFluidStorage to;
@@ -79,7 +79,7 @@ public class FluidUtil {
             if (from == null) {
                 continue;
             }
-            FluidStack drained = from.drain(amount, true);
+            FluidStack drained = from.drain(stack, true);
             if (!(drained.getAmount() > 0)) {
                 continue;
             }
@@ -93,30 +93,30 @@ public class FluidUtil {
             pairs.put(from, to);
         }
 
-        AtomicLong toDistribute = new AtomicLong(amount);
+        AtomicLong toDistribute = new AtomicLong(stack.getAmount());
         AtomicLong receivers = new AtomicLong(pairs.size());
         pairs.forEach((energyFrom, energyTo) -> {
-            toDistribute.addAndGet(-moveFluid(energyFrom, energyTo, toDistribute.get() / receivers.get()));
+            toDistribute.addAndGet(-moveFluid(energyFrom, energyTo, stack.copyWithAmount(toDistribute.get() / receivers.get())).getAmount());
             receivers.getAndDecrement();
         });
-        return amount - toDistribute.get();
+        return stack.getAmount() - toDistribute.get();
     }
 
-    private static void distributeInAllDirections(Level level, BlockPos pos, long amount) {
+    private static void distributeInAllDirections(Level level, BlockPos pos, FluidStack stack) {
         UniversalFluidStorage from = Capabilities.Fluid.BLOCK.getCapability(level, pos, null);
         if (from == null) {
             return;
         }
 
-        if (from.drain(amount, true).getAmount() == 0) {
+        if (from.drain(stack, true).getAmount() == 0) {
             return;
         }
 
         List<UniversalFluidStorage> toSend = Direction.stream()
                 .map(direction -> Capabilities.Fluid.BLOCK.getCapability(level, pos.relative(direction), direction.getOpposite()))
                 .filter(Objects::nonNull)
-                .sorted(Comparator.comparing(fluidStorage -> fluidStorage.fill(amount, true)))
-                .filter(UniversalFluidStorage::isFluidValid)
+                .sorted(Comparator.comparing(fluidStorage -> fluidStorage.fill(stack, true)))
+                .filter(fluidStorage -> fluidStorage.isFluidValid(0, stack))
                 .toList();
 
         if (toSend.isEmpty()) {
@@ -124,20 +124,11 @@ public class FluidUtil {
         }
 
         int receivers = toSend.size();
-        long toDistribute = amount;
+        long toDistribute = stack.getAmount();
 
         for (UniversalFluidStorage to : toSend) {
-            toDistribute -= moveFluid(from, to, toDistribute / receivers);
+            toDistribute -= moveFluid(from, to, stack.copyWithAmount(toDistribute / receivers)).getAmount();
             receivers--;
         }
-    }
-
-    public static long moveFluid(UniversalFluidStorage from, UniversalFluidStorage to, long amount) {
-        long filled = to.fill(from.drain(amount, true), true);
-        if (filled > 0) {
-            to.fill(from.drain(filled, false), false);
-            return filled;
-        }
-        return 0;
     }
 }

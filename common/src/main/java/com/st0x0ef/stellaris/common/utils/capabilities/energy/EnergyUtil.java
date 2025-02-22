@@ -40,11 +40,11 @@ public class EnergyUtil {
             from = Capabilities.Energy.BLOCK.getCapability(level, pos, direction);
             if (from==null) continue;
             if (!from.canExtractEnergy()) continue;
-            if (!(from.extract(amount, true)>0)) continue;
+            if (from.extract(amount, true) == 0) continue;
             to = Capabilities.Energy.BLOCK.getCapability(level, pos, direction);
             if (to==null) continue;
             if (!to.canInsertEnergy()) continue;
-            if (!(to.insert(amount, true)>0)) continue;
+            if (to.insert(amount, true) == 0) continue;
             pairs.put(from, to);
         }
 
@@ -77,7 +77,6 @@ public class EnergyUtil {
             receivers--;
         }
     }
-
 
     public static int moveEnergy(UniversalEnergyStorage from, UniversalEnergyStorage to, int amount) {
         int inserted = to.insert(from.extract(amount, true), true);
