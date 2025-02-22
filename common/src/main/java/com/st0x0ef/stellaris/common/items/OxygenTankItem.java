@@ -76,11 +76,9 @@ public class OxygenTankItem extends Item implements FluidProvider.ITEM {
         BlockEntity block = context.getLevel().getBlockEntity(context.getClickedPos());
         if (block instanceof OxygenDistributorBlockEntity entity) {
             ItemFluidStorage storage = getFluidTank(context.getItemInHand());
-            if (storage != null) {
-                long amount = entity.addOxygen(storage.getFluidInTank(0).getAmount());
-                storage.drain(storage.getFluidInTank(0).copyWithAmount(amount), false);
-                return InteractionResult.SUCCESS;
-            }
+            long amount = entity.addOxygen(storage.getFluidInTank(0).getAmount());
+            storage.drain(storage.getFluidInTank(0).copyWithAmount(amount), false);
+            return InteractionResult.SUCCESS;
         }
 
         return super.useOn(context);

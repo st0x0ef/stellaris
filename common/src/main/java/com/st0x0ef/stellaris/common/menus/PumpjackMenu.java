@@ -27,7 +27,7 @@ public class PumpjackMenu extends BaseContainer {
         checkContainerSize(container, 2);
 
         // Result tank
-        addSlot(new FluidContainerSlot(container, 0, 116, 32, true, true));
+        addSlot(new FluidContainerSlot(container, 0, 116, 32, false, true));
         addSlot(new ResultSlot(container, 1, 116, 62));
     }
 
