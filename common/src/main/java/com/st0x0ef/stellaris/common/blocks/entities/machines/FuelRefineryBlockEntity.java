@@ -43,7 +43,7 @@ public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity impl
             @Override
             protected void onChange(int i) {
                 setChanged();
-                if (level != null && level.getServer() != null && !level.getServer().getPlayerList().getPlayers().isEmpty() && !this.getFluidInTank(i).isEmpty())
+                if (level != null && level.getServer() != null && !level.getServer().getPlayerList().getPlayers().isEmpty())
                     NetworkManager.sendToPlayers(level.getServer().getPlayerList().getPlayers(),
                             new SyncFluidPacket(new FluidAmountMapDataComponent(List.of(getFluidInTank(i).getFluid()), List.of(getFluidValueInTank(i))), i, getBlockPos(), Direction.UP));
             }
@@ -52,7 +52,7 @@ public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity impl
             @Override
             protected void onChange(int i) {
                 setChanged();
-                if (level != null && level.getServer() != null && !level.getServer().getPlayerList().getPlayers().isEmpty() && !this.getFluidInTank(i).isEmpty())
+                if (level != null && level.getServer() != null && !level.getServer().getPlayerList().getPlayers().isEmpty())
                     NetworkManager.sendToPlayers(level.getServer().getPlayerList().getPlayers(),
                             new SyncFluidPacket(new FluidAmountMapDataComponent(List.of(getFluidInTank(i).getFluid()), List.of(getFluidValueInTank(i))), i, getBlockPos(), Direction.DOWN));
             }
@@ -61,7 +61,7 @@ public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity impl
 
     @Override
     public void tick() {
-        FluidUtil.moveFluidToItem(0, outputTank,2, items, 5);
+        FluidUtil.moveFluidToItem(0, outputTank,2, items, 1000);
         FluidUtil.moveFluidToItem(0, inputTank,1, items, 1000);
 
         FluidUtil.moveFluidFromItem(0, 0, items, inputTank, 1000);
