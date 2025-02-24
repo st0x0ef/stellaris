@@ -1,11 +1,13 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
+import com.fej1fun.potentials.capabilities.Capabilities;
 import com.fej1fun.potentials.components.FluidAmountMapDataComponent;
 import com.fej1fun.potentials.fluid.UniversalFluidStorage;
 import com.fej1fun.potentials.providers.FluidProvider;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.network.packets.SyncFluidPacketWithoutDirection;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
+import com.st0x0ef.stellaris.common.utils.capabilities.fluid.FluidUtil;
 import com.st0x0ef.stellaris.common.utils.capabilities.fluid.SingleFluidStorage;
 import dev.architectury.fluid.FluidStack;
 import dev.architectury.networking.NetworkManager;
@@ -17,6 +19,7 @@ import net.minecraft.world.level.block.BucketPickup;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -41,6 +44,7 @@ public class WaterPumpBlockEntity extends BaseEnergyBlockEntity implements Fluid
 
     @Override
     public void tick() {
+        if (level == null) return;
         if (energyContainer.getEnergy() < NEEDED_ENERGY) return;
 
         BlockPos belowPos = worldPosition.below();
@@ -53,9 +57,13 @@ public class WaterPumpBlockEntity extends BaseEnergyBlockEntity implements Fluid
                 if (!bucketPickup.pickupBlock(null, level, belowPos, belowState).isEmpty()) {
                     waterTank.fill(FluidStack.create(Fluids.WATER, 1000), false);
                     energyContainer.extract(NEEDED_ENERGY, false);
-                    setChanged();
                 }
             }
+        }
+
+        UniversalFluidStorage fluidCapAbove = Capabilities.Fluid.BLOCK.getCapability(level, belowPos.above(), Direction.DOWN);
+        if (fluidCapAbove != null) {
+            FluidUtil.moveFluid(getFluidTank(Direction.UP), fluidCapAbove, FluidStack.create(Fluids.WATER, 1000));
         }
     }
 
@@ -76,7 +84,7 @@ public class WaterPumpBlockEntity extends BaseEnergyBlockEntity implements Fluid
     }
 
     @Override
-    public @Nullable UniversalFluidStorage getFluidTank(@Nullable Direction direction) {
+    public @NotNull UniversalFluidStorage getFluidTank(@Nullable Direction direction) {
         return this.waterTank;
     }
 }
