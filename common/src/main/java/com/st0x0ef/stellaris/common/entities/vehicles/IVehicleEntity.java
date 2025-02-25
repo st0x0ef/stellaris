@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.entities.vehicles;
 
+import com.st0x0ef.stellaris.common.vehicle_upgrade.FuelType;
 import dev.architectury.networking.NetworkManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.Packet;
@@ -21,6 +22,8 @@ import net.minecraft.world.phys.Vec3;
 
 public abstract class IVehicleEntity extends Entity{
     public int FUEL;
+
+    public FuelType.Type FUEL_TYPE;
 
     private int lerpSteps;
     private double lerpX;
