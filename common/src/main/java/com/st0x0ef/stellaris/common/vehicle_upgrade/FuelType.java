@@ -117,6 +117,11 @@ public class FuelType {
             };
         }
 
+        public boolean isCompatibleType(Type type) {
+            if (this == type) return true;
+            return this == Type.RADIOACTIVE && type.isRadioactive();
+        }
+
         @Override
         public String getSerializedName() {
             return name().toLowerCase();
