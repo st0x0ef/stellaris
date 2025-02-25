@@ -274,9 +274,9 @@ public class ItemsRegistry {
      * Cables & Pipes
      */
 
-    public static final RegistrySupplier<Item> T1_CABLE = ITEMS.register("cable", () -> new BlockItem(BlocksRegistry.T1_CABLE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
-    public static final RegistrySupplier<Item> T2_CABLE = ITEMS.register("cable_t2", () -> new BlockItem(BlocksRegistry.T2_CABLE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
-    public static final RegistrySupplier<Item> T3_CABLE = ITEMS.register("cable_t3", () -> new BlockItem(BlocksRegistry.T3_CABLE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> T1_CABLE = ITEMS.register("cable", () -> new CableItem(BlocksRegistry.T1_CABLE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), 250));
+    public static final RegistrySupplier<Item> T2_CABLE = ITEMS.register("cable_t2", () -> new CableItem(BlocksRegistry.T2_CABLE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), 6250));
+    public static final RegistrySupplier<Item> T3_CABLE = ITEMS.register("cable_t3", () -> new CableItem(BlocksRegistry.T3_CABLE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), 156250));
 
     public static final RegistrySupplier<Item> T1_PIPE = ITEMS.register("pipe_t1", () -> new BlockItem(BlocksRegistry.T1_PIPE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> T2_PIPE = ITEMS.register("pipe_t2", () -> new BlockItem(BlocksRegistry.T2_PIPE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
