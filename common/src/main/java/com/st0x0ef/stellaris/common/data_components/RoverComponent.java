@@ -27,8 +27,9 @@ public record RoverComponent(String fuelType, int fuel, ResourceLocation fuelTex
         return fuel;
     }
 
+    @Deprecated
     public ResourceLocation getFuelTexture() {
-        return fuelTexture;
+        return this.getFuelType().getFuelTexture();
     }
 
     public MotorUpgrade getMotorUpgrade() {
