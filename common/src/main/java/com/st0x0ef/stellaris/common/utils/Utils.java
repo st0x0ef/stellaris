@@ -74,11 +74,6 @@ public class Utils {
                 serverPlayer.stopRiding();
                 serverPlayer.closeContainer();
 
-                ItemStack fuelType = rocket.getInventory().getItem(10);
-                if (fuelType.isEmpty()) {
-                    fuelType = ItemsRegistry.FUEL_BUCKET.get().getDefaultInstance();
-                }
-
                 if (!serverPlayer.isCreative() && !serverPlayer.isSpectator()) {
                     int fuelConsumption = Math.round(FuelType.getFuelNeededToGoOnPlanet(PlanetUtil.getPlanet(serverPlayer.level().dimension().location()), destination, rocket.FUEL_TYPE));
                     rocket.FUEL -= fuelConsumption;
