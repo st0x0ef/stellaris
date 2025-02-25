@@ -50,12 +50,14 @@ public class OxygenTankItem extends Item {
                     return super.use(level, player, usedHand);
                 }
 
-                if (OxygenUtils.getOxygenCapacity(armor) - OxygenUtils.getOxygen(armor) > oxygenComponent.amount()) {
+                long oxygenToFill = OxygenUtils.getOxygenCapacity(armor) - OxygenUtils.getOxygen(armor);
+
+                if (oxygenToFill >= oxygenComponent.amount()) {
                     OxygenUtils.addOxygen(armor, oxygenComponent.amount());
                     OxygenUtils.setOxygen(tank, 0);
-                } else if (OxygenUtils.getOxygenCapacity(armor) - OxygenUtils.getOxygen(armor) <= oxygenComponent.amount()) {
-                    OxygenUtils.addOxygen(armor, OxygenUtils.getOxygenCapacity(armor) - OxygenUtils.getOxygen(armor));
-                    OxygenUtils.addOxygen(tank, -(OxygenUtils.getOxygenCapacity(armor) + OxygenUtils.getOxygen(armor)));
+                } else {
+                    OxygenUtils.addOxygen(armor, oxygenToFill);
+                    OxygenUtils.addOxygen(tank, -oxygenToFill);
                 }
 
             }
