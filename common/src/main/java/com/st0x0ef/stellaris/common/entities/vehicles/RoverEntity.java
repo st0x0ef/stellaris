@@ -53,7 +53,7 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
         this.speedUpgrade = SpeedUpgrade.getBasic();
         this.FUEL = 0;
         this.FUEL_TYPE = FuelType.Type.FUEL;
-        this.roverComponent = new RoverComponent(FUEL_TYPE.getSerializedName(), FUEL, motorUpgrade.getFuelType().getFuelTexture(), tankUpgrade.getTankCapacity(), speedUpgrade.getSpeedModifier());
+        this.roverComponent = new RoverComponent(FUEL_TYPE.getSerializedName(), FUEL, FUEL_TYPE.getFuelTexture(), tankUpgrade.getTankCapacity(), speedUpgrade.getSpeedModifier());
     }
 
     public void setRoverComponent(RoverComponent roverComponent) {
@@ -257,7 +257,7 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
     }
 
     public void syncRocketData(ServerPlayer player) {
-        this.roverComponent = new RoverComponent(FUEL_TYPE.getSerializedName(), FUEL, motorUpgrade.getFuelType().getFuelTexture(), tankUpgrade.getTankCapacity(), speedUpgrade.getSpeedModifier());
+        this.roverComponent = new RoverComponent(FUEL_TYPE.getSerializedName(), FUEL, FUEL_TYPE.getFuelTexture(), tankUpgrade.getTankCapacity(), speedUpgrade.getSpeedModifier());
         if (!level().isClientSide()) {
             NetworkManager.sendToPlayer(player, new SyncRoverComponentPacket(roverComponent));
         }

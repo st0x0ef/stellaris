@@ -95,7 +95,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
         this.FUEL_TYPE = FuelType.Type.FUEL;
 
-        this.rocketComponent = new RocketComponent(SKIN_UPGRADE.getRocketSkinLocation().toString(), RocketModel.fromString(MODEL_UPGRADE.getModel().toString()), FUEL_TYPE.getSerializedName(), FUEL, MOTOR_UPGRADE.getFuelType().getFuelTexture(), TANK_UPGRADE.getTankCapacity());
+        this.rocketComponent = new RocketComponent(SKIN_UPGRADE.getRocketSkinLocation().toString(), RocketModel.fromString(MODEL_UPGRADE.getModel().toString()), FUEL_TYPE.getSerializedName(), FUEL, FUEL_TYPE.getFuelTexture(), TANK_UPGRADE.getTankCapacity());
         this.inventory = new SimpleContainer(14);
     }
 
@@ -608,7 +608,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     }
 
     public void syncRocketData(ServerPlayer player) {
-        this.rocketComponent = new RocketComponent(SKIN_UPGRADE.getRocketSkinLocation().toString(), RocketModel.fromString(MODEL_UPGRADE.getModel().toString()), FUEL_TYPE.getSerializedName(), FUEL, MOTOR_UPGRADE.getFuelType().getFuelTexture(), TANK_UPGRADE.getTankCapacity());
+        this.rocketComponent = new RocketComponent(SKIN_UPGRADE.getRocketSkinLocation().toString(), RocketModel.fromString(MODEL_UPGRADE.getModel().toString()), FUEL_TYPE.getSerializedName(), FUEL, FUEL_TYPE.getFuelTexture(), TANK_UPGRADE.getTankCapacity());
         if (!level().isClientSide()) {
             NetworkManager.sendToPlayer(player, new SyncRocketComponentPacket(rocketComponent));
         }
