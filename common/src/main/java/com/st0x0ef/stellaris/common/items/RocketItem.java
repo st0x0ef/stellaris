@@ -1,10 +1,12 @@
 package com.st0x0ef.stellaris.common.items;
 
+import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.RocketModel;
 import com.st0x0ef.stellaris.common.blocks.RocketLaunchPad;
 import com.st0x0ef.stellaris.common.data_components.RocketComponent;
 import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
+import com.st0x0ef.stellaris.common.vehicle_upgrade.SkinUpgrade;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -107,7 +109,15 @@ public class RocketItem extends Item {
         RocketEntity rocket = new RocketEntity(this.getEntityType(stack), level);
         RocketComponent rocketComponent = stack.get(DataComponentsRegistry.ROCKET_COMPONENT.get());
         if(rocketComponent != null) {
-            rocket.FUEL = rocketComponent.fuel();
+            //Directly setting rocketComponent would give Motor, Tank, Skin and Model upgrades without requiring the item
+            rocket.setRocketComponent(new RocketComponent(
+                    rocket.SKIN_UPGRADE.getRocketSkinLocation().toString(),
+                    RocketModel.fromString(rocket.MODEL_UPGRADE.getModel().toString()),
+                    rocketComponent.fuelType(),
+                    Math.max(rocketComponent.fuel(), 0),
+                    rocketComponent.getFuelType().getFuelTexture(),
+                    rocket.TANK_UPGRADE.getTankCapacity())
+            );
         }
         return rocket;
     }
@@ -151,10 +161,10 @@ public class RocketItem extends Item {
     @Override
     public int getBarColor(ItemStack stack) {
         RocketComponent rocketComponent = stack.get(DataComponentsRegistry.ROCKET_COMPONENT.get());
-        return switch (rocketComponent.getMotorUpgrade().getFuelType()) {
+        return switch (rocketComponent.getFuelType()) {
             case FUEL -> 0xA7E6ED;
             case HYDROGEN -> 0x00d8ff;
-            case RADIOACTIVE -> 0x00c12f;
+            case RADIOACTIVE, URANIUM, NEPTUNIUM, PLUTONIUM -> 0x00c12f;
             case null -> 0xA7E6ED;
 
         };
