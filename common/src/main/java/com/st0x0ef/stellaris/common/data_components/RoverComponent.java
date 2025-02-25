@@ -33,7 +33,7 @@ public record RoverComponent(String fuelType, int fuel, ResourceLocation fuelTex
     }
 
     public MotorUpgrade getMotorUpgrade() {
-        return new MotorUpgrade(FuelType.Type.fromString(fuelType));
+        return new MotorUpgrade(this.getFuelType().getMotorType());
     }
 
     public FuelType.Type getFuelType() {

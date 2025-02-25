@@ -69,23 +69,19 @@ public class FuelType {
     }
 
     public enum Type implements StringRepresentable {
-        FUEL(GUISprites.FUEL_OVERLAY, false),
-        HYDROGEN(GUISprites.HYDROGEN_OVERLAY, false),
-        URANIUM(GUISprites.ENERGY_FULL, true),
-        NEPTUNIUM(GUISprites.ENERGY_FULL, true),
-        PLUTONIUM(GUISprites.ENERGY_FULL, true),
-        RADIOACTIVE(GUISprites.ENERGY_FULL, true);
+        FUEL(GUISprites.FUEL_OVERLAY, null),
+        HYDROGEN(GUISprites.HYDROGEN_OVERLAY, null),
+        RADIOACTIVE(GUISprites.ENERGY_FULL, null),
+        URANIUM(GUISprites.ENERGY_FULL, RADIOACTIVE),
+        NEPTUNIUM(GUISprites.ENERGY_FULL, RADIOACTIVE),
+        PLUTONIUM(GUISprites.ENERGY_FULL, RADIOACTIVE);
 
         private final ResourceLocation fuelTexture;
-        private final boolean isRadioactive;
+        private final Type motorType;
 
-        Type(ResourceLocation fuelTexture, boolean isRadioactive) {
+        Type(ResourceLocation fuelTexture, Type motorType) {
             this.fuelTexture = fuelTexture;
-            this.isRadioactive = isRadioactive;
-        }
-
-        public boolean isRadioactive() {
-            return this.isRadioactive;
+            this.motorType = motorType;
         }
 
         public static Type getTypeBasedOnItem(Item item) {
@@ -117,10 +113,9 @@ public class FuelType {
             };
         }
 
-        public boolean acceptsType(Type type) {
-            if (this == type) return true;
-            //RADIOACTIVE type can accept other radioactive types, not vice versa
-            return this == Type.RADIOACTIVE && type.isRadioactive();
+        public Type getMotorType() {
+            if (this.motorType == null) return this;
+            return this.motorType;
         }
 
         @Override
