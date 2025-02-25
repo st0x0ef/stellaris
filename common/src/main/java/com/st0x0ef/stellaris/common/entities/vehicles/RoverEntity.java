@@ -202,6 +202,8 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
         }
 
         FuelType.Type itemType = FuelType.Type.getTypeBasedOnItem(item);
+        if (itemType == null) return false;
+
         FuelType.Type motorType = motorUpgrade.getFuelType();
 
         if (motorType == itemType.getMotorType()) {
