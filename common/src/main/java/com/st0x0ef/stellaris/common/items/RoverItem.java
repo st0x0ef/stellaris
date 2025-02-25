@@ -62,7 +62,7 @@ public class RoverItem extends Item {
             //Directly setting roverComponent would give Motor, Tank, Skin and Model upgrades without requiring the item
             rover.setRoverComponent(new RoverComponent(
                     roverComponent.fuelType(),
-                    roverComponent.fuel(),
+                    Math.max(roverComponent.fuel(), 0),
                     roverComponent.getFuelType().getFuelTexture(),
                     rover.tankUpgrade.getTankCapacity(),
                     rover.speedUpgrade.getSpeedModifier())

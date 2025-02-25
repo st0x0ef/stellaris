@@ -114,7 +114,7 @@ public class RocketItem extends Item {
                     rocket.SKIN_UPGRADE.getRocketSkinLocation().toString(),
                     RocketModel.fromString(rocket.MODEL_UPGRADE.getModel().toString()),
                     rocketComponent.fuelType(),
-                    rocketComponent.fuel(),
+                    Math.max(rocketComponent.fuel(), 0),
                     rocketComponent.getFuelType().getFuelTexture(),
                     rocket.TANK_UPGRADE.getTankCapacity())
             );
