@@ -117,8 +117,9 @@ public class FuelType {
             };
         }
 
-        public boolean isCompatibleType(Type type) {
+        public boolean acceptsType(Type type) {
             if (this == type) return true;
+            //RADIOACTIVE type can accept other radioactive types, not vice versa
             return this == Type.RADIOACTIVE && type.isRadioactive();
         }
 
