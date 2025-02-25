@@ -1,10 +1,12 @@
 package com.st0x0ef.stellaris.common.items;
 
+import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.RocketModel;
 import com.st0x0ef.stellaris.common.blocks.RocketLaunchPad;
 import com.st0x0ef.stellaris.common.data_components.RocketComponent;
 import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
+import com.st0x0ef.stellaris.common.vehicle_upgrade.SkinUpgrade;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -107,8 +109,15 @@ public class RocketItem extends Item {
         RocketEntity rocket = new RocketEntity(this.getEntityType(stack), level);
         RocketComponent rocketComponent = stack.get(DataComponentsRegistry.ROCKET_COMPONENT.get());
         if(rocketComponent != null) {
-            rocket.FUEL = rocketComponent.fuel();
-            rocket.FUEL_TYPE = rocketComponent.getFuelType();
+            //Directly setting rocketComponent would give Motor, Tank, Skin and Model upgrades without requiring the item
+            rocket.setRocketComponent(new RocketComponent(
+                    rocket.SKIN_UPGRADE.getRocketSkinLocation().toString(),
+                    RocketModel.fromString(rocket.MODEL_UPGRADE.getModel().toString()),
+                    rocketComponent.fuelType(),
+                    rocketComponent.fuel(),
+                    rocketComponent.getFuelType().getFuelTexture(),
+                    rocket.TANK_UPGRADE.getTankCapacity())
+            );
         }
         return rocket;
     }

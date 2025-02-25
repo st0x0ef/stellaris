@@ -58,11 +58,16 @@ public class RoverItem extends Item {
     public RoverEntity getRover(Level level ,ItemStack stack) {
         RoverEntity rover = new RoverEntity(EntityRegistry.ROVER.get(), level);
         RoverComponent roverComponent = stack.get(DataComponentsRegistry.ROVER_COMPONENT.get());
-        if(roverComponent != null) {
-            rover.FUEL = roverComponent.fuel();
-            rover.FUEL_TYPE = roverComponent.getFuelType();
+        if (roverComponent != null) {
+            //Directly setting roverComponent would give Motor, Tank, Skin and Model upgrades without requiring the item
+            rover.setRoverComponent(new RoverComponent(
+                    roverComponent.fuelType(),
+                    roverComponent.fuel(),
+                    roverComponent.getFuelType().getFuelTexture(),
+                    rover.tankUpgrade.getTankCapacity(),
+                    rover.speedUpgrade.getSpeedModifier())
+            );
         }
-
         return rover;
     }
 
