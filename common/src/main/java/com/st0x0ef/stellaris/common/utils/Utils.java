@@ -17,6 +17,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -79,7 +80,7 @@ public class Utils {
                 }
 
                 if (!serverPlayer.isCreative() && !serverPlayer.isSpectator()) {
-                    int fuelConsumption = Math.round(FuelType.getFuelNeededToGoOnPlanet(PlanetUtil.getPlanet(serverPlayer.level().dimension().location()), destination, fuelType.getItem()));
+                    int fuelConsumption = Math.round(FuelType.getFuelNeededToGoOnPlanet(PlanetUtil.getPlanet(serverPlayer.level().dimension().location()), destination, rocket.FUEL_TYPE));
                     rocket.FUEL -= fuelConsumption;
                     rocket.syncRocketData(serverPlayer);
                 }

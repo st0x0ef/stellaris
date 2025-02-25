@@ -604,7 +604,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     }
 
     public boolean canGoTo(Planet actual, Planet destination) {
-        return Mth.abs(actual.distanceFromEarth() - destination.distanceFromEarth()) <= FuelType.getMegametersTraveled(this.rocketComponent.fuel(), FuelType.getItemBasedOnLoacation(ResourceLocation.parse(this.rocketComponent.fuelType())));
+        return Mth.abs(actual.distanceFromEarth() - destination.distanceFromEarth()) <= FuelType.getMegametersTraveled(FUEL, FUEL_TYPE);
     }
 
     public void syncRocketData(ServerPlayer player) {
