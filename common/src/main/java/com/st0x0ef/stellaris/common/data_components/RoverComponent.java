@@ -45,14 +45,9 @@ public record RoverComponent(String fuelType, int fuel, ResourceLocation fuelTex
 
         //Workaround to allow rovers from previous versions with badly formed components to load
         //e.g "hydrogen_bucket" as fuel_type
+        Item item = FuelType.getItemBasedOnLoacation(ResourceLocation.parse(fuelType));
 
-        ResourceLocation itemLoc = ResourceLocation.tryParse(fuelType);
-        if (itemLoc == null) return FuelType.Type.FUEL;
-
-        Optional<Item> item = BuiltInRegistries.ITEM.getOptional(itemLoc);
-        if (item.isEmpty()) return FuelType.Type.FUEL;
-
-        type = FuelType.Type.getTypeBasedOnItem(item.get());
+        type = FuelType.Type.getTypeBasedOnItem(item);
         if (type != null) return type;
 
         return FuelType.Type.FUEL;
