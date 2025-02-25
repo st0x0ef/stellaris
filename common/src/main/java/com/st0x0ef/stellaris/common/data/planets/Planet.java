@@ -33,7 +33,7 @@ public record Planet (
             PlanetTextures.CODEC.fieldOf("textures").forGetter(Planet::textures)
     ).apply(instance, Planet::new));
 
-    public static RegistryFriendlyByteBuf toBuffer(List<Planet> planets, final RegistryFriendlyByteBuf buffer) {
+    public static void toBuffer(List<Planet> planets, final RegistryFriendlyByteBuf buffer) {
         buffer.writeInt(planets.size());
 
         planets.forEach(((planet) -> {
@@ -47,8 +47,6 @@ public record Planet (
             buffer.writeFloat(planet.gravity);
             planet.textures.toNetwork(buffer);
         }));
-
-        return buffer;
 
     }
     public static List<Planet> readFromBuffer(RegistryFriendlyByteBuf buffer) {
