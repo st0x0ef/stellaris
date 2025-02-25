@@ -197,7 +197,7 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
 
     public boolean tryFillUpRover(Item item) {
         if (this.level().isClientSide) return false;
-        if (FUEL == tankUpgrade.getTankCapacity() || item == null) {
+        if (FUEL >= tankUpgrade.getTankCapacity() || item == null) {
             return false;
         }
 
