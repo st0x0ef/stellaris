@@ -637,9 +637,10 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
         for (int i = 0; i < inventory.getContainerSize(); i++) newRocketEntity.inventory.setItem(i, itemStacks.get(i));
 
+        List<Entity> passengers = getPassengers();
         this.remove(RemovalReason.DISCARDED);
         newRocketEntity.level().addFreshEntity(newRocketEntity);
-        for (Entity passenger : getPassengers()) passenger.startRiding(newRocketEntity);
+        for (Entity passenger : passengers) passenger.startRiding(newRocketEntity);
         newRocketEntity.openCustomInventoryScreen(lastPlayer);
     }
 
