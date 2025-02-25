@@ -2,15 +2,20 @@ package com.st0x0ef.stellaris.common.data_components;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.RocketModel;
+import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import com.st0x0ef.stellaris.common.vehicle_upgrade.*;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 
 import java.io.Serializable;
+import java.util.Optional;
 
 public record RocketComponent(String skin, RocketModel model, String fuelType, int fuel, ResourceLocation fuelTexture, int tankCapacity) implements Serializable {
 
@@ -55,7 +60,22 @@ public record RocketComponent(String skin, RocketModel model, String fuelType, i
     }
 
     public FuelType.Type getFuelType() {
-        return FuelType.Type.fromString(fuelType);
+        FuelType.Type type = FuelType.Type.fromString(fuelType);
+        if (type != null) return type;
+
+        //Workaround to allow rockets from previous versions with badly formed components to load
+        //e.g "hydrogen_bucket" as fuel_type
+
+        ResourceLocation itemLoc = ResourceLocation.tryParse(fuelType);
+        if (itemLoc == null) return FuelType.Type.FUEL;
+
+        Optional<Item> item = BuiltInRegistries.ITEM.getOptional(itemLoc);
+        if (item.isEmpty()) return FuelType.Type.FUEL;
+
+        type = FuelType.Type.getTypeBasedOnItem(item.get());
+        if (type != null) return type;
+
+        return FuelType.Type.FUEL;
     }
 
     public TankUpgrade getTankUpgrade() {
