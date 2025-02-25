@@ -70,7 +70,7 @@ public class Events {
                     serverLevel.setBlock(pos, state.setValue(CampfireBlock.LIT, false), 3);
                     return EventResult.interruptFalse();
                 } else if (state.is(Blocks.SOUL_LANTERN)) {
-                    serverLevel.setBlock(pos, state.setValue(CampfireBlock.LIT, false), 3);
+                    serverLevel.setBlock(pos, BlocksRegistry.COAL_LANTERN_BLOCK.get().defaultBlockState().setValue(CoalLanternBlock.HANGING, state.getValue(LanternBlock.HANGING)), 3);
                     return EventResult.interruptFalse();
                 }
             }
