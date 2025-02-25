@@ -519,7 +519,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
         FuelType.Type motorType = MOTOR_UPGRADE.getFuelType();
 
-        if (itemType != null && motorType == itemType.getMotorType()) {
+        if (motorType == itemType.getMotorType()) {
             if (FUEL == 0) {
                 FUEL_TYPE = itemType;
             }
