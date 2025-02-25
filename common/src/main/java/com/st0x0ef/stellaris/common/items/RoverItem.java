@@ -92,10 +92,10 @@ public class RoverItem extends Item {
     @Override
     public int getBarColor(ItemStack stack) {
         RoverComponent roverComponent = stack.get(DataComponentsRegistry.ROVER_COMPONENT.get());
-        return switch (roverComponent.getMotorUpgrade().getFuelType()) {
+        return switch (roverComponent.getFuelType()) {
             case FUEL -> 0xA7E6ED;
             case HYDROGEN -> 0x00d8ff;
-            case RADIOACTIVE -> 0x00c12f;
+            case RADIOACTIVE, URANIUM, NEPTUNIUM, PLUTONIUM -> 0x00c12f;
             case null -> 0xA7E6ED;
 
         };

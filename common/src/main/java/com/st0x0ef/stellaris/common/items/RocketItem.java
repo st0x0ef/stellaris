@@ -151,10 +151,10 @@ public class RocketItem extends Item {
     @Override
     public int getBarColor(ItemStack stack) {
         RocketComponent rocketComponent = stack.get(DataComponentsRegistry.ROCKET_COMPONENT.get());
-        return switch (rocketComponent.getMotorUpgrade().getFuelType()) {
+        return switch (rocketComponent.getFuelType()) {
             case FUEL -> 0xA7E6ED;
             case HYDROGEN -> 0x00d8ff;
-            case RADIOACTIVE -> 0x00c12f;
+            case RADIOACTIVE, URANIUM, NEPTUNIUM, PLUTONIUM -> 0x00c12f;
             case null -> 0xA7E6ED;
 
         };
