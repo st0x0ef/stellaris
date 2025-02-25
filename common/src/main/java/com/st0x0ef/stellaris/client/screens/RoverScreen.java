@@ -36,7 +36,7 @@ public class RoverScreen  extends AbstractContainerScreen<RoverMenu> {
             return;
         }
 
-        fuelGauge = new GaugeWidget(leftPos + 51, topPos + 27, 12, 46, Component.translatable("stellaris.screen.fuel"), rover.getRoverComponent().getMotorUpgrade().getFuelType().getFuelTexture(), GUISprites.FLUID_TANK_OVERLAY, rover.getRoverComponent().getTankCapacity(), GaugeWidget.Direction4.DOWN_UP);
+        fuelGauge = new GaugeWidget(leftPos + 51, topPos + 27, 12, 46, Component.translatable("stellaris.screen.fuel"), rover.getRoverComponent().getFuelType().getFuelTexture(), GUISprites.FLUID_TANK_OVERLAY, rover.getRoverComponent().getTankCapacity(), GaugeWidget.Direction4.DOWN_UP);
         addRenderableWidget(fuelGauge);
     }
 
