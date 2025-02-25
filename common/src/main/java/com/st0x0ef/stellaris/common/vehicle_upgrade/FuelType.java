@@ -12,9 +12,14 @@ import net.minecraft.world.item.Item;
 public class FuelType {
     public static final Codec<Type> CODEC = StringRepresentable.fromEnum(Type::values);
 
+    @Deprecated
     public static float getMegametersTraveled(int fuelQuantity, Item fuelItem) {
         Type type = Type.getTypeBasedOnItem(fuelItem);
 
+        return getMegametersTraveled(fuelQuantity, type);
+    }
+
+    public static float getMegametersTraveled(int fuelQuantity, FuelType.Type type) {
         if (type != null) {
             return switch (type) {
                 case FUEL -> 19.22f * fuelQuantity; // Need 20mb to go on Moon, 2133mb to go on Venus, 2900mb to go on Mars and 4786mb to go on Mercury (approx)
@@ -29,10 +34,15 @@ public class FuelType {
         return 0.0f;
     }
 
+    @Deprecated
     public static float getFuelNeededToGoOnPlanet(Planet actual, Planet destination, Item fuelItem) {
-        float distance = Mth.abs(actual.distanceFromEarth() - destination.distanceFromEarth());
-
         Type type = Type.getTypeBasedOnItem(fuelItem);
+
+        return getFuelNeededToGoOnPlanet(actual, destination, type);
+    }
+
+    public static float getFuelNeededToGoOnPlanet(Planet actual, Planet destination, Type type) {
+        float distance = Mth.abs(actual.distanceFromEarth() - destination.distanceFromEarth());
 
         if (type != null) {
             return switch (type) {
@@ -47,6 +57,7 @@ public class FuelType {
 
         return 0.0f;
     }
+
 
     public static Item getItemBasedOnTypeName(String name) {
         if (name.equals(Type.FUEL.getSerializedName())) {
