@@ -60,6 +60,7 @@ public class RoverItem extends Item {
         RoverComponent roverComponent = stack.get(DataComponentsRegistry.ROVER_COMPONENT.get());
         if(roverComponent != null) {
             rover.FUEL = roverComponent.fuel();
+            rover.FUEL_TYPE = roverComponent.getFuelType();
         }
 
         return rover;

@@ -108,6 +108,7 @@ public class RocketItem extends Item {
         RocketComponent rocketComponent = stack.get(DataComponentsRegistry.ROCKET_COMPONENT.get());
         if(rocketComponent != null) {
             rocket.FUEL = rocketComponent.fuel();
+            rocket.FUEL_TYPE = rocketComponent.getFuelType();
         }
         return rocket;
     }
