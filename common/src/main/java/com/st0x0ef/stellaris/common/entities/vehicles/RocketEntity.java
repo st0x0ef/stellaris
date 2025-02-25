@@ -627,14 +627,13 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         RocketEntity newRocketEntity = new RocketEntity(newRocketType, this.level());
         newRocketEntity.setPos(pos);
         newRocketEntity.setYRot(this.getYRot());
-        newRocketEntity.MODEL_UPGRADE = this.MODEL_UPGRADE;
         newRocketEntity.setModelData();
-        newRocketEntity.SKIN_UPGRADE = this.SKIN_UPGRADE;
         newRocketEntity.setSkinData();
-        newRocketEntity.MOTOR_UPGRADE = this.MOTOR_UPGRADE;
-        newRocketEntity.TANK_UPGRADE = this.TANK_UPGRADE;
-        newRocketEntity.FUEL = this.FUEL;
-        newRocketEntity.needsModelChange = this.needsModelChange;
+
+        newRocketEntity.setRocketComponent(this.rocketComponent);
+
+        newRocketEntity.setModelData();
+        newRocketEntity.setSkinData();
 
         for (int i = 0; i < inventory.getContainerSize(); i++) newRocketEntity.inventory.setItem(i, itemStacks.get(i));
 
