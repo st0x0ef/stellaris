@@ -5,11 +5,14 @@ import net.minecraft.resources.ResourceLocation;
 
 public class MotorUpgrade extends VehicleUpgrade {
     private final FuelType.Type type;
-    private final ResourceLocation fluidTexture;
 
-    public MotorUpgrade(FuelType.Type type, ResourceLocation fluidTexture) {
+    public MotorUpgrade(FuelType.Type type) {
         this.type = type;
-        this.fluidTexture = fluidTexture;
+    }
+
+    @Deprecated
+    public MotorUpgrade(FuelType.Type type, ResourceLocation fluidTexture) {
+        this(type);
     }
 
     public FuelType.Type getFuelType() {
@@ -18,11 +21,13 @@ public class MotorUpgrade extends VehicleUpgrade {
         }
         return this.type;
     }
+
+    @Deprecated
     public ResourceLocation getFluidTexture() {
-        return this.fluidTexture;
+        return this.getFuelType().getFuelTexture();
     }
 
     public static MotorUpgrade getBasic() {
-        return new MotorUpgrade(FuelType.Type.FUEL, GUISprites.FUEL_OVERLAY);
+        return new MotorUpgrade(FuelType.Type.FUEL);
     }
 }
