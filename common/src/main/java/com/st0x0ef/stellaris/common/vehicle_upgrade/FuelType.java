@@ -19,7 +19,7 @@ public class FuelType {
             return switch (type) {
                 case FUEL -> 19.22f * fuelQuantity; // Need 20mb to go on Moon, 2133mb to go on Venus, 2900mb to go on Mars and 4786mb to go on Mercury (approx)
                 case HYDROGEN -> 21.36f * fuelQuantity; // Need 18mb to go on Moon, 1920mb to go on Venus, 2610mb to go on Mars and 4307mb to go on Mercury (approx)
-                case URANIUM -> 23.74f * fuelQuantity; // Need 16mb to go on Moon, 1728mb to go on Venus, 2349mb to go on Mars and 3876mb to go on Mercury (approx)
+                case RADIOACTIVE, URANIUM -> 23.74f * fuelQuantity; // Need 16mb to go on Moon, 1728mb to go on Venus, 2349mb to go on Mars and 3876mb to go on Mercury (approx)
                 case NEPTUNIUM -> 26.38f * fuelQuantity; // Need 15mb to go on Moon, 1555mb to go on Venus, 2114mb to go on Mars and 3488mb to go on Mercury (approx)
                 case PLUTONIUM -> 29.3f * fuelQuantity; // Need 14mb to go on Moon, 1400mb to go on Venus, 1903mb to go on Mars and 3140mb to go on Mercury (approx)
                 default -> throw new IllegalStateException("Unexpected value: " + type);
@@ -38,7 +38,7 @@ public class FuelType {
             return switch (type) {
                 case FUEL -> distance / 19.22f; // Need 20mb to go on Moon, 2133mb to go on Venus, 2900mb to go on Mars and 4786mb to go on Mercury (approx)
                 case HYDROGEN -> distance / 21.36f; // Need 18mb to go on Moon, 1920mb to go on Venus, 2610mb to go on Mars and 4307mb to go on Mercury (approx)
-                case URANIUM -> distance / 23.74f; // Need 16mb to go on Moon, 1728mb to go on Venus, 2349mb to go on Mars and 3876mb to go on Mercury (approx)
+                case RADIOACTIVE, URANIUM -> distance / 23.74f; // Need 16mb to go on Moon, 1728mb to go on Venus, 2349mb to go on Mars and 3876mb to go on Mercury (approx)
                 case NEPTUNIUM -> distance / 26.38f; // Need 15mb to go on Moon, 1555mb to go on Venus, 2114mb to go on Mars and 3488mb to go on Mercury (approx)
                 case PLUTONIUM -> distance / 29.3f; // Need 14mb to go on Moon, 1400mb to go on Venus, 1903mb to go on Mars and 3140mb to go on Mercury (approx)
                 default -> throw new IllegalStateException("Unexpected value: " + type);
@@ -73,7 +73,8 @@ public class FuelType {
         HYDROGEN(GUISprites.HYDROGEN_OVERLAY, false),
         URANIUM(GUISprites.ENERGY_FULL, true),
         NEPTUNIUM(GUISprites.ENERGY_FULL, true),
-        PLUTONIUM(GUISprites.ENERGY_FULL, true);
+        PLUTONIUM(GUISprites.ENERGY_FULL, true),
+        RADIOACTIVE(GUISprites.ENERGY_FULL, true);
 
         private final ResourceLocation fuelTexture;
         private final boolean isRadioactive;
@@ -111,6 +112,7 @@ public class FuelType {
                 case "uranium" -> URANIUM;
                 case "neptunium" -> NEPTUNIUM;
                 case "plutonium" -> PLUTONIUM;
+                case "radioactive" -> RADIOACTIVE;
                 default -> null;
             };
         }
