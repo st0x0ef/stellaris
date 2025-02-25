@@ -23,7 +23,7 @@ import net.minecraft.world.phys.Vec3;
 public abstract class IVehicleEntity extends Entity{
     public int FUEL;
 
-    public FuelType.Type FUEL_TYPE;
+    public FuelType.Type FUEL_TYPE = FuelType.Type.FUEL;
 
     private int lerpSteps;
     private double lerpX;
