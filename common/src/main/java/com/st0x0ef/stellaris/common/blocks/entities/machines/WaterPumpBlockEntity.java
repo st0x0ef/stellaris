@@ -50,20 +50,21 @@ public class WaterPumpBlockEntity extends BaseEnergyBlockEntity implements Fluid
         BlockPos belowPos = worldPosition.below();
         FluidState belowFluidState = level.getFluidState(belowPos);
 
-        if (!(belowFluidState.is(Fluids.WATER) && belowFluidState.isSource())) return;
-        BlockState belowState = level.getBlockState(belowPos);
-        if (waterTank.getFluidInTank(0).isEmpty()) {
-            if (belowState.getBlock() instanceof BucketPickup bucketPickup) {
-                if (!bucketPickup.pickupBlock(null, level, belowPos, belowState).isEmpty()) {
-                    waterTank.fill(FluidStack.create(Fluids.WATER, 1000), false);
-                    energyContainer.extract(NEEDED_ENERGY, false);
+        if (belowFluidState.is(Fluids.WATER) && belowFluidState.isSource()) {
+            BlockState belowState = level.getBlockState(belowPos);
+            if (waterTank.getFluidInTank(0).isEmpty()) {
+                if (belowState.getBlock() instanceof BucketPickup bucketPickup) {
+                    if (!bucketPickup.pickupBlock(null, level, belowPos, belowState).isEmpty()) {
+                        waterTank.fill(FluidStack.create(Fluids.WATER, 1000), false);
+                        energyContainer.extract(NEEDED_ENERGY, false);
+                    }
                 }
             }
         }
 
-        UniversalFluidStorage fluidCapAbove = Capabilities.Fluid.BLOCK.getCapability(level, belowPos.above(), Direction.DOWN);
-        if (fluidCapAbove != null) {
-            FluidUtil.moveFluid(getFluidTank(Direction.UP), fluidCapAbove, FluidStack.create(Fluids.WATER, 1000));
+        UniversalFluidStorage fluidCapAbove = Capabilities.Fluid.BLOCK.getCapability(level, getBlockPos().above(), Direction.DOWN);
+        if (fluidCapAbove != null && !waterTank.getFluidInTank(0).isEmpty()) {
+            FluidUtil.moveFluid(getFluidTank(null), fluidCapAbove, waterTank.getFluidInTank(0));
         }
     }
 
