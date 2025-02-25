@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.common.vehicle_upgrade;
 
 import com.mojang.serialization.Codec;
+import com.st0x0ef.stellaris.client.screens.GUISprites;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import net.minecraft.resources.ResourceLocation;
@@ -103,9 +104,15 @@ public class FuelType {
     }
 
     public enum Type implements StringRepresentable {
-        FUEL,
-        HYDROGEN,
-        RADIOACTIVE;
+        FUEL(GUISprites.FUEL_OVERLAY),
+        HYDROGEN(GUISprites.HYDROGEN_OVERLAY),
+        RADIOACTIVE(GUISprites.ENERGY_FULL);
+
+        private final ResourceLocation fuelTexture;
+
+        private Type(ResourceLocation fuelTexture) {
+            this.fuelTexture = fuelTexture;
+        }
 
         public static Type getTypeBasedOnItem(Item item) {
             if (item == null) return null;
@@ -130,6 +137,10 @@ public class FuelType {
         @Override
         public String getSerializedName() {
             return name().toLowerCase();
+        }
+
+        public ResourceLocation getFuelTexture() {
+            return this.fuelTexture;
         }
 
         public enum Radioactive implements StringRepresentable {
