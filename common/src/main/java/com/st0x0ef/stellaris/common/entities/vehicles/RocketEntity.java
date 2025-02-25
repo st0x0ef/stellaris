@@ -231,7 +231,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
                 if (!tryFillUpRocket(player.getMainHandItem().getItem())) {
                     this.openCustomInventoryScreen(player);
                 } else {
-                    player.getItemInHand(hand).grow(-1);
+                    player.getItemInHand(hand).shrink(1);
                     player.getInventory().add(new ItemStack(Items.BUCKET));
                 }
                 return InteractionResult.CONSUME;
