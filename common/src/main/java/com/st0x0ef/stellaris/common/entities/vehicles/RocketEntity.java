@@ -632,6 +632,10 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
         newRocketEntity.setRocketComponent(this.rocketComponent);
 
+        newRocketEntity.MODEL_UPGRADE = this.MODEL_UPGRADE;
+
+        newRocketEntity.needsModelChange = this.needsModelChange;
+
         newRocketEntity.setModelData();
         newRocketEntity.setSkinData();
 
