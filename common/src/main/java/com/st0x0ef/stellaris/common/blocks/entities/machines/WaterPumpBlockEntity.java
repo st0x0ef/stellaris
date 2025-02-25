@@ -4,7 +4,6 @@ import com.fej1fun.potentials.capabilities.Capabilities;
 import com.fej1fun.potentials.components.FluidAmountMapDataComponent;
 import com.fej1fun.potentials.fluid.UniversalFluidStorage;
 import com.fej1fun.potentials.providers.FluidProvider;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.network.packets.SyncFluidPacketWithoutDirection;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.utils.capabilities.fluid.FluidUtil;

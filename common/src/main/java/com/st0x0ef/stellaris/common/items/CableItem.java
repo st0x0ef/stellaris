@@ -20,6 +20,5 @@ public class CableItem extends BlockItem {
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         tooltipComponents.add(Component.literal(energy + " FE/t").withStyle(ChatFormatting.GRAY));
-
     }
 }
