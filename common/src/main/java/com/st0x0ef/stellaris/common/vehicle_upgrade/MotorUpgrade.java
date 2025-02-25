@@ -10,6 +10,11 @@ public class MotorUpgrade extends VehicleUpgrade {
         this.type = type;
     }
 
+    @Deprecated
+    public MotorUpgrade(FuelType.Type type, ResourceLocation fluidTexture) {
+        this(type);
+    }
+
     public FuelType.Type getFuelType() {
         if (this.type == null) {
             return getBasic().getFuelType();
