@@ -262,6 +262,9 @@ public abstract class IVehicleEntity extends Entity{
         return this.FUEL;
     }
 
+    public FuelType.Type getFuelType() {
+        return this.FUEL_TYPE;
+    }
 
     @Override
     public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity entity) {
