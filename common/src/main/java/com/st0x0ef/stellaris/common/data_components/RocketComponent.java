@@ -53,6 +53,10 @@ public record RocketComponent(String skin, RocketModel model, String fuelType, i
         return new MotorUpgrade(FuelType.Type.fromString(fuelType));
     }
 
+    public FuelType.Type getFuelType() {
+        return FuelType.Type.fromString(fuelType);
+    }
+
     public TankUpgrade getTankUpgrade() {
         return new TankUpgrade(tankCapacity);
     }
