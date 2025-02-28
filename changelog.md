@@ -10,6 +10,7 @@
 - Mercury Factory
 - Mercury Mining Ship
 - Mercury Volcano
+- Mercury Quarry
 - Moon Destroyed Spaceship
 - Moon First Landing
 - Moon Launchpad
@@ -19,6 +20,7 @@
 - Venus Plaza
 - Venus Tower
 - Venus Catacombs
+- Venus Crash Site
 
 ## Fix
 - Fixed Planetscreen Planet Nesting Bug
