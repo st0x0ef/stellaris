@@ -1,4 +1,16 @@
 # 1.2.6 changelog
 
-## Dev Features
-- Added Codecs for PlanetInfo, MoonInfo, and CelestialBodyInfo
+## Updated structures
+- Mars Temple
+- Mars Tower
+- Mercury Factory
+- Mercury Mining Ship
+- Mercury Volcano
+- Moon Destroyed Spaceship
+- Moon First Landing
+- Moon Launchpad
+- Moon Space Base
+- Venus Outpost
+- Venus Outpost Dungeon
+- Venus Plaza
+- Venus Tower
