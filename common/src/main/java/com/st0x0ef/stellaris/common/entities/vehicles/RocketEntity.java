@@ -627,20 +627,24 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         RocketEntity newRocketEntity = new RocketEntity(newRocketType, this.level());
         newRocketEntity.setPos(pos);
         newRocketEntity.setYRot(this.getYRot());
-        newRocketEntity.MODEL_UPGRADE = this.MODEL_UPGRADE;
         newRocketEntity.setModelData();
-        newRocketEntity.SKIN_UPGRADE = this.SKIN_UPGRADE;
         newRocketEntity.setSkinData();
-        newRocketEntity.MOTOR_UPGRADE = this.MOTOR_UPGRADE;
-        newRocketEntity.TANK_UPGRADE = this.TANK_UPGRADE;
-        newRocketEntity.FUEL = this.FUEL;
+
+        newRocketEntity.setRocketComponent(this.rocketComponent);
+
+        newRocketEntity.MODEL_UPGRADE = this.MODEL_UPGRADE;
+
         newRocketEntity.needsModelChange = this.needsModelChange;
+
+        newRocketEntity.setModelData();
+        newRocketEntity.setSkinData();
 
         for (int i = 0; i < inventory.getContainerSize(); i++) newRocketEntity.inventory.setItem(i, itemStacks.get(i));
 
+        List<Entity> passengers = getPassengers();
         this.remove(RemovalReason.DISCARDED);
         newRocketEntity.level().addFreshEntity(newRocketEntity);
-        for (Entity passenger : getPassengers()) passenger.startRiding(newRocketEntity);
+        for (Entity passenger : passengers) passenger.startRiding(newRocketEntity);
         newRocketEntity.openCustomInventoryScreen(lastPlayer);
     }
 
