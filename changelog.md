@@ -3,6 +3,7 @@
 ## Updated structures
 - Mars Temple
 - Mars Tower
+- Mars Ruins
 - Mercury Factory
 - Mercury Mining Ship
 - Mercury Volcano
@@ -14,3 +15,4 @@
 - Venus Outpost Dungeon
 - Venus Plaza
 - Venus Tower
+- Venus Catacombs
