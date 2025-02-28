@@ -133,6 +133,6 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity im
 
     @Override
     public FluidTank[] getFluidTanks() {
-        return new FluidTank[]{ingredientTank, resultTanks.getFirst(), resultTanks.getFirst()};
+        return new FluidTank[]{ingredientTank};
     }
 }
