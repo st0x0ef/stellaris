@@ -4,6 +4,7 @@ import com.fej1fun.potentials.fluid.UniversalFluidStorage;
 import com.fej1fun.potentials.providers.FluidProvider;
 import com.st0x0ef.stellaris.common.blocks.machines.PipeBlock;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
+import com.st0x0ef.stellaris.common.utils.capabilities.fluid.FluidUtil;
 import com.st0x0ef.stellaris.common.utils.capabilities.fluid.SingleFluidStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -41,17 +42,17 @@ public class PipeBlockEntity extends BlockEntity implements FluidProvider.BLOCK,
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
-        fluidTank.save(tag, registries, "fluid");
+        fluidTank.load(tag, registries, "fluid");
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
-        fluidTank.load(tag, registries, "fluid");
+        fluidTank.save(tag, registries, "fluid");
     }
 
     @Override
     public void tick() {
-//        FluidUtil.
+        FluidUtil.distributeFluidNearby(level, worldPosition, fluidTank.getFluidInTank(0));
     }
 }

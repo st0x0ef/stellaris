@@ -46,13 +46,13 @@ public abstract class BaseEnergyBlockEntity extends BlockEntity implements Energ
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
         super.loadAdditional(tag, provider);
-        energyContainer.save(tag, "base");
+        energyContainer.load(tag, "base");
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
         super.saveAdditional(tag, provider);
-        energyContainer.load(tag, "base");
+        energyContainer.save(tag, "base");
     }
 
     @Override

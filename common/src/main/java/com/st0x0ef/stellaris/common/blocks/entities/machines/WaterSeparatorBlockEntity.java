@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.common.blocks.entities.machines;
 import com.fej1fun.potentials.components.FluidAmountMapDataComponent;
 import com.fej1fun.potentials.fluid.UniversalFluidStorage;
 import com.fej1fun.potentials.providers.FluidProvider;
+import com.st0x0ef.stellaris.common.blocks.machines.WaterSeparatorBlock;
 import com.st0x0ef.stellaris.common.data.recipes.WaterSeparatorRecipe;
 import com.st0x0ef.stellaris.common.data.recipes.input.FluidInput;
 import com.st0x0ef.stellaris.common.menus.WaterSeparatorMenu;
@@ -52,7 +53,7 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity im
             return stack.getFluid() == Fluids.WATER;
         }
     };
-    public final FluidStorage resultTanks = new FluidStorage(2, 3000,0,3000) {
+    public final FluidStorage resultTanks = new FluidStorage(2, 3000,0,1500) {
         @Override
         protected void onChange(int tank) {
             setChanged();
@@ -99,6 +100,10 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity im
         FluidUtil.moveFluidToItem(HYDROGEN_TANK, resultTanks,2, items, 1000);
 
         FluidUtil.moveFluidFromItem(0,1, items, ingredientTank, 1000);
+        Direction facing = getBlockState().getValue(WaterSeparatorBlock.FACING);
+        FluidUtil.distributeFluidNearby(level, worldPosition, resultTanks.getFluidInTank(0), List.of(facing.getClockWise()));
+        FluidUtil.distributeFluidNearby(level, worldPosition, resultTanks.getFluidInTank(1), List.of(facing.getCounterClockWise()));
+        FluidUtil.distributeFluidNearby(level, worldPosition, ingredientTank.getFluidInTank(0), List.of(Direction.UP, Direction.DOWN, facing, facing.getOpposite()));
 
         if (level == null) return;
 
@@ -107,7 +112,7 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity im
             WaterSeparatorRecipe recipe = recipeHolder.get().value();
 
             if (energyContainer.getEnergy() >= recipe.energy() &&
-                    (resultTanks.getFluidValueInTank(HYDROGEN_TANK) < resultTanks.getTankCapacity(HYDROGEN_TANK) || resultTanks.getFluidValueInTank(OXYGEN_TANK) < resultTanks.getTankCapacity(OXYGEN_TANK))) {
+                    (resultTanks.getFluidValueInTank(HYDROGEN_TANK) < resultTanks.getTankCapacity(HYDROGEN_TANK) && resultTanks.getFluidValueInTank(OXYGEN_TANK) < resultTanks.getTankCapacity(OXYGEN_TANK))) {
                 ingredientTank.drainWithoutLimits(recipe.ingredientStack(), false);
                 resultTanks.fillWithoutLimits(recipe.resultStacks().getFirst(), false);
                 resultTanks.fillWithoutLimits(recipe.resultStacks().getLast(), false);

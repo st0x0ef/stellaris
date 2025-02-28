@@ -21,11 +21,13 @@ public abstract class FluidStorage extends BaseFluidStorage {
         long filled = 0;
         for (int i = 0; i < getTanks(); i++) {
             if (!isFluidValid(i, stack)) continue;
-            if (!(fluidStacks.get(i).getFluid()==stack.getFluid() || fluidStacks.get(i).isEmpty())) continue;
-            if (fluidStacks.get(i).getAmount()>=capacity) continue;
-            filled = Math.clamp(this.capacity - getFluidValueInTank(i), 0L, Math.min(this.maxFill, stack.getAmount()));
+            FluidStack fluidStack = fluidStacks.get(i);
+            if (!(fluidStack.getFluid()==stack.getFluid() || fluidStack.isEmpty())) continue;
+            if (fluidStack.getAmount()>=capacity) continue;
+            long inTank = getFluidValueInTank(i);
+            filled = Math.clamp(this.capacity - inTank, 0L, Math.min(this.maxFill, stack.getAmount()));
             if (!simulate) {
-                fluidStacks.set(i, stack.copyWithAmount(getFluidValueInTank(i) + filled));
+                fluidStacks.set(i, stack.copyWithAmount(inTank + filled));
                 onChange(i);
             }
             break;
@@ -38,11 +40,12 @@ public abstract class FluidStorage extends BaseFluidStorage {
         long drained = 0;
         for (int i = 0; i < getTanks(); i++) {
             if (!isFluidValid(i, stack)) continue;
-            if (getFluidInTank(i).isEmpty()) continue;
-            if (getFluidInTank(i).getFluid()!=stack.getFluid()) continue;
+            FluidStack fluid = getFluidInTank(i);
+            if (fluid.isEmpty()) continue;
+            if (fluid.getFluid()!=stack.getFluid()) continue;
             drained = Math.min(getFluidValueInTank(i), Math.min(this.maxDrain, stack.getAmount()));
             if (!simulate) {
-                setFluidInTank(i, FluidStack.create(getFluidInTank(i), getFluidValueInTank(i) - drained));
+                setFluidInTank(i, FluidStack.create(fluid, getFluidValueInTank(i) - drained));
                 onChange(i);
             }
 

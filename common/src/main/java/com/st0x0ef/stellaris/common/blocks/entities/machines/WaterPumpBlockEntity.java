@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
-import com.fej1fun.potentials.capabilities.Capabilities;
 import com.fej1fun.potentials.components.FluidAmountMapDataComponent;
 import com.fej1fun.potentials.fluid.UniversalFluidStorage;
 import com.fej1fun.potentials.providers.FluidProvider;
@@ -61,10 +60,7 @@ public class WaterPumpBlockEntity extends BaseEnergyBlockEntity implements Fluid
             }
         }
 
-        UniversalFluidStorage fluidCapAbove = Capabilities.Fluid.BLOCK.getCapability(level, getBlockPos().above(), Direction.DOWN);
-        if (fluidCapAbove != null && !waterTank.getFluidInTank(0).isEmpty()) {
-            FluidUtil.moveFluid(getFluidTank(null), fluidCapAbove, waterTank.getFluidInTank(0));
-        }
+        FluidUtil.distributeFluidNearby(level, worldPosition, waterTank.getFluidInTank(0), List.of(Direction.UP));
     }
 
     @Override

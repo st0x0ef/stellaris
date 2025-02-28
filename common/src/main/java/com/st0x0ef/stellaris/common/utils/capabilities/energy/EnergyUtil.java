@@ -83,7 +83,9 @@ public class EnergyUtil {
         if (inserted > 0) {
             from.extract(inserted, false);
             to.insert(inserted, false);
-        } else return 0;
-        return inserted;
+
+            return inserted;
+        }
+        return 0;
     }
 }

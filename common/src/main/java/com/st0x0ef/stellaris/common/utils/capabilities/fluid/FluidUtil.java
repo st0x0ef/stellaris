@@ -72,24 +72,26 @@ public class FluidUtil {
 
     private static long distributeInDirections(Level level, BlockPos pos, FluidStack stack, List<Direction> outputDirections) {
         Map<UniversalFluidStorage, UniversalFluidStorage> pairs = new HashMap<>();
-        UniversalFluidStorage from;
-        UniversalFluidStorage to;
         for (Direction direction : outputDirections) {
-            from = Capabilities.Fluid.BLOCK.getCapability(level, pos, direction);
+            UniversalFluidStorage from = Capabilities.Fluid.BLOCK.getCapability(level, pos, direction);
             if (from == null) {
                 continue;
             }
+
             FluidStack drained = from.drain(stack, true);
-            if (!(drained.getAmount() > 0)) {
+            if (drained.getAmount() <= 0) {
                 continue;
             }
-            to = Capabilities.Fluid.BLOCK.getCapability(level, pos, direction);
+
+            UniversalFluidStorage to = Capabilities.Fluid.BLOCK.getCapability(level, pos.relative(direction), direction.getOpposite());
             if (to == null) {
                 continue;
             }
-            if (!(to.fill(drained, true) > 0)) {
+
+            if (to.fill(drained, true) <= 0) {
                 continue;
             }
+
             pairs.put(from, to);
         }
 
@@ -116,7 +118,13 @@ public class FluidUtil {
                 .map(direction -> Capabilities.Fluid.BLOCK.getCapability(level, pos.relative(direction), direction.getOpposite()))
                 .filter(Objects::nonNull)
                 .sorted(Comparator.comparing(fluidStorage -> fluidStorage.fill(stack, true)))
-                .filter(fluidStorage -> fluidStorage.isFluidValid(0, stack))
+                .filter(fluidStorage -> {
+                    for (int i = 0; i < fluidStorage.getTanks(); i++) {
+                        fluidStorage.isFluidValid(i, stack);
+                        return true;
+                    }
+                    return false;
+                })
                 .toList();
 
         if (toSend.isEmpty()) {
