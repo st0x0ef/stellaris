@@ -11,6 +11,7 @@
 - Mercury Mining Ship
 - Mercury Volcano
 - Mercury Quarry
+- Mercury Lava Mines
 - Moon Destroyed Spaceship
 - Moon First Landing
 - Moon Launchpad
