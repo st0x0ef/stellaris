@@ -150,7 +150,7 @@
       "type": "item",
       "id": "radioactive_generator",
       "title": "Radioactive Generator",
-      "description": "The Coal Generator can generate energy by burning [ref=items:radioactive]radioactive items like uranium ingot or radioactive block. [br] [br] Max Generation : [color=red]500Fe/Tick.",
+      "description": "The Radioactive Generator can generate energy by burning [ref=items:radioactive]radioactive items like uranium ingot or radioactive block. [br] [br] Max Generation : [color=red]500Fe/Tick.",
       "item": {
         "stack": {
           "id": "stellaris:radioactive_generator",
