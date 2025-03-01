@@ -1,8 +1,8 @@
 {
   "id": "items",
   "description": "Items",
-  "icon": "stellaris:textures/gui/tablet/rocket_page.png",
-  "hoverIcon": "stellaris:textures/gui/tablet/rocket_page_hover.png",
+  "icon": "stellaris:textures/gui/tablet/book_page.png",
+  "hoverIcon": "stellaris:textures/gui/tablet/book_page_hover.png",
   "infos": [
     {
       "type": "item",

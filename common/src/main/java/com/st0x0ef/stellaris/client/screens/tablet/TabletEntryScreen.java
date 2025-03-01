@@ -6,6 +6,7 @@ import com.st0x0ef.stellaris.client.screens.components.TabletButton;
 import com.st0x0ef.stellaris.client.screens.components.TexturedButton;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
@@ -26,6 +27,7 @@ public class TabletEntryScreen extends Screen {
     private ArrayList<TabletButton> PAGES_BUTTONS = new ArrayList<>();
     public String currentPage = "main";
     public TabletEntryWidget widget;
+    public ArrayList<TexturedButton> BUTTONS = new ArrayList<>();
 
     public ArrayList<ArrayList<TabletButton>> ENTRY_BUTTONS = new ArrayList<>();
     public int currentEntryPage = 0;
@@ -44,24 +46,22 @@ public class TabletEntryScreen extends Screen {
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
-        guiGraphics.drawCenteredString(this.font, this.title, this.width / 2, this.topPos + 30, 16777215);
+        guiGraphics.drawCenteredString(this.font, this.title.getString().toUpperCase(), this.width / 2, this.topPos + 20, 16777215);
 
         if(currentPage.equals("main")) {
             showEntryButton();
             removeNonShowButtons();
 
             widget.visible = false;
+            changeButtonVisibility(true);
         } else {
             removeAllButtons();
             widget.visible = true;
+            changeButtonVisibility(false);
 
         }
     }
 
-    @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        return super.mouseClicked(mouseX, mouseY, button);
-    }
 
     @Override
     protected void init() {
@@ -108,6 +108,22 @@ public class TabletEntryScreen extends Screen {
         this.widget = new TabletEntryWidget(this.leftPos + 15, this.topPos + 50, 215, 100, Component.literal(""), null, this);
         this.widget.visible = false;
         this.addRenderableWidget(this.widget);
+
+
+        // Add the buttons to the list
+        TabletMainScreen.BUTTONS.forEach((texButton -> {
+            this.removeWidget(texButton);
+            this.addRenderableWidget(texButton);
+        }));
+
+
+    }
+
+    public void changeButtonVisibility(boolean visible) {
+        TabletMainScreen.BUTTONS.forEach((texButton -> {
+            texButton.visible = visible;
+        }));
+
     }
 
     public void changeInfo(TabletEntry.Info info) {
