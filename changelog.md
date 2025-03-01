@@ -2,6 +2,7 @@
 
 ## Addons features
 - Added Codecs for CelestialBodies
+- Method to add planet at runtime
 
 ## Updated structures
 - Mars Temple
@@ -39,4 +40,4 @@
 - Fix passengers are dropped when model is changed [#76](https://github.com/st0x0ef/stellaris/pull/76)
 - Fix fuel Type can reset to Fuel when model is changed [#76](https://github.com/st0x0ef/stellaris/pull/76)
 
-Thanks a lot to [lexicon](https://github.com/lexiccn) for his huge help, this is really appreciated!
+Thanks a lot to [lexiccn](https://github.com/lexiccn) for his huge help, this is really appreciated!
