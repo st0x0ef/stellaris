@@ -28,7 +28,7 @@ public class TabletEntryScreen extends Screen {
     public TabletEntryWidget widget;
 
     public ArrayList<ArrayList<TabletButton>> ENTRY_BUTTONS = new ArrayList<>();
-    public int currentEntryPage = 1;
+    public int currentEntryPage = 0;
 
     protected TabletEntryScreen(Component title, TabletMainScreen screen, int leftPos, int topPos, TabletEntry entry) {
         super(title);
