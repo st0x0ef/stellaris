@@ -63,23 +63,31 @@ public class TabletMainScreen extends AbstractContainerScreen<TabletMenu> {
         super.init();
         this.STATS = getStats();
 
-        AtomicInteger row = new AtomicInteger(0);
         AtomicInteger column = new AtomicInteger(0);
-
+        BUTTONS.clear();
         ENTRIES.forEach((id, entry) -> {
 
-            TexturedButton button = new TexturedButton(this.leftPos + 68 + (column.get() * 30), this.topPos + 130 + (row.get() * 30), 20, 20, Component.translatable(entry.id()), (button1) -> {
+            TexturedButton button = new TexturedButton(this.leftPos + 61 + (column.get() * 28), this.topPos + 134 , 18, 18, Component.translatable(entry.id()), (button1) -> {
                 this.minecraft.setScreen(new TabletEntryScreen(Component.translatable(entry.id()), this, this.leftPos, this.topPos, entry));
             }).tex(entry.icon(), entry.hoverIcon()).tooltip(Tooltip.create(Component.translatable(entry.id())));
 
-            if(column.get() == 3) {
-                column.set(0);
-                row.getAndIncrement();
-            } else {
-                column.getAndIncrement();
-            }
+            column.getAndIncrement();
+
             BUTTONS.add(button);
             this.addRenderableWidget(button);
+
+            if(BUTTONS.size() == 2) {
+                TexturedButton homeButton = new TexturedButton(this.leftPos + 61 + (column.get() * 28), this.topPos + 134, 18, 18, Component.translatable(entry.id()), (button1) -> {
+                    this.minecraft.setScreen(this);
+                }).tex(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/main_page.png"),
+                        ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/main_page_hover.png")
+                ).tooltip(Tooltip.create(Component.literal("Home")));
+                BUTTONS.add(homeButton);
+                column.getAndIncrement();
+
+                this.addRenderableWidget(homeButton);
+
+            }
         });
 
         if (directEntry != null) {
