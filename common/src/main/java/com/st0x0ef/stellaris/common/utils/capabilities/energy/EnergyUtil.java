@@ -68,6 +68,7 @@ public class EnergyUtil {
                 .filter(UniversalEnergyStorage::canInsertEnergy)
                 .sorted(Comparator.comparing(energyStorage -> energyStorage.insert(amount, true)))
                 .toList();
+
         if (toSend.isEmpty()) return;
 
         int receivers = toSend.size();

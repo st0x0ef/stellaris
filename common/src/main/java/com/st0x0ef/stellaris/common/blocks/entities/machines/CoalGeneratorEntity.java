@@ -115,7 +115,7 @@ public class CoalGeneratorEntity extends BaseGeneratorBlockEntity {
 
     @Override
     public boolean canGenerate() {
-        boolean isMaxEnergy = energyContainer.getEnergy()== energyContainer.getMaxEnergy();
+        boolean isMaxEnergy = energyContainer.getEnergy() == energyContainer.getMaxEnergy();
         return isLit() && !isMaxEnergy;
     }
 
