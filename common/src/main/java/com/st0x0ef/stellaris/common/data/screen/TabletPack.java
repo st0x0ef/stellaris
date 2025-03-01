@@ -27,7 +27,10 @@ public class TabletPack extends SimpleJsonResourceReloadListener {
             Stellaris.LOG.info("Loading tablet entry: " + key);
             JsonObject json = GsonHelper.convertToJsonObject(value, "tablet");
             TabletEntry entry = TabletEntry.CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
-            TabletMainScreen.ENTRIES.put(entry.id(), entry);
+
+            if(!TabletMainScreen.ENTRIES.containsKey(entry.id())) {
+                TabletMainScreen.ENTRIES.put(entry.id(), entry);
+            }
             entry.infos().forEach(info -> {
                 TabletMainScreen.INFOS.put(ResourceLocation.fromNamespaceAndPath(entry.id(), info.id()), info);
             });
