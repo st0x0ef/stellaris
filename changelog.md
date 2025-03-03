@@ -3,6 +3,7 @@
 ## Additions
 - Mars storm
 - Custom lightnings bolt
+- Potentials integration for better mods compatibility
 
 ## Changes
 - Better Venus Atmosphere
