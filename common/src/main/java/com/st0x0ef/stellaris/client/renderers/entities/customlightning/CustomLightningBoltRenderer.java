@@ -83,7 +83,6 @@ public class CustomLightningBoltRenderer extends EntityRenderer<CustomLightningB
                     float green = entity.getEntityData().get(CustomLightningBolt.GREEN);
                     float blue = entity.getEntityData().get(CustomLightningBolt.BLUE);
 
-                    Stellaris.LOG.info("Red: " + red + " Green: " + green + " Blue: " + blue);
                     quad(matrix4f, vertexConsumer, h, n, o, p, q, red, green, blue, v, w, false, false, true, false);
                     quad(matrix4f, vertexConsumer, h, n, o, p, q, red, green, blue, v, w, true, false, true, true);
                     quad(matrix4f, vertexConsumer, h, n, o, p, q, red, green, blue, v, w, true, true, false, true);
