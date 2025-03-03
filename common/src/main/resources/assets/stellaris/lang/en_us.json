@@ -254,6 +254,11 @@
   "fluid.stellaris.hydrogen": "Hydrogen",
   "fluid.stellaris.oxygen": "Oxygen",
 
+  "block.stellaris.oil": "Oil",
+  "block.stellaris.fuel": "Fuel",
+  "block.stellaris.hydrogen": "Hydrogen",
+  "block.stellaris.oxygen": "Oxygen",
+
   "item.stellaris.oil_bucket": "Oil Bucket",
   "item.stellaris.fuel_bucket": "Fuel Bucket",
   "item.stellaris.hydrogen_bucket": "Hydrogen Bucket",
