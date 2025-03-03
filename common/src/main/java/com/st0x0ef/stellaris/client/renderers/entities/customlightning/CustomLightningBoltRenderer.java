@@ -2,7 +2,6 @@ package com.st0x0ef.stellaris.client.renderers.entities.customlightning;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.entities.CustomLightningBolt;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

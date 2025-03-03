@@ -4,7 +4,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
 import com.st0x0ef.stellaris.common.utils.Utils;
-import dev.architectury.platform.Platform;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -85,7 +84,7 @@ public class TabletEntryWidget extends AbstractScrollWidget {
         info.entity().ifPresent((entity) -> {
             int height = getY() + 40 + finalHeight.get() + entity.scale();
             Entity entity1 = ScreenHelper.createEntity(Minecraft.getInstance().level, entity.entity());
-            ScreenHelper.renderEntityInInventory(guiGraphics, this.baseScreenWidth / 2, height + 45, entity.scale(), new Vector3f(), new Quaternionf(-1, 0, 0, 0), null, entity1);
+            ScreenHelper.renderEntityInInventory(guiGraphics, (float) this.baseScreenWidth / 2, height + 45, entity.scale(), new Vector3f(), new Quaternionf(-1, 0, 0, 0), null, entity1);
             finalHeight.addAndGet(80);
 
         });

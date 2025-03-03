@@ -2,10 +2,7 @@ package com.st0x0ef.stellaris.client.registries;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.client.events.ClientEvents;
-import com.st0x0ef.stellaris.common.keybinds.KeyVariables;
 import com.st0x0ef.stellaris.common.network.packets.KeyHandlerPacket;
-import com.st0x0ef.stellaris.common.network.packets.OpenTabletEntryPacket;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import dev.architectury.networking.NetworkManager;

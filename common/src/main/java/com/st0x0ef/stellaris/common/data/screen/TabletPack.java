@@ -24,7 +24,7 @@ public class TabletPack extends SimpleJsonResourceReloadListener {
     protected void apply(Map<ResourceLocation, JsonElement> resourceLocationJsonElementMap, ResourceManager resourceManager, ProfilerFiller profiler) {
         Stellaris.LOG.info("Loading Assets for Tablet Pack");
         resourceLocationJsonElementMap.forEach((key, value) -> {
-            Stellaris.LOG.info("Loading tablet entry: " + key);
+            Stellaris.LOG.info("Loading tablet entry: {}", key);
             JsonObject json = GsonHelper.convertToJsonObject(value, "tablet");
             TabletEntry entry = TabletEntry.CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
 

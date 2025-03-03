@@ -18,7 +18,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -212,7 +211,7 @@ public class ScreenHelper {
 
     public static void renderEntityInInventory(GuiGraphics guiGraphics, float x, float y, float scale, Vector3f translate, Quaternionf pose, @Nullable Quaternionf cameraOrientation, Entity entity) {
         guiGraphics.pose().pushPose();
-        guiGraphics.pose().translate((double)x, (double)y, (double)50.0F);
+        guiGraphics.pose().translate(x, y, (double)50.0F);
         guiGraphics.pose().scale(scale, scale, -scale);
         guiGraphics.pose().translate(translate.x, translate.y, translate.z);
         guiGraphics.pose().mulPose(pose);

@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.common.keybinds;
 
-import com.st0x0ef.stellaris.Stellaris;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
