@@ -63,8 +63,6 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     public MotorUpgrade MOTOR_UPGRADE;
     public TankUpgrade TANK_UPGRADE;
 
-    private Item currentFuelItem;
-
     protected SimpleContainer inventory;
 
     private RocketComponent rocketComponent;
@@ -95,8 +93,9 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         this.START_TIMER = 0;
         this.FUEL = 0;
 
-        this.currentFuelItem = ItemsRegistry.FUEL_BUCKET.get();
-        this.rocketComponent = new RocketComponent(SKIN_UPGRADE.getRocketSkinLocation().toString(), RocketModel.fromString(MODEL_UPGRADE.getModel().toString()), currentFuelItem.toString(), FUEL, MOTOR_UPGRADE.getFluidTexture(), TANK_UPGRADE.getTankCapacity());
+        this.FUEL_TYPE = FuelType.Type.FUEL;
+
+        this.rocketComponent = new RocketComponent(SKIN_UPGRADE.getRocketSkinLocation().toString(), RocketModel.fromString(MODEL_UPGRADE.getModel().toString()), FUEL_TYPE.getSerializedName(), FUEL, FUEL_TYPE.getFuelTexture(), TANK_UPGRADE.getTankCapacity());
         this.inventory = new SimpleContainer(14);
     }
 
@@ -108,7 +107,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         this.MOTOR_UPGRADE = rocketComponent.getMotorUpgrade();
         this.TANK_UPGRADE = rocketComponent.getTankUpgrade();
         this.FUEL = rocketComponent.getFuel();
-        this.currentFuelItem = FuelType.getItemBasedOnTypeName(rocketComponent.fuelType());
+        this.FUEL_TYPE = rocketComponent.getFuelType();
     }
 
     @Override
@@ -149,12 +148,8 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         compound.put("InventoryCustom", this.inventory.createTag(registryAccess()));
         compound.putInt("fuel", FUEL);
 
-        if (FUEL != 0 && currentFuelItem != null) {
-            if (FuelType.Type.getTypeBasedOnItem(currentFuelItem) != null) {
-                compound.putString("currentFuelItemType", FuelType.Type.getTypeBasedOnItem(currentFuelItem).getSerializedName());
-            } else if (FuelType.Type.Radioactive.getTypeBasedOnItem(currentFuelItem) != null) {
-                compound.putString("currentFuelItemType", FuelType.Type.Radioactive.getTypeBasedOnItem(currentFuelItem).getSerializedName());
-            }
+        if (FUEL != 0) {
+            compound.putString("currentFuelItemType", FUEL_TYPE.getSerializedName());
         }
 
         ListTag listTag = new ListTag();
@@ -178,7 +173,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         FUEL = compound.getInt("fuel");
 
         if (FUEL != 0) {
-            currentFuelItem = FuelType.getItemBasedOnTypeName(compound.getString("currentFuelItemType"));
+            FUEL_TYPE = FuelType.Type.fromString(compound.getString("currentFuelItemType"));
         }
 
         ListTag listTag = compound.getList("Items", 10);
@@ -236,7 +231,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
                 if (!tryFillUpRocket(player.getMainHandItem().getItem())) {
                     this.openCustomInventoryScreen(player);
                 } else {
-                    player.getItemInHand(hand).grow(-1);
+                    player.getItemInHand(hand).shrink(1);
                     player.getInventory().add(new ItemStack(Items.BUCKET));
                 }
                 return InteractionResult.CONSUME;
@@ -516,44 +511,37 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
     public boolean tryFillUpRocket(Item item) {
         if (this.level().isClientSide) return false;
-        if (FUEL == TANK_UPGRADE.getTankCapacity() || item == null) {
+        if (FUEL >= TANK_UPGRADE.getTankCapacity() || item == null) {
             return false;
         }
 
-        if (MOTOR_UPGRADE.getFuelType().equals(FuelType.Type.RADIOACTIVE) && FuelType.Type.Radioactive.getTypeBasedOnItem(item) != null && canPutFuelBasedOnCurrentFuelItem(item)) {
-            FUEL += 1000;
-            if (FUEL > TANK_UPGRADE.getTankCapacity()) {
-                FUEL = TANK_UPGRADE.getTankCapacity();
+        FuelType.Type itemType = FuelType.Type.getTypeBasedOnItem(item);
+        if (itemType == null) return false;
+
+        FuelType.Type motorType = MOTOR_UPGRADE.getFuelType();
+
+        if (motorType == itemType.getMotorType()) {
+            if (FUEL == 0) {
+                FUEL_TYPE = itemType;
             }
 
-            inventory.removeItem(0, 1);
+            if (itemType == FUEL_TYPE) {
+                FUEL += 1000;
+                if (FUEL > TANK_UPGRADE.getTankCapacity()) {
+                    FUEL = TANK_UPGRADE.getTankCapacity();
+                }
 
-            return true;
-        }
+                ItemStack fuelItem = inventory.removeItem(0, 1);
 
-        if (FuelType.Type.getTypeBasedOnItem(item) == MOTOR_UPGRADE.getFuelType() && canPutFuelBasedOnCurrentFuelItem(item)) {
-            FUEL += 1000;
-            if (FUEL > TANK_UPGRADE.getTankCapacity()) {
-                FUEL = TANK_UPGRADE.getTankCapacity();
+                if (fuelItem.is(ItemsRegistry.FUEL_BUCKET.get()) || fuelItem.is(ItemsRegistry.HYDROGEN_BUCKET.get())) {
+                    inventory.setItem(1, new ItemStack(Items.BUCKET, inventory.getItem(1).getCount() + 1));
+                }
+
+                return true;
             }
-
-            if (inventory.removeItem(0, 1).is(ItemsRegistry.FUEL_BUCKET.get()) || inventory.removeItem(0, 1).is(ItemsRegistry.HYDROGEN_BUCKET.get())) {
-                inventory.setItem(1, new ItemStack(Items.BUCKET, inventory.getItem(1).getCount()+1));
-            }
-
-            return true;
         }
 
         return false;
-    }
-
-    private boolean canPutFuelBasedOnCurrentFuelItem(Item item) {
-        if (FUEL == 0) {
-            currentFuelItem = item;
-            return true;
-        }
-
-        return currentFuelItem == item;
     }
 
     private void openPlanetMenu(Player player) {
@@ -619,11 +607,11 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     }
 
     public boolean canGoTo(Planet actual, Planet destination) {
-        return Mth.abs(actual.distanceFromEarth() - destination.distanceFromEarth()) <= FuelType.getMegametersTraveled(this.rocketComponent.fuel(), FuelType.getItemBasedOnLoacation(ResourceLocation.parse(this.rocketComponent.fuelType())));
+        return Mth.abs(actual.distanceFromEarth() - destination.distanceFromEarth()) <= FuelType.getMegametersTraveled(FUEL, FUEL_TYPE);
     }
 
     public void syncRocketData(ServerPlayer player) {
-        this.rocketComponent = new RocketComponent(SKIN_UPGRADE.getRocketSkinLocation().toString(), RocketModel.fromString(MODEL_UPGRADE.getModel().toString()), currentFuelItem.toString(), FUEL, MOTOR_UPGRADE.getFluidTexture(), TANK_UPGRADE.getTankCapacity());
+        this.rocketComponent = new RocketComponent(SKIN_UPGRADE.getRocketSkinLocation().toString(), RocketModel.fromString(MODEL_UPGRADE.getModel().toString()), FUEL_TYPE.getSerializedName(), FUEL, FUEL_TYPE.getFuelTexture(), TANK_UPGRADE.getTankCapacity());
         if (!level().isClientSide()) {
             NetworkManager.sendToPlayer(player, new SyncRocketComponentPacket(rocketComponent));
         }

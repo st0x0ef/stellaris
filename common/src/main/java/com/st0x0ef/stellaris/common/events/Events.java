@@ -73,7 +73,6 @@ public class Events {
 
             return EventResult.pass();
         });
-
     }
 
     private static void removeOxygenRoom(ServerLevel level, BlockPos pos) {

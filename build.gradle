@@ -10,6 +10,11 @@ architectury {
     minecraft = project.minecraft_version
 }
 
+allprojects {
+    group = rootProject.maven_group
+    version = rootProject.mod_version
+}
+
 subprojects {
     apply plugin: 'dev.architectury.loom'
     apply plugin: 'architectury-plugin'
@@ -31,6 +36,12 @@ subprojects {
         maven { url "https://maven.parchmentmc.org" }
         maven { url "https://maven.neoforged.net/releases" }
         maven { url "https://maven.blamejared.com/" }
+        maven { url "https://maven.saps.dev/releases" }
+        maven {
+            name "odysseyusMaven"
+            url "https://maven.odysseyus.fr/releases"
+        }
+
         exclusiveContent {
             forRepository {
                 maven {
@@ -84,7 +95,7 @@ subprojects {
 
         repositories {
             maven {
-                url = "https://maven.odysseyus.fr/releases/"
+                url = "https://maven.exodusstudio.org/releases/"
                 credentials {
                     username = System.getenv("MAVEN_USER")
                     password = System.getenv("MAVEN_PASS")

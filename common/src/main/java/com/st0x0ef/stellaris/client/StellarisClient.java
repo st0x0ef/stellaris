@@ -54,6 +54,8 @@ public class StellarisClient {
 
         ColorHandlerRegistry.registerItemColors(
                 (stack, color) -> color > 0 ? -1 : DyedItemColor.getOrDefault(stack, -1),
+                ItemsRegistry.JETSUIT_BOOTS.get(), ItemsRegistry.JETSUIT_HELMET.get(), ItemsRegistry.JETSUIT_LEGGINGS.get(),
+                ItemsRegistry.SPACESUIT_BOOTS.get(), ItemsRegistry.JETSUIT_SUIT.get(),
                 ItemsRegistry.SPACESUIT_SUIT.get(), ItemsRegistry.SPACESUIT_HELMET.get(), ItemsRegistry.SPACESUIT_LEGGINGS.get());
     }
 
@@ -94,4 +96,5 @@ public class StellarisClient {
         ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new MoonPack());
         ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new TabletPack());
     }
+
 }

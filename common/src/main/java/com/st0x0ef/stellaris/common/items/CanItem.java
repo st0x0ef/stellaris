@@ -78,9 +78,9 @@ public class CanItem extends Item implements CustomTabletEntry {
 
     @Override
     public @NotNull ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
+        ItemStack emptyCanStack = new ItemStack(stack.getItem());
         super.finishUsingItem(stack, level, entity);
         if (entity instanceof Player player && !player.hasInfiniteMaterials()) {
-            ItemStack emptyCanStack = new ItemStack(stack.getItem());
             if (stack.isEmpty()) {
                 return emptyCanStack;
             }
