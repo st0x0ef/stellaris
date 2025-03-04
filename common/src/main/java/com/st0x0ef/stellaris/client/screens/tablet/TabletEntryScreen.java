@@ -28,6 +28,8 @@ public class TabletEntryScreen extends Screen {
     public TabletEntryWidget widget;
     public ArrayList<TexturedButton> BUTTONS = new ArrayList<>();
     public static final ResourceLocation MENU_BACKGROUND_LIGHT = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/tablet_background_light.png");
+    public TexturedButton nextButton;
+    public TexturedButton backButton;
 
     public ArrayList<ArrayList<TabletButton>> ENTRY_BUTTONS = new ArrayList<>();
     public int currentEntryPage = 0;
@@ -54,11 +56,18 @@ public class TabletEntryScreen extends Screen {
 
             widget.visible = false;
             changeButtonVisibility(true);
+            if(nextButton != null && backButton != null) {
+                nextButton.visible = true;
+                backButton.visible = true;
+            }
         } else {
             removeAllButtons();
             widget.visible = true;
             changeButtonVisibility(false);
-
+            if(nextButton != null && backButton != null) {
+                backButton.visible = false;
+                nextButton.visible = false;
+            }
         }
     }
 
@@ -109,6 +118,20 @@ public class TabletEntryScreen extends Screen {
         this.widget.visible = false;
         this.addRenderableWidget(this.widget);
 
+        if (ENTRY_BUTTONS.size() > 1) {
+            backButton = new TexturedButton(this.leftPos + 190, this.topPos + 22, 16, 16, (button1 -> {
+                changePage(false);
+            }))
+                    .tex(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/back_page.png"), ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/back_page_hovered.png"));
+
+            nextButton = new TexturedButton(this.leftPos + 210, this.topPos + 22, 16, 16, (button1 -> {
+                changePage(true);
+            }))
+                    .tex(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/next_page.png"), ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/next_page_hovered.png"));
+
+            this.addRenderableWidget(backButton);
+            this.addRenderableWidget(nextButton);
+        }
 
         // Add the buttons to the list
         TabletMainScreen.BUTTONS.forEach((texButton -> {
@@ -131,6 +154,24 @@ public class TabletEntryScreen extends Screen {
         if (widget.setInfo(location)) {
             currentPage = location.toString();
         }
+    }
+
+    public void changePage(boolean next) {
+        if (next) {
+            if (currentEntryPage == ENTRY_BUTTONS.size() - 1) {
+                currentEntryPage = 0;
+            } else {
+                currentEntryPage++;
+            }
+        } else {
+            if (currentEntryPage == 0) {
+                currentEntryPage = ENTRY_BUTTONS.size() - 1;
+            } else {
+                currentEntryPage--;
+            }
+        }
+        removeNonShowButtons();
+        showEntryButton();
     }
 
     @Override
@@ -160,7 +201,26 @@ public class TabletEntryScreen extends Screen {
             guiGraphics.blit(MENU_BACKGROUND_LIGHT, this.leftPos , this.topPos , 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
 
         }
+    }
 
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if (keyCode == 256) {
+            if (Objects.equals(currentPage, "main")) {
+                this.minecraft.setScreen(screen);
+            } else {
+                currentPage = "main";
+                widget.visible = false;
+            }
+            return true;
+        } else if (keyCode == 262) {
+            changePage(true);
+            return true;
+        } else if (keyCode == 263) {
+            changePage(false);
+            return true;
+        }
+        return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
     public void showEntryButton() {
