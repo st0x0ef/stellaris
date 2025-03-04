@@ -20,7 +20,6 @@ public interface NetworkRegistry {
     CustomPacketPayload.Type<OpenTabletEntryPacket> TABLET_OPEN_HANDLER_ID = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "tablet_open_handler"));
 
     CustomPacketPayload.Type<SyncPlanetsDatapackPacket> SYNC_PLANETS_DATAPACK = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "sync_planet_datapack"));
-    CustomPacketPayload.Type<SyncWidgetsTanksPacket> SYNC_FLUID_TANKS_ID = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "sync_fluid_tanks"));
     CustomPacketPayload.Type<SyncRocketComponentPacket> SYNC_ROCKET_COMPONENT_ID = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "sync_rocket_component"));
 
     CustomPacketPayload.Type<SyncRoverComponentPacket> SYNC_ROVER_COMPONENT_ID = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "sync_rover_component"));
@@ -33,7 +32,6 @@ public interface NetworkRegistry {
         registerC2S(TABLET_OPEN_HANDLER_ID, OpenTabletEntryPacket.STREAM_CODEC, OpenTabletEntryPacket::handle);
 
         registerS2C(SYNC_PLANETS_DATAPACK, SyncPlanetsDatapackPacket.STREAM_CODEC, SyncPlanetsDatapackPacket::handle);
-        registerS2C(SYNC_FLUID_TANKS_ID, SyncWidgetsTanksPacket.STREAM_CODEC, SyncWidgetsTanksPacket::handle);
         registerS2C(SYNC_ROCKET_COMPONENT_ID, SyncRocketComponentPacket.STREAM_CODEC, SyncRocketComponentPacket::handle);
         registerS2C(SYNC_ROVER_COMPONENT_ID, SyncRoverComponentPacket.STREAM_CODEC, SyncRoverComponentPacket::handle);
         registerS2C(SyncEnergyPacket.TYPE, SyncEnergyPacket.STREAM_CODEC, SyncEnergyPacket::handle);

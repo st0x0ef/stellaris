@@ -5,6 +5,7 @@
 - Custom lightnings bolt
 - Tablet
 - Potentials integration for better mods compatibility
+- Improve JEI/REI integration
 
 ## Changes
 - Better Venus Atmosphere
