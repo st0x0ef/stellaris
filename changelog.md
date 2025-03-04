@@ -3,6 +3,7 @@
 ## Additions
 - Mars storm
 - Custom lightnings bolt
+- Tablet
 - Potentials integration for better mods compatibility
 
 ## Changes

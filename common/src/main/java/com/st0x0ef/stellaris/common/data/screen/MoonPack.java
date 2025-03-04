@@ -10,7 +10,6 @@ import com.st0x0ef.stellaris.client.screens.info.MoonInfo;
 import com.st0x0ef.stellaris.client.screens.record.MoonRecord;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
@@ -48,15 +47,22 @@ public class MoonPack extends SimpleJsonResourceReloadListener {
                     (int) moon.width(),
                     (int) moon.height(),
                     PlanetSelectionScreen.findByNamePlanet(moon.parent()),
-                    moon.dimensionId(),
-                    Component.translatable(moon.translatable()),
+                    moon.dimensionId().location(),
+                    moon.translatable(),
                     moon.id()
             );
 
             moon.clickable().ifPresent(screenMoon::setClickable);
 
+            for (int i = 0; i < PlanetSelectionScreen.MOONS.size(); i++) {
+                if (PlanetSelectionScreen.MOONS.get(i).getId().equals(screenMoon.getId())) {
+                    PlanetSelectionScreen.MOONS.set(i, screenMoon);
+                    Stellaris.LOG.info("Replaced existing moon in PlanetSelectionScreen : {}", moon.name());
+                    return;
+                }
+            }
             PlanetSelectionScreen.MOONS.add(screenMoon);
-            Stellaris.LOG.info("Added a moon to PlanetSelectionScreen : {}", moon.name());
+            Stellaris.LOG.info("Added a new moon to PlanetSelectionScreen : {}", moon.name());
         });
         PlanetSelectionClientEvents.POST_MOON_PACK_REGISTRY.invoker().moonRegistered(PlanetSelectionScreen.MOONS);
 

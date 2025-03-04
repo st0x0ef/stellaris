@@ -11,7 +11,6 @@ import com.st0x0ef.stellaris.client.screens.record.StarRecord;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
@@ -49,18 +48,25 @@ public class StarPack extends SimpleJsonResourceReloadListener {
             screenStar = new CelestialBody(
                     star.texture(),
                     star.name(),
-                    (int) star.x(),
-                    (int) star.y(),
+                    star.x(),
+                    star.y(),
                     star.width(),
                     star.height(),
                     orbitColor,
                     null,
-                    Component.translatable(star.translatable()),
+                    star.translatable(),
                     star.id()
             );
 
+            for (int i = 0; i < PlanetSelectionScreen.STARS.size(); i++) {
+                if (PlanetSelectionScreen.STARS.get(i).getId().equals(star.id())) {
+                    PlanetSelectionScreen.STARS.set(i, screenStar);
+                    Stellaris.LOG.info("Replaced existing star in PlanetSelectionScreen : {}", star.id());
+                    return;
+                }
+            }
             PlanetSelectionScreen.STARS.add(screenStar);
-            Stellaris.LOG.info("Added a star to PlanetSelectionScreen : {}", star.name());
+            Stellaris.LOG.info("Added a new star to PlanetSelectionScreen : {}", star.id());
         });
 
         count++;
