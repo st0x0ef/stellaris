@@ -189,7 +189,6 @@ public class TabletEntryScreen extends Screen {
     @Override
     public void renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
-
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         if(Objects.equals(currentPage, "main")) {
@@ -207,6 +206,7 @@ public class TabletEntryScreen extends Screen {
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (keyCode == 256) {
             if (Objects.equals(currentPage, "main")) {
+                screen.directEntry = null;
                 this.minecraft.setScreen(screen);
             } else {
                 currentPage = "main";

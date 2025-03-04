@@ -31,7 +31,7 @@ public class TabletMainScreen extends AbstractContainerScreen<TabletMenu> {
     public static Map<String, TabletEntry> ENTRIES = new HashMap<>();
     public static Map<ResourceLocation, TabletEntry.Info> INFOS = new HashMap<>();
     public List<Component> STATS = new ArrayList<>();
-    private ResourceLocation directEntry = null;
+    public ResourceLocation directEntry = null;
 
     public static ArrayList<TexturedButton> BUTTONS = new ArrayList<>();
     
