@@ -112,15 +112,6 @@ public class Events {
                 } else if (state.is(Blocks.LIGHT_GRAY_CANDLE)) {
                     serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
                     return EventResult.interruptFalse();
-
-
-
-
-
-
-
-
-
                 }
             }
 
