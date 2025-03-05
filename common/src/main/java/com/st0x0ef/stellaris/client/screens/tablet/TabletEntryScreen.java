@@ -12,6 +12,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -57,16 +58,18 @@ public class TabletEntryScreen extends Screen {
             widget.visible = false;
             changeButtonVisibility(true);
             if(nextButton != null && backButton != null) {
-                nextButton.visible = true;
-                backButton.visible = true;
+                backButton.setPosition(this.leftPos + 40, this.height / 2 - 4);
+                nextButton.setPosition(this.leftPos + 190, this.height / 2 - 4);
             }
         } else {
             removeAllButtons();
             widget.visible = true;
             changeButtonVisibility(false);
             if(nextButton != null && backButton != null) {
-                backButton.visible = false;
-                nextButton.visible = false;
+                backButton.setPosition(this.width / 2 - 21, this.height / 2 + 67);
+                nextButton.setPosition(this.width / 2 + 9, this.height / 2 + 67);
+                backButton.size(16, 16);
+
             }
         }
     }
@@ -88,6 +91,7 @@ public class TabletEntryScreen extends Screen {
 
         AtomicInteger row = new AtomicInteger(0);
         AtomicInteger column = new AtomicInteger(0);
+
 
         entry.infos().forEach((infos) -> {
 
@@ -119,12 +123,12 @@ public class TabletEntryScreen extends Screen {
         this.addRenderableWidget(this.widget);
 
         if (ENTRY_BUTTONS.size() > 1) {
-            backButton = new TexturedButton(this.leftPos + 190, this.topPos + 22, 16, 16, (button1 -> {
+            backButton = new TexturedButton(this.leftPos + 40, this.height / 2 - 4, 16, 16, (button1 -> {
                 changePage(false);
             }))
                     .tex(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/back_page.png"), ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/back_page_hovered.png"));
 
-            nextButton = new TexturedButton(this.leftPos + 210, this.topPos + 22, 16, 16, (button1 -> {
+            nextButton = new TexturedButton(this.leftPos + 190, this.height / 2 - 4, 16, 16, (button1 -> {
                 changePage(true);
             }))
                     .tex(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/next_page.png"), ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/next_page_hovered.png"));
@@ -157,6 +161,12 @@ public class TabletEntryScreen extends Screen {
     }
 
     public void changePage(boolean next) {
+        if(!Objects.equals(currentPage, "main")) {
+            TabletEntry.Info info = getNextInfo(next);
+            changeInfo(info);
+            return;
+        }
+
         if (next) {
             if (currentEntryPage == ENTRY_BUTTONS.size() - 1) {
                 currentEntryPage = 0;
@@ -269,5 +279,40 @@ public class TabletEntryScreen extends Screen {
             }
         }
     }
+
+    public TabletEntry.Info getNextInfo(boolean forward) {
+        List<TabletEntry.Info> infos = entry.infos();
+        int currentIndex = -1;
+
+        // Find the index of the current page
+        for (int i = 0; i < infos.size(); i++) {
+            if (infos.get(i).id().equals(getCurrentPage(currentPage))) {
+                currentIndex = i;
+                break;
+            }
+        }
+
+        // If the current page wasn't found, return the first or last element
+        if (currentIndex == -1) {
+            // Current page not found, either because it's the first time or something went wrong.
+            // Reset to the first or last page.
+            if (!infos.isEmpty()) {
+                return forward ? infos.get(0) : infos.get(infos.size() - 1);
+            } else {
+                return null; // No infos to navigate
+            }
+        }
+
+        int nextIndex = forward ? (currentIndex + 1) % infos.size() : (currentIndex - 1 + infos.size()) % infos.size(); // The "+ infos.size()" is to avoid negative modulo results
+
+        return infos.get(nextIndex);
+    }
+
+
+    public String getCurrentPage(String page) {
+        return ResourceLocation.parse(page).getPath();
+
+    }
+
 
 }
