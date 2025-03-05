@@ -65,7 +65,7 @@ public class Events {
                     serverLevel.setBlock(pos, state.setValue(CampfireBlock.LIT, false), 3);
                     return EventResult.interruptFalse();
                 } else if (state.is(Blocks.CANDLE)) {
-                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, true), 3);
+                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
                     return EventResult.interruptFalse();
 
                 }
