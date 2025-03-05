@@ -12,6 +12,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -28,6 +29,8 @@ public class TabletEntryScreen extends Screen {
     public TabletEntryWidget widget;
     public ArrayList<TexturedButton> BUTTONS = new ArrayList<>();
     public static final ResourceLocation MENU_BACKGROUND_LIGHT = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/tablet_background_light.png");
+    public TexturedButton nextButton;
+    public TexturedButton backButton;
 
     public ArrayList<ArrayList<TabletButton>> ENTRY_BUTTONS = new ArrayList<>();
     public int currentEntryPage = 0;
@@ -54,11 +57,20 @@ public class TabletEntryScreen extends Screen {
 
             widget.visible = false;
             changeButtonVisibility(true);
+            if(nextButton != null && backButton != null) {
+                backButton.setPosition(this.leftPos + 40, this.height / 2 - 4);
+                nextButton.setPosition(this.leftPos + 190, this.height / 2 - 4);
+            }
         } else {
             removeAllButtons();
             widget.visible = true;
             changeButtonVisibility(false);
+            if(nextButton != null && backButton != null) {
+                backButton.setPosition(this.width / 2 - 21, this.height / 2 + 67);
+                nextButton.setPosition(this.width / 2 + 9, this.height / 2 + 67);
+                backButton.size(16, 16);
 
+            }
         }
     }
 
@@ -79,6 +91,7 @@ public class TabletEntryScreen extends Screen {
 
         AtomicInteger row = new AtomicInteger(0);
         AtomicInteger column = new AtomicInteger(0);
+
 
         entry.infos().forEach((infos) -> {
 
@@ -109,6 +122,20 @@ public class TabletEntryScreen extends Screen {
         this.widget.visible = false;
         this.addRenderableWidget(this.widget);
 
+        if (ENTRY_BUTTONS.size() > 1) {
+            backButton = new TexturedButton(this.leftPos + 40, this.height / 2 - 4, 16, 16, (button1 -> {
+                changePage(false);
+            }))
+                    .tex(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/back_page.png"), ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/back_page_hovered.png"));
+
+            nextButton = new TexturedButton(this.leftPos + 190, this.height / 2 - 4, 16, 16, (button1 -> {
+                changePage(true);
+            }))
+                    .tex(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/next_page.png"), ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/next_page_hovered.png"));
+
+            this.addRenderableWidget(backButton);
+            this.addRenderableWidget(nextButton);
+        }
 
         // Add the buttons to the list
         TabletMainScreen.BUTTONS.forEach((texButton -> {
@@ -133,6 +160,30 @@ public class TabletEntryScreen extends Screen {
         }
     }
 
+    public void changePage(boolean next) {
+        if(!Objects.equals(currentPage, "main")) {
+            TabletEntry.Info info = getNextInfo(next);
+            changeInfo(info);
+            return;
+        }
+
+        if (next) {
+            if (currentEntryPage == ENTRY_BUTTONS.size() - 1) {
+                currentEntryPage = 0;
+            } else {
+                currentEntryPage++;
+            }
+        } else {
+            if (currentEntryPage == 0) {
+                currentEntryPage = ENTRY_BUTTONS.size() - 1;
+            } else {
+                currentEntryPage--;
+            }
+        }
+        removeNonShowButtons();
+        showEntryButton();
+    }
+
     @Override
     public void resize(Minecraft minecraft, int width, int height) {
         super.resize(minecraft, width, height);
@@ -148,7 +199,6 @@ public class TabletEntryScreen extends Screen {
     @Override
     public void renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
-
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         if(Objects.equals(currentPage, "main")) {
@@ -160,7 +210,27 @@ public class TabletEntryScreen extends Screen {
             guiGraphics.blit(MENU_BACKGROUND_LIGHT, this.leftPos , this.topPos , 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
 
         }
+    }
 
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if (keyCode == 256) {
+            if (Objects.equals(currentPage, "main")) {
+                screen.directEntry = null;
+                this.minecraft.setScreen(screen);
+            } else {
+                currentPage = "main";
+                widget.visible = false;
+            }
+            return true;
+        } else if (keyCode == 262) {
+            changePage(true);
+            return true;
+        } else if (keyCode == 263) {
+            changePage(false);
+            return true;
+        }
+        return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
     public void showEntryButton() {
@@ -209,5 +279,40 @@ public class TabletEntryScreen extends Screen {
             }
         }
     }
+
+    public TabletEntry.Info getNextInfo(boolean forward) {
+        List<TabletEntry.Info> infos = entry.infos();
+        int currentIndex = -1;
+
+        // Find the index of the current page
+        for (int i = 0; i < infos.size(); i++) {
+            if (infos.get(i).id().equals(getCurrentPage(currentPage))) {
+                currentIndex = i;
+                break;
+            }
+        }
+
+        // If the current page wasn't found, return the first or last element
+        if (currentIndex == -1) {
+            // Current page not found, either because it's the first time or something went wrong.
+            // Reset to the first or last page.
+            if (!infos.isEmpty()) {
+                return forward ? infos.get(0) : infos.get(infos.size() - 1);
+            } else {
+                return null; // No infos to navigate
+            }
+        }
+
+        int nextIndex = forward ? (currentIndex + 1) % infos.size() : (currentIndex - 1 + infos.size()) % infos.size(); // The "+ infos.size()" is to avoid negative modulo results
+
+        return infos.get(nextIndex);
+    }
+
+
+    public String getCurrentPage(String page) {
+        return ResourceLocation.parse(page).getPath();
+
+    }
+
 
 }

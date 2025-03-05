@@ -11,7 +11,7 @@
 - Better Venus Atmosphere
 - Speed up fuel refining and water separation
 - Complete rewrite of the oxygen system
-
+- Update Sky Aesthetics to 1.5.0
 
 ## Fixes
 - Fix candle still burning in space
