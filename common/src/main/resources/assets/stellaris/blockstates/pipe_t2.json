@@ -1,0 +1,63 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "stellaris:block/pipe/t2/pipe_t2"
+      }
+    },
+    {
+      "apply": {
+        "model": "stellaris:block/pipe/t2/pipe_north_t2",
+        "uvlock": true
+      },
+      "when": {
+        "north": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "stellaris:block/pipe/t2/pipe_east_t2",
+        "uvlock": true
+      },
+      "when": {
+        "east": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "stellaris:block/pipe/t2/pipe_south_t2",
+        "uvlock": true
+      },
+      "when": {
+        "south": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "stellaris:block/pipe/t2/pipe_west_t2",
+        "uvlock": true
+      },
+      "when": {
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "stellaris:block/pipe/t2/pipe_up_t2",
+        "uvlock": true
+      },
+      "when": {
+        "up": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "stellaris:block/pipe/t2/pipe_down_t2",
+        "uvlock": true
+      },
+      "when": {
+        "down": "true"
+      }
+    }
+  ]
+}

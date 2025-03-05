@@ -1,39 +1,39 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
-import com.st0x0ef.stellaris.common.systems.energy.base.EnergyBlock;
-import com.st0x0ef.stellaris.common.systems.energy.impl.SimpleEnergyContainer;
-import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedBlockEnergyContainer;
+import com.fej1fun.potentials.providers.EnergyProvider;
+import com.st0x0ef.stellaris.common.network.packets.SyncEnergyPacketWithoutDirection;
+import com.st0x0ef.stellaris.common.utils.capabilities.energy.EnergyStorage;
+import dev.architectury.networking.NetworkManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import static com.st0x0ef.stellaris.common.blocks.entities.machines.BaseEnergyContainerBlockEntity.ENERGY_TAG;
+public abstract class BaseEnergyBlockEntity extends BlockEntity implements EnergyProvider.BLOCK, TickingBlockEntity {
 
-public abstract class BaseEnergyBlockEntity extends BlockEntity implements EnergyBlock<WrappedBlockEnergyContainer>, WrappedEnergyBlockEntity, TickingBlockEntity {
+    protected @NotNull EnergyStorage energyContainer;
 
-    private WrappedBlockEnergyContainer energyContainer;
-
-    public BaseEnergyBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+    public BaseEnergyBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, int maxCapacity, int maxInput, int maxOutput) {
         super(type, pos, state);
+        this.energyContainer = new EnergyStorage(maxCapacity , maxInput, maxOutput) {
+            @Override
+            protected void onChange() {
+                setChanged();
+                if (level != null && level.getServer() != null && !level.getServer().getPlayerList().getPlayers().isEmpty()) {
+                    NetworkManager.sendToPlayers(level.getServer().getPlayerList().getPlayers(),
+                            new SyncEnergyPacketWithoutDirection(energyContainer.getEnergy(), getBlockPos()));
+                }
+            }
+        };
     }
 
-    public abstract int getMaxCapacity();
-
-    @Override
-    public WrappedBlockEnergyContainer getEnergyStorage(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity entity, @Nullable Direction direction) {
-        return energyContainer == null ? energyContainer = new WrappedBlockEnergyContainer(entity, new SimpleEnergyContainer(getMaxCapacity(), Integer.MAX_VALUE)) : energyContainer;
-    }
-
-    @Override
-    public WrappedBlockEnergyContainer getWrappedEnergyContainer() {
-        return getEnergyStorage(getLevel(), getBlockPos(), getBlockState(), this, null);
+    public BaseEnergyBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, int maxCapacity) {
+        this(type, pos, state, maxCapacity, maxCapacity, maxCapacity);
     }
 
     @Override
@@ -46,12 +46,17 @@ public abstract class BaseEnergyBlockEntity extends BlockEntity implements Energ
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
         super.loadAdditional(tag, provider);
-        getWrappedEnergyContainer().setEnergy(tag.getLong(ENERGY_TAG));
+        energyContainer.load(tag, "base");
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
         super.saveAdditional(tag, provider);
-        tag.putLong(ENERGY_TAG, getWrappedEnergyContainer().getStoredEnergy());
+        energyContainer.save(tag, "base");
+    }
+
+    @Override
+    public @Nullable EnergyStorage getEnergy(@Nullable Direction direction) {
+        return energyContainer;
     }
 }

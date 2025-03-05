@@ -3,10 +3,10 @@ package com.st0x0ef.stellaris.common.data.recipes;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.st0x0ef.stellaris.common.blocks.entities.machines.FluidTankHelper;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.WaterSeparatorBlockEntity;
 import com.st0x0ef.stellaris.common.data.recipes.input.FluidInput;
 import com.st0x0ef.stellaris.common.registry.RecipesRegistry;
+import com.st0x0ef.stellaris.common.utils.capabilities.fluid.SingleFluidStorage;
 import dev.architectury.fluid.FluidStack;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -20,14 +20,14 @@ import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
-public record WaterSeparatorRecipe(FluidStack ingredientStack, List<FluidStack> resultStacks, boolean isMb, long energy) implements Recipe<FluidInput> {
+public record WaterSeparatorRecipe(FluidStack ingredientStack, List<FluidStack> resultStacks, int energy) implements Recipe<FluidInput> {
 
     public static RecipeType<WaterSeparatorRecipe> Type = RecipesRegistry.WATER_SEPERATOR_TYPE.get();
     @Override
     public boolean matches(FluidInput container, Level level) {
-        FluidStack stack = ((WaterSeparatorBlockEntity) container.entity()).getIngredientTank().getStack();
+        SingleFluidStorage tank = ((WaterSeparatorBlockEntity) container.entity()).ingredientTank;
+        FluidStack stack = tank.getFluidInTank(0);
         return stack.isFluidEqual(ingredientStack) && stack.getAmount() >= ingredientStack.getAmount();
     }
 
@@ -61,29 +61,16 @@ public record WaterSeparatorRecipe(FluidStack ingredientStack, List<FluidStack> 
         private static final MapCodec<WaterSeparatorRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                 FluidStack.CODEC.fieldOf("ingredient").forGetter(WaterSeparatorRecipe::ingredientStack),
                 FluidStack.CODEC.listOf(1, 2).fieldOf("results").forGetter(WaterSeparatorRecipe::resultStacks),
-                Codec.BOOL.optionalFieldOf("isFluidMB").forGetter(recipe -> Optional.of(recipe.isMb)),
-                Codec.LONG.fieldOf("energy").forGetter(WaterSeparatorRecipe::energy)
-        ).apply(instance, (ingredientStack, resultStacks, isFluidMb, energy) -> {
-            boolean isMb = isFluidMb.orElse(true);
-            convertFluidStack(ingredientStack, isMb);
-            resultStacks.forEach(stack -> convertFluidStack(stack, isMb));
-            return new WaterSeparatorRecipe(ingredientStack, resultStacks, isMb, energy);
-        }));
+                Codec.INT.fieldOf("energyContainer").forGetter(WaterSeparatorRecipe::energy)
+        ).apply(instance, WaterSeparatorRecipe::new));
 
         public static final StreamCodec<RegistryFriendlyByteBuf, List<FluidStack>> FLUID_STACK_LIST_STREAM_CODEC =
                 ByteBufCodecs.collection(ArrayList::new, FluidStack.STREAM_CODEC, 2);
         private static final StreamCodec<RegistryFriendlyByteBuf, WaterSeparatorRecipe> STREAM_CODEC = StreamCodec.of((buf, recipe) -> {
             recipe.ingredientStack().write(buf);
             FLUID_STACK_LIST_STREAM_CODEC.encode(buf, recipe.resultStacks);
-            buf.writeBoolean(recipe.isMb);
-            buf.writeLong(recipe.energy);
-        }, buf -> new WaterSeparatorRecipe(FluidStack.read(buf), FLUID_STACK_LIST_STREAM_CODEC.decode(buf), buf.readBoolean(), buf.readLong()));
-
-        public static void convertFluidStack(FluidStack stack, boolean isMb) {
-            if (isMb) {
-                stack.setAmount(FluidTankHelper.convertFromNeoMb(stack.getAmount()));
-            }
-        }
+            buf.writeInt(recipe.energy);
+        }, buf -> new WaterSeparatorRecipe(FluidStack.read(buf), FLUID_STACK_LIST_STREAM_CODEC.decode(buf), buf.readInt()));
 
         @Override
         public MapCodec<WaterSeparatorRecipe> codec() {

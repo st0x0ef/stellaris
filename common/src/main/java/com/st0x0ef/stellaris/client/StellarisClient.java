@@ -7,10 +7,10 @@ import com.st0x0ef.stellaris.client.particles.*;
 import com.st0x0ef.stellaris.client.renderers.armors.JetSuitModel;
 import com.st0x0ef.stellaris.client.renderers.armors.SpaceSuitModel;
 import com.st0x0ef.stellaris.client.screens.ConfigScreen;
-import com.st0x0ef.stellaris.common.data.screen.TabletPack;
 import com.st0x0ef.stellaris.common.data.screen.MoonPack;
 import com.st0x0ef.stellaris.common.data.screen.PlanetPack;
 import com.st0x0ef.stellaris.common.data.screen.StarPack;
+import com.st0x0ef.stellaris.common.data.screen.TabletPack;
 import com.st0x0ef.stellaris.common.handlers.GlobalExceptionHandler;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import com.st0x0ef.stellaris.common.registry.ParticleRegistry;
@@ -36,6 +36,7 @@ public class StellarisClient {
             setupOpenGLDebugMessageCallback();
             Thread.setDefaultUncaughtExceptionHandler(new GlobalExceptionHandler());
         });
+
         registerParticle();
         registerOverlays();
         registerArmors();

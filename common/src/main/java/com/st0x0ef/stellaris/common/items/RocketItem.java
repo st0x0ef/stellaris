@@ -36,7 +36,7 @@ import java.util.List;
 
 public class RocketItem extends Item {
     public RocketItem(Properties properties) {
-        super(properties);
+        super(properties.stacksTo(1));
     }
 
     @Override

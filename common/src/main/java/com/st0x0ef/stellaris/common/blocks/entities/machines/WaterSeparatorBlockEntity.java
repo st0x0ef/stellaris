@@ -1,41 +1,77 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
+import com.fej1fun.potentials.components.FluidAmountMapDataComponent;
+import com.fej1fun.potentials.fluid.UniversalFluidStorage;
+import com.fej1fun.potentials.providers.FluidProvider;
+import com.st0x0ef.stellaris.common.blocks.machines.WaterSeparatorBlock;
 import com.st0x0ef.stellaris.common.data.recipes.WaterSeparatorRecipe;
 import com.st0x0ef.stellaris.common.data.recipes.input.FluidInput;
 import com.st0x0ef.stellaris.common.menus.WaterSeparatorMenu;
+import com.st0x0ef.stellaris.common.network.packets.SyncFluidPacket;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
+import com.st0x0ef.stellaris.common.registry.FluidRegistry;
 import com.st0x0ef.stellaris.common.registry.RecipesRegistry;
-import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedBlockEnergyContainer;
+import com.st0x0ef.stellaris.common.utils.capabilities.fluid.FluidStorage;
+import com.st0x0ef.stellaris.common.utils.capabilities.fluid.FluidUtil;
+import com.st0x0ef.stellaris.common.utils.capabilities.fluid.SingleFluidStorage;
 import dev.architectury.fluid.FluidStack;
-import net.minecraft.Util;
+import dev.architectury.networking.NetworkManager;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.material.Fluids;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Optional;
 
-public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity implements RecipeInput, WrappedFluidBlockEntity {
+public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity implements FluidProvider.BLOCK {
 
-    private static final int TANK_CAPACITY = 3;
+    public static final int HYDROGEN_TANK = 0;
+    public static final int OXYGEN_TANK = 1;
 
-    public final FluidTank ingredientTank = new FluidTank("ingredientTank", TANK_CAPACITY);
+    public final SingleFluidStorage ingredientTank = new SingleFluidStorage(3000,3000,0) {
+        @Override
+        protected void onChange() {
+            setChanged();
+            if (level != null && level.getServer() != null && !level.getServer().getPlayerList().getPlayers().isEmpty())
+                NetworkManager.sendToPlayers(level.getServer().getPlayerList().getPlayers(),
+                        new SyncFluidPacket(new FluidAmountMapDataComponent(List.of(getFluidInTank(0).getFluid()), List.of(getFluidValueInTank())), 0, getBlockPos(), Direction.UP));
+        }
 
-    public final NonNullList<FluidTank> resultTanks = Util.make(NonNullList.createWithCapacity(2), list -> {
-        //HYDROGEN
-        list.add(0, new FluidTank("resultTank1", TANK_CAPACITY));
+        @Override
+        public boolean isFluidValid(int tank, FluidStack stack) {
+            return stack.getFluid() == Fluids.WATER;
+        }
+    };
+    public final FluidStorage resultTanks = new FluidStorage(2, 3000,0,1500) {
+        @Override
+        protected void onChange(int tank) {
+            setChanged();
+            if (level != null && level.getServer() != null && !level.getServer().getPlayerList().getPlayers().isEmpty())
+                NetworkManager.sendToPlayers(level.getServer().getPlayerList().getPlayers(),
+                        new SyncFluidPacket(new FluidAmountMapDataComponent(List.of(getFluidInTank(tank).getFluid()), List.of(getFluidValueInTank(tank))), tank, getBlockPos(), getBlockState().getValue(BlockStateProperties.FACING).getClockWise()));
+        }
 
-        //OXYGEN
-        list.add(1, new FluidTank("resultTank2", TANK_CAPACITY));
-    });
+        @Override
+        public boolean isFluidValid(int tank, FluidStack stack) {
+            if (tank == HYDROGEN_TANK) {
+                return stack.getFluid() == FluidRegistry.HYDROGEN_STILL.get();
+            } else if (tank == OXYGEN_TANK) {
+                return stack.getFluid() == FluidRegistry.OXYGEN_STILL.get();
+            }
+            return false;
+        }
+    };
 
     private final RecipeManager.CachedCheck<FluidInput, WaterSeparatorRecipe> cachedCheck = RecipeManager.createCheck(RecipesRegistry.WATER_SEPERATOR_TYPE.get());
 
@@ -44,7 +80,7 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity im
     }
 
     @Override
-    protected Component getDefaultName() {
+    protected @NotNull Component getDefaultName() {
         return Component.translatable("block.stellaris.water_separator");
     }
 
@@ -54,85 +90,65 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity im
     }
 
     @Override
-    protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
+    protected @NotNull AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
         return new WaterSeparatorMenu(containerId, inventory, this, this);
     }
 
     @Override
     public void tick() {
-        for (int i = 0; i < 2; i++) {
-            int slot = i + 2;
-            FluidTank tank = resultTanks.get(i);
-            FluidTankHelper.extractFluidToItem(this, tank, slot);
-        }
+        FluidUtil.moveFluidToItem(OXYGEN_TANK, resultTanks,3, items, 1000);
+        FluidUtil.moveFluidToItem(HYDROGEN_TANK, resultTanks,2, items, 1000);
 
-        if (!FluidTankHelper.addFluidFromBucket(this, ingredientTank, 1, 0)) {
-            FluidTankHelper.extractFluidToItem(this, ingredientTank, 1, 0);
-        }
+        FluidUtil.moveFluidFromItem(0,1, items, ingredientTank, 1000);
+        Direction facing = getBlockState().getValue(WaterSeparatorBlock.FACING);
+        FluidUtil.distributeFluidNearby(level, worldPosition, resultTanks.getFluidInTank(0), List.of(facing.getClockWise()));
+        FluidUtil.distributeFluidNearby(level, worldPosition, resultTanks.getFluidInTank(1), List.of(facing.getCounterClockWise()));
+        FluidUtil.distributeFluidNearby(level, worldPosition, ingredientTank.getFluidInTank(0), List.of(Direction.UP, Direction.DOWN, facing, facing.getOpposite()));
 
-        Optional<RecipeHolder<WaterSeparatorRecipe>> recipeHolder = cachedCheck.getRecipeFor(new FluidInput(getLevel().getBlockEntity(getBlockPos()), getItems()), level);
+        if (level == null) return;
+
+        Optional<RecipeHolder<WaterSeparatorRecipe>> recipeHolder = cachedCheck.getRecipeFor(new FluidInput(this), level);
         if (recipeHolder.isPresent()) {
             WaterSeparatorRecipe recipe = recipeHolder.get().value();
-            WrappedBlockEnergyContainer energyContainer = getWrappedEnergyContainer();
 
-            if (energyContainer.getStoredEnergy() >= recipe.energy()) {
-                List<FluidStack> stacks = recipe.resultStacks();
-                FluidStack stack1 = stacks.getFirst();
-                FluidStack stack2 = stacks.get(1);
-                FluidTank tank1 = resultTanks.getFirst();
-                FluidTank tank2 = resultTanks.get(1);
+            if (energyContainer.getEnergy() >= recipe.energy() &&
+                    (resultTanks.getFluidValueInTank(HYDROGEN_TANK) < resultTanks.getTankCapacity(HYDROGEN_TANK) && resultTanks.getFluidValueInTank(OXYGEN_TANK) < resultTanks.getTankCapacity(OXYGEN_TANK))) {
+                ingredientTank.drainWithoutLimits(recipe.ingredientStack(), false);
+                resultTanks.fillWithoutLimits(recipe.resultStacks().getFirst(), false);
+                resultTanks.fillWithoutLimits(recipe.resultStacks().getLast(), false);
 
-                if ((tank1.isEmpty() || tank1.getStack().isFluidEqual(stack1)) && (tank2.isEmpty() || tank2.getStack().isFluidEqual(stack2))) {
-                    if (tank1.getAmount() + stack1.getAmount() <= tank1.getMaxCapacity() && tank2.getAmount() + stack2.getAmount() <= tank2.getMaxCapacity()) {
-                        energyContainer.extractEnergy(recipe.energy(), false);
-                        ingredientTank.shrink(recipe.ingredientStack().getAmount());
-                        FluidTankHelper.addToTank(tank1, stack1);
-                        FluidTankHelper.addToTank(tank2, stack2);
-                        setChanged();
-                    }
-                }
+                energyContainer.extract(recipe.energy(), false);
             }
-        }
-
-        if (!resultTanks.getLast().isEmpty()) {
-            FluidTankHelper.transferFluidNearby(this, resultTanks.getLast());
         }
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
         super.saveAdditional(tag, provider);
-        ingredientTank.save(provider, tag);
-        resultTanks.forEach(tank -> tank.save(provider, tag));
+        ingredientTank.save(tag, provider, "ingredient");
+        resultTanks.save(tag, provider, "result");
     }
 
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
         super.loadAdditional(tag, provider);
-        ingredientTank.load(provider, tag);
-        resultTanks.forEach(tank -> tank.load(provider, tag));
+        ingredientTank.load(tag, provider, "ingredient");
+        resultTanks.load(tag, provider, "result");
     }
 
     @Override
-    protected int getMaxCapacity() {
-        return 12000;
-    }
-
-    public FluidTank getIngredientTank() {
+    public @Nullable UniversalFluidStorage getFluidTank(@Nullable Direction direction) {
+        Direction facing = getBlockState().getValue(BlockStateProperties.FACING);
+        if (facing.getCounterClockWise() == direction || facing.getClockWise() == direction)
+            return resultTanks;
         return ingredientTank;
     }
 
-    public NonNullList<FluidTank> getResultTanks() {
-        return resultTanks;
+    public SingleFluidStorage getIngredientTank() {
+        return this.ingredientTank;
     }
 
-    @Override
-    public int size() {
-        return this.getContainerSize();
-    }
-
-    @Override
-    public FluidTank[] getFluidTanks() {
-        return new FluidTank[]{ingredientTank, resultTanks.getFirst(), resultTanks.getFirst()};
+    public FluidStorage getResultTanks() {
+        return this.resultTanks;
     }
 }

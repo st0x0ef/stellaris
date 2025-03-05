@@ -4,10 +4,13 @@
 - Mars storm
 - Custom lightnings bolt
 - Tablet
+- Potentials integration for better mods compatibility
+- Improve JEI/REI integration
 
 ## Changes
 - Better Venus Atmosphere
-- Update Sky Aesthetics to 1.5.0
+- Speed up fuel refining and water separation
+- Complete rewrite of the oxygen system
 
 ## Fixes
 - Fix candle still burning in space

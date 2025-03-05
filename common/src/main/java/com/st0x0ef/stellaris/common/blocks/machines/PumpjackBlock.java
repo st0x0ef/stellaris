@@ -34,7 +34,7 @@ public class PumpjackBlock extends BaseLitMachineBlock {
     }
 
     @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
+    protected @NotNull MapCodec<? extends BaseEntityBlock> codec() {
         return simpleCodec(PumpjackBlock::new);
     }
 

@@ -4,6 +4,7 @@ import com.st0x0ef.stellaris.common.effects.SandStormEffect;
 import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.*;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class FogRenderMixin {
      * @reason Minecraft don't allow us to manually add our own fog functions, so we have to overwrite the method to add our own.
      */
     @Overwrite
+    @Nullable
     private static FogRenderer.MobEffectFogFunction getPriorityFogFunction(Entity entity, float partialTick) {
         ArrayList<FogRenderer.MobEffectFogFunction> list = new ArrayList<>(MOB_EFFECT_FOG);
         list.add(new SandStormEffect.SandStormFogFunction());
@@ -28,5 +30,4 @@ public class FogRenderMixin {
             return null;
         }
     }
-
 }
