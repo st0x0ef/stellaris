@@ -49,9 +49,11 @@ public class TabletEntryScreen extends Screen {
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
-        guiGraphics.drawCenteredString(this.font, this.title.getString().toUpperCase(), this.width / 2, this.topPos + 20, 16777215);
 
         if(currentPage.equals("main")) {
+
+            guiGraphics.drawCenteredString(this.font, this.title.getString().toUpperCase(), this.width / 2, this.topPos + 20, 16777215);
+
             showEntryButton();
             removeNonShowButtons();
 
@@ -68,7 +70,6 @@ public class TabletEntryScreen extends Screen {
             if(nextButton != null && backButton != null) {
                 backButton.setPosition(this.width / 2 - 21, this.height / 2 + 67);
                 nextButton.setPosition(this.width / 2 + 9, this.height / 2 + 67);
-                backButton.size(16, 16);
 
             }
         }
@@ -118,7 +119,7 @@ public class TabletEntryScreen extends Screen {
         });
 
 
-        this.widget = new TabletEntryWidget(this.leftPos + 15, this.topPos + 50, 215, 100, Component.literal(""), null, this);
+        this.widget = new TabletEntryWidget(this.leftPos + 15, this.topPos + 40, 215, 110, Component.literal(""), null, this);
         this.widget.visible = false;
         this.addRenderableWidget(this.widget);
 

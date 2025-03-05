@@ -83,6 +83,20 @@
     },
     {
       "type": "item",
+      "id": "water_pump",
+      "title": "Water Pump",
+      "description": "The water pump allow you to automatically add water in a machine.[br][br]Need Energy ⚡ [br][br]The pump works by putting a water source under the pump and you can retreive the water on top. You can also put a pipe. ",
+      "item": {
+        "stack": {
+          "id": "stellaris:water_pump",
+          "count": 1
+        },
+        "size": 32
+
+      }
+    },
+    {
+      "type": "item",
       "id": "vacuumator",
 
       "title": "Vacuumator",
@@ -180,6 +194,19 @@
       "item": {
         "stack": {
           "id": "stellaris:pumpjack",
+          "count": 1
+        },
+        "size": 32
+      }
+    },
+    {
+      "type": "item",
+      "id": "cable",
+      "title": "Cable",
+      "description": "Cable transfers energy from one machine to another. [br] [br] Need Energy [color=yellow]⚡ ",
+      "item": {
+        "stack": {
+          "id": "stellaris:cable",
           "count": 1
         },
         "size": 32
