@@ -28,8 +28,7 @@ public class CoalGeneratorMenu extends AbstractContainerMenu {
         return new CoalGeneratorMenu(syncId, inventory, new SimpleContainer(1), entity, new SimpleContainerData(2));
     }
 
-    public CoalGeneratorMenu(int syncId, Inventory playerInventory, Container container, CoalGeneratorEntity entity, ContainerData containerData)
-    {
+    public CoalGeneratorMenu(int syncId, Inventory playerInventory, Container container, CoalGeneratorEntity entity, ContainerData containerData) {
         super(MenuTypesRegistry.COAL_GENERATOR_MENU.get(), syncId);
 
         checkContainerSize(container, 1);
@@ -37,7 +36,7 @@ public class CoalGeneratorMenu extends AbstractContainerMenu {
         this.entity = entity;
         this.data = containerData;
 
-        this.addSlot(new CoalGeneratorSlot(inventory, 0, 46, 66));
+        this.addSlot(new CoalGeneratorSlot(inventory, 0, 67, 52));
 
         addPlayerHotbar(playerInventory);
         addPlayerInventory(playerInventory);
