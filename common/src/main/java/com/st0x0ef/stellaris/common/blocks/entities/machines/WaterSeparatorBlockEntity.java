@@ -53,7 +53,7 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity im
             return stack.getFluid() == Fluids.WATER;
         }
     };
-    public final FluidStorage resultTanks = new FluidStorage(2, 3000,0,1500) {
+    public final FluidStorage resultTanks = new FluidStorage(2, 6000,0,1000) {
         @Override
         protected void onChange(int tank) {
             setChanged();
@@ -111,13 +111,21 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity im
         if (recipeHolder.isPresent()) {
             WaterSeparatorRecipe recipe = recipeHolder.get().value();
 
-            if (energyContainer.getEnergy() >= recipe.energy() &&
-                    (resultTanks.getFluidValueInTank(HYDROGEN_TANK) < resultTanks.getTankCapacity(HYDROGEN_TANK) && resultTanks.getFluidValueInTank(OXYGEN_TANK) < resultTanks.getTankCapacity(OXYGEN_TANK))) {
-                ingredientTank.drainWithoutLimits(recipe.ingredientStack(), false);
-                resultTanks.fillWithoutLimits(recipe.resultStacks().getFirst(), false);
-                resultTanks.fillWithoutLimits(recipe.resultStacks().getLast(), false);
+            if (energyContainer.getEnergy() >= recipe.energy()) {
+                boolean shouldDrainWaterAndEnergy = false;
+                if (resultTanks.getFluidValueInTank(HYDROGEN_TANK) < resultTanks.getTankCapacity(HYDROGEN_TANK)) {
+                    resultTanks.fillWithoutLimits(recipe.resultStacks().getFirst(), false);
+                    shouldDrainWaterAndEnergy = true;
+                }
+                if (resultTanks.getFluidValueInTank(OXYGEN_TANK) < resultTanks.getTankCapacity(OXYGEN_TANK)) {
+                    resultTanks.fillWithoutLimits(recipe.resultStacks().get(1), false);
+                    shouldDrainWaterAndEnergy = true;
+                }
 
-                energyContainer.extract(recipe.energy(), false);
+                if (shouldDrainWaterAndEnergy) {
+                    ingredientTank.drainWithoutLimits(recipe.ingredientStack(), false);
+                    energyContainer.extract(recipe.energy(), false);
+                }
             }
         }
     }
