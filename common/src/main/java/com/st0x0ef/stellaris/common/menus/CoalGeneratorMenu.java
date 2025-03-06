@@ -36,7 +36,7 @@ public class CoalGeneratorMenu extends AbstractContainerMenu {
         this.entity = entity;
         this.data = containerData;
 
-        this.addSlot(new CoalGeneratorSlot(inventory, 0, 67, 52));
+        this.addSlot(new CoalGeneratorSlot(inventory, 0, 66, 54));
 
         addPlayerHotbar(playerInventory);
         addPlayerInventory(playerInventory);
@@ -75,24 +75,20 @@ public class CoalGeneratorMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player player) {
-//        if(!player.isLocalPlayer()) {
-//            this.syncBattery((ServerPlayer) player);
-//        }
-
         return this.inventory.stillValid(player);
     }
 
     private void addPlayerInventory(Inventory playerInventory) {
         for (int i = 0; i < 3; ++i) {
             for (int l = 0; l < 9; ++l) {
-                this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 8 + l * 18, (84 + i * 18) + 58));
+                this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 10 + l * 18, (48 + i * 18) + 58));
             }
         }
     }
 
     private void addPlayerHotbar(Inventory playerInventory) {
         for (int i = 0; i < 9; ++i) {
-            this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 200));
+            this.addSlot(new Slot(playerInventory, i, 10 + i * 18, 164));
         }
     }
 

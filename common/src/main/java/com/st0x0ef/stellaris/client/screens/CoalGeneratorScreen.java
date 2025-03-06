@@ -26,7 +26,7 @@ public class CoalGeneratorScreen extends AbstractContainerScreen<CoalGeneratorMe
     public CoalGeneratorScreen(CoalGeneratorMenu abstractContainerMenu, Inventory inventory, Component component) {
         super(abstractContainerMenu, inventory, component);
         imageWidth = 180;
-        imageHeight = 180;
+        imageHeight = 188;
         inventoryLabelY = imageHeight - 92;
     }
 
@@ -38,8 +38,8 @@ public class CoalGeneratorScreen extends AbstractContainerScreen<CoalGeneratorMe
             return;
         }
 
-        energyGauge = new GaugeWidget(leftPos + 68, topPos + 20, 13, 46, Component.translatable("stellaris.screen.energyContainer"),
-                GUISprites.ENERGY_FULL, GUISprites.BATTERY_OVERLAY, blockEntity.getEnergy(null).getMaxEnergy(), GaugeWidget.Direction4.LEFT_RIGHT);
+        energyGauge = new GaugeWidget(leftPos + 67, topPos + 15, 46, 15, Component.translatable("stellaris.screen.energyContainer"),
+                GUISprites.SIDEWAYS_ENERGY_FULL, GUISprites.SIDEWAYS_ENERGY_OVERLAY, blockEntity.getEnergy(null).getMaxEnergy(), GaugeWidget.Direction4.LEFT_RIGHT);
         addRenderableWidget(energyGauge);
     }
 
@@ -65,7 +65,7 @@ public class CoalGeneratorScreen extends AbstractContainerScreen<CoalGeneratorMe
 
         if (menu.isLit()) {
             int i = Mth.ceil(menu.getLitProgress() * 13.0F) + 1;
-            graphics.blitSprite(GUISprites.COAL_GENERATOR_LIT_PROGRESS_SPRITE, 8, 13, 0, 14 - i, leftPos + 100, topPos + 53 + 14 - i, 14, i);
+            graphics.blitSprite(GUISprites.COAL_GENERATOR_LIT_PROGRESS_SPRITE, 8, 13, 0, 14 - i, leftPos + 100, topPos + 57 + 13 - i, 14, i);
         }
     }
 
