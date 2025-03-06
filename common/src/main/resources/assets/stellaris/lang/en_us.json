@@ -578,6 +578,7 @@
   "stellaris.screen.hydrogen": "Hydrogen",
   "stellaris.screen.oxygen": "Oxygen",
   "stellaris.screen.energy": "Energy",
+  "stellaris.screen.energyContainer": "Energy",
 
   "stellaris.compat.rocket_crafting": "Rocket Crafting",
   "general.stellaris.rocket_crafting_mode": "Mode",
