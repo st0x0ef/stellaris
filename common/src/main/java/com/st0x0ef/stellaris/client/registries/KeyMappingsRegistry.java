@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.client.registries;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.common.menus.PlanetSelectionMenu;
 import com.st0x0ef.stellaris.common.network.packets.KeyHandlerPacket;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import com.st0x0ef.stellaris.common.utils.Utils;
@@ -23,7 +24,7 @@ public class KeyMappingsRegistry {
         if (player == null) {
             return;
         }
-        if (player.containerMenu == MenuTypesRegistry.PLANET_SELECTION_MENU) {
+        if (player.containerMenu instanceof PlanetSelectionMenu) {
             while (FREEZE_PLANET_MENU.consumeClick()) {
                 NetworkManager.sendToServer(new KeyHandlerPacket("freeze_planet_menu", true));
             }

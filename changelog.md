@@ -14,3 +14,4 @@
 
 ## Fixes
 - Fix candle still burning in space
+- Fix freeze planet selection keybinding

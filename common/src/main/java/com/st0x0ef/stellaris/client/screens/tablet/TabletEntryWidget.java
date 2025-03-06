@@ -29,7 +29,7 @@ public class TabletEntryWidget extends AbstractScrollWidget {
     private TabletEntry.Info info;
     private int baseScreenWidth;
     private final TabletEntryScreen screen;
-    public ArrayList<ClickBox> clickBoxes = new ArrayList<>();
+    private final ArrayList<ClickBox> clickBoxes = new ArrayList<>();
 
     public TabletEntryWidget(int x, int y, int width, int height, Component message, TabletEntry.Info info, TabletEntryScreen screen) {
         super(x, y, width, height, message);
