@@ -43,9 +43,14 @@ public class StellarisData extends SimpleJsonResourceReloadListener {
         return PLANETS;
     }
 
-    public static void addPlanets(List<Planet> planets) {
+    public static void addAllPlanets(List<Planet> planets) {
         PLANETS.clear();
         PLANETS.addAll(planets);
         PlanetEvents.POST_PLANET_REGISTRY.invoker().planetRegistered(planets, true);
     }
+
+    public static void addPlanets(List<Planet> planets) {
+        PLANETS.addAll(planets);
+    }
+
 }
