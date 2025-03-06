@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.common.items;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -9,7 +10,7 @@ import net.minecraft.world.level.block.Block;
 
 import java.util.List;
 
-public class CableItem extends BlockItem {
+public class CableItem extends BlockItem implements CustomTabletEntry {
     private final int energy;
 
     public CableItem(Block block, Properties properties, int energy) {
@@ -20,5 +21,10 @@ public class CableItem extends BlockItem {
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         tooltipComponents.add(Component.literal(energy + " FE/t").withStyle(ChatFormatting.GRAY));
+    }
+
+    @Override
+    public ResourceLocation getEntryName(ItemStack stack) {
+        return ResourceLocation.parse("items:cable");
     }
 }
