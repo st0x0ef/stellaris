@@ -50,7 +50,7 @@ public class GaugeWidget extends AbstractWidget {
             }
             case RIGHT_LEFT -> {
                 int i = Mth.ceil(getProgress(amount, capacity) * (getWidth() - 1));
-                guiGraphics.blitSprite(sprite, getWidth(), getHeight(), getWidth() -i, 0, getX() + getWidth() - i, getY(), i, getHeight());
+                guiGraphics.blitSprite(sprite, getWidth(), getHeight(), getWidth() - i, 0, getX() + getWidth() - i, getY(), i, getHeight());
             }
         }
         if (this.overlay_sprite != null) {

@@ -9,7 +9,8 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class BaseContainer extends AbstractContainerMenu {
+@Deprecated(since = "1.3.0", forRemoval = true)
+public abstract class BaseContainerOld extends AbstractContainerMenu {
     private static final int HOTBAR_SLOT_COUNT = 9;
     private static final int PLAYER_INVENTORY_ROW_COUNT = 3;
     private static final int PLAYER_INVENTORY_COLUMN_COUNT = 9;
@@ -20,7 +21,7 @@ public abstract class BaseContainer extends AbstractContainerMenu {
 
     private final int TE_INVENTORY_SLOT_COUNT;
 
-    protected BaseContainer(@Nullable MenuType<?> menuType, int containerId, int size, Inventory inventory, int inventoryYOffset) {
+    protected BaseContainerOld(@Nullable MenuType<?> menuType, int containerId, int size, Inventory inventory, int inventoryYOffset) {
         super(menuType, containerId);
         TE_INVENTORY_SLOT_COUNT = size;
         addPlayerHotbar(inventory, inventoryYOffset + 142);
@@ -68,7 +69,7 @@ public abstract class BaseContainer extends AbstractContainerMenu {
     public void addPlayerHotbar(Inventory playerInventory, int y) {
         int j;
         for(j = 0; j < 9; ++j) {
-            this.addSlot(new Slot(playerInventory, j, 10 + j * 18, y));
+            this.addSlot(new Slot(playerInventory, j, 8 + j * 18, y));
         }
     }
 
@@ -77,7 +78,7 @@ public abstract class BaseContainer extends AbstractContainerMenu {
         int k;
         for(j = 0; j < 3; ++j) {
             for(k = 0; k < 9; ++k) {
-                this.addSlot(new Slot(playerInventory, k + j * 9 + 9, 10 + k * 18, (84 + j * 18) + y));
+                this.addSlot(new Slot(playerInventory, k + j * 9 + 9, 8 + k * 18, (84 + j * 18) + y));
             }
         }
     }
