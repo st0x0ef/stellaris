@@ -6,6 +6,8 @@
 - Tablet
 - Potentials integration for better mods compatibility
 - Improve JEI/REI integration
+- Add cable tier
+- Add pipe tier
 
 ## Changes
 - Better Venus Atmosphere
