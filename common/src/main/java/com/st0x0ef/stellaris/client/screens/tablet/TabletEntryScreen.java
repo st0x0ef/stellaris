@@ -127,7 +127,6 @@ public class TabletEntryScreen extends Screen {
 
 
         entry.infos().forEach((infos) -> {
-
             TabletButton tabletButton = new TabletButton(this.leftPos + 68 + (column.get() * 30), this.topPos + 60 + (row.get() * 30), 20, 20, Component.translatable(infos.id()), (button -> {
                 changeInfo(infos);
             }), infos)
@@ -175,8 +174,6 @@ public class TabletEntryScreen extends Screen {
             this.removeWidget(texButton);
             this.addRenderableWidget(texButton);
         }));
-
-
     }
 
     public void changeButtonVisibility(boolean visible) {
@@ -219,9 +216,22 @@ public class TabletEntryScreen extends Screen {
 
     @Override
     public void resize(Minecraft minecraft, int width, int height) {
+        this.screen.resize(minecraft, width, height);
+
+        this.leftPos = this.screen.getLeftPos();
+        this.topPos = this.screen.getTopPos();
+
         super.resize(minecraft, width, height);
 
-        this.widget.resize(this);
+        var currentPage = this.currentPage;
+        var newScreen = new TabletEntryScreen(Component.translatable(entry.id()), screen, this.leftPos, this.topPos, entry);
+        this.minecraft.setScreen(newScreen);
+        if (!currentPage.equals("main")) {
+            TabletEntry.Info info = TabletMainScreen.INFOS.get(ResourceLocation.parse(currentPage));
+            if(info != null) newScreen.changeInfo(info);
+
+        }
+
     }
 
     @Override
@@ -265,6 +275,7 @@ public class TabletEntryScreen extends Screen {
         }
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
+
 
     public void showEntryButton() {
         ENTRY_BUTTONS.get(currentEntryPage).forEach(button -> {
@@ -336,6 +347,8 @@ public class TabletEntryScreen extends Screen {
 
         return infos.get(nextIndex);
     }
+
+
 
 
     public String getCurrentPage(String page) {

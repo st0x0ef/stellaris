@@ -131,8 +131,6 @@ public class TabletMainScreen extends AbstractContainerScreen<TabletMenu> {
 
     public void openEntry(ResourceLocation location) {
         if(INFOS.containsKey(location) && this.minecraft != null) {
-            Stellaris.LOG.info("NOT NULL");
-
             TabletEntry entry = ENTRIES.get(location.getNamespace());
             TabletEntry.Info info = INFOS.get(location);
             this.minecraft.setScreen(new TabletEntryScreen(Component.translatable(entry.id()), this, this.leftPos, this.topPos, entry));
@@ -141,6 +139,14 @@ public class TabletMainScreen extends AbstractContainerScreen<TabletMenu> {
             }
         }
     }
-    
+
+    public int getLeftPos() {
+        return this.leftPos;
+    }
+
+    public int getTopPos() {
+        return this.topPos;
+    }
+
 
 }
