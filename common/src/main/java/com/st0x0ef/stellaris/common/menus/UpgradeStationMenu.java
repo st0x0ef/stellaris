@@ -12,12 +12,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.ItemCombinerMenu;
 import net.minecraft.world.inventory.ItemCombinerMenuSlotDefinition;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 
-public class UpgradeStationMenu extends ItemCombinerMenu {
+public class UpgradeStationMenu extends BaseItemCombinerMenu {
 
     public static UpgradeStationMenu create(int containerId, Inventory playerInventory, FriendlyByteBuf buf) {
         return new UpgradeStationMenu(containerId, playerInventory, ContainerLevelAccess.NULL);
@@ -71,9 +72,9 @@ public class UpgradeStationMenu extends ItemCombinerMenu {
     @Override
     protected @NotNull ItemCombinerMenuSlotDefinition createInputSlotDefinitions() {
         return ItemCombinerMenuSlotDefinition.create()
-                .withSlot(0, 30, 40, itemStack -> itemStack.getItem() instanceof SpaceSuit)
-                .withSlot(1, 78, 40, itemStack -> itemStack.getItem() instanceof SpaceSuitModule)
-                .withResultSlot(2, 134, 40)
+                .withSlot(0, 32, 40, itemStack -> itemStack.getItem() instanceof SpaceSuit)
+                .withSlot(1, 80, 40, itemStack -> itemStack.getItem() instanceof SpaceSuitModule)
+                .withResultSlot(2, 136, 40)
                 .build();
     }
 }

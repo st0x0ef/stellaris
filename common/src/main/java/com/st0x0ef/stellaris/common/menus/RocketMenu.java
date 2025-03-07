@@ -77,44 +77,44 @@ public class RocketMenu extends AbstractContainerMenu implements IVehicleMenu {
 
     private void addSlots(Container inventory) {
         //FUEL SLOTS
-        this.addSlot(new VehicleFuelSlot(inventory, 0, 20, 27));
-        this.addSlot(new ResultSlot(inventory, 1, 20, 57));
+        this.addSlot(new VehicleFuelSlot(inventory, 0, 18, 50));
+        this.addSlot(new ResultSlot(inventory, 1, 18, 80));
 
         //UPGRADE SLOTS
-        this.addSlot(new MotorUpgradeSlot(inventory, 2, 76, 66, getRocket()));
-        this.addSlot(new TankUpgradeSlot(inventory, 3, 101, 66));
+        this.addSlot(new MotorUpgradeSlot(inventory, 2, 76, 94, getRocket()));
+        this.addSlot(new TankUpgradeSlot(inventory, 3, 100, 94));
 
         //SKIN SLOTS
-        this.addSlot(new RocketSkinSlot(inventory, 4, 126, 66));
+        this.addSlot(new RocketSkinSlot(inventory, 4, 124, 94));
         //MODEL SLOTS
-        this.addSlot(new RocketModelSlot(inventory, 5, 151, 66));
+        this.addSlot(new RocketModelSlot(inventory, 5, 148, 94));
 
         //INVENTORY SLOTS
-        this.addSlot(new Slot(inventory, 6, 86, 20));
-        this.addSlot(new Slot(inventory, 7, 86, 37));
+        this.addSlot(new Slot(inventory, 6, 84, 46));
+        this.addSlot(new Slot(inventory, 7, 84, 64));
 
-        this.addSlot(new Slot(inventory, 8, 104, 20));
-        this.addSlot(new Slot(inventory, 9, 104, 37));
+        this.addSlot(new Slot(inventory, 8, 102, 46));
+        this.addSlot(new Slot(inventory, 9, 102, 64));
 
-        this.addSlot(new Slot(inventory, 10, 122, 20));
-        this.addSlot(new Slot(inventory, 11, 122, 37));
+        this.addSlot(new Slot(inventory, 10, 120, 46));
+        this.addSlot(new Slot(inventory, 11, 120, 64));
 
-        this.addSlot(new Slot(inventory, 12, 140, 20));
-        this.addSlot(new Slot(inventory, 13, 140, 37));
+        this.addSlot(new Slot(inventory, 12, 138, 46));
+        this.addSlot(new Slot(inventory, 13, 138, 64));
 
     }
 
     private void addPlayerInventory(Inventory playerInventory) {
         for (int i = 0; i < 3; ++i) {
             for (int l = 0; l < 9; ++l) {
-                this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 8 + l * 18, (84 + i * 18) + 11));
+                this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 10 + l * 18, (131 + i * 18) + 11));
             }
         }
     }
 
     private void addPlayerHotbar(Inventory playerInventory) {
         for (int i = 0; i < 9; ++i) {
-            this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 153));
+            this.addSlot(new Slot(playerInventory, i, 10 + i * 18, 200));
         }
     }
 

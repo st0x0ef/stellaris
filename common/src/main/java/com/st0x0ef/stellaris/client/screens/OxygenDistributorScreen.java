@@ -16,7 +16,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 @Environment(EnvType.CLIENT)
-public class OxygenGeneratorScreen extends AbstractContainerScreen<OxygenDistributorMenu> {
+public class OxygenDistributorScreen extends AbstractContainerScreen<OxygenDistributorMenu> {
 
     private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/oxygen_distributor.png");
 
@@ -24,10 +24,10 @@ public class OxygenGeneratorScreen extends AbstractContainerScreen<OxygenDistrib
     private GaugeWidget energyGauge;
     private GaugeWidget oxygenGauge;
 
-    public OxygenGeneratorScreen(OxygenDistributorMenu menu, Inventory playerInventory, Component title) {
+    public OxygenDistributorScreen(OxygenDistributorMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
-        imageWidth = 177;
-        imageHeight = 174;
+        imageWidth = 180;
+        imageHeight = 188;
         inventoryLabelY = imageHeight - 92;
     }
 
@@ -37,11 +37,11 @@ public class OxygenGeneratorScreen extends AbstractContainerScreen<OxygenDistrib
 
         if (blockEntity == null) return;
 
-        energyGauge = new GaugeWidget(leftPos + 147, topPos + 27, 13, 46, Component.translatable("stellaris.screen.energyContainer"), GUISprites.ENERGY_FULL, GUISprites.BATTERY_OVERLAY, blockEntity.getEnergy(null).getMaxEnergy(), GaugeWidget.Direction4.DOWN_UP);
+        energyGauge = new GaugeWidget(leftPos + 67, topPos + 15, 46, 15, Component.translatable("stellaris.screen.energyContainer"), GUISprites.SIDEWAYS_ENERGY_FULL, GUISprites.SIDEWAYS_BATTERY_OVERLAY, blockEntity.getEnergy(null).getMaxEnergy(), GaugeWidget.Direction4.LEFT_RIGHT);
         addRenderableWidget(energyGauge);
 
         SingleFluidStorage oxygenTank = blockEntity.oxygenTank;
-        oxygenGauge = new GaugeWidget(leftPos + 80 , topPos + 59 , 16, 14, Component.translatable("stellaris.screen.oxygen"), GUISprites.NO_OVERLAY, GUISprites.NO_OVERLAY, oxygenTank.getTankCapacity(0), GaugeWidget.Direction4.DOWN_UP);
+        oxygenGauge = new GaugeWidget(leftPos + 64 , topPos + 52 , 16, 18, Component.translatable("stellaris.screen.oxygen"), GUISprites.NO_OVERLAY, GUISprites.NO_OVERLAY, oxygenTank.getTankCapacity(0), GaugeWidget.Direction4.DOWN_UP);
         addRenderableWidget(oxygenGauge);
 
     }
