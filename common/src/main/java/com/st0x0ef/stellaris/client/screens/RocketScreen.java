@@ -24,8 +24,8 @@ public class RocketScreen extends AbstractContainerScreen<RocketMenu> {
 
     public RocketScreen(RocketMenu abstractContainerMenu, Inventory inventory, Component component) {
         super(abstractContainerMenu, inventory, component);
-        imageWidth = 177;
-        imageHeight = 177;
+        imageWidth = 180;
+        imageHeight = 224;
         inventoryLabelY = imageHeight - 92;
     }
 
@@ -37,7 +37,7 @@ public class RocketScreen extends AbstractContainerScreen<RocketMenu> {
             return;
         }
 
-        fuelGauge = new GaugeWidget(leftPos + 51, topPos + 27, 12, 46, Component.translatable("stellaris.screen.fuel"), rocket.getRocketComponent().getFuelType().getFuelTexture(), GUISprites.FLUID_TANK_OVERLAY, rocket.getTankCapacity(), GaugeWidget.Direction4.DOWN_UP);
+        fuelGauge = new GaugeWidget(leftPos + 48, topPos + 50, 12, 46, Component.translatable("stellaris.screen.fuel"), rocket.getRocketComponent().getFuelType().getFuelTexture(), GUISprites.FLUID_TANK_OVERLAY, rocket.getTankCapacity(), GaugeWidget.Direction4.DOWN_UP);
         addRenderableWidget(fuelGauge);
     }
 

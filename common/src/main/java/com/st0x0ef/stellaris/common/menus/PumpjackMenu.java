@@ -21,14 +21,14 @@ public class PumpjackMenu extends BaseContainer {
     }
 
     public PumpjackMenu(int containerId, Inventory inventory, Container container, PumpjackBlockEntity blockEntity) {
-        super(MenuTypesRegistry.PUMPJACK_MENU.get(), containerId, 2, inventory, 26);
+        super(MenuTypesRegistry.PUMPJACK_MENU.get(), containerId, 2, inventory, 58);
         this.container = container;
         this.blockEntity = blockEntity;
         checkContainerSize(container, 2);
 
         // Result tank
-        addSlot(new FluidContainerSlot(container, 0, 116, 32, false, true));
-        addSlot(new ResultSlot(container, 1, 116, 62));
+        addSlot(new FluidContainerSlot(container, 0, 130, 52, false, true));
+        addSlot(new ResultSlot(container, 1, 130, 82));
     }
 
     @Override

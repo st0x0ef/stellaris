@@ -20,8 +20,10 @@ public class UpgradeStationScreen extends AbstractContainerScreen<UpgradeStation
     public UpgradeStationScreen(UpgradeStationMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
 
-        this.imageHeight = 166;
-        this.imageWidth = 177;
+        this.imageWidth = 180;
+        this.imageHeight = 188;
+
+        this.inventoryLabelY = this.imageHeight - 92;
     }
 
     @Override

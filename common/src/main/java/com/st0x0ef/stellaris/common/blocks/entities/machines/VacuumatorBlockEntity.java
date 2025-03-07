@@ -23,17 +23,17 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class VacuumatorBlockEntity extends BaseContainerBlockEntity implements ImplementedInventory, TickingBlockEntity {
+public class VacuumatorBlockEntity extends BaseEnergyContainerBlockEntity implements ImplementedInventory, TickingBlockEntity {
 
     private NonNullList<ItemStack> items = NonNullList.withSize(5, ItemStack.EMPTY);
 
     public VacuumatorBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(BlockEntityRegistry.VACUUMATOR_ENTITY.get(), blockPos, blockState);
+        super(BlockEntityRegistry.VACUUMATOR_ENTITY.get(), blockPos, blockState, 3000);
     }
 
     @Override
     protected @NotNull AbstractContainerMenu createMenu(int i, Inventory inventory) {
-        return new VacuumatorMenu(i, inventory, this);
+        return new VacuumatorMenu(i, inventory, this, this);
     }
 
     @Override
@@ -88,6 +88,10 @@ public class VacuumatorBlockEntity extends BaseContainerBlockEntity implements I
     }
 
     public boolean canCraft() {
+        if (getEnergy(null).getEnergy() < 500) {
+            return false;
+        }
+
         if (getItem(0).getItem() instanceof CanItem) {
             return isFood(getItem(1)) && getItem(2).is(Items.GLASS_BOTTLE) && getItem(3).isEmpty() && getItem(4).isEmpty();
         }
@@ -101,7 +105,6 @@ public class VacuumatorBlockEntity extends BaseContainerBlockEntity implements I
         ItemStack resultStack = new ItemStack(canStack.getItem());
         CanItem.setFoodProperties(resultStack, CanItem.getFoodProperties(canStack));
 
-
         if (CanItem.addFoodToCan(resultStack, getItem(1))) {
             for (int i = 0; i < 3; i++) {
                 if(getItem(i).getCount() >= 1) {
@@ -111,10 +114,9 @@ public class VacuumatorBlockEntity extends BaseContainerBlockEntity implements I
 
             setItem(3, resultStack);
             setItem(4, PotionContents.createItemStack(Items.POTION, Potions.WATER));
-
         }
 
-
+        getEnergy(null).extract(500, false);
     }
 
     public static boolean isFood(ItemStack food) {

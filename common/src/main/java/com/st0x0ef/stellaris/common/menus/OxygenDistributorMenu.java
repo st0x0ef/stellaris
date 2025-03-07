@@ -16,11 +16,11 @@ public class OxygenDistributorMenu extends BaseContainer {
     private final OxygenDistributorBlockEntity blockEntity;
 
     public OxygenDistributorMenu(int containerId, Inventory inventory, Container container, OxygenDistributorBlockEntity blockEntity) {
-        super(MenuTypesRegistry.OXYGEN_DISTRIBUTOR.get(), containerId, 1, inventory, 8);
+        super(MenuTypesRegistry.OXYGEN_DISTRIBUTOR.get(), containerId, 1, inventory, 22);
         this.container = container;
         this.blockEntity = blockEntity;
 
-        addSlot(new SpecificFluidContainerSlot(container, FluidRegistry.OXYGEN_STILL.get(), 0, 80, 26, false));
+        addSlot(new SpecificFluidContainerSlot(container, FluidRegistry.OXYGEN_STILL.get(), 0, 96, 54, false));
     }
 
     public static OxygenDistributorMenu create(int syncId, Inventory inventory, FriendlyByteBuf data) {
