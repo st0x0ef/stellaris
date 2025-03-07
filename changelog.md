@@ -1,4 +1,4 @@
-# 1.3.0 beta 1 changelog
+# 1.3.0 changelog
 
 ## Additions
 - Mars storm
@@ -14,7 +14,9 @@
 - Change water separator gas tank size
 - Oxygen and hydrogen tank texture is now filling downward
 - Oxygen and hydrogen tank can now be filled even if one tank is full
+- Update almost all gui
 
 ## Fixes
 - Fix candle still burning in space
 - Fix freeze planet selection keybinding
+- Fix gauge chunk system
