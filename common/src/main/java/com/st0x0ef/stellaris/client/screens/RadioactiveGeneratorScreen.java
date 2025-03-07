@@ -5,7 +5,6 @@ import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.components.GaugeWidget;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.RadioactiveGeneratorEntity;
 import com.st0x0ef.stellaris.common.menus.RadioactiveGeneratorMenu;
-import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedBlockEnergyContainer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.GuiGraphics;
@@ -15,7 +14,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
-
 
 @Environment(EnvType.CLIENT)
 public class RadioactiveGeneratorScreen extends AbstractContainerScreen<RadioactiveGeneratorMenu> {
@@ -27,8 +25,8 @@ public class RadioactiveGeneratorScreen extends AbstractContainerScreen<Radioact
 
     public RadioactiveGeneratorScreen(RadioactiveGeneratorMenu abstractContainerMenu, Inventory inventory, Component component) {
         super(abstractContainerMenu, inventory, component);
-        imageWidth = 177;
-        imageHeight = 224;
+        imageWidth = 180;
+        imageHeight = 188;
         inventoryLabelY = imageHeight - 92;
     }
 
@@ -40,8 +38,7 @@ public class RadioactiveGeneratorScreen extends AbstractContainerScreen<Radioact
             return;
         }
 
-        WrappedBlockEnergyContainer energyStorage = blockEntity.getWrappedEnergyContainer();
-        energyGauge = new GaugeWidget(leftPos + 147, topPos + 52, 13, 46, Component.translatable("stellaris.screen.energy"), GUISprites.ENERGY_FULL, GUISprites.BATTERY_OVERLAY, (int) energyStorage.getMaxCapacity(), GaugeWidget.Direction4.DOWN_UP);
+        energyGauge = new GaugeWidget(leftPos + 67, topPos + 15, 46, 15, Component.translatable("stellaris.screen.energyContainer"), GUISprites.SIDEWAYS_ENERGY_FULL, GUISprites.SIDEWAYS_BATTERY_OVERLAY, blockEntity.getEnergy(null).getMaxEnergy(), GaugeWidget.Direction4.LEFT_RIGHT);
         addRenderableWidget(energyGauge);
     }
 
@@ -55,7 +52,7 @@ public class RadioactiveGeneratorScreen extends AbstractContainerScreen<Radioact
             return;
         }
 
-        energyGauge.updateAmount(blockEntity.getWrappedEnergyContainer().getStoredEnergy());
+        energyGauge.updateAmount(blockEntity.getEnergy(null).getEnergy());
     }
 
     @Override
@@ -67,7 +64,7 @@ public class RadioactiveGeneratorScreen extends AbstractContainerScreen<Radioact
 
         if (menu.isLit()) {
             int i = Mth.ceil(menu.getLitProgress() * 13.0F) + 1;
-            graphics.blitSprite(GUISprites.LIT_PROGRESS_SPRITE, 14, 14, 0, 14 - i, leftPos + 84, topPos + 69 + 14 - i, 14, i);
+            graphics.blitSprite(GUISprites.RADIOACTIVE_GENERATOR_LIT_PROGRESS_SPRITE, 8, 13, 0, 14 - i, leftPos + 100, topPos + 57 + 13 - i, 14, i);
         }
     }
 

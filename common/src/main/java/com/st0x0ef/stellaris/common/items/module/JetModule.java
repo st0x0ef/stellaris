@@ -1,13 +1,16 @@
 package com.st0x0ef.stellaris.common.items.module;
 
+import com.fej1fun.potentials.capabilities.Capabilities;
+import com.fej1fun.potentials.fluid.UniversalFluidStorage;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.data_components.JetSuitComponent;
 import com.st0x0ef.stellaris.common.items.armors.JetSuit;
 import com.st0x0ef.stellaris.common.keybinds.KeyVariables;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
+import com.st0x0ef.stellaris.common.registry.FluidRegistry;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
-import com.st0x0ef.stellaris.common.utils.FuelUtils;
 import com.st0x0ef.stellaris.common.utils.Utils;
+import dev.architectury.fluid.FluidStack;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
@@ -34,7 +37,7 @@ public class JetModule extends Item implements SpaceSuitModule {
 
     @Override
     public MutableComponent displayName() {
-        return Component.translatable("spacesuit.stellaris.jet");
+        return Component.translatable("spacesuit.stellaris.jet_module");
     }
 
     @Override
@@ -91,8 +94,8 @@ public class JetModule extends Item implements SpaceSuitModule {
 
 
     public void tick(ItemStack stack, Level level, Player player) {
-
-        if (FuelUtils.getFuel(stack) <= 0) return;
+        UniversalFluidStorage storage = Capabilities.Fluid.ITEM.getCapability(stack);
+        if (storage == null || storage.getFluidInTank(1).isEmpty()) return;
 
         /** JET SUIT FAST BOOST */
         if (player.isSprinting()) {
@@ -145,7 +148,10 @@ public class JetModule extends Item implements SpaceSuitModule {
             player.setDeltaMovement(vec3.x, vec3.y + 0.04, vec3.z);
             player.resetFallDistance();
             Utils.disableFlyAntiCheat(player, true);
-            FuelUtils.addFuel(stack, -2);
+
+            UniversalFluidStorage storage = Capabilities.Fluid.ITEM.getCapability(stack);
+            if (storage == null) return;
+            storage.drain(FluidStack.create(FluidRegistry.FUEL_STILL.get(), 2), false);
         }
 
         // Move up
@@ -179,10 +185,12 @@ public class JetModule extends Item implements SpaceSuitModule {
 
     private void elytraModeMovement(Player player, ItemStack stack) {
         if (player.isSprinting() && !player.onGround()) {
-
             player.startFallFlying();
             Utils.disableFlyAntiCheat(player, true);
-            FuelUtils.addFuel(stack, -2);
+
+            UniversalFluidStorage storage = Capabilities.Fluid.ITEM.getCapability(stack);
+            if (storage == null) return;
+            storage.drain(FluidStack.create(FluidRegistry.FUEL_STILL.get(), 2), false);
         } else if (player.isSprinting() && player.onGround() && KeyVariables.isHoldingJump(player)) {
             player.moveTo(player.getX(), player.getY() + 2, player.getZ());
         }
@@ -201,9 +209,9 @@ public class JetModule extends Item implements SpaceSuitModule {
     }
 
     public void calculateSpacePressTime(Player player, ItemStack itemStack) {
-        int mode = this.getMode(itemStack);
 
         if (Utils.isLivingInJetSuit(player)) {
+            int mode = this.getMode(itemStack);
 
             /** NORMAL MODE */
             if (mode == JetSuit.ModeType.NORMAL.getMode()) {
@@ -218,7 +226,7 @@ public class JetModule extends Item implements SpaceSuitModule {
             }
 
             /** HOVER MODE */
-            if (mode == JetSuit.ModeType.HOVER.getMode()) {
+            else if (mode == JetSuit.ModeType.HOVER.getMode()) {
                 if (!player.onGround() && this.spacePressTime < 0.6F) {
                     this.spacePressTime = this.spacePressTime + 0.2F;
                 }
@@ -235,7 +243,7 @@ public class JetModule extends Item implements SpaceSuitModule {
             }
 
             /** ELYTRA MODE */
-            if (mode == JetSuit.ModeType.ELYTRA.getMode()) {
+            else if (mode == JetSuit.ModeType.ELYTRA.getMode()) {
                 if (KeyVariables.isHoldingUp(player) && player.isFallFlying()) {
                     if (player.isSprinting()) {
                         if (this.spacePressTime < 2.8F) {

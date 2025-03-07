@@ -33,7 +33,10 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
-import net.minecraft.world.*;
+import net.minecraft.world.Container;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -231,7 +234,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
                 if (!tryFillUpRocket(player.getMainHandItem().getItem())) {
                     this.openCustomInventoryScreen(player);
                 } else {
-                    player.getItemInHand(hand).grow(-1);
+                    player.getItemInHand(hand).shrink(1);
                     player.getInventory().add(new ItemStack(Items.BUCKET));
                 }
                 return InteractionResult.CONSUME;
@@ -382,6 +385,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
             if (this.FUEL > 0 || player.isCreative()) {
                 if (!this.entityData.get(ROCKET_START)) {
                     this.entityData.set(ROCKET_START, true);
+                    player.awardStat(StatsRegistry.ROCKET_LAUNCHED.get());
                     this.level().playSound(player, this, SoundRegistry.ROCKET_SOUND.get(), SoundSource.NEUTRAL, 1, 1);
                 }
             } else {

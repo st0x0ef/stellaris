@@ -17,6 +17,7 @@ public class TagRegistry {
     public static final TagKey<EntityType<?>> ENTITY_NO_OXYGEN_NEEDED_TAG = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "no_oxygen_needed"));
     public static final TagKey<EntityType<?>> ENTITY_PLANET_FIRE_TAG = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "planet_fire"));
     public static final TagKey<EntityType<?>> ENTITY_VENUS_RAIN_TAG = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "venus_rain"));
+    public static final TagKey<EntityType<?>> ENTITY_BOSS = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "boss"));
 
     public static final TagKey<EntityType<?>> ENTITY_RADIATION_INVULNERABLE_TAG = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "radiations_invulnerable"));
 
@@ -29,6 +30,7 @@ public class TagRegistry {
     public static final TagKey<Biome> MERCURY_BIOMES_TAG = TagKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "mercury_biomes"));
     public static final TagKey<Biome> MOON_BIOMES_TAG = TagKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "moon_biomes"));
     public static final TagKey<Biome> VENUS_BIOMES_TAG = TagKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "venus_biomes"));
+    public static final TagKey<Biome> SANDSTORM_BIOMES_TAG = TagKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "sandstorm_biomes"));
 
     /** ROCKET UPGRADE */
     public static final TagKey<Item> ROCKET_UPGRADE_TAG = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "rocket_upgrade"));
@@ -45,5 +47,4 @@ public class TagRegistry {
     public static final TagKey<Block> ENERGY_BLOCK_TAG = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "energy_block"));
     public static final TagKey<MobEffect> RADIOACTIVEEFFECT = TagKey.create(Registries.MOB_EFFECT, ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "radioactive"));
     public static final TagKey<Block> INCORRECT_FOR_STEEL_TOOL = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "incorrect_for_steel_tools"));
-
 }

@@ -63,6 +63,7 @@ public class FluidRegistry {
             .dropOff(1)
             .tickDelay(8)
             .explosionResistance(100.0F)
+            .lighterThanAir(true)
             .convertToSource(false)
             .sourceTexture(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "block/fluids/hydrogen_still"))
             .flowingTexture(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "block/fluids/hydrogen_flow"));
@@ -77,6 +78,7 @@ public class FluidRegistry {
             .dropOff(1)
             .tickDelay(8)
             .explosionResistance(100)
+            .lighterThanAir(true)
             .convertToSource(false)
             .sourceTexture(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "block/fluids/oxygen_still"))
             .flowingTexture(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "block/fluids/oxygen_flow"));

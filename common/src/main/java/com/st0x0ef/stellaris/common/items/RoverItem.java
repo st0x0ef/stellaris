@@ -24,7 +24,7 @@ import java.util.List;
 
 public class RoverItem extends Item {
     public RoverItem(Properties properties) {
-        super(properties);
+        super(properties.stacksTo(1));
     }
 
     @Override

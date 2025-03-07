@@ -36,11 +36,6 @@
   "block.stellaris.raw_desh_block": "Block of Raw Desh",
   "block.stellaris.raw_uranium_block": "Block of Raw Uranium",
 
-  "item.stellaris.ice_shard": "Ice Shard",
-
-  "item.stellaris.raw_steel_ingot": "Raw Steel",
-  "item.stellaris.raw_desh_ingot": "Raw Desh",
-  "item.stellaris.raw_uranium": "Raw Uranium",
   "item.stellaris.raw_neptunium": "Raw Neptunium",
 
   "block.stellaris.steel_block": "Block of Steel",
@@ -259,6 +254,11 @@
   "fluid.stellaris.hydrogen": "Hydrogen",
   "fluid.stellaris.oxygen": "Oxygen",
 
+  "block.stellaris.oil": "Oil",
+  "block.stellaris.fuel": "Fuel",
+  "block.stellaris.hydrogen": "Hydrogen",
+  "block.stellaris.oxygen": "Oxygen",
+
   "item.stellaris.oil_bucket": "Oil Bucket",
   "item.stellaris.fuel_bucket": "Fuel Bucket",
   "item.stellaris.hydrogen_bucket": "Hydrogen Bucket",
@@ -269,9 +269,17 @@
   ""
 ,
 
+  "block.stellaris.cable": "Tier 1 Cable",
+  "block.stellaris.cable_t2": "Tier 2 Cable",
+  "block.stellaris.cable_t3": "Tier 3 Cable",
+
+  "block.stellaris.pipe_t1": "Tier 1 Pipe",
+  "block.stellaris.pipe_t2": "Tier 2 Pipe",
+  "block.stellaris.pipe_t3": "Tier 3 Pipe",
+
   "block.stellaris.rocket_launch_pad": "Rocket Launch Pad",
   "block.stellaris.rocket_station": "Rocket Station",
-  "block.stellaris.cable": "Cable",
+
   "block.stellaris.coal_generator": "Coal Generator",
   "block.stellaris.radioactive_generator": "Radioactive Generator",
   "block.stellaris.solar_panel": "Solar Panel",
@@ -287,15 +295,9 @@
 
 
   "item.stellaris.raw_steel_ingot": "Raw Steel Ingot",
-  "item.stellaris.steel_ingot": "Steel Ingot",
   "item.stellaris.raw_desh_ingot": "Raw Desh Ingot",
-  "item.stellaris.desh_ingot": "Desh Ingot",
   "item.stellaris.ice_shard": "Ice Shard",
-  "item.stellaris.steel_nugget": "Steel Nugget",
-  "item.stellaris.heavy_metal_ingot": "Heavy Metal Ingot",
-  "item.stellaris.heavy_metal_nugget": "Heavy Metal Nugget",
   "item.stellaris.raw_uranium": "Raw Uranium",
-  "item.stellaris.uranium_ingot": "Uranium Ingot",
   "item.stellaris.moon_berries": "Moon Berry",
 
   "STELLARIS VEHICLE STUFF":
@@ -356,6 +358,7 @@
   "item.stellaris.auto_feeder_module": "Auto Feeder Module",
   "item.stellaris.gravity_normalizer_module": "Gravity Normalizer Module",
   "item.stellaris.jet_module": "Jet Module",
+  "item.stellaris.energy_module": "Energy Module",
 
 
   "STELLARIS TOOLS/WEAPONS":
@@ -478,6 +481,7 @@
 ,
 
   "effect.stellaris.radioactive": "Radioactivity",
+  "effect.stellaris.sandstorm": "Sandstorm",
 
 
 
@@ -574,6 +578,7 @@
   "stellaris.screen.hydrogen": "Hydrogen",
   "stellaris.screen.oxygen": "Oxygen",
   "stellaris.screen.energy": "Energy",
+  "stellaris.screen.energyContainer": "Energy",
 
   "stellaris.compat.rocket_crafting": "Rocket Crafting",
   "general.stellaris.rocket_crafting_mode": "Mode",
@@ -588,13 +593,17 @@
   "tooltip.item.stellaris.can.empty": "Empty",
   "tooltip.item.stellaris.can.nutrition": "Nutrition: %s/%s",
   "tooltip.item.stellaris.can.saturation": "Saturation: %s",
-  "tooltip.item.stellaris.oxygen_tank": "Oxygen: %s/%s",
+  "tooltip.item.stellaris.oxygen_tank": "Oxygen: §e%s§r§f/§r§e%s§rmb",
   "tooltip.item.stellaris.rocket.skin": "Skin: %s",
   "tooltip.item.stellaris.rocket.fuel": "Fuel: %s",
   "tooltip.item.stellaris.rocket.model": "Model: %s",
+  "tooltip.item.stellaris.energy": "Energy: §e%s§r§f/§r§e%s§r FE",
   "tooltip.item.stellaris.oil_finder": "Right click on a block to check if there is oil",
+  "tooltip.item.stellaris.open_tablet": "§7For more infos, press §8[§c%s§8]",
 
-  "screens.stellaris.config": "Stellaris Config Screen",
+  "stellaris.screen.tablet.rocket_launched": "Rocket Launched : %s",
+  "stellaris.screen.tablet.space_traveled": "Kilometers Traveled : %s",
+  "stellaris.screen.tablet.boss_killed": "Boss Killed : %s",
 
   "translatable.stellaris.registry.holdshift": "Hold [↑ Shift] to view more info.",
   "translatable.stellaris.registry.player": "Player",
@@ -635,7 +644,15 @@
   "tag.item.stellaris.coal_generator_fuel": "Coal Generator Fuel",
 
   "spacesuit.stellaris.auto_feeder": "Auto Feeder",
+  "spacesuit.stellaris.energy_module": "Energy Module",
+  "spacesuit.stellaris.fuel_module": "Fuel Module",
+  "spacesuit.stellaris.jet": "Jet Module",
+  "spacesuit.stellaris.gravity_normalizer": "Gravity Normalizer",
+  "spacesuit.stellaris.oil_finder": "Oil Finder",
   "spacesuit.stellaris.shift_for_modules": "Hold shift for module list",
   "spacesuit.stellaris.modules": "Modules",
-  "container.stellaris.upgrade": "Upgrade"
+  "container.stellaris.upgrade": "Upgrade",
+
+  "stat.minecraft.space_traveled": "Space Traveled",
+  "stat.minecraft.rocket_launched": "Rocket Launched"
 }

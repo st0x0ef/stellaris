@@ -2,11 +2,8 @@ package com.st0x0ef.stellaris.common.menus;
 
 import com.st0x0ef.stellaris.common.blocks.entities.machines.RadioactiveGeneratorEntity;
 import com.st0x0ef.stellaris.common.menus.slot.RadioactiveGeneratorSlot;
-import com.st0x0ef.stellaris.common.network.packets.SyncWidgetsTanksPacket;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
-import dev.architectury.networking.NetworkManager;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
@@ -37,7 +34,7 @@ public class RadioactiveGeneratorMenu extends AbstractContainerMenu {
         this.entity = entity;
         this.data = data;
 
-        this.addSlot(new RadioactiveGeneratorSlot(inventory, 0, 46, 66));
+        this.addSlot(new RadioactiveGeneratorSlot(inventory, 0, 66, 54));
 
         addPlayerHotbar(playerInventory);
         addPlayerInventory(playerInventory);
@@ -76,23 +73,20 @@ public class RadioactiveGeneratorMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player player) {
-        if (!player.isLocalPlayer()) {
-            this.syncBattery((ServerPlayer) player);
-        }
-
         return inventory.stillValid(player);
     }
+
     private void addPlayerInventory(Inventory playerInventory) {
         for (int i = 0; i < 3; ++i) {
             for (int l = 0; l < 9; ++l) {
-                this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 8 + l * 18, (84 + i * 18) + 58));
+                this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 10 + l * 18, (48 + i * 18) + 58));
             }
         }
     }
 
     private void addPlayerHotbar(Inventory playerInventory) {
         for (int i = 0; i < 9; ++i) {
-            this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 200));
+            this.addSlot(new Slot(playerInventory, i, 10 + i * 18, 164));
         }
     }
 
@@ -107,13 +101,5 @@ public class RadioactiveGeneratorMenu extends AbstractContainerMenu {
 
     public boolean isLit() {
         return this.data.get(0) > 0;
-    }
-
-    public void syncBattery(ServerPlayer player) {
-        if (!player.level().isClientSide()) {
-
-            NetworkManager.sendToPlayer(player, new SyncWidgetsTanksPacket(new long[] {this.getBlockEntity().getWrappedEnergyContainer().getStoredEnergy()}
-            ));
-        }
     }
 }
