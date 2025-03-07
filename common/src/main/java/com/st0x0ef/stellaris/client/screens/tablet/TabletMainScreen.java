@@ -65,7 +65,6 @@ public class TabletMainScreen extends AbstractContainerScreen<TabletMenu> {
         AtomicInteger column = new AtomicInteger(0);
         BUTTONS.clear();
         ENTRIES.forEach((id, entry) -> {
-
             TexturedButton button = new TexturedButton(this.leftPos + 61 + (column.get() * 28), this.topPos + 134 , 18, 18, Component.translatable(entry.id()), (button1) -> {
                 this.minecraft.setScreen(new TabletEntryScreen(Component.translatable(entry.id()), this, this.leftPos, this.topPos, entry));
             }).tex(entry.icon(), entry.hoverIcon()).tooltip(Tooltip.create(Component.translatable(entry.id())));
