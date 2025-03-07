@@ -58,9 +58,9 @@ public class TexturedButton extends Button {
         return (T) this;
     }
 
-    public <T extends TexturedButton> T tex(ResourceLocation buttonTexture, ResourceLocation hovorTexture) {
+    public <T extends TexturedButton> T tex(ResourceLocation buttonTexture, ResourceLocation hoverTexture) {
         this.buttonTexture = buttonTexture;
-        this.hoverButtonTexture = hovorTexture;
+        this.hoverButtonTexture = hoverTexture;
         return cast();
     }
 
@@ -118,6 +118,13 @@ public class TexturedButton extends Button {
         } else {
             return buttonTexture;
         }
+    }
+
+    @Override
+    public void setSize(int width, int height) {
+        super.setSize(width, height);
+        this.textureWidth = width;
+        this.textureHeight = height;
     }
 
     protected Vec3 getTypeColor() {

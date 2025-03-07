@@ -22,15 +22,29 @@ public class TabletEntryScreen extends Screen {
     private int topPos;
     private int imageHeight;
     private int imageWidth;
+
+    /** Textures */
+    public static final ResourceLocation MENU_BACKGROUND_LIGHT = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/tablet_background_light.png");
+    public static final ResourceLocation SMALL_BACK_ARROW = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/small_back_arrow.png");
+    public static final ResourceLocation SMALL_NEXT_ARROW = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/small_next_arrow.png");
+    public static final ResourceLocation SMALL_HOME_BUTTON = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/small_home_button.png");
+    public static final ResourceLocation HOME_BUTTON = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/main_page.png");
+    public static final ResourceLocation HOME_BUTTON_HOVER = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/main_page_hover.png");
+    public static final ResourceLocation BACK_ARROW = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/back_page.png");
+    public static final ResourceLocation BACK_ARROW_HOVER = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/back_page_hovered.png");
+    public static final ResourceLocation NEXT_ARROW = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/next_page.png");
+    public static final ResourceLocation NEXT_ARROW_HOVER = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/next_page_hovered.png");
+
+
     private final TabletMainScreen screen;
     public TabletEntry entry;
     private ArrayList<TabletButton> PAGES_BUTTONS = new ArrayList<>();
     public String currentPage = "main";
-    public TabletEntryWidget widget;
-    public ArrayList<TexturedButton> BUTTONS = new ArrayList<>();
-    public static final ResourceLocation MENU_BACKGROUND_LIGHT = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/tablet_background_light.png");
+
     public TexturedButton nextButton;
     public TexturedButton backButton;
+    public TabletEntryWidget widget;
+    public TexturedButton homeButton;
 
     public ArrayList<ArrayList<TabletButton>> ENTRY_BUTTONS = new ArrayList<>();
     public int currentEntryPage = 0;
@@ -62,14 +76,32 @@ public class TabletEntryScreen extends Screen {
             if(nextButton != null && backButton != null) {
                 backButton.setPosition(this.leftPos + 40, this.height / 2 - 4);
                 nextButton.setPosition(this.leftPos + 190, this.height / 2 - 4);
+                nextButton.setSize(16, 16);
+                backButton.setSize(16, 16);
+
+                homeButton.tex(HOME_BUTTON, HOME_BUTTON_HOVER);
+                backButton.tex(BACK_ARROW, BACK_ARROW_HOVER);
+                nextButton.tex(NEXT_ARROW, NEXT_ARROW_HOVER);
+                homeButton.setSize(16, 16);
+                homeButton.tex(HOME_BUTTON, HOME_BUTTON_HOVER);
+                homeButton.setPosition(this.leftPos + 18, this.topPos + 22);
+
             }
         } else {
             removeAllButtons();
             widget.visible = true;
             changeButtonVisibility(false);
             if(nextButton != null && backButton != null) {
-                backButton.setPosition(this.width / 2 - 21, this.height / 2 + 67);
-                nextButton.setPosition(this.width / 2 + 9, this.height / 2 + 67);
+                backButton.setPosition(this.width / 2 - 19, this.height / 2 + 63);
+                nextButton.setPosition(this.width / 2 + 11, this.height / 2 + 63);
+                nextButton.setSize(10, 10);
+                backButton.setSize(10, 10);
+                backButton.tex(SMALL_BACK_ARROW, SMALL_BACK_ARROW);
+                nextButton.tex(SMALL_NEXT_ARROW, SMALL_NEXT_ARROW);
+
+                homeButton.tex(SMALL_HOME_BUTTON, SMALL_HOME_BUTTON);
+                homeButton.setSize(10, 10);
+                homeButton.setPosition(this.width / 2 - 4, this.height / 2 + 63);
 
             }
         }
@@ -79,7 +111,7 @@ public class TabletEntryScreen extends Screen {
     @Override
     protected void init() {
         /** Back Button **/
-        TexturedButton homeButton = new TexturedButton(this.leftPos + 18, this.topPos + 22, 16, 16, (button1 -> {
+        homeButton = new TexturedButton(this.leftPos + 18, this.topPos + 22, 16, 16, (button1 -> {
             if (Objects.equals(currentPage, "main")) {
                 this.minecraft.setScreen(screen);
             } else {
@@ -87,7 +119,7 @@ public class TabletEntryScreen extends Screen {
                 widget.visible = false;
             }
         }))
-                .tex(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/main_page.png"), ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/main_page_hover.png"));
+                .tex(HOME_BUTTON, HOME_BUTTON_HOVER);
         this.addRenderableWidget(homeButton);
 
         AtomicInteger row = new AtomicInteger(0);
@@ -119,7 +151,7 @@ public class TabletEntryScreen extends Screen {
         });
 
 
-        this.widget = new TabletEntryWidget(this.leftPos + 15, this.topPos + 40, 215, 110, Component.literal(""), null, this);
+        this.widget = new TabletEntryWidget(this.leftPos + 15, this.topPos + 40, 215, 100, Component.literal(""), null, this);
         this.widget.visible = false;
         this.addRenderableWidget(this.widget);
 
@@ -127,12 +159,12 @@ public class TabletEntryScreen extends Screen {
             backButton = new TexturedButton(this.leftPos + 40, this.height / 2 - 4, 16, 16, (button1 -> {
                 changePage(false);
             }))
-                    .tex(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/back_page.png"), ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/back_page_hovered.png"));
+                    .tex(BACK_ARROW, BACK_ARROW_HOVER);
 
             nextButton = new TexturedButton(this.leftPos + 190, this.height / 2 - 4, 16, 16, (button1 -> {
                 changePage(true);
             }))
-                    .tex(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/next_page.png"), ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/next_page_hovered.png"));
+                    .tex(NEXT_ARROW, NEXT_ARROW_HOVER);
 
             this.addRenderableWidget(backButton);
             this.addRenderableWidget(nextButton);
@@ -285,7 +317,6 @@ public class TabletEntryScreen extends Screen {
         List<TabletEntry.Info> infos = entry.infos();
         int currentIndex = -1;
 
-        // Find the index of the current page
         for (int i = 0; i < infos.size(); i++) {
             if (infos.get(i).id().equals(getCurrentPage(currentPage))) {
                 currentIndex = i;
@@ -293,14 +324,11 @@ public class TabletEntryScreen extends Screen {
             }
         }
 
-        // If the current page wasn't found, return the first or last element
         if (currentIndex == -1) {
-            // Current page not found, either because it's the first time or something went wrong.
-            // Reset to the first or last page.
             if (!infos.isEmpty()) {
                 return forward ? infos.get(0) : infos.get(infos.size() - 1);
             } else {
-                return null; // No infos to navigate
+                return null;
             }
         }
 
