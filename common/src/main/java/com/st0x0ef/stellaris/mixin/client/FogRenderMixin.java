@@ -20,7 +20,7 @@ public class FogRenderMixin {
      */
     @Overwrite
     @Nullable
-    private static FogRenderer.MobEffectFogFunction getPriorityFogFunction(Entity entity, float partialTick) {
+    public static FogRenderer.MobEffectFogFunction getPriorityFogFunction(Entity entity, float partialTick) {
         ArrayList<FogRenderer.MobEffectFogFunction> list = new ArrayList<>(MOB_EFFECT_FOG);
         list.add(new SandStormEffect.SandStormFogFunction());
 
