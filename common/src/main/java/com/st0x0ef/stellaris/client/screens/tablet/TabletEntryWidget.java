@@ -62,7 +62,7 @@ public class TabletEntryWidget extends AbstractScrollWidget {
         guiGraphics.drawCenteredString(getFont(), info.title(), this.baseScreenWidth / 2,
                 getY() + finalHeight.get() +20 , Utils.getColorHexCode("white"));
 
-        int descriptionHeight = renderDescriptionWithEveryWords(info.description(), getX() + 5, getY() + finalHeight.get() + 20 + 20, getWidth() - 5, guiGraphics);
+        int descriptionHeight = renderDescriptionWithEveryWords(info.description(), getX() + 5, getY() + finalHeight.get() + 20 + 20, getWidth() - 20, guiGraphics);
         finalHeight.addAndGet(descriptionHeight);
 
         info.item().ifPresent((item) -> {
