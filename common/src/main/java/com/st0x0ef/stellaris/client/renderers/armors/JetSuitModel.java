@@ -79,21 +79,49 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
 				.texOffs(0, 16).addBox(-4.0F, 1.0F, 2.0F, 8.0F, 13.0F, 5.0F, new CubeDeformation(0.0F))
 				.texOffs(26, 32).addBox(-3.0F, 2.0F, 2.0F, 6.0F, 9.0F, 4.0F, new CubeDeformation(0.5F)), PartPose.offset(-2.0F, -12.0F, 0.0F));
 
-		PartDefinition left_arm = partdefinition.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(0, 34).addBox(9.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.75F))
-				.texOffs(48, 32).addBox(9.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(1.0F))
-				.texOffs(0, 50).addBox(9.0F, 11.1F, -2.0F, 4.0F, 3.0F, 4.0F, new CubeDeformation(0.0001F)), PartPose.offset(5.0F, 2.0F, 0.0F));
 
-		PartDefinition right_arm = partdefinition.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(0, 34).mirror().addBox(-13.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.75F)).mirror(false)
-				.texOffs(48, 32).mirror().addBox(-13.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(1.0F)).mirror(false)
-				.texOffs(0, 50).mirror().addBox(-13.0F, 11.1F, -2.0F, 4.0F, 3.0F, 4.0F, new CubeDeformation(0.0001F)).mirror(false), PartPose.offset(-5.0F, 2.0F, 0.0F));
+
+//		PartDefinition left_arm = partdefinition.addOrReplaceChild("left_arm", CubeListBuilder.create()
+//				.texOffs(0, 34).addBox(9.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.75F))
+//				.texOffs(48, 32).addBox(9.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(1.0F))
+//				.texOffs(0, 50).addBox(9.0F, 11.1F, -2.0F, 4.0F, 3.0F, 4.0F, new CubeDeformation(0.0001F)), PartPose.offset(5.0F, 2.0F, 0.0F));
+//
+//		PartDefinition right_arm = partdefinition.addOrReplaceChild("right_arm", CubeListBuilder.create()
+//				.texOffs(0, 34).mirror().addBox(-13.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.75F)).mirror(false)
+//				.texOffs(48, 32).mirror().addBox(-13.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(1.0F)).mirror(false)
+//				.texOffs(0, 50).mirror().addBox(-13.0F, 11.1F, -2.0F, 4.0F, 3.0F, 4.0F, new CubeDeformation(0.0001F)).mirror(false),
+//				PartPose.offset(-5.0F, 2.0F, 0.0F));
+
+
+		PartDefinition left_arm = partdefinition.addOrReplaceChild("left_arm", CubeListBuilder.create()
+						.texOffs(0, 34).mirror().addBox(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.35F))
+						.texOffs(48, 32).addBox(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.75F)
+						),
+				PartPose.offset(5.0F, 2.0F, 0.0F));
+
+		PartDefinition right_arm = partdefinition.addOrReplaceChild("right_arm", CubeListBuilder.create()
+				.texOffs(48, 32).addBox(-3.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.75F))
+				.texOffs(0, 34).mirror().addBox(-3.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.35F))
+
+				, PartPose.offset(-5.0F, 2.0F, 0.0F));
+
 
 		PartDefinition waist = partdefinition.addOrReplaceChild("waist", CubeListBuilder.create().texOffs(32, 0).addBox(-4.0F, 0.0F, -2.1F, 8.0F, 12.0F, 4.0F, new CubeDeformation(0.5F)), PartPose.offset(-2.0F, -12.0F, 0.0F));
 
-		PartDefinition left_leg = partdefinition.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(16, 45).mirror().addBox(2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.5F)).mirror(false)
-				.texOffs(0, 50).addBox(2.0F, 12.8F, -2.0F, 4.0F, 3.0F, 4.0F, new CubeDeformation(0.0001F)), PartPose.offset(-4.0F, 0.0F, 0.0F));
+//		PartDefinition left_leg = partdefinition.addOrReplaceChild("left_leg", CubeListBuilder.create()
+//				.texOffs(16, 45).mirror().addBox(2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.5F)).mirror(false)
+//				.texOffs(0, 50).addBox(2.0F, 12.8F, -2.0F, 4.0F, 3.0F, 4.0F, new CubeDeformation(0.0001F)), PartPose.offset(-4.0F, 0.0F, 0.0F));
+//
+//		PartDefinition right_leg = partdefinition.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(16, 45).addBox(-6.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.5F))
+//				.texOffs(0, 50).mirror().addBox(-6.0F, 12.8F, -2.1F, 4.0F, 3.0F, 4.0F, new CubeDeformation(0.0001F)).mirror(false), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		PartDefinition right_leg = partdefinition.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(16, 45).addBox(-6.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.5F))
-				.texOffs(0, 50).mirror().addBox(-6.0F, 12.8F, -2.1F, 4.0F, 3.0F, 4.0F, new CubeDeformation(0.0001F)).mirror(false), PartPose.offset(0.0F, 0.0F, 0.0F));
+		PartDefinition left_leg = partdefinition.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(16, 45).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.5F))
+				.texOffs(0, 50).addBox(-1.5F, 3.0F, -3.0F, 3.0F, 4.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(-1.9F, 12.0F, 0.0F));
+
+		PartDefinition right_leg = partdefinition.addOrReplaceChild("right_leg", CubeListBuilder.create()
+				.texOffs(16, 45).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.5F)), PartPose.offset(2.1F, 12.0F, 0.0F));
+
+
 
 		PartDefinition left_shoe = left_leg.addOrReplaceChild("left_shoe", CubeListBuilder.create().texOffs(32, 45).mirror().addBox(1.9F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.75F)).mirror(false), PartPose.offset(-4.0F, 0.0F, 0.0F));
 
@@ -116,12 +144,12 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
 
 	@Override
 	protected  Iterable<ModelPart> headParts() {
-		return ImmutableList.of(head, antenna, lamp);
+		return ImmutableList.of(head);
 	}
 
 	@Override
 	protected  Iterable<ModelPart> bodyParts() {
-		return ImmutableList.of(body, rightArm, leftArm, rightLeg, leftLeg, head, leftShoe, rightShoe);
+		return ImmutableList.of(body, rightArm, leftArm, rightLeg, leftLeg);
 	}
 
 	@Override
@@ -141,7 +169,6 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
 		switch (this.slot) {
 			case HEAD -> {
 				this.head.visible = true;
-				this.antenna.visible = true;
 				this.lamp.visible = true;
 			}
 			case CHEST -> {
@@ -154,7 +181,8 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
 				this.leftLeg.visible = true;
 			}
 			case FEET ->  {
-				this.waist.visible = true;
+				this.leftShoe.visible = true;
+				this.rightShoe.visible = true;
 			}
 		}
 	}
