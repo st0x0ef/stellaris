@@ -22,7 +22,7 @@ import org.jetbrains.annotations.Nullable;
 public class JetSuitModel extends HumanoidModel<LivingEntity> {
 
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "jetsuit"), "main");
-	public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/models/armor/jetsuit4.png");
+	public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/models/armor/jetsuit.png");
 	private final HumanoidModel<LivingEntity> parentModel;
 
 	private final ModelPart head;
@@ -115,8 +115,9 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
 //		PartDefinition right_leg = partdefinition.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(16, 45).addBox(-6.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.5F))
 //				.texOffs(0, 50).mirror().addBox(-6.0F, 12.8F, -2.1F, 4.0F, 3.0F, 4.0F, new CubeDeformation(0.0001F)).mirror(false), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		PartDefinition left_leg = partdefinition.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(16, 45).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.5F))
-				.texOffs(0, 50).addBox(-1.5F, 3.0F, -3.0F, 3.0F, 4.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(-1.9F, 12.0F, 0.0F));
+		PartDefinition left_leg = partdefinition.addOrReplaceChild("left_leg", CubeListBuilder.create()
+				.texOffs(16, 45).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.5F)),
+				PartPose.offset(-1.9F, 12.0F, 0.0F));
 
 		PartDefinition right_leg = partdefinition.addOrReplaceChild("right_leg", CubeListBuilder.create()
 				.texOffs(16, 45).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.5F)), PartPose.offset(2.1F, 12.0F, 0.0F));
@@ -125,7 +126,7 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
 
 		PartDefinition left_shoe = left_leg.addOrReplaceChild("left_shoe", CubeListBuilder.create().texOffs(32, 45).mirror().addBox(1.9F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.75F)).mirror(false), PartPose.offset(-4.0F, 0.0F, 0.0F));
 
-		PartDefinition right_shoe = right_leg.addOrReplaceChild("right_shoe", CubeListBuilder.create().texOffs(32, 45).addBox(-5.9F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.75F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+		PartDefinition right_shoe = right_leg.addOrReplaceChild("right_shoe", CubeListBuilder.create().texOffs(32, 45).addBox(-5.9F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.75F)), PartPose.offset(4.0F, 0.0F, 0.0F));
 
 		return LayerDefinition.create(meshdefinition, 128, 128);
 	}
@@ -179,10 +180,14 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
 			case LEGS -> {
 				this.rightLeg.visible = true;
 				this.leftLeg.visible = true;
+				this.leftShoe.visible = true;
+				this.rightShoe.visible = true;
+
 			}
 			case FEET ->  {
 				this.leftShoe.visible = true;
 				this.rightShoe.visible = true;
+
 			}
 		}
 	}
