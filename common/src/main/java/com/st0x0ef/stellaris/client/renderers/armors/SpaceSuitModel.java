@@ -54,7 +54,6 @@ public class SpaceSuitModel extends HumanoidModel<LivingEntity> {
 	}
 
 
-
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
