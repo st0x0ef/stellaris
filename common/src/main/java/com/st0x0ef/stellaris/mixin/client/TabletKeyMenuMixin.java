@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.mixin.client;
 
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.events.ClientEvents;
 import com.st0x0ef.stellaris.client.registries.KeyMappingsRegistry;
 import com.st0x0ef.stellaris.common.network.packets.OpenTabletEntryPacket;
@@ -22,7 +23,7 @@ public class TabletKeyMenuMixin {
         if (player == null) {
             return;
         }
-        if (KeyMappingsRegistry.OPEN_TABLET_INFO.matches(KeyMappingsRegistry.OPEN_TABLET_INFO.key.getValue(), keyCode)) {
+        if (KeyMappingsRegistry.OPEN_TABLET_INFO.key.getValue() == keyCode) {
             if(ClientEvents.entryHovered != null) {
                 ClientEvents.timeClicked++;
                 if(ClientEvents.timeClicked == 30) {
