@@ -61,6 +61,8 @@ processResources {
 
 shadowJar {
     configurations = [project.configurations.shadowBundle]
+    exclude "architectury.common.json"
+
     archiveClassifier = 'dev-shadow'
 }
 
