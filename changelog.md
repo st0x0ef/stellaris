@@ -6,3 +6,5 @@
 ## Fixes
 - Fix wrong recipes was used for some JEI/REI recipe displays
 - Fix text being cropped in the tablet
+- Fix energy distribution
+- Fix fluid distribution

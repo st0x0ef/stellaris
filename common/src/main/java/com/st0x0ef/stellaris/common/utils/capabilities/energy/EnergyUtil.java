@@ -77,7 +77,6 @@ public class EnergyUtil {
         int toDistribute = finalAmount;
         for (UniversalEnergyStorage to : toSend) {
             toDistribute -= moveEnergy(from, to, finalAmount/receivers);
-            receivers--;
         }
     }
 
