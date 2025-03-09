@@ -1,4 +1,4 @@
-package com.st0x0ef.stellaris.client.event.custom;
+package com.st0x0ef.stellaris.client.events.custom;
 
 import com.st0x0ef.stellaris.client.screens.info.CelestialBody;
 import com.st0x0ef.stellaris.client.screens.info.MoonInfo;
