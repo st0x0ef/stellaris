@@ -59,22 +59,24 @@ public class EnergyUtil {
 
     private static void distributeInAllDirections(Level level, BlockPos pos, int amount) {
         UniversalEnergyStorage from = Capabilities.Energy.BLOCK.getCapability(level, pos, null);
-        if (from==null) return;
-        if (from.extract(amount, true) == 0) return;
+        if (from == null || !from.canExtractEnergy()) return;
+
+        int finalAmount = from.extract(amount, true);
+        if (finalAmount == 0) return;
 
         List<UniversalEnergyStorage> toSend = Direction.stream()
                 .map(direction -> Capabilities.Energy.BLOCK.getCapability(level, pos.relative(direction), direction.getOpposite()))
                 .filter(Objects::nonNull)
                 .filter(UniversalEnergyStorage::canInsertEnergy)
-                .sorted(Comparator.comparing(energyStorage -> energyStorage.insert(amount, true)))
+                .sorted(Comparator.comparing(energyStorage -> energyStorage.insert(finalAmount, true)))
                 .toList();
 
         if (toSend.isEmpty()) return;
 
         int receivers = toSend.size();
-        int toDistribute = amount;
+        int toDistribute = finalAmount;
         for (UniversalEnergyStorage to : toSend) {
-            toDistribute -= moveEnergy(from, to, toDistribute/receivers);
+            toDistribute -= moveEnergy(from, to, finalAmount/receivers);
             receivers--;
         }
     }
