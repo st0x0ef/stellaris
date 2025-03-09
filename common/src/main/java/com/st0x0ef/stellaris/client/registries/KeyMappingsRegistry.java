@@ -15,7 +15,7 @@ public class KeyMappingsRegistry {
 
     public static KeyMapping FREEZE_PLANET_MENU = new KeyMapping("key." + Stellaris.MODID + ".freeze_planet_menu", InputConstants.KEY_X, CATEGORY);
     public static KeyMapping CHANGE_JETSUIT_MODE = new KeyMapping("key." + Stellaris.MODID + ".jetsuit_mode", InputConstants.KEY_V, CATEGORY);
-    public static KeyMapping OPEN_TABLET_INFO = new KeyMapping("key." + Stellaris.MODID + ".tablet_info", InputConstants.KEY_T, CATEGORY);
+    public static KeyMapping OPEN_TABLET_INFO = new KeyMapping("key." + Stellaris.MODID + ".tablet_info", InputConstants.KEY_N, CATEGORY);
 
     public static void clientTick(Minecraft minecraft) {
         Player player = minecraft.player;
