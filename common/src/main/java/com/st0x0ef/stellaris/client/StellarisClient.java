@@ -69,6 +69,7 @@ public class StellarisClient {
     }
 
     public static void registerOverlays() {
+        ClientGuiEvent.RENDER_HUD.register(EffectOverlays::render);
         ClientGuiEvent.RENDER_HUD.register(RocketStartOverlay::render);
         ClientGuiEvent.RENDER_HUD.register(RocketBarOverlay::render);
         ClientGuiEvent.RENDER_HUD.register(LanderOverlay::render);
