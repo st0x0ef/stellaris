@@ -81,7 +81,7 @@ subprojects {
             mavenJava(MavenPublication) {
                 groupId "com.st0x0ef.stellaris"
                 artifactId "stellaris-$modLoader-" + minecraft_version
-                version project.version
+                version project.mod_version
                 from components.java
                 pom {
                     name = "Stellaris" + modLoader.capitalize()

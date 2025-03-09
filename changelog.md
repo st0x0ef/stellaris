@@ -1,4 +1,4 @@
-# 1.3.1 changelog
+# 1.3.2 changelog
 
 ## Features
 - Tablet item
