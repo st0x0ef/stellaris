@@ -297,19 +297,9 @@ public class Utils {
     }
 
     public static boolean entityHasBlockAbove(LivingEntity entity, @Nullable BlockPos pos, @Nullable Integer recusion) {
-
-        if(pos == null) pos = entity.blockPosition();
-        if(recusion == null) recusion = 0;
-
-        if(recusion > 10) return false;
-
-        if(entity.level().getBlockState(pos).is(BlockTags.AIR)) {
-            recusion += 1;
-            return !entityHasBlockAbove(entity, pos.above(), recusion);
-        }
-
-        return false;
+        return entity.level().canSeeSky(entity.blockPosition());
     }
+
 
 
     public  <T> void addButtonToList(ArrayList<ArrayList<T>> finalList, T button, int size){
