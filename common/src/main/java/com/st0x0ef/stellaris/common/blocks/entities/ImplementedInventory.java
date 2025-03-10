@@ -35,7 +35,6 @@ public interface ImplementedInventory extends WorldlyContainer {
     }
 
 
-
     @Override
     default int[] getSlotsForFace(Direction direction) {
         int[] result = new int[getItems().size()];
