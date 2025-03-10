@@ -74,6 +74,7 @@ public class FluidRegistry {
     /** OXYGEN FLUIDS **/
     public static final ArchitecturyFluidAttributes OXYGEN_ATTRIBUTES = SimpleArchitecturyFluidAttributes.ofSupplier(() -> FluidRegistry.FLOWING_OXYGEN, () -> FluidRegistry.OXYGEN_STILL)
             .blockSupplier(() -> BlocksRegistry.OXYGEN_BLOCK)
+            .bucketItemSupplier(() -> ItemsRegistry.OXYGEN_BUCKET)
             .slopeFindDistance(4)
             .dropOff(1)
             .tickDelay(8)
