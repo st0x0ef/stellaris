@@ -18,3 +18,5 @@
 - Fix tablet info bar
 - Fix sandstorm
 - Fix cables and pipes don't loot with pickaxe
+- Fix cables and pipes loot table
+- Fix pipes textures
