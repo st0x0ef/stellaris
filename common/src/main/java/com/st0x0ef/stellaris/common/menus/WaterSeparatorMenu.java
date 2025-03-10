@@ -12,7 +12,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.material.Fluids;
 
-public class WaterSeparatorMenu extends BaseContainerOld {
+public class WaterSeparatorMenu extends BaseContainer {
 
     private final Container container;
     private final WaterSeparatorBlockEntity blockEntity;

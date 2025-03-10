@@ -9,7 +9,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 
-public class WaterPumpMenu extends BaseContainerOld {
+public class WaterPumpMenu extends BaseContainer {
 
     private final ContainerLevelAccess access;
     private final WaterPumpBlockEntity blockEntity;
