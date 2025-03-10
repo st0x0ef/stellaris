@@ -12,7 +12,7 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 
-public class FuelRefineryMenu extends BaseContainer {
+public class FuelRefineryMenu extends BaseContainerOld {
 
     private final Container container;
     private final FuelRefineryBlockEntity blockEntity;
