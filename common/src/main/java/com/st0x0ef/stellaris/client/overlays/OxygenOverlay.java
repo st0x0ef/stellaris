@@ -20,7 +20,7 @@ public class OxygenOverlay {
     public static ServerLevel serverLevel;
     public static LivingEntity livingEntity;
     public static BlockPos blockPos;
-           public void render(GuiGraphics graphic, DeltaTracker deltaTracker) {
+           public static void render(GuiGraphics graphic, DeltaTracker deltaTracker) {
                Minecraft minecraft = Minecraft.getInstance();
                if (!livingEntity.level().isClientSide()) {
                    if (!GlobalOxygenManager.getInstance().getOrCreateDimensionManager((ServerLevel) livingEntity.level()).breath(livingEntity)) {

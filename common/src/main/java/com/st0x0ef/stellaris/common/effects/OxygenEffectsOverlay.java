@@ -8,12 +8,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 
-public class FoggingScreenEffect extends MobEffect {
+public class OxygenEffectsOverlay extends MobEffect {
 
 
-    public static ResourceLocation FOGGING_OVERLAY = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/overlay/fogging_overlay.png");
+    public static ResourceLocation OXYGEN_OVERLAY = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/overlay/oxygen_overlay.png");
 
-    public FoggingScreenEffect(MobEffectCategory category, int color) {
+    public OxygenEffectsOverlay(MobEffectCategory category, int color) {
         super(category, color);
     }
 
