@@ -2,8 +2,6 @@
 
 ## Features
 - Tablet item
-- Add Power Banks
-- Add Fluid Tanks
 
 ## Changes
 - Change default tablet key (T -> N)
