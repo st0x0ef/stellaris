@@ -9,3 +9,4 @@
 
 ## Fix
 - Fix fabric mob effect
+- Fix tablet opening tooltip never reset
