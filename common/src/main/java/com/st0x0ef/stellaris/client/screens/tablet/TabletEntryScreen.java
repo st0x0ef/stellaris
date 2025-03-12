@@ -127,9 +127,7 @@ public class TabletEntryScreen extends Screen {
 
 
         entry.infos().forEach((infos) -> {
-            TabletButton tabletButton = new TabletButton(this.leftPos + 68 + (column.get() * 30), this.topPos + 60 + (row.get() * 30), 20, 20, Component.translatable(infos.id()), (button -> {
-                changeInfo(infos);
-            }), infos)
+            TabletButton tabletButton = new TabletButton(this.leftPos + 68 + (column.get() * 30), this.topPos + 60 + (row.get() * 30), 20, 20, Component.translatable(infos.id()), (button -> changeInfo(infos)), infos)
                     .tex(ResourceLocation.parse("stellaris:textures/gui/tablet/button.png"), ResourceLocation.parse("stellaris:textures/gui/tablet/button_click.png"));
 
             if(column.get() == 3) {
@@ -155,14 +153,10 @@ public class TabletEntryScreen extends Screen {
         this.addRenderableWidget(this.widget);
 
         if (ENTRY_BUTTONS.size() > 1) {
-            backButton = new TexturedButton(this.leftPos + 40, this.height / 2 - 4, 16, 16, (button1 -> {
-                changePage(false);
-            }))
+            backButton = new TexturedButton(this.leftPos + 40, this.height / 2 - 4, 16, 16, (button1 -> changePage(false)))
                     .tex(BACK_ARROW, BACK_ARROW_HOVER);
 
-            nextButton = new TexturedButton(this.leftPos + 190, this.height / 2 - 4, 16, 16, (button1 -> {
-                changePage(true);
-            }))
+            nextButton = new TexturedButton(this.leftPos + 190, this.height / 2 - 4, 16, 16, (button1 -> changePage(true)))
                     .tex(NEXT_ARROW, NEXT_ARROW_HOVER);
 
             this.addRenderableWidget(backButton);
@@ -177,9 +171,7 @@ public class TabletEntryScreen extends Screen {
     }
 
     public void changeButtonVisibility(boolean visible) {
-        TabletMainScreen.BUTTONS.forEach((texButton -> {
-            texButton.visible = visible;
-        }));
+        TabletMainScreen.BUTTONS.forEach((texButton -> texButton.visible = visible));
 
     }
 
@@ -278,26 +270,20 @@ public class TabletEntryScreen extends Screen {
 
 
     public void showEntryButton() {
-        ENTRY_BUTTONS.get(currentEntryPage).forEach(button -> {
-            button.visible = true;
-        });
+        ENTRY_BUTTONS.get(currentEntryPage).forEach(button -> button.visible = true);
     }
 
     public void removeNonShowButtons() {
         for (int i = 0; i < ENTRY_BUTTONS.size(); i++) {
             if (i != currentEntryPage) {
-                ENTRY_BUTTONS.get(i).forEach(button -> {
-                    button.visible = false;
-                });
+                ENTRY_BUTTONS.get(i).forEach(button -> button.visible = false);
             }
         }
     }
 
     public void removeAllButtons() {
-        for (int i = 0; i < ENTRY_BUTTONS.size(); i++) {
-            ENTRY_BUTTONS.get(i).forEach(button -> {
-                button.visible = false;
-            });
+        for (ArrayList<TabletButton> entryButton : ENTRY_BUTTONS) {
+            entryButton.forEach(button -> button.visible = false);
         }
     }
 
@@ -337,7 +323,7 @@ public class TabletEntryScreen extends Screen {
 
         if (currentIndex == -1) {
             if (!infos.isEmpty()) {
-                return forward ? infos.get(0) : infos.get(infos.size() - 1);
+                return forward ? infos.getFirst() : infos.getLast();
             } else {
                 return null;
             }

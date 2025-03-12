@@ -3,10 +3,7 @@ package com.st0x0ef.stellaris.platform.fabric;
 import com.st0x0ef.stellaris.Stellaris;
 import dev.architectury.registry.registries.DeferredRegister;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 
 import java.util.function.Supplier;

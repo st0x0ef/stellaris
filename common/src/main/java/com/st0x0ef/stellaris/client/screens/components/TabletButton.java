@@ -58,9 +58,7 @@ public class TabletButton extends Button {
     public void setTooltip() {
         switch (info.type()) {
             case "item":
-                info.item().ifPresent((item) -> {
-                    this.tooltip(Tooltip.create(item.stack().getDisplayName()));
-                });
+                info.item().ifPresent((item) -> this.tooltip(Tooltip.create(item.stack().getDisplayName())));
                 break;
             case "entity":
                 info.entity().ifPresent((entity) -> {
@@ -128,9 +126,7 @@ public class TabletButton extends Button {
         /** FONT RENDERER */
         switch (info.type()) {
             case "item":
-                info.item().ifPresent((item) -> {
-                    ScreenHelper.renderItemWithCustomSize(graphics, minecraft, item.stack(), this.getX(), this.getY(), this.width);
-                });
+                info.item().ifPresent((item) -> ScreenHelper.renderItemWithCustomSize(graphics, minecraft, item.stack(), this.getX(), this.getY(), this.width));
                 break;
             case "entity":
                 info.entity().ifPresent((entity) -> {

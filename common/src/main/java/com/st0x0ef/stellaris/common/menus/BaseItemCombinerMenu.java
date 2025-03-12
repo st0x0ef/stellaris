@@ -105,12 +105,12 @@ public abstract class BaseItemCombinerMenu extends AbstractContainerMenu {
     }
 
     public boolean stillValid(Player player) {
-        return this.access.evaluate((level, blockPos) -> !this.isValidBlock(level.getBlockState(blockPos)) ? false : player.canInteractWithBlock(blockPos, (double)4.0F), true);
+        return this.access.evaluate((level, blockPos) -> this.isValidBlock(level.getBlockState(blockPos)) && player.canInteractWithBlock(blockPos, 4.0F), true);
     }
 
     public ItemStack quickMoveStack(Player player, int index) {
         ItemStack itemStack = ItemStack.EMPTY;
-        Slot slot = (Slot)this.slots.get(index);
+        Slot slot = this.slots.get(index);
         if (slot != null && slot.hasItem()) {
             ItemStack itemStack2 = slot.getItem();
             itemStack = itemStack2.copy();
@@ -160,7 +160,7 @@ public abstract class BaseItemCombinerMenu extends AbstractContainerMenu {
     }
 
     public int getSlotToQuickMoveTo(ItemStack stack) {
-        return this.inputSlots.isEmpty() ? 0 : (Integer)this.inputSlotIndexes.get(0);
+        return this.inputSlots.isEmpty() ? 0 : this.inputSlotIndexes.getFirst();
     }
 
     public int getResultSlot() {
