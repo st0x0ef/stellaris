@@ -6,12 +6,12 @@
     "WWW"
   ],
   "key": {
-    "I": {"tag": "c:ingots/steel"},
-    "N": {"tag": "c:nuggets/steel"},
+    "I": {"tag": "c:ingots/heavy_metal"},
+    "N": {"tag": "c:nuggets/heavy_metal"},
     "W": {"tag": "minecraft:wool"}
   },
   "result": {
-    "id": "stellaris:cable",
+    "id": "stellaris:pipe_t1",
     "count": 6
   }
 }
