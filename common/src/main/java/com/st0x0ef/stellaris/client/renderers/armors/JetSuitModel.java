@@ -17,6 +17,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class JetSuitModel extends HumanoidModel<LivingEntity> {
@@ -144,12 +145,12 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
 	}
 
 	@Override
-	protected  Iterable<ModelPart> headParts() {
+	protected @NotNull Iterable<ModelPart> headParts() {
 		return ImmutableList.of(head);
 	}
 
 	@Override
-	protected  Iterable<ModelPart> bodyParts() {
+	protected @NotNull Iterable<ModelPart> bodyParts() {
 		return ImmutableList.of(body, rightArm, leftArm, rightLeg, leftLeg);
 	}
 
