@@ -36,7 +36,7 @@ public class CoalGeneratorMenu extends AbstractContainerMenu {
         this.entity = entity;
         this.data = containerData;
 
-        this.addSlot(new CoalGeneratorSlot(inventory, 0, 66, 54));
+        this.addSlot(new CoalGeneratorSlot(inventory, 0, 58, 54));
 
         addPlayerHotbar(playerInventory);
         addPlayerInventory(playerInventory);

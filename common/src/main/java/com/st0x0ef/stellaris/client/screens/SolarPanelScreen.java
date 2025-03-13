@@ -24,7 +24,7 @@ public class SolarPanelScreen extends AbstractContainerScreen<SolarPanelMenu> {
 
     public SolarPanelScreen(SolarPanelMenu abstractContainerMenu, Inventory inventory, Component component) {
         super(abstractContainerMenu, inventory, component);
-        imageWidth = 177;
+        imageWidth = 180;
         imageHeight = 188;
         inventoryLabelY = imageHeight - 92;
     }

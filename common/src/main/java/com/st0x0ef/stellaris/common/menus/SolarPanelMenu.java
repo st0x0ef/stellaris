@@ -26,7 +26,7 @@ public class SolarPanelMenu extends BaseContainer {
         this.inventory = container;
         this.blockEntity = entity;
 
-        addSlot(new EnergySlot(inventory, 0, 38, 44));
+        addSlot(new EnergySlot(inventory, 0, 82, 56));
 
     }
 
