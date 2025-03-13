@@ -12,7 +12,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.material.Fluids;
 
-public class WaterSeparatorMenu extends BaseContainerOld {
+public class WaterSeparatorMenu extends BaseContainer {
 
     private final Container container;
     private final WaterSeparatorBlockEntity blockEntity;
@@ -27,10 +27,10 @@ public class WaterSeparatorMenu extends BaseContainerOld {
         this.container = container;
         this.blockEntity = blockEntity;
 
-        addSlot(new ResultSlot(container, 0, 104, 114)); // Water tank output
-        addSlot(new SpecificFluidContainerSlot(container, Fluids.WATER, 1, 56, 114, false)); // Water tank input
-        addSlot(new SpecificFluidContainerSlot(container, FluidRegistry.HYDROGEN_STILL.get(), 2, 20, 114, true)); // Hydrogen tank output
-        addSlot(new SpecificFluidContainerSlot(container, FluidRegistry.OXYGEN_STILL.get(), 3, 140, 114, true)); // Oxygen tank output
+        addSlot(new ResultSlot(container, 0, 106, 108)); // Water tank output
+        addSlot(new SpecificFluidContainerSlot(container, Fluids.WATER, 1, 58, 108, false)); // Water tank input
+        addSlot(new SpecificFluidContainerSlot(container, FluidRegistry.HYDROGEN_STILL.get(), 2, 22, 108, true)); // Hydrogen tank output
+        addSlot(new SpecificFluidContainerSlot(container, FluidRegistry.OXYGEN_STILL.get(), 3, 142, 108, true)); // Oxygen tank output
     }
 
     @Override
