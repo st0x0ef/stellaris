@@ -24,9 +24,9 @@ public class FuelRefineryScreen extends AbstractContainerScreen<FuelRefineryMenu
 
     public FuelRefineryScreen(FuelRefineryMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
-        imageWidth = 177;
-        imageHeight = 192;
-        inventoryLabelY = imageHeight - 92;
+        imageWidth = 180;
+        imageHeight = 224;
+        inventoryLabelY = imageHeight - 95;
     }
 
     @Override
@@ -38,17 +38,16 @@ public class FuelRefineryScreen extends AbstractContainerScreen<FuelRefineryMenu
         }
 
         SingleFluidStorage ingredientTank = blockEntity.getIngredientTank();
-        ingredientTankGauge = new GaugeWidget(leftPos + 41, topPos + 36, 12, 46, Component.translatable("stellaris.screen.oil"),
+        ingredientTankGauge = new GaugeWidget(leftPos + 36, topPos + 56, 12, 46, Component.translatable("stellaris.screen.oil"),
                 GUISprites.OIL_OVERLAY, GUISprites.LIQUID_TANK_OVERLAY, ingredientTank.getTankCapacity(0), GaugeWidget.Direction4.DOWN_UP);
         addRenderableWidget(ingredientTankGauge);
 
         SingleFluidStorage resultTank = blockEntity.getResultTank();
-        resultTankGauge = new GaugeWidget(leftPos + 98, topPos + 36, 12, 46, Component.translatable("stellaris.screen.fuel"),
+        resultTankGauge = new GaugeWidget(leftPos + 84, topPos + 56, 12, 46, Component.translatable("stellaris.screen.fuel"),
                 GUISprites.FUEL_OVERLAY, GUISprites.LIQUID_TANK_OVERLAY, resultTank.getTankCapacity(0), GaugeWidget.Direction4.DOWN_UP);
         addRenderableWidget(resultTankGauge);
 
-        energyGauge = new GaugeWidget(leftPos + 147, topPos + 34, 13, 48, Component.translatable("stellaris.screen.energyContainer"),
-                GUISprites.ENERGY_FULL, GUISprites.BATTERY_OVERLAY_OLD, blockEntity.getEnergy(null).getMaxEnergy(), GaugeWidget.Direction4.DOWN_UP);
+        energyGauge = new GaugeWidget(leftPos + 67, topPos + 15, 46, 15, Component.translatable("stellaris.screen.energyContainer"), GUISprites.SIDEWAYS_ENERGY_FULL, GUISprites.SIDEWAYS_BATTERY_OVERLAY, blockEntity.getEnergy(null).getMaxEnergy(), GaugeWidget.Direction4.LEFT_RIGHT);
         addRenderableWidget(energyGauge);
     }
 
