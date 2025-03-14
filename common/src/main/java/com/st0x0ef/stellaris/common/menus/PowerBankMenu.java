@@ -25,9 +25,8 @@ public class PowerBankMenu extends BaseContainer {
         this.inventory = container;
         this.blockEntity = entity;
 
-        // TODO real x,y values
-        addSlot(new EnergySlot(inventory, 0, 38, 44)); // INSERT
-        addSlot(new EnergySlot(inventory, 1, 55, 44)); // EXTRACT
+        addSlot(new EnergySlot(inventory, 0, 64, 56)); // INSERT
+        addSlot(new EnergySlot(inventory, 1, 100, 56)); // EXTRACT
 
     }
 

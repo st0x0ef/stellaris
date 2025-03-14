@@ -22,7 +22,7 @@ public class PowerBankScreen extends AbstractContainerScreen<PowerBankMenu> {
 
     public PowerBankScreen(PowerBankMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
-        imageWidth = 177;
+        imageWidth = 180;
         imageHeight = 188;
         inventoryLabelY = imageHeight - 92;
     }
