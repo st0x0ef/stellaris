@@ -12,6 +12,7 @@ import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
+import org.jetbrains.annotations.Nullable;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
@@ -23,13 +24,14 @@ import java.util.regex.Pattern;
 
 public class TabletEntryWidget extends AbstractScrollWidget {
 
-    private static final ResourceLocation SCROLLER_SPRITE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "icon/scroller");
+    private static ResourceLocation SCROLLER_SPRITE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "icon/scroller");
 
     private final AtomicInteger finalHeight = new AtomicInteger(0);
     private TabletEntry.Info info;
     private int baseScreenWidth;
     private final TabletEntryScreen screen;
     private final ArrayList<ClickBox> clickBoxes = new ArrayList<>();
+    private ClickBox scrollBox = null;
 
     public TabletEntryWidget(int x, int y, int width, int height, Component message, TabletEntry.Info info, TabletEntryScreen screen) {
         super(x, y, width, height, message);
@@ -58,9 +60,16 @@ public class TabletEntryWidget extends AbstractScrollWidget {
     protected void renderContents(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         if (this.info == null) return;
 
+        if (scrollBox != null && scrollBox.isHovered(mouseX, mouseY, (int) 0)) {
+            SCROLLER_SPRITE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "icon/scroller_hover");
+        } else {
+            SCROLLER_SPRITE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "icon/scroller");
+        }
+
+
         finalHeight.set(0);
         guiGraphics.drawCenteredString(getFont(), info.title(), this.baseScreenWidth / 2,
-                getY() + finalHeight.get() +20 , Utils.getColorHexCode("white"));
+                getY() + finalHeight.get() + 10 , Utils.getColorHexCode("white"));
 
         int descriptionHeight = renderDescriptionWithEveryWords(info.description(), getX() + 5, getY() + finalHeight.get() + 20 + 20, getWidth() - 20, guiGraphics);
         finalHeight.addAndGet(descriptionHeight);
@@ -90,11 +99,6 @@ public class TabletEntryWidget extends AbstractScrollWidget {
         });
     }
 
-    public void resize(TabletEntryScreen screen) {
-        this.baseScreenWidth = screen.width;
-
-        this.setInfo(ResourceLocation.parse(screen.currentPage));
-    }
 
     @Override
     protected void updateWidgetNarration(NarrationElementOutput narrationElementOutput) {
@@ -107,8 +111,20 @@ public class TabletEntryWidget extends AbstractScrollWidget {
 
         int k = Math.max(this.getY(), (int) this.scrollAmount() * (this.height - i) / this.getMaxScrollAmount() + this.getY());
         RenderSystem.enableBlend();
+
+        scrollBox = new ClickBox(j, k, 8, i, null);
+
         guiGraphics.blitSprite(SCROLLER_SPRITE, j, k, 8, i);
         RenderSystem.disableBlend();
+    }
+
+    @Override
+    public void mouseMoved(double mouseX, double mouseY) {
+
+        Stellaris.LOG.error("e");
+
+        super.mouseMoved(mouseX, mouseY);
+
     }
 
     @Override
@@ -121,6 +137,8 @@ public class TabletEntryWidget extends AbstractScrollWidget {
 
         return super.mouseClicked(mouseX, mouseY, button);
     }
+
+
 
     public void addClickBox(double x, double y, double width, double height, String brutText) {
         Pattern pattern = Pattern.compile("\\[ref=.*?\\]");
@@ -232,7 +250,7 @@ public class TabletEntryWidget extends AbstractScrollWidget {
         }
     }
 
-    private record ClickBox(int x, int y, int width, int height, String action) {
+    private record ClickBox(int x, int y, int width, int height, @Nullable String action) {
 
         public boolean isHovered(int mouseX, int mouseY, int finalHeight) {
                 mouseY += finalHeight;
@@ -240,9 +258,10 @@ public class TabletEntryWidget extends AbstractScrollWidget {
             }
 
             public void changePage(TabletEntryScreen entryScreen) {
-                ResourceLocation location = ResourceLocation.parse(action);
-                entryScreen.widget.setInfo(location);
-
+                if (action != null) {
+                    ResourceLocation location = ResourceLocation.parse(action);
+                    entryScreen.widget.setInfo(location);
+                }
             }
 
         }

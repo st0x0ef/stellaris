@@ -1,8 +1,8 @@
 {
   "id": "mobs",
   "description": "Discover all the mobs of Stellaris",
-  "icon": "stellaris:textures/gui/tablet/rocket_page.png",
-  "hoverIcon": "stellaris:textures/gui/tablet/rocket_page_hover.png",
+  "icon": "stellaris:textures/gui/tablet/mob_page.png",
+  "hoverIcon": "stellaris:textures/gui/tablet/mob_page_hover.png",
   "infos": [
     {
       "type": "entity",
