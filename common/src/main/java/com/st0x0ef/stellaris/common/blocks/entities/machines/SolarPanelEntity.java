@@ -29,7 +29,7 @@ public class SolarPanelEntity extends BaseGeneratorBlockEntity {
     @Override
     public void tick() {
         super.tick();
-        EnergyUtil.moveEnergyToItem(getEnergy(null), items.getFirst(), 10);
+        EnergyUtil.moveEnergyToItem(getEnergy(null), getItem(0), 10);
     }
 
     protected Component getDefaultName() {

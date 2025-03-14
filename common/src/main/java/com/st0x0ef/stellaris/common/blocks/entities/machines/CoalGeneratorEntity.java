@@ -98,6 +98,7 @@ public class CoalGeneratorEntity extends BaseGeneratorBlockEntity {
             energyContainer.insert(energyGeneratedPT, false);
         }
 
+        EnergyUtil.moveEnergyToItem(getEnergy(null), getItem(1), 10);
         EnergyUtil.distributeEnergyNearby(level, worldPosition, maxCapacity);
     }
 
@@ -138,7 +139,7 @@ public class CoalGeneratorEntity extends BaseGeneratorBlockEntity {
 
     @Override
     public int getContainerSize() {
-        return 1;
+        return 2;
     }
 
 }

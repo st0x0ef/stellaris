@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.common.menus;
 
 import com.st0x0ef.stellaris.common.blocks.entities.machines.CoalGeneratorEntity;
 import com.st0x0ef.stellaris.common.menus.slot.CoalGeneratorSlot;
+import com.st0x0ef.stellaris.common.menus.slot.EnergySlot;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.Mth;
@@ -25,18 +26,19 @@ public class CoalGeneratorMenu extends AbstractContainerMenu {
     public static CoalGeneratorMenu create(int syncId, Inventory inventory, FriendlyByteBuf data) {
         CoalGeneratorEntity entity = (CoalGeneratorEntity) inventory.player.level().getBlockEntity(data.readBlockPos());
 
-        return new CoalGeneratorMenu(syncId, inventory, new SimpleContainer(1), entity, new SimpleContainerData(2));
+        return new CoalGeneratorMenu(syncId, inventory, new SimpleContainer(2), entity, new SimpleContainerData(2));
     }
 
     public CoalGeneratorMenu(int syncId, Inventory playerInventory, Container container, CoalGeneratorEntity entity, ContainerData containerData) {
         super(MenuTypesRegistry.COAL_GENERATOR_MENU.get(), syncId);
 
-        checkContainerSize(container, 1);
+        checkContainerSize(container, 2);
         this.inventory = container;
         this.entity = entity;
         this.data = containerData;
 
         this.addSlot(new CoalGeneratorSlot(inventory, 0, 58, 54));
+        addSlot(new EnergySlot(inventory, 1, 106, 54));
 
         addPlayerHotbar(playerInventory);
         addPlayerInventory(playerInventory);
