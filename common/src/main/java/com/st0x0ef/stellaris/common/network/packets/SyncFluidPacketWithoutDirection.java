@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.network.packets;
 
+import com.fej1fun.potentials.components.FluidAmountMapDataComponent;
 import com.fej1fun.potentials.fluid.BaseFluidStorage;
 import com.fej1fun.potentials.providers.FluidProvider;
 import com.st0x0ef.stellaris.Stellaris;
@@ -16,11 +17,11 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
-public record SyncFluidPacketWithoutDirection(FluidStack fluidStack, int tank, BlockPos pos) implements CustomPacketPayload {
+public record SyncFluidPacketWithoutDirection(FluidAmountMapDataComponent fluid, int tank, BlockPos pos) implements CustomPacketPayload {
 
     public static final Type<SyncFluidPacketWithoutDirection> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "fluid_sync_packet_without_direction"));
     public static final StreamCodec<RegistryFriendlyByteBuf, SyncFluidPacketWithoutDirection> STREAM_CODEC = StreamCodec.composite(
-            FluidStack.STREAM_CODEC, SyncFluidPacketWithoutDirection::fluidStack,
+            FluidAmountMapDataComponent.STREAM_CODEC, SyncFluidPacketWithoutDirection::fluid,
             ByteBufCodecs.VAR_INT, SyncFluidPacketWithoutDirection::tank,
             BlockPos.STREAM_CODEC, SyncFluidPacketWithoutDirection::pos,
             SyncFluidPacketWithoutDirection::new
@@ -35,10 +36,11 @@ public record SyncFluidPacketWithoutDirection(FluidStack fluidStack, int tank, B
         context.queue(() -> {
             ClientLevel level = Minecraft.getInstance().level;
             if (level != null && level.getBlockEntity(data.pos) instanceof FluidProvider.BLOCK fluidProvider)
-                if (fluidProvider.getFluidTank(null) instanceof BaseFluidStorage fluidStorage)
-                    fluidStorage.setFluidInTank(data.tank, data.fluidStack);
+                if (fluidProvider.getFluidTank(null) instanceof BaseFluidStorage fluidStorage) {
+                    fluidStorage.setFluidInTank(data.tank, FluidStack.create(data.fluid.getAsFluidStack(0), data.fluid.getAmount(0)));
+                }
                 else if (fluidProvider.getFluidTank(null) instanceof SingleFluidStorage fluidStorage) {
-                    fluidStorage.setFluidInTank(data.fluidStack);
+                    fluidStorage.setFluidInTank(FluidStack.create(data.fluid.getAsFluidStack(0), data.fluid.getAmount(0)));
                 }
         });
     }

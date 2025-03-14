@@ -17,9 +17,11 @@ import java.util.List;
 public interface NetworkRegistry {
     CustomPacketPayload.Type<KeyHandlerPacket> KEY_HANDLER_ID = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "key_handler"));
     CustomPacketPayload.Type<TeleportEntityToPlanetPacket> TELEPORT_ENTITY_ID = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "teleport_entity"));
+    CustomPacketPayload.Type<OpenTabletEntryPacket> TABLET_OPEN_HANDLER_ID = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "tablet_open_handler"));
 
     CustomPacketPayload.Type<SyncPlanetsDatapackPacket> SYNC_PLANETS_DATAPACK = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "sync_planet_datapack"));
     CustomPacketPayload.Type<SyncRocketComponentPacket> SYNC_ROCKET_COMPONENT_ID = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "sync_rocket_component"));
+
     CustomPacketPayload.Type<SyncRoverComponentPacket> SYNC_ROVER_COMPONENT_ID = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "sync_rover_component"));
     CustomPacketPayload.Type<SyncRoverPacket> SYNC_ROVER_CONTROLS = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "sync_rover_packet"));
 
@@ -27,6 +29,7 @@ public interface NetworkRegistry {
         registerC2S(KEY_HANDLER_ID, KeyHandlerPacket.STREAM_CODEC, KeyHandlerPacket::handle);
         registerC2S(TELEPORT_ENTITY_ID, TeleportEntityToPlanetPacket.STREAM_CODEC, TeleportEntityToPlanetPacket::handle);
         registerC2S(SYNC_ROVER_CONTROLS, SyncRoverPacket.STREAM_CODEC,SyncRoverPacket::handle);
+        registerC2S(TABLET_OPEN_HANDLER_ID, OpenTabletEntryPacket.STREAM_CODEC, OpenTabletEntryPacket::handle);
 
         registerS2C(SYNC_PLANETS_DATAPACK, SyncPlanetsDatapackPacket.STREAM_CODEC, SyncPlanetsDatapackPacket::handle);
         registerS2C(SYNC_ROCKET_COMPONENT_ID, SyncRocketComponentPacket.STREAM_CODEC, SyncRocketComponentPacket::handle);

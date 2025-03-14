@@ -37,7 +37,7 @@ public interface ImplementedInventory extends WorldlyContainer {
 
 
     @Override
-    default int[] getSlotsForFace(Direction direction) {
+    default int @NotNull [] getSlotsForFace(Direction direction) {
         int[] result = new int[getItems().size()];
         for (int i = 0; i < result.length; i++) {
             result[i] = i;
@@ -79,7 +79,7 @@ public interface ImplementedInventory extends WorldlyContainer {
     }
 
     @Override
-    default ItemStack removeItem(int i, int j) {
+    default @NotNull ItemStack removeItem(int i, int j) {
         ItemStack result = ContainerHelper.removeItem(getItems(), i, j);
         if (!result.isEmpty()) {
             setChanged();
@@ -89,7 +89,7 @@ public interface ImplementedInventory extends WorldlyContainer {
     }
 
     @Override
-    default ItemStack removeItemNoUpdate(int i) {
+    default @NotNull ItemStack removeItemNoUpdate(int i) {
         return ContainerHelper.takeItem(getItems(), i);
     }
 

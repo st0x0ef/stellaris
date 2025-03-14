@@ -68,7 +68,7 @@ public abstract class BaseContainer extends AbstractContainerMenu {
     public void addPlayerHotbar(Inventory playerInventory, int y) {
         int j;
         for(j = 0; j < 9; ++j) {
-            this.addSlot(new Slot(playerInventory, j, 8 + j * 18, y));
+            this.addSlot(new Slot(playerInventory, j, 10 + j * 18, y));
         }
     }
 
@@ -77,7 +77,7 @@ public abstract class BaseContainer extends AbstractContainerMenu {
         int k;
         for(j = 0; j < 3; ++j) {
             for(k = 0; k < 9; ++k) {
-                this.addSlot(new Slot(playerInventory, k + j * 9 + 9, 8 + k * 18, (84 + j * 18) + y));
+                this.addSlot(new Slot(playerInventory, k + j * 9 + 9, 10 + k * 18, (84 + j * 18) + y));
             }
         }
     }

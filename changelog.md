@@ -1,5 +1,12 @@
-# 1.2.4 changelog
+# 1.3.3 changelog
 
-## Fixes
-- Fix fabric key press event ([#61](https://github.com/st0x0ef/stellaris/issues/61))
-- Fix rocket sound
+## Additions
+- Add missing recipe for cable and pipe
+
+## Changes
+- Updated Sky Aesthetics (1.4.4 => 1.5.0)
+- Change cable t1 recipe
+
+## Fix
+- Fix fabric mob effect
+- Fix tablet opening tooltip never reset

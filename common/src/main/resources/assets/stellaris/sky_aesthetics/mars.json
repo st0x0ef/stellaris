@@ -1,0 +1,64 @@
+{
+  "world": "stellaris:mars",
+  "fog_settings": {
+    "fog": true
+  },
+  "cloud_settings": {
+    "cloud": false,
+    "cloud_height": 192
+  },
+  "rain": true,
+  "custom_vanilla_objects": {
+    "sun": true,
+    "sun_texture": "textures/environment/sun.png",
+    "sun_height": 150,
+    "sun_size": 150,
+
+    "moon": true,
+    "moon_phase": false,
+    "moon_texture": "stellaris:textures/environment/solar_system/phobos.png",
+    "moon_height": 150,
+    "moon_size": 150
+
+  },
+  "sunrise_color": [0, 140 , 205 ],
+  "sunrise_alpha_modifier": 0,
+  "stars": {
+    "vanilla": false,
+    "moving_stars": true,
+    "count": 10000,
+    "all_days_visible": true,
+    "scale": 0.05,
+    "color": [255, 255, 255],
+    "shooting_stars": {
+      "percentage": 999,
+      "random_lifetime": [
+        20,
+        100
+      ],
+      "scale": 0.1,
+      "speed": 0.4,
+      "color": [190, 160, -1]
+
+    }
+  },
+  "sky_type": "NORMAL",
+  "sky_color": {
+    "custom_color": false,
+    "color": [255, 255, 255, 0]
+  },
+  "sky_objects": [
+    {
+      "texture": "stellaris:textures/environment/solar_system/earth.png",
+      "blend": true,
+      "size": 8.0,
+      "rotation": [
+        60.0,
+        0.0,
+        5.0
+      ],
+      "height": 100,
+      "rotation_type": "DAY"
+    }
+  ]
+}

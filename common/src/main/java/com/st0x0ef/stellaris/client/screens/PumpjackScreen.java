@@ -26,8 +26,8 @@ public class PumpjackScreen extends AbstractContainerScreen<PumpjackMenu> {
 
     public PumpjackScreen(PumpjackMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
-        imageWidth = 177;
-        imageHeight = 192;
+        imageWidth = 180;
+        imageHeight = 224;
         inventoryLabelY = imageHeight - 92;
     }
 
@@ -40,10 +40,10 @@ public class PumpjackScreen extends AbstractContainerScreen<PumpjackMenu> {
         }
 
         SingleFluidStorage resultTank = blockEntity.getResultTank();
-        resultTankGauge = new GaugeWidget(leftPos + 79, topPos + 32, 12, 46, Component.translatable("stellaris.screen.oil"), GUISprites.OIL_OVERLAY, GUISprites.LIQUID_TANK_OVERLAY, resultTank.getTankCapacity(0), GaugeWidget.Direction4.DOWN_UP);
+        resultTankGauge = new GaugeWidget(leftPos + 92, topPos + 52, 12, 46, Component.translatable("stellaris.screen.oil"), GUISprites.OIL_OVERLAY, GUISprites.LIQUID_TANK_OVERLAY, resultTank.getTankCapacity(0), GaugeWidget.Direction4.DOWN_UP);
         addRenderableWidget(resultTankGauge);
 
-        energyGauge = new GaugeWidget(leftPos + 147, topPos + 31, 13, 46, Component.translatable("stellaris.screen.energyContainer"), GUISprites.ENERGY_FULL, GUISprites.BATTERY_OVERLAY, blockEntity.getEnergy(null).getMaxEnergy(), GaugeWidget.Direction4.DOWN_UP);
+        energyGauge = new GaugeWidget(leftPos + 67, topPos + 15, 46, 15, Component.translatable("stellaris.screen.energyContainer"), GUISprites.SIDEWAYS_ENERGY_FULL, GUISprites.SIDEWAYS_BATTERY_OVERLAY, blockEntity.getEnergy(null).getMaxEnergy(), GaugeWidget.Direction4.LEFT_RIGHT);
         addRenderableWidget(energyGauge);
     }
 
@@ -57,8 +57,8 @@ public class PumpjackScreen extends AbstractContainerScreen<PumpjackMenu> {
             return;
         }
 
-        guiGraphics.drawString(this.font, "Oil Level", leftPos + 20, topPos + 33, Utils.getColorHexCode("gray"));
-        guiGraphics.drawCenteredString(this.font, String.valueOf(blockEntity.chunkOilLevel(Minecraft.getInstance().level)), leftPos + 40, topPos + 44, OilUtils.getOilLevelColor(blockEntity.chunkOilLevel(Minecraft.getInstance().level)));
+        guiGraphics.drawString(this.font, "Oil Level", leftPos + 20, topPos + 46, Utils.getColorHexCode("gray"));
+        guiGraphics.drawCenteredString(this.font, String.valueOf(blockEntity.chunkOilLevel(Minecraft.getInstance().level)), leftPos + 40, topPos + 57, OilUtils.getOilLevelColor(blockEntity.chunkOilLevel(Minecraft.getInstance().level)));
 
         resultTankGauge.updateAmount(blockEntity.getResultTank().getFluidValueInTank());
         energyGauge.updateAmount(blockEntity.getEnergy(null).getEnergy());

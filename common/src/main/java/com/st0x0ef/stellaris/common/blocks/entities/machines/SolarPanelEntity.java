@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
 import com.st0x0ef.stellaris.common.menus.SolarPanelMenu;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
+import com.st0x0ef.stellaris.common.utils.capabilities.energy.EnergyUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -23,6 +24,12 @@ public class SolarPanelEntity extends BaseGeneratorBlockEntity {
     public boolean canGenerate() {
         BlockPos blockPos = this.getBlockPos().offset(0, 1, 0);
         return level.isDay() && level.canSeeSky(blockPos);
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        EnergyUtil.moveEnergyToItem(getEnergy(null), items.getFirst(), 10);
     }
 
     protected Component getDefaultName() {

@@ -10,5 +10,9 @@
   "textures": {
     "planet": "stellaris:textures/planet_bar/venus_planet_bar.png",
     "planet_bar": "stellaris:textures/planet_bar/venus_planet_bar.png"
+  },
+  "stormParameters": {
+    "lightningFrequency": 12000,
+    "color": [255, 178, 102]
   }
 }

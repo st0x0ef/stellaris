@@ -12,7 +12,7 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 
-public class FuelRefineryMenu extends BaseContainer {
+public class FuelRefineryMenu extends BaseContainerOld {
 
     private final Container container;
     private final FuelRefineryBlockEntity blockEntity;
@@ -28,11 +28,11 @@ public class FuelRefineryMenu extends BaseContainer {
         this.blockEntity = blockEntity;
 
         // Ingredient tank
-        addSlot(new SpecificFluidContainerSlot(container, FluidRegistry.FLOWING_OIL.get(), 0, 10, 36, false));
+        addSlot(new SpecificFluidContainerSlot(container, FluidRegistry.OIL_STILL.get(), 0, 10, 36, false));
         addSlot(new ResultSlot(container, 1, 10, 66));
 
         // Result tank
-        addSlot(new FluidContainerSlot(container, 2, 125, 36, true, true));
+        addSlot(new FluidContainerSlot(container, 2, 125, 36, false, true));
         addSlot(new ResultSlot(container, 3, 125, 66));
     }
 

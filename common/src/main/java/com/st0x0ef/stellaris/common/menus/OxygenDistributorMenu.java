@@ -1,7 +1,8 @@
 package com.st0x0ef.stellaris.common.menus;
 
 import com.st0x0ef.stellaris.common.blocks.entities.machines.OxygenDistributorBlockEntity;
-import com.st0x0ef.stellaris.common.menus.slot.OxygenTankSlot;
+import com.st0x0ef.stellaris.common.menus.slot.SpecificFluidContainerSlot;
+import com.st0x0ef.stellaris.common.registry.FluidRegistry;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
@@ -15,11 +16,11 @@ public class OxygenDistributorMenu extends BaseContainer {
     private final OxygenDistributorBlockEntity blockEntity;
 
     public OxygenDistributorMenu(int containerId, Inventory inventory, Container container, OxygenDistributorBlockEntity blockEntity) {
-        super(MenuTypesRegistry.OXYGEN_DISTRIBUTOR.get(), containerId, 1, inventory, 8);
+        super(MenuTypesRegistry.OXYGEN_DISTRIBUTOR.get(), containerId, 1, inventory, 22);
         this.container = container;
         this.blockEntity = blockEntity;
 
-        addSlot(new OxygenTankSlot(container, 0, 80, 26));
+        addSlot(new SpecificFluidContainerSlot(container, FluidRegistry.OXYGEN_STILL.get(), 0, 96, 54, false));
     }
 
     public static OxygenDistributorMenu create(int syncId, Inventory inventory, FriendlyByteBuf data) {

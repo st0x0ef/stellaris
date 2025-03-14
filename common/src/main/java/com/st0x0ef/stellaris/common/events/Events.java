@@ -14,10 +14,7 @@ import dev.architectury.event.events.common.TickEvent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.CampfireBlock;
-import net.minecraft.world.level.block.LanternBlock;
-import net.minecraft.world.level.block.WallTorchBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.phys.AABB;
 
 public class Events {
@@ -66,6 +63,54 @@ public class Events {
                     return EventResult.interruptFalse();
                 } else if (state.is(Blocks.CAMPFIRE)) {
                     serverLevel.setBlock(pos, state.setValue(CampfireBlock.LIT, false), 3);
+                    return EventResult.interruptFalse();
+                } else if (state.is(Blocks.CANDLE)) {
+                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
+                    return EventResult.interruptFalse();
+                } else if (state.is(Blocks.CYAN_CANDLE)) {
+                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
+                    return EventResult.interruptFalse();
+                } else if (state.is(Blocks.BLACK_CANDLE)) {
+                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
+                    return EventResult.interruptFalse();
+                } else if (state.is(Blocks.BLUE_CANDLE)) {
+                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
+                    return EventResult.interruptFalse();
+                } else if (state.is(Blocks.BROWN_CANDLE)) {
+                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
+                    return EventResult.interruptFalse();
+                } else if (state.is(Blocks.GREEN_CANDLE)) {
+                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
+                    return EventResult.interruptFalse();
+                } else if (state.is(Blocks.LIGHT_BLUE_CANDLE)) {
+                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
+                    return EventResult.interruptFalse();
+                } else if (state.is(Blocks.YELLOW_CANDLE)) {
+                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
+                    return EventResult.interruptFalse();
+                } else if (state.is(Blocks.WHITE_CANDLE)) {
+                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
+                    return EventResult.interruptFalse();
+                } else if (state.is(Blocks.RED_CANDLE)) {
+                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
+                    return EventResult.interruptFalse();
+                } else if (state.is(Blocks.PINK_CANDLE)) {
+                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
+                    return EventResult.interruptFalse();
+                } else if (state.is(Blocks.MAGENTA_CANDLE)) {
+                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
+                    return EventResult.interruptFalse();
+                } else if (state.is(Blocks.PURPLE_CANDLE)) {
+                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
+                    return EventResult.interruptFalse();
+                } else if (state.is(Blocks.LIME_CANDLE)) {
+                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
+                    return EventResult.interruptFalse();
+                } else if (state.is(Blocks.ORANGE_CANDLE)) {
+                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
+                    return EventResult.interruptFalse();
+                } else if (state.is(Blocks.LIGHT_GRAY_CANDLE)) {
+                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
                     return EventResult.interruptFalse();
                 }
             }

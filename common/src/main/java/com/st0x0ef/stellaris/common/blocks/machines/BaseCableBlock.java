@@ -6,7 +6,6 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.PipeBlock;
 import net.minecraft.world.level.block.RenderShape;
@@ -23,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 
-public abstract class BaseCableBlock extends BaseEntityBlock {
+public abstract class BaseCableBlock extends BaseTickingEntityBlock {
     private static final Direction[] DIRECTIONS = Direction.values();
     public static final BooleanProperty NORTH = PipeBlock.NORTH;
     public static final BooleanProperty EAST = PipeBlock.EAST;
@@ -55,10 +54,10 @@ public abstract class BaseCableBlock extends BaseEntityBlock {
     public BlockState getStateForPlacement(BlockPlaceContext blockPlaceContext) {
         Level level = blockPlaceContext.getLevel();
         BlockPos blockPos = blockPlaceContext.getClickedPos();
-        BlockState state = this.defaultBlockState();
+        BlockState[] state = {this.defaultBlockState()};
         PROPERTY_BY_DIRECTION.forEach((direction, booleanProperty) ->
-            state.setValue(booleanProperty, isConnectable(level, blockPos.relative(direction), direction.getOpposite())));
-        return state;
+            state[0] = state[0].setValue(booleanProperty, isConnectable(level, blockPos.relative(direction), direction.getOpposite())));
+        return state[0];
     }
 
     abstract boolean isConnectable(Level level, BlockPos pos, Direction direction);
@@ -83,23 +82,6 @@ public abstract class BaseCableBlock extends BaseEntityBlock {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(UP, DOWN, NORTH, EAST, SOUTH, WEST);
-    }
-
-    @Override
-    protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
-        state.updateNeighbourShapes(level, pos, UPDATE_NEIGHBORS);
-        state.updateNeighbourShapes(level, pos, UPDATE_CLIENTS);
-    }
-
-    @Override
-    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
-        if (!state.is(newState.getBlock())) {
-            //if (blockEntity instanceof CableBlockEntity) not sure this if statement is necessary
-            state.updateNeighbourShapes(level, pos, UPDATE_NEIGHBORS);
-            state.updateNeighbourShapes(level, pos, UPDATE_CLIENTS);
-
-            super.onRemove(state, level, pos, newState, movedByPiston);
-        }
     }
 
     @Override

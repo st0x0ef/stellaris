@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.common.menus;
 
 import com.st0x0ef.stellaris.common.blocks.entities.machines.WaterSeparatorBlockEntity;
-import com.st0x0ef.stellaris.common.menus.slot.FluidContainerSlot;
 import com.st0x0ef.stellaris.common.menus.slot.ResultSlot;
 import com.st0x0ef.stellaris.common.menus.slot.SpecificFluidContainerSlot;
 import com.st0x0ef.stellaris.common.registry.FluidRegistry;
@@ -13,7 +12,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.material.Fluids;
 
-public class WaterSeparatorMenu extends BaseContainer {
+public class WaterSeparatorMenu extends BaseContainerOld {
 
     private final Container container;
     private final WaterSeparatorBlockEntity blockEntity;
@@ -30,8 +29,8 @@ public class WaterSeparatorMenu extends BaseContainer {
 
         addSlot(new ResultSlot(container, 0, 104, 114)); // Water tank output
         addSlot(new SpecificFluidContainerSlot(container, Fluids.WATER, 1, 56, 114, false)); // Water tank input
-        addSlot(new SpecificFluidContainerSlot(container, FluidRegistry.FLOWING_HYDROGEN.get(), 2, 20, 114, true)); // Hydrogen tank output
-        addSlot(new FluidContainerSlot(container, 3, 140, 114, true, true)); // Oxygen tank output
+        addSlot(new SpecificFluidContainerSlot(container, FluidRegistry.HYDROGEN_STILL.get(), 2, 20, 114, true)); // Hydrogen tank output
+        addSlot(new SpecificFluidContainerSlot(container, FluidRegistry.OXYGEN_STILL.get(), 3, 140, 114, true)); // Oxygen tank output
     }
 
     @Override

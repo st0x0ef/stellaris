@@ -5,10 +5,12 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.CableBlockEntity;
+import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -34,6 +36,16 @@ public class CableBlock extends BaseCableBlock {
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new CableBlockEntity(pos, state, capacity, maxIn, maxOut);
+    }
+
+    @Override
+    public BlockEntityType<?> getBlockEntityType() {
+        return BlockEntityRegistry.CABLE_ENTITY.get();
+    }
+
+    @Override
+    public boolean hasTicker(Level level) {
+        return !level.isClientSide;
     }
 
     @Override

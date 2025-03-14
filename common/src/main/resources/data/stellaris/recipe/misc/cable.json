@@ -1,16 +1,17 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    " R ",
-    "R#R",
-    " R "
+    "WWW",
+    "NIN",
+    "WWW"
   ],
   "key": {
-    "#": {"item": "stellaris:heavy_metal_ingot"},
-    "R": {"item": "stellaris:heavy_metal_nugget"}
+    "I": {"tag": "c:ingots/steel"},
+    "N": {"tag": "c:nuggets/steel"},
+    "W": {"tag": "minecraft:wool"}
   },
   "result": {
     "id": "stellaris:cable",
-    "count": 4
+    "count": 6
   }
 }
