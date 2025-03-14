@@ -1,5 +1,7 @@
 package com.st0x0ef.stellaris.client.screens.info;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -11,7 +13,11 @@ public class PlanetInfo extends CelestialBody {
     public final double orbitRadius;
     public double currentAngle;
 
-    public PlanetInfo(ResourceLocation texture, String name, double orbitRadius, long orbitDuration, int width, int height, CelestialBody orbitCenter, ResourceKey<Level> dimension, Component translatable, String id, boolean spaceStation) {
+    public PlanetInfo(ResourceLocation texture, String name, double orbitRadius, long orbitDuration, float width, float height, CelestialBody orbitCenter, ResourceKey<Level> dimension, Component translatable, String id, boolean spaceStation) {
+        this(texture, name, orbitRadius, orbitDuration, width, height, orbitCenter, dimension.location(), translatable.getString(), id);
+    }
+
+    public PlanetInfo(ResourceLocation texture, String name, double orbitRadius, long orbitDuration, float width, float height, CelestialBody orbitCenter, ResourceLocation dimension, String translatable, String id) {
         super(texture, name, 0, 0, width, height, 0xFFFFFF, dimension, translatable, id);
         this.orbitRadius = orbitRadius;
         this.orbitDuration = orbitDuration;

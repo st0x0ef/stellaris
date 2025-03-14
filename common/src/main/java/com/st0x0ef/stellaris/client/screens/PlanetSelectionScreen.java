@@ -260,13 +260,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         launchButton.visible = false;
     }
 
-
-public static CelestialBody focusedBody = null;
-public static CelestialBody hoveredBody = null;
-
-
-
-private void onPlanetButtonClick(PlanetInfo planet) {
+    private void onPlanetButtonClick(PlanetInfo planet) {
         if (!showLargeMenu && !showSpaceStationMenu) {
             focusedBody = planet;
             centerOnBody(planet);
@@ -393,7 +387,7 @@ private void onPlanetButtonClick(PlanetInfo planet) {
 
     private void renderBodyDescription(GuiGraphics graphics, CelestialBody bodyToHighlight, int mouseX, int mouseY) {
         List<Component> bodyDescription = new ArrayList<>();
-        bodyDescription.add(Utils.getMessageComponent("§f" + bodyToHighlight.translatable.getString()));
+        bodyDescription.add(Utils.getMessageComponent("§f" + bodyToHighlight.translatable));
         if (!isShiftPressed) {
             bodyDescription.add(Utils.getMessageComponent("§8" + TranslatableRegistry.HOLD_SHIFT.getString()));
         } else {
@@ -448,7 +442,7 @@ private void onPlanetButtonClick(PlanetInfo planet) {
             getMenu().freeze_gui = false;
             ResourceLocation CELESTIAL_BODY_TEXTURE = focusedBody.texture;
 
-            Component CELESTIAL_BODY_NAME = focusedBody.translatable;
+            Component CELESTIAL_BODY_NAME = focusedBody.getTranslatable();
 
             Planet planet = PlanetUtil.getPlanet(focusedBody.dimension);
 
@@ -947,7 +941,7 @@ private void onPlanetButtonClick(PlanetInfo planet) {
             int buttonWidth = 74;
             int buttonHeight = 20;
 
-            TexturedButton focusButton = new TexturedButton(x + 5, 20, buttonWidth, buttonHeight, planet.translatable, (btn) -> {
+            TexturedButton focusButton = new TexturedButton(x + 5, 20, buttonWidth, buttonHeight, planet.getTranslatable(), (btn) -> {
                 focusedBody = planet;
                 centerOnBody(planet);
                 isPausePressed = true;
@@ -965,7 +959,7 @@ private void onPlanetButtonClick(PlanetInfo planet) {
 
             for (MoonInfo moon : MOONS) {
                 if (moon.orbitCenter == planet) {
-                    TexturedButton moonButton = new TexturedButton(x + 5, 20, buttonWidth, buttonHeight, moon.translatable, (btn) -> {
+                    TexturedButton moonButton = new TexturedButton(x + 5, 20, buttonWidth, buttonHeight, moon.getTranslatable(), (btn) -> {
                         focusedBody = moon;
                         centerOnBody(moon);
                         isPausePressed = true;
