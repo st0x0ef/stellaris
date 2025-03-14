@@ -3,18 +3,18 @@ package com.st0x0ef.stellaris.client.screens.components;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
-import com.st0x0ef.stellaris.common.utils.Utils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
 public class TexturedButton extends Button {
@@ -49,6 +49,10 @@ public class TexturedButton extends Button {
         this.hoverButtonTexture = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/button.png");
     }
 
+    public <T extends TexturedButton> T  tooltip(@Nullable Tooltip tooltip) {
+        this.setTooltip(tooltip);
+        return cast();
+    }
     @SuppressWarnings("unchecked")
     private <T extends TexturedButton> T cast() {
         return (T) this;
@@ -101,8 +105,6 @@ public class TexturedButton extends Button {
 
         /** FONT RENDERER */
         Font fontRenderer = minecraft.font;
-        graphics.drawCenteredString(fontRenderer, this.getMessage(), this.getX() + this.width / 2,
-                this.getY() + (this.height - 8) / 2, Utils.getColorHexCode("white") | Mth.ceil(this.alpha * 255.0F) << 24);
 
         RenderSystem.disableDepthTest();
         RenderSystem.disableBlend();
@@ -116,6 +118,13 @@ public class TexturedButton extends Button {
         } else {
             return buttonTexture;
         }
+    }
+
+    @Override
+    public void setSize(int width, int height) {
+        super.setSize(width, height);
+        this.textureWidth = width;
+        this.textureHeight = height;
     }
 
     protected Vec3 getTypeColor() {

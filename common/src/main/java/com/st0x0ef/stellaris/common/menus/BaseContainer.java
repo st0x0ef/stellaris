@@ -18,7 +18,6 @@ public abstract class BaseContainer extends AbstractContainerMenu {
     private static final int VANILLA_FIRST_SLOT_INDEX = 0;
     private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
 
-    // THIS YOU HAVE TO DEFINE!
     private final int TE_INVENTORY_SLOT_COUNT;
 
     protected BaseContainer(@Nullable MenuType<?> menuType, int containerId, int size, Inventory inventory, int inventoryYOffset) {
@@ -69,7 +68,7 @@ public abstract class BaseContainer extends AbstractContainerMenu {
     public void addPlayerHotbar(Inventory playerInventory, int y) {
         int j;
         for(j = 0; j < 9; ++j) {
-            this.addSlot(new Slot(playerInventory, j, 8 + j * 18, y));
+            this.addSlot(new Slot(playerInventory, j, 10 + j * 18, y));
         }
     }
 
@@ -78,13 +77,8 @@ public abstract class BaseContainer extends AbstractContainerMenu {
         int k;
         for(j = 0; j < 3; ++j) {
             for(k = 0; k < 9; ++k) {
-                this.addSlot(new Slot(playerInventory, k + j * 9 + 9, 8 + k * 18, (84 + j * 18) + y));
+                this.addSlot(new Slot(playerInventory, k + j * 9 + 9, 10 + k * 18, (84 + j * 18) + y));
             }
         }
     }
-
-    public int getVanillaSlotCount() {
-        return VANILLA_SLOT_COUNT;
-    }
-
 }

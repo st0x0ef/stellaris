@@ -122,7 +122,6 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         this.imageHeight = 1600;
         this.inventoryLabelY = this.imageHeight - 110;
         initializeLaunchButton();
-
     }
 
     @Override
@@ -262,7 +261,12 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     }
 
 
-    private void onPlanetButtonClick(PlanetInfo planet) {
+public static CelestialBody focusedBody = null;
+public static CelestialBody hoveredBody = null;
+
+
+
+private void onPlanetButtonClick(PlanetInfo planet) {
         if (!showLargeMenu && !showSpaceStationMenu) {
             focusedBody = planet;
             centerOnBody(planet);

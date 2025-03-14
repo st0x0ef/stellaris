@@ -2,12 +2,17 @@ plugins {
     id "dev.architectury.loom" version "1.7-SNAPSHOT" apply false
     id "architectury-plugin" version "3.4-SNAPSHOT"
     id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
-    id "me.modmuss50.mod-publish-plugin" version "0.7.4"
+    id "me.modmuss50.mod-publish-plugin" version "0.8.4"
 
 }
 
 architectury {
     minecraft = project.minecraft_version
+}
+
+allprojects {
+    group = rootProject.maven_group
+    version = rootProject.mod_version
 }
 
 subprojects {
@@ -31,6 +36,10 @@ subprojects {
         maven { url "https://maven.parchmentmc.org" }
         maven { url "https://maven.neoforged.net/releases" }
         maven { url "https://maven.blamejared.com/" }
+        maven { url "https://maven.saps.dev/releases" }
+        maven { url "https://maven.exodusstudio.org/releases" }
+        maven { url "https://maven.odysseyus.fr/releases" }
+
         exclusiveContent {
             forRepository {
                 maven {
@@ -84,7 +93,7 @@ subprojects {
 
         repositories {
             maven {
-                url = "https://maven.odysseyus.fr/releases/"
+                url = "https://maven.exodusstudio.org/releases/"
                 credentials {
                     username = System.getenv("MAVEN_USER")
                     password = System.getenv("MAVEN_PASS")
@@ -106,7 +115,9 @@ subprojects {
                 projectSlug = "stellaris" // Required for discord webhook
                 accessToken = providers.environmentVariable("CURSEFORGE_API_KEY")
                 minecraftVersions.add("${minecraft_version}")
+                minecraftVersions.add("${supported_minecraft_version}")
                 javaVersions.add(JavaVersion.VERSION_21)
+                requires("potentials")
                 requires("architectury-api")
                 embeds("sky-aesthetics")
             }
@@ -115,6 +126,8 @@ subprojects {
                 projectId = "ItTQpuBn"
                 accessToken = providers.environmentVariable("MODRINTH_TOKEN")
                 minecraftVersions.add("${minecraft_version}")
+                minecraftVersions.add("${supported_minecraft_version}")
+                requires("potentials")
                 requires("architectury-api")
                 embeds("sky-aesthetics")
 

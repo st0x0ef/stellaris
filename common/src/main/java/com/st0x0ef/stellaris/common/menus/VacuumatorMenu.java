@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.menus;
 
+import com.st0x0ef.stellaris.common.blocks.entities.machines.VacuumatorBlockEntity;
 import com.st0x0ef.stellaris.common.menus.slot.ResultSlot;
 import com.st0x0ef.stellaris.common.menus.slot.SpecificItemsSlot;
 import com.st0x0ef.stellaris.common.menus.slot.VacumatorCanSlot;
@@ -19,22 +20,25 @@ import org.jetbrains.annotations.NotNull;
 public class VacuumatorMenu extends AbstractContainerMenu {
 
     private final Container container;
+    private VacuumatorBlockEntity entity;
 
     public VacuumatorMenu(int syncId, Inventory inventory, FriendlyByteBuf buffer) {
-        this(syncId, inventory, new SimpleContainer(5));
+        this(syncId, inventory, new SimpleContainer(5),(VacuumatorBlockEntity) inventory.player.level().getBlockEntity(buffer.readBlockPos()));
     }
 
-    public VacuumatorMenu(int syncId, Inventory inventory, Container container) {
+    public VacuumatorMenu(int syncId, Inventory inventory, Container container, VacuumatorBlockEntity entity) {
         super(MenuTypesRegistry.VACUMATOR_MENU.get(), syncId);
+
         checkContainerSize(container, 5);
         this.container = container;
+        this.entity = entity;
 
-        addSlot(new VacumatorCanSlot(container, 0, 36, 56));
-        addSlot(new VacumatorFoodSlot(container, 1, 80, 48));
-        addSlot(new SpecificItemsSlot.Item(container, 2, 124, 56, Items.GLASS_BOTTLE));
+        addSlot(new VacumatorCanSlot(container, 0, 58, 40));
+        addSlot(new VacumatorFoodSlot(container, 1, 82, 40));
+        addSlot(new SpecificItemsSlot.Item(container, 2, 106, 40, Items.GLASS_BOTTLE));
 
-        addSlot(new ResultSlot(container, 3, 58, 96));
-        addSlot(new ResultSlot(container, 4, 102, 96));
+        addSlot(new ResultSlot(container, 3, 66, 68));
+        addSlot(new ResultSlot(container, 4, 98, 68));
 
         addPlayerHotbar(inventory);
         addPlayerInventory(inventory);
@@ -75,14 +79,18 @@ public class VacuumatorMenu extends AbstractContainerMenu {
     private void addPlayerInventory(Inventory playerInventory) {
         for (int i = 0; i < 3; ++i) {
             for (int l = 0; l < 9; ++l) {
-                this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 8 + l * 18, (84 + i * 18) + 58));
+                this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 10 + l * 18, (95 + i * 18) + 11));
             }
         }
     }
 
     private void addPlayerHotbar(Inventory playerInventory) {
         for (int i = 0; i < 9; ++i) {
-            this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 200));
+            this.addSlot(new Slot(playerInventory, i, 10 + i * 18, 164));
         }
+    }
+
+    public VacuumatorBlockEntity getBlockEntity() {
+        return this.entity;
     }
 }

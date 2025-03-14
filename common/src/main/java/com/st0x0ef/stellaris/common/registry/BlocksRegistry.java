@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.common.registry;
 
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.*;
+import com.st0x0ef.stellaris.common.blocks.machines.PipeBlock;
 import com.st0x0ef.stellaris.common.blocks.machines.*;
 import dev.architectury.core.block.ArchitecturyLiquidBlock;
 import dev.architectury.registry.registries.DeferredRegister;
@@ -145,13 +146,26 @@ public class BlocksRegistry {
     public static final RegistrySupplier<Block> RADIOACTIVE_GENERATOR = BLOCKS.register("radioactive_generator", () -> new RadioactiveGeneratorBlock(BlockBehaviour.Properties.ofFullCopy(STEEL_ORE.get()).mapColor(MapColor.DEEPSLATE).strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE)));
 
     public static final RegistrySupplier<Block> ROCKET_LAUNCH_PAD = BLOCKS.register("rocket_launch_pad", () -> new RocketLaunchPad(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).sound(SoundType.METAL).strength(5f, 2.5f).requiresCorrectToolForDrops()));
-    public static final RegistrySupplier<Block> CABLE = BLOCKS.register("cable", ()-> new CableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CHAIN)));
+
     public static final RegistrySupplier<Block> VACUMATOR = BLOCKS.register("vacuumator", ()-> new VacuumatorBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_ORE)));
     public static final RegistrySupplier<Block> WATER_SEPARATOR = BLOCKS.register("water_separator", () -> new WaterSeparatorBlock(BlockBehaviour.Properties.ofFullCopy(STEEL_ORE.get()).mapColor(MapColor.DEEPSLATE).strength(4.5F, 3F).sound(SoundType.DEEPSLATE)));
     public static final RegistrySupplier<Block> FUEL_REFINERY = BLOCKS.register("fuel_refinery", () -> new FuelRefineryBlock(BlockBehaviour.Properties.ofFullCopy(STEEL_ORE.get()).mapColor(MapColor.DEEPSLATE).strength(4.5F, 3F).sound(SoundType.DEEPSLATE)));
     public static final RegistrySupplier<Block> OXYGEN_DISTRIBUTOR = BLOCKS.register("oxygen_distributor", () -> new OxygenDistributorBlock(BlockBehaviour.Properties.ofFullCopy(WATER_SEPARATOR.get())));
     public static final RegistrySupplier<Block> WATER_PUMP = BLOCKS.register("water_pump", () -> new WaterPumpBlock(BlockBehaviour.Properties.ofFullCopy(WATER_SEPARATOR.get())));
     public static final RegistrySupplier<Block> PUMPJACK = BLOCKS.register("pumpjack", () -> new PumpjackBlock(BlockBehaviour.Properties.ofFullCopy(STEEL_ORE.get()).mapColor(MapColor.DEEPSLATE).strength(4.5F, 3F).sound(SoundType.DEEPSLATE)));
+
+    //Tiered Machine Blocks
+    public static final RegistrySupplier<Block> T1_TANK = BLOCKS.register("t1_tank", () -> new FluidTankBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK), 5000));
+    public static final RegistrySupplier<Block> T2_TANK = BLOCKS.register("t2_tank", () -> new FluidTankBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK), 25000));
+    public static final RegistrySupplier<Block> T3_TANK = BLOCKS.register("t3_tank", () -> new FluidTankBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK), 100000));
+    public static final RegistrySupplier<Block> T4_TANK = BLOCKS.register("t4_tank", () -> new FluidTankBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK), 10000000));
+
+    public static final RegistrySupplier<Block> T1_CABLE = BLOCKS.register("cable", ()-> new CableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CHAIN), 1000, 250 ,250));
+    public static final RegistrySupplier<Block> T2_CABLE = BLOCKS.register("cable_t2", ()-> new CableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CHAIN), 25000, 6250 ,6250));
+    public static final RegistrySupplier<Block> T3_CABLE = BLOCKS.register("cable_t3", ()-> new CableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CHAIN), 625000, 156250 ,156250));
+    public static final RegistrySupplier<Block> T1_PIPE = BLOCKS.register("pipe_t1", ()-> new PipeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CHAIN), 1000, 250 ,250));
+    public static final RegistrySupplier<Block> T2_PIPE = BLOCKS.register("pipe_t2", ()-> new PipeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CHAIN), 25000, 6250 ,6250));
+    public static final RegistrySupplier<Block> T3_PIPE = BLOCKS.register("pipe_t3", ()-> new PipeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CHAIN), 625000, 156250 ,156250));
 
     /**Fluid Blocks*/
     public static final RegistrySupplier<LiquidBlock> FUEL_BLOCK = BLOCKS.register("fuel", () -> new ArchitecturyLiquidBlock(FluidRegistry.FUEL_STILL, BlockBehaviour.Properties.ofFullCopy(Blocks.WATER)));

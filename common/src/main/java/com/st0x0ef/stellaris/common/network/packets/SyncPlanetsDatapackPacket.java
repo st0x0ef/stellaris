@@ -37,7 +37,7 @@ public class SyncPlanetsDatapackPacket implements CustomPacketPayload {
 
 
     public static void handle(SyncPlanetsDatapackPacket packet, NetworkManager.PacketContext context) {
-        StellarisData.addPlanets(packet.planets);
+        StellarisData.addAllPlanets(packet.planets);
     }
 
     @Override

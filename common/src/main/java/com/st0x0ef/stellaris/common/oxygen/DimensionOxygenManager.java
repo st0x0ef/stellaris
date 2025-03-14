@@ -1,8 +1,8 @@
 package com.st0x0ef.stellaris.common.oxygen;
 
-import com.st0x0ef.stellaris.common.blocks.entities.machines.FluidTankHelper;
+import com.fej1fun.potentials.capabilities.Capabilities;
+import com.fej1fun.potentials.fluid.UniversalFluidStorage;
 import com.st0x0ef.stellaris.common.registry.TagRegistry;
-import com.st0x0ef.stellaris.common.utils.OxygenUtils;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.core.BlockPos;
@@ -15,7 +15,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class DimensionOxygenManager {
     private final Set<OxygenRoom> oxygenRooms;
@@ -30,43 +29,40 @@ public class DimensionOxygenManager {
         this.planetHasOxygen = PlanetUtil.hasOxygen(level);
     }
 
-    public void addOxygenRoomIfMissing(BlockPos distributorPos) {
+    public void tickOxygenRoom(BlockPos distributorPos) {
         if (getOxygenRoom(distributorPos) == null) {
             oxygenRooms.add(new OxygenRoom(level, distributorPos));
-            this.updateOxygen();
-            this.setChanged();
+
         }
+        this.updateOxygenTick();
+        this.setChanged();
     }
 
     public void removeOxygenRoom(BlockPos pos) {
         oxygenRooms.removeIf(room -> room.getDistributorPosition().equals(pos));
-        this.setChanged();
+        setChanged();
     }
 
     public void addRoomToCheckIfOpen(BlockPos pos, OxygenRoom room) {
-        if (checkIfRoomOpen(pos)) {
+        if (roomToCheckIfOpen.remove(pos) == null) {
             roomToCheckIfOpen.put(pos, room);
         }
     }
 
-    public boolean checkIfRoomOpen(BlockPos pos) {
-        if (roomToCheckIfOpen.containsKey(pos)) {
-            roomToCheckIfOpen.remove(pos);
-            return false;
-        }
-
-        return true;
+    public void removeRoomToCheckIfOpen(BlockPos pos) {
+        roomToCheckIfOpen.remove(pos);
     }
+
 
     private void setChanged() {
         OxygenSavedData data = OxygenSavedData.getData(level);
         data.setDirty();
     }
 
-    public void updateOxygen() {
+    public void updateOxygenTick() {
         if (planetHasOxygen) return;
 
-        oxygenRooms.forEach(OxygenRoom::updateOxygenRoom);
+        oxygenRooms.forEach(OxygenRoom::tick);
         roomToCheckIfOpen.values().forEach(OxygenRoom::removeOxygenInRoom);
         roomToCheckIfOpen.clear();
     }
@@ -85,32 +81,22 @@ public class DimensionOxygenManager {
         }
 
         if (Utils.isLivingInJetSuit(entity) || Utils.isLivingInSpaceSuit(entity)) {
-            return OxygenUtils.removeOxygen(entity.getItemBySlot(EquipmentSlot.CHEST), FluidTankHelper.convertFromNeoMb(1L));
+            UniversalFluidStorage storage = Capabilities.Fluid.ITEM.getCapability(entity.getItemBySlot(EquipmentSlot.CHEST));
+            if (storage != null && !storage.getFluidInTank(0).isEmpty()) {
+                storage.drain(storage.getFluidInTank(0).copyWithAmount(1), false);
+                return true;
+            }
         }
 
         return false;
     }
 
     public boolean breathOxygenAt(BlockPos pos) {
-        AtomicBoolean canBreath = new AtomicBoolean(false);
-        oxygenRooms.forEach(room -> {
-            if (room.breathOxygenAt(pos)) {
-                canBreath.set(true);
-            }
-        });
-        return canBreath.get();
+        return oxygenRooms.stream().anyMatch(room -> room.breathOxygenAt(pos));
     }
 
-
     public boolean hasOxygenAt(BlockPos pos) {
-        AtomicBoolean canBreath = new AtomicBoolean(false);
-        oxygenRooms.forEach(room -> {
-            if (room.hasOxygenAt(pos)) {
-                canBreath.set(true);
-            }
-        });
-
-        return canBreath.get();
+        return oxygenRooms.stream().anyMatch(room -> room.hasOxygenAt(pos));
     }
 
     public Set<OxygenRoom> getOxygenRooms() {
@@ -118,18 +104,14 @@ public class DimensionOxygenManager {
     }
 
     public OxygenRoom getOxygenRoom(BlockPos distributorPos) {
-        for (OxygenRoom room : oxygenRooms) {
-            if (room.getDistributorPosition().equals(distributorPos)) {
-                return room;
-            }
-        }
-
-        return null;
+        return oxygenRooms.stream()
+                .filter(room -> room.getDistributorPosition().equals(distributorPos))
+                .findFirst()
+                .orElse(null);
     }
 
     public void setOxygensRooms(Set<OxygenRoom> rooms) {
         this.oxygenRooms.clear();
         this.oxygenRooms.addAll(rooms);
-        this.updateOxygen();
     }
 }

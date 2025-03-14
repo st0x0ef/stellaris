@@ -4,11 +4,13 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.client.events.custom.PlanetSelectionClientEvents;
 import com.st0x0ef.stellaris.client.screens.PlanetSelectionScreen;
 import com.st0x0ef.stellaris.client.screens.info.CelestialBody;
 import com.st0x0ef.stellaris.client.screens.record.StarRecord;
 import com.st0x0ef.stellaris.common.utils.Utils;
-import net.minecraft.network.chat.Component;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
@@ -18,6 +20,7 @@ import net.minecraft.util.profiling.ProfilerFiller;
 import java.util.HashMap;
 import java.util.Map;
 
+@Environment(EnvType.CLIENT)
 public class StarPack extends SimpleJsonResourceReloadListener {
 
     public static final Map<String, StarRecord> STAR = new HashMap<>();
@@ -45,20 +48,30 @@ public class StarPack extends SimpleJsonResourceReloadListener {
             screenStar = new CelestialBody(
                     star.texture(),
                     star.name(),
-                    (int) star.x(),
-                    (int) star.y(),
+                    star.x(),
+                    star.y(),
                     star.width(),
                     star.height(),
                     orbitColor,
                     null,
-                    Component.translatable(star.translatable()),
+                    star.translatable(),
                     star.id()
             );
 
+            for (int i = 0; i < PlanetSelectionScreen.STARS.size(); i++) {
+                if (PlanetSelectionScreen.STARS.get(i).getId().equals(star.id())) {
+                    PlanetSelectionScreen.STARS.set(i, screenStar);
+                    Stellaris.LOG.info("Replaced existing star in PlanetSelectionScreen : {}", star.id());
+                    return;
+                }
+            }
             PlanetSelectionScreen.STARS.add(screenStar);
-            Stellaris.LOG.info("Added a star to PlanetSelectionScreen : {}", star.name());
+            Stellaris.LOG.info("Added a new star to PlanetSelectionScreen : {}", star.id());
         });
+
         count++;
+        PlanetSelectionClientEvents.POST_STAR_PACK_REGISTRY.invoker().starsRegistered(PlanetSelectionScreen.STARS);
+
     }
 
 }

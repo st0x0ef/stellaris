@@ -1,0 +1,51 @@
+{
+  "world": "stellaris:mercury",
+  "fog_settings": {
+    "fog": true
+  },
+  "cloud_settings": {
+    "cloud": false,
+    "cloud_height": 192
+  },
+  "rain": false,
+  "custom_vanilla_objects": {
+    "sun": true,
+    "sun_texture": "textures/environment/sun.png",
+    "sun_height": 150,
+    "sun_size": 150,
+
+    "moon": false,
+    "moon_phase": false,
+    "moon_texture": "",
+    "moon_height": 150,
+    "moon_size": 150
+  },
+  "sunrise_color": [179, 49, 44 ],
+  "stars": {
+    "vanilla": false,
+    "moving_stars": true,
+    "count": 10000,
+    "all_days_visible": true,
+    "scale": 0.05,
+    "color": [255, 255, 255],
+    "shooting_stars": {
+      "percentage": 950,
+      "random_lifetime": [
+        20,
+        100
+      ],
+      "scale": 0.1,
+      "speed": 0.7,
+      "color": [190, 160, -1]
+
+    }
+  },
+  "sky_type": "NORMAL",
+  "sky_color": {
+    "custom_color": false,
+    "color": [255, 255, 255, 0]
+  },
+  "sky_objects": [
+
+  ]
+}

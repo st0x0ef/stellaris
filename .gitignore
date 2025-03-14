@@ -1,3 +1,4 @@
+# Ignore
 build/
 *.ipr
 run/
@@ -18,3 +19,6 @@ classes/
 .settings
 *.launch
 .profileconfig.json
+
+# Allow
+!.idea/icon.png

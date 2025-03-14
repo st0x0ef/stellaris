@@ -106,7 +106,6 @@ public class LaunchButton extends Button {
 
         /** FONT RENDERER */
         Font fontRenderer = minecraft.font;
-
         graphics.drawCenteredString(fontRenderer, this.getMessage(), this.getX() + this.width / 2,
                 this.getY() + (this.height - 8) / 2, Utils.getColorHexCode("White"));
 

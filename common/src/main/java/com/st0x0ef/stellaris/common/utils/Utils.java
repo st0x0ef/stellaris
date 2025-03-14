@@ -1,13 +1,15 @@
 package com.st0x0ef.stellaris.common.utils;
 
 import com.mojang.serialization.Codec;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
-import com.st0x0ef.stellaris.common.data.recipes.SpaceStationRecipe;
 import com.st0x0ef.stellaris.common.entities.vehicles.LanderEntity;
 import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
+import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import com.st0x0ef.stellaris.common.registry.EntityData;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
+import com.st0x0ef.stellaris.common.registry.StatsRegistry;
+import com.st0x0ef.stellaris.common.vehicle_upgrade.FuelType;
+import dev.architectury.utils.GameInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -17,6 +19,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -25,9 +28,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
@@ -39,19 +42,19 @@ public class Utils {
     public static void transfertInventory(RocketEntity rocket, LanderEntity lander) {
         Container rocketContainer = rocket.getInventory();
         Container landerContainer = lander.getInventory();
-        /** We set the rocket in the first slot */
-        ItemStack rocketStack = new ItemStack(ItemsRegistry.ROCKET.get());
-        rocketContainer.setItem(13, rocketStack);
 
-        /** We start at two because we don"t want the oil inputs */
-        for (int i = 0; i <= lander.getInventory().getContainerSize() - 1; i++) {
+        for (int i = 2; i < lander.getInventory().getContainerSize() - 1; i++) {
             landerContainer.setItem(i, rocketContainer.getItem(i));
         }
+
+        ItemStack rocketStack = new ItemStack(ItemsRegistry.ROCKET.get());
+        rocketStack.set(DataComponentsRegistry.ROCKET_COMPONENT.get(), rocket.getRocketComponent());
+        landerContainer.setItem(14, rocketStack);
     }
 
     /** Should be call after teleporting the player */
-    public static LanderEntity createLanderFromRocket(Entity player, RocketEntity rocket, int yPos) {
-        LanderEntity lander = new LanderEntity(player.level());
+    public static LanderEntity createLanderFromRocket(Entity player, RocketEntity rocket, int yPos, Level destination) {
+        LanderEntity lander = new LanderEntity(destination);
         lander.setPos(player.getX(), yPos, player.getZ());
         transfertInventory(rocket, lander);
 
@@ -62,42 +65,44 @@ public class Utils {
 
     /** Teleport an entity to the planet wanted */
     public static void teleportEntity(Entity entity, Planet destination) {
-        if(entity.level().isClientSide()) return;
+        if (entity.level().isClientSide()) return;
         entity.setNoGravity(false);
 
-        entity.level().getServer().getAllLevels().forEach(level -> {
-            if (level.dimension().location().equals(destination.dimension())) {
-                TeleportUtil.teleportToPlanet(entity, level, 600);
-            }
-        });
+        TeleportUtil.teleportToPlanet(entity, getPlanetLevel(destination), 600);
     }
 
     /** To use with the planetSelection menu */
     public static void changeDimension(Player player, Planet destination) {
-        if (player.level().isClientSide()) return;
+        if (player instanceof ServerPlayer serverPlayer) {
+            if (serverPlayer.getVehicle() instanceof RocketEntity rocket) {
+                serverPlayer.stopRiding();
+                serverPlayer.closeContainer();
 
-        if (player.getVehicle() instanceof RocketEntity rocket) {
-            player.stopRiding();
+                if (!serverPlayer.isCreative() && !serverPlayer.isSpectator()) {
+                    int fuelConsumption = Math.round(FuelType.getFuelNeededToGoOnPlanet(PlanetUtil.getPlanet(serverPlayer.level().dimension().location()), destination, rocket.FUEL_TYPE));
+                    rocket.FUEL -= fuelConsumption;
+                    rocket.syncRocketData(serverPlayer);
+                }
 
-            teleportEntity(player, destination);
+                LanderEntity lander = createLanderFromRocket(serverPlayer, rocket, 600, getPlanetLevel(destination));
+                teleportEntity(serverPlayer, destination);
+                player.awardStat(StatsRegistry.SPACE_TRAVEL.get(), Utils.distanceToPlanet(PlanetUtil.getPlanet(player.level().dimension().location()), destination));
 
-            /** We create the lander */
-            LanderEntity lander = createLanderFromRocket(player, rocket, 600);
+                serverPlayer.level().addFreshEntity(lander);
 
-            /** We remove the player from the Rocket */
-            player.closeContainer();
+                while (!serverPlayer.startRiding(lander, true)) {
+                    // Wait until the player starts riding the lander
+                }
 
-            player.level().addFreshEntity(lander);
-            player.startRiding(lander);
-            player.sendSystemMessage(Component.translatable("message.stellaris.lander"));
-        } else {
-            player.closeContainer();
-            teleportEntity(player, destination);
+                serverPlayer.sendSystemMessage(Component.translatable("message.stellaris.lander"));
+            } else {
+                serverPlayer.closeContainer();
+                teleportEntity(serverPlayer, destination);
+            }
         }
     }
 
     public static void changeDimensionForPlayers(List<Entity> entities, Planet destination) {
-
         RocketEntity rocket = (RocketEntity) entities.getFirst().getVehicle();
 
         for (Entity entity : entities) {
@@ -110,21 +115,26 @@ public class Utils {
                 teleportEntity(entity, destination);
 
                 if(entity instanceof Player player) {
+
+                    player.awardStat(StatsRegistry.SPACE_TRAVEL.get(), Utils.distanceToPlanet(PlanetUtil.getPlanet(player.level().dimension().location()), destination));
+
                     player.closeContainer();
                     player.getEntityData().set(EntityData.DATA_PLANET_MENU_OPEN, false);
                 }
             }
         }
-        LanderEntity lander = createLanderFromRocket(entities.getFirst(), rocket, 600);
+        LanderEntity lander = createLanderFromRocket(entities.getFirst(), rocket, 600, getPlanetLevel(destination));
         entities.getFirst().level().addFreshEntity(lander);
 
         for (Entity entity : entities) {
             entity.startRiding(lander, true);
             entity.sendSystemMessage(Component.translatable("message.stellaris.lander"));
-
         }
     }
 
+    public static int distanceToPlanet(Planet actual, Planet destination) {
+        return Mth.abs(actual.distanceFromEarth() - destination.distanceFromEarth());
+    }
 
     public static double changeLastDigitToEven(double number) {
         String numberStr = Double.toString(number);
@@ -148,6 +158,15 @@ public class Utils {
 
     /** COLOR!!! */
     public static int getColorHexCode(String colorName) {
+        // Custom Colour Hex Code Support
+        if (colorName.startsWith("#")) {
+            try {
+                return Integer.parseInt(colorName.substring(1), 16);
+            } catch (NumberFormatException e) {
+                return 0xFFFFFF; // Return white if invalid hex format
+            }
+        }
+
         return switch (colorName.toLowerCase()) {
             case "black" -> 0x000000;
             case "red" -> 0xFF0000;
@@ -267,6 +286,44 @@ public class Utils {
         return ResourceKey.create(ResourceKey.createRegistryKey(planet), planet);
     }
 
+    public static ServerLevel getPlanetLevel(Planet planet) {
+        for (ServerLevel level : GameInstance.getServer().getAllLevels()) {
+            if (level.dimension().location().equals(planet.dimension())) {
+                return level;
+            }
+        }
+        return null;
+    }
+
+    public static boolean entityHasBlockAbove(LivingEntity entity, @Nullable BlockPos pos, @Nullable Integer recusion) {
+        return entity.level().canSeeSky(entity.blockPosition());
+    }
+
+
+
+    public  <T> void addButtonToList(ArrayList<ArrayList<T>> finalList, T button, int size){
+        if (finalList.isEmpty()) {
+            ArrayList<T> list = new ArrayList<>();
+            list.add(button);
+            finalList.add(list);
+            return;
+        }
+
+        for (ArrayList<T> buttons : finalList) {
+            if(buttons.size() < size){
+                buttons.add(button);
+                break;
+            } else if (buttons.size() == size) {
+                if (finalList.indexOf(buttons) + 1 >= finalList.size()) {
+                    ArrayList<T> list = new ArrayList<>();
+                    list.add(button);
+                    finalList.add(list);
+                    break;
+                }
+            }
+        }
+    }
+
     /** Place the space station */
     public static void placeSpaceStation(Player player, ServerLevel serverLevel, SpaceStationRecipe recipe) {
 
@@ -277,5 +334,4 @@ public class Utils {
         Stellaris.LOG.info("Placing space station at " + pos);
         structureTemplate.placeInWorld(serverLevel, pos, pos, new StructurePlaceSettings(), serverLevel.random, 2);
     }
-
 }

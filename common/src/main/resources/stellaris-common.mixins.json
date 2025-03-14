@@ -4,18 +4,23 @@
   "package": "com.st0x0ef.stellaris.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "CandleBlockMixin",
     "EntityEatMixin",
     "EntityTick",
-    "LivingEntityMixin",
-    "PlayerDataMixin",
     "ItemEntityGravityMixin",
+    "LivingEntityMixin",
     "MixinChunkAccess",
-    "MixinChunkSerializer"
+    "MixinChunkSerializer",
+    "MobSpawnEggMixin",
+    "PlayerDataMixin"
   ],
   "client": [
+    "StormyPlanetMixin",
+    "client.FogRenderMixin",
     "client.PlayerRiddingVehicleMixin",
-    "client.PlayerKeyMixin",
-    "client.RenderPlayerMixin"
+    "client.RenderPlayerMixin",
+    "client.SandStormMixin",
+    "client.TabletKeyMenuMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -24,7 +24,7 @@ import java.util.List;
 
 public class RoverItem extends Item {
     public RoverItem(Properties properties) {
-        super(properties);
+        super(properties.stacksTo(1));
     }
 
     @Override
@@ -58,10 +58,16 @@ public class RoverItem extends Item {
     public RoverEntity getRover(Level level ,ItemStack stack) {
         RoverEntity rover = new RoverEntity(EntityRegistry.ROVER.get(), level);
         RoverComponent roverComponent = stack.get(DataComponentsRegistry.ROVER_COMPONENT.get());
-        if(roverComponent != null) {
-            rover.FUEL = roverComponent.fuel();
+        if (roverComponent != null) {
+            //Directly setting roverComponent would give Motor, Tank, Skin and Model upgrades without requiring the item
+            rover.setRoverComponent(new RoverComponent(
+                    roverComponent.fuelType(),
+                    Math.max(roverComponent.fuel(), 0),
+                    roverComponent.getFuelType().getFuelTexture(),
+                    rover.tankUpgrade.getTankCapacity(),
+                    rover.speedUpgrade.getSpeedModifier())
+            );
         }
-
         return rover;
     }
 
@@ -92,10 +98,10 @@ public class RoverItem extends Item {
     @Override
     public int getBarColor(ItemStack stack) {
         RoverComponent roverComponent = stack.get(DataComponentsRegistry.ROVER_COMPONENT.get());
-        return switch (roverComponent.getMotorUpgrade().getFuelType()) {
+        return switch (roverComponent.getFuelType()) {
             case FUEL -> 0xA7E6ED;
             case HYDROGEN -> 0x00d8ff;
-            case RADIOACTIVE -> 0x00c12f;
+            case RADIOACTIVE, URANIUM, NEPTUNIUM, PLUTONIUM -> 0x00c12f;
             case null -> 0xA7E6ED;
 
         };

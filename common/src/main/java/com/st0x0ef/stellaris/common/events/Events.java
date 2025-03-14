@@ -64,12 +64,59 @@ public class Events {
                 } else if (state.is(Blocks.CAMPFIRE)) {
                     serverLevel.setBlock(pos, state.setValue(CampfireBlock.LIT, false), 3);
                     return EventResult.interruptFalse();
+                } else if (state.is(Blocks.CANDLE)) {
+                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
+                    return EventResult.interruptFalse();
+                } else if (state.is(Blocks.CYAN_CANDLE)) {
+                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
+                    return EventResult.interruptFalse();
+                } else if (state.is(Blocks.BLACK_CANDLE)) {
+                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
+                    return EventResult.interruptFalse();
+                } else if (state.is(Blocks.BLUE_CANDLE)) {
+                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
+                    return EventResult.interruptFalse();
+                } else if (state.is(Blocks.BROWN_CANDLE)) {
+                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
+                    return EventResult.interruptFalse();
+                } else if (state.is(Blocks.GREEN_CANDLE)) {
+                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
+                    return EventResult.interruptFalse();
+                } else if (state.is(Blocks.LIGHT_BLUE_CANDLE)) {
+                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
+                    return EventResult.interruptFalse();
+                } else if (state.is(Blocks.YELLOW_CANDLE)) {
+                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
+                    return EventResult.interruptFalse();
+                } else if (state.is(Blocks.WHITE_CANDLE)) {
+                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
+                    return EventResult.interruptFalse();
+                } else if (state.is(Blocks.RED_CANDLE)) {
+                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
+                    return EventResult.interruptFalse();
+                } else if (state.is(Blocks.PINK_CANDLE)) {
+                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
+                    return EventResult.interruptFalse();
+                } else if (state.is(Blocks.MAGENTA_CANDLE)) {
+                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
+                    return EventResult.interruptFalse();
+                } else if (state.is(Blocks.PURPLE_CANDLE)) {
+                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
+                    return EventResult.interruptFalse();
+                } else if (state.is(Blocks.LIME_CANDLE)) {
+                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
+                    return EventResult.interruptFalse();
+                } else if (state.is(Blocks.ORANGE_CANDLE)) {
+                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
+                    return EventResult.interruptFalse();
+                } else if (state.is(Blocks.LIGHT_GRAY_CANDLE)) {
+                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
+                    return EventResult.interruptFalse();
                 }
             }
 
             return EventResult.pass();
         });
-
     }
 
     private static void removeOxygenRoom(ServerLevel level, BlockPos pos) {

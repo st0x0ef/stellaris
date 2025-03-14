@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.client;
 
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.client.events.ClientEvents;
 import com.st0x0ef.stellaris.client.overlays.*;
 import com.st0x0ef.stellaris.client.particles.*;
 import com.st0x0ef.stellaris.client.renderers.armors.JetSuitModel;
@@ -9,6 +10,7 @@ import com.st0x0ef.stellaris.client.screens.ConfigScreen;
 import com.st0x0ef.stellaris.common.data.screen.MoonPack;
 import com.st0x0ef.stellaris.common.data.screen.PlanetPack;
 import com.st0x0ef.stellaris.common.data.screen.StarPack;
+import com.st0x0ef.stellaris.common.data.screen.TabletPack;
 import com.st0x0ef.stellaris.common.handlers.GlobalExceptionHandler;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import com.st0x0ef.stellaris.common.registry.ParticleRegistry;
@@ -39,6 +41,7 @@ public class StellarisClient {
         registerOverlays();
         registerArmors();
         Platform.getMod(Stellaris.MODID).registerConfigurationScreen(ConfigScreen::new);
+        ClientEvents.registerEvents();
     }
 
     private static void registerArmors() {
@@ -52,6 +55,8 @@ public class StellarisClient {
 
         ColorHandlerRegistry.registerItemColors(
                 (stack, color) -> color > 0 ? -1 : DyedItemColor.getOrDefault(stack, -1),
+                ItemsRegistry.JETSUIT_BOOTS.get(), ItemsRegistry.JETSUIT_HELMET.get(), ItemsRegistry.JETSUIT_LEGGINGS.get(),
+                ItemsRegistry.SPACESUIT_BOOTS.get(), ItemsRegistry.JETSUIT_SUIT.get(),
                 ItemsRegistry.SPACESUIT_SUIT.get(), ItemsRegistry.SPACESUIT_HELMET.get(), ItemsRegistry.SPACESUIT_LEGGINGS.get());
     }
 
@@ -64,6 +69,7 @@ public class StellarisClient {
     }
 
     public static void registerOverlays() {
+        ClientGuiEvent.RENDER_HUD.register(EffectOverlays::render);
         ClientGuiEvent.RENDER_HUD.register(RocketStartOverlay::render);
         ClientGuiEvent.RENDER_HUD.register(RocketBarOverlay::render);
         ClientGuiEvent.RENDER_HUD.register(LanderOverlay::render);
@@ -90,5 +96,7 @@ public class StellarisClient {
         ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new StarPack());
         ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new PlanetPack());
         ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new MoonPack());
+        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new TabletPack());
     }
+
 }

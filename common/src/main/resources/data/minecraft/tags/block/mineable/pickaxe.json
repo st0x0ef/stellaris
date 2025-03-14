@@ -142,7 +142,7 @@
     "stellaris:cheese_block",
     "stellaris:vacuumator",
 
-   "stellaris:uranium_block",
+    "stellaris:uranium_block",
     "stellaris:raw_uranium_block",
 
     "stellaris:neptunium_block",
@@ -151,6 +151,7 @@
     "stellaris:oxygen_distributor",
 
     "stellaris:water_separator",
+    "stellaris:water_pump",
     "stellaris:flag",
     "stellaris:solar_panel",
     "stellaris:radioactive_generator",
@@ -158,8 +159,14 @@
     "stellaris:rocket_station",
     "stellaris:rocket_launch_pad",
     "stellaris:fuel_refinery",
-    "stellaris:cable",
-    "stellaris:pumpjack"
+    "stellaris:pumpjack",
 
+    "stellaris:cable",
+    "stellaris:cable_t2",
+    "stellaris:cable_t3",
+
+    "stellaris:pipe_t1",
+    "stellaris:pipe_t2",
+    "stellaris:pipe_t3"
   ]
 }
