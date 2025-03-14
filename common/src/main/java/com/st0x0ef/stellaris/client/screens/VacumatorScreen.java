@@ -7,6 +7,7 @@ import com.st0x0ef.stellaris.common.blocks.entities.machines.VacuumatorBlockEnti
 import com.st0x0ef.stellaris.common.menus.VacuumatorMenu;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -23,8 +24,13 @@ public class VacumatorScreen extends AbstractContainerScreen<VacuumatorMenu> {
 
 	public VacumatorScreen(VacuumatorMenu abstractContainerMenu, Inventory inventory, Component component) {
 		super(abstractContainerMenu, inventory, component);
+
 		this.imageWidth = 180;
 		this.imageHeight = 188;
+
+		this.titleLabelX = (180 - Minecraft.getInstance().font.width(title.getString())) / 2;
+		this.titleLabelY = 4;
+
 		this.inventoryLabelY = this.imageHeight - 95;
 	}
 

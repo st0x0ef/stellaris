@@ -7,6 +7,7 @@ import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
 import com.st0x0ef.stellaris.common.menus.RocketMenu;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -24,8 +25,13 @@ public class RocketScreen extends AbstractContainerScreen<RocketMenu> {
 
     public RocketScreen(RocketMenu abstractContainerMenu, Inventory inventory, Component component) {
         super(abstractContainerMenu, inventory, component);
+
         imageWidth = 180;
         imageHeight = 224;
+
+        titleLabelX = (180 - Minecraft.getInstance().font.width(title.getString())) / 2;
+        titleLabelY = 4;
+
         inventoryLabelY = imageHeight - 92;
     }
 

@@ -7,6 +7,7 @@ import com.st0x0ef.stellaris.common.blocks.entities.machines.RadioactiveGenerato
 import com.st0x0ef.stellaris.common.menus.RadioactiveGeneratorMenu;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -25,8 +26,13 @@ public class RadioactiveGeneratorScreen extends AbstractContainerScreen<Radioact
 
     public RadioactiveGeneratorScreen(RadioactiveGeneratorMenu abstractContainerMenu, Inventory inventory, Component component) {
         super(abstractContainerMenu, inventory, component);
+
         imageWidth = 180;
         imageHeight = 188;
+
+        titleLabelX = (180 - Minecraft.getInstance().font.width(title.getString())) / 2;
+        titleLabelY = 4;
+
         inventoryLabelY = imageHeight - 92;
     }
 

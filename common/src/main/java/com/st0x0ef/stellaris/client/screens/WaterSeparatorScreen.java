@@ -10,6 +10,7 @@ import com.st0x0ef.stellaris.common.utils.capabilities.fluid.FluidStorage;
 import com.st0x0ef.stellaris.common.utils.capabilities.fluid.SingleFluidStorage;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -30,8 +31,13 @@ public class WaterSeparatorScreen extends AbstractContainerScreen<WaterSeparator
 
     public WaterSeparatorScreen(WaterSeparatorMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
+
         imageWidth = 180;
         imageHeight = 224;
+
+        titleLabelX = (180 - Minecraft.getInstance().font.width(title.getString())) / 2;
+        titleLabelY = 4;
+
         inventoryLabelY = imageHeight - 95;
     }
 

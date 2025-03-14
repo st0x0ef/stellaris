@@ -5,6 +5,7 @@ import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.menus.RocketStationMenu;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -19,10 +20,12 @@ public class RocketStationScreen extends AbstractContainerScreen<RocketStationMe
 
     public RocketStationScreen(RocketStationMenu abstractContainerMenu, Inventory inventory, Component component) {
         super(abstractContainerMenu, inventory, component);
+
         this.imageWidth = 180;
         this.imageHeight = 224;
 
-        this.titleLabelX = this.imageWidth - 80;
+        this.titleLabelX = (180 - Minecraft.getInstance().font.width(title.getString())) / 2 + 30;
+        this.titleLabelY = 4;
 
         this.inventoryLabelY = this.imageHeight - 92;
     }

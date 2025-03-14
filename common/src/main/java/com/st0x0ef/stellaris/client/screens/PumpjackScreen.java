@@ -26,8 +26,13 @@ public class PumpjackScreen extends AbstractContainerScreen<PumpjackMenu> {
 
     public PumpjackScreen(PumpjackMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
+
         imageWidth = 180;
         imageHeight = 224;
+
+        titleLabelX = (180 - Minecraft.getInstance().font.width(title.getString())) / 2;
+        titleLabelY = 4;
+
         inventoryLabelY = imageHeight - 92;
     }
 
