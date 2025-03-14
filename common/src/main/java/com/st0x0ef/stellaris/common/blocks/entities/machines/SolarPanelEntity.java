@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class SolarPanelEntity extends BaseGeneratorBlockEntity {
 
     public SolarPanelEntity(BlockPos blockPos, BlockState blockState) {
-        super(BlockEntityRegistry.SOLAR_PANEL.get(), blockPos, blockState, 1, 128000);
+        super(BlockEntityRegistry.SOLAR_PANEL.get(), blockPos, blockState, 2, 1280);
     }
 
     @Override
@@ -22,13 +22,17 @@ public class SolarPanelEntity extends BaseGeneratorBlockEntity {
 
     @Override
     public boolean canGenerate() {
-        BlockPos blockPos = this.getBlockPos().offset(0, 1, 0);
-        return level.isDay() && level.canSeeSky(blockPos);
+        if (level != null) {
+            BlockPos blockPos = this.getBlockPos().offset(0, 1, 0);
+            return level.isDay() && level.canSeeSky(blockPos);
+        }
+        return false;
     }
 
     @Override
     public void tick() {
         super.tick();
+        setChanged();
         EnergyUtil.moveEnergyToItem(getEnergy(null), getItem(0), 10);
     }
 
