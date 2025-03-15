@@ -37,19 +37,19 @@ public class GaugeWidget extends AbstractWidget {
     protected void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         switch (DIRECTION) {
             case DOWN_UP -> {
-                int i = Mth.ceil(getProgress(amount, capacity) * (getHeight() - 1));
+                int i = Mth.ceil(getProgress(amount, capacity) * (getHeight()));
                 guiGraphics.blitSprite(sprite, getWidth(), getHeight(), 0, getHeight() - i, getX(), getY() + getHeight() - i, getWidth(), i);
             }
             case UP_DOWN -> {
-                int i = Mth.ceil(getProgress(amount, capacity) * (getHeight() - 1));
+                int i = Mth.ceil(getProgress(amount, capacity) * (getHeight()));
                 guiGraphics.blitSprite(sprite, getWidth(), getHeight(), 0, 0, getX(), getY(), getWidth(), i);
             }
             case LEFT_RIGHT -> {
-                int i = Mth.ceil(getProgress(amount, capacity) * (getWidth() - 1));
+                int i = Mth.ceil(getProgress(amount, capacity) * (getWidth()));
                 guiGraphics.blitSprite(sprite, getWidth(), getHeight(), 0, 0, getX(), getY(), i, getHeight());
             }
             case RIGHT_LEFT -> {
-                int i = Mth.ceil(getProgress(amount, capacity) * (getWidth() - 1));
+                int i = Mth.ceil(getProgress(amount, capacity) * (getWidth()));
                 guiGraphics.blitSprite(sprite, getWidth(), getHeight(), getWidth() - i, 0, getX() + getWidth() - i, getY(), i, getHeight());
             }
         }

@@ -7,6 +7,7 @@ public class GUISprites {
 
     public static final ResourceLocation WATER_OVERLAY = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "util/water_overlay");
     public static final ResourceLocation WATER_SEPARATOR_OVERLAY = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "util/water_separator_overlay");
+    public static final ResourceLocation WATER_SEPARATOR_WATERED_OVERLAY = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "util/water_separator_overlay_watered");
     public static final ResourceLocation HYDROGEN_OVERLAY = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "util/hydrogen_gui_overlay");
     public static final ResourceLocation OXYGEN_OVERLAY = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "util/oxygen_gui_overlay");
     public static final ResourceLocation SIDEWAYS_ENERGY_FULL = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "util/sideway_energy_full");

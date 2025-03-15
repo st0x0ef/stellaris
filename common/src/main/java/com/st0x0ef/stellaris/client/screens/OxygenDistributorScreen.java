@@ -47,7 +47,7 @@ public class OxygenDistributorScreen extends AbstractContainerScreen<OxygenDistr
         addRenderableWidget(energyGauge);
 
         SingleFluidStorage oxygenTank = blockEntity.oxygenTank;
-        oxygenGauge = new GaugeWidget(leftPos + 64 , topPos + 52 , 16, 18, Component.translatable("stellaris.screen.oxygen"), GUISprites.NO_OVERLAY, GUISprites.NO_OVERLAY, oxygenTank.getTankCapacity(0), GaugeWidget.Direction4.DOWN_UP);
+        energyGauge = new GaugeWidget(leftPos + 68, topPos + 20, 44, 6, Component.translatable("stellaris.screen.energyContainer"), GUISprites.SIDEWAYS_ENERGY_FULL, null, blockEntity.getEnergy(null).getMaxEnergy(), GaugeWidget.Direction4.LEFT_RIGHT);
         addRenderableWidget(oxygenGauge);
 
     }

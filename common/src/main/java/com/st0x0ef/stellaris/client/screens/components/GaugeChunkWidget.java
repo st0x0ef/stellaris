@@ -41,7 +41,7 @@ public class GaugeChunkWidget extends AbstractWidget {
     protected void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         switch (DIRECTION) {
             case DOWN_UP -> {
-                int i = Mth.ceil(getProgress(amount, capacity) * (getHeight() - 1));
+                int i = Mth.ceil(getProgress(amount, capacity) * (getHeight()));
                 for (int j = 0; j < width/imageWidth; j++) {
                     guiGraphics.blitSprite(sprite, imageWidth, getHeight(), 0, getHeight() - i, getX() + imageWidth * j, getY() + getHeight() - i, imageWidth, i);
                 }
@@ -51,7 +51,7 @@ public class GaugeChunkWidget extends AbstractWidget {
                 }
             }
             case UP_DOWN -> {
-                int i = Mth.ceil(getProgress(amount, capacity) * (getHeight() - 1));
+                int i = Mth.ceil(getProgress(amount, capacity) * (getHeight()));
                 for (int j = 0; j < width/imageWidth; j++) {
                     guiGraphics.blitSprite(sprite, imageWidth, getHeight(), 0, 0, getX() + imageWidth * j, getY(), imageWidth, i);
                 }
@@ -61,7 +61,7 @@ public class GaugeChunkWidget extends AbstractWidget {
                 }
             }
             case LEFT_RIGHT -> {
-                int i = Mth.ceil(getProgress(amount, capacity) * (getWidth() - 1));
+                int i = Mth.ceil(getProgress(amount, capacity) * (getWidth()));
                 for (int j = 0; j < height/imageHeight; j++) {
                     guiGraphics.blitSprite(sprite, getWidth(), imageHeight, 0, 0, getX(), getY() + imageHeight * j, i, imageHeight);
                 }
@@ -71,7 +71,7 @@ public class GaugeChunkWidget extends AbstractWidget {
                 }
             }
             case RIGHT_LEFT -> {
-                int i = Mth.ceil(getProgress(amount, capacity) * (getWidth() - 1));
+                int i = Mth.ceil(getProgress(amount, capacity) * (getWidth()));
                 for (int j = 0; j < height/imageHeight; j++) {
                     guiGraphics.blitSprite(sprite, getWidth(), imageHeight, getWidth() - i, 0, getX() + getWidth() - i, getY() + imageHeight * j, i, imageHeight);
                 }
