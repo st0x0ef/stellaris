@@ -998,7 +998,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     @Override
     public void onClose() {
-        if(getPlayer().getEntityData().get(EntityData.DATA_PLANET_MENU_OPEN)) {
+        if(getPlayer().stellaris$isPlanetMenuOpen()) {
             return;
         }
         long windowHandle = Minecraft.getInstance().getWindow().getWindow();

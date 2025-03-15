@@ -119,7 +119,7 @@ public class Utils {
                     player.awardStat(StatsRegistry.SPACE_TRAVEL.get(), Utils.distanceToPlanet(PlanetUtil.getPlanet(player.level().dimension().location()), destination));
 
                     player.closeContainer();
-                    player.getEntityData().set(EntityData.DATA_PLANET_MENU_OPEN, false);
+                    player.stellaris$setPlanetMenuOpen(false, player, true);
                 }
             }
         }

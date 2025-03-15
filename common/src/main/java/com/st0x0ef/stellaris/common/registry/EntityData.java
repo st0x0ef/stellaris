@@ -10,14 +10,8 @@ import net.minecraft.world.entity.player.Player;
 public class EntityData {
 
 
-    public static EntityDataAccessor<Boolean> DATA_PLANET_MENU_OPEN;
     public static EntityDataSerializer<RocketModel> ROCKET_MODEL;
 
-
     public static void register() {
-        DATA_PLANET_MENU_OPEN = SynchedEntityData.defineId(Player.class, EntityDataSerializers.BOOLEAN);
-
-        //ROCKET_MODEL = EntityDataSerializer.forValueType(RocketModel.STREAM_CODEC);
-        //EntityDataSerializers.registerSerializer(ROCKET_MODEL);
     }
 }

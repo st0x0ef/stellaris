@@ -69,7 +69,7 @@ public class WaitScreen extends AbstractContainerScreen<WaitMenu> {
 
     @Override
     public void onClose() {
-        if(this.getPlayer().getEntityData().get(EntityData.DATA_PLANET_MENU_OPEN)) {
+        if(this.getPlayer().stellaris$isPlanetMenuOpen()) {
             return;
         }
         super.onClose();

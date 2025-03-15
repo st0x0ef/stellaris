@@ -34,7 +34,6 @@ public class Stellaris {
 
     public static void init() {
         CustomConfig.init();
-        EntityData.register();
         NetworkRegistry.init();
 
         ProcessorsRegistry.STRUCTURE_PROCESSORS.register();
