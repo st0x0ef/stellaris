@@ -342,9 +342,6 @@ public class TabletEntryScreen extends Screen {
         return infos.get(nextIndex);
     }
 
-
-
-
     public String getCurrentPage(String page) {
         return ResourceLocation.parse(page).getPath();
 
