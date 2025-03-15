@@ -19,6 +19,7 @@ import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 
 @Mod(Stellaris.MODID)
 public class StellarisNeoForge {
+
     public StellarisNeoForge(IEventBus bus) {
         Stellaris.init();
         NeoForge.EVENT_BUS.addListener(StellarisNeoForge::onAddReloadListenerEvent);
@@ -28,10 +29,6 @@ public class StellarisNeoForge {
 
         bus.addListener(StellarisNeoForge::onAttributes);
         bus.addListener(StellarisNeoForge::addItemToTab);
-
-        if (FMLEnvironment.dist.isClient()) {
-            StellarisClient.registerPacks();
-        }
     }
 
     public static void onDatapackSync(OnDatapackSyncEvent event) {
