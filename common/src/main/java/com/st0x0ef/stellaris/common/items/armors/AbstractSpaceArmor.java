@@ -9,6 +9,8 @@ import com.st0x0ef.stellaris.common.registry.FluidRegistry;
 import dev.architectury.fluid.FluidStack;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -21,7 +23,7 @@ public abstract class AbstractSpaceArmor extends CustomArmorItem {
         super(material, type, properties);
     }
 
-    public static class AbstractSpaceChestplate extends AbstractSpaceArmor implements FluidProvider.ITEM {
+    public static abstract class AbstractSpaceChestplate extends AbstractSpaceArmor implements FluidProvider.ITEM {
 
         public AbstractSpaceChestplate(Holder<ArmorMaterial> material, Type type, Properties properties) {
             super(material, type, properties);
@@ -45,6 +47,13 @@ public abstract class AbstractSpaceArmor extends CustomArmorItem {
                 }
             };
         }
+
+        public abstract boolean canElytraFly(ItemStack stack, LivingEntity entity);
+
+        public abstract boolean elytraFlightTick(ItemStack stack, LivingEntity entity, int flightTicks);
+
+        public abstract boolean tryToStartFallFlying(Player player);
+
     }
 
     public static abstract class Chestplate extends AbstractSpaceChestplate {
@@ -74,8 +83,10 @@ public abstract class AbstractSpaceArmor extends CustomArmorItem {
 
         }
 
-        public abstract boolean canElytraFly(ItemStack stack, net.minecraft.world.entity.LivingEntity entity);
+        public abstract boolean canElytraFly(ItemStack stack, LivingEntity entity);
 
-        public abstract boolean elytraFlightTick(ItemStack stack, net.minecraft.world.entity.LivingEntity entity, int flightTicks);
+        public abstract boolean elytraFlightTick(ItemStack stack, LivingEntity entity, int flightTicks);
+
+        public abstract boolean tryToStartFallFlying(Player player);
     }
 }

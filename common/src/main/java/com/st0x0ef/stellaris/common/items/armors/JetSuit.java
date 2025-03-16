@@ -6,6 +6,7 @@ import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.data_components.JetSuitComponent;
 import com.st0x0ef.stellaris.common.keybinds.KeyVariables;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
+import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
@@ -20,7 +21,9 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.ElytraItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
@@ -144,7 +147,7 @@ public class JetSuit {
                     Vec3 vec3 = player.getDeltaMovement();
                     UniversalFluidItemStorage storage = getFluidTank(stack);
                     // Main movement logic
-                    if(storage.getFluidInTank(1).isEmpty()) return;
+                    if (storage.getFluidInTank(1).isEmpty()) return;
                     if (!player.onGround() && !player.isInWater()) {
                         if (nextFuelCheckTick > 0) {
                             player.setDeltaMovement(vec3.x, vec3.y + 0.04, vec3.z);
@@ -248,19 +251,19 @@ public class JetSuit {
                 if (this.getMode(stack) == ModeType.CREATIVE.getMode() && !player.hasEffect(MobEffects.SLOW_FALLING)) {
                     UniversalFluidItemStorage storage = getFluidTank(stack);
 
-                        if(storage.getFluidInTank(1).isEmpty()) return;
-                        if (nextFuelCheckTick > 0) {
-                            player.getAbilities().flying = true;
-                            player.getAbilities().setFlyingSpeed(0.05f);
-                            player.resetFallDistance();
-                            Utils.disableFlyAntiCheat(player, true);
-                        } else if (!storage.getFluidInTank(1).isEmpty()) {
-                            player.getAbilities().flying = true;
-                            player.getAbilities().setFlyingSpeed(0.05f);
-                            player.resetFallDistance();
-                            Utils.disableFlyAntiCheat(player, true);
-                            nextFuelCheckTick = 20;
-                        }
+                    if (storage.getFluidInTank(1).isEmpty()) return;
+                    if (nextFuelCheckTick > 0) {
+                        player.getAbilities().flying = true;
+                        player.getAbilities().setFlyingSpeed(0.05f);
+                        player.resetFallDistance();
+                        Utils.disableFlyAntiCheat(player, true);
+                    } else if (!storage.getFluidInTank(1).isEmpty()) {
+                        player.getAbilities().flying = true;
+                        player.getAbilities().setFlyingSpeed(0.05f);
+                        player.resetFallDistance();
+                        Utils.disableFlyAntiCheat(player, true);
+                        nextFuelCheckTick = 20;
+                    }
 
 
                     if (!player.level().isClientSide) {
@@ -276,17 +279,16 @@ public class JetSuit {
         }
 
 
-
         public void calculateSpacePressTime(Player player, ItemStack itemStack) {
             int mode = this.getMode(itemStack);
 
             /** NORMAL MODE */
             if (mode == ModeType.NORMAL.getMode()) {
                 if (KeyVariables.isHoldingJump(player)) {
-                    if (this.spacePressTime < 2.2F) {this.spacePressTime = this.spacePressTime + 0.2F;
+                    if (this.spacePressTime < 2.2F) {
+                        this.spacePressTime = this.spacePressTime + 0.2F;
                     }
-                }
-                else if (this.spacePressTime > 0.0F) {
+                } else if (this.spacePressTime > 0.0F) {
                     this.spacePressTime = this.spacePressTime - 0.2F;
                 }
             }
@@ -295,14 +297,12 @@ public class JetSuit {
             if (mode == ModeType.HOVER.getMode()) {
                 if (!player.onGround() && this.spacePressTime < 0.6F) {
                     this.spacePressTime = this.spacePressTime + 0.2F;
-                }
-                else if (KeyVariables.isHoldingJump(player)) {
+                } else if (KeyVariables.isHoldingJump(player)) {
                     if (this.spacePressTime < 1.4F) {
                         this.spacePressTime = this.spacePressTime + 0.2F;
-                        hoverModeMovement(player,itemStack);
+                        hoverModeMovement(player, itemStack);
                     }
-                }
-                else if (this.spacePressTime >= 0.6F) {
+                } else if (this.spacePressTime >= 0.6F) {
                     this.spacePressTime = this.spacePressTime - 0.2F;
                 }
 
@@ -333,8 +333,7 @@ public class JetSuit {
                             this.spacePressTime = this.spacePressTime + 0.2F;
                         }
                     }
-                }
-                else if (this.spacePressTime > 0.0F) {
+                } else if (this.spacePressTime > 0.0F) {
                     this.spacePressTime = this.spacePressTime - 0.2F;
                 }
             }
@@ -374,7 +373,22 @@ public class JetSuit {
             }
             return true;
         }
+
+
+
+        @Override
+        public boolean tryToStartFallFlying(Player player) {
+            if (!player.onGround() && !player.isFallFlying() && !player.isInWater() && !player.hasEffect(MobEffects.LEVITATION)) {
+                ItemStack itemStack = player.getItemBySlot(EquipmentSlot.CHEST);
+                if (itemStack.is(ItemsRegistry.JETSUIT_SUIT) && ElytraItem.isFlyEnabled(itemStack)) {
+                    player.startFallFlying();
+                    return true;
+                }
+            }
+            return false;
+        }
     }
+
 
     public enum ModeType implements StringRepresentable {
         DISABLED(Component.translatable("general." + Stellaris.MODID + ".jet_suit_disabled_mode"), ChatFormatting.RED, 0),
