@@ -60,7 +60,7 @@ public abstract class BaseItemCombinerMenu extends AbstractContainerMenu {
             }
 
             public void onTake(Player player, ItemStack stack) {
-                this.onTake(player, stack);
+                BaseItemCombinerMenu.this.onTake(player, stack);
             }
         });
     }
