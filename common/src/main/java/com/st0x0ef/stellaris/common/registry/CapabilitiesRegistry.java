@@ -4,19 +4,11 @@ import com.fej1fun.potentials.capabilities.Capabilities;
 
 public class CapabilitiesRegistry {
     public static void init() {
+        registerEnergyItems();
+        registerFluidItems();
         registerEnergyBlockEntities();
         registerFluidBlockEntities();
     }
-
-//    static void registerEnergyBlocks() {
-//        Capabilities.Energy.BLOCK.registerForBlock(BlocksRegistry.CABLE);
-//        Capabilities.Energy.BLOCK.registerForBlock(BlocksRegistry.OXYGEN_DISTRIBUTOR);
-//        Capabilities.Energy.BLOCK.registerForBlock(BlocksRegistry.WATER_SEPARATOR);
-//        Capabilities.Energy.BLOCK.registerForBlock(BlocksRegistry.FUEL_REFINERY);
-//        Capabilities.Energy.BLOCK.registerForBlock(BlocksRegistry.SOLAR_PANEL);
-//        Capabilities.Energy.BLOCK.registerForBlock(BlocksRegistry.COAL_GENERATOR);
-//        Capabilities.Energy.BLOCK.registerForBlock(BlocksRegistry.RADIOACTIVE_GENERATOR);
-//    }
 
     static void registerEnergyBlockEntities() {
         Capabilities.Energy.BLOCK.registerForBlockEntity(BlockEntityRegistry.SOLAR_PANEL);
@@ -26,16 +18,26 @@ public class CapabilitiesRegistry {
         Capabilities.Energy.BLOCK.registerForBlockEntity(BlockEntityRegistry.OXYGEN_DISTRIBUTOR);
         Capabilities.Energy.BLOCK.registerForBlockEntity(BlockEntityRegistry.WATER_SEPARATOR_ENTITY);
         Capabilities.Energy.BLOCK.registerForBlockEntity(BlockEntityRegistry.FUEL_REFINERY);
+        Capabilities.Energy.BLOCK.registerForBlockEntity(BlockEntityRegistry.PUMPJACK);
+        Capabilities.Energy.BLOCK.registerForBlockEntity(BlockEntityRegistry.WATER_PUMP);
+        Capabilities.Energy.BLOCK.registerForBlockEntity(BlockEntityRegistry.VACUUMATOR_ENTITY);
+    }
+    static void registerEnergyItems() {
+        Capabilities.Energy.ITEM.registerForItem(ItemsRegistry.OIL_FINDER);
     }
 
-//    static void registerFluidBlocks() {
-//
-//    }
     static void registerFluidBlockEntities() {
         Capabilities.Fluid.BLOCK.registerForBlockEntity(BlockEntityRegistry.WATER_SEPARATOR_ENTITY);
         Capabilities.Fluid.BLOCK.registerForBlockEntity(BlockEntityRegistry.WATER_PUMP);
         Capabilities.Fluid.BLOCK.registerForBlockEntity(BlockEntityRegistry.PUMPJACK);
         Capabilities.Fluid.BLOCK.registerForBlockEntity(BlockEntityRegistry.OXYGEN_DISTRIBUTOR);
+        Capabilities.Fluid.BLOCK.registerForBlockEntity(BlockEntityRegistry.PIPE_ENTITY);
     }
 
+    static void registerFluidItems() {
+        Capabilities.Fluid.ITEM.registerForItem(ItemsRegistry.OXYGEN_TANK);
+        Capabilities.Fluid.ITEM.registerForItem(ItemsRegistry.BIG_OXYGEN_TANK);
+        Capabilities.Fluid.ITEM.registerForItem(ItemsRegistry.SPACESUIT_SUIT);
+        Capabilities.Fluid.ITEM.registerForItem(ItemsRegistry.JETSUIT_SUIT);
+    }
 }

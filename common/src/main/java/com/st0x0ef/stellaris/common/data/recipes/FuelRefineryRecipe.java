@@ -6,7 +6,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.FuelRefineryBlockEntity;
 import com.st0x0ef.stellaris.common.data.recipes.input.FluidInput;
 import com.st0x0ef.stellaris.common.registry.RecipesRegistry;
-import com.st0x0ef.stellaris.common.utils.capabilities.fluid.FluidStorage;
+import com.st0x0ef.stellaris.common.utils.capabilities.fluid.SingleFluidStorage;
 import dev.architectury.fluid.FluidStack;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -18,9 +18,12 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
 public record FuelRefineryRecipe(FluidStack ingredientStack, FluidStack resultStack, int energy) implements Recipe<FluidInput> {
+
+    public static RecipeType<FuelRefineryRecipe> Type = RecipesRegistry.FUEL_REFINERY_TYPE.get();
+
     @Override
     public boolean matches(FluidInput input, Level level) {
-        FluidStorage storage = ((FuelRefineryBlockEntity) input.entity()).getIngredientTank();
+        SingleFluidStorage storage = ((FuelRefineryBlockEntity) input.entity()).getIngredientTank();
         FluidStack stack = storage.getFluidInTank(0);
         return stack.isFluidEqual(ingredientStack) && stack.getAmount() >= ingredientStack.getAmount();
     }

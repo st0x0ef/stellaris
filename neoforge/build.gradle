@@ -36,8 +36,8 @@ dependencies {
     modCompileOnly("mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}")
     runtimeOnly("mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}")
 
-    runtimeOnly "maven.modrinth:sky-aesthetics:${sky_version}-neoforge"
-    include("maven.modrinth:sky-aesthetics:${sky_version}-neoforge")
+    modRuntimeOnly("fr.tathan.sky-aesthetics:sky-aesthetics-neoforge-1.21:${sky_version}")
+    include("fr.tathan.sky-aesthetics:sky-aesthetics-neoforge-1.21:${sky_version}")
 
     modApi("com.fej1fun.potentials:potentials-neoforge:${rootProject.potentials_version}")
 
@@ -61,6 +61,8 @@ processResources {
 
 shadowJar {
     configurations = [project.configurations.shadowBundle]
+    exclude "architectury.common.json"
+
     archiveClassifier = 'dev-shadow'
 }
 

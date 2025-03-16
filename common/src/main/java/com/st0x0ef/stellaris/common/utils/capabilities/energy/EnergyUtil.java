@@ -10,10 +10,16 @@ import net.minecraft.world.level.Level;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
+@SuppressWarnings("all")
 public class EnergyUtil {
-    public static int moveEnergyToItem(EnergyStorage from, ItemStack stackTo, int amount) {
+    public static int moveEnergyToItem(UniversalEnergyStorage from, ItemStack stackTo, int amount) {
         UniversalEnergyStorage to = Capabilities.Energy.ITEM.getCapability(stackTo);
         if (to == null) return 0;
+        return moveEnergy(from, to, amount);
+    }
+    public static int moveEnergyFromItem(UniversalEnergyStorage to, ItemStack stackFrom, int amount) {
+        UniversalEnergyStorage from = Capabilities.Energy.ITEM.getCapability(stackFrom);
+        if (from == null) return 0;
         return moveEnergy(from, to, amount);
     }
 
@@ -34,11 +40,11 @@ public class EnergyUtil {
             from = Capabilities.Energy.BLOCK.getCapability(level, pos, direction);
             if (from==null) continue;
             if (!from.canExtractEnergy()) continue;
-            if (!(from.extract(amount, true)>0)) continue;
+            if (from.extract(amount, true) == 0) continue;
             to = Capabilities.Energy.BLOCK.getCapability(level, pos, direction);
             if (to==null) continue;
             if (!to.canInsertEnergy()) continue;
-            if (!(to.insert(amount, true)>0)) continue;
+            if (to.insert(amount, true) == 0) continue;
             pairs.put(from, to);
         }
 
@@ -53,32 +59,35 @@ public class EnergyUtil {
 
     private static void distributeInAllDirections(Level level, BlockPos pos, int amount) {
         UniversalEnergyStorage from = Capabilities.Energy.BLOCK.getCapability(level, pos, null);
-        if (from==null) return;
-        if (from.extract(amount, true) == 0) return;
+        if (from == null || !from.canExtractEnergy()) return;
+
+        int finalAmount = from.extract(amount, true);
+        if (finalAmount == 0) return;
 
         List<UniversalEnergyStorage> toSend = Direction.stream()
                 .map(direction -> Capabilities.Energy.BLOCK.getCapability(level, pos.relative(direction), direction.getOpposite()))
                 .filter(Objects::nonNull)
-                .sorted(Comparator.comparing(energyStorage -> energyStorage.insert(amount, true)))
                 .filter(UniversalEnergyStorage::canInsertEnergy)
+                .sorted(Comparator.comparing(energyStorage -> energyStorage.insert(finalAmount, true)))
                 .toList();
+
         if (toSend.isEmpty()) return;
 
         int receivers = toSend.size();
-        int toDistribute = amount;
+        int toDistribute = finalAmount;
         for (UniversalEnergyStorage to : toSend) {
-            toDistribute -= moveEnergy(from, to, toDistribute/receivers);
-            receivers--;
+            toDistribute -= moveEnergy(from, to, finalAmount/receivers);
         }
     }
-
 
     public static int moveEnergy(UniversalEnergyStorage from, UniversalEnergyStorage to, int amount) {
         int inserted = to.insert(from.extract(amount, true), true);
         if (inserted > 0) {
             from.extract(inserted, false);
             to.insert(inserted, false);
-        } else return 0;
-        return inserted;
+
+            return inserted;
+        }
+        return 0;
     }
 }

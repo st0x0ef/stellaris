@@ -33,13 +33,12 @@ import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.tiny.TinyR
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.tiny.TinyRocketRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rover.RoverModel;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rover.RoverRenderer;
+import com.st0x0ef.stellaris.client.renderers.entities.customlightning.CustomLightningBoltRenderer;
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeBlockRenderer;
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeModel;
 import com.st0x0ef.stellaris.client.screens.*;
-import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
-import com.st0x0ef.stellaris.common.registry.EntityRegistry;
-import com.st0x0ef.stellaris.common.registry.FluidRegistry;
-import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
+import com.st0x0ef.stellaris.client.screens.tablet.TabletMainScreen;
+import com.st0x0ef.stellaris.common.registry.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -58,6 +57,7 @@ import org.jetbrains.annotations.NotNull;
 
 @EventBusSubscriber(modid = Stellaris.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
 public class StellarisNeoforgeClient {
+
     @SubscribeEvent
     public static void clientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(StellarisClient::initClient);
@@ -76,6 +76,7 @@ public class StellarisNeoforgeClient {
 
         event.registerEntityRenderer(EntityRegistry.ICE_SPIT.get(), renderManager -> new ThrownItemRenderer<>(renderManager, 1, true));
         event.registerEntityRenderer(EntityRegistry.ICE_SHARD_ARROW.get(), IceShardArrowRenderer::new);
+        event.registerEntityRenderer(EntityRegistry.VENUS_LIGHTNING_BOLT.get(), CustomLightningBoltRenderer::new);
 
         event.registerEntityRenderer(EntityRegistry.TINY_ROCKET.get(), TinyRocketRenderer::new);
         event.registerEntityRenderer(EntityRegistry.SMALL_ROCKET.get(), SmallRocketRenderer::new);
@@ -125,19 +126,20 @@ public class StellarisNeoforgeClient {
         event.register(MenuTypesRegistry.PLANET_SELECTION_MENU.get(), PlanetSelectionScreen::new);
         event.register(MenuTypesRegistry.MILKYWAY_MENU.get(), MilkyWayScreen::new);
         event.register(MenuTypesRegistry.LANDER_MENU.get(), LanderScreen::new);
-        event.register(MenuTypesRegistry.OXYGEN_DISTRIBUTOR.get(), OxygenGeneratorScreen::new);
+        event.register(MenuTypesRegistry.OXYGEN_DISTRIBUTOR.get(), OxygenDistributorScreen::new);
         event.register(MenuTypesRegistry.WATER_SEPARATOR_MENU.get(), WaterSeparatorScreen::new);
         event.register(MenuTypesRegistry.FUEL_REFINERY.get(), FuelRefineryScreen::new);
         event.register(MenuTypesRegistry.WATER_PUMP_MENU.get(), WaterPumpScreen::new);
         event.register(MenuTypesRegistry.WAIT_MENU.get(), WaitScreen::new);
         event.register(MenuTypesRegistry.PUMPJACK_MENU.get(), PumpjackScreen::new);
-
+        event.register(MenuTypesRegistry.TABLET_MENU.get(), TabletMainScreen::new);
     }
 
     @SubscribeEvent
     public static void registerKeyBindings(RegisterKeyMappingsEvent event) {
         event.register(KeyMappingsRegistry.CHANGE_JETSUIT_MODE);
         event.register(KeyMappingsRegistry.FREEZE_PLANET_MENU);
+        event.register(KeyMappingsRegistry.OPEN_TABLET_INFO);
 
         NeoForge.EVENT_BUS.addListener(StellarisNeoforgeClient::clientTick);
     }

@@ -40,7 +40,6 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
     public MotorUpgrade motorUpgrade;
     public TankUpgrade tankUpgrade;
     public SpeedUpgrade speedUpgrade;
-    private Item currentFuelItem;
     public final SimpleContainer inventory;
 
     public RoverComponent roverComponent;
@@ -52,9 +51,9 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
         this.motorUpgrade = MotorUpgrade.getBasic();
         this.tankUpgrade = TankUpgrade.getBasic();
         this.speedUpgrade = SpeedUpgrade.getBasic();
-        this.currentFuelItem = ItemsRegistry.FUEL_BUCKET.get();
         this.FUEL = 0;
-        this.roverComponent = new RoverComponent(currentFuelItem.toString(), FUEL, motorUpgrade.getFluidTexture(), tankUpgrade.getTankCapacity(), speedUpgrade.getSpeedModifier());
+        this.FUEL_TYPE = FuelType.Type.FUEL;
+        this.roverComponent = new RoverComponent(FUEL_TYPE.getSerializedName(), FUEL, FUEL_TYPE.getFuelTexture(), tankUpgrade.getTankCapacity(), speedUpgrade.getSpeedModifier());
     }
 
     public void setRoverComponent(RoverComponent roverComponent) {
@@ -64,7 +63,7 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
         this.tankUpgrade = roverComponent.getTankUpgrade();
         this.speedUpgrade = roverComponent.getSpeedUpgrade();
         this.FUEL = roverComponent.getFuel();
-        this.currentFuelItem = FuelType.getItemBasedOnTypeName(roverComponent.fuelType());
+        this.FUEL_TYPE = roverComponent.getFuelType();
     }
 
     @Override
@@ -164,27 +163,27 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
     private void checkContainer() {
         if (this.level().isClientSide) return;
 
-        if (this.getInventory().getItem(10).getItem() instanceof VehicleUpgradeItem item) {
+        if (this.getInventory().getItem(2).getItem() instanceof VehicleUpgradeItem item) {
             if (item.getUpgrade() instanceof MotorUpgrade upgrade) {
                 this.motorUpgrade = upgrade;
             }
-        } else if (this.getInventory().getItem(10).isEmpty()) {
+        } else if (this.getInventory().getItem(2).isEmpty()) {
             this.motorUpgrade = MotorUpgrade.getBasic();
         }
 
-        if (this.getInventory().getItem(11).getItem() instanceof VehicleUpgradeItem item) {
+        if (this.getInventory().getItem(3).getItem() instanceof VehicleUpgradeItem item) {
             if (item.getUpgrade() instanceof SpeedUpgrade upgrade) {
                 this.speedUpgrade = upgrade;
             }
-        } else if (this.getInventory().getItem(11).isEmpty()) {
+        } else if (this.getInventory().getItem(3).isEmpty()) {
             this.speedUpgrade = SpeedUpgrade.getBasic();
         }
 
-        if (this.getInventory().getItem(12).getItem() instanceof VehicleUpgradeItem item) {
+        if (this.getInventory().getItem(4).getItem() instanceof VehicleUpgradeItem item) {
             if (item.getUpgrade() instanceof TankUpgrade upgrade) {
                 this.tankUpgrade = upgrade;
             }
-        } else if (this.getInventory().getItem(12).isEmpty()) {
+        } else if (this.getInventory().getItem(4).isEmpty()) {
             this.tankUpgrade = TankUpgrade.getBasic();
         }
 
@@ -198,44 +197,37 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
 
     public boolean tryFillUpRover(Item item) {
         if (this.level().isClientSide) return false;
-        if (FUEL == tankUpgrade.getTankCapacity() || item == null) {
+        if (FUEL >= tankUpgrade.getTankCapacity() || item == null) {
             return false;
         }
 
-        if (motorUpgrade.getFuelType().equals(FuelType.Type.RADIOACTIVE) && FuelType.Type.Radioactive.getTypeBasedOnItem(item) != null && canPutFuelBasedOnCurrentFuelItem(item)) {
-            FUEL += 1000;
-            if (FUEL > tankUpgrade.getTankCapacity()) {
-                FUEL = tankUpgrade.getTankCapacity();
+        FuelType.Type itemType = FuelType.Type.getTypeBasedOnItem(item);
+        if (itemType == null) return false;
+
+        FuelType.Type motorType = motorUpgrade.getFuelType();
+
+        if (motorType == itemType.getMotorType()) {
+            if (FUEL == 0) {
+                FUEL_TYPE = itemType;
             }
 
-            inventory.removeItem(0, 1);
+            if (itemType == FUEL_TYPE) {
+                FUEL += 1000;
+                if (FUEL > tankUpgrade.getTankCapacity()) {
+                    FUEL = tankUpgrade.getTankCapacity();
+                }
 
-            return true;
-        }
+                ItemStack fuelItem = inventory.removeItem(0, 1);
 
-        if (FuelType.Type.getTypeBasedOnItem(item) == motorUpgrade.getFuelType() && canPutFuelBasedOnCurrentFuelItem(item)) {
-            FUEL += 1000;
-            if (FUEL > tankUpgrade.getTankCapacity()) {
-                FUEL = tankUpgrade.getTankCapacity();
+                if (fuelItem.is(ItemsRegistry.FUEL_BUCKET.get()) || fuelItem.is(ItemsRegistry.HYDROGEN_BUCKET.get())) {
+                    inventory.setItem(1, new ItemStack(Items.BUCKET, inventory.getItem(1).getCount() + 1));
+                }
+
+                return true;
             }
-
-            if (inventory.removeItem(0, 1).is(ItemsRegistry.FUEL_BUCKET.get())) {
-                inventory.setItem(1, new ItemStack(Items.BUCKET, inventory.getItem(1).getCount()+1));
-            }
-
-            return true;
         }
 
         return false;
-    }
-
-    private boolean canPutFuelBasedOnCurrentFuelItem(Item item) {
-        if (FUEL == 0) {
-            currentFuelItem = item;
-            return true;
-        }
-
-        return currentFuelItem == item;
     }
 
     @Override
@@ -267,7 +259,7 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
     }
 
     public void syncRocketData(ServerPlayer player) {
-        this.roverComponent = new RoverComponent(currentFuelItem.toString(), FUEL, motorUpgrade.getFluidTexture(), tankUpgrade.getTankCapacity(), speedUpgrade.getSpeedModifier());
+        this.roverComponent = new RoverComponent(FUEL_TYPE.getSerializedName(), FUEL, FUEL_TYPE.getFuelTexture(), tankUpgrade.getTankCapacity(), speedUpgrade.getSpeedModifier());
         if (!level().isClientSide()) {
             NetworkManager.sendToPlayer(player, new SyncRoverComponentPacket(roverComponent));
         }
@@ -305,12 +297,8 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
         compound.put("InventoryCustom", this.inventory.createTag(registryAccess()));
         compound.putInt("fuel", FUEL);
 
-        if (FUEL != 0 && currentFuelItem != null) {
-            if (FuelType.Type.getTypeBasedOnItem(currentFuelItem) != null) {
-                compound.putString("currentFuelItemType", FuelType.Type.getTypeBasedOnItem(currentFuelItem).getSerializedName());
-            } else if (FuelType.Type.Radioactive.getTypeBasedOnItem(currentFuelItem) != null) {
-                compound.putString("currentFuelItemType", FuelType.Type.Radioactive.getTypeBasedOnItem(currentFuelItem).getSerializedName());
-            }
+        if (FUEL != 0) {
+            compound.putString("currentFuelItemType", FUEL_TYPE.getSerializedName());
         }
 
         ListTag listTag = new ListTag();
@@ -335,7 +323,7 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
         FUEL = compound.getInt("fuel");
 
         if (FUEL != 0) {
-            currentFuelItem = FuelType.getItemBasedOnTypeName(compound.getString("currentFuelItemType"));
+            FUEL_TYPE = FuelType.Type.fromString(compound.getString("currentFuelItemType"));
         }
 
         ListTag listTag = compound.getList("Items", 10);

@@ -2,12 +2,15 @@ package com.st0x0ef.stellaris.common.data.planets;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public record Planet (
         String system,
@@ -18,6 +21,7 @@ public record Planet (
         float temperature,
         int distanceFromEarth,
         float gravity,
+        Optional<StormParameters> stormParameters,
         PlanetTextures textures
 
 ) {
@@ -30,6 +34,7 @@ public record Planet (
             Codec.FLOAT.fieldOf("temperature").forGetter(Planet::temperature),
             Codec.INT.fieldOf("distanceFromEarth").forGetter(Planet::distanceFromEarth), // in megameters
             Codec.FLOAT.fieldOf("gravity").forGetter(Planet::gravity),
+            StormParameters.CODEC.optionalFieldOf("stormParameters").forGetter(Planet::stormParameters),
             PlanetTextures.CODEC.fieldOf("textures").forGetter(Planet::textures)
     ).apply(instance, Planet::new));
 
@@ -45,6 +50,7 @@ public record Planet (
             buffer.writeFloat(planet.temperature);
             buffer.writeInt(planet.distanceFromEarth);
             buffer.writeFloat(planet.gravity);
+            buffer.writeOptional(planet.stormParameters, (buf, parameters) -> parameters.toNetwork(buffer));
             planet.textures.toNetwork(buffer);
         }));
 
@@ -66,6 +72,8 @@ public record Planet (
                     buffer.readFloat(),
                     buffer.readInt(),
                     buffer.readFloat(),
+                    buffer.readOptional(StormParameters::readBuffer)
+                    ,
                     PlanetTextures.fromNetwork(buffer)));
         }
 
@@ -76,4 +84,38 @@ public record Planet (
     public Component getTranslation() {
         return Component.translatable(this.translatable);
     }
+
+    public record StormParameters(int lightningFrequency, Vec3 lightningColor) {
+        public static final Codec<StormParameters> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+                Codec.INT.fieldOf("lightningFrequency").forGetter(StormParameters::lightningFrequency),
+                Vec3.CODEC.fieldOf("color").forGetter(StormParameters::lightningColor)
+        ).apply(instance, StormParameters::new));
+
+        public RegistryFriendlyByteBuf toNetwork( RegistryFriendlyByteBuf buffer) {
+            buffer.writeInt(this.lightningFrequency());
+            buffer.writeVec3(this.lightningColor());
+
+            return buffer;
+        }
+
+
+
+        @Override
+        public String toString() {
+            return "StormParameters{" +
+                    ", lightningFrequency=" + lightningFrequency +
+                    ", lightningColor=" + lightningColor +
+                    '}';
+        }
+
+        public static StormParameters readBuffer(FriendlyByteBuf buffer) {
+            return new StormParameters(
+                    buffer.readInt(),
+                    buffer.readVec3());
+        }
+    }
+
+
+
+
 }

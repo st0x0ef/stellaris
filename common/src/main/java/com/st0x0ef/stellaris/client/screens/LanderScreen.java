@@ -20,8 +20,8 @@ public class LanderScreen extends AbstractContainerScreen<LanderMenu> {
 
     public LanderScreen(LanderMenu abstractContainerMenu, Inventory inventory, Component component) {
         super(abstractContainerMenu, inventory, component);
-        this.imageWidth = 177;
-        this.imageHeight = 174;
+        this.imageWidth = 180;
+        this.imageHeight = 188;
         this.inventoryLabelY = this.imageHeight - 92;
 
     }

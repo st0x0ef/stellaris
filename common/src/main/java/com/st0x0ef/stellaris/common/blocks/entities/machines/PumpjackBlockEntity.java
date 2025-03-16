@@ -1,9 +1,11 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
+import com.fej1fun.potentials.components.FluidAmountMapDataComponent;
 import com.fej1fun.potentials.fluid.UniversalFluidStorage;
 import com.fej1fun.potentials.providers.FluidProvider;
 import com.st0x0ef.stellaris.common.blocks.machines.CoalGeneratorBlock;
 import com.st0x0ef.stellaris.common.menus.PumpjackMenu;
+import com.st0x0ef.stellaris.common.network.packets.SyncFluidPacketWithoutDirection;
 import com.st0x0ef.stellaris.common.network.packets.SyncOilLevelPacket;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.registry.FluidRegistry;
@@ -24,25 +26,31 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 public class PumpjackBlockEntity extends BaseEnergyContainerBlockEntity implements FluidProvider.BLOCK {
 
     private boolean isGenerating = false;
     private static final long oilToExtract = 10;
-    public final SingleFluidStorage resultTank = new SingleFluidStorage(10_000) {
-        @Override
-        protected void onChange() {
-            setChanged();
-        }
-    };
+    public final SingleFluidStorage resultTank;
 
     public PumpjackBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.PUMPJACK.get(), pos, state);
-    }
 
+        resultTank = new SingleFluidStorage(10000) {
+            @Override
+            protected void onChange() {
+                setChanged();
+                if (level != null && level.getServer() != null && !level.getServer().getPlayerList().getPlayers().isEmpty())
+                    NetworkManager.sendToPlayers(level.getServer().getPlayerList().getPlayers(),
+                            new SyncFluidPacketWithoutDirection(new FluidAmountMapDataComponent(List.of(getFluidInTank(0).getFluid()), List.of(getFluidValueInTank())), 0, getBlockPos()));
+            }
+        };
+    }
 
     @Override
     public void tick() {
-        FluidUtil.moveFluidToItem(resultTank.getTanks(), resultTank, getItem(1), 1000);
+        FluidUtil.moveFluidToItem(0, resultTank,0, items, 1000);
 
         ChunkAccess access = this.level.getChunk(this.worldPosition);
 
@@ -62,7 +70,7 @@ public class PumpjackBlockEntity extends BaseEnergyContainerBlockEntity implemen
         if (energyContainer.getEnergy() >= 2 * actualOilToExtract) {
             if (resultTank.getFluidValueInTank() + actualOilToExtract <= resultTank.getTankCapacity(0)) {
                 access.stellaris$setChunkOilLevel(access.stellaris$getChunkOilLevel() - actualOilToExtract);
-                resultTank.fill(FluidStack.create(FluidRegistry.OIL_ATTRIBUTES.getSourceFluid(), actualOilToExtract), false);
+                resultTank.fill(FluidStack.create(FluidRegistry.OIL_STILL.get(), actualOilToExtract), false);
 
                 energyContainer.extract(2 * actualOilToExtract, false);
                 isGenerating = true;
