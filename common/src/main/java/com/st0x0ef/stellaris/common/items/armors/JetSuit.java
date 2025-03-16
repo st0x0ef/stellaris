@@ -14,12 +14,15 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 
 public class JetSuit {
@@ -43,6 +46,7 @@ public class JetSuit {
                 case 1 -> ModeType.NORMAL;
                 case 2 -> ModeType.HOVER;
                 case 3 -> ModeType.ELYTRA;
+                case 4 -> ModeType.CREATIVE;
                 default -> ModeType.DISABLED;
             };
         }
@@ -69,7 +73,8 @@ public class JetSuit {
                 switch (this.getMode(stack)) {
                     case 1 -> this.normalFlyModeMovement(player, jetSuitItemStack);
                     case 2 -> this.hoverModeMovement(player, jetSuitItemStack);
-                    case 3 -> this.elytraModeMovement(player);
+                    case 3 -> this.elytraModeMovement(player, jetSuitItemStack);
+                    case 4 -> this.creativeModeMovement(player, jetSuitItemStack);
                 }
 
                 /** CALCULATE PRESS SPACE TIME */
@@ -78,98 +83,148 @@ public class JetSuit {
         }
 
         private void normalFlyModeMovement(Player player, ItemStack stack) {
-            if (KeyVariables.isHoldingJump(player)) {
-                if (nextFuelCheckTick > 0) {
-                    player.moveRelative(1.2F, new Vec3(0, 0.1, 0));
-                    player.resetFallDistance();
-                    Utils.disableFlyAntiCheat(player, true);
-                }
+            if (!player.getAbilities().flying && !player.isPassenger() && Utils.isLivingInJetSuit(player)) {
+                if (this.getMode(stack) == ModeType.NORMAL.getMode() && !player.hasEffect(MobEffects.SLOW_FALLING)) {
+                    if (KeyVariables.isHoldingJump(player)) {
+                        if (nextFuelCheckTick > 0) {
+                            player.moveRelative(1.2F, new Vec3(0, 0.1, 0));
+                            player.resetFallDistance();
+                            Utils.disableFlyAntiCheat(player, true);
+                        } else if (FuelUtils.removeFuel(stack, 1)) {
+                            player.moveRelative(1.2F, new Vec3(0, 0.1, 0));
+                            player.resetFallDistance();
+                            Utils.disableFlyAntiCheat(player, true);
+                            nextFuelCheckTick = 20;
+                        }
+                        nextFuelCheckTick--;
+                    }
+                    if (!player.onGround()) {
+                        Vec3 movement = Vec3.ZERO;
 
-                else if (FuelUtils.removeFuel(stack, 1)) {
-                    player.moveRelative(1.2F, new Vec3(0, 0.1, 0));
-                    player.resetFallDistance();
-                    Utils.disableFlyAntiCheat(player, true);
-                    nextFuelCheckTick = 20;
-                }
+                        if (KeyVariables.isHoldingUp(player)) {
+                            movement = movement.add(player.getLookAngle().scale(0.1));
+                        }
+                        if (KeyVariables.isHoldingDown(player)) {
+                            movement = movement.add(player.getLookAngle().scale(-0.05));
+                        }
+                        if (KeyVariables.isHoldingLeft(player)) {
+                            movement = movement.add(Vec3.directionFromRotation(0, player.getYRot() - 90).scale(0.1));
+                        }
+                        if (KeyVariables.isHoldingRight(player)) {
+                            movement = movement.add(Vec3.directionFromRotation(0, player.getYRot() + 90).scale(0.1));
+                        }
 
-                nextFuelCheckTick--;
-            }
+                        player.setDeltaMovement(player.getDeltaMovement().add(movement));
 
-            if (!player.onGround()) {
-                if (KeyVariables.isHoldingUp(player)) {
-                    player.moveRelative(1.0F, new Vec3(0, 0, 0.03));
-                } else if (KeyVariables.isHoldingDown(player)) {
-                    player.moveRelative(1.0F, new Vec3(0, 0, -0.03));
-                }
-            }
+                    }
+                    if (!player.level().isClientSide) {
+                        Vec3 look = player.getLookAngle();
+                        ServerLevel serverLevel = (ServerLevel) player.level();
+                        Vec3 particlePos = player.position()
+                                .subtract(look.scale(0.75))
+                                .add(0, 0.25, 0);
 
-            if (!player.onGround()) {
-                if (KeyVariables.isHoldingRight(player)) {
-                    player.moveRelative(1.0F, new Vec3(-0.03, 0, 0));
-                } else if (KeyVariables.isHoldingLeft(player)) {
-                    player.moveRelative(1.0F, new Vec3(0.03, 0, 0));
+                        serverLevel.sendParticles(ParticleTypes.SONIC_BOOM,
+                                particlePos.x, particlePos.y, particlePos.z,
+                                1,
+                                0.15, 0.15, 0.15,
+                                0.05);
+                    }
                 }
             }
         }
+
+
         private void hoverModeMovement(Player player, ItemStack stack) {
-            Vec3 vec3 = player.getDeltaMovement();
+            if (!player.getAbilities().flying && !player.isPassenger() && Utils.isLivingInJetSuit(player)) {
+                if (this.getMode(stack) == ModeType.HOVER.getMode() && !player.hasEffect(MobEffects.SLOW_FALLING)) {
+                    Vec3 vec3 = player.getDeltaMovement();
 
-            // Main movement logic
-            if (!player.onGround() && !player.isInWater()) {
-                if (nextFuelCheckTick > 0) {
-                    player.setDeltaMovement(vec3.x, vec3.y + 0.04, vec3.z);
-                    player.resetFallDistance();
-                    Utils.disableFlyAntiCheat(player, true);
-                }
+                    // Main movement logic
+                    if (!player.onGround() && !player.isInWater()) {
+                        if (nextFuelCheckTick > 0) {
+                            player.setDeltaMovement(vec3.x, vec3.y + 0.04, vec3.z);
+                            player.resetFallDistance();
+                            Utils.disableFlyAntiCheat(player, true);
+                        } else if (FuelUtils.removeFuel(stack, 1)) {
+                            player.setDeltaMovement(vec3.x, vec3.y + 0.04, vec3.z);
+                            player.resetFallDistance();
+                            Utils.disableFlyAntiCheat(player, true);
+                            nextFuelCheckTick = 20;
+                        }
 
-                else if (FuelUtils.removeFuel(stack, 1)) {
-                    player.setDeltaMovement(vec3.x, vec3.y + 0.04, vec3.z);
-                    player.resetFallDistance();
-                    Utils.disableFlyAntiCheat(player, true);
-                    nextFuelCheckTick = 20;
-                }
+                        nextFuelCheckTick--;
+                    }
 
-                nextFuelCheckTick--;
-            }
+                    // Move up
+                    if (KeyVariables.isHoldingJump(player)) {
+                        Utils.disableFlyAntiCheat(player, true);
+                    }
 
-            // Move up
-            if (KeyVariables.isHoldingJump(player)) {
-                Utils.disableFlyAntiCheat(player, true);
-            }
+                    // Move down
+                    if (player.isCrouching()) {
+                        player.moveRelative(0.05F, new Vec3(0, -0.08, 0));
+                    }
 
-            // Move down
-            if (player.isCrouching()) {
-                player.moveRelative(0.05F, new Vec3(0, -0.08, 0));
-            }
+                    // Move forward and backward
+                    if (!player.onGround()) {
+                        if (KeyVariables.isHoldingUp(player)) {
+                            player.moveRelative(0.1F, new Vec3(0, 0, 0.1));
+                        } else if (KeyVariables.isHoldingDown(player)) {
+                            player.moveRelative(0.1F, new Vec3(0, 0, -0.1));
+                        }
+                    }
 
-            // Move forward and backward
-            if (!player.onGround()) {
-                if (KeyVariables.isHoldingUp(player)) {
-                    player.moveRelative(0.1F, new Vec3(0, 0, 0.1));
-                } else if (KeyVariables.isHoldingDown(player)) {
-                    player.moveRelative(0.1F, new Vec3(0, 0, -0.1));
-                }
-            }
+                    // Move sideways
+                    if (!player.onGround()) {
+                        if (KeyVariables.isHoldingRight(player)) {
+                            player.moveRelative(0.1F, new Vec3(-0.1, 0, 0));
+                        } else if (KeyVariables.isHoldingLeft(player)) {
+                            player.moveRelative(0.1F, new Vec3(0.1, 0, 0));
+                        }
+                    }
+                    if (!player.level().isClientSide) {
+                        Vec3 look = player.getLookAngle();
+                        ServerLevel serverLevel = (ServerLevel) player.level();
+                        Vec3 particlePos = player.position()
+                                .subtract(look.scale(0.75))
+                                .add(0, 0.25, 0);
 
-            // Move sideways
-            if (!player.onGround()) {
-                if (KeyVariables.isHoldingRight(player)) {
-                    player.moveRelative(0.1F, new Vec3(-0.1, 0, 0));
-                } else if (KeyVariables.isHoldingLeft(player)) {
-                    player.moveRelative(0.1F, new Vec3(0.1, 0, 0));
+                        serverLevel.sendParticles(ParticleTypes.SONIC_BOOM,
+                                particlePos.x, particlePos.y, particlePos.z,
+                                1,
+                                0.15, 0.15, 0.15,
+                                0.05);
+                    }
                 }
             }
         }
 
-        private void elytraModeMovement(Player player) {
-            if (player.isSprinting() && !player.onGround()) {
-                player.startFallFlying();
-                Utils.disableFlyAntiCheat(player, true);
-            } else if (player.isSprinting() && player.onGround() && KeyVariables.isHoldingJump(player)) {
-                player.moveTo(player.getX(), player.getY() + 2, player.getZ());
+        private void elytraModeMovement(Player player, ItemStack stack) {
+            if (!player.getAbilities().flying && !player.isPassenger() && Utils.isLivingInJetSuit(player)) {
+                if (this.getMode(stack) == ModeType.ELYTRA.getMode() && !player.hasEffect(MobEffects.SLOW_FALLING)) {
+                    if (player.isSprinting() && !player.onGround()) {
+                        player.startFallFlying();
+                        Utils.disableFlyAntiCheat(player, true);
+                    } else if (player.isSprinting() && player.onGround() && KeyVariables.isHoldingJump(player)) {
+                        player.moveTo(player.getX(), player.getY() + 2, player.getZ());
+                    }
+                    if (!player.level().isClientSide) {
+                        Vec3 look = player.getLookAngle();
+                        ServerLevel serverLevel = (ServerLevel) player.level();
+                        Vec3 particlePos = player.position()
+                                .subtract(look.scale(0.75))
+                                .add(0, 0.25, 0);
+
+                        serverLevel.sendParticles(ParticleTypes.FLAME,
+                                particlePos.x, particlePos.y, particlePos.z,
+                                1,
+                                0.15, 0.15, 0.15,
+                                0.05);
+                    }
+                }
             }
         }
-
 
         public void switchJetSuitMode(ItemStack itemStack) {
             JetSuitComponent jetSuitComponent;
@@ -182,54 +237,90 @@ public class JetSuit {
 
         }
 
-        public void calculateSpacePressTime(Player player, ItemStack itemStack) {
-            int mode = this.getMode(itemStack);
 
-            /** NORMAL MODE */
-            if (mode == ModeType.NORMAL.getMode()) {
-                if (KeyVariables.isHoldingJump(player)) {
-                    if (this.spacePressTime < 2.2F) {this.spacePressTime = this.spacePressTime + 0.2F;
+        private void creativeModeMovement(Player player, ItemStack stack) {
+            if (!player.getAbilities().flying && !player.isPassenger() && Utils.isLivingInJetSuit(player)) {
+                if (this.getMode(stack) == ModeType.CREATIVE.getMode() && !player.hasEffect(MobEffects.SLOW_FALLING)) {
+                    player.getAbilities().flying = true;
+                    player.getAbilities().setFlyingSpeed(0.05f);
+                    if (FuelUtils.removeFuel(stack, 1)) {
+                        Utils.disableFlyAntiCheat(player, true);
+                    }
+
+                    if (!player.level().isClientSide) {
+                        ServerLevel serverLevel = (ServerLevel) player.level();
+                        Vec3 particlePos = player.position().add(0, 0.5, 0);
+
+                        serverLevel.sendParticles(ParticleTypes.FLAME,
+                                particlePos.x, particlePos.y, particlePos.z,
+                                1, 0.2, 0.2, 0.2, 0.01);
                     }
                 }
-                else if (this.spacePressTime > 0.0F) {
-                    this.spacePressTime = this.spacePressTime - 0.2F;
-                }
             }
+        }
 
-            /** HOVER MODE */
-            if (mode == ModeType.HOVER.getMode()) {
-                if (!player.onGround() && this.spacePressTime < 0.6F) {
-                    this.spacePressTime = this.spacePressTime + 0.2F;
+
+        public void calculateSpacePressTime(Player player, ItemStack itemStack) {
+                        int mode = this.getMode(itemStack);
+
+                        /** NORMAL MODE */
+                            if (mode == ModeType.NORMAL.getMode()) {
+                                if (KeyVariables.isHoldingJump(player)) {
+                    if (this.spacePressTime < 2.2F) {this.spacePressTime = this.spacePressTime + 0.2F;
+                                    }
+                }
+                else if (this.spacePressTime > 0.0F) {
+                                    this.spacePressTime = this.spacePressTime - 0.2F;
+                                }
+                            }
+
+                            /** HOVER MODE */
+                            if (mode == ModeType.HOVER.getMode()) {
+                                if (!player.onGround() && this.spacePressTime < 0.6F) {
+                                    this.spacePressTime = this.spacePressTime + 0.2F;
                 }
                 else if (KeyVariables.isHoldingJump(player)) {
-                    if (this.spacePressTime < 1.4F) {
-                        this.spacePressTime = this.spacePressTime + 0.2F;
+                                    if (this.spacePressTime < 1.4F) {
+                                        this.spacePressTime = this.spacePressTime + 0.2F;
                         hoverModeMovement(player,itemStack);
-                    }
+                                    }
                 }
                 else if (this.spacePressTime >= 0.6F) {
-                    this.spacePressTime = this.spacePressTime - 0.2F;
-                }
+                                    this.spacePressTime = this.spacePressTime - 0.2F;
+                                }
 
-            }
+                            }
 
-            /** ELYTRA MODE */
-            if (mode == ModeType.ELYTRA.getMode()) {
-                if (KeyVariables.isHoldingUp(player) && player.isFallFlying()) {
-                    if (player.isSprinting()) {
-                        if (this.spacePressTime < 2.8F) {
-                            this.spacePressTime = this.spacePressTime + 0.2F;
-                        }
-                    } else {
-                        if (this.spacePressTime < 2.2F) {
-                            this.spacePressTime = this.spacePressTime + 0.2F;
+                            /** ELYTRA MODE */
+                            if (mode == ModeType.ELYTRA.getMode()) {
+                                if (KeyVariables.isHoldingUp(player) && player.isFallFlying()) {
+                                    if (player.isSprinting()) {
+                                        if (this.spacePressTime < 2.8F) {
+                                            this.spacePressTime = this.spacePressTime + 0.2F;
+                                        }
+                                    } else {
+                                        if (this.spacePressTime < 2.2F) {
+                                            this.spacePressTime = this.spacePressTime + 0.2F;
+                                        }
+                                    }
+                                }
+                            }
+                                if (mode == ModeType.CREATIVE.getMode()) {
+                                    if (KeyVariables.isHoldingUp(player) && player.isFallFlying()) {
+                                        if (player.isSprinting()) {
+                                            if (this.spacePressTime < 2.8F) {
+                                                this.spacePressTime = this.spacePressTime + 0.2F;
+                                            }
+                                        } else {
+                                            if (this.spacePressTime < 2.2F) {
+                                                this.spacePressTime = this.spacePressTime + 0.2F;
+                                            }
+                                        }
+                                    }
+                else if (this.spacePressTime > 0.0F) {
+                            this.spacePressTime = this.spacePressTime - 0.2F;
                         }
                     }
-                }
-                else if (this.spacePressTime > 0.0F) {
-                    this.spacePressTime = this.spacePressTime - 0.2F;
-                }
-            }
         }
 
         public void boost(Player player, double boost, boolean sonicBoom) {
@@ -244,11 +335,27 @@ public class JetSuit {
 
                     if (player.level() instanceof ServerLevel) {
                         for (ServerPlayer p : ((ServerLevel) player.level()).getServer().getPlayerList().getPlayers()) {
-                            ((ServerLevel) player.level()).sendParticles(p, ParticleTypes.FLASH, true, player.getX() - vec33.x, player.getY() - vec33.y, player.getZ() - vec33.z, 1, 0, 0, 0, 0.001);
+                            ((ServerLevel) player.level()).sendParticles(p, ParticleTypes.FLAME, true, player.getX() - vec33.x, player.getY() - vec33.y, player.getZ() - vec33.z, 1, 0, 0, 0, 0.001);
                         }
                     }
                 }
             }
+        }
+
+        @Override
+        public boolean canElytraFly(ItemStack stack, LivingEntity entity) {
+            return Utils.isLivingInJetSuit(entity) && this.getMode(stack) == ModeType.ELYTRA.getMode();
+        }
+
+        @Override
+        public boolean elytraFlightTick(ItemStack stack, LivingEntity entity, int flightTicks) {
+            if (!entity.level().isClientSide) {
+                int nextFlightTick = flightTicks + 1;
+                if (nextFlightTick % 10 == 0) {
+                    entity.gameEvent(GameEvent.ELYTRA_GLIDE);
+                }
+            }
+            return true;
         }
     }
 
@@ -256,7 +363,8 @@ public class JetSuit {
         DISABLED(Component.translatable("general." + Stellaris.MODID + ".jet_suit_disabled_mode"), ChatFormatting.RED, 0),
         NORMAL(Component.translatable("general." + Stellaris.MODID + ".jet_suit_normal_mode"), ChatFormatting.GREEN, 1),
         HOVER(Component.translatable("general." + Stellaris.MODID + ".jet_suit_hover_mode"), ChatFormatting.GREEN, 2),
-        ELYTRA(Component.translatable("general." + Stellaris.MODID + ".jet_suit_elytra_mode"), ChatFormatting.GREEN, 3);
+        ELYTRA(Component.translatable("general." + Stellaris.MODID + ".jet_suit_elytra_mode"), ChatFormatting.GREEN, 3),
+        CREATIVE(Component.translatable("general." + Stellaris.MODID + ".jet_suit_creative_mode"), ChatFormatting.GOLD, 4);
 
         private final int mode;
         private final ChatFormatting chatFormatting;
@@ -298,6 +406,7 @@ public class JetSuit {
                 case 1 -> NORMAL;
                 case 2 -> HOVER;
                 case 3 -> ELYTRA;
+                case 4 -> CREATIVE;
                 default -> DISABLED;
             };
         }

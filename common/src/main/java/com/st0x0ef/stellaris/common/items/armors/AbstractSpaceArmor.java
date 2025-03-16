@@ -29,7 +29,7 @@ public abstract class AbstractSpaceArmor extends CustomArmorItem {
         }
     }
 
-    public static class Chestplate extends AbstractSpaceChestplate {
+    public static abstract class Chestplate extends AbstractSpaceChestplate {
         public Chestplate(Holder<ArmorMaterial> material, Type type, Properties properties) {
             super(material, type, properties);
         }
@@ -40,5 +40,9 @@ public abstract class AbstractSpaceArmor extends CustomArmorItem {
 
             tooltipComponents.add(Component.translatable("jetsuit.stellaris.fuel", FuelUtils.getFuel(stack)));
         }
+
+        public abstract boolean canElytraFly(ItemStack stack, net.minecraft.world.entity.LivingEntity entity);
+
+        public abstract boolean elytraFlightTick(ItemStack stack, net.minecraft.world.entity.LivingEntity entity, int flightTicks);
     }
 }
