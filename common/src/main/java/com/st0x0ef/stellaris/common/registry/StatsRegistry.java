@@ -6,6 +6,7 @@ import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.stats.StatFormatter;
+import net.minecraft.stats.Stats;
 
 public class StatsRegistry {
 
@@ -18,5 +19,8 @@ public class StatsRegistry {
 
     public static void init() {
         STATS.register();
+
+        Stats.CUSTOM.get(ROCKET_LAUNCHED.get());
+        Stats.CUSTOM.get(SPACE_TRAVEL.get(), KILOMETERS);
     }
 }
