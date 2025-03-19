@@ -1,4 +1,11 @@
-# 1.3.4 changelog
+# 1.3.5 changelog
 
-## Internal Changes
-- Change how the packs are registered
+## Additions
+- Add statistics to menu screen ([#88](https://github.com/st0x0ef/stellaris/pull/88))
+
+## Addons dev features
+- Add offset parameters to BaseContainer
+
+## Fix
+- Fix StackOverflow when upgrading space suit
+- Fix statistics registry ([#88](https://github.com/st0x0ef/stellaris/pull/88))
