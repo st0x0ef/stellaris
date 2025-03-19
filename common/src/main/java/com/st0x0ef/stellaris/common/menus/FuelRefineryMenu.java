@@ -12,7 +12,7 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 
-public class FuelRefineryMenu extends BaseContainerOld {
+public class FuelRefineryMenu extends BaseContainer {
 
     private final Container container;
     private final FuelRefineryBlockEntity blockEntity;
@@ -23,7 +23,7 @@ public class FuelRefineryMenu extends BaseContainerOld {
     }
 
     public FuelRefineryMenu(int containerId, Inventory inventory, Container container, FuelRefineryBlockEntity blockEntity) {
-        super(MenuTypesRegistry.FUEL_REFINERY.get(), containerId, 4, inventory, 26);
+        super(MenuTypesRegistry.FUEL_REFINERY.get(), containerId, 4, inventory, 8, 110);
         this.container = container;
         this.blockEntity = blockEntity;
 

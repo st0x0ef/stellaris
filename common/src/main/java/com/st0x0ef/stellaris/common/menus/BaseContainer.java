@@ -20,11 +20,11 @@ public abstract class BaseContainer extends AbstractContainerMenu {
 
     private final int TE_INVENTORY_SLOT_COUNT;
 
-    protected BaseContainer(@Nullable MenuType<?> menuType, int containerId, int size, Inventory inventory, int inventoryYOffset) {
+    protected BaseContainer(@Nullable MenuType<?> menuType, int containerId, int size, Inventory inventory, int inventoryXOffset, int inventoryYOffset) {
         super(menuType, containerId);
         TE_INVENTORY_SLOT_COUNT = size;
-        addPlayerHotbar(inventory, inventoryYOffset + 142);
-        addPlayerInventory(inventory, inventoryYOffset);
+        addPlayerHotbar(inventory, inventoryXOffset, inventoryYOffset + 58);
+        addPlayerInventory(inventory, inventoryXOffset, inventoryYOffset);
     }
 
     @Override
@@ -65,19 +65,19 @@ public abstract class BaseContainer extends AbstractContainerMenu {
         return false;
     }
 
-    public void addPlayerHotbar(Inventory playerInventory, int y) {
+    public void addPlayerHotbar(Inventory playerInventory, int xOffset, int yOffset) {
         int j;
         for(j = 0; j < 9; ++j) {
-            this.addSlot(new Slot(playerInventory, j, 10 + j * 18, y));
+            this.addSlot(new Slot(playerInventory, j, xOffset + j * 18, yOffset));
         }
     }
 
-    public void addPlayerInventory(Inventory playerInventory, int y) {
+    public void addPlayerInventory(Inventory playerInventory, int xOffset, int yOffset) {
         int j;
         int k;
         for(j = 0; j < 3; ++j) {
             for(k = 0; k < 9; ++k) {
-                this.addSlot(new Slot(playerInventory, k + j * 9 + 9, 10 + k * 18, (84 + j * 18) + y));
+                this.addSlot(new Slot(playerInventory, k + j * 9 + 9, xOffset + k * 18, yOffset + j * 18));
             }
         }
     }

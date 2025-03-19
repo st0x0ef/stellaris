@@ -12,7 +12,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.material.Fluids;
 
-public class WaterSeparatorMenu extends BaseContainerOld {
+public class WaterSeparatorMenu extends BaseContainer {
 
     private final Container container;
     private final WaterSeparatorBlockEntity blockEntity;
@@ -23,7 +23,7 @@ public class WaterSeparatorMenu extends BaseContainerOld {
     }
 
     public WaterSeparatorMenu(int containerId, Inventory inventory, Container container, WaterSeparatorBlockEntity blockEntity) {
-        super(MenuTypesRegistry.WATER_SEPARATOR_MENU.get(), containerId, 4, inventory, 58);
+        super(MenuTypesRegistry.WATER_SEPARATOR_MENU.get(), containerId, 4, inventory, 8, 142);
         this.container = container;
         this.blockEntity = blockEntity;
 
