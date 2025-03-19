@@ -1,11 +1,4 @@
-# 1.3.5 changelog
-
-## Additions
-- Add statistics to menu screen ([#88](https://github.com/st0x0ef/stellaris/pull/88) thanks Lexicon !) 
-
-## Addons dev features
-- Add offset parameters to BaseContainer
+# 1.3.6 changelog
 
 ## Fix
-- Fix StackOverflow when upgrading space suit
-- Fix statistics registry ([#88](https://github.com/st0x0ef/stellaris/pull/88) thanks Lexicon !)
+- less bad planet Screen movement
