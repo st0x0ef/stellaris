@@ -607,6 +607,9 @@
   "stellaris.screen.tablet.space_traveled": "Kilometers Traveled : %s",
   "stellaris.screen.tablet.boss_killed": "Boss Killed : %s",
 
+  "stat.stellaris.rocket_launched": "Rockets Launched",
+  "stat.stellaris.space_traveled": "Space Traveled",
+
   "translatable.stellaris.registry.holdshift": "Hold [↑ Shift] to view more info.",
   "translatable.stellaris.registry.player": "Player",
   "translatable.stellaris.registry.players": "Player",
