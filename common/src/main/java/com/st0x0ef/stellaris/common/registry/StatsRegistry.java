@@ -18,9 +18,7 @@ public class StatsRegistry {
     public static RegistrySupplier<ResourceLocation> ROCKET_LAUNCHED = STATS.register("rocket_launched", () -> ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "rocket_launched"));
 
     public static void init() {
-        STATS.register();
-
-        Stats.CUSTOM.get(ROCKET_LAUNCHED.get());
         Stats.CUSTOM.get(SPACE_TRAVEL.get(), KILOMETERS);
+        Stats.CUSTOM.get(ROCKET_LAUNCHED.get());
     }
 }
