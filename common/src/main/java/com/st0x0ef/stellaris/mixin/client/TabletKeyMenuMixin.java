@@ -5,7 +5,6 @@ import com.st0x0ef.stellaris.client.registries.KeyMappingsRegistry;
 import com.st0x0ef.stellaris.common.network.packets.OpenTabletEntryPacket;
 import dev.architectury.networking.NetworkManager;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
@@ -39,9 +38,9 @@ public class TabletKeyMenuMixin {
         }
         if (KeyMappingsRegistry.OPEN_TABLET_INFO.key.getValue() == keyCode) {
             stellaris$isHolding = true;
-            if(ClientEvents.entryHovered != null) {
+            if (ClientEvents.entryHovered != null) {
                 ClientEvents.timeClicked++;
-                if(ClientEvents.timeClicked == 30) {
+                if (ClientEvents.timeClicked == 30) {
                     NetworkManager.sendToServer(new OpenTabletEntryPacket(ClientEvents.entryHovered));
                     ClientEvents.timeClicked = 0;
                     ClientEvents.entryHovered = null;
@@ -49,6 +48,11 @@ public class TabletKeyMenuMixin {
             }
         } else {
             stellaris$isHolding = false;
+            if (ClientEvents.entryHovered != null) {
+                ClientEvents.timeClicked--;
+            } else {
+                ClientEvents.timeClicked = 0;
+            }
         }
     }
 
@@ -60,5 +64,4 @@ public class TabletKeyMenuMixin {
         ClientEvents.entryHovered = null;
         stellaris$isHolding = false;
     }
-
 }

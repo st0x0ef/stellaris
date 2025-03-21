@@ -159,10 +159,6 @@ public class BlocksRegistry {
     public static final RegistrySupplier<Block> T2_TANK = BLOCKS.register("t2_tank", () -> new FluidTankBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK), 25000));
     public static final RegistrySupplier<Block> T3_TANK = BLOCKS.register("t3_tank", () -> new FluidTankBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK), 100000));
     public static final RegistrySupplier<Block> T4_TANK = BLOCKS.register("t4_tank", () -> new FluidTankBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK), 10000000));
-    public static final RegistrySupplier<PowerBankBlock> T1_POWER_BANK = BLOCKS.register("t1_bank", () -> new PowerBankBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK), (short) 1));
-    public static final RegistrySupplier<PowerBankBlock> T2_POWER_BANK = BLOCKS.register("t2_bank", () -> new PowerBankBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK), (short) 2));
-    public static final RegistrySupplier<PowerBankBlock> T3_POWER_BANK = BLOCKS.register("t3_bank", () -> new PowerBankBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK), (short) 3));
-    public static final RegistrySupplier<PowerBankBlock> T4_POWER_BANK = BLOCKS.register("t4_bank", () -> new PowerBankBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK), (short) 4));
 
     public static final RegistrySupplier<Block> T1_CABLE = BLOCKS.register("cable", ()-> new CableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CHAIN), 1000, 250 ,250));
     public static final RegistrySupplier<Block> T2_CABLE = BLOCKS.register("cable_t2", ()-> new CableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CHAIN), 25000, 6250 ,6250));

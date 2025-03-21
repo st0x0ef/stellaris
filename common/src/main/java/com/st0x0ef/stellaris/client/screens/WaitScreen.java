@@ -3,7 +3,6 @@ package com.st0x0ef.stellaris.client.screens;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.menus.WaitMenu;
-import com.st0x0ef.stellaris.common.registry.EntityData;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -69,7 +68,7 @@ public class WaitScreen extends AbstractContainerScreen<WaitMenu> {
 
     @Override
     public void onClose() {
-        if(this.getPlayer().getEntityData().get(EntityData.DATA_PLANET_MENU_OPEN)) {
+        if(this.getPlayer().stellaris$isPlanetMenuOpen()) {
             return;
         }
         super.onClose();

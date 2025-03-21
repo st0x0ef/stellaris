@@ -3,6 +3,8 @@ package com.st0x0ef.stellaris.common.items.armors;
 import com.st0x0ef.stellaris.common.data_components.SpaceSuitModules;
 import com.st0x0ef.stellaris.common.items.module.SpaceSuitModule;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
+import dev.architectury.platform.Platform;
+import net.fabricmc.api.EnvType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.Holder;
@@ -40,6 +42,8 @@ public class SpaceSuit extends AbstractSpaceArmor.AbstractSpaceChestplate {
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);List<SpaceSuitModule> modules = getModules(stack);
+
+        if (Platform.getEnv() != EnvType.CLIENT) return;
 
         if (!modules.isEmpty()) {
             modules.forEach(spaceSuitModule -> spaceSuitModule.addToTooltips(stack, context, tooltipComponents, tooltipFlag));

@@ -62,14 +62,6 @@ public class BlockEntityRegistry {
                     BlocksRegistry.T4_TANK.get()
             ).build(null));
 
-    public static final Supplier<BlockEntityType<?>> POWER_BANK = BLOCK_ENTITY_TYPE.register("power_bank",
-            () -> BlockEntityType.Builder.of(PowerBankEntity::new,
-                    BlocksRegistry.T1_POWER_BANK.get(),
-                    BlocksRegistry.T2_POWER_BANK.get(),
-                    BlocksRegistry.T3_POWER_BANK.get(),
-                    BlocksRegistry.T4_POWER_BANK.get()
-            ).build(null));
-
     public static final Supplier<BlockEntityType<?>> CABLE_ENTITY = BLOCK_ENTITY_TYPE.register("cable",
             () -> BlockEntityType.Builder.of(CableBlockEntity::create,
                             BlocksRegistry.T1_CABLE.get(),

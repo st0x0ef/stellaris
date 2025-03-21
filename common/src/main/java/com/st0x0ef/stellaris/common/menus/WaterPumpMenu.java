@@ -9,13 +9,13 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 
-public class WaterPumpMenu extends BaseContainerOld {
+public class WaterPumpMenu extends BaseContainer {
 
     private final ContainerLevelAccess access;
     private final WaterPumpBlockEntity blockEntity;
 
     public WaterPumpMenu(int containerId, Inventory inventory, ContainerLevelAccess access, WaterPumpBlockEntity blockEntity) {
-        super(MenuTypesRegistry.WATER_PUMP_MENU.get(), containerId, 0, inventory, 0);
+        super(MenuTypesRegistry.WATER_PUMP_MENU.get(), containerId, 0, inventory, 8, 84);
         this.access = access;
         this.blockEntity = blockEntity;
     }

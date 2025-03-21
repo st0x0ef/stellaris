@@ -550,22 +550,22 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     private void openPlanetMenu(Player player) {
         if (player == null) return;
 
-        if (!player.getEntityData().get(EntityData.DATA_PLANET_MENU_OPEN)) {
+        if (!player.stellaris$isPlanetMenuOpen()) {
             player.setNoGravity(true);
             player.getVehicle().setNoGravity(true);
             PlanetUtil.openPlanetSelectionMenu(player, player.isCreative());
-            player.getEntityData().set(EntityData.DATA_PLANET_MENU_OPEN, true);
+            player.stellaris$setPlanetMenuOpen(true, player, true);
         }
     }
 
     private void openWaitMenu(Player player) {
         if(player == null) return;
 
-        if(!player.getEntityData().get(EntityData.DATA_PLANET_MENU_OPEN)) {
+        if(!player.stellaris$isPlanetMenuOpen()) {
             player.setNoGravity(true);
             player.getVehicle().setNoGravity(true);
             PlanetUtil.openWaitMenu(player, this.getFirstPlayerPassenger().getDisplayName().getString());
-            player.getEntityData().set(EntityData.DATA_PLANET_MENU_OPEN, true);
+            player.stellaris$setPlanetMenuOpen(true, player, true);
         }
     }
 

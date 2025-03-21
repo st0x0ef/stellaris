@@ -1,11 +1,9 @@
 package com.st0x0ef.stellaris.common.items;
 
 import com.fej1fun.potentials.energy.ItemEnergyStorage;
-import com.fej1fun.potentials.energy.UniversalEnergyStorage;
 import com.fej1fun.potentials.providers.EnergyProvider;
 import com.st0x0ef.stellaris.common.oil.OilUtils;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.InteractionHand;

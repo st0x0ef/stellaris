@@ -14,7 +14,6 @@ import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
 import com.st0x0ef.stellaris.common.menus.PlanetSelectionMenu;
 import com.st0x0ef.stellaris.common.network.packets.TeleportEntityToPlanetPacket;
-import com.st0x0ef.stellaris.common.registry.EntityData;
 import com.st0x0ef.stellaris.common.registry.TranslatableRegistry;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
@@ -174,6 +173,14 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         }
     }
 
+    private void updatePlanetsButton(int offsetX, int offsetY) {
+        for (InvisibleButton button : planetButtons) {
+            button.setX(button.getX() - offsetX);
+            button.setY(button.getX() - offsetY);
+
+        }
+    }
+
     private void initializeMoonButtons() {
         moonButtons.clear();
         for (MoonInfo moon : MOONS) {
@@ -269,6 +276,9 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         }
 
         renderLargeMenu(graphics);
+
+        Stellaris.LOG.error("offset x {}", offsetX);
+        Stellaris.LOG.error("offset y {}", offsetY);
 
         this.renderTooltip(graphics, mouseX, mouseY);
     }
@@ -967,6 +977,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             } else {
                 offsetX += Utils.changeLastDigitToEven((mouseX - lastMouseX) / zoomLevel);
                 offsetY += Utils.changeLastDigitToEven((mouseY - lastMouseY) / zoomLevel);
+                updatePlanetsButton((int) offsetX, (int) offsetY);
                 lastMouseX = mouseX;
                 lastMouseY = mouseY;
             }
@@ -998,7 +1009,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     @Override
     public void onClose() {
-        if(getPlayer().getEntityData().get(EntityData.DATA_PLANET_MENU_OPEN)) {
+        if(getPlayer().stellaris$isPlanetMenuOpen()) {
             return;
         }
         long windowHandle = Minecraft.getInstance().getWindow().getWindow();

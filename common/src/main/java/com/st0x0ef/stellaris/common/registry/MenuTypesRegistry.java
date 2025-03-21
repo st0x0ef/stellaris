@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.common.registry;
 
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.blocks.entities.machines.PowerBankEntity;
 import com.st0x0ef.stellaris.common.menus.*;
 import dev.architectury.registry.menu.MenuRegistry;
 import dev.architectury.registry.registries.DeferredRegister;
@@ -35,7 +34,5 @@ public class MenuTypesRegistry {
     public static final RegistrySupplier<MenuType<WaitMenu>> WAIT_MENU = MENU_TYPE.register("wait_menu", () -> MenuRegistry.ofExtended(WaitMenu::create));
 
     public static final RegistrySupplier<MenuType<UpgradeStationMenu>> UPGRADE_STATION_MENU = MENU_TYPE.register("upgrade_station", () -> MenuRegistry.ofExtended(UpgradeStationMenu::create));
-
-    public static final RegistrySupplier<MenuType<PowerBankMenu>> POWER_BANK_MENU = MENU_TYPE.register("power_bank", () -> MenuRegistry.ofExtended(PowerBankMenu::create));
 
 }

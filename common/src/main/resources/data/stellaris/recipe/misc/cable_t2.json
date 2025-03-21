@@ -2,16 +2,15 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "WWW",
-    "NIN",
+    "III",
     "WWW"
   ],
   "key": {
-    "I": {"tag": "c:ingots/steel"},
-    "N": {"tag": "c:nuggets/steel"},
+    "I": {"tag": "c:ingots/desh"},
     "W": {"tag": "minecraft:wool"}
   },
   "result": {
-    "id": "stellaris:cable",
+    "id": "stellaris:cable_t2",
     "count": 6
   }
 }

@@ -1,9 +1,9 @@
 package com.st0x0ef.stellaris.neoforge;
 
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.client.StellarisClient;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
+import com.st0x0ef.stellaris.common.registry.StatsRegistry;
 import com.st0x0ef.stellaris.platform.neoforge.EffectRegisterImpl;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
@@ -19,6 +19,7 @@ import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 
 @Mod(Stellaris.MODID)
 public class StellarisNeoForge {
+
     public StellarisNeoForge(IEventBus bus) {
         Stellaris.init();
         NeoForge.EVENT_BUS.addListener(StellarisNeoForge::onAddReloadListenerEvent);
@@ -28,10 +29,6 @@ public class StellarisNeoForge {
 
         bus.addListener(StellarisNeoForge::onAttributes);
         bus.addListener(StellarisNeoForge::addItemToTab);
-
-        if (FMLEnvironment.dist.isClient()) {
-            StellarisClient.registerPacks();
-        }
     }
 
     public static void onDatapackSync(OnDatapackSyncEvent event) {
