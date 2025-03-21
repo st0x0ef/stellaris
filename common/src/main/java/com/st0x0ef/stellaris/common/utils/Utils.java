@@ -5,7 +5,6 @@ import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.entities.vehicles.LanderEntity;
 import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
-import com.st0x0ef.stellaris.common.registry.EntityData;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import com.st0x0ef.stellaris.common.registry.StatsRegistry;
 import com.st0x0ef.stellaris.common.vehicle_upgrade.FuelType;
@@ -20,7 +19,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -120,7 +118,7 @@ public class Utils {
                     player.awardStat(StatsRegistry.SPACE_TRAVEL.get(), Utils.distanceToPlanet(PlanetUtil.getPlanet(player.level().dimension().location()), destination));
 
                     player.closeContainer();
-                    player.getEntityData().set(EntityData.DATA_PLANET_MENU_OPEN, false);
+                    player.stellaris$setPlanetMenuOpen(false, player, true);
                 }
             }
         }
@@ -297,19 +295,9 @@ public class Utils {
     }
 
     public static boolean entityHasBlockAbove(LivingEntity entity, @Nullable BlockPos pos, @Nullable Integer recusion) {
-
-        if(pos == null) pos = entity.blockPosition();
-        if(recusion == null) recusion = 0;
-
-        if(recusion > 10) return false;
-
-        if(entity.level().getBlockState(pos).is(BlockTags.AIR)) {
-            recusion += 1;
-            return !entityHasBlockAbove(entity, pos.above(), recusion);
-        }
-
-        return false;
+        return entity.level().canSeeSky(entity.blockPosition());
     }
+
 
 
     public  <T> void addButtonToList(ArrayList<ArrayList<T>> finalList, T button, int size){

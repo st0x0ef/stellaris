@@ -34,7 +34,6 @@ public class Stellaris {
 
     public static void init() {
         CustomConfig.init();
-        EntityData.register();
         NetworkRegistry.init();
 
         ProcessorsRegistry.STRUCTURE_PROCESSORS.register();
@@ -51,13 +50,13 @@ public class Stellaris {
         CreativeTabsRegistry.TABS.register();
         MenuTypesRegistry.MENU_TYPE.register();
         FeaturesRegistry.FEATURES.register();
+        StatsRegistry.STATS.register();
         CommandsRegistry.register();
         Events.registerEvents();
         CapabilitiesRegistry.init();
         RecipesRegistry.register();
         EntityRegistry.registerSpawnPlacements();
         EffectsRegistry.register();
-        StatsRegistry.init();
 
         ReloadListenerRegistry.register(PackType.SERVER_DATA, new StellarisData());
     }
@@ -77,6 +76,5 @@ public class Stellaris {
         registry.accept(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "planets_pack"), new PlanetPack());
         registry.accept(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "moon_packs"), new MoonPack());
         registry.accept(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "tablet_pack"), new TabletPack());
-
     }
 }

@@ -46,10 +46,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.neoforge.client.event.ClientTickEvent;
-import net.neoforged.neoforge.client.event.EntityRenderersEvent;
-import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
-import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.common.NeoForge;
@@ -133,8 +130,6 @@ public class StellarisNeoforgeClient {
         event.register(MenuTypesRegistry.WAIT_MENU.get(), WaitScreen::new);
         event.register(MenuTypesRegistry.PUMPJACK_MENU.get(), PumpjackScreen::new);
         event.register(MenuTypesRegistry.TABLET_MENU.get(), TabletMainScreen::new);
-
-
     }
 
     @SubscribeEvent
@@ -145,6 +140,13 @@ public class StellarisNeoforgeClient {
 
         NeoForge.EVENT_BUS.addListener(StellarisNeoforgeClient::clientTick);
     }
+
+    @SubscribeEvent
+    public static void registerReloadListener(RegisterClientReloadListenersEvent event) {
+        StellarisClient.registerPacks();
+
+    }
+
 
     @SubscribeEvent
     private static void initializeClient(RegisterClientExtensionsEvent event) {

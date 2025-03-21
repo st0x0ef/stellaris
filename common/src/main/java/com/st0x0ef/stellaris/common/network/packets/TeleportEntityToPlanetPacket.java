@@ -4,7 +4,6 @@ import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.events.custom.PlanetSelectionServerEvents;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
-import com.st0x0ef.stellaris.common.registry.EntityData;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import dev.architectury.event.EventResult;
@@ -59,7 +58,7 @@ public class TeleportEntityToPlanetPacket implements CustomPacketPayload {
 
             if(rocket.getPassengers().size() == 1) {
                 Utils.changeDimension((Player) rocket.getPassengers().getFirst(), planet);
-                player.getEntityData().set(EntityData.DATA_PLANET_MENU_OPEN, false);
+                player.stellaris$setPlanetMenuOpen(false, (Player) rocket.getPassengers().getFirst(), true);
             } else {
                 Utils.changeDimensionForPlayers(rocket.getPassengers(), planet);
             }

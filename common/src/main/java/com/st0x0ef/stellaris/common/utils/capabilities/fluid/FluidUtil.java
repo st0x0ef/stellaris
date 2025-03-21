@@ -110,17 +110,21 @@ public class FluidUtil {
             return;
         }
 
-        if (from.drain(stack, true).getAmount() == 0) {
+        long amount = from.drain(stack, true).getAmount();
+
+        if (amount == 0L) {
             return;
         }
+
+        FluidStack finalStack = stack.copyWithAmount(amount);
 
         List<UniversalFluidStorage> toSend = Direction.stream()
                 .map(direction -> Capabilities.Fluid.BLOCK.getCapability(level, pos.relative(direction), direction.getOpposite()))
                 .filter(Objects::nonNull)
-                .sorted(Comparator.comparing(fluidStorage -> fluidStorage.fill(stack, true)))
+                .sorted(Comparator.comparing(fluidStorage -> fluidStorage.fill(finalStack, true)))
                 .filter(fluidStorage -> {
                     for (int i = 0; i < fluidStorage.getTanks(); i++) {
-                        fluidStorage.isFluidValid(i, stack);
+                        fluidStorage.isFluidValid(i, finalStack);
                         return true;
                     }
                     return false;
@@ -132,11 +136,10 @@ public class FluidUtil {
         }
 
         int receivers = toSend.size();
-        long toDistribute = stack.getAmount();
+        long toDistribute = finalStack.getAmount();
 
         for (UniversalFluidStorage to : toSend) {
-            toDistribute -= moveFluid(from, to, stack.copyWithAmount(toDistribute / receivers)).getAmount();
-            receivers--;
+            toDistribute -= moveFluid(from, to, stack.copyWithAmount(finalStack.getAmount() / receivers)).getAmount();
         }
     }
 }

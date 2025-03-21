@@ -16,7 +16,7 @@ public class OxygenDistributorMenu extends BaseContainer {
     private final OxygenDistributorBlockEntity blockEntity;
 
     public OxygenDistributorMenu(int containerId, Inventory inventory, Container container, OxygenDistributorBlockEntity blockEntity) {
-        super(MenuTypesRegistry.OXYGEN_DISTRIBUTOR.get(), containerId, 1, inventory, 22);
+        super(MenuTypesRegistry.OXYGEN_DISTRIBUTOR.get(), containerId, 1, inventory, 10, 106);
         this.container = container;
         this.blockEntity = blockEntity;
 

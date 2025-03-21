@@ -41,7 +41,6 @@ public class ClientEvents {
 
         ClientRawInputEvent.KEY_PRESSED.register(((client, keyCode, scanCode, action, modifiers) -> {
             KeyVariables.getKey(client).forEach((key, name) -> {
-
                 if(client.player == null) return;
 
                 if (key.getDefaultKey().getValue() == keyCode && action == GLFW.GLFW_RELEASE) {
@@ -60,14 +59,9 @@ public class ClientEvents {
     }
 
     public static void addTooltip(List<Component> lines) {
-        lines.add(Component.translatable("tooltip.item.stellaris.open_tablet",KeyMappingsRegistry.OPEN_TABLET_INFO.getTranslatedKeyMessage().getString()));
-        if(timeClicked != 0) {
-            StringBuilder message = new StringBuilder();
-            for (int i = 0; i < timeClicked; i++) {
-                message.append("||");
-            }
-            lines.add(Component.literal(message.toString()).withStyle(ChatFormatting.GRAY));
+        lines.add(Component.translatable("tooltip.item.stellaris.open_tablet", KeyMappingsRegistry.OPEN_TABLET_INFO.getTranslatedKeyMessage().getString()));
+        if(timeClicked > 0) {
+            lines.add(Component.literal("||".repeat(timeClicked)).withStyle(ChatFormatting.GRAY));
         }
     }
-
 }

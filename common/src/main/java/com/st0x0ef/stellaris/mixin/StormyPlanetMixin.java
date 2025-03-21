@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.mixin;
 
+import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.entities.CustomLightningBolt;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
@@ -21,15 +22,16 @@ public class StormyPlanetMixin {
     public void spawnMoreLightningBolt(LevelChunk chunk, int randomTickSpeed, CallbackInfo ci) {
         ServerLevel level = (ServerLevel) (Object) this;
         PlanetUtil.ifPlanet(level.dimension().location(), planet -> {
-            if(planet.stormParameters().stormy()) {
+            if(planet.stormParameters().isPresent()) {
+                Planet.StormParameters parameters = planet.stormParameters().get();
                 ChunkPos chunkPos = chunk.getPos();
                 int i = chunkPos.getMinBlockX();
                 int j = chunkPos.getMinBlockZ();
-                if (level.random.nextInt(planet.stormParameters().lightningFrequency()) == 0) {
+                if (level.random.nextInt(parameters.lightningFrequency()) == 0) {
                     BlockPos blockPos = level.findLightningTargetAround(level.getBlockRandomPos(i, 0, j, 15));
 
                     CustomLightningBolt lightningBolt = EntityRegistry.VENUS_LIGHTNING_BOLT.get().create(level);
-                    lightningBolt.setCustomColor(planet.stormParameters().lightningColor());
+                    lightningBolt.setCustomColor(parameters.lightningColor());
 
 
                     if (lightningBolt != null) {

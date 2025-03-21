@@ -1,10 +1,8 @@
 package com.st0x0ef.stellaris.fabric;
 
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.registry.BiomeModificationsRegistry;
-import com.st0x0ef.stellaris.common.registry.CreativeTabsRegistry;
-import com.st0x0ef.stellaris.common.registry.EntityRegistry;
-import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
+import com.st0x0ef.stellaris.common.registry.*;
+import com.st0x0ef.stellaris.platform.fabric.EffectRegisterImpl;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -29,7 +27,7 @@ public class StellarisFabric implements ModInitializer {
         onAddReloadListener();
         ServerLifecycleEvents.SYNC_DATA_PACK_CONTENTS.register(Stellaris::onDatapackSyncEvent);
         EntityRegistry.registerAttributes((type, builder) -> FabricDefaultAttributeRegistry.register(type.get(), builder.get()));
-
+        EffectRegisterImpl.MOB_EFFECTS.register();
         ItemGroupEvents.modifyEntriesEvent(CreativeTabsRegistry.STELLARIS_TAB.getKey()).register(itemGroup -> {
             for (ItemStack stack : ItemsRegistry.fullItemsToAdd()) {
                 itemGroup.accept(stack);

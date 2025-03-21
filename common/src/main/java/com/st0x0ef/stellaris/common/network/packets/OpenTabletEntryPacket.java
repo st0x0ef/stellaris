@@ -38,10 +38,7 @@ public class OpenTabletEntryPacket implements CustomPacketPayload {
 
     public static void handle(OpenTabletEntryPacket packet, NetworkManager.PacketContext context) {
         Player player = context.getPlayer();
-        context.queue(() -> {
-            PlanetUtil.openTabletMenu(player, packet.entry);
-
-        });
+        context.queue(() -> PlanetUtil.openTabletMenu(player, packet.entry));
     }
 
     @Override
