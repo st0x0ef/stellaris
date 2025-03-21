@@ -1,5 +1,4 @@
-# 1.3.6 changelog
+# 1.3.7 changelog
 
 ## Fix
-- Less bad planet Screen movement
-- Fix crash on neoforge startup
+- Fix stats registry in a proper way

@@ -63,7 +63,6 @@ public class Stellaris {
 
     public static void onDatapackSyncEvent(ServerPlayer player, boolean joined) {
         if (joined) {
-            StatsRegistry.init();
             NetworkManager.sendToPlayer(player, new SyncPlanetsDatapackPacket(StellarisData.getPlanets()));
         }
     }
