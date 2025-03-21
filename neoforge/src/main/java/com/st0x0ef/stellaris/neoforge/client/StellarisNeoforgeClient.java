@@ -130,6 +130,7 @@ public class StellarisNeoforgeClient {
         event.register(MenuTypesRegistry.WAIT_MENU.get(), WaitScreen::new);
         event.register(MenuTypesRegistry.PUMPJACK_MENU.get(), PumpjackScreen::new);
         event.register(MenuTypesRegistry.TABLET_MENU.get(), TabletMainScreen::new);
+        event.register(MenuTypesRegistry.POWER_BANK_MENU.get(), PowerBankScreen::new);
     }
 
     @SubscribeEvent

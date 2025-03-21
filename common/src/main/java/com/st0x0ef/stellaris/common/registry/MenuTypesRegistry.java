@@ -35,4 +35,5 @@ public class MenuTypesRegistry {
 
     public static final RegistrySupplier<MenuType<UpgradeStationMenu>> UPGRADE_STATION_MENU = MENU_TYPE.register("upgrade_station", () -> MenuRegistry.ofExtended(UpgradeStationMenu::create));
 
+    public static final RegistrySupplier<MenuType<PowerBankMenu>> POWER_BANK_MENU = MENU_TYPE.register("power_bank", () -> MenuRegistry.ofExtended(PowerBankMenu::create));
 }

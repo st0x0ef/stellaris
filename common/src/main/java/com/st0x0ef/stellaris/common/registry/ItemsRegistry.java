@@ -283,6 +283,15 @@ public class ItemsRegistry {
     public static final RegistrySupplier<Item> T2_PIPE = ITEMS.register("pipe_t2", () -> new BlockItem(BlocksRegistry.T2_PIPE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> T3_PIPE = ITEMS.register("pipe_t3", () -> new BlockItem(BlocksRegistry.T3_PIPE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
 
+    /**
+     * Power Banks & Fluid Tanks
+     */
+
+    public static final RegistrySupplier<Item> T1_POWER_BANK = ITEMS.register("power_bank_t1", () -> new PowerBankItem(BlocksRegistry.T1_POWER_BANK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> T2_POWER_BANK = ITEMS.register("power_bank_t2", () -> new PowerBankItem(BlocksRegistry.T2_POWER_BANK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> T3_POWER_BANK = ITEMS.register("power_bank_t3", () -> new PowerBankItem(BlocksRegistry.T3_POWER_BANK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> T4_POWER_BANK = ITEMS.register("power_bank_t4", () -> new PowerBankItem(BlocksRegistry.T4_POWER_BANK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+
 
     /**
      * Mob Eggs
