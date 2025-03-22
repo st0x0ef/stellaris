@@ -129,7 +129,7 @@ public class JetSuit {
                                     .subtract(look.scale(0.75))
                                     .add(0, 0.25, 0);
 
-                            serverLevel.sendParticles(ParticleTypes.FLAME,
+                            serverLevel.sendParticles(ParticleTypes.FLASH,
                                     particlePos.x, particlePos.y, particlePos.z,
                                     1,
                                     0.15, 0.15, 0.15,
@@ -197,7 +197,7 @@ public class JetSuit {
                                     .subtract(look.scale(0.75))
                                     .add(0, 0.25, 0);
 
-                            serverLevel.sendParticles(ParticleTypes.SONIC_BOOM,
+                            serverLevel.sendParticles(ParticleTypes.FLASH,
                                     particlePos.x, particlePos.y, particlePos.z,
                                     1,
                                     0.15, 0.15, 0.15,
@@ -211,11 +211,27 @@ public class JetSuit {
         private void elytraModeMovement(Player player, ItemStack stack) {
             if (!player.getAbilities().flying && !player.isPassenger() && Utils.isLivingInJetSuit(player)) {
                 if (this.getMode(stack) == ModeType.ELYTRA.getMode() && !player.hasEffect(MobEffects.SLOW_FALLING)) {
-                    if (player.isSprinting() && !player.onGround()) {
+                    UniversalFluidItemStorage storage = getFluidTank(stack);
+                    if (storage.getFluidInTank(1).isEmpty()) return;
+
+                    if (!player.onGround() && !player.isInWater() && !player.hasEffect(MobEffects.LEVITATION)) {
                         player.startFallFlying();
                         Utils.disableFlyAntiCheat(player, true);
-                    } else if (player.isSprinting() && player.onGround() && KeyVariables.isHoldingJump(player)) {
-                        player.moveTo(player.getX(), player.getY() + 2, player.getZ());
+                    }
+
+
+                    if (player.isFallFlying() && player.isSprinting()) {
+                        Vec3 look = player.getLookAngle();
+                        Vec3 motion = player.getDeltaMovement();
+                        double boost = 0.1;
+                        player.setDeltaMovement(motion.add(look.x * boost, look.y * boost, look.z * boost));
+
+                        // Consume fuel
+                        if (nextFuelCheckTick <= 0) {
+                            storage.drain(storage.getFluidInTank(1), false);
+                            nextFuelCheckTick = 20;
+                        }
+                        nextFuelCheckTick--;
                     }
                     if (!player.level().isClientSide) {
                         Vec3 look = player.getLookAngle();
@@ -270,7 +286,7 @@ public class JetSuit {
                         ServerLevel serverLevel = (ServerLevel) player.level();
                         Vec3 particlePos = player.position().add(0, 0.5, 0);
 
-                        serverLevel.sendParticles(ParticleTypes.FLAME,
+                        serverLevel.sendParticles(ParticleTypes.FLASH,
                                 particlePos.x, particlePos.y, particlePos.z,
                                 1, 0.2, 0.2, 0.2, 0.01);
                     }
@@ -395,7 +411,7 @@ public class JetSuit {
         NORMAL(Component.translatable("general." + Stellaris.MODID + ".jet_suit_normal_mode"), ChatFormatting.GREEN, 1),
         HOVER(Component.translatable("general." + Stellaris.MODID + ".jet_suit_hover_mode"), ChatFormatting.GREEN, 2),
         ELYTRA(Component.translatable("general." + Stellaris.MODID + ".jet_suit_elytra_mode"), ChatFormatting.GREEN, 3),
-        CREATIVE(Component.translatable("general." + Stellaris.MODID + ".jet_suit_creative_mode"), ChatFormatting.GOLD, 4);
+        CREATIVE(Component.translatable("general." + Stellaris.MODID + ".jet_suit_creative_mode"), ChatFormatting.GREEN, 4);
 
         private final int mode;
         private final ChatFormatting chatFormatting;

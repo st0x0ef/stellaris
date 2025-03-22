@@ -24,6 +24,7 @@ public class SpaceSuit extends AbstractSpaceArmor.AbstractSpaceChestplate {
         super(material, type, properties);
     }
 
+
     @Override
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
         super.inventoryTick(stack, level, entity, slotId, isSelected);
