@@ -388,7 +388,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             bodyDescription.add(Utils.getMessageComponent(error_message.getString(), "Red"));
         } else {
             bodyDescription.add(Utils.getMessageComponent(temperature.getString() + " : " + planet.temperature() + "°C"));
-            bodyDescription.add(Utils.getMessageComponent(gravity.getString() + " : " + planet.gravity() + "m/s"));
+            bodyDescription.add(Utils.getMessageComponent(gravity.getString() + " : " + planet.gravity() + "m/s²"));
             bodyDescription.add(Utils.getMessageComponent(oxygen.getString() + " : " + planet.oxygen()));
             bodyDescription.add(Utils.getMessageComponent(system.getString() + " : " + Component.translatable(planet.system()).getString()));
 

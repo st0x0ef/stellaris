@@ -2,3 +2,4 @@
 
 ## Fix
 - Fix stats registry in a proper way
+- Fix gravity unit on the planet selection screen
