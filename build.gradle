@@ -22,8 +22,7 @@ subprojects {
     apply plugin: 'me.modmuss50.mod-publish-plugin'
 
     base {
-        archivesName = "$rootProject.archives_name-$project.name"
-        //archivesName = "${rootProject.modid}-${rootProject.minecraft_version}-${project.name}"
+        archivesName = "${rootProject.modid}-${rootProject.minecraft_version}-${project.name}"
     }
 
     def modLoader = project.name
