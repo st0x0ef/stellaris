@@ -9,15 +9,15 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 
-public class MilkyWayMenu extends AbstractContainerMenu {
+public class GalaxyMenu extends AbstractContainerMenu {
     private final Player player;
     public boolean freeze_gui = false;
 
-    public static MilkyWayMenu create(int syncId, Inventory inventory, FriendlyByteBuf data) {
+    public static GalaxyMenu create(int syncId, Inventory inventory, FriendlyByteBuf data) {
 
-        return new MilkyWayMenu(syncId, inventory, new SimpleContainer(0));
+        return new GalaxyMenu(syncId, inventory, new SimpleContainer(0));
     }
-    public MilkyWayMenu(int syncId, Inventory playerInventory, Container container)
+    public GalaxyMenu(int syncId, Inventory playerInventory, Container container)
     {
         super(MenuTypesRegistry.MILKYWAY_MENU.get(), syncId);
         this.player = playerInventory.player;

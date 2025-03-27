@@ -1,5 +1,5 @@
 {
-  "texture": "stellaris:textures/environment/milky_way.png",
+  "texture": "stellaris:textures/environment/galaxy/milky_way.png",
   "name": "Milky Way",
   "translatable": "text.stellaris.galaxyscreen.milky_way",
   "id": "stellaris:milky_way"

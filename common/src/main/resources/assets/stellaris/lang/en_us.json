@@ -499,7 +499,8 @@
   ""
 ,
 
-  "text.stellaris.galaxyscreen.milkyway": "Milky Way",
+  "text.stellaris.galaxyscreen.milky_way": "Milky Way",
+  "text.stellaris.galaxyscreen.the_galaxy": "The Galaxy ★",
   "solar_system": "Solar System",
   "text.stellaris.planetscreen.sun": "Sun",
   "text.stellaris.planetscreen.mercury": "Mercury",

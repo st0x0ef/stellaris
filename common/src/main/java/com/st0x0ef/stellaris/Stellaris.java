@@ -4,12 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.ToNumberPolicy;
 import com.st0x0ef.stellaris.common.data.recipes.SpaceStationRecipesManager;
-import com.st0x0ef.stellaris.common.data.screen.TabletPack;
+import com.st0x0ef.stellaris.common.data.screen.*;
 import com.st0x0ef.stellaris.common.config.CustomConfig;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
-import com.st0x0ef.stellaris.common.data.screen.MoonPack;
-import com.st0x0ef.stellaris.common.data.screen.PlanetPack;
-import com.st0x0ef.stellaris.common.data.screen.StarPack;
 import com.st0x0ef.stellaris.common.events.Events;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import com.st0x0ef.stellaris.common.network.packets.SyncPlanetsDatapackPacket;
@@ -81,6 +78,7 @@ public class Stellaris {
         registry.accept(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "planets_pack"), new PlanetPack());
         registry.accept(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "moon_packs"), new MoonPack());
         registry.accept(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "tablet_pack"), new TabletPack());
+        registry.accept(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "galaxy_pack"), new GalaxyPack());
         registry.accept(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "space_stations"), new SpaceStationRecipesManager());
     }
 }

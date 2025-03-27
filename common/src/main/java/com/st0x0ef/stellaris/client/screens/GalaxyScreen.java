@@ -23,7 +23,7 @@ import java.util.List;
 @Environment(EnvType.CLIENT)
 public class GalaxyScreen extends AbstractContainerScreen<GalaxyMenu> {
     public static final ResourceLocation BACKGROUND_TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,
-            "textures/gui/planet_selection.png");
+            "textures/gui/galaxy_selection.png");
     public static final List<GalaxyInfo> GALAXY = new ArrayList<>();
 
     public static float rotationAngle = 0;
