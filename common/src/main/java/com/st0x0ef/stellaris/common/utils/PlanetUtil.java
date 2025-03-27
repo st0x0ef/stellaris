@@ -3,7 +3,7 @@ package com.st0x0ef.stellaris.common.utils;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
-import com.st0x0ef.stellaris.common.menus.MilkyWayMenu;
+import com.st0x0ef.stellaris.common.menus.GalaxyMenu;
 import com.st0x0ef.stellaris.common.menus.PlanetSelectionMenu;
 import com.st0x0ef.stellaris.common.menus.TabletMenu;
 import com.st0x0ef.stellaris.common.menus.WaitMenu;
@@ -169,7 +169,7 @@ public class PlanetUtil {
             @Override
             public @NotNull AbstractContainerMenu createMenu(int syncId, Inventory inv, Player player) {
                 FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
-                return MilkyWayMenu.create(syncId, inv, buffer);
+                return GalaxyMenu.create(syncId, inv, buffer);
             }
         };
 
