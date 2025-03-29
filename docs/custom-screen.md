@@ -48,6 +48,29 @@ Ah yes! Our good ol' friend from the previous step, the pack.mcmeta file. You wi
 
 Aforementioned above, there are three different folders that you will create inside of the `planet_screen` directory.
 
+## The Galaxy Folder
+
+Inside of this foler, you will be able to create a galaxy of your choice.
+
+Json Example
+
+```json
+{
+  "texture": "stellaris:textures/environment/galaxy/milky_way.png",
+  "name": "Milky Way",
+  "translatable": "text.stellaris.galaxyscreen.milky_way",
+  "id": "stellaris:milky_way"
+}
+```
+
+  `texture`: The path to the texture of the galaxy.
+
+  `name`: The name of the galaxy.
+
+  `translatable`: The translatable name of the star.
+
+  `id`: A special id of the star.
+
 ## The Star Folder
 
 Inside of this folder, you will be able to place a star of your choice. Everything in your solar system will revolve around this star. As of right now, you can only have one star in your system. We recommend placing your star in the centre of the screen, which is something we have done for you in the below json, however, you are free to change it to whatever you would like!
@@ -56,11 +79,11 @@ Inside of this folder, you will be able to place a star of your choice. Everythi
 {
   "texture": "[namespace]:textures/environment/star/[starName].png",
   "name": "[starName]",
-  "x": 300,
-  "y": 100,
-  "width": 36.0,
-  "height": 36.0,
-  "orbitColor": "Yellow",
+  "x": [x],
+  "y": [y],
+  "width": [starWidth],
+  "height": [starHeight],
+  "orbitColor": "[orbitColor]",
   "translatable": "text.[namespace].planetscreen.[starName]",
   "id": "[namespace]:[starName]"
 }
