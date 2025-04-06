@@ -2,3 +2,4 @@
 
 ## Fix
 - Fix console spam
+- Fix biomes names
