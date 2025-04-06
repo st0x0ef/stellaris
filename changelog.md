@@ -1,7 +1,4 @@
-# 1.3.7 changelog
-
-## Changes
-- Update Sky Aesthetics to 1.6.1 (fix console spam)
+# 1.3.9 changelog
 
 ## Fix
-- Fix moon biome tag
+- Fix console spam
