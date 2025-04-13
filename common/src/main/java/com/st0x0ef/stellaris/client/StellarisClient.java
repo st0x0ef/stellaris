@@ -21,6 +21,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.server.packs.PackType;
+import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.world.item.component.DyedItemColor;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL43;
@@ -95,6 +96,7 @@ public class StellarisClient {
         ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new StarPack());
         ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new PlanetPack());
         ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new MoonPack());
+        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new PSystemPack());
         ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new TabletPack());
         ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new GalaxyPack());
     }

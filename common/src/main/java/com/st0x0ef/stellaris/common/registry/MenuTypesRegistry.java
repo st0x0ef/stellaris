@@ -30,7 +30,7 @@ public class MenuTypesRegistry {
     public static final RegistrySupplier<MenuType<PlanetSelectionMenu>> PLANET_SELECTION_MENU = MENU_TYPE.register("planet_selection_menu", () -> MenuRegistry.ofExtended(PlanetSelectionMenu::create));
     public static final RegistrySupplier<MenuType<TabletMenu>> TABLET_MENU = MENU_TYPE.register("tablet_menu", () -> MenuRegistry.ofExtended(TabletMenu::create));
 
-    public static final RegistrySupplier<MenuType<GalaxyMenu>> MILKYWAY_MENU = MENU_TYPE.register("milkyway_menu", () -> MenuRegistry.ofExtended(GalaxyMenu::create));
+    public static final RegistrySupplier<MenuType<GalaxyMenu>> GALAXY_MENU = MENU_TYPE.register("galaxy_menu", () -> MenuRegistry.ofExtended(GalaxyMenu::create));
     public static final RegistrySupplier<MenuType<WaitMenu>> WAIT_MENU = MENU_TYPE.register("wait_menu", () -> MenuRegistry.ofExtended(WaitMenu::create));
 
     public static final RegistrySupplier<MenuType<UpgradeStationMenu>> UPGRADE_STATION_MENU = MENU_TYPE.register("upgrade_station", () -> MenuRegistry.ofExtended(UpgradeStationMenu::create));

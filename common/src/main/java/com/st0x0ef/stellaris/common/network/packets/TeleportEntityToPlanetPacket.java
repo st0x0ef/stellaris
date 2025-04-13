@@ -17,6 +17,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 public class TeleportEntityToPlanetPacket implements CustomPacketPayload {
 
     public final ResourceLocation dimension;
@@ -58,8 +60,11 @@ public class TeleportEntityToPlanetPacket implements CustomPacketPayload {
             }
 
             if(rocket.getPassengers().size() == 1) {
-                Utils.changeDimension((Player) rocket.getPassengers().getFirst(), planet);
-                player.getEntityData().set(EntityData.DATA_PLANET_MENU_OPEN, false);
+                List<Entity> passengers = rocket.getPassengers();
+                if (!passengers.isEmpty()) {
+                    Utils.changeDimension((Player) passengers.getFirst(), planet);
+                    player.getEntityData().set(EntityData.DATA_PLANET_MENU_OPEN, false);
+                }
             } else {
                 Utils.changeDimensionForPlayers(rocket.getPassengers(), planet);
             }

@@ -10,12 +10,14 @@ public class GalaxyInfo {
     public final String name;
     public final String translatable;
     public final String id;
+    public final String centerStar;
 
-    public GalaxyInfo(ResourceLocation texture, String name, String translatable, String id) {
+    public GalaxyInfo(ResourceLocation texture, String name, String translatable, String id, String centerStar) {
         this.texture = texture;
         this.name = name;
         this.translatable = translatable;
         this.id = id;
+        this.centerStar = centerStar;
     }
 
     public Component getTranslatable() {
@@ -35,7 +37,8 @@ public class GalaxyInfo {
                     ResourceLocation.CODEC.fieldOf("texture").forGetter(g -> g.texture),
                     Codec.STRING.fieldOf("name").forGetter(g -> g.name),
                     Codec.STRING.fieldOf("translatable").forGetter(g -> g.translatable),
-                    Codec.STRING.fieldOf("id").forGetter(g -> g.id)
+                    Codec.STRING.fieldOf("id").forGetter(g -> g.id),
+                    Codec.STRING.fieldOf("centerStar").forGetter(g -> g.centerStar)
             ).apply(instance, GalaxyInfo::new)
     );
 }

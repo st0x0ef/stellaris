@@ -1,0 +1,11 @@
+{
+  "texture": "stellaris:textures/environment/star/g_star.png",
+  "name": "Alpha Centauri A",
+  "x": 1400,
+  "y": 500,
+  "width": 48.0,
+  "height": 48.0,
+  "orbitColor": "Yellow",
+  "translatable": "text.stellaris.planetscreen.ac_a",
+  "id": "stellaris:ac_a"
+}

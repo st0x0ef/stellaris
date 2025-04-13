@@ -43,7 +43,8 @@ public class GalaxyPack extends SimpleJsonResourceReloadListener {
                         galaxy.texture(),
                         galaxy.name(),
                         galaxy.translatable(),
-                        galaxy.id()
+                        galaxy.id(),
+                        galaxy.centerStar()
                 );
 
                 GalaxyScreen.GALAXY.add(screenGalaxy);

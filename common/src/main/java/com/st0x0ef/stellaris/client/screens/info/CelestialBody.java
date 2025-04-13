@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.client.screens.info;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.st0x0ef.stellaris.client.screens.etc.Trail;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
@@ -18,6 +19,7 @@ public class CelestialBody {
     public String id;
     public boolean clickable = true;
     public boolean spaceStation = false;
+    public final Trail trail = new Trail();
 
     public CelestialBody(ResourceLocation texture, String name, float x, float y, float width, float height, int orbitColor, ResourceLocation dimension, String translatable, String id) {
         this(texture, name, x, y, width, height, orbitColor, dimension, translatable, id, true);
@@ -59,6 +61,8 @@ public class CelestialBody {
     public String getId() {
         return id;
     }
+
+    public float getWidth() {return width;}
 
     public static final Codec<CelestialBody> CODEC = RecordCodecBuilder.create(
             instance ->

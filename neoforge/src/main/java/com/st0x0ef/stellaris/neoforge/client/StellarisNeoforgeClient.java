@@ -124,7 +124,7 @@ public class StellarisNeoforgeClient {
         event.register(MenuTypesRegistry.COAL_GENERATOR_MENU.get(), CoalGeneratorScreen::new);
         event.register(MenuTypesRegistry.RADIOACTIVE_GENERATOR_MENU.get(), RadioactiveGeneratorScreen::new);
         event.register(MenuTypesRegistry.PLANET_SELECTION_MENU.get(), PlanetSelectionScreen::new);
-        event.register(MenuTypesRegistry.MILKYWAY_MENU.get(), MilkyWayScreen::new);
+        event.register(MenuTypesRegistry.GALAXY_MENU.get(), GalaxyScreen::new);
         event.register(MenuTypesRegistry.LANDER_MENU.get(), LanderScreen::new);
         event.register(MenuTypesRegistry.OXYGEN_DISTRIBUTOR.get(), OxygenDistributorScreen::new);
         event.register(MenuTypesRegistry.WATER_SEPARATOR_MENU.get(), WaterSeparatorScreen::new);

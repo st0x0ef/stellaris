@@ -1,0 +1,11 @@
+{
+  "texture": "stellaris:textures/environment/star/k_star.png",
+  "name": "Alpha Centauri B",
+  "x": 1500,
+  "y": 700,
+  "width": 34.4,
+  "height": 34.4,
+  "orbitColor": "Orange",
+  "translatable": "text.stellaris.planetscreen.ac_b",
+  "id": "stellaris:ac_b"
+}
