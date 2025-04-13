@@ -4,7 +4,10 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.platform.ClientUtilsPlatform;
+
 import dev.architectury.platform.Platform;
+import net.irisshaders.iris.api.v0.IrisApi;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -100,6 +103,10 @@ public class SpaceSuitModel extends HumanoidModel<LivingEntity> {
 
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
+		if (ClientUtilsPlatform.isIrisInstalled() && IrisApi.getInstance().isRenderingShadowPass()) {
+			return;
+		}
+
 		if (Platform.isNeoForge()) {
 			MultiBufferSource.BufferSource bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
 			vertexConsumer = bufferSource.getBuffer(RenderType.entityTranslucent(TEXTURE));
