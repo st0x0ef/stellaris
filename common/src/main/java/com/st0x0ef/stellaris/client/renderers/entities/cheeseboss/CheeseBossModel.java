@@ -2,7 +2,6 @@ package com.st0x0ef.stellaris.client.renderers.entities.cheeseboss;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.entities.mobs.cheese_boss.CheeseBoss;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -11,13 +10,14 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+
+import static com.st0x0ef.stellaris.Stellaris.id;
 
 @Environment(EnvType.CLIENT)
 public class CheeseBossModel<T extends CheeseBoss> extends HierarchicalModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "cheese_boss"), "main");
+	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(id("cheese_boss"), "main");
 	private final ModelPart CheeseBoss;
 	private final ModelPart Head;
 

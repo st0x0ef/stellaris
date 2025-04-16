@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.client.screens;
 
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.config.ConfigEntry;
 import com.st0x0ef.stellaris.common.config.CustomConfig;
 import dev.architectury.platform.Platform;
@@ -20,8 +19,12 @@ import net.minecraft.resources.ResourceLocation;
 
 import java.nio.file.Path;
 
+import static com.st0x0ef.stellaris.Stellaris.id;
+
 @Environment(EnvType.CLIENT)
 public class ConfigScreen extends Screen {
+
+    public static final ResourceLocation TEXTURE = id("textures/item/engine_fan.png");
     private final Screen parent;
     public ConfigScreen(Screen parent) {
         super(Component.literal("Stellaris Option"));
@@ -127,6 +130,6 @@ public class ConfigScreen extends Screen {
         return SpriteIconButton.builder(Component.literal("Config"), (button) -> {
             Path path = Path.of(Platform.getConfigFolder() + "/stellaris.json");
             Util.getPlatform().openUri(path.toUri());
-        }, true).width(i).sprite(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/item/engine_fan.png"), 16, 16).build();
+        }, true).width(i).sprite(TEXTURE, 16, 16).build();
     }
 }

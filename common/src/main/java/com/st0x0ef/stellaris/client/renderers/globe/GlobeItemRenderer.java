@@ -2,7 +2,6 @@ package com.st0x0ef.stellaris.client.renderers.globe;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.items.GlobeItem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -18,9 +17,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
+import static com.st0x0ef.stellaris.Stellaris.id;
+
 @Environment(EnvType.CLIENT)
 public class GlobeItemRenderer extends BlockEntityWithoutLevelRenderer {
 
+    public static final ResourceLocation TEXTURE = id("textures/block/globes/earth_globe.png");
     private ResourceLocation texture;
     private GlobeModel<?> model;
 
@@ -39,7 +41,7 @@ public class GlobeItemRenderer extends BlockEntityWithoutLevelRenderer {
         if (stack.getItem() instanceof GlobeItem globeItem) {
             this.texture = globeItem.getTexture();
         } else {
-            this.texture = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/block/globes/earth_globe.png");
+            this.texture = TEXTURE;
         }
         matrixStackIn.pushPose();
 

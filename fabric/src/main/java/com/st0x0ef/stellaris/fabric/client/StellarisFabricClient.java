@@ -10,6 +10,7 @@ import com.st0x0ef.stellaris.client.renderers.entities.alienzombie.AlienZombieMo
 import com.st0x0ef.stellaris.client.renderers.entities.alienzombie.AlienZombieRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.cheeseboss.CheeseBossModel;
 import com.st0x0ef.stellaris.client.renderers.entities.cheeseboss.CheeseBossRenderer;
+import com.st0x0ef.stellaris.client.renderers.entities.customlightning.CustomLightningBoltRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.martianraptor.MartianRaptorModel;
 import com.st0x0ef.stellaris.client.renderers.entities.martianraptor.MartianRaptorRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.mogler.MoglerModel;
@@ -32,7 +33,6 @@ import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.tiny.TinyR
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.tiny.TinyRocketRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rover.RoverModel;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rover.RoverRenderer;
-import com.st0x0ef.stellaris.client.renderers.entities.customlightning.CustomLightningBoltRenderer;
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeBlockRenderer;
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeModel;
 import com.st0x0ef.stellaris.client.screens.*;

@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.client.screens.components;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
 import com.st0x0ef.stellaris.client.screens.tablet.TabletEntry;
 import net.fabricmc.api.EnvType;
@@ -19,8 +18,13 @@ import org.jetbrains.annotations.Nullable;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
+import static com.st0x0ef.stellaris.Stellaris.id;
+
 @Environment(EnvType.CLIENT)
 public class TabletButton extends Button {
+
+    public static final ResourceLocation TEXTURE = id("textures/gui/util/buttons/button.png");
+    public static final ResourceLocation HOVER_TEXTURE = id("textures/gui/util/buttons/button.png");
     private ResourceLocation buttonTexture;
     private ResourceLocation hoverButtonTexture;
 
@@ -49,8 +53,8 @@ public class TabletButton extends Button {
         this.yDiffText = 0;
         this.xTexStart = 0;
         this.yTexStart = 0;
-        this.buttonTexture = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/button.png");
-        this.hoverButtonTexture = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/button.png");
+        this.buttonTexture = TEXTURE;
+        this.hoverButtonTexture = HOVER_TEXTURE;
         this.info = info;
         setTooltip();
     }

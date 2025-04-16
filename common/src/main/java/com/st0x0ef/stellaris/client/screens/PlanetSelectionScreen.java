@@ -44,23 +44,25 @@ import java.util.Objects;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
+import static com.st0x0ef.stellaris.Stellaris.id;
+
 @Environment(EnvType.CLIENT)
 public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelectionMenu> {
 
-    public static final ResourceLocation HIGHLIGHTER_TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/planet_highlighter.png");
-    public static final ResourceLocation BLACK_TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/black.png");
+    public static final ResourceLocation HIGHLIGHTER_TEXTURE = id("textures/gui/util/planet_highlighter.png");
+    public static final ResourceLocation BLACK_TEXTURE = id("textures/gui/util/black.png");
 
-    public static final ResourceLocation BACKGROUND_TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/planet_selection.png");
-    public static final ResourceLocation SCROLLER_TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/scroller.png");
+    public static final ResourceLocation BACKGROUND_TEXTURE = id("textures/gui/planet_selection.png");
+    public static final ResourceLocation SCROLLER_TEXTURE = id("textures/gui/util/scroller.png");
 
-    public static final ResourceLocation SMALL_BUTTON_TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/small_button.png");
-    public static final ResourceLocation BUTTON_TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/button.png");
-    public static final ResourceLocation LARGE_BUTTON_TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/large_button.png");
-    public static final ResourceLocation LAUNCH_BUTTON_TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button.png");
+    public static final ResourceLocation SMALL_BUTTON_TEXTURE = id("textures/gui/util/buttons/small_button.png");
+    public static final ResourceLocation BUTTON_TEXTURE = id("textures/gui/util/buttons/button.png");
+    public static final ResourceLocation LARGE_BUTTON_TEXTURE = id("textures/gui/util/buttons/large_button.png");
+    public static final ResourceLocation LAUNCH_BUTTON_TEXTURE = id("textures/gui/util/buttons/launch_button.png");
 
-    public static final ResourceLocation SMALL_MENU_LIST = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/planet_menu.png");
-    public static final ResourceLocation LARGE_MENU_TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/large_planet_menu.png");
-    public static final ResourceLocation LARGE_MENU_TEXTURE_RED = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/large_planet_menu_red.png");
+    public static final ResourceLocation SMALL_MENU_LIST = id("textures/gui/util/planet_menu.png");
+    public static final ResourceLocation LARGE_MENU_TEXTURE = id("textures/gui/util/large_planet_menu.png");
+    public static final ResourceLocation LARGE_MENU_TEXTURE_RED = id("textures/gui/util/large_planet_menu_red.png");
 
     public static final List<CelestialBody> STARS = new ArrayList<>();
     public static final List<PlanetInfo> PLANETS = new ArrayList<>();
@@ -207,7 +209,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         int buttonY = (this.height - buttonHeight) / 4;
 
         launchButton = new LaunchButton(buttonX, buttonY, buttonWidth, buttonHeight, launch, (btn) -> onLaunchButtonClick());
-        launchButton.setButtonTexture(LAUNCH_BUTTON_TEXTURE, ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button_hovered.png"));
+        launchButton.setButtonTexture(LAUNCH_BUTTON_TEXTURE, id("textures/gui/util/buttons/launch_button_hovered.png"));
 
         this.addRenderableWidget(launchButton);
         launchButton.visible = false;
@@ -520,8 +522,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
                 RenderSystem.setShaderTexture(0, LARGE_MENU_TEXTURE);
                 graphics.blit(LARGE_MENU_TEXTURE, centerX, centerY, 0, 0, menuWidth, menuHeight, menuWidth, menuHeight);
                 launchButton.setButtonTexture(
-                        ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button.png"),
-                        ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button_hovered.png")
+                        id("textures/gui/util/buttons/launch_button.png"),
+                        id("textures/gui/util/buttons/launch_button_hovered.png")
                 );
             } else {
                 if (Objects.equals(focusedBody.name, "Earth")) {
@@ -534,8 +536,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
                     RenderSystem.setShaderTexture(0, LARGE_MENU_TEXTURE);
                     launchButton.setButtonTexture(
-                            ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button.png"),
-                            ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button_hovered.png")
+                            id("textures/gui/util/buttons/launch_button.png"),
+                            id("textures/gui/util/buttons/launch_button_hovered.png")
                     );
                     graphics.blit(LARGE_MENU_TEXTURE, centerX, centerY, 0, 0, menuWidth, menuHeight, menuWidth, menuHeight);
                 } else {
@@ -549,8 +551,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
                     RenderSystem.setShaderTexture(0, LARGE_MENU_TEXTURE_RED);
                     graphics.blit(LARGE_MENU_TEXTURE_RED, centerX, centerY, 0, 0, menuWidth, menuHeight, menuWidth, menuHeight);
                     launchButton.setButtonTexture(
-                            ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/no_launch_button.png"),
-                            ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/no_launch_button_hovered.png")
+                            id("textures/gui/util/buttons/no_launch_button.png"),
+                            id("textures/gui/util/buttons/no_launch_button_hovered.png")
                     );
                 }
             }

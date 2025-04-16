@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.common.menus;
 
-import java.util.List;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -9,6 +8,8 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 
 public abstract class BaseItemCombinerMenu extends AbstractContainerMenu {

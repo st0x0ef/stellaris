@@ -5,7 +5,6 @@ import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.Util;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
@@ -14,6 +13,8 @@ import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.EnumMap;
 import java.util.List;
+
+import static com.st0x0ef.stellaris.Stellaris.id;
 
 public class ArmorMaterialsRegistry {
     public static final DeferredRegister<ArmorMaterial> ARMOR_MATERIAL = DeferredRegister.create(Stellaris.MODID, Registries.ARMOR_MATERIAL);
@@ -29,7 +30,7 @@ public class ArmorMaterialsRegistry {
             10,
             SoundEvents.ARMOR_EQUIP_ELYTRA,
             () -> Ingredient.of(ItemsRegistry.DESH_INGOT.get()),
-            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"jetsuit"))),
+            List.of(new ArmorMaterial.Layer(id("jetsuit"))),
             2.0F, 0.0F);
 
     public static final ArmorMaterial SPACE_SUIT_MATERIAL = new ArmorMaterial(
@@ -43,8 +44,8 @@ public class ArmorMaterialsRegistry {
             10,
             SoundEvents.ARMOR_EQUIP_GENERIC,
             () -> Ingredient.of(Items.IRON_INGOT),
-            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"spacesuit")),
-                    new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"spacesuit"), "_overlay", true)
+            List.of(new ArmorMaterial.Layer(id("spacesuit")),
+                    new ArmorMaterial.Layer(id("spacesuit"), "_overlay", true)
                     ),
             2.0F, 0.0F);
 

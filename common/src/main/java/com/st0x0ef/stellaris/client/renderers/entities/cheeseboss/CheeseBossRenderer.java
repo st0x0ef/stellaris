@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.client.renderers.entities.cheeseboss;
 
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.entities.mobs.cheese_boss.CheeseBoss;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -9,10 +8,12 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
+import static com.st0x0ef.stellaris.Stellaris.id;
+
 @Environment(EnvType.CLIENT)
 public class CheeseBossRenderer extends MobRenderer<CheeseBoss,CheeseBossModel<CheeseBoss>> {
 
-    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/entity/cheese_boss.png");
+    public static final ResourceLocation TEXTURE = id("textures/entity/cheese_boss.png");
 
     public CheeseBossRenderer(EntityRendererProvider.Context context) {
         super(context, new CheeseBossModel<>(context.bakeLayer(CheeseBossModel.LAYER_LOCATION)), 1f);

@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.client.screens.tablet;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.components.TexturedButton;
 import com.st0x0ef.stellaris.common.menus.TabletMenu;
 import com.st0x0ef.stellaris.common.registry.StatsRegistry;
@@ -25,9 +24,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static com.st0x0ef.stellaris.Stellaris.id;
+
 public class TabletMainScreen extends AbstractContainerScreen<TabletMenu> {
 
-    public static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/tablet_background.png");
+    public static final ResourceLocation BACKGROUND = id("textures/gui/tablet/tablet_background.png");
     public static Map<String, TabletEntry> ENTRIES = new HashMap<>();
     public static Map<ResourceLocation, TabletEntry.Info> INFOS = new HashMap<>();
     public List<Component> STATS = new ArrayList<>();
@@ -73,8 +74,8 @@ public class TabletMainScreen extends AbstractContainerScreen<TabletMenu> {
             this.addRenderableWidget(button);
 
             if(BUTTONS.size() == 2) {
-                TexturedButton homeButton = new TexturedButton(this.leftPos + 61 + (column.get() * 28), this.topPos + 134, 18, 18, Component.translatable(entry.id()), (button1) -> this.minecraft.setScreen(this)).tex(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/main_page.png"),
-                        ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/main_page_hover.png")
+                TexturedButton homeButton = new TexturedButton(this.leftPos + 61 + (column.get() * 28), this.topPos + 134, 18, 18, Component.translatable(entry.id()), (button1) -> this.minecraft.setScreen(this)).tex(id("textures/gui/tablet/main_page.png"),
+                        id("textures/gui/tablet/main_page_hover.png")
                 ).tooltip(Tooltip.create(Component.literal("Home")));
                 BUTTONS.add(homeButton);
                 column.getAndIncrement();

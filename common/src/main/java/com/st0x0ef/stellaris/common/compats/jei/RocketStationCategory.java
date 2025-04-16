@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.common.compats.jei;
 
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.data.recipes.RocketStationRecipe;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -17,10 +16,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
 
+import static com.st0x0ef.stellaris.Stellaris.id;
+
 public record RocketStationCategory(IGuiHelper guiHelper) implements IRecipeCategory<RocketStationRecipe> {
 
-    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/compats/rocket_station.png");
-    public static final RecipeType<RocketStationRecipe> RECIPE = new RecipeType<>(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "rocket_station"), RocketStationRecipe.class);
+    public static final ResourceLocation TEXTURE = id("textures/gui/compats/rocket_station.png");
+    public static final RecipeType<RocketStationRecipe> RECIPE = new RecipeType<>(id("rocket_station"), RocketStationRecipe.class);
 
     @Override
     public RecipeType<RocketStationRecipe> getRecipeType() {

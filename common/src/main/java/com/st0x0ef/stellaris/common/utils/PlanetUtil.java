@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.common.utils;
 
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
 import com.st0x0ef.stellaris.common.menus.MilkyWayMenu;
@@ -27,7 +26,12 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 
+import static com.st0x0ef.stellaris.Stellaris.id;
+
 public class PlanetUtil {
+
+    public static final ResourceLocation TEXTURE = id("textures/planet_bar/earth_planet_bar.png");
+
     public static Planet getPlanet(ResourceLocation level) {
         AtomicReference<Planet> p = new AtomicReference<>();
         StellarisData.getPlanets().forEach(planet -> {if (planet.dimension().equals(level)) p.set(planet);});
@@ -64,7 +68,7 @@ public class PlanetUtil {
         if (isPlanet(level)) {
             return getPlanet(level).textures().planet_bar();
         }
-        return ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/planet_bar/earth_planet_bar.png");
+        return TEXTURE;
     }
 
     public static int openPlanetSelectionMenu(Player player, boolean forceCanGoTo) {

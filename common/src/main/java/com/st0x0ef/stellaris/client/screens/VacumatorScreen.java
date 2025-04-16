@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.client.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.components.GaugeWidget;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.VacuumatorBlockEntity;
 import com.st0x0ef.stellaris.common.menus.VacuumatorMenu;
@@ -14,9 +13,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
+import static com.st0x0ef.stellaris.Stellaris.id;
+
 @Environment(EnvType.CLIENT)
 public class VacumatorScreen extends AbstractContainerScreen<VacuumatorMenu> {
-	public static final ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/vacuumator.png");
+	public static final ResourceLocation texture = id("textures/gui/vacuumator.png");
 
 	private final VacuumatorBlockEntity blockEntity = getMenu().getBlockEntity();
 	private GaugeWidget energyGauge;

@@ -2,7 +2,6 @@ package com.st0x0ef.stellaris.client.renderers.entities.vehicle.rover;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.entities.vehicles.RoverEntity;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -10,11 +9,12 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
+
+import static com.st0x0ef.stellaris.Stellaris.id;
 
 
 public class RoverModel<T extends RoverEntity> extends EntityModel<T> {
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "rover"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(id("rover"), "main");
 
     private final ModelPart rover;
     private final ModelPart antenna;

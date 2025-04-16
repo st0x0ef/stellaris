@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.client.renderers.entities.alien;
 
 
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.entities.mobs.alien.Alien;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -11,25 +10,27 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.npc.VillagerProfession;
 
+import static com.st0x0ef.stellaris.Stellaris.id;
+
 @Environment(EnvType.CLIENT)
 public class AlienRenderer extends MobRenderer<Alien, AlienModel<Alien>> {
 
     /** TEXTURES */
-    public static final ResourceLocation ALIEN = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/alien/alien.png");
+    public static final ResourceLocation ALIEN = id("textures/entity/alien/alien.png");
 
-    public static final ResourceLocation FARMER = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/alien/farmer.png");
-    public static final ResourceLocation FISHERMAN = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/alien/fisherman.png");
-    public static final ResourceLocation SHEPHERD = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/alien/shepherd.png");
-    public static final ResourceLocation FLETCHER = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/alien/fletcher.png");
-    public static final ResourceLocation LIBRARIAN = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/alien/librarian.png");
-    public static final ResourceLocation CARTOGRAPHER = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/alien/cartographer.png");
-    public static final ResourceLocation CLERIC = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/alien/cleric.png");
-    public static final ResourceLocation ARMORER = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/alien/armorer.png");
-    public static final ResourceLocation WEAPON_SMITH = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/alien/weapon_smith.png");
-    public static final ResourceLocation TOOL_SMITH = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/alien/tool_smith.png");
-    public static final ResourceLocation BUTCHER = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/alien/butcher.png");
-    public static final ResourceLocation LEATHER_WORKER = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/alien/leather_worker.png");
-    public static final ResourceLocation MASON = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/alien/mason.png");
+    public static final ResourceLocation FARMER = id("textures/entity/alien/farmer.png");
+    public static final ResourceLocation FISHERMAN = id("textures/entity/alien/fisherman.png");
+    public static final ResourceLocation SHEPHERD = id("textures/entity/alien/shepherd.png");
+    public static final ResourceLocation FLETCHER = id("textures/entity/alien/fletcher.png");
+    public static final ResourceLocation LIBRARIAN = id("textures/entity/alien/librarian.png");
+    public static final ResourceLocation CARTOGRAPHER = id("textures/entity/alien/cartographer.png");
+    public static final ResourceLocation CLERIC = id("textures/entity/alien/cleric.png");
+    public static final ResourceLocation ARMORER = id("textures/entity/alien/armorer.png");
+    public static final ResourceLocation WEAPON_SMITH = id("textures/entity/alien/weapon_smith.png");
+    public static final ResourceLocation TOOL_SMITH = id("textures/entity/alien/tool_smith.png");
+    public static final ResourceLocation BUTCHER = id("textures/entity/alien/butcher.png");
+    public static final ResourceLocation LEATHER_WORKER = id("textures/entity/alien/leather_worker.png");
+    public static final ResourceLocation MASON = id("textures/entity/alien/mason.png");
 
 
     public AlienRenderer(EntityRendererProvider.Context renderManagerIn) {

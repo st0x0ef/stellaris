@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.client.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.components.GaugeChunkWidget;
 import com.st0x0ef.stellaris.client.screens.components.GaugeWidget;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.WaterSeparatorBlockEntity;
@@ -17,10 +16,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
+import static com.st0x0ef.stellaris.Stellaris.id;
+
 @Environment(EnvType.CLIENT)
 public class WaterSeparatorScreen extends AbstractContainerScreen<WaterSeparatorMenu> {
 
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/water_separator.png");
+    private static final ResourceLocation TEXTURE = id("textures/gui/water_separator.png");
 
     private final WaterSeparatorBlockEntity blockEntity = getMenu().getBlockEntity();
     private GaugeChunkWidget ingredientTankGauge;

@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.client.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.menus.RocketStationMenu;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -12,10 +11,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
+import static com.st0x0ef.stellaris.Stellaris.id;
+
 @Environment(EnvType.CLIENT)
 public class RocketStationScreen extends AbstractContainerScreen<RocketStationMenu> {
 
-    public static final ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/rocket_station.png");
+    public static final ResourceLocation texture = id("textures/gui/rocket_station.png");
 
     public RocketStationScreen(RocketStationMenu abstractContainerMenu, Inventory inventory, Component component) {
         super(abstractContainerMenu, inventory, component);

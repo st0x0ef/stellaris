@@ -4,7 +4,6 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.registry.EffectsRegistry;
 import com.st0x0ef.stellaris.common.registry.SoundRegistry;
 import com.st0x0ef.stellaris.common.registry.TagRegistry;
@@ -19,17 +18,18 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.level.Level;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Mutable;
-import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import static com.st0x0ef.stellaris.Stellaris.id;
+
 @Mixin(LevelRenderer.class)
 public class SandStormMixin {
 
+    @Unique
+    private static final ResourceLocation stellaris$TEXTURE = id("textures/environment/sandstorm.png");
     @Final
     @Shadow
     @Mutable
@@ -47,7 +47,7 @@ public class SandStormMixin {
         if (minecraft.level != null) {
             Level level = minecraft.level;
             if (level.getBiome(mutableBlockPos).is(TagRegistry.SANDSTORM_BIOMES_TAG)) {
-                RenderSystem.setShaderTexture(0, ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/environment/sandstorm.png"));
+                RenderSystem.setShaderTexture(0, stellaris$TEXTURE);
 
                 if (Utils.entityHasBlockAbove(minecraft.player, null, null)) {
                     minecraft.player.addEffect(new MobEffectInstance(EffectsRegistry.getHolder(EffectsRegistry.SANDSTORM), 30));

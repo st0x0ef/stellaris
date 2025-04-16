@@ -17,10 +17,12 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
+import static com.st0x0ef.stellaris.Stellaris.id;
+
 public class OxygenTankOverlay {
 
-    public static final ResourceLocation OXYGEN_TANK = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/overlay/oxygen_tank.png");
-    public static final ResourceLocation OXYGEN_TANK_FULL = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/overlay/oxygen_tank_full.png");
+    public static final ResourceLocation OXYGEN_TANK = id("textures/overlay/oxygen_tank.png");
+    public static final ResourceLocation OXYGEN_TANK_FULL = id("textures/overlay/oxygen_tank_full.png");
 
 
     public static void render(GuiGraphics graphics, float partialTick) {

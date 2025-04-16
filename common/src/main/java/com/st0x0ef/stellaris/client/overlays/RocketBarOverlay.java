@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.client.overlays;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
 import com.st0x0ef.stellaris.common.entities.vehicles.LanderEntity;
 import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
@@ -15,9 +14,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 
+import static com.st0x0ef.stellaris.Stellaris.id;
+
 public class RocketBarOverlay {
 
-    public static final ResourceLocation ROCKET = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/planet_bar/rocket.png");
+    public static final ResourceLocation ROCKET = id("textures/planet_bar/rocket.png");
 
     public static void render(GuiGraphics graphics, DeltaTracker deltaTracker) {
         Player player = Minecraft.getInstance().player;

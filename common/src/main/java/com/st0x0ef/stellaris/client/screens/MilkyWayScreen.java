@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.client.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
 import com.st0x0ef.stellaris.common.menus.MilkyWayMenu;
 import net.fabricmc.api.EnvType;
@@ -16,12 +15,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import org.lwjgl.glfw.GLFW;
 
+import static com.st0x0ef.stellaris.Stellaris.id;
+
 @Environment(EnvType.CLIENT)
 public class MilkyWayScreen extends AbstractContainerScreen<MilkyWayMenu> {
-    public static final ResourceLocation MILKY_WAY_TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,
-            "textures/environment/milky_way.png");
-    public static final ResourceLocation BACKGROUND_TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,
-            "textures/gui/planet_selection.png");
+    public static final ResourceLocation MILKY_WAY_TEXTURE = id("textures/environment/milky_way.png");
+    public static final ResourceLocation BACKGROUND_TEXTURE = id("textures/gui/planet_selection.png");
 
     public static float rotationAngle = 0;
 

@@ -1,14 +1,12 @@
 package com.st0x0ef.stellaris.common.world;
 
 import com.google.common.base.Suppliers;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.registry.BlocksRegistry;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
@@ -24,6 +22,8 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTes
 
 import java.util.List;
 import java.util.function.Supplier;
+
+import static com.st0x0ef.stellaris.Stellaris.id;
 
 public class ModConfiguredFeature {
     // OVERWORLD
@@ -111,7 +111,7 @@ public class ModConfiguredFeature {
             OreConfiguration.target(new BlockMatchTest(BlocksRegistry.VENUS_STONE.get()), BlocksRegistry.VENUS_GOLD_ORE.get().defaultBlockState())));
 
     public static ResourceKey<ConfiguredFeature<?, ?>> registerKey(String name) {
-        return ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, name));
+        return ResourceKey.create(Registries.CONFIGURED_FEATURE, id(name));
     }
 
     private static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(BootstrapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, F feature, FC configuration) {

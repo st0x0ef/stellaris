@@ -5,7 +5,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OxygenRoom {
     private final BlockPos distributorPos;

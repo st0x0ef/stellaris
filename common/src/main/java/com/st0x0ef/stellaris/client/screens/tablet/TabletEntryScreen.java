@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.client.screens.tablet;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.components.TabletButton;
 import com.st0x0ef.stellaris.client.screens.components.TexturedButton;
 import net.minecraft.client.Minecraft;
@@ -16,6 +15,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static com.st0x0ef.stellaris.Stellaris.id;
+
 public class TabletEntryScreen extends Screen {
 
     private int leftPos;
@@ -24,16 +25,16 @@ public class TabletEntryScreen extends Screen {
     private int imageWidth;
 
     /** Textures */
-    public static final ResourceLocation MENU_BACKGROUND_LIGHT = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/tablet_background_light.png");
-    public static final ResourceLocation SMALL_BACK_ARROW = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/small_back_arrow.png");
-    public static final ResourceLocation SMALL_NEXT_ARROW = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/small_next_arrow.png");
-    public static final ResourceLocation SMALL_HOME_BUTTON = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/small_home_button.png");
-    public static final ResourceLocation HOME_BUTTON = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/main_page.png");
-    public static final ResourceLocation HOME_BUTTON_HOVER = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/main_page_hover.png");
-    public static final ResourceLocation BACK_ARROW = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/back_page.png");
-    public static final ResourceLocation BACK_ARROW_HOVER = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/back_page_hovered.png");
-    public static final ResourceLocation NEXT_ARROW = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/next_page.png");
-    public static final ResourceLocation NEXT_ARROW_HOVER = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/next_page_hovered.png");
+    public static final ResourceLocation MENU_BACKGROUND_LIGHT = id("textures/gui/tablet/tablet_background_light.png");
+    public static final ResourceLocation SMALL_BACK_ARROW = id("textures/gui/tablet/small_back_arrow.png");
+    public static final ResourceLocation SMALL_NEXT_ARROW = id("textures/gui/tablet/small_next_arrow.png");
+    public static final ResourceLocation SMALL_HOME_BUTTON = id("textures/gui/tablet/small_home_button.png");
+    public static final ResourceLocation HOME_BUTTON = id("textures/gui/tablet/main_page.png");
+    public static final ResourceLocation HOME_BUTTON_HOVER = id("textures/gui/tablet/main_page_hover.png");
+    public static final ResourceLocation BACK_ARROW = id("textures/gui/tablet/back_page.png");
+    public static final ResourceLocation BACK_ARROW_HOVER = id("textures/gui/tablet/back_page_hovered.png");
+    public static final ResourceLocation NEXT_ARROW = id("textures/gui/tablet/next_page.png");
+    public static final ResourceLocation NEXT_ARROW_HOVER = id("textures/gui/tablet/next_page_hovered.png");
 
 
     private final TabletMainScreen screen;

@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.client.renderers.entities.pygro;
 
-import com.st0x0ef.stellaris.Stellaris;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.AnimationUtils;
@@ -9,7 +8,6 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -17,10 +15,12 @@ import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
 import net.minecraft.world.entity.monster.piglin.Piglin;
 import net.minecraft.world.entity.monster.piglin.PiglinArmPose;
 
+import static com.st0x0ef.stellaris.Stellaris.id;
+
 @Environment(EnvType.CLIENT)
 public class PygroModel<T extends Mob> extends PlayerModel<T> {
 
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "pygro"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(id("pygro"), "main");
 
     public final ModelPart rightEar = this.head.getChild("right_ear");
     private final ModelPart leftEar = this.head.getChild("left_ear");

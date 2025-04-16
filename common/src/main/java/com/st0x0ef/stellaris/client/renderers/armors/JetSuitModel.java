@@ -3,7 +3,6 @@ package com.st0x0ef.stellaris.client.renderers.armors;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.st0x0ef.stellaris.Stellaris;
 import dev.architectury.platform.Platform;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
@@ -19,10 +18,12 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
+import static com.st0x0ef.stellaris.Stellaris.id;
+
 public class JetSuitModel extends HumanoidModel<LivingEntity> {
 
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "jetsuit"), "main");
-	public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/models/armor/jetsuit_layer_1.png");
+	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(id("jetsuit"), "main");
+	public static final ResourceLocation TEXTURE = id("textures/models/armor/jetsuit_layer_1.png");
 
 	private final ModelPart head;
 	private final ModelPart body;

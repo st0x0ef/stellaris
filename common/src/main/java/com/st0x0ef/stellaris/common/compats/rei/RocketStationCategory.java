@@ -17,9 +17,11 @@ import net.minecraft.resources.ResourceLocation;
 import java.util.LinkedList;
 import java.util.List;
 
+import static com.st0x0ef.stellaris.Stellaris.id;
+
 public class RocketStationCategory implements DisplayCategory<BasicDisplay> {
 
-    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/compats/rocket_station.png");
+    public static final ResourceLocation TEXTURE = id("textures/gui/compats/rocket_station.png");
     public static final CategoryIdentifier<RocketStationDisplay> ROCKET_CRAFTING = CategoryIdentifier.of(Stellaris.MODID,"rocket_crafting");
 
     @Override

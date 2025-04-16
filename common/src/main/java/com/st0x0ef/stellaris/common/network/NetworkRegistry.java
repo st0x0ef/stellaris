@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.common.network;
 
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.network.packets.*;
 import dev.architectury.impl.NetworkAggregator;
 import dev.architectury.networking.NetworkManager;
@@ -9,21 +8,22 @@ import dev.architectury.utils.Env;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
 
 import java.util.Collections;
 import java.util.List;
 
+import static com.st0x0ef.stellaris.Stellaris.id;
+
 public interface NetworkRegistry {
-    CustomPacketPayload.Type<KeyHandlerPacket> KEY_HANDLER_ID = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "key_handler"));
-    CustomPacketPayload.Type<TeleportEntityToPlanetPacket> TELEPORT_ENTITY_ID = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "teleport_entity"));
-    CustomPacketPayload.Type<OpenTabletEntryPacket> TABLET_OPEN_HANDLER_ID = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "tablet_open_handler"));
+    CustomPacketPayload.Type<KeyHandlerPacket> KEY_HANDLER_ID = new CustomPacketPayload.Type<>(id("key_handler"));
+    CustomPacketPayload.Type<TeleportEntityToPlanetPacket> TELEPORT_ENTITY_ID = new CustomPacketPayload.Type<>(id("teleport_entity"));
+    CustomPacketPayload.Type<OpenTabletEntryPacket> TABLET_OPEN_HANDLER_ID = new CustomPacketPayload.Type<>(id("tablet_open_handler"));
 
-    CustomPacketPayload.Type<SyncPlanetsDatapackPacket> SYNC_PLANETS_DATAPACK = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "sync_planet_datapack"));
-    CustomPacketPayload.Type<SyncRocketComponentPacket> SYNC_ROCKET_COMPONENT_ID = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "sync_rocket_component"));
+    CustomPacketPayload.Type<SyncPlanetsDatapackPacket> SYNC_PLANETS_DATAPACK = new CustomPacketPayload.Type<>(id("sync_planet_datapack"));
+    CustomPacketPayload.Type<SyncRocketComponentPacket> SYNC_ROCKET_COMPONENT_ID = new CustomPacketPayload.Type<>(id("sync_rocket_component"));
 
-    CustomPacketPayload.Type<SyncRoverComponentPacket> SYNC_ROVER_COMPONENT_ID = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "sync_rover_component"));
-    CustomPacketPayload.Type<SyncRoverPacket> SYNC_ROVER_CONTROLS = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "sync_rover_packet"));
+    CustomPacketPayload.Type<SyncRoverComponentPacket> SYNC_ROVER_COMPONENT_ID = new CustomPacketPayload.Type<>(id("sync_rover_component"));
+    CustomPacketPayload.Type<SyncRoverPacket> SYNC_ROVER_CONTROLS = new CustomPacketPayload.Type<>(id("sync_rover_packet"));
 
     static void init() {
         registerC2S(KEY_HANDLER_ID, KeyHandlerPacket.STREAM_CODEC, KeyHandlerPacket::handle);

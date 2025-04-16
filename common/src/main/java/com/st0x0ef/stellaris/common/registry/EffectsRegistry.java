@@ -11,14 +11,16 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 
+import static com.st0x0ef.stellaris.Stellaris.id;
+
 public class EffectsRegistry {
 
     private static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(Stellaris.MODID, Registries.MOB_EFFECT);
 
     // DO NOT CONVERT THESE TO RegistrySuppliers
-    public static final ResourceLocation RADIOACTIVE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "radioactive");
-    public static final ResourceLocation SANDSTORM = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "sandstorm");
-    public static final ResourceLocation FOGGING_OVERLAY = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "fogging");
+    public static final ResourceLocation RADIOACTIVE = id("radioactive");
+    public static final ResourceLocation SANDSTORM = id("sandstorm");
+    public static final ResourceLocation FOGGING_OVERLAY = id("fogging");
 
     public static void register() {
         EFFECTS.register();
