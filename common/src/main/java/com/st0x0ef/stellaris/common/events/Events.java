@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.events;
 
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.CoalLanternBlock;
 import com.st0x0ef.stellaris.common.blocks.WallCoalTorchBlock;
 import com.st0x0ef.stellaris.common.oxygen.GlobalOxygenManager;
@@ -12,33 +13,41 @@ import dev.architectury.event.EventResult;
 import dev.architectury.event.events.common.BlockEvent;
 import dev.architectury.event.events.common.TickEvent;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LanternBlock;
+import net.minecraft.world.level.block.WallTorchBlock;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
 
+import static com.st0x0ef.stellaris.common.registry.EffectsRegistry.getHolder;
+
 public class Events {
+
     private static final int RADIATION_CHECK_INTERVAL = 100;
     private static int tickBeforeNextRadioactiveCheck = RADIATION_CHECK_INTERVAL;
 
     public static void registerEvents() {
         TickEvent.PLAYER_POST.register(player -> {
-            if (tickBeforeNextRadioactiveCheck <= 0 && !Utils.isLivingInJetSuit(player)) {
-                if (!player.level().isClientSide()) {
-                    int maxRadiationLevel = player.getInventory().items.stream()
-                            .filter(itemStack -> itemStack.has(DataComponentsRegistry.RADIOACTIVE.get()))
-                            .mapToInt(itemStack -> itemStack.get(DataComponentsRegistry.RADIOACTIVE.get()).level())
+            if (!player.level().isClientSide()) {
+                if (tickBeforeNextRadioactiveCheck <= 0 && !Utils.isLivingInJetSuit(player)) {
+                    int level = player.getInventory().items.stream()
+                            .filter(stack -> stack.has(DataComponentsRegistry.RADIOACTIVE.get()))
+                            .mapToInt(stack -> stack.get(DataComponentsRegistry.RADIOACTIVE.get()).level())
                             .max()
-                            .orElse(0);
+                            .orElse(-1);
 
-                    if (maxRadiationLevel > 0) {
-                        player.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE, 100, maxRadiationLevel - 1));
+                    if (level >= 0) {
+                        player.addEffect(new MobEffectInstance(getHolder(EffectsRegistry.RADIOACTIVE), 100, level));
                     }
-                }
-                tickBeforeNextRadioactiveCheck = RADIATION_CHECK_INTERVAL;
-            }
 
-            tickBeforeNextRadioactiveCheck--;
+                    tickBeforeNextRadioactiveCheck = RADIATION_CHECK_INTERVAL;
+                }
+                tickBeforeNextRadioactiveCheck--;
+            }
         });
 
         BlockEvent.BREAK.register((level, pos, state, player, value) -> {
@@ -53,64 +62,19 @@ public class Events {
         BlockEvent.PLACE.register((level, pos, state, player) -> {
             if (level instanceof ServerLevel serverLevel && !PlanetUtil.hasOxygen(level)) {
                 if (state.is(Blocks.TORCH)) {
-                    serverLevel.setBlock(pos, BlocksRegistry.COAL_TORCH_BLOCK.get().defaultBlockState(), 3);
+                    serverLevel.setBlockAndUpdate(pos, BlocksRegistry.COAL_TORCH_BLOCK.get().defaultBlockState());
                     return EventResult.interruptFalse();
-                } else if (state.is(Blocks.WALL_TORCH)) {
-                    serverLevel.setBlock(pos, BlocksRegistry.WALL_COAL_TORCH_BLOCK.get().defaultBlockState().setValue(WallCoalTorchBlock.FACING, state.getValue(WallTorchBlock.FACING)), 3);
+                }
+                else if (state.is(Blocks.WALL_TORCH)) {
+                    serverLevel.setBlockAndUpdate(pos, BlocksRegistry.WALL_COAL_TORCH_BLOCK.get().defaultBlockState().setValue(WallCoalTorchBlock.FACING, state.getValue(WallTorchBlock.FACING)));
                     return EventResult.interruptFalse();
-                } else if (state.is(Blocks.LANTERN)) {
-                    serverLevel.setBlock(pos, BlocksRegistry.COAL_LANTERN_BLOCK.get().defaultBlockState().setValue(CoalLanternBlock.HANGING, state.getValue(LanternBlock.HANGING)), 3);
+                }
+                else if (state.is(Blocks.LANTERN)) {
+                    serverLevel.setBlockAndUpdate(pos, BlocksRegistry.COAL_LANTERN_BLOCK.get().defaultBlockState().setValue(CoalLanternBlock.HANGING, state.getValue(LanternBlock.HANGING)));
                     return EventResult.interruptFalse();
-                } else if (state.is(Blocks.CAMPFIRE)) {
-                    serverLevel.setBlock(pos, state.setValue(CampfireBlock.LIT, false), 3);
-                    return EventResult.interruptFalse();
-                } else if (state.is(Blocks.CANDLE)) {
-                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
-                    return EventResult.interruptFalse();
-                } else if (state.is(Blocks.CYAN_CANDLE)) {
-                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
-                    return EventResult.interruptFalse();
-                } else if (state.is(Blocks.BLACK_CANDLE)) {
-                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
-                    return EventResult.interruptFalse();
-                } else if (state.is(Blocks.BLUE_CANDLE)) {
-                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
-                    return EventResult.interruptFalse();
-                } else if (state.is(Blocks.BROWN_CANDLE)) {
-                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
-                    return EventResult.interruptFalse();
-                } else if (state.is(Blocks.GREEN_CANDLE)) {
-                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
-                    return EventResult.interruptFalse();
-                } else if (state.is(Blocks.LIGHT_BLUE_CANDLE)) {
-                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
-                    return EventResult.interruptFalse();
-                } else if (state.is(Blocks.YELLOW_CANDLE)) {
-                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
-                    return EventResult.interruptFalse();
-                } else if (state.is(Blocks.WHITE_CANDLE)) {
-                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
-                    return EventResult.interruptFalse();
-                } else if (state.is(Blocks.RED_CANDLE)) {
-                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
-                    return EventResult.interruptFalse();
-                } else if (state.is(Blocks.PINK_CANDLE)) {
-                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
-                    return EventResult.interruptFalse();
-                } else if (state.is(Blocks.MAGENTA_CANDLE)) {
-                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
-                    return EventResult.interruptFalse();
-                } else if (state.is(Blocks.PURPLE_CANDLE)) {
-                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
-                    return EventResult.interruptFalse();
-                } else if (state.is(Blocks.LIME_CANDLE)) {
-                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
-                    return EventResult.interruptFalse();
-                } else if (state.is(Blocks.ORANGE_CANDLE)) {
-                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
-                    return EventResult.interruptFalse();
-                } else if (state.is(Blocks.LIGHT_GRAY_CANDLE)) {
-                    serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
+                }
+                else if (state.hasProperty(BlockStateProperties.LIT)) {
+                    serverLevel.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.LIT, false));
                     return EventResult.interruptFalse();
                 }
             }

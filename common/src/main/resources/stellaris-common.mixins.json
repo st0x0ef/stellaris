@@ -16,7 +16,6 @@
   ],
   "client": [
     "StormyPlanetMixin",
-    "client.FogRenderMixin",
     "client.PlayerRiddingVehicleMixin",
     "client.RenderPlayerMixin",
     "client.SandStormMixin",

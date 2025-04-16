@@ -37,6 +37,7 @@ import com.st0x0ef.stellaris.client.renderers.globe.GlobeBlockRenderer;
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeModel;
 import com.st0x0ef.stellaris.client.screens.*;
 import com.st0x0ef.stellaris.client.screens.tablet.TabletMainScreen;
+import com.st0x0ef.stellaris.common.effects.SandStormEffect;
 import com.st0x0ef.stellaris.common.entities.vehicles.base.AbstractRoverBase;
 import com.st0x0ef.stellaris.common.registry.*;
 import dev.architectury.event.events.common.TickEvent;
@@ -49,6 +50,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
@@ -84,6 +86,7 @@ public class StellarisFabricClient implements ClientModInitializer {
         registerEntityRenderer();
         registerEntityModelLayer();
         registerKeyBinding();
+        FogRenderer.MOB_EFFECT_FOG.add(new SandStormEffect.SandStormFogFunction());
     }
 
     public static void registerEntityRenderer() {

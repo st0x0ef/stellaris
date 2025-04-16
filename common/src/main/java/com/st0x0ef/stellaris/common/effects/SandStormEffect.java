@@ -33,7 +33,7 @@ public class SandStormEffect extends MobEffect {
         }
 
         public Holder<MobEffect> getMobEffect() {
-            return EffectsRegistry.SANDSTORM;
+            return EffectsRegistry.getHolder(EffectsRegistry.SANDSTORM);
         }
 
         @Override

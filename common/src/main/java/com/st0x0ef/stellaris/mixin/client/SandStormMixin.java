@@ -44,14 +44,13 @@ public class SandStormMixin {
             )
     )
     public void renderSandStorm(LightTexture lightTexture, float partialTick, double camX, double camY, double camZ, CallbackInfo ci, @Local BlockPos.MutableBlockPos mutableBlockPos) {
-        if(this.minecraft.level != null) {
-            Level level = this.minecraft.level;
+        if (minecraft.level != null) {
+            Level level = minecraft.level;
             if (level.getBiome(mutableBlockPos).is(TagRegistry.SANDSTORM_BIOMES_TAG)) {
                 RenderSystem.setShaderTexture(0, ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/environment/sandstorm.png"));
 
-                if(Utils.entityHasBlockAbove(this.minecraft.player, null, null)) {
-                    this.minecraft.player.addEffect(new MobEffectInstance(EffectsRegistry.SANDSTORM, 30));
-
+                if (Utils.entityHasBlockAbove(minecraft.player, null, null)) {
+                    minecraft.player.addEffect(new MobEffectInstance(EffectsRegistry.getHolder(EffectsRegistry.SANDSTORM), 30));
                 }
             }
         }
@@ -62,16 +61,13 @@ public class SandStormMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientLevel;playLocalSound(Lnet/minecraft/core/BlockPos;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FFZ)V")
     )
     private void bypassExpensiveCalculationIfNecessary(ClientLevel instance, BlockPos blockPos, SoundEvent soundEvent, SoundSource soundSource, float rainLevel, float v, boolean rainSoundTime, Operation<Void> original) {
-        if(this.minecraft.level != null) {
-            Level level = this.minecraft.level;
+        if (minecraft.level != null) {
+            Level level = minecraft.level;
             if (level.getBiome(blockPos).is(TagRegistry.SANDSTORM_BIOMES_TAG)) {
-                this.minecraft.level.playLocalSound(blockPos, SoundRegistry.WIND_SOUND.get(), SoundSource.WEATHER, 0.1F, 0.5F, false);
-
-            } else {
-                original.call(instance, blockPos, soundEvent, soundSource, rainLevel, v, rainSoundTime);
+                minecraft.level.playLocalSound(blockPos, SoundRegistry.WIND_SOUND.get(), SoundSource.WEATHER, 0.1F, 0.5F, false);
+                return;
             }
+            original.call(instance, blockPos, soundEvent, soundSource, rainLevel, v, rainSoundTime);
         }
-
     }
-
 }
