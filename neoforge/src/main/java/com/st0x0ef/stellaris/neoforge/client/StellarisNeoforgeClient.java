@@ -154,6 +154,7 @@ public class StellarisNeoforgeClient {
     @SubscribeEvent
     private static void initializeClient(RegisterClientExtensionsEvent event) {
         FluidRegistry.FLUIDS_INFOS.forEach((attributes -> event.registerFluidType(new IClientFluidTypeExtensions() {
+
             @Override
             public @NotNull ResourceLocation getStillTexture() {
                 return attributes.getSourceTexture();

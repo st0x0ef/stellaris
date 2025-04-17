@@ -58,6 +58,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 
 public class StellarisFabricClient implements ClientModInitializer {
+
     @Override
     public void onInitializeClient() {
         TickEvent.LevelTick.PLAYER_POST.register(instance -> {

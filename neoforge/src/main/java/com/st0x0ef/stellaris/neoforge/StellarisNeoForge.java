@@ -31,7 +31,8 @@ public class StellarisNeoForge {
     public static void onDatapackSync(OnDatapackSyncEvent event) {
         if (event.getPlayer() != null) {
             Stellaris.onDatapackSyncEvent(event.getPlayer(), true);
-        } else {
+        }
+        else {
             event.getPlayerList().getPlayers().forEach((player) -> Stellaris.onDatapackSyncEvent(player, true));
         }
     }
@@ -46,7 +47,7 @@ public class StellarisNeoForge {
     }
 
     public static void onAddReloadListenerEvent(AddReloadListenerEvent event) {
-        if(FMLEnvironment.dist.isClient()) {
+        if (FMLEnvironment.dist.isClient()) {
             Stellaris.onAddReloadClientListenerEvent((id, listener) -> event.addListener(listener));
         }
         Stellaris.onAddReloadListenerEvent((id, listener) -> event.addListener(listener));

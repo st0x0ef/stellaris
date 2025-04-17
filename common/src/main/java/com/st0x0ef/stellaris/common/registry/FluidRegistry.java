@@ -36,7 +36,6 @@ public class FluidRegistry {
             .flowingTexture(id("block/fluids/fuel_flow"));
 
 
-
     public static final RegistrySupplier<FlowingFluid> FLOWING_FUEL = FLUIDS.register("flowing_fuel", () -> new ArchitecturyFlowingFluid.Flowing(FUEL_ATTRIBUTES));
     public static final RegistrySupplier<FlowingFluid> FUEL_STILL = FLUIDS.register("fuel", () -> new ArchitecturyFlowingFluid.Source(FUEL_ATTRIBUTES));
 

@@ -10,13 +10,13 @@ import static com.st0x0ef.stellaris.Stellaris.id;
 
 public class SoundRegistry {
 
-    public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(Stellaris.MODID,Registries.SOUND_EVENT);
+    public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(Stellaris.MODID, Registries.SOUND_EVENT);
 
     /** SOUNDS */
-    public static final RegistrySupplier<SoundEvent> ROCKET_SOUND = SOUNDS.register("rocket_fly",() -> SoundEvent.createVariableRangeEvent(id("rocket_fly")));
-    public static final RegistrySupplier<SoundEvent> BOOST_SOUND = SOUNDS.register("boost",() -> SoundEvent.createVariableRangeEvent(id("boost")));
-    public static final RegistrySupplier<SoundEvent> BEEP_SOUND = SOUNDS.register("beep",() -> SoundEvent.createVariableRangeEvent(id("beep")));
-    public static final RegistrySupplier<SoundEvent> WIND_SOUND = SOUNDS.register("wind",() -> SoundEvent.createVariableRangeEvent(id("wind")));
+    public static final RegistrySupplier<SoundEvent> ROCKET_SOUND = SOUNDS.register("rocket_fly", () -> SoundEvent.createVariableRangeEvent(id("rocket_fly")));
+    public static final RegistrySupplier<SoundEvent> BOOST_SOUND = SOUNDS.register("boost", () -> SoundEvent.createVariableRangeEvent(id("boost")));
+    public static final RegistrySupplier<SoundEvent> BEEP_SOUND = SOUNDS.register("beep", () -> SoundEvent.createVariableRangeEvent(id("beep")));
+    public static final RegistrySupplier<SoundEvent> WIND_SOUND = SOUNDS.register("wind", () -> SoundEvent.createVariableRangeEvent(id("wind")));
     public static final RegistrySupplier<SoundEvent> RADIOACTIVE = SOUNDS.register("radioactive", () -> SoundEvent.createVariableRangeEvent(id("radioactive")));
-    public static final RegistrySupplier<SoundEvent> SONIC_BOOM_SOUND = SOUNDS.register("sonic_boom",() -> SoundEvent.createVariableRangeEvent(id("sonic_boom")));
+    public static final RegistrySupplier<SoundEvent> SONIC_BOOM_SOUND = SOUNDS.register("sonic_boom", () -> SoundEvent.createVariableRangeEvent(id("sonic_boom")));
 }

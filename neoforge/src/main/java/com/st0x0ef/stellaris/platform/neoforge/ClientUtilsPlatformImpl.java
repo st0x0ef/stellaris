@@ -18,5 +18,6 @@ public class ClientUtilsPlatformImpl {
     }
 
     public record ArmorRenderer(ModelLayerLocation layer, ClientUtilsPlatform.ArmorFactory factory) {
+
     }
 }

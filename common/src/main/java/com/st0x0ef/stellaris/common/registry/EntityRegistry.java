@@ -73,14 +73,14 @@ public class EntityRegistry {
     public static final RegistrySupplier<EntityType<RocketEntity>> NORMAL_ROCKET = ENTITY_TYPE.register("normal_rocket", () -> EntityType.Builder.of(RocketEntity::new, MobCategory.MISC).sized(1.1f, 4.4f).build(id("normal_rocket").toString()));
     public static final RegistrySupplier<EntityType<RocketEntity>> BIG_ROCKET = ENTITY_TYPE.register("big_rocket", () -> EntityType.Builder.of(RocketEntity::new, MobCategory.MISC).sized(1.1f, 4.4f).fireImmune().build(id("big_rocket").toString()));
 
-    public static final RegistrySupplier<EntityType<RoverEntity>> ROVER = ENTITY_TYPE.register("rover", () -> EntityType.Builder.of(RoverEntity::new, MobCategory.MISC).sized(2.7F,1.3F).fireImmune().build(id("rover").toString()));
+    public static final RegistrySupplier<EntityType<RoverEntity>> ROVER = ENTITY_TYPE.register("rover", () -> EntityType.Builder.of(RoverEntity::new, MobCategory.MISC).sized(2.7F, 1.3F).fireImmune().build(id("rover").toString()));
 
     public static final RegistrySupplier<EntityType<LanderEntity>> LANDER = ENTITY_TYPE.register("lander", () -> EntityType.Builder.<LanderEntity>of(LanderEntity::new, MobCategory.MISC).sized(2.5f, 1.0f).build(id("lander").toString()));
 
     public static void registerAttributes(BiConsumer<Supplier<? extends EntityType<? extends LivingEntity>>, Supplier<AttributeSupplier.Builder>> attributes) {
-        attributes.accept(ALIEN,  Alien::setCustomAttributes);
-        attributes.accept(ALIEN_ZOMBIE,  AlienZombie::setCustomAttributes);
-        attributes.accept(MARTIAN_RAPTOR,  MartianRaptor::setCustomAttributes);
+        attributes.accept(ALIEN, Alien::setCustomAttributes);
+        attributes.accept(ALIEN_ZOMBIE, AlienZombie::setCustomAttributes);
+        attributes.accept(MARTIAN_RAPTOR, MartianRaptor::setCustomAttributes);
         attributes.accept(PYGRO_BRUTE, PygroBrute::setCustomAttributes);
         attributes.accept(PYGRO, Pygro::setCustomAttributes);
         attributes.accept(MOGLER, Mogler::setCustomAttributes);

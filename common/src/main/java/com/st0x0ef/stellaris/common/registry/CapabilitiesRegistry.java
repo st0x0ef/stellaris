@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.common.registry;
 import com.fej1fun.potentials.capabilities.Capabilities;
 
 public class CapabilitiesRegistry {
+
     public static void init() {
         registerEnergyItems();
         registerFluidItems();
@@ -22,6 +23,7 @@ public class CapabilitiesRegistry {
         Capabilities.Energy.BLOCK.registerForBlockEntity(BlockEntityRegistry.WATER_PUMP);
         Capabilities.Energy.BLOCK.registerForBlockEntity(BlockEntityRegistry.VACUUMATOR_ENTITY);
     }
+
     static void registerEnergyItems() {
         Capabilities.Energy.ITEM.registerForItem(ItemsRegistry.OIL_FINDER);
     }

@@ -15,7 +15,8 @@ import net.minecraft.world.item.Item;
 
 import java.io.Serializable;
 
-public record RoverComponent(String fuelType, int fuel, ResourceLocation fuelTexture, int tankCapacity, float speedModifier) implements Serializable {
+public record RoverComponent(String fuelType, int fuel, ResourceLocation fuelTexture, int tankCapacity,
+                             float speedModifier) implements Serializable {
 
     public static final Codec<RoverComponent> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.STRING.fieldOf("fuel_type").forGetter(RoverComponent::fuelType),
@@ -42,14 +43,18 @@ public record RoverComponent(String fuelType, int fuel, ResourceLocation fuelTex
 
     public FuelType.Type getFuelType() {
         FuelType.Type type = FuelType.Type.fromString(fuelType);
-        if (type != null) return type;
+        if (type != null) {
+            return type;
+        }
 
         //Workaround to allow rovers from previous versions with badly formed components to load
         //e.g "hydrogen_bucket" as fuel_type
         Item item = FuelType.getItemBasedOnLoacation(ResourceLocation.parse(fuelType));
 
         type = FuelType.Type.getTypeBasedOnItem(item);
-        if (type != null) return type;
+        if (type != null) {
+            return type;
+        }
 
         return FuelType.Type.FUEL;
     }
@@ -80,8 +85,8 @@ public record RoverComponent(String fuelType, int fuel, ResourceLocation fuelTex
     }
 
     static {
-        STREAM_CODEC = StreamCodec.composite( ByteBufCodecs.STRING_UTF8, RoverComponent::fuelType, ByteBufCodecs.INT,
+        STREAM_CODEC = StreamCodec.composite(ByteBufCodecs.STRING_UTF8, RoverComponent::fuelType, ByteBufCodecs.INT,
                 RoverComponent::fuel, ResourceLocation.STREAM_CODEC, RoverComponent::fuelTexture,
-                ByteBufCodecs.INT, RoverComponent::tankCapacity,ByteBufCodecs.FLOAT,RoverComponent::speedModifier,RoverComponent::new);
+                ByteBufCodecs.INT, RoverComponent::tankCapacity, ByteBufCodecs.FLOAT, RoverComponent::speedModifier, RoverComponent::new);
     }
 }

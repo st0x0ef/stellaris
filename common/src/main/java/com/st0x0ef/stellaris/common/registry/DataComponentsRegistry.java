@@ -20,7 +20,7 @@ public class DataComponentsRegistry {
             builder -> builder.persistent(RocketComponent.CODEC).networkSynchronized(RocketComponent.STREAM_CODEC));
 
     public static final RegistrySupplier<DataComponentType<RoverComponent>> ROVER_COMPONENT = register("rover_component",
-           builder -> builder.persistent(RoverComponent.CODEC).networkSynchronized(RoverComponent.STREAM_CODEC));
+            builder -> builder.persistent(RoverComponent.CODEC).networkSynchronized(RoverComponent.STREAM_CODEC));
 
     public static final RegistrySupplier<DataComponentType<JetSuitComponent>> JET_SUIT_COMPONENT = register("jet_suit_component",
             builder -> builder.persistent(JetSuitComponent.CODEC).networkSynchronized(JetSuitComponent.STREAM_CODEC));
@@ -32,7 +32,7 @@ public class DataComponentsRegistry {
             builder -> builder.persistent(SpaceSuitModules.CODEC).networkSynchronized(SpaceSuitModules.STREAM_CODEC));
 
     public static final RegistrySupplier<DataComponentType<FluidAmountMapDataComponent>> FLUID_LIST = register("fluid", builder -> builder
-                    .persistent(FluidAmountMapDataComponent.CODEC)
+            .persistent(FluidAmountMapDataComponent.CODEC)
             .networkSynchronized(FluidAmountMapDataComponent.STREAM_CODEC));
     public static final RegistrySupplier<DataComponentType<Integer>> ENERGY =
             register("energy", builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.INT));

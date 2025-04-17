@@ -17,6 +17,7 @@ import java.util.List;
 import static com.st0x0ef.stellaris.Stellaris.id;
 
 public class ArmorMaterialsRegistry {
+
     public static final DeferredRegister<ArmorMaterial> ARMOR_MATERIAL = DeferredRegister.create(Stellaris.MODID, Registries.ARMOR_MATERIAL);
 
     public static final ArmorMaterial JET_SUIT_MATERIAL = new ArmorMaterial(
@@ -46,7 +47,7 @@ public class ArmorMaterialsRegistry {
             () -> Ingredient.of(Items.IRON_INGOT),
             List.of(new ArmorMaterial.Layer(id("spacesuit")),
                     new ArmorMaterial.Layer(id("spacesuit"), "_overlay", true)
-                    ),
+            ),
             2.0F, 0.0F);
 
 

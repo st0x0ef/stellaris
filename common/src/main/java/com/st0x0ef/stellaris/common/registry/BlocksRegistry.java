@@ -66,9 +66,6 @@ public class BlocksRegistry {
     public static final RegistrySupplier<Block> MARS_CROP = BLOCKS.register("mars_crop", () -> new AlienCropBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT), ItemsRegistry.MARS_FRUIT, BlocksRegistry.MARS_SAND));
 
 
-
-
-
     /** MERCURY Items */
     public static final RegistrySupplier<Block> MERCURY_COBBLESTONE = BLOCKS.register("mercury_cobblestone", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
     public static final RegistrySupplier<Block> MERCURY_IRON_ORE = BLOCKS.register("mercury_iron_ore", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(4f, 2.5f).requiresCorrectToolForDrops()));
@@ -100,8 +97,6 @@ public class BlocksRegistry {
     public static final RegistrySupplier<Block> VENUS_DIAMOND_ORE = BLOCKS.register("venus_diamond_ore", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
 
 
-
-
     /** Moon Items */
     public static final RegistrySupplier<Block> CHISELED_MOON_STONE = BLOCKS.register("chiseled_moon_stone", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
     public static final RegistrySupplier<Block> MOON_COBBLESTONE = BLOCKS.register("moon_cobblestone", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
@@ -116,8 +111,8 @@ public class BlocksRegistry {
     public static final RegistrySupplier<Block> MOON_DESH_ORE = BLOCKS.register("moon_desh_ore", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
     public static final RegistrySupplier<Block> MOON_STEEL_ORE = BLOCKS.register("moon_steel_ore", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
 
-    public static final RegistrySupplier<Block> MOON_VINES = BLOCKS.register("moon_vines", () ->  new MoonVine(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).randomTicks().noCollission().lightLevel(CaveVines.emission(14)).instabreak().sound(SoundType.CAVE_VINES).pushReaction(PushReaction.DESTROY)));
-    public static final RegistrySupplier<Block> MOON_VINES_PLANT = BLOCKS.register("moon_vines_plant",() ->  new MoonVinesPlant(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().lightLevel(CaveVines.emission(14)).instabreak().sound(SoundType.CAVE_VINES).pushReaction(PushReaction.DESTROY)));
+    public static final RegistrySupplier<Block> MOON_VINES = BLOCKS.register("moon_vines", () -> new MoonVine(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).randomTicks().noCollission().lightLevel(CaveVines.emission(14)).instabreak().sound(SoundType.CAVE_VINES).pushReaction(PushReaction.DESTROY)));
+    public static final RegistrySupplier<Block> MOON_VINES_PLANT = BLOCKS.register("moon_vines_plant", () -> new MoonVinesPlant(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().lightLevel(CaveVines.emission(14)).instabreak().sound(SoundType.CAVE_VINES).pushReaction(PushReaction.DESTROY)));
 
     public static final RegistrySupplier<Block> MOON_STONE_BRICK_SLAB = BLOCKS.register("moon_stone_brick_slab", () -> new SlabBlock(SlabBlock.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
     public static final RegistrySupplier<Block> MOON_STONE_BRICK_STAIRS = BLOCKS.register("moon_stone_brick_stairs", () -> new StairBlock(MOON_STONE.get().defaultBlockState(), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
@@ -135,9 +130,6 @@ public class BlocksRegistry {
     public static final RegistrySupplier<Block> MOON_ICE_SHARD_ORE = BLOCKS.register("moon_ice_shard_ore", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
 
 
-
-
-
     /** Machine */
     public static final RegistrySupplier<Block> UPGRADE_STATION = BLOCKS.register("upgrade_station", () -> new UpgradeStationBlock(BlockBehaviour.Properties.ofFullCopy(STEEL_ORE.get()).mapColor(MapColor.DEEPSLATE).strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE)));
 
@@ -148,7 +140,7 @@ public class BlocksRegistry {
 
     public static final RegistrySupplier<Block> ROCKET_LAUNCH_PAD = BLOCKS.register("rocket_launch_pad", () -> new RocketLaunchPad(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).sound(SoundType.METAL).strength(5f, 2.5f).requiresCorrectToolForDrops()));
 
-    public static final RegistrySupplier<Block> VACUMATOR = BLOCKS.register("vacuumator", ()-> new VacuumatorBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_ORE)));
+    public static final RegistrySupplier<Block> VACUMATOR = BLOCKS.register("vacuumator", () -> new VacuumatorBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_ORE)));
     public static final RegistrySupplier<Block> WATER_SEPARATOR = BLOCKS.register("water_separator", () -> new WaterSeparatorBlock(BlockBehaviour.Properties.ofFullCopy(STEEL_ORE.get()).mapColor(MapColor.DEEPSLATE).strength(4.5F, 3F).sound(SoundType.DEEPSLATE)));
     public static final RegistrySupplier<Block> FUEL_REFINERY = BLOCKS.register("fuel_refinery", () -> new FuelRefineryBlock(BlockBehaviour.Properties.ofFullCopy(STEEL_ORE.get()).mapColor(MapColor.DEEPSLATE).strength(4.5F, 3F).sound(SoundType.DEEPSLATE)));
     public static final RegistrySupplier<Block> OXYGEN_DISTRIBUTOR = BLOCKS.register("oxygen_distributor", () -> new OxygenDistributorBlock(BlockBehaviour.Properties.ofFullCopy(WATER_SEPARATOR.get())));
@@ -161,12 +153,12 @@ public class BlocksRegistry {
     public static final RegistrySupplier<Block> T3_TANK = BLOCKS.register("t3_tank", () -> new FluidTankBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK), 100000));
     public static final RegistrySupplier<Block> T4_TANK = BLOCKS.register("t4_tank", () -> new FluidTankBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK), 10000000));
 
-    public static final RegistrySupplier<Block> T1_CABLE = BLOCKS.register("cable", ()-> new CableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CHAIN), 1000, 250 ,250));
-    public static final RegistrySupplier<Block> T2_CABLE = BLOCKS.register("cable_t2", ()-> new CableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CHAIN), 25000, 6250 ,6250));
-    public static final RegistrySupplier<Block> T3_CABLE = BLOCKS.register("cable_t3", ()-> new CableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CHAIN), 625000, 156250 ,156250));
-    public static final RegistrySupplier<Block> T1_PIPE = BLOCKS.register("pipe_t1", ()-> new PipeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CHAIN), 1000, 250 ,250));
-    public static final RegistrySupplier<Block> T2_PIPE = BLOCKS.register("pipe_t2", ()-> new PipeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CHAIN), 25000, 6250 ,6250));
-    public static final RegistrySupplier<Block> T3_PIPE = BLOCKS.register("pipe_t3", ()-> new PipeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CHAIN), 625000, 156250 ,156250));
+    public static final RegistrySupplier<Block> T1_CABLE = BLOCKS.register("cable", () -> new CableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CHAIN), 1000, 250, 250));
+    public static final RegistrySupplier<Block> T2_CABLE = BLOCKS.register("cable_t2", () -> new CableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CHAIN), 25000, 6250, 6250));
+    public static final RegistrySupplier<Block> T3_CABLE = BLOCKS.register("cable_t3", () -> new CableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CHAIN), 625000, 156250, 156250));
+    public static final RegistrySupplier<Block> T1_PIPE = BLOCKS.register("pipe_t1", () -> new PipeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CHAIN), 1000, 250, 250));
+    public static final RegistrySupplier<Block> T2_PIPE = BLOCKS.register("pipe_t2", () -> new PipeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CHAIN), 25000, 6250, 6250));
+    public static final RegistrySupplier<Block> T3_PIPE = BLOCKS.register("pipe_t3", () -> new PipeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CHAIN), 625000, 156250, 156250));
 
     /**Fluid Blocks*/
     public static final RegistrySupplier<LiquidBlock> FUEL_BLOCK = BLOCKS.register("fuel", () -> new ArchitecturyLiquidBlock(FluidRegistry.FUEL_STILL, BlockBehaviour.Properties.ofFullCopy(Blocks.WATER)));

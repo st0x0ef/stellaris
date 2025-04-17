@@ -5,4 +5,5 @@ import me.shedaniel.rei.forge.REIPluginClient;
 
 @REIPluginClient
 public class NeoForgeReiCompat extends REIClient {
+
 }

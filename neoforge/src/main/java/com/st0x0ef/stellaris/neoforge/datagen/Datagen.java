@@ -18,7 +18,7 @@ public class Datagen {
 
     @SubscribeEvent
     static void onGatherData(GatherDataEvent event) {
-        var generator =  event.getGenerator();
+        var generator = event.getGenerator();
 
 
         generator.addProvider(
