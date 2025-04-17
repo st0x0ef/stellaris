@@ -12,6 +12,7 @@ import static com.st0x0ef.stellaris.Stellaris.texture;
 
 @Environment(EnvType.CLIENT)
 public class IceShardArrowRenderer extends ArrowRenderer<IceShardArrowEntity> {
+
     private static final ResourceLocation LAYER_LOCATION = texture("entity/ice_shard_arrow");
 
     public IceShardArrowRenderer(EntityRendererProvider.Context p_174165_) {

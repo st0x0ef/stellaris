@@ -3,7 +3,8 @@ package com.st0x0ef.stellaris.client;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.events.ClientEvents;
 import com.st0x0ef.stellaris.client.overlays.*;
-import com.st0x0ef.stellaris.client.particles.*;
+import com.st0x0ef.stellaris.client.particles.RocketParticle;
+import com.st0x0ef.stellaris.client.particles.VenusRainParticle;
 import com.st0x0ef.stellaris.client.renderers.armors.JetSuitModel;
 import com.st0x0ef.stellaris.client.renderers.armors.SpaceSuitModel;
 import com.st0x0ef.stellaris.client.screens.ConfigScreen;
@@ -31,6 +32,7 @@ import org.lwjgl.opengl.GLDebugMessageCallback;
 
 @Environment(EnvType.CLIENT)
 public class StellarisClient {
+
     public static void initClient() {
         Minecraft.getInstance().execute(() -> {
             setupOpenGLDebugMessageCallback();

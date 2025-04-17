@@ -17,6 +17,7 @@ import java.util.Optional;
 import java.util.OptionalInt;
 
 public class MoonDripstoneClusterFeature extends DripstoneClusterFeature {
+
     public MoonDripstoneClusterFeature(Codec<DripstoneClusterConfiguration> codec) {
         super(codec);
     }
@@ -29,15 +30,16 @@ public class MoonDripstoneClusterFeature extends DripstoneClusterFeature {
         RandomSource randomSource = context.random();
         if (!DripstoneUtils.isEmptyOrWater(worldGenLevel, blockPos)) {
             return false;
-        } else {
+        }
+        else {
             int i = dripstoneClusterConfiguration.height.sample(randomSource);
             float f = dripstoneClusterConfiguration.wetness.sample(randomSource);
             float g = dripstoneClusterConfiguration.density.sample(randomSource);
             int j = dripstoneClusterConfiguration.radius.sample(randomSource);
             int k = dripstoneClusterConfiguration.radius.sample(randomSource);
 
-            for(int l = -j; l <= j; ++l) {
-                for(int m = -k; m <= k; ++m) {
+            for (int l = -j; l <= j; ++l) {
+                for (int m = -k; m <= k; ++m) {
                     double d = this.getChanceOfStalagmiteOrStalactite(j, k, l, m, dripstoneClusterConfiguration);
                     BlockPos blockPos2 = blockPos.offset(l, 0, m);
                     this.placeColumn(worldGenLevel, randomSource, blockPos2, l, m, f, d, i, g, dripstoneClusterConfiguration);
@@ -61,7 +63,8 @@ public class MoonDripstoneClusterFeature extends DripstoneClusterFeature {
                     int i = optionalInt2.getAsInt();
                     column = optional.get().withFloor(OptionalInt.of(i - 1));
                     level.setBlock(pos.atY(i), Blocks.AIR.defaultBlockState(), 2);
-                } else {
+                }
+                else {
                     column = optional.get();
                 }
 
@@ -75,12 +78,14 @@ public class MoonDripstoneClusterFeature extends DripstoneClusterFeature {
                     int k;
                     if (optionalInt3.isPresent()) {
                         k = Math.min(height, optionalInt.getAsInt() - optionalInt3.getAsInt());
-                    } else {
+                    }
+                    else {
                         k = height;
                     }
 
                     l = this.getDripstoneHeight(random, x, z, density, k, config);
-                } else {
+                }
+                else {
                     l = 0;
                 }
 
@@ -91,10 +96,12 @@ public class MoonDripstoneClusterFeature extends DripstoneClusterFeature {
                     this.replaceBlocksWithDripstoneBlocks(level, pos.atY(optionalInt3.getAsInt()), m, Direction.DOWN);
                     if (optionalInt.isPresent()) {
                         j = Math.max(0, l + Mth.randomBetweenInclusive(random, -config.maxStalagmiteStalactiteHeightDiff, config.maxStalagmiteStalactiteHeightDiff));
-                    } else {
+                    }
+                    else {
                         j = this.getDripstoneHeight(random, x, z, density, height, config);
                     }
-                } else {
+                }
+                else {
                     j = 0;
                 }
 
@@ -108,7 +115,8 @@ public class MoonDripstoneClusterFeature extends DripstoneClusterFeature {
                     int s = r - 1;
                     m = o - r;
                     t = s - n;
-                } else {
+                }
+                else {
                     m = l;
                     t = j;
                 }

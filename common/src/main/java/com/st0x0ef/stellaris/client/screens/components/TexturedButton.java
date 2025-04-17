@@ -53,10 +53,11 @@ public class TexturedButton extends Button {
         this.hoverButtonTexture = HOVER_TEXTURE;
     }
 
-    public <T extends TexturedButton> T  tooltip(@Nullable Tooltip tooltip) {
+    public <T extends TexturedButton> T tooltip(@Nullable Tooltip tooltip) {
         this.setTooltip(tooltip);
         return cast();
     }
+
     @SuppressWarnings("unchecked")
     private <T extends TexturedButton> T cast() {
         return (T) this;
@@ -119,7 +120,8 @@ public class TexturedButton extends Button {
                                             ResourceLocation hoverButtonTexture) {
         if (hover) {
             return hoverButtonTexture;
-        } else {
+        }
+        else {
             return buttonTexture;
         }
     }

@@ -72,7 +72,7 @@ public class TabletButton extends Button {
         }
     }
 
-    public <T extends TabletButton> T  tooltip(@Nullable Tooltip tooltip) {
+    public <T extends TabletButton> T tooltip(@Nullable Tooltip tooltip) {
         this.setTooltip(tooltip);
         return cast();
     }
@@ -149,7 +149,8 @@ public class TabletButton extends Button {
                                             ResourceLocation hoverButtonTexture) {
         if (hover) {
             return hoverButtonTexture;
-        } else {
+        }
+        else {
             return buttonTexture;
         }
     }

@@ -17,6 +17,7 @@ import static com.st0x0ef.stellaris.Stellaris.id;
 
 @Environment(EnvType.CLIENT)
 public class GlobeModel<T extends GlobeBlockEntity> extends Model {
+
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(id("globe"), "main");
     public final ModelPart globe;
 

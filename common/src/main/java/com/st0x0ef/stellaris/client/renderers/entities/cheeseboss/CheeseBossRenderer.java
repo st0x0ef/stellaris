@@ -11,7 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 import static com.st0x0ef.stellaris.Stellaris.texture;
 
 @Environment(EnvType.CLIENT)
-public class CheeseBossRenderer extends MobRenderer<CheeseBoss,CheeseBossModel<CheeseBoss>> {
+public class CheeseBossRenderer extends MobRenderer<CheeseBoss, CheeseBossModel<CheeseBoss>> {
 
     public static final ResourceLocation TEXTURE = texture("entity/cheese_boss");
 
@@ -20,7 +20,9 @@ public class CheeseBossRenderer extends MobRenderer<CheeseBoss,CheeseBossModel<C
     }
 
     @Override
-    public ResourceLocation getTextureLocation(CheeseBoss entity) {return TEXTURE;}
+    public ResourceLocation getTextureLocation(CheeseBoss entity) {
+        return TEXTURE;
+    }
 
     @Override
     public boolean shouldRender(CheeseBoss livingEntity, Frustum camera, double camX, double camY, double camZ) {

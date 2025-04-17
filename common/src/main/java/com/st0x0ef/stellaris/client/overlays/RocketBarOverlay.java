@@ -26,7 +26,9 @@ public class RocketBarOverlay {
         if (player.getVehicle() instanceof RocketEntity || player.getVehicle() instanceof LanderEntity) {
             Level level = Minecraft.getInstance().level;
 
-            if (level == null) return;
+            if (level == null) {
+                return;
+            }
 
             double min = player.level().getMinBuildHeight();
 

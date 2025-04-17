@@ -16,7 +16,7 @@ import static com.st0x0ef.stellaris.Stellaris.texture;
 
 public class SandStormEffect extends MobEffect {
 
-    public static ResourceLocation SANDSTORM_OVERLAY =  texture("overlay/sandstorm_overlay");
+    public static ResourceLocation SANDSTORM_OVERLAY = texture("overlay/sandstorm_overlay");
 
     public SandStormEffect(MobEffectCategory mobEffectCategory, int color) {
         super(mobEffectCategory, color);
@@ -43,11 +43,12 @@ public class SandStormEffect extends MobEffect {
         }
 
         public void setupFog(FogRenderer.FogData fogData, LivingEntity entity, MobEffectInstance effectInstance, float farPlaneDistance, float f) {
-            float g = effectInstance.isInfiniteDuration() ? 20.0F : Mth.lerp(Math.min(1.0F, (float)effectInstance.getDuration() / 40.0F), farPlaneDistance, 20.0F);
+            float g = effectInstance.isInfiniteDuration() ? 20.0F : Mth.lerp(Math.min(1.0F, (float) effectInstance.getDuration() / 40.0F), farPlaneDistance, 20.0F);
             if (fogData.mode == FogRenderer.FogMode.FOG_SKY) {
                 fogData.start = 4F;
                 fogData.end = g * 0.8F;
-            } else {
+            }
+            else {
                 fogData.start = g * 0.25F;
                 fogData.end = g;
             }

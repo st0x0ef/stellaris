@@ -21,6 +21,7 @@ public class TeleportEntityToPlanetPacket implements CustomPacketPayload {
     public final ResourceLocation dimension;
 
     public static final StreamCodec<RegistryFriendlyByteBuf, TeleportEntityToPlanetPacket> STREAM_CODEC = new StreamCodec<>() {
+
         @Override
         public @NotNull TeleportEntityToPlanetPacket decode(RegistryFriendlyByteBuf buf) {
             return new TeleportEntityToPlanetPacket(buf);
@@ -45,25 +46,27 @@ public class TeleportEntityToPlanetPacket implements CustomPacketPayload {
         Planet planet = PlanetUtil.getPlanet(packet.dimension);
         Entity rocket = player.getVehicle();
 
-        if(PlanetSelectionServerEvents.LAUNCH_BUTTON.invoker().launchButton(player, planet, rocket, context) == EventResult.interruptTrue()) {
+        if (PlanetSelectionServerEvents.LAUNCH_BUTTON.invoker().launchButton(player, planet, rocket, context) == EventResult.interruptTrue()) {
             return;
         }
 
-        if(planet != null ) {
+        if (planet != null) {
 
-            if(rocket == null) {
+            if (rocket == null) {
                 Utils.changeDimension(player, planet);
                 return;
             }
 
-            if(rocket.getPassengers().size() == 1) {
+            if (rocket.getPassengers().size() == 1) {
                 Utils.changeDimension((Player) rocket.getPassengers().getFirst(), planet);
                 player.stellaris$setPlanetMenuOpen(false, (Player) rocket.getPassengers().getFirst(), true);
-            } else {
+            }
+            else {
                 Utils.changeDimensionForPlayers(rocket.getPassengers(), planet);
             }
 
-        } else {
+        }
+        else {
             Stellaris.LOG.error("Planet is null");
         }
     }

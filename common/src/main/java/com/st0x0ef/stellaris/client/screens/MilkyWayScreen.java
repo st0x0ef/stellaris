@@ -20,6 +20,7 @@ import static com.st0x0ef.stellaris.Stellaris.texture;
 
 @Environment(EnvType.CLIENT)
 public class MilkyWayScreen extends AbstractContainerScreen<MilkyWayMenu> {
+
     public static final ResourceLocation MILKY_WAY_TEXTURE = texture("environment/milky_way");
     public static final ResourceLocation BACKGROUND_TEXTURE = guiTexture("planet_selection");
 
@@ -57,7 +58,7 @@ public class MilkyWayScreen extends AbstractContainerScreen<MilkyWayMenu> {
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if (keyCode == GLFW.GLFW_KEY_X){
+        if (keyCode == GLFW.GLFW_KEY_X) {
             isPausePressed = !isPausePressed;
         }
         return super.keyPressed(keyCode, scanCode, modifiers);

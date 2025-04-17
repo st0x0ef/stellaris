@@ -12,6 +12,7 @@ import net.minecraft.client.model.geom.builders.*;
 import static com.st0x0ef.stellaris.Stellaris.id;
 
 public class BigRocketModel<T extends RocketEntity> extends EntityModel<T> {
+
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(id("big_rocket"), "main");
     private final ModelPart rocket;
 

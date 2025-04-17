@@ -18,7 +18,8 @@ import org.jetbrains.annotations.NotNull;
 
 import static com.st0x0ef.stellaris.Stellaris.id;
 
-public record SyncFluidPacket(FluidAmountMapDataComponent fluid, int tank, BlockPos pos, Direction direction) implements CustomPacketPayload {
+public record SyncFluidPacket(FluidAmountMapDataComponent fluid, int tank, BlockPos pos,
+                              Direction direction) implements CustomPacketPayload {
 
     public static final Type<SyncFluidPacket> TYPE = new Type<>(id("fluid_sync_packet"));
     public static final StreamCodec<RegistryFriendlyByteBuf, SyncFluidPacket> STREAM_CODEC = StreamCodec.composite(

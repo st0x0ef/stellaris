@@ -29,7 +29,8 @@ public class GlobeBlockRenderer<T extends GlobeBlockEntity> implements BlockEnti
     public static final ResourceLocation VENUS_GLOBE_TEXTURE = texture("block/globes/venus_globe");
     private GlobeModel<?> model;
 
-    public GlobeBlockRenderer(BlockEntityRendererProvider.Context Context) {}
+    public GlobeBlockRenderer(BlockEntityRendererProvider.Context Context) {
+    }
 
     @Override
     public void render(GlobeBlockEntity tileEntity, float particleTicks, PoseStack matrixStackIn, MultiBufferSource buffer, int combinedLight, int overlay) {

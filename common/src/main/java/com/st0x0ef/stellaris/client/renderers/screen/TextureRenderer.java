@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 public class TextureRenderer {
+
     private ResourceLocation resourceLocation;
 
     public void loadTexture(String texturePath) {

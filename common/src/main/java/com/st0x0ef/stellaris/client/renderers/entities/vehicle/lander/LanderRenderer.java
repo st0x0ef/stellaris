@@ -9,6 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import static com.st0x0ef.stellaris.Stellaris.texture;
 
 public class LanderRenderer extends VehicleRenderer<LanderEntity, LanderModel<LanderEntity>> {
+
     public static final ResourceLocation TEXTURE = texture("vehicle/lander");
 
     public LanderRenderer(EntityRendererProvider.Context renderManagerIn) {

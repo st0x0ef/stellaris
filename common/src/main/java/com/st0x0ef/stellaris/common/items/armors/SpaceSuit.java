@@ -41,20 +41,24 @@ public class SpaceSuit extends AbstractSpaceArmor.AbstractSpaceChestplate {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);List<SpaceSuitModule> modules = getModules(stack);
+        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+        List<SpaceSuitModule> modules = getModules(stack);
 
-        if (Platform.getEnv() != EnvType.CLIENT) return;
+        if (Platform.getEnv() != EnvType.CLIENT) {
+            return;
+        }
 
         if (!modules.isEmpty()) {
             modules.forEach(spaceSuitModule -> spaceSuitModule.addToTooltips(stack, context, tooltipComponents, tooltipFlag));
         }
 
-        if(Screen.hasShiftDown()) {
+        if (Screen.hasShiftDown()) {
             if (!modules.isEmpty()) {
                 tooltipComponents.add(Component.translatable("spacesuit.stellaris.modules"));
                 modules.forEach(spaceSuitModule -> tooltipComponents.add(spaceSuitModule.displayName().withStyle(ChatFormatting.GRAY)));
             }
-        } else {
+        }
+        else {
             tooltipComponents.add(Component.translatable("spacesuit.stellaris.shift_for_modules"));
         }
 

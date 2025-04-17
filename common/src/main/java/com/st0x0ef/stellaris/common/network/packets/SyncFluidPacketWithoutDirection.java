@@ -17,7 +17,8 @@ import org.jetbrains.annotations.NotNull;
 
 import static com.st0x0ef.stellaris.Stellaris.id;
 
-public record SyncFluidPacketWithoutDirection(FluidAmountMapDataComponent fluid, int tank, BlockPos pos) implements CustomPacketPayload {
+public record SyncFluidPacketWithoutDirection(FluidAmountMapDataComponent fluid, int tank,
+                                              BlockPos pos) implements CustomPacketPayload {
 
     public static final Type<SyncFluidPacketWithoutDirection> TYPE = new Type<>(id("fluid_sync_packet_without_direction"));
     public static final StreamCodec<RegistryFriendlyByteBuf, SyncFluidPacketWithoutDirection> STREAM_CODEC = StreamCodec.composite(
@@ -35,13 +36,14 @@ public record SyncFluidPacketWithoutDirection(FluidAmountMapDataComponent fluid,
     public static void handle(final SyncFluidPacketWithoutDirection data, final NetworkManager.PacketContext context) {
         context.queue(() -> {
             ClientLevel level = Minecraft.getInstance().level;
-            if (level != null && level.getBlockEntity(data.pos) instanceof FluidProvider.BLOCK fluidProvider)
+            if (level != null && level.getBlockEntity(data.pos) instanceof FluidProvider.BLOCK fluidProvider) {
                 if (fluidProvider.getFluidTank(null) instanceof BaseFluidStorage fluidStorage) {
                     fluidStorage.setFluidInTank(data.tank, FluidStack.create(data.fluid.getAsFluidStack(0), data.fluid.getAmount(0)));
                 }
                 else if (fluidProvider.getFluidTank(null) instanceof SingleFluidStorage fluidStorage) {
                     fluidStorage.setFluidInTank(FluidStack.create(data.fluid.getAsFluidStack(0), data.fluid.getAmount(0)));
                 }
+            }
         });
     }
 }

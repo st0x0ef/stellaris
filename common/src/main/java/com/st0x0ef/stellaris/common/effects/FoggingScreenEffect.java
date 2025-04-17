@@ -50,7 +50,8 @@ public class FoggingScreenEffect extends MobEffect {
             if (fogData.mode == FogRenderer.FogMode.FOG_SKY) {
                 fogData.start = 4F;
                 fogData.end = partness * 0.8F;
-            } else {
+            }
+            else {
                 fogData.start = partness * 0.25F;
                 fogData.end = partness;
             }

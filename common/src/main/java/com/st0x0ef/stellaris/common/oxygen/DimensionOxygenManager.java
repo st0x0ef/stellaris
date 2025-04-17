@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class DimensionOxygenManager {
+
     private final Set<OxygenRoom> oxygenRooms;
     private final Map<BlockPos, OxygenRoom> roomToCheckIfOpen;
     private final boolean planetHasOxygen;
@@ -60,7 +61,9 @@ public class DimensionOxygenManager {
     }
 
     public void updateOxygenTick() {
-        if (planetHasOxygen) return;
+        if (planetHasOxygen) {
+            return;
+        }
 
         oxygenRooms.forEach(OxygenRoom::tick);
         roomToCheckIfOpen.values().forEach(OxygenRoom::removeOxygenInRoom);

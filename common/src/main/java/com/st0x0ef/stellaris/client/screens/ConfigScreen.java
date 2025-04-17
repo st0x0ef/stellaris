@@ -26,6 +26,7 @@ public class ConfigScreen extends Screen {
 
     public static final ResourceLocation TEXTURE = texture("item/engine_fan");
     private final Screen parent;
+
     public ConfigScreen(Screen parent) {
         super(Component.literal("Stellaris Option"));
         this.parent = parent;
@@ -37,7 +38,7 @@ public class ConfigScreen extends Screen {
         gridLayout.defaultCellSetting().paddingHorizontal(5).paddingBottom(4).alignHorizontallyCenter();
         GridLayout.RowHelper rowHelper = gridLayout.createRowHelper(2);
 
-        CustomConfig.CONFIG.forEach( (string, configEntry) -> {
+        CustomConfig.CONFIG.forEach((string, configEntry) -> {
             StringWidget widget = new StringWidget(Component.literal(string), this.font);
             rowHelper.addChild(widget);
             addTypeWidgets(configEntry, rowHelper, string);
@@ -50,7 +51,7 @@ public class ConfigScreen extends Screen {
         rowHelper.addChild(doneButton, 2, rowHelper.newCellSettings().paddingTop(10));
 
         gridLayout.arrangeElements();
-        FrameLayout.alignInRectangle(gridLayout, 0, this.height / 6 + 10, this.width, this.height , 0.5F, 0.0F);
+        FrameLayout.alignInRectangle(gridLayout, 0, this.height / 6 + 10, this.width, this.height, 0.5F, 0.0F);
         gridLayout.visitWidgets(this::addRenderableWidget);
     }
 
@@ -69,34 +70,37 @@ public class ConfigScreen extends Screen {
     }
 
     public void addTypeWidgets(ConfigEntry<?> entry, GridLayout.RowHelper rowHelper, String entryName) {
-        if(entry.getType() == Boolean.class) {
+        if (entry.getType() == Boolean.class) {
             Checkbox checkbox = Checkbox.builder(Component.literal(entry.value().toString()), this.font)
                     .selected((Boolean) entry.value())
-                    .tooltip(Tooltip.create(Component.literal(entry.description()),null))
+                    .tooltip(Tooltip.create(Component.literal(entry.description()), null))
                     .onValueChange((checkbox1, aBoolean) -> CustomConfig.CONFIG.replace(entryName, new ConfigEntry<>(aBoolean, entry.description())))
                     .build();
             rowHelper.addChild(checkbox);
 
-        } else if (entry.getType() == String.class ) {
+        }
+        else if (entry.getType() == String.class) {
             EditBox button = new EditBox(this.font, 50, 15, Component.literal(entry.value().toString()));
             button.setMaxLength(100);
-            button.setTooltip(Tooltip.create(Component.literal(entry.description()),null));
+            button.setTooltip(Tooltip.create(Component.literal(entry.description()), null));
             button.setValue(entry.value().toString());
             button.setResponder((string) -> CustomConfig.CONFIG.replace(entryName, new ConfigEntry<>(string, entry.description())));
             rowHelper.addChild(button);
 
-        } else if (entry.getType() == Integer.class || entry.getType() == Double.class || entry.getType() == Float.class || entry.getType() == Long.class){
+        }
+        else if (entry.getType() == Integer.class || entry.getType() == Double.class || entry.getType() == Float.class || entry.getType() == Long.class) {
             EditBox button = new EditBox(this.font, 50, 15, Component.literal(entry.value().toString()));
             button.setMaxLength(100);
             button.setValue(entry.value().toString());
-            button.setTooltip(Tooltip.create(Component.literal(entry.description()),null));
+            button.setTooltip(Tooltip.create(Component.literal(entry.description()), null));
 
             button.setResponder((string) -> {
                 int foo;
                 try {
                     foo = Integer.parseInt(string);
 
-                } catch (NumberFormatException e) {
+                }
+                catch (NumberFormatException e) {
                     foo = 0;
                 }
 
@@ -105,7 +109,8 @@ public class ConfigScreen extends Screen {
             });
             rowHelper.addChild(button);
 
-        } else {
+        }
+        else {
             SpriteIconButton spriteIconButton = stellarisConfigButton(20);
             spriteIconButton.setTooltip(Tooltip.create(Component.literal("This config type is not supported. Use the manual config"), null));
             rowHelper.addChild(spriteIconButton);

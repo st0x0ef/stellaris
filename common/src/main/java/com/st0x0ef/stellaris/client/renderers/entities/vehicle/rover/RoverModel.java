@@ -14,6 +14,7 @@ import static com.st0x0ef.stellaris.Stellaris.id;
 
 
 public class RoverModel<T extends RoverEntity> extends EntityModel<T> {
+
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(id("rover"), "main");
 
     private final ModelPart rover;
@@ -189,16 +190,14 @@ public class RoverModel<T extends RoverEntity> extends EntityModel<T> {
     }
 
 
-
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.rover.yRot = netHeadYaw / (180F / (float) Math.PI);
 
         float wheelRotation = (float) entity.getDeltaMovement().x / 5f;
-        if (entity.getDirection() == Direction.NORTH ||entity.getDirection() == Direction.SOUTH) {
+        if (entity.getDirection() == Direction.NORTH || entity.getDirection() == Direction.SOUTH) {
             wheelRotation = (float) entity.getDeltaMovement().z / 5f;
         }
-
 
 
         if (entity.isForward()) {
@@ -209,7 +208,8 @@ public class RoverModel<T extends RoverEntity> extends EntityModel<T> {
             this.rover.getChild("Wheels").getChild("Wheel5").xRot += wheelRotation;
             this.rover.getChild("Wheels").getChild("Wheel6").xRot += wheelRotation;
 
-        } else if (entity.isBackward()) {
+        }
+        else if (entity.isBackward()) {
             this.rover.getChild("Wheels").getChild("Wheel1").xRot -= -wheelRotation;
             this.rover.getChild("Wheels").getChild("Wheel2").xRot -= -wheelRotation;
             this.rover.getChild("Wheels").getChild("Wheel3").xRot -= -wheelRotation;
@@ -217,7 +217,8 @@ public class RoverModel<T extends RoverEntity> extends EntityModel<T> {
             this.rover.getChild("Wheels").getChild("Wheel5").xRot -= -wheelRotation;
             this.rover.getChild("Wheels").getChild("Wheel6").xRot -= -wheelRotation;
 
-        } else {
+        }
+        else {
             this.rover.getChild("Wheels").getChild("Wheel1").xRot = 0;
             this.rover.getChild("Wheels").getChild("Wheel2").xRot = 0;
             this.rover.getChild("Wheels").getChild("Wheel3").xRot = 0;

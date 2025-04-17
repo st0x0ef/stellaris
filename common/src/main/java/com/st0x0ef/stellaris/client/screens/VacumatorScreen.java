@@ -17,55 +17,56 @@ import static com.st0x0ef.stellaris.Stellaris.guiTexture;
 
 @Environment(EnvType.CLIENT)
 public class VacumatorScreen extends AbstractContainerScreen<VacuumatorMenu> {
-	public static final ResourceLocation texture = guiTexture("vacuumator");
 
-	private final VacuumatorBlockEntity blockEntity = getMenu().getBlockEntity();
-	private GaugeWidget energyGauge;
+    public static final ResourceLocation texture = guiTexture("vacuumator");
 
-	public VacumatorScreen(VacuumatorMenu abstractContainerMenu, Inventory inventory, Component component) {
-		super(abstractContainerMenu, inventory, component);
-		this.imageWidth = 180;
-		this.imageHeight = 188;
-		this.inventoryLabelY = this.imageHeight - 95;
-	}
+    private final VacuumatorBlockEntity blockEntity = getMenu().getBlockEntity();
+    private GaugeWidget energyGauge;
 
-	@Override
-	protected void init() {
-		super.init();
+    public VacumatorScreen(VacuumatorMenu abstractContainerMenu, Inventory inventory, Component component) {
+        super(abstractContainerMenu, inventory, component);
+        this.imageWidth = 180;
+        this.imageHeight = 188;
+        this.inventoryLabelY = this.imageHeight - 95;
+    }
 
-		if (blockEntity == null) {
-			return;
-		}
+    @Override
+    protected void init() {
+        super.init();
 
-		energyGauge = new GaugeWidget(leftPos + 67, topPos + 15, 46, 15, Component.translatable("stellaris.screen.energyContainer"),
-				GUISprites.SIDEWAYS_ENERGY_FULL, GUISprites.SIDEWAYS_BATTERY_OVERLAY, blockEntity.getEnergy(null).getMaxEnergy(), GaugeWidget.Direction4.LEFT_RIGHT);
-		addRenderableWidget(energyGauge);
-	}
+        if (blockEntity == null) {
+            return;
+        }
 
-	@Override
-	public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
-		this.renderBackground(graphics,mouseX,mouseY,partialTicks);
-		super.render(graphics, mouseX, mouseY, partialTicks);
-		this.renderTooltip(graphics, mouseX, mouseY);
+        energyGauge = new GaugeWidget(leftPos + 67, topPos + 15, 46, 15, Component.translatable("stellaris.screen.energyContainer"),
+                GUISprites.SIDEWAYS_ENERGY_FULL, GUISprites.SIDEWAYS_BATTERY_OVERLAY, blockEntity.getEnergy(null).getMaxEnergy(), GaugeWidget.Direction4.LEFT_RIGHT);
+        addRenderableWidget(energyGauge);
+    }
 
-		if (blockEntity == null) {
-			return;
-		}
+    @Override
+    public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+        this.renderBackground(graphics, mouseX, mouseY, partialTicks);
+        super.render(graphics, mouseX, mouseY, partialTicks);
+        this.renderTooltip(graphics, mouseX, mouseY);
 
-		energyGauge.updateAmount(blockEntity.getEnergy(null).getEnergy());
-	}
+        if (blockEntity == null) {
+            return;
+        }
 
-	@Override
-	protected void renderBg(GuiGraphics graphics, float var2,int var3, int var4) {
-		RenderSystem.setShader(GameRenderer::getPositionTexShader);
-		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-		RenderSystem.setShaderTexture(0, texture);
-		graphics.blit(texture, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
-	}
+        energyGauge.updateAmount(blockEntity.getEnergy(null).getEnergy());
+    }
 
-	@Override
-	protected void renderTooltip(GuiGraphics guiGraphics, int x, int y) {
-		super.renderTooltip(guiGraphics, x, y);
-		energyGauge.renderTooltip(guiGraphics, x, y, font);
-	}
+    @Override
+    protected void renderBg(GuiGraphics graphics, float var2, int var3, int var4) {
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.setShaderTexture(0, texture);
+        graphics.blit(texture, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
+    }
+
+    @Override
+    protected void renderTooltip(GuiGraphics guiGraphics, int x, int y) {
+        super.renderTooltip(guiGraphics, x, y);
+        energyGauge.renderTooltip(guiGraphics, x, y, font);
+    }
 }

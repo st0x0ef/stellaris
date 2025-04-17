@@ -32,10 +32,12 @@ public class OxygenTankOverlay {
             ItemStack chest = player.getItemBySlot(EquipmentSlot.CHEST);
             Minecraft mc = Minecraft.getInstance();
 
-            if(chest.getItem() instanceof AbstractSpaceArmor.Chestplate) {
+            if (chest.getItem() instanceof AbstractSpaceArmor.Chestplate) {
                 UniversalFluidStorage chestplateStorage = Capabilities.Fluid.ITEM.getCapability(chest);
 
-                if (chestplateStorage == null) return;
+                if (chestplateStorage == null) {
+                    return;
+                }
 
                 long oxygen = chestplateStorage.getFluidInTank(0).getAmount();
                 long maxOxygen = chestplateStorage.getTankCapacity(0);

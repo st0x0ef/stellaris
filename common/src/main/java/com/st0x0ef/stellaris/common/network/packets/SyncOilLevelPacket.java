@@ -18,6 +18,7 @@ public class SyncOilLevelPacket implements CustomPacketPayload {
     public static final Type<SyncOilLevelPacket> TYPE = new Type<>(id("energy_oil_level_packet"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, SyncOilLevelPacket> STREAM_CODEC = new StreamCodec<>() {
+
         @Override
         public @NotNull SyncOilLevelPacket decode(RegistryFriendlyByteBuf buf) {
             return new SyncOilLevelPacket(buf);
@@ -30,7 +31,6 @@ public class SyncOilLevelPacket implements CustomPacketPayload {
             buf.writeInt(packet.chunkZ);
         }
     };
-
 
 
     public SyncOilLevelPacket(RegistryFriendlyByteBuf buffer) {

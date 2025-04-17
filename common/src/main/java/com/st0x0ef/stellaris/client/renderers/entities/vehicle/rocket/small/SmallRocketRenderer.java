@@ -11,6 +11,7 @@ import static com.st0x0ef.stellaris.Stellaris.texture;
 
 
 public class SmallRocketRenderer extends VehicleRenderer<RocketEntity, SmallRocketModel<RocketEntity>> {
+
     public ResourceLocation TEXTURE = texture("vehicle/rocket_skin/small/standard");
 
     public SmallRocketRenderer(EntityRendererProvider.Context renderManagerIn) {

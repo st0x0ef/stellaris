@@ -15,6 +15,7 @@ import java.util.List;
 import static com.st0x0ef.stellaris.Stellaris.id;
 
 public interface NetworkRegistry {
+
     CustomPacketPayload.Type<KeyHandlerPacket> KEY_HANDLER_ID = new CustomPacketPayload.Type<>(id("key_handler"));
     CustomPacketPayload.Type<TeleportEntityToPlanetPacket> TELEPORT_ENTITY_ID = new CustomPacketPayload.Type<>(id("teleport_entity"));
     CustomPacketPayload.Type<OpenTabletEntryPacket> TABLET_OPEN_HANDLER_ID = new CustomPacketPayload.Type<>(id("tablet_open_handler"));
@@ -28,7 +29,7 @@ public interface NetworkRegistry {
     static void init() {
         registerC2S(KEY_HANDLER_ID, KeyHandlerPacket.STREAM_CODEC, KeyHandlerPacket::handle);
         registerC2S(TELEPORT_ENTITY_ID, TeleportEntityToPlanetPacket.STREAM_CODEC, TeleportEntityToPlanetPacket::handle);
-        registerC2S(SYNC_ROVER_CONTROLS, SyncRoverPacket.STREAM_CODEC,SyncRoverPacket::handle);
+        registerC2S(SYNC_ROVER_CONTROLS, SyncRoverPacket.STREAM_CODEC, SyncRoverPacket::handle);
         registerC2S(TABLET_OPEN_HANDLER_ID, OpenTabletEntryPacket.STREAM_CODEC, OpenTabletEntryPacket::handle);
 
         registerS2C(SYNC_PLANETS_DATAPACK, SyncPlanetsDatapackPacket.STREAM_CODEC, SyncPlanetsDatapackPacket::handle);
@@ -46,7 +47,8 @@ public interface NetworkRegistry {
     static <T extends CustomPacketPayload> void registerS2C(CustomPacketPayload.Type<T> packetType, StreamCodec<? super RegistryFriendlyByteBuf, T> codec, NetworkManager.NetworkReceiver<T> receiver) {
         if (Platform.getEnvironment().equals(Env.SERVER)) {
             NetworkAggregator.registerS2CType(packetType, codec, List.of());
-        } else {
+        }
+        else {
             NetworkAggregator.registerReceiver(NetworkManager.s2c(), packetType, codec, Collections.emptyList(), receiver);
         }
     }

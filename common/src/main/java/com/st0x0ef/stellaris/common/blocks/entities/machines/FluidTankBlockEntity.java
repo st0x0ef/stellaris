@@ -18,9 +18,11 @@ public class FluidTankBlockEntity extends BlockEntity implements FluidProvider.B
     public FluidTankBlockEntity(BlockPos pos, BlockState state) {
         this(pos, state, 0);
     }
+
     public FluidTankBlockEntity(BlockPos pos, BlockState state, long capacity) {
         super(BlockEntityRegistry.TANK.get(), pos, state);
         fluidTank = new SingleFluidStorage(capacity) {
+
             @Override
             protected void onChange() {
                 setChanged();

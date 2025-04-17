@@ -26,6 +26,7 @@ import java.util.function.Supplier;
 import static com.st0x0ef.stellaris.Stellaris.id;
 
 public class ModConfiguredFeature {
+
     // OVERWORLD
     static final ResourceKey<ConfiguredFeature<?, ?>> STEEL_ORE_KEY = registerKey("steel_ore_key");
     public static final ResourceKey<ConfiguredFeature<?, ?>> STEEL_ORE_DEEPSLATE_ORE_KEY = registerKey("steel_ore_deepslate_key");
@@ -58,7 +59,6 @@ public class ModConfiguredFeature {
     public static final ResourceKey<ConfiguredFeature<?, ?>> VENUS_GOLD_ORE_KEY = registerKey("venus_gold_ore_key");
 
 
-
     // MARS
     public static final Supplier<List<OreConfiguration.TargetBlockState>> MARS_DIAMOND_ORE_REPLACEABLES = Suppliers.memoize(() -> List.of(
             OreConfiguration.target(new BlockMatchTest(BlocksRegistry.MARS_STONE.get()), BlocksRegistry.MARS_DIAMOND_ORE.get().defaultBlockState())));
@@ -70,7 +70,6 @@ public class ModConfiguredFeature {
             OreConfiguration.target(new BlockMatchTest(Blocks.STONE), BlocksRegistry.STEEL_ORE.get().defaultBlockState())));
     public static final Supplier<List<OreConfiguration.TargetBlockState>> STEEL_ORE_DEEPSLATE_REPLACEABLES = Suppliers.memoize(() -> List.of(
             OreConfiguration.target(new BlockMatchTest(Blocks.DEEPSLATE), BlocksRegistry.DEEPSLATE_STEEL_ORE.get().defaultBlockState())));
-
 
 
     public static final Supplier<List<OreConfiguration.TargetBlockState>> MARS_IRON_ORE_REPLACEABLES = Suppliers.memoize(() -> List.of(

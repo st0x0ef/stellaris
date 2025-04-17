@@ -66,7 +66,7 @@ public class TabletEntryScreen extends Screen {
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
 
-        if(currentPage.equals("main")) {
+        if (currentPage.equals("main")) {
 
             guiGraphics.drawCenteredString(this.font, this.title.getString().toUpperCase(), this.width / 2, this.topPos + 20, 16777215);
 
@@ -75,7 +75,7 @@ public class TabletEntryScreen extends Screen {
 
             widget.visible = false;
             changeButtonVisibility(true);
-            if(nextButton != null && backButton != null) {
+            if (nextButton != null && backButton != null) {
                 backButton.setPosition(this.leftPos + 40, this.height / 2 - 4);
                 nextButton.setPosition(this.leftPos + 190, this.height / 2 - 4);
                 nextButton.setSize(16, 16);
@@ -89,11 +89,12 @@ public class TabletEntryScreen extends Screen {
                 homeButton.setPosition(this.leftPos + 18, this.topPos + 22);
 
             }
-        } else {
+        }
+        else {
             removeAllButtons();
             widget.visible = true;
             changeButtonVisibility(false);
-            if(nextButton != null && backButton != null) {
+            if (nextButton != null && backButton != null) {
                 backButton.setPosition(this.width / 2 - 19, this.height / 2 + 63);
                 nextButton.setPosition(this.width / 2 + 11, this.height / 2 + 63);
                 nextButton.setSize(10, 10);
@@ -116,7 +117,8 @@ public class TabletEntryScreen extends Screen {
         homeButton = new TexturedButton(this.leftPos + 18, this.topPos + 22, 16, 16, (button1 -> {
             if (Objects.equals(currentPage, "main")) {
                 this.minecraft.setScreen(screen);
-            } else {
+            }
+            else {
                 currentPage = "main";
                 widget.visible = false;
             }
@@ -132,15 +134,16 @@ public class TabletEntryScreen extends Screen {
             TabletButton tabletButton = new TabletButton(this.leftPos + 68 + (column.get() * 30), this.topPos + 60 + (row.get() * 30), 20, 20, Component.translatable(infos.id()), (button -> changeInfo(infos)), infos)
                     .tex(BUTTON_TEXTURE, BUTTON_HOVERED_TEXTURE);
 
-            if(column.get() == 3) {
+            if (column.get() == 3) {
                 column.set(0);
                 row.getAndIncrement();
-            } else {
+            }
+            else {
                 column.getAndIncrement();
             }
             PAGES_BUTTONS.add(tabletButton);
 
-            if(PAGES_BUTTONS.size() % 8 == 0) {
+            if (PAGES_BUTTONS.size() % 8 == 0) {
                 column.set(0);
                 row.set(0);
             }
@@ -185,7 +188,7 @@ public class TabletEntryScreen extends Screen {
     }
 
     public void changePage(boolean next) {
-        if(!Objects.equals(currentPage, "main")) {
+        if (!Objects.equals(currentPage, "main")) {
             TabletEntry.Info info = getNextInfo(next);
             changeInfo(info);
             return;
@@ -194,13 +197,16 @@ public class TabletEntryScreen extends Screen {
         if (next) {
             if (currentEntryPage == ENTRY_BUTTONS.size() - 1) {
                 currentEntryPage = 0;
-            } else {
+            }
+            else {
                 currentEntryPage++;
             }
-        } else {
+        }
+        else {
             if (currentEntryPage == 0) {
                 currentEntryPage = ENTRY_BUTTONS.size() - 1;
-            } else {
+            }
+            else {
                 currentEntryPage--;
             }
         }
@@ -222,7 +228,9 @@ public class TabletEntryScreen extends Screen {
         this.minecraft.setScreen(newScreen);
         if (!currentPage.equals("main")) {
             TabletEntry.Info info = TabletMainScreen.INFOS.get(ResourceLocation.parse(currentPage));
-            if(info != null) newScreen.changeInfo(info);
+            if (info != null) {
+                newScreen.changeInfo(info);
+            }
 
         }
 
@@ -238,13 +246,14 @@ public class TabletEntryScreen extends Screen {
         super.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        if(Objects.equals(currentPage, "main")) {
+        if (Objects.equals(currentPage, "main")) {
             RenderSystem.setShaderTexture(0, TabletMainScreen.MENU_BACKGROUND);
-            guiGraphics.blit(TabletMainScreen.BACKGROUND, this.leftPos , this.topPos , 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
+            guiGraphics.blit(TabletMainScreen.BACKGROUND, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
 
-        } else {
+        }
+        else {
             RenderSystem.setShaderTexture(0, MENU_BACKGROUND_LIGHT);
-            guiGraphics.blit(MENU_BACKGROUND_LIGHT, this.leftPos , this.topPos , 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
+            guiGraphics.blit(MENU_BACKGROUND_LIGHT, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
 
         }
     }
@@ -255,15 +264,18 @@ public class TabletEntryScreen extends Screen {
             if (Objects.equals(currentPage, "main")) {
                 screen.directEntry = null;
                 this.minecraft.setScreen(screen);
-            } else {
+            }
+            else {
                 currentPage = "main";
                 widget.visible = false;
             }
             return true;
-        } else if (keyCode == 262) {
+        }
+        else if (keyCode == 262) {
             changePage(true);
             return true;
-        } else if (keyCode == 263) {
+        }
+        else if (keyCode == 263) {
             changePage(false);
             return true;
         }
@@ -289,7 +301,7 @@ public class TabletEntryScreen extends Screen {
         }
     }
 
-    public void addButtonToList(TabletButton button){
+    public void addButtonToList(TabletButton button) {
         if (ENTRY_BUTTONS.isEmpty()) {
             ArrayList<TabletButton> list = new ArrayList<>();
             list.add(button);
@@ -298,10 +310,11 @@ public class TabletEntryScreen extends Screen {
         }
 
         for (ArrayList<TabletButton> buttons : ENTRY_BUTTONS) {
-            if(buttons.size() < 8){
+            if (buttons.size() < 8) {
                 buttons.add(button);
                 break;
-            } else if (buttons.size() == 8) {
+            }
+            else if (buttons.size() == 8) {
                 if (ENTRY_BUTTONS.indexOf(buttons) + 1 >= ENTRY_BUTTONS.size()) {
                     ArrayList<TabletButton> list = new ArrayList<>();
                     list.add(button);
@@ -326,7 +339,8 @@ public class TabletEntryScreen extends Screen {
         if (currentIndex == -1) {
             if (!infos.isEmpty()) {
                 return forward ? infos.getFirst() : infos.getLast();
-            } else {
+            }
+            else {
                 return null;
             }
         }
@@ -335,8 +349,6 @@ public class TabletEntryScreen extends Screen {
 
         return infos.get(nextIndex);
     }
-
-
 
 
     public String getCurrentPage(String page) {

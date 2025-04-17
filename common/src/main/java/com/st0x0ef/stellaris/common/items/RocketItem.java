@@ -35,6 +35,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import java.util.List;
 
 public class RocketItem extends Item {
+
     public RocketItem(Properties properties) {
         super(properties.stacksTo(1));
     }
@@ -66,7 +67,7 @@ public class RocketItem extends Item {
                 if (entities.isEmpty()) {
                     RocketEntity rocket = this.getRocket(context.getLevel(), itemStack);
                     /** SET PRE POS */
-                    rocket.setPos(pos.getX() + 0.5D,  pos.getY() + 1.0D, pos.getZ() + 0.5D);
+                    rocket.setPos(pos.getX() + 0.5D, pos.getY() + 1.0D, pos.getZ() + 0.5D);
 
                     double d0 = RocketItem.getYOffset(level, pos, true, rocket.getBoundingBox());
                     float f = (float) Mth.floor((Mth.wrapDegrees(context.getRotation() - 180.0F) + 45.0F) / 90.0F) * 90.0F;
@@ -107,7 +108,7 @@ public class RocketItem extends Item {
     public RocketEntity getRocket(Level level, ItemStack stack) {
         RocketEntity rocket = new RocketEntity(this.getEntityType(stack), level);
         RocketComponent rocketComponent = stack.get(DataComponentsRegistry.ROCKET_COMPONENT.get());
-        if(rocketComponent != null) {
+        if (rocketComponent != null) {
             //Directly setting rocketComponent would give Motor, Tank, Skin and Model upgrades without requiring the item
             rocket.setRocketComponent(new RocketComponent(
                     rocket.SKIN_UPGRADE.getRocketSkinLocation().toString(),
@@ -124,7 +125,9 @@ public class RocketItem extends Item {
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         RocketComponent rocketComponent = stack.get(DataComponentsRegistry.ROCKET_COMPONENT.get());
-        if(rocketComponent == null) return;
+        if (rocketComponent == null) {
+            return;
+        }
         tooltipComponents.add(Component.translatable("tooltip.item.stellaris.rocket.fuel", rocketComponent.fuel()).withStyle(ChatFormatting.GRAY));
     }
 
@@ -133,7 +136,7 @@ public class RocketItem extends Item {
     }
 
     public void rocketPlaceSound(BlockPos pos, Level world) {
-        world.playSound(null, pos, SoundEvents.STONE_BREAK, SoundSource.BLOCKS, 1,1);
+        world.playSound(null, pos, SoundEvents.STONE_BREAK, SoundSource.BLOCKS, 1, 1);
     }
 
     protected static double getYOffset(LevelReader reader, BlockPos pos, boolean p_20628_, AABB p_20629_) {

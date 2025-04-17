@@ -32,7 +32,7 @@ public class StellarisData extends SimpleJsonResourceReloadListener {
             JsonObject json = GsonHelper.convertToJsonObject(value, "planets");
             Planet planet = Planet.CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
 
-            if (PlanetEvents.PLANET_REGISTERED.invoker().planetRegistered(planet) == EventResult.interruptDefault() || PlanetEvents.PLANET_REGISTERED.invoker().planetRegistered(planet) ==  EventResult.interruptFalse()) {
+            if (PlanetEvents.PLANET_REGISTERED.invoker().planetRegistered(planet) == EventResult.interruptDefault() || PlanetEvents.PLANET_REGISTERED.invoker().planetRegistered(planet) == EventResult.interruptFalse()) {
                 return;
             }
             PLANETS.add(planet);

@@ -17,6 +17,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public abstract class AbstractSpaceArmor extends CustomArmorItem {
+
     public AbstractSpaceArmor(Holder<ArmorMaterial> material, Type type, Properties properties) {
         super(material, type, properties);
     }
@@ -39,6 +40,7 @@ public abstract class AbstractSpaceArmor extends CustomArmorItem {
         public @NotNull UniversalFluidItemStorage getFluidTank(@NotNull ItemStack stack) {
 
             return new ItemFluidStorage(DataComponentsRegistry.FLUID_LIST.get(), stack, 1, 3000) {
+
                 @Override
                 public boolean isFluidValid(int tank, FluidStack stack) {
                     return stack.getFluid().isSame(FluidRegistry.OXYGEN_STILL.get());
@@ -48,6 +50,7 @@ public abstract class AbstractSpaceArmor extends CustomArmorItem {
     }
 
     public static class Chestplate extends AbstractSpaceChestplate {
+
         public Chestplate(Holder<ArmorMaterial> material, Type type, Properties properties) {
             super(material, type, properties);
         }
@@ -62,7 +65,8 @@ public abstract class AbstractSpaceArmor extends CustomArmorItem {
         @Override
         public @NotNull UniversalFluidItemStorage getFluidTank(@NotNull ItemStack stack) {
             return new ItemFluidStorage(DataComponentsRegistry.FLUID_LIST.get(), stack, 2, 3000) {
-                    @Override
+
+                @Override
                 public boolean isFluidValid(int tank, FluidStack stack) {
                     return switch (tank) {
                         case 0 -> stack.getFluid().isSame(FluidRegistry.OXYGEN_STILL.get());

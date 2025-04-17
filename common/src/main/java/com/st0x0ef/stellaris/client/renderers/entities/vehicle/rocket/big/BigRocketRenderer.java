@@ -10,6 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import static com.st0x0ef.stellaris.Stellaris.texture;
 
 public class BigRocketRenderer extends VehicleRenderer<RocketEntity, BigRocketModel<RocketEntity>> {
+
     public static final ResourceLocation TEXTURE = texture("vehicle/rocket_skin/big/standard");
 
     public BigRocketRenderer(EntityRendererProvider.Context renderManagerIn) {

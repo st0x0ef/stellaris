@@ -18,6 +18,7 @@ import static com.st0x0ef.stellaris.Stellaris.guiTexture;
 
 @Environment(EnvType.CLIENT)
 public class WaitScreen extends AbstractContainerScreen<WaitMenu> {
+
     public static final ResourceLocation BACKGROUND_TEXTURE = guiTexture("planet_selection");
 
     public final String playerChoosing;
@@ -54,21 +55,22 @@ public class WaitScreen extends AbstractContainerScreen<WaitMenu> {
 
     private void renderText(GuiGraphics guiGraphics, float partialTicks) {
         Font font = Minecraft.getInstance().font;
-        guiGraphics.drawCenteredString(font, Component.translatable("text.stellaris.waitscreen", playerChoosing), this.width / 2, this.height/2, 15067135);
+        guiGraphics.drawCenteredString(font, Component.translatable("text.stellaris.waitscreen", playerChoosing), this.width / 2, this.height / 2, 15067135);
 
 
-        if(timeOnTheScreen > 2500 && timeOnTheScreen < 3500) {
-            guiGraphics.drawCenteredString(font, Component.literal("He is taking very long..."), this.width / 2, this.height/2 + 20, 15067135);
+        if (timeOnTheScreen > 2500 && timeOnTheScreen < 3500) {
+            guiGraphics.drawCenteredString(font, Component.literal("He is taking very long..."), this.width / 2, this.height / 2 + 20, 15067135);
 
-        } else if (timeOnTheScreen > 3500){
-            guiGraphics.drawCenteredString(font, Component.literal("Is bro sleeping ?"), this.width / 2, this.height/2 + 20, 15067135);
+        }
+        else if (timeOnTheScreen > 3500) {
+            guiGraphics.drawCenteredString(font, Component.literal("Is bro sleeping ?"), this.width / 2, this.height / 2 + 20, 15067135);
 
         }
     }
 
     @Override
     public void onClose() {
-        if(this.getPlayer().stellaris$isPlanetMenuOpen()) {
+        if (this.getPlayer().stellaris$isPlanetMenuOpen()) {
             return;
         }
         super.onClose();

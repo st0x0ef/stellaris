@@ -16,6 +16,7 @@ public class SyncPlanetMenuState implements CustomPacketPayload {
     public static final Type<SyncPlanetMenuState> TYPE = new Type<>(id("sync_planet_menu_state"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, SyncPlanetMenuState> STREAM_CODEC = new StreamCodec<>() {
+
         @Override
         public @NotNull SyncPlanetMenuState decode(RegistryFriendlyByteBuf buf) {
             return new SyncPlanetMenuState(buf);
@@ -26,7 +27,6 @@ public class SyncPlanetMenuState implements CustomPacketPayload {
             buf.writeBoolean(packet.open);
         }
     };
-
 
 
     public SyncPlanetMenuState(RegistryFriendlyByteBuf buffer) {

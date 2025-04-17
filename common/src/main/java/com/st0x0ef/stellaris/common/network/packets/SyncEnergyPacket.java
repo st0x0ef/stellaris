@@ -33,9 +33,11 @@ public record SyncEnergyPacket(int energy, BlockPos pos, Direction direction) im
     public static void handle(final SyncEnergyPacket data, final NetworkManager.PacketContext context) {
         context.queue(() -> {
             ClientLevel level = Minecraft.getInstance().level;
-            if (level != null && level.getBlockEntity(data.pos) instanceof EnergyProvider.BLOCK energyProvider)
-                if (energyProvider.getEnergy(data.direction) instanceof BaseEnergyStorage energyStorage)
+            if (level != null && level.getBlockEntity(data.pos) instanceof EnergyProvider.BLOCK energyProvider) {
+                if (energyProvider.getEnergy(data.direction) instanceof BaseEnergyStorage energyStorage) {
                     energyStorage.setEnergyStored(data.energy);
+                }
+            }
         });
     }
 }

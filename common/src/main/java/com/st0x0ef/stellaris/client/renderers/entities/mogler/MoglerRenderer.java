@@ -13,6 +13,7 @@ import static com.st0x0ef.stellaris.Stellaris.texture;
 
 @Environment(EnvType.CLIENT)
 public class MoglerRenderer extends MobRenderer<Mogler, MoglerModel<Mogler>> {
+
     private static final ResourceLocation LAYER_LOCATION = texture("entity/mogler");
 
     public MoglerRenderer(EntityRendererProvider.Context context) {

@@ -13,6 +13,7 @@ import java.util.List;
 
 
 public abstract class BaseItemCombinerMenu extends AbstractContainerMenu {
+
     protected final ContainerLevelAccess access;
     protected final Player player;
     protected final Container inputSlots;
@@ -40,8 +41,9 @@ public abstract class BaseItemCombinerMenu extends AbstractContainerMenu {
     }
 
     private void createInputSlots(ItemCombinerMenuSlotDefinition slotDefinition) {
-        for(final ItemCombinerMenuSlotDefinition.SlotDefinition slotDefinition2 : slotDefinition.getSlots()) {
+        for (final ItemCombinerMenuSlotDefinition.SlotDefinition slotDefinition2 : slotDefinition.getSlots()) {
             this.addSlot(new Slot(this.inputSlots, slotDefinition2.slotIndex(), slotDefinition2.x(), slotDefinition2.y()) {
+
                 public boolean mayPlace(ItemStack stack) {
                     return slotDefinition2.mayPlace().test(stack);
                 }
@@ -52,6 +54,7 @@ public abstract class BaseItemCombinerMenu extends AbstractContainerMenu {
 
     private void createResultSlot(ItemCombinerMenuSlotDefinition slotDefinition) {
         this.addSlot(new Slot(this.resultSlots, slotDefinition.getResultSlot().slotIndex(), slotDefinition.getResultSlot().x(), slotDefinition.getResultSlot().y()) {
+
             public boolean mayPlace(ItemStack stack) {
                 return false;
             }
@@ -67,13 +70,13 @@ public abstract class BaseItemCombinerMenu extends AbstractContainerMenu {
     }
 
     private void createInventorySlots(Inventory inventory) {
-        for(int i = 0; i < 3; ++i) {
-            for(int j = 0; j < 9; ++j) {
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < 9; ++j) {
                 this.addSlot(new Slot(inventory, j + i * 9 + 9, 10 + j * 18, 106 + i * 18));
             }
         }
 
-        for(int i = 0; i < 9; ++i) {
+        for (int i = 0; i < 9; ++i) {
             this.addSlot(new Slot(inventory, i, 10 + i * 18, 164));
         }
 
@@ -85,6 +88,7 @@ public abstract class BaseItemCombinerMenu extends AbstractContainerMenu {
 
     private SimpleContainer createContainer(int size) {
         return new SimpleContainer(size) {
+
             public void setChanged() {
                 super.setChanged();
                 BaseItemCombinerMenu.this.slotsChanged(this);
@@ -123,26 +127,31 @@ public abstract class BaseItemCombinerMenu extends AbstractContainerMenu {
                 }
 
                 slot.onQuickCraft(itemStack2, itemStack);
-            } else if (this.inputSlotIndexes.contains(index)) {
+            }
+            else if (this.inputSlotIndexes.contains(index)) {
                 if (!this.moveItemStackTo(itemStack2, i, j, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (this.canMoveIntoInputSlots(itemStack2) && index >= this.getInventorySlotStart() && index < this.getUseRowEnd()) {
+            }
+            else if (this.canMoveIntoInputSlots(itemStack2) && index >= this.getInventorySlotStart() && index < this.getUseRowEnd()) {
                 int k = this.getSlotToQuickMoveTo(itemStack);
                 if (!this.moveItemStackTo(itemStack2, k, this.getResultSlot(), false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (index >= this.getInventorySlotStart() && index < this.getInventorySlotEnd()) {
+            }
+            else if (index >= this.getInventorySlotStart() && index < this.getInventorySlotEnd()) {
                 if (!this.moveItemStackTo(itemStack2, this.getUseRowStart(), this.getUseRowEnd(), false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (index >= this.getUseRowStart() && index < this.getUseRowEnd() && !this.moveItemStackTo(itemStack2, this.getInventorySlotStart(), this.getInventorySlotEnd(), false)) {
+            }
+            else if (index >= this.getUseRowStart() && index < this.getUseRowEnd() && !this.moveItemStackTo(itemStack2, this.getInventorySlotStart(), this.getInventorySlotEnd(), false)) {
                 return ItemStack.EMPTY;
             }
 
             if (itemStack2.isEmpty()) {
                 slot.setByPlayer(ItemStack.EMPTY);
-            } else {
+            }
+            else {
                 slot.setChanged();
             }
 

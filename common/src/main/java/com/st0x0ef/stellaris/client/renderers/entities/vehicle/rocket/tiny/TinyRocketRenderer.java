@@ -10,6 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import static com.st0x0ef.stellaris.Stellaris.texture;
 
 public class TinyRocketRenderer extends VehicleRenderer<RocketEntity, TinyRocketModel<RocketEntity>> {
+
     public ResourceLocation TEXTURE = texture("vehicle/rocket_skin/tiny/standard");
 
     public TinyRocketRenderer(EntityRendererProvider.Context renderManagerIn) {

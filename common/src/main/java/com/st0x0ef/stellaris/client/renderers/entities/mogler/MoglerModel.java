@@ -18,6 +18,7 @@ import static com.st0x0ef.stellaris.Stellaris.id;
 
 @Environment(EnvType.CLIENT)
 public class MoglerModel<T extends Mob & HoglinBase> extends AgeableListModel<T> {
+
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(id("mogler"), "main");
     private final ModelPart body;
     private final ModelPart head;
@@ -78,13 +79,13 @@ public class MoglerModel<T extends Mob & HoglinBase> extends AgeableListModel<T>
 
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.head.yRot = netHeadYaw * ((float)Math.PI / 180F);
+        this.head.yRot = netHeadYaw * ((float) Math.PI / 180F);
         int i = entity.getAttackAnimationRemainingTicks();
         float f = 1.0F - (float) Mth.abs(10 - 2 * i) / 10.0F;
         this.head.xRot = Mth.lerp(f, 0.0F, -1.14906584F);
 
         this.leg1.xRot = Mth.cos(limbSwing) * 1.2F * limbSwingAmount;
-        this.leg2.xRot = Mth.cos(limbSwing + (float)Math.PI) * 1.2F * limbSwingAmount;
+        this.leg2.xRot = Mth.cos(limbSwing + (float) Math.PI) * 1.2F * limbSwingAmount;
         this.leg3.xRot = this.leg1.xRot;
         this.leg4.xRot = this.leg2.xRot;
     }

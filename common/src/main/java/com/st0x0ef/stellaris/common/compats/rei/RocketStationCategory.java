@@ -22,7 +22,7 @@ import static com.st0x0ef.stellaris.Stellaris.guiTexture;
 public class RocketStationCategory implements DisplayCategory<BasicDisplay> {
 
     public static final ResourceLocation TEXTURE = guiTexture("compats/rocket_station");
-    public static final CategoryIdentifier<RocketStationDisplay> ROCKET_CRAFTING = CategoryIdentifier.of(Stellaris.MODID,"rocket_crafting");
+    public static final CategoryIdentifier<RocketStationDisplay> ROCKET_CRAFTING = CategoryIdentifier.of(Stellaris.MODID, "rocket_crafting");
 
     @Override
     public CategoryIdentifier<? extends BasicDisplay> getCategoryIdentifier() {
@@ -47,22 +47,22 @@ public class RocketStationCategory implements DisplayCategory<BasicDisplay> {
 
         widgets.add(Widgets.createTexturedWidget(TEXTURE, bounds));
 
-        inputSlotAdder(widgets,0, 56, 20 , startPoint, display);
-        inputSlotAdder(widgets,1, 47, 38 , startPoint, display);
-        inputSlotAdder(widgets,2, 65, 38 , startPoint, display);
-        inputSlotAdder(widgets,3, 47, 56 , startPoint, display);
-        inputSlotAdder(widgets,4, 65, 56 , startPoint, display);
-        inputSlotAdder(widgets,5, 47, 74 , startPoint, display);
-        inputSlotAdder(widgets,6, 65, 74 , startPoint, display);
-        inputSlotAdder(widgets,7, 29, 92 , startPoint, display);
-        inputSlotAdder(widgets,8, 47, 92 , startPoint, display);
-        inputSlotAdder(widgets,9, 65, 92 , startPoint, display);
-        inputSlotAdder(widgets,10, 83, 92 , startPoint, display);
-        inputSlotAdder(widgets,11, 29, 110 , startPoint, display);
-        inputSlotAdder(widgets,12, 56, 110 , startPoint, display);
-        inputSlotAdder(widgets,13, 83, 110 , startPoint, display);
+        inputSlotAdder(widgets, 0, 56, 20, startPoint, display);
+        inputSlotAdder(widgets, 1, 47, 38, startPoint, display);
+        inputSlotAdder(widgets, 2, 65, 38, startPoint, display);
+        inputSlotAdder(widgets, 3, 47, 56, startPoint, display);
+        inputSlotAdder(widgets, 4, 65, 56, startPoint, display);
+        inputSlotAdder(widgets, 5, 47, 74, startPoint, display);
+        inputSlotAdder(widgets, 6, 65, 74, startPoint, display);
+        inputSlotAdder(widgets, 7, 29, 92, startPoint, display);
+        inputSlotAdder(widgets, 8, 47, 92, startPoint, display);
+        inputSlotAdder(widgets, 9, 65, 92, startPoint, display);
+        inputSlotAdder(widgets, 10, 83, 92, startPoint, display);
+        inputSlotAdder(widgets, 11, 29, 110, startPoint, display);
+        inputSlotAdder(widgets, 12, 56, 110, startPoint, display);
+        inputSlotAdder(widgets, 13, 83, 110, startPoint, display);
 
-        widgets.add(Widgets.createSlot(new Point(startPoint.x + 129,startPoint.y + 56)).entries(display.getOutputEntries().getFirst()).markOutput().disableBackground());
+        widgets.add(Widgets.createSlot(new Point(startPoint.x + 129, startPoint.y + 56)).entries(display.getOutputEntries().getFirst()).markOutput().disableBackground());
 
         return widgets;
     }
@@ -78,6 +78,6 @@ public class RocketStationCategory implements DisplayCategory<BasicDisplay> {
     }
 
     private static void inputSlotAdder(List<Widget> widgets, int slotIndex, int x, int y, Point startPoint, BasicDisplay display) {
-        widgets.add(Widgets.createSlot(new Point(startPoint.x + x,startPoint.y + y)).entries(display.getInputEntries().get(slotIndex)).markInput().disableBackground());
+        widgets.add(Widgets.createSlot(new Point(startPoint.x + x, startPoint.y + y)).entries(display.getInputEntries().get(slotIndex)).markInput().disableBackground());
     }
 }

@@ -16,7 +16,8 @@ import net.minecraft.world.entity.player.Inventory;
 import static com.st0x0ef.stellaris.Stellaris.guiTexture;
 
 @Environment(value = EnvType.CLIENT)
-public class RoverScreen  extends AbstractContainerScreen<RoverMenu> {
+public class RoverScreen extends AbstractContainerScreen<RoverMenu> {
+
     private static final ResourceLocation TEXTURE = guiTexture("rover");
 
     private final RoverEntity rover = getMenu().getRover();

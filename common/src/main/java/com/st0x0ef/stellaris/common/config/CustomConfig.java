@@ -41,7 +41,8 @@ public class CustomConfig {
             FileWriter file = new FileWriter(Platform.getConfigFolder() + "/" + path);
             file.write(Stellaris.GSON.toJson(CONFIG));
             file.close();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -60,7 +61,8 @@ public class CustomConfig {
                 CONFIG.put(entry.getKey(), obj2);
             });
 
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
 

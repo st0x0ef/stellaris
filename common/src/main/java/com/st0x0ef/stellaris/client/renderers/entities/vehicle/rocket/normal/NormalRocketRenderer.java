@@ -10,6 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import static com.st0x0ef.stellaris.Stellaris.texture;
 
 public class NormalRocketRenderer extends VehicleRenderer<RocketEntity, NormalRocketModel<RocketEntity>> {
+
     public ResourceLocation TEXTURE = texture("vehicle/rocket_skin/normal/standard");
 
     public NormalRocketRenderer(EntityRendererProvider.Context renderManagerIn) {
