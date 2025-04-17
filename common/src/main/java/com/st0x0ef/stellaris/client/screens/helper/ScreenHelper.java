@@ -1,31 +1,18 @@
 package com.st0x0ef.stellaris.client.screens.helper;
 
-import com.mojang.blaze3d.platform.Lighting;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
-import net.minecraft.CrashReport;
-import net.minecraft.CrashReportCategory;
-import net.minecraft.ReportedException;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
-import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
-import org.joml.Quaternionf;
-import org.joml.Vector3f;
 
 import java.util.Optional;
 
@@ -58,19 +45,15 @@ public class ScreenHelper {
         }
 
         private static void innerBlit(Matrix4f matrix4f, int x, int y, int p_93116_, int p_93117_, int p_93118_, float p_93119_, float p_93120_, float p_93121_, float p_93122_, Vec3 color) {
-
-
             int r = (int) color.x();
             int g = (int) color.y();
             int b = (int) color.z();
 
-            RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
             BufferBuilder bufferBuilder = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
             bufferBuilder.addVertex(matrix4f, (float) x, (float) p_93117_, (float) p_93118_).setColor(r, g, b, 255).setUv(p_93119_, p_93122_);
             bufferBuilder.addVertex(matrix4f, (float) y, (float) p_93117_, (float) p_93118_).setColor(r, g, b, 255).setUv(p_93120_, p_93122_);
             bufferBuilder.addVertex(matrix4f, (float) y, (float) p_93116_, (float) p_93118_).setColor(r, g, b, 255).setUv(p_93120_, p_93121_);
             bufferBuilder.addVertex(matrix4f, (float) x, (float) p_93116_, (float) p_93118_).setColor(r, g, b, 255).setUv(p_93119_, p_93121_);
-            BufferUploader.drawWithShader(bufferBuilder.buildOrThrow());
         }
     }
 
@@ -79,18 +62,7 @@ public class ScreenHelper {
         int ratioHeight = (int) Math.ceil(height * ratio);
         int remainHeight = height - ratioHeight;
 
-        if (blend) {
-            RenderSystem.enableBlend();
-            RenderSystem.defaultBlendFunc();
-        }
-
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderTexture(0, resourceLocation);
         renderWithFloat.blit(graphics.pose(), leftPos, topPos + remainHeight, 0, remainHeight, width, ratioHeight, width, height);
-
-        if (blend) {
-            RenderSystem.disableBlend();
-        }
     }
 
 
@@ -154,29 +126,16 @@ public class ScreenHelper {
         }
 
         private static void innerBlit(Matrix4f p_93113_, float p_93114_, float p_93115_, float p_93116_, float p_93117_, float p_93118_, float p_93119_, float p_93120_, float p_93121_, float p_93122_) {
-            RenderSystem.setShader(GameRenderer::getPositionTexShader);
             BufferBuilder bufferBuilder = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
             bufferBuilder.addVertex(p_93113_, p_93114_, p_93117_, p_93118_).setUv(p_93119_, p_93122_);
             bufferBuilder.addVertex(p_93113_, p_93115_, p_93117_, p_93118_).setUv(p_93120_, p_93122_);
             bufferBuilder.addVertex(p_93113_, p_93115_, p_93116_, p_93118_).setUv(p_93120_, p_93121_);
             bufferBuilder.addVertex(p_93113_, p_93114_, p_93116_, p_93118_).setUv(p_93119_, p_93121_);
-            BufferUploader.drawWithShader(bufferBuilder.buildOrThrow());
         }
     }
 
-    public static void drawTexture(int leftPos, int topPos, int width, int height, ResourceLocation texture, boolean blend) {
-        if (blend) {
-            RenderSystem.enableBlend();
-            RenderSystem.defaultBlendFunc();
-        }
-
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderTexture(0, texture);
-        new GuiGraphics(Minecraft.getInstance(), Minecraft.getInstance().renderBuffers().bufferSource()).blit(texture, leftPos, topPos, 0, 0, width, height, width, height);
-
-        if (blend) {
-            RenderSystem.disableBlend();
-        }
+    public static void drawTexture(GuiGraphics graphics, int leftPos, int topPos, int width, int height, ResourceLocation texture) {
+        graphics.blit(RenderType::guiTextured, texture, leftPos, topPos, 0, 0, width, height, width, height);
     }
 
     public static void drawTexturewithRotation(GuiGraphics graphics, ResourceLocation resourceLocation, int x, int y, int uOffset, int vOffset, int width, int height, int textureWidth, int textureHeight, float rotationAngle) {
@@ -187,79 +146,19 @@ public class ScreenHelper {
         poseStack.mulPose(new Matrix4f().rotation(rotationAngle, 0.0f, 0.0f, 1.0f));
         poseStack.translate(-(x + width / 2.0f), -(y + height / 2.0f), 0);
 
-        RenderSystem.setShaderTexture(0, resourceLocation);
-        RenderSystem.enableBlend();
-        RenderSystem.defaultBlendFunc();
-        RenderSystem.enableDepthTest();
+        graphics.blit(RenderType::guiTextured, resourceLocation, x, y, uOffset, vOffset, width, height, textureWidth, textureHeight);
 
-        graphics.blit(resourceLocation, x, y, uOffset, vOffset, width, height, textureWidth, textureHeight);
-
-        RenderSystem.disableBlend();
         poseStack.popPose();
     }
 
-    public static Entity createEntity(Level level, ResourceLocation location) {
+    public static LivingEntity createEntity(Level level, ResourceLocation location) {
 
         Optional<EntityType<?>> maybeType = BuiltInRegistries.ENTITY_TYPE.getOptional(location);
         if (maybeType.isEmpty()) {
-            return EntityType.PIG.create(level);
+            return EntityType.PIG.create(level, EntitySpawnReason.TRIGGERED);
         }
         EntityType<?> type = maybeType.get();
 
-        return type.create(level);
+        return (LivingEntity) type.create(level, EntitySpawnReason.TRIGGERED);
     }
-
-    public static void renderEntityInInventory(GuiGraphics guiGraphics, float x, float y, float scale, Vector3f translate, Quaternionf pose, @Nullable Quaternionf cameraOrientation, Entity entity) {
-        guiGraphics.pose().pushPose();
-        guiGraphics.pose().translate(x, y, (double)50.0F);
-        guiGraphics.pose().scale(scale, scale, -scale);
-        guiGraphics.pose().translate(translate.x, translate.y, translate.z);
-        guiGraphics.pose().mulPose(pose);
-        Lighting.setupForEntityInInventory();
-        EntityRenderDispatcher entityRenderDispatcher = Minecraft.getInstance().getEntityRenderDispatcher();
-        if (cameraOrientation != null) {
-            entityRenderDispatcher.overrideCameraOrientation(cameraOrientation.conjugate(new Quaternionf()).rotateY((float)Math.PI));
-        }
-
-        entityRenderDispatcher.setRenderShadow(false);
-        RenderSystem.runAsFancy(() -> entityRenderDispatcher.render(entity, 0.0F, 0.0F, 0.0F, 0.0F, 1.0F, guiGraphics.pose(), guiGraphics.bufferSource(), 15728880));
-        guiGraphics.flush();
-        entityRenderDispatcher.setRenderShadow(true);
-        guiGraphics.pose().popPose();
-        Lighting.setupFor3DItems();
-    }
-
-
-    public static void renderItemWithCustomSize(GuiGraphics graphics, Minecraft minecraft, ItemStack stack, int x, int y, float size) {
-        if (!stack.isEmpty()) {
-            BakedModel bakedModel = minecraft.getItemRenderer().getModel(stack, null, null, 0);
-            graphics.pose.pushPose();
-            graphics.pose.translate((x + size / 2), (y + size / 2), (float)(150));
-
-            try {
-                graphics.pose.scale(size, -size, size);
-                boolean bl = !bakedModel.usesBlockLight();
-                if (bl) {
-                    Lighting.setupForFlatItems();
-                }
-
-                minecraft.getItemRenderer().render(stack, ItemDisplayContext.GUI, false, graphics.pose, graphics.bufferSource(), 15728880, OverlayTexture.NO_OVERLAY, bakedModel);
-                graphics.flush();
-                if (bl) {
-                    Lighting.setupFor3DItems();
-                }
-            } catch (Throwable throwable) {
-                CrashReport crashReport = CrashReport.forThrowable(throwable, "Rendering item");
-                CrashReportCategory crashReportCategory = crashReport.addCategory("Item being rendered");
-                crashReportCategory.setDetail("Item Type", () -> String.valueOf(stack.getItem()));
-                crashReportCategory.setDetail("Item Components", () -> String.valueOf(stack.getComponents()));
-                crashReportCategory.setDetail("Item Foil", () -> String.valueOf(stack.hasFoil()));
-                throw new ReportedException(crashReport);
-            }
-
-            graphics.pose.popPose();
-        }
-    }
-
-
 }

@@ -9,26 +9,29 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.texture.TextureAtlas;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
-import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
 
 @Environment(EnvType.CLIENT)
-public class CustomLightningBoltRenderer extends EntityRenderer<CustomLightningBolt> {
+public class CustomLightningBoltRenderer extends EntityRenderer<CustomLightningBolt, CustomLightningBoltRenderState> {
 
     public CustomLightningBoltRenderer(EntityRendererProvider.Context context) {
         super(context);
     }
 
     @Override
-    public void render(CustomLightningBolt entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
+    public CustomLightningBoltRenderState createRenderState() {
+        return new CustomLightningBoltRenderState(0.45f, 0.45f, 0.50f);
+    }
+
+
+    @Override
+    public void render(CustomLightningBoltRenderState entityRenderState, PoseStack poseStack, MultiBufferSource buffer, int a) {
         float[] fs = new float[8];
         float[] gs = new float[8];
         float f = 0.0F;
         float g = 0.0F;
-        RandomSource randomSource = RandomSource.create(entity.seed);
+        RandomSource randomSource = RandomSource.create(entityRenderState.seed);
 
         for(int i = 7; i >= 0; --i) {
             fs[i] = f;
@@ -41,7 +44,7 @@ public class CustomLightningBoltRenderer extends EntityRenderer<CustomLightningB
         Matrix4f matrix4f = poseStack.last().pose();
 
         for(int j = 0; j < 4; ++j) {
-            RandomSource randomSource2 = RandomSource.create(entity.seed);
+            RandomSource randomSource2 = RandomSource.create(entityRenderState.seed);
 
             for(int k = 0; k < 3; ++k) {
                 int l = 7;
@@ -78,18 +81,13 @@ public class CustomLightningBoltRenderer extends EntityRenderer<CustomLightningB
                         w *= ((float)o - 1.0F) * 0.1F + 1.0F;
                     }
 
-                    float red = entity.getEntityData().get(CustomLightningBolt.RED);
-                    float green = entity.getEntityData().get(CustomLightningBolt.GREEN);
-                    float blue = entity.getEntityData().get(CustomLightningBolt.BLUE);
-
-                    quad(matrix4f, vertexConsumer, h, n, o, p, q, red, green, blue, v, w, false, false, true, false);
-                    quad(matrix4f, vertexConsumer, h, n, o, p, q, red, green, blue, v, w, true, false, true, true);
-                    quad(matrix4f, vertexConsumer, h, n, o, p, q, red, green, blue, v, w, true, true, false, true);
-                    quad(matrix4f, vertexConsumer, h, n, o, p, q, red, green, blue, v, w, false, true, false, false);
+                    quad(matrix4f, vertexConsumer, h, n, o, p, q, entityRenderState.red, entityRenderState.green, entityRenderState.blue, v, w, false, false, true, false);
+                    quad(matrix4f, vertexConsumer, h, n, o, p, q, entityRenderState.red, entityRenderState.green, entityRenderState.blue, v, w, true, false, true, true);
+                    quad(matrix4f, vertexConsumer, h, n, o, p, q, entityRenderState.red, entityRenderState.green, entityRenderState.blue, v, w, true, true, false, true);
+                    quad(matrix4f, vertexConsumer, h, n, o, p, q, entityRenderState.red, entityRenderState.green, entityRenderState.blue, v, w, false, true, false, false);
                 }
             }
         }
-
     }
 
     private static void quad(Matrix4f matrix, VertexConsumer consumer, float x1, float z1, int index, float x2, float z2, float red, float green, float blue, float f, float g, boolean bl, boolean bl2, boolean bl3, boolean bl4) {
@@ -97,9 +95,5 @@ public class CustomLightningBoltRenderer extends EntityRenderer<CustomLightningB
         consumer.addVertex(matrix, x2 + (bl ? f : -f), (float)((index + 1) * 16), z2 + (bl2 ? f : -f)).setColor(red, green, blue, 0.3F);
         consumer.addVertex(matrix, x2 + (bl3 ? f : -f), (float)((index + 1) * 16), z2 + (bl4 ? f : -f)).setColor(red, green, blue, 0.3F);
         consumer.addVertex(matrix, x1 + (bl3 ? g : -g), (float)(index * 16), z1 + (bl4 ? g : -g)).setColor(red, green, blue, 0.3F);
-    }
-
-    public @NotNull ResourceLocation getTextureLocation(CustomLightningBolt entity) {
-        return TextureAtlas.LOCATION_BLOCKS;
     }
 }

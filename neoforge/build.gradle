@@ -31,23 +31,23 @@ configurations {
 dependencies {
     neoForge "net.neoforged:neoforge:${neoforge_version}"
     modApi "dev.architectury:architectury-neoforge:${architectury_version}"
-    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-neoforge:${rei_version}"
-    modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}"
-    modCompileOnly("mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}")
-    runtimeOnly("mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}")
+    //modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-neoforge:${rei_version}"
+    //modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}"
+    //modCompileOnly("mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}")
+    //runtimeOnly("mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}")
 
-    modRuntimeOnly("fr.tathan.sky-aesthetics:sky-aesthetics-neoforge-1.21:${sky_version}")
-    include("fr.tathan.sky-aesthetics:sky-aesthetics-neoforge-1.21:${sky_version}")
+    modRuntimeOnly("fr.tathan.sky-aesthetics:sky-aesthetics-neoforge-1.21.5:${sky_version}")
+    include("fr.tathan.sky-aesthetics:sky-aesthetics-neoforge-1.21.5:${sky_version}")
 
     modApi("com.fej1fun.potentials:potentials-neoforge:${rootProject.potentials_version}")
 
-    implementation "curse.maven:energized-power-782147:5510706"
+    //implementation "curse.maven:energized-power-782147:5510706"
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowBundle project(path: ":common", configuration: "transformProductionNeoForge")
 
     if (System.getenv("CI") != null) {
-        modLocalRuntime "com.github.jab125.architectury-data-generation-fix:architectury-data-generation-fix-neoforge:21.0.0"
+        modLocalRuntime "com.github.jab125.architectury-data-generation-fix:architectury-data-generation-fix-neoforge:21.5.0"
     }
 }
 

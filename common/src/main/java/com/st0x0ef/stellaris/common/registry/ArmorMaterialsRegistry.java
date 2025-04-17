@@ -1,56 +1,48 @@
 package com.st0x0ef.stellaris.common.registry;
 
 import com.st0x0ef.stellaris.Stellaris;
-import dev.architectury.registry.registries.DeferredRegister;
-import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.Util;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.equipment.ArmorMaterial;
+import net.minecraft.world.item.equipment.ArmorType;
+import net.minecraft.world.item.equipment.EquipmentAsset;
 
 import java.util.EnumMap;
-import java.util.List;
 
 public class ArmorMaterialsRegistry {
-    public static final DeferredRegister<ArmorMaterial> ARMOR_MATERIAL = DeferredRegister.create(Stellaris.MODID, Registries.ARMOR_MATERIAL);
-
-    public static final ArmorMaterial JET_SUIT_MATERIAL = new ArmorMaterial(
-            Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
-                map.put(ArmorItem.Type.BOOTS, 3);
-                map.put(ArmorItem.Type.LEGGINGS, 6);
-                map.put(ArmorItem.Type.CHESTPLATE, 8);
-                map.put(ArmorItem.Type.HELMET, 3);
-                map.put(ArmorItem.Type.BODY, 11);
+    private static final ResourceKey<Registry<EquipmentAsset>> key = ResourceKey.createRegistryKey(ResourceLocation.withDefaultNamespace("equipment_asset"));
+    public static final ArmorMaterial JET_SUIT = new ArmorMaterial(
+            10,
+            Util.make(new EnumMap<>(ArmorType.class), map -> {
+                map.put(ArmorType.BOOTS, 3);
+                map.put(ArmorType.LEGGINGS, 6);
+                map.put(ArmorType.CHESTPLATE, 8);
+                map.put(ArmorType.HELMET, 3);
+                map.put(ArmorType.BODY, 11);
             }),
             10,
             SoundEvents.ARMOR_EQUIP_ELYTRA,
-            () -> Ingredient.of(ItemsRegistry.DESH_INGOT.get()),
-            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"jetsuit"))),
-            2.0F, 0.0F);
+            2.0F, 0.0F,
+            TagRegistry.DESH_INGOT,
+            ResourceKey.create(key, ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"jetsuit")));
 
-    public static final ArmorMaterial SPACE_SUIT_MATERIAL = new ArmorMaterial(
-            Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
-                map.put(ArmorItem.Type.BOOTS, 2);
-                map.put(ArmorItem.Type.LEGGINGS, 5);
-                map.put(ArmorItem.Type.CHESTPLATE, 6);
-                map.put(ArmorItem.Type.HELMET, 2);
-                map.put(ArmorItem.Type.BODY, 9);
+
+    public static final ArmorMaterial SPACE_SUIT = new ArmorMaterial(
+            10,
+            Util.make(new EnumMap<>(ArmorType.class), map -> {
+                map.put(ArmorType.BOOTS, 2);
+                map.put(ArmorType.LEGGINGS, 5);
+                map.put(ArmorType.CHESTPLATE, 6);
+                map.put(ArmorType.HELMET, 2);
+                map.put(ArmorType.BODY, 9);
             }),
             10,
-            SoundEvents.ARMOR_EQUIP_GENERIC,
-            () -> Ingredient.of(Items.IRON_INGOT),
-            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"spacesuit")),
-                    new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"spacesuit"), "_overlay", true)
-                    ),
-            2.0F, 0.0F);
-
-
-    public static final RegistrySupplier<ArmorMaterial> JET_SUIT = ARMOR_MATERIAL.register("radioactive", () -> JET_SUIT_MATERIAL);
-    public static final RegistrySupplier<ArmorMaterial> SPACE_SUIT = ARMOR_MATERIAL.register("space_suit", () -> SPACE_SUIT_MATERIAL);
-
-
+            SoundEvents.ARMOR_EQUIP_ELYTRA,
+            2.0F, 0.0F,
+            ItemTags.REPAIRS_IRON_ARMOR,
+            ResourceKey.create(key, ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"spacesuit")));
 }

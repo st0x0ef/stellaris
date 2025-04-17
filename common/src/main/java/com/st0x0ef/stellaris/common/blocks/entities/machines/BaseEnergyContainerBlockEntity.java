@@ -75,8 +75,10 @@ public abstract class BaseEnergyContainerBlockEntity extends BaseContainerBlockE
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
         super.loadAdditional(tag, provider);
-        getEnergy(null).setEnergyStored(tag.getInt(ENERGY_TAG));
-        ContainerHelper.loadAllItems(tag, items, provider);
+        if (tag.getInt(ENERGY_TAG).isPresent()) {
+            getEnergy(null).setEnergyStored(tag.getInt(ENERGY_TAG).get());
+            ContainerHelper.loadAllItems(tag, items, provider);
+        }
     }
 
     @Override

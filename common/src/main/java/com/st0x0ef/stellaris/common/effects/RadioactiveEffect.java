@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.common.effects;
 
 import com.st0x0ef.stellaris.common.registry.DamageSourceRegistry;
 import com.st0x0ef.stellaris.common.registry.SoundRegistry;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -14,7 +15,7 @@ public class RadioactiveEffect extends MobEffect {
     }
 
     @Override
-    public boolean applyEffectTick(LivingEntity livingEntity, int amplifier) {
+    public boolean applyEffectTick(ServerLevel serverLevel, LivingEntity livingEntity, int amplifier) {
         if (livingEntity.getHealth() > 0.0F) {
             if (amplifier == 0) {
                 livingEntity.hurt(DamageSourceRegistry.of(livingEntity.level(), DamageSourceRegistry.RADIATIONS), 1f);

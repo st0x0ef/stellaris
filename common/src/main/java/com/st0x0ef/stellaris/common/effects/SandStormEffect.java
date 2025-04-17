@@ -22,8 +22,13 @@ public class SandStormEffect extends MobEffect {
     }
 
     @Override
-    public int getBlendDurationTicks() {
-        return 22;
+    public int getBlendInDurationTicks() {
+        return 11;
+    }
+
+    @Override
+    public int getBlendOutDurationTicks() {
+        return 11;
     }
 
     @Environment(EnvType.CLIENT)

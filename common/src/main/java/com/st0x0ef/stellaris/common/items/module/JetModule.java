@@ -21,6 +21,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -192,7 +193,7 @@ public class JetModule extends Item implements SpaceSuitModule {
             if (storage == null) return;
             storage.drain(FluidStack.create(FluidRegistry.FUEL_STILL.get(), 2), false);
         } else if (player.isSprinting() && player.onGround() && KeyVariables.isHoldingJump(player)) {
-            player.moveTo(player.getX(), player.getY() + 2, player.getZ());
+            player.move(MoverType.PLAYER, new Vec3(player.getX(), player.getY() + 2, player.getZ()));
         }
     }
 
@@ -274,7 +275,7 @@ public class JetModule extends Item implements SpaceSuitModule {
 
                 if (player.level() instanceof ServerLevel) {
                     for (ServerPlayer p : ((ServerLevel) player.level()).getServer().getPlayerList().getPlayers()) {
-                        ((ServerLevel) player.level()).sendParticles(p, ParticleTypes.FLASH, true, player.getX() - vec33.x, player.getY() - vec33.y, player.getZ() - vec33.z, 1, 0, 0, 0, 0.001);
+                        ((ServerLevel) player.level()).sendParticles(p, ParticleTypes.FLASH, true, true, player.getX() - vec33.x, player.getY() - vec33.y, player.getZ() - vec33.z, 1, 0, 0, 0, 0.001);
                     }
                 }
             }

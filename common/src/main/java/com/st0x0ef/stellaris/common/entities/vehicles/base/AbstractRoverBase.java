@@ -32,8 +32,7 @@ import java.util.Optional;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-public abstract class AbstractRoverBase extends IVehicleEntity
-{
+public abstract class AbstractRoverBase extends IVehicleEntity {
     private int steps;
     private double clientX;
     private double clientY;
@@ -130,7 +129,7 @@ public abstract class AbstractRoverBase extends IVehicleEntity
                     float damage = speed * 10;
                     tasks.add(() -> {
                         ServerLevel serverLevel = (ServerLevel) level();
-                        Optional<Holder.Reference<DamageType>> holder = serverLevel.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolder(DamageTypes.DROWN);
+                        Optional<Holder.Reference<DamageType>> holder = serverLevel.registryAccess().lookupOrThrow(Registries.DAMAGE_TYPE).get(DamageTypes.DROWN);
                         holder.ifPresent(damageTypeReference -> entityIn.hurt(new DamageSource(damageTypeReference, this), damage));
                     });
                 }
@@ -521,7 +520,7 @@ public abstract class AbstractRoverBase extends IVehicleEntity
     }
 
     private void tickLerp() {
-        if (this.isControlledByLocalInstance()) {
+        if (this.isLocalClientAuthoritative()) {
             this.steps = 0;
             this.syncPacketPositionCodec(this.getX(), this.getY(), this.getZ());
         }
@@ -540,12 +539,12 @@ public abstract class AbstractRoverBase extends IVehicleEntity
     }
 
     @Override
-    public void lerpTo(double x, double y, double z, float yaw, float pitch, int posRotationIncrements) {
+    protected void lerpPositionAndRotationStep(int steps, double x, double y, double z, double yRot, double xRot) {
         this.clientX = x;
         this.clientY = y;
         this.clientZ = z;
-        this.clientYaw = yaw;
-        this.clientPitch = pitch;
+        this.clientYaw = yRot;
+        this.clientPitch = xRot;
         this.steps = 10;
     }
 

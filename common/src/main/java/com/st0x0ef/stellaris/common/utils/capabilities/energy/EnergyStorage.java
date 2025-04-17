@@ -31,7 +31,9 @@ public abstract class EnergyStorage extends BaseEnergyStorage {
     }
 
     public void load(CompoundTag tag, String name) {
-        this.energy = tag.getInt("energy-"+name);
+        if (tag.getInt("energy-"+name).isPresent()) {
+            this.energy = tag.getInt("energy-"+name).get();
+        }
     }
 
     protected abstract void onChange();

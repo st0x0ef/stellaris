@@ -6,10 +6,10 @@
     "###"
   ],
   "key": {
-    "#": {"item": "stellaris:polished_conglomorate"}
+    "#": {"item": "stellaris:polished_conglomerate"}
   },
   "result": {
-    "id": "stellaris:polished_conglomorate_stairs",
+    "id": "stellaris:polished_conglomerate_stairs",
     "count": 4
   }
 }

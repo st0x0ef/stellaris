@@ -22,8 +22,9 @@ public class SolarPanelEntity extends BaseGeneratorBlockEntity {
 
     @Override
     public boolean canGenerate() {
+        if (level == null) return false;
         BlockPos blockPos = this.getBlockPos().offset(0, 1, 0);
-        return level.isDay() && level.canSeeSky(blockPos);
+        return !level.isDarkOutside() && level.canSeeSky(blockPos);
     }
 
     @Override

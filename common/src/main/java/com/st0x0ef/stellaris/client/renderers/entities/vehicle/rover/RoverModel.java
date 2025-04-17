@@ -3,7 +3,7 @@ package com.st0x0ef.stellaris.client.renderers.entities.vehicle.rover;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.entities.vehicles.RoverEntity;
+import com.st0x0ef.stellaris.client.renderers.entities.vehicle.VehicleRenderState;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
@@ -13,13 +13,14 @@ import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 
 
-public class RoverModel<T extends RoverEntity> extends EntityModel<T> {
+public class RoverModel extends EntityModel<VehicleRenderState> {
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "rover"), "main");
 
     private final ModelPart rover;
     private final ModelPart antenna;
 
     public RoverModel(ModelPart root) {
+        super(root);
         this.rover = root.getChild("Frame");
         this.antenna = root.getChild("Antenna");
     }
@@ -191,32 +192,28 @@ public class RoverModel<T extends RoverEntity> extends EntityModel<T> {
 
 
     @Override
-    public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.rover.yRot = netHeadYaw / (180F / (float) Math.PI);
+    public void setupAnim(VehicleRenderState state) {
+        this.rover.yRot = state.entity.getYHeadRot() / (180F / (float) Math.PI);
 
-        float wheelRotation = (float) entity.getDeltaMovement().x / 5f;
-        if (entity.getDirection() == Direction.NORTH ||entity.getDirection() == Direction.SOUTH) {
-            wheelRotation = (float) entity.getDeltaMovement().z / 5f;
+        float wheelRotation = (float) state.entity.getDeltaMovement().x / 5f;
+        if (state.entity.getDirection() == Direction.NORTH || state.entity.getDirection() == Direction.SOUTH) {
+            wheelRotation = (float) state.entity.getDeltaMovement().z / 5f;
         }
 
-
-
-        if (entity.isForward()) {
+        if (state.entity.getMotionDirection().isFacingAngle(state.entity.getVisualRotationYInDegrees())) {
             this.rover.getChild("Wheels").getChild("Wheel1").xRot += wheelRotation;
             this.rover.getChild("Wheels").getChild("Wheel2").xRot += wheelRotation;
             this.rover.getChild("Wheels").getChild("Wheel3").xRot += wheelRotation;
             this.rover.getChild("Wheels").getChild("Wheel4").xRot += wheelRotation;
             this.rover.getChild("Wheels").getChild("Wheel5").xRot += wheelRotation;
             this.rover.getChild("Wheels").getChild("Wheel6").xRot += wheelRotation;
-
-        } else if (entity.isBackward()) {
+        } else if (state.entity.getMotionDirection().getOpposite().isFacingAngle(state.entity.getVisualRotationYInDegrees())) {
             this.rover.getChild("Wheels").getChild("Wheel1").xRot -= -wheelRotation;
             this.rover.getChild("Wheels").getChild("Wheel2").xRot -= -wheelRotation;
             this.rover.getChild("Wheels").getChild("Wheel3").xRot -= -wheelRotation;
             this.rover.getChild("Wheels").getChild("Wheel4").xRot -= -wheelRotation;
             this.rover.getChild("Wheels").getChild("Wheel5").xRot -= -wheelRotation;
             this.rover.getChild("Wheels").getChild("Wheel6").xRot -= -wheelRotation;
-
         } else {
             this.rover.getChild("Wheels").getChild("Wheel1").xRot = 0;
             this.rover.getChild("Wheels").getChild("Wheel2").xRot = 0;
@@ -224,24 +221,21 @@ public class RoverModel<T extends RoverEntity> extends EntityModel<T> {
             this.rover.getChild("Wheels").getChild("Wheel4").xRot = 0;
             this.rover.getChild("Wheels").getChild("Wheel5").xRot = 0;
             this.rover.getChild("Wheels").getChild("Wheel6").xRot = 0;
-
         }
 
-        if (entity.getXRot() > 0) {
-            this.rover.getChild("Wheels").getChild("Wheel1").xRot += entity.getXRot() / 4;
-            this.rover.getChild("Wheels").getChild("Wheel2").xRot += entity.getXRot() / 4;
-            this.rover.getChild("Wheels").getChild("Wheel3").xRot += entity.getXRot() / 4;
-            this.rover.getChild("Wheels").getChild("Wheel4").xRot += entity.getXRot() / 4;
+        if (state.entity.getXRot() > 0) {
+            this.rover.getChild("Wheels").getChild("Wheel1").xRot += state.entity.getXRot() / 4;
+            this.rover.getChild("Wheels").getChild("Wheel2").xRot += state.entity.getXRot() / 4;
+            this.rover.getChild("Wheels").getChild("Wheel3").xRot += state.entity.getXRot() / 4;
+            this.rover.getChild("Wheels").getChild("Wheel4").xRot += state.entity.getXRot() / 4;
         }
 
-        this.antenna.yRot = ageInTicks / 20;
+        this.antenna.yRot = state.ageInTicks / 20;
     }
-
 
     @Override
     public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
         this.rover.render(poseStack, buffer, packedLight, packedOverlay);
         this.antenna.render(poseStack, buffer, packedLight, packedOverlay);
-
     }
 }

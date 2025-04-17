@@ -17,8 +17,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-import static net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity.getFuel;
-
 public class CoalGeneratorEntity extends BaseGeneratorBlockEntity {
 
     private int litTime;
@@ -81,8 +79,8 @@ public class CoalGeneratorEntity extends BaseGeneratorBlockEntity {
                 Item item = stack.getItem();
                 stack.shrink(1);
                 if (stack.isEmpty()) {
-                    Item item2 = item.getCraftingRemainingItem();
-                    getItems().set(0, item2 == null ? ItemStack.EMPTY : new ItemStack(item2));
+                    Item item2 = item.getCraftingRemainder().getItem();
+                    getItems().set(0, new ItemStack(item2));
                 }
             }
         }
@@ -102,11 +100,13 @@ public class CoalGeneratorEntity extends BaseGeneratorBlockEntity {
     }
 
     protected int getBurnDuration(ItemStack fuelStack) {
-        if (fuelStack.isEmpty() || !fuelStack.is(TagRegistry.COAL_GENERATOR_FUEL_TAG)) {
+        if (level == null) return 0;
+
+        if (fuelStack.isEmpty() || !fuelStack.is(TagRegistry.COAL_GENERATOR_FUEL_TAG) || !level.fuelValues().isFuel(fuelStack)) {
             return 0;
         }
 
-        return getFuel().getOrDefault(fuelStack.getItem(), 0);
+        return level.fuelValues().burnDuration(fuelStack);
     }
 
     private boolean isLit() {
@@ -122,7 +122,9 @@ public class CoalGeneratorEntity extends BaseGeneratorBlockEntity {
     @Override
     public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
         super.loadAdditional(tag, provider);
-        litTime = tag.getShort("BurnTime");
+        if (tag.getShort("BurnTime").isPresent()) {
+            litTime = tag.getShort("BurnTime").get();
+        }
     }
 
     @Override

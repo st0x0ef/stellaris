@@ -3,19 +3,20 @@ package com.st0x0ef.stellaris.client.renderers.entities.alien;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.entities.mobs.alien.Alien;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.HeadedModel;
+import net.minecraft.client.model.VillagerLikeModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.renderer.entity.state.VillagerRenderState;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
 
 @Environment(EnvType.CLIENT)
-public class AlienModel<T extends Alien> extends EntityModel<T> {
+public class AlienModel extends EntityModel<VillagerRenderState> implements VillagerLikeModel, HeadedModel {
 
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "alien"), "main");
 
@@ -26,7 +27,8 @@ public class AlienModel<T extends Alien> extends EntityModel<T> {
 	private final ModelPart arms;
 	private final ModelPart head2;
 	public AlienModel(ModelPart root) {
-		this.head = root.getChild("head");
+        super(root);
+        this.head = root.getChild("head");
 		this.body = root.getChild("body");
 		this.leg0 = root.getChild("leg0");
 		this.leg1 = root.getChild("leg1");
@@ -60,25 +62,48 @@ public class AlienModel<T extends Alien> extends EntityModel<T> {
 		return LayerDefinition.create(meshdefinition, 128, 128);
 	}
 
+	// TODO : Animation
+
+	@Override
+	public void setupAnim(VillagerRenderState entityRenderState) {
+		super.setupAnim(entityRenderState);
+	}
+
+	/*
 	@Override
 	public void setupAnim(T e, float f, float f1, float f2, float f3, float f4) {
 		this.head.yRot = f3 / (180F / (float) Math.PI);
 		this.head.xRot = f4 / (180F / (float) Math.PI);
 		this.leg0.xRot = Mth.cos(f) * -1.0F * f1;
 		this.leg1.xRot = Mth.cos(f) * 1.0F * f1;
-	}
+	}*/
 
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
-		if (young) {
+		/*if (young) {
 			poseStack.scale(0.5f, 0.5f, 0.5f);
 			poseStack.translate(0, 1.5f, 0);
-		}
+		}*/
 		head.render(poseStack, buffer, packedLight, packedOverlay, color);
 		body.render(poseStack, buffer, packedLight, packedOverlay, color);
 		leg0.render(poseStack, buffer, packedLight, packedOverlay, color);
 		leg1.render(poseStack, buffer, packedLight, packedOverlay, color);
 		arms.render(poseStack, buffer, packedLight, packedOverlay, color);
 		head2.render(poseStack, buffer, packedLight, packedOverlay, color);
+	}
+
+	@Override
+	public void hatVisible(boolean bl) {
+
+	}
+
+	@Override
+	public void translateToArms(PoseStack poseStack) {
+
+	}
+
+	@Override
+	public ModelPart getHead() {
+		return this.head;
 	}
 }

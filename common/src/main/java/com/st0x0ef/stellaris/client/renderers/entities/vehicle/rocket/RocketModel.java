@@ -39,9 +39,10 @@ public enum RocketModel implements StringRepresentable {
     public static RocketModel fromString(String name) {
         return switch (name) {
             case "tiny" -> TINY;
+            case "normal" -> NORMAL;
             case "small" -> SMALL;
             case "big" -> BIG;
-            default -> NORMAL;
+            default -> TINY;
         };
     }
 

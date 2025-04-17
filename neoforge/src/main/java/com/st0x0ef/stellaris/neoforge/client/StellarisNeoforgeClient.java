@@ -41,16 +41,12 @@ import com.st0x0ef.stellaris.client.screens.tablet.TabletMainScreen;
 import com.st0x0ef.stellaris.common.registry.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
-import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.*;
-import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
-import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.common.NeoForge;
-import org.jetbrains.annotations.NotNull;
 
 @EventBusSubscriber(modid = Stellaris.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
 public class StellarisNeoforgeClient {
@@ -142,13 +138,14 @@ public class StellarisNeoforgeClient {
     }
 
     @SubscribeEvent
-    public static void registerReloadListener(RegisterClientReloadListenersEvent event) {
+    public static void registerReloadListener(AddClientReloadListenersEvent event) {
         StellarisClient.registerPacks();
 
+        Stellaris.onAddReloadClientListenerEvent(event::addListener);
     }
 
 
-    @SubscribeEvent
+    /*@SubscribeEvent
     private static void initializeClient(RegisterClientExtensionsEvent event) {
         FluidRegistry.FLUIDS_INFOS.forEach((attributes -> event.registerFluidType(new IClientFluidTypeExtensions() {
             @Override
@@ -161,7 +158,7 @@ public class StellarisNeoforgeClient {
                 return attributes.getFlowingTexture();
             }
         }, attributes.getFlowingFluid().getFluidType())));
-    }
+    }*/
 
     private static void clientTick(ClientTickEvent.Post event) {
         KeyMappingsRegistry.clientTick(Minecraft.getInstance());

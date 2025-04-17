@@ -7,58 +7,58 @@ import dev.architectury.platform.Platform;
 import net.fabricmc.api.EnvType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.item.component.TooltipDisplay;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class SpaceSuit extends AbstractSpaceArmor.AbstractSpaceChestplate {
 
-    public SpaceSuit(Holder<ArmorMaterial> material, Type type, Properties properties) {
-        super(material, type, properties);
+    public SpaceSuit(Properties properties) {
+        super(properties);
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
-        super.inventoryTick(stack, level, entity, slotId, isSelected);
+    public void inventoryTick(ItemStack itemStack, ServerLevel serverLevel, Entity entity, @Nullable EquipmentSlot equipmentSlot) {
+        super.inventoryTick(itemStack, serverLevel, entity, equipmentSlot);
 
         if (entity instanceof Player player && player.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof SpaceSuit) {
             ItemStack spaceSuitItemStack = player.getItemBySlot(EquipmentSlot.CHEST);
-            List<SpaceSuitModule> modules = getModules(stack);
+            List<SpaceSuitModule> modules = getModules(itemStack);
             if (!modules.isEmpty()) {
-                modules.forEach(spaceSuitModule -> spaceSuitModule.tick(spaceSuitItemStack, level, player));
+                modules.forEach(spaceSuitModule -> spaceSuitModule.tick(spaceSuitItemStack, serverLevel, player));
             }
         }
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);List<SpaceSuitModule> modules = getModules(stack);
+    public void appendHoverText(ItemStack itemStack, TooltipContext tooltipContext, TooltipDisplay tooltipDisplay, Consumer<Component> consumer, TooltipFlag tooltipFlag) {
+        super.appendHoverText(itemStack, tooltipContext, tooltipDisplay, consumer, tooltipFlag);
+        List<SpaceSuitModule> modules = getModules(itemStack);
 
         if (Platform.getEnv() != EnvType.CLIENT) return;
 
         if (!modules.isEmpty()) {
-            modules.forEach(spaceSuitModule -> spaceSuitModule.addToTooltips(stack, context, tooltipComponents, tooltipFlag));
+            modules.forEach(spaceSuitModule -> spaceSuitModule.addToTooltips(itemStack, tooltipContext, tooltipDisplay, consumer, tooltipFlag));
         }
 
         if(Screen.hasShiftDown()) {
             if (!modules.isEmpty()) {
-                tooltipComponents.add(Component.translatable("spacesuit.stellaris.modules"));
-                modules.forEach(spaceSuitModule -> tooltipComponents.add(spaceSuitModule.displayName().withStyle(ChatFormatting.GRAY)));
+                consumer.accept(Component.translatable("spacesuit.stellaris.modules"));
+                modules.forEach(spaceSuitModule -> consumer.accept(spaceSuitModule.displayName().withStyle(ChatFormatting.GRAY)));
             }
         } else {
-            tooltipComponents.add(Component.translatable("spacesuit.stellaris.shift_for_modules"));
+            consumer.accept(Component.translatable("spacesuit.stellaris.shift_for_modules"));
         }
-
-
     }
 
     public NonNullList<ItemStack> scrapArmorModules(ItemStack stack) {

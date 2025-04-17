@@ -26,9 +26,9 @@ public class GlobeBlockEntity extends BlockEntity {
     @Override
     public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
         super.loadAdditional(tag, provider);
-        this.rotationalInertia = tag.getFloat("inertia");
-        this.yaw = tag.getFloat("yaw");
-        this.yaw0 = tag.getFloat("yaw0");
+        if (tag.getFloat("inertia").isPresent()) this.rotationalInertia = tag.getFloat("inertia").get();
+        if (tag.getFloat("yaw").isPresent()) this.yaw = tag.getFloat("yaw").get();
+        if (tag.getFloat("yaw0").isPresent()) this.yaw0 = tag.getFloat("yaw0").get();
     }
 
     @Override

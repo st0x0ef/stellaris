@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.common.menus;
 
-import java.util.List;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -15,7 +14,6 @@ public abstract class BaseItemCombinerMenu extends AbstractContainerMenu {
     protected final ContainerLevelAccess access;
     protected final Player player;
     protected final Container inputSlots;
-    private final List<Integer> inputSlotIndexes;
     protected final ResultContainer resultSlots = new ResultContainer();
     private final int resultSlotIndex;
 
@@ -31,7 +29,6 @@ public abstract class BaseItemCombinerMenu extends AbstractContainerMenu {
         this.player = playerInventory.player;
         ItemCombinerMenuSlotDefinition itemCombinerMenuSlotDefinition = this.createInputSlotDefinitions();
         this.inputSlots = this.createContainer(itemCombinerMenuSlotDefinition.getNumOfInputSlots());
-        this.inputSlotIndexes = itemCombinerMenuSlotDefinition.getInputSlotIndexes();
         this.resultSlotIndex = itemCombinerMenuSlotDefinition.getResultSlotIndex();
         this.createInputSlots(itemCombinerMenuSlotDefinition);
         this.createResultSlot(itemCombinerMenuSlotDefinition);
@@ -111,7 +108,7 @@ public abstract class BaseItemCombinerMenu extends AbstractContainerMenu {
     public ItemStack quickMoveStack(Player player, int index) {
         ItemStack itemStack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
-        if (slot != null && slot.hasItem()) {
+        if (slot.hasItem()) {
             ItemStack itemStack2 = slot.getItem();
             itemStack = itemStack2.copy();
             int i = this.getInventorySlotStart();
@@ -122,13 +119,12 @@ public abstract class BaseItemCombinerMenu extends AbstractContainerMenu {
                 }
 
                 slot.onQuickCraft(itemStack2, itemStack);
-            } else if (this.inputSlotIndexes.contains(index)) {
+            } else if (index < getResultSlot()) {
                 if (!this.moveItemStackTo(itemStack2, i, j, false)) {
                     return ItemStack.EMPTY;
                 }
             } else if (this.canMoveIntoInputSlots(itemStack2) && index >= this.getInventorySlotStart() && index < this.getUseRowEnd()) {
-                int k = this.getSlotToQuickMoveTo(itemStack);
-                if (!this.moveItemStackTo(itemStack2, k, this.getResultSlot(), false)) {
+                if (!this.moveItemStackTo(itemStack2, 0, this.getResultSlot(), false)) {
                     return ItemStack.EMPTY;
                 }
             } else if (index >= this.getInventorySlotStart() && index < this.getInventorySlotEnd()) {
@@ -157,10 +153,6 @@ public abstract class BaseItemCombinerMenu extends AbstractContainerMenu {
 
     protected boolean canMoveIntoInputSlots(ItemStack stack) {
         return true;
-    }
-
-    public int getSlotToQuickMoveTo(ItemStack stack) {
-        return this.inputSlots.isEmpty() ? 0 : this.inputSlotIndexes.getFirst();
     }
 
     public int getResultSlot() {

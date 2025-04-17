@@ -21,7 +21,7 @@ public class MotorUpgradeSlot extends Slot {
     public boolean mayPlace(ItemStack stack) {
         if (stack.getItem() instanceof VehicleUpgradeItem item) {
             if (item.getUpgrade() instanceof MotorUpgrade motorUpgrade) {
-                return vehicle.getFuel() == 0 || motorUpgrade.getFuelType() == vehicle.getFuelType().getMotorType();
+                return vehicle.getFuel() == 0 || motorUpgrade.getFuelType() == vehicle.FUEL_TYPE.getMotorType();
             }
         }
 

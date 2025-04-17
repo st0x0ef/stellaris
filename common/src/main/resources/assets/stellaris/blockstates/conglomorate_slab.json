@@ -1,13 +1,13 @@
 {
   "variants": {
     "type=bottom": {
-      "model": "stellaris:block/conglomorate_slab"
+      "model": "stellaris:block/conglomerate_slab"
     },
     "type=double": {
-      "model": "stellaris:block/conglomorate"
+      "model": "stellaris:block/conglomerate"
     },
     "type=top": {
-      "model": "stellaris:block/conglomorate_slab_top"
+      "model": "stellaris:block/conglomerate_slab_top"
     }
   }
 }

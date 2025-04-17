@@ -12,6 +12,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -99,30 +100,32 @@ public class RocketStationEntity extends BaseContainerBlockEntity implements Imp
 
         ItemStack outputStack = getItem(14);
         if (outputStack.isEmpty() || outputStack.getCount() < outputStack.getMaxStackSize()) {
-            Optional<RecipeHolder<RocketStationRecipe>> recipeHolder = quickCheck.getRecipeFor(new RocketStationInput(getLevel().getBlockEntity(getBlockPos()), getItems()), level);
-            if (recipeHolder.isPresent()) {
-                RocketStationRecipe recipe = recipeHolder.get().value();
-                ItemStack resultStack = recipe.getResultItem(level.registryAccess());
-                if (outputStack.isEmpty() || (ItemStack.isSameItemSameComponents(outputStack, resultStack)
-                        && outputStack.getCount() + resultStack.getCount() <= outputStack.getMaxStackSize())) {
+            if (level instanceof ServerLevel serverLevel) {
+                Optional<RecipeHolder<RocketStationRecipe>> recipeHolder = quickCheck.getRecipeFor(new RocketStationInput(getLevel().getBlockEntity(getBlockPos()), getItems()), serverLevel);
+                if (recipeHolder.isPresent()) {
+                    RocketStationRecipe recipe = recipeHolder.get().value();
+                    ItemStack resultStack = recipe.output();
+                    if (outputStack.isEmpty() || (ItemStack.isSameItemSameComponents(outputStack, resultStack)
+                            && outputStack.getCount() + resultStack.getCount() <= outputStack.getMaxStackSize())) {
 
-                    if (outputStack.isEmpty()) {
-                        setItem(14, resultStack.copy());
-                    }
-                    else if (ItemStack.isSameItemSameComponents(outputStack, resultStack)) {
-                        outputStack.grow(1);
-                    }
-                    else return;
-
-                    for (int i = 0; i < 14; i++) {
-                        ItemStack stack = getItem(i);
-                        stack.shrink(1);
-
-                        if (stack.isEmpty()) {
-                            setItem(i, ItemStack.EMPTY);
+                        if (outputStack.isEmpty()) {
+                            setItem(14, resultStack.copy());
                         }
+                        else if (ItemStack.isSameItemSameComponents(outputStack, resultStack)) {
+                            outputStack.grow(1);
+                        }
+                        else return;
+
+                        for (int i = 0; i < 14; i++) {
+                            ItemStack stack = getItem(i);
+                            stack.shrink(1);
+
+                            if (stack.isEmpty()) {
+                                setItem(i, ItemStack.EMPTY);
+                            }
+                        }
+                        setChanged();
                     }
-                    setChanged();
                 }
             }
         }

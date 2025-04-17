@@ -18,6 +18,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -72,19 +73,21 @@ public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity impl
 
         if (level == null) return;
 
-        Optional<RecipeHolder<FuelRefineryRecipe>> recipeHolder = cachedCheck.getRecipeFor(new FluidInput(level.getBlockEntity(getBlockPos())), level);
-        if (recipeHolder.isPresent()) {
-            FuelRefineryRecipe recipe = recipeHolder.get().value();
+        if (level instanceof ServerLevel serverLevel) {
+            Optional<RecipeHolder<FuelRefineryRecipe>> recipeHolder = cachedCheck.getRecipeFor(new FluidInput(level.getBlockEntity(getBlockPos())), serverLevel);
+            if (recipeHolder.isPresent()) {
+                FuelRefineryRecipe recipe = recipeHolder.get().value();
 
-            if (energyContainer.getEnergy() >= recipe.energy()) {
-                FluidStack resultStack = recipe.resultStack().copy();
+                if (energyContainer.getEnergy() >= recipe.energy()) {
+                    FluidStack resultStack = recipe.resultStack().copy();
 
-                if (outputTank.getFluidInTank(0).isEmpty() || outputTank.getFluidInTank(0).isFluidEqual(resultStack)) {
-                    if (outputTank.getFluidValueInTank() + resultStack.getAmount() < outputTank.getTankCapacity(0)) {
-                        energyContainer.extract(recipe.energy(), false);
-                        inputTank.drainWithoutLimits(recipe.ingredientStack().copy(), false);
-                        outputTank.fillWithoutLimits(resultStack, false);
-                        setChanged();
+                    if (outputTank.getFluidInTank(0).isEmpty() || outputTank.getFluidInTank(0).isFluidEqual(resultStack)) {
+                        if (outputTank.getFluidValueInTank() + resultStack.getAmount() < outputTank.getTankCapacity(0)) {
+                            energyContainer.extract((int) recipe.energy(), false);
+                            inputTank.drainWithoutLimits(recipe.ingredientStack().copy(), false);
+                            outputTank.fillWithoutLimits(resultStack, false);
+                            setChanged();
+                        }
                     }
                 }
             }

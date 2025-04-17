@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.client.renderers.armors;
 
-import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.st0x0ef.stellaris.Stellaris;
@@ -13,13 +12,13 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
-public class SpaceSuitModel extends HumanoidModel<LivingEntity> {
+public class SpaceSuitModel extends HumanoidModel<HumanoidRenderState> {
 
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "spacesuit"), "main");
     public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/models/armor/spacesuit_white.png");
@@ -31,11 +30,11 @@ public class SpaceSuitModel extends HumanoidModel<LivingEntity> {
 	private final ModelPart waist;
 	private final ModelPart left_leg;
 	private final ModelPart right_leg;
-    private final HumanoidModel<LivingEntity> parentModel;
+    private final HumanoidModel<HumanoidRenderState> parentModel;
 	private final EquipmentSlot slot;
 	private final ModelPart bb_main;
 
-	public SpaceSuitModel(ModelPart root, EquipmentSlot slot, ItemStack stack, @Nullable HumanoidModel<LivingEntity> parentModel) {
+	public SpaceSuitModel(ModelPart root, EquipmentSlot slot, ItemStack stack, @Nullable HumanoidModel<HumanoidRenderState> parentModel) {
         super(root, RenderType::entityTranslucent);
         this.parentModel = parentModel;
 
@@ -50,12 +49,10 @@ public class SpaceSuitModel extends HumanoidModel<LivingEntity> {
 
 		this.slot = slot;
 		this.setVisible();
-
 	}
 
 
-
-	public static LayerDefinition createBodyLayer() {
+    public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
 
@@ -111,13 +108,8 @@ public class SpaceSuitModel extends HumanoidModel<LivingEntity> {
 	}
 
 	@Override
-	protected Iterable<ModelPart> headParts() {
-		return ImmutableList.of(head);
-	}
-
-	@Override
-	protected Iterable<ModelPart> bodyParts() {
-		return ImmutableList.of(body, rightArm, leftArm, rightLeg, leftLeg, hat);
+	public ModelPart getHead() {
+		return this.head;
 	}
 
 	private void setVisible() {

@@ -1,20 +1,23 @@
 package com.st0x0ef.stellaris.mixin.client;
 
 import com.st0x0ef.stellaris.common.entities.vehicles.IVehicleEntity;
-import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Pose;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(HumanoidModel.class)
-public abstract class PlayerRiddingVehicleMixin {
+@Mixin(Entity.class)
+public abstract class PlayerRiddingVehicleMixin  {
 
-    @Inject(at = @At(value = "HEAD"), method = "setupAnim(Lnet/minecraft/world/entity/LivingEntity;FFFFF)V")
-    private void setupAnim(LivingEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, CallbackInfo c) {
+    @Shadow public abstract void setPose(Pose pose);
+
+    @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;setPose(Lnet/minecraft/world/entity/Pose;)V"), method = "startRiding(Lnet/minecraft/world/entity/Entity;Z)Z")
+    private void setupAnim(Entity entity, boolean bl, CallbackInfoReturnable<Boolean> cir) {
         if(entity.getVehicle() instanceof IVehicleEntity vehicle) {
-            ((HumanoidModel<LivingEntity>) (Object) this).riding = vehicle.setPassengersRiding();
+            setPose(vehicle.setPassengersRiding() ? Pose.SITTING : Pose.STANDING);
         }
     }
 }

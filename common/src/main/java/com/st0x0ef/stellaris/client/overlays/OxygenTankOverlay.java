@@ -46,7 +46,7 @@ public class OxygenTankOverlay {
 
                 /** DRAW OXYGEN TANK */
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-                ScreenHelper.drawTexture(x, y, textureWidth, textureHeight, OXYGEN_TANK, false);
+                ScreenHelper.drawTexture(graphics, x, y, textureWidth, textureHeight, OXYGEN_TANK);
                 ScreenHelper.drawVertical(graphics, x, y, textureWidth, textureHeight, oxygen, maxOxygen, OXYGEN_TANK_FULL, false);
 
                 /** OXYGEN AMOUNT TEXT */

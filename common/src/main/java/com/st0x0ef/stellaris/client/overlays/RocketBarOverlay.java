@@ -1,14 +1,13 @@
 package com.st0x0ef.stellaris.client.overlays;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
 import com.st0x0ef.stellaris.common.entities.vehicles.LanderEntity;
 import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
@@ -27,9 +26,9 @@ public class RocketBarOverlay {
 
             if (level == null) return;
 
-            double min = player.level().getMinBuildHeight();
+            double min = player.level().getMinY();
 
-            for (int i = player.level().getMinBuildHeight(); i < player.level().getMaxBuildHeight(); i++) {
+            for (int i = player.level().getMinY(); i < player.level().getMaxY(); i++) {
                 if (level.getBlockState(new BlockPos(player.getBlockX(), i, player.getBlockZ())).getBlock() != Blocks.AIR) {
                     min = i;
                 }
@@ -40,12 +39,10 @@ public class RocketBarOverlay {
             ResourceLocation planet = PlanetUtil.getPlanetBar(level.dimension().location());
 
             /** ROCKET BAR IMAGE */
-            RenderSystem.setShaderTexture(0, planet);
-            graphics.blit(planet, 0, (graphics.guiHeight() / 2) - 128 / 2, 0, 0, 16, 128, 16, 128);
+            graphics.blit(RenderType::guiTextured, planet, 0, (graphics.guiHeight() / 2) - 128 / 2, 0, 0, 16, 128, 16, 128);
 
             /** ROCKET_Y IMAGE */
-            RenderSystem.setShaderTexture(0, ROCKET);
-            ScreenHelper.renderWithFloat.blit(graphics.pose(), 4F, (float) (((float) graphics.guiHeight() / 2) + (103f / 2f) - yHeight), 0, 0, 8, 11, 8, 11);
+            graphics.blit(RenderType::guiTextured, ROCKET, 4, (int) (((double) graphics.guiHeight() / 2) + (103f / 2f) - yHeight), 0, 0, 8, 11, 8, 11);
         }
     }
 }

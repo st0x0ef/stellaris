@@ -5,13 +5,12 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "CandleBlockMixin",
-    "EntityEatMixin",
+    "ConsumableMixin",
     "EntityTick",
     "ItemEntityGravityMixin",
     "LivingEntityMixin",
     "MixinChunkAccess",
     "MixinChunkSerializer",
-    "MobSpawnEggMixin",
     "PlayerDataMixin"
   ],
   "client": [
@@ -20,7 +19,8 @@
     "client.PlayerRiddingVehicleMixin",
     "client.RenderPlayerMixin",
     "client.SandStormMixin",
-    "client.TabletKeyMenuMixin"
+    "client.TabletKeyMenuMixin",
+    "client.CustomItemModelRenderer"
   ],
   "injectors": {
     "defaultRequire": 1

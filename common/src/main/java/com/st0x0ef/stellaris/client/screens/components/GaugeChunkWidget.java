@@ -7,6 +7,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -43,46 +44,46 @@ public class GaugeChunkWidget extends AbstractWidget {
             case DOWN_UP -> {
                 int i = Mth.ceil(getProgress(amount, capacity) * (getHeight() - 1));
                 for (int j = 0; j < width/imageWidth; j++) {
-                    guiGraphics.blitSprite(sprite, imageWidth, getHeight(), 0, getHeight() - i, getX() + imageWidth * j, getY() + getHeight() - i, imageWidth, i);
+                    guiGraphics.blitSprite(RenderType::guiTextured, sprite, imageWidth, getHeight(), 0, getHeight() - i, getX() + imageWidth * j, getY() + getHeight() - i, imageWidth, i);
                 }
                 int x = width % imageWidth;
                 if (x > 0) {
-                    guiGraphics.blitSprite(sprite, x, getHeight(), 0, getHeight() - i, getX() + width - x, getY() + getHeight() - i, x, i);
+                    guiGraphics.blitSprite(RenderType::guiTextured, sprite, x, getHeight(), 0, getHeight() - i, getX() + width - x, getY() + getHeight() - i, x, i);
                 }
             }
             case UP_DOWN -> {
                 int i = Mth.ceil(getProgress(amount, capacity) * (getHeight() - 1));
                 for (int j = 0; j < width/imageWidth; j++) {
-                    guiGraphics.blitSprite(sprite, imageWidth, getHeight(), 0, 0, getX() + imageWidth * j, getY(), imageWidth, i);
+                    guiGraphics.blitSprite(RenderType::guiTextured, sprite, imageWidth, getHeight(), 0, 0, getX() + imageWidth * j, getY(), imageWidth, i);
                 }
                 int x = width % imageWidth;
                 if (x > 0) {
-                    guiGraphics.blitSprite(sprite, x, getHeight(), 0, 0, getX() + width - x, getY(), x, i);
+                    guiGraphics.blitSprite(RenderType::guiTextured, sprite, x, getHeight(), 0, 0, getX() + width - x, getY(), x, i);
                 }
             }
             case LEFT_RIGHT -> {
                 int i = Mth.ceil(getProgress(amount, capacity) * (getWidth() - 1));
                 for (int j = 0; j < height/imageHeight; j++) {
-                    guiGraphics.blitSprite(sprite, getWidth(), imageHeight, 0, 0, getX(), getY() + imageHeight * j, i, imageHeight);
+                    guiGraphics.blitSprite(RenderType::guiTextured, sprite, getWidth(), imageHeight, 0, 0, getX(), getY() + imageHeight * j, i, imageHeight);
                 }
                 int y = height % imageHeight;
                 if (y > 0) {
-                    guiGraphics.blitSprite(sprite, getWidth(), y, 0, 0, getX(), getY() + height - y, i, y);
+                    guiGraphics.blitSprite(RenderType::guiTextured, sprite, getWidth(), y, 0, 0, getX(), getY() + height - y, i, y);
                 }
             }
             case RIGHT_LEFT -> {
                 int i = Mth.ceil(getProgress(amount, capacity) * (getWidth() - 1));
                 for (int j = 0; j < height/imageHeight; j++) {
-                    guiGraphics.blitSprite(sprite, getWidth(), imageHeight, getWidth() - i, 0, getX() + getWidth() - i, getY() + imageHeight * j, i, imageHeight);
+                    guiGraphics.blitSprite(RenderType::guiTextured, sprite, getWidth(), imageHeight, getWidth() - i, 0, getX() + getWidth() - i, getY() + imageHeight * j, i, imageHeight);
                 }
                 int y = height % imageHeight;
                 if (y > 0) {
-                    guiGraphics.blitSprite(sprite, getWidth(), y, getWidth() - i, 0, getX() + getWidth() - i, getY() + height - y, i, y);
+                    guiGraphics.blitSprite(RenderType::guiTextured, sprite, getWidth(), y, getWidth() - i, 0, getX() + getWidth() - i, getY() + height - y, i, y);
                 }
             }
         }
         if (this.overlay_sprite != null) {
-            guiGraphics.blitSprite(overlay_sprite, getX(), getY(), width, height);
+            guiGraphics.blitSprite(RenderType::guiTextured, overlay_sprite, getX(), getY(), width, height);
         }
     }
 

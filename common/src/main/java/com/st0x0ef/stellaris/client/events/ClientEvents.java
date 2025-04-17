@@ -55,7 +55,6 @@ public class ClientEvents {
             });
             return EventResult.pass();
         }));
-
     }
 
     public static void addTooltip(List<Component> lines) {

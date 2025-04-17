@@ -12,9 +12,11 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.projectile.LlamaSpit;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.Vec3;
 
 public class CheeseSpit extends LlamaSpit {
 
@@ -49,7 +51,7 @@ public class CheeseSpit extends LlamaSpit {
         double e1 = packet.getY();
         double f1 = packet.getZ();
         this.syncPacketPositionCodec(d1, e1, f1);
-        this.moveTo(d1, e1, f1);
+        this.move(MoverType.SELF, new Vec3(d1, e1, f1));
         this.setXRot(packet.getXRot());
         this.setYRot(packet.getYRot());
         this.setId(i1);

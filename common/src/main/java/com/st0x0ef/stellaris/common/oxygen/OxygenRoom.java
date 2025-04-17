@@ -22,6 +22,13 @@ public class OxygenRoom {
         isClosed = false;
     }
 
+    public OxygenRoom(ServerLevel level, BlockPos distributorPos, List<BlockPos> oxygenatedPositions) {
+        this.distributorPos = distributorPos;
+        this.oxygenatedPositions = oxygenatedPositions;
+        this.level = level;
+        isClosed = false;
+    }
+
     public BlockPos getDistributorPosition() {
         return distributorPos;
     }

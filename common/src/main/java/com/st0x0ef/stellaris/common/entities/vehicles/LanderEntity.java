@@ -21,6 +21,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.HasCustomInventoryScreen;
+import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -36,7 +37,7 @@ public class LanderEntity extends IVehicleEntity implements HasCustomInventorySc
     }
 
     public LanderEntity(EntityType<? extends LanderEntity> type, Level level) {
-        super(type, level);
+        super(EntityRegistry.LANDER.get(), level);
 
         this.inventory = new SimpleContainer(15);
     }
@@ -52,7 +53,7 @@ public class LanderEntity extends IVehicleEntity implements HasCustomInventorySc
     }
 
     @Override
-    public void push(Entity p_21294_) {
+    public void push(Entity entity) {
     }
 
     @Override
@@ -61,7 +62,7 @@ public class LanderEntity extends IVehicleEntity implements HasCustomInventorySc
     }
 
     @Override
-    public void kill() {
+    public void kill(ServerLevel level) {
         this.dropEquipment();
 
         if (!this.level().isClientSide) {
@@ -70,8 +71,8 @@ public class LanderEntity extends IVehicleEntity implements HasCustomInventorySc
     }
 
     @Override
-    public boolean hurt(DamageSource source, float amount) {
-        if (source.getEntity() != null && source.getEntity().isCrouching()
+    public boolean hurtServer(ServerLevel serverLevel, DamageSource damageSource, float f) {
+        if (damageSource.getEntity() != null && damageSource.getEntity().isCrouching()
                 && !this.isVehicle()) {
             this.dropEquipment();
 
@@ -86,8 +87,8 @@ public class LanderEntity extends IVehicleEntity implements HasCustomInventorySc
     }
 
     @Override
-    public boolean causeFallDamage(float p_150347_, float p_150348_, DamageSource p_150349_) {
-        if (p_150347_ > 5.0F) {
+    public boolean causeFallDamage(double d, float f, DamageSource damageSource) {
+        if (d > 5.0F) {
             if (!this.level().isClientSide) {
                 this.level().explode(null, this.getX(), this.getY(), this.getZ(), 10, true,
                         Level.ExplosionInteraction.TNT);
@@ -96,14 +97,14 @@ public class LanderEntity extends IVehicleEntity implements HasCustomInventorySc
             }
         }
 
-        return super.causeFallDamage(p_150347_, p_150348_, p_150349_);
+        return super.causeFallDamage(d, f, damageSource);
     }
 
     protected void dropEquipment() {
         for (int i = 0; i < this.inventory.getItems().size(); ++i) {
             ItemStack itemstack = this.inventory.getItem(i);
-            if (!itemstack.isEmpty()) {
-                this.spawnAtLocation(itemstack);
+            if (!itemstack.isEmpty() && level() instanceof ServerLevel serverLevel) {
+                this.spawnAtLocation(serverLevel, itemstack);
             }
         }
     }
@@ -116,14 +117,16 @@ public class LanderEntity extends IVehicleEntity implements HasCustomInventorySc
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
-        ListTag inventoryCustom = compound.getList("InventoryCustom", 15);
-        this.inventory.fromTag(inventoryCustom, registryAccess());
+        if (compound.getList("InventoryCustom").isPresent()) {
+            ListTag inventoryCustom = compound.getList("InventoryCustom").get();
+            this.inventory.fromTag(inventoryCustom, registryAccess());
+        }
     }
 
     @Override
     public InteractionResult interact(Player player, InteractionHand hand) {
         super.interact(player, hand);
-        InteractionResult result = InteractionResult.sidedSuccess(this.level().isClientSide);
+        InteractionResult result = InteractionResult.SUCCESS;
 
         if (!this.level().isClientSide) {
             if (player.isCrouching()) {
@@ -146,6 +149,7 @@ public class LanderEntity extends IVehicleEntity implements HasCustomInventorySc
 
         if (KeyVariables.isHoldingJump(getFirstPlayerPassenger())) {
             slowDownLander();
+            move(MoverType.SELF, getDeltaMovement());
         }
     }
 
@@ -169,7 +173,7 @@ public class LanderEntity extends IVehicleEntity implements HasCustomInventorySc
 
             if (this.level() instanceof ServerLevel level) {
                 for (ServerPlayer player : level.getServer().getPlayerList().getPlayers()) {
-                    level.sendParticles(player, ParticleTypes.SPIT, true, this.getX(),
+                    level.sendParticles(player, ParticleTypes.SPIT, true, true, this.getX(),
                             this.getY() - 0.3, this.getZ(), 3, 0.1, 0.1, 0.1, 0.001);
                 }
             }

@@ -9,9 +9,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 public class OilFinderModule extends Item implements SpaceSuitModule {
 
@@ -42,8 +43,8 @@ public class OilFinderModule extends Item implements SpaceSuitModule {
     }
 
     @Override
-    public void addToTooltips(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        tooltipComponents.add(Component.translatable("spacesuit.stellaris.oil_finder.tooltip"));
+    public void addToTooltips(ItemStack itemStack, TooltipContext tooltipContext, TooltipDisplay tooltipDisplay, Consumer<Component> consumer, TooltipFlag tooltipFlag) {
+        consumer.accept(Component.translatable("spacesuit.stellaris.oil_finder.tooltip"));
     }
 
 }

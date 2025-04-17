@@ -4,6 +4,8 @@ import com.google.common.collect.Lists;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
+import com.st0x0ef.stellaris.client.renderers.entities.vehicle.VehicleRenderState;
+import com.st0x0ef.stellaris.common.entities.vehicles.IVehicleEntity;
 import com.st0x0ef.stellaris.common.entities.vehicles.base.AbstractRoverBase;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -11,7 +13,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
@@ -19,16 +20,15 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 @Environment(EnvType.CLIENT)
-public abstract class AbstractRoverRenderer<T extends AbstractRoverBase, M extends EntityModel<T>> extends EntityRenderer<T> implements RenderLayerParent<T, M> {
+public abstract class AbstractRoverRenderer<T extends AbstractRoverBase, S extends VehicleRenderState, M extends EntityModel<S>> extends EntityRenderer<T, S> implements RenderLayerParent<S, M> {
     protected final M model;
-    protected final List<RenderLayer<T, M>> layers = Lists.newArrayList();
+    protected final List<RenderLayer<S, M>> layers = Lists.newArrayList();
 
     public AbstractRoverRenderer(EntityRendererProvider.Context context, M model, float shadowRadius) {
         super(context);
@@ -41,15 +41,15 @@ public abstract class AbstractRoverRenderer<T extends AbstractRoverBase, M exten
     }
 
     @Override
-    public void render(T entity, float entityYaw, float partialTick, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
+    public void render(S renderState, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
         poseStack.pushPose();
-        boolean shouldSit = entity.isPassenger() && (entity.getVehicle() != null);
-        this.model.riding = shouldSit;
-        float f = Mth.rotLerp(partialTick, entity.yRotO, entity.getYRot());
-        float f1 = Mth.rotLerp(partialTick, entity.yRotO, entity.getYRot());
+        boolean shouldSit = renderState.entity.isPassenger() && (renderState.entity.getVehicle() != null);
+        //this.model.riding = shouldSit;
+        float f = Mth.rotLerp(renderState.partialTick, renderState.entity.yRotO, renderState.entity.getYRot());
+        float f1 = Mth.rotLerp(renderState.partialTick, renderState.entity.yRotO, renderState.entity.getYRot());
         float f2 = f1 - f;
-        if (shouldSit && entity.getVehicle() instanceof LivingEntity livingentity) {
-            f = Mth.rotLerp(partialTick, livingentity.yBodyRotO, livingentity.yBodyRot);
+        if (shouldSit && renderState.entity.getVehicle() instanceof LivingEntity livingentity) {
+            f = Mth.rotLerp(renderState.partialTick, livingentity.yBodyRotO, livingentity.yBodyRot);
             f2 = f1 - f;
             float f3 = Mth.wrapDegrees(f2);
             if (f3 < -85.0F) {
@@ -68,42 +68,42 @@ public abstract class AbstractRoverRenderer<T extends AbstractRoverBase, M exten
             f2 = f1 - f;
         }
 
-        float f6 = Mth.lerp(partialTick, entity.xRotO, entity.getXRot());
+        float f6 = Mth.lerp(renderState.partialTick, renderState.entity.xRotO, renderState.entity.getXRot());
 
-        float f7 = this.getBob(entity, partialTick);
-        this.setupRotations(entity, poseStack, f7, f, partialTick);
+        float f7 = this.getBob(renderState.entity, renderState.partialTick);
+        this.setupRotations(renderState.entity, poseStack, f7, f, renderState.partialTick);
         poseStack.scale(-1.0F, -1.0F, 1.0F);
         poseStack.translate(0.0D, -1.501F, 0.0D);
         float f8 = 0.0F;
         float f5 = 0.0F;
 
 
-        this.model.prepareMobModel(entity, f5, f8, partialTick);
-        this.model.setupAnim(entity, f5, f8, f7, f2, f6);
+        //this.model.prepareMobModel(renderState.entity, f5, f8, renderState.partialTick);
+        this.model.setupAnim(renderState);
         Minecraft minecraft = Minecraft.getInstance();
-        boolean flag = this.isBodyVisible(entity);
-        boolean flag1 = !flag && !entity.isInvisibleTo(minecraft.player);
-        boolean flag2 = minecraft.shouldEntityAppearGlowing(entity);
-        RenderType rendertype = this.getRenderType(entity, flag, flag1, flag2);
+        boolean flag = this.isBodyVisible(renderState.entity);
+        boolean flag1 = !flag && !renderState.entity.isInvisibleTo(minecraft.player);
+        boolean flag2 = minecraft.shouldEntityAppearGlowing(renderState.entity);
+        RenderType rendertype = this.getRenderType(renderState.entity, flag, flag1, flag2);
         if (rendertype != null) {
-            VertexConsumer vertexconsumer = buffer.getBuffer(rendertype);
-            int i = getOverlayCoords(entity, this.getWhiteOverlayProgress(entity, partialTick));
+            VertexConsumer vertexconsumer = bufferSource.getBuffer(rendertype);
+            int i = getOverlayCoords(renderState.entity, this.getWhiteOverlayProgress(renderState.entity, renderState.partialTick));
             this.model.renderToBuffer(poseStack, vertexconsumer, packedLight, i, -1);
         }
 
-        if (!entity.isSpectator()) {
-            for(RenderLayer<T, M> renderlayer : this.layers) {
-                renderlayer.render(poseStack, buffer, packedLight, entity, f5, f8, partialTick, f7, f2, f6);
+        if (!renderState.entity.isSpectator()) {
+            for(RenderLayer<S, M> renderlayer : this.layers) {
+                renderlayer.render(poseStack, bufferSource, packedLight, renderState, f2, f6);
             }
         }
 
         poseStack.popPose();
-        super.render(entity, entityYaw, partialTick, poseStack, buffer, packedLight);
+        super.render(renderState, poseStack, bufferSource, packedLight);
     }
 
 
     @Nullable
-    protected RenderType getRenderType(T entity, boolean p_115323_, boolean p_115324_, boolean p_115325_) {
+    protected RenderType getRenderType(IVehicleEntity entity, boolean p_115323_, boolean p_115324_, boolean p_115325_) {
         ResourceLocation resourcelocation = this.getTextureLocation(entity);
         if (p_115324_) {
             return RenderType.itemEntityTranslucentCull(resourcelocation);
@@ -114,23 +114,23 @@ public abstract class AbstractRoverRenderer<T extends AbstractRoverBase, M exten
         }
     }
 
-    protected boolean isBodyVisible(T entity) {
+    protected boolean isBodyVisible(IVehicleEntity entity) {
         return !entity.isInvisible();
     }
 
-    protected boolean isShaking(T entity) {
+    protected boolean isShaking(IVehicleEntity entity) {
         return false;
     }
 
-    public static int getOverlayCoords(Entity entity, float p_115340_) {
+    public static int getOverlayCoords(IVehicleEntity entity, float p_115340_) {
         return OverlayTexture.pack(OverlayTexture.u(p_115340_), OverlayTexture.v(false));
     }
 
-    protected float getWhiteOverlayProgress(T p_115334_, float p_115335_) {
+    protected float getWhiteOverlayProgress(IVehicleEntity entity, float p_115335_) {
         return 0.0F;
     }
 
-    protected void setupRotations(T entity, PoseStack poseStack, float p_115319_, float p_115320_, float p_115321_) {
+    protected void setupRotations(IVehicleEntity entity, PoseStack poseStack, float p_115319_, float p_115320_, float p_115321_) {
         if (this.isShaking(entity)) {
             if (!Minecraft.getInstance().isPaused()) {
                 double shakeDirection1 = (p_115321_ * (entity.level().random.nextBoolean() ? 1 : -1)) / 50;
@@ -142,12 +142,11 @@ public abstract class AbstractRoverRenderer<T extends AbstractRoverBase, M exten
         poseStack.mulPose(Axis.YP.rotationDegrees(180.0F - p_115320_));
     }
 
-    protected float getBob(T p_115305_, float p_115306_) {
-        return (float)p_115305_.tickCount + p_115306_;
+    protected float getBob(IVehicleEntity entity, float p_115306_) {
+        return (float)entity.tickCount + p_115306_;
     }
 
-    @Override
-    public boolean shouldRender(T livingEntity, Frustum camera, double camX, double camY, double camZ) {
-        return livingEntity != null && camera.isVisible(livingEntity.getBoundingBoxForCulling());
+    protected ResourceLocation getTextureLocation(IVehicleEntity rocket) {
+        return null;
     }
 }

@@ -1,0 +1,10 @@
+{
+  "model": {
+    "type": "minecraft:special",
+    "base": "stellaris:item/rover",
+    "model": {
+      "type": "stellaris:rover",
+      "texture": "stellaris:vehicle/rover"
+    }
+  }
+}

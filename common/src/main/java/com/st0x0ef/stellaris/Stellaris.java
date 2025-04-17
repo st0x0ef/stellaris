@@ -14,10 +14,8 @@ import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import com.st0x0ef.stellaris.common.network.packets.SyncPlanetsDatapackPacket;
 import com.st0x0ef.stellaris.common.registry.*;
 import dev.architectury.networking.NetworkManager;
-import dev.architectury.registry.ReloadListenerRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,7 +44,6 @@ public class Stellaris {
         EntityRegistry.SENSOR.register();
         BlockEntityRegistry.BLOCK_ENTITY_TYPE.register();
         ItemsRegistry.ITEMS.register();
-        ArmorMaterialsRegistry.ARMOR_MATERIAL.register();
         CreativeTabsRegistry.TABS.register();
         MenuTypesRegistry.MENU_TYPE.register();
         FeaturesRegistry.FEATURES.register();
@@ -57,8 +54,6 @@ public class Stellaris {
         RecipesRegistry.register();
         EntityRegistry.registerSpawnPlacements();
         EffectsRegistry.register();
-
-        ReloadListenerRegistry.register(PackType.SERVER_DATA, new StellarisData());
     }
 
     public static void onDatapackSyncEvent(ServerPlayer player, boolean joined) {

@@ -9,6 +9,7 @@ import com.st0x0ef.stellaris.common.entities.mobs.AlienZombie;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.DifficultyInstance;
@@ -42,11 +43,12 @@ import net.minecraft.world.item.trading.MerchantOffers;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 
+import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 
 public class Alien extends Villager implements Merchant, Npc {
-	public static ImmutableList<Pair<Integer, ? extends BehaviorControl<? super Villager>>> core(VillagerProfession profession, float p_220638_1_) {
+	public static ImmutableList<Pair<Integer, ? extends BehaviorControl<? super Villager>>> core(Holder<VillagerProfession> profession, float p_220638_1_) {
 		return VillagerGoalPackages.getCorePackage(profession, p_220638_1_);
 	}
 
@@ -68,7 +70,7 @@ public class Alien extends Villager implements Merchant, Npc {
 	public Villager getBreedOffspring(ServerLevel level, AgeableMob p_241840_2_) {
 		Alien alien = new Alien(EntityRegistry.ALIEN.get(), level);
 
-		alien.finalizeSpawn(level, level.getCurrentDifficultyAt(new BlockPos((int)p_241840_2_.getX(), (int)p_241840_2_.getY(), (int)p_241840_2_.getZ())), MobSpawnType.BREEDING, null);
+		alien.finalizeSpawn(level, level.getCurrentDifficultyAt(new BlockPos((int)p_241840_2_.getX(), (int)p_241840_2_.getY(), (int)p_241840_2_.getZ())), EntitySpawnReason.BREEDING, null);
 		return alien;
 	}
 
@@ -78,7 +80,7 @@ public class Alien extends Villager implements Merchant, Npc {
 		if (itemstack.getItem() != ItemsRegistry.ALIEN_SPAWN_EGG.get() && this.isAlive() && !this.isTrading() && !this.isSleeping() && !player.isSecondaryUseActive()) {
 			if (this.isBaby()) {
 				this.shakeHead();
-				return InteractionResult.sidedSuccess(this.level().isClientSide);
+				return InteractionResult.SUCCESS;
 			}
 		}
 		return InteractionResult.PASS;
@@ -87,7 +89,7 @@ public class Alien extends Villager implements Merchant, Npc {
 	private void displayMerchantGui(Player player) {
 		this.recalculateSpecialPricesFor(player);
 		this.setTradingPlayer(player);
-		this.openTradingScreen(player, this.getDisplayName(), this.getVillagerData().getLevel());
+		this.openTradingScreen(player, this.getDisplayName(), this.getVillagerData().level());
 	}
 
 	private void recalculateSpecialPricesFor(Player playerIn) {
@@ -139,40 +141,38 @@ public class Alien extends Villager implements Merchant, Npc {
 		this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, AlienZombie.class, 15.0F, 0.5F, 0.5F));
 	}
 
-	private void initBrain(Brain<Villager> p_35425_) {
-		VillagerProfession villagerprofession = this.getVillagerData().getProfession();
+	private void initBrain(Brain<Villager> brain) {
+		Holder<VillagerProfession> villagerprofession = this.getVillagerData().profession();
 
 		if (this.isBaby()) {
-			p_35425_.setSchedule(Schedule.VILLAGER_BABY);
-			p_35425_.addActivity(Activity.PLAY, VillagerGoalPackages.getPlayPackage(0.5F));
+			brain.setSchedule(Schedule.VILLAGER_BABY);
+			brain.addActivity(Activity.PLAY, VillagerGoalPackages.getPlayPackage(0.5F));
 		} else {
-			p_35425_.setSchedule(Schedule.VILLAGER_DEFAULT);
-			p_35425_.addActivityWithConditions(Activity.WORK, VillagerGoalPackages.getWorkPackage(villagerprofession, 0.5F), ImmutableSet.of(Pair.of(MemoryModuleType.JOB_SITE, MemoryStatus.VALUE_PRESENT)));
+			brain.setSchedule(Schedule.VILLAGER_DEFAULT);
+			brain.addActivityWithConditions(Activity.WORK, VillagerGoalPackages.getWorkPackage(villagerprofession, 0.5F), ImmutableSet.of(Pair.of(MemoryModuleType.JOB_SITE, MemoryStatus.VALUE_PRESENT)));
 		}
 
-		p_35425_.addActivity(Activity.CORE, Alien.core(villagerprofession, 0.5F));
-		p_35425_.addActivity(Activity.REST, VillagerGoalPackages.getRestPackage(villagerprofession, 0.5F));
-		p_35425_.addActivity(Activity.IDLE, VillagerGoalPackages.getIdlePackage(villagerprofession, 0.5F));
-		p_35425_.addActivity(Activity.PANIC, VillagerGoalPackages.getPanicPackage(villagerprofession, 0.5F));
-		p_35425_.addActivity(Activity.PRE_RAID, VillagerGoalPackages.getPreRaidPackage(villagerprofession, 0.5F));
-		p_35425_.addActivity(Activity.RAID, VillagerGoalPackages.getRaidPackage(villagerprofession, 0.5F));
-		p_35425_.addActivity(Activity.HIDE, VillagerGoalPackages.getHidePackage(villagerprofession, 0.5F));
-		p_35425_.setCoreActivities(ImmutableSet.of(Activity.CORE));
-		p_35425_.setDefaultActivity(Activity.IDLE);
-		p_35425_.setActiveActivityIfPossible(Activity.IDLE);
-		p_35425_.updateActivityFromSchedule(this.level().getDayTime(), this.level().getGameTime());
+		brain.addActivity(Activity.CORE, Alien.core(villagerprofession, 0.5F));
+		brain.addActivity(Activity.REST, VillagerGoalPackages.getRestPackage(villagerprofession, 0.5F));
+		brain.addActivity(Activity.IDLE, VillagerGoalPackages.getIdlePackage(villagerprofession, 0.5F));
+		brain.addActivity(Activity.PANIC, VillagerGoalPackages.getPanicPackage(villagerprofession, 0.5F));
+		brain.addActivity(Activity.PRE_RAID, VillagerGoalPackages.getPreRaidPackage(villagerprofession, 0.5F));
+		brain.addActivity(Activity.RAID, VillagerGoalPackages.getRaidPackage(villagerprofession, 0.5F));
+		brain.addActivity(Activity.HIDE, VillagerGoalPackages.getHidePackage(villagerprofession, 0.5F));
+		brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
+		brain.setDefaultActivity(Activity.IDLE);
+		brain.setActiveActivityIfPossible(Activity.IDLE);
+		brain.updateActivityFromSchedule(this.level().getDayTime(), this.level().getGameTime());
 	}
 
-
-
 	@Override
-	public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn) {
-
-		if (reason == MobSpawnType.COMMAND || reason == MobSpawnType.SPAWN_EGG || reason == MobSpawnType.SPAWNER || reason == MobSpawnType.DISPENSER) {
-			this.setVillagerData(this.getVillagerData().setType(VillagerType.byBiome(worldIn.getBiome(this.blockPosition()))));
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, EntitySpawnReason reason, SpawnGroupData spawnDataIn) {
+		if (reason == EntitySpawnReason.COMMAND || reason == EntitySpawnReason.SPAWN_ITEM_USE || reason == EntitySpawnReason.SPAWNER || reason == EntitySpawnReason.DISPENSER) {
+			Optional<Holder.Reference<VillagerType>> villagerType = worldIn.registryAccess().get(VillagerType.byBiome(worldIn.getBiome(this.blockPosition())));
+			villagerType.ifPresent(villagerTypeReference -> this.setVillagerData(this.getVillagerData().withType(villagerTypeReference)));
 		}
 
-		if (reason == MobSpawnType.STRUCTURE) {
+		if (reason == EntitySpawnReason.STRUCTURE) {
 			this.assignProfessionWhenSpawned = true;
 		}
 
@@ -184,10 +184,9 @@ public class Alien extends Villager implements Merchant, Npc {
 		int min = 1;
 
 		for (int i = 0; i < new Random().nextInt((max+1)-min)+min; i++) {
-
 			AlienJobs j = AlienJobs.values()[i];
-
-			this.setVillagerData(this.getVillagerData().setProfession(j.getAlienJobs()));
+			Optional<Holder.Reference<VillagerProfession>> villagerProfession = worldIn.registryAccess().get(j.getAlienJobs());
+            villagerProfession.ifPresent(villagerProfessionReference -> this.setVillagerData(this.getVillagerData().withProfession(villagerProfessionReference)));
 		}
 
 		return spawnDataIn;

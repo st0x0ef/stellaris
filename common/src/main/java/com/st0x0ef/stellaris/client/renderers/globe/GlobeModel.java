@@ -16,12 +16,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
 @Environment(EnvType.CLIENT)
-public class GlobeModel<T extends GlobeBlockEntity> extends Model {
+public class GlobeModel extends Model {
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "globe"), "main");
     public final ModelPart globe;
 
     public GlobeModel(ModelPart root) {
-        super(RenderType::entityCutout);
+        super(root, RenderType::entityTranslucent);
         this.globe = root.getChild("globe");
     }
 

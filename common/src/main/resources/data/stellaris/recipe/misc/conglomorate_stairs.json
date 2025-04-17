@@ -6,10 +6,10 @@
     "###"
   ],
   "key": {
-    "#": {"item": "stellaris:conglomorate"}
+    "#": {"item": "stellaris:conglomerate"}
   },
   "result": {
-    "id": "stellaris:conglomorate_stairs",
+    "id": "stellaris:conglomerate_stairs",
     "count": 4
   }
 }

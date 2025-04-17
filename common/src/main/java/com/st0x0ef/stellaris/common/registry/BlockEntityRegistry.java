@@ -9,70 +9,71 @@ import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
+import java.util.Set;
 import java.util.function.Supplier;
 
 public class BlockEntityRegistry {
     //Block entity type
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPE = DeferredRegister.create(Stellaris.MODID, Registries.BLOCK_ENTITY_TYPE);
     public static final RegistrySupplier<BlockEntityType<RocketStationEntity>> ROCKET_STATION = BLOCK_ENTITY_TYPE.register("rocket_station",
-            () -> BlockEntityType.Builder.of(RocketStationEntity::new, BlocksRegistry.ROCKET_STATION.get()).build(null));
+            () -> new BlockEntityType<>(RocketStationEntity::new, Set.of(BlocksRegistry.ROCKET_STATION.get())));
     public static final RegistrySupplier<BlockEntityType<RadioactiveBlockEntity>> RADIOACTIVE_BLOCK = BLOCK_ENTITY_TYPE.register("radioactive_block",
-            () -> BlockEntityType.Builder.of(RadioactiveBlockEntity::new,
+            () ->  new BlockEntityType<>(RadioactiveBlockEntity::new, Set.of(
                     BlocksRegistry.URANIUM_BLOCK.get(),
                     BlocksRegistry.RAW_URANIUM_BLOCK.get(),
                     BlocksRegistry.MERCURY_URANIUM_ORE.get(),
                     BlocksRegistry.PLUTONIUM_BLOCK.get(),
                     BlocksRegistry.NEPTUNIUM_BLOCK.get()
-            ).build(null));
-    public static final RegistrySupplier<BlockEntityType<GlobeBlockEntity>> GLOBE_BLOCK_ENTITY = BLOCK_ENTITY_TYPE.register("globe", () -> BlockEntityType.Builder.of(GlobeBlockEntity::new,
+            )));
+    public static final RegistrySupplier<BlockEntityType<GlobeBlockEntity>> GLOBE_BLOCK_ENTITY = BLOCK_ENTITY_TYPE.register("globe", () ->  new BlockEntityType<>(GlobeBlockEntity::new, Set.of(
                     BlocksRegistry.EARTH_GLOBE_BLOCK.get(),
                     BlocksRegistry.MOON_GLOBE_BLOCK.get(),
                     BlocksRegistry.MARS_GLOBE_BLOCK.get(),
                     BlocksRegistry.MERCURY_GLOBE_BLOCK.get(),
                     BlocksRegistry.VENUS_GLOBE_BLOCK.get())
-            .build(null));
+    ));
 
     public static final Supplier<BlockEntityType<?>> SOLAR_PANEL = BLOCK_ENTITY_TYPE.register("solar_panel",
-            () -> BlockEntityType.Builder.of(SolarPanelEntity::new, BlocksRegistry.SOLAR_PANEL.get()).build(null));
+            () ->  new BlockEntityType<>(SolarPanelEntity::new, Set.of(BlocksRegistry.SOLAR_PANEL.get())));
     public static final Supplier<BlockEntityType<?>> COAL_GENERATOR = BLOCK_ENTITY_TYPE.register("coal_generator",
-            () -> BlockEntityType.Builder.of(CoalGeneratorEntity::new, BlocksRegistry.COAL_GENERATOR.get()).build(null));
+            () ->  new BlockEntityType<>(CoalGeneratorEntity::new, Set.of(BlocksRegistry.COAL_GENERATOR.get())));
     public static final Supplier<BlockEntityType<?>> RADIOACTIVE_GENERATOR = BLOCK_ENTITY_TYPE.register("radioactive_generator",
-            () -> BlockEntityType.Builder.of(RadioactiveGeneratorEntity::new, BlocksRegistry.RADIOACTIVE_GENERATOR.get()).build(null));
+            () ->  new BlockEntityType<>(RadioactiveGeneratorEntity::new, Set.of(BlocksRegistry.RADIOACTIVE_GENERATOR.get())));
 
     public static final RegistrySupplier<BlockEntityType<?>> VACUUMATOR_ENTITY = BLOCK_ENTITY_TYPE.register("vacuumator",
-            () -> BlockEntityType.Builder.of(VacuumatorBlockEntity::new, BlocksRegistry.VACUMATOR.get()).build(null));
+            () ->  new BlockEntityType<>(VacuumatorBlockEntity::new, Set.of(BlocksRegistry.VACUMATOR.get())));
     public static final Supplier<BlockEntityType<?>> WATER_SEPARATOR_ENTITY = BLOCK_ENTITY_TYPE.register("water_separator",
-            () -> BlockEntityType.Builder.of(WaterSeparatorBlockEntity::new, BlocksRegistry.WATER_SEPARATOR.get()).build(null));
+            () ->  new BlockEntityType<>(WaterSeparatorBlockEntity::new, Set.of(BlocksRegistry.WATER_SEPARATOR.get())));
     public static final Supplier<BlockEntityType<?>> OXYGEN_DISTRIBUTOR = BLOCK_ENTITY_TYPE.register("oxygen_distributor",
-            () -> BlockEntityType.Builder.of(OxygenDistributorBlockEntity::new, BlocksRegistry.OXYGEN_DISTRIBUTOR.get()).build(null));
+            () ->  new BlockEntityType<>(OxygenDistributorBlockEntity::new, Set.of(BlocksRegistry.OXYGEN_DISTRIBUTOR.get())));
     public static final Supplier<BlockEntityType<?>> FUEL_REFINERY = BLOCK_ENTITY_TYPE.register("fuel_refinery",
-            () -> BlockEntityType.Builder.of(FuelRefineryBlockEntity::new, BlocksRegistry.FUEL_REFINERY.get()).build(null));
+            () ->  new BlockEntityType<>(FuelRefineryBlockEntity::new, Set.of(BlocksRegistry.FUEL_REFINERY.get())));
 
     public static final Supplier<BlockEntityType<?>> WATER_PUMP = BLOCK_ENTITY_TYPE.register("water_pump",
-            () -> BlockEntityType.Builder.of(WaterPumpBlockEntity::new, BlocksRegistry.WATER_PUMP.get()).build(null));
+            () ->  new BlockEntityType<>(WaterPumpBlockEntity::new, Set.of(BlocksRegistry.WATER_PUMP.get())));
     public static final Supplier<BlockEntityType<?>> PUMPJACK = BLOCK_ENTITY_TYPE.register("pumpjack",
-            () -> BlockEntityType.Builder.of(PumpjackBlockEntity::new, BlocksRegistry.PUMPJACK.get()).build(null));
+            () ->  new BlockEntityType<>(PumpjackBlockEntity::new, Set.of(BlocksRegistry.PUMPJACK.get())));
 
     //TIERED
     public static final Supplier<BlockEntityType<?>> TANK = BLOCK_ENTITY_TYPE.register("tank",
-            () -> BlockEntityType.Builder.of(FluidTankBlockEntity::new,
+            () ->  new BlockEntityType<>(FluidTankBlockEntity::new, Set.of(
                     BlocksRegistry.T1_TANK.get(),
                     BlocksRegistry.T2_TANK.get(),
                     BlocksRegistry.T3_TANK.get(),
                     BlocksRegistry.T4_TANK.get()
-            ).build(null));
+            )));
 
     public static final Supplier<BlockEntityType<?>> CABLE_ENTITY = BLOCK_ENTITY_TYPE.register("cable",
-            () -> BlockEntityType.Builder.of(CableBlockEntity::create,
+            () ->  new BlockEntityType<>(CableBlockEntity::create, Set.of(
                             BlocksRegistry.T1_CABLE.get(),
                             BlocksRegistry.T2_CABLE.get(),
                             BlocksRegistry.T3_CABLE.get()
-            ).build(null));
+            )));
     public static final Supplier<BlockEntityType<?>> PIPE_ENTITY = BLOCK_ENTITY_TYPE.register("pipe",
-            () -> BlockEntityType.Builder.of(PipeBlockEntity::create,
+            () ->  new BlockEntityType<>(PipeBlockEntity::create, Set.of(
                     BlocksRegistry.T1_PIPE.get(),
                     BlocksRegistry.T2_PIPE.get(),
                     BlocksRegistry.T3_PIPE.get()
-            ).build(null));
+            )));
 
 }

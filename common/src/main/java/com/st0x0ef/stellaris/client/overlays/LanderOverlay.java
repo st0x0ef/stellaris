@@ -6,7 +6,7 @@ import com.st0x0ef.stellaris.common.entities.vehicles.LanderEntity;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -23,8 +23,6 @@ public class LanderOverlay {
         Entity vehicle = player.getVehicle();
 
         if (player.getVehicle() instanceof LanderEntity && !player.getVehicle().isInWall() && !player.isInWater()) {
-            RenderSystem.setShader(GameRenderer::getPositionTexShader);
-
             /** FLASHING */
             float sin = (float) Math.sin((mc.level.getDayTime() + deltaTracker.getGameTimeDeltaPartialTick(true)) / 6.0f);
             float flash = Mth.clamp(sin, 0.0f, 4.0f);
@@ -32,8 +30,7 @@ public class LanderOverlay {
             RenderSystem.setShaderColor(flash, flash, flash, flash);
 
             /** WARNING IMAGE */
-            RenderSystem.setShaderTexture(0, WARNING);
-            graphics.blit(WARNING, graphics.guiWidth() / 2 - 58, 50, 0, 0, 116, 21, 116, 21);
+            graphics.blit(RenderType::guiTextured, WARNING, graphics.guiWidth() / 2 - 58, 50, 0, 0, 116, 21, 116, 21);
 
             /** SPEED TEXT */
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);

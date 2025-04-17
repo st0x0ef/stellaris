@@ -3,7 +3,7 @@ package com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.small;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
+import com.st0x0ef.stellaris.client.renderers.entities.vehicle.VehicleRenderState;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
@@ -11,12 +11,13 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
 
-public class SmallRocketModel<T extends RocketEntity> extends EntityModel<T> {
+public class SmallRocketModel extends EntityModel<VehicleRenderState> {
 
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "small_rocket"), "main");
     private final ModelPart rocket;
 
     public SmallRocketModel(ModelPart root) {
+        super(root);
         this.rocket = root.getChild("rocket");
     }
 
@@ -160,8 +161,8 @@ public class SmallRocketModel<T extends RocketEntity> extends EntityModel<T> {
         return LayerDefinition.create(meshdefinition, 128, 128);
     }
     @Override
-    public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.rocket.yRot = netHeadYaw / (180F / (float) Math.PI);
+    public void setupAnim(VehicleRenderState state) {
+        //this.rocket.yRot = state.entity.getYHeadRot() / (180F / (float) Math.PI);
     }
 
     @Override

@@ -33,14 +33,14 @@ dependencies {
     modApi "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}+${minecraft_version}"
     modApi "dev.architectury:architectury-fabric:${architectury_version}"
     modApi "com.terraformersmc:modmenu:${modmenu_version}"
-    modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rootProject.rei_version}"
-    modCompileOnlyApi("mezz.jei:jei-${minecraft_version}-fabric-api:${jei_version}")
-    modRuntimeOnly("mezz.jei:jei-${minecraft_version}-fabric:${jei_version}")
+    //modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rootProject.rei_version}"
+    //modCompileOnlyApi("mezz.jei:jei-${minecraft_version}-fabric-api:${jei_version}")
+    //modRuntimeOnly("mezz.jei:jei-${minecraft_version}-fabric:${jei_version}")
 
-    modRuntimeOnly("fr.tathan.sky-aesthetics:sky-aesthetics-fabric-1.21:${sky_version}")
-    include("fr.tathan.sky-aesthetics:sky-aesthetics-fabric-1.21:${sky_version}")
+    modRuntimeOnly("fr.tathan.sky-aesthetics:sky-aesthetics-fabric-1.21.5:${sky_version}")
+    include("fr.tathan.sky-aesthetics:sky-aesthetics-fabric-1.21.5:${sky_version}")
 
-    modImplementation "curse.maven:energized-power-782147:5510660"
+    //modImplementation "curse.maven:energized-power-782147:5510660"
 
     modApi("com.fej1fun.potentials:potentials-fabric:${rootProject.potentials_version}")
 

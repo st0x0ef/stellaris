@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.common.entities.vehicles;
 
 import com.google.common.collect.Sets;
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.RocketModel;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.data_components.RocketComponent;
@@ -18,7 +19,6 @@ import io.netty.buffer.Unpooled;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -171,21 +171,33 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
     @Override
     protected void readAdditionalSaveData(CompoundTag compound) {
-        ListTag inventoryCustom = compound.getList("InventoryCustom", 14);
-        this.inventory.fromTag(inventoryCustom, registryAccess());
-        FUEL = compound.getInt("fuel");
-
-        if (FUEL != 0) {
-            FUEL_TYPE = FuelType.Type.fromString(compound.getString("currentFuelItemType"));
+        if (compound.getList("InventoryCustom").isPresent()) {
+            ListTag inventoryCustom = compound.getList("InventoryCustom").get();
+            this.inventory.fromTag(inventoryCustom, registryAccess());
         }
 
-        ListTag listTag = compound.getList("Items", 10);
+        if (compound.getInt("fuel").isPresent()) {
+            FUEL = compound.getInt("fuel").get();
+        }
 
-        for (int i = 0; i < listTag.size(); ++i) {
-            CompoundTag compoundTag = listTag.getCompound(i);
-            int j = compoundTag.getByte("Slot") & 255;
-            if (j < this.inventory.getContainerSize() - 1) {
-                this.inventory.setItem(j + 1, ItemStack.parse(this.registryAccess(), compoundTag).orElse(ItemStack.EMPTY));
+        if (FUEL != 0 && compound.getString("currentFuelItemType").isPresent()) {
+            FUEL_TYPE = FuelType.Type.fromString(compound.getString("currentFuelItemType").get());
+        }
+
+        if (compound.getList("Items").isPresent()) {
+            ListTag listTag = compound.getList("Items").get();
+
+            for (int i = 0; i < listTag.size(); ++i) {
+
+                if (listTag.getCompound(i).isPresent()) {
+                    CompoundTag compoundTag = listTag.getCompound(i).get();
+                    if ( compoundTag.getByte("Slot").isPresent()) {
+                        int j = compoundTag.getByte("Slot").get() & 255;
+                        if (j < this.inventory.getContainerSize() - 1) {
+                            this.inventory.setItem(j + 1, ItemStack.parse(this.registryAccess(), compoundTag).orElse(ItemStack.EMPTY));
+                        }
+                    }
+                }
             }
         }
     }
@@ -227,7 +239,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     @Override
     public InteractionResult interact(Player player, InteractionHand hand) {
         super.interact(player, hand);
-        InteractionResult result = InteractionResult.sidedSuccess(this.level().isClientSide);
+        InteractionResult result = InteractionResult.SUCCESS;
 
         if (!this.level().isClientSide) {
             if (player.isCrouching()) {
@@ -287,7 +299,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     }
 
     @Override
-    public void kill() {
+    public void kill(ServerLevel level) {
         this.dropEquipment();
         this.spawnRocketItem();
 
@@ -297,7 +309,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     }
 
     @Override
-    public boolean hurt(DamageSource source, float amount) {
+    public boolean hurtServer(ServerLevel level, DamageSource source, float amount) {
         Entity sourceEntity = source.getEntity();
 
         if (sourceEntity != null && sourceEntity.isCrouching() && !this.isVehicle()) {
@@ -363,12 +375,12 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
             if (START_TIMER == 200) {
                 for (ServerPlayer player : level.getServer().getPlayerList().getPlayers()) {
-                    level.sendParticles(player, (ParticleOptions) ParticleTypes.FLAME, true, this.getX() - vec.x, this.getY() - vec.y - 2.2, this.getZ() - vec.z, 20, 0.1, 0.1, 0.1, 0.001);
-                    level.sendParticles(player, (ParticleOptions) ParticleTypes.FLAME, true, this.getX() - vec.x, this.getY() - vec.y - 3.2, this.getZ() - vec.z, 10, 0.1, 0.1, 0.1, 0.04);
+                    level.sendParticles(player, ParticleTypes.FLAME, true, true, this.getX() - vec.x, this.getY() - vec.y - 2.2, this.getZ() - vec.z, 20, 0.1, 0.1, 0.1, 0.001);
+                    level.sendParticles(player, ParticleTypes.FLAME, true, true, this.getX() - vec.x, this.getY() - vec.y - 3.2, this.getZ() - vec.z, 10, 0.1, 0.1, 0.1, 0.04);
                 }
             } else {
                 for (ServerPlayer player : level.getServer().getPlayerList().getPlayers()) {
-                    level.sendParticles(player, ParticleTypes.CAMPFIRE_COSY_SMOKE, true, this.getX() - vec.x, this.getY() - vec.y - 0.1, this.getZ() - vec.z, 6, 0.1, 0.1, 0.1, 0.023);
+                    level.sendParticles(player, ParticleTypes.CAMPFIRE_COSY_SMOKE, true, true, this.getX() - vec.x, this.getY() - vec.y - 0.1, this.getZ() - vec.z, 6, 0.1, 0.1, 0.1, 0.023);
                 }
             }
         }
@@ -400,12 +412,13 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
             START_TIMER++;
         }
 
-        if (START_TIMER == 200) {
-            if (this.getDeltaMovement().y < this.getRocketSpeed() - 0.1) {
-                this.setDeltaMovement(this.getDeltaMovement().x, this.getDeltaMovement().y + 0.1, this.getDeltaMovement().z);
+        else if (START_TIMER == 200) {
+            if (this.getDeltaMovement().y < this.getMaxRocketSpeed() - 0.1) {
+                this.addDeltaMovement(new Vec3(0f, 0.1f, 0f));
             } else {
-                this.setDeltaMovement(this.getDeltaMovement().x, this.getRocketSpeed(), this.getDeltaMovement().z);
+                this.setDeltaMovement(this.getDeltaMovement().x, this.getMaxRocketSpeed(), this.getDeltaMovement().z);
             }
+            move(MoverType.SELF, getDeltaMovement());
         }
     }
 
@@ -417,7 +430,6 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
             this.remove(RemovalReason.DISCARDED);
         }
     }
-
 
     public void rocketExplosion() {
         if (START_TIMER == 200) {
@@ -441,8 +453,8 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     protected void dropEquipment() {
         for (int i = 0; i < this.inventory.getItems().size(); ++i) {
             ItemStack itemstack = this.inventory.getItem(i);
-            if (!itemstack.isEmpty()) {
-                this.spawnAtLocation(itemstack);
+            if (!itemstack.isEmpty() && level() instanceof ServerLevel serverLevel) {
+                this.spawnAtLocation(serverLevel, itemstack);
             }
         }
     }
@@ -596,7 +608,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         return this.inventory;
     }
 
-    public double getRocketSpeed() {
+    public double getMaxRocketSpeed() {
         return 0.8;
     }
 

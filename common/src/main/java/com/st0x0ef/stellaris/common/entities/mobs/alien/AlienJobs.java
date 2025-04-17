@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.entities.mobs.alien;
 
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.npc.VillagerProfession;
 
 public enum AlienJobs {
@@ -17,13 +18,13 @@ public enum AlienJobs {
     JOB12(VillagerProfession.LEATHERWORKER),
     JOB13(VillagerProfession.MASON);
 
-    public final VillagerProfession profession;
+    public final ResourceKey<VillagerProfession> profession;
 
-    AlienJobs(VillagerProfession profession){
+    AlienJobs(ResourceKey<VillagerProfession> profession){
         this.profession = profession;
     }
 
-    public VillagerProfession getAlienJobs() {
+    public ResourceKey<VillagerProfession> getAlienJobs() {
         return profession;
     }
 

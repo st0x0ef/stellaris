@@ -21,6 +21,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -105,26 +106,26 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity im
         FluidUtil.distributeFluidNearby(level, worldPosition, resultTanks.getFluidInTank(1), List.of(facing.getCounterClockWise()));
         FluidUtil.distributeFluidNearby(level, worldPosition, ingredientTank.getFluidInTank(0), List.of(Direction.UP, Direction.DOWN, facing, facing.getOpposite()));
 
-        if (level == null) return;
+        if (level instanceof ServerLevel serverLevel) {
+            Optional<RecipeHolder<WaterSeparatorRecipe>> recipeHolder = cachedCheck.getRecipeFor(new FluidInput(this), serverLevel);
+            if (recipeHolder.isPresent()) {
+                WaterSeparatorRecipe recipe = recipeHolder.get().value();
 
-        Optional<RecipeHolder<WaterSeparatorRecipe>> recipeHolder = cachedCheck.getRecipeFor(new FluidInput(this), level);
-        if (recipeHolder.isPresent()) {
-            WaterSeparatorRecipe recipe = recipeHolder.get().value();
+                if (energyContainer.getEnergy() >= recipe.energy()) {
+                    boolean shouldDrainWaterAndEnergy = false;
+                    if (resultTanks.getFluidValueInTank(HYDROGEN_TANK) < resultTanks.getTankCapacity(HYDROGEN_TANK)) {
+                        resultTanks.fillWithoutLimits(recipe.resultStacks().getFirst(), false);
+                        shouldDrainWaterAndEnergy = true;
+                    }
+                    if (resultTanks.getFluidValueInTank(OXYGEN_TANK) < resultTanks.getTankCapacity(OXYGEN_TANK)) {
+                        resultTanks.fillWithoutLimits(recipe.resultStacks().get(1), false);
+                        shouldDrainWaterAndEnergy = true;
+                    }
 
-            if (energyContainer.getEnergy() >= recipe.energy()) {
-                boolean shouldDrainWaterAndEnergy = false;
-                if (resultTanks.getFluidValueInTank(HYDROGEN_TANK) < resultTanks.getTankCapacity(HYDROGEN_TANK)) {
-                    resultTanks.fillWithoutLimits(recipe.resultStacks().getFirst(), false);
-                    shouldDrainWaterAndEnergy = true;
-                }
-                if (resultTanks.getFluidValueInTank(OXYGEN_TANK) < resultTanks.getTankCapacity(OXYGEN_TANK)) {
-                    resultTanks.fillWithoutLimits(recipe.resultStacks().get(1), false);
-                    shouldDrainWaterAndEnergy = true;
-                }
-
-                if (shouldDrainWaterAndEnergy) {
-                    ingredientTank.drainWithoutLimits(recipe.ingredientStack(), false);
-                    energyContainer.extract(recipe.energy(), false);
+                    if (shouldDrainWaterAndEnergy) {
+                        ingredientTank.drainWithoutLimits(recipe.ingredientStack(), false);
+                        energyContainer.extract((int)recipe.energy(), false);
+                    }
                 }
             }
         }

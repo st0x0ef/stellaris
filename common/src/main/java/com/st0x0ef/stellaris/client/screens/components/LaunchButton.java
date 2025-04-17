@@ -8,7 +8,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
@@ -80,11 +79,7 @@ public class LaunchButton extends Button {
     public void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
         Minecraft minecraft = Minecraft.getInstance();
 
-        RenderSystem.enableBlend();
-        RenderSystem.defaultBlendFunc();
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.enableDepthTest();
 
         int i = this.yTexStart;
         if (this.isHoveredOrFocused()) {
@@ -92,7 +87,6 @@ public class LaunchButton extends Button {
         }
 
         ResourceLocation texture = this.getTypeTexture(this.isHovered, this.buttonTexture, this.hoverButtonTexture);
-        RenderSystem.setShaderTexture(0, texture);
         ScreenHelper.renderTextureWithColor.blit(graphics.pose(), this.getX(), this.getY(), (float) this.xTexStart, (float) i,
                 this.width, this.height, this.textureWidth, this.textureHeight, this.getTypeColor());
 
@@ -102,9 +96,6 @@ public class LaunchButton extends Button {
         int textX = this.getX() + (this.width - textWidth) / 2;
         int textY = this.getY() + (this.height - fontRenderer.lineHeight) / 2;
         graphics.drawString(fontRenderer, message, textX, textY, 16777215);
-
-        RenderSystem.disableDepthTest();
-        RenderSystem.disableBlend();
     }
 
     /** TYPE TEXTURE MANAGER */

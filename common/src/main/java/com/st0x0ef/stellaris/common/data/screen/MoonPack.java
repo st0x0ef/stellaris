@@ -1,8 +1,5 @@
 package com.st0x0ef.stellaris.common.data.screen;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.mojang.serialization.JsonOps;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.events.custom.PlanetSelectionClientEvents;
 import com.st0x0ef.stellaris.client.screens.PlanetSelectionScreen;
@@ -10,33 +7,30 @@ import com.st0x0ef.stellaris.client.screens.info.MoonInfo;
 import com.st0x0ef.stellaris.client.screens.record.MoonRecord;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.resources.FileToIdConverter;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.util.profiling.ProfilerFiller;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Environment(EnvType.CLIENT)
-public class MoonPack extends SimpleJsonResourceReloadListener {
+public class MoonPack extends SimpleJsonResourceReloadListener<MoonRecord> {
 
     public static final Map<String, MoonRecord> MOON = new HashMap<>();
     public static int count = 0;
 
     public MoonPack() {
-        super(Stellaris.GSON, "renderer/planet_screen/moon");
+        super(MoonRecord.CODEC, FileToIdConverter.json("renderer/planet_screen/moon"));
     }
 
     @Override
-    protected void apply(Map<ResourceLocation, JsonElement> object, ResourceManager resourceManager, ProfilerFiller profiler) {
+    protected void apply(Map<ResourceLocation, MoonRecord> object, ResourceManager resourceManager, ProfilerFiller profiler) {
         if (count > 0) return;
         MOON.clear();
-        object.forEach((key, value) -> {
-            JsonObject json = GsonHelper.convertToJsonObject(value, "moons");
-            MoonRecord moon = MoonRecord.CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
-
+        object.forEach((key, moon) -> {
             MOON.put(moon.name(), moon);
 
             MoonInfo screenMoon = new MoonInfo(

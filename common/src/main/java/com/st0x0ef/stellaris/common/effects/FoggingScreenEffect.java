@@ -23,10 +23,14 @@ public class FoggingScreenEffect extends MobEffect {
     }
 
     @Override
-    public int getBlendDurationTicks() {
-        return 50;
+    public int getBlendInDurationTicks() {
+        return 25;
     }
 
+    @Override
+    public int getBlendOutDurationTicks() {
+        return 25;
+    }
 
     @Environment(EnvType.CLIENT)
     public static class FoggingScreenFogFunction implements FogRenderer.MobEffectFogFunction {

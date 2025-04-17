@@ -42,7 +42,7 @@ public class MoonVinesPlant extends GrowingPlantBodyBlock implements Bonemealabl
     }
 
     @Override
-    public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state) {
+    protected ItemStack getCloneItemStack(LevelReader levelReader, BlockPos blockPos, BlockState blockState, boolean bl) {
         return new ItemStack(ItemsRegistry.MOON_BERRIES.get());
     }
 

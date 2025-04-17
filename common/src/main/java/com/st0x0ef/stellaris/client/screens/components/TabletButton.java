@@ -10,10 +10,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
-import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Quaternionf;
@@ -104,11 +105,7 @@ public class TabletButton extends Button {
     public void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
         Minecraft minecraft = Minecraft.getInstance();
 
-        RenderSystem.enableBlend();
-        RenderSystem.defaultBlendFunc();
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.enableDepthTest();
 
         int i = this.yTexStart;
         if (this.isHoveredOrFocused()) {
@@ -119,25 +116,20 @@ public class TabletButton extends Button {
         ResourceLocation texture = this.getTypeTexture(this.isHovered, this.buttonTexture, this.hoverButtonTexture);
 
         /** TEXTURE RENDERER */
-        RenderSystem.setShaderTexture(0, texture);
         ScreenHelper.renderTextureWithColor.blit(graphics.pose(), this.getX(), this.getY(), (float) this.xTexStart, (float) i,
                 this.width, this.height, this.textureWidth, this.textureHeight, this.getTypeColor());
 
         /** FONT RENDERER */
         switch (info.type()) {
             case "item":
-                info.item().ifPresent((item) -> ScreenHelper.renderItemWithCustomSize(graphics, minecraft, item.stack(), this.getX(), this.getY(), this.width));
+                info.item().ifPresent((item) -> graphics.renderItem(item.stack(), this.getX(), this.getY(), this.width));
                 break;
             case "entity":
                 info.entity().ifPresent((entity) -> {
-                    Entity entity1 = ScreenHelper.createEntity(Minecraft.getInstance().level, entity.entity());
-                    ScreenHelper.renderEntityInInventory(graphics, this.getX(), this.getY(), 7, new Vector3f(1.5f, 2.5f, 0), new Quaternionf(-1, 0, 0, 0), null, entity1);
+                    LivingEntity entity1 = ScreenHelper.createEntity(Minecraft.getInstance().level, entity.entity());
+                    InventoryScreen.renderEntityInInventory(graphics, this.getX(), this.getY(), 7, new Vector3f(1.5f, 2.5f, 0), new Quaternionf(-1, 0, 0, 0), null, entity1);
                 });
         }
-
-
-        RenderSystem.disableDepthTest();
-        RenderSystem.disableBlend();
     }
 
     /** TYPE TEXTURE MANAGER */

@@ -9,9 +9,8 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.AddReloadListenerEvent;
+import net.neoforged.neoforge.event.AddServerReloadListenersEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.OnDatapackSyncEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
@@ -21,7 +20,7 @@ public class StellarisNeoForge {
 
     public StellarisNeoForge(IEventBus bus) {
         Stellaris.init();
-        NeoForge.EVENT_BUS.addListener(StellarisNeoForge::onAddReloadListenerEvent);
+        NeoForge.EVENT_BUS.addListener(StellarisNeoForge::onAddServerReloadListenersEvent);
         NeoForge.EVENT_BUS.addListener(StellarisNeoForge::onDatapackSync);
         //NeoForge.EVENT_BUS.addListener(StellarisNeoForge::addItemToTab);
         EffectRegisterImpl.MOB_EFFECTS.register(bus);
@@ -47,11 +46,10 @@ public class StellarisNeoForge {
         }
     }
 
-    public static void onAddReloadListenerEvent(AddReloadListenerEvent event) {
-        if(FMLEnvironment.dist.isClient()) {
-            Stellaris.onAddReloadClientListenerEvent((id, listener) -> event.addListener(listener));
-        }
-        Stellaris.onAddReloadListenerEvent((id, listener) -> event.addListener(listener));
+
+
+    public static void onAddServerReloadListenersEvent(AddServerReloadListenersEvent event) {
+        Stellaris.onAddReloadListenerEvent(event::addListener);
     }
 
     public static void onAttributes(EntityAttributeCreationEvent event) {

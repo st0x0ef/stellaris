@@ -6,6 +6,8 @@ import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.phys.Vec3;
@@ -30,18 +32,16 @@ public class StormyPlanetMixin {
                 if (level.random.nextInt(parameters.lightningFrequency()) == 0) {
                     BlockPos blockPos = level.findLightningTargetAround(level.getBlockRandomPos(i, 0, j, 15));
 
-                    CustomLightningBolt lightningBolt = EntityRegistry.VENUS_LIGHTNING_BOLT.get().create(level);
-                    lightningBolt.setCustomColor(parameters.lightningColor());
-
+                    CustomLightningBolt lightningBolt = EntityRegistry.VENUS_LIGHTNING_BOLT.get().create(level, EntitySpawnReason.NATURAL);
 
                     if (lightningBolt != null) {
-                        lightningBolt.moveTo(Vec3.atBottomCenterOf(blockPos));
+                        lightningBolt.setCustomColor(parameters.lightningColor());
+                        lightningBolt.move(MoverType.SELF, Vec3.atBottomCenterOf(blockPos));
                         lightningBolt.setVisualOnly(false);
                         level.addFreshEntity(lightningBolt);
                     }
                 }
             }
-
         });
     }
 }

@@ -19,6 +19,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.*;
 import net.minecraft.world.damagesource.DamageSource;
@@ -131,7 +132,7 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
     @Override
     public InteractionResult interact(Player player, InteractionHand hand) {
         super.interact(player, hand);
-        InteractionResult result = InteractionResult.sidedSuccess(this.level().isClientSide);
+        InteractionResult result = InteractionResult.SUCCESS;
 
         if (!this.level().isClientSide) {
             if (player.isCrouching()) {
@@ -231,7 +232,7 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
     }
 
     @Override
-    public void kill() {
+    public void kill(ServerLevel serverLevel) {
         this.dropEquipment();
         this.spawnRoverItem();
 
@@ -241,8 +242,8 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
     }
 
     @Override
-    public boolean hurt(DamageSource source, float amount) {
-        Entity sourceEntity = source.getEntity();
+    public boolean hurtServer(ServerLevel serverLevel, DamageSource damageSource, float f) {
+        Entity sourceEntity = damageSource.getEntity();
 
         if (sourceEntity != null && sourceEntity.isCrouching() && !this.isVehicle()) {
             this.dropEquipment();
@@ -279,8 +280,8 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
     protected void dropEquipment() {
         for (int i = 0; i < this.inventory.getItems().size(); ++i) {
             ItemStack itemstack = this.inventory.getItem(i);
-            if (!itemstack.isEmpty()) {
-                this.spawnAtLocation(itemstack);
+            if (!itemstack.isEmpty() && level() instanceof ServerLevel serverLevel) {
+                this.spawnAtLocation(serverLevel, itemstack);
             }
         }
     }
@@ -318,21 +319,30 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        ListTag inventoryCustom = compound.getList("InventoryCustom", 14);
-        this.inventory.fromTag(inventoryCustom, registryAccess());
-        FUEL = compound.getInt("fuel");
-
-        if (FUEL != 0) {
-            FUEL_TYPE = FuelType.Type.fromString(compound.getString("currentFuelItemType"));
+        if (compound.getList("InventoryCustom").isPresent()) {
+            ListTag inventoryCustom = compound.getList("InventoryCustom").get();
+            this.inventory.fromTag(inventoryCustom, registryAccess());
         }
 
-        ListTag listTag = compound.getList("Items", 10);
+        if (compound.getInt("fuel").isPresent()) FUEL = compound.getInt("fuel").get();
 
-        for (int i = 0; i < listTag.size(); ++i) {
-            CompoundTag compoundTag = listTag.getCompound(i);
-            int j = compoundTag.getByte("Slot") & 255;
-            if (j < this.inventory.getContainerSize() - 1) {
-                this.inventory.setItem(j + 1, ItemStack.parse(this.registryAccess(), compoundTag).orElse(ItemStack.EMPTY));
+        if (FUEL != 0) {
+            if (compound.getString("currentFuelItemType").isPresent()) FUEL_TYPE = FuelType.Type.fromString(compound.getString("currentFuelItemType").get());
+        }
+
+        if (compound.getList("Items").isPresent()) {
+            ListTag listTag = compound.getList("Items").get();
+
+            for (int i = 0; i < listTag.size(); ++i) {
+                if (listTag.getCompound(i).isPresent()) {
+                    CompoundTag compoundTag = listTag.getCompound(i).get();
+                    if (compoundTag.getByte("Slot").isPresent()) {
+                        int j = compoundTag.getByte("Slot").get() & 255;
+                        if (j < this.inventory.getContainerSize() - 1) {
+                            this.inventory.setItem(j + 1, ItemStack.parse(this.registryAccess(), compoundTag).orElse(ItemStack.EMPTY));
+                        }
+                    }
+                }
             }
         }
     }
@@ -362,8 +372,7 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
         }
     }
 
-    public RoverComponent getRoverComponent()
-    {
+    public RoverComponent getRoverComponent() {
         return roverComponent;
     }
 }

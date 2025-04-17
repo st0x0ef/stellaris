@@ -1,7 +1,9 @@
 package com.st0x0ef.stellaris.common.entities.mobs.cheese_boss;
 
 import com.mojang.serialization.Dynamic;
+import com.st0x0ef.stellaris.client.renderers.entities.cheeseboss.CheeseBossRenderState;
 import com.st0x0ef.stellaris.common.entities.mobs.cheese_boss.attack_entities.CheeseSpit;
+import com.st0x0ef.stellaris.common.entities.mobs.cheese_boss.goals.CheeseMeleeAttackGoal;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import dev.architectury.networking.NetworkManager;
 import net.minecraft.network.chat.Component;
@@ -9,6 +11,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerEntity;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.BossEvent;
@@ -28,19 +31,12 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
 
 public class CheeseBoss extends Monster implements Enemy, RangedAttackMob {
-
-    public final AnimationState idleAnimationState = new AnimationState();
-    private int idleAnimationTimeout = 0;
-    public final AnimationState punchAnimationState = new AnimationState();
-    private int punchingAnimationTimeout = 0;
-    private boolean punching = false;
-    public final AnimationState spitAnimationState = new AnimationState();
-    private int spittingAnimationTimeout = 0;
     private boolean spitting = false;
 
     private static final Component CHEESE_BOSS_NAME_COMPONENT = Component.translatable("event.stellaris.cheeseboss");
     private final ServerBossEvent bossEvent = (ServerBossEvent)new ServerBossEvent(CHEESE_BOSS_NAME_COMPONENT, BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.PROGRESS).setDarkenScreen(true);
 
+    private CheeseBossRenderState renderStateInstance;
 
     public CheeseBoss(EntityType<? extends CheeseBoss> type, Level level) {
         super(type, level);
@@ -57,26 +53,26 @@ public class CheeseBoss extends Monster implements Enemy, RangedAttackMob {
     }
 
     /**Animations*/
-    private void setupAnimationStates() {
-        if (this.idleAnimationTimeout <= 0) {
-            this.idleAnimationTimeout = 20;
-            this.idleAnimationState.start(this.tickCount);
+    private void setupAnimationStates(CheeseBossRenderState state) {
+        if (state.idleAnimationTimeout <= 0) {
+            state.idleAnimationTimeout = 20;
+            state.idleAnimationState.start(this.tickCount);
         } else {
-            --this.idleAnimationTimeout;
+            --state.idleAnimationTimeout;
         }
-        if (this.punchingAnimationTimeout <= 0 && isPunching()) {
-            this.punchingAnimationTimeout = 20;
+        if (state.punchingAnimationTimeout <= 0 && isPunching()) {
+            state.punchingAnimationTimeout = 20;
             setPunching(false);
-            this.punchAnimationState.start(this.tickCount);
+            state.punchAnimationState.start(this.tickCount);
         } else {
-            --this.punchingAnimationTimeout;
+            --state.punchingAnimationTimeout;
         }
-        if (this.spittingAnimationTimeout <= 0 && isSpitting()) {
-            this.spittingAnimationTimeout = 30;
+        if (state.spittingAnimationTimeout <= 0 && isSpitting()) {
+            state.spittingAnimationTimeout = 30;
             setSpitting(false);
-            this.spitAnimationState.start(this.tickCount);
+            state.spitAnimationState.start(this.tickCount);
         } else {
-            --this.spittingAnimationTimeout;
+            --state.spittingAnimationTimeout;
         }
     }
 
@@ -84,9 +80,8 @@ public class CheeseBoss extends Monster implements Enemy, RangedAttackMob {
     public void tick() {
         super.tick();
         if (this.level().isClientSide()) {
-            setupAnimationStates();
+            setupAnimationStates(this.getRenderStateInstance());
         }
-        //this.level().getServer().sendSystemMessage(Component.literal((Boolean.toString(isSpitting()))));
     }
 
     @Override
@@ -94,7 +89,7 @@ public class CheeseBoss extends Monster implements Enemy, RangedAttackMob {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new LookAtPlayerGoal(this, Player.class, 35.0f));
 
-        //this.goalSelector.addGoal(2, new CheeseMeleeAttackGoal(this, 1.0, true));
+        this.goalSelector.addGoal(2, new CheeseMeleeAttackGoal(this, 1.0, true));
         this.goalSelector.addGoal(2, new RangedAttackGoal(this, 1.25, 100, 30.0F));
 
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
@@ -109,7 +104,7 @@ public class CheeseBoss extends Monster implements Enemy, RangedAttackMob {
 
     /**boss bar event*/
     @Override
-    protected void customServerAiStep() {
+    protected void customServerAiStep(ServerLevel serverLevel) {
         this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
     }
 
@@ -127,10 +122,10 @@ public class CheeseBoss extends Monster implements Enemy, RangedAttackMob {
 
     /**melee attack*/
     public void setPunching(boolean punching) {
-        this.punching = punching;
+        this.getRenderStateInstance().punching = punching;
     }
     public boolean isPunching() {
-        return this.punching;
+        return this.getRenderStateInstance().punching;
     }
 
     /**ranged attack*/
@@ -188,5 +183,11 @@ public class CheeseBoss extends Monster implements Enemy, RangedAttackMob {
         if (livingEntity.isInvulnerable()) return false;
         if (livingEntity.isDeadOrDying()) return false;
         return this.level().getWorldBorder().isWithinBounds(livingEntity.getBoundingBox());
+    }
+
+    public CheeseBossRenderState getRenderStateInstance() {
+        if (!this.level().isClientSide()) return null;
+        if (this.renderStateInstance == null) this.renderStateInstance = new CheeseBossRenderState();
+        return this.renderStateInstance;
     }
 }

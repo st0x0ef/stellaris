@@ -11,5 +11,4 @@ public class ProcessorsRegistry {
     public static final DeferredRegister<StructureProcessorType<?>> STRUCTURE_PROCESSORS = DeferredRegister.create(Stellaris.MODID, Registries.STRUCTURE_PROCESSOR);
 
     public static final RegistrySupplier<StructureProcessorType<VoidProcessor>> STRUCTURE_VOID_PROCESSOR = STRUCTURE_PROCESSORS.register("structure_void_processor", () -> () -> VoidProcessor.CODEC);
-
 }

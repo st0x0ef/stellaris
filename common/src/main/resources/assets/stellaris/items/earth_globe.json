@@ -1,0 +1,10 @@
+{
+  "model": {
+    "type": "minecraft:special",
+    "base": "stellaris:item/earth_globe",
+    "model": {
+      "type": "stellaris:globe",
+      "texture": "stellaris:block/globes/earth_globe"
+    }
+  }
+}

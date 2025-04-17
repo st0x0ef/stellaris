@@ -3,36 +3,34 @@ package com.st0x0ef.stellaris.common.items.armors;
 import com.fej1fun.potentials.fluid.ItemFluidStorage;
 import com.fej1fun.potentials.fluid.UniversalFluidItemStorage;
 import com.fej1fun.potentials.providers.FluidProvider;
-import com.st0x0ef.stellaris.common.items.CustomArmorItem;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import com.st0x0ef.stellaris.common.registry.FluidRegistry;
 import dev.architectury.fluid.FluidStack;
-import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
+import java.util.function.Consumer;
 
-public abstract class AbstractSpaceArmor extends CustomArmorItem {
-    public AbstractSpaceArmor(Holder<ArmorMaterial> material, Type type, Properties properties) {
-        super(material, type, properties);
+public abstract class AbstractSpaceArmor extends Item {
+    public AbstractSpaceArmor(Item.Properties properties) {
+        super(properties);
     }
 
     public static class AbstractSpaceChestplate extends AbstractSpaceArmor implements FluidProvider.ITEM {
 
-        public AbstractSpaceChestplate(Holder<ArmorMaterial> material, Type type, Properties properties) {
-            super(material, type, properties);
+        public AbstractSpaceChestplate(Properties properties) {
+            super(properties);
         }
 
         @Override
-        public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-            super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+        public void appendHoverText(ItemStack itemStack, TooltipContext tooltipContext, TooltipDisplay tooltipDisplay, Consumer<Component> consumer, TooltipFlag tooltipFlag) {
+            super.appendHoverText(itemStack, tooltipContext, tooltipDisplay, consumer, tooltipFlag);
 
-            tooltipComponents.add(Component.translatable("jetsuit.stellaris.oxygen", getFluidTank(stack).getFluidInTank(0).getAmount()));
-
+            consumer.accept(Component.translatable("jetsuit.stellaris.oxygen", getFluidTank(itemStack).getFluidInTank(0).getAmount()));
         }
 
         @Override
@@ -48,15 +46,14 @@ public abstract class AbstractSpaceArmor extends CustomArmorItem {
     }
 
     public static class Chestplate extends AbstractSpaceChestplate {
-        public Chestplate(Holder<ArmorMaterial> material, Type type, Properties properties) {
-            super(material, type, properties);
+        public Chestplate(Properties properties) {
+            super(properties);
         }
 
         @Override
-        public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-            super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
-            tooltipComponents.add(Component.translatable("jetsuit.stellaris.fuel", getFluidTank(stack).getFluidInTank(1).getAmount()));
-
+        public void appendHoverText(ItemStack itemStack, TooltipContext tooltipContext, TooltipDisplay tooltipDisplay, Consumer<Component> consumer, TooltipFlag tooltipFlag) {
+            super.appendHoverText(itemStack, tooltipContext, tooltipDisplay, consumer, tooltipFlag);
+            consumer.accept(Component.translatable("jetsuit.stellaris.fuel", getFluidTank(itemStack).getFluidInTank(1).getAmount()));
         }
 
         @Override
@@ -71,7 +68,6 @@ public abstract class AbstractSpaceArmor extends CustomArmorItem {
                     };
                 }
             };
-
         }
     }
 }

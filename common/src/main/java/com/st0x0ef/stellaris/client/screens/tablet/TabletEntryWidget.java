@@ -1,17 +1,18 @@
 package com.st0x0ef.stellaris.client.screens.tablet;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.AbstractScrollWidget;
+import net.minecraft.client.gui.components.AbstractTextAreaWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
@@ -21,7 +22,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TabletEntryWidget extends AbstractScrollWidget {
+public class TabletEntryWidget extends AbstractTextAreaWidget {
 
     private static final ResourceLocation SCROLLER_SPRITE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "icon/scroller");
 
@@ -44,12 +45,6 @@ public class TabletEntryWidget extends AbstractScrollWidget {
     }
 
     @Override
-    protected void renderBorder(GuiGraphics guiGraphics, int x, int y, int width, int height) {
-        //We don't want to render the border
-    }
-
-
-    @Override
     protected double scrollRate() {
         return 9;
     }
@@ -67,15 +62,15 @@ public class TabletEntryWidget extends AbstractScrollWidget {
 
         info.item().ifPresent((item) -> {
             if (item.onlyIcon().isEmpty()) {
-                ScreenHelper.renderItemWithCustomSize(guiGraphics, Minecraft.getInstance(), item.stack(), this.baseScreenWidth / 2 -(int) item.size() / 2, getY() + finalHeight.get() + 35 + 20, item.size());
-                finalHeight.addAndGet(35 + (int) (item.size() / 4));
+                guiGraphics.renderItem(item.stack(), this.baseScreenWidth / 2 - item.size() / 2, getY() + finalHeight.get() + 35 + 20, item.size());
+                finalHeight.addAndGet(35 + (item.size() / 4));
             }
         });
 
 
         info.image().ifPresent((image) -> {
             int height = getY() + 40 + finalHeight.get() + 20;
-            guiGraphics.blitSprite(image.location(), this.baseScreenWidth / 2 - image.width() / 2, height, image.width(), image.height());
+            guiGraphics.blitSprite(RenderType::guiTextured, image.location(), this.baseScreenWidth / 2 - image.width() / 2, height, image.width(), image.height());
 
             finalHeight.addAndGet(image.height() + 40 );
 
@@ -83,8 +78,8 @@ public class TabletEntryWidget extends AbstractScrollWidget {
 
         info.entity().ifPresent((entity) -> {
             int height = getY() + 40 + finalHeight.get() + entity.scale();
-            Entity entity1 = ScreenHelper.createEntity(Minecraft.getInstance().level, entity.entity());
-            ScreenHelper.renderEntityInInventory(guiGraphics, (float) this.baseScreenWidth / 2, height + 45, entity.scale(), new Vector3f(), new Quaternionf(-1, 0, 0, 0), null, entity1);
+            LivingEntity entity1 = ScreenHelper.createEntity(Minecraft.getInstance().level, entity.entity());
+            InventoryScreen.renderEntityInInventory(guiGraphics, (float) this.baseScreenWidth / 2, height + 45, entity.scale(), new Vector3f(), new Quaternionf(-1, 0, 0, 0), null, entity1);
             finalHeight.addAndGet(80);
 
         });
@@ -101,16 +96,13 @@ public class TabletEntryWidget extends AbstractScrollWidget {
     }
 
     @Override
-    public void renderScrollBar(GuiGraphics guiGraphics) {
-        int i = this.getScrollBarHeight();
+    protected void renderScrollbar(GuiGraphics guiGraphics) {
+        int i = this.scrollerHeight();
         int j = this.getX() + this.width;
 
-        int k = Math.max(this.getY(), (int) this.scrollAmount() * (this.height - i) / this.getMaxScrollAmount() + this.getY());
-        RenderSystem.enableBlend();
-        guiGraphics.blitSprite(SCROLLER_SPRITE, j, k, 8, i);
-        RenderSystem.disableBlend();
+        int k = Math.max(this.getY(), (int) this.scrollAmount() * (this.height - i) / this.maxScrollAmount() + this.getY());
+        guiGraphics.blitSprite(RenderType::guiTextured, SCROLLER_SPRITE, j, k, 8, i);
     }
-
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         for (ClickBox clickBox : clickBoxes) {

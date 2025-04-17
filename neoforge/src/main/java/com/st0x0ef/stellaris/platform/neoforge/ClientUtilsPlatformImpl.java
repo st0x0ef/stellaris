@@ -12,9 +12,9 @@ public class ClientUtilsPlatformImpl {
 
     public static final Map<Item, ArmorRenderer> ARMOR_RENDERERS = new HashMap<>();
 
-    public static void registerArmor(ModelLayerLocation layer, ClientUtilsPlatform.ArmorFactory factory, Item... items) {
+    public static void registerArmor(ModelLayerLocation layer, ClientUtilsPlatform.ArmorFactory factory, ResourceLocation resourceLocation, Item... items) {
         for (Item item : items) {
-            ARMOR_RENDERERS.put(item, new ArmorRenderer(ResourceLocation.fromNamespaceAndPath("", ""), layer, factory));
+            ARMOR_RENDERERS.put(item, new ArmorRenderer(resourceLocation, layer, factory));
         }
     }
 

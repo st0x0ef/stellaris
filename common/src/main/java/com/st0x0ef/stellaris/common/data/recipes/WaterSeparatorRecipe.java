@@ -6,28 +6,23 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.WaterSeparatorBlockEntity;
 import com.st0x0ef.stellaris.common.data.recipes.input.FluidInput;
 import com.st0x0ef.stellaris.common.registry.RecipesRegistry;
-import com.st0x0ef.stellaris.common.utils.capabilities.fluid.SingleFluidStorage;
 import dev.architectury.fluid.FluidStack;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public record WaterSeparatorRecipe(FluidStack ingredientStack, List<FluidStack> resultStacks, int energy) implements Recipe<FluidInput> {
+public record WaterSeparatorRecipe(FluidStack ingredientStack, List<FluidStack> resultStacks, long energy) implements Recipe<FluidInput> {
 
-    public static RecipeType<WaterSeparatorRecipe> Type = RecipesRegistry.WATER_SEPERATOR_TYPE.get();
     @Override
     public boolean matches(FluidInput container, Level level) {
-        SingleFluidStorage tank = ((WaterSeparatorBlockEntity) container.entity()).ingredientTank;
-        FluidStack stack = tank.getFluidInTank(0);
+        FluidStack stack = ((WaterSeparatorBlockEntity) container.entity()).getIngredientTank().getFluidInTank(0);
         return stack.isFluidEqual(ingredientStack) && stack.getAmount() >= ingredientStack.getAmount();
     }
 
@@ -37,23 +32,23 @@ public record WaterSeparatorRecipe(FluidStack ingredientStack, List<FluidStack> 
     }
 
     @Override
-    public boolean canCraftInDimensions(int width, int height) {
-        return true;
-    }
-
-    @Override
-    public ItemStack getResultItem(HolderLookup.Provider registries) {
-        return null;
-    }
-
-    @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<? extends Recipe<FluidInput>> getSerializer() {
         return RecipesRegistry.WATER_SEPERATOR_SERIALIZER.get();
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public RecipeType<? extends Recipe<FluidInput>> getType() {
         return RecipesRegistry.WATER_SEPERATOR_TYPE.get();
+    }
+
+    @Override
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.NOT_PLACEABLE;
+    }
+
+    @Override
+    public RecipeBookCategory recipeBookCategory() {
+        return RecipeBookCategories.CRAFTING_MISC;
     }
 
     public static class Serializer implements RecipeSerializer<WaterSeparatorRecipe> {
@@ -61,7 +56,7 @@ public record WaterSeparatorRecipe(FluidStack ingredientStack, List<FluidStack> 
         private static final MapCodec<WaterSeparatorRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                 FluidStack.CODEC.fieldOf("ingredient").forGetter(WaterSeparatorRecipe::ingredientStack),
                 FluidStack.CODEC.listOf(1, 2).fieldOf("results").forGetter(WaterSeparatorRecipe::resultStacks),
-                Codec.INT.fieldOf("energyContainer").forGetter(WaterSeparatorRecipe::energy)
+                Codec.LONG.fieldOf("energyContainer").forGetter(WaterSeparatorRecipe::energy)
         ).apply(instance, WaterSeparatorRecipe::new));
 
         public static final StreamCodec<RegistryFriendlyByteBuf, List<FluidStack>> FLUID_STACK_LIST_STREAM_CODEC =
@@ -69,8 +64,8 @@ public record WaterSeparatorRecipe(FluidStack ingredientStack, List<FluidStack> 
         private static final StreamCodec<RegistryFriendlyByteBuf, WaterSeparatorRecipe> STREAM_CODEC = StreamCodec.of((buf, recipe) -> {
             recipe.ingredientStack().write(buf);
             FLUID_STACK_LIST_STREAM_CODEC.encode(buf, recipe.resultStacks);
-            buf.writeInt(recipe.energy);
-        }, buf -> new WaterSeparatorRecipe(FluidStack.read(buf), FLUID_STACK_LIST_STREAM_CODEC.decode(buf), buf.readInt()));
+            buf.writeLong(recipe.energy);
+        }, buf -> new WaterSeparatorRecipe(FluidStack.read(buf), FLUID_STACK_LIST_STREAM_CODEC.decode(buf), buf.readLong()));
 
         @Override
         public MapCodec<WaterSeparatorRecipe> codec() {

@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.client.renderers.armors;
 
-import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.st0x0ef.stellaris.Stellaris;
@@ -13,13 +12,13 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
-public class JetSuitModel extends HumanoidModel<LivingEntity> {
+public class JetSuitModel extends HumanoidModel<HumanoidRenderState> {
 
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "jetsuit"), "main");
 	public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/models/armor/jetsuit_layer_1.png");
@@ -32,10 +31,10 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
 	private final ModelPart right_boot;
 	private final ModelPart left_leg;
 	private final ModelPart right_leg;
-    private final HumanoidModel<LivingEntity> parentModel;
+    private final HumanoidModel<HumanoidRenderState> parentModel;
 	private final EquipmentSlot slot;
 
-	public JetSuitModel(ModelPart root, EquipmentSlot slot, ItemStack stack, @Nullable HumanoidModel<LivingEntity> parentModel) {
+	public JetSuitModel(ModelPart root, EquipmentSlot slot, ItemStack stack, @Nullable HumanoidModel<HumanoidRenderState> parentModel) {
         super(root, RenderType::entityTranslucent);
         this.parentModel = parentModel;
 
@@ -93,6 +92,8 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
 
+
+
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
 		if (Platform.isNeoForge()) {
@@ -106,13 +107,8 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
 	}
 
 	@Override
-	protected Iterable<ModelPart> headParts() {
-		return ImmutableList.of(head);
-	}
-
-	@Override
-	protected Iterable<ModelPart> bodyParts() {
-		return ImmutableList.of(body, rightArm, leftArm, rightLeg, leftLeg, hat, left_boot, right_boot);
+	public ModelPart getHead() {
+		return this.head;
 	}
 
 	private void setVisible() {
@@ -128,8 +124,6 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
 				this.rightLeg.visible = true;
 				this.leftLeg.visible = true;
 			}
-
 		}
 	}
-
 }

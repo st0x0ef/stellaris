@@ -10,11 +10,11 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.function.Consumer;
 
 public class CanItem extends Item implements CustomTabletEntry {
 
@@ -46,7 +46,7 @@ public class CanItem extends Item implements CustomTabletEntry {
     public static boolean addFoodToCan(ItemStack canStack, ItemStack foodStack) {
         int canNutrition = getNutrition(canStack) + getNutrition(foodStack);
         if (canNutrition <= ((CanItem) canStack.getItem()).getMaxNutrition()) {
-            setFoodProperties(canStack, new FoodProperties(canNutrition, Math.round((getSaturation(canStack) + getSaturation(foodStack)) * 10F) / 10F, false, 1.6F, Optional.empty(), List.of()));
+            setFoodProperties(canStack, new FoodProperties(canNutrition, Math.round((getSaturation(canStack) + getSaturation(foodStack)) * 10F) / 10F, false));
 
 
             return true;
@@ -59,20 +59,20 @@ public class CanItem extends Item implements CustomTabletEntry {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        FoodProperties properties = getFoodProperties(stack);
+    public void appendHoverText(ItemStack itemStack, TooltipContext tooltipContext, TooltipDisplay tooltipDisplay, Consumer<Component> consumer, TooltipFlag tooltipFlag) {
+        FoodProperties properties = getFoodProperties(itemStack);
 
         if (properties == null || (properties.nutrition() <= 0 && properties.saturation() <= 0)) {
-            tooltip.add(Component.translatable("tooltip.item.stellaris.can.empty").withStyle(ChatFormatting.GRAY));
+            consumer.accept(Component.translatable("tooltip.item.stellaris.can.empty").withStyle(ChatFormatting.GRAY));
             return;
         }
 
         if (properties.nutrition() > 0) {
-            tooltip.add(Component.translatable("tooltip.item.stellaris.can.nutrition", properties.nutrition(), getMaxNutrition()).withStyle(ChatFormatting.GRAY));
+            consumer.accept(Component.translatable("tooltip.item.stellaris.can.nutrition", properties.nutrition(), getMaxNutrition()).withStyle(ChatFormatting.GRAY));
         }
 
         if (properties.saturation() > 0) {
-            tooltip.add(Component.translatable("tooltip.item.stellaris.can.saturation", properties.saturation()).withStyle(ChatFormatting.GRAY));
+            consumer.accept(Component.translatable("tooltip.item.stellaris.can.saturation", properties.saturation()).withStyle(ChatFormatting.GRAY));
         }
     }
 

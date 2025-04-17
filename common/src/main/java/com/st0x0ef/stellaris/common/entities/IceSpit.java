@@ -48,8 +48,8 @@ public class IceSpit extends AbstractArrow implements ItemSupplier {
     @Override
     public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
-        this.life = tag.getInt("Life");
-        this.lifetime = tag.getInt("LifeTime");
+        if (tag.getInt("Life").isPresent()) this.life = tag.getInt("Life").get();
+        if (tag.getInt("LifeTime").isPresent()) this.lifetime = tag.getInt("LifeTime").get();
     }
 
 

@@ -34,6 +34,7 @@ public class DataComponentsRegistry {
     public static final RegistrySupplier<DataComponentType<FluidAmountMapDataComponent>> FLUID_LIST = register("fluid", builder -> builder
                     .persistent(FluidAmountMapDataComponent.CODEC)
             .networkSynchronized(FluidAmountMapDataComponent.STREAM_CODEC));
+
     public static final RegistrySupplier<DataComponentType<Integer>> ENERGY =
             register("energy", builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.INT));
 

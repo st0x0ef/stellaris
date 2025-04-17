@@ -22,4 +22,6 @@ public class GlobeItem extends BlockItem implements CustomTabletEntry {
     public ResourceLocation getEntryName(ItemStack stack) {
         return ResourceLocation.fromNamespaceAndPath("planets", this.arch$registryName().getPath().replace("_globe", ""));
     }
+
+
 }

@@ -17,6 +17,8 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.phys.AABB;
 
+import java.util.Objects;
+
 public class Events {
     private static final int RADIATION_CHECK_INTERVAL = 100;
     private static int tickBeforeNextRadioactiveCheck = RADIATION_CHECK_INTERVAL;
@@ -25,9 +27,9 @@ public class Events {
         TickEvent.PLAYER_POST.register(player -> {
             if (tickBeforeNextRadioactiveCheck <= 0 && !Utils.isLivingInJetSuit(player)) {
                 if (!player.level().isClientSide()) {
-                    int maxRadiationLevel = player.getInventory().items.stream()
+                    int maxRadiationLevel = player.getInventory().getNonEquipmentItems().stream()
                             .filter(itemStack -> itemStack.has(DataComponentsRegistry.RADIOACTIVE.get()))
-                            .mapToInt(itemStack -> itemStack.get(DataComponentsRegistry.RADIOACTIVE.get()).level())
+                            .mapToInt(itemStack -> Objects.requireNonNull(itemStack.get(DataComponentsRegistry.RADIOACTIVE.get())).level())
                             .max()
                             .orElse(0);
 

@@ -9,7 +9,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -58,14 +58,12 @@ public class CoalGeneratorScreen extends AbstractContainerScreen<CoalGeneratorMe
 
     @Override
     protected void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShaderTexture(0, TEXTURE);
-        graphics.blit(TEXTURE, leftPos, topPos, 0, 0, imageWidth, imageHeight, imageWidth, imageHeight);
+        graphics.blit(RenderType::guiTextured, TEXTURE, leftPos, topPos, 0, 0, imageWidth, imageHeight, imageWidth, imageHeight);
 
         if (menu.isLit()) {
             int i = Mth.ceil(menu.getLitProgress() * 13.0F) + 1;
-            graphics.blitSprite(GUISprites.COAL_GENERATOR_LIT_PROGRESS_SPRITE, 8, 13, 0, 14 - i, leftPos + 100, topPos + 57 + 13 - i, 14, i);
+            graphics.blitSprite(RenderType::guiTextured, GUISprites.COAL_GENERATOR_LIT_PROGRESS_SPRITE, 8, 13, 0, 14 - i, leftPos + 100, topPos + 57 + 13 - i, 14, i);
         }
     }
 

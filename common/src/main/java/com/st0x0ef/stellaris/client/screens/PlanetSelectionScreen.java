@@ -27,7 +27,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
-import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
@@ -118,10 +118,6 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         centerSun();
 
         isPlanetScreenOpened = true;
-
-        RenderSystem.enableBlend();
-        RenderSystem.defaultBlendFunc();
-        RenderSystem.enableDepthTest();
 
         long windowHandle = Minecraft.getInstance().getWindow().getWindow();
         prevScrollCallback = GLFW.glfwSetScrollCallback(windowHandle, this::onMouseScroll);
@@ -285,10 +281,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     @Override
     protected void renderBg(GuiGraphics graphics, float partialTicks, int mouseX, int mouseY) {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShaderTexture(0, BACKGROUND_TEXTURE);
-        graphics.blit(BACKGROUND_TEXTURE, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
+        graphics.blit(RenderType::guiTextured, BACKGROUND_TEXTURE, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
     }
 
     public void renderBodiesAndPlanets(GuiGraphics graphics) {
@@ -317,7 +311,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             int bodyWidth = (int) (star.width * zoomLevel);
             int bodyHeight = (int) (star.height * zoomLevel);
 
-            graphics.blit(star.texture, (int) bodyX, (int) bodyY, 0, 0, bodyWidth, bodyHeight, bodyWidth, bodyHeight);
+            graphics.blit(RenderType::guiTextured, star.texture, (int) bodyX, (int) bodyY, 0, 0, bodyWidth, bodyHeight, bodyWidth, bodyHeight);
 
             int nameWidth = font.width(star.getTranslatable());
             graphics.drawString(font, star.getTranslatable(), (int) (bodyX + (float) bodyWidth / 2 - (float) nameWidth / 2), (int) (bodyY + bodyHeight), 0xFFFFFF);
@@ -494,8 +488,6 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
             float alpha = 0.5f;
 
-            RenderSystem.disableBlend();
-
             graphics.drawString(font, CELESTIAL_BODY_NAME, textX, buttonY + buttonHeight / 4 + 37, 0xFFFFFF, true);
 
             graphics.drawString(font, "￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣", textX, buttonY + buttonHeight / 4 + 50, 0xFFFFFF, true);
@@ -515,13 +507,9 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             if (canLaunch(planet)) {
                 graphics.drawString(font, gravityV, textX, buttonY + buttonHeight / 4 + 75, Utils.getColorHexCode("White"), true);
 
-                RenderSystem.enableBlend();
-                RenderSystem.setShader(GameRenderer::getPositionTexShader);
-
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, alpha);
 
-                RenderSystem.setShaderTexture(0, LARGE_MENU_TEXTURE);
-                graphics.blit(LARGE_MENU_TEXTURE, centerX, centerY, 0, 0, menuWidth, menuHeight, menuWidth, menuHeight);
+                graphics.blit(RenderType::guiTextured, LARGE_MENU_TEXTURE, centerX, centerY, 0, 0, menuWidth, menuHeight, menuWidth, menuHeight);
                 launchButton.setButtonTexture(
                         ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button.png"),
                         ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button_hovered.png")
@@ -530,27 +518,19 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
                 if (Objects.equals(focusedBody.name, "Earth")) {
                     graphics.drawString(font, gravityV, textX, buttonY + buttonHeight / 4 + 75, Utils.getColorHexCode("White"), true);
 
-                    RenderSystem.enableBlend();
-                    RenderSystem.setShader(GameRenderer::getPositionTexShader);
-
                     RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, alpha);
 
-                    RenderSystem.setShaderTexture(0, LARGE_MENU_TEXTURE);
                     launchButton.setButtonTexture(
                             ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button.png"),
                             ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button_hovered.png")
                     );
-                    graphics.blit(LARGE_MENU_TEXTURE, centerX, centerY, 0, 0, menuWidth, menuHeight, menuWidth, menuHeight);
+                    graphics.blit(RenderType::guiTextured, LARGE_MENU_TEXTURE, centerX, centerY, 0, 0, menuWidth, menuHeight, menuWidth, menuHeight);
                 } else {
                     graphics.drawString(font, gravityV, textX, buttonY + buttonHeight / 4 + 75, Utils.getColorHexCode("Orange"), true);
 
-                    RenderSystem.enableBlend();
-                    RenderSystem.setShader(GameRenderer::getPositionTexShader);
-
                     RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, alpha);
 
-                    RenderSystem.setShaderTexture(0, LARGE_MENU_TEXTURE_RED);
-                    graphics.blit(LARGE_MENU_TEXTURE_RED, centerX, centerY, 0, 0, menuWidth, menuHeight, menuWidth, menuHeight);
+                    graphics.blit(RenderType::guiTextured, LARGE_MENU_TEXTURE_RED, centerX, centerY, 0, 0, menuWidth, menuHeight, menuWidth, menuHeight);
                     launchButton.setButtonTexture(
                             ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/no_launch_button.png"),
                             ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/no_launch_button_hovered.png")
@@ -560,23 +540,19 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
-            RenderSystem.setShaderTexture(0, BLACK_TEXTURE);
-            graphics.blit(BLACK_TEXTURE, centerX + menuWidth - 64, centerY + menuHeight / 2 - 32, 0, 0, 48, 48, 48, 48);
+            graphics.blit(RenderType::guiTextured, BLACK_TEXTURE, centerX + menuWidth - 64, centerY + menuHeight / 2 - 32, 0, 0, 48, 48, 48, 48);
 
-            RenderSystem.setShaderTexture(0, CELESTIAL_BODY_TEXTURE);
             if (focusedBody.width != focusedBody.height) {
                 if (Math.min((int) focusedBody.width, (int) focusedBody.height) == focusedBody.width) {
                     float rate = focusedBody.height / focusedBody.width;
-                    graphics.blit(CELESTIAL_BODY_TEXTURE, centerX + menuWidth - 46, centerY + menuHeight / 2 - 14, 0, 0, 12, (int) (12 * rate), 12, (int) (12 * rate));
+                    graphics.blit(RenderType::guiTextured, CELESTIAL_BODY_TEXTURE, centerX + menuWidth - 46, centerY + menuHeight / 2 - 14, 0, 0, 12, (int) (12 * rate), 12, (int) (12 * rate));
                 } else {
                     float rate = focusedBody.width / focusedBody.height;
-                    graphics.blit(CELESTIAL_BODY_TEXTURE, centerX + menuWidth - 46, centerY + menuHeight / 2 - 14, 0, 0, (int) (12 * rate), 12, (int) (12 * rate), 12);
+                    graphics.blit(RenderType::guiTextured, CELESTIAL_BODY_TEXTURE, centerX + menuWidth - 46, centerY + menuHeight / 2 - 14, 0, 0, (int) (12 * rate), 12, (int) (12 * rate), 12);
                 }
             } else {
-                graphics.blit(CELESTIAL_BODY_TEXTURE, centerX + menuWidth - 46, centerY + menuHeight / 2 - 14, 0, 0, 12, 12, 12, 12);
+                graphics.blit(RenderType::guiTextured, CELESTIAL_BODY_TEXTURE, centerX + menuWidth - 46, centerY + menuHeight / 2 - 14, 0, 0, 12, 12, 12, 12);
             }
-
-            RenderSystem.disableBlend();
         } else {
             launchButton.visible = false;
         }
@@ -774,10 +750,6 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     }
 
     public void drawOrbits() {
-        RenderSystem.enableBlend();
-        RenderSystem.defaultBlendFunc();
-        RenderSystem.setShader(GameRenderer::getPositionColorShader);
-
         Tesselator tesselator = Tesselator.getInstance();
 
         for (PlanetInfo planet : PLANETS) {
@@ -797,8 +769,6 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
             renderOrbits(tesselator, orbitCenterX, orbitCenterY, moon.orbitRadius * zoomLevel, 75, 0x888888, 0.5F);
         }
-
-        RenderSystem.disableBlend();
     }
 
     public static void renderOrbits(Tesselator tesselator, double centerX, double centerY, double radius, int sides, int color, float alphaL) {
@@ -823,7 +793,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             bufferBuilder.addVertex(vertex2X, vertex2Y, 0).setColor(red, green, blue, alphaL);
         }
 
-        BufferUploader.drawWithShader(bufferBuilder.buildOrThrow());
+        bufferBuilder.build();
     }
 
     private void centerSun() {
@@ -910,13 +880,13 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     private boolean handleHotbarScroll(double scrollY) {
         if (this.minecraft != null && this.minecraft.player != null) {
-            int currentSlot = this.minecraft.player.getInventory().selected;
+            int currentSlot = this.minecraft.player.getInventory().getSelectedSlot();
             int newSlot = currentSlot - (int) scrollY;
 
             newSlot = (newSlot + 9) % 9;
 
             if (newSlot != currentSlot) {
-                this.minecraft.player.getInventory().selected = newSlot;
+                this.minecraft.player.getInventory().setSelectedSlot(newSlot);
                 return true;
             }
         }

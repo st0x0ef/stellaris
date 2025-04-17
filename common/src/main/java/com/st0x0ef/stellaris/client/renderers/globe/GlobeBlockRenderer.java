@@ -15,24 +15,26 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 
 @Environment(EnvType.CLIENT)
-public class GlobeBlockRenderer<T extends GlobeBlockEntity> implements BlockEntityRenderer<GlobeBlockEntity> {
-    private GlobeModel<?> model;
+public class GlobeBlockRenderer implements BlockEntityRenderer<GlobeBlockEntity> {
+    private final GlobeModel model;
 
-    public GlobeBlockRenderer(BlockEntityRendererProvider.Context Context) {}
+    public GlobeBlockRenderer(BlockEntityRendererProvider.Context context) {
+        this.model = new GlobeModel(context.bakeLayer(GlobeModel.LAYER_LOCATION));
+    }
 
     @Override
-    public void render(GlobeBlockEntity tileEntity, float particleTicks, PoseStack matrixStackIn, MultiBufferSource buffer, int combinedLight, int overlay) {
-        BlockState state = tileEntity.getLevel().getBlockState(tileEntity.getBlockPos());
+    public void render(GlobeBlockEntity blockEntity, float particleTicks, PoseStack matrixStackIn, MultiBufferSource buffer, int combinedLight, int overlay, Vec3 vec3) {
+        if (blockEntity.getLevel() == null) return;
 
-        if (!(state.getBlock() instanceof GlobeBlock)) {
-            return;
-        }
+        BlockState state = blockEntity.getBlockState();
+
+        if (!(state.getBlock() instanceof GlobeBlock)) return;
 
         Minecraft mc = Minecraft.getInstance();
-        BlockState blockstate = tileEntity.getBlockState();
-        Direction direction = blockstate.getValue(GlobeBlock.FACING);
+        Direction direction = state.getValue(GlobeBlock.FACING);
 
         matrixStackIn.pushPose();
 
@@ -40,13 +42,8 @@ public class GlobeBlockRenderer<T extends GlobeBlockEntity> implements BlockEnti
         matrixStackIn.scale(-1.0F, -1.0F, 1.0F);
         matrixStackIn.mulPose(Axis.YP.rotationDegrees(direction.toYRot()));
 
-        if (this.model == null) {
-            this.model = new GlobeModel<>(mc.getEntityModels().bakeLayer(GlobeModel.LAYER_LOCATION));
-        }
-
-
         /** Animation */
-        this.model.setupAnim(tileEntity, particleTicks);
+        this.model.setupAnim(blockEntity, particleTicks);
 
         VertexConsumer vertexBuilder = buffer.getBuffer(RenderType.entityTranslucent(((GlobeBlock) state.getBlock()).texture));
 

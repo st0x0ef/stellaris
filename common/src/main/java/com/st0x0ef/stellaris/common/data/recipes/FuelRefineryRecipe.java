@@ -6,25 +6,18 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.FuelRefineryBlockEntity;
 import com.st0x0ef.stellaris.common.data.recipes.input.FluidInput;
 import com.st0x0ef.stellaris.common.registry.RecipesRegistry;
-import com.st0x0ef.stellaris.common.utils.capabilities.fluid.SingleFluidStorage;
 import dev.architectury.fluid.FluidStack;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 
-public record FuelRefineryRecipe(FluidStack ingredientStack, FluidStack resultStack, int energy) implements Recipe<FluidInput> {
-
-    public static RecipeType<FuelRefineryRecipe> Type = RecipesRegistry.FUEL_REFINERY_TYPE.get();
-
+public record FuelRefineryRecipe(FluidStack ingredientStack, FluidStack resultStack, long energy) implements Recipe<FluidInput> {
     @Override
     public boolean matches(FluidInput input, Level level) {
-        SingleFluidStorage storage = ((FuelRefineryBlockEntity) input.entity()).getIngredientTank();
-        FluidStack stack = storage.getFluidInTank(0);
+        FluidStack stack = ((FuelRefineryBlockEntity) input.entity()).getIngredientTank().getFluidInTank(0);
         return stack.isFluidEqual(ingredientStack) && stack.getAmount() >= ingredientStack.getAmount();
     }
 
@@ -34,23 +27,23 @@ public record FuelRefineryRecipe(FluidStack ingredientStack, FluidStack resultSt
     }
 
     @Override
-    public boolean canCraftInDimensions(int width, int height) {
-        return true;
-    }
-
-    @Override
-    public ItemStack getResultItem(HolderLookup.Provider registries) {
-        return null;
-    }
-
-    @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<? extends Recipe<FluidInput>> getSerializer() {
         return RecipesRegistry.FUEL_REFINERY_SERIALIZER.get();
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public RecipeType<? extends Recipe<FluidInput>> getType() {
         return RecipesRegistry.FUEL_REFINERY_TYPE.get();
+    }
+
+    @Override
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.NOT_PLACEABLE;
+    }
+
+    @Override
+    public RecipeBookCategory recipeBookCategory() {
+        return RecipeBookCategories.CRAFTING_MISC;
     }
 
     public static class Serializer implements RecipeSerializer<FuelRefineryRecipe> {
@@ -58,14 +51,14 @@ public record FuelRefineryRecipe(FluidStack ingredientStack, FluidStack resultSt
         private static final MapCodec<FuelRefineryRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                 FluidStack.CODEC.fieldOf("ingredient").forGetter(FuelRefineryRecipe::ingredientStack),
                 FluidStack.CODEC.fieldOf("result").forGetter(FuelRefineryRecipe::resultStack),
-                Codec.INT.fieldOf("energyContainer").forGetter(FuelRefineryRecipe::energy)
+                Codec.LONG.fieldOf("energyContainer").forGetter(FuelRefineryRecipe::energy)
         ).apply(instance, FuelRefineryRecipe::new));
 
         private static final StreamCodec<RegistryFriendlyByteBuf, FuelRefineryRecipe> STREAM_CODEC = StreamCodec.of((buf, recipe) -> {
             recipe.ingredientStack().write(buf);
             recipe.resultStack().write(buf);
-            buf.writeInt(recipe.energy());
-        }, buf -> new FuelRefineryRecipe(FluidStack.read(buf), FluidStack.read(buf), buf.readInt()));
+            buf.writeLong(recipe.energy());
+        }, buf -> new FuelRefineryRecipe(FluidStack.read(buf), FluidStack.read(buf), buf.readLong()));
 
         @Override
         public MapCodec<FuelRefineryRecipe> codec() {

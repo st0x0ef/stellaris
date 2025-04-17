@@ -2,10 +2,9 @@ package com.st0x0ef.stellaris.common.blocks.machines;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.PipeBlock;
 import net.minecraft.world.level.block.RenderShape;
@@ -63,19 +62,19 @@ public abstract class BaseCableBlock extends BaseTickingEntityBlock {
     abstract boolean isConnectable(Level level, BlockPos pos, Direction direction);
 
     @Override
-    protected @NotNull BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor levelAccessor, BlockPos pos, BlockPos neighborPos) {
-        BlockEntity entity = levelAccessor.getBlockEntity(pos);
+    protected BlockState updateShape(BlockState blockState, LevelReader levelReader, ScheduledTickAccess scheduledTickAccess, BlockPos blockPos, Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource randomSource) {
+        BlockEntity entity = levelReader.getBlockEntity(blockPos);
         if (entity!=null) {
             Level level = entity.getLevel();
             if (level!=null)
                 if (isConnectable(level, neighborPos, direction.getOpposite()))
-                    return state.setValue(PROPERTY_BY_DIRECTION.get(direction), true);
+                    return blockState.setValue(PROPERTY_BY_DIRECTION.get(direction), true);
         }
-        return state.setValue(PROPERTY_BY_DIRECTION.get(direction), false);
+        return blockState.setValue(PROPERTY_BY_DIRECTION.get(direction), false);
     }
 
     @Override
-    public boolean propagatesSkylightDown(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
+    protected boolean propagatesSkylightDown(BlockState blockState) {
         return true;
     }
 

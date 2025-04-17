@@ -19,12 +19,11 @@ import dev.architectury.event.events.client.ClientGuiEvent;
 import dev.architectury.platform.Platform;
 import dev.architectury.registry.ReloadListenerRegistry;
 import dev.architectury.registry.client.particle.ParticleProviderRegistry;
-import dev.architectury.registry.client.rendering.ColorHandlerRegistry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
-import net.minecraft.world.item.component.DyedItemColor;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL43;
 import org.lwjgl.opengl.GLDebugMessageCallback;
@@ -45,19 +44,20 @@ public class StellarisClient {
     }
 
     private static void registerArmors() {
-        ClientUtilsPlatform.registerArmor(JetSuitModel.LAYER_LOCATION, JetSuitModel::new,
+        ClientUtilsPlatform.registerArmor(JetSuitModel.LAYER_LOCATION, JetSuitModel::new, JetSuitModel.TEXTURE,
                 ItemsRegistry.JETSUIT_BOOTS.get(), ItemsRegistry.JETSUIT_LEGGINGS.get(),
                 ItemsRegistry.JETSUIT_HELMET.get(), ItemsRegistry.JETSUIT_SUIT.get());
 
-        ClientUtilsPlatform.registerArmor(SpaceSuitModel.LAYER_LOCATION, SpaceSuitModel::new,
+        ClientUtilsPlatform.registerArmor(SpaceSuitModel.LAYER_LOCATION, SpaceSuitModel::new, SpaceSuitModel.TEXTURE,
                 ItemsRegistry.SPACESUIT_BOOTS.get(), ItemsRegistry.SPACESUIT_LEGGINGS.get(),
                 ItemsRegistry.SPACESUIT_HELMET.get(), ItemsRegistry.SPACESUIT_SUIT.get());
 
-        ColorHandlerRegistry.registerItemColors(
+        /*ColorHandlerRegistry.registerItemColors(
                 (stack, color) -> color > 0 ? -1 : DyedItemColor.getOrDefault(stack, -1),
                 ItemsRegistry.JETSUIT_BOOTS.get(), ItemsRegistry.JETSUIT_HELMET.get(), ItemsRegistry.JETSUIT_LEGGINGS.get(),
                 ItemsRegistry.SPACESUIT_BOOTS.get(), ItemsRegistry.JETSUIT_SUIT.get(),
-                ItemsRegistry.SPACESUIT_SUIT.get(), ItemsRegistry.SPACESUIT_HELMET.get(), ItemsRegistry.SPACESUIT_LEGGINGS.get());
+                ItemsRegistry.SPACESUIT_SUIT.get(), ItemsRegistry.SPACESUIT_HELMET.get(), ItemsRegistry.SPACESUIT_LEGGINGS.get());*/
+        // TODO : reimplement dyeable armor
     }
 
     public static void registerParticle() {
@@ -93,10 +93,10 @@ public class StellarisClient {
     }
 
     public static void registerPacks() {
-        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new StarPack());
-        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new PlanetPack());
-        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new MoonPack());
-        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new TabletPack());
+        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new StarPack(), ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "stars_pack"));
+        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new PlanetPack(), ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "planet_pack"));
+        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new MoonPack(), ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "moon_pack"));
+        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new TabletPack(), ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "tablet_pack"));
     }
 
 }

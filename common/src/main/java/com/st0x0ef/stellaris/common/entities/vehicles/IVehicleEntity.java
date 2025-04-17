@@ -20,7 +20,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.PowderSnowBlock;
 import net.minecraft.world.phys.Vec3;
 
-public abstract class IVehicleEntity extends Entity{
+public abstract class IVehicleEntity extends Entity {
     public int FUEL;
 
     public FuelType.Type FUEL_TYPE = FuelType.Type.FUEL;
@@ -103,17 +103,17 @@ public abstract class IVehicleEntity extends Entity{
     }
 
     @Override
-    public void lerpTo(double x, double y, double z, float yRot, float xRot, int steps) {
+    protected void lerpPositionAndRotationStep(int steps, double x, double y, double z, double yRot, double xRot) {
+        this.lerpSteps = steps;
         this.lerpX = x;
         this.lerpY = y;
         this.lerpZ = z;
         this.lerpYRot = yRot;
         this.lerpXRot = xRot;
-        this.lerpSteps = steps;
     }
 
     private void tickLerp() {
-        if (this.isControlledByLocalInstance()) {
+        if (this.isLocalClientAuthoritative()) {
             this.lerpSteps = 0;
             this.syncPacketPositionCodec(this.getX(), this.getY(), this.getZ());
         }
@@ -133,7 +133,7 @@ public abstract class IVehicleEntity extends Entity{
 
     /** Movement Physic */
     public void travel(Vec3 vec3) {
-        if (this.isControlledByLocalInstance()) {
+        if (this.isLocalClientAuthoritative()) {
             double d0 = 0.08D;
 
             boolean flag = this.getDeltaMovement().y <= 0.0D;
@@ -183,7 +183,7 @@ public abstract class IVehicleEntity extends Entity{
                 Vec3 vec35 = this.handleRelativeFrictionAndCalculateMovement(vec3, f3);
                 double d2 = vec35.y;
                 if (this.level().isClientSide && !this.level().hasChunkAt(blockpos)) {
-                    if (this.getY() > (double)this.level().getMinBuildHeight()) {
+                    if (this.getY() > (double)this.level().getMinY()) {
                         d2 = -0.1D;
                     } else {
                         d2 = 0.0D;
@@ -262,9 +262,6 @@ public abstract class IVehicleEntity extends Entity{
         return this.FUEL;
     }
 
-    public FuelType.Type getFuelType() {
-        return this.FUEL_TYPE;
-    }
 
     @Override
     public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity entity) {

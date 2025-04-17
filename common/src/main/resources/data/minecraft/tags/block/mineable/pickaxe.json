@@ -46,10 +46,10 @@
     "stellaris:iron_pillar",
     "stellaris:iron_plating_stairs",
     "stellaris:iron_plating_slab",
-    "stellaris:conglomorate_stairs",
-    "stellaris:polished_conglomorate_stairs",
-    "stellaris:conglomorate_slab",
-    "stellaris:polished_conglomorate_slab",
+    "stellaris:conglomerate_stairs",
+    "stellaris:polished_conglomerate_stairs",
+    "stellaris:conglomerate_slab",
+    "stellaris:polished_conglomerate_slab",
 
     "stellaris:venus_pillar",
     "stellaris:venus_smooth_sandstone",
@@ -77,8 +77,8 @@
 
     "stellaris:mercury_polished_stone_stairs",
     "stellaris:mercury_stone_stairs",
-    "stellaris:marcury_polished_stone_slab",
-    "stellaris:marcury_stone_slab",
+    "stellaris:mercury_polished_stone_slab",
+    "stellaris:mercury_stone_slab",
 
     "stellaris:desh_plating_block",
     "stellaris:desh_pillar",
@@ -110,8 +110,8 @@
     "stellaris:mars_stone_brick_slab",
     "stellaris:mars_stone_brick_stairs",
 
-    "stellaris:conglomorate",
-    "stellaris:polished_conglomorate",
+    "stellaris:conglomerate",
+    "stellaris:polished_conglomerate",
 
     "stellaris:chiseled_venus_stone",
     "stellaris:cracked_venus_sandstone_bricks",

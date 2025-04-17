@@ -8,7 +8,6 @@ import com.st0x0ef.stellaris.common.keybinds.KeyVariables;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -16,11 +15,12 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 
 public class JetSuit {
     public static final long MAX_FUEL_CAPACITY = 1000;
@@ -30,8 +30,8 @@ public class JetSuit {
 
         private int nextFuelCheckTick = 0;
 
-        public Suit(Holder<ArmorMaterial> material, Properties properties) {
-            super(material, Type.CHESTPLATE, properties);
+        public Suit(Item.Properties properties) {
+            super(properties);
         }
 
         public int getMode(ItemStack itemStack) {
@@ -48,8 +48,8 @@ public class JetSuit {
         }
 
         @Override
-        public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
-            super.inventoryTick(stack, level, entity, slotId, isSelected);
+        public void inventoryTick(ItemStack itemStack, ServerLevel serverLevel, Entity entity, @Nullable EquipmentSlot equipmentSlot) {
+            super.inventoryTick(itemStack, serverLevel, entity, equipmentSlot);
 
             if (entity instanceof Player player && player.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof JetSuit.Suit) {
                 ItemStack jetSuitItemStack = player.getItemBySlot(EquipmentSlot.CHEST);
@@ -64,7 +64,7 @@ public class JetSuit {
                     this.boost(player, 0.9, false);
                 }
 
-                switch (this.getMode(stack)) {
+                switch (this.getMode(itemStack)) {
                     case 1 -> this.normalFlyModeMovement(player, jetSuitItemStack);
                     case 2 -> this.hoverModeMovement(player, jetSuitItemStack);
                     case 3 -> this.elytraModeMovement(player);
@@ -169,7 +169,7 @@ public class JetSuit {
                 player.startFallFlying();
                 Utils.disableFlyAntiCheat(player, true);
             } else if (player.isSprinting() && player.onGround() && KeyVariables.isHoldingJump(player)) {
-                player.moveTo(player.getX(), player.getY() + 2, player.getZ());
+                player.move(MoverType.SELF, new Vec3(player.getX(), player.getY() + 2, player.getZ()));
             }
         }
 
@@ -247,7 +247,7 @@ public class JetSuit {
 
                     if (player.level() instanceof ServerLevel) {
                         for (ServerPlayer p : ((ServerLevel) player.level()).getServer().getPlayerList().getPlayers()) {
-                            ((ServerLevel) player.level()).sendParticles(p, ParticleTypes.FLASH, true, player.getX() - vec33.x, player.getY() - vec33.y, player.getZ() - vec33.z, 1, 0, 0, 0, 0.001);
+                            ((ServerLevel) player.level()).sendParticles(ParticleTypes.FLASH, true, true, player.getX() - vec33.x, player.getY() - vec33.y, player.getZ() - vec33.z, 1, 0, 0, 0, 0.001);
                         }
                     }
                 }

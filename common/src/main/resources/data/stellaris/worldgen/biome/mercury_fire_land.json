@@ -33,11 +33,9 @@
       "charge": 0.4
     }
   },
-  "carvers": {
-    "air": [
-      "minecraft:canyon"
-    ]
-  },
+  "carvers": [
+    "minecraft:canyon"
+  ],
   "features": [
     [
       "minecraft:basalt_pillar"
