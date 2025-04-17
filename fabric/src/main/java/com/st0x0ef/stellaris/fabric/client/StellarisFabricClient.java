@@ -118,16 +118,14 @@ public class StellarisFabricClient implements ClientModInitializer {
         BuiltinItemRendererRegistry.INSTANCE.register(ItemsRegistry.MERCURY_GLOBE_ITEM.get(), ItemRendererRegistry.GLOBE_ITEM_RENDERER::renderByItem);
         BuiltinItemRendererRegistry.INSTANCE.register(ItemsRegistry.VENUS_GLOBE_ITEM.get(), ItemRendererRegistry.GLOBE_ITEM_RENDERER::renderByItem);
 
-
         BlockRenderLayerMap.INSTANCE.putBlock(BlocksRegistry.MOON_VINES.get(), RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(BlocksRegistry.MOON_VINES_PLANT.get(), RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(BlocksRegistry.UPGRADE_STATION.get(), RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(BlocksRegistry.WATER_PUMP.get(), RenderType.cutout());
-
-
+        BlockRenderLayerMap.INSTANCE.putBlock(BlocksRegistry.MARS_CROP.get(), RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(BlocksRegistry.MOON_CROPS.get(), RenderType.cutout());
 
         BuiltinItemRendererRegistry.INSTANCE.register(ItemsRegistry.ROVER.get(), ItemRendererRegistry.ROVER_ITEM_RENDERER::renderByItem);
-
     }
 
     public static void registerEntityModelLayer() {
