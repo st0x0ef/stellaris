@@ -8,12 +8,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GlobalOxygenManager {
-    private static final GlobalOxygenManager INSTANCE;
-    private final Map<ResourceKey<Level>, DimensionOxygenManager> dimensionManagers;
 
-    static {
-        INSTANCE = new GlobalOxygenManager();
-    }
+    private static final GlobalOxygenManager INSTANCE = new GlobalOxygenManager();
+    private final Map<ResourceKey<Level>, DimensionOxygenManager> dimensionManagers;
 
     private GlobalOxygenManager() {
         this.dimensionManagers = new HashMap<>();

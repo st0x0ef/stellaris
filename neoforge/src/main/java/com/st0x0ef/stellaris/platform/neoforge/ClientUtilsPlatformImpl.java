@@ -14,12 +14,10 @@ public class ClientUtilsPlatformImpl {
 
     public static void registerArmor(ModelLayerLocation layer, ClientUtilsPlatform.ArmorFactory factory, Item... items) {
         for (Item item : items) {
-            ARMOR_RENDERERS.put(item, new ArmorRenderer(ResourceLocation.fromNamespaceAndPath("", ""), layer, factory));
+            ARMOR_RENDERERS.put(item, new ArmorRenderer(layer, factory));
         }
     }
 
-    public record ArmorRenderer(ResourceLocation texture, ModelLayerLocation layer, ClientUtilsPlatform.ArmorFactory factory) {
-
+    public record ArmorRenderer(ModelLayerLocation layer, ClientUtilsPlatform.ArmorFactory factory) {
     }
-
 }

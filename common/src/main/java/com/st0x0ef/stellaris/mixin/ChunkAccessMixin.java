@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(ChunkAccess.class)
-public class MixinChunkAccess implements ChunkOilLevelGetter {
+public class ChunkAccessMixin implements ChunkOilLevelGetter {
 
     @Unique
     private int stellaris$oilLevel = -1;

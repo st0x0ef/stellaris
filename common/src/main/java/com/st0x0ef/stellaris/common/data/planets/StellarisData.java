@@ -19,6 +19,7 @@ import java.util.Map;
 public class StellarisData extends SimpleJsonResourceReloadListener {
 
     private static final List<Planet> PLANETS = new ArrayList<>();
+    public static final ResourceLocation OVERWORLD = ResourceLocation.withDefaultNamespace("overworld");
 
     public StellarisData() {
         super(Stellaris.GSON, "planets");

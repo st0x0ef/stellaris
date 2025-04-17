@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(ItemEntity.class)
-public abstract class ItemEntityGravityMixin {
+public abstract class ItemEntityMixin {
 
     @Unique
     ItemEntity stellaris$itemEntity = (ItemEntity) ((Object) this);

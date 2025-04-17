@@ -9,5 +9,4 @@ public interface CustomPlayerData {
     }
 
     void stellaris$setPlanetMenuOpen(boolean open, Player player, boolean sync);
-
 }

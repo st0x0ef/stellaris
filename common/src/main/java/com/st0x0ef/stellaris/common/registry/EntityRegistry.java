@@ -60,7 +60,7 @@ public class EntityRegistry {
     public static final RegistrySupplier<EntityType<? extends CheeseSpit>> CHEESE_SPIT = ENTITY_TYPE.register("cheese_spit",
             Suppliers.memoize(() -> EntityType.Builder.of(CheeseSpit::new, MobCategory.MISC).sized(0.5f, 0.5f).build(id("cheese_spit").toString())));
 
-    public static final RegistrySupplier<EntityType<CustomLightningBolt>> VENUS_LIGHTNING_BOLT = ENTITY_TYPE.register("custom_lightning_bolt",
+    public static final RegistrySupplier<EntityType<CustomLightningBolt>> CUSTOM_LIGHTNING_BOLT = ENTITY_TYPE.register("custom_lightning_bolt",
             Suppliers.memoize(() -> EntityType.Builder.of(CustomLightningBolt::new, MobCategory.MISC).sized(0.5f, 0.5f).build(id("custom_lightning_bolt").toString())));
 
 
