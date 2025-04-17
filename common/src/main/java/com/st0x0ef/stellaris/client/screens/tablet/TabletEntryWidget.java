@@ -76,7 +76,7 @@ public class TabletEntryWidget extends AbstractScrollWidget {
 
         info.image().ifPresent((image) -> {
             int height = getY() + 40 + finalHeight.get() + 20;
-            guiGraphics.blitSprite(image.location(), this.baseScreenWidth / 2 - image.width() / 2, height, image.width(), image.height());
+            guiGraphics.blit(image.location().withSuffix(".png"), this.baseScreenWidth / 2 - image.width() / 2, height, 0f, 0f, image.width(), image.height(), image.width(), image.height());
 
             finalHeight.addAndGet(image.height() + 40 );
 
@@ -247,5 +247,5 @@ public class TabletEntryWidget extends AbstractScrollWidget {
             }
 
         }
-    
+
 }
