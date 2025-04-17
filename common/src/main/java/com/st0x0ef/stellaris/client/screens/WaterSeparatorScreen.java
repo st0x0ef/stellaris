@@ -16,12 +16,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
-import static com.st0x0ef.stellaris.Stellaris.id;
+import static com.st0x0ef.stellaris.Stellaris.guiTexture;
 
 @Environment(EnvType.CLIENT)
 public class WaterSeparatorScreen extends AbstractContainerScreen<WaterSeparatorMenu> {
 
-    private static final ResourceLocation TEXTURE = id("textures/gui/water_separator.png");
+    private static final ResourceLocation TEXTURE = guiTexture("water_separator");
 
     private final WaterSeparatorBlockEntity blockEntity = getMenu().getBlockEntity();
     private GaugeChunkWidget ingredientTankGauge;

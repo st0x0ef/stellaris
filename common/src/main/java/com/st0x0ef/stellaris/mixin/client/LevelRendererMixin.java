@@ -22,13 +22,13 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static com.st0x0ef.stellaris.Stellaris.id;
+import static com.st0x0ef.stellaris.Stellaris.texture;
 
 @Mixin(LevelRenderer.class)
 public class LevelRendererMixin {
 
     @Unique
-    private static final ResourceLocation stellaris$TEXTURE = id("textures/environment/sandstorm.png");
+    private static final ResourceLocation stellaris$TEXTURE = texture("environment/sandstorm");
 
     @Final
     @Shadow

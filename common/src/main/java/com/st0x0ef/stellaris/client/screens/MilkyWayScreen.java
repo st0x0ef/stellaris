@@ -15,12 +15,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import org.lwjgl.glfw.GLFW;
 
-import static com.st0x0ef.stellaris.Stellaris.id;
+import static com.st0x0ef.stellaris.Stellaris.guiTexture;
+import static com.st0x0ef.stellaris.Stellaris.texture;
 
 @Environment(EnvType.CLIENT)
 public class MilkyWayScreen extends AbstractContainerScreen<MilkyWayMenu> {
-    public static final ResourceLocation MILKY_WAY_TEXTURE = id("textures/environment/milky_way.png");
-    public static final ResourceLocation BACKGROUND_TEXTURE = id("textures/gui/planet_selection.png");
+    public static final ResourceLocation MILKY_WAY_TEXTURE = texture("environment/milky_way");
+    public static final ResourceLocation BACKGROUND_TEXTURE = guiTexture("planet_selection");
 
     public static float rotationAngle = 0;
 

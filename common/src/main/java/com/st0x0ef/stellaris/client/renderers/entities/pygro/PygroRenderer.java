@@ -10,12 +10,12 @@ import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Mob;
 
-import static com.st0x0ef.stellaris.Stellaris.id;
+import static com.st0x0ef.stellaris.Stellaris.texture;
 
 @Environment(EnvType.CLIENT)
 public class PygroRenderer extends HumanoidMobRenderer<Pygro, PygroModel<Pygro>> {
 
-    public static final ResourceLocation TEXTURE = id("textures/entity/pygro.png");
+    public static final ResourceLocation TEXTURE = texture("entity/pygro");
 
     public PygroRenderer(EntityRendererProvider.Context context) {
         super(context, new PygroModel<>(context.bakeLayer(PygroModel.LAYER_LOCATION)), 0.5f);

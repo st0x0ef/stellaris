@@ -8,12 +8,12 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
-import static com.st0x0ef.stellaris.Stellaris.id;
+import static com.st0x0ef.stellaris.Stellaris.texture;
 
 @Environment(EnvType.CLIENT)
 public class MartianRaptorRenderer extends MobRenderer<MartianRaptor, MartianRaptorModel<MartianRaptor>> {
 
-    public static final ResourceLocation TEXTURE = id("textures/entity/martian_raptor.png");
+    public static final ResourceLocation TEXTURE = texture("entity/martian_raptor");
 
     public MartianRaptorRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new MartianRaptorModel<>(renderManagerIn.bakeLayer(MartianRaptorModel.LAYER_LOCATION)), 0.5f);

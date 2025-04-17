@@ -18,13 +18,13 @@ import org.jetbrains.annotations.Nullable;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
-import static com.st0x0ef.stellaris.Stellaris.id;
+import static com.st0x0ef.stellaris.Stellaris.guiTexture;
 
 @Environment(EnvType.CLIENT)
 public class TabletButton extends Button {
 
-    public static final ResourceLocation TEXTURE = id("textures/gui/util/buttons/button.png");
-    public static final ResourceLocation HOVER_TEXTURE = id("textures/gui/util/buttons/button.png");
+    public static final ResourceLocation TEXTURE = guiTexture("util/buttons/button");
+    public static final ResourceLocation HOVER_TEXTURE = guiTexture("util/buttons/button");
     private ResourceLocation buttonTexture;
     private ResourceLocation hoverButtonTexture;
 

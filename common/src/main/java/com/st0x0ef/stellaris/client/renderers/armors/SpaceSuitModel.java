@@ -19,11 +19,12 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
 import static com.st0x0ef.stellaris.Stellaris.id;
+import static com.st0x0ef.stellaris.Stellaris.texture;
 
 public class SpaceSuitModel extends HumanoidModel<LivingEntity> {
 
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(id("spacesuit"), "main");
-    public static final ResourceLocation TEXTURE = id("textures/models/armor/spacesuit_white.png");
+    public static final ResourceLocation TEXTURE = texture("models/armor/spacesuit_white");
 
 	private final ModelPart head;
 	private final ModelPart body;

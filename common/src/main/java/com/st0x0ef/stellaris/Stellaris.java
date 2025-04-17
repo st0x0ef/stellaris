@@ -82,4 +82,12 @@ public class Stellaris {
     public static ResourceLocation id(String path) {
         return ResourceLocation.fromNamespaceAndPath(MODID, path);
     }
+
+    public static ResourceLocation texture(String path) {
+        return id("textures/" + path + ".png");
+    }
+
+    public static ResourceLocation guiTexture(String path) {
+        return texture("gui/" + path);
+    }
 }

@@ -13,12 +13,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
-import static com.st0x0ef.stellaris.Stellaris.id;
+import static com.st0x0ef.stellaris.Stellaris.guiTexture;
 
 @Environment(EnvType.CLIENT)
 public class SolarPanelScreen extends AbstractContainerScreen<SolarPanelMenu> {
 
-    public static final ResourceLocation TEXTURE = id("textures/gui/solar_panel.png");
+    public static final ResourceLocation TEXTURE = guiTexture("solar_panel");
 
     private final SolarPanelEntity blockEntity = getMenu().getBlockEntity();
     private GaugeWidget energyGauge;

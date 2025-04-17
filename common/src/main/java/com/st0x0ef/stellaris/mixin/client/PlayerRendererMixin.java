@@ -1,11 +1,11 @@
 package com.st0x0ef.stellaris.mixin.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.st0x0ef.stellaris.common.utils.ArmorRenderData;
 import com.st0x0ef.stellaris.common.entities.vehicles.LanderEntity;
 import com.st0x0ef.stellaris.common.items.armors.AbstractSpaceArmor;
 import com.st0x0ef.stellaris.common.items.armors.JetSuit;
 import com.st0x0ef.stellaris.common.items.armors.SpaceSuit;
+import com.st0x0ef.stellaris.common.utils.ArmorRenderData;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;

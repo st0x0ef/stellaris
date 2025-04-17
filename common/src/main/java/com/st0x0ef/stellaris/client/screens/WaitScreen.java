@@ -14,11 +14,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 
-import static com.st0x0ef.stellaris.Stellaris.id;
+import static com.st0x0ef.stellaris.Stellaris.guiTexture;
 
 @Environment(EnvType.CLIENT)
 public class WaitScreen extends AbstractContainerScreen<WaitMenu> {
-    public static final ResourceLocation BACKGROUND_TEXTURE = id("textures/gui/planet_selection.png");
+    public static final ResourceLocation BACKGROUND_TEXTURE = guiTexture("planet_selection");
 
     public final String playerChoosing;
     public int timeOnTheScreen = 0;

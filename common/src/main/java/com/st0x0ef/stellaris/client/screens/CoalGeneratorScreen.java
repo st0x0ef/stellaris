@@ -14,12 +14,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 
-import static com.st0x0ef.stellaris.Stellaris.id;
+import static com.st0x0ef.stellaris.Stellaris.guiTexture;
 
 @Environment(EnvType.CLIENT)
 public class CoalGeneratorScreen extends AbstractContainerScreen<CoalGeneratorMenu> {
 
-    private static final ResourceLocation TEXTURE = id("textures/gui/coal_generator.png");
+    private static final ResourceLocation TEXTURE = guiTexture("coal_generator");
 
     private final CoalGeneratorEntity blockEntity = getMenu().getBlockEntity();
     private GaugeWidget energyGauge;

@@ -15,13 +15,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
-import static com.st0x0ef.stellaris.Stellaris.id;
+import static com.st0x0ef.stellaris.Stellaris.guiTexture;
 
 @Environment(EnvType.CLIENT)
 public class TexturedButton extends Button {
 
-    public static final ResourceLocation TEXTURE = id("textures/gui/util/buttons/button.png");
-    public static final ResourceLocation HOVER_TEXTURE = id("textures/gui/util/buttons/button.png");
+    public static final ResourceLocation TEXTURE = guiTexture("util/buttons/button");
+    public static final ResourceLocation HOVER_TEXTURE = guiTexture("util/buttons/button");
     private ResourceLocation buttonTexture;
     private ResourceLocation hoverButtonTexture;
 

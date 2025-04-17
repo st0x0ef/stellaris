@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.client.screens;
 import net.minecraft.resources.ResourceLocation;
 
 import static com.st0x0ef.stellaris.Stellaris.id;
+import static com.st0x0ef.stellaris.Stellaris.texture;
 
 public class GUISprites {
 
@@ -23,8 +24,8 @@ public class GUISprites {
     public static final ResourceLocation RADIOACTIVE_GENERATOR_LIT_PROGRESS_SPRITE = id("util/radioactive_generator_fire_full");
     public static final ResourceLocation FLUID_TANK_OVERLAY = id("util/fluid_tank_overlay");
     public static final ResourceLocation NO_OVERLAY = id("util/no_overlay");
-    public static final ResourceLocation SPACESUIT_OXYGEN_BAR = id("textures/overlay/oxygen_hud.png");
-    public static final ResourceLocation SPACESUIT_FUEL_BAR = id("textures/overlay/fuel_hud.png");
-    public static final ResourceLocation SPACESUIT_ENERGY_BAR = id("textures/overlay/energy_hud.png");
+    public static final ResourceLocation SPACESUIT_OXYGEN_BAR = texture("overlay/oxygen_hud");
+    public static final ResourceLocation SPACESUIT_FUEL_BAR = texture("overlay/fuel_hud");
+    public static final ResourceLocation SPACESUIT_ENERGY_BAR = texture("overlay/energy_hud");
     public static final ResourceLocation SPACESUIT_FULL_BAR_SPRITE = id("util/bar_full");
 }

@@ -13,12 +13,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
-import static com.st0x0ef.stellaris.Stellaris.id;
+import static com.st0x0ef.stellaris.Stellaris.guiTexture;
 
 @Environment(EnvType.CLIENT)
 public class RocketScreen extends AbstractContainerScreen<RocketMenu> {
 
-    private static final ResourceLocation TEXTURE = id("textures/gui/rocket.png");
+    private static final ResourceLocation TEXTURE = guiTexture("rocket");
 
     private final RocketEntity rocket = getMenu().getRocket();
     private GaugeWidget fuelGauge;

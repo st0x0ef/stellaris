@@ -19,12 +19,12 @@ import net.minecraft.resources.ResourceLocation;
 
 import java.nio.file.Path;
 
-import static com.st0x0ef.stellaris.Stellaris.id;
+import static com.st0x0ef.stellaris.Stellaris.texture;
 
 @Environment(EnvType.CLIENT)
 public class ConfigScreen extends Screen {
 
-    public static final ResourceLocation TEXTURE = id("textures/item/engine_fan.png");
+    public static final ResourceLocation TEXTURE = texture("item/engine_fan");
     private final Screen parent;
     public ConfigScreen(Screen parent) {
         super(Component.literal("Stellaris Option"));

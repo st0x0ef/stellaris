@@ -7,10 +7,10 @@ import com.st0x0ef.stellaris.common.vehicle_upgrade.ModelUpgrade;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 
-import static com.st0x0ef.stellaris.Stellaris.id;
+import static com.st0x0ef.stellaris.Stellaris.texture;
 
 public class BigRocketRenderer extends VehicleRenderer<RocketEntity, BigRocketModel<RocketEntity>> {
-    public static final ResourceLocation TEXTURE = id("textures/vehicle/rocket_skin/big/standard.png");
+    public static final ResourceLocation TEXTURE = texture("vehicle/rocket_skin/big/standard");
 
     public BigRocketRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new BigRocketModel<>(renderManagerIn.bakeLayer(BigRocketModel.LAYER_LOCATION)), 0.5f);

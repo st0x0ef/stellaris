@@ -13,11 +13,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
-import static com.st0x0ef.stellaris.Stellaris.id;
+import static com.st0x0ef.stellaris.Stellaris.guiTexture;
 
 @Environment(EnvType.CLIENT)
 public class VacumatorScreen extends AbstractContainerScreen<VacuumatorMenu> {
-	public static final ResourceLocation texture = id("textures/gui/vacuumator.png");
+	public static final ResourceLocation texture = guiTexture("vacuumator");
 
 	private final VacuumatorBlockEntity blockEntity = getMenu().getBlockEntity();
 	private GaugeWidget energyGauge;

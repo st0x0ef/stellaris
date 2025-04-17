@@ -14,10 +14,19 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.state.BlockState;
+
+import static com.st0x0ef.stellaris.Stellaris.texture;
 
 @Environment(EnvType.CLIENT)
 public class GlobeBlockRenderer<T extends GlobeBlockEntity> implements BlockEntityRenderer<GlobeBlockEntity> {
+
+    public static final ResourceLocation EARTH_GLOBE_TEXTURE = texture("block/globes/earth_globe");
+    public static final ResourceLocation MOON_GLOBE_TEXTURE = texture("block/globes/moon_globe");
+    public static final ResourceLocation MARS_GLOBE_TEXTURE = texture("block/globes/mars_globe");
+    public static final ResourceLocation MERCURY_GLOBE_TEXTURE = texture("block/globes/mercury_globe");
+    public static final ResourceLocation VENUS_GLOBE_TEXTURE = texture("block/globes/venus_globe");
     private GlobeModel<?> model;
 
     public GlobeBlockRenderer(BlockEntityRendererProvider.Context Context) {}

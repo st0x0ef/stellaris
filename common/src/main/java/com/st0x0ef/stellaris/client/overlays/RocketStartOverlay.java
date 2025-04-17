@@ -9,20 +9,20 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 
-import static com.st0x0ef.stellaris.Stellaris.id;
+import static com.st0x0ef.stellaris.Stellaris.texture;
 
 public class RocketStartOverlay {
 
-    public static final ResourceLocation TIMER_1 = id("textures/overlay/timer/timer_1.png");
-    public static final ResourceLocation TIMER_2 = id("textures/overlay/timer/timer_2.png");
-    public static final ResourceLocation TIMER_3 = id("textures/overlay/timer/timer_3.png");
-    public static final ResourceLocation TIMER_4 = id("textures/overlay/timer/timer_4.png");
-    public static final ResourceLocation TIMER_5 = id("textures/overlay/timer/timer_5.png");
-    public static final ResourceLocation TIMER_6 = id("textures/overlay/timer/timer_6.png");
-    public static final ResourceLocation TIMER_7 = id("textures/overlay/timer/timer_7.png");
-    public static final ResourceLocation TIMER_8 = id("textures/overlay/timer/timer_8.png");
-    public static final ResourceLocation TIMER_9 = id("textures/overlay/timer/timer_9.png");
-    public static final ResourceLocation TIMER_10 = id("textures/overlay/timer/timer_10.png");
+    public static final ResourceLocation TIMER_1 = texture("overlay/timer/timer_1");
+    public static final ResourceLocation TIMER_2 = texture("overlay/timer/timer_2");
+    public static final ResourceLocation TIMER_3 = texture("overlay/timer/timer_3");
+    public static final ResourceLocation TIMER_4 = texture("overlay/timer/timer_4");
+    public static final ResourceLocation TIMER_5 = texture("overlay/timer/timer_5");
+    public static final ResourceLocation TIMER_6 = texture("overlay/timer/timer_6");
+    public static final ResourceLocation TIMER_7 = texture("overlay/timer/timer_7");
+    public static final ResourceLocation TIMER_8 = texture("overlay/timer/timer_8");
+    public static final ResourceLocation TIMER_9 = texture("overlay/timer/timer_9");
+    public static final ResourceLocation TIMER_10 = texture("overlay/timer/timer_10");
 
     public static void render(GuiGraphics graphics, DeltaTracker deltaTracker) {
         Minecraft mc = Minecraft.getInstance();

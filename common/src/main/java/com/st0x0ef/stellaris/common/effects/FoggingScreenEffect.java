@@ -12,12 +12,12 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 
-import static com.st0x0ef.stellaris.Stellaris.id;
+import static com.st0x0ef.stellaris.Stellaris.texture;
 
 public class FoggingScreenEffect extends MobEffect {
 
 
-    public static ResourceLocation FOGGING_OVERLAY = id("textures/overlay/fogging_overlay.png");
+    public static ResourceLocation FOGGING_OVERLAY = texture("overlay/fogging_overlay");
 
     public FoggingScreenEffect(MobEffectCategory category, int color) {
         super(category, color);

@@ -16,7 +16,7 @@ import static com.st0x0ef.stellaris.Stellaris.id;
 @Environment(EnvType.CLIENT)
 public class UpgradeStationScreen extends AbstractContainerScreen<UpgradeStationMenu> {
 
-    private static final ResourceLocation GUI_LOCATION = id( "textures/gui/upgrade_station.png"); //temporary
+    private static final ResourceLocation GUI_LOCATION = id( "textures/gui/upgrade_station"); //temporary
 
     public UpgradeStationScreen(UpgradeStationMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);

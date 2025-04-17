@@ -8,12 +8,12 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
-import static com.st0x0ef.stellaris.Stellaris.id;
+import static com.st0x0ef.stellaris.Stellaris.texture;
 
 @Environment(EnvType.CLIENT)
 public class StarCrawlerRenderer extends MobRenderer<StarCrawler, StarCrawlerModel<StarCrawler>> {
 
-    public static final ResourceLocation TEXTURE = id("textures/entity/star_crawler.png");
+    public static final ResourceLocation TEXTURE = texture("entity/star_crawler");
 
     public StarCrawlerRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new StarCrawlerModel<>(renderManagerIn.bakeLayer(StarCrawlerModel.LAYER_LOCATION)), 0f);

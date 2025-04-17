@@ -12,11 +12,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
-import static com.st0x0ef.stellaris.Stellaris.id;
+import static com.st0x0ef.stellaris.Stellaris.guiTexture;
 
 public class WaterPumpScreen extends AbstractContainerScreen<WaterPumpMenu> {
 
-    public static final ResourceLocation TEXTURE = id("textures/gui/water_pump.png");
+    public static final ResourceLocation TEXTURE = guiTexture("water_pump");
 
     private final WaterPumpBlockEntity blockEntity = getMenu().getBlockEntity();
     private GaugeWidget waterTankGauge;

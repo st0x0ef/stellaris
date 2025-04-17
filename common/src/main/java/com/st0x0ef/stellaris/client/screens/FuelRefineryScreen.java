@@ -12,11 +12,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
-import static com.st0x0ef.stellaris.Stellaris.id;
+import static com.st0x0ef.stellaris.Stellaris.guiTexture;
 
 public class FuelRefineryScreen extends AbstractContainerScreen<FuelRefineryMenu> {
 
-    private static final ResourceLocation TEXTURE = id("textures/gui/fuel_refinery.png");
+    private static final ResourceLocation TEXTURE = guiTexture("fuel_refinery");
 
     private final FuelRefineryBlockEntity blockEntity = getMenu().getBlockEntity();
     private GaugeWidget ingredientTankGauge;

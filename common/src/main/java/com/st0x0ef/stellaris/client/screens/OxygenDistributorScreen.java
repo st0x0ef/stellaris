@@ -14,12 +14,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
-import static com.st0x0ef.stellaris.Stellaris.id;
+import static com.st0x0ef.stellaris.Stellaris.guiTexture;
 
 @Environment(EnvType.CLIENT)
 public class OxygenDistributorScreen extends AbstractContainerScreen<OxygenDistributorMenu> {
 
-    private static final ResourceLocation TEXTURE = id("textures/gui/oxygen_distributor.png");
+    private static final ResourceLocation TEXTURE = guiTexture("oxygen_distributor");
 
     private final OxygenDistributorBlockEntity blockEntity = getMenu().getBlockEntity();
     private GaugeWidget energyGauge;

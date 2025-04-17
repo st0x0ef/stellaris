@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static com.st0x0ef.stellaris.Stellaris.id;
+import static com.st0x0ef.stellaris.Stellaris.guiTexture;
 
 public class TabletEntryScreen extends Screen {
 
@@ -25,17 +25,18 @@ public class TabletEntryScreen extends Screen {
     private int imageWidth;
 
     /** Textures */
-    public static final ResourceLocation MENU_BACKGROUND_LIGHT = id("textures/gui/tablet/tablet_background_light.png");
-    public static final ResourceLocation SMALL_BACK_ARROW = id("textures/gui/tablet/small_back_arrow.png");
-    public static final ResourceLocation SMALL_NEXT_ARROW = id("textures/gui/tablet/small_next_arrow.png");
-    public static final ResourceLocation SMALL_HOME_BUTTON = id("textures/gui/tablet/small_home_button.png");
-    public static final ResourceLocation HOME_BUTTON = id("textures/gui/tablet/main_page.png");
-    public static final ResourceLocation HOME_BUTTON_HOVER = id("textures/gui/tablet/main_page_hover.png");
-    public static final ResourceLocation BACK_ARROW = id("textures/gui/tablet/back_page.png");
-    public static final ResourceLocation BACK_ARROW_HOVER = id("textures/gui/tablet/back_page_hovered.png");
-    public static final ResourceLocation NEXT_ARROW = id("textures/gui/tablet/next_page.png");
-    public static final ResourceLocation NEXT_ARROW_HOVER = id("textures/gui/tablet/next_page_hovered.png");
-
+    public static final ResourceLocation MENU_BACKGROUND_LIGHT = guiTexture("tablet/tablet_background_light");
+    public static final ResourceLocation SMALL_BACK_ARROW = guiTexture("tablet/small_back_arrow");
+    public static final ResourceLocation SMALL_NEXT_ARROW = guiTexture("tablet/small_next_arrow");
+    public static final ResourceLocation SMALL_HOME_BUTTON = guiTexture("tablet/small_home_button");
+    public static final ResourceLocation HOME_BUTTON = guiTexture("tablet/main_page");
+    public static final ResourceLocation HOME_BUTTON_HOVER = guiTexture("tablet/main_page_hover");
+    public static final ResourceLocation BACK_ARROW = guiTexture("tablet/back_page");
+    public static final ResourceLocation BACK_ARROW_HOVER = guiTexture("tablet/back_page_hovered");
+    public static final ResourceLocation NEXT_ARROW = guiTexture("tablet/next_page");
+    public static final ResourceLocation NEXT_ARROW_HOVER = guiTexture("tablet/next_page_hovered");
+    public static final ResourceLocation BUTTON_TEXTURE = guiTexture("tablet/button");
+    public static final ResourceLocation BUTTON_HOVERED_TEXTURE = guiTexture("tablet/button_click");
 
     private final TabletMainScreen screen;
     public TabletEntry entry;
@@ -129,7 +130,7 @@ public class TabletEntryScreen extends Screen {
 
         entry.infos().forEach((infos) -> {
             TabletButton tabletButton = new TabletButton(this.leftPos + 68 + (column.get() * 30), this.topPos + 60 + (row.get() * 30), 20, 20, Component.translatable(infos.id()), (button -> changeInfo(infos)), infos)
-                    .tex(ResourceLocation.parse("stellaris:textures/gui/tablet/button.png"), ResourceLocation.parse("stellaris:textures/gui/tablet/button_click.png"));
+                    .tex(BUTTON_TEXTURE, BUTTON_HOVERED_TEXTURE);
 
             if(column.get() == 3) {
                 column.set(0);

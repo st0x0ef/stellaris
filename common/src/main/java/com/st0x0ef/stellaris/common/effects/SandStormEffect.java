@@ -12,11 +12,11 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 
-import static com.st0x0ef.stellaris.Stellaris.id;
+import static com.st0x0ef.stellaris.Stellaris.texture;
 
 public class SandStormEffect extends MobEffect {
 
-    public static ResourceLocation SANDSTORM_OVERLAY =  id("textures/overlay/sandstorm_overlay.png");
+    public static ResourceLocation SANDSTORM_OVERLAY =  texture("overlay/sandstorm_overlay");
 
     public SandStormEffect(MobEffectCategory mobEffectCategory, int color) {
         super(mobEffectCategory, color);
