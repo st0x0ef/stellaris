@@ -36,8 +36,9 @@ public class GlobeItemRenderer extends BlockEntityWithoutLevelRenderer {
 
     @Override
     public void renderByItem(ItemStack stack, ItemDisplayContext displayContext, PoseStack matrixStackIn, MultiBufferSource buffer, int combinedLight, int packedOverlay) {
-        if (stack.getItem() instanceof GlobeItem globeItem) {
-            this.texture = globeItem.getTexture();
+        texture = GlobeBlockRenderer.getGlobeTexture(stack.getItem());
+        if (texture == null) {
+            return;
         }
 
         matrixStackIn.pushPose();
