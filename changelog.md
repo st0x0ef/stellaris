@@ -1,10 +1,9 @@
-# 1.3.9 changelog
+# 1.3.10 changelog
 
 ## Change
 - Cleanup and optimization
+- Rewrite crops
+- Rewrite particle system
 
 ## Fix
-- Fix console spam
-- Fix biomes names
-- Fix radioactive effect crash
-- Fix mixin
+- Fix being unable to place block when no oxygen is present
