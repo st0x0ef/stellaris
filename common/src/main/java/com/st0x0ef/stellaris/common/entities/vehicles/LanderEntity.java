@@ -150,7 +150,6 @@ public class LanderEntity extends IVehicleEntity implements HasCustomInventorySc
 
         if (KeyVariables.isHoldingJump(getFirstPlayerPassenger())) {
             slowDownLander();
-            move(MoverType.SELF, getDeltaMovement());
         }
     }
 

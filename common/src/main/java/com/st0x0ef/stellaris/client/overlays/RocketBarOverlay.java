@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.client.overlays;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.entities.vehicles.LanderEntity;
 import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
@@ -37,6 +38,8 @@ public class RocketBarOverlay {
             double yHeight = ((player.getY() - min) / (600 - min)) * 113;
 
             ResourceLocation planet = PlanetUtil.getPlanetBar(level.dimension().location());
+
+            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
             /** ROCKET BAR IMAGE */
             graphics.blit(RenderType::guiTextured, planet, 0, (graphics.guiHeight() / 2) - 128 / 2, 0, 0, 16, 128, 16, 128);

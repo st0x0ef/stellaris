@@ -413,12 +413,11 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         }
 
         else if (START_TIMER == 200) {
-            if (this.getDeltaMovement().y < this.getMaxRocketSpeed() - 0.1) {
-                this.addDeltaMovement(new Vec3(0f, 0.1f, 0f));
+            if (this.getDeltaMovement().y < this.getMaxRocketSpeed() - 0.2f) {
+                this.addDeltaMovement(new Vec3(0f, 0.2f, 0f));
             } else {
                 this.setDeltaMovement(this.getDeltaMovement().x, this.getMaxRocketSpeed(), this.getDeltaMovement().z);
             }
-            move(MoverType.SELF, getDeltaMovement());
         }
     }
 
@@ -609,7 +608,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     }
 
     public double getMaxRocketSpeed() {
-        return 0.8;
+        return this.getGravity() + 1D;
     }
 
     public ResourceLocation getFullSkinTexture() {

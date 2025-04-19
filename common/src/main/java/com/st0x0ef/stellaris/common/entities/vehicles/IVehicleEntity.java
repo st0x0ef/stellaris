@@ -1,5 +1,7 @@
 package com.st0x0ef.stellaris.common.entities.vehicles;
 
+import com.st0x0ef.stellaris.common.utils.PlanetUtil;
+import com.st0x0ef.stellaris.common.utils.Utils;
 import com.st0x0ef.stellaris.common.vehicle_upgrade.FuelType;
 import dev.architectury.networking.NetworkManager;
 import net.minecraft.core.BlockPos;
@@ -43,6 +45,11 @@ public abstract class IVehicleEntity extends Entity {
         this.blocksBuilding = true;
     }
 
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+
+    }
+
     /** Enable Interact with the Entity */
     @Override
     public boolean isPickable() {
@@ -59,6 +66,10 @@ public abstract class IVehicleEntity extends Entity {
     public void tick() {
         super.tick();
 
+        if (!this.onGround()) {
+            this.applyGravity();
+        }
+
         /** ROT Anim */
         this.tickLerp();
         this.rotAnim();
@@ -72,7 +83,7 @@ public abstract class IVehicleEntity extends Entity {
             d1 = 0.0D;
         }
 
-        if (Math.abs(vec3.y) < 0.003D) {
+        if (Math.abs(vec3.y) < 0.003D || this.onGround()) {
             d3 = 0.0D;
         }
 
@@ -95,11 +106,6 @@ public abstract class IVehicleEntity extends Entity {
         while(this.getYRot() - this.yRotO >= 180.0F) {
             this.yRotO += 360.0F;
         }
-    }
-
-    @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-
     }
 
     @Override
@@ -199,6 +205,8 @@ public abstract class IVehicleEntity extends Entity {
                 }
             }
         }
+
+        this.move(MoverType.SELF, this.getDeltaMovement());
     }
 
     public float getSpeed() {
@@ -270,5 +278,11 @@ public abstract class IVehicleEntity extends Entity {
 
     public boolean setPassengersRiding() {
         return true;
+    }
+
+    @Override
+    protected double getDefaultGravity() {
+        if (this.onGround()) return 0;
+        return Utils.MPS2ToMCG(PlanetUtil.getPlanet(this.level().dimension().location()).gravity()) / 4;
     }
 }
