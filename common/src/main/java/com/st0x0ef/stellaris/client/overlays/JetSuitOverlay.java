@@ -30,7 +30,9 @@ public class JetSuitOverlay {
                 Component modeText = jetSuitItem.getModeType(itemStack).getComponent();
                 ChatFormatting chatFormatting = jetSuitItem.getModeType(itemStack).getChatFormatting();
                 UniversalFluidStorage storage = Capabilities.Fluid.ITEM.getCapability(itemStack);
-                if (storage == null) return;
+                if (storage == null) {
+                    return;
+                }
                 String fuel = String.valueOf(storage.getFluidInTank(1).getAmount());
 
                 /** TEXT */

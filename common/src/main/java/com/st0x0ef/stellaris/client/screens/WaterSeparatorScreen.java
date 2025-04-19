@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.client.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.components.GaugeChunkWidget;
 import com.st0x0ef.stellaris.client.screens.components.GaugeWidget;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.WaterSeparatorBlockEntity;
@@ -17,10 +16,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
+import static com.st0x0ef.stellaris.Stellaris.guiTexture;
+
 @Environment(EnvType.CLIENT)
 public class WaterSeparatorScreen extends AbstractContainerScreen<WaterSeparatorMenu> {
 
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/water_separator.png");
+    private static final ResourceLocation TEXTURE = guiTexture("water_separator");
 
     private final WaterSeparatorBlockEntity blockEntity = getMenu().getBlockEntity();
     private GaugeChunkWidget ingredientTankGauge;
@@ -39,7 +40,9 @@ public class WaterSeparatorScreen extends AbstractContainerScreen<WaterSeparator
     protected void init() {
         super.init();
 
-        if (blockEntity == null) return;
+        if (blockEntity == null) {
+            return;
+        }
 
         SingleFluidStorage ingredientTank = blockEntity.getIngredientTank();
         ingredientTankGauge = new GaugeChunkWidget(leftPos + 50, topPos + 58, 12, 46, 76, 40, Component.translatable("stellaris.screen.water"), GUISprites.WATER_OVERLAY, GUISprites.WATER_SEPARATOR_OVERLAY, ingredientTank.getTankCapacity(0), GaugeChunkWidget.Direction4.DOWN_UP);
@@ -62,11 +65,13 @@ public class WaterSeparatorScreen extends AbstractContainerScreen<WaterSeparator
         super.render(guiGraphics, mouseX, mouseY, partialTick);
         renderTooltip(guiGraphics, mouseX, mouseY);
 
-        if (blockEntity == null) return;
+        if (blockEntity == null) {
+            return;
+        }
 
-        ingredientTankGauge.updateAmount((int)blockEntity.getIngredientTank().getFluidValueInTank());
-        hydrogenTankGauge.updateAmount((int)blockEntity.getResultTanks().getFluidValueInTank(WaterSeparatorBlockEntity.HYDROGEN_TANK));
-        oxygenTankGauge.updateAmount((int)blockEntity.getResultTanks().getFluidValueInTank(WaterSeparatorBlockEntity.OXYGEN_TANK));
+        ingredientTankGauge.updateAmount((int) blockEntity.getIngredientTank().getFluidValueInTank());
+        hydrogenTankGauge.updateAmount((int) blockEntity.getResultTanks().getFluidValueInTank(WaterSeparatorBlockEntity.HYDROGEN_TANK));
+        oxygenTankGauge.updateAmount((int) blockEntity.getResultTanks().getFluidValueInTank(WaterSeparatorBlockEntity.OXYGEN_TANK));
         energyGauge.updateAmount(blockEntity.getEnergy(null).getEnergy());
     }
 

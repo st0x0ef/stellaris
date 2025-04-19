@@ -19,6 +19,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
 
 public class MoonVinesPlant extends GrowingPlantBodyBlock implements BonemealableBlock, CaveVines {
+
     public static final MapCodec<CaveVinesPlantBlock> CODEC = simpleCodec(CaveVinesPlantBlock::new);
 
     @Override
@@ -58,7 +59,7 @@ public class MoonVinesPlant extends GrowingPlantBodyBlock implements Bonemealabl
 
     @Override
     public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
-        return !(Boolean)state.getValue(BERRIES);
+        return !(Boolean) state.getValue(BERRIES);
     }
 
     @Override

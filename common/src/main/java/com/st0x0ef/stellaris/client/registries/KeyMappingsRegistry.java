@@ -11,6 +11,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
 
 public class KeyMappingsRegistry {
+
     public static String CATEGORY = "category." + Stellaris.MODID + ".default";
 
     public static KeyMapping FREEZE_PLANET_MENU = new KeyMapping("key." + Stellaris.MODID + ".freeze_planet_menu", InputConstants.KEY_X, CATEGORY);

@@ -14,6 +14,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import java.util.Map;
 
 public class CoalTorchItem extends BlockItem {
+
     protected final Block wallBlock;
 
     public CoalTorchItem(Block floorBlock, Block wallBlockIn, Item.Properties propertiesIn) {
@@ -28,7 +29,7 @@ public class CoalTorchItem extends BlockItem {
         LevelAccessor iworldreader = context.getLevel();
         BlockPos blockpos = context.getClickedPos();
 
-        for(Direction direction : context.getNearestLookingDirections()) {
+        for (Direction direction : context.getNearestLookingDirections()) {
             if (direction != Direction.UP) {
                 BlockState blockstate2 = direction == Direction.DOWN ? this.getBlock().getStateForPlacement(context) : blockstate;
                 if (blockstate2 != null && blockstate2.canSurvive(iworldreader, blockpos)) {

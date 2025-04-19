@@ -35,10 +35,10 @@ public class CoalGeneratorBlock extends BaseLitMachineBlock {
 
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-        if(this.isLit(state)) {
-            double d = (double)pos.getX() + 0.5;
-            double e = (double)pos.getY() + 0.9;
-            double f = (double)pos.getZ() + 0.5;
+        if (this.isLit(state)) {
+            double d = (double) pos.getX() + 0.5;
+            double e = (double) pos.getY() + 0.9;
+            double f = (double) pos.getZ() + 0.5;
             level.addParticle(ParticleTypes.SMOKE, d, e, f, 0.0, 0.0, 0.0);
             level.addParticle(ParticleTypes.SMOKE, d, e, f, 0.0, 0.0, 0.0);
             level.addParticle(ParticleTypes.SMOKE, d, e, f, 0.0, 0.0, 0.0);

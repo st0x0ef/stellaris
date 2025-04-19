@@ -34,12 +34,14 @@ public class OxygenDistributorBlockEntity extends BaseEnergyContainerBlockEntity
         super(BlockEntityRegistry.OXYGEN_DISTRIBUTOR.get(), pos, state);
 
         this.oxygenTank = new SingleFluidStorage(20000) {
+
             @Override
             protected void onChange() {
                 setChanged();
-                if (level != null && level.getServer() != null && !level.getServer().getPlayerList().getPlayers().isEmpty())
+                if (level != null && level.getServer() != null && !level.getServer().getPlayerList().getPlayers().isEmpty()) {
                     NetworkManager.sendToPlayers(level.getServer().getPlayerList().getPlayers(),
                             new SyncFluidPacketWithoutDirection(new FluidAmountMapDataComponent(List.of(getFluidInTank(0).getFluid()), List.of(getFluidValueInTank())), 0, getBlockPos()));
+                }
             }
 
             @Override

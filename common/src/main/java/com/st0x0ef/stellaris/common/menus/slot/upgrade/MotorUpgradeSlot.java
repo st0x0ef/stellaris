@@ -10,6 +10,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
 public class MotorUpgradeSlot extends Slot {
+
     private final IVehicleEntity vehicle;
 
     public MotorUpgradeSlot(Container container, int slot, int x, int y, IVehicleEntity vehicle) {

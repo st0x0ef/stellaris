@@ -2,6 +2,6 @@
   "parent": "minecraft:block/crop",
   "render_type": "minecraft:cutout",
   "textures": {
-    "crop": "stellaris:block/crops/mars_crop_stage_6"
+    "crop": "stellaris:block/crops/mars_crop_stage_7"
   }
 }

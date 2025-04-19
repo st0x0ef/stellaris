@@ -63,7 +63,7 @@ public class IceSpit extends AbstractArrow implements ItemSupplier {
     }
 
     public static IceSpit shoot(LivingEntity entity, LivingEntity target, int damage) {
-        IceSpit entityArrow = new IceSpit(EntityRegistry.ICE_SPIT.get(),entity, entity.level(), new ItemStack(ItemsRegistry.ICE_SHARD.get()));
+        IceSpit entityArrow = new IceSpit(EntityRegistry.ICE_SPIT.get(), entity, entity.level(), new ItemStack(ItemsRegistry.ICE_SHARD.get()));
 
         double d0 = target.getY() + (double) target.getEyeHeight() - 1.1;
         double d1 = target.getX() - entity.getX();
@@ -88,9 +88,14 @@ public class IceSpit extends AbstractArrow implements ItemSupplier {
     @Override
     public void tick() {
         super.tick();
-        if(this.isInWater()) this.life += 6; else ++this.life;
+        if (this.isInWater()) {
+            this.life += 6;
+        }
+        else {
+            ++this.life;
+        }
 
-        if(!this.level().isClientSide && this.life > this.lifetime ) {
+        if (!this.level().isClientSide && this.life > this.lifetime) {
             this.discard();
         }
     }

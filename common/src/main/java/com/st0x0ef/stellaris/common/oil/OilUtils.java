@@ -5,6 +5,7 @@ import com.st0x0ef.stellaris.common.utils.Utils;
 import java.util.Random;
 
 public class OilUtils {
+
     public static int getRandomOilLevel() {
         Random random = new Random();
         if (random.nextInt(0, 16) == 0) {
@@ -17,9 +18,11 @@ public class OilUtils {
     public static int getOilLevelColor(int oilLevel) {
         if (oilLevel > 40000) {
             return Utils.getColorHexCode("green");
-        } else if (oilLevel > 0) {
+        }
+        else if (oilLevel > 0) {
             return Utils.getColorHexCode("orange");
-        } else {
+        }
+        else {
             return Utils.getColorHexCode("red");
         }
     }

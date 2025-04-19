@@ -24,11 +24,12 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 public class VerticalSlabBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock {
+
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     public VerticalSlabBlock(BlockBehaviour.Properties properties) {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED,false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false));
     }
 
     @Override

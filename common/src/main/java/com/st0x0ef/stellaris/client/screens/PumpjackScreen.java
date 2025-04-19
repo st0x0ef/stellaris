@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.client.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.components.GaugeWidget;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.PumpjackBlockEntity;
 import com.st0x0ef.stellaris.common.menus.PumpjackMenu;
@@ -16,9 +15,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
+import static com.st0x0ef.stellaris.Stellaris.guiTexture;
+
 public class PumpjackScreen extends AbstractContainerScreen<PumpjackMenu> {
 
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/pumpjack.png");
+    private static final ResourceLocation TEXTURE = guiTexture("pumpjack");
 
     private final PumpjackBlockEntity blockEntity = getMenu().getBlockEntity();
     private GaugeWidget resultTankGauge;

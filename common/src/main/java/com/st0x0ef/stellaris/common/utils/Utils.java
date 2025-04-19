@@ -64,7 +64,9 @@ public class Utils {
 
     /** Teleport an entity to the planet wanted */
     public static void teleportEntity(Entity entity, Planet destination) {
-        if (entity.level().isClientSide()) return;
+        if (entity.level().isClientSide()) {
+            return;
+        }
         entity.setNoGravity(false);
 
         TeleportUtil.teleportToPlanet(entity, getPlanetLevel(destination), 600);
@@ -94,7 +96,8 @@ public class Utils {
                 }
 
                 serverPlayer.sendSystemMessage(Component.translatable("message.stellaris.lander"));
-            } else {
+            }
+            else {
                 serverPlayer.closeContainer();
                 teleportEntity(serverPlayer, destination);
             }
@@ -105,7 +108,9 @@ public class Utils {
         RocketEntity rocket = (RocketEntity) entities.getFirst().getVehicle();
 
         for (Entity entity : entities) {
-            if (entity.level().isClientSide()) return;
+            if (entity.level().isClientSide()) {
+                return;
+            }
 
             Entity vehicle = entity.getVehicle();
             if (vehicle instanceof RocketEntity playerRocket) {
@@ -113,7 +118,7 @@ public class Utils {
                 rocket = playerRocket;
                 teleportEntity(entity, destination);
 
-                if(entity instanceof Player player) {
+                if (entity instanceof Player player) {
 
                     player.awardStat(StatsRegistry.SPACE_TRAVEL.get(), Utils.distanceToPlanet(PlanetUtil.getPlanet(player.level().dimension().location()), destination));
 
@@ -163,7 +168,8 @@ public class Utils {
         if (colorName.startsWith("#")) {
             try {
                 return Integer.parseInt(colorName.substring(1), 16);
-            } catch (NumberFormatException e) {
+            }
+            catch (NumberFormatException e) {
                 return 0xFFFFFF; // Return white if invalid hex format
             }
         }
@@ -207,7 +213,9 @@ public class Utils {
     }
 
     public static String betterIntToString(int i) {
-        if (i == 0) return "0";
+        if (i == 0) {
+            return "0";
+        }
 
         return (i % 1000) + "K";
     }
@@ -248,8 +256,8 @@ public class Utils {
      * @param MCG Minecraft Gravity Unit (blocks/t²)
      * @return m/s²
      */
-    public static float MCGToMPS2(float MCG){
-        return 122.583125f*MCG;
+    public static float MCGToMPS2(float MCG) {
+        return 122.583125f * MCG;
     }
 
     /**
@@ -257,9 +265,15 @@ public class Utils {
      * @return Minecraft Gravity Unit (blocks/t²)
      */
     public static double MPS2ToMCG(float MPS2) {
-        if (MPS2>0) return Math.floor(0.00816d * MPS2 * 100000) / 100000;
-        else if (MPS2<0) return Math.ceil(0.00816d * MPS2 * 100000) / 100000;
-        else return 0;
+        if (MPS2 > 0) {
+            return Math.floor(0.00816d * MPS2 * 100000) / 100000;
+        }
+        else if (MPS2 < 0) {
+            return Math.ceil(0.00816d * MPS2 * 100000) / 100000;
+        }
+        else {
+            return 0;
+        }
     }
 
     public static void disableFlyAntiCheat(Player player, boolean condition) {
@@ -301,8 +315,7 @@ public class Utils {
     }
 
 
-
-    public  <T> void addButtonToList(ArrayList<ArrayList<T>> finalList, T button, int size){
+    public <T> void addButtonToList(ArrayList<ArrayList<T>> finalList, T button, int size) {
         if (finalList.isEmpty()) {
             ArrayList<T> list = new ArrayList<>();
             list.add(button);
@@ -311,10 +324,11 @@ public class Utils {
         }
 
         for (ArrayList<T> buttons : finalList) {
-            if(buttons.size() < size){
+            if (buttons.size() < size) {
                 buttons.add(button);
                 break;
-            } else if (buttons.size() == size) {
+            }
+            else if (buttons.size() == size) {
                 if (finalList.indexOf(buttons) + 1 >= finalList.size()) {
                     ArrayList<T> list = new ArrayList<>();
                     list.add(button);

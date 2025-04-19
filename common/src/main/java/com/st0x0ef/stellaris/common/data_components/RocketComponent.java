@@ -13,7 +13,8 @@ import net.minecraft.world.item.Item;
 
 import java.io.Serializable;
 
-public record RocketComponent(String skin, RocketModel model, String fuelType, int fuel, ResourceLocation fuelTexture, int tankCapacity) implements Serializable {
+public record RocketComponent(String skin, RocketModel model, String fuelType, int fuel, ResourceLocation fuelTexture,
+                              int tankCapacity) implements Serializable {
 
     public static final Codec<RocketComponent> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.STRING.fieldOf("skin").forGetter(RocketComponent::skin),
@@ -40,7 +41,7 @@ public record RocketComponent(String skin, RocketModel model, String fuelType, i
     }
 
     public SkinUpgrade getSkinUpgrade() {
-        return new SkinUpgrade(getSkin()) ;
+        return new SkinUpgrade(getSkin());
     }
 
     public RocketModel getModel() {
@@ -48,7 +49,7 @@ public record RocketComponent(String skin, RocketModel model, String fuelType, i
     }
 
     public ModelUpgrade getModelUpgrade() {
-        return new ModelUpgrade(model) ;
+        return new ModelUpgrade(model);
     }
 
     public MotorUpgrade getMotorUpgrade() {
@@ -57,14 +58,18 @@ public record RocketComponent(String skin, RocketModel model, String fuelType, i
 
     public FuelType.Type getFuelType() {
         FuelType.Type type = FuelType.Type.fromString(fuelType);
-        if (type != null) return type;
+        if (type != null) {
+            return type;
+        }
 
         //Workaround to allow rockets from previous versions with badly formed components to load
         //e.g "hydrogen_bucket" as fuel_type
         Item item = FuelType.getItemBasedOnLoacation(ResourceLocation.parse(fuelType));
 
         type = FuelType.Type.getTypeBasedOnItem(item);
-        if (type != null) return type;
+        if (type != null) {
+            return type;
+        }
 
         return FuelType.Type.FUEL;
     }

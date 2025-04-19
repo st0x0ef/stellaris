@@ -1,7 +1,7 @@
 package com.st0x0ef.stellaris.common.utils;
 
-public class MathUtils
-{
+public class MathUtils {
+
     /**
      * Subtracts b from a and returns zero if the result is negative.
      *

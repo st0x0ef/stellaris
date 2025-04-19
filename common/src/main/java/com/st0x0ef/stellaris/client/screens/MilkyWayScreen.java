@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.client.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
 import com.st0x0ef.stellaris.common.menus.MilkyWayMenu;
 import net.fabricmc.api.EnvType;
@@ -16,12 +15,14 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import org.lwjgl.glfw.GLFW;
 
+import static com.st0x0ef.stellaris.Stellaris.guiTexture;
+import static com.st0x0ef.stellaris.Stellaris.texture;
+
 @Environment(EnvType.CLIENT)
 public class MilkyWayScreen extends AbstractContainerScreen<MilkyWayMenu> {
-    public static final ResourceLocation MILKY_WAY_TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,
-            "textures/environment/milky_way.png");
-    public static final ResourceLocation BACKGROUND_TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,
-            "textures/gui/planet_selection.png");
+
+    public static final ResourceLocation MILKY_WAY_TEXTURE = texture("environment/milky_way");
+    public static final ResourceLocation BACKGROUND_TEXTURE = guiTexture("planet_selection");
 
     public static float rotationAngle = 0;
 
@@ -55,7 +56,7 @@ public class MilkyWayScreen extends AbstractContainerScreen<MilkyWayMenu> {
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if (keyCode == GLFW.GLFW_KEY_X){
+        if (keyCode == GLFW.GLFW_KEY_X) {
             isPausePressed = !isPausePressed;
         }
         return super.keyPressed(keyCode, scanCode, modifiers);

@@ -3,12 +3,12 @@ package com.st0x0ef.stellaris;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.ToNumberPolicy;
-import com.st0x0ef.stellaris.common.data.screen.TabletPack;
 import com.st0x0ef.stellaris.common.config.CustomConfig;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
 import com.st0x0ef.stellaris.common.data.screen.MoonPack;
 import com.st0x0ef.stellaris.common.data.screen.PlanetPack;
 import com.st0x0ef.stellaris.common.data.screen.StarPack;
+import com.st0x0ef.stellaris.common.data.screen.TabletPack;
 import com.st0x0ef.stellaris.common.events.Events;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import com.st0x0ef.stellaris.common.network.packets.SyncPlanetsDatapackPacket;
@@ -23,6 +23,7 @@ import org.slf4j.LoggerFactory;
 import java.util.function.BiConsumer;
 
 public class Stellaris {
+
     public static final String MODID = "stellaris";
     public static final Logger LOG = LoggerFactory.getLogger("Stellaris");
     public static final Gson GSON = new GsonBuilder()
@@ -63,13 +64,25 @@ public class Stellaris {
     }
 
     public static void onAddReloadListenerEvent(BiConsumer<ResourceLocation, PreparableReloadListener> registry) {
-        registry.accept(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "planets"), new StellarisData());
+        registry.accept(id("planets"), new StellarisData());
     }
 
     public static void onAddReloadClientListenerEvent(BiConsumer<ResourceLocation, PreparableReloadListener> registry) {
-        registry.accept(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "stars_pack"), new StarPack());
-        registry.accept(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "planets_pack"), new PlanetPack());
-        registry.accept(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "moon_packs"), new MoonPack());
-        registry.accept(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "tablet_pack"), new TabletPack());
+        registry.accept(id("stars_pack"), new StarPack());
+        registry.accept(id("planets_pack"), new PlanetPack());
+        registry.accept(id("moon_packs"), new MoonPack());
+        registry.accept(id("tablet_pack"), new TabletPack());
+    }
+
+    public static ResourceLocation id(String path) {
+        return ResourceLocation.fromNamespaceAndPath(MODID, path);
+    }
+
+    public static ResourceLocation texture(String path) {
+        return id("textures/" + path + ".png");
+    }
+
+    public static ResourceLocation guiTexture(String path) {
+        return texture("gui/" + path);
     }
 }

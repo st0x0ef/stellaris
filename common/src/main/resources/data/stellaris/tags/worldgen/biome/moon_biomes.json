@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "stellaris:moon_desert"
+    "stellaris:moon_desert",
+    "stellaris:moon_caves"
   ]
 }

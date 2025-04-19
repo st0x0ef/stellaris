@@ -856,5 +856,16 @@
   "container.stellaris.upgrade": "Upgrade",
 
   "stat.minecraft.space_traveled": "Space Traveled",
-  "stat.minecraft.rocket_launched": "Rocket Launched"
+  "stat.minecraft.rocket_launched": "Rocket Launched",
+
+  "biome.stellaris.infernal_venus_barrens": "Infernal Venus Barrens",
+  "biome.stellaris.mars_desert": "Mars Desert",
+  "biome.stellaris.mars_ice_spikes": "Mars Ice Spikes",
+  "biome.stellaris.mars_rocky_plains": "Mars Rocky Plains",
+  "biome.stellaris.mercury": "Mercury",
+  "biome.stellaris.mercury_fire_land": "Mercury Fire Land",
+  "biome.stellaris.moon_caves": "Moon Caves",
+  "biome.stellaris.moon_desert": "Moon Desert",
+  "biome.stellaris.venus_desert": "Venus Desert"
+
 }

@@ -9,11 +9,12 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.inventory.MenuType;
 
 public class MenuTypesRegistry {
+
     public static final DeferredRegister<MenuType<?>> MENU_TYPE = DeferredRegister.create(Stellaris.MODID, Registries.MENU);
     public static final RegistrySupplier<MenuType<RocketStationMenu>> ROCKET_STATION = MENU_TYPE.register("rocket_station", () -> MenuRegistry.ofExtended(RocketStationMenu::new));
     public static final RegistrySupplier<MenuType<RocketMenu>> ROCKET_MENU = MENU_TYPE.register("rocket_menu", () -> MenuRegistry.ofExtended(RocketMenu::new));
     public static final RegistrySupplier<MenuType<LanderMenu>> LANDER_MENU = MENU_TYPE.register("lander_menu", () -> MenuRegistry.ofExtended(LanderMenu::new));
-    public static final RegistrySupplier<MenuType<RoverMenu>> ROVER_MENU = MENU_TYPE.register("rover_menu",()->
+    public static final RegistrySupplier<MenuType<RoverMenu>> ROVER_MENU = MENU_TYPE.register("rover_menu", () ->
             MenuRegistry.ofExtended(RoverMenu::new));
 
     public static final RegistrySupplier<MenuType<SolarPanelMenu>> SOLAR_PANEL_MENU = MENU_TYPE.register("solar_panel", () -> MenuRegistry.ofExtended(SolarPanelMenu::create));

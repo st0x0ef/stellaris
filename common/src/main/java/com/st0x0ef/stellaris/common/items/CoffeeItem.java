@@ -17,6 +17,7 @@ import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.level.Level;
 
 public class CoffeeItem extends Item {
+
     private static final int DRINK_DURATION = 40;
 
     public CoffeeItem(Properties properties) {
@@ -32,7 +33,8 @@ public class CoffeeItem extends Item {
 
         if (stack.isEmpty()) {
             return new ItemStack(ItemsRegistry.COFFEE_CUP);
-        } else {
+        }
+        else {
             if (livingEntity instanceof Player player) {
                 if (!player.hasInfiniteMaterials()) {
                     ItemStack itemStack = new ItemStack(ItemsRegistry.COFFEE_CUP);

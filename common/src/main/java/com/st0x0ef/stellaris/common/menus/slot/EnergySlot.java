@@ -6,6 +6,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
 public class EnergySlot extends Slot {
+
     public EnergySlot(Container container, int slot, int x, int y) {
         super(container, slot, x, y);
     }

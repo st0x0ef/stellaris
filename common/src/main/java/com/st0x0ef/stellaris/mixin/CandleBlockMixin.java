@@ -20,7 +20,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(CandleBlock.class)
 public class CandleBlockMixin {
-    @Shadow @Final public static BooleanProperty LIT;
+
+    @Shadow
+    @Final
+    public static BooleanProperty LIT;
 
     @Inject(at = @At(value = "HEAD"), method = "useItemOn", cancellable = true)
     private void canBeLit(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult, CallbackInfoReturnable<InteractionResult> cir) {

@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.client.screens.components;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -15,8 +14,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
+import static com.st0x0ef.stellaris.Stellaris.guiTexture;
+
 @Environment(EnvType.CLIENT)
 public class TexturedButton extends Button {
+
+    public static final ResourceLocation TEXTURE = guiTexture("util/buttons/button");
+    public static final ResourceLocation HOVER_TEXTURE = guiTexture("util/buttons/button");
     private ResourceLocation buttonTexture;
     private ResourceLocation hoverButtonTexture;
 
@@ -44,14 +48,15 @@ public class TexturedButton extends Button {
         this.yDiffText = 0;
         this.xTexStart = 0;
         this.yTexStart = 0;
-        this.buttonTexture = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/button.png");
-        this.hoverButtonTexture = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/button.png");
+        this.buttonTexture = TEXTURE;
+        this.hoverButtonTexture = HOVER_TEXTURE;
     }
 
-    public <T extends TexturedButton> T  tooltip(@Nullable Tooltip tooltip) {
+    public <T extends TexturedButton> T tooltip(@Nullable Tooltip tooltip) {
         this.setTooltip(tooltip);
         return cast();
     }
+
     @SuppressWarnings("unchecked")
     private <T extends TexturedButton> T cast() {
         return (T) this;
@@ -106,7 +111,8 @@ public class TexturedButton extends Button {
                                             ResourceLocation hoverButtonTexture) {
         if (hover) {
             return hoverButtonTexture;
-        } else {
+        }
+        else {
             return buttonTexture;
         }
     }

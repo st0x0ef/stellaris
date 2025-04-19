@@ -5,6 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.resources.ResourceLocation;
 
 public class MoonInfo extends CelestialBody {
+
     public final PlanetInfo orbitCenter;
     public final long orbitalPeriod;
     public final double orbitRadius;

@@ -44,7 +44,9 @@ public class UpgradeStationMenu extends BaseItemCombinerMenu {
 
     @Override
     public void createResult() {
-        if (this.player.level().isClientSide) return;
+        if (this.player.level().isClientSide) {
+            return;
+        }
 
         ItemStack itemStack = this.inputSlots.getItem(0).copy();
         ItemStack module = this.inputSlots.getItem(1);
@@ -61,10 +63,12 @@ public class UpgradeStationMenu extends BaseItemCombinerMenu {
                 this.resultSlots.setItem(0, itemStack);
                 this.broadcastChanges();
 
-            } else this.resultSlots.setItem(0, ItemStack.EMPTY);
+            }
+            else {
+                this.resultSlots.setItem(0, ItemStack.EMPTY);
+            }
         }
     }
-
 
 
     @Override

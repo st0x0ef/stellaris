@@ -1,8 +1,9 @@
-# 1.3.7 changelog
+# 1.3.10 changelog
 
-## Changes
-- Update Sky Aesthetics to 1.6.0
+## Change
+- Cleanup and optimization
+- Rewrite crops
+- Rewrite particle system
 
 ## Fix
-- Fix stats registry in a better way
-- Fix gravity unit on the planet selection screen
+- Fix being unable to place block when no oxygen is present

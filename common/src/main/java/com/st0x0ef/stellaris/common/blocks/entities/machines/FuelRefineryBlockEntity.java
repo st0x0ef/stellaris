@@ -40,12 +40,14 @@ public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity impl
     public FuelRefineryBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.FUEL_REFINERY.get(), pos, state);
         this.inputTank = new SingleFluidStorage(10000, 10000, 0) {
+
             @Override
             protected void onChange() {
                 setChanged();
-                if (level != null && level.getServer() != null && !level.getServer().getPlayerList().getPlayers().isEmpty())
+                if (level != null && level.getServer() != null && !level.getServer().getPlayerList().getPlayers().isEmpty()) {
                     NetworkManager.sendToPlayers(level.getServer().getPlayerList().getPlayers(),
                             new SyncFluidPacket(new FluidAmountMapDataComponent(List.of(getFluidInTank(0).getFluid()), List.of(getFluidValueInTank())), 0, getBlockPos(), Direction.UP));
+                }
             }
 
             @Override
@@ -54,24 +56,28 @@ public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity impl
             }
         };
         this.outputTank = new SingleFluidStorage(10000, 0, 10000) {
+
             @Override
             protected void onChange() {
                 setChanged();
-                if (level != null && level.getServer() != null && !level.getServer().getPlayerList().getPlayers().isEmpty())
+                if (level != null && level.getServer() != null && !level.getServer().getPlayerList().getPlayers().isEmpty()) {
                     NetworkManager.sendToPlayers(level.getServer().getPlayerList().getPlayers(),
                             new SyncFluidPacket(new FluidAmountMapDataComponent(List.of(getFluidInTank(0).getFluid()), List.of(getFluidValueInTank())), 0, getBlockPos(), Direction.DOWN));
+                }
             }
         };
     }
 
     @Override
     public void tick() {
-        FluidUtil.moveFluidToItem(0, outputTank,2, items, 1000);
-        FluidUtil.moveFluidToItem(0, inputTank,1, items, 1000);
+        FluidUtil.moveFluidToItem(0, outputTank, 2, items, 1000);
+        FluidUtil.moveFluidToItem(0, inputTank, 1, items, 1000);
 
         FluidUtil.moveFluidFromItem(0, 0, items, inputTank, 1000);
 
-        if (level == null) return;
+        if (level == null) {
+            return;
+        }
 
         if (level instanceof ServerLevel serverLevel) {
             Optional<RecipeHolder<FuelRefineryRecipe>> recipeHolder = cachedCheck.getRecipeFor(new FluidInput(level.getBlockEntity(getBlockPos())), serverLevel);
@@ -126,6 +132,7 @@ public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity impl
     public SingleFluidStorage getIngredientTank() {
         return inputTank;
     }
+
     public SingleFluidStorage getResultTank() {
         return outputTank;
     }

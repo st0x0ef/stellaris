@@ -14,6 +14,7 @@ import net.minecraft.world.phys.Vec3;
 
 @Environment(EnvType.CLIENT)
 public class LaunchButton extends Button {
+
     private ResourceLocation buttonTexture;
     private ResourceLocation hoverButtonTexture;
 
@@ -103,7 +104,8 @@ public class LaunchButton extends Button {
                                             ResourceLocation hoverButtonTexture) {
         if (hover) {
             return hoverButtonTexture;
-        } else {
+        }
+        else {
             return buttonTexture;
         }
     }
