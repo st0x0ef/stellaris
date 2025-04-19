@@ -49,7 +49,6 @@ public class JetSuitModel extends HumanoidModel<HumanoidRenderState> {
 
 		this.slot = slot;
 		this.setVisible();
-
 	}
 
 	public static LayerDefinition createBodyLayer() {

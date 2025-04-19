@@ -39,7 +39,7 @@ public class LevelRendererMixin {
     @Nullable
     private ClientLevel level;
 
-    @Inject(
+    /*@Inject(
             method = "renderSnowAndRain",
             at = @At(value = "INVOKE",
                     target = "Lcom/mojang/blaze3d/systems/RenderSystem;setShaderTexture(ILnet/minecraft/resources/ResourceLocation;)V",
@@ -70,5 +70,5 @@ public class LevelRendererMixin {
             }
         }
         return original;
-    }
+    }*/
 }

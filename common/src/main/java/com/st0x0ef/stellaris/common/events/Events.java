@@ -34,7 +34,7 @@ public class Events {
                             .orElse(0);
 
                     if (maxRadiationLevel > 0) {
-                        player.addEffect(new MobEffectInstance(EffectsRegistry.RADIOACTIVE, 100, maxRadiationLevel - 1));
+                        player.addEffect(new MobEffectInstance(EffectsRegistry.getHolder(EffectsRegistry.RADIOACTIVE), 100, maxRadiationLevel - 1));
                     }
                 }
                 tickBeforeNextRadioactiveCheck = RADIATION_CHECK_INTERVAL;

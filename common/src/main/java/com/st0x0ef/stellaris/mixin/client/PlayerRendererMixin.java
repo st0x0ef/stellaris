@@ -27,7 +27,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(PlayerRenderer.class)
 public abstract class PlayerRendererMixin {
 
-    @Inject(method = "renderHand", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/PlayerModel;setupAnim(Lnet/minecraft/world/entity/LivingEntity;FFFFF)V", shift = At.Shift.AFTER), cancellable = true)
+    /*@Inject(method = "renderHand", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/PlayerModel;setupAnim(Lnet/minecraft/world/entity/LivingEntity;FFFFF)V", shift = At.Shift.AFTER), cancellable = true)
     private void renderPlayerHand(PoseStack poseStack, MultiBufferSource buffer, int packedLight, AbstractClientPlayer player, ModelPart renderedArm, ModelPart rendererArmSleeve, CallbackInfo ci) {
         ItemStack stack = player.getItemBySlot(EquipmentSlot.CHEST);
 
@@ -64,5 +64,5 @@ public abstract class PlayerRendererMixin {
                 spaceSuitItem.getModules(stack).forEach(module -> module.renderModel(poseStack, buffer, entity, entityYaw, partialTicks, packedLight));
             }
         }
-    }
+    }*/
 }

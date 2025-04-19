@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Entity.class)
-public abstract class PlayerRiddingVehicleMixin  {
+public abstract class HumanoidModelMixin  {
 
     @Shadow public abstract void setPose(Pose pose);
 

@@ -12,7 +12,7 @@ public class EffectOverlays {
 
         Minecraft minecraft = Minecraft.getInstance();
 
-        if (minecraft.player.hasEffect(EffectsRegistry.SANDSTORM)) {
+        if (minecraft.player.hasEffect(EffectsRegistry.getHolder(EffectsRegistry.SANDSTORM))) {
             guiGraphics.blit(RenderType::guiTextured, SandStormEffect.SANDSTORM_OVERLAY, 0, 0, -90, 0.0F, 0, guiGraphics.guiWidth(), guiGraphics.guiHeight(), guiGraphics.guiWidth(), guiGraphics.guiHeight());
         }
     }

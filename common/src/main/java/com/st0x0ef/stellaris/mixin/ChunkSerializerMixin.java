@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(SerializableChunkData.class)
-public abstract class MixinChunkSerializer {
+public abstract class ChunkSerializerMixin {
     @Unique
     private ChunkAccess stellaris$chunkAccess;
 

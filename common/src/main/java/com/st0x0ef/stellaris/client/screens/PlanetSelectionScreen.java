@@ -273,9 +273,6 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
         renderLargeMenu(graphics);
 
-        Stellaris.LOG.error("offset x {}", offsetX);
-        Stellaris.LOG.error("offset y {}", offsetY);
-
         this.renderTooltip(graphics, mouseX, mouseY);
     }
 

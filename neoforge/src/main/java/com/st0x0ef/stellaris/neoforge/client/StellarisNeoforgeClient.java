@@ -72,7 +72,7 @@ public class StellarisNeoforgeClient {
 
         event.registerEntityRenderer(EntityRegistry.ICE_SPIT.get(), renderManager -> new ThrownItemRenderer<>(renderManager, 1, true));
         event.registerEntityRenderer(EntityRegistry.ICE_SHARD_ARROW.get(), IceShardArrowRenderer::new);
-        event.registerEntityRenderer(EntityRegistry.CUSTOM_LIGHTNING_BOLT.get(), CustomLightningBoltRenderer::new);
+        event.registerEntityRenderer(EntityRegistry.VENUS_LIGHTNING_BOLT.get(), CustomLightningBoltRenderer::new);
 
         event.registerEntityRenderer(EntityRegistry.TINY_ROCKET.get(), TinyRocketRenderer::new);
         event.registerEntityRenderer(EntityRegistry.SMALL_ROCKET.get(), SmallRocketRenderer::new);

@@ -27,19 +27,10 @@ public abstract class PlayerMixin extends LivingEntity implements CustomPlayerDa
     @Unique
     private boolean stellaris$isPlanetMenuOpened = false;
 
-    @Shadow
-    public abstract ItemStack getItemBySlot(EquipmentSlot slot);
-
     protected PlayerMixin(EntityType<? extends LivingEntity> entityType, Level level) {
         super(entityType, level);
     }
 
-    @Inject(at = @At(value = "HEAD"), method = "eat", cancellable = true)
-    private void cancelEat(Level level, ItemStack foodStack, FoodProperties foodProperties, CallbackInfoReturnable<ItemStack> cir) {
-        if (level instanceof ServerLevel serverLevel && !PlanetUtil.hasOxygenAt(serverLevel, getOnPos()) && !foodStack.is(TagRegistry.SPACE_FOOD)) {
-            cir.setReturnValue(foodStack);
-        }
-    }
 
     @Override
     public void stellaris$setPlanetMenuOpen(boolean open, Player player, boolean sync) {

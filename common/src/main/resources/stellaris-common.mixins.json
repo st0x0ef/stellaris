@@ -5,22 +5,18 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "CandleBlockMixin",
+    "ChunkSerializerMixin",
     "ConsumableMixin",
-    "EntityTick",
-    "ItemEntityGravityMixin",
     "LivingEntityMixin",
-    "MixinChunkAccess",
-    "MixinChunkSerializer",
     "PlayerDataMixin"
   ],
   "client": [
     "StormyPlanetMixin",
-    "client.FogRenderMixin",
-    "client.PlayerRiddingVehicleMixin",
+    "client.CustomItemModelRenderer",
+    "client.HumanoidModelMixin",
+    "client.LevelRendererMixin",
     "client.RenderPlayerMixin",
-    "client.SandStormMixin",
-    "client.TabletKeyMenuMixin",
-    "client.CustomItemModelRenderer"
+    "client.SandStormMixin"
   ],
   "injectors": {
     "defaultRequire": 1
