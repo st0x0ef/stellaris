@@ -19,7 +19,7 @@ public class GalaxyMenu extends AbstractContainerMenu {
     }
     public GalaxyMenu(int syncId, Inventory playerInventory, Container container)
     {
-        super(MenuTypesRegistry.MILKYWAY_MENU.get(), syncId);
+        super(MenuTypesRegistry.GALAXY_MENU.get(), syncId);
         this.player = playerInventory.player;
     }
     @Override

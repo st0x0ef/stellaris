@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.events.custom.PlanetSelectionClientEvents;
+import com.st0x0ef.stellaris.client.screens.GalaxyScreen;
 import com.st0x0ef.stellaris.client.screens.PlanetSelectionScreen;
 import com.st0x0ef.stellaris.client.screens.info.PSystemInfo;
 import com.st0x0ef.stellaris.client.screens.record.PSystemRecord;
@@ -59,8 +60,7 @@ public class PSystemPack extends SimpleJsonResourceReloadListener {
 
         Stellaris.LOG.info("Finished loading {} Planetary System.", PlanetSelectionScreen.PSYSTEMS.size());
 
-        PlanetSelectionClientEvents.POST_P_SYSTEM_PACK_REGISTRY_EVENT_EVENT
-                .invoker()
-                .PSystemRegistered(PlanetSelectionScreen.PSYSTEMS);
+        PlanetSelectionClientEvents.
+                POST_GALAXY_PACK_REGISTRY.invoker().galaxyRegistered(GalaxyScreen.GALAXY);
     }
 }

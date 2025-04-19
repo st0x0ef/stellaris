@@ -97,6 +97,11 @@ public class TabletEntryWidget extends AbstractScrollWidget {
     }
 
     @Override
+    public boolean isHovered() {
+        return super.isHovered();
+    }
+
+    @Override
     protected void updateWidgetNarration(NarrationElementOutput narrationElementOutput) {
     }
 
