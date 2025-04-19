@@ -1,9 +1,7 @@
 package com.st0x0ef.stellaris.client.events.custom;
 
-import com.st0x0ef.stellaris.client.screens.info.CelestialBody;
-import com.st0x0ef.stellaris.client.screens.info.GalaxyInfo;
-import com.st0x0ef.stellaris.client.screens.info.MoonInfo;
-import com.st0x0ef.stellaris.client.screens.info.PlanetInfo;
+import com.st0x0ef.stellaris.client.screens.PlanetSelectionScreen;
+import com.st0x0ef.stellaris.client.screens.info.*;
 import dev.architectury.event.Event;
 import dev.architectury.event.EventFactory;
 import dev.architectury.event.EventResult;
@@ -19,6 +17,7 @@ public interface PlanetSelectionClientEvents {
     Event<PostMoonPackRegistryEvent> POST_MOON_PACK_REGISTRY = EventFactory.createLoop();
     Event<PostPlanetPackRegistryEvent> POST_PLANET_PACK_REGISTRY = EventFactory.createLoop();
     Event<PostGalaxyPackRegistryEvent> POST_GALAXY_PACK_REGISTRY = EventFactory.createLoop();
+    Event<PostPSystemPackRegistryEvent> POST_P_SYSTEM_PACK_REGISTRY_EVENT_EVENT= EventFactory.createLoop();
 
     @Environment(EnvType.CLIENT)
     interface PostStarPackRegistryEvent {
@@ -66,5 +65,17 @@ public interface PlanetSelectionClientEvents {
          * @return A {@link EventResult} but this events can't be cancelled.
          */
         EventResult galaxyRegistered(List<GalaxyInfo> galaxyInfos);
+    }
+
+    @Environment(EnvType.CLIENT)
+    interface PostPSystemPackRegistryEvent {
+        /**
+         * Invoked when all the planets has been registered.
+         * Usefull for adding more planets to the planet selection screen.
+         *
+         * @param pSystemInfos The list of all the planets.
+         * @return A {@link EventResult} but this events can't be cancelled.
+         */
+        EventResult PSystemRegistered(List<PSystemInfo> pSystemInfos);
     }
 }
