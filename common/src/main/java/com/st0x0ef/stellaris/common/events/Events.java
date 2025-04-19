@@ -70,10 +70,6 @@ public class Events {
                     serverLevel.setBlockAndUpdate(pos, BlocksRegistry.COAL_LANTERN_BLOCK.get().defaultBlockState().setValue(CoalLanternBlock.HANGING, state.getValue(LanternBlock.HANGING)));
                     return EventResult.interruptFalse();
                 }
-                else if (state.hasProperty(BlockStateProperties.LIT)) {
-                    serverLevel.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.LIT, false));
-                    return EventResult.interruptFalse();
-                }
             }
 
             return EventResult.pass();
