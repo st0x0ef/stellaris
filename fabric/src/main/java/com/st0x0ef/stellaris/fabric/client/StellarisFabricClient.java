@@ -38,6 +38,7 @@ import com.st0x0ef.stellaris.client.renderers.globe.GlobeModel;
 import com.st0x0ef.stellaris.client.screens.*;
 import com.st0x0ef.stellaris.client.screens.tablet.TabletMainScreen;
 import com.st0x0ef.stellaris.common.entities.vehicles.base.AbstractRoverBase;
+import com.st0x0ef.stellaris.common.menus.TestMenu;
 import com.st0x0ef.stellaris.common.registry.*;
 import dev.architectury.event.events.common.TickEvent;
 import dev.architectury.registry.menu.MenuRegistry;
@@ -169,6 +170,7 @@ public class StellarisFabricClient implements ClientModInitializer {
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.UPGRADE_STATION_MENU.get(), UpgradeStationScreen::new);
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.TABLET_MENU.get(), TabletMainScreen::new);
 
+        MenuRegistry.registerScreenFactory(MenuTypesRegistry.TEST_MENU.get(), TestScreen::new);
 
     }
 

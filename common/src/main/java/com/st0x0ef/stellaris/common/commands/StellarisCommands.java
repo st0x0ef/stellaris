@@ -4,17 +4,28 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.client.screens.TestScreen;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
 import com.st0x0ef.stellaris.common.data.recipes.SpaceStationRecipesManager;
+import com.st0x0ef.stellaris.common.menus.TestMenu;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
+import dev.architectury.registry.menu.ExtendedMenuProvider;
+import dev.architectury.registry.menu.MenuRegistry;
+import io.netty.buffer.Unpooled;
+import net.minecraft.client.Minecraft;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.chunk.ChunkAccess;
+import org.jetbrains.annotations.NotNull;
 
 public class StellarisCommands {
 
@@ -55,6 +66,29 @@ public class StellarisCommands {
                                     PlanetUtil.openWaitMenu(context.getSource().getPlayer(), context.getSource().getPlayer().getDisplayName().getString());
                                     return 0;
                                 }))
+                        .then(Commands.literal("testScreen")
+                                .executes((CommandContext<CommandSourceStack> context) -> {
+                                    ExtendedMenuProvider provider = new ExtendedMenuProvider() {
+                                        @Override
+                                        public void saveExtraData(FriendlyByteBuf buffer) {
+                                        }
+
+                                        @Override
+                                        public Component getDisplayName() {
+                                            return Component.literal("Planets");
+                                        }
+
+                                        @Override
+                                        public @NotNull AbstractContainerMenu createMenu(int syncId, Inventory inv, Player player) {
+                                            FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
+                                            return TestMenu.create(syncId, inv, buffer);
+                                        }
+                                    };
+
+                                    MenuRegistry.openExtendedMenu(context.getSource().getPlayer(), provider);
+                                    return 0;
+                                }))
+
                         .then(Commands.literal("planetScreen")
                                 .executes((CommandContext<CommandSourceStack> context) -> {
                                     PlanetUtil.openPlanetSelectionMenu(context.getSource().getPlayer(), true);
