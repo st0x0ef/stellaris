@@ -21,14 +21,19 @@ public interface SpaceSuitModule {
 
     MutableComponent displayName(); //TODO add in gui
 
-    default List<Item> requires() {return List.of();}
+    default List<Item> requires() {
+        return List.of();
+    }
 
-    default void tick(ItemStack stack, Level level, Player player) {}
+    default void tick(ItemStack stack, Level level, Player player) {
+    }
 
-    default void addToTooltips(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {}
+    default void addToTooltips(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+    }
 
     @Environment(EnvType.CLIENT)
-    default void renderToGui(GuiGraphics graphics, DeltaTracker deltaTracker, Player player, ItemStack stack) {}
+    default void renderToGui(GuiGraphics graphics, DeltaTracker deltaTracker, Player player, ItemStack stack) {
+    }
 
     /**
      *
@@ -45,6 +50,7 @@ public interface SpaceSuitModule {
     }
 
     @Environment(EnvType.CLIENT)
-    default void renderModel(PoseStack poseStack, MultiBufferSource buffer, AbstractClientPlayer entity, float entityYaw, float partialTicks, int packedLight) {}
+    default void renderModel(PoseStack poseStack, MultiBufferSource buffer, AbstractClientPlayer entity, float entityYaw, float partialTicks, int packedLight) {
+    }
 
 }

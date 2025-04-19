@@ -22,8 +22,9 @@ public class GlobeItemRendererMixin extends BlockItem {
     @SuppressWarnings("removal")
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
 
-        if(GlobeItemRendererMixin.this.getDefaultInstance().getItem() instanceof GlobeItem item) {
+        if (GlobeItemRendererMixin.this.getDefaultInstance().getItem() instanceof GlobeItem item) {
             consumer.accept(new IClientItemExtensions() {
+
                 @Override
                 public @NotNull BlockEntityWithoutLevelRenderer getCustomRenderer() {
                     return ItemRendererRegistry.GLOBE_ITEM_RENDERER.setTexture(item.getTexture());

@@ -54,11 +54,16 @@ public class KeyVariables {
 
     public static void setKeyVariable(String key, UUID uuid, Boolean bool) {
         switch (key) {
-            case "key_up": KEY_UP.put(uuid, bool);
-            case "key_down": KEY_DOWN.put(uuid, bool);
-            case "key_right": KEY_RIGHT.put(uuid, bool);
-            case "key_left": KEY_LEFT.put(uuid, bool);
-            case "key_jump": KEY_JUMP.put(uuid, bool);
+            case "key_up":
+                KEY_UP.put(uuid, bool);
+            case "key_down":
+                KEY_DOWN.put(uuid, bool);
+            case "key_right":
+                KEY_RIGHT.put(uuid, bool);
+            case "key_left":
+                KEY_LEFT.put(uuid, bool);
+            case "key_jump":
+                KEY_JUMP.put(uuid, bool);
         }
     }
 }

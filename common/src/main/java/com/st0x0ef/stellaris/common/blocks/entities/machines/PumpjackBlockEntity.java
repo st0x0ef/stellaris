@@ -38,19 +38,21 @@ public class PumpjackBlockEntity extends BaseEnergyContainerBlockEntity implemen
         super(BlockEntityRegistry.PUMPJACK.get(), pos, state);
 
         resultTank = new SingleFluidStorage(10000) {
+
             @Override
             protected void onChange() {
                 setChanged();
-                if (level != null && level.getServer() != null && !level.getServer().getPlayerList().getPlayers().isEmpty())
+                if (level != null && level.getServer() != null && !level.getServer().getPlayerList().getPlayers().isEmpty()) {
                     NetworkManager.sendToPlayers(level.getServer().getPlayerList().getPlayers(),
                             new SyncFluidPacketWithoutDirection(new FluidAmountMapDataComponent(List.of(getFluidInTank(0).getFluid()), List.of(getFluidValueInTank())), 0, getBlockPos()));
+                }
             }
         };
     }
 
     @Override
     public void tick() {
-        FluidUtil.moveFluidToItem(0, resultTank,0, items, 1000);
+        FluidUtil.moveFluidToItem(0, resultTank, 0, items, 1000);
 
         ChunkAccess access = this.level.getChunk(this.worldPosition);
 
@@ -64,7 +66,9 @@ public class PumpjackBlockEntity extends BaseEnergyContainerBlockEntity implemen
         if (access.stellaris$getChunkOilLevel() < oilToExtract) {
             actualOilToExtract = access.stellaris$getChunkOilLevel();
 
-            if (actualOilToExtract == 0) return;
+            if (actualOilToExtract == 0) {
+                return;
+            }
         }
 
         if (energyContainer.getEnergy() >= 2 * actualOilToExtract) {
@@ -75,7 +79,8 @@ public class PumpjackBlockEntity extends BaseEnergyContainerBlockEntity implemen
                 energyContainer.extract(2 * actualOilToExtract, false);
                 isGenerating = true;
                 setChanged();
-            } else {
+            }
+            else {
                 isGenerating = false;
             }
         }
@@ -83,7 +88,8 @@ public class PumpjackBlockEntity extends BaseEnergyContainerBlockEntity implemen
         BlockState state;
         if (isGenerating) {
             state = getBlockState().setValue(CoalGeneratorBlock.LIT, true);
-        } else {
+        }
+        else {
             state = getBlockState().setValue(CoalGeneratorBlock.LIT, false);
         }
         level.setBlock(getBlockPos(), state, 3);
@@ -96,7 +102,7 @@ public class PumpjackBlockEntity extends BaseEnergyContainerBlockEntity implemen
 
     @Override
     protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
-        return new PumpjackMenu(containerId, inventory, this,  this);
+        return new PumpjackMenu(containerId, inventory, this, this);
     }
 
     @Override

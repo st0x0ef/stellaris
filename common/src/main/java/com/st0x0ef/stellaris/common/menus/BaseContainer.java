@@ -10,6 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public abstract class BaseContainer extends AbstractContainerMenu {
+
     private static final int HOTBAR_SLOT_COUNT = 9;
     private static final int PLAYER_INVENTORY_ROW_COUNT = 3;
     private static final int PLAYER_INVENTORY_COLUMN_COUNT = 9;
@@ -30,7 +31,9 @@ public abstract class BaseContainer extends AbstractContainerMenu {
     @Override
     public @NotNull ItemStack quickMoveStack(Player playerIn, int index) {
         Slot sourceSlot = slots.get(index);
-        if (!sourceSlot.hasItem()) return ItemStack.EMPTY;
+        if (!sourceSlot.hasItem()) {
+            return ItemStack.EMPTY;
+        }
         ItemStack sourceStack = sourceSlot.getItem();
         ItemStack copyOfSourceStack = sourceStack.copy();
 
@@ -39,18 +42,21 @@ public abstract class BaseContainer extends AbstractContainerMenu {
                     + TE_INVENTORY_SLOT_COUNT, false)) {
                 return ItemStack.EMPTY;
             }
-        } else if (index < TE_INVENTORY_FIRST_SLOT_INDEX + TE_INVENTORY_SLOT_COUNT) {
+        }
+        else if (index < TE_INVENTORY_FIRST_SLOT_INDEX + TE_INVENTORY_SLOT_COUNT) {
             if (!moveItemStackTo(sourceStack, VANILLA_FIRST_SLOT_INDEX, VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT, false)) {
                 return ItemStack.EMPTY;
             }
-        } else {
+        }
+        else {
             System.out.println("Invalid slotIndex:" + index);
             return ItemStack.EMPTY;
         }
 
         if (sourceStack.getCount() == 0) {
             sourceSlot.set(ItemStack.EMPTY);
-        } else {
+        }
+        else {
             sourceSlot.setChanged();
         }
         sourceSlot.onTake(playerIn, sourceStack);
@@ -63,14 +69,14 @@ public abstract class BaseContainer extends AbstractContainerMenu {
     }
 
     public void addPlayerHotbar(Inventory playerInventory, int xOffset, int yOffset) {
-        for(int j = 0; j < 9; ++j) {
+        for (int j = 0; j < 9; ++j) {
             this.addSlot(new Slot(playerInventory, j, xOffset + j * 18, yOffset));
         }
     }
 
     public void addPlayerInventory(Inventory playerInventory, int xOffset, int yOffset) {
-        for(int j = 0; j < 3; ++j) {
-            for(int k = 0; k < 9; ++k) {
+        for (int j = 0; j < 3; ++j) {
+            for (int k = 0; k < 9; ++k) {
                 this.addSlot(new Slot(playerInventory, k + j * 9 + 9, xOffset + k * 18, yOffset + j * 18));
             }
         }

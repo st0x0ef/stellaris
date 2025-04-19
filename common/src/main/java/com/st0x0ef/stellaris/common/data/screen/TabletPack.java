@@ -28,7 +28,7 @@ public class TabletPack extends SimpleJsonResourceReloadListener {
             JsonObject json = GsonHelper.convertToJsonObject(value, "tablet");
             TabletEntry entry = TabletEntry.CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
 
-            if(!TabletMainScreen.ENTRIES.containsKey(entry.id())) {
+            if (!TabletMainScreen.ENTRIES.containsKey(entry.id())) {
                 TabletMainScreen.ENTRIES.put(entry.id(), entry);
             }
             entry.infos().forEach(info -> TabletMainScreen.INFOS.put(ResourceLocation.fromNamespaceAndPath(entry.id(), info.id()), info));

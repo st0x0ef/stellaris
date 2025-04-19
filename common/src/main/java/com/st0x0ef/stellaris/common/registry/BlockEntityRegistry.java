@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import java.util.function.Supplier;
 
 public class BlockEntityRegistry {
+
     //Block entity type
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPE = DeferredRegister.create(Stellaris.MODID, Registries.BLOCK_ENTITY_TYPE);
     public static final RegistrySupplier<BlockEntityType<RocketStationEntity>> ROCKET_STATION = BLOCK_ENTITY_TYPE.register("rocket_station",
@@ -64,9 +65,9 @@ public class BlockEntityRegistry {
 
     public static final Supplier<BlockEntityType<?>> CABLE_ENTITY = BLOCK_ENTITY_TYPE.register("cable",
             () -> BlockEntityType.Builder.of(CableBlockEntity::create,
-                            BlocksRegistry.T1_CABLE.get(),
-                            BlocksRegistry.T2_CABLE.get(),
-                            BlocksRegistry.T3_CABLE.get()
+                    BlocksRegistry.T1_CABLE.get(),
+                    BlocksRegistry.T2_CABLE.get(),
+                    BlocksRegistry.T3_CABLE.get()
             ).build(null));
     public static final Supplier<BlockEntityType<?>> PIPE_ENTITY = BLOCK_ENTITY_TYPE.register("pipe",
             () -> BlockEntityType.Builder.of(PipeBlockEntity::create,

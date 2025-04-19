@@ -23,6 +23,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Map;
 
 public abstract class BaseCableBlock extends BaseTickingEntityBlock {
+
     private static final Direction[] DIRECTIONS = Direction.values();
     public static final BooleanProperty NORTH = PipeBlock.NORTH;
     public static final BooleanProperty EAST = PipeBlock.EAST;
@@ -56,7 +57,7 @@ public abstract class BaseCableBlock extends BaseTickingEntityBlock {
         BlockPos blockPos = blockPlaceContext.getClickedPos();
         BlockState[] state = {this.defaultBlockState()};
         PROPERTY_BY_DIRECTION.forEach((direction, booleanProperty) ->
-            state[0] = state[0].setValue(booleanProperty, isConnectable(level, blockPos.relative(direction), direction.getOpposite())));
+                state[0] = state[0].setValue(booleanProperty, isConnectable(level, blockPos.relative(direction), direction.getOpposite())));
         return state[0];
     }
 
@@ -65,11 +66,13 @@ public abstract class BaseCableBlock extends BaseTickingEntityBlock {
     @Override
     protected @NotNull BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor levelAccessor, BlockPos pos, BlockPos neighborPos) {
         BlockEntity entity = levelAccessor.getBlockEntity(pos);
-        if (entity!=null) {
+        if (entity != null) {
             Level level = entity.getLevel();
-            if (level!=null)
-                if (isConnectable(level, neighborPos, direction.getOpposite()))
+            if (level != null) {
+                if (isConnectable(level, neighborPos, direction.getOpposite())) {
                     return state.setValue(PROPERTY_BY_DIRECTION.get(direction), true);
+                }
+            }
         }
         return state.setValue(PROPERTY_BY_DIRECTION.get(direction), false);
     }
@@ -99,17 +102,17 @@ public abstract class BaseCableBlock extends BaseTickingEntityBlock {
         VoxelShape voxelShape = Block.box(f * 16.0F, f * 16.0F, f * 16.0F, g * 16.0F, g * 16.0F, g * 16.0F);
         VoxelShape[] voxelShapes = new VoxelShape[DIRECTIONS.length];
 
-        for(int i = 0; i < DIRECTIONS.length; ++i) {
+        for (int i = 0; i < DIRECTIONS.length; ++i) {
             Direction direction = DIRECTIONS[i];
-            voxelShapes[i] = Shapes.box(0.5 + Math.min(-apothem, (double)direction.getStepX() * 0.5), 0.5 + Math.min(-apothem, (double)direction.getStepY() * 0.5), 0.5 + Math.min(-apothem, (double)direction.getStepZ() * 0.5), 0.5 + Math.max(apothem, (double)direction.getStepX() * 0.5), 0.5 + Math.max(apothem, (double)direction.getStepY() * 0.5), 0.5 + Math.max(apothem, (double)direction.getStepZ() * 0.5));
+            voxelShapes[i] = Shapes.box(0.5 + Math.min(-apothem, (double) direction.getStepX() * 0.5), 0.5 + Math.min(-apothem, (double) direction.getStepY() * 0.5), 0.5 + Math.min(-apothem, (double) direction.getStepZ() * 0.5), 0.5 + Math.max(apothem, (double) direction.getStepX() * 0.5), 0.5 + Math.max(apothem, (double) direction.getStepY() * 0.5), 0.5 + Math.max(apothem, (double) direction.getStepZ() * 0.5));
         }
 
         VoxelShape[] voxelShapes2 = new VoxelShape[64];
 
-        for(int j = 0; j < 64; ++j) {
+        for (int j = 0; j < 64; ++j) {
             VoxelShape voxelShape2 = voxelShape;
 
-            for(int k = 0; k < DIRECTIONS.length; ++k) {
+            for (int k = 0; k < DIRECTIONS.length; ++k) {
                 if ((j & 1 << k) != 0) {
                     voxelShape2 = Shapes.or(voxelShape2, voxelShapes[k]);
                 }
@@ -124,8 +127,8 @@ public abstract class BaseCableBlock extends BaseTickingEntityBlock {
     protected int getAABBIndex(BlockState state) {
         int i = 0;
 
-        for(int j = 0; j < DIRECTIONS.length; ++j) {
-            if ((Boolean) state.getValue((Property<?>)PROPERTY_BY_DIRECTION.get(DIRECTIONS[j]))) {
+        for (int j = 0; j < DIRECTIONS.length; ++j) {
+            if ((Boolean) state.getValue((Property<?>) PROPERTY_BY_DIRECTION.get(DIRECTIONS[j]))) {
                 i |= 1 << j;
             }
         }

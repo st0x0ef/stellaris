@@ -32,7 +32,7 @@ public class FlagBlock extends Block implements SimpleWaterloggedBlock {
 
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 
-    public static final VoxelShape SHAPE = Shapes.box((double)7/16, 0, (double)7/16, (double)9/16, 1, (double)9/16);
+    public static final VoxelShape SHAPE = Shapes.box((double) 7 / 16, 0, (double) 7 / 16, (double) 9 / 16, 1, (double) 9 / 16);
 
     public FlagBlock(Properties properties) {
         super(properties);
@@ -56,7 +56,8 @@ public class FlagBlock extends Block implements SimpleWaterloggedBlock {
         }
         if (facing.getAxis() == Direction.Axis.Y && doubleblockhalf == DoubleBlockHalf.LOWER == (facing == Direction.UP)) {
             return facingState.is(this) && facingState.getValue(HALF) != doubleblockhalf ? stateIn.setValue(FACING, facingState.getValue(FACING)) : Blocks.AIR.defaultBlockState();
-        } else {
+        }
+        else {
             return doubleblockhalf == DoubleBlockHalf.LOWER && facing == Direction.DOWN && !stateIn.canSurvive(worldIn, currentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
         }
     }
@@ -92,7 +93,8 @@ public class FlagBlock extends Block implements SimpleWaterloggedBlock {
         if (blockpos.getY() < level.getMaxBuildHeight() - 1 && context.getLevel().getBlockState(blockpos.above()).canBeReplaced(context)) {
             boolean flag = context.getLevel().getFluidState(context.getClickedPos()).is(Fluids.WATER);
             return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection()).setValue(HALF, DoubleBlockHalf.LOWER).setValue(WATERLOGGED, flag);
-        } else {
+        }
+        else {
             return null;
         }
     }
@@ -115,6 +117,7 @@ public class FlagBlock extends Block implements SimpleWaterloggedBlock {
 
 
     public interface ISkullType {
+
     }
 
     public enum Types implements FlagBlock.ISkullType {

@@ -2,7 +2,6 @@ package com.st0x0ef.stellaris.platform.neoforge;
 
 import com.st0x0ef.stellaris.platform.ClientUtilsPlatform;
 import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.neoforged.fml.ModList;
 
@@ -16,11 +15,11 @@ public class ClientUtilsPlatformImpl {
 
     public static void registerArmor(ModelLayerLocation layer, ClientUtilsPlatform.ArmorFactory factory, Item... items) {
         for (Item item : items) {
-            ARMOR_RENDERERS.put(item, new ArmorRenderer(ResourceLocation.fromNamespaceAndPath("", ""), layer, factory));
+            ARMOR_RENDERERS.put(item, new ArmorRenderer(layer, factory));
         }
     }
 
-    public record ArmorRenderer(ResourceLocation texture, ModelLayerLocation layer, ClientUtilsPlatform.ArmorFactory factory) {
+    public record ArmorRenderer(ModelLayerLocation layer, ClientUtilsPlatform.ArmorFactory factory) {
 
     }
 

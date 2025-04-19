@@ -57,6 +57,7 @@ import java.util.List;
 import java.util.Set;
 
 public class RocketEntity extends IVehicleEntity implements HasCustomInventoryScreen {
+
     public int START_TIMER;
 
     public boolean needsModelChange = false;
@@ -157,11 +158,11 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
         ListTag listTag = new ListTag();
 
-        for(int i = 1; i < this.inventory.getContainerSize(); ++i) {
+        for (int i = 1; i < this.inventory.getContainerSize(); ++i) {
             ItemStack itemStack = this.inventory.getItem(i);
             if (!itemStack.isEmpty()) {
                 CompoundTag compoundTag = new CompoundTag();
-                compoundTag.putByte("Slot", (byte)(i - 1));
+                compoundTag.putByte("Slot", (byte) (i - 1));
                 listTag.add(itemStack.save(this.registryAccess(), compoundTag));
             }
         }
@@ -233,7 +234,8 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
             if (player.isCrouching()) {
                 if (!tryFillUpRocket(player.getMainHandItem().getItem())) {
                     this.openCustomInventoryScreen(player);
-                } else {
+                }
+                else {
                     player.getItemInHand(hand).shrink(1);
                     player.getInventory().add(new ItemStack(Items.BUCKET));
                 }
@@ -257,7 +259,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
     @Override
     public Vec3 getPassengerRidingPosition(Entity entity) {
-        return this.position().add(this.getPassengerAttachmentPoint(entity, getDimensions(this.getPose()),1.0F)).subtract(0d,3.15d,0d);
+        return this.position().add(this.getPassengerAttachmentPoint(entity, getDimensions(this.getPose()), 1.0F)).subtract(0d, 3.15d, 0d);
     }
 
     @Override
@@ -265,6 +267,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         this.lastPlayer = player;
         if (player instanceof ServerPlayer serverPlayer) {
             MenuRegistry.openExtendedMenu(serverPlayer, new ExtendedMenuProvider() {
+
                 @Override
                 public void saveExtraData(FriendlyByteBuf packetByteBuf) {
                     packetByteBuf.writeVarInt(RocketEntity.this.getId());
@@ -316,28 +319,28 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
     @Override
     public @NotNull Vec3 getDismountLocationForPassenger(LivingEntity livingEntity) {
-        Vec3[] avector3d = new Vec3[]{getCollisionHorizontalEscapeVector(this.getBbWidth(), livingEntity.getBbWidth(), livingEntity.getYRot()), getCollisionHorizontalEscapeVector(this.getBbWidth(), livingEntity.getBbWidth(), livingEntity.getYRot() - 22.5F), getCollisionHorizontalEscapeVector(this.getBbWidth(), livingEntity.getBbWidth(), livingEntity.getYRot() + 22.5F), getCollisionHorizontalEscapeVector(this.getBbWidth(), livingEntity.getBbWidth(), livingEntity.getYRot() - 45.0F), getCollisionHorizontalEscapeVector(this.getBbWidth(), livingEntity.getBbWidth(), livingEntity.getYRot() + 45.0F)};
+        Vec3[] avector3d = new Vec3[] {getCollisionHorizontalEscapeVector(this.getBbWidth(), livingEntity.getBbWidth(), livingEntity.getYRot()), getCollisionHorizontalEscapeVector(this.getBbWidth(), livingEntity.getBbWidth(), livingEntity.getYRot() - 22.5F), getCollisionHorizontalEscapeVector(this.getBbWidth(), livingEntity.getBbWidth(), livingEntity.getYRot() + 22.5F), getCollisionHorizontalEscapeVector(this.getBbWidth(), livingEntity.getBbWidth(), livingEntity.getYRot() - 45.0F), getCollisionHorizontalEscapeVector(this.getBbWidth(), livingEntity.getBbWidth(), livingEntity.getYRot() + 45.0F)};
         Set<BlockPos> set = Sets.newLinkedHashSet();
         double d0 = this.getBoundingBox().maxY;
         double d1 = this.getBoundingBox().minY - 0.5D;
         BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos();
 
-        for(Vec3 vector3d : avector3d) {
+        for (Vec3 vector3d : avector3d) {
             blockpos$mutable.set(this.getX() + vector3d.x, d0, this.getZ() + vector3d.z);
 
-            for(double d2 = d0; d2 > d1; --d2) {
+            for (double d2 = d0; d2 > d1; --d2) {
                 set.add(blockpos$mutable.immutable());
                 blockpos$mutable.move(Direction.DOWN);
             }
         }
 
-        for(BlockPos blockpos : set) {
+        for (BlockPos blockpos : set) {
             if (!this.level().getFluidState(blockpos).is(FluidTags.LAVA)) {
                 double d3 = this.level().getBlockFloorHeight(blockpos);
                 if (DismountHelper.isBlockFloorValid(d3)) {
                     Vec3 vector3d1 = Vec3.upFromBottomCenterOf(blockpos, d3);
 
-                    for(Pose pose : livingEntity.getDismountPoses()) {
+                    for (Pose pose : livingEntity.getDismountPoses()) {
                         if (DismountHelper.isBlockFloorValid(this.level().getBlockFloorHeight(blockpos))) {
                             livingEntity.setPose(pose);
                             return vector3d1;
@@ -366,7 +369,8 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
                     level.sendParticles(player, (ParticleOptions) ParticleTypes.FLAME, true, this.getX() - vec.x, this.getY() - vec.y - 2.2, this.getZ() - vec.z, 20, 0.1, 0.1, 0.1, 0.001);
                     level.sendParticles(player, (ParticleOptions) ParticleTypes.FLAME, true, this.getX() - vec.x, this.getY() - vec.y - 3.2, this.getZ() - vec.z, 10, 0.1, 0.1, 0.1, 0.04);
                 }
-            } else {
+            }
+            else {
                 for (ServerPlayer player : level.getServer().getPlayerList().getPlayers()) {
                     level.sendParticles(player, ParticleTypes.CAMPFIRE_COSY_SMOKE, true, this.getX() - vec.x, this.getY() - vec.y - 0.1, this.getZ() - vec.z, 6, 0.1, 0.1, 0.1, 0.023);
                 }
@@ -388,7 +392,8 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
                     player.awardStat(StatsRegistry.ROCKET_LAUNCHED.get());
                     this.level().playSound(player, this, SoundRegistry.ROCKET_SOUND.get(), SoundSource.NEUTRAL, 1, 1);
                 }
-            } else {
+            }
+            else {
                 player.displayClientMessage(Component.translatable("text.stellaris.rocket.fuel", this.MOTOR_UPGRADE.getFuelType().getSerializedName()), true);
             }
         }
@@ -403,7 +408,8 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         if (START_TIMER == 200) {
             if (this.getDeltaMovement().y < this.getRocketSpeed() - 0.1) {
                 this.setDeltaMovement(this.getDeltaMovement().x, this.getDeltaMovement().y + 0.1, this.getDeltaMovement().z);
-            } else {
+            }
+            else {
                 this.setDeltaMovement(this.getDeltaMovement().x, this.getRocketSpeed(), this.getDeltaMovement().z);
             }
         }
@@ -430,8 +436,9 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     public Player getFirstPlayerPassenger() {
         if (!this.getPassengers().isEmpty()) {
             for (int i = 0; i < this.getPassengers().size(); i++) {
-                if (this.getPassengers().get(i) instanceof Player player)
+                if (this.getPassengers().get(i) instanceof Player player) {
                     return player;
+                }
             }
         }
 
@@ -463,13 +470,16 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     }
 
     private void checkContainer() {
-        if (this.level().isClientSide) return;
+        if (this.level().isClientSide) {
+            return;
+        }
 
         if (this.getInventory().getItem(2).getItem() instanceof VehicleUpgradeItem item) {
             if (item.getUpgrade() instanceof MotorUpgrade upgrade) {
                 this.MOTOR_UPGRADE = upgrade;
             }
-        } else if (this.getInventory().getItem(2).isEmpty()) {
+        }
+        else if (this.getInventory().getItem(2).isEmpty()) {
             this.MOTOR_UPGRADE = MotorUpgrade.getBasic();
         }
 
@@ -477,7 +487,8 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
             if (item.getUpgrade() instanceof TankUpgrade upgrade) {
                 this.TANK_UPGRADE = upgrade;
             }
-        } else if (this.getInventory().getItem(3).isEmpty()) {
+        }
+        else if (this.getInventory().getItem(3).isEmpty()) {
             this.TANK_UPGRADE = TankUpgrade.getBasic();
         }
 
@@ -486,21 +497,23 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
                 this.SKIN_UPGRADE = upgrade;
                 setSkinData();
             }
-        } else if (this.getInventory().getItem(4).isEmpty()) {
+        }
+        else if (this.getInventory().getItem(4).isEmpty()) {
             this.SKIN_UPGRADE = SkinUpgrade.getBasic();
             setSkinData();
         }
 
         if (this.getInventory().getItem(5).getItem() instanceof VehicleUpgradeItem item) {
             if (item.getUpgrade() instanceof ModelUpgrade upgrade) {
-                if (this.MODEL_UPGRADE.getModel() != upgrade.getModel()){
+                if (this.MODEL_UPGRADE.getModel() != upgrade.getModel()) {
                     this.MODEL_UPGRADE = upgrade;
                     setModelData();
                     needsModelChange = true;
                     changeRocketModel();
                 }
             }
-        } else if (this.getInventory().getItem(5).isEmpty()) {
+        }
+        else if (this.getInventory().getItem(5).isEmpty()) {
             this.MODEL_UPGRADE = ModelUpgrade.getBasic();
             setModelData();
             if (needsModelChange) {
@@ -513,13 +526,17 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     }
 
     public boolean tryFillUpRocket(Item item) {
-        if (this.level().isClientSide) return false;
+        if (this.level().isClientSide) {
+            return false;
+        }
         if (FUEL >= TANK_UPGRADE.getTankCapacity() || item == null) {
             return false;
         }
 
         FuelType.Type itemType = FuelType.Type.getTypeBasedOnItem(item);
-        if (itemType == null) return false;
+        if (itemType == null) {
+            return false;
+        }
 
         FuelType.Type motorType = MOTOR_UPGRADE.getFuelType();
 
@@ -548,7 +565,9 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     }
 
     private void openPlanetMenu(Player player) {
-        if (player == null) return;
+        if (player == null) {
+            return;
+        }
 
         if (!player.stellaris$isPlanetMenuOpen()) {
             player.setNoGravity(true);
@@ -559,9 +578,11 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     }
 
     private void openWaitMenu(Player player) {
-        if(player == null) return;
+        if (player == null) {
+            return;
+        }
 
-        if(!player.stellaris$isPlanetMenuOpen()) {
+        if (!player.stellaris$isPlanetMenuOpen()) {
             player.setNoGravity(true);
             player.getVehicle().setNoGravity(true);
             PlanetUtil.openWaitMenu(player, this.getFirstPlayerPassenger().getDisplayName().getString());
@@ -643,12 +664,16 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         newRocketEntity.setModelData();
         newRocketEntity.setSkinData();
 
-        for (int i = 0; i < inventory.getContainerSize(); i++) newRocketEntity.inventory.setItem(i, itemStacks.get(i));
+        for (int i = 0; i < inventory.getContainerSize(); i++) {
+            newRocketEntity.inventory.setItem(i, itemStacks.get(i));
+        }
 
         List<Entity> passengers = getPassengers();
         this.remove(RemovalReason.DISCARDED);
         newRocketEntity.level().addFreshEntity(newRocketEntity);
-        for (Entity passenger : passengers) passenger.startRiding(newRocketEntity);
+        for (Entity passenger : passengers) {
+            passenger.startRiding(newRocketEntity);
+        }
         newRocketEntity.openCustomInventoryScreen(lastPlayer);
     }
 

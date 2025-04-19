@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.common.effects;
 
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.registry.EffectsRegistry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -13,10 +12,12 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 
+import static com.st0x0ef.stellaris.Stellaris.texture;
+
 public class FoggingScreenEffect extends MobEffect {
 
 
-    public static ResourceLocation FOGGING_OVERLAY = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/overlay/fogging_overlay.png");
+    public static ResourceLocation FOGGING_OVERLAY = texture("overlay/fogging_overlay");
 
     public FoggingScreenEffect(MobEffectCategory category, int color) {
         super(category, color);
@@ -36,7 +37,7 @@ public class FoggingScreenEffect extends MobEffect {
         }
 
         public Holder<MobEffect> getMobEffect() {
-            return EffectsRegistry.FOGGING_OVERLAY;
+            return EffectsRegistry.getHolder(EffectsRegistry.FOGGING_OVERLAY);
         }
 
         @Override
@@ -49,7 +50,8 @@ public class FoggingScreenEffect extends MobEffect {
             if (fogData.mode == FogRenderer.FogMode.FOG_SKY) {
                 fogData.start = 4F;
                 fogData.end = partness * 0.8F;
-            } else {
+            }
+            else {
                 fogData.start = partness * 0.25F;
                 fogData.end = partness;
             }

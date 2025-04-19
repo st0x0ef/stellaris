@@ -12,6 +12,7 @@ import net.minecraft.world.entity.schedule.Activity;
 import java.util.List;
 
 public class CheeseBossAi {
+
     private static final List<SensorType<? extends Sensor<? super CheeseBoss>>> SENSOR_TYPES;
     private static final List<MemoryModuleType<?>> MEMORY_TYPES;
 

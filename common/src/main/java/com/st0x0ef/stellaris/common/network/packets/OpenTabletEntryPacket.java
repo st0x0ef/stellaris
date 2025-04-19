@@ -11,10 +11,12 @@ import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.NotNull;
 
 public class OpenTabletEntryPacket implements CustomPacketPayload {
+
     public final ResourceLocation entry;
 
 
     public static final StreamCodec<RegistryFriendlyByteBuf, OpenTabletEntryPacket> STREAM_CODEC = new StreamCodec<>() {
+
         @Override
         public @NotNull OpenTabletEntryPacket decode(RegistryFriendlyByteBuf buf) {
             return new OpenTabletEntryPacket(buf);

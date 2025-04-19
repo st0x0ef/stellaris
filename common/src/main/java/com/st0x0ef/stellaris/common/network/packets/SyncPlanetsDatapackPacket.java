@@ -12,10 +12,12 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class SyncPlanetsDatapackPacket implements CustomPacketPayload {
+
     private final List<Planet> planets;
 
 
     public static final StreamCodec<RegistryFriendlyByteBuf, SyncPlanetsDatapackPacket> STREAM_CODEC = new StreamCodec<>() {
+
         @Override
         public @NotNull SyncPlanetsDatapackPacket decode(RegistryFriendlyByteBuf buf) {
             return new SyncPlanetsDatapackPacket(buf);

@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.common.vehicle_upgrade;
 import net.minecraft.resources.ResourceLocation;
 
 public class MotorUpgrade extends VehicleUpgrade {
+
     private final FuelType.Type type;
 
     public MotorUpgrade(FuelType.Type type) {

@@ -2,7 +2,6 @@ package com.st0x0ef.stellaris.client.renderers.globe;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.items.GlobeItem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -18,17 +17,18 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
+import static com.st0x0ef.stellaris.client.renderers.globe.GlobeBlockRenderer.EARTH_GLOBE_TEXTURE;
+
 @Environment(EnvType.CLIENT)
 public class GlobeItemRenderer extends BlockEntityWithoutLevelRenderer {
 
-    private ResourceLocation texture;
+    private ResourceLocation texture = EARTH_GLOBE_TEXTURE;
     private GlobeModel<?> model;
 
     public GlobeItemRenderer(BlockEntityRenderDispatcher blockEntityRenderDispatcher, EntityModelSet entityModelSet) {
         super(blockEntityRenderDispatcher, entityModelSet);
     }
 
-    
     public GlobeItemRenderer setTexture(ResourceLocation texture) {
         this.texture = texture;
         return this;
@@ -38,9 +38,8 @@ public class GlobeItemRenderer extends BlockEntityWithoutLevelRenderer {
     public void renderByItem(ItemStack stack, ItemDisplayContext displayContext, PoseStack matrixStackIn, MultiBufferSource buffer, int combinedLight, int packedOverlay) {
         if (stack.getItem() instanceof GlobeItem globeItem) {
             this.texture = globeItem.getTexture();
-        } else {
-            this.texture = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/block/globes/earth_globe.png");
         }
+
         matrixStackIn.pushPose();
 
         matrixStackIn.translate(0.5D, 1.5D, 0.5D);
@@ -57,7 +56,7 @@ public class GlobeItemRenderer extends BlockEntityWithoutLevelRenderer {
 
         /** Animation */
         if (level != null) {
-            if (!mc.isPaused() && mc.getFps()>0) {
+            if (!mc.isPaused() && mc.getFps() > 0) {
                 model.globe.getChild("planet").yRot = (float) (level.getGameTime() + (1 / mc.getFps())) / -20;
             }
         }

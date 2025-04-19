@@ -61,11 +61,12 @@ public class CoalTorchBlock extends TorchBlock {
         if (itemstack.getItem() == Items.FLINT_AND_STEEL) {
             level.playSound(null, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1, 1);
 
-            itemstack.hurtAndBreak(1, level, player, (item) -> {});
+            itemstack.hurtAndBreak(1, level, player, (item) -> {
+            });
         }
 
         if (itemstack.getItem() == Items.FIRE_CHARGE) {
-            level.playSound(null, pos, SoundEvents.FIRECHARGE_USE, SoundSource.BLOCKS, 1,1);
+            level.playSound(null, pos, SoundEvents.FIRECHARGE_USE, SoundSource.BLOCKS, 1, 1);
 
             if (!player.getAbilities().instabuild && !player.isSpectator()) {
                 itemstack.setCount(itemstack.getCount() - 1);

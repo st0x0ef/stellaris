@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.common.config.types;
 import java.io.Serializable;
 
 public class RangedInt implements Serializable {
+
     public int value;
     public int min;
     public int max;
@@ -12,9 +13,10 @@ public class RangedInt implements Serializable {
         this.max = max;
         this.value = value;
 
-        if(value < min) {
+        if (value < min) {
             this.value = min;
-        } else if(value > max) {
+        }
+        else if (value > max) {
             this.value = max;
         }
 
