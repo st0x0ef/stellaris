@@ -34,5 +34,6 @@ public class MenuTypesRegistry {
     public static final RegistrySupplier<MenuType<WaitMenu>> WAIT_MENU = MENU_TYPE.register("wait_menu", () -> MenuRegistry.ofExtended(WaitMenu::create));
 
     public static final RegistrySupplier<MenuType<UpgradeStationMenu>> UPGRADE_STATION_MENU = MENU_TYPE.register("upgrade_station", () -> MenuRegistry.ofExtended(UpgradeStationMenu::create));
+    public static final RegistrySupplier<MenuType<TestMenu>> TEST_MENU = MENU_TYPE.register("test_menu", () -> MenuRegistry.ofExtended(TestMenu::create));
 
 }
