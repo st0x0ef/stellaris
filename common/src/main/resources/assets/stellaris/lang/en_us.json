@@ -568,10 +568,11 @@
   "text.stellaris.planetscreen.space_station_launch": "Launch in space without constructing a space station",
   "text.stellaris.rocketscreen.fuel": "Fuel Capacity",
 
-  "text.stellaris.planetscreen.press_space": "To pause the screen, press Space",
-  "text.stellaris.planetscreen.arrows": "Select planets with the arrow keys",
-  "text.stellaris.planetscreen.help": "To hide the info, press H",
+  "text.stellaris.planetscreen.arrows": "Arrow Keys: Change Selected Celestial Body",
+  "text.stellaris.planetscreen.space": "Space or X: Pause The Screen",
+  "text.stellaris.planetscreen.z": "Z: Show / Close Launch Menu",
   "text.stellaris.waitscreen": "Waiting for %s to choose a location!",
+  "text.stellaris.planetscreen.returntogalaxy": "Return to Galaxy",
 
   "gauge_text.stellaris.stored": "Stored : %s",
   "gauge_text.stellaris.capacity": "Capacity : %s",

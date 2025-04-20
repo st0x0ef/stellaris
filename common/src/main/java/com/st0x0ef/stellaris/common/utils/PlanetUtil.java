@@ -67,13 +67,14 @@ public class PlanetUtil {
         return ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/planet_bar/earth_planet_bar.png");
     }
 
-    public static int openPlanetSelectionMenu(Player player, boolean forceCanGoTo) {
+    public static int openPlanetSelectionMenu(Player player, boolean forceCanGoTo, String galaxyId) {
         Stellaris.LOG.info("Placing space station at " + player.blockPosition());
 
         ExtendedMenuProvider provider = new ExtendedMenuProvider() {
             @Override
             public void saveExtraData(FriendlyByteBuf buffer) {
                 buffer.writeBoolean(forceCanGoTo);
+                buffer.writeUtf(galaxyId); // 여기서 galaxyId도 같이 보냄
             }
 
             @Override
@@ -83,9 +84,15 @@ public class PlanetUtil {
 
             @Override
             public @NotNull AbstractContainerMenu createMenu(int syncId, Inventory inv, Player player) {
-                FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
-                return PlanetSelectionMenu.create(syncId, inv, buffer.writeBoolean(forceCanGoTo));
+                return new PlanetSelectionMenu(syncId, inv, forceCanGoTo, galaxyId);
             }
+
+            public static PlanetSelectionMenu create(int syncId, Inventory inventory, FriendlyByteBuf data) {
+                boolean forceCanGoTo = data.readBoolean();
+                String galaxyId = data.readUtf();
+                return new PlanetSelectionMenu(syncId, inventory, forceCanGoTo, galaxyId);
+            }
+
         };
 
         if (player instanceof ServerPlayer serverPlayer) {
@@ -95,6 +102,7 @@ public class PlanetUtil {
 
         return 0;
     }
+
 
     public static int openWaitMenu(Player player, String playerChoosing) {
         ExtendedMenuProvider provider = new ExtendedMenuProvider() {

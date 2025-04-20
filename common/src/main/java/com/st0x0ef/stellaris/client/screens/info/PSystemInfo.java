@@ -25,4 +25,8 @@ public class PSystemInfo {
         this.centerX = centerX;
         this.centerY = centerY;
     }
+
+    public String getParent() {
+        return this.parent;
+    }
 }

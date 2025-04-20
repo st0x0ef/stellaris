@@ -32,6 +32,10 @@ public class GalaxyInfo {
         return id;
     }
 
+    public String getCenterStar() {
+        return centerStar;
+    }
+
     public static final Codec<GalaxyInfo> CODEC = RecordCodecBuilder.create(
             instance -> instance.group(
                     ResourceLocation.CODEC.fieldOf("texture").forGetter(g -> g.texture),

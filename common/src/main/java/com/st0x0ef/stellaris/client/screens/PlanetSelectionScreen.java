@@ -14,6 +14,7 @@ import com.st0x0ef.stellaris.common.data.recipes.SpaceStationRecipe;
 import com.st0x0ef.stellaris.common.data.recipes.SpaceStationRecipesManager;
 import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
 import com.st0x0ef.stellaris.common.menus.PlanetSelectionMenu;
+import com.st0x0ef.stellaris.common.network.packets.OpenMilkyWayMenuPacket;
 import com.st0x0ef.stellaris.common.network.packets.PlaceStationPacket;
 import com.st0x0ef.stellaris.common.network.packets.TeleportEntityToPlanetPacket;
 import com.st0x0ef.stellaris.common.registry.EntityData;
@@ -33,6 +34,7 @@ import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -44,6 +46,9 @@ import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
+
+import static com.st0x0ef.stellaris.common.utils.Utils.isHoveredOnSprite;
 
 @Environment(EnvType.CLIENT)
 public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelectionMenu> {
@@ -134,6 +139,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     protected void init() {
         super.init();
         getMenu().freeze_gui = false;
+
         centerSun();
         initSpaceStationRecipes();
         isPlanetScreenOpened = true;
@@ -212,9 +218,16 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         if (focusedBody != null) { renderLargeMenu(graphics); };
         renderSpaceStation(graphics);
 
+        initTop(graphics, mouseX, mouseY);
+        etc();
+
         this.renderTooltip(graphics, mouseX, mouseY);
     }
 
+    /** just some stuffs group for common things**/
+    public void etc() {
+        if (focusedBody == findByNameMoon("stellaris:deimos") || focusedBody == findByNameMoon("stellaris:phobos")) focusedBody = findByNamePlanet("stellaris:mars");
+    }
 
     public boolean canLaunch(Planet planet) {
         if (this.getMenu().getForceCanGoTo()) return true;
@@ -238,6 +251,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         initializePlanetButtons();
         initializeMoonButtons();
         initializeLaunchButton();
+
     }
 
     private void initializePlanetButtons() {
@@ -263,6 +277,88 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         this.addRenderableWidget(launchButton);
 
         launchButton.visible = false;
+    }
+
+    private int leftArrowX, rightArrowX, arrowY, arrowWidth = 25, arrowHeight = 25;
+    private int upArrowX, downArrowX, verticalArrowY;
+    private final int verticalArrowWidth = 20, verticalArrowHeight = 20;
+    private final int textArrowWidth = 10;
+
+    int galaxyWidth = 21;
+    int galaxyHeight = 12;
+    int galaxyX = 4;
+    int galaxyY = 4;
+
+    private void initTop(GuiGraphics graphics, int mouseX, int mouseY) {
+        ResourceLocation topBarTexture = ResourceLocation.fromNamespaceAndPath(
+                Stellaris.MODID, "textures/gui/util/planet_selection_bar.png");
+
+        Font font = Minecraft.getInstance().font;
+
+        int tgWidth = 240;
+        int tgHeight = 32;
+        int tgX = (this.width - tgWidth) / 2;
+        int tgY = this.height - 48;
+
+        int infoWidth = 12;
+        int infoHeight = 12;
+        int infoX = this.width - 20;
+        int infoY = 4;
+
+        leftArrowX = tgX + 7;
+        rightArrowX = tgX + tgWidth - arrowWidth - 7;
+        arrowY = tgY + (tgHeight - arrowHeight) / 2;
+
+        upArrowX = tgX + tgWidth + 10;
+        downArrowX = tgX - verticalArrowWidth - 10;
+        verticalArrowY = tgY + (tgHeight - verticalArrowHeight) / 2;
+
+        boolean infoHovering = isHoveredOnSprite(infoX, infoY, infoWidth, infoHeight, mouseX, mouseY);
+        boolean galaxyHovering = isHoveredOnSprite(galaxyX, galaxyY, galaxyWidth, galaxyHeight, mouseX, mouseY);
+
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderColor(50 / 255f, 69 / 255f, 163 / 255f, 1.0f);
+        RenderSystem.setShaderTexture(0, topBarTexture);
+        graphics.blit(topBarTexture, tgX, tgY, 0, 0, tgWidth, tgHeight, tgWidth, tgHeight);
+        graphics.blit(ResourceLocation.fromNamespaceAndPath(
+                        Stellaris.MODID, "textures/gui/util/" + (infoHovering ? "planet_selection_info_button_hover.png" : "planet_selection_info_button.png")),
+                infoX, infoY, 0, 0, infoWidth, infoHeight, infoWidth, infoHeight);
+        graphics.blit(ResourceLocation.fromNamespaceAndPath(
+                        Stellaris.MODID, "textures/gui/util/" + (galaxyHovering ? "planet_selection_galaxy_button_hover.png" : "planet_selection_galaxy_button.png")),
+                galaxyX, galaxyY, 0, 0, galaxyWidth, galaxyHeight, galaxyWidth, galaxyHeight);
+        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
+
+        boolean arrowHoveringLeft = isHoveredOnSprite(leftArrowX, arrowY, arrowWidth, arrowHeight, mouseX, mouseY);
+        boolean arrowHoveringRight = isHoveredOnSprite(rightArrowX, arrowY, arrowWidth, arrowHeight, mouseX, mouseY);
+
+        graphics.blit(ResourceLocation.fromNamespaceAndPath(
+                        Stellaris.MODID, "textures/gui/util/" + (arrowHoveringLeft ? "planet_selection_arrow_left_hover.png" : "planet_selection_arrow_left.png")),
+                leftArrowX, arrowY, 0, 0, arrowWidth, arrowHeight, arrowWidth, arrowHeight);
+
+        graphics.blit(ResourceLocation.fromNamespaceAndPath(
+                        Stellaris.MODID, "textures/gui/util/" + (arrowHoveringRight ? "planet_selection_arrow_right_hover.png" : "planet_selection_arrow_right.png")),
+                rightArrowX, arrowY, 0, 0, arrowWidth, arrowHeight, arrowWidth, arrowHeight);
+
+        Component bodyName = focusedBody != null ? focusedBody.getTranslatable() : Component.literal("X");
+        int nameWidth = font.width(bodyName);
+        int nameX = tgX + (tgWidth / 2) - (nameWidth / 2);
+        int nameY = tgY + (tgHeight / 2) - (font.lineHeight / 2);
+        graphics.drawString(font, bodyName, nameX, nameY, 0xFFFFFF, true);
+
+        if (infoHovering) {
+            List<Component> tooltipLines = List.of(
+                    Component.translatable("text.stellaris.planetscreen.space"),
+                    Component.translatable("text.stellaris.planetscreen.z"),
+                    Component.translatable("text.stellaris.planetscreen.arrows")
+            );
+            graphics.renderTooltip(Minecraft.getInstance().font, tooltipLines, Optional.empty(), mouseX, mouseY);
+        }
+        if (galaxyHovering) {
+            List<Component> tooltipLines = List.of(
+                    Component.translatable("text.stellaris.planetscreen.returntogalaxy")
+            );
+            graphics.renderTooltip(Minecraft.getInstance().font, tooltipLines, Optional.empty(), mouseX, mouseY);
+        }
     }
 
     private void onLaunchButtonClick() {
@@ -293,80 +389,11 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     @Override
     protected void renderBg(GuiGraphics graphics, float partialTicks, int mouseX, int mouseY) {
-        graphics.fill(this.leftPos, this.topPos, this.leftPos + this.imageWidth, this.topPos + this.imageHeight, 0xFF000000);
-
-        Random random = new Random(42);
-        double time = System.currentTimeMillis() / 1000.0;
-
-        int[] colors = {
-                0xFFFFFF,
-        };
-
-        Set<Long> usedPositions = new HashSet<>();
-
-        int generalStars = 1000;
-        int milkyWayStars = 500;
-
-        for (int i = 0; i < generalStars; ) {
-            int x = this.leftPos + random.nextInt(this.imageWidth);
-            int y = this.topPos + random.nextInt(this.imageHeight);
-            long key = ((long) x << 32) | y;
-            if (usedPositions.contains(key)) continue;
-
-            usedPositions.add(key);
-            i++;
-
-            int size = random.nextInt(2) + 1;
-            int baseAlpha = random.nextInt(100) + 155;
-            double flickerOffset = random.nextDouble() * 1000;
-
-            double flicker = Math.sin(time * 2 + flickerOffset) * 0.3 + 0.7;
-            int alpha = (int) (baseAlpha * flicker);
-            alpha = Math.max(40, Math.min(255, alpha));
-
-            int color = colors[random.nextInt(colors.length)];
-            int argb = (alpha << 24) | color;
-
-            graphics.fill(x, y, x + size, y + size, argb);
-        }
-
-        for (int i = 0; i < milkyWayStars; ) {
-            double centerX = this.leftPos + this.imageWidth / 2.0;
-            double centerY = this.topPos + this.imageHeight / 2.0;
-
-            double gaussianX = random.nextGaussian() * (imageWidth / 8.0) + centerX;
-            double gaussianY = random.nextGaussian() * (imageHeight / 3.0) + centerY;
-
-            int x = (int) gaussianX;
-            int y = (int) gaussianY;
-            long key = ((long) x << 32) | y;
-            if (usedPositions.contains(key)) continue;
-
-            usedPositions.add(key);
-            i++;
-
-            if (x < this.leftPos || x >= this.leftPos + this.imageWidth ||
-                    y < this.topPos || y >= this.topPos + this.imageHeight) {
-                continue;
-            }
-
-            int size = random.nextInt(2) + 1;
-            int baseAlpha = random.nextInt(100) + 155;
-            double flickerOffset = random.nextDouble() * 1000;
-
-            double flicker = Math.sin(time * 2 + flickerOffset) * 0.3 + 0.7;
-            int alpha = (int) (baseAlpha * flicker);
-            alpha = Math.max(40, Math.min(255, alpha));
-
-            int color = colors[random.nextInt(colors.length)];
-            int argb = (alpha << 24) | color;
-
-            graphics.fill(x, y, x + size, y + size, argb);
-        }
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.setShaderTexture(0, BACKGROUND_TEXTURE);
+        graphics.blit(BACKGROUND_TEXTURE, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
     }
-
-
-
 
     public void renderBodiesAndPlanets(GuiGraphics graphics) {
         renderStars(graphics);
@@ -377,17 +404,19 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     }
 
     private void renderHelp(GuiGraphics graphics) {
-        if(showHelpMenu) {
-            graphics.drawCenteredString(this.font, Component.translatable("text.stellaris.planetscreen.press_space"), this.width/2, this.height - 20 , 16777212);
-            graphics.drawCenteredString(this.font, Component.translatable("text.stellaris.planetscreen.arrows"), this.width/2, this.height - 10 , 16777212);
-
-        }
+//        if(showHelpMenu) {
+//            graphics.drawCenteredString(this.font, Component.translatable("text.stellaris.planetscreen.press_space"), this.width/2, this.height - 20 , 16777212);
+//            graphics.drawCenteredString(this.font, Component.translatable("text.stellaris.planetscreen.arrows"), this.width/2, this.height - 10 , 16777212);
+//
+//        }
 
     }
 
     private void renderStars(GuiGraphics graphics) {
         Font font = Minecraft.getInstance().font;
         for (CelestialBody star : STARS) {
+            if (!isInCurrentGalaxy(star)) continue;
+
             float bodyX = (float) ((star.x + offsetX) * zoomLevel - (star.width / 2) * zoomLevel);
             float bodyY = (float) ((star.y + offsetY) * zoomLevel - (star.height / 2) * zoomLevel);
 
@@ -404,6 +433,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     private void renderPlanets(GuiGraphics graphics) {
         Font font = Minecraft.getInstance().font;
         for (PlanetInfo planet : PLANETS) {
+            if (!isInCurrentGalaxy(planet)) continue;
+
             CelestialBody orbitCenter = planet.orbitCenter;
 
             float orbitCenterX = (float) ((orbitCenter.x + offsetX) * zoomLevel);
@@ -424,6 +455,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     private void renderMoons(GuiGraphics graphics) {
         for (MoonInfo moon : MOONS) {
+            if (!isInCurrentGalaxy(moon)) continue;
+
             float moonX = (float) ((moon.x + offsetX) * zoomLevel - (moon.width / 2) * zoomLevel);
             float moonY = (float) ((moon.y + offsetY) * zoomLevel - (moon.height / 2) * zoomLevel);
 
@@ -433,9 +466,6 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             ScreenHelper.drawTexturewithRotation(graphics, moon.texture, (int) moonX, (int) moonY, 0, 0, moonWidth, moonHeight, moonWidth, moonHeight, (float) moon.currentAngle);
         }
     }
-
-
-
 
     private int currentHighlighterFrame = 0;
     private final int totalHighlighterFrames = 30;
@@ -606,7 +636,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         if (keyCode == GLFW.GLFW_KEY_Z) {
             if (focusedBody != null) {
                 if (canLaunch(PlanetUtil.getPlanet(focusedBody.dimension))) {
-                    tpToFocusedPlanet();
+                    showLargeMenu = !showLargeMenu;
                 }
             }
         }
@@ -617,31 +647,64 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         } else if (keyCode == GLFW.GLFW_KEY_LEFT_SHIFT || keyCode == GLFW.GLFW_KEY_RIGHT_SHIFT) {
             isShiftPressed = true;
         } else if (keyCode == GLFW.GLFW_KEY_RIGHT) {
-
-            if (focusedBody instanceof CelestialBody) {
+            if (focusedBody == null) {
+                focusedBody = findByNameStar("stellaris:sun");
+            } else if (focusedBody instanceof PlanetInfo || focusedBody instanceof MoonInfo) {
                 focusedBody = getNextBodyByDistance(focusedBody);
-                centerOnBody(focusedBody);
+            } else if (focusedBody instanceof CelestialBody) {
+                focusedBody = getNextStarByDistance(focusedBody);
             }
+
+            if (focusedBody != null && !isInCurrentGalaxy(focusedBody)) {
+                focusedBody = null;
+                return true;
+            }
+            if (focusedBody != null) centerOnBody(focusedBody);
         } else if (keyCode == GLFW.GLFW_KEY_LEFT) {
-            if (focusedBody instanceof CelestialBody) {
+            if (focusedBody == null) {
+                focusedBody = findByNameStar("stellaris:sun");
+            } else if (focusedBody instanceof PlanetInfo || focusedBody instanceof MoonInfo) {
                 focusedBody = getPreviousBodyByDistance(focusedBody);
-                centerOnBody(focusedBody);
+            } else if (focusedBody instanceof CelestialBody) {
+                focusedBody = getPreviousStarByDistance(focusedBody);
             }
+
+            if (focusedBody != null && !isInCurrentGalaxy(focusedBody)) {
+                focusedBody = null;
+                return true;
+            }
+            if (focusedBody != null) centerOnBody(focusedBody);
+        }
+        else if (keyCode == GLFW.GLFW_KEY_UP) {
+            if (focusedBody instanceof MoonInfo moon) {
+                focusedBody = moon.orbitCenter;
+            } else if (focusedBody instanceof PlanetInfo planet) {
+                focusedBody = planet.orbitCenter;
+            }
+
+            if (focusedBody != null && !isInCurrentGalaxy(focusedBody)) {
+                focusedBody = null;
+                return true;
+            }
+            centerOnBody(focusedBody);
         } else if (keyCode == GLFW.GLFW_KEY_DOWN) {
-
-            if (focusedBody instanceof PlanetInfo) {
-                var moonToBeFocused = getMoonsByDistance((PlanetInfo) focusedBody);
-
-                if(moonToBeFocused.clickable) {
-                    focusedBody = moonToBeFocused;
-                    centerOnBody(focusedBody);
+            if (focusedBody instanceof PlanetInfo planet) {
+                focusedBody = getMoonsByDistance(planet);
+            } else if (focusedBody instanceof CelestialBody star) {
+                List<PlanetInfo> planetsInSystem = PLANETS.stream()
+                        .filter(p -> p.orbitCenter == star)
+                        .sorted(Comparator.comparingDouble(p -> p.orbitRadius))
+                        .toList();
+                if (!planetsInSystem.isEmpty()) {
+                    focusedBody = planetsInSystem.get(0);
                 }
             }
-        } else if (keyCode == GLFW.GLFW_KEY_UP) {
-            if (focusedBody instanceof MoonInfo) {
-                focusedBody = ((MoonInfo) focusedBody).orbitCenter;
-                centerOnBody(focusedBody);
+
+            if (focusedBody != null && !isInCurrentGalaxy(focusedBody)) {
+                focusedBody = null;
+                return true;
             }
+            centerOnBody(focusedBody);
         } else if (keyCode == GLFW.GLFW_KEY_ESCAPE) {
             if (showSpaceStationMenu) {
                 showSpaceStationMenu = false;
@@ -653,88 +716,90 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     }
 
     private CelestialBody getNextBodyByDistance(CelestialBody currentBody) {
-        switch (currentBody) {
-            case null -> {
-                return null;
-            }
-            case PlanetInfo planetInfo -> {
-                List<PlanetInfo> bodies = new ArrayList<>(PLANETS);
+        if (currentBody == null) return null;
 
-                bodies.sort(Comparator.comparingDouble(b -> b.orbitRadius));
+        if (currentBody instanceof PlanetInfo planetInfo) {
+            List<PlanetInfo> bodies = new ArrayList<>(PLANETS);
+            bodies.sort(Comparator.comparingDouble(b -> b.orbitRadius));
 
-                for (int i = 0; i < bodies.size(); i++) {
-                    if (bodies.get(i) == currentBody) {
-                        for (int j = i + 1; j < bodies.size(); j++) {
-                            if (bodies.get(j).orbitCenter == ((PlanetInfo) currentBody).orbitCenter) {
-                                return bodies.get(j);
-                            }
+            for (int i = 0; i < bodies.size(); i++) {
+                if (bodies.get(i) == currentBody) {
+                    for (int j = i + 1; j < bodies.size(); j++) {
+                        if (bodies.get(j).orbitCenter == planetInfo.orbitCenter) {
+                            return bodies.get(j);
                         }
                     }
                 }
             }
-            case MoonInfo moonInfo -> {
-                List<MoonInfo> bodies = new ArrayList<>(MOONS);
+        } else if (currentBody instanceof MoonInfo moonInfo) {
+            List<MoonInfo> bodies = new ArrayList<>(MOONS);
+            bodies.sort(Comparator.comparingDouble(b -> b.orbitRadius));
 
-                bodies.sort(Comparator.comparingDouble(b -> b.orbitRadius));
-
-                for (int i = 0; i < bodies.size(); i++) {
-                    if (bodies.get(i) == currentBody) {
-                        for (int j = i + 1; j < bodies.size(); j++) {
-                            if (bodies.get(j).orbitCenter == ((MoonInfo) currentBody).orbitCenter) {
-                                return bodies.get(j);
-                            }
+            for (int i = 0; i < bodies.size(); i++) {
+                if (bodies.get(i) == currentBody) {
+                    for (int j = i + 1; j < bodies.size(); j++) {
+                        if (bodies.get(j).orbitCenter == moonInfo.orbitCenter) {
+                            return bodies.get(j);
                         }
                     }
                 }
             }
-            default -> {
+        } else if (STARS.contains(currentBody)) {
+            List<PlanetInfo> bodies = new ArrayList<>(PLANETS);
+            bodies.sort(Comparator.comparingDouble(b -> b.orbitRadius));
+
+            for (PlanetInfo planet : bodies) {
+                if (planet.orbitCenter == currentBody) {
+                    return planet;
+                }
             }
         }
 
         return currentBody;
     }
-
     private CelestialBody getPreviousBodyByDistance(CelestialBody currentBody) {
-        switch (currentBody) {
-            case null -> {
-                return null;
-            }
-            case PlanetInfo planetInfo -> {
-                List<PlanetInfo> bodies = new ArrayList<>(PLANETS);
+        if (currentBody == null) return null;
 
-                bodies.sort(Comparator.comparingDouble(b -> b.orbitRadius));
+        if (currentBody instanceof PlanetInfo planetInfo) {
+            List<PlanetInfo> bodies = new ArrayList<>(PLANETS);
+            bodies.sort(Comparator.comparingDouble(b -> b.orbitRadius));
 
-                for (int i = bodies.size() - 1; i >= 0; i--) {
-                    if (bodies.get(i) == currentBody) {
-                        for (int j = i - 1; j >= 0; j--) {
-                            if (bodies.get(j).orbitCenter == ((PlanetInfo) currentBody).orbitCenter) {
-                                return bodies.get(j);
-                            }
+            for (int i = bodies.size() - 1; i >= 0; i--) {
+                if (bodies.get(i) == currentBody) {
+                    for (int j = i - 1; j >= 0; j--) {
+                        if (bodies.get(j).orbitCenter == planetInfo.orbitCenter) {
+                            return bodies.get(j);
                         }
                     }
                 }
             }
-            case MoonInfo moonInfo -> {
-                List<MoonInfo> bodies = new ArrayList<>(MOONS);
+        } else if (currentBody instanceof MoonInfo moonInfo) {
+            List<MoonInfo> bodies = new ArrayList<>(MOONS);
+            bodies.sort(Comparator.comparingDouble(b -> b.orbitRadius));
 
-                bodies.sort(Comparator.comparingDouble(b -> b.orbitRadius));
-
-                for (int i = bodies.size() - 1; i >= 0; i--) {
-                    if (bodies.get(i) == currentBody) {
-                        for (int j = i - 1; j >= 0; j--) {
-                            if (bodies.get(j).orbitCenter == ((MoonInfo) currentBody).orbitCenter) {
-                                return bodies.get(j);
-                            }
+            for (int i = bodies.size() - 1; i >= 0; i--) {
+                if (bodies.get(i) == currentBody) {
+                    for (int j = i - 1; j >= 0; j--) {
+                        if (bodies.get(j).orbitCenter == moonInfo.orbitCenter) {
+                            return bodies.get(j);
                         }
                     }
                 }
             }
-            default -> {
+        } else if (STARS.contains(currentBody)) {
+            List<PlanetInfo> bodies = new ArrayList<>(PLANETS);
+            bodies.sort(Comparator.comparingDouble(b -> b.orbitRadius));
+
+            for (int i = bodies.size() - 1; i >= 0; i--) {
+                if (bodies.get(i).orbitCenter == currentBody) {
+                    return bodies.get(i);
+                }
             }
         }
 
         return currentBody;
     }
+
 
     private CelestialBody getMoonsByDistance(PlanetInfo currentBody) {
         MoonInfo smallestOrbitMoon = null;
@@ -746,6 +811,28 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             }
         }
         return smallestOrbitMoon != null ? smallestOrbitMoon : currentBody;
+    }
+
+    private CelestialBody getNextStarByDistance(CelestialBody currentBody) {
+        List<CelestialBody> stars = new ArrayList<>(STARS);
+        stars.sort(Comparator.comparing(CelestialBody::getId));
+        for (int i = 0; i < stars.size(); i++) {
+            if (stars.get(i) == currentBody) {
+                return stars.get((i + 1) % stars.size());
+            }
+        }
+        return currentBody;
+    }
+
+    private CelestialBody getPreviousStarByDistance(CelestialBody currentBody) {
+        List<CelestialBody> stars = new ArrayList<>(STARS);
+        stars.sort(Comparator.comparing(CelestialBody::getId));
+        for (int i = 0; i < stars.size(); i++) {
+            if (stars.get(i) == currentBody) {
+                return stars.get((i - 1 + stars.size()) % stars.size());
+            }
+        }
+        return currentBody;
     }
 
     private int getMoonsCount(PlanetInfo currentBody) {
@@ -888,6 +975,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         Tesselator tesselator = Tesselator.getInstance();
 
         for (CelestialBody star : STARS) {
+            if (!isInCurrentGalaxy(star)) continue;
             renderTrail(tesselator, star.trail, 0xFFFFFF, 0.5F);
         }
 
@@ -941,6 +1029,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         Tesselator tesselator = Tesselator.getInstance();
 
         for (PlanetInfo planet : PLANETS) {
+            if (!isInCurrentGalaxy(planet)) continue;
+            if (!isInCurrentGalaxy(planet.orbitCenter)) continue;
             CelestialBody orbitCenter = planet.orbitCenter;
 
             float orbitCenterX = (float) ((orbitCenter.x + offsetX) * zoomLevel);
@@ -950,6 +1040,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         }
 
         for (MoonInfo moon : MOONS) {
+            if (!isInCurrentGalaxy(moon)) continue;
+            if (!isInCurrentGalaxy(moon.orbitCenter)) continue;
             CelestialBody orbitCenter = moon.orbitCenter;
 
             float orbitCenterX = (float) ((orbitCenter.x + offsetX) * zoomLevel);
@@ -989,16 +1081,44 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     private void centerSun() {
         float centerX = width / 2.0f;
         float centerY = height / 2.0f;
-        CelestialBody sun = findByNameStar("stellaris:sun");
+        CelestialBody sun = findByNameStar(GalaxyScreen.findByNameGalaxy(getMenu().getGalaxyId()).getCenterStar());
         if (sun != null) {
             sun.setPosition(centerX, centerY);
         } else {
-            Stellaris.LOG.error("stellaris:sun is null");
+            Stellaris.LOG.error("center sun is null");
         }
         offsetX = 0;
         offsetY = 0;
     }
 
+    private boolean isInCurrentGalaxy(CelestialBody body) {
+        for (PSystemInfo system : PSYSTEMS) {
+            if (!system.getParent().equals(menu.getGalaxyId())) continue;
+
+            for (PSystemRecord.StarPosition sp : system.stars) {
+                if (sp.id().equals(body.getId())) return true;
+            }
+
+            for (PlanetInfo planet : PLANETS) {
+                if (planet.getId().equals(body.getId())) {
+                    for (PSystemRecord.StarPosition sp : system.stars) {
+                        if (planet.orbitCenter.getId().equals(sp.id())) return true;
+                    }
+                }
+            }
+
+            for (MoonInfo moon : MOONS) {
+                if (moon.getId().equals(body.getId())) {
+                    if (moon.orbitCenter instanceof PlanetInfo planet) {
+                        for (PSystemRecord.StarPosition sp : system.stars) {
+                            if (planet.orbitCenter.getId().equals(sp.id())) return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
 
     public static CelestialBody findByNameStar(String id) {
         for (CelestialBody body : PlanetSelectionScreen.STARS) {
@@ -1029,10 +1149,13 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     }
 
     public void centerOnBody(CelestialBody body) {
+        if (body == null) return;
+
         zoomLevel = 1.0;
         targetOffsetX = ((body.x - width / 2.0)) * -1;
         targetOffsetY = ((body.y - height / 2.0)) * -1;
     }
+
 
     private void onMouseScroll(long window, double scrollX, double scrollY) {
         double[] mouseX = new double[1];
@@ -1091,6 +1214,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         return false;
     }
 
+    private int centerArrowX;
+
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (button == GLFW.GLFW_MOUSE_BUTTON_MIDDLE) {
@@ -1098,21 +1223,63 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         }
 
         if (button == GLFW.GLFW_MOUSE_BUTTON_LEFT || button == GLFW.GLFW_MOUSE_BUTTON_RIGHT) {
-
             dragging = true;
             lastMouseX = mouseX;
             lastMouseY = mouseY;
 
+            boolean isArrowHovered = mouseX >= leftArrowX && mouseX <= leftArrowX + arrowWidth &&
+                    mouseY >= arrowY && mouseY <= arrowY + arrowHeight;
+
+            if (mouseX >= leftArrowX && mouseX <= leftArrowX + arrowWidth &&
+                    mouseY >= arrowY && mouseY <= arrowY + arrowHeight) {
+                if (focusedBody == null) {
+                    focusedBody = findByNamePlanet("stellaris:earth");
+                } else if (focusedBody instanceof PlanetInfo || focusedBody instanceof MoonInfo) {
+                    focusedBody = getPreviousBodyByDistance(focusedBody);
+                } else {
+                    focusedBody = getPreviousStarByDistance(focusedBody);
+                }
+
+                if (!isInCurrentGalaxy(focusedBody)) focusedBody = null;
+
+                Minecraft.getInstance().player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0F, 1.0F);
+                if (focusedBody != null) centerOnBody(focusedBody);
+                return true;
+            }
+
+            if (mouseX >= rightArrowX && mouseX <= rightArrowX + arrowWidth &&
+                    mouseY >= arrowY && mouseY <= arrowY + arrowHeight) {
+                if (focusedBody == null) {
+                    focusedBody = findByNamePlanet("stellaris:earth");
+                } else if (focusedBody instanceof PlanetInfo || focusedBody instanceof MoonInfo) {
+                    focusedBody = getNextBodyByDistance(focusedBody);
+                } else {
+                    focusedBody = getNextStarByDistance(focusedBody);
+                }
+
+                if (!isInCurrentGalaxy(focusedBody)) focusedBody = null;
+
+                Minecraft.getInstance().player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0F, 1.0F);
+                if (focusedBody != null) centerOnBody(focusedBody);
+                return true;
+            }
+
+            if (isHoveredOnSprite(galaxyX, galaxyY, galaxyWidth, galaxyHeight, mouseX, mouseY)) {
+                Minecraft.getInstance().player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0F, 1.0F);
+                NetworkManager.sendToServer(new OpenMilkyWayMenuPacket());
+            }
+
             if (showLargeMenu || showSpaceStationMenu) {
-                if (launchButton.mouseClicked(mouseX, mouseY, button)) {
-                    return true;
-                } else if (showSpaceStationMenu) {
-                    for (TexturedButton button1 : spaceStationButtons) {
-                        if (button1.mouseClicked(mouseX, mouseY, button)) {
+                if (launchButton.mouseClicked(mouseX, mouseY, button)) return true;
+
+                if (showSpaceStationMenu) {
+                    for (TexturedButton btn : spaceStationButtons) {
+                        if (btn.mouseClicked(mouseX, mouseY, button)) {
                             return true;
                         }
                     }
                 }
+
                 showLargeMenu = false;
                 showSpaceStationMenu = false;
                 return true;
@@ -1121,6 +1288,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
                 hoveredBody = null;
 
                 for (MoonInfo moon : MOONS) {
+                    if (!isInCurrentGalaxy(moon)) continue;
+
                     double mx = moon.orbitCenter.x + offsetX + moon.orbitRadius * Math.cos(moon.currentAngle);
                     double my = moon.orbitCenter.y + offsetY + moon.orbitRadius * Math.sin(moon.currentAngle);
 
@@ -1145,11 +1314,11 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
                         return true;
                     }
-
                 }
 
-
                 for (PlanetInfo planet : PLANETS) {
+                    if (!isInCurrentGalaxy(planet)) continue;
+
                     double px = planet.orbitCenter.x + offsetX + planet.orbitRadius * Math.cos(planet.currentAngle);
                     double py = planet.orbitCenter.y + offsetY + planet.orbitRadius * Math.sin(planet.currentAngle);
 
@@ -1175,18 +1344,16 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
                         return true;
                     }
                 }
-
-
             }
 
-            if (!showLargeMenu && !showSpaceStationMenu && button == GLFW.GLFW_MOUSE_BUTTON_LEFT) {
+            if (!showLargeMenu && !showSpaceStationMenu && !isArrowHovered && button == GLFW.GLFW_MOUSE_BUTTON_LEFT) {
                 focusedBody = null;
             }
-
         }
 
         return super.mouseClicked(mouseX, mouseY, button);
     }
+
 
 
 

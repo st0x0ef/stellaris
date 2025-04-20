@@ -26,6 +26,12 @@ public interface NetworkRegistry {
     CustomPacketPayload.Type<SyncRoverComponentPacket> SYNC_ROVER_COMPONENT_ID = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "sync_rover_component"));
     CustomPacketPayload.Type<SyncRoverPacket> SYNC_ROVER_CONTROLS = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "sync_rover_packet"));
 
+    CustomPacketPayload.Type<OpenMilkyWayMenuPacket> OPEN_MILKY_WAY_MENU =
+            new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "open_milky_way"));
+    CustomPacketPayload.Type<OpenPlanetScreenPacket> OPEN_PLANETSCREEN_MENU =
+            new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "open_planetscreen"));
+
+
     static void init() {
         registerC2S(KEY_HANDLER_ID, KeyHandlerPacket.STREAM_CODEC, KeyHandlerPacket::handle);
         registerC2S(TELEPORT_ENTITY_ID, TeleportEntityToPlanetPacket.STREAM_CODEC, TeleportEntityToPlanetPacket::handle);
@@ -42,6 +48,17 @@ public interface NetworkRegistry {
         registerS2C(SyncFluidPacketWithoutDirection.TYPE, SyncFluidPacketWithoutDirection.STREAM_CODEC, SyncFluidPacketWithoutDirection::handle);
         registerS2C(SyncOilLevelPacket.TYPE, SyncOilLevelPacket.STREAM_CODEC, SyncOilLevelPacket::handle);
         registerS2C(SYNC_SPACE_STATION_DATAPACK, SyncSpaceStationDatapackPacket.STREAM_CODEC, SyncSpaceStationDatapackPacket::handle);
+
+        registerC2S(
+                OPEN_MILKY_WAY_MENU,
+                OpenMilkyWayMenuPacket.STREAM_CODEC,
+                OpenMilkyWayMenuPacket::handle
+        );
+        registerC2S(
+                OPEN_PLANETSCREEN_MENU,
+                OpenPlanetScreenPacket.STREAM_CODEC,
+                OpenPlanetScreenPacket::handle
+        );
     }
 
     static <T extends CustomPacketPayload> void registerS2C(CustomPacketPayload.Type<T> packetType, StreamCodec<? super RegistryFriendlyByteBuf, T> codec, NetworkManager.NetworkReceiver<T> receiver) {

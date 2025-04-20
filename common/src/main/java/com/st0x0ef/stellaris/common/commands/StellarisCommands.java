@@ -91,7 +91,7 @@ public class StellarisCommands {
 
                         .then(Commands.literal("planetScreen")
                                 .executes((CommandContext<CommandSourceStack> context) -> {
-                                    PlanetUtil.openPlanetSelectionMenu(context.getSource().getPlayer(), true);
+                                    PlanetUtil.openPlanetSelectionMenu(context.getSource().getPlayer(), true, "stellaris:milky_way");
                                     return 0;
                                 }))
                 )
