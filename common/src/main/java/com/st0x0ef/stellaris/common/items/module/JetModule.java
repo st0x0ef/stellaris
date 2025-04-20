@@ -193,6 +193,18 @@ public class JetModule extends Item implements SpaceSuitModule {
             storage.drain(FluidStack.create(FluidRegistry.FUEL_STILL.get(), 2), false);
         } else if (player.isSprinting() && player.onGround() && KeyVariables.isHoldingJump(player)) {
             player.moveTo(player.getX(), player.getY() + 2, player.getZ());
+        } else if (player.isCrouching() && player.isFallFlying()) {
+            player.stopFallFlying();
+        }
+
+        if (isGliding) {
+            player.setDeltaMovement(player.getDeltaMovement().x(), 0, player.getDeltaMovement().z());
+            if (!player.onGround()) {
+                player.setDeltaMovement(player.getDeltaMovement().x(), -0.1D, player.getDeltaMovement().z());
+            } else {
+                isGliding = false;
+                player.stopFallFlying();
+            }
         }
     }
 
@@ -208,58 +220,40 @@ public class JetModule extends Item implements SpaceSuitModule {
 
     }
 
-    public void calculateSpacePressTime(Player player, ItemStack itemStack) {
+    private boolean isGliding = false;
 
+    public void calculateSpacePressTime(Player player, ItemStack itemStack) {
         if (Utils.isLivingInJetSuit(player)) {
             int mode = this.getMode(itemStack);
 
-            /** NORMAL MODE */
-            if (mode == JetSuit.ModeType.NORMAL.getMode()) {
-                if (KeyVariables.isHoldingJump(player)) {
-                    if (this.spacePressTime < 2.2F) {
-                        this.spacePressTime = this.spacePressTime + 0.2F;
-                    }
-                }
-                else if (this.spacePressTime > 0.0F) {
-                    this.spacePressTime = this.spacePressTime - 0.2F;
-                }
-            }
-
-            /** HOVER MODE */
-            else if (mode == JetSuit.ModeType.HOVER.getMode()) {
-                if (!player.onGround() && this.spacePressTime < 0.6F) {
-                    this.spacePressTime = this.spacePressTime + 0.2F;
-                }
-                else if (KeyVariables.isHoldingJump(player)) {
-                    if (this.spacePressTime < 1.4F) {
-                        this.spacePressTime = this.spacePressTime + 0.2F;
-                        hoverModeMovement(player,itemStack);
-                    }
-                }
-                else if (this.spacePressTime >= 0.6F) {
-                    this.spacePressTime = this.spacePressTime - 0.2F;
-                }
-
-            }
-
-            /** ELYTRA MODE */
-            else if (mode == JetSuit.ModeType.ELYTRA.getMode()) {
+            if (mode == JetSuit.ModeType.ELYTRA.getMode()) {
                 if (KeyVariables.isHoldingUp(player) && player.isFallFlying()) {
                     if (player.isSprinting()) {
                         if (this.spacePressTime < 2.8F) {
-                            this.spacePressTime = this.spacePressTime + 0.2F;
+                            this.spacePressTime += 0.2F;
                         }
                     } else {
                         if (this.spacePressTime < 2.2F) {
-                            this.spacePressTime = this.spacePressTime + 0.2F;
+                            this.spacePressTime += 0.2F;
                         }
                     }
-                }
-                else if (this.spacePressTime > 0.0F) {
-                    this.spacePressTime = this.spacePressTime - 0.2F;
+                    if (this.spacePressTime >= 2.0F && !isGliding) {
+                        startGliding(player);
+                    }
+                } else if (this.spacePressTime > 0.0F) {
+                    this.spacePressTime -= 0.2F;
+                    if (this.spacePressTime <= 0.0F) {
+                        isGliding = false;
+                    }
                 }
             }
         }
+    }
+
+    private void startGliding(Player player) {
+        isGliding = true;
+        player.stopFallFlying();
+        player.setDeltaMovement(player.getDeltaMovement().x(), 0.0D, player.getDeltaMovement().z());
     }
 
     public void boost(Player player, double boost, boolean sonicBoom) {
