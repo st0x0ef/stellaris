@@ -9,6 +9,7 @@ import com.st0x0ef.stellaris.client.screens.info.*;
 import com.st0x0ef.stellaris.client.screens.etc.StarMovement;
 import com.st0x0ef.stellaris.client.screens.etc.Trail;
 import com.st0x0ef.stellaris.client.screens.record.PSystemRecord;
+import com.st0x0ef.stellaris.client.screens.windows.SpaceStationWindow;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.data.recipes.SpaceStationRecipe;
 import com.st0x0ef.stellaris.common.data.recipes.SpaceStationRecipesManager;
@@ -46,7 +47,6 @@ import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 import static com.st0x0ef.stellaris.common.utils.Utils.isHoveredOnSprite;
 
@@ -127,6 +127,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     public ArrayList<SpaceStationRecipesManager.SpaceStationRecipeState> spaceStationRecipeStates = new ArrayList<>();
 
+    private SpaceStationWindow spaceStationWindow;
+
     public PlanetSelectionScreen(PlanetSelectionMenu abstractContainerMenu, Inventory inventory, Component component) {
         super(abstractContainerMenu, inventory, component);
         this.imageWidth = 1200;
@@ -140,15 +142,19 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         super.init();
         getMenu().freeze_gui = false;
 
+        this.spaceStationWindow = new SpaceStationWindow(300,200, Component.literal("eee"), this);
+
+        //TODO FIX
+        //addWidget(this.spaceStationWindow);
+        //this.spaceStationWindow.changeVisibility(false);
+
         centerSun();
-        initSpaceStationRecipes();
         isPlanetScreenOpened = true;
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         RenderSystem.enableDepthTest();
 
-        long windowHandle = Minecraft.getInstance().getWindow().getWindow();
-        prevScrollCallback = GLFW.glfwSetScrollCallback(windowHandle, this::onMouseScroll);
+        prevScrollCallback = GLFW.glfwSetScrollCallback(Minecraft.getInstance().getWindow().getWindow(), this::onMouseScroll);
         initializeAllButtons();
         initSpaceStationButtons();
 
@@ -1455,12 +1461,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     /** Space Station **/
 
     //We only check one time if the player have the recipes because normally he can't get item during the screen
-    private void initSpaceStationRecipes() {
-        spaceStationRecipeStates.clear();
-        for (SpaceStationRecipe recipe : SpaceStationRecipesManager.SPACE_STATION_RECIPES) {
-            spaceStationRecipeStates.add(recipe.fromRecipe(this.getPlayer()));
-        }
-    }
+
 
     private void initSpaceStationButtons() {
         spaceStationButtons.clear();
@@ -1510,32 +1511,35 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     }
 
     private void renderSpaceStation(GuiGraphics graphics) {
+
+        if(spaceStationWindow == null)return;
+
         if(!showSpaceStationMenu) {
-            for (TexturedButton button : spaceStationButtons) {
-                button.visible = false;
-            }
+            spaceStationWindow.changeVisibility(false);
             return;
         }
-        int menuWidth = 215;
-        int menuHeight = 177;
+        spaceStationWindow.changeVisibility(true);
 
-        int centerX = (this.width - menuWidth) / 2;
-        int centerY = (this.height - menuHeight) / 2;
-
-        RenderSystem.enableBlend();
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 0.5f);
-        RenderSystem.setShaderTexture(0, LARGE_MENU_TEXTURE);
-        graphics.blit(LARGE_MENU_TEXTURE, centerX, centerY, 0, 0, menuWidth, menuHeight, menuWidth, menuHeight);
-        RenderSystem.disableBlend();
-
-        launchButton.visible = true;
-        launchButton.setTooltip(Tooltip.create(Component.translatable("text.stellaris.planetscreen.space_station_launch")));
-
-
-        for (TexturedButton button : spaceStationButtons) {
-            button.visible = true;
-        }
+//        int menuWidth = 215;
+//        int menuHeight = 177;
+//
+//        int centerX = (this.width - menuWidth) / 2;
+//        int centerY = (this.height - menuHeight) / 2;
+//
+//        RenderSystem.enableBlend();
+//        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+//        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 0.5f);
+//        RenderSystem.setShaderTexture(0, LARGE_MENU_TEXTURE);
+//        graphics.blit(LARGE_MENU_TEXTURE, centerX, centerY, 0, 0, menuWidth, menuHeight, menuWidth, menuHeight);
+//        RenderSystem.disableBlend();
+//
+//        launchButton.visible = true;
+//        launchButton.setTooltip(Tooltip.create(Component.translatable("text.stellaris.planetscreen.space_station_launch")));
+//
+//
+//        for (TexturedButton button : spaceStationButtons) {
+//            button.visible = true;
+//        }
 
     }
 
