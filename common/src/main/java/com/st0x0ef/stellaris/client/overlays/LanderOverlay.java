@@ -24,7 +24,7 @@ public class LanderOverlay {
         Player player = mc.player;
         Entity vehicle = player.getVehicle();
 
-        if (vehicle instanceof LanderEntity && !vehicle.isInWall() && !vehicle.isInWater() && !vehicle.isInLava()) {
+        if (vehicle instanceof LanderEntity lander && !lander.isInWall() && !lander.isInWater() && !lander.isInLava() && !lander.isLanded()) {
             /** FLASHING */
             float sin = (float) Math.sin((mc.level.getDayTime() + deltaTracker.getGameTimeDeltaPartialTick(true)) / 6.0f);
             float flash = Mth.clamp(sin, 0.0f, 4.0f);
@@ -36,7 +36,7 @@ public class LanderOverlay {
 
             /** SPEED TEXT */
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-            double speed = Math.round(100.0 * vehicle.getDeltaMovement().y()) / 100.0;
+            double speed = Math.round(100.0 * lander.getDeltaMovement().y()) / 100.0;
 
             Component message = Component.translatable("message." + Stellaris.MODID + ".speed", speed);
             graphics.drawString(Minecraft.getInstance().font, message, graphics.guiWidth() / 2 - 29, 80, -3407872);

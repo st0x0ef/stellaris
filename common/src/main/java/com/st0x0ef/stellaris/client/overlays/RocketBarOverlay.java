@@ -22,24 +22,18 @@ public class RocketBarOverlay {
     public static void render(GuiGraphics graphics, DeltaTracker deltaTracker) {
         Player player = Minecraft.getInstance().player;
 
-        if (player.getVehicle() instanceof RocketEntity || player.getVehicle() instanceof LanderEntity) {
-            Level level = Minecraft.getInstance().level;
-
-            if (level == null) return;
-
+        if (player != null && (player.getVehicle() instanceof RocketEntity || player.getVehicle() instanceof LanderEntity)) {
             double min = player.level().getMinY();
 
             for (int i = player.level().getMinY(); i < player.level().getMaxY(); i++) {
-                if (level.getBlockState(new BlockPos(player.getBlockX(), i, player.getBlockZ())).getBlock() != Blocks.AIR) {
+                if (player.level().getBlockState(new BlockPos(player.getBlockX(), i, player.getBlockZ())).getBlock() != Blocks.AIR) {
                     min = i;
                 }
             }
 
             double yHeight = ((player.getY() - min) / (600 - min)) * 113;
 
-            ResourceLocation planet = PlanetUtil.getPlanetBar(level.dimension().location());
-
-            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+            ResourceLocation planet = PlanetUtil.getPlanetBar(player.level().dimension().location());
 
             /** ROCKET BAR IMAGE */
             graphics.blit(RenderType::guiTextured, planet, 0, (graphics.guiHeight() / 2) - 128 / 2, 0, 0, 16, 128, 16, 128);

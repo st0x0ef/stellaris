@@ -33,6 +33,8 @@ public class LanderEntity extends IVehicleEntity implements HasCustomInventorySc
 
     protected SimpleContainer inventory;
 
+    private boolean landed;
+
     public LanderEntity(Level level) {
         this(EntityRegistry.LANDER.get(), level);
     }
@@ -41,6 +43,7 @@ public class LanderEntity extends IVehicleEntity implements HasCustomInventorySc
         super(EntityRegistry.LANDER.get(), level);
 
         this.inventory = new SimpleContainer(15);
+        this.landed = false;
     }
 
     @Override
@@ -150,6 +153,9 @@ public class LanderEntity extends IVehicleEntity implements HasCustomInventorySc
 
         if (KeyVariables.isHoldingJump(getFirstPlayerPassenger())) {
             slowDownLander();
+        } if (this.onGround() && !this.landed) {
+            this.landed = true;
+            this.setDeltaMovement(0, 0, 0);
         }
     }
 
@@ -203,5 +209,9 @@ public class LanderEntity extends IVehicleEntity implements HasCustomInventorySc
 
     public Container getInventory() {
         return this.inventory;
+    }
+
+    public boolean isLanded() {
+        return this.landed;
     }
 }
