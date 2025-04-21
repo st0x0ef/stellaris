@@ -38,7 +38,7 @@ public class GalaxyPack extends SimpleJsonResourceReloadListener {
 
             GalaxyRecord galaxy = GalaxyRecord.CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
 
-            GALAXY.put(galaxy.name(), galaxy);
+            GALAXY.putIfAbsent(galaxy.name(), galaxy);
 
             GalaxyInfo screenGalaxy = new GalaxyInfo(
                     galaxy.texture(),
@@ -48,7 +48,9 @@ public class GalaxyPack extends SimpleJsonResourceReloadListener {
                     galaxy.centerStar()
             );
 
-            GalaxyScreen.GALAXY.add(screenGalaxy);
+            if (!GalaxyScreen.GALAXY.contains(screenGalaxy)) {
+                GalaxyScreen.GALAXY.add(screenGalaxy);
+            }
             Stellaris.LOG.info("Added galaxy '{}' to GalaxyScreen: {}", galaxy.name(), galaxy.id());
 
         });
