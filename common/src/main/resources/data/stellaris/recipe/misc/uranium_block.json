@@ -6,7 +6,7 @@
     "###"
   ],
   "key": {
-    "#": {"tag": "c:ingots/uranium"}
+    "#": "#c:ingots/uranium"
   },
   "result": {
     "id": "stellaris:uranium_block"

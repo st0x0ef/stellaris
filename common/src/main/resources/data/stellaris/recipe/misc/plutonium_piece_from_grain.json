@@ -6,7 +6,7 @@
     "###"
   ],
   "key": {
-    "#": {"item": "stellaris:plutonium_grain"}
+    "#": "stellaris:plutonium_grain"
   },
   "result": {
     "id": "stellaris:plutonium_piece",

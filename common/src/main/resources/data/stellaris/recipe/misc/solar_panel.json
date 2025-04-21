@@ -6,9 +6,9 @@
     "XXX"
   ],
   "key": {
-    "X": {"tag": "c:ingots/steel"},
-    "#": {"item": "minecraft:redstone_block"},
-    "R": {"item": "minecraft:amethyst_block"}
+    "X": "#c:ingots/steel",
+    "#": "minecraft:redstone_block",
+    "R": "minecraft:amethyst_block"
   },
   "result": {
     "id": "stellaris:solar_panel"

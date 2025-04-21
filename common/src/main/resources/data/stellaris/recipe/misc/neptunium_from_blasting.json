@@ -4,9 +4,7 @@
   "cookingtime": 100,
   "experience": 0.1,
   "group": "neptunium",
-  "ingredient": {
-    "item": "stellaris:venus_neptunium_ore"
-  },
+  "ingredient": "stellaris:venus_neptunium_ore",
   "result": {
     "id": "stellaris:neptunium_ingot"
   }

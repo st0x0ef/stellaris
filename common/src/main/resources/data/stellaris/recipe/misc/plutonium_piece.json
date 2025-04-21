@@ -1,9 +1,7 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    {
-      "tag": "c:nuggets/plutonium"
-    }
+    "#c:nuggets/plutonium"
   ],
 
   "result": {

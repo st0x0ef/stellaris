@@ -1,9 +1,7 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    {
-      "tag": "c:storage_blocks/heavy_metal"
-    }
+    "#c:storage_blocks/heavy_metal"
   ],
 
   "result": {

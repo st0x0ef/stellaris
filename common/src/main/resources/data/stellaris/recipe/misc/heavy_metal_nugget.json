@@ -1,9 +1,7 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    {
-      "tag": "c:ingots/heavy_metal"
-    }
+    "#c:ingots/heavy_metal"
   ],
   "result": {
     "id": "stellaris:heavy_metal_nugget",

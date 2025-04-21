@@ -6,9 +6,9 @@
     "###"
   ],
   "key": {
-    "X": {"tag": "c:ingots/heavy_metal"},
-    "#": {"item": "stellaris:iron_plating_block"},
-    "R": {"item": "minecraft:redstone"}
+    "X": "#c:ingots/heavy_metal",
+    "#": "stellaris:iron_plating_block",
+    "R": "minecraft:redstone"
   },
   "result": {
     "id": "stellaris:rocket_station"

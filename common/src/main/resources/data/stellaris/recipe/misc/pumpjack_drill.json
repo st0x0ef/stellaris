@@ -6,15 +6,9 @@
     "YXY"
   ],
   "key": {
-    "X": {
-      "tag": "c:ingots/heavy_metal"
-    },
-    "Z": {
-      "item": "minecraft:diamond"
-    },
-    "Y": {
-      "tag": "c:nuggets/steel"
-    }
+    "X": "#c:ingots/heavy_metal",
+    "Z": "minecraft:diamond",
+    "Y": "#c:nuggets/steel"
   },
   "result": {
     "id": "stellaris:pumpjack_drill"

@@ -1,9 +1,7 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    {
-      "item": "stellaris:neptunium_ingot"
-    }
+    "stellaris:neptunium_ingot"
   ],
 
   "result": {

@@ -6,7 +6,7 @@
     "###"
   ],
   "key": {
-    "#": {"tag": "c:raw_materials/desh"}
+    "#": "#c:raw_materials/desh"
   },
   "result": {
     "id": "stellaris:raw_desh_block"

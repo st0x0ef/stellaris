@@ -6,7 +6,7 @@
     "###"
   ],
   "key": {
-    "#": {"item": "stellaris:conglomerate"}
+    "#": "stellaris:conglomerate"
   },
   "result": {
     "id": "stellaris:conglomerate_stairs",

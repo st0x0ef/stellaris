@@ -6,7 +6,7 @@
     "XXX"
   ],
   "key": {
-    "X": {"item": "minecraft:iron_nugget"}
+    "X": "minecraft:iron_nugget"
   },
   "result": {
     "id": "stellaris:big_green_can"

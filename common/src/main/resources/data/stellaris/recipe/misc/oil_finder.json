@@ -6,15 +6,9 @@
     " Y "
   ],
   "key": {
-    "X": {
-      "item": "minecraft:redstone_torch"
-    },
-    "Y": {
-      "tag": "c:nuggets/steel"
-    },
-    "Z": {
-      "item": "minecraft:glass_pane"
-    }
+    "X": "minecraft:redstone_torch",
+    "Y": "#c:nuggets/steel",
+    "Z": "minecraft:glass_pane"
   },
   "result": {
     "id": "stellaris:oil_finder"

@@ -6,9 +6,9 @@
     "WWW"
   ],
   "key": {
-    "I": {"tag": "c:ingots/steel"},
-    "N": {"tag": "c:nuggets/steel"},
-    "W": {"tag": "minecraft:wool"}
+    "I": "#c:ingots/steel",
+    "N": "#c:nuggets/steel",
+    "W": "#minecraft:wool"
   },
   "result": {
     "id": "stellaris:cable",

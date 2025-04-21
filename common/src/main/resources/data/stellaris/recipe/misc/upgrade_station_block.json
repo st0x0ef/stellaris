@@ -6,9 +6,9 @@
     "###"
   ],
   "key": {
-    "X": {"tag": "c:ingots/heavy_metal"},
-    "#": {"item": "stellaris:iron_plating_block"},
-    "R": {"item": "stellaris:base_module_tier_1"}
+    "X": "#c:ingots/heavy_metal",
+    "#": "stellaris:iron_plating_block",
+    "R": "stellaris:base_module_tier_1"
   },
   "result": {
     "id": "stellaris:upgrade_station"

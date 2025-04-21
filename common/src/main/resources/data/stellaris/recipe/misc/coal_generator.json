@@ -6,8 +6,8 @@
     "###"
   ],
   "key": {
-    "#": {"tag": "c:storage_blocks/steel"},
-    "X": {"item": "minecraft:blast_furnace"}
+    "#": "#c:storage_blocks/steel",
+    "X": "minecraft:blast_furnace"
   },
   "result": {
     "id": "stellaris:coal_generator"

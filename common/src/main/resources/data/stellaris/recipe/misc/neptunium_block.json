@@ -6,7 +6,7 @@
     "###"
   ],
   "key": {
-    "#": {"item": "stellaris:neptunium_ingot"}
+    "#": "stellaris:neptunium_ingot"
   },
   "result": {
     "id": "stellaris:neptunium_block"

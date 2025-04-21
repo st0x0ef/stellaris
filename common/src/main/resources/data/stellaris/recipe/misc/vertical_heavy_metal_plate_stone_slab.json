@@ -6,7 +6,7 @@
     "#  "
   ],
   "key": {
-    "#": {"item": "stellaris:heavy_metal_plate"}
+    "#": "stellaris:heavy_metal_plate"
   },
   "result": {
     "id": "stellaris:vertical_heavy_metal_plate_slab",

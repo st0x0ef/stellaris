@@ -6,9 +6,9 @@
     "# #"
   ],
   "key": {
-    "#": {"tag": "c:ingots/steel"},
-    "R": {"tag": "c:storage_blocks/heavy_metal"},
-    "X": {"item": "minecraft:redstone"}
+    "#": "#c:ingots/steel",
+    "R": "#c:storage_blocks/heavy_metal",
+    "X": "minecraft:redstone"
   },
   "result": {
     "id": "stellaris:rocket_engine"

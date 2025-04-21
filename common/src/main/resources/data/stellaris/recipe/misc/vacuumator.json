@@ -6,10 +6,8 @@
     "XXX"
   ],
   "key": {
-    "X": {"tag": "c:storage_blocks/steel"},
-    "Z": {
-      "item": "minecraft:bucket"
-    }
+    "X": "#c:storage_blocks/steel",
+    "Z": "minecraft:bucket"
   },
   "result": {
     "id": "stellaris:vacuumator"

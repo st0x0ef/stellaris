@@ -6,13 +6,9 @@
     "XXX"
   ],
   "key": {
-    "X": {"tag": "c:storage_blocks/steel"},
-    "Z": {
-      "item": "minecraft:bucket"
-    },
-    "Y": {
-      "item": "stellaris:cable"
-    }
+    "X": "#c:storage_blocks/steel",
+    "Z": "minecraft:bucket",
+    "Y": "stellaris:cable"
   },
   "result": {
     "id": "stellaris:fuel_refinery"

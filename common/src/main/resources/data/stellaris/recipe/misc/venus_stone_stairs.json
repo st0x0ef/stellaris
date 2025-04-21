@@ -6,7 +6,7 @@
     "###"
   ],
   "key": {
-    "#": {"item": "stellaris:venus_stone"}
+    "#": "stellaris:venus_stone"
   },
   "result": {
     "id": "stellaris:venus_stone_stairs",

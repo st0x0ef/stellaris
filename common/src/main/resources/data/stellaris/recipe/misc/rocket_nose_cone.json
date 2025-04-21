@@ -6,8 +6,8 @@
     "###"
   ],
   "key": {
-    "#": {"tag": "c:ingots/steel"},
-    "X": {"item": "minecraft:redstone"}
+    "#": "#c:ingots/steel",
+    "X": "minecraft:redstone"
   },
   "result": {
     "id": "stellaris:rocket_nose_cone"

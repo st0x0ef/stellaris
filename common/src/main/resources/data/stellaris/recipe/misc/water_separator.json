@@ -6,13 +6,9 @@
     "XXX"
   ],
   "key": {
-    "X": {"tag": "c:storage_blocks/steel"},
-    "Z": {
-      "item": "minecraft:water_bucket"
-    },
-    "Y": {
-      "item": "stellaris:oxygen_tank"
-    }
+    "X": "#c:storage_blocks/steel",
+    "Z": "minecraft:water_bucket",
+    "Y": "stellaris:oxygen_tank"
   },
   "result": {
     "id": "stellaris:water_separator"

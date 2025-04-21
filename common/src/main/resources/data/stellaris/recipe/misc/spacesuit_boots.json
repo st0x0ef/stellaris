@@ -6,15 +6,9 @@
     "S S"
   ],
   "key": {
-    "Z": {
-      "item": "minecraft:copper_ingot"
-    },
-    "X": {
-      "item": "minecraft:white_wool"
-    },
-    "S": {
-      "tag": "c:ingots/steel"
-    }
+    "Z": "minecraft:copper_ingot",
+    "X": "minecraft:white_wool",
+    "S": "#c:ingots/steel"
   },
   "result": {
     "id": "stellaris:space_suit_boots"

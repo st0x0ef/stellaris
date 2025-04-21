@@ -6,12 +6,8 @@
     "ccc"
   ],
   "key": {
-    "c": {
-      "tag": "c:ingots/desh"
-    },
-    "b": {
-      "item": "minecraft:bucket"
-    }
+    "c": "#c:ingots/desh",
+    "b": "minecraft:bucket"
   },
   "result": {
     "id": "stellaris:big_fuel_tank_upgrade",

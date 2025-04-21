@@ -6,15 +6,9 @@
     "sss"
   ],
   "key": {
-    "i": {
-      "item": "stellaris:ice_shard"
-    },
-    "s": {
-      "item": "minecraft:diamond"
-    },
-    "e": {
-      "tag": "c:storage_blocks/desh"
-    }
+    "i": "stellaris:ice_shard",
+    "s": "minecraft:diamond",
+    "e": "#c:storage_blocks/desh"
   },
   "result": {
     "id": "stellaris:hydrogen_motor",

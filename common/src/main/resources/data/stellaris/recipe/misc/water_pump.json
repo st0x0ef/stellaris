@@ -6,15 +6,9 @@
     "S"
   ],
   "key": {
-    "T": {
-      "item": "stellaris:cable"
-    },
-    "S": {
-      "tag": "c:ingots/heavy_metal"
-    },
-    "X": {
-      "item": "minecraft:bucket"
-    }
+    "T": "stellaris:cable",
+    "S": "#c:ingots/heavy_metal",
+    "X": "minecraft:bucket"
   },
   "result": {
     "id": "stellaris:water_pump"

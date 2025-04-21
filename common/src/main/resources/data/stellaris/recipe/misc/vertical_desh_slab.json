@@ -6,7 +6,7 @@
     "#  "
   ],
   "key": {
-    "#": {"item": "stellaris:desh_block"}
+    "#": "stellaris:desh_block"
   },
   "result": {
     "id": "stellaris:vertical_desh_slab",

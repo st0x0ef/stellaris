@@ -6,8 +6,8 @@
     " # "
   ],
   "key": {
-    "#":  {"tag": "c:ingots/steel"},
-    "R": {"item": "minecraft:gray_wool"}
+    "#": "#c:ingots/steel",
+    "R": "minecraft:gray_wool"
   },
   "result": {
     "id": "stellaris:flag"

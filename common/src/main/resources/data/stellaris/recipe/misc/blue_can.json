@@ -6,8 +6,8 @@
     "   "
   ],
   "key": {
-    "X": {"item": "stellaris:big_green_can"},
-    "#": {"item": "minecraft:blue_dye"}
+    "X": "stellaris:big_green_can",
+    "#": "minecraft:blue_dye"
   },
   "result": {
     "id": "stellaris:big_blue_can"

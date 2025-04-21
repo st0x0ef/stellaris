@@ -6,7 +6,7 @@
     "#  "
   ],
   "key": {
-    "#": {"item": "stellaris:vertical_mercury_slab"}
+    "#": "stellaris:vertical_mercury_slab"
   },
   "result": {
     "id": "stellaris:mercury_stone_slab"

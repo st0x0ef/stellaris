@@ -1,9 +1,7 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    {
-      "item": "stellaris:neptunium_block"
-    }
+    "stellaris:neptunium_block"
   ],
 
   "result": {

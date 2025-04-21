@@ -6,8 +6,8 @@
     "WWW"
   ],
   "key": {
-    "I": {"tag": "c:ingots/desh"},
-    "W": {"tag": "minecraft:wool"}
+    "I": "#c:ingots/desh",
+    "W": "#minecraft:wool"
   },
   "result": {
     "id": "stellaris:cable_t2",

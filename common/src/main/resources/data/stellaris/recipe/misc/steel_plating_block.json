@@ -6,7 +6,7 @@
     "###"
   ],
   "key": {
-    "#": {"tag": "c:storage_blocks/steel"}
+    "#": "#c:storage_blocks/steel"
   },
   "result": {
     "id": "stellaris:steel_plating_block",

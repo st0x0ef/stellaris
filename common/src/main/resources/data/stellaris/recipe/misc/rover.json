@@ -6,21 +6,11 @@
     "SRS"
   ],
   "key": {
-    "I": {
-      "item": "minecraft:iron_ingot"
-    },
-    "C": {
-      "item": "stellaris:cable"
-    },
-    "W": {
-      "item": "minecraft:bucket"
-    },
-    "S": {
-      "tag": "c:ingots/heavy_metal"
-    },
-    "R": {
-      "item": "minecraft:redstone"
-    }
+    "I": "minecraft:iron_ingot",
+    "C": "stellaris:cable",
+    "W": "minecraft:bucket",
+    "S": "#c:ingots/heavy_metal",
+    "R": "minecraft:redstone"
   },
   "result": {
     "id": "stellaris:rover"

@@ -6,8 +6,8 @@
     "   "
   ],
   "key": {
-    "#": {"item": "minecraft:arrow"},
-    "R": {"item": "stellaris:ice_shard"}
+    "#": "minecraft:arrow",
+    "R": "stellaris:ice_shard"
   },
   "result": {
     "id": "stellaris:ice_shard_arrow",

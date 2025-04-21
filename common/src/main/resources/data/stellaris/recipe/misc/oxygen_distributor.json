@@ -6,9 +6,9 @@
     "###"
   ],
   "key": {
-    "#": {"tag": "c:storage_blocks/heavy_metal"},
-    "X": {"item": "stellaris:engine_fan"},
-    "T": {"item": "stellaris:big_oxygen_tank"}
+    "#": "#c:storage_blocks/heavy_metal",
+    "X": "stellaris:engine_fan",
+    "T": "stellaris:big_oxygen_tank"
   },
   "result": {
     "id": "stellaris:oxygen_distributor"

@@ -6,18 +6,10 @@
     "SYS"
   ],
   "key": {
-    "Y": {
-      "item": "minecraft:tinted_glass"
-    },
-    "X": {
-      "item": "minecraft:white_wool"
-    },
-    "S": {
-      "tag": "c:ingots/steel"
-    },
-    "T": {
-      "item": "minecraft:redstone_lamp"
-    }
+    "Y": "minecraft:tinted_glass",
+    "X": "minecraft:white_wool",
+    "S": "#c:ingots/steel",
+    "T": "minecraft:redstone_lamp"
   },
   "result": {
     "id": "stellaris:space_suit_helmet"

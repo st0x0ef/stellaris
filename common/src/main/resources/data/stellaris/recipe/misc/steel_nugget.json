@@ -1,9 +1,7 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    {
-      "tag": "c:ingots/steel"
-    }
+    "#c:ingots/steel"
   ],
   "result": {
     "id": "stellaris:steel_nugget",
