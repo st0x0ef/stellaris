@@ -337,4 +337,8 @@ public class Utils {
         Stellaris.LOG.info("Placing space station at " + pos);
         structureTemplate.placeInWorld(serverLevel, pos, pos, new StructurePlaceSettings(), serverLevel.random, 2);
     }
+
+    public static boolean isHoveredOnSprite(int x, int y, int width, int height, double mouseX, double mouseY) {
+        return mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + height;
+    }
 }
