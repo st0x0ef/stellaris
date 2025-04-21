@@ -1,9 +1,6 @@
-# 1.3.10 changelog
-
-## Change
-- Cleanup and optimization
-- Rewrite crops
-- Rewrite particle system
+# 1.3.11 changelog
 
 ## Fix
-- Fix being unable to place block when no oxygen is present
+- Fix crash during dedicated server startup
+- Fix coffee mcmeta ([#102](https://github.com/st0x0ef/stellaris/pull/102))
+- Fix missing fluid blockstates and models ([#102](https://github.com/st0x0ef/stellaris/pull/102))
