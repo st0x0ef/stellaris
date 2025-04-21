@@ -30,28 +30,29 @@ public class GalaxyPack extends SimpleJsonResourceReloadListener {
 
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> object, ResourceManager resourceManager, ProfilerFiller profiler) {
-        GALAXY.clear();
-        GalaxyScreen.GALAXY.clear();
+
 
         object.forEach((key, value) -> {
-            JsonObject json = GsonHelper.convertToJsonObject(value, "galaxies");
 
-            GalaxyRecord.CODEC.parse(JsonOps.INSTANCE, json).result().ifPresentOrElse(galaxy -> {
-                GALAXY.put(galaxy.name(), galaxy);
+            JsonObject json = GsonHelper.convertToJsonObject(value, "galaxy");
 
-                GalaxyInfo screenGalaxy = new GalaxyInfo(
-                        galaxy.texture(),
-                        galaxy.name(),
-                        galaxy.translatable(),
-                        galaxy.id(),
-                        galaxy.centerStar()
-                );
+            GalaxyRecord galaxy = GalaxyRecord.CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
 
+            GALAXY.putIfAbsent(galaxy.name(), galaxy);
+
+            GalaxyInfo screenGalaxy = new GalaxyInfo(
+                    galaxy.texture(),
+                    galaxy.name(),
+                    galaxy.translatable(),
+                    galaxy.id(),
+                    galaxy.centerStar()
+            );
+
+            if (!GalaxyScreen.GALAXY.contains(screenGalaxy)) {
                 GalaxyScreen.GALAXY.add(screenGalaxy);
-                Stellaris.LOG.info("Added galaxy '{}' to GalaxyScreen: {}", galaxy.name(), galaxy.id());
-            }, () -> {
-                Stellaris.LOG.error("Failed to parse GalaxyRecord JSON: {}", key.toString());
-            });
+            }
+            Stellaris.LOG.info("Added galaxy '{}' to GalaxyScreen: {}", galaxy.name(), galaxy.id());
+
         });
 
         Stellaris.LOG.info("Finished loading {} galaxies.", GalaxyScreen.GALAXY.size());

@@ -123,7 +123,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         super.tick();
 
         if (this.getY() > 600) {
-            this.openPlanetMenu(getFirstPlayerPassenger(), "stellaris:milky_way");
+            this.openPlanetMenu(getFirstPlayerPassenger());
 
             this.getPassengers().forEach((entity -> {
                 if (entity instanceof Player passenger && !passenger.is(getFirstPlayerPassenger())) {
@@ -547,13 +547,13 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         return false;
     }
 
-    private void openPlanetMenu(Player player, String id) {
+    private void openPlanetMenu(Player player) {
         if (player == null) return;
 
         if (!player.getEntityData().get(EntityData.DATA_PLANET_MENU_OPEN)) {
             player.setNoGravity(true);
             player.getVehicle().setNoGravity(true);
-            PlanetUtil.openPlanetSelectionMenu(player, player.isCreative(), id);
+            PlanetUtil.openPlanetSelectionMenu(player, player.isCreative());
             player.getEntityData().set(EntityData.DATA_PLANET_MENU_OPEN, true);
         }
     }

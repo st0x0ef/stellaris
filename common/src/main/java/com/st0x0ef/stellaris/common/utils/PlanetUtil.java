@@ -112,7 +112,7 @@ public class PlanetUtil {
             }
 
             @Override
-            public Component getDisplayName() {
+            public @NotNull Component getDisplayName() {
                 return Component.literal("Waiting");
             }
 
