@@ -35,12 +35,12 @@ public class ItemsRegistry {
 
     public static final RegistrySupplier<Item> ICE_SHARD = ITEMS.register("ice_shard", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> STEEL_INGOT = ITEMS.register("steel_ingot", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
-    public static final RegistrySupplier<Item> STEEL_NUGGET = ITEMS.register("steel_nugget", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> TITANIUM_NUGGET = ITEMS.register("titanium_nugget", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> STEEL_ORE_ITEM = ITEMS.register("steel_ore", () -> new BlockItem(BlocksRegistry.STEEL_ORE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
-    public static final RegistrySupplier<Item> DEEPSLATE_STEEL_ORE_ITEM = ITEMS.register("deepslate_steel_ore", () -> new BlockItem(BlocksRegistry.DEEPSLATE_STEEL_ORE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
+    public static final RegistrySupplier<Item> DEEPSLATE_TITANIUM_ORE_ITEM = ITEMS.register("deepslate_titanium_ore", () -> new BlockItem(BlocksRegistry.DEEPSLATE_STEEL_ORE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
     public static final RegistrySupplier<Item> HEAVY_METAL_INGOT_ITEM = ITEMS.register("heavy_metal_ingot", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> HEAVY_METAL_NUGGET_ITEM = ITEMS.register("heavy_metal_nugget", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
-    public static final RegistrySupplier<Item> RAW_STEEL_INGOT = ITEMS.register("raw_steel_ingot", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> RAW_TITANIUM_INGOT = ITEMS.register("raw_titanium_ingot", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> RAW_DESH_INGOT = ITEMS.register("raw_desh_ingot", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> DESH_INGOT = ITEMS.register("desh_ingot", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
 
@@ -395,11 +395,11 @@ public class ItemsRegistry {
      * Tools
      */
 
-    public static final RegistrySupplier<Item> STEEL_SWORD = ITEMS.register("steel_sword", () -> new SwordItem(ToolsRegister.STEEL, (new Item.Properties()).attributes(SwordItem.createAttributes(ToolsRegister.STEEL, 3, -2.8F)).arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
-    public static final RegistrySupplier<Item> STEEL_HOE = ITEMS.register("steel_hoe", () -> new HoeItem(ToolsRegister.STEEL, (new Item.Properties()).attributes(HoeItem.createAttributes(ToolsRegister.STEEL, -3.0F, -1.0F)).arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
-    public static final RegistrySupplier<Item> STEEL_PICKAXE = ITEMS.register("steel_pickaxe", () -> new PickaxeItem(ToolsRegister.STEEL, (new Item.Properties()).attributes(PickaxeItem.createAttributes(ToolsRegister.STEEL, 1.0F, -2.8F)).arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
-    public static final RegistrySupplier<Item> STEEL_SHOVEL = ITEMS.register("steel_shovel", () -> new ShovelItem(ToolsRegister.STEEL, (new Item.Properties()).attributes(ShovelItem.createAttributes(ToolsRegister.STEEL, 1.5F, -3.0F)).arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
-    public static final RegistrySupplier<Item> STEEL_AXE = ITEMS.register("steel_axe", () -> new AxeItem(ToolsRegister.STEEL, (new Item.Properties()).attributes(AxeItem.createAttributes(ToolsRegister.STEEL, 6.0F, -3.1F)).arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> TITANIUM_SWORD = ITEMS.register("titanium_sword", () -> new SwordItem(ToolsRegister.TITANIUM, (new Item.Properties()).attributes(SwordItem.createAttributes(ToolsRegister.TITANIUM, 3, -2.8F)).arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> TITANIUM_HOE = ITEMS.register("titanium_hoe", () -> new HoeItem(ToolsRegister.TITANIUM, (new Item.Properties()).attributes(HoeItem.createAttributes(ToolsRegister.TITANIUM, -3.0F, -1.0F)).arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> TITANIUM_PICKAXE = ITEMS.register("titanium_pickaxe", () -> new PickaxeItem(ToolsRegister.TITANIUM, (new Item.Properties()).attributes(PickaxeItem.createAttributes(ToolsRegister.TITANIUM, 1.0F, -2.8F)).arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> TITANIUM_SHOVEL = ITEMS.register("titanium_shovel", () -> new ShovelItem(ToolsRegister.TITANIUM, (new Item.Properties()).attributes(ShovelItem.createAttributes(ToolsRegister.TITANIUM, 1.5F, -3.0F)).arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> TITANIUM_AXE = ITEMS.register("titanium_axe", () -> new AxeItem(ToolsRegister.TITANIUM, (new Item.Properties()).attributes(AxeItem.createAttributes(ToolsRegister.TITANIUM, 6.0F, -3.1F)).arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
 
     /**
      * Coal
