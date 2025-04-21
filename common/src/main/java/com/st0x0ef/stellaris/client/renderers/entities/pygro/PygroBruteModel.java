@@ -1,30 +1,25 @@
 package com.st0x0ef.stellaris.client.renderers.entities.pygro;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.client.renderers.entities.alien.AlienAnim;
-import com.st0x0ef.stellaris.common.entities.mobs.AlienZombie;
+import com.st0x0ef.stellaris.client.renderers.entities.mogler.MoglerAnim;
+import com.st0x0ef.stellaris.common.entities.mobs.PygroBrute;
 import com.st0x0ef.stellaris.common.entities.mobs.pygro.Pygro;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.model.AnimationUtils;
 import net.minecraft.client.model.HierarchicalModel;
-import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
-import net.minecraft.world.entity.monster.piglin.Piglin;
-import net.minecraft.world.entity.monster.piglin.PiglinArmPose;
 
 @Environment(EnvType.CLIENT)
-public class PygroModel<T extends Pygro> extends HierarchicalModel<Pygro> {
+public class PygroBruteModel<T extends PygroBrute> extends HierarchicalModel<PygroBrute> {
 
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "pygro"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "pygro_brute"), "main");
 
     private final ModelPart root;
     private final ModelPart body;
@@ -38,7 +33,7 @@ public class PygroModel<T extends Pygro> extends HierarchicalModel<Pygro> {
     private final ModelPart right_leg;
     private final ModelPart leg_left;
 
-    public PygroModel(ModelPart root) {
+    public PygroBruteModel(ModelPart root) {
         this.root = root.getChild("root");
         this.body = this.root.getChild("body");
         this.head = this.body.getChild("head");
@@ -72,27 +67,36 @@ public class PygroModel<T extends Pygro> extends HierarchicalModel<Pygro> {
 
         PartDefinition cube_r2 = fang2.addOrReplaceChild("cube_r2", CubeListBuilder.create().texOffs(31, 1).addBox(-2.15F, -1.45F, -0.35F, 3.0F, 3.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-2.0F, -25.0F, -4.5F, 0.0631F, -0.3435F, -0.1855F));
 
-        PartDefinition ear2 = head.addOrReplaceChild("ear2", CubeListBuilder.create().texOffs(32, 48).mirror().addBox(-0.5F, -0.5F, -2.0F, 1.0F, 6.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-5.5F, -6.5F, 0.0F, 0.0F, 0.0F, 0.1309F));
+        PartDefinition ear2 = head.addOrReplaceChild("ear2", CubeListBuilder.create().texOffs(52, 53).mirror().addBox(-0.5F, -0.5F, -2.0F, 1.0F, 6.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-5.5F, -6.5F, 0.0F, 0.0F, 0.0F, 0.1309F));
 
-        PartDefinition ear = head.addOrReplaceChild("ear", CubeListBuilder.create().texOffs(32, 48).addBox(-0.5F, -0.5F, -3.0F, 1.0F, 6.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(5.5F, -6.5F, 0.0F, 0.0F, 0.0F, -0.1309F));
+        PartDefinition ear = head.addOrReplaceChild("ear", CubeListBuilder.create().texOffs(52, 53).addBox(-0.5F, -0.5F, -3.0F, 1.0F, 6.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(5.5F, -6.5F, 0.0F, 0.0F, 0.0F, -0.1309F));
 
         PartDefinition right_arm = body.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(40, 16).addBox(-3.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(-5.0F, 2.0F, 0.0F));
 
         PartDefinition left_arm = body.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(40, 16).addBox(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(5.0F, 2.0F, 0.0F));
 
-        PartDefinition right_leg = root.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(16, 48).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+        PartDefinition right_leg = root.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(32, 48).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        PartDefinition leg_left = root.addOrReplaceChild("leg_left", CubeListBuilder.create().texOffs(16, 48).mirror().addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(3.8F, 0.0F, 0.0F));
+        PartDefinition leg_left = root.addOrReplaceChild("leg_left", CubeListBuilder.create().texOffs(32, 48).mirror().addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(3.8F, 0.0F, 0.0F));
 
         return LayerDefinition.create(meshdefinition, 64, 64);
     }
 
     @Override
-    public void setupAnim(Pygro entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(PygroBrute entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root.getAllParts().forEach(ModelPart::resetPose);
         this.applyHeadRotation(netHeadYaw, headPitch);
 
-        this.animateWalk(PygroAnim.walk, limbSwing, limbSwingAmount, 2f, 2.5f);
+        this.animateWalk(PygroBruteAnim.walk, limbSwing, limbSwingAmount, 3f, 2.5f);
+    }
+
+    @Override
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
+        if (young) {
+            poseStack.scale(0.5f, 0.5f, 0.5f);
+            poseStack.translate(0, 1.5f, 0);
+        }
+        root.render(poseStack, buffer, packedLight, packedOverlay, color);
     }
 
     private void applyHeadRotation(float headYaw, float headPitch) {

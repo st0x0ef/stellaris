@@ -9,21 +9,22 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
+import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Mob;
 
 @Environment(EnvType.CLIENT)
-public class PygroBruteRenderer extends HumanoidMobRenderer<PygroBrute, PygroModel<PygroBrute>> {
+public class PygroBruteRenderer extends MobRenderer<PygroBrute, PygroBruteModel<PygroBrute>> {
 
     public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/entity/pygro_brute.png");
 
     public PygroBruteRenderer(EntityRendererProvider.Context context) {
-        super(context, new PygroModel<>(context.bakeLayer(PygroModel.LAYER_LOCATION)), 0.5f);
+        super(context, new PygroBruteModel<>(context.bakeLayer(PygroBruteModel.LAYER_LOCATION)), 0.5f);
     }
 
-    private static PygroModel<Mob> createModel(EntityModelSet p_174350_, ModelLayerLocation p_174351_) {
+    private static PygroBruteModel<PygroBrute> createModel(EntityModelSet p_174350_, ModelLayerLocation p_174351_) {
 
-        return new PygroModel<>(p_174350_.bakeLayer(p_174351_));
+        return new PygroBruteModel<>(p_174350_.bakeLayer(p_174351_));
     }
 
     public ResourceLocation getTextureLocation(PygroBrute p_115708_) {

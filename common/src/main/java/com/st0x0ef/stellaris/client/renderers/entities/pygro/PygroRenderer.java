@@ -8,11 +8,12 @@ import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
+import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Mob;
 
 @Environment(EnvType.CLIENT)
-public class PygroRenderer extends HumanoidMobRenderer<Pygro, PygroModel<Pygro>> {
+public class PygroRenderer extends MobRenderer<Pygro, PygroModel<Pygro>> {
 
     public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/entity/pygro.png");
 
@@ -26,7 +27,7 @@ public class PygroRenderer extends HumanoidMobRenderer<Pygro, PygroModel<Pygro>>
     }
 
 
-    private static PygroModel<Mob> createModel(EntityModelSet p_174350_, ModelLayerLocation p_174351_) {
+    private static PygroModel<Pygro> createModel(EntityModelSet p_174350_, ModelLayerLocation p_174351_) {
         return new PygroModel<>(p_174350_.bakeLayer(p_174351_));
     }
 
