@@ -553,7 +553,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         if (!player.getEntityData().get(EntityData.DATA_PLANET_MENU_OPEN)) {
             player.setNoGravity(true);
             player.getVehicle().setNoGravity(true);
-            PlanetUtil.openPlanetSelectionMenu(player, player.isCreative());
+            PlanetUtil.openPlanetSelectionMenu(player, player.isCreative(), "stellaris:milky_way");
             player.getEntityData().set(EntityData.DATA_PLANET_MENU_OPEN, true);
         }
     }
