@@ -1,8 +1,6 @@
 package com.st0x0ef.stellaris.client.screens.windows;
 
 import com.google.common.collect.Lists;
-import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Renderable;
@@ -47,12 +45,11 @@ public abstract class MoveableWindow extends AbstractWidget implements Renderabl
 
     public abstract void renderWindow(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick);
 
-    public abstract void init();
+    public void init() {};
 
     public void renderWidgets(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         for (Renderable renderable : this.renderables) {
             if (renderable instanceof AbstractWidget widget) {
-                Stellaris.LOG.error("ee");
                 widget.render(guiGraphics, mouseX, mouseY, partialTick);
             }
         }
@@ -98,8 +95,8 @@ public abstract class MoveableWindow extends AbstractWidget implements Renderabl
     @Override
     public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
         if (dragging ) {
-            this.windowX = (int) Utils.changeLastDigitToEven(mouseX - dragOffsetX);
-            this.windowY = (int) Utils.changeLastDigitToEven(mouseY - dragOffsetY);
+            this.windowX = (int) (mouseX - dragOffsetX);
+            this.windowY = (int) (mouseY - dragOffsetY);
 
             this.setX(windowX);
             this.setY(windowY);
@@ -114,6 +111,15 @@ public abstract class MoveableWindow extends AbstractWidget implements Renderabl
                 abstractWidget.setX(windowX + offset[0]);
                 abstractWidget.setY(windowY + offset[1]);
 
+            }
+        }
+    }
+
+    public void changeVisibility(boolean visible) {
+        this.visible = visible;
+        for (Renderable widget : renderables) {
+            if (widget instanceof AbstractWidget abstractWidget) {
+                abstractWidget.visible = visible;
             }
         }
     }
