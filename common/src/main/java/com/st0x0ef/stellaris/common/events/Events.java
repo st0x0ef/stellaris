@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.events;
 
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.CoalLanternBlock;
 import com.st0x0ef.stellaris.common.blocks.WallCoalTorchBlock;
 import com.st0x0ef.stellaris.common.oxygen.GlobalOxygenManager;
@@ -13,6 +14,7 @@ import dev.architectury.event.events.common.BlockEvent;
 import dev.architectury.event.events.common.TickEvent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.TickRateManager;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LanternBlock;
@@ -74,6 +76,8 @@ public class Events {
 
             return EventResult.pass();
         });
+
+        TickEvent.SERVER_LEVEL_POST.register((level) -> GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level).updateOxygenTick());
     }
 
     private static void removeOxygenRoom(ServerLevel level, BlockPos pos) {

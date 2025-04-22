@@ -30,15 +30,6 @@ public class DimensionOxygenManager {
         this.planetHasOxygen = PlanetUtil.hasOxygen(level);
     }
 
-    public void tickOxygenRoom(BlockPos distributorPos) {
-        if (getOxygenRoom(distributorPos) == null) {
-            oxygenRooms.add(new OxygenRoom(level, distributorPos));
-
-        }
-        this.updateOxygenTick();
-        this.setChanged();
-    }
-
     public void removeOxygenRoom(BlockPos pos) {
         oxygenRooms.removeIf(room -> room.getDistributorPosition().equals(pos));
         setChanged();
@@ -68,6 +59,8 @@ public class DimensionOxygenManager {
         oxygenRooms.forEach(OxygenRoom::tick);
         roomToCheckIfOpen.values().forEach(OxygenRoom::removeOxygenInRoom);
         roomToCheckIfOpen.clear();
+
+        this.setChanged();
     }
 
     public boolean breath(LivingEntity entity) {

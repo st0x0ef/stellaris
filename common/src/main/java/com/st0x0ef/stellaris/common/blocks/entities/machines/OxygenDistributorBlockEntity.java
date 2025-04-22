@@ -54,10 +54,6 @@ public class OxygenDistributorBlockEntity extends BaseEnergyContainerBlockEntity
     @Override
     public void tick() {
         FluidUtil.moveFluidFromItem(0, 0, items, oxygenTank, 5);
-
-        if (level instanceof ServerLevel serverLevel && !oxygenTank.isEmpty()) {
-            GlobalOxygenManager.getInstance().getOrCreateDimensionManager(serverLevel).tickOxygenRoom(getBlockPos());
-        }
     }
 
     public boolean useOxygenAndEnergy() {
