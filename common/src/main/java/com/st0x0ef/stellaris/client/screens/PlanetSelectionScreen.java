@@ -1549,7 +1549,5 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     public Player getPlayer() {
         return menu.getPlayer();
-    }
-
-
+    }           
 }
