@@ -40,12 +40,19 @@ public abstract class MoveableWindow extends AbstractWidget implements Renderabl
 
         this.windowX = this.getX();
         this.windowY = this.getY();
-        this.init();
     }
 
     public abstract void renderWindow(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick);
 
+
+
+
     public void init() {};
+
+    public void close() {
+        this.changeVisibility(false);
+    };
+
 
     public void renderWidgets(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         for (Renderable renderable : this.renderables) {

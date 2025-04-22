@@ -11,42 +11,54 @@ import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
+import org.lwjgl.glfw.GLFW;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class SpaceStationWindow extends MoveableWindow{
+public class SpaceStationWindow extends MoveableWindow {
 
     public final ArrayList<TexturedButton> spaceStationButtons = new ArrayList<>();
-    public final ArrayList<SpaceStationRecipesManager.SpaceStationRecipeState> spaceStationRecipeStates = new ArrayList<>();
     public final PlanetSelectionScreen parent;
-    public final Player player;
+
 
     public SpaceStationWindow(int width, int height, Component message, PlanetSelectionScreen parent) {
         super(width, height, message, parent);
 
-        this.player = parent.getPlayer();
         this.parent = parent;
     }
 
     @Override
     public void renderWindow(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+        guiGraphics.fill(getWindowX(), getWindowY(), getWindowX() + this.getWidth(), getWindowY() + this.getHeight(), 0xFF000000);
+        parent.dragging = false;
+    }
 
+    public ArrayList<SpaceStationRecipesManager.SpaceStationRecipeState> getSpaceStationRecipeStates() {
+        ArrayList<SpaceStationRecipesManager.SpaceStationRecipeState> states = new ArrayList<>();
+
+        for (SpaceStationRecipe recipe : SpaceStationRecipesManager.SPACE_STATION_RECIPES) {
+            states.add(recipe.fromRecipe(Minecraft.getInstance().player));
+        }
+        return states;
     }
 
     @Override
     public void init() {
-        for (SpaceStationRecipe recipe : SpaceStationRecipesManager.SPACE_STATION_RECIPES) {
-            this.spaceStationRecipeStates.add(recipe.fromRecipe(this.player));
-        }
-
         initSpaceStationButtons();
-
     }
+
+
+    @Override
+    public void close() {
+        GLFW.glfwSetScrollCallback(Minecraft.getInstance().getWindow().getWindow(), parent::onMouseScroll);
+    }
+
 
     private void initSpaceStationButtons() {
         spaceStationButtons.clear();
         AtomicInteger height = new AtomicInteger(1);
+        ArrayList<SpaceStationRecipesManager.SpaceStationRecipeState> spaceStationRecipeStates = getSpaceStationRecipeStates();
         for (SpaceStationRecipesManager.SpaceStationRecipeState spaceStationRecipeState : spaceStationRecipeStates) {
             SpaceStationRecipe recipe = spaceStationRecipeState.recipe;
             int buttonWidth = 90;
@@ -65,29 +77,48 @@ public class SpaceStationWindow extends MoveableWindow{
 
             TexturedButton button = new TexturedButton(
                     buttonX, buttonY, buttonWidth, buttonHeight,
-                    Component.translatable(String.valueOf(recipe.location())),
+                    Component.literal("CAXAX"),
                     (btn) -> parent.onSpaceStationButtonClick(spaceStationRecipeState)
             );
 
             if (spaceStationRecipeState.isUnlocked) {
                 button.tex(
-                        ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button.png"),
+                        ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "stextures/gui/util/buttons/launch_button.png"),
                         ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button_hovered.png")
                 );
             } else {
                 button.tex(
-                        ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/button.png"),
+                        ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "stextures/gui/util/buttons/button.png"),
                         ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/button.png")
                 );
             }
 
             button.setPosition(buttonX, buttonY + height.getAndAdd(1) * 25);
 
-            button.setTooltip(Tooltip.create(recipe.getTooltip(this.player)));
-            button.visible = true;
+            button.setTooltip(Tooltip.create(recipe.getTooltip(Minecraft.getInstance().player)));
+            button.visible = false;
             spaceStationButtons.add(button);
             addWidget(button);
 
+        }
+    }
+
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+
+        if(keyCode == GLFW.GLFW_KEY_ESCAPE) {
+            close();
+            return true;
+        }
+
+        return super.keyPressed(keyCode, scanCode, modifiers);
+    }
+
+    @Override
+    public void changeVisibility(boolean visible) {
+        super.changeVisibility(visible);
+        for(TexturedButton button : spaceStationButtons) {
+            button.visible = visible;
         }
     }
 }
