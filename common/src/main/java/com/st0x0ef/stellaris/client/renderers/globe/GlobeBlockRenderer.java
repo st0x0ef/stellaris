@@ -6,7 +6,6 @@ import com.mojang.math.Axis;
 import com.st0x0ef.stellaris.common.blocks.GlobeBlock;
 import com.st0x0ef.stellaris.common.blocks.entities.GlobeBlockEntity;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
-import dev.architectury.registry.registries.RegistrySupplier;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;

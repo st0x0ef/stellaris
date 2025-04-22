@@ -17,8 +17,6 @@ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 
-import static com.st0x0ef.stellaris.client.renderers.globe.GlobeBlockRenderer.*;
-
 public class BlocksRegistry {
 
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(Stellaris.MODID, Registries.BLOCK);
