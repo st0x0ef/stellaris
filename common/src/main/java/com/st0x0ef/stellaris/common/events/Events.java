@@ -119,6 +119,8 @@ public class Events {
 
             return EventResult.pass();
         });
+
+        TickEvent.SERVER_LEVEL_POST.register((level) -> GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level).updateOxygenTick());
     }
 
     private static void removeOxygenRoom(ServerLevel level, BlockPos pos) {

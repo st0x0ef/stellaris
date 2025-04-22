@@ -9,6 +9,8 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.Item;
 
+import java.util.Objects;
+
 public class FuelType {
 
     public static final Codec<Type> CODEC = StringRepresentable.fromEnum(Type::values);
@@ -144,10 +146,7 @@ public class FuelType {
         }
 
         public Type getMotorType() {
-            if (this.motorType == null) {
-                return this;
-            }
-            return this.motorType;
+            return Objects.requireNonNullElse(this.motorType, this);
         }
 
         @Override
