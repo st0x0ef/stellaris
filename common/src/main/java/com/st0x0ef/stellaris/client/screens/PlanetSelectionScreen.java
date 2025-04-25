@@ -129,8 +129,6 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
 
     private SpaceStationWindow spaceStationWindow;
 
-
-
     public PlanetSelectionScreen(PlanetSelectionMenu abstractContainerMenu, Inventory inventory, Component component) {
         super(abstractContainerMenu, inventory, component);
         this.imageWidth = 1200;
@@ -145,8 +143,10 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
         getMenu().freeze_gui = false;
 
         this.spaceStationWindow = new SpaceStationWindow(300,200, Component.literal("eee"), this);
-        this.spaceStationWindow.changeVisibility(false);
-        addRenderableWidget(spaceStationWindow);
+
+        //TODO FIX
+        //addWidget(this.spaceStationWindow);
+        //this.spaceStationWindow.changeVisibility(false);
 
         centerSun();
         isPlanetScreenOpened = true;
@@ -178,6 +178,7 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
             launchButton.visible = false;
         }
 
+        renderHelp(graphics);
         drawOrbits();
         drawTrails();
 
@@ -221,13 +222,11 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
         }
 
         if (focusedBody != null) { renderLargeMenu(graphics); };
-        renderSpaceStation();
+        renderSpaceStation(graphics);
 
         initTop(graphics, mouseX, mouseY);
         etc();
 
-
-        this.spaceStationWindow.render(graphics, mouseX, mouseY, partialTicks);
         this.renderTooltip(graphics, mouseX, mouseY);
     }
 
@@ -374,8 +373,6 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
 
                 if(focusedBody.spaceStation && !showSpaceStationMenu) {
                     this.showSpaceStationMenu = true;
-                    this.spaceStationWindow.changeVisibility(true);
-
                 } else {
                     tpToFocusedPlanet();
                 }
@@ -412,7 +409,14 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
         initializeMoonButtons();
     }
 
+    private void renderHelp(GuiGraphics graphics) {
+//        if(showHelpMenu) {
+//            graphics.drawCenteredString(this.font, Component.translatable("text.stellaris.planetscreen.press_space"), this.width/2, this.height - 20 , 16777212);
+//            graphics.drawCenteredString(this.font, Component.translatable("text.stellaris.planetscreen.arrows"), this.width/2, this.height - 10 , 16777212);
+//
+//        }
 
+    }
 
     private void renderStars(GuiGraphics graphics) {
         Font font = Minecraft.getInstance().font;
@@ -451,7 +455,7 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
             ScreenHelper.drawTexturewithRotation(graphics, planet.texture, (int) planetX, (int) planetY, 0, 0, planetWidth, planetHeight, planetWidth, planetHeight, (float) planet.currentAngle);
 
             int nameWidth = font.width(planet.name);
-            graphics.drawString(font, planet.getTranslatable(), (int) (planetX + (float) planetWidth / 2 - (float) nameWidth / 2), (int) (planetY + planetHeight), Utils.getColorHexCode("yellow"));
+            graphics.drawString(font, planet.getTranslatable(), (int) (planetX + (float) planetWidth / 2 - (float) nameWidth / 2), (int) (planetY + planetHeight), 0xFFFFFF);
         }
     }
 
@@ -1159,7 +1163,7 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
     }
 
 
-    public void onMouseScroll(long window, double scrollX, double scrollY) {
+    private void onMouseScroll(long window, double scrollX, double scrollY) {
         double[] mouseX = new double[1];
         double[] mouseY = new double[1];
 
@@ -1506,18 +1510,36 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
         }
     }
 
-    private void renderSpaceStation() {
+    private void renderSpaceStation(GuiGraphics graphics) {
 
-//        if(spaceStationWindow == null)return;
+        if(spaceStationWindow == null)return;
+
+        if(!showSpaceStationMenu) {
+            spaceStationWindow.changeVisibility(false);
+            return;
+        }
+        spaceStationWindow.changeVisibility(true);
+
+//        int menuWidth = 215;
+//        int menuHeight = 177;
 //
-//        if(!showSpaceStationMenu) {
-//            spaceStationWindow.changeVisibility(false);
-//            showSpaceStationMenu = false;
+//        int centerX = (this.width - menuWidth) / 2;
+//        int centerY = (this.height - menuHeight) / 2;
 //
-//            return;
+//        RenderSystem.enableBlend();
+//        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+//        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 0.5f);
+//        RenderSystem.setShaderTexture(0, LARGE_MENU_TEXTURE);
+//        graphics.blit(LARGE_MENU_TEXTURE, centerX, centerY, 0, 0, menuWidth, menuHeight, menuWidth, menuHeight);
+//        RenderSystem.disableBlend();
+//
+//        launchButton.visible = true;
+//        launchButton.setTooltip(Tooltip.create(Component.translatable("text.stellaris.planetscreen.space_station_launch")));
+//
+//
+//        for (TexturedButton button : spaceStationButtons) {
+//            button.visible = true;
 //        }
-//        spaceStationWindow.changeVisibility(true);
-//        showSpaceStationMenu = true;
 
     }
 
