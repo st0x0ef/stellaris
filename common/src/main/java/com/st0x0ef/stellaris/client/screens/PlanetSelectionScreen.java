@@ -142,7 +142,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         super.init();
         getMenu().freeze_gui = false;
 
-        this.spaceStationWindow = new SpaceStationWindow(300,200, Component.literal("eee"), this);
+//        this.spaceStationWindow = new SpaceStationWindow(300,200, Component.literal("eee"), this);
 
         //TODO FIX
         //addWidget(this.spaceStationWindow);
@@ -222,7 +222,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         }
 
         if (focusedBody != null) { renderLargeMenu(graphics); };
-        renderSpaceStation(graphics);
+//        renderSpaceStation(graphics);
 
         initTop(graphics, mouseX, mouseY);
         etc();
