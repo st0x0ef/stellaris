@@ -63,7 +63,6 @@ public class BaseWindowScreen<T extends AbstractContainerMenu> extends AbstractC
                 widget.keyPressed(keyCode, scanCode, modifiers);
             }
         }
-
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
 

@@ -37,6 +37,10 @@ public class SpaceStationWindow extends MoveableWindow {
     public ArrayList<SpaceStationRecipesManager.SpaceStationRecipeState> getSpaceStationRecipeStates() {
         ArrayList<SpaceStationRecipesManager.SpaceStationRecipeState> states = new ArrayList<>();
 
+        if(Minecraft.getInstance().player == null) {
+            return states;
+        }
+
         for (SpaceStationRecipe recipe : SpaceStationRecipesManager.SPACE_STATION_RECIPES) {
             states.add(recipe.fromRecipe(Minecraft.getInstance().player));
         }
@@ -83,12 +87,12 @@ public class SpaceStationWindow extends MoveableWindow {
 
             if (spaceStationRecipeState.isUnlocked) {
                 button.tex(
-                        ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "stextures/gui/util/buttons/launch_button.png"),
+                        ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button.png"),
                         ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button_hovered.png")
                 );
             } else {
                 button.tex(
-                        ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "stextures/gui/util/buttons/button.png"),
+                        ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/button.png"),
                         ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/button.png")
                 );
             }
