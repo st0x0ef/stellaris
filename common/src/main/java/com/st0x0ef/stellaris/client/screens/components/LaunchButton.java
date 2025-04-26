@@ -8,6 +8,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
@@ -88,8 +89,8 @@ public class LaunchButton extends Button {
         }
 
         ResourceLocation texture = this.getTypeTexture(this.isHovered, this.buttonTexture, this.hoverButtonTexture);
-        ScreenHelper.renderTextureWithColor.blit(graphics.pose(), this.getX(), this.getY(), (float) this.xTexStart, (float) i,
-                this.width, this.height, this.textureWidth, this.textureHeight, this.getTypeColor());
+        graphics.blit(RenderType::guiTextured, texture, this.getX(), this.getY(), (float) this.xTexStart, (float) i,
+                this.width, this.height, this.textureWidth, this.textureHeight, ScreenHelper.getColorFromRGB(this.getTypeColor()));
 
         Font fontRenderer = minecraft.font;
         Component message = this.getMessage();
@@ -100,8 +101,7 @@ public class LaunchButton extends Button {
     }
 
     /** TYPE TEXTURE MANAGER */
-    private ResourceLocation getTypeTexture(boolean hover, ResourceLocation buttonTexture,
-                                            ResourceLocation hoverButtonTexture) {
+    private ResourceLocation getTypeTexture(boolean hover, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture) {
         if (hover) {
             return hoverButtonTexture;
         }
@@ -132,6 +132,4 @@ public class LaunchButton extends Button {
             return this.color;
         }
     }
-
-
 }

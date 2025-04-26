@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.client.screens.helper;
 
 import com.mojang.blaze3d.vertex.*;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -134,6 +135,51 @@ public class ScreenHelper {
         }
     }
 
+    public static void drawLine(GuiGraphics graphics, float x1, float y1, float x2, float y2, float width, int color) {
+        float dx = x2 - x1;
+        float dy = y2 - y1;
+
+        float distance = (float)Math.sqrt(dx * dx + dy * dy);
+
+        int steps = (int)(distance);
+
+        if (steps == 0) steps = 1;
+
+        float xIncrement = dx / steps;
+        float yIncrement = dy / steps;
+
+        float x = x1;
+        float y = y1;
+
+        for (int i = 0; i <= steps; i++) {
+            ScreenHelper.fill(graphics, x, y, x + width, y + width, color);
+            x += xIncrement;
+            y += yIncrement;
+        }
+    }
+
+
+    public static void fill(GuiGraphics graphics, float minX, float minY, float maxX, float maxY, int color) {
+        Matrix4f matrix4f = graphics.pose.last().pose();
+        if (minX < maxX) {
+            float i = minX;
+            minX = maxX;
+            maxX = i;
+        }
+
+        if (minY < maxY) {
+            float i = minY;
+            minY = maxY;
+            maxY = i;
+        }
+
+        VertexConsumer vertexConsumer = Minecraft.getInstance().renderBuffers().bufferSource().getBuffer(RenderType.gui());
+        vertexConsumer.addVertex(matrix4f, minX, minY, 0f).setColor(color);
+        vertexConsumer.addVertex(matrix4f, minX, maxY, 0f).setColor(color);
+        vertexConsumer.addVertex(matrix4f, maxX, maxY, 0f).setColor(color);
+        vertexConsumer.addVertex(matrix4f, maxX, minY, 0f).setColor(color);
+    }
+
     public static void drawTexture(GuiGraphics graphics, int leftPos, int topPos, int width, int height, ResourceLocation texture) {
         graphics.blit(RenderType::guiTextured, texture, leftPos, topPos, 0, 0, width, height, width, height);
     }
@@ -152,7 +198,6 @@ public class ScreenHelper {
     }
 
     public static LivingEntity createEntity(Level level, ResourceLocation location) {
-
         Optional<EntityType<?>> maybeType = BuiltInRegistries.ENTITY_TYPE.getOptional(location);
         if (maybeType.isEmpty()) {
             return EntityType.PIG.create(level, EntitySpawnReason.TRIGGERED);
@@ -160,5 +205,9 @@ public class ScreenHelper {
         EntityType<?> type = maybeType.get();
 
         return (LivingEntity) type.create(level, EntitySpawnReason.TRIGGERED);
+    }
+
+    public static int getColorFromRGB(Vec3 rgb) {
+        return (255 << 24) | ((int) rgb.x() << 16) | ((int) rgb.y() << 8) | (int) rgb.z();
     }
 }

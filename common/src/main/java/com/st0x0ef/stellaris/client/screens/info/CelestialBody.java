@@ -17,7 +17,7 @@ public class CelestialBody {
     public ResourceLocation dimension;
     public String translatable;
     public String id;
-    public boolean clickable = true;
+    public boolean clickable;
 
     public CelestialBody(ResourceLocation texture, String name, float x, float y, float width, float height, int orbitColor, ResourceLocation dimension, String translatable, String id) {
         this(texture, name, x, y, width, height, orbitColor, dimension, translatable, id, true);

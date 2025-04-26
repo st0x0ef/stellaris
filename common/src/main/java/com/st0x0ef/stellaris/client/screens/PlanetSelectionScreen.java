@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.client.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.*;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.components.InvisibleButton;
 import com.st0x0ef.stellaris.client.screens.components.LaunchButton;
@@ -173,7 +172,6 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         for (InvisibleButton button : planetButtons) {
             button.setX(button.getX() - offsetX);
             button.setY(button.getX() - offsetY);
-
         }
     }
 
@@ -233,7 +231,6 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         if (focusedBody != null && focusedBody.dimension != null) {
             if (canLaunch(PlanetUtil.getPlanet(focusedBody.dimension))) {
                 tpToFocusedPlanet();
-
             } else {
                 if (PlanetUtil.getPlanet(focusedBody.dimension).name().equals("Earth")) {
                     tpToFocusedPlanet();
@@ -259,7 +256,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         }
 
         renderHelp(graphics);
-        drawOrbits();
+        drawOrbits(graphics);
 
         renderBodiesAndPlanets(graphics);
         renderHighlighter(graphics, mouseX, mouseY);
@@ -294,9 +291,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         if(showHelpMenu) {
             graphics.drawCenteredString(this.font, Component.translatable("text.stellaris.planetscreen.press_space"), this.width/2, this.height - 20 , 16777212);
             graphics.drawCenteredString(this.font, Component.translatable("text.stellaris.planetscreen.arrows"), this.width/2, this.height - 10 , 16777212);
-
         }
-
     }
 
     private void renderStars(GuiGraphics graphics) {
@@ -746,16 +741,14 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         }
     }
 
-    public void drawOrbits() {
-        Tesselator tesselator = Tesselator.getInstance();
-
+    public void drawOrbits(GuiGraphics graphics) {
         for (PlanetInfo planet : PLANETS) {
             CelestialBody orbitCenter = planet.orbitCenter;
 
             float orbitCenterX = (float) ((orbitCenter.x + offsetX) * zoomLevel);
             float orbitCenterY = (float) ((orbitCenter.y + offsetY) * zoomLevel);
 
-            renderOrbits(tesselator, orbitCenterX, orbitCenterY, planet.orbitRadius * zoomLevel, 75, orbitCenter.orbitColor, 1.0F);
+            renderOrbits(graphics, orbitCenterX, orbitCenterY, planet.orbitRadius * zoomLevel, 50, 1.5f, orbitCenter.orbitColor);
         }
 
         for (MoonInfo moon : MOONS) {
@@ -764,33 +757,26 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             float orbitCenterX = (float) ((orbitCenter.x + offsetX) * zoomLevel);
             float orbitCenterY = (float) ((orbitCenter.y + offsetY) * zoomLevel);
 
-            renderOrbits(tesselator, orbitCenterX, orbitCenterY, moon.orbitRadius * zoomLevel, 75, 0x888888, 0.5F);
+            renderOrbits(graphics, orbitCenterX, orbitCenterY, moon.orbitRadius * zoomLevel, 75, 1f, 0x88888800);
         }
     }
 
-    public static void renderOrbits(Tesselator tesselator, double centerX, double centerY, double radius, int sides, int color, float alphaL) {
-        float red = ((color >> 16) & 0xFF) / 255.0F;
-        float green = ((color >> 8) & 0xFF) / 255.0F;
-        float blue = (color & 0xFF) / 255.0F;
+    public static void renderOrbits(GuiGraphics graphics, double centerX, double centerY, double radius, int sides, double width, int color) {
+        double angleIncrement = Math.PI * 2 / sides;
 
-        float angleStep = (float) (2.0 * Math.PI / sides);
+        double prevX = centerX + radius;
+        double prevY = centerY;
 
-        BufferBuilder bufferBuilder = tesselator.begin(VertexFormat.Mode.DEBUG_LINES, DefaultVertexFormat.POSITION_COLOR);
+        for (int i = 1; i <= sides; i++) {
+            double angle = i * angleIncrement;
+            double x = centerX + radius * Math.cos(angle);
+            double y = centerY + radius * Math.sin(angle);
 
-        for (int i = 0; i < sides; i++) {
-            float currentAngle = i * angleStep;
-            float nextAngle = currentAngle + angleStep;
+            ScreenHelper.drawLine(graphics, (float) prevX, (float) prevY, (float) x, (float) y, (float) width, color);
 
-            float vertex1X = (float) (centerX + radius * Math.cos(currentAngle));
-            float vertex1Y = (float) (centerY + radius * Math.sin(currentAngle));
-            float vertex2X = (float) (centerX + radius * Math.cos(nextAngle));
-            float vertex2Y = (float) (centerY + radius * Math.sin(nextAngle));
-
-            bufferBuilder.addVertex(vertex1X, vertex1Y, 0).setColor(red, green, blue, alphaL);
-            bufferBuilder.addVertex(vertex2X, vertex2Y, 0).setColor(red, green, blue, alphaL);
+            prevX = x;
+            prevY = y;
         }
-
-        bufferBuilder.build();
     }
 
     private void centerSun() {
