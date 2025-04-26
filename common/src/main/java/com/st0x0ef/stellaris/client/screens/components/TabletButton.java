@@ -10,6 +10,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
@@ -107,8 +108,6 @@ public class TabletButton extends Button {
 
     @Override
     public void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
-        Minecraft minecraft = Minecraft.getInstance();
-
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
         int i = this.yTexStart;
@@ -120,8 +119,8 @@ public class TabletButton extends Button {
         ResourceLocation texture = this.getTypeTexture(this.isHovered, this.buttonTexture, this.hoverButtonTexture);
 
         /** TEXTURE RENDERER */
-        ScreenHelper.renderTextureWithColor.blit(graphics.pose(), this.getX(), this.getY(), (float) this.xTexStart, (float) i,
-                this.width, this.height, this.textureWidth, this.textureHeight, this.getTypeColor());
+        graphics.blit(RenderType::guiTextured, texture, this.getX(), this.getY(), (float) this.xTexStart, (float) i,
+                this.width, this.height, this.textureWidth, this.textureHeight, ScreenHelper.getColorFromRGB(this.getTypeColor()));
 
         /** FONT RENDERER */
         switch (info.type()) {
@@ -137,8 +136,7 @@ public class TabletButton extends Button {
     }
 
     /** TYPE TEXTURE MANAGER */
-    private ResourceLocation getTypeTexture(boolean hover, ResourceLocation buttonTexture,
-                                            ResourceLocation hoverButtonTexture) {
+    private ResourceLocation getTypeTexture(boolean hover, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture) {
         if (hover) {
             return hoverButtonTexture;
         }

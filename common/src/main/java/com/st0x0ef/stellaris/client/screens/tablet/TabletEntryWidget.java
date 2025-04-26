@@ -55,7 +55,7 @@ public class TabletEntryWidget extends AbstractTextAreaWidget {
 
         finalHeight.set(0);
         guiGraphics.drawCenteredString(getFont(), info.title(), this.baseScreenWidth / 2,
-                getY() + finalHeight.get() +20 , Utils.getColorHexCode("white"));
+                getY() + finalHeight.get() + 20 , Utils.getColorHexCode("white"));
 
         int descriptionHeight = renderDescriptionWithEveryWords(info.description(), getX() + 5, getY() + finalHeight.get() + 20 + 20, getWidth() - 20, guiGraphics);
         finalHeight.addAndGet(descriptionHeight);
@@ -67,13 +67,11 @@ public class TabletEntryWidget extends AbstractTextAreaWidget {
             }
         });
 
-
         info.image().ifPresent((image) -> {
             int height = getY() + 40 + finalHeight.get() + 20;
             guiGraphics.blitSprite(RenderType::guiTextured, image.location(), this.baseScreenWidth / 2 - image.width() / 2, height, image.width(), image.height());
 
             finalHeight.addAndGet(image.height() + 40 );
-
         });
 
         info.entity().ifPresent((entity) -> {
@@ -83,6 +81,11 @@ public class TabletEntryWidget extends AbstractTextAreaWidget {
             finalHeight.addAndGet(80);
 
         });
+    }
+
+    @Override
+    protected void renderBackground(GuiGraphics guiGraphics) {
+
     }
 
     public void resize(TabletEntryScreen screen) {
@@ -225,7 +228,6 @@ public class TabletEntryWidget extends AbstractTextAreaWidget {
     }
 
     private record ClickBox(int x, int y, int width, int height, String action) {
-
         public boolean isHovered(int mouseX, int mouseY, int finalHeight) {
                 mouseY += finalHeight;
                 return mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + height;
@@ -234,9 +236,6 @@ public class TabletEntryWidget extends AbstractTextAreaWidget {
             public void changePage(TabletEntryScreen entryScreen) {
                 ResourceLocation location = ResourceLocation.parse(action);
                 entryScreen.widget.setInfo(location);
-
             }
-
         }
-    
 }

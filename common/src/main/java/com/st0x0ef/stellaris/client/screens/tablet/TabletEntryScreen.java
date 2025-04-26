@@ -73,7 +73,7 @@ public class TabletEntryScreen extends Screen {
 
             widget.visible = false;
             changeButtonVisibility(true);
-            if(nextButton != null && backButton != null) {
+            if (nextButton != null && backButton != null) {
                 backButton.setPosition(this.leftPos + 40, this.height / 2 - 4);
                 nextButton.setPosition(this.leftPos + 190, this.height / 2 - 4);
                 nextButton.setSize(16, 16);

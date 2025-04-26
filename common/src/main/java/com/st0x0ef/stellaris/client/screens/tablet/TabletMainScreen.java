@@ -87,8 +87,6 @@ public class TabletMainScreen extends AbstractContainerScreen<TabletMenu> {
         }
     }
 
-
-
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
@@ -99,7 +97,6 @@ public class TabletMainScreen extends AbstractContainerScreen<TabletMenu> {
         }
 
         InventoryScreen.renderEntityInInventoryFollowsMouse(guiGraphics,  this.leftPos + 50, this.topPos + 45, this.leftPos + 80, this.topPos + 115, 30, 0.0625F, mouseX, mouseY, this.minecraft.player);
-
     }
 
     public List<Component> getStats() {
@@ -140,6 +137,4 @@ public class TabletMainScreen extends AbstractContainerScreen<TabletMenu> {
     public int getTopPos() {
         return this.topPos;
     }
-
-
 }
