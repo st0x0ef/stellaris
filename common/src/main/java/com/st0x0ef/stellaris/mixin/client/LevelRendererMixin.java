@@ -1,26 +1,11 @@
 package com.st0x0ef.stellaris.mixin.client;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import com.llamalad7.mixinextras.sugar.Local;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.st0x0ef.stellaris.common.registry.EffectsRegistry;
-import com.st0x0ef.stellaris.common.registry.SoundRegistry;
-import com.st0x0ef.stellaris.common.registry.TagRegistry;
-import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.LevelRenderer;
-import net.minecraft.client.renderer.LightTexture;
-import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.effect.MobEffectInstance;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.*;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static com.st0x0ef.stellaris.Stellaris.texture;
 

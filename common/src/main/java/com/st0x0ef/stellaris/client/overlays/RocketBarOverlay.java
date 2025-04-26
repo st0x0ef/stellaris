@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.client.overlays;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.entities.vehicles.LanderEntity;
 import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
@@ -12,7 +11,6 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 
 public class RocketBarOverlay {

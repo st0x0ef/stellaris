@@ -288,8 +288,16 @@ public class Utils {
         return isLivingInArmor(entity, EquipmentSlot.FEET, ItemsRegistry.JETSUIT_BOOTS.get()) && isLivingInArmor(entity, EquipmentSlot.HEAD, ItemsRegistry.JETSUIT_HELMET.get()) && isLivingInArmor(entity, EquipmentSlot.CHEST, ItemsRegistry.JETSUIT_SUIT.get()) && isLivingInArmor(entity, EquipmentSlot.LEGS, ItemsRegistry.JETSUIT_LEGGINGS.get());
     }
 
+    public static boolean isJetSuitPart(ItemStack stack) {
+        return stack.is(ItemsRegistry.JETSUIT_BOOTS.get()) || stack.is(ItemsRegistry.JETSUIT_HELMET.get()) || stack.is(ItemsRegistry.JETSUIT_SUIT.get()) || stack.is(ItemsRegistry.JETSUIT_LEGGINGS.get());
+    }
+
     public static boolean isLivingInSpaceSuit(LivingEntity entity) {
         return isLivingInArmor(entity, EquipmentSlot.FEET, ItemsRegistry.SPACESUIT_BOOTS.get()) && isLivingInArmor(entity, EquipmentSlot.LEGS, ItemsRegistry.SPACESUIT_LEGGINGS.get()) && isLivingInArmor(entity, EquipmentSlot.CHEST, ItemsRegistry.SPACESUIT_SUIT.get()) && isLivingInArmor(entity, EquipmentSlot.HEAD, ItemsRegistry.SPACESUIT_HELMET.get());
+    }
+
+    public static boolean isSpaceSuitPart(ItemStack stack) {
+        return stack.is(ItemsRegistry.SPACESUIT_BOOTS.get()) || stack.is(ItemsRegistry.SPACESUIT_HELMET.get()) || stack.is(ItemsRegistry.SPACESUIT_SUIT.get()) || stack.is(ItemsRegistry.SPACESUIT_LEGGINGS.get());
     }
 
 

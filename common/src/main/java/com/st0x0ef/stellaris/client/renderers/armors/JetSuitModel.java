@@ -55,13 +55,14 @@ public class JetSuitModel extends HumanoidModel<HumanoidRenderState> {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
 
-		PartDefinition hat = partdefinition.addOrReplaceChild("hat", CubeListBuilder.create().texOffs(0, 0), PartPose.ZERO);
-
 		PartDefinition visor = partdefinition.addOrReplaceChild("visor", CubeListBuilder.create().texOffs(0, 0), PartPose.ZERO);
 
 		PartDefinition head = partdefinition.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 16).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.5F))
 		.texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.75F))
 		.texOffs(14, 59).addBox(3.0F, -13.0F, 1.0F, 1.0F, 5.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, -0.0175F, 0.0873F, 0.0F));
+
+		PartDefinition hat = head.addOrReplaceChild("hat", CubeListBuilder.create().texOffs(0, 0), PartPose.ZERO);
+
 
 		PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 32).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F, new CubeDeformation(0.25F))
 		.texOffs(28, 28).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F, new CubeDeformation(0.25F))
@@ -100,14 +101,11 @@ public class JetSuitModel extends HumanoidModel<HumanoidRenderState> {
 			vertexConsumer = bufferSource.getBuffer(RenderType.entityTranslucent(TEXTURE));
 		}
 
-		parentModel.copyPropertiesTo(this);
+		if (this.parentModel != null) {
+			this.parentModel.copyPropertiesTo(this);
+		}
 
 		super.renderToBuffer(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-	}
-
-	@Override
-	public ModelPart getHead() {
-		return this.head;
 	}
 
 	private void setVisible() {

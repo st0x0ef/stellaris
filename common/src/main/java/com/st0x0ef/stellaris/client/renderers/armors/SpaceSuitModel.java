@@ -57,12 +57,13 @@ public class SpaceSuitModel extends HumanoidModel<HumanoidRenderState> {
 		PartDefinition partdefinition = meshdefinition.getRoot();
 
 		PartDefinition Armure = partdefinition.addOrReplaceChild("Armure", CubeListBuilder.create(), PartPose.offset(2.0F, 12.0F, 0.0F));
-		PartDefinition hat = partdefinition.addOrReplaceChild("hat", CubeListBuilder.create().texOffs(0, 0), PartPose.ZERO);
 
 		PartDefinition visor = partdefinition.addOrReplaceChild("visor", CubeListBuilder.create().texOffs(0, 0), PartPose.ZERO);
 
 		PartDefinition head = partdefinition.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.75F))
 				.texOffs(0, 0).addBox(4.7F, -5.8F, 1.2F, 1.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(-2.0F, -12.0F, 0.0F));
+
+		PartDefinition hat = head.addOrReplaceChild("hat", CubeListBuilder.create().texOffs(0, 0), PartPose.ZERO);
 
 		PartDefinition cube_r1 = head.addOrReplaceChild("cube_r1", CubeListBuilder.create().texOffs(44, 11).addBox(-2.0F, -1.0F, -2.5F, 4.0F, 2.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -8.7F, -0.5F, -0.2618F, 0.0F, 0.0F));
 
@@ -102,7 +103,9 @@ public class SpaceSuitModel extends HumanoidModel<HumanoidRenderState> {
 			vertexConsumer = bufferSource.getBuffer(RenderType.entityTranslucent(TEXTURE));
 		}
 
-		parentModel.copyPropertiesTo(this);
+		if (parentModel != null) {
+			parentModel.copyPropertiesTo(this);
+		}
 
 		super.renderToBuffer(poseStack, vertexConsumer, packedLight, packedOverlay, color);
 	}

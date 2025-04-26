@@ -40,7 +40,6 @@ import com.st0x0ef.stellaris.client.screens.*;
 import com.st0x0ef.stellaris.client.screens.tablet.TabletMainScreen;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
-import com.st0x0ef.stellaris.common.registry.FluidRegistry;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;

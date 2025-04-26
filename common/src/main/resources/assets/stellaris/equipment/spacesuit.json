@@ -1,0 +1,26 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "dyeable": {
+          "color_when_undyed": 16777215
+        },
+        "texture": "stellaris:spacesuit"
+      },
+      {
+        "texture": "stellaris:spacesuit_overlay"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "dyeable": {
+          "color_when_undyed": 16777215
+        },
+        "texture": "stellaris:spacesuit"
+      },
+      {
+        "texture": "stellaris:spacesuit_overlay"
+      }
+    ]
+  }
+}
