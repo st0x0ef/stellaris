@@ -748,7 +748,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             float orbitCenterX = (float) ((orbitCenter.x + offsetX) * zoomLevel);
             float orbitCenterY = (float) ((orbitCenter.y + offsetY) * zoomLevel);
 
-            renderOrbits(graphics, orbitCenterX, orbitCenterY, planet.orbitRadius * zoomLevel, 50, 1.5f, orbitCenter.orbitColor);
+            renderOrbits(graphics, orbitCenterX, orbitCenterY, planet.orbitRadius * zoomLevel, 50, 1f, orbitCenter.orbitColor);
         }
 
         for (MoonInfo moon : MOONS) {
@@ -757,7 +757,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             float orbitCenterX = (float) ((orbitCenter.x + offsetX) * zoomLevel);
             float orbitCenterY = (float) ((orbitCenter.y + offsetY) * zoomLevel);
 
-            renderOrbits(graphics, orbitCenterX, orbitCenterY, moon.orbitRadius * zoomLevel, 75, 1f, 0x88888800);
+            renderOrbits(graphics, orbitCenterX, orbitCenterY, moon.orbitRadius * zoomLevel, 75, 1.5f, 0xFF888888);
         }
     }
 
