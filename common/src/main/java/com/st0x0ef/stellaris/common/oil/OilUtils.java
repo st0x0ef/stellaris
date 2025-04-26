@@ -1,10 +1,19 @@
 package com.st0x0ef.stellaris.common.oil;
 
 import com.st0x0ef.stellaris.common.utils.Utils;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.ChunkPos;
 
 import java.util.Random;
 
 public class OilUtils {
+    public static int getOilLevel(ServerLevel level, ChunkPos pos) {
+        return OilSavedData.getData(level).getAmount(pos);
+    }
+
+    public static void setOilLevel(ServerLevel level, ChunkPos pos, int amount) {
+        OilSavedData.getData(level).setAmount(pos, amount);
+    }
 
     public static int getRandomOilLevel() {
         Random random = new Random();

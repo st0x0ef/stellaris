@@ -1,10 +1,12 @@
 package com.st0x0ef.stellaris.common.items.module;
 
+import com.st0x0ef.stellaris.common.oil.OilUtils;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -25,8 +27,8 @@ public class OilFinderModule extends Item implements SpaceSuitModule {
     @Override
     public void tick(ItemStack stack, Level level, Player player) {
         SpaceSuitModule.super.tick(stack, level, player);
-        if (!level.isClientSide) {
-            this.oilLevel = level.getChunk(player.blockPosition()).stellaris$getChunkOilLevel();
+        if (level instanceof ServerLevel serverLevel) {
+            this.oilLevel = OilUtils.getOilLevel(serverLevel, player.chunkPosition());
         }
     }
 

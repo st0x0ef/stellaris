@@ -4,12 +4,14 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.client.screens.components.GaugeWidget;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.PumpjackBlockEntity;
 import com.st0x0ef.stellaris.common.menus.PumpjackMenu;
+import com.st0x0ef.stellaris.common.oil.OilClientData;
 import com.st0x0ef.stellaris.common.oil.OilUtils;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import com.st0x0ef.stellaris.common.utils.capabilities.fluid.SingleFluidStorage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -54,12 +56,16 @@ public class PumpjackScreen extends AbstractContainerScreen<PumpjackMenu> {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
         renderTooltip(guiGraphics, mouseX, mouseY);
 
-        if (blockEntity == null || Minecraft.getInstance().level == null) {
+        ClientLevel level = Minecraft.getInstance().level;
+
+        if (blockEntity == null || level == null) {
             return;
         }
 
+        int oilLevel = OilClientData.getOilLevel(level, level.getChunk(blockEntity.getBlockPos()).getPos());
+
         guiGraphics.drawString(this.font, "Oil Level", leftPos + 20, topPos + 46, Utils.getColorHexCode("gray"));
-        guiGraphics.drawCenteredString(this.font, String.valueOf(blockEntity.chunkOilLevel(Minecraft.getInstance().level)), leftPos + 40, topPos + 57, OilUtils.getOilLevelColor(blockEntity.chunkOilLevel(Minecraft.getInstance().level)));
+        guiGraphics.drawCenteredString(this.font, String.valueOf(oilLevel), leftPos + 40, topPos + 57, OilUtils.getOilLevelColor(oilLevel));
 
         resultTankGauge.updateAmount(blockEntity.getResultTank().getFluidValueInTank());
         energyGauge.updateAmount(blockEntity.getEnergy(null).getEnergy());

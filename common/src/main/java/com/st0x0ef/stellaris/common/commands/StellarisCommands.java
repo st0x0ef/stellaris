@@ -6,12 +6,12 @@ import com.mojang.brigadier.context.CommandContext;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
+import com.st0x0ef.stellaris.common.oil.OilUtils;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.chunk.ChunkAccess;
+import net.minecraft.server.level.ServerLevel;
 
 public class StellarisCommands {
 
@@ -23,15 +23,16 @@ public class StellarisCommands {
                         .then(Commands.literal("set")
                                 .then(Commands.argument("level", IntegerArgumentType.integer())
                                         .executes((CommandContext<CommandSourceStack> context) -> {
-                                            ChunkAccess access = context.getSource().getPlayer().level().getChunk(context.getSource().getPlayer().getOnPos());
-                                            access.stellaris$setChunkOilLevel(context.getArgument("level", Integer.class));
-                                            context.getSource().getPlayer().sendSystemMessage(Component.literal("Oil Level : " + access.stellaris$getChunkOilLevel()));
+                                            if (context.getSource().getPlayer() != null && context.getSource().getPlayer().level() instanceof ServerLevel serverLevel) {
+                                                OilUtils.setOilLevel(serverLevel, context.getSource().getPlayer().chunkPosition(), context.getArgument("level", Integer.class));
+                                            }
                                             return 0;
                                         })))
                         .then(Commands.literal("get")
                                 .executes((CommandContext<CommandSourceStack> context) -> {
-                                    ChunkAccess access = context.getSource().getPlayer().level().getChunk(context.getSource().getPlayer().getOnPos());
-                                    context.getSource().getPlayer().sendSystemMessage(Component.literal("Oil Level : " + access.stellaris$getChunkOilLevel()));
+                                    if (context.getSource().getPlayer() != null && context.getSource().getPlayer().level() instanceof ServerLevel serverLevel) {
+                                        OilUtils.getOilLevel(serverLevel, context.getSource().getPlayer().chunkPosition());
+                                    }
                                     return 0;
                                 })))
 

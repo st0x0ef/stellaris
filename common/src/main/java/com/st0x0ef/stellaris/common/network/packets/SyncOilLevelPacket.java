@@ -1,10 +1,11 @@
 package com.st0x0ef.stellaris.common.network.packets;
 
+import com.st0x0ef.stellaris.common.oil.OilClientData;
 import dev.architectury.networking.NetworkManager;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.ChunkPos;
 import org.jetbrains.annotations.NotNull;
 
 import static com.st0x0ef.stellaris.Stellaris.id;
@@ -43,10 +44,8 @@ public class SyncOilLevelPacket implements CustomPacketPayload {
         this.chunkZ = chunkZ;
     }
 
-
     public static void handle(SyncOilLevelPacket packet, NetworkManager.PacketContext context) {
-        Player player = context.getPlayer();
-        player.level().getChunk(packet.chunkX, packet.chunkZ).stellaris$setChunkOilLevel(packet.oilLevel);
+        OilClientData.setOilLevel(context.getPlayer().level(), new ChunkPos(packet.chunkX, packet.chunkZ), packet.oilLevel);
     }
 
     @Override

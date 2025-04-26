@@ -12,7 +12,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public final  class OxygenSavedData extends SavedData {
+public final class OxygenSavedData extends SavedData {
 
     private final Set<OxygenRoom> rooms;
 

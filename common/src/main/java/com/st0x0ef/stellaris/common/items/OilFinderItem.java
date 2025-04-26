@@ -6,6 +6,7 @@ import com.st0x0ef.stellaris.common.oil.OilUtils;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -23,25 +24,26 @@ public class OilFinderItem extends Item implements EnergyProvider.ITEM {
 
     @Override
     public InteractionResult use(Level level, Player player, InteractionHand usedHand) {
-        if (level.isClientSide())
-            return InteractionResult.FAIL;
-
 //        UniversalEnergyStorage energy = getEnergy(player.getItemInHand(usedHand));
 //        if (energy.getEnergy() < 1)
 //            return InteractionResultHolder.fail(player.getItemInHand(usedHand));
 
-        int oilLevel = level.getChunk(player.getOnPos()).stellaris$getChunkOilLevel();
+        if (level instanceof ServerLevel serverLevel)  {
+            int oilLevel = OilUtils.getOilLevel(serverLevel, player.chunkPosition());
 
-        MutableComponent component = Component.literal("Found Oil " + level.getChunk(player.getOnPos()).stellaris$getChunkOilLevel() + "mb");
-        if (oilLevel == 0) component = Component.literal("No oil found");
-        component.withColor(OilUtils.getOilLevelColor(oilLevel));
+            MutableComponent component = Component.literal("Found Oil " + oilLevel + "mb");
+            if (oilLevel == 0) component = Component.literal("No oil found");
+            component.withColor(OilUtils.getOilLevelColor(oilLevel));
 
-        player.getItemInHand(usedHand).hurtAndBreak(2, player, EquipmentSlot.MAINHAND);
-        //energy.extract(1, false);
+            player.getItemInHand(usedHand).hurtAndBreak(2, player, EquipmentSlot.MAINHAND);
+            //energy.extract(1, false);
 
-        player.displayClientMessage(component, true);
+            player.displayClientMessage(component, true);
 
-        return super.use(level, player, usedHand);
+            return super.use(level, player, usedHand);
+        }
+
+        return InteractionResult.FAIL;
     }
 
     @Override

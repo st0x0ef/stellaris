@@ -73,48 +73,4 @@ public abstract class ArmorRendererMixin {
             }
         }
     }
-
-    /*@Inject(method = "renderHand", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/geom/ModelPart;resetPose()V", shift = At.Shift.AFTER), cancellable = true)
-    private void renderPlayerHand(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, ResourceLocation skinTexture, ModelPart arm, boolean isSleeveVisible, CallbackInfo ci) {
-        Player player = Minecraft.getInstance().player;
-        if (player == null) {
-            return;
-        }
-
-        ItemStack stack = player.getItemBySlot(EquipmentSlot.CHEST);
-
-        if (stack.getItem() instanceof JetSuit.Suit || (stack.getItem() instanceof AbstractSpaceArmor)) {
-            ci.cancel();
-
-            ArmorRenderData data = ArmorRenderData.get(stack);
-            ModelLayerLocation layer = data.layer();
-            ResourceLocation texture = data.texture();
-            ModelPart rootPart = Minecraft.getInstance().getEntityModels().bakeLayer(layer);
-            HumanoidModel<?> model = data.modelProvider().apply(rootPart, stack);
-
-            if (arm == model.rightArm) {
-                model.rightArm.copyFrom(arm);
-                model.rightArm.render(poseStack, bufferSource.getBuffer(RenderType.entityTranslucent(texture)), packedLight, OverlayTexture.NO_OVERLAY);
-                return;
-            }
-
-            model.leftArm.copyFrom(arm);
-            model.leftArm.render(poseStack, bufferSource.getBuffer(RenderType.entityTranslucent(texture)), packedLight, OverlayTexture.NO_OVERLAY);
-        }
-    }
-
-    @Inject(method = "render*", at = @At("HEAD"), cancellable = true)
-    public void renderPlayer(AbstractClientPlayer entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight, CallbackInfo ci) {
-        if (entity.getVehicle() instanceof LanderEntity) {
-            ci.cancel();
-        }
-
-        if (Utils.isLivingInSpaceSuit(entity)) {
-            ItemStack stack = entity.getItemBySlot(EquipmentSlot.CHEST);
-
-            if (stack.getItem() instanceof SpaceSuit spaceSuitItem) {
-                spaceSuitItem.getModules(stack).forEach(module -> module.renderModel(poseStack, buffer, entity, entityYaw, partialTicks, packedLight));
-            }
-        }
-    }*/
 }
