@@ -15,7 +15,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
 @Environment(EnvType.CLIENT)
-public class MartianRaptorModel extends EntityModel<LivingEntityRenderState>  {
+public class MartianRaptorModel extends EntityModel<MartianRaptorRenderState>  {
 
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "martian_raptor"), "main");
 
@@ -92,14 +92,15 @@ public class MartianRaptorModel extends EntityModel<LivingEntityRenderState>  {
 
 
     @Override
-    public void setupAnim(LivingEntityRenderState state) {
-        float f = 1.0F - Mth.abs(10 - 2 * state.ageInTicks) / 10.0F;
+    public void setupAnim(MartianRaptorRenderState state) {
+        float i = state.attackAnim;
+        float f = 1.0F - Mth.abs(10 - 2 * i) / 10.0F;
 
         this.body.getChild("head").getChild("bone2").getChild("mouth1").zRot = Mth.lerp(f, 0.0F, -1.14906584F);
         this.body.getChild("head").getChild("bone2").getChild("mouth2").zRot = -Mth.lerp(f, 0.0F, -1.14906584F);
 
-        this.leg1.xRot = Mth.cos(state.ageInTicks) * -1.0F * 2; // TODO : adjust the animation (*2 params)
-        this.leg2.xRot = Mth.cos(state.ageInTicks) * 1.0F * 2; // TODO : adjust the animation (*2 params)
+        this.leg1.xRot = Mth.cos(state.walkAnimationPos) * -1.0F * state.walkAnimationSpeed;
+        this.leg2.xRot = Mth.cos(state.walkAnimationPos) * 1.0F * state.walkAnimationSpeed;
 
         this.body.getChild("head").yRot = state.yRot / (180F / (float) Math.PI);
         this.body.getChild("head").xRot = state.xRot / (180F / (float) Math.PI);

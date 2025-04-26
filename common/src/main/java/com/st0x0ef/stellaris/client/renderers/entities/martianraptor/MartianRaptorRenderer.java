@@ -11,7 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 import static com.st0x0ef.stellaris.Stellaris.texture;
 
 @Environment(EnvType.CLIENT)
-public class MartianRaptorRenderer extends MobRenderer<MartianRaptor, LivingEntityRenderState, MartianRaptorModel> {
+public class MartianRaptorRenderer extends MobRenderer<MartianRaptor, MartianRaptorRenderState, MartianRaptorModel> {
 
     public static final ResourceLocation TEXTURE = texture("entity/martian_raptor");
 
@@ -20,12 +20,18 @@ public class MartianRaptorRenderer extends MobRenderer<MartianRaptor, LivingEnti
     }
 
     @Override
-    public LivingEntityRenderState createRenderState() {
-        return new LivingEntityRenderState();
+    public MartianRaptorRenderState createRenderState() {
+        return new MartianRaptorRenderState();
     }
 
     @Override
-    public ResourceLocation getTextureLocation(LivingEntityRenderState p_114482_) {
+    public void extractRenderState(MartianRaptor livingEntity, MartianRaptorRenderState state, float f) {
+        super.extractRenderState(livingEntity, state, f);
+        state.attackAnim = livingEntity.getAttackAnim();
+    }
+
+    @Override
+    public ResourceLocation getTextureLocation(MartianRaptorRenderState state) {
         return TEXTURE;
     }
 }

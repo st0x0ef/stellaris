@@ -139,15 +139,15 @@ public class StarCrawlerModel extends EntityModel<LivingEntityRenderState> {
     @Override
     public void setupAnim(LivingEntityRenderState state) {
         // arm1
-        this.arm1g.getChild("Hand1").yRot = Mth.cos(state.ageInTicks * 0.6662F) * state.ageInTicks;
+        this.arm1g.getChild("Hand1").yRot = Mth.cos(state.ageInTicks * 0.6662F) * state.ageScale;
         this.arm2g.getChild("Hand2").yRot = Mth.cos(state.ageInTicks * 0.6662F) * state.ageScale;
         this.arm3g.getChild("Hand3").yRot = 80.115f + Mth.cos(state.ageInTicks * 0.6662F) * state.ageScale;
         this.arm4g.getChild("Hand4").yRot = -80.115f + Mth.cos(state.ageInTicks * 0.6662F) * state.ageScale;
         // arm
-        this.arm1g.yRot = Mth.cos(state.ageInTicks * 0.6662F) * state.ageInTicks;
-        this.arm2g.yRot = Mth.cos(state.ageInTicks * 0.6662F) * state.ageInTicks;
-        this.arm3g.yRot = Mth.cos(state.ageInTicks * 0.6662F) * state.ageInTicks;
-        this.arm4g.yRot = Mth.cos(state.ageInTicks * 0.6662F) * state.ageInTicks;
+        this.arm1g.yRot = Mth.cos(state.ageInTicks * 0.6662F) * state.ageScale;
+        this.arm2g.yRot = Mth.cos(state.ageInTicks * 0.6662F) * state.ageScale;
+        this.arm3g.yRot = Mth.cos(state.ageInTicks * 0.6662F) * state.ageScale;
+        this.arm4g.yRot = Mth.cos(state.ageInTicks * 0.6662F) * state.ageScale;
     }
 
     @Override

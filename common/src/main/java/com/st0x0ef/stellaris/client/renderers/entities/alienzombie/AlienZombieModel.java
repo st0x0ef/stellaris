@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.client.renderers.entities.alienzombie;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.client.renderers.entities.alien.AlienAnim;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.EntityModel;
@@ -11,6 +12,7 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
+import net.minecraft.client.renderer.entity.state.VillagerRenderState;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
@@ -111,29 +113,17 @@ public class AlienZombieModel extends EntityModel<LivingEntityRenderState> {
 
     @Override
     public void setupAnim(LivingEntityRenderState state) {
-        //base
-        this.arm2.yRot = 0.0F;
-        this.arm1.yRot = 0.0F;
-        this.arm2.zRot = 0.0F;
-        this.arm1.zRot = 0.0F;
+        this.root.getAllParts().forEach(ModelPart::resetPose);
+        this.applyHeadRotation(state.yRot, state.xRot);
 
-        this.arm2.zRot -= Mth.cos(state.ageInTicks * 0.04F) * 0.04F + 0.04F;
-        this.arm1.zRot += Mth.cos(state.ageInTicks * 0.04F) * 0.04F + 0.04F;
+        this.animateWalk(AlienAnim.walk, state.walkAnimationPos, state.walkAnimationSpeed, 2f, 2.5f);
+    }
 
-        //base end
+    private void applyHeadRotation(float headYaw, float headPitch) {
+        headYaw = Mth.clamp(headYaw, -30f, 30f);
+        headPitch = Mth.clamp(headPitch, -25f, 45);
 
-        this.head.yRot = state.yRot * ((float)Math.PI / 180F);
-        this.head.xRot = state.xRot * ((float)Math.PI / 180F);
-        this.leg0.xRot = Mth.cos(state.walkAnimationPos) * -1.0F * state.walkAnimationPos;
-        this.leg1.xRot = Mth.cos(state.walkAnimationPos) * 1.0F * state.walkAnimationSpeed;
-        this.monsterarm1.yRot = Mth.cos(state.walkAnimationPos * 0.3662F + (float) Math.PI) * state.walkAnimationPos / 2;
-        this.monsterarm4.yRot = Mth.cos(state.walkAnimationPos * 0.3662F + (float) Math.PI) * state.walkAnimationPos / 2;
-        this.monsterarm3.yRot = Mth.cos(state.walkAnimationPos * 0.3662F + (float) Math.PI) * state.walkAnimationPos / 2;
-        this.monsterarm2.yRot = Mth.cos(state.walkAnimationPos * 0.3662F + (float) Math.PI) * state.walkAnimationPos / 2;
-        this.arm1.xRot = 30f;
-        this.arm2.xRot = 30f;
-
-        this.arm2.xRot -= Mth.cos(state.ageInTicks * 0.04F) * 0.04F + 0.04F;
-        this.arm1.xRot += Mth.cos(state.ageInTicks * 0.04F) * 0.04F + 0.04F;
+        this.root.getChild("head").yRot = headYaw * ((float)Math.PI / 180f);
+        this.root.getChild("head").xRot = headPitch *  ((float)Math.PI / 180f);
     }
 }

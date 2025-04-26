@@ -74,12 +74,13 @@ public class MoglerModel extends EntityModel<MoglerRenderState> {
 
     @Override
     public void setupAnim(MoglerRenderState state) {
-        this.head.yRot = state.yRot * ((float)Math.PI / 180F);
-        float f = 1.0F - Mth.abs(10 - 2 * state.ageInTicks) / 10.0F;
+        this.head.yRot = state.yRot * ((float) Math.PI / 180F);
+        float i = state.attackAnim;
+        float f = 1.0F - (float) Mth.abs(10 - 2 * i) / 10.0F;
         this.head.xRot = Mth.lerp(f, 0.0F, -1.14906584F);
 
-        this.leg1.xRot = Mth.cos(state.ageInTicks) * 1.2F * 2; // TODO : adjust the animation (*2 params)
-        this.leg2.xRot = Mth.cos(state.ageInTicks + (float)Math.PI) * 1.2F * 2; // TODO : adjust the animation (*2 params)
+        this.leg1.xRot = Mth.cos(state.walkAnimationPos) * 1.2F * state.walkAnimationSpeed;
+        this.leg2.xRot = Mth.cos(state.walkAnimationPos + (float) Math.PI) * 1.2F * state.walkAnimationSpeed;
         this.leg3.xRot = this.leg1.xRot;
         this.leg4.xRot = this.leg2.xRot;
     }

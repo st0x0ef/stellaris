@@ -8,6 +8,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -26,6 +27,7 @@ import net.minecraft.world.level.Level;
 public class MartianRaptor extends Monster {
 
     private float AttackAnim = 0;
+
 
     public MartianRaptor(EntityType<? extends MartianRaptor> type, Level world) {
         super(type, world);

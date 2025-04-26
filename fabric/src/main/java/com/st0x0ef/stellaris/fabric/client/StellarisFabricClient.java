@@ -15,7 +15,6 @@ import com.st0x0ef.stellaris.client.renderers.entities.martianraptor.MartianRapt
 import com.st0x0ef.stellaris.client.renderers.entities.mogler.MoglerModel;
 import com.st0x0ef.stellaris.client.renderers.entities.mogler.MoglerRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.projectiles.IceShardArrowRenderer;
-import com.st0x0ef.stellaris.client.renderers.entities.pygro.PygroBruteModel;
 import com.st0x0ef.stellaris.client.renderers.entities.pygro.PygroBruteRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.pygro.PygroModel;
 import com.st0x0ef.stellaris.client.renderers.entities.pygro.PygroRenderer;

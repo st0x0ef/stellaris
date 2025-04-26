@@ -14,6 +14,7 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.entity.state.VillagerRenderState;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 
 @Environment(EnvType.CLIENT)
 public class AlienModel extends EntityModel<VillagerRenderState> implements VillagerLikeModel, HeadedModel {
@@ -40,14 +41,15 @@ public class AlienModel extends EntityModel<VillagerRenderState> implements Vill
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
 
+		PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(16, 20).mirror().addBox(-4.0F, 0.0F, -3.0F, 8.0F, 12.0F, 6.0F, new CubeDeformation(0.0F)).mirror(false)
+				.texOffs(0, 38).mirror().addBox(-4.0F, 0.0F, -3.0F, 8.0F, 18.0F, 6.0F, new CubeDeformation(0.5F)).mirror(false), PartPose.offset(0.0F, 0.0F, 0.0F));
+
 		PartDefinition head = partdefinition.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).mirror().addBox(-4.0F, -9.0F, -4.0F, 8.0F, 9.0F, 8.0F, new CubeDeformation(0.0F)).mirror(false)
 				.texOffs(32, 0).mirror().addBox(-4.5F, -19.0F, -4.5F, 9.0F, 10.0F, 9.0F, new CubeDeformation(0.0F)).mirror(false)
 				.texOffs(16, 64).mirror().addBox(-8.0F, -15.0F, -8.0F, 16.0F, 0.0F, 16.0F, new CubeDeformation(0.0F)).mirror(false)
 				.texOffs(70, 2).mirror().addBox(-6.0F, -16.0F, -6.0F, 12.0F, 0.0F, 12.0F, new CubeDeformation(0.0F)).mirror(false)
 				.texOffs(24, 0).mirror().addBox(-1.0F, -3.0F, -6.0F, 2.0F, 4.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(16, 20).mirror().addBox(-4.0F, 0.0F, -3.0F, 8.0F, 12.0F, 6.0F, new CubeDeformation(0.0F)).mirror(false)
-				.texOffs(0, 38).mirror().addBox(-4.0F, 0.0F, -3.0F, 8.0F, 18.0F, 6.0F, new CubeDeformation(0.5F)).mirror(false), PartPose.offset(0.0F, 0.0F, 0.0F));
 
 		PartDefinition leg0 = partdefinition.addOrReplaceChild("leg0", CubeListBuilder.create().texOffs(0, 22).mirror().addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(2.0F, 12.0F, 0.0F));
 
@@ -62,21 +64,21 @@ public class AlienModel extends EntityModel<VillagerRenderState> implements Vill
 		return LayerDefinition.create(meshdefinition, 128, 128);
 	}
 
-	// TODO : Animation
-
 	@Override
-	public void setupAnim(VillagerRenderState entityRenderState) {
-		super.setupAnim(entityRenderState);
+	public void setupAnim(VillagerRenderState state) {
+		this.root.getAllParts().forEach(ModelPart::resetPose);
+		this.applyHeadRotation(state.yRot, state.xRot);
+
+		this.animateWalk(AlienAnim.walk, state.walkAnimationPos, state.walkAnimationSpeed, 2f, 2.5f);
 	}
 
-	/*
-	@Override
-	public void setupAnim(T e, float f, float f1, float f2, float f3, float f4) {
-		this.head.yRot = f3 / (180F / (float) Math.PI);
-		this.head.xRot = f4 / (180F / (float) Math.PI);
-		this.leg0.xRot = Mth.cos(f) * -1.0F * f1;
-		this.leg1.xRot = Mth.cos(f) * 1.0F * f1;
-	}*/
+	private void applyHeadRotation(float headYaw, float headPitch) {
+		headYaw = Mth.clamp(headYaw, -30f, 30f);
+		headPitch = Mth.clamp(headPitch, -25f, 45);
+
+		this.root.getChild("head").yRot = headYaw * ((float)Math.PI / 180f);
+		this.root.getChild("head").xRot = headPitch *  ((float)Math.PI / 180f);
+	}
 
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int color) {

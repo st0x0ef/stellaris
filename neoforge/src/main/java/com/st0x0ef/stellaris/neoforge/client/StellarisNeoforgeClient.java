@@ -17,7 +17,6 @@ import com.st0x0ef.stellaris.client.renderers.entities.martianraptor.MartianRapt
 import com.st0x0ef.stellaris.client.renderers.entities.mogler.MoglerModel;
 import com.st0x0ef.stellaris.client.renderers.entities.mogler.MoglerRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.projectiles.IceShardArrowRenderer;
-import com.st0x0ef.stellaris.client.renderers.entities.pygro.PygroBruteModel;
 import com.st0x0ef.stellaris.client.renderers.entities.pygro.PygroBruteRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.pygro.PygroModel;
 import com.st0x0ef.stellaris.client.renderers.entities.pygro.PygroRenderer;
@@ -91,7 +90,6 @@ public class StellarisNeoforgeClient {
         event.registerLayerDefinition(AlienZombieModel.LAYER_LOCATION, AlienZombieModel::createBodyLayer);
         event.registerLayerDefinition(MartianRaptorModel.LAYER_LOCATION, MartianRaptorModel::createBodyLayer);
         event.registerLayerDefinition(PygroModel.LAYER_LOCATION, PygroModel::createBodyLayer);
-        event.registerLayerDefinition(PygroBruteModel.LAYER_LOCATION, PygroBruteModel::createBodyLayer);
         event.registerLayerDefinition(MoglerModel.LAYER_LOCATION, MoglerModel::createBodyLayer);
         event.registerLayerDefinition(StarCrawlerModel.LAYER_LOCATION, StarCrawlerModel::createBodyLayer);
         event.registerLayerDefinition(CheeseBossModel.LAYER_LOCATION, CheeseBossModel::createBodyLayer);

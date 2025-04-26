@@ -10,6 +10,7 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 
 @Environment(EnvType.CLIENT)
 public class PygroModel extends HumanoidModel<PygroRenderState> {
@@ -48,6 +49,7 @@ public class PygroModel extends HumanoidModel<PygroRenderState> {
         //NOSE 2
         PartDefinition fang2 = partdefinition1.addOrReplaceChild("noseg2", CubeListBuilder.create(), PartPose.offset(4.5F, 24.0F, 0.0F));
         fang2.addOrReplaceChild("nose2", CubeListBuilder.create().texOffs(33, 2).addBox(-2.15F, -1.45F, -0.35F, 3.0F, 3.0F, 1.0F, CubeDeformation.NONE), PartPose.offsetAndRotation(-2.0F, -25.0F, -4.5F, 0.0631F, -0.3435F, -0.1855F));
+
         return meshdefinition;
     }
 
@@ -56,63 +58,18 @@ public class PygroModel extends HumanoidModel<PygroRenderState> {
     }
 
     @Override
-    public void setupAnim(PygroRenderState renderState) {
-        super.setupAnim(renderState);
-        /*this.body.loadPose(this.bodyDefault);
-        this.head.loadPose(this.headDefault);
-        this.leftArm.loadPose(this.leftArmDefault);
-        this.rightArm.loadPose(this.rightArmDefault);
-        float f1 = p_103369_ * 0.1F + p_103367_ * 0.5F;
-        float f2 = 0.08F + p_103368_ * 0.4F;
-        this.leftEar.zRot = (-(float)Math.PI / 6F) - Mth.cos(f1 * 1.2F) * f2;
-        this.rightEar.zRot = ((float)Math.PI / 6F) + Mth.cos(f1) * f2;
-        if (p_103366_ instanceof AbstractPiglin abstractpiglin) {
-            PiglinArmPose piglinarmpose = abstractpiglin.getArmPose();
-            if (piglinarmpose == PiglinArmPose.DANCING) {
-                float f3 = p_103369_ / 60.0F;
-                this.rightEar.zRot = ((float)Math.PI / 6F) + ((float)Math.PI / 180F) * Mth.sin(f3 * 30.0F) * 10.0F;
-                this.leftEar.zRot = (-(float)Math.PI / 6F) - ((float)Math.PI / 180F) * Mth.cos(f3 * 30.0F) * 10.0F;
-                this.head.x = Mth.sin(f3 * 10.0F);
-                this.head.y = Mth.sin(f3 * 40.0F) + 0.4F;
-                this.rightArm.zRot = ((float)Math.PI / 180F) * (70.0F + Mth.cos(f3 * 40.0F) * 10.0F);
-                this.leftArm.zRot = this.rightArm.zRot * -1.0F;
-                this.rightArm.y = Mth.sin(f3 * 40.0F) * 0.5F + 1.5F;
-                this.leftArm.y = Mth.sin(f3 * 40.0F) * 0.5F + 1.5F;
-                this.body.y = Mth.sin(f3 * 40.0F) * 0.35F;
-            } else if (piglinarmpose == PiglinArmPose.ATTACKING_WITH_MELEE_WEAPON && this.attackTime == 0.0F) {
-                this.holdWeaponHigh(p_103366_);
-            } else if (piglinarmpose == PiglinArmPose.CROSSBOW_HOLD) {
-                AnimationUtils.animateCrossbowHold(this.rightArm, this.leftArm, this.head, !p_103366_.isLeftHanded());
-            } else if (piglinarmpose == PiglinArmPose.CROSSBOW_CHARGE) {
-                AnimationUtils.animateCrossbowCharge(this.rightArm, this.leftArm, p_103366_, !p_103366_.isLeftHanded());
-            } else if (piglinarmpose == PiglinArmPose.ADMIRING_ITEM) {
-                this.head.xRot = 0.5F;
-                this.head.yRot = 0.0F;
-                if (p_103366_.isLeftHanded()) {
-                    this.rightArm.yRot = -0.5F;
-                    this.rightArm.xRot = -0.9F;
-                } else {
-                    this.leftArm.yRot = 0.5F;
-                    this.leftArm.xRot = -0.9F;
-                }
-            }
-        } else if (p_103366_.getType() == EntityType.ZOMBIFIED_PIGLIN) {
-            AnimationUtils.animateZombieArms(this.leftArm, this.rightArm, p_103366_.isAggressive(), this.attackTime, p_103369_);
-        }
+    public void setupAnim(PygroRenderState state) {
+        this.root.getAllParts().forEach(ModelPart::resetPose);
+        this.applyHeadRotation(state.yRot, state.xRot);
 
-        this.leftPants.copyFrom(this.leftLeg);
-        this.rightPants.copyFrom(this.rightLeg);
-        this.leftSleeve.copyFrom(this.leftArm);
-        this.rightSleeve.copyFrom(this.rightArm);
-        this.jacket.copyFrom(this.body);
-        this.hat.copyFrom(this.head);*/
+        this.animateWalk(PygroAnim.walk, state.walkAnimationPos, state.walkAnimationSpeed, 2f, 2.5f);
     }
 
-    /*private void holdWeaponHigh(T p_103361_) {
-        if (p_103361_.isLeftHanded()) {
-            this.leftArm.xRot = -1.8F;
-        } else {
-            this.rightArm.xRot = -1.8F;
-        }
-    }*/
+    private void applyHeadRotation(float headYaw, float headPitch) {
+        headYaw = Mth.clamp(headYaw, -30f, 30f);
+        headPitch = Mth.clamp(headPitch, -25f, 45);
+
+        this.head.yRot = headYaw * ((float)Math.PI / 180f);
+        this.head.xRot = headPitch *  ((float)Math.PI / 180f);
+    }
 }

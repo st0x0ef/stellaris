@@ -27,6 +27,13 @@ public class MoglerRenderer extends MobRenderer<Mogler, MoglerRenderState, Mogle
     }
 
     @Override
+    public void extractRenderState(Mogler livingEntity, MoglerRenderState livingEntityRenderState, float f) {
+        super.extractRenderState(livingEntity, livingEntityRenderState, f);
+        livingEntityRenderState.attackAnim = livingEntity.getAttackAnim(f);
+        livingEntityRenderState.isConverting = livingEntity.isConverting();
+    }
+
+    @Override
     public ResourceLocation getTextureLocation(MoglerRenderState renderState) {
         return LAYER_LOCATION;
     }
