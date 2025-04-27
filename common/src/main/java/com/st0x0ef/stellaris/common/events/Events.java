@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.common.events;
 import com.st0x0ef.stellaris.common.blocks.CoalLanternBlock;
 import com.st0x0ef.stellaris.common.blocks.WallCoalTorchBlock;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPadLauncher;
+import com.st0x0ef.stellaris.common.network.packets.SyncLaunchPads;
 import com.st0x0ef.stellaris.common.oxygen.GlobalOxygenManager;
 import com.st0x0ef.stellaris.common.registry.BlocksRegistry;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
@@ -12,7 +13,9 @@ import com.st0x0ef.stellaris.common.utils.Utils;
 import dev.architectury.event.EventResult;
 import dev.architectury.event.events.common.BlockEvent;
 import dev.architectury.event.events.common.LifecycleEvent;
+import dev.architectury.event.events.common.PlayerEvent;
 import dev.architectury.event.events.common.TickEvent;
+import dev.architectury.networking.NetworkManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -126,6 +129,15 @@ public class Events {
 
             LaunchPadLauncher.loadOrGenerateDefaults(levelStorageSource.getLevelDirectory().path());
         });
+
+        PlayerEvent.PLAYER_JOIN.register((player) -> {
+            LevelStorageSource.LevelStorageAccess levelStorageSource = player.server.storageSource;
+
+            LaunchPadLauncher.loadOrGenerateDefaults(levelStorageSource.getLevelDirectory().path());
+            NetworkManager.sendToPlayer(player, new SyncLaunchPads(LaunchPadLauncher.LAUNCH_PADS));
+
+        });
+
     }
 
     private static void removeOxygenRoom(ServerLevel level, BlockPos pos) {
