@@ -9,11 +9,12 @@ import com.st0x0ef.stellaris.client.screens.info.*;
 import com.st0x0ef.stellaris.client.screens.etc.StarMovement;
 import com.st0x0ef.stellaris.client.screens.etc.Trail;
 import com.st0x0ef.stellaris.client.screens.record.PSystemRecord;
-import com.st0x0ef.stellaris.client.screens.windows.SpaceStationWindow;
+import com.st0x0ef.stellaris.client.screens.windows.LaunchWindow;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.data.recipes.SpaceStationRecipe;
 import com.st0x0ef.stellaris.common.data.recipes.SpaceStationRecipesManager;
 import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
+import com.st0x0ef.stellaris.common.launchpads.LaunchPad;
 import com.st0x0ef.stellaris.common.menus.PlanetSelectionMenu;
 import com.st0x0ef.stellaris.common.network.packets.OpenMilkyWayMenuPacket;
 import com.st0x0ef.stellaris.common.network.packets.PlaceStationPacket;
@@ -30,7 +31,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Tooltip;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
@@ -40,6 +40,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWScrollCallback;
 
@@ -75,6 +76,7 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
     public static final List<PlanetInfo> PLANETS = new ArrayList<>();
     public static final List<MoonInfo> MOONS = new ArrayList<>();
     public static final List<PSystemInfo> PSYSTEMS = new ArrayList<>();
+    public static LaunchPad.LaunchPadContainer LAUNCH_PADS = new LaunchPad.LaunchPadContainer(new ArrayList<>());
 
 
     public static final Component temperature = Component.translatable("text.stellaris.planetscreen.temperature");
@@ -107,8 +109,8 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
     private boolean isWheelButtonDown = false;
     public boolean isPlanetScreenOpened;
 
-    public static CelestialBody focusedBody = null;
-    public static CelestialBody hoveredBody = null;
+    @Nullable public static CelestialBody focusedBody = null;
+    @Nullable public static CelestialBody hoveredBody = null;
 
     private double zoomLevel = 1.0;
     private double targetZoomLevel = 1.0;
@@ -127,7 +129,7 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
 
     public ArrayList<SpaceStationRecipesManager.SpaceStationRecipeState> spaceStationRecipeStates = new ArrayList<>();
 
-    private SpaceStationWindow spaceStationWindow;
+    private LaunchWindow launchWindow;
 
     public PlanetSelectionScreen(PlanetSelectionMenu abstractContainerMenu, Inventory inventory, Component component) {
         super(abstractContainerMenu, inventory, component);
@@ -142,10 +144,10 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
         super.init();
         getMenu().freeze_gui = false;
 
-        this.spaceStationWindow = new SpaceStationWindow(300,200, Component.literal("eee"), this);
+        this.launchWindow = new LaunchWindow(300,200, Component.literal("eee"), this);
 
-        addRenderableWidget(this.spaceStationWindow);
-        this.spaceStationWindow.changeVisibility(false);
+        addRenderableWidget(this.launchWindow);
+        this.launchWindow.changeVisibility(false);
 
         centerSun();
         isPlanetScreenOpened = true;
@@ -1506,14 +1508,14 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
 
     private void renderSpaceStation(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
 
-        if(spaceStationWindow == null)return;
+        if(launchWindow == null)return;
 
 
-        if(spaceStationWindow.visible != showSpaceStationMenu) {
-            spaceStationWindow.changeVisibility(showSpaceStationMenu);
+        if(launchWindow.visible != showSpaceStationMenu) {
+            launchWindow.changeVisibility(showSpaceStationMenu);
         }
 
-        spaceStationWindow.render(guiGraphics, mouseX, mouseY, partialTick);
+        launchWindow.render(guiGraphics, mouseX, mouseY, partialTick);
 
     }
 

@@ -4,14 +4,19 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.common.network.packets.SyncLaunchPads;
+import dev.architectury.networking.NetworkManager;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.GsonHelper;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
+import java.util.ArrayList;
 
 //The name of this class is funny :)
 public class LaunchPadLauncher {
@@ -56,19 +61,31 @@ public class LaunchPadLauncher {
     }
 
 
-    public static void addLaunchPad(LaunchPad pad, Path worldPath) throws IOException {
-        Path launchpath = worldPath.resolve("launch-pads.json");
+    public static void addLaunchPad(LaunchPad pad, MinecraftServer server)  {
+        try {
+            Path launchpath = server.storageSource.getLevelDirectory().path().resolve("launch-pads.json");
+
+            Stellaris.LOG.error("Before writing launchpads to file {}", LaunchPadLauncher.LAUNCH_PADS.launchPads().size());
+
+            ArrayList<LaunchPad> launchPads = new ArrayList<>(LaunchPadLauncher.LAUNCH_PADS.launchPads());
+            launchPads.add(pad);
+            LaunchPadLauncher.LAUNCH_PADS = new LaunchPad.LaunchPadContainer(launchPads);
+            Stellaris.LOG.error("After writing launchpads to file {}", LaunchPadLauncher.LAUNCH_PADS.launchPads().size());
+
+            JsonElement jsonElement = LaunchPad.LaunchPadContainer.toJson(LaunchPadLauncher.LAUNCH_PADS);
+            String launchpadsFile = Stellaris.GSON.toJson(jsonElement);
 
 
-        LaunchPadLauncher.LAUNCH_PADS.launchPads().add(pad);
+            BufferedWriter launchpadsWrite = Files.newBufferedWriter(launchpath);
+            launchpadsWrite.write(launchpadsFile);
+            launchpadsWrite.close();
 
-        JsonElement jsonElement = LaunchPad.LaunchPadContainer.toJson(LaunchPadLauncher.LAUNCH_PADS);
-        String launchpadsFile = Stellaris.GSON.toJson(jsonElement);
+        } catch (IOException e) {
+            Stellaris.LOG.error("Error writing launchpads to file {}", e.getMessage());
+            throw new RuntimeException(e);
+        }
 
-        var launchpadsWrite = Files.newBufferedWriter(launchpath);
-        launchpadsWrite.write(launchpadsFile);
-        launchpadsWrite.close();
-
+        NetworkManager.sendToPlayers(server.getPlayerList().getPlayers(), new SyncLaunchPads(LaunchPadLauncher.LAUNCH_PADS));
     }
 
 }

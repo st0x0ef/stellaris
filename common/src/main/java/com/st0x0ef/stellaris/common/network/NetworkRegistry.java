@@ -25,6 +25,7 @@ public interface NetworkRegistry {
     CustomPacketPayload.Type<SyncSpaceStationDatapackPacket> SYNC_SPACE_STATION_DATAPACK = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "sync_space_station_datapack"));
     CustomPacketPayload.Type<SyncRoverComponentPacket> SYNC_ROVER_COMPONENT_ID = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "sync_rover_component"));
     CustomPacketPayload.Type<SyncRoverPacket> SYNC_ROVER_CONTROLS = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "sync_rover_packet"));
+    CustomPacketPayload.Type<SyncLaunchPads> SYNC_LAUNCH_PADS = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "sync_launch_pads"));
 
     CustomPacketPayload.Type<OpenMilkyWayMenuPacket> OPEN_MILKY_WAY_MENU =
             new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "open_milky_way"));
@@ -48,6 +49,7 @@ public interface NetworkRegistry {
         registerS2C(SyncFluidPacketWithoutDirection.TYPE, SyncFluidPacketWithoutDirection.STREAM_CODEC, SyncFluidPacketWithoutDirection::handle);
         registerS2C(SyncOilLevelPacket.TYPE, SyncOilLevelPacket.STREAM_CODEC, SyncOilLevelPacket::handle);
         registerS2C(SYNC_SPACE_STATION_DATAPACK, SyncSpaceStationDatapackPacket.STREAM_CODEC, SyncSpaceStationDatapackPacket::handle);
+        registerS2C(SYNC_LAUNCH_PADS, SyncLaunchPads.STREAM_CODEC, SyncLaunchPads::handle);
 
         registerC2S(
                 OPEN_MILKY_WAY_MENU,

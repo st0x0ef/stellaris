@@ -1,13 +1,17 @@
 package com.st0x0ef.stellaris.common.commands;
 
+import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
+import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.TestScreen;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
 import com.st0x0ef.stellaris.common.data.recipes.SpaceStationRecipesManager;
+import com.st0x0ef.stellaris.common.launchpads.LaunchPad;
+import com.st0x0ef.stellaris.common.launchpads.LaunchPadLauncher;
 import com.st0x0ef.stellaris.common.menus.TestMenu;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
@@ -17,15 +21,25 @@ import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.commands.arguments.ResourceKeyArgument;
+import net.minecraft.commands.arguments.coordinates.Vec3Argument;
+import net.minecraft.commands.arguments.coordinates.WorldCoordinate;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.chunk.ChunkAccess;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class StellarisCommands {
 
@@ -66,6 +80,33 @@ public class StellarisCommands {
                                     PlanetUtil.openWaitMenu(context.getSource().getPlayer(), context.getSource().getPlayer().getDisplayName().getString());
                                     return 0;
                                 }))
+                        .then(Commands.literal("planetScreen")
+                                .executes((CommandContext<CommandSourceStack> context) -> {
+                                    PlanetUtil.openPlanetSelectionMenu(context.getSource().getPlayer(), true, "stellaris:milky_way");
+                                    return 0;
+                                }))
+                )
+
+
+                .then(Commands.literal("test")
+                        .requires(c -> c.hasPermission(2))
+                        .then(Commands.literal("placeSpaceStation")
+                                .executes((CommandContext<CommandSourceStack> context) -> {
+                                    if (context.getSource().getPlayer() != null) {
+                                        Utils.placeSpaceStation(context.getSource().getPlayer(), (ServerLevel) context.getSource().getPlayer().level(), SpaceStationRecipesManager.SPACE_STATION_RECIPES.getLast());
+                                    }
+                                    return 0;
+                                }))
+                        .then(Commands.literal("dumpPlanetInfos")
+                                .executes((CommandContext<CommandSourceStack> context) -> {
+
+                                    for(Planet planet : StellarisData.getPlanets()) {
+                                        Stellaris.LOG.info(planet.name());
+                                        Stellaris.LOG.info("[br] [br] Temperature : [color=red]{}°c [br] Gravity : [color=red]{} [br] Oxygen : [color=red]{} [br] Distance From Earth : {}km", planet.temperature(), planet.gravity(), planet.oxygen(), planet.distanceFromEarth());
+                                    }
+
+                                    return 0;
+                                }))
                         .then(Commands.literal("testScreen")
                                 .executes((CommandContext<CommandSourceStack> context) -> {
                                     ExtendedMenuProvider provider = new ExtendedMenuProvider() {
@@ -88,41 +129,40 @@ public class StellarisCommands {
                                     MenuRegistry.openExtendedMenu(context.getSource().getPlayer(), provider);
                                     return 0;
                                 }))
+                        .then(Commands.literal("createLaunchpad")
+                                .then(Commands.argument("dimension", ResourceKeyArgument.key(Registries.DIMENSION))
+                                        .then(Commands.argument("pos", Vec3Argument.vec3())
+                                                .then(Commands.argument("name", StringArgumentType.string())
+                                                        .executes((CommandContext<CommandSourceStack> context) -> {
 
-                        .then(Commands.literal("planetScreen")
-                                .executes((CommandContext<CommandSourceStack> context) -> {
-                                    PlanetUtil.openPlanetSelectionMenu(context.getSource().getPlayer(), true, "stellaris:milky_way");
-                                    return 0;
-                                }))
+
+
+                                                            Vec3 pos = Vec3Argument.getVec3(context, "pos");
+                                                            ResourceKey<Level> dimension = context.getArgument("dimension", ResourceKey.class);
+                                                            String name = StringArgumentType.getString(context, "name");
+
+                                                            Stellaris.LOG.error("Dimension : {}, Position : {}, Name : {}, Player : {}", dimension, pos, name, context.getSource().getPlayer().getDisplayName().getString());
+
+                                                            LaunchPad launchPad = new LaunchPad(
+                                                                    pos,
+                                                                    dimension,
+                                                                    name,
+                                                                    Objects.requireNonNull(context.getSource().getPlayer()).getDisplayName().getString(),
+                                                                    new ArrayList<>()
+
+                                                            );
+                                                            LaunchPadLauncher.addLaunchPad(launchPad, context.getSource().getServer());
+
+                                                            context.getSource().sendSuccess(() -> Component.literal("Space Station Created"), true);
+
+                                                            return Command.SINGLE_SUCCESS;
+                                        })))))
                 )
-                .then(Commands.literal("dev")
-                        .requires(c -> c.hasPermission(2))
-                        .then(Commands.literal("dumpPlanetInfos")
-                                .executes((CommandContext<CommandSourceStack> context) -> {
-
-                                    for(Planet planet : StellarisData.getPlanets()) {
-                                        Stellaris.LOG.info(planet.name());
-                                        Stellaris.LOG.info("[br] [br] Temperature : [color=red]{}°c [br] Gravity : [color=red]{} [br] Oxygen : [color=red]{} [br] Distance From Earth : {}km", planet.temperature(), planet.gravity(), planet.oxygen(), planet.distanceFromEarth());
-                                    }
-
-                                    return 0;
-                                }))
-
-                )
-
-                .then(Commands.literal("test")
-                        .requires(c -> c.hasPermission(2))
-                        .then(Commands.literal("placeSpaceStation")
-                                .executes((CommandContext<CommandSourceStack> context) -> {
-                                    if (context.getSource().getPlayer() != null) {
-                                        Utils.placeSpaceStation(context.getSource().getPlayer(), (ServerLevel) context.getSource().getPlayer().level(), SpaceStationRecipesManager.SPACE_STATION_RECIPES.getLast());
-                                    }
-                                    return 0;
-                                }))
-                )
-
-
-
         );
+
+
+
+
+
     }
 }
