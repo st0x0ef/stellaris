@@ -220,9 +220,8 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
         }
         if (focusedBody != null) {
             updateHighlighterPosition(graphics, focusedBody);
+            renderLargeMenu(graphics);
         }
-
-        if (focusedBody != null) { renderLargeMenu(graphics); };
         renderSpaceStation(graphics, mouseX, mouseY, partialTicks);
 
         initTop(graphics, mouseX, mouseY);
@@ -375,6 +374,7 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
 
                 if(focusedBody.spaceStation && !showSpaceStationMenu) {
                     this.showSpaceStationMenu = true;
+                    this.launchWindow.setCelestialBody(this.focusedBody);
                 } else {
                     tpToFocusedPlanet();
                 }
@@ -1251,7 +1251,9 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
                 if (!isInCurrentGalaxy(focusedBody)) focusedBody = null;
 
                 Minecraft.getInstance().player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0F, 1.0F);
-                if (focusedBody != null) centerOnBody(focusedBody);
+                if (focusedBody != null) {
+                    centerOnBody(focusedBody);
+                }
                 return true;
             }
 
@@ -1268,7 +1270,10 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
                 if (!isInCurrentGalaxy(focusedBody)) focusedBody = null;
 
                 Minecraft.getInstance().player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0F, 1.0F);
-                if (focusedBody != null) centerOnBody(focusedBody);
+                if (focusedBody != null) {
+                    centerOnBody(focusedBody);
+
+                }
                 return true;
             }
 

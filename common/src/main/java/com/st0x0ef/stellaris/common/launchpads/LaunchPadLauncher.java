@@ -33,6 +33,7 @@ public class LaunchPadLauncher {
 
             LaunchPadLauncher.LAUNCH_PADS = LaunchPad.LaunchPadContainer.CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
 
+
         } catch (Exception e) {
 
             if (!(e instanceof NoSuchFileException))
@@ -65,12 +66,9 @@ public class LaunchPadLauncher {
         try {
             Path launchpath = server.storageSource.getLevelDirectory().path().resolve("launch-pads.json");
 
-            Stellaris.LOG.error("Before writing launchpads to file {}", LaunchPadLauncher.LAUNCH_PADS.launchPads().size());
-
             ArrayList<LaunchPad> launchPads = new ArrayList<>(LaunchPadLauncher.LAUNCH_PADS.launchPads());
             launchPads.add(pad);
             LaunchPadLauncher.LAUNCH_PADS = new LaunchPad.LaunchPadContainer(launchPads);
-            Stellaris.LOG.error("After writing launchpads to file {}", LaunchPadLauncher.LAUNCH_PADS.launchPads().size());
 
             JsonElement jsonElement = LaunchPad.LaunchPadContainer.toJson(LaunchPadLauncher.LAUNCH_PADS);
             String launchpadsFile = Stellaris.GSON.toJson(jsonElement);

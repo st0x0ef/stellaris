@@ -2,11 +2,11 @@ package com.st0x0ef.stellaris.common.commands;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.client.screens.TestScreen;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
 import com.st0x0ef.stellaris.common.data.recipes.SpaceStationRecipesManager;
@@ -18,12 +18,10 @@ import com.st0x0ef.stellaris.common.utils.Utils;
 import dev.architectury.registry.menu.ExtendedMenuProvider;
 import dev.architectury.registry.menu.MenuRegistry;
 import io.netty.buffer.Unpooled;
-import net.minecraft.client.Minecraft;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.ResourceKeyArgument;
 import net.minecraft.commands.arguments.coordinates.Vec3Argument;
-import net.minecraft.commands.arguments.coordinates.WorldCoordinate;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -33,9 +31,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.chunk.ChunkAccess;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -132,31 +128,25 @@ public class StellarisCommands {
                         .then(Commands.literal("createLaunchpad")
                                 .then(Commands.argument("dimension", ResourceKeyArgument.key(Registries.DIMENSION))
                                         .then(Commands.argument("pos", Vec3Argument.vec3())
-                                                .then(Commands.argument("name", StringArgumentType.string())
-                                                        .executes((CommandContext<CommandSourceStack> context) -> {
+                                                .then(Commands.argument("public", BoolArgumentType.bool())
+                                                        .then(Commands.argument("name", StringArgumentType.string())
+                                                            .executes((CommandContext<CommandSourceStack> context) -> {
 
+                                                                LaunchPad launchPad = new LaunchPad(
+                                                                        Vec3Argument.getVec3(context, "pos"),
+                                                                        context.getArgument("dimension", ResourceKey.class),
+                                                                        StringArgumentType.getString(context, "name"),
+                                                                        BoolArgumentType.getBool(context, "public"),
+                                                                        Objects.requireNonNull(context.getSource().getPlayer()).getDisplayName().getString(),
+                                                                        new ArrayList<>()
 
+                                                                );
+                                                                LaunchPadLauncher.addLaunchPad(launchPad, context.getSource().getServer());
 
-                                                            Vec3 pos = Vec3Argument.getVec3(context, "pos");
-                                                            ResourceKey<Level> dimension = context.getArgument("dimension", ResourceKey.class);
-                                                            String name = StringArgumentType.getString(context, "name");
+                                                                context.getSource().sendSuccess(() -> Component.literal("Space Station " + StringArgumentType.getString(context, "name") + " Created"), true);
 
-                                                            Stellaris.LOG.error("Dimension : {}, Position : {}, Name : {}, Player : {}", dimension, pos, name, context.getSource().getPlayer().getDisplayName().getString());
-
-                                                            LaunchPad launchPad = new LaunchPad(
-                                                                    pos,
-                                                                    dimension,
-                                                                    name,
-                                                                    Objects.requireNonNull(context.getSource().getPlayer()).getDisplayName().getString(),
-                                                                    new ArrayList<>()
-
-                                                            );
-                                                            LaunchPadLauncher.addLaunchPad(launchPad, context.getSource().getServer());
-
-                                                            context.getSource().sendSuccess(() -> Component.literal("Space Station Created"), true);
-
-                                                            return Command.SINGLE_SUCCESS;
-                                        })))))
+                                                                return Command.SINGLE_SUCCESS;
+                                        }))))))
                 )
         );
 

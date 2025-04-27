@@ -3,25 +3,21 @@ package com.st0x0ef.stellaris.client.screens.windows;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.PlanetSelectionScreen;
 import com.st0x0ef.stellaris.client.screens.components.TexturedButton;
-import com.st0x0ef.stellaris.common.data.recipes.SpaceStationRecipe;
-import com.st0x0ef.stellaris.common.data.recipes.SpaceStationRecipesManager;
+import com.st0x0ef.stellaris.client.screens.info.CelestialBody;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPad;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class LaunchWindow extends MoveableWindow {
 
     public final ArrayList<TexturedButton> spaceStationButtons = new ArrayList<>();
     public final PlanetSelectionScreen parent;
-
+    @Nullable public CelestialBody celestialBody = PlanetSelectionScreen.focusedBody;
 
     public LaunchWindow(int width, int height, Component message, PlanetSelectionScreen parent) {
         super(width, height, message, parent);
@@ -44,6 +40,8 @@ public class LaunchWindow extends MoveableWindow {
             guiGraphics.drawString(Minecraft.getInstance().font, name ,x, y, 0xFFFFFFFF);
         }
 
+
+
         parent.dragging = false;
     }
 
@@ -57,11 +55,11 @@ public class LaunchWindow extends MoveableWindow {
     public ArrayList<LaunchPad> getLaunchPadsForDimension() {
         ArrayList<LaunchPad> launchPads = new ArrayList<>();
 
-        if(PlanetSelectionScreen.focusedBody == null) {
+        if(celestialBody == null) {
             return launchPads;
         }
-        PlanetSelectionScreen.LAUNCH_PADS.launchPads().stream().filter((s) -> s.dimension().location() == PlanetSelectionScreen.focusedBody.dimension).forEach(launchPads::add);
-        return launchPads;
+        PlanetSelectionScreen.LAUNCH_PADS.launchPads().stream().filter((s) -> s.dimension().location() == celestialBody.dimension).forEach(launchPads::add);
+        return (ArrayList<LaunchPad>) PlanetSelectionScreen.LAUNCH_PADS.launchPads();
     }
 
     @Override
@@ -81,5 +79,10 @@ public class LaunchWindow extends MoveableWindow {
         for(TexturedButton button : spaceStationButtons) {
             button.visible = visible;
         }
+    }
+
+    public void setCelestialBody(CelestialBody celestialBody) {
+        this.celestialBody = celestialBody;
+        Stellaris.LOG.error("Setting celestial body to {}", celestialBody.name);
     }
 }

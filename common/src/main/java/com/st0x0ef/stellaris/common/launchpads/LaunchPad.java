@@ -17,6 +17,7 @@ public record LaunchPad(
         Vec3 position,
         ResourceKey<Level> dimension,
         String name,
+        Boolean isPublic,
         String owner,
         List<String> whitelist
 ) {
@@ -25,6 +26,8 @@ public record LaunchPad(
             Vec3.CODEC.fieldOf("position").forGetter(LaunchPad::position),
             ResourceKey.codec(Registries.DIMENSION).fieldOf("dimension").forGetter(LaunchPad::dimension),
             Codec.STRING.fieldOf("name").forGetter(LaunchPad::name),
+            Codec.BOOL.fieldOf("public").forGetter(LaunchPad::isPublic),
+
             Codec.STRING.fieldOf("owner").forGetter(LaunchPad::name),
             Codec.STRING.listOf().fieldOf("whitelist").forGetter(LaunchPad::whitelist)
     ).apply(instance, LaunchPad::new));
@@ -33,6 +36,7 @@ public record LaunchPad(
         buffer.writeVec3(launchPad.position());
         buffer.writeResourceKey(launchPad.dimension());
         buffer.writeUtf(launchPad.name());
+        buffer.writeBoolean(launchPad.isPublic());
         buffer.writeUtf(launchPad.owner());
         buffer.writeInt(launchPad.whitelist().size());
         launchPad.whitelist().forEach(buffer::writeUtf);
@@ -44,6 +48,8 @@ public record LaunchPad(
         var position = buffer.readVec3();
         var dimension = buffer.readResourceKey(Registries.DIMENSION);
         var name = buffer.readUtf();
+        var isPublic = buffer.readBoolean();
+
         var owner = buffer.readUtf();
         var whitelistSize = buffer.readInt();
 
@@ -53,7 +59,7 @@ public record LaunchPad(
             whitelist.add(buffer.readUtf());
         }
 
-        return new LaunchPad(position, dimension, name, owner, whitelist);
+        return new LaunchPad(position, dimension, name, isPublic, owner, whitelist);
     }
 
     public record LaunchPadContainer(List<LaunchPad> launchPads){
