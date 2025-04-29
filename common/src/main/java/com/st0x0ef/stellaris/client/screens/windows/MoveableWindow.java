@@ -63,9 +63,8 @@ public abstract class MoveableWindow extends AbstractWidget implements Renderabl
     }
 
     @Override
-    protected void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+    public void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         if (render != null) render.render(this);
-
 
         this.renderWindow(guiGraphics, mouseX, mouseY, partialTick);
 

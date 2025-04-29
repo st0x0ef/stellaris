@@ -157,7 +157,6 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
 
         prevScrollCallback = GLFW.glfwSetScrollCallback(Minecraft.getInstance().getWindow().getWindow(), this::onMouseScroll);
         initializeAllButtons();
-        initSpaceStationButtons();
 
         zoomLevel = 1;
         targetZoomLevel = 1;
@@ -179,8 +178,7 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
             launchButton.visible = false;
         }
 
-        renderHelp(graphics);
-         drawOrbits();
+        drawOrbits();
         drawTrails();
 
         renderBodiesAndPlanets(graphics);
@@ -222,11 +220,11 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
             updateHighlighterPosition(graphics, focusedBody);
             renderLargeMenu(graphics);
         }
-        renderSpaceStation(graphics, mouseX, mouseY, partialTicks);
 
         initTop(graphics, mouseX, mouseY);
         etc();
 
+        renderSpaceStation(graphics, mouseX, mouseY, partialTicks);
 
         this.renderTooltip(graphics, mouseX, mouseY);
     }
@@ -323,9 +321,7 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
         boolean infoHovering = isHoveredOnSprite(infoX, infoY, infoWidth, infoHeight, mouseX, mouseY);
         boolean galaxyHovering = isHoveredOnSprite(galaxyX, galaxyY, galaxyWidth, galaxyHeight, mouseX, mouseY);
 
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(50 / 255f, 69 / 255f, 163 / 255f, 1.0f);
-        RenderSystem.setShaderTexture(0, topBarTexture);
         graphics.blit(topBarTexture, tgX, tgY, 0, 0, tgWidth, tgHeight, tgWidth, tgHeight);
         graphics.blit(ResourceLocation.fromNamespaceAndPath(
                         Stellaris.MODID, "textures/gui/util/" + (infoHovering ? "planet_selection_info_button_hover.png" : "planet_selection_info_button.png")),
@@ -411,14 +407,6 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
         initializeMoonButtons();
     }
 
-    private void renderHelp(GuiGraphics graphics) {
-//        if(showHelpMenu) {
-//            graphics.drawCenteredString(this.font, Component.translatable("text.stellaris.planetscreen.press_space"), this.width/2, this.height - 20 , 16777212);
-//            graphics.drawCenteredString(this.font, Component.translatable("text.stellaris.planetscreen.arrows"), this.width/2, this.height - 10 , 16777212);
-//
-//        }
-
-    }
 
     private void renderStars(GuiGraphics graphics) {
         Font font = Minecraft.getInstance().font;
@@ -1462,55 +1450,6 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
     /** Space Station **/
 
     //We only check one time if the player have the recipes because normally he can't get item during the screen
-
-
-    private void initSpaceStationButtons() {
-        spaceStationButtons.clear();
-        AtomicInteger height = new AtomicInteger(1);
-        for (SpaceStationRecipesManager.SpaceStationRecipeState spaceStationRecipeState : spaceStationRecipeStates) {
-            SpaceStationRecipe recipe = spaceStationRecipeState.recipe;
-            int buttonWidth = 90;
-            int buttonHeight = 20;
-
-            int centerX = (this.width - 215) / 2;
-            int centerY = (this.height - 177) / 2;
-
-            int buttonX = centerX + buttonWidth / 2 - buttonWidth / 3 - buttonWidth / 15;
-            int buttonY = centerY + buttonHeight / 2 + 12;
-
-            if (spaceStationButtons.size() == 5) {
-                buttonX += buttonWidth + 10;
-                height.set(1);
-            }
-
-            TexturedButton button = new TexturedButton(
-                    buttonX, buttonY, buttonWidth, buttonHeight,
-                    Component.translatable(String.valueOf(recipe.location())),
-                    (btn) -> onSpaceStationButtonClick(spaceStationRecipeState)
-            );
-
-            if (spaceStationRecipeState.isUnlocked) {
-                button.tex(
-                        ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button.png"),
-                        ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button_hovered.png")
-                );
-            } else {
-                button.tex(
-                        ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/button.png"),
-                        ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/button.png")
-                );
-            }
-
-            button.setPosition(buttonX, buttonY + height.getAndAdd(1) * 25);
-
-            button.setTooltip(Tooltip.create(recipe.getTooltip(this.getPlayer())));
-            button.visible = false;
-            spaceStationButtons.add(button);
-            this.addRenderableWidget(button);
-
-        }
-    }
-
     private void renderSpaceStation(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
 
         if(launchWindow == null)return;
@@ -1520,7 +1459,7 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
             launchWindow.changeVisibility(showSpaceStationMenu);
         }
 
-        launchWindow.render(guiGraphics, mouseX, mouseY, partialTick);
+        if (launchWindow.visible) launchWindow.renderWidget(guiGraphics, mouseX, mouseY, partialTick);
 
     }
 
