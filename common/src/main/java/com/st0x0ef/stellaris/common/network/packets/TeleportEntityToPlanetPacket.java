@@ -58,8 +58,8 @@ public class TeleportEntityToPlanetPacket implements CustomPacketPayload {
             }
 
             if (rocket.getPassengers().size() == 1) {
-                Utils.changeDimension((Player) rocket.getPassengers().getFirst(), planet);
                 player.stellaris$setPlanetMenuOpen(false, (Player) rocket.getPassengers().getFirst(), true);
+                Utils.changeDimension((Player) rocket.getPassengers().getFirst(), planet);
             }
             else {
                 Utils.changeDimensionForPlayers(rocket.getPassengers(), planet);

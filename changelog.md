@@ -3,3 +3,5 @@
 ## Changes
 - Oxygen system optimization
 
+## Fix 
+- Fix planet screen not opening bug
