@@ -20,7 +20,7 @@ import net.minecraft.world.level.Level;
 
 import java.util.List;
 
-public class SpaceSuit extends AbstractSpaceArmor.AbstractSpaceChestplate {
+public class SpaceSuit extends AbstractSpaceArmor.Chestplate {
 
     public SpaceSuit(Holder<ArmorMaterial> material, Type type, Properties properties) {
         super(material, type, properties);

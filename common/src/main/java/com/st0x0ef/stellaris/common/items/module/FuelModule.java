@@ -43,10 +43,12 @@ public class FuelModule extends Item implements SpaceSuitModule {
     @Override
     public void addToTooltips(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         UniversalFluidStorage storage = Capabilities.Fluid.ITEM.getCapability(stack);
+
+
         if (storage == null) {
             return;
         }
-        tooltipComponents.add(Component.translatable("jetsuit.stellaris.fuel", storage.getFluidInTank(0).getAmount()).append(" §r/§8 " + storage.getTankCapacity(0)));
+        tooltipComponents.add(Component.translatable("jetsuit.stellaris.fuel", storage.getFluidInTank(1).getAmount()).append(" §r/§8 " + storage.getTankCapacity(1)));
     }
 
 }
