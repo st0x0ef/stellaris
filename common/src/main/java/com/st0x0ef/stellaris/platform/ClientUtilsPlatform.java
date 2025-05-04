@@ -21,4 +21,9 @@ public class ClientUtilsPlatform {
     public static void registerArmor(ModelLayerLocation layer, ArmorFactory factory, Item... items) {
         throw new AssertionError();
     }
+
+    @ExpectPlatform
+    public static boolean isIrisInstalled() {
+        throw new AssertionError();
+    }
 }

@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.platform.fabric;
 
 import com.st0x0ef.stellaris.platform.ClientUtilsPlatform;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -16,6 +17,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.component.DyedItemColor;
 
 public class ClientUtilsPlatformImpl {
+    public static boolean IS_IRIS_INSTALLED = FabricLoader.getInstance().isModLoaded("iris");
 
     public static void registerArmor(ModelLayerLocation layer, ClientUtilsPlatform.ArmorFactory factory, Item... items) {
         ArmorRenderer.register((poseStack, buffer, stack, entity, slot, packedLight, original) -> {
@@ -35,5 +37,9 @@ public class ClientUtilsPlatformImpl {
                 }
             }
         }, items);
+    }
+
+    public static boolean isIrisInstalled() {
+        return IS_IRIS_INSTALLED;
     }
 }
