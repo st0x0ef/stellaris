@@ -46,8 +46,6 @@ public abstract class LivingEntityMixin extends Entity {
                     stellaris$oxygenManager = GlobalOxygenManager.getInstance().getOrCreateDimensionManager((ServerLevel) level());
                 }
 
-                if(!(stellaris$livingEntity instanceof Player player)) return;
-
                 if (!stellaris$oxygenManager.breath(stellaris$livingEntity)) {
                     hurt(DamageSourceRegistry.of(level(), DamageSourceRegistry.OXYGEN), 2f);
                 }

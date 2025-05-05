@@ -67,12 +67,8 @@ public class DimensionOxygenManager {
     public boolean breath(LivingEntity entity) {
 
         if (planetHasOxygen || entity.getType().is(TagRegistry.ENTITY_NO_OXYGEN_NEEDED_TAG)) {
-            Stellaris.LOG.error("Breath oxygen at: " + entity.getOnPos() + " " + entity.getType().getDescriptionId());
-            Stellaris.LOG.error("Planet {} has oxygen {} ", planetHasOxygen, level.dimension());
-
             return true;
         }
-
 
         if (entity instanceof Player player && (player.isCreative() || player.isSpectator())) {
             return true;
