@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.mixin;
 
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.oxygen.DimensionOxygenManager;
 import com.st0x0ef.stellaris.common.oxygen.GlobalOxygenManager;
 import com.st0x0ef.stellaris.common.registry.DamageSourceRegistry;
@@ -8,7 +9,10 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.portal.DimensionTransition;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -36,11 +40,13 @@ public abstract class LivingEntityMixin extends Entity {
         if (firstTick)
             Utils.handleGravityChange(stellaris$livingEntity, level());
 
-        if (!level().isClientSide()) {
+        if (!stellaris$livingEntity.level().isClientSide()) {
             if (stellaris$tickSinceLastOxygenCheck > 20) {
                 if (stellaris$oxygenManager == null) {
                     stellaris$oxygenManager = GlobalOxygenManager.getInstance().getOrCreateDimensionManager((ServerLevel) level());
                 }
+
+                if(!(stellaris$livingEntity instanceof Player player)) return;
 
                 if (!stellaris$oxygenManager.breath(stellaris$livingEntity)) {
                     hurt(DamageSourceRegistry.of(level(), DamageSourceRegistry.OXYGEN), 2f);
@@ -51,5 +57,12 @@ public abstract class LivingEntityMixin extends Entity {
 
             stellaris$tickSinceLastOxygenCheck++;
         }
+    }
+
+    @Override
+    public @Nullable Entity changeDimension(DimensionTransition transition) {
+        stellaris$oxygenManager = GlobalOxygenManager.getInstance().getOrCreateDimensionManager((ServerLevel) level());
+
+        return super.changeDimension(transition);
     }
 }
