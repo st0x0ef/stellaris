@@ -223,7 +223,6 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
 
         initTop(graphics, mouseX, mouseY);
         etc();
-
         renderSpaceStation(graphics, mouseX, mouseY, partialTicks);
 
         this.renderTooltip(graphics, mouseX, mouseY);
@@ -362,6 +361,8 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
             );
             graphics.renderTooltip(Minecraft.getInstance().font, tooltipLines, Optional.empty(), mouseX, mouseY);
         }
+
+
     }
 
     private void onLaunchButtonClick() {

@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.client.screens.windows;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.PlanetSelectionScreen;
 import com.st0x0ef.stellaris.client.screens.components.TexturedButton;
@@ -27,6 +28,7 @@ public class LaunchWindow extends MoveableWindow {
 
     @Override
     public void renderWindow(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+        RenderSystem.clear(256, Minecraft.ON_OSX);
         guiGraphics.fill(getWindowX(), getWindowY(), getWindowX() + this.getWidth(), getWindowY() + this.getHeight(), 0xFF000000);
 
         guiGraphics.drawString(Minecraft.getInstance().font, "Available Launch Pads", getWindowX() + 5, getWindowY() + 5, 0xFFFFFFFF);
@@ -40,9 +42,9 @@ public class LaunchWindow extends MoveableWindow {
             guiGraphics.drawString(Minecraft.getInstance().font, name ,x, y, 0xFFFFFFFF);
         }
 
-
-
         parent.dragging = false;
+        guiGraphics.flush();
+
     }
 
 
