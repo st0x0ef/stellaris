@@ -41,8 +41,15 @@ public abstract class LivingEntityMixin extends Entity {
             Utils.handleGravityChange(stellaris$livingEntity, level());
 
         if (!stellaris$livingEntity.level().isClientSide()) {
+
+
+
             if (stellaris$tickSinceLastOxygenCheck > 20) {
                 if (stellaris$oxygenManager == null) {
+                    stellaris$oxygenManager = GlobalOxygenManager.getInstance().getOrCreateDimensionManager((ServerLevel) level());
+                }
+
+                if(!stellaris$oxygenManager.getLevel().dimension().equals(stellaris$livingEntity.level().dimension())) {
                     stellaris$oxygenManager = GlobalOxygenManager.getInstance().getOrCreateDimensionManager((ServerLevel) level());
                 }
 

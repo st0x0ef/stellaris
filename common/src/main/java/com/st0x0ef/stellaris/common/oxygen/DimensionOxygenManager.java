@@ -112,4 +112,8 @@ public class DimensionOxygenManager {
         this.oxygenRooms.clear();
         this.oxygenRooms.addAll(rooms);
     }
+
+    public ServerLevel getLevel() {
+        return level;
+    }
 }
