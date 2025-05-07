@@ -1,8 +1,12 @@
 package com.st0x0ef.stellaris.common.items.armors;
 
+import com.fej1fun.potentials.fluid.ItemFluidStorage;
+import com.fej1fun.potentials.fluid.UniversalFluidItemStorage;
 import com.st0x0ef.stellaris.common.data_components.SpaceSuitModules;
 import com.st0x0ef.stellaris.common.items.module.SpaceSuitModule;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
+import com.st0x0ef.stellaris.common.registry.FluidRegistry;
+import dev.architectury.fluid.FluidStack;
 import dev.architectury.platform.Platform;
 import net.fabricmc.api.EnvType;
 import net.minecraft.ChatFormatting;
@@ -10,6 +14,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
@@ -17,10 +22,15 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.material.Fluid;
+import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SpaceSuit extends AbstractSpaceArmor.Chestplate {
+
+    public ArrayList<Fluid> fluids = new ArrayList<Fluid>(List.of(new Fluid[]{FluidRegistry.OXYGEN_STILL.get()}));
 
     public SpaceSuit(Holder<ArmorMaterial> material, Type type, Properties properties) {
         super(material, type, properties);
@@ -29,10 +39,10 @@ public class SpaceSuit extends AbstractSpaceArmor.Chestplate {
     @Override
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
         super.inventoryTick(stack, level, entity, slotId, isSelected);
+        List<SpaceSuitModule> modules = getModules(stack);
 
         if (entity instanceof Player player && player.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof SpaceSuit) {
             ItemStack spaceSuitItemStack = player.getItemBySlot(EquipmentSlot.CHEST);
-            List<SpaceSuitModule> modules = getModules(stack);
             if (!modules.isEmpty()) {
                 modules.forEach(spaceSuitModule -> spaceSuitModule.tick(spaceSuitItemStack, level, player));
             }
@@ -43,6 +53,10 @@ public class SpaceSuit extends AbstractSpaceArmor.Chestplate {
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
         List<SpaceSuitModule> modules = getModules(stack);
+
+        modules.forEach(spaceSuitModule -> {
+            spaceSuitModule.addFluid(fluids);
+        });
 
         if (Platform.getEnv() != EnvType.CLIENT) {
             return;
@@ -62,7 +76,6 @@ public class SpaceSuit extends AbstractSpaceArmor.Chestplate {
             tooltipComponents.add(Component.translatable("spacesuit.stellaris.shift_for_modules"));
         }
 
-
     }
 
     public NonNullList<ItemStack> scrapArmorModules(ItemStack stack) {
@@ -76,4 +89,22 @@ public class SpaceSuit extends AbstractSpaceArmor.Chestplate {
     public List<SpaceSuitModule> getModules(ItemStack stack) {
         return stack.getOrDefault(DataComponentsRegistry.SPACE_SUIT_MODULES.get(), SpaceSuitModules.empty()).getModules();
     }
+
+
+    @Override
+    public @NotNull UniversalFluidItemStorage getFluidTank(@NotNull ItemStack stack) {
+
+        return new ItemFluidStorage(DataComponentsRegistry.FLUID_LIST.get(), stack, Mth.clamp(fluids.size(), 1, fluids.size()) , 3000) {
+
+            @Override
+            public boolean isFluidValid(int tank, FluidStack stack) {
+                if(fluids.contains(stack.getFluid())) {
+                    return stack.getFluid().isSame(fluids.get(tank));
+                }
+                return false;
+            }
+        };
+
+    }
+
 }

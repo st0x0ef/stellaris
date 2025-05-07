@@ -14,7 +14,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.material.Fluid;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface SpaceSuitModule {
@@ -29,6 +31,12 @@ public interface SpaceSuitModule {
     }
 
     default void addToTooltips(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+    }
+
+    default void addFluid(ArrayList<Fluid> fluids) {
+    }
+
+    default void onModuleApplied(ItemStack stack) {
     }
 
     @Environment(EnvType.CLIENT)

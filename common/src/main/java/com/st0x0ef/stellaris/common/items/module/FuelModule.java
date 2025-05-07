@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.common.items.module;
 import com.fej1fun.potentials.capabilities.Capabilities;
 import com.fej1fun.potentials.fluid.UniversalFluidStorage;
 import com.st0x0ef.stellaris.client.screens.GUISprites;
+import com.st0x0ef.stellaris.common.registry.FluidRegistry;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
@@ -12,10 +13,14 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.material.Fluid;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FuelModule extends Item implements SpaceSuitModule {
+
+    private int fuel_index = 0;
 
     public FuelModule(Properties properties) {
         super(properties.stacksTo(1));
@@ -27,6 +32,15 @@ public class FuelModule extends Item implements SpaceSuitModule {
     }
 
     @Override
+    public void addFluid(ArrayList<Fluid> fluids) {
+        Fluid fuel = FluidRegistry.FUEL_STILL.get();
+        if(!fluids.contains(fuel)) {
+            this.fuel_index =  fluids.size();
+            fluids.add(fuel);
+        }
+    }
+
+    @Override
     public void renderToGui(GuiGraphics graphics, DeltaTracker deltaTracker, Player player, ItemStack stack) {
         UniversalFluidStorage storage = Capabilities.Fluid.ITEM.getCapability(stack);
         if (storage == null) {
@@ -35,7 +49,7 @@ public class FuelModule extends Item implements SpaceSuitModule {
 
         graphics.blit(GUISprites.SPACESUIT_FUEL_BAR, 5, 16, 0, 0, 37, 10, 37, 10);
 
-        int i = Mth.ceil(Mth.clamp((float) storage.getFluidInTank(1).getAmount() / (float) storage.getTankCapacity(1),
+        int i = Mth.ceil(Mth.clamp((float) storage.getFluidInTank(fuel_index).getAmount() / (float) storage.getTankCapacity(fuel_index),
                 0.0F, 1.0F) * (24 - 1));
         graphics.blitSprite(GUISprites.SPACESUIT_FULL_BAR_SPRITE, 24, 4, 0, 0, 15, 19, i, 4);
     }
@@ -44,11 +58,10 @@ public class FuelModule extends Item implements SpaceSuitModule {
     public void addToTooltips(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         UniversalFluidStorage storage = Capabilities.Fluid.ITEM.getCapability(stack);
 
-
-        if (storage == null) {
+        if (storage == null ) {
             return;
         }
-        tooltipComponents.add(Component.translatable("jetsuit.stellaris.fuel", storage.getFluidInTank(1).getAmount()).append(" §r/§8 " + storage.getTankCapacity(1)));
+        tooltipComponents.add(Component.translatable("jetsuit.stellaris.fuel", storage.getFluidInTank(fuel_index).getAmount()).append(" §r/§8 " + storage.getTankCapacity(fuel_index)));
     }
 
 }
