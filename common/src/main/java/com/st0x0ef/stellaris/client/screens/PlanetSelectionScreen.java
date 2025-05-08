@@ -11,7 +11,6 @@ import com.st0x0ef.stellaris.client.screens.etc.Trail;
 import com.st0x0ef.stellaris.client.screens.record.PSystemRecord;
 import com.st0x0ef.stellaris.client.screens.windows.LaunchWindow;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
-import com.st0x0ef.stellaris.common.data.recipes.SpaceStationRecipe;
 import com.st0x0ef.stellaris.common.data.recipes.SpaceStationRecipesManager;
 import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPad;
@@ -40,6 +39,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWScrollCallback;
@@ -47,7 +47,6 @@ import org.lwjgl.glfw.GLFWScrollCallback;
 import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.st0x0ef.stellaris.common.utils.Utils.isHoveredOnSprite;
 
@@ -845,9 +844,13 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
     }
 
     public void tpToFocusedPlanet() {
+        tpToFocusedPlanet(new Vec3(getPlayer().getX(), 600, getPlayer().getZ()), this.focusedBody);
+    }
+
+    public void tpToFocusedPlanet(Vec3 coords, CelestialBody focusedBody) {
         if (focusedBody != null) {
 
-            NetworkManager.sendToServer(new TeleportEntityToPlanetPacket(focusedBody.dimension));
+            NetworkManager.sendToServer(new TeleportEntityToPlanetPacket(focusedBody.dimension, coords));
             long windowHandle = Minecraft.getInstance().getWindow().getWindow();
             prevScrollCallback = GLFW.glfwSetScrollCallback(windowHandle, Minecraft.getInstance().mouseHandler::onScroll);
         } else {

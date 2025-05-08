@@ -19,7 +19,6 @@ public class BaseWindowScreen<T extends AbstractContainerMenu> extends AbstractC
 
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
-
     }
 
 

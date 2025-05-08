@@ -20,8 +20,8 @@ public abstract class MoveableWindow extends AbstractWidget implements Renderabl
     private boolean dragging = false;
     private int windowX;
     private int windowY;
-    private double dragOffsetX = 0;
-    private double dragOffsetY = 0;
+    public double dragOffsetX = 0;
+    public double dragOffsetY = 0;
 
     private final List<Renderable> renderables = Lists.newArrayList();
     private final Map<AbstractWidget, int[]> initialWidgetOffsets = new HashMap<>();
@@ -44,15 +44,11 @@ public abstract class MoveableWindow extends AbstractWidget implements Renderabl
 
     public abstract void renderWindow(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick);
 
-
-
-
     public void init() {};
 
     public void close() {
         this.changeVisibility(false);
     };
-
 
     public void renderWidgets(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         for (Renderable renderable : this.renderables) {

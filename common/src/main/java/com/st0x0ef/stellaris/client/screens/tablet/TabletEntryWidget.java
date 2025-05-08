@@ -242,14 +242,14 @@ public class TabletEntryWidget extends AbstractScrollWidget {
         public boolean isHovered(int mouseX, int mouseY, int finalHeight) {
                 mouseY += finalHeight;
                 return mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + height;
-            }
+        }
 
-            public void changePage(TabletEntryScreen entryScreen) {
-                ResourceLocation location = ResourceLocation.parse(action);
-                entryScreen.widget.setInfo(location);
-
-            }
+        public void changePage(TabletEntryScreen entryScreen) {
+            ResourceLocation location = ResourceLocation.parse(action);
+            entryScreen.widget.setInfo(location);
 
         }
+
+    }
     
 }

@@ -15,6 +15,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -22,6 +23,7 @@ import java.util.List;
 public class TeleportEntityToPlanetPacket implements CustomPacketPayload {
 
     public final ResourceLocation dimension;
+    public final Vec3 coords;
 
     public static final StreamCodec<RegistryFriendlyByteBuf, TeleportEntityToPlanetPacket> STREAM_CODEC = new StreamCodec<>() {
         @Override
@@ -32,15 +34,18 @@ public class TeleportEntityToPlanetPacket implements CustomPacketPayload {
         @Override
         public void encode(RegistryFriendlyByteBuf buf, TeleportEntityToPlanetPacket packet) {
             buf.writeResourceLocation(packet.dimension);
+            buf.writeVec3(packet.coords);
         }
     };
 
-    public TeleportEntityToPlanetPacket(ResourceLocation dimension) {
+    public TeleportEntityToPlanetPacket(ResourceLocation dimension, Vec3 coords) {
         this.dimension = dimension;
+        this.coords = coords;
     }
 
     public TeleportEntityToPlanetPacket(RegistryFriendlyByteBuf buffer) {
         this.dimension = buffer.readResourceLocation();
+        this.coords = buffer.readVec3();
     }
 
     public static void handle(TeleportEntityToPlanetPacket packet, NetworkManager.PacketContext context) {
@@ -55,7 +60,7 @@ public class TeleportEntityToPlanetPacket implements CustomPacketPayload {
         if(planet != null ) {
 
             if(rocket == null) {
-                Utils.changeDimension(player, planet);
+                Utils.changeDimension(player, planet, packet.coords);
                 return;
             }
 
@@ -66,7 +71,7 @@ public class TeleportEntityToPlanetPacket implements CustomPacketPayload {
                     player.getEntityData().set(EntityData.DATA_PLANET_MENU_OPEN, false);
                 }
             } else {
-                Utils.changeDimensionForPlayers(rocket.getPassengers(), planet);
+                Utils.changeDimensionForPlayers(rocket.getPassengers(), planet, packet.coords);
             }
 
         } else {

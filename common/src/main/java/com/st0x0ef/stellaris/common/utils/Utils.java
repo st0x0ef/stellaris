@@ -32,7 +32,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3i;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,9 +59,9 @@ public class Utils {
     }
 
     /** Should be call after teleporting the player */
-    public static LanderEntity createLanderFromRocket(Entity player, RocketEntity rocket, int yPos, Level destination) {
+    public static LanderEntity createLanderFromRocket(RocketEntity rocket, Vec3 coords, Level destination) {
         LanderEntity lander = new LanderEntity(destination);
-        lander.setPos(player.getX(), yPos, player.getZ());
+        lander.setPos(coords.x, coords.y, coords.z);
         transfertInventory(rocket, lander);
 
         rocket.discard();
@@ -68,15 +70,19 @@ public class Utils {
     }
 
     /** Teleport an entity to the planet wanted */
-    public static void teleportEntity(Entity entity, Planet destination) {
+    public static void teleportEntity(Entity entity, Planet destination, Vec3 coords) {
         if (entity.level().isClientSide()) return;
         entity.setNoGravity(false);
 
-        TeleportUtil.teleportToPlanet(entity, getPlanetLevel(destination), 600);
+        TeleportUtil.teleportToPlanet(entity, getPlanetLevel(destination), coords);
+    }
+
+    public static void changeDimension(Player player, Planet destination) {
+        changeDimension(player, destination, new Vec3((int) player.getX(), 600, (int) player.getZ()));
     }
 
     /** To use with the planetSelection menu */
-    public static void changeDimension(Player player, Planet destination) {
+    public static void changeDimension(Player player, Planet destination, Vec3 coords) {
         if (player instanceof ServerPlayer serverPlayer) {
             if (serverPlayer.getVehicle() instanceof RocketEntity rocket) {
                 serverPlayer.stopRiding();
@@ -88,8 +94,8 @@ public class Utils {
                     rocket.syncRocketData(serverPlayer);
                 }
 
-                LanderEntity lander = createLanderFromRocket(serverPlayer, rocket, 600, getPlanetLevel(destination));
-                teleportEntity(serverPlayer, destination);
+                LanderEntity lander = createLanderFromRocket(rocket, coords, getPlanetLevel(destination));
+                teleportEntity(serverPlayer, destination, coords);
                 player.awardStat(StatsRegistry.SPACE_TRAVEL.get(), Utils.distanceToPlanet(PlanetUtil.getPlanet(player.level().dimension().location()), destination));
 
                 serverPlayer.level().addFreshEntity(lander);
@@ -101,12 +107,19 @@ public class Utils {
                 serverPlayer.sendSystemMessage(Component.translatable("message.stellaris.lander"));
             } else {
                 serverPlayer.closeContainer();
-                teleportEntity(serverPlayer, destination);
+                Stellaris.LOG.error("Null rocket {}", coords);
+
+
+                teleportEntity(serverPlayer, destination, coords);
             }
         }
     }
 
     public static void changeDimensionForPlayers(List<Entity> entities, Planet destination) {
+        changeDimensionForPlayers(entities, destination, new Vec3(entities.getFirst().getX(), 600, entities.getFirst().getY()));
+    }
+
+    public static void changeDimensionForPlayers(List<Entity> entities, Planet destination, Vec3 coords) {
         RocketEntity rocket = (RocketEntity) entities.getFirst().getVehicle();
 
         for (Entity entity : entities) {
@@ -116,7 +129,7 @@ public class Utils {
             if (vehicle instanceof RocketEntity playerRocket) {
                 entity.stopRiding();
                 rocket = playerRocket;
-                teleportEntity(entity, destination);
+                teleportEntity(entity, destination, coords);
 
                 if(entity instanceof Player player) {
 
@@ -127,7 +140,7 @@ public class Utils {
                 }
             }
         }
-        LanderEntity lander = createLanderFromRocket(entities.getFirst(), rocket, 600, getPlanetLevel(destination));
+        LanderEntity lander = createLanderFromRocket( rocket, coords, getPlanetLevel(destination));
         entities.getFirst().level().addFreshEntity(lander);
 
         for (Entity entity : entities) {

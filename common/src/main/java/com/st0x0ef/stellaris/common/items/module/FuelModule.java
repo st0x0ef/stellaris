@@ -33,7 +33,7 @@ public class FuelModule extends Item implements SpaceSuitModule {
 
         graphics.blit(GUISprites.SPACESUIT_FUEL_BAR, 5, 16, 0, 0, 37, 10, 37, 10);
 
-        int i = Mth.ceil(Mth.clamp((float) storage.getFluidInTank(1).getAmount() / (float) storage.getTankCapacity(1),
+        int i = Mth.ceil(Mth.clamp((float) storage.getFluidInTank(0).getAmount() / (float) storage.getTankCapacity(1),
                 0.0F, 1.0F) * (24 - 1));
         graphics.blitSprite(GUISprites.SPACESUIT_FULL_BAR_SPRITE, 24, 4, 0, 0, 15, 19, i, 4);
     }
