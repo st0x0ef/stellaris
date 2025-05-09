@@ -19,10 +19,18 @@ public abstract class SingleFluidStorage implements UniversalFluidStorage {
     protected long maxDrain;
 
     public SingleFluidStorage(long capacity, long maxFill, long maxDrain) {
-        this.stack = FluidStack.empty();
+        this(FluidStack.empty(), capacity, maxFill, maxDrain);
+    }
+
+    public SingleFluidStorage(FluidStack stack, long capacity, long maxFill, long maxDrain) {
+        this.stack = stack;
         this.capacity = capacity;
         this.maxFill = maxFill;
         this.maxDrain = maxDrain;
+
+    }
+    public SingleFluidStorage(FluidStack stack, long capacity) {
+        this(capacity, capacity, capacity);
     }
 
     public SingleFluidStorage(long capacity) {

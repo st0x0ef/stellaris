@@ -6,6 +6,7 @@ import com.st0x0ef.stellaris.common.data_components.SpaceSuitModules;
 import com.st0x0ef.stellaris.common.items.module.SpaceSuitModule;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import com.st0x0ef.stellaris.common.registry.FluidRegistry;
+import com.st0x0ef.stellaris.common.utils.capabilities.fluid.SingleFluidStorage;
 import dev.architectury.fluid.FluidStack;
 import dev.architectury.platform.Platform;
 import net.fabricmc.api.EnvType;
@@ -32,8 +33,17 @@ public class SpaceSuit extends AbstractSpaceArmor.Chestplate {
 
     public ArrayList<Fluid> fluids = new ArrayList<Fluid>(List.of(new Fluid[]{FluidRegistry.OXYGEN_STILL.get()}));
 
+    public SpaceSuitFluidsStorage fluidStacks;
+
     public SpaceSuit(Holder<ArmorMaterial> material, Type type, Properties properties) {
         super(material, type, properties);
+
+        fluidStacks = new SpaceSuitFluidsStorage(new SingleFluidStorage(FluidStack.create(FluidRegistry.OXYGEN_STILL.get(), 0), 3000) {
+            @Override
+            protected void onChange() {
+
+            }
+        }, this.getDefaultInstance());
     }
 
     @Override
@@ -93,17 +103,7 @@ public class SpaceSuit extends AbstractSpaceArmor.Chestplate {
 
     @Override
     public @NotNull UniversalFluidItemStorage getFluidTank(@NotNull ItemStack stack) {
-
-        return new ItemFluidStorage(DataComponentsRegistry.FLUID_LIST.get(), stack, Mth.clamp(fluids.size(), 1, fluids.size()) , 3000) {
-
-            @Override
-            public boolean isFluidValid(int tank, FluidStack stack) {
-                if(fluids.contains(stack.getFluid())) {
-                    return stack.getFluid().isSame(fluids.get(tank));
-                }
-                return false;
-            }
-        };
+        return fluidStacks;
 
     }
 
