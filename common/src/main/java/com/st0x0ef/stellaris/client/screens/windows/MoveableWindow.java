@@ -1,6 +1,8 @@
 package com.st0x0ef.stellaris.client.screens.windows;
 
 import com.google.common.collect.Lists;
+import com.st0x0ef.stellaris.Stellaris;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Renderable;
@@ -14,6 +16,8 @@ import org.lwjgl.glfw.GLFW;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Callable;
+import java.util.function.Consumer;
 
 public abstract class MoveableWindow extends AbstractWidget implements Renderable, GuiEventListener {
 
@@ -22,8 +26,11 @@ public abstract class MoveableWindow extends AbstractWidget implements Renderabl
     private int windowY;
     public double dragOffsetX = 0;
     public double dragOffsetY = 0;
+    public int moveLimit;
 
-    private final List<Renderable> renderables = Lists.newArrayList();
+    public final List<Renderable> renderables = Lists.newArrayList();
+    public final List<GuiEventListener> guiEventListener = Lists.newArrayList();
+
     private final Map<AbstractWidget, int[]> initialWidgetOffsets = new HashMap<>();
 
     public Render render;
@@ -40,6 +47,7 @@ public abstract class MoveableWindow extends AbstractWidget implements Renderabl
 
         this.windowX = this.getX();
         this.windowY = this.getY();
+        this.moveLimit = height;
     }
 
     public abstract void renderWindow(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick);
@@ -56,6 +64,11 @@ public abstract class MoveableWindow extends AbstractWidget implements Renderabl
                 widget.render(guiGraphics, mouseX, mouseY, partialTick);
             }
         }
+    }
+
+    public Consumer<MoveableWindow> resize(Minecraft minecraft, int width, int height) {
+
+        return (window) -> {};
     }
 
     @Override
@@ -132,12 +145,12 @@ public abstract class MoveableWindow extends AbstractWidget implements Renderabl
             int relativeY = abstractWidget.getY() - this.windowY;
             initialWidgetOffsets.put(abstractWidget, new int[]{relativeX, relativeY});
         }
-        this.parent.addRenderableWidget(widget);
+        this.guiEventListener.add(widget);
         this.renderables.add(widget);
     }
 
     public boolean mouseInside(double mouseX, double mouseY) {
-        return mouseX >= this.windowX && mouseX <= this.windowX + this.width && mouseY >= this.windowY && mouseY <= this.windowY + this.height;
+        return mouseX >= this.windowX && mouseX <= this.windowX + this.width && mouseY >= this.windowY && mouseY <= this.windowY + this.moveLimit;
     }
 
     public int getWindowX() {
@@ -150,5 +163,9 @@ public abstract class MoveableWindow extends AbstractWidget implements Renderabl
 
     public interface Render {
         void render(MoveableWindow window);
+    }
+
+    public void setMoveLimit(int moveLimit) {
+        this.moveLimit = moveLimit;
     }
 }

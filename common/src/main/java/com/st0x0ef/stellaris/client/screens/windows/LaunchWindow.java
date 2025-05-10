@@ -3,7 +3,7 @@ package com.st0x0ef.stellaris.client.screens.windows;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.PlanetSelectionScreen;
-import com.st0x0ef.stellaris.client.screens.components.LaunchPadWidget;
+import com.st0x0ef.stellaris.client.screens.components.LaunchPadsList;
 import com.st0x0ef.stellaris.client.screens.components.TexturedButton;
 import com.st0x0ef.stellaris.client.screens.info.CelestialBody;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPad;
@@ -19,6 +19,7 @@ import org.lwjgl.glfw.GLFW;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Consumer;
 
 public class LaunchWindow extends MoveableWindow {
 
@@ -27,10 +28,25 @@ public class LaunchWindow extends MoveableWindow {
     @Nullable public CelestialBody celestialBody = PlanetSelectionScreen.focusedBody;
     public Map<Vector4i, LaunchPad> launchPadMap = new HashMap<>();
 
+    private LaunchPadsList padsList;
+
     public LaunchWindow(int width, int height, Component message, PlanetSelectionScreen parent) {
         super(width, height, message, parent);
 
         this.parent = parent;
+        this.moveLimit = 15;
+        parent.canZoom = false;
+    }
+
+
+    @Override
+    public void init() {
+        GLFW.glfwSetScrollCallback(Minecraft.getInstance().getWindow().getWindow(), Minecraft.getInstance().mouseHandler::onScroll);
+
+        ArrayList<LaunchPad> spaceStationButtons = getLaunchPadsForDimension();
+        this.padsList = new LaunchPadsList(getWindowX() + 40, getWindowY() + 50, getWidth() - 80, getHeight() - 80, Component.translatable("gui.stellaris.launchpads"), this, spaceStationButtons);
+
+        this.addWidget(this.padsList);
     }
 
     @Override
@@ -41,16 +57,8 @@ public class LaunchWindow extends MoveableWindow {
 
         guiGraphics.drawCenteredString(Minecraft.getInstance().font, "Available Launch Pads", getWindowX() + getWidth() / 2, getWindowY() + 27, 0xFFFFFFFF);
 
-        ArrayList<LaunchPad> spaceStationButtons = getLaunchPadsForDimension();
-
-        for(int i = 0; i < spaceStationButtons.size(); i++) {
-            int x = getWindowX() + 40;
-            int y = getWindowY() + 50 + (i * 35);
-
-            LaunchPadWidget launchPadWidget = new LaunchPadWidget(spaceStationButtons.get(i), x, y, this);
-            launchPadWidget.render(guiGraphics, mouseX, mouseY, partialTicks);
-            launchPadMap.putIfAbsent(launchPadWidget.buttonPositions, spaceStationButtons.get(i));
-        }
+        this.padsList.launchPads = getLaunchPadsForDimension();
+        this.padsList.render(guiGraphics, mouseX, mouseY, partialTicks);
 
         guiGraphics.flush();
         parent.dragging = false;
@@ -59,27 +67,30 @@ public class LaunchWindow extends MoveableWindow {
 
     @Override
     public void close() {
-        super.close();
         GLFW.glfwSetScrollCallback(Minecraft.getInstance().getWindow().getWindow(), parent::onMouseScroll);
+        parent.canZoom = true;
+        super.close();
+
     }
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-
-        if(launchPadMap != null) {
-            for(Map.Entry<Vector4i, LaunchPad> entry : launchPadMap.entrySet()) {
-                Vector4i pos = entry.getKey();
-                LaunchPad launchPad = entry.getValue();
-
-                if (Utils.isHoveredOnSprite(pos.x, pos.y, pos.z, pos.w, (int) mouseX, (int) mouseY)) {
-                    Stellaris.LOG.error("Clicked on launch pad {}", launchPad.position());
-                    parent.tpToFocusedPlanet(launchPad.position(), celestialBody);
-                    return true;
-                }
-            }
+        if(padsList != null) {
+            padsList.mouseClicked(mouseX, mouseY, button);
         }
-
         return super.mouseClicked(mouseX, mouseY, button);
+    }
+
+    @Override
+    public Consumer<MoveableWindow> resize(Minecraft minecraft, int width, int height) {
+        var body = this.celestialBody;
+
+        return (window) -> {
+            if(window instanceof LaunchWindow launchWindow) {
+                launchWindow.setCelestialBody(body);
+                launchWindow.padsList.launchPads = launchWindow.getLaunchPadsForDimension();
+            }
+        };
     }
 
     public ArrayList<LaunchPad> getLaunchPadsForDimension() {

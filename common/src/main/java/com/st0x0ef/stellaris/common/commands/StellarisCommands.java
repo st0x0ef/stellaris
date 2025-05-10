@@ -125,34 +125,52 @@ public class StellarisCommands {
                                     MenuRegistry.openExtendedMenu(context.getSource().getPlayer(), provider);
                                     return 0;
                                 }))
-                        .then(Commands.literal("createLaunchpad")
-                                .then(Commands.argument("dimension", ResourceKeyArgument.key(Registries.DIMENSION))
-                                        .then(Commands.argument("pos", Vec3Argument.vec3())
-                                                .then(Commands.argument("public", BoolArgumentType.bool())
-                                                        .then(Commands.argument("name", StringArgumentType.string())
-                                                            .executes((CommandContext<CommandSourceStack> context) -> {
+                        .then(Commands.literal("launchpads")
+                            .then(Commands.literal("create")
+                                    .then(Commands.argument("dimension", ResourceKeyArgument.key(Registries.DIMENSION))
+                                            .then(Commands.argument("pos", Vec3Argument.vec3())
+                                                    .then(Commands.argument("public", BoolArgumentType.bool())
+                                                            .then(Commands.argument("name", StringArgumentType.string())
+                                                                .executes((CommandContext<CommandSourceStack> context) -> {
 
-                                                                LaunchPad launchPad = new LaunchPad(
-                                                                        Vec3Argument.getVec3(context, "pos"),
-                                                                        context.getArgument("dimension", ResourceKey.class),
-                                                                        StringArgumentType.getString(context, "name"),
-                                                                        BoolArgumentType.getBool(context, "public"),
-                                                                        Objects.requireNonNull(context.getSource().getPlayer()).getDisplayName().getString(),
-                                                                        new ArrayList<>()
+                                                                    LaunchPad launchPad = new LaunchPad(
+                                                                            Vec3Argument.getVec3(context, "pos"),
+                                                                            context.getArgument("dimension", ResourceKey.class),
+                                                                            StringArgumentType.getString(context, "name"),
+                                                                            BoolArgumentType.getBool(context, "public"),
+                                                                            Objects.requireNonNull(context.getSource().getPlayer()).getDisplayName().getString(),
+                                                                            new ArrayList<>()
 
-                                                                );
-                                                                LaunchPadLauncher.addLaunchPad(launchPad, context.getSource().getServer());
+                                                                    );
+                                                                    LaunchPadLauncher.addLaunchPad(launchPad, context.getSource().getServer());
 
-                                                                context.getSource().sendSuccess(() -> Component.literal("Space Station " + StringArgumentType.getString(context, "name") + " Created"), true);
+                                                                    context.getSource().sendSuccess(() -> Component.literal("Space Station " + StringArgumentType.getString(context, "name") + " Created"), true);
 
-                                                                return Command.SINGLE_SUCCESS;
-                                        }))))))
+                                                                    return Command.SINGLE_SUCCESS;
+
+                                                                })
+                                                            )
+                                                    )
+                                            )
+                                    )
+                            ).then(Commands.literal("remove")
+                                        .then(Commands.argument("dimension", ResourceKeyArgument.key(Registries.DIMENSION))
+                                                .then(Commands.argument("name", StringArgumentType.string())
+                                                        .executes((CommandContext<CommandSourceStack> context) -> {
+
+
+                                                            if (LaunchPadLauncher.removeLaunchpad(context.getArgument("dimension", ResourceKey.class), StringArgumentType.getString(context, "name"),  context.getSource().getServer())) {
+                                                                context.getSource().sendSuccess(() -> Component.literal("Space Station " + StringArgumentType.getString(context, "name") + " Deleted"), true);
+                                                            } else {
+                                                                context.getSource().sendFailure(Component.literal("Space Station " + StringArgumentType.getString(context, "name") + " Not Found"));
+                                                            }
+                                                            return Command.SINGLE_SUCCESS;
+                                                        })
+                                                )
+                                        )
+                                )
+                        )
                 )
         );
-
-
-
-
-
     }
 }

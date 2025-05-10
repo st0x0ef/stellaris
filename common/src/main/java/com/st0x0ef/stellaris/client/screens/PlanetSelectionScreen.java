@@ -113,6 +113,7 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
 
     private double zoomLevel = 1.0;
     private double targetZoomLevel = 1.0;
+    public boolean canZoom = true;
 
     private double targetOffsetX = 0;
     private double targetOffsetY = 0;
@@ -135,7 +136,9 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
         this.imageWidth = 1200;
         this.imageHeight = 1600;
         this.inventoryLabelY = this.imageHeight - 110;
+        this.canZoom = true;
         initializeLaunchButton();
+
     }
 
     @Override
@@ -702,9 +705,10 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
             }
             centerOnBody(focusedBody);
         } else if (keyCode == GLFW.GLFW_KEY_ESCAPE) {
-            if (showSpaceStationMenu) {
-                showSpaceStationMenu = false;
-                showLargeMenu = true;
+            if (this.launchWindow.visible) {
+                this.showSpaceStationMenu = false;
+                this.launchWindow.close();
+                return true;
             }
         }
 
@@ -1175,7 +1179,13 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
             }
 
             if (this.minecraft.screen instanceof PlanetSelectionScreen) {
-                if (scrollY != 0) {
+
+                if(this.launchWindow.visible) {
+                    this.mouseScrolled(mouseX[0], mouseY[0], scrollX, scrollY);
+                    return;
+                }
+
+                if (scrollY != 0 && this.canZoom) {
                     double screenX = this.width / 4.0;
                     double screenY = this.height / 4.0;
 

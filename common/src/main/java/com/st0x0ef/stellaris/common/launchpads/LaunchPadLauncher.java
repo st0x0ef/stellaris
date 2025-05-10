@@ -6,8 +6,11 @@ import com.mojang.serialization.JsonOps;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.network.packets.SyncLaunchPads;
 import dev.architectury.networking.NetworkManager;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.GsonHelper;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.dimension.DimensionType;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -59,6 +62,43 @@ public class LaunchPadLauncher {
             }
 
         }
+    }
+
+    public static boolean removeLaunchpad(ResourceKey<Level> dimension, String name, MinecraftServer server)  {
+        try {
+            Path launchpath = server.storageSource.getLevelDirectory().path().resolve("launch-pads.json");
+
+            ArrayList<LaunchPad> launchPads = new ArrayList<>(LaunchPadLauncher.LAUNCH_PADS.launchPads());
+
+            for(LaunchPad launchpad : launchPads) {
+                if(launchpad.name().equals(name) && launchpad.dimension().location() == dimension.location()) {
+                    launchPads.remove(launchpad);
+                    break;
+                }
+            }
+
+            if(launchPads.equals(LaunchPadLauncher.LAUNCH_PADS.launchPads())) {
+                return false;
+            }
+
+            LaunchPadLauncher.LAUNCH_PADS = new LaunchPad.LaunchPadContainer(launchPads);
+
+            JsonElement jsonElement = LaunchPad.LaunchPadContainer.toJson(LaunchPadLauncher.LAUNCH_PADS);
+            String launchpadsFile = Stellaris.GSON.toJson(jsonElement);
+
+
+            BufferedWriter launchpadsWrite = Files.newBufferedWriter(launchpath);
+            launchpadsWrite.write(launchpadsFile);
+            launchpadsWrite.close();
+
+        } catch (IOException e) {
+            Stellaris.LOG.error("Error writing launchpads to file {}", e.getMessage());
+
+            return false;
+        }
+
+        NetworkManager.sendToPlayers(server.getPlayerList().getPlayers(), new SyncLaunchPads(LaunchPadLauncher.LAUNCH_PADS));
+        return true;
     }
 
 
