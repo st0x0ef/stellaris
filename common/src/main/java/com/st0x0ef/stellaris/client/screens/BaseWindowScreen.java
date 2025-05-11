@@ -3,9 +3,11 @@ package com.st0x0ef.stellaris.client.screens;
 import com.st0x0ef.stellaris.client.screens.windows.MoveableWindow;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
+import net.minecraft.client.gui.screens.DirectJoinServerScreen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -18,7 +20,7 @@ import java.util.function.Consumer;
 
 public class BaseWindowScreen<T extends AbstractContainerMenu> extends AbstractContainerScreen<T> {
 
-    public ArrayList<GuiEventListener> guiEventListeners = new ArrayList<>();
+    public ArrayList<AbstractWidget> guiEventListeners = new ArrayList<>();
     public ArrayList<MoveableWindow> moveableWindows = new ArrayList<>();
 
     public BaseWindowScreen(T menu, Inventory playerInventory, Component title) {
@@ -37,9 +39,19 @@ public class BaseWindowScreen<T extends AbstractContainerMenu> extends AbstractC
             window.init();
             moveableWindows.add(window);
             guiEventListeners.add(window);
-            guiEventListeners.addAll(window.guiEventListener);
+            guiEventListeners.addAll(window.initialWidgetOffsets.keySet());
+
         }
         return super.addRenderableWidget(widget);
+    }
+
+    @Override
+    public void mouseMoved(double mouseX, double mouseY) {
+        for(GuiEventListener listener : this.guiEventListeners) {
+            listener.mouseMoved(mouseX, mouseY);
+        }
+
+        super.mouseMoved(mouseX, mouseY);
     }
 
     @Override
@@ -84,6 +96,14 @@ public class BaseWindowScreen<T extends AbstractContainerMenu> extends AbstractC
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        for(GuiEventListener listener : this.guiEventListeners) {
+            listener.mouseClicked(mouseX, mouseY, button);
+        }
+
+        return super.mouseClicked(mouseX, mouseY, button);
+    }
 
     @Override
     public void resize(Minecraft minecraft, int width, int height) {

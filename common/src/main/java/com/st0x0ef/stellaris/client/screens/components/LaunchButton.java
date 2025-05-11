@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.client.screens.components;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import net.fabricmc.api.EnvType;
@@ -18,8 +19,9 @@ import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
 public class LaunchButton extends Button {
-    private ResourceLocation buttonTexture;
-    private ResourceLocation hoverButtonTexture;
+    private ResourceLocation buttonTexture = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button.png");
+
+    private ResourceLocation hoverButtonTexture = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button_hovered.png");
 
     private boolean isSpaceStation = false;
 
@@ -49,9 +51,11 @@ public class LaunchButton extends Button {
         this.yTexStart = 0;
     }
 
-    public void setButtonTexture(ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture) {
+    public <T extends LaunchButton> T setButtonTexture(ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture) {
         this.buttonTexture = buttonTexture;
         this.hoverButtonTexture = hoverButtonTexture;
+
+        return this.cast();
     }
 
     @SuppressWarnings("unchecked")
@@ -96,8 +100,13 @@ public class LaunchButton extends Button {
             i += this.yDiffText;
         }
 
+        if(Utils.isHoveredOnSprite(this.getX(), this.getY(), this.width, this.height, mouseX, mouseY)) {
+            Stellaris.LOG.error("mouse x: {} mouse y: {}", mouseX, mouseY);
+
+        }
+
         /** TEXTURE MANAGER */
-        ResourceLocation texture = this.getTypeTexture(this.isHovered, this.buttonTexture, this.hoverButtonTexture);
+        ResourceLocation texture = this.getTypeTexture(Utils.isHoveredOnSprite(this.getX(), this.getY(), this.width, this.height, mouseX, mouseY), this.buttonTexture, this.hoverButtonTexture);
 
         /** TEXTURE RENDERER */
         RenderSystem.setShaderTexture(0, texture);

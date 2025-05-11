@@ -92,6 +92,8 @@ public class TexturedButton extends Button {
 
         int i = this.yTexStart;
         if (this.isHoveredOrFocused()) {
+            Stellaris.LOG.error("mouse x: {} mouse y: {}", mouseX, mouseY);
+
             i += this.yDiffText;
         }
 
@@ -114,6 +116,7 @@ public class TexturedButton extends Button {
     private ResourceLocation getTypeTexture(boolean hover, ResourceLocation buttonTexture,
                                             ResourceLocation hoverButtonTexture) {
         if (hover) {
+
             return hoverButtonTexture;
         } else {
             return buttonTexture;

@@ -38,7 +38,7 @@ public class LaunchPadsList extends AbstractScrollWidget {
 
     @Override
     protected int getInnerHeight() {
-        return finalHeight.get() ;
+        return finalHeight.get() - finalHeight.get() / 3;
     }
 
     @Override

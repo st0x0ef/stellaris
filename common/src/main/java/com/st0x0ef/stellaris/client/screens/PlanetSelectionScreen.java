@@ -851,6 +851,10 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
         tpToFocusedPlanet(new Vec3(getPlayer().getX(), 600, getPlayer().getZ()), this.focusedBody);
     }
 
+    public void tpToFocusedPlanet(CelestialBody body) {
+        tpToFocusedPlanet(new Vec3(getPlayer().getX(), 600, getPlayer().getZ()), body);
+    }
+
     public void tpToFocusedPlanet(Vec3 coords, CelestialBody focusedBody) {
         if (focusedBody != null) {
 

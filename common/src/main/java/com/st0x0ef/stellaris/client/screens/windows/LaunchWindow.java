@@ -3,11 +3,11 @@ package com.st0x0ef.stellaris.client.screens.windows;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.PlanetSelectionScreen;
+import com.st0x0ef.stellaris.client.screens.components.LaunchButton;
 import com.st0x0ef.stellaris.client.screens.components.LaunchPadsList;
 import com.st0x0ef.stellaris.client.screens.components.TexturedButton;
 import com.st0x0ef.stellaris.client.screens.info.CelestialBody;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPad;
-import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
@@ -47,6 +47,12 @@ public class LaunchWindow extends MoveableWindow {
         this.padsList = new LaunchPadsList(getWindowX() + 40, getWindowY() + 50, getWidth() - 80, getHeight() - 80, Component.translatable("gui.stellaris.launchpads"), this, spaceStationButtons);
 
         this.addWidget(this.padsList);
+
+        LaunchButton button = new LaunchButton((getWindowX() + getWidth()) / 2, (getWindowY() + getHeight()) - 30, 60, 20, Component.literal("Launch"), (b) -> {
+            parent.tpToFocusedPlanet(this.celestialBody);
+        });
+
+        this.addWidget(button);
     }
 
     @Override
@@ -58,7 +64,6 @@ public class LaunchWindow extends MoveableWindow {
         guiGraphics.drawCenteredString(Minecraft.getInstance().font, "Available Launch Pads", getWindowX() + getWidth() / 2, getWindowY() + 27, 0xFFFFFFFF);
 
         this.padsList.launchPads = getLaunchPadsForDimension();
-        this.padsList.render(guiGraphics, mouseX, mouseY, partialTicks);
 
         guiGraphics.flush();
         parent.dragging = false;
@@ -122,9 +127,8 @@ public class LaunchWindow extends MoveableWindow {
         }
     }
 
-    public void setCelestialBody(CelestialBody celestialBody) {
+    public void setCelestialBody(@Nullable CelestialBody celestialBody) {
         this.celestialBody = celestialBody;
-        Stellaris.LOG.error("Setting celestial body to {}", celestialBody.name);
     }
 
 

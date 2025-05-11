@@ -1,7 +1,8 @@
 package com.st0x0ef.stellaris.client.screens.windows;
 
-import com.google.common.collect.Lists;
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.client.screens.components.LaunchButton;
+import com.st0x0ef.stellaris.client.screens.components.TexturedButton;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -14,9 +15,7 @@ import net.minecraft.network.chat.Component;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Callable;
 import java.util.function.Consumer;
 
 public abstract class MoveableWindow extends AbstractWidget implements Renderable, GuiEventListener {
@@ -28,10 +27,7 @@ public abstract class MoveableWindow extends AbstractWidget implements Renderabl
     public double dragOffsetY = 0;
     public int moveLimit;
 
-    public final List<Renderable> renderables = Lists.newArrayList();
-    public final List<GuiEventListener> guiEventListener = Lists.newArrayList();
-
-    private final Map<AbstractWidget, int[]> initialWidgetOffsets = new HashMap<>();
+    public final Map<AbstractWidget, int[]> initialWidgetOffsets = new HashMap<>();
 
     public Render render;
     public Screen parent;
@@ -59,10 +55,9 @@ public abstract class MoveableWindow extends AbstractWidget implements Renderabl
     };
 
     public void renderWidgets(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        for (Renderable renderable : this.renderables) {
-            if (renderable instanceof AbstractWidget widget) {
-                widget.render(guiGraphics, mouseX, mouseY, partialTick);
-            }
+        for (AbstractWidget widget : initialWidgetOffsets.keySet()) {
+
+            widget.render(guiGraphics, mouseX, mouseY, partialTick);
         }
     }
 
@@ -120,33 +115,26 @@ public abstract class MoveableWindow extends AbstractWidget implements Renderabl
     }
 
     private void updateWidgetPositions() {
-        for (Renderable widget : renderables) {
-            if (widget instanceof AbstractWidget abstractWidget) {
-                int[] offset = initialWidgetOffsets.get(abstractWidget);
-                abstractWidget.setX(windowX + offset[0]);
-                abstractWidget.setY(windowY + offset[1]);
+        for (AbstractWidget widget : this.initialWidgetOffsets.keySet()) {
+            int[] offset = initialWidgetOffsets.get(widget);
+            widget.setX(windowX + offset[0]);
+            widget.setY(windowY + offset[1]);
 
-            }
         }
     }
 
     public void changeVisibility(boolean visible) {
         this.visible = visible;
-        for (Renderable widget : renderables) {
-            if (widget instanceof AbstractWidget abstractWidget) {
-                abstractWidget.visible = visible;
-            }
+        for (AbstractWidget widget : this.initialWidgetOffsets.keySet()) {
+            widget.visible = visible;
         }
     }
 
-    public <T extends GuiEventListener & Renderable & NarratableEntry> void addWidget(T widget) {
-        if (widget instanceof AbstractWidget abstractWidget) {
-            int relativeX = abstractWidget.getX() - this.windowX;
-            int relativeY = abstractWidget.getY() - this.windowY;
-            initialWidgetOffsets.put(abstractWidget, new int[]{relativeX, relativeY});
-        }
-        this.guiEventListener.add(widget);
-        this.renderables.add(widget);
+    public <T extends AbstractWidget> void addWidget(T widget) {
+        int relativeX = widget.getX() - this.windowX;
+        int relativeY = widget.getY() - this.windowY;
+        initialWidgetOffsets.put(widget, new int[]{relativeX, relativeY});
+
     }
 
     public boolean mouseInside(double mouseX, double mouseY) {
