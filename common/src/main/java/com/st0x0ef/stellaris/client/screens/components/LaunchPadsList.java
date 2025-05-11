@@ -3,9 +3,6 @@ package com.st0x0ef.stellaris.client.screens.components;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.GUISprites;
-import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
-import com.st0x0ef.stellaris.client.screens.tablet.TabletEntry;
-import com.st0x0ef.stellaris.client.screens.tablet.TabletEntryScreen;
 import com.st0x0ef.stellaris.client.screens.windows.LaunchWindow;
 import com.st0x0ef.stellaris.client.screens.windows.MoveableWindow;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPad;
@@ -62,8 +59,8 @@ public class LaunchPadsList extends AbstractScrollWidget {
             int x = this.window.getWindowX() + 40;
             int y = (i * 35);
 
-            LaunchPadWidget launchPadWidget = new LaunchPadWidget(launchPads.get(i), x, getY() + y , this.window);
-            launchPadWidget.render(guiGraphics, mouseX, mouseY, partialTick);
+            LaunchPadWidget launchPadWidget = new LaunchPadWidget(launchPads.get(i), x, getY() + y, this.window);
+            launchPadWidget.render(guiGraphics, mouseX, (int) (mouseY + this.scrollAmount()), partialTick);
             launchPadMap.putIfAbsent(launchPadWidget.buttonPositions, launchPads.get(i));
 
             finalHeight.addAndGet(y);
@@ -119,7 +116,7 @@ public class LaunchPadsList extends AbstractScrollWidget {
         return Minecraft.getInstance().font;
     }
 
-    public class LaunchPadWidget {
+    public static class LaunchPadWidget {
 
         public final LaunchPad launchPad;
         public final int x;
