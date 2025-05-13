@@ -5,7 +5,7 @@ public class CommonConfig {
 
     public boolean debug = false;
 
-    @ConfigManager.ConfigBlock
+    @ConfigManager.InnerConfig
     public Oil oilConfig = new Oil();
 
     public static class Oil {

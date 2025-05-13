@@ -22,7 +22,6 @@ import java.io.Writer;
 import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Set;
 
 
 @Environment(EnvType.CLIENT)
@@ -61,7 +60,7 @@ public class ConfigScreen extends Screen {
                 Object value = field.get(object);
                 String name = field.getName();
 
-                if (field.isAnnotationPresent(ConfigManager.ConfigBlock.class)) {
+                if (field.isAnnotationPresent(ConfigManager.InnerConfig.class)) {
                     rowHelper.addChild(new StringWidget(Component.translatable("stellaris.config.name" + name), this.font));
                     rowHelper.addChild(new SpacerElement(32, 16));
 

@@ -2,7 +2,6 @@ package com.st0x0ef.stellaris.common.config;
 
 import com.st0x0ef.stellaris.Stellaris;
 import dev.architectury.platform.Platform;
-import org.spongepowered.asm.mixin.injection.struct.InjectionInfo;
 
 import java.io.*;
 import java.lang.annotation.Retention;
@@ -50,6 +49,6 @@ public class ConfigManager {
     }
 
     @Retention(RetentionPolicy.RUNTIME)
-    public static @interface ConfigBlock {
+    public static @interface InnerConfig {
     }
 }
