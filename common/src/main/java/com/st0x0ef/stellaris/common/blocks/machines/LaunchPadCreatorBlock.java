@@ -1,0 +1,55 @@
+package com.st0x0ef.stellaris.common.blocks.machines;
+
+import com.mojang.serialization.MapCodec;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.LaunchPadCreatorBlockEntity;
+import com.st0x0ef.stellaris.common.launchpads.LaunchPadLauncher;
+import com.st0x0ef.stellaris.common.network.packets.LaunchPadsOperations;
+import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
+import dev.architectury.networking.NetworkManager;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+public class LaunchPadCreatorBlock extends BaseMachineBlock {
+
+    public LaunchPadCreatorBlock(Properties properties) {
+        super(properties);
+    }
+
+    @Override
+    public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new LaunchPadCreatorBlockEntity(pos, state);
+    }
+
+    @Override
+    public BlockEntityType<?> getBlockEntityType() {
+        return BlockEntityRegistry.LAUNCHPAD_CREATOR.get();
+    }
+
+    @Override
+    public boolean hasTicker(Level level) {
+        return !level.isClientSide;
+    }
+
+
+    @Override
+    protected @NotNull MapCodec<? extends BaseEntityBlock> codec() {
+        return simpleCodec(LaunchPadCreatorBlock::new);
+    }
+
+    @Override
+    protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+        BlockEntity blockEntity = level.getBlockEntity(pos);
+
+        if(blockEntity instanceof LaunchPadCreatorBlockEntity launchPadCreatorBlockEntity && launchPadCreatorBlockEntity.launchPad != null) {
+            NetworkManager.sendToServer(new LaunchPadsOperations(launchPadCreatorBlockEntity.launchPad, "remove"));
+        }
+
+        super.onRemove(state, level, pos, newState, movedByPiston);
+    }
+}

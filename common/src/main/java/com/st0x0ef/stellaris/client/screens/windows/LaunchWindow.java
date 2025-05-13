@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.client.screens.windows;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.PlanetSelectionScreen;
 import com.st0x0ef.stellaris.client.screens.components.LaunchButton;
 import com.st0x0ef.stellaris.client.screens.components.LaunchPadsList;
@@ -17,8 +16,6 @@ import org.joml.Vector4i;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Consumer;
 
 public class LaunchWindow extends MoveableWindow {
@@ -26,7 +23,6 @@ public class LaunchWindow extends MoveableWindow {
     public final ArrayList<TexturedButton> spaceStationButtons = new ArrayList<>();
     public final PlanetSelectionScreen parent;
     @Nullable public CelestialBody celestialBody = PlanetSelectionScreen.focusedBody;
-    public Map<Vector4i, LaunchPad> launchPadMap = new HashMap<>();
 
     private LaunchPadsList padsList;
 

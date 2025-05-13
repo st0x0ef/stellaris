@@ -103,7 +103,15 @@ public class LaunchPadLauncher {
 
 
     public static void addLaunchPad(LaunchPad pad, MinecraftServer server)  {
+
+        if(server == null) {
+            Stellaris.LOG.error("Server is null");
+            return;
+        }
+
         try {
+            Stellaris.LOG.info("Adding launchpad {} to dimension {}", pad.name(), pad.dimension().location());
+
             Path launchpath = server.storageSource.getLevelDirectory().path().resolve("launch-pads.json");
 
             ArrayList<LaunchPad> launchPads = new ArrayList<>(LaunchPadLauncher.LAUNCH_PADS.launchPads());

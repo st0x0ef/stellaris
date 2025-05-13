@@ -26,6 +26,7 @@ public interface NetworkRegistry {
     CustomPacketPayload.Type<SyncRoverComponentPacket> SYNC_ROVER_COMPONENT_ID = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "sync_rover_component"));
     CustomPacketPayload.Type<SyncRoverPacket> SYNC_ROVER_CONTROLS = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "sync_rover_packet"));
     CustomPacketPayload.Type<SyncLaunchPads> SYNC_LAUNCH_PADS = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "sync_launch_pads"));
+    CustomPacketPayload.Type<LaunchPadsOperations> LAUNCH_PADS_OPERATION = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "launch_pads_operation"));
 
     CustomPacketPayload.Type<OpenMilkyWayMenuPacket> OPEN_MILKY_WAY_MENU =
             new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "open_milky_way"));
@@ -60,6 +61,10 @@ public interface NetworkRegistry {
                 OPEN_PLANETSCREEN_MENU,
                 OpenPlanetScreenPacket.STREAM_CODEC,
                 OpenPlanetScreenPacket::handle
+        );
+        registerC2S(LAUNCH_PADS_OPERATION,
+                LaunchPadsOperations.STREAM_CODEC,
+                LaunchPadsOperations::handle
         );
     }
 

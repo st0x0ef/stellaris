@@ -1,0 +1,55 @@
+package com.st0x0ef.stellaris.common.menus;
+
+import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.FuelRefineryBlockEntity;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.LaunchPadCreatorBlockEntity;
+import com.st0x0ef.stellaris.common.menus.slot.FluidContainerSlot;
+import com.st0x0ef.stellaris.common.menus.slot.ResultSlot;
+import com.st0x0ef.stellaris.common.menus.slot.SpecificFluidContainerSlot;
+import com.st0x0ef.stellaris.common.registry.FluidRegistry;
+import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
+
+public class LaunchPadCreatorMenu extends AbstractContainerMenu {
+
+    private final Player player;
+    private final LaunchPadCreatorBlockEntity blockEntity;
+
+    public static LaunchPadCreatorMenu create(int containerId, Inventory inventory, FriendlyByteBuf buf) {
+        LaunchPadCreatorBlockEntity blockEntity = (LaunchPadCreatorBlockEntity) inventory.player.level().getBlockEntity(buf.readBlockPos());
+        return new LaunchPadCreatorMenu(containerId, inventory, blockEntity);
+    }
+
+    public LaunchPadCreatorMenu(int containerId, Inventory inventory, LaunchPadCreatorBlockEntity blockEntity) {
+        super(MenuTypesRegistry.LAUNCHPAD_CREATOR_MENU.get(), containerId);
+        this.player = inventory.player;
+        this.blockEntity = blockEntity;
+
+        Stellaris.LOG.error("is server null ? {}", (blockEntity.getLevel().getServer() == null));
+    }
+
+
+    @Override
+    public ItemStack quickMoveStack(Player player, int invSlot) {
+        return ItemStack.EMPTY;
+    }
+
+    @Override
+    public boolean stillValid(Player player) {
+        return !player.isDeadOrDying();
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public LaunchPadCreatorBlockEntity getBlockEntity() {
+        return blockEntity;
+    }
+}

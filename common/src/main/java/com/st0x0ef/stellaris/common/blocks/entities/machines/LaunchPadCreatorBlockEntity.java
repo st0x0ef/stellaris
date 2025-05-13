@@ -1,0 +1,97 @@
+package com.st0x0ef.stellaris.common.blocks.entities.machines;
+
+import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.common.blocks.entities.ImplementedInventory;
+import com.st0x0ef.stellaris.common.launchpads.LaunchPad;
+import com.st0x0ef.stellaris.common.launchpads.LaunchPadLauncher;
+import com.st0x0ef.stellaris.common.launchpads.LaunchPadUtils;
+import com.st0x0ef.stellaris.common.menus.LaunchPadCreatorMenu;
+import com.st0x0ef.stellaris.common.network.packets.LaunchPadsOperations;
+import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
+import dev.architectury.networking.NetworkManager;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.NonNullList;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+
+import java.util.Objects;
+
+public class LaunchPadCreatorBlockEntity extends BaseContainerBlockEntity implements ImplementedInventory, TickingBlockEntity {
+
+    public LaunchPad launchPad;
+    private NonNullList<ItemStack> items = NonNullList.withSize(3, ItemStack.EMPTY);
+
+
+    public LaunchPadCreatorBlockEntity(BlockPos blockPos, BlockState blockState) {
+        super(BlockEntityRegistry.LAUNCHPAD_CREATOR.get(), blockPos, blockState);
+    }
+
+
+    @Override
+    protected Component getDefaultName() {
+        return Component.literal("Launch Pad Creator");
+    }
+
+    @Override
+    protected void setItems(NonNullList<ItemStack> items) {
+        this.items = items;
+    }
+
+    @Override
+    protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
+        return new LaunchPadCreatorMenu(containerId, inventory, this);
+    }
+
+    @Override
+    public NonNullList<ItemStack> getItems() {
+        return this.items;
+    }
+
+    @Override
+    public int getContainerSize() {
+        return 0;
+    }
+
+    @Override
+    public void setChanged() {
+        if (this.level != null) {
+            this.level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
+            super.setChanged();
+        }
+    }
+
+    @Override
+    public void loadAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
+        super.loadAdditional(compoundTag, provider);
+        this.launchPad = LaunchPadUtils.loadLaunchPad(compoundTag, this);
+        this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
+        ContainerHelper.loadAllItems(compoundTag, this.items, provider);
+
+    }
+
+    @Override
+    protected void saveAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
+        super.saveAdditional(compoundTag, provider);
+        LaunchPadUtils.saveLaunchPad(launchPad, compoundTag);
+        ContainerHelper.saveAllItems(compoundTag, this.items, provider);
+
+    }
+
+    public void setLaunchPad(LaunchPad launchPad, boolean create) {
+        if (create) {
+            NetworkManager.sendToServer(new LaunchPadsOperations(launchPad, "add"));
+        }
+        this.launchPad = launchPad;
+    }
+
+    @Override
+    public void tick() {}
+
+}

@@ -169,6 +169,7 @@ public class StellarisFabricClient implements ClientModInitializer {
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.PUMPJACK_MENU.get(), PumpjackScreen::new);
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.UPGRADE_STATION_MENU.get(), UpgradeStationScreen::new);
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.TABLET_MENU.get(), TabletMainScreen::new);
+        MenuRegistry.registerScreenFactory(MenuTypesRegistry.LAUNCHPAD_CREATOR_MENU.get(), LaunchPadCreatorScreen::new);
 
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.TEST_MENU.get(), TestScreen::new);
 

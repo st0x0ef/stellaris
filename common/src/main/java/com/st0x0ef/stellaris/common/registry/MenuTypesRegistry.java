@@ -35,5 +35,6 @@ public class MenuTypesRegistry {
 
     public static final RegistrySupplier<MenuType<UpgradeStationMenu>> UPGRADE_STATION_MENU = MENU_TYPE.register("upgrade_station", () -> MenuRegistry.ofExtended(UpgradeStationMenu::create));
     public static final RegistrySupplier<MenuType<TestMenu>> TEST_MENU = MENU_TYPE.register("test_menu", () -> MenuRegistry.ofExtended(TestMenu::create));
+    public static final RegistrySupplier<MenuType<LaunchPadCreatorMenu>> LAUNCHPAD_CREATOR_MENU = MENU_TYPE.register("launchpad_creator", () -> MenuRegistry.ofExtended(LaunchPadCreatorMenu::create));
 
 }
