@@ -2,8 +2,11 @@ package com.st0x0ef.stellaris.common.config;
 
 import com.st0x0ef.stellaris.Stellaris;
 import dev.architectury.platform.Platform;
+import org.spongepowered.asm.mixin.injection.struct.InjectionInfo;
 
 import java.io.*;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
@@ -46,5 +49,7 @@ public class ConfigManager {
         return new CommonConfig();
     }
 
-
+    @Retention(RetentionPolicy.RUNTIME)
+    public static @interface ConfigBlock {
+    }
 }
