@@ -658,14 +658,18 @@
   "spacesuit.stellaris.modules": "Modules",
   "container.stellaris.upgrade": "Upgrade",
   "stat.minecraft.space_traveled": "Space Traveled",
-  "stat.minecraft.rocket_launched": "Rocket Launched"
+  "stat.minecraft.rocket_launched": "Rocket Launched",
 
-  "CONFIG ": "",
+  "CONFIG": "",
 
   "config.stellaris.debug": "Debug Mode",
   "config.stellaris.debug.desc": "Enable debug mode.",
 
   "config.stellaris.oilConfig": "Oil Config",
+
+  "config.stellaris.chunkOilChance": "Oil Chunk Chance",
+  "config.stellaris.chunkOilChance.desc": "The Chance for a chunk to have Oil.",
+
 
   "config.stellaris.minOil": "Minimum Oil",
   "config.stellaris.minOil.desc": "The Minimum Oil in an oil chunk. Will be multiplied by 100.",

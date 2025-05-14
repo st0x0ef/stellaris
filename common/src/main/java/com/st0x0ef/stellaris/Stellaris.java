@@ -6,7 +6,6 @@ import com.google.gson.ToNumberPolicy;
 import com.st0x0ef.stellaris.common.config.CommonConfig;
 import com.st0x0ef.stellaris.common.config.ConfigManager;
 import com.st0x0ef.stellaris.common.data.screen.TabletPack;
-import com.st0x0ef.stellaris.common.config.CustomConfig;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
 import com.st0x0ef.stellaris.common.data.screen.MoonPack;
 import com.st0x0ef.stellaris.common.data.screen.PlanetPack;
@@ -41,7 +40,6 @@ public class Stellaris {
 
         ConfigManager.loadOrGenerateDefaults();
         EntityData.register();
-        CustomConfig.init();
         NetworkRegistry.init();
         ProcessorsRegistry.STRUCTURE_PROCESSORS.register();
         SoundRegistry.SOUNDS.register();
