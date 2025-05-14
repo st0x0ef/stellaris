@@ -6,6 +6,7 @@ import com.st0x0ef.stellaris.common.config.ConfigManager;
 import dev.architectury.platform.Platform;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.*;
@@ -29,15 +30,18 @@ public class ConfigScreen extends Screen {
 
     public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/item/engine_fan.png");
     private final Screen parent;
+    private final GridLayout gridLayout;
+
+    public int widgetHeight = 0;
 
     public ConfigScreen(Screen parent) {
         super(Component.literal("Stellaris Option"));
         this.parent = parent;
+        this.gridLayout = new GridLayout();
     }
 
     @Override
     protected void init() {
-        GridLayout gridLayout = new GridLayout();
         gridLayout.defaultCellSetting().paddingHorizontal(9).paddingBottom(4).alignHorizontallyCenter();
         GridLayout.RowHelper rowHelper = gridLayout.createRowHelper(2);
 
@@ -50,8 +54,22 @@ public class ConfigScreen extends Screen {
         rowHelper.addChild(doneButton, 2, rowHelper.newCellSettings().paddingTop(10));
 
         gridLayout.arrangeElements();
-        FrameLayout.alignInRectangle(gridLayout, 0, this.height / 6 + 10, this.width, this.height, 0.5F, 0.0F);
+        FrameLayout.alignInRectangle(gridLayout, 0, (this.height / 6 + 10) + widgetHeight, this.width, this.height, 0.5F, 0.0F);
         gridLayout.visitWidgets(this::addRenderableWidget);
+    }
+
+    @Override
+    public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
+        if (scrollY != 0) {
+            this.gridLayout.visitWidgets((widget) -> {
+                if (widget instanceof AbstractWidget abstractWidget) {
+                    this.widgetHeight = (int) (scrollY * 10);
+                    abstractWidget.setY(abstractWidget.getY() + this.widgetHeight);
+                }
+            });
+            return true;
+        }
+        return super.mouseScrolled(mouseX, mouseY, scrollX, scrollY);
     }
 
     private void addFields(Field[] fields, GridLayout.RowHelper rowHelper, Object object, int recursionDepth) {
@@ -61,15 +79,15 @@ public class ConfigScreen extends Screen {
                 String name = field.getName();
 
                 if (field.isAnnotationPresent(ConfigManager.InnerConfig.class)) {
-                    rowHelper.addChild(new StringWidget(Component.translatable("stellaris.config.name" + name), this.font));
+                    rowHelper.addChild(new StringWidget(Component.translatable("config.stellaris." + name).withStyle(ChatFormatting.BOLD), this.font));
                     rowHelper.addChild(new SpacerElement(32, 16));
 
                     addFields(field.getType().getFields(), rowHelper, field.get(object), recursionDepth + 1);
                     continue;
                 }
 
-                rowHelper.addChild(new StringWidget(Component.translatable("stellaris.config.name" + name), this.font));
-                addTypeWidget(field, object, value, Component.translatable("stellaris.config.desc" + name), rowHelper);
+                rowHelper.addChild(new StringWidget(Component.translatable("config.stellaris." + name), this.font));
+                addTypeWidget(field, object, value, Component.translatable("config.stellaris." + name + ".desc"), rowHelper);
 
             } catch (Exception e) {
                 e.printStackTrace();

@@ -627,5 +627,19 @@
   "spacesuit.stellaris.auto_feeder": "Auto Feeder",
   "spacesuit.stellaris.shift_for_modules": "Hold shift for module list",
   "spacesuit.stellaris.modules": "Modules",
-  "container.stellaris.upgrade": "Upgrade"
+  "container.stellaris.upgrade": "Upgrade",
+
+  "CONFIG ": "",
+
+  "config.stellaris.debug": "Debug Mode",
+  "config.stellaris.debug.desc": "Enable debug mode.",
+
+  "config.stellaris.oilConfig": "Oil Config",
+
+  "config.stellaris.minOil": "Minimum Oil",
+  "config.stellaris.minOil.desc": "The Minimum Oil in an oil chunk. Will be multiplied by 100.",
+
+  "config.stellaris.maxOil": "Max Oil",
+  "config.stellaris.maxOil.desc": "The Maximum Oil in an oil chunk. Will be multiplied by 100."
+
 }
