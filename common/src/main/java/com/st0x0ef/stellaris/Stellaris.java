@@ -12,6 +12,7 @@ import com.st0x0ef.stellaris.common.data.screen.PlanetPack;
 import com.st0x0ef.stellaris.common.data.screen.StarPack;
 import com.st0x0ef.stellaris.common.events.Events;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
+import com.st0x0ef.stellaris.common.network.packets.SyncConfigPacket;
 import com.st0x0ef.stellaris.common.network.packets.SyncPlanetsDatapackPacket;
 import com.st0x0ef.stellaris.common.registry.*;
 import dev.architectury.networking.NetworkManager;
@@ -69,6 +70,8 @@ public class Stellaris {
     public static void onDatapackSyncEvent(ServerPlayer player, boolean joined) {
         if (joined) {
             NetworkManager.sendToPlayer(player, new SyncPlanetsDatapackPacket(StellarisData.getPlanets()));
+            NetworkManager.sendToPlayer(player, new SyncConfigPacket(Stellaris.CONFIG));
+
         }
     }
 
