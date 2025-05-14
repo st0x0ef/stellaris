@@ -40,7 +40,6 @@ public class SyncConfigPacket implements CustomPacketPayload {
         this.config = Stellaris.GSON.toJson(config, CommonConfig.class);
     }
 
-
     public static void handle(SyncConfigPacket packet, NetworkManager.PacketContext context) {
         CommonConfig config;
 
