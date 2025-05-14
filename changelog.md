@@ -1,11 +1,5 @@
-# 1.3.0 beta 1 changelog
+# 1.3.7 changelog
 
-## Additions
-- Mars storm
-- Custom lightnings bolt
-
-## Changes
-- Better Venus Atmosphere
-
-## Fixes
-- Fix candle still burning in space
+## Fix
+- Fix stats registry in a proper way
+- Fix gravity unit on the planet selection screen

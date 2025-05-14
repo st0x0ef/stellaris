@@ -1,8 +1,8 @@
 package com.st0x0ef.stellaris.common.oxygen;
 
-import com.st0x0ef.stellaris.common.blocks.entities.machines.FluidTankHelper;
+import com.fej1fun.potentials.capabilities.Capabilities;
+import com.fej1fun.potentials.fluid.UniversalFluidStorage;
 import com.st0x0ef.stellaris.common.registry.TagRegistry;
-import com.st0x0ef.stellaris.common.utils.OxygenUtils;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.core.BlockPos;
@@ -29,12 +29,13 @@ public class DimensionOxygenManager {
         this.planetHasOxygen = PlanetUtil.hasOxygen(level);
     }
 
-    public void addOxygenRoomIfMissing(BlockPos distributorPos) {
+    public void tickOxygenRoom(BlockPos distributorPos) {
         if (getOxygenRoom(distributorPos) == null) {
             oxygenRooms.add(new OxygenRoom(level, distributorPos));
-            this.updateOxygen();
-            this.setChanged();
+
         }
+        this.updateOxygenTick();
+        this.setChanged();
     }
 
     public void removeOxygenRoom(BlockPos pos) {
@@ -43,24 +44,25 @@ public class DimensionOxygenManager {
     }
 
     public void addRoomToCheckIfOpen(BlockPos pos, OxygenRoom room) {
-        if (checkIfRoomOpen(pos)) {
+        if (roomToCheckIfOpen.remove(pos) == null) {
             roomToCheckIfOpen.put(pos, room);
         }
     }
 
-    public boolean checkIfRoomOpen(BlockPos pos) {
-        return roomToCheckIfOpen.remove(pos) == null;
+    public void removeRoomToCheckIfOpen(BlockPos pos) {
+        roomToCheckIfOpen.remove(pos);
     }
+
 
     private void setChanged() {
         OxygenSavedData data = OxygenSavedData.getData(level);
         data.setDirty();
     }
 
-    public void updateOxygen() {
+    public void updateOxygenTick() {
         if (planetHasOxygen) return;
 
-        oxygenRooms.forEach(OxygenRoom::updateOxygenRoom);
+        oxygenRooms.forEach(OxygenRoom::tick);
         roomToCheckIfOpen.values().forEach(OxygenRoom::removeOxygenInRoom);
         roomToCheckIfOpen.clear();
     }
@@ -79,7 +81,11 @@ public class DimensionOxygenManager {
         }
 
         if (Utils.isLivingInJetSuit(entity) || Utils.isLivingInSpaceSuit(entity)) {
-            return OxygenUtils.removeOxygen(entity.getItemBySlot(EquipmentSlot.CHEST), FluidTankHelper.convertFromNeoMb(1L));
+            UniversalFluidStorage storage = Capabilities.Fluid.ITEM.getCapability(entity.getItemBySlot(EquipmentSlot.CHEST));
+            if (storage != null && !storage.getFluidInTank(0).isEmpty()) {
+                storage.drain(storage.getFluidInTank(0).copyWithAmount(1), false);
+                return true;
+            }
         }
 
         return false;
@@ -107,6 +113,5 @@ public class DimensionOxygenManager {
     public void setOxygensRooms(Set<OxygenRoom> rooms) {
         this.oxygenRooms.clear();
         this.oxygenRooms.addAll(rooms);
-        this.updateOxygen();
     }
 }

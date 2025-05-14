@@ -1,12 +1,11 @@
 package com.st0x0ef.stellaris.common.items.armors;
 
+import com.fej1fun.potentials.fluid.UniversalFluidItemStorage;
 import com.mojang.serialization.Codec;
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.blocks.entities.machines.FluidTankHelper;
 import com.st0x0ef.stellaris.common.data_components.JetSuitComponent;
 import com.st0x0ef.stellaris.common.keybinds.KeyVariables;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
-import com.st0x0ef.stellaris.common.utils.FuelUtils;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
@@ -24,7 +23,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 public class JetSuit {
-    public static final long MAX_FUEL_CAPACITY = FluidTankHelper.convertFromNeoMb(1000);
+    public static final long MAX_FUEL_CAPACITY = 1000;
 
     public static class Suit extends AbstractSpaceArmor.Chestplate {
         public float spacePressTime = 0.0f;
@@ -55,8 +54,6 @@ public class JetSuit {
             if (entity instanceof Player player && player.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof JetSuit.Suit) {
                 ItemStack jetSuitItemStack = player.getItemBySlot(EquipmentSlot.CHEST);
 
-                if (FuelUtils.getFuel(jetSuitItemStack) <= 0) return;
-
                 /** JET SUIT FAST BOOST */
                 if (player.isSprinting()) {
                     this.boost(player, 1.3, true);
@@ -80,13 +77,17 @@ public class JetSuit {
 
         private void normalFlyModeMovement(Player player, ItemStack stack) {
             if (KeyVariables.isHoldingJump(player)) {
+                UniversalFluidItemStorage storage =  getFluidTank(stack);
+                if (storage.getFluidInTank(1).isEmpty()) return;
+
                 if (nextFuelCheckTick > 0) {
                     player.moveRelative(1.2F, new Vec3(0, 0.1, 0));
                     player.resetFallDistance();
                     Utils.disableFlyAntiCheat(player, true);
                 }
 
-                else if (FuelUtils.removeFuel(stack, 1)) {
+                else if (!storage.getFluidInTank(1).isEmpty()) {
+                    storage.drain(storage.getFluidInTank(1).copyWithAmount(1), false);
                     player.moveRelative(1.2F, new Vec3(0, 0.1, 0));
                     player.resetFallDistance();
                     Utils.disableFlyAntiCheat(player, true);
@@ -117,13 +118,14 @@ public class JetSuit {
 
             // Main movement logic
             if (!player.onGround() && !player.isInWater()) {
+                UniversalFluidItemStorage storage = getFluidTank(stack);
                 if (nextFuelCheckTick > 0) {
                     player.setDeltaMovement(vec3.x, vec3.y + 0.04, vec3.z);
                     player.resetFallDistance();
                     Utils.disableFlyAntiCheat(player, true);
                 }
-
-                else if (FuelUtils.removeFuel(stack, 1)) {
+                else if (!storage.getFluidInTank(1).isEmpty()) {
+                    storage.drain(storage.getFluidInTank(1).copyWithAmount(1), false);
                     player.setDeltaMovement(vec3.x, vec3.y + 0.04, vec3.z);
                     player.resetFallDistance();
                     Utils.disableFlyAntiCheat(player, true);

@@ -4,10 +4,12 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.client.events.custom.PlanetSelectionClientEvents;
 import com.st0x0ef.stellaris.client.screens.PlanetSelectionScreen;
 import com.st0x0ef.stellaris.client.screens.info.PlanetInfo;
 import com.st0x0ef.stellaris.client.screens.record.PlanetRecord;
-import net.minecraft.network.chat.Component;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
@@ -16,6 +18,7 @@ import net.minecraft.util.profiling.ProfilerFiller;
 
 import java.util.Map;
 
+@Environment(EnvType.CLIENT)
 public class PlanetPack extends SimpleJsonResourceReloadListener {
     public PlanetPack() {
         super(Stellaris.GSON, "renderer/planet_screen/planet");
@@ -35,13 +38,22 @@ public class PlanetPack extends SimpleJsonResourceReloadListener {
                     planet.width(),
                     planet.height(),
                     PlanetSelectionScreen.findByNameStar(planet.parent()),
-                    planet.dimensionId(),
-                    Component.translatable(planet.translatable()),
+                    planet.dimensionId().location(),
+                    planet.translatable(),
                     planet.id()
             );
 
+            for (int i = 0; i < PlanetSelectionScreen.PLANETS.size(); i++) {
+                if (PlanetSelectionScreen.PLANETS.get(i).getId().equals(planet.id())) {
+                    PlanetSelectionScreen.PLANETS.set(i, screenPlanet);
+                    Stellaris.LOG.info("Replaced existing planet in PlanetSelectionScreen : {}", planet.name());
+                    return;
+                }
+            }
             PlanetSelectionScreen.PLANETS.add(screenPlanet);
-            Stellaris.LOG.info("Added a planet to PlanetSelectionScreen : {}", planet.name());
+            Stellaris.LOG.info("Added a new planet to PlanetSelectionScreen : {}", planet.name());
         });
+        PlanetSelectionClientEvents.POST_PLANET_PACK_REGISTRY.invoker().planetRegistered(PlanetSelectionScreen.PLANETS);
+
     }
 }

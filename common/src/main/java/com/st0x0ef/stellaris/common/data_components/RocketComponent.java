@@ -9,6 +9,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 
 import java.io.Serializable;
 
@@ -29,8 +30,9 @@ public record RocketComponent(String skin, RocketModel model, String fuelType, i
         return fuel;
     }
 
+    @Deprecated
     public ResourceLocation getFuelTexture() {
-        return fuelTexture;
+        return this.getFuelType().getFuelTexture();
     }
 
     public ResourceLocation getSkin() {
@@ -50,7 +52,21 @@ public record RocketComponent(String skin, RocketModel model, String fuelType, i
     }
 
     public MotorUpgrade getMotorUpgrade() {
-        return new MotorUpgrade(FuelType.Type.fromString(fuelType), fuelTexture);
+        return new MotorUpgrade(this.getFuelType().getMotorType());
+    }
+
+    public FuelType.Type getFuelType() {
+        FuelType.Type type = FuelType.Type.fromString(fuelType);
+        if (type != null) return type;
+
+        //Workaround to allow rockets from previous versions with badly formed components to load
+        //e.g "hydrogen_bucket" as fuel_type
+        Item item = FuelType.getItemBasedOnLoacation(ResourceLocation.parse(fuelType));
+
+        type = FuelType.Type.getTypeBasedOnItem(item);
+        if (type != null) return type;
+
+        return FuelType.Type.FUEL;
     }
 
     public TankUpgrade getTankUpgrade() {

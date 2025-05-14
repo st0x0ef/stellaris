@@ -2,12 +2,12 @@
   "multipart": [
     {
       "apply": {
-        "model": "stellaris:block/cable"
+        "model": "stellaris:block/cable/t1/cable_t1"
       }
     },
     {
       "apply": {
-        "model": "stellaris:block/cable_north",
+        "model": "stellaris:block/cable/t1/cable_north_t1",
         "uvlock": true
       },
       "when": {
@@ -16,7 +16,7 @@
     },
     {
       "apply": {
-        "model": "stellaris:block/cable_east",
+        "model": "stellaris:block/cable/t1/cable_east_t1",
         "uvlock": true
       },
       "when": {
@@ -25,7 +25,7 @@
     },
     {
       "apply": {
-        "model": "stellaris:block/cable_south",
+        "model": "stellaris:block/cable/t1/cable_south_t1",
         "uvlock": true
       },
       "when": {
@@ -34,7 +34,7 @@
     },
     {
       "apply": {
-        "model": "stellaris:block/cable_west",
+        "model": "stellaris:block/cable/t1/cable_west_t1",
         "uvlock": true
       },
       "when": {
@@ -43,7 +43,7 @@
     },
     {
       "apply": {
-        "model": "stellaris:block/cable_up",
+        "model": "stellaris:block/cable/t1/cable_up_t1",
         "uvlock": true
       },
       "when": {
@@ -52,7 +52,7 @@
     },
     {
       "apply": {
-        "model": "stellaris:block/cable_down",
+        "model": "stellaris:block/cable/t1/cable_down_t1",
         "uvlock": true
       },
       "when": {

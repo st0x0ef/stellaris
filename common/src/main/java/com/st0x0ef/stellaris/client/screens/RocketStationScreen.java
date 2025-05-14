@@ -19,8 +19,11 @@ public class RocketStationScreen extends AbstractContainerScreen<RocketStationMe
 
     public RocketStationScreen(RocketStationMenu abstractContainerMenu, Inventory inventory, Component component) {
         super(abstractContainerMenu, inventory, component);
-        this.imageWidth = 177;
+        this.imageWidth = 180;
         this.imageHeight = 224;
+
+        this.titleLabelX = this.imageWidth - 80;
+
         this.inventoryLabelY = this.imageHeight - 92;
     }
 

@@ -16,15 +16,15 @@ import net.minecraft.world.entity.player.Inventory;
 
 @Environment(value = EnvType.CLIENT)
 public class RoverScreen  extends AbstractContainerScreen<RoverMenu> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/rover_gui.png");
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/rover.png");
 
     private final RoverEntity rover = getMenu().getRover();
     private GaugeWidget fuelGauge;
 
     public RoverScreen(RoverMenu abstractContainerMenu, Inventory inventory, Component component) {
         super(abstractContainerMenu, inventory, component);
-        imageWidth = 177;
-        imageHeight = 177;
+        imageWidth = 180;
+        imageHeight = 188;
         inventoryLabelY = imageHeight - 92;
     }
 
@@ -36,7 +36,7 @@ public class RoverScreen  extends AbstractContainerScreen<RoverMenu> {
             return;
         }
 
-        fuelGauge = new GaugeWidget(leftPos + 51, topPos + 27, 12, 46, Component.translatable("stellaris.screen.fuel"), rover.getRoverComponent().getMotorUpgrade().getFluidTexture(), GUISprites.FLUID_TANK_OVERLAY, rover.getRoverComponent().getTankCapacity(), GaugeWidget.Direction4.DOWN_UP);
+        fuelGauge = new GaugeWidget(leftPos + 48, topPos + 26, 12, 46, Component.translatable("stellaris.screen.fuel"), rover.getRoverComponent().getFuelType().getFuelTexture(), GUISprites.FLUID_TANK_OVERLAY, rover.getRoverComponent().getTankCapacity(), GaugeWidget.Direction4.DOWN_UP);
         addRenderableWidget(fuelGauge);
     }
 

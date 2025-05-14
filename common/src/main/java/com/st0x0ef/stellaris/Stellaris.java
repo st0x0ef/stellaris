@@ -5,6 +5,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.ToNumberPolicy;
 import com.st0x0ef.stellaris.common.config.CommonConfig;
 import com.st0x0ef.stellaris.common.config.ConfigManager;
+import com.st0x0ef.stellaris.common.data.screen.TabletPack;
+import com.st0x0ef.stellaris.common.config.CustomConfig;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
 import com.st0x0ef.stellaris.common.data.screen.MoonPack;
 import com.st0x0ef.stellaris.common.data.screen.PlanetPack;
@@ -35,11 +37,11 @@ public class Stellaris {
     public static CommonConfig CONFIG;
 
     public static void init() {
-
         CONFIG = ConfigManager.loadOrGenerateDefaults();
 
         ConfigManager.loadOrGenerateDefaults();
         EntityData.register();
+        CustomConfig.init();
         NetworkRegistry.init();
         ProcessorsRegistry.STRUCTURE_PROCESSORS.register();
         SoundRegistry.SOUNDS.register();
@@ -55,9 +57,10 @@ public class Stellaris {
         CreativeTabsRegistry.TABS.register();
         MenuTypesRegistry.MENU_TYPE.register();
         FeaturesRegistry.FEATURES.register();
+        StatsRegistry.STATS.register();
         CommandsRegistry.register();
         Events.registerEvents();
-        LookupApiRegistry.registerEnergy();
+        CapabilitiesRegistry.init();
         RecipesRegistry.register();
         EntityRegistry.registerSpawnPlacements();
         EffectsRegistry.register();
@@ -73,9 +76,12 @@ public class Stellaris {
 
     public static void onAddReloadListenerEvent(BiConsumer<ResourceLocation, PreparableReloadListener> registry) {
         registry.accept(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "planets"), new StellarisData());
+    }
 
+    public static void onAddReloadClientListenerEvent(BiConsumer<ResourceLocation, PreparableReloadListener> registry) {
         registry.accept(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "stars_pack"), new StarPack());
         registry.accept(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "planets_pack"), new PlanetPack());
         registry.accept(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "moon_packs"), new MoonPack());
+        registry.accept(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "tablet_pack"), new TabletPack());
     }
 }

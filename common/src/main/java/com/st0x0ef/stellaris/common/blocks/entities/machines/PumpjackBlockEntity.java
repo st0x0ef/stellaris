@@ -1,40 +1,63 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
+import com.fej1fun.potentials.components.FluidAmountMapDataComponent;
+import com.fej1fun.potentials.fluid.UniversalFluidStorage;
+import com.fej1fun.potentials.providers.FluidProvider;
 import com.st0x0ef.stellaris.common.blocks.machines.CoalGeneratorBlock;
 import com.st0x0ef.stellaris.common.menus.PumpjackMenu;
+import com.st0x0ef.stellaris.common.network.packets.SyncFluidPacketWithoutDirection;
+import com.st0x0ef.stellaris.common.network.packets.SyncOilLevelPacket;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.registry.FluidRegistry;
-import com.st0x0ef.stellaris.common.systems.energy.impl.WrappedBlockEnergyContainer;
+import com.st0x0ef.stellaris.common.utils.capabilities.fluid.FluidUtil;
+import com.st0x0ef.stellaris.common.utils.capabilities.fluid.SingleFluidStorage;
 import dev.architectury.fluid.FluidStack;
+import dev.architectury.networking.NetworkManager;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkAccess;
+import org.jetbrains.annotations.Nullable;
 
-public class PumpjackBlockEntity extends BaseEnergyContainerBlockEntity implements WrappedFluidBlockEntity{
+import java.util.List;
+
+public class PumpjackBlockEntity extends BaseEnergyContainerBlockEntity implements FluidProvider.BLOCK {
 
     private boolean isGenerating = false;
-    private final long oilToExtract = FluidTankHelper.convertFromNeoMb(10);
-    public final FluidTank resultTank = new FluidTank("resultTank", 5);
-    public int chunkOilLevel = 0;
+    private static final long oilToExtract = 10;
+    public final SingleFluidStorage resultTank;
+
     public PumpjackBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.PUMPJACK.get(), pos, state);
-    }
 
+        resultTank = new SingleFluidStorage(10000) {
+            @Override
+            protected void onChange() {
+                setChanged();
+                if (level != null && level.getServer() != null && !level.getServer().getPlayerList().getPlayers().isEmpty())
+                    NetworkManager.sendToPlayers(level.getServer().getPlayerList().getPlayers(),
+                            new SyncFluidPacketWithoutDirection(new FluidAmountMapDataComponent(List.of(getFluidInTank(0).getFluid()), List.of(getFluidValueInTank())), 0, getBlockPos()));
+            }
+        };
+    }
 
     @Override
     public void tick() {
-        FluidTankHelper.extractFluidToItem(this, resultTank, 0, 1);
+        FluidUtil.moveFluidToItem(0, resultTank,0, items, 1000);
 
         ChunkAccess access = this.level.getChunk(this.worldPosition);
 
-        chunkOilLevel = access.stellaris$getChunkOilLevel();
-
-        WrappedBlockEnergyContainer energyContainer = getWrappedEnergyContainer();
+        if (!level.isClientSide()) {
+            ChunkPos pos = access.getPos();
+            NetworkManager.sendToPlayers(level.getServer().getPlayerList().getPlayers(), new SyncOilLevelPacket(access.stellaris$getChunkOilLevel(), pos.x, pos.z));
+        }
 
         int actualOilToExtract = (int) oilToExtract;
 
@@ -44,19 +67,12 @@ public class PumpjackBlockEntity extends BaseEnergyContainerBlockEntity implemen
             if (actualOilToExtract == 0) return;
         }
 
-        if (energyContainer.getStoredEnergy() >= 2L * actualOilToExtract) {
-            if (resultTank.getAmount() + actualOilToExtract <= resultTank.getMaxCapacity()) {
+        if (energyContainer.getEnergy() >= 2 * actualOilToExtract) {
+            if (resultTank.getFluidValueInTank() + actualOilToExtract <= resultTank.getTankCapacity(0)) {
                 access.stellaris$setChunkOilLevel(access.stellaris$getChunkOilLevel() - actualOilToExtract);
-                FluidStack tankStack = resultTank.getStack();
+                resultTank.fill(FluidStack.create(FluidRegistry.OIL_STILL.get(), actualOilToExtract), false);
 
-                if (tankStack.isEmpty()) {
-                    resultTank.setFluid(FluidRegistry.OIL_ATTRIBUTES.getSourceFluid(), actualOilToExtract);
-                } else {
-                    resultTank.grow(actualOilToExtract);
-                }
-
-
-                energyContainer.extractEnergy(2L * actualOilToExtract, false);
+                energyContainer.extract(2 * actualOilToExtract, false);
                 isGenerating = true;
                 setChanged();
             } else {
@@ -64,13 +80,13 @@ public class PumpjackBlockEntity extends BaseEnergyContainerBlockEntity implemen
             }
         }
 
+        BlockState state;
         if (isGenerating) {
-            BlockState state = getBlockState().setValue(CoalGeneratorBlock.LIT, true);
-            level.setBlock(getBlockPos(), state, 3);
+            state = getBlockState().setValue(CoalGeneratorBlock.LIT, true);
         } else {
-            BlockState state = getBlockState().setValue(CoalGeneratorBlock.LIT, false);
-            level.setBlock(getBlockPos(), state, 3);
+            state = getBlockState().setValue(CoalGeneratorBlock.LIT, false);
         }
+        level.setBlock(getBlockPos(), state, 3);
     }
 
     @Override
@@ -89,32 +105,28 @@ public class PumpjackBlockEntity extends BaseEnergyContainerBlockEntity implemen
     }
 
     @Override
-    protected int getMaxCapacity() {
-        return 6000;
-    }
-
-    @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
         super.loadAdditional(tag, provider);
-        resultTank.load(provider, tag);
+        resultTank.load(tag, provider, "oil");
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
         super.saveAdditional(tag, provider);
-        resultTank.save(provider, tag);
+        resultTank.save(tag, provider, "oil");
     }
 
-    public FluidTank getResultTank() {
+    public SingleFluidStorage getResultTank() {
         return resultTank;
     }
 
-    public int chunkOilLevel() {
-        return chunkOilLevel;
+    public int chunkOilLevel(Level level) {
+        return level.getChunk(getBlockPos()).stellaris$getChunkOilLevel();
     }
 
+
     @Override
-    public FluidTank[] getFluidTanks() {
-        return new FluidTank[]{resultTank};
+    public @Nullable UniversalFluidStorage getFluidTank(@Nullable Direction direction) {
+        return this.resultTank;
     }
 }

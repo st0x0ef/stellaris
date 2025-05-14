@@ -4,13 +4,9 @@ import com.st0x0ef.stellaris.common.blocks.entities.machines.FuelRefineryBlockEn
 import com.st0x0ef.stellaris.common.menus.slot.FluidContainerSlot;
 import com.st0x0ef.stellaris.common.menus.slot.ResultSlot;
 import com.st0x0ef.stellaris.common.menus.slot.SpecificFluidContainerSlot;
-import com.st0x0ef.stellaris.common.network.packets.SyncWidgetsTanksPacket;
 import com.st0x0ef.stellaris.common.registry.FluidRegistry;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
-import dev.architectury.networking.NetworkManager;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -27,43 +23,25 @@ public class FuelRefineryMenu extends BaseContainer {
     }
 
     public FuelRefineryMenu(int containerId, Inventory inventory, Container container, FuelRefineryBlockEntity blockEntity) {
-        super(MenuTypesRegistry.FUEL_REFINERY.get(), containerId, 4, inventory, 26);
+        super(MenuTypesRegistry.FUEL_REFINERY.get(), containerId, 4, inventory, 8, 110);
         this.container = container;
         this.blockEntity = blockEntity;
 
         // Ingredient tank
-        addSlot(new SpecificFluidContainerSlot(container, FluidRegistry.FLOWING_OIL.get(), 0, 10, 36, false));
+        addSlot(new SpecificFluidContainerSlot(container, FluidRegistry.OIL_STILL.get(), 0, 10, 36, false));
         addSlot(new ResultSlot(container, 1, 10, 66));
 
         // Result tank
-        addSlot(new FluidContainerSlot(container, 2, 125, 36, true, true));
+        addSlot(new FluidContainerSlot(container, 2, 125, 36, false, true));
         addSlot(new ResultSlot(container, 3, 125, 66));
     }
 
     @Override
     public boolean stillValid(Player player) {
-        if (!player.isLocalPlayer()) {
-            syncWidgets((ServerPlayer) player);
-        }
         return container.stillValid(player);
     }
 
     public FuelRefineryBlockEntity getBlockEntity() {
         return blockEntity;
-    }
-
-    public void syncWidgets(ServerPlayer player) {
-        if (!player.level().isClientSide()) {
-
-            NetworkManager.sendToPlayer(player, new SyncWidgetsTanksPacket(
-                    new long[] {blockEntity.getIngredientTank().getAmount(), blockEntity.getResultTank().getAmount()},
-                    new ResourceLocation[] {blockEntity.getIngredientTank().getStack().getFluid().arch$registryName(), blockEntity.getResultTank().getStack().getFluid().arch$registryName()}
-            ));
-
-            NetworkManager.sendToPlayer(player, new SyncWidgetsTanksPacket(
-                    new long[] {blockEntity.getWrappedEnergyContainer().getStoredEnergy()}
-            ));
-
-        }
     }
 }

@@ -14,7 +14,6 @@ import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
 import com.st0x0ef.stellaris.common.menus.PlanetSelectionMenu;
 import com.st0x0ef.stellaris.common.network.packets.TeleportEntityToPlanetPacket;
-import com.st0x0ef.stellaris.common.registry.EntityData;
 import com.st0x0ef.stellaris.common.registry.TranslatableRegistry;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
@@ -174,6 +173,14 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         }
     }
 
+    private void updatePlanetsButton(int offsetX, int offsetY) {
+        for (InvisibleButton button : planetButtons) {
+            button.setX(button.getX() - offsetX);
+            button.setY(button.getX() - offsetY);
+
+        }
+    }
+
     private void initializeMoonButtons() {
         moonButtons.clear();
         for (MoonInfo moon : MOONS) {
@@ -270,6 +277,9 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
         renderLargeMenu(graphics);
 
+        Stellaris.LOG.error("offset x {}", offsetX);
+        Stellaris.LOG.error("offset y {}", offsetY);
+
         this.renderTooltip(graphics, mouseX, mouseY);
     }
 
@@ -309,8 +319,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
             graphics.blit(star.texture, (int) bodyX, (int) bodyY, 0, 0, bodyWidth, bodyHeight, bodyWidth, bodyHeight);
 
-            int nameWidth = font.width(star.translatable);
-            graphics.drawString(font, star.translatable, (int) (bodyX + (float) bodyWidth / 2 - (float) nameWidth / 2), (int) (bodyY + bodyHeight), 0xFFFFFF);
+            int nameWidth = font.width(star.getTranslatable());
+            graphics.drawString(font, star.getTranslatable(), (int) (bodyX + (float) bodyWidth / 2 - (float) nameWidth / 2), (int) (bodyY + bodyHeight), 0xFFFFFF);
         }
     }
 
@@ -330,8 +340,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
             ScreenHelper.drawTexturewithRotation(graphics, planet.texture, (int) planetX, (int) planetY, 0, 0, planetWidth, planetHeight, planetWidth, planetHeight, (float) planet.currentAngle);
 
-            int nameWidth = font.width(planet.translatable);
-            graphics.drawString(font, planet.translatable, (int) (planetX + (float) planetWidth / 2 - (float) nameWidth / 2), (int) (planetY + planetHeight), 0xFFFFFF);
+            int nameWidth = font.width(planet.getTranslatable());
+            graphics.drawString(font, planet.getTranslatable(), (int) (planetX + (float) planetWidth / 2 - (float) nameWidth / 2), (int) (planetY + planetHeight), 0xFFFFFF);
         }
     }
 
@@ -360,7 +370,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     private void renderBodyDescription(GuiGraphics graphics, CelestialBody bodyToHighlight, int mouseX, int mouseY) {
         List<Component> bodyDescription = new ArrayList<>();
-        bodyDescription.add(Utils.getMessageComponent("§f" + bodyToHighlight.translatable.getString()));
+        bodyDescription.add(Utils.getMessageComponent("§f" + bodyToHighlight.getTranslatable().getString()));
         if (!isShiftPressed) {
             bodyDescription.add(Utils.getMessageComponent("§8" + TranslatableRegistry.HOLD_SHIFT.getString()));
         } else {
@@ -378,7 +388,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             bodyDescription.add(Utils.getMessageComponent(error_message.getString(), "Red"));
         } else {
             bodyDescription.add(Utils.getMessageComponent(temperature.getString() + " : " + planet.temperature() + "°C"));
-            bodyDescription.add(Utils.getMessageComponent(gravity.getString() + " : " + planet.gravity() + "m/s"));
+            bodyDescription.add(Utils.getMessageComponent(gravity.getString() + " : " + planet.gravity() + "m/s²"));
             bodyDescription.add(Utils.getMessageComponent(oxygen.getString() + " : " + planet.oxygen()));
             bodyDescription.add(Utils.getMessageComponent(system.getString() + " : " + Component.translatable(planet.system()).getString()));
 
@@ -415,7 +425,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             getMenu().freeze_gui = false;
             ResourceLocation CELESTIAL_BODY_TEXTURE = focusedBody.texture;
 
-            Component CELESTIAL_BODY_NAME = focusedBody.translatable;
+            Component CELESTIAL_BODY_NAME = focusedBody.getTranslatable();
 
             Planet planet = PlanetUtil.getPlanet(focusedBody.dimension);
 
@@ -726,8 +736,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     public void tpToFocusedPlanet() {
         if (focusedBody != null) {
-
             NetworkManager.sendToServer(new TeleportEntityToPlanetPacket(focusedBody.dimension));
+
             long windowHandle = Minecraft.getInstance().getWindow().getWindow();
             prevScrollCallback = GLFW.glfwSetScrollCallback(windowHandle, Minecraft.getInstance().mouseHandler::onScroll);
         } else {
@@ -967,6 +977,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             } else {
                 offsetX += Utils.changeLastDigitToEven((mouseX - lastMouseX) / zoomLevel);
                 offsetY += Utils.changeLastDigitToEven((mouseY - lastMouseY) / zoomLevel);
+                updatePlanetsButton((int) offsetX, (int) offsetY);
                 lastMouseX = mouseX;
                 lastMouseY = mouseY;
             }
@@ -998,7 +1009,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     @Override
     public void onClose() {
-        if(getPlayer().getEntityData().get(EntityData.DATA_PLANET_MENU_OPEN)) {
+        if(getPlayer().stellaris$isPlanetMenuOpen()) {
             return;
         }
         long windowHandle = Minecraft.getInstance().getWindow().getWindow();
