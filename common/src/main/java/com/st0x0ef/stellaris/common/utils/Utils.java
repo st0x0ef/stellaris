@@ -1,6 +1,8 @@
 package com.st0x0ef.stellaris.common.utils;
 
 import com.mojang.serialization.Codec;
+import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.common.config.CommonConfig;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
 import com.st0x0ef.stellaris.common.data_components.SpaceSuitModules;
@@ -347,12 +349,11 @@ public class Utils {
         if (!SpaceSuitModules.containsInModules(entity.getItemBySlot(EquipmentSlot.CHEST), ItemsRegistry.MODULE_GRAVITY_NORMALIZER.get().getDefaultInstance())) {
             ResourceLocation dimension = level.dimension().location();
 
-            if (!PlanetUtil.isPlanet(dimension) || dimension.equals(StellarisData.OVERWORLD)) {
+            if (!PlanetUtil.isPlanet(dimension) || dimension.equals(StellarisData.OVERWORLD) || !Stellaris.CONFIG.gravityConfig.customEntityGravity) {
                 trySetAttribute(entity, Attributes.GRAVITY, Attributes.GRAVITY.value().getDefaultValue());
                 trySetAttribute(entity, Attributes.SAFE_FALL_DISTANCE, Attributes.SAFE_FALL_DISTANCE.value().getDefaultValue());
                 trySetAttribute(entity, Attributes.FALL_DAMAGE_MULTIPLIER, Attributes.FALL_DAMAGE_MULTIPLIER.value().getDefaultValue());
-            }
-            else if (PlanetUtil.isPlanet(dimension)) {
+            } else if (PlanetUtil.isPlanet(dimension)) {
                 float stellaris$regularGravity = PlanetUtil.getPlanet(dimension).gravity();
                 double stellaris$gravity = Utils.MPS2ToMCG(stellaris$regularGravity);
 

@@ -83,8 +83,13 @@ public class ConfigScreen extends Screen {
                     rowHelper.addChild(new SpacerElement(32, 16));
 
                     addFields(field.getType().getFields(), rowHelper, field.get(object), recursionDepth + 1);
+
+                    rowHelper.addChild(new SpacerElement(32, 8));
+                    rowHelper.addChild(new SpacerElement(32, 8));
+
                     continue;
                 }
+
 
                 rowHelper.addChild(new StringWidget(Component.translatable("config.stellaris." + name), this.font));
                 addTypeWidget(field, object, value, Component.translatable("config.stellaris." + name + ".desc"), rowHelper);
