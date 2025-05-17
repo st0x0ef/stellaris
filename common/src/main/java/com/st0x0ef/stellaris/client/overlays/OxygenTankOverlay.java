@@ -17,10 +17,12 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
+import static com.st0x0ef.stellaris.Stellaris.texture;
+
 public class OxygenTankOverlay {
 
-    public static final ResourceLocation OXYGEN_TANK = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/overlay/oxygen_tank.png");
-    public static final ResourceLocation OXYGEN_TANK_FULL = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/overlay/oxygen_tank_full.png");
+    public static final ResourceLocation OXYGEN_TANK = texture("overlay/oxygen_tank");
+    public static final ResourceLocation OXYGEN_TANK_FULL = texture("overlay/oxygen_tank_full");
 
 
     public static void render(GuiGraphics graphics, float partialTick) {
@@ -30,10 +32,12 @@ public class OxygenTankOverlay {
             ItemStack chest = player.getItemBySlot(EquipmentSlot.CHEST);
             Minecraft mc = Minecraft.getInstance();
 
-            if(chest.getItem() instanceof AbstractSpaceArmor.Chestplate) {
+            if (chest.getItem() instanceof AbstractSpaceArmor.Chestplate) {
                 UniversalFluidStorage chestplateStorage = Capabilities.Fluid.ITEM.getCapability(chest);
 
-                if (chestplateStorage == null) return;
+                if (chestplateStorage == null) {
+                    return;
+                }
 
                 long oxygen = chestplateStorage.getFluidInTank(0).getAmount();
                 long maxOxygen = chestplateStorage.getTankCapacity(0);

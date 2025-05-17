@@ -23,9 +23,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 public class JetSuit {
+
     public static final long MAX_FUEL_CAPACITY = 1000;
 
     public static class Suit extends AbstractSpaceArmor.Chestplate {
+
         public float spacePressTime = 0.0f;
 
         private int nextFuelCheckTick = 0;
@@ -77,8 +79,10 @@ public class JetSuit {
 
         private void normalFlyModeMovement(Player player, ItemStack stack) {
             if (KeyVariables.isHoldingJump(player)) {
-                UniversalFluidItemStorage storage =  getFluidTank(stack);
-                if (storage.getFluidInTank(1).isEmpty()) return;
+                UniversalFluidItemStorage storage = getFluidTank(stack);
+                if (storage.getFluidInTank(1).isEmpty()) {
+                    return;
+                }
 
                 if (nextFuelCheckTick > 0) {
                     player.moveRelative(1.2F, new Vec3(0, 0.1, 0));
@@ -100,7 +104,8 @@ public class JetSuit {
             if (!player.onGround()) {
                 if (KeyVariables.isHoldingUp(player)) {
                     player.moveRelative(1.0F, new Vec3(0, 0, 0.03));
-                } else if (KeyVariables.isHoldingDown(player)) {
+                }
+                else if (KeyVariables.isHoldingDown(player)) {
                     player.moveRelative(1.0F, new Vec3(0, 0, -0.03));
                 }
             }
@@ -108,11 +113,13 @@ public class JetSuit {
             if (!player.onGround()) {
                 if (KeyVariables.isHoldingRight(player)) {
                     player.moveRelative(1.0F, new Vec3(-0.03, 0, 0));
-                } else if (KeyVariables.isHoldingLeft(player)) {
+                }
+                else if (KeyVariables.isHoldingLeft(player)) {
                     player.moveRelative(1.0F, new Vec3(0.03, 0, 0));
                 }
             }
         }
+
         private void hoverModeMovement(Player player, ItemStack stack) {
             Vec3 vec3 = player.getDeltaMovement();
 
@@ -149,7 +156,8 @@ public class JetSuit {
             if (!player.onGround()) {
                 if (KeyVariables.isHoldingUp(player)) {
                     player.moveRelative(0.1F, new Vec3(0, 0, 0.1));
-                } else if (KeyVariables.isHoldingDown(player)) {
+                }
+                else if (KeyVariables.isHoldingDown(player)) {
                     player.moveRelative(0.1F, new Vec3(0, 0, -0.1));
                 }
             }
@@ -158,7 +166,8 @@ public class JetSuit {
             if (!player.onGround()) {
                 if (KeyVariables.isHoldingRight(player)) {
                     player.moveRelative(0.1F, new Vec3(-0.1, 0, 0));
-                } else if (KeyVariables.isHoldingLeft(player)) {
+                }
+                else if (KeyVariables.isHoldingLeft(player)) {
                     player.moveRelative(0.1F, new Vec3(0.1, 0, 0));
                 }
             }
@@ -168,7 +177,8 @@ public class JetSuit {
             if (player.isSprinting() && !player.onGround()) {
                 player.startFallFlying();
                 Utils.disableFlyAntiCheat(player, true);
-            } else if (player.isSprinting() && player.onGround() && KeyVariables.isHoldingJump(player)) {
+            }
+            else if (player.isSprinting() && player.onGround() && KeyVariables.isHoldingJump(player)) {
                 player.moveTo(player.getX(), player.getY() + 2, player.getZ());
             }
         }
@@ -178,7 +188,8 @@ public class JetSuit {
             JetSuitComponent jetSuitComponent;
             if (this.getMode(itemStack) < 3) {
                 jetSuitComponent = new JetSuitComponent(ModeType.fromInt(this.getMode(itemStack) + 1));
-            } else {
+            }
+            else {
                 jetSuitComponent = new JetSuitComponent(ModeType.fromInt(0));
             }
             itemStack.set(DataComponentsRegistry.JET_SUIT_COMPONENT.get(), jetSuitComponent);
@@ -191,7 +202,8 @@ public class JetSuit {
             /** NORMAL MODE */
             if (mode == ModeType.NORMAL.getMode()) {
                 if (KeyVariables.isHoldingJump(player)) {
-                    if (this.spacePressTime < 2.2F) {this.spacePressTime = this.spacePressTime + 0.2F;
+                    if (this.spacePressTime < 2.2F) {
+                        this.spacePressTime = this.spacePressTime + 0.2F;
                     }
                 }
                 else if (this.spacePressTime > 0.0F) {
@@ -207,7 +219,7 @@ public class JetSuit {
                 else if (KeyVariables.isHoldingJump(player)) {
                     if (this.spacePressTime < 1.4F) {
                         this.spacePressTime = this.spacePressTime + 0.2F;
-                        hoverModeMovement(player,itemStack);
+                        hoverModeMovement(player, itemStack);
                     }
                 }
                 else if (this.spacePressTime >= 0.6F) {
@@ -223,7 +235,8 @@ public class JetSuit {
                         if (this.spacePressTime < 2.8F) {
                             this.spacePressTime = this.spacePressTime + 0.2F;
                         }
-                    } else {
+                    }
+                    else {
                         if (this.spacePressTime < 2.2F) {
                             this.spacePressTime = this.spacePressTime + 0.2F;
                         }

@@ -73,7 +73,8 @@ public class RocketLaunchPad extends Block implements SimpleWaterloggedBlock {
     public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         if (state.getValue(STAGE)) {
             return SHAPE_HIGH;
-        } else {
+        }
+        else {
             return SHAPE_NORMAL;
         }
     }
@@ -125,7 +126,8 @@ public class RocketLaunchPad extends Block implements SimpleWaterloggedBlock {
             if (!state.getValue(STAGE) && !flag2.contains(true)) {
                 level.setBlock(pos, state.setValue(STAGE, true), 2);
             }
-        } else {
+        }
+        else {
             if (state.getValue(STAGE)) {
                 level.setBlock(pos, state.setValue(STAGE, false), 2);
             }

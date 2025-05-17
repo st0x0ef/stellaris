@@ -27,6 +27,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class OxygenTankItem extends Item implements FluidProvider.ITEM {
+
     private final int capacity;
 
     public OxygenTankItem(Item.Properties properties, int capacity) {
@@ -41,7 +42,9 @@ public class OxygenTankItem extends Item implements FluidProvider.ITEM {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
-        if(level.isClientSide) return super.use(level, player, usedHand);
+        if (level.isClientSide) {
+            return super.use(level, player, usedHand);
+        }
 
         if (player.isShiftKeyDown()) {
             ItemStack stack = player.getItemBySlot(EquipmentSlot.CHEST);
@@ -50,7 +53,9 @@ public class OxygenTankItem extends Item implements FluidProvider.ITEM {
 
             UniversalFluidItemStorage chestplateStorage = Capabilities.Fluid.ITEM.getCapability(stack);
 
-            if (chestplateStorage == null) return super.use(level, player, usedHand);
+            if (chestplateStorage == null) {
+                return super.use(level, player, usedHand);
+            }
 
             if (storage.getFluidInTank(0).isEmpty()) {
                 return super.use(level, player, usedHand);
@@ -59,7 +64,8 @@ public class OxygenTankItem extends Item implements FluidProvider.ITEM {
             if (chestplateStorage.getTankCapacity(0) - chestplateStorage.getFluidInTank(0).getAmount() >= storage.getFluidInTank(0).getAmount()) {
                 chestplateStorage.fill(storage.getFluidInTank(0).copy(), false);
                 storage.drain(storage.getFluidInTank(0).copy(), false);
-            } else {
+            }
+            else {
                 long amount = chestplateStorage.getTankCapacity(0) - chestplateStorage.getFluidInTank(0).getAmount();
                 chestplateStorage.fill(storage.getFluidInTank(0).copyWithAmount(amount), false);
                 storage.drain(storage.getFluidInTank(0).copyWithAmount(amount), false);
@@ -104,9 +110,10 @@ public class OxygenTankItem extends Item implements FluidProvider.ITEM {
     public @NotNull ItemFluidStorage getFluidTank(@NotNull ItemStack stack) {
 
         return new ItemFluidStorage(DataComponentsRegistry.FLUID_LIST.get(), stack, 1, capacity) {
+
             @Override
             public boolean isFluidValid(int tank, FluidStack stack) {
-                    return stack.getFluid().isSame(FluidRegistry.OXYGEN_STILL.get());
+                return stack.getFluid().isSame(FluidRegistry.OXYGEN_STILL.get());
             }
         };
     }

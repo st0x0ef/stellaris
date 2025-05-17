@@ -21,53 +21,56 @@ import net.minecraft.world.entity.projectile.SpectralArrow;
 import net.minecraft.world.level.Level;
 
 public class StarCrawler extends Monster {
-	public StarCrawler(EntityType<? extends StarCrawler> type, Level world) {
-		super(type, world);
-		this.xpReward = 5;
-	}
 
-	public static AttributeSupplier.Builder setCustomAttributes() {
-		return Mob.createMobAttributes()
-				.add(Attributes.MOVEMENT_SPEED, 0.4)
-				.add(Attributes.MAX_HEALTH, 40)
-				.add(Attributes.ATTACK_DAMAGE, 9);
-	}
+    public StarCrawler(EntityType<? extends StarCrawler> type, Level world) {
+        super(type, world);
+        this.xpReward = 5;
+    }
 
-	@Override
-	protected void registerGoals() {
-		super.registerGoals();
-		this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 0.8, false));
-		this.goalSelector.addGoal(2, new RandomStrollGoal(this, 0.6));
-		this.targetSelector.addGoal(3, new HurtByTargetGoal(this));
-		this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
-	}
+    public static AttributeSupplier.Builder setCustomAttributes() {
+        return Mob.createMobAttributes()
+                .add(Attributes.MOVEMENT_SPEED, 0.4)
+                .add(Attributes.MAX_HEALTH, 40)
+                .add(Attributes.ATTACK_DAMAGE, 9);
+    }
 
-	@Override
-	protected boolean shouldDespawnInPeaceful() {
-		return false;
-	}
+    @Override
+    protected void registerGoals() {
+        super.registerGoals();
+        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 0.8, false));
+        this.goalSelector.addGoal(2, new RandomStrollGoal(this, 0.6));
+        this.targetSelector.addGoal(3, new HurtByTargetGoal(this));
+        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
+    }
 
-	@Override
-	protected SoundEvent getHurtSound(DamageSource p_33034_) {
-		return SoundEvents.TURTLE_HURT;
-	}
+    @Override
+    protected boolean shouldDespawnInPeaceful() {
+        return false;
+    }
 
-	@Override
-	public SoundEvent getDeathSound() {
-		return SoundEvents.TURTLE_DEATH;
-	}
+    @Override
+    protected SoundEvent getHurtSound(DamageSource p_33034_) {
+        return SoundEvents.TURTLE_HURT;
+    }
 
-	@Override
-	public boolean hurt(DamageSource source, float amount) {
-		if (source.getDirectEntity() instanceof SpectralArrow)
-			return false;
-		if (source.getDirectEntity() instanceof Arrow)
-			return false;
-		return super.hurt(source, amount);
-	}
+    @Override
+    public SoundEvent getDeathSound() {
+        return SoundEvents.TURTLE_DEATH;
+    }
 
-	@Override
-	public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity entity) {
-		return NetworkManager.createAddEntityPacket(this, entity);
-	}
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        if (source.getDirectEntity() instanceof SpectralArrow) {
+            return false;
+        }
+        if (source.getDirectEntity() instanceof Arrow) {
+            return false;
+        }
+        return super.hurt(source, amount);
+    }
+
+    @Override
+    public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity entity) {
+        return NetworkManager.createAddEntityPacket(this, entity);
+    }
 }

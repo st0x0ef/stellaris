@@ -11,6 +11,7 @@ import net.minecraft.world.level.block.Block;
 import java.util.List;
 
 public class CableItem extends BlockItem implements CustomTabletEntry {
+
     private final int energy;
 
     public CableItem(Block block, Properties properties, int energy) {

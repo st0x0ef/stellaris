@@ -25,7 +25,7 @@ public class CheeseSpit extends LlamaSpit {
     private CheeseSpit(Level level, CheeseBoss spitter) {
         this(EntityRegistry.CHEESE_SPIT.get(), level);
         this.setOwner(spitter);
-        this.setPos(spitter.getX() - (double)(spitter.getBbWidth() + 1.0F) * 0.5 * (double) Mth.sin(spitter.yBodyRot * 0.017453292F), spitter.getEyeY() - 0.10000000149011612, spitter.getZ() + (double)(spitter.getBbWidth() + 1.0F) * 0.5 * (double)Mth.cos(spitter.yBodyRot * 0.017453292F));
+        this.setPos(spitter.getX() - (double) (spitter.getBbWidth() + 1.0F) * 0.5 * (double) Mth.sin(spitter.yBodyRot * 0.017453292F), spitter.getEyeY() - 0.10000000149011612, spitter.getZ() + (double) (spitter.getBbWidth() + 1.0F) * 0.5 * (double) Mth.cos(spitter.yBodyRot * 0.017453292F));
     }
 
     public static CheeseSpit fromLevelAndEntity(Level level, CheeseBoss cheeseBoss) {
@@ -64,8 +64,8 @@ public class CheeseSpit extends LlamaSpit {
         double e = packet.getYa();
         double f = packet.getZa();
 
-        for(int i = 0; i < 7; ++i) {
-            double g = 0.4 + 0.1 * (double)i;
+        for (int i = 0; i < 7; ++i) {
+            double g = 0.4 + 0.1 * (double) i;
             this.level().addParticle(ParticleTypes.SPIT, this.getX(), this.getY(), this.getZ(), d * g, e, f * g);
         }
 

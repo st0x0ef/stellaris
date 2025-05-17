@@ -33,14 +33,15 @@ public class InfernalSpireColumn extends Feature<ColumnFeatureConfiguration> {
         ColumnFeatureConfiguration columnfeatureconfiguration = context.config();
         if (!canPlaceAt(worldgenlevel, seaLevel, blockpos.mutable())) {
             return false;
-        } else {
+        }
+        else {
             int j = columnfeatureconfiguration.height().sample(random);
             boolean flag = random.nextFloat() < 0.9F;
             int k = Math.min(j, flag ? 5 : 8);
             int l = flag ? 50 : 15;
             boolean flag1 = false;
 
-            for(BlockPos blockpos1 : BlockPos.randomBetweenClosed(random, l, blockpos.getX() - k, blockpos.getY(), blockpos.getZ() - k, blockpos.getX() + k, blockpos.getY(), blockpos.getZ() + k)) {
+            for (BlockPos blockpos1 : BlockPos.randomBetweenClosed(random, l, blockpos.getX() - k, blockpos.getY(), blockpos.getZ() - k, blockpos.getX() + k, blockpos.getY(), blockpos.getZ() + k)) {
                 int i1 = j - blockpos1.distManhattan(blockpos);
                 if (i1 >= 0) {
                     flag1 |= this.placeColumn(worldgenlevel, seaLevel, blockpos1, i1, columnfeatureconfiguration.reach().sample(random));
@@ -54,18 +55,19 @@ public class InfernalSpireColumn extends Feature<ColumnFeatureConfiguration> {
     private boolean placeColumn(LevelAccessor p_65168_, int p_65169_, BlockPos p_65170_, int p_65171_, int p_65172_) {
         boolean flag = false;
 
-        for(BlockPos blockpos : BlockPos.betweenClosed(p_65170_.getX() - p_65172_, p_65170_.getY(), p_65170_.getZ() - p_65172_, p_65170_.getX() + p_65172_, p_65170_.getY(), p_65170_.getZ() + p_65172_)) {
+        for (BlockPos blockpos : BlockPos.betweenClosed(p_65170_.getX() - p_65172_, p_65170_.getY(), p_65170_.getZ() - p_65172_, p_65170_.getX() + p_65172_, p_65170_.getY(), p_65170_.getZ() + p_65172_)) {
             int i = blockpos.distManhattan(p_65170_);
             BlockPos blockpos1 = isAirOrLavaOcean(p_65168_, p_65169_, blockpos) ? findSurface(p_65168_, p_65169_, blockpos.mutable(), i) : findAir(p_65168_, blockpos.mutable(), i);
             if (blockpos1 != null) {
                 int j = p_65171_ - i / 2;
 
-                for(BlockPos.MutableBlockPos blockpos$mutableblockpos = blockpos1.mutable(); j >= 0; --j) {
+                for (BlockPos.MutableBlockPos blockpos$mutableblockpos = blockpos1.mutable(); j >= 0; --j) {
                     if (isAirOrLavaOcean(p_65168_, p_65169_, blockpos$mutableblockpos)) {
                         this.setBlock(p_65168_, blockpos$mutableblockpos, BlocksRegistry.INFERNAL_SPIRE.get().defaultBlockState());
                         blockpos$mutableblockpos.move(Direction.UP);
                         flag = true;
-                    } else {
+                    }
+                    else {
                         if (!p_65168_.getBlockState(blockpos$mutableblockpos).is(BlocksRegistry.INFERNAL_SPIRE.get())) {
                             break;
                         }
@@ -80,10 +82,9 @@ public class InfernalSpireColumn extends Feature<ColumnFeatureConfiguration> {
     }
 
 
-
     @Nullable
     private static BlockPos findSurface(LevelAccessor p_65159_, int p_65160_, BlockPos.MutableBlockPos p_65161_, int p_65162_) {
-        while(p_65161_.getY() > p_65159_.getMinBuildHeight() + 1 && p_65162_ > 0) {
+        while (p_65161_.getY() > p_65159_.getMinBuildHeight() + 1 && p_65162_ > 0) {
             --p_65162_;
             if (canPlaceAt(p_65159_, p_65160_, p_65161_)) {
                 return p_65161_;
@@ -98,7 +99,8 @@ public class InfernalSpireColumn extends Feature<ColumnFeatureConfiguration> {
     private static boolean canPlaceAt(LevelAccessor p_65155_, int p_65156_, BlockPos.MutableBlockPos p_65157_) {
         if (!isAirOrLavaOcean(p_65155_, p_65156_, p_65157_)) {
             return false;
-        } else {
+        }
+        else {
             BlockState blockstate = p_65155_.getBlockState(p_65157_.move(Direction.DOWN));
             p_65157_.move(Direction.UP);
             return !blockstate.isAir() && !CANNOT_PLACE_ON.contains(blockstate.getBlock());
@@ -107,7 +109,7 @@ public class InfernalSpireColumn extends Feature<ColumnFeatureConfiguration> {
 
     @Nullable
     private static BlockPos findAir(LevelAccessor p_65174_, BlockPos.MutableBlockPos p_65175_, int p_65176_) {
-        while(p_65175_.getY() < p_65174_.getMaxBuildHeight() && p_65176_ > 0) {
+        while (p_65175_.getY() < p_65174_.getMaxBuildHeight() && p_65176_ > 0) {
             --p_65176_;
             BlockState blockstate = p_65174_.getBlockState(p_65175_);
             if (CANNOT_PLACE_ON.contains(blockstate.getBlock())) {

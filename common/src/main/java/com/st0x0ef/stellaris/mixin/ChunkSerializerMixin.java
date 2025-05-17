@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(ChunkSerializer.class)
-public class MixinChunkSerializer {
+public class ChunkSerializerMixin {
 
     @WrapOperation(method = "read", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/chunk/ChunkAccess;setLightCorrect(Z)V"))
     private static void readDataLevel(ChunkAccess instance, boolean lightCorrect, Operation<Void> original, ServerLevel level, PoiManager poiManager, RegionStorageInfo regionStorageInfo, ChunkPos pos, CompoundTag tag) {
@@ -22,16 +22,15 @@ public class MixinChunkSerializer {
 
         if (tag.contains("oilLevel")) {
             instance.stellaris$setChunkOilLevel(tag.getInt("oilLevel"));
-        } else {
-            instance.stellaris$setChunkOilLevel(OilUtils.getRandomOilLevel());
+            return;
         }
+        instance.stellaris$setChunkOilLevel(OilUtils.getRandomOilLevel());
     }
 
     @WrapOperation(method = "write", at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/NbtUtils;addCurrentDataVersion(Lnet/minecraft/nbt/CompoundTag;)Lnet/minecraft/nbt/CompoundTag;"))
     private static CompoundTag writeOilLevel(CompoundTag tag, Operation<CompoundTag> original, ServerLevel level, ChunkAccess chunk) {
         CompoundTag compound = original.call(tag);
         compound.putInt("oilLevel", chunk.stellaris$getChunkOilLevel());
-
         return compound;
     }
 }

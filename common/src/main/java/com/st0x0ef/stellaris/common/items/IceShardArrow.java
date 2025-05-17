@@ -10,6 +10,7 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 public class IceShardArrow extends ArrowItem {
+
     public IceShardArrow(Properties properties) {
         super(properties);
     }

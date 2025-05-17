@@ -1,9 +1,12 @@
 package com.st0x0ef.stellaris.common.vehicle_upgrade;
 
-import com.st0x0ef.stellaris.Stellaris;
 import net.minecraft.resources.ResourceLocation;
 
+import static com.st0x0ef.stellaris.Stellaris.texture;
+
 public class SkinUpgrade extends VehicleUpgrade {
+
+    public static final ResourceLocation TEXTURE = texture("vehicle/rocket_skin/normal/standard");
     final private ResourceLocation rocketSkinLocation;
 
     public SkinUpgrade(ResourceLocation rocketSkinLocation) {
@@ -19,11 +22,11 @@ public class SkinUpgrade extends VehicleUpgrade {
         return string[string.length - 1].replace(".png", "");
     }
 
-    public String getNameSpace()  {
+    public String getNameSpace() {
         return rocketSkinLocation.getNamespace();
     }
 
     public static SkinUpgrade getBasic() {
-        return new SkinUpgrade(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/vehicle/rocket_skin/normal/standard.png"));
+        return new SkinUpgrade(TEXTURE);
     }
 }

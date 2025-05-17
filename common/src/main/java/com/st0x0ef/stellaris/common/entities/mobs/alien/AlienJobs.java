@@ -19,7 +19,7 @@ public enum AlienJobs {
 
     public final VillagerProfession profession;
 
-    AlienJobs(VillagerProfession profession){
+    AlienJobs(VillagerProfession profession) {
         this.profession = profession;
     }
 

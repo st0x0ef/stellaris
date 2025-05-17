@@ -19,11 +19,13 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 public class KeyHandlerPacket implements CustomPacketPayload {
+
     public final String key;
     public final boolean condition;
 
 
     public static final StreamCodec<RegistryFriendlyByteBuf, KeyHandlerPacket> STREAM_CODEC = new StreamCodec<>() {
+
         @Override
         public @NotNull KeyHandlerPacket decode(RegistryFriendlyByteBuf buf) {
             return new KeyHandlerPacket(buf);
@@ -72,7 +74,8 @@ public class KeyHandlerPacket implements CustomPacketPayload {
                         ItemStack itemStack = player.getItemBySlot(EquipmentSlot.CHEST);
                         JetSuit.Suit item = (JetSuit.Suit) itemStack.getItem();
                         item.switchJetSuitMode(itemStack);
-                    } else if (Utils.isLivingInSpaceSuit(player)) {
+                    }
+                    else if (Utils.isLivingInSpaceSuit(player)) {
                         ItemStack itemStack = player.getItemBySlot(EquipmentSlot.CHEST);
                         ItemStack jetModule = SpaceSuitModules.getIfContains(itemStack, ItemsRegistry.MODULE_JET.get());
                         if (!jetModule.isEmpty()) {
@@ -89,7 +92,9 @@ public class KeyHandlerPacket implements CustomPacketPayload {
                     KeyVariables.KEY_TABLET.put(player.getUUID(), packet.condition);
                     break;
                 case "freeze_planet_menu":
-                    if (player.containerMenu instanceof PlanetSelectionMenu menu) menu.switchFreezeGui();
+                    if (player.containerMenu instanceof PlanetSelectionMenu menu) {
+                        menu.switchFreezeGui();
+                    }
                     break;
                 default:
                     Stellaris.LOG.error("unknown key action {}", packet.key);

@@ -12,6 +12,7 @@ import net.minecraft.world.entity.monster.piglin.PiglinBrute;
 import net.minecraft.world.level.Level;
 
 public class PygroBrute extends PiglinBrute {
+
     public PygroBrute(EntityType<? extends PiglinBrute> type, Level level) {
         super(type, level);
     }

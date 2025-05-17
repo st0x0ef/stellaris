@@ -11,6 +11,7 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
 
 public class ModifiedBlockBlobFeature extends Feature<BlockStateConfiguration> {
+
     public ModifiedBlockBlobFeature(Codec<BlockStateConfiguration> p_65248_) {
         super(p_65248_);
     }
@@ -22,7 +23,7 @@ public class ModifiedBlockBlobFeature extends Feature<BlockStateConfiguration> {
         RandomSource randomsource = p_159471_.random();
 
         BlockStateConfiguration blockstateconfiguration;
-        for(blockstateconfiguration = p_159471_.config(); blockpos.getY() > worldgenlevel.getMinBuildHeight() + 3; blockpos = blockpos.below()) {
+        for (blockstateconfiguration = p_159471_.config(); blockpos.getY() > worldgenlevel.getMinBuildHeight() + 3; blockpos = blockpos.below()) {
             if (!worldgenlevel.isEmptyBlock(blockpos.below())) {
                 BlockState blockstate = worldgenlevel.getBlockState(blockpos.below());
                 if (isDirt(blockstate) || isStone(blockstate) || blockstate.is(BlockTags.SAND)) {
@@ -33,15 +34,16 @@ public class ModifiedBlockBlobFeature extends Feature<BlockStateConfiguration> {
 
         if (blockpos.getY() <= worldgenlevel.getMinBuildHeight() + 3) {
             return false;
-        } else {
-            for(int l = 0; l < 3; ++l) {
+        }
+        else {
+            for (int l = 0; l < 3; ++l) {
                 int i = randomsource.nextInt(2);
                 int j = randomsource.nextInt(2);
                 int k = randomsource.nextInt(2);
-                float f = (float)(i + j + k) * 0.333F + 0.5F;
+                float f = (float) (i + j + k) * 0.333F + 0.5F;
 
-                for(BlockPos blockpos1 : BlockPos.betweenClosed(blockpos.offset(-i, -j, -k), blockpos.offset(i, j, k))) {
-                    if (blockpos1.distSqr(blockpos) <= (double)(f * f)) {
+                for (BlockPos blockpos1 : BlockPos.betweenClosed(blockpos.offset(-i, -j, -k), blockpos.offset(i, j, k))) {
+                    if (blockpos1.distSqr(blockpos) <= (double) (f * f)) {
                         worldgenlevel.setBlock(blockpos1, blockstateconfiguration.state, 4);
                     }
                 }

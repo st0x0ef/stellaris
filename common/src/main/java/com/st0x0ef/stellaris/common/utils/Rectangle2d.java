@@ -1,7 +1,7 @@
 package com.st0x0ef.stellaris.common.utils;
 
-public class Rectangle2d
-{
+public class Rectangle2d {
+
     private final int x;
     private final int y;
     private final int width;

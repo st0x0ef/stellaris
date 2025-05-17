@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.common.compats.jei;
 
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import com.st0x0ef.stellaris.common.registry.RecipesRegistry;
 import mezz.jei.api.IModPlugin;
@@ -12,10 +11,15 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
+import static com.st0x0ef.stellaris.Stellaris.id;
+
 public class JEIPlugin implements IModPlugin {
+
+    public static final ResourceLocation ID = id("jei");
+
     @Override
     public ResourceLocation getPluginUid() {
-        return ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "jei");
+        return ID;
     }
 
     @Override

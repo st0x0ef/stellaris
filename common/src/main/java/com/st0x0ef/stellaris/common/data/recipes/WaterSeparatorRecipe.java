@@ -21,9 +21,11 @@ import net.minecraft.world.level.Level;
 import java.util.ArrayList;
 import java.util.List;
 
-public record WaterSeparatorRecipe(FluidStack ingredientStack, List<FluidStack> resultStacks, int energy) implements Recipe<FluidInput> {
+public record WaterSeparatorRecipe(FluidStack ingredientStack, List<FluidStack> resultStacks,
+                                   int energy) implements Recipe<FluidInput> {
 
     public static RecipeType<WaterSeparatorRecipe> Type = RecipesRegistry.WATER_SEPERATOR_TYPE.get();
+
     @Override
     public boolean matches(FluidInput container, Level level) {
         SingleFluidStorage tank = ((WaterSeparatorBlockEntity) container.entity()).ingredientTank;

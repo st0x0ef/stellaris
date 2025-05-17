@@ -21,6 +21,7 @@ import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.Nullable;
 
 public class Mogler extends Hoglin {
+
     public Mogler(EntityType<? extends Mogler> type, Level world) {
         super(type, world);
     }
@@ -53,6 +54,7 @@ public class Mogler extends Hoglin {
         }
         return moglerentity;
     }
+
     @Override
     public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity entity) {
         return NetworkManager.createAddEntityPacket(this, entity);

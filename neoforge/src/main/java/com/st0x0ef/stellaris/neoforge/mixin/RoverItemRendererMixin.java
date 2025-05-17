@@ -21,6 +21,7 @@ public class RoverItemRendererMixin extends Item {
     @SuppressWarnings("removal")
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(new IClientItemExtensions() {
+
             @Override
             public @NotNull BlockEntityWithoutLevelRenderer getCustomRenderer() {
                 return ItemRendererRegistry.ROVER_ITEM_RENDERER.get();
