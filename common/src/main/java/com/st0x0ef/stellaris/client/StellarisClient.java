@@ -43,6 +43,7 @@ public class StellarisClient {
         registerOverlays();
         registerArmors();
         Platform.getMod(Stellaris.MODID).registerConfigurationScreen(ConfigScreen::new);
+
         ClientEvents.registerEvents();
     }
 

@@ -669,6 +669,37 @@
   "biome.stellaris.mercury_fire_land": "Mercury Fire Land",
   "biome.stellaris.moon_caves": "Moon Caves",
   "biome.stellaris.moon_desert": "Moon Desert",
-  "biome.stellaris.venus_desert": "Venus Desert"
+  "biome.stellaris.venus_desert": "Venus Desert",
+
+
+  "CONFIG": "",
+
+  "config.stellaris.debug": "Debug Mode",
+  "config.stellaris.debug.desc": "Enable debug mode.",
+
+  "config.stellaris.oilConfig": "Oil Config",
+
+  "config.stellaris.chunkOilChance": "Oil Chunk Chance",
+  "config.stellaris.chunkOilChance.desc": "The Chance for a chunk to have Oil.",
+
+
+  "config.stellaris.minOil": "Minimum Oil",
+  "config.stellaris.minOil.desc": "The Minimum Oil in an oil chunk. Will be multiplied by 100.",
+
+  "config.stellaris.maxOil": "Max Oil",
+  "config.stellaris.maxOil.desc": "The Maximum Oil in an oil chunk. Will be multiplied by 100.",
+
+  "config.stellaris.gravityConfig": "Gravity Config",
+
+  "config.stellaris.customEntityGravity": "Custom Entity Gravity",
+  "config.stellaris.customEntityGravity.desc": "Should Entities be affected by planets gravity?",
+
+  "config.stellaris.customItemGravity": "Custom Item Gravity",
+  "config.stellaris.customItemGravity.desc": "Should Items be affected by planets gravity?",
+
+
+  "config.stellaris.oxygenDamage": "Oxygen Damage",
+  "config.stellaris.oxygenDamage.desc": "The Damage entites take every second when there is no oxygen."
+
 
 }
