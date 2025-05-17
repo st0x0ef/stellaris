@@ -18,7 +18,7 @@ public class OxygenEffectsOverlay extends MobEffect {
     }
 
     public Holder<MobEffect> getMobEffect() {
-        return EffectsRegistry.OXYGEN;
+        return EffectsRegistry.getHolder(EffectsRegistry.FOGGING_OVERLAY);
     }
 }
 

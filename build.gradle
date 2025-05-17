@@ -23,7 +23,6 @@ subprojects {
 
     base {
         archivesName = "${rootProject.modid}-${rootProject.minecraft_version}-${project.name}"
-        version = rootProject.mod_version
     }
 
     def modLoader = project.name
@@ -31,7 +30,6 @@ subprojects {
 
 
     repositories {
-        maven { url 'https://maven.blamejared.com' }
         maven { url "https://maven.shedaniel.me" }
         maven { url "https://cursemaven.com" }
         maven { url "https://maven.terraformersmc.com/releases" }
@@ -66,7 +64,7 @@ subprojects {
         modCompileOnly "me.shedaniel:RoughlyEnoughItems-api:${rootProject.rei_version}"
         modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin:${rootProject.rei_version}"
         modCompileOnly("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
-
+        modCompileOnly("maven.modrinth:iris:${iris_version}")
 
     }
 
@@ -86,7 +84,7 @@ subprojects {
             mavenJava(MavenPublication) {
                 groupId "com.st0x0ef.stellaris"
                 artifactId "stellaris-$modLoader-" + minecraft_version
-                version project.version
+                version mod_version
                 from components.java
                 pom {
                     name = "Stellaris" + modLoader.capitalize()
@@ -99,8 +97,8 @@ subprojects {
             maven {
                 url = "https://maven.exodusstudio.org/releases/"
                 credentials {
-                    username = System.getenv("MAVEN_USER")
-                    password = System.getenv("MAVEN_PASS")
+                    username = System.getenv("EXODUS_MAVEN_USERNAME") // DO NOT CHANGE
+                    password = System.getenv("EXODUS_MAVEN_KEY") // DO NOT CHANGE
                 }
             }
         }
@@ -140,7 +138,3 @@ subprojects {
     }
 }
 
-allprojects {
-    group = rootProject.maven_group
-    version = rootProject.mod_version
-}

@@ -8,6 +8,7 @@ import org.jetbrains.annotations.Nullable;
 
 /*TODO actually implement this*/
 public class AlienTrade implements ItemListing {
+
     @Nullable
     @Override
     public MerchantOffer getOffer(Entity entity, RandomSource randomSource) {

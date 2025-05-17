@@ -46,10 +46,12 @@ public record SpaceSuitModules(List<ItemStack> modules) implements Serializable 
     public static ItemStack getIfContains(ItemStack stack, Item module) {
         ItemStack moduleToReturn = ItemStack.EMPTY;
         SpaceSuitModules spaceSuitModules = stack.getOrDefault(DataComponentsRegistry.SPACE_SUIT_MODULES.get(), empty());
-        if (spaceSuitModules.items() == null) return moduleToReturn;
-        for (ItemStack moduleStack: spaceSuitModules.items()) {
+        if (spaceSuitModules.items() == null) {
+            return moduleToReturn;
+        }
+        for (ItemStack moduleStack : spaceSuitModules.items()) {
             if (moduleStack.is(module)) {
-                moduleToReturn=moduleStack;
+                moduleToReturn = moduleStack;
                 break;
             }
         }
@@ -60,7 +62,10 @@ public record SpaceSuitModules(List<ItemStack> modules) implements Serializable 
         boolean containsAll = true;
         for (Item item : modules) {
             if (item instanceof SpaceSuitModule validModule) {
-                if(!containsInModules(stack, validModule)) containsAll = false; break;
+                if (!containsInModules(stack, validModule)) {
+                    containsAll = false;
+                }
+                break;
             }
         }
         return containsAll;
@@ -71,12 +76,16 @@ public record SpaceSuitModules(List<ItemStack> modules) implements Serializable 
     }
 
     public static boolean containsInModules(ItemStack stack, SpaceSuitModule module) {
-        if (stack.isEmpty()) return false;
+        if (stack.isEmpty()) {
+            return false;
+        }
         SpaceSuitModules spaceSuitModules = stack.get(DataComponentsRegistry.SPACE_SUIT_MODULES.get());
-        if (spaceSuitModules==null) return false;
+        if (spaceSuitModules == null) {
+            return false;
+        }
         boolean boolToReturn = false;
-        for (SpaceSuitModule module1: spaceSuitModules.getModules()) {
-            if (module1==module) {
+        for (SpaceSuitModule module1 : spaceSuitModules.getModules()) {
+            if (module1 == module) {
                 boolToReturn = true;
                 break;
             }
@@ -90,11 +99,14 @@ public record SpaceSuitModules(List<ItemStack> modules) implements Serializable 
     }
 
     private static SpaceSuitModule getModule(ItemStack itemStack) {
-        if (itemStack.getItem() instanceof SpaceSuitModule spaceSuitModule) return spaceSuitModule;
+        if (itemStack.getItem() instanceof SpaceSuitModule spaceSuitModule) {
+            return spaceSuitModule;
+        }
         return null; //failsafe, shouldn't happen unless tampered with or incorrect checks for upgrade station
     }
 
     public static class Mutable {
+
         private final List<ItemStack> modules;
 
         public Mutable(SpaceSuitModules contents) {
@@ -103,7 +115,7 @@ public record SpaceSuitModules(List<ItemStack> modules) implements Serializable 
 
         public Mutable insert(ItemStack stack) {
             if (!stack.isEmpty() && stack.getItem().canFitInsideContainerItems()) {
-                    this.modules.add(stack);
+                this.modules.add(stack);
             }
             return this;
         }

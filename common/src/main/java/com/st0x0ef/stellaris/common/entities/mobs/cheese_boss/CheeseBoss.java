@@ -39,7 +39,7 @@ public class CheeseBoss extends Monster implements Enemy, RangedAttackMob {
     private boolean spitting = false;
 
     private static final Component CHEESE_BOSS_NAME_COMPONENT = Component.translatable("event.stellaris.cheeseboss");
-    private final ServerBossEvent bossEvent = (ServerBossEvent)new ServerBossEvent(CHEESE_BOSS_NAME_COMPONENT, BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.PROGRESS).setDarkenScreen(true);
+    private final ServerBossEvent bossEvent = (ServerBossEvent) new ServerBossEvent(CHEESE_BOSS_NAME_COMPONENT, BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.PROGRESS).setDarkenScreen(true);
 
 
     public CheeseBoss(EntityType<? extends CheeseBoss> type, Level level) {
@@ -61,21 +61,24 @@ public class CheeseBoss extends Monster implements Enemy, RangedAttackMob {
         if (this.idleAnimationTimeout <= 0) {
             this.idleAnimationTimeout = 20;
             this.idleAnimationState.start(this.tickCount);
-        } else {
+        }
+        else {
             --this.idleAnimationTimeout;
         }
         if (this.punchingAnimationTimeout <= 0 && isPunching()) {
             this.punchingAnimationTimeout = 20;
             setPunching(false);
             this.punchAnimationState.start(this.tickCount);
-        } else {
+        }
+        else {
             --this.punchingAnimationTimeout;
         }
         if (this.spittingAnimationTimeout <= 0 && isSpitting()) {
             this.spittingAnimationTimeout = 30;
             setSpitting(false);
             this.spitAnimationState.start(this.tickCount);
-        } else {
+        }
+        else {
             --this.spittingAnimationTimeout;
         }
     }
@@ -129,6 +132,7 @@ public class CheeseBoss extends Monster implements Enemy, RangedAttackMob {
     public void setPunching(boolean punching) {
         this.punching = punching;
     }
+
     public boolean isPunching() {
         return this.punching;
     }
@@ -149,6 +153,7 @@ public class CheeseBoss extends Monster implements Enemy, RangedAttackMob {
     public void setSpitting(boolean spitting) {
         this.spitting = spitting;
     }
+
     public boolean isSpitting() {
         return this.spitting;
     }
@@ -177,16 +182,32 @@ public class CheeseBoss extends Monster implements Enemy, RangedAttackMob {
         return CheeseBossAi.makeBrain(this, dynamic);
     }
 
-    @Contract(value="null->false")
+    @Contract(value = "null->false")
     public boolean canTargetEntity(@Nullable Entity entity) {
-        if (!(entity instanceof LivingEntity livingEntity)) return false;
-        if (this.level() != entity.level()) return false;
-        if (!EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(entity)) return false;
-        if (this.isAlliedTo(entity)) return false;
-        if (livingEntity.getType() == EntityType.ARMOR_STAND) return false;
-        if (livingEntity.getType() == EntityRegistry.CHEESE_BOSS.get()) return false;
-        if (livingEntity.isInvulnerable()) return false;
-        if (livingEntity.isDeadOrDying()) return false;
+        if (!(entity instanceof LivingEntity livingEntity)) {
+            return false;
+        }
+        if (this.level() != entity.level()) {
+            return false;
+        }
+        if (!EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(entity)) {
+            return false;
+        }
+        if (this.isAlliedTo(entity)) {
+            return false;
+        }
+        if (livingEntity.getType() == EntityType.ARMOR_STAND) {
+            return false;
+        }
+        if (livingEntity.getType() == EntityRegistry.CHEESE_BOSS.get()) {
+            return false;
+        }
+        if (livingEntity.isInvulnerable()) {
+            return false;
+        }
+        if (livingEntity.isDeadOrDying()) {
+            return false;
+        }
         return this.level().getWorldBorder().isWithinBounds(livingEntity.getBoundingBox());
     }
 }

@@ -17,7 +17,8 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
-public record FuelRefineryRecipe(FluidStack ingredientStack, FluidStack resultStack, int energy) implements Recipe<FluidInput> {
+public record FuelRefineryRecipe(FluidStack ingredientStack, FluidStack resultStack,
+                                 int energy) implements Recipe<FluidInput> {
 
     public static RecipeType<FuelRefineryRecipe> Type = RecipesRegistry.FUEL_REFINERY_TYPE.get();
 

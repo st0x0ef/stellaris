@@ -106,7 +106,7 @@ public class VacuumatorBlockEntity extends BaseEnergyContainerBlockEntity implem
 
         if (CanItem.addFoodToCan(resultStack, getItem(1))) {
             for (int i = 0; i < 3; i++) {
-                if(getItem(i).getCount() >= 1) {
+                if (getItem(i).getCount() >= 1) {
                     removeItem(i, 1);
                 }
             }

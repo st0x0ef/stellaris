@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.common.oxygen;
 
 import com.fej1fun.potentials.capabilities.Capabilities;
 import com.fej1fun.potentials.fluid.UniversalFluidStorage;
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.registry.TagRegistry;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
@@ -17,6 +18,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class DimensionOxygenManager {
+
     private final Set<OxygenRoom> oxygenRooms;
     private final Map<BlockPos, OxygenRoom> roomToCheckIfOpen;
     private final boolean planetHasOxygen;
@@ -27,15 +29,6 @@ public class DimensionOxygenManager {
         this.roomToCheckIfOpen = new HashMap<>();
         this.level = level;
         this.planetHasOxygen = PlanetUtil.hasOxygen(level);
-    }
-
-    public void tickOxygenRoom(BlockPos distributorPos) {
-        if (getOxygenRoom(distributorPos) == null) {
-            oxygenRooms.add(new OxygenRoom(level, distributorPos));
-
-        }
-        this.updateOxygenTick();
-        this.setChanged();
     }
 
     public void removeOxygenRoom(BlockPos pos) {
@@ -60,14 +53,19 @@ public class DimensionOxygenManager {
     }
 
     public void updateOxygenTick() {
-        if (planetHasOxygen) return;
+        if (planetHasOxygen) {
+            return;
+        }
 
         oxygenRooms.forEach(OxygenRoom::tick);
         roomToCheckIfOpen.values().forEach(OxygenRoom::removeOxygenInRoom);
         roomToCheckIfOpen.clear();
+
+        this.setChanged();
     }
 
     public boolean breath(LivingEntity entity) {
+
         if (planetHasOxygen || entity.getType().is(TagRegistry.ENTITY_NO_OXYGEN_NEEDED_TAG)) {
             return true;
         }
@@ -113,5 +111,9 @@ public class DimensionOxygenManager {
     public void setOxygensRooms(Set<OxygenRoom> rooms) {
         this.oxygenRooms.clear();
         this.oxygenRooms.addAll(rooms);
+    }
+
+    public ServerLevel getLevel() {
+        return level;
     }
 }

@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.common.utils;
 
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
 import com.st0x0ef.stellaris.common.menus.MilkyWayMenu;
@@ -23,26 +22,36 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 
+import static com.st0x0ef.stellaris.Stellaris.texture;
+
 public class PlanetUtil {
+
+    public static final ResourceLocation TEXTURE = texture("planet_bar/earth_planet_bar");
+
     public static Planet getPlanet(ResourceLocation level) {
-        AtomicReference<Planet> p = new AtomicReference<>();
-        StellarisData.getPlanets().forEach(planet -> {if (planet.dimension().equals(level)) p.set(planet);});
-        return p.get();
+        Planet[] result = {null};
+        StellarisData.getPlanets().forEach(planet -> {
+            if (planet.dimension().equals(level)) {
+                result[0] = planet;
+            }
+        });
+        return result[0];
     }
 
     public static boolean isPlanet(ResourceLocation level) {
-        AtomicBoolean isPlanet = new AtomicBoolean(false);
-        StellarisData.getPlanets().forEach(planet -> {if (planet.dimension().equals(level)) isPlanet.set(true);});
-
-        return isPlanet.get();
+        boolean[] isPlanet = {false};
+        StellarisData.getPlanets().forEach(planet -> {
+            if (planet.dimension().equals(level)) {
+                isPlanet[0] = true;
+            }
+        });
+        return isPlanet[0];
     }
 
     public static void ifPlanet(ResourceLocation level, Consumer<Planet> planetRunnable) {
-        if(isPlanet(level)) {
+        if (isPlanet(level)) {
             planetRunnable.accept(getPlanet(level));
         }
     }
@@ -59,16 +68,19 @@ public class PlanetUtil {
         return true;
     }
 
-    /** Get the resource location of the planet bar set in the Planet file */
+    /**
+     * Get the resource location of the planet bar set in the Planet file
+     */
     public static ResourceLocation getPlanetBar(ResourceLocation level) {
         if (isPlanet(level)) {
             return getPlanet(level).textures().planet_bar();
         }
-        return ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/planet_bar/earth_planet_bar.png");
+        return TEXTURE;
     }
 
     public static int openPlanetSelectionMenu(Player player, boolean forceCanGoTo) {
         ExtendedMenuProvider provider = new ExtendedMenuProvider() {
+
             @Override
             public void saveExtraData(FriendlyByteBuf buffer) {
                 buffer.writeBoolean(forceCanGoTo);
@@ -96,6 +108,7 @@ public class PlanetUtil {
 
     public static int openWaitMenu(Player player, String playerChoosing) {
         ExtendedMenuProvider provider = new ExtendedMenuProvider() {
+
             @Override
             public void saveExtraData(FriendlyByteBuf buffer) {
                 buffer.writeUtf(playerChoosing);
@@ -123,6 +136,7 @@ public class PlanetUtil {
 
     public static int openTabletMenu(Player player, ResourceLocation entry) {
         ExtendedMenuProvider provider = new ExtendedMenuProvider() {
+
             @Override
             public void saveExtraData(FriendlyByteBuf buffer) {
                 buffer.writeResourceLocation(entry);

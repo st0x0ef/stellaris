@@ -16,6 +16,7 @@ public class SyncRocketComponentPacket implements CustomPacketPayload {
 
 
     public static final StreamCodec<RegistryFriendlyByteBuf, SyncRocketComponentPacket> STREAM_CODEC = new StreamCodec<>() {
+
         @Override
         public @NotNull SyncRocketComponentPacket decode(RegistryFriendlyByteBuf buf) {
             return new SyncRocketComponentPacket(buf);
@@ -28,7 +29,6 @@ public class SyncRocketComponentPacket implements CustomPacketPayload {
     };
 
 
-
     public SyncRocketComponentPacket(RegistryFriendlyByteBuf buffer) {
         this(RocketComponent.fromNetwork(buffer));
     }
@@ -38,7 +38,7 @@ public class SyncRocketComponentPacket implements CustomPacketPayload {
     }
 
 
-    public static void handle(SyncRocketComponentPacket packet,  NetworkManager.PacketContext context) {
+    public static void handle(SyncRocketComponentPacket packet, NetworkManager.PacketContext context) {
         LocalPlayer player = (LocalPlayer) context.getPlayer();
         if (player.containerMenu instanceof RocketMenu menu && menu.getRocket() != null) {
             menu.getRocket().setRocketComponent(packet.component);

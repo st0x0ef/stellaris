@@ -63,18 +63,14 @@ public class StellarisCommands {
                         .then(Commands.literal("dumpPlanetInfos")
                                 .executes((CommandContext<CommandSourceStack> context) -> {
 
-                                    for(Planet planet : StellarisData.getPlanets()) {
+                                    for (Planet planet : StellarisData.getPlanets()) {
                                         Stellaris.LOG.info(planet.name());
                                         Stellaris.LOG.info("[br] [br] Temperature : [color=red]{}°c [br] Gravity : [color=red]{} [br] Oxygen : [color=red]{} [br] Distance From Earth : {}km", planet.temperature(), planet.gravity(), planet.oxygen(), planet.distanceFromEarth());
                                     }
 
                                     return 0;
                                 }))
-
                 )
-
-
-
         );
     }
 }
