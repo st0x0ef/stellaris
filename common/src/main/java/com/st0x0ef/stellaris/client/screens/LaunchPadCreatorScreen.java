@@ -2,7 +2,9 @@ package com.st0x0ef.stellaris.client.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.client.screens.components.CustomCheckBox;
 import com.st0x0ef.stellaris.client.screens.components.GaugeWidget;
+import com.st0x0ef.stellaris.client.screens.components.TexturedButton;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.LaunchPadCreatorBlockEntity;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.PumpjackBlockEntity;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPad;
@@ -24,46 +26,48 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import org.jetbrains.annotations.Nullable;
+import org.lwjgl.glfw.GLFW;
 
 import java.util.List;
 import java.util.Objects;
 
 public class LaunchPadCreatorScreen extends AbstractContainerScreen<LaunchPadCreatorMenu> {
 
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/window/window_large.png");
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/antenna.png");
 
     private final LaunchPadCreatorBlockEntity blockEntity = getMenu().getBlockEntity();
 
     private EditBox nameBox;
     private EditBox whitelistBox;
-
-    private Checkbox publicCheckbox;
+    private CustomCheckBox publicCheckbox;
+    private TexturedButton saveButton;
 
     public LaunchPad pad;
 
     public LaunchPadCreatorScreen(LaunchPadCreatorMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
         imageWidth = 180;
-        imageHeight = 260;
-        inventoryLabelY = imageHeight - 92;
+        imageHeight = 188;
+        inventoryLabelY = imageHeight - 94;
         this.pad = menu.getBlockEntity().launchPad;
+
+        Stellaris.LOG.error("LaunchPad in screen {}", pad);
     }
 
     @Override
     protected void init() {
         super.init();
+
         addWidgets(pad);
-        if (blockEntity == null) {
-            return;
-        }
+
     }
 
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         renderBackground(guiGraphics, mouseX, mouseY, partialTick);
         super.render(guiGraphics, mouseX, mouseY, partialTick);
-        renderTooltip(guiGraphics, mouseX, mouseY);
 
+        renderTooltip(guiGraphics, mouseX, mouseY);
     }
 
 
@@ -76,27 +80,48 @@ public class LaunchPadCreatorScreen extends AbstractContainerScreen<LaunchPadCre
     }
 
     @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+
+        if ((keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == GLFW.GLFW_KEY_ENTER) && this.nameBox.isFocused()) {
+            this.nameBox.setFocused(false);
+            return true;
+
+        }
+
+        if ((this.nameBox.isHovered() || this.nameBox.isFocused()) && keyCode == GLFW.GLFW_KEY_E) {
+            return true;
+        }
+        return super.keyPressed(keyCode, scanCode, modifiers);
+    }
+
+    @Override
     protected void renderTooltip(GuiGraphics guiGraphics, int x, int y) {
         super.renderTooltip(guiGraphics, x, y);
     }
 
     private void addWidgets(@Nullable LaunchPad pad) {
-        this.nameBox = new EditBox(this.font, this.leftPos + 10, this.topPos + 10, 160, 20, Component.translatable("gui.stellaris.launchpad_creator.name"));
-        this.whitelistBox = new EditBox(this.font, this.leftPos + 10, this.topPos + 40, 160, 20, Component.translatable("gui.stellaris.launchpad_creator.name"));
+        this.nameBox = new EditBox(this.font, this.leftPos + 50, this.topPos + 40, 59, 14, Component.translatable("gui.stellaris.launchpad_creator.name"));
+        this.whitelistBox = new EditBox(this.font, this.leftPos + 120, this.topPos + 38, 80, 20, Component.translatable("gui.stellaris.launchpad_creator.name"));
 
-        var builder = Checkbox.builder(Component.literal("public"), this.font).pos(this.leftPos + 10, this.topPos + 70);
+        nameBox.setBordered(false);
+
+        this.publicCheckbox = new CustomCheckBox(this.leftPos + 120, this.topPos + 38, 14, Component.literal(""), this.font, false)
+                .setTexture(GUISprites.CHECKBOX, GUISprites.CHECKBOX_SELECTED);
+
+        this.saveButton = new TexturedButton(this.leftPos + (this.imageWidth / 2 - 30),  this.inventoryLabelY, 60, 20, Component.literal("Create"), (b) -> saveLaunchPad())
+                .tex(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/antenna_button.png"), ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/antenna_button_hovered.png"));
+
+
         if(pad != null) {
             this.nameBox.setValue(pad.name());
             this.whitelistBox.setValue(String.join(",", pad.whitelist()));
-            builder.selected(pad.isPublic());
+            this.publicCheckbox.setSelected(pad.isPublic());
+            this.saveButton.setMessage(Component.literal("Save"));
         }
 
-        this.publicCheckbox = builder.build();
-
-
-        this.addWidget(this.nameBox);
-        this.addWidget(this.whitelistBox);
-        this.addWidget(this.publicCheckbox);
+        this.addRenderableWidget(this.nameBox);
+        this.addRenderableWidget(this.saveButton);
+        this.addRenderableWidget(this.publicCheckbox);
     }
 
     @Override
@@ -106,22 +131,25 @@ public class LaunchPadCreatorScreen extends AbstractContainerScreen<LaunchPadCre
     }
 
     private void saveLaunchPad() {
+
+        if (this.nameBox.getValue().isEmpty() || this.nameBox.getValue().equals(" ")) return;
+
+
         var create = false;
         if (this.pad == null) {
             this.pad = new LaunchPad(
-                    blockEntity.getBlockPos().getBottomCenter(),
+                    Utils.blockPosToVec3(blockEntity.getBlockPos()),
                     blockEntity.getLevel().dimension(),
                     this.nameBox.getValue(),
-                    this.publicCheckbox.selected(),
+                    this.publicCheckbox.selected,
                     menu.getPlayer().getDisplayName().getString(),
                     List.of(this.whitelistBox.getValue().split(","))
             );
             create = true;
         } else {
-            this.pad = new LaunchPad(pad.position(), pad.dimension(), this.nameBox.getValue(), this.publicCheckbox.selected(), pad.owner(), List.of(this.whitelistBox.getValue().split(",")));
+            this.pad = new LaunchPad(pad.position(), pad.dimension(), this.nameBox.getValue(), this.publicCheckbox.selected, pad.owner(), List.of(this.whitelistBox.getValue().split(",")));
         }
 
-        if (this.nameBox.getValue() == "" || this.nameBox.getValue() == " ") return;
 
         blockEntity.setLaunchPad(this.pad, create);
     }

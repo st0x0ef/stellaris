@@ -26,4 +26,8 @@ public class GUISprites {
     public static final ResourceLocation SPACESUIT_FUEL_BAR = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/overlay/fuel_hud.png");
     public static final ResourceLocation SPACESUIT_ENERGY_BAR = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/overlay/energy_hud.png");
     public static final ResourceLocation SPACESUIT_FULL_BAR_SPRITE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "util/bar_full");
+    public static final ResourceLocation CHECKBOX = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "util/checkbox");
+    public static final ResourceLocation CHECKBOX_SELECTED = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "util/checkbox_selected");
+
+
 }

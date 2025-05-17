@@ -316,7 +316,9 @@ public class Utils {
         return entity.level().canSeeSky(entity.blockPosition());
     }
 
-
+    public static BlockPos getBlockPosFromVector3i(Vec3 vec3) {
+        return new BlockPos((int) vec3.x, (int) vec3.y, (int) vec3.z);
+    }
 
     public  <T> void addButtonToList(ArrayList<ArrayList<T>> finalList, T button, int size){
         if (finalList.isEmpty()) {
@@ -354,4 +356,9 @@ public class Utils {
     public static boolean isHoveredOnSprite(int x, int y, int width, int height, double mouseX, double mouseY) {
         return mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + height;
     }
+
+    public static Vec3 blockPosToVec3(BlockPos pos) {
+        return new Vec3(pos.getX(), pos.getY(), pos.getZ());
+    }
+
 }

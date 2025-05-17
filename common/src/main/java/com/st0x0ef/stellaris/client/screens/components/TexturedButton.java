@@ -13,6 +13,7 @@ import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
@@ -92,8 +93,6 @@ public class TexturedButton extends Button {
 
         int i = this.yTexStart;
         if (this.isHoveredOrFocused()) {
-            Stellaris.LOG.error("mouse x: {} mouse y: {}", mouseX, mouseY);
-
             i += this.yDiffText;
         }
 
@@ -106,7 +105,10 @@ public class TexturedButton extends Button {
                 this.width, this.height, this.textureWidth, this.textureHeight, this.getTypeColor());
 
         /** FONT RENDERER */
-        Font fontRenderer = minecraft.font;
+        int color = this.isHovered ? 16777215 : 10526880;
+
+        this.renderString(graphics, minecraft.font, color | Mth.ceil(this.alpha * 255.0F) << 24);
+
 
         RenderSystem.disableDepthTest();
         RenderSystem.disableBlend();

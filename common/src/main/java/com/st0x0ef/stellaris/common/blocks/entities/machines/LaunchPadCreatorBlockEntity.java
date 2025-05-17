@@ -70,7 +70,10 @@ public class LaunchPadCreatorBlockEntity extends BaseContainerBlockEntity implem
     @Override
     public void loadAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
         super.loadAdditional(compoundTag, provider);
-        this.launchPad = LaunchPadUtils.loadLaunchPad(compoundTag, this);
+
+        this.launchPad = LaunchPadUtils.loadLaunchPad(compoundTag);
+        setLaunchPad(this.launchPad, false);
+
         this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
         ContainerHelper.loadAllItems(compoundTag, this.items, provider);
 
@@ -88,10 +91,14 @@ public class LaunchPadCreatorBlockEntity extends BaseContainerBlockEntity implem
         if (create) {
             NetworkManager.sendToServer(new LaunchPadsOperations(launchPad, "add"));
         }
+
         this.launchPad = launchPad;
+        NetworkManager.sendToServer(new LaunchPadsOperations(launchPad, "setLaunchPad"));
     }
 
     @Override
-    public void tick() {}
+    public void tick() {
+
+    }
 
 }

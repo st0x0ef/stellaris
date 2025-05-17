@@ -3,11 +3,14 @@ package com.st0x0ef.stellaris.common.menus;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.FuelRefineryBlockEntity;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.LaunchPadCreatorBlockEntity;
+import com.st0x0ef.stellaris.common.launchpads.LaunchPad;
 import com.st0x0ef.stellaris.common.menus.slot.FluidContainerSlot;
 import com.st0x0ef.stellaris.common.menus.slot.ResultSlot;
 import com.st0x0ef.stellaris.common.menus.slot.SpecificFluidContainerSlot;
 import com.st0x0ef.stellaris.common.registry.FluidRegistry;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
+import dev.architectury.platform.Platform;
+import net.fabricmc.api.EnvType;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
@@ -20,6 +23,7 @@ public class LaunchPadCreatorMenu extends AbstractContainerMenu {
 
     private final Player player;
     private final LaunchPadCreatorBlockEntity blockEntity;
+    public LaunchPad launchPad;
 
     public static LaunchPadCreatorMenu create(int containerId, Inventory inventory, FriendlyByteBuf buf) {
         LaunchPadCreatorBlockEntity blockEntity = (LaunchPadCreatorBlockEntity) inventory.player.level().getBlockEntity(buf.readBlockPos());
@@ -31,7 +35,9 @@ public class LaunchPadCreatorMenu extends AbstractContainerMenu {
         this.player = inventory.player;
         this.blockEntity = blockEntity;
 
-        Stellaris.LOG.error("is server null ? {}", (blockEntity.getLevel().getServer() == null));
+        if(blockEntity.launchPad != null) {
+            this.launchPad = blockEntity.launchPad;
+        }
     }
 
 

@@ -78,6 +78,7 @@ public class LaunchPadLauncher {
             }
 
             if(launchPads.equals(LaunchPadLauncher.LAUNCH_PADS.launchPads())) {
+                Stellaris.LOG.error("Launchpad {} not found in dimension {}", name, dimension.location());
                 return false;
             }
 

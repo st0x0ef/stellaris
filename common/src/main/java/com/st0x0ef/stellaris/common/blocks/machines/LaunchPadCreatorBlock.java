@@ -1,10 +1,13 @@
 package com.st0x0ef.stellaris.common.blocks.machines;
 
 import com.mojang.serialization.MapCodec;
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.LaunchPadCreatorBlockEntity;
+import com.st0x0ef.stellaris.common.launchpads.LaunchPad;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPadLauncher;
 import com.st0x0ef.stellaris.common.network.packets.LaunchPadsOperations;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
+import com.st0x0ef.stellaris.common.utils.Utils;
 import dev.architectury.networking.NetworkManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
@@ -12,8 +15,11 @@ import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class LaunchPadCreatorBlock extends BaseMachineBlock {
 
@@ -44,12 +50,14 @@ public class LaunchPadCreatorBlock extends BaseMachineBlock {
 
     @Override
     protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
-        BlockEntity blockEntity = level.getBlockEntity(pos);
+        if(level.isClientSide) return;
 
-        if(blockEntity instanceof LaunchPadCreatorBlockEntity launchPadCreatorBlockEntity && launchPadCreatorBlockEntity.launchPad != null) {
-            NetworkManager.sendToServer(new LaunchPadsOperations(launchPadCreatorBlockEntity.launchPad, "remove"));
-        }
+        var launchPos = Utils.blockPosToVec3(pos);
+        //We pass a fake launchpad to the packet, as we don't need to remove this fake launchpad
+        NetworkManager.sendToServer(new LaunchPadsOperations(new LaunchPad(
+                launchPos, level.dimension(), "remove", false, "Notch", List.of()), "removeFromAntenna"));
 
         super.onRemove(state, level, pos, newState, movedByPiston);
     }
+
 }
