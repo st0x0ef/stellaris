@@ -3,8 +3,9 @@ package com.st0x0ef.stellaris;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.ToNumberPolicy;
+import com.st0x0ef.stellaris.common.config.CommonConfig;
+import com.st0x0ef.stellaris.common.config.ConfigManager;
 import com.st0x0ef.stellaris.common.data.screen.TabletPack;
-import com.st0x0ef.stellaris.common.config.CustomConfig;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
 import com.st0x0ef.stellaris.common.data.screen.MoonPack;
 import com.st0x0ef.stellaris.common.data.screen.PlanetPack;
@@ -62,6 +63,19 @@ public class Stellaris {
         EffectsRegistry.register();
 
         ReloadListenerRegistry.register(PackType.SERVER_DATA, new StellarisData());
+    }
+
+    public static ResourceLocation texture(String path) {
+        return id("textures/" + path + ".png");
+    }
+
+    public static ResourceLocation guiTexture(String path) {
+        return texture("gui/" + path);
+    }
+
+
+    public static ResourceLocation id(String path) {
+        return ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, path);
     }
 
     public static void onDatapackSyncEvent(ServerPlayer player, boolean joined) {
