@@ -19,7 +19,7 @@ public abstract class ItemEntityMixin {
     @ModifyReturnValue(method = "getDefaultGravity", at = @At("RETURN"))
     private double modifyGravity(double original) {
         ResourceLocation dimension = stellaris$itemEntity.level().dimension().location();
-        if (PlanetUtil.isPlanet(dimension) && Stellaris.CONFIG.gravityConfig.customEntityGravity) {
+        if (PlanetUtil.isPlanet(dimension) && Stellaris.CONFIG.gravityConfig.customItemGravity) {
             return (Utils.MPS2ToMCG(PlanetUtil.getPlanet(dimension).gravity()) % 2);
         }
         return original;

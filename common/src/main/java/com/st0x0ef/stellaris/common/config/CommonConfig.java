@@ -5,14 +5,13 @@ public class CommonConfig {
 
     public boolean debug = false;
 
+    public float oxygenDamage = 2f;
+
     @ConfigManager.InnerConfig
     public Oil oilConfig = new Oil();
 
     @ConfigManager.InnerConfig
     public Gravity gravityConfig = new Gravity();
-
-
-    public float oxygenDamage = 2f;
 
     public static class Oil {
         public int chunkOilChance = 16;

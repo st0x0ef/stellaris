@@ -79,14 +79,14 @@ public class ConfigScreen extends Screen {
                 String name = field.getName();
 
                 if (field.isAnnotationPresent(ConfigManager.InnerConfig.class)) {
+                    addSeparator(rowHelper);
+
                     rowHelper.addChild(new StringWidget(Component.translatable("config.stellaris." + name).withStyle(ChatFormatting.BOLD), this.font));
                     rowHelper.addChild(new SpacerElement(32, 16));
 
                     addFields(field.getType().getFields(), rowHelper, field.get(object), recursionDepth + 1);
 
-                    rowHelper.addChild(new SpacerElement(32, 8));
-                    rowHelper.addChild(new SpacerElement(32, 8));
-
+                    addSeparator(rowHelper);
                     continue;
                 }
 
@@ -123,6 +123,11 @@ public class ConfigScreen extends Screen {
                 title,
                 description
         ));
+    }
+
+    private void addSeparator(GridLayout.RowHelper rowHelper) {
+        rowHelper.addChild(new SpacerElement(32, 8));
+        rowHelper.addChild(new SpacerElement(32, 8));
     }
 
     private void addTypeWidget(Field field, Object configInstance, Object value, Component description, GridLayout.RowHelper rowHelper) {
