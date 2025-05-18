@@ -64,18 +64,18 @@ public class LaunchPadLauncher {
         }
     }
 
-    public static boolean removeLaunchpad(ResourceKey<Level> dimension, String name, MinecraftServer server)  {
+    public static boolean removeLaunchpad(int id, MinecraftServer server)  {
         ArrayList<LaunchPad> launchPads = new ArrayList<>(LaunchPadLauncher.LAUNCH_PADS.launchPads());
 
         for(LaunchPad launchpad : launchPads) {
-            if(launchpad.name().equals(name) && launchpad.dimension().location() == dimension.location()) {
+            if(launchpad.id() == id) {
                 launchPads.remove(launchpad);
                 break;
             }
         }
 
         if(launchPads.equals(LaunchPadLauncher.LAUNCH_PADS.launchPads())) {
-            Stellaris.LOG.error("Launchpad {} not found in dimension {}", name, dimension.location());
+            Stellaris.LOG.error("Launchpad {} not found", id);
             return false;
         }
 

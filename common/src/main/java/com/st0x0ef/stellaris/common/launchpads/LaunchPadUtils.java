@@ -82,4 +82,13 @@ public class LaunchPadUtils {
         }
         return null;
     }
+
+    public static LaunchPad getPadByNameAndDim(String name, ResourceKey<Level> dimension) {
+        for (LaunchPad lp : LaunchPadLauncher.LAUNCH_PADS.launchPads()) {
+            if (lp.name().equals(name) && lp.dimension().equals(dimension)) {
+                return lp;
+            }
+        }
+        return null;
+    }
 }

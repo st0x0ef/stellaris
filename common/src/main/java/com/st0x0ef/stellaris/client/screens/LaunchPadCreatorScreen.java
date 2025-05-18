@@ -49,9 +49,9 @@ public class LaunchPadCreatorScreen extends AbstractContainerScreen<LaunchPadCre
         imageWidth = 180;
         imageHeight = 188;
         inventoryLabelY = imageHeight - 94;
-        this.pad = menu.getBlockEntity().launchPad;
-
-        Stellaris.LOG.error("LaunchPad in screen {}", pad);
+        if(menu.launchPadId != -1) {
+            this.pad = LaunchPadLauncher.LAUNCH_PADS.launchPads().get(menu.launchPadId);
+        }
     }
 
     @Override

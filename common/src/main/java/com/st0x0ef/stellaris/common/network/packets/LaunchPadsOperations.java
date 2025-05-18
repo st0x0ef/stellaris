@@ -54,20 +54,19 @@ public class LaunchPadsOperations implements CustomPacketPayload {
                 LaunchPadLauncher.addLaunchPad(launchPad, context.getPlayer().getServer());
             }
             case "remove" -> {
-                LaunchPadLauncher.removeLaunchpad(launchPad.dimension(), launchPad.name(), context.getPlayer().getServer());
+                LaunchPadLauncher.removeLaunchpad(launchPad.id() ,context.getPlayer().getServer());
             }
             case "setLaunchPad" -> {
                 if(context.getPlayer().level().getBlockEntity(Utils.getBlockPosFromVector3i(launchPad.position())) instanceof LaunchPadCreatorBlockEntity blockEntity) {
-                    blockEntity.launchPad = launchPad;
+                    blockEntity.launchPadId = launchPad.id();
                     blockEntity.setChanged();
-                    Stellaris.LOG.error("LaunchPad in entity", blockEntity.launchPad);
                 }
             }
             case "removeFromAntenna" -> {
-
                 if(context.getPlayer().level().getBlockEntity(Utils.getBlockPosFromVector3i(launchPad.position())) instanceof LaunchPadCreatorBlockEntity blockEntity) {
-                    if(blockEntity.launchPad != null)
-                        LaunchPadLauncher.removeLaunchpad(blockEntity.launchPad.dimension(), blockEntity.launchPad.name(), context.getPlayer().getServer());
+
+                    if(blockEntity.launchPadId != -1)
+                        LaunchPadLauncher.removeLaunchpad(blockEntity.launchPadId, context.getPlayer().getServer());
                 }
             }
         }

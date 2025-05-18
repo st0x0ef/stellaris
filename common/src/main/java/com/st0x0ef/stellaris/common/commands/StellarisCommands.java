@@ -12,6 +12,7 @@ import com.st0x0ef.stellaris.common.data.planets.StellarisData;
 import com.st0x0ef.stellaris.common.data.recipes.SpaceStationRecipesManager;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPad;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPadLauncher;
+import com.st0x0ef.stellaris.common.launchpads.LaunchPadUtils;
 import com.st0x0ef.stellaris.common.menus.TestMenu;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
@@ -159,8 +160,9 @@ public class StellarisCommands {
                                                 .then(Commands.argument("name", StringArgumentType.string())
                                                         .executes((CommandContext<CommandSourceStack> context) -> {
 
+                                                            LaunchPad pad = LaunchPadUtils.getPadByNameAndDim(StringArgumentType.getString(context, "name"), context.getArgument("dimension", ResourceKey.class));
 
-                                                            if (LaunchPadLauncher.removeLaunchpad(context.getArgument("dimension", ResourceKey.class), StringArgumentType.getString(context, "name"),  context.getSource().getServer())) {
+                                                            if (pad != null && LaunchPadLauncher.removeLaunchpad(pad.id(),  context.getSource().getServer())) {
                                                                 context.getSource().sendSuccess(() -> Component.literal("Space Station " + StringArgumentType.getString(context, "name") + " Deleted"), true);
                                                             } else {
                                                                 context.getSource().sendFailure(Component.literal("Space Station " + StringArgumentType.getString(context, "name") + " Not Found"));
@@ -168,6 +170,20 @@ public class StellarisCommands {
                                                             return Command.SINGLE_SUCCESS;
                                                         })
                                                 )
+                                        )
+                                        .then(Commands.argument("id", IntegerArgumentType.integer(0, Integer.MAX_VALUE))
+                                                .executes((CommandContext<CommandSourceStack> context) -> {
+
+                                                    LaunchPad pad = LaunchPadUtils.getPadById(IntegerArgumentType.getInteger(context, "id"));
+
+                                                    if (pad != null && LaunchPadLauncher.removeLaunchpad(pad.id(),context.getSource().getServer())) {
+                                                        context.getSource().sendSuccess(() -> Component.literal("Space Station " + pad.id() + " Deleted"), true);
+                                                    } else {
+                                                        context.getSource().sendFailure(Component.literal("Space Station " + StringArgumentType.getString(context, "name") + " Not Found"));
+                                                    }
+                                                    return Command.SINGLE_SUCCESS;
+                                                })
+
                                         )
                                 )
                         )

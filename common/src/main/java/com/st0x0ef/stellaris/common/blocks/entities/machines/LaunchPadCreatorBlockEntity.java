@@ -25,7 +25,7 @@ import java.util.Objects;
 
 public class LaunchPadCreatorBlockEntity extends BaseContainerBlockEntity implements ImplementedInventory, TickingBlockEntity {
 
-    public LaunchPad launchPad;
+    public int launchPadId = -1;
     private NonNullList<ItemStack> items = NonNullList.withSize(3, ItemStack.EMPTY);
 
 
@@ -46,10 +46,7 @@ public class LaunchPadCreatorBlockEntity extends BaseContainerBlockEntity implem
 
     @Override
     protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
-        if (this.launchPad == null) {
-            return new LaunchPadCreatorMenu(containerId, inventory, this, -1);
-        }
-        return new LaunchPadCreatorMenu(containerId, inventory, this, this.launchPad.id());
+        return new LaunchPadCreatorMenu(containerId, inventory, this, this.launchPadId);
     }
 
     @Override
@@ -74,9 +71,7 @@ public class LaunchPadCreatorBlockEntity extends BaseContainerBlockEntity implem
     public void loadAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
         super.loadAdditional(compoundTag, provider);
 
-        this.launchPad = LaunchPadUtils.loadLaunchPad(compoundTag);
-        setLaunchPad(this.launchPad, false);
-
+        this.launchPadId = compoundTag.getInt("LaunchPadId");
         this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
         ContainerHelper.loadAllItems(compoundTag, this.items, provider);
 
@@ -85,7 +80,8 @@ public class LaunchPadCreatorBlockEntity extends BaseContainerBlockEntity implem
     @Override
     protected void saveAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
         super.saveAdditional(compoundTag, provider);
-        LaunchPadUtils.saveLaunchPad(launchPad, compoundTag);
+        compoundTag.putInt("launchPadId", this.launchPadId);
+
         ContainerHelper.saveAllItems(compoundTag, this.items, provider);
 
     }
@@ -94,8 +90,7 @@ public class LaunchPadCreatorBlockEntity extends BaseContainerBlockEntity implem
         if (create) {
             NetworkManager.sendToServer(new LaunchPadsOperations(launchPad, "add"));
         }
-
-        this.launchPad = launchPad;
+        this.launchPadId = launchPad.id();
         NetworkManager.sendToServer(new LaunchPadsOperations(launchPad, "setLaunchPad"));
     }
 
