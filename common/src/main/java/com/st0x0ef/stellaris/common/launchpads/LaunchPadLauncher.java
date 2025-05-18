@@ -65,23 +65,41 @@ public class LaunchPadLauncher {
     }
 
     public static boolean removeLaunchpad(ResourceKey<Level> dimension, String name, MinecraftServer server)  {
+        ArrayList<LaunchPad> launchPads = new ArrayList<>(LaunchPadLauncher.LAUNCH_PADS.launchPads());
+
+        for(LaunchPad launchpad : launchPads) {
+            if(launchpad.name().equals(name) && launchpad.dimension().location() == dimension.location()) {
+                launchPads.remove(launchpad);
+                break;
+            }
+        }
+
+        if(launchPads.equals(LaunchPadLauncher.LAUNCH_PADS.launchPads())) {
+            Stellaris.LOG.error("Launchpad {} not found in dimension {}", name, dimension.location());
+            return false;
+        }
+
+        return writeLaunchpads(launchPads, server);
+
+    }
+
+
+    public static boolean addLaunchPad(LaunchPad pad, MinecraftServer server)  {
+
+        if(server == null) {
+            Stellaris.LOG.error("Server is null");
+            return false;
+        }
+        ArrayList<LaunchPad> launchPads = new ArrayList<>(LaunchPadLauncher.LAUNCH_PADS.launchPads());
+        launchPads.add(pad);
+
+        return writeLaunchpads(launchPads, server);
+    }
+
+    public static boolean writeLaunchpads(ArrayList<LaunchPad> launchPads, MinecraftServer server) {
+        Path launchpath = server.storageSource.getLevelDirectory().path().resolve("launch-pads.json");
+
         try {
-            Path launchpath = server.storageSource.getLevelDirectory().path().resolve("launch-pads.json");
-
-            ArrayList<LaunchPad> launchPads = new ArrayList<>(LaunchPadLauncher.LAUNCH_PADS.launchPads());
-
-            for(LaunchPad launchpad : launchPads) {
-                if(launchpad.name().equals(name) && launchpad.dimension().location() == dimension.location()) {
-                    launchPads.remove(launchpad);
-                    break;
-                }
-            }
-
-            if(launchPads.equals(LaunchPadLauncher.LAUNCH_PADS.launchPads())) {
-                Stellaris.LOG.error("Launchpad {} not found in dimension {}", name, dimension.location());
-                return false;
-            }
-
             LaunchPadLauncher.LAUNCH_PADS = new LaunchPad.LaunchPadContainer(launchPads);
 
             JsonElement jsonElement = LaunchPad.LaunchPadContainer.toJson(LaunchPadLauncher.LAUNCH_PADS);
@@ -94,45 +112,12 @@ public class LaunchPadLauncher {
 
         } catch (IOException e) {
             Stellaris.LOG.error("Error writing launchpads to file {}", e.getMessage());
-
             return false;
         }
 
         NetworkManager.sendToPlayers(server.getPlayerList().getPlayers(), new SyncLaunchPads(LaunchPadLauncher.LAUNCH_PADS));
         return true;
-    }
 
-
-    public static void addLaunchPad(LaunchPad pad, MinecraftServer server)  {
-
-        if(server == null) {
-            Stellaris.LOG.error("Server is null");
-            return;
-        }
-
-        try {
-            Stellaris.LOG.info("Adding launchpad {} to dimension {}", pad.name(), pad.dimension().location());
-
-            Path launchpath = server.storageSource.getLevelDirectory().path().resolve("launch-pads.json");
-
-            ArrayList<LaunchPad> launchPads = new ArrayList<>(LaunchPadLauncher.LAUNCH_PADS.launchPads());
-            launchPads.add(pad);
-            LaunchPadLauncher.LAUNCH_PADS = new LaunchPad.LaunchPadContainer(launchPads);
-
-            JsonElement jsonElement = LaunchPad.LaunchPadContainer.toJson(LaunchPadLauncher.LAUNCH_PADS);
-            String launchpadsFile = Stellaris.GSON.toJson(jsonElement);
-
-
-            BufferedWriter launchpadsWrite = Files.newBufferedWriter(launchpath);
-            launchpadsWrite.write(launchpadsFile);
-            launchpadsWrite.close();
-
-        } catch (IOException e) {
-            Stellaris.LOG.error("Error writing launchpads to file {}", e.getMessage());
-            throw new RuntimeException(e);
-        }
-
-        NetworkManager.sendToPlayers(server.getPlayerList().getPlayers(), new SyncLaunchPads(LaunchPadLauncher.LAUNCH_PADS));
     }
 
 }

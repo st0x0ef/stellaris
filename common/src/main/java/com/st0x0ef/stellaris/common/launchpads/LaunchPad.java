@@ -1,6 +1,8 @@
 package com.st0x0ef.stellaris.common.launchpads;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public record LaunchPad(
+        int id,
         Vec3 position,
         ResourceKey<Level> dimension,
         String name,
@@ -24,6 +27,7 @@ public record LaunchPad(
 ) {
 
     public static final Codec<LaunchPad> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+            Codec.INT.fieldOf("id").forGetter(launchPad -> (int) launchPad.position().x),
             Vec3.CODEC.fieldOf("position").forGetter(LaunchPad::position),
             ResourceKey.codec(Registries.DIMENSION).fieldOf("dimension").forGetter(LaunchPad::dimension),
             Codec.STRING.fieldOf("name").forGetter(LaunchPad::name),
@@ -33,7 +37,21 @@ public record LaunchPad(
             Codec.STRING.listOf().fieldOf("whitelist").forGetter(LaunchPad::whitelist)
     ).apply(instance, LaunchPad::new));
 
+    @Override
+    public String toString() {
+        return "LaunchPad : " +
+                "id=" + id +
+                ", position=" + position +
+                ", dimension=" + dimension +
+                ", name='" + name + '\'' +
+                ", isPublic=" + isPublic +
+                ", owner='" + owner + '\'' +
+                ", whitelist=" + whitelist +
+                '}';
+    }
+
     public static RegistryFriendlyByteBuf toBuffer(LaunchPad launchPad, final RegistryFriendlyByteBuf buffer) {
+        buffer.writeInt(launchPad.id);
         buffer.writeVec3(launchPad.position());
         buffer.writeResourceKey(launchPad.dimension());
         buffer.writeUtf(launchPad.name());
@@ -45,7 +63,41 @@ public record LaunchPad(
         return buffer;
     }
 
+    public JsonElement toJson() {
+        JsonObject json = new JsonObject();
+        json.addProperty("id", id);
+
+        JsonArray pos = new JsonArray();
+        pos.add(position.x);
+        pos.add(position.y);
+        pos.add(position.z);
+
+        json.add("position", pos);
+        json.addProperty("dimension", dimension.location().toString());
+
+        json.addProperty("name", name);
+        json.addProperty("public", isPublic);
+        json.addProperty("owner", owner);
+
+        JsonArray whitelist = new JsonArray();
+        for (String s : this.whitelist) {
+            whitelist.add(s);
+        }
+        json.add("whitelist", whitelist);
+        return json;
+    }
+
+    public static JsonElement toJson(LaunchPad instance) {
+        return CODEC
+                .encodeStart(JsonOps.INSTANCE, instance)
+                .result()
+                .orElseThrow(() -> new IllegalStateException("Failed to encode to JSON"));
+    }
+
+
     public static LaunchPad readFromBuffer(RegistryFriendlyByteBuf buffer) {
+        var id = buffer.readInt();
+
         var position = buffer.readVec3();
         var dimension = buffer.readResourceKey(Registries.DIMENSION);
         var name = buffer.readUtf();
@@ -60,7 +112,7 @@ public record LaunchPad(
             whitelist.add(buffer.readUtf());
         }
 
-        return new LaunchPad(position, dimension, name, isPublic, owner, whitelist);
+        return new LaunchPad(id, position, dimension, name, isPublic, owner, whitelist);
     }
 
     public record LaunchPadContainer(List<LaunchPad> launchPads){
@@ -89,10 +141,16 @@ public record LaunchPad(
         }
 
         public static JsonElement toJson(LaunchPadContainer instance) {
-            return CODEC
-                    .encodeStart(JsonOps.INSTANCE, instance)
-                    .result()
-                    .orElseThrow(() -> new IllegalStateException("Failed to encode to JSON"));
+            JsonObject json = new JsonObject();
+            JsonArray launchPadArray = new JsonArray();
+
+            for (LaunchPad launchPad : instance.launchPads) {
+                launchPadArray.add(launchPad.toJson());
+            }
+
+            json.add("launchpads", launchPadArray);
+
+            return json;
         }
 
 

@@ -46,7 +46,10 @@ public class LaunchPadCreatorBlockEntity extends BaseContainerBlockEntity implem
 
     @Override
     protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
-        return new LaunchPadCreatorMenu(containerId, inventory, this);
+        if (this.launchPad == null) {
+            return new LaunchPadCreatorMenu(containerId, inventory, this, -1);
+        }
+        return new LaunchPadCreatorMenu(containerId, inventory, this, this.launchPad.id());
     }
 
     @Override

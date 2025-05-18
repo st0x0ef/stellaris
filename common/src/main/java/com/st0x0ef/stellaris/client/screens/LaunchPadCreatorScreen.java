@@ -138,6 +138,7 @@ public class LaunchPadCreatorScreen extends AbstractContainerScreen<LaunchPadCre
         var create = false;
         if (this.pad == null) {
             this.pad = new LaunchPad(
+                    LaunchPadLauncher.LAUNCH_PADS.launchPads().size(),
                     Utils.blockPosToVec3(blockEntity.getBlockPos()),
                     blockEntity.getLevel().dimension(),
                     this.nameBox.getValue(),
@@ -147,7 +148,7 @@ public class LaunchPadCreatorScreen extends AbstractContainerScreen<LaunchPadCre
             );
             create = true;
         } else {
-            this.pad = new LaunchPad(pad.position(), pad.dimension(), this.nameBox.getValue(), this.publicCheckbox.selected, pad.owner(), List.of(this.whitelistBox.getValue().split(",")));
+            this.pad = new LaunchPad(pad.id(), pad.position(), pad.dimension(), this.nameBox.getValue(), this.publicCheckbox.selected, pad.owner(), List.of(this.whitelistBox.getValue().split(",")));
         }
 
 

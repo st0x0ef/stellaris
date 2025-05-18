@@ -54,7 +54,7 @@ public class LaunchPadCreatorBlock extends BaseMachineBlock {
 
         var launchPos = Utils.blockPosToVec3(pos);
         //We pass a fake launchpad to the packet, as we don't need to remove this fake launchpad
-        NetworkManager.sendToServer(new LaunchPadsOperations(new LaunchPad(
+        NetworkManager.sendToServer(new LaunchPadsOperations(new LaunchPad(-1,
                 launchPos, level.dimension(), "remove", false, "Notch", List.of()), "removeFromAntenna"));
 
         super.onRemove(state, level, pos, newState, movedByPiston);

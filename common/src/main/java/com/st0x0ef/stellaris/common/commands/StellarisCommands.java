@@ -134,7 +134,8 @@ public class StellarisCommands {
                                                                 .executes((CommandContext<CommandSourceStack> context) -> {
 
                                                                     LaunchPad launchPad = new LaunchPad(
-                                                                            Vec3Argument.getVec3(context, "pos"),
+                                                                            LaunchPadLauncher.LAUNCH_PADS.launchPads().size(),
+                                                                            Utils.blockPosToVec3(Vec3Argument.getCoordinates(context, "pos").getBlockPos(context.getSource())),
                                                                             context.getArgument("dimension", ResourceKey.class),
                                                                             StringArgumentType.getString(context, "name"),
                                                                             BoolArgumentType.getBool(context, "public"),

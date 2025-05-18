@@ -27,17 +27,15 @@ public class LaunchPadCreatorMenu extends AbstractContainerMenu {
 
     public static LaunchPadCreatorMenu create(int containerId, Inventory inventory, FriendlyByteBuf buf) {
         LaunchPadCreatorBlockEntity blockEntity = (LaunchPadCreatorBlockEntity) inventory.player.level().getBlockEntity(buf.readBlockPos());
-        return new LaunchPadCreatorMenu(containerId, inventory, blockEntity);
+        return new LaunchPadCreatorMenu(containerId, inventory, blockEntity, blockEntity.launchPad == null ? -1 : blockEntity.launchPad.id());
     }
 
-    public LaunchPadCreatorMenu(int containerId, Inventory inventory, LaunchPadCreatorBlockEntity blockEntity) {
+    public LaunchPadCreatorMenu(int containerId, Inventory inventory, LaunchPadCreatorBlockEntity blockEntity, int launchPadId) {
         super(MenuTypesRegistry.LAUNCHPAD_CREATOR_MENU.get(), containerId);
         this.player = inventory.player;
         this.blockEntity = blockEntity;
 
-        if(blockEntity.launchPad != null) {
-            this.launchPad = blockEntity.launchPad;
-        }
+        Stellaris.LOG.error("Id in menu {}", launchPadId);
     }
 
 

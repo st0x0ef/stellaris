@@ -57,61 +57,29 @@ public class LaunchPadUtils {
 
     public static void saveLaunchPad(@Nullable LaunchPad launchPad, CompoundTag tag) {
         if(launchPad != null) {
-            Stellaris.LOG.error("saving : " + launchPad.name());
-
             tag.putBoolean("null" , false);
-            tag.putString("name", launchPad.name());
-
-            tag.putString("dimension", launchPad.dimension().location().toString());
-
-            tag.putDouble("x", launchPad.position().x);
-            tag.putDouble("y", launchPad.position().y);
-            tag.putDouble("z", launchPad.position().z);
-            tag.putBoolean("public", launchPad.isPublic());
-            tag.putString("owner", launchPad.owner());
-            tag.putString("whitelist", String.join(",", launchPad.whitelist()));
+            tag.putInt("id", launchPad.id());
             return;
         }
         tag.putBoolean("null" , true);
     }
+
+
 
     @Nullable
     public static LaunchPad loadLaunchPad(CompoundTag tag) {
         if(tag.getBoolean("null")) {
             return null;
         }
-        var coord = new Vec3(tag.getDouble("x"), tag.getDouble("y"), tag.getDouble("z"));
-        var dimension = tag.getString("dimension");
-        var name = tag.getString("name");
+        return getPadById(tag.getInt("id"));
+    }
 
+    public static LaunchPad getPadById(int id) {
         for(LaunchPad lp : LaunchPadLauncher.LAUNCH_PADS.launchPads()) {
-            if(lp.dimension().location().toString().equals(dimension) && lp.position().equals(coord) && lp.name().equals(name)) {
+            if(lp.id() == id) {
                 return lp;
             }
         }
         return null;
-    }
-
-
-        @Nullable
-    public static LaunchPad loadLaunchPad(CompoundTag tag, LaunchPadCreatorBlockEntity blockEntity) {
-        if(tag.getBoolean("null")) {
-            return null;
-        }
-
-
-
-        return new LaunchPad(
-                new Vec3(tag.getDouble("x"), tag.getDouble("y"), tag.getDouble("z")),
-
-
-                blockEntity.getLevel().dimension(),
-
-
-                tag.getString("name"),
-                tag.getBoolean("public"),
-                tag.getString("owner"),
-                List.of(tag.getString("whitelist").split(","))
-        );
     }
 }
