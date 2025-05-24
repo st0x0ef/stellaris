@@ -151,7 +151,6 @@ public class LaunchPadCreatorScreen extends AbstractContainerScreen<LaunchPadCre
             this.pad = new LaunchPad(pad.id(), pad.position(), pad.dimension(), this.nameBox.getValue(), this.publicCheckbox.selected, pad.owner(), List.of(this.whitelistBox.getValue().split(",")));
         }
 
-
         blockEntity.setLaunchPad(this.pad, create);
     }
 }

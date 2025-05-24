@@ -1,8 +1,12 @@
 package com.st0x0ef.stellaris.common.events;
 
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.CoalLanternBlock;
 import com.st0x0ef.stellaris.common.blocks.WallCoalTorchBlock;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.LaunchPadCreatorBlockEntity;
+import com.st0x0ef.stellaris.common.launchpads.LaunchPad;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPadLauncher;
+import com.st0x0ef.stellaris.common.network.packets.LaunchPadsOperations;
 import com.st0x0ef.stellaris.common.network.packets.SyncLaunchPads;
 import com.st0x0ef.stellaris.common.oxygen.GlobalOxygenManager;
 import com.st0x0ef.stellaris.common.registry.BlocksRegistry;
@@ -16,12 +20,20 @@ import dev.architectury.event.events.common.LifecycleEvent;
 import dev.architectury.event.events.common.PlayerEvent;
 import dev.architectury.event.events.common.TickEvent;
 import dev.architectury.networking.NetworkManager;
+import dev.architectury.platform.Platform;
+import dev.architectury.utils.value.IntValue;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.LevelStorageSource;
 import net.minecraft.world.phys.AABB;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class Events {
     private static final int RADIATION_CHECK_INTERVAL = 100;
@@ -52,6 +64,25 @@ public class Events {
                 if (level.getBlockStates(new AABB(pos).inflate(32)).anyMatch(blockState -> blockState.is(BlocksRegistry.OXYGEN_DISTRIBUTOR))) {
                     removeOxygenRoom(serverLevel, pos);
                 }
+            }
+            return EventResult.pass();
+        });
+
+        BlockEvent.BREAK.register((level, pos, state, player, xp) -> {
+            if(!level.isClientSide() && state.is(BlocksRegistry.LAUNCHPAD_CREATOR)) {
+
+                if(level.getBlockEntity(pos) instanceof LaunchPadCreatorBlockEntity blockEntity) {
+                    Stellaris.LOG.error("sidee s {}", blockEntity.launchPadId);
+
+                    var launchPos = Utils.blockPosToVec3(pos);
+
+                    NetworkManager.sendToServer(new LaunchPadsOperations(new LaunchPad(blockEntity.launchPadId,
+                            launchPos, level.dimension(), "remove", false, "Notch", List.of()), "remove"));
+
+
+                }
+
+
             }
             return EventResult.pass();
         });

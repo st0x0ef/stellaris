@@ -72,6 +72,8 @@ public class LaunchPadCreatorBlockEntity extends BaseContainerBlockEntity implem
         super.loadAdditional(compoundTag, provider);
 
         this.launchPadId = compoundTag.getInt("LaunchPadId");
+        Stellaris.LOG.error("id: " + this.launchPadId);
+
         this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
         ContainerHelper.loadAllItems(compoundTag, this.items, provider);
 
@@ -81,7 +83,7 @@ public class LaunchPadCreatorBlockEntity extends BaseContainerBlockEntity implem
     protected void saveAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
         super.saveAdditional(compoundTag, provider);
         compoundTag.putInt("launchPadId", this.launchPadId);
-
+        Stellaris.LOG.error("id: " + this.launchPadId);
         ContainerHelper.saveAllItems(compoundTag, this.items, provider);
 
     }

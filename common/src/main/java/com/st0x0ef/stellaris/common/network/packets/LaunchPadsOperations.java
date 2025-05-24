@@ -48,7 +48,6 @@ public class LaunchPadsOperations implements CustomPacketPayload {
         //On the Server
         LaunchPad launchPad = packet.launchPad;
         Level level = context.getPlayer().level();
-
         switch (packet.action) {
             case "add" -> {
                 LaunchPadLauncher.addLaunchPad(launchPad, context.getPlayer().getServer());
@@ -60,13 +59,6 @@ public class LaunchPadsOperations implements CustomPacketPayload {
                 if(context.getPlayer().level().getBlockEntity(Utils.getBlockPosFromVector3i(launchPad.position())) instanceof LaunchPadCreatorBlockEntity blockEntity) {
                     blockEntity.launchPadId = launchPad.id();
                     blockEntity.setChanged();
-                }
-            }
-            case "removeFromAntenna" -> {
-                if(context.getPlayer().level().getBlockEntity(Utils.getBlockPosFromVector3i(launchPad.position())) instanceof LaunchPadCreatorBlockEntity blockEntity) {
-
-                    if(blockEntity.launchPadId != -1)
-                        LaunchPadLauncher.removeLaunchpad(blockEntity.launchPadId, context.getPlayer().getServer());
                 }
             }
         }

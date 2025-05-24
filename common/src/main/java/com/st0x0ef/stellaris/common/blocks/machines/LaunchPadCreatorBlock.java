@@ -55,18 +55,6 @@ public class LaunchPadCreatorBlock extends BaseMachineBlock {
         return simpleCodec(LaunchPadCreatorBlock::new);
     }
 
-    @Override
-    protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
-        if(level.isClientSide) return;
-
-        var launchPos = Utils.blockPosToVec3(pos);
-        //We pass a fake launchpad to the packet, as we don't need to remove this fake launchpad
-        //TODO: FIX removing launchpad
-        NetworkManager.sendToServer(new LaunchPadsOperations(new LaunchPad(-1,
-                launchPos, level.dimension(), "remove", false, "Notch", List.of()), "removeFromAntenna"));
-
-        super.onRemove(state, level, pos, newState, movedByPiston);
-    }
 
     @Nullable
     @Override
