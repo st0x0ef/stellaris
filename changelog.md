@@ -1,7 +1,4 @@
-# 1.3.14 changelog
-
-## Changes
-- Update de_de translation
+# 1.3.15 changelog
 
 ## Fix 
-- Fix oxygen distributor
+- Fix neoforge JEI
