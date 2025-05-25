@@ -48,8 +48,9 @@ public class Events {
 
         BlockEvent.BREAK.register((level, pos, state, player, value) -> {
             if (level instanceof ServerLevel serverLevel && state.is(BlocksRegistry.OXYGEN_DISTRIBUTOR)) {
-                if (level.getBlockStates(new AABB(pos).inflate(32)).anyMatch(blockState -> blockState.is(BlocksRegistry.OXYGEN_DISTRIBUTOR))) {
-                    removeOxygenRoom(serverLevel, pos);
+                // Oxygen system
+                if (state.is(BlocksRegistry.OXYGEN_DISTRIBUTOR)) {
+                    GlobalOxygenManager.getInstance().getOrCreateDimensionManager(serverLevel).removeOxygenRoom(pos);
                 }
             }
             return EventResult.pass();
@@ -68,6 +69,11 @@ public class Events {
                 else if (state.is(Blocks.LANTERN)) {
                     serverLevel.setBlockAndUpdate(pos, BlocksRegistry.COAL_LANTERN_BLOCK.get().defaultBlockState().setValue(CoalLanternBlock.HANGING, state.getValue(LanternBlock.HANGING)));
                     return EventResult.interruptFalse();
+                }
+
+                // Oxygen system
+                else if (state.is(BlocksRegistry.OXYGEN_DISTRIBUTOR)) {
+                    GlobalOxygenManager.getInstance().getOrCreateDimensionManager(serverLevel).addOxygenRoom(pos);
                 }
             }
 

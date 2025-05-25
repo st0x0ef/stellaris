@@ -31,6 +31,11 @@ public class DimensionOxygenManager {
         this.planetHasOxygen = PlanetUtil.hasOxygen(level);
     }
 
+    public void addOxygenRoom(BlockPos pos) {
+        oxygenRooms.add(new OxygenRoom(level, pos));
+        setChanged();
+    }
+
     public void removeOxygenRoom(BlockPos pos) {
         oxygenRooms.removeIf(room -> room.getDistributorPosition().equals(pos));
         setChanged();
