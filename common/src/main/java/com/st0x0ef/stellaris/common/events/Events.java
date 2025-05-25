@@ -17,7 +17,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LanternBlock;
 import net.minecraft.world.level.block.WallTorchBlock;
-import net.minecraft.world.phys.AABB;
 
 import static com.st0x0ef.stellaris.common.registry.EffectsRegistry.getHolder;
 
