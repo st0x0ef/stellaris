@@ -100,10 +100,6 @@ public class LaunchButton extends Button {
             i += this.yDiffText;
         }
 
-        if(Utils.isHoveredOnSprite(this.getX(), this.getY(), this.width, this.height, mouseX, mouseY)) {
-            Stellaris.LOG.error("mouse x: {} mouse y: {}", mouseX, mouseY);
-
-        }
 
         /** TEXTURE MANAGER */
         ResourceLocation texture = this.getTypeTexture(Utils.isHoveredOnSprite(this.getX(), this.getY(), this.width, this.height, mouseX, mouseY), this.buttonTexture, this.hoverButtonTexture);

@@ -108,7 +108,7 @@ public class LaunchPadCreatorScreen extends AbstractContainerScreen<LaunchPadCre
         this.publicCheckbox = new CustomCheckBox(this.leftPos + 120, this.topPos + 38, 14, Component.literal(""), this.font, false)
                 .setTexture(GUISprites.CHECKBOX, GUISprites.CHECKBOX_SELECTED);
 
-        this.saveButton = new TexturedButton(this.leftPos + (this.imageWidth / 2 - 30),  this.inventoryLabelY, 60, 20, Component.literal("Create"), (b) -> saveLaunchPad())
+        this.saveButton = new TexturedButton(this.leftPos + (this.imageWidth / 2 - 30),  this.inventoryLabelY, 60, 20, Component.literal("Create"), (b) -> onClose())
                 .tex(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/antenna_button.png"), ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/antenna_button_hovered.png"));
 
 

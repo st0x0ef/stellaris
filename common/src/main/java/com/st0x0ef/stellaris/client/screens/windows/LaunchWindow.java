@@ -7,12 +7,12 @@ import com.st0x0ef.stellaris.client.screens.components.LaunchPadsList;
 import com.st0x0ef.stellaris.client.screens.components.TexturedButton;
 import com.st0x0ef.stellaris.client.screens.info.CelestialBody;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPad;
+import com.st0x0ef.stellaris.common.launchpads.LaunchPadUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Vector4i;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.ArrayList;
@@ -44,7 +44,7 @@ public class LaunchWindow extends MoveableWindow {
 
         this.addWidget(this.padsList);
 
-        LaunchButton button = new LaunchButton((getWindowX() + getWidth()) / 2, (getWindowY() + getHeight()) - 30, 60, 20, Component.literal("Launch"), (b) -> {
+        LaunchButton button = new LaunchButton(((getWindowX() + getWidth()) / 2) + 15, (getWindowY() + getHeight()) - 30, 60, 20, Component.literal("Launch"), (b) -> {
             parent.tpToFocusedPlanet(this.celestialBody);
         });
 
@@ -74,13 +74,6 @@ public class LaunchWindow extends MoveableWindow {
 
     }
 
-    @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        if(padsList != null) {
-            padsList.mouseClicked(mouseX, mouseY, button);
-        }
-        return super.mouseClicked(mouseX, mouseY, button);
-    }
 
     @Override
     public Consumer<MoveableWindow> resize(Minecraft minecraft, int width, int height) {
@@ -100,7 +93,13 @@ public class LaunchWindow extends MoveableWindow {
         if(celestialBody == null) {
             return launchPads;
         }
-        PlanetSelectionScreen.LAUNCH_PADS.launchPads().stream().filter((s) -> s.dimension().location() == celestialBody.dimension).forEach(launchPads::add);
+
+        PlanetSelectionScreen.LAUNCH_PADS.launchPads()
+                .stream()
+                .filter((s) -> s.dimension().location() == celestialBody.dimension)
+                .filter((s) -> LaunchPadUtils.canPlayerJoinLaunchPad(s, parent.getPlayer()))
+                .forEach(launchPads::add);
+
         return launchPads;
     }
 

@@ -30,6 +30,9 @@ public class SpaceStationWindow extends MoveableWindow {
     @Override
     public void renderWindow(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         guiGraphics.fill(getWindowX(), getWindowY(), getWindowX() + this.getWidth(), getWindowY() + this.getHeight(), 0xFF000000);
+
+
+
         parent.dragging = false;
     }
 

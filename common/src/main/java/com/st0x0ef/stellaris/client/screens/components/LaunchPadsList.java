@@ -98,7 +98,6 @@ public class LaunchPadsList extends AbstractScrollWidget {
                 LaunchPad launchPad = entry.getValue();
 
                 if (Utils.isHoveredOnSprite(pos.x, (int) (pos.y - this.scrollAmount()), pos.z, pos.w, (int) mouseX, (int) mouseY)) {
-                    Stellaris.LOG.error("Clicked on launch pad {}", launchPad.name());
                     this.window.parent.tpToFocusedPlanet(launchPad.position(), this.window.celestialBody);
                     return true;
                 }
