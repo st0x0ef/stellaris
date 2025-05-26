@@ -61,8 +61,6 @@ public class SpaceSuit extends AbstractSpaceArmor.AbstractSpaceChestplate {
         else {
             tooltipComponents.add(Component.translatable("spacesuit.stellaris.shift_for_modules"));
         }
-
-
     }
 
     public NonNullList<ItemStack> scrapArmorModules(ItemStack stack) {
