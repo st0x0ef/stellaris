@@ -18,14 +18,14 @@ import java.util.List;
 
 public abstract class AbstractSpaceArmor extends CustomArmorItem {
 
-    public AbstractSpaceArmor(Holder<ArmorMaterial> material, Type type, Properties properties) {
-        super(material, type, properties);
+    public AbstractSpaceArmor(Holder<ArmorMaterial> material, Type type, Properties properties, boolean enchantable) {
+        super(material, type, properties, enchantable);
     }
 
     public static class AbstractSpaceChestplate extends AbstractSpaceArmor implements FluidProvider.ITEM {
 
-        public AbstractSpaceChestplate(Holder<ArmorMaterial> material, Type type, Properties properties) {
-            super(material, type, properties);
+        public AbstractSpaceChestplate(Holder<ArmorMaterial> material, Type type, Properties properties, boolean enchantable) {
+            super(material, type, properties, enchantable);
         }
 
         @Override
@@ -51,8 +51,8 @@ public abstract class AbstractSpaceArmor extends CustomArmorItem {
 
     public static class Chestplate extends AbstractSpaceChestplate {
 
-        public Chestplate(Holder<ArmorMaterial> material, Type type, Properties properties) {
-            super(material, type, properties);
+        public Chestplate(Holder<ArmorMaterial> material, Type type, Properties properties, boolean enchantable) {
+            super(material, type, properties, enchantable);
         }
 
         @Override

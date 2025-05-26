@@ -1,4 +1,4 @@
-# 1.3.15 changelog
+# 1.3.16 changelog
 
 ## Fix 
-- Fix neoforge JEI
+- Fix enchantment.

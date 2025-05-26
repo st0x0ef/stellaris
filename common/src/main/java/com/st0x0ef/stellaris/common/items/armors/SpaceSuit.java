@@ -23,7 +23,8 @@ import java.util.List;
 public class SpaceSuit extends AbstractSpaceArmor.AbstractSpaceChestplate {
 
     public SpaceSuit(Holder<ArmorMaterial> material, Type type, Properties properties) {
-        super(material, type, properties);
+        // The enchantable flag is set to true to allow enchantments on the Space Suit.
+        super(material, type, properties, true);
     }
 
     @Override
