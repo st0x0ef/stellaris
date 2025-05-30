@@ -1,4 +1,4 @@
-# 1.3.7 changelog
+# 1.3.16 changelog
 
-## Fix
-- Fix stats registry in a proper way
+## Fix 
+- Fix enchantment.

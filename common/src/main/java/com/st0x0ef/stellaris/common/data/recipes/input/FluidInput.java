@@ -7,6 +7,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
 
 public record FluidInput(BlockEntity entity) implements RecipeInput {
+
     @Override
     public @NotNull ItemStack getItem(int slot) {
         // We need to return something... I know it's not the best solution, but it's just a placeholder

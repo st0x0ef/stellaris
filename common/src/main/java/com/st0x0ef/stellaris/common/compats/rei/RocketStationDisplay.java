@@ -23,8 +23,10 @@ public class RocketStationDisplay extends BasicDisplay {
         super(getInputList(recipe.value()), List.of(EntryIngredient.of(EntryStacks.of(recipe.value().getResultItem(null)))));
     }
 
-    private static List<EntryIngredient> getInputList(RocketStationRecipe recipe){
-        if (recipe==null) return Collections.emptyList();
+    private static List<EntryIngredient> getInputList(RocketStationRecipe recipe) {
+        if (recipe == null) {
+            return Collections.emptyList();
+        }
         List<EntryIngredient> list = new ArrayList<>();
         recipe.getIngredients().forEach(ingredient -> list.add(EntryIngredients.ofIngredient(ingredient)));
 

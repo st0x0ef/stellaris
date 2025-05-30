@@ -24,13 +24,15 @@ public class SpaceSuitOverlay {
     public static void render(GuiGraphics graphics, DeltaTracker deltaTracker) {
         Player player = Minecraft.getInstance().player;
 
-        if (player!=null) {
+        if (player != null) {
             if (Utils.isLivingInSpaceSuit(player)) {
                 ItemStack itemStack = player.getItemBySlot(EquipmentSlot.CHEST);
                 if (itemStack.getItem() instanceof SpaceSuit spaceSuit) {
                     UniversalFluidStorage storage = Capabilities.Fluid.ITEM.getCapability(itemStack);
 
-                    if (storage == null) return;
+                    if (storage == null) {
+                        return;
+                    }
 
                     //We can add default gui stuff for the space suit here
                     graphics.blit(GUISprites.SPACESUIT_OXYGEN_BAR, 5, 5, 0, 0, 37, 10, 37, 10);
@@ -44,7 +46,9 @@ public class SpaceSuitOverlay {
                     AtomicInteger y = new AtomicInteger(37);
                     spaceSuit.getModules(itemStack).forEach(module -> {
                         int y1 = module.renderStackedGui(graphics, deltaTracker, player, itemStack, y.get());
-                        if (y1 != y.get()) y.set(y1+1);
+                        if (y1 != y.get()) {
+                            y.set(y1 + 1);
+                        }
                         module.renderToGui(graphics, deltaTracker, player, itemStack);
                     });
                     y.set(37);

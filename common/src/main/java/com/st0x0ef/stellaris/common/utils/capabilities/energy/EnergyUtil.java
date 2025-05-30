@@ -12,14 +12,20 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @SuppressWarnings("all")
 public class EnergyUtil {
+
     public static int moveEnergyToItem(UniversalEnergyStorage from, ItemStack stackTo, int amount) {
         UniversalEnergyStorage to = Capabilities.Energy.ITEM.getCapability(stackTo);
-        if (to == null) return 0;
+        if (to == null) {
+            return 0;
+        }
         return moveEnergy(from, to, amount);
     }
+
     public static int moveEnergyFromItem(UniversalEnergyStorage to, ItemStack stackFrom, int amount) {
         UniversalEnergyStorage from = Capabilities.Energy.ITEM.getCapability(stackFrom);
-        if (from == null) return 0;
+        if (from == null) {
+            return 0;
+        }
         return moveEnergy(from, to, amount);
     }
 
@@ -28,8 +34,12 @@ public class EnergyUtil {
     }
 
     public static void distributeEnergyNearby(Level level, BlockPos pos, int amount, List<Direction> outputDirections) {
-        if (outputDirections==null || outputDirections.isEmpty()) distributeInAllDirections(level, pos, amount);
-        else distributeInDirections(level, pos, amount, outputDirections);
+        if (outputDirections == null || outputDirections.isEmpty()) {
+            distributeInAllDirections(level, pos, amount);
+        }
+        else {
+            distributeInDirections(level, pos, amount, outputDirections);
+        }
     }
 
     private static int distributeInDirections(Level level, BlockPos pos, int amount, List<Direction> outputDirections) {
@@ -38,13 +48,25 @@ public class EnergyUtil {
         UniversalEnergyStorage to;
         for (Direction direction : outputDirections) {
             from = Capabilities.Energy.BLOCK.getCapability(level, pos, direction);
-            if (from==null) continue;
-            if (!from.canExtractEnergy()) continue;
-            if (from.extract(amount, true) == 0) continue;
+            if (from == null) {
+                continue;
+            }
+            if (!from.canExtractEnergy()) {
+                continue;
+            }
+            if (from.extract(amount, true) == 0) {
+                continue;
+            }
             to = Capabilities.Energy.BLOCK.getCapability(level, pos, direction);
-            if (to==null) continue;
-            if (!to.canInsertEnergy()) continue;
-            if (to.insert(amount, true) == 0) continue;
+            if (to == null) {
+                continue;
+            }
+            if (!to.canInsertEnergy()) {
+                continue;
+            }
+            if (to.insert(amount, true) == 0) {
+                continue;
+            }
             pairs.put(from, to);
         }
 
@@ -59,10 +81,14 @@ public class EnergyUtil {
 
     private static void distributeInAllDirections(Level level, BlockPos pos, int amount) {
         UniversalEnergyStorage from = Capabilities.Energy.BLOCK.getCapability(level, pos, null);
-        if (from == null || !from.canExtractEnergy()) return;
+        if (from == null || !from.canExtractEnergy()) {
+            return;
+        }
 
         int finalAmount = from.extract(amount, true);
-        if (finalAmount == 0) return;
+        if (finalAmount == 0) {
+            return;
+        }
 
         List<UniversalEnergyStorage> toSend = Direction.stream()
                 .map(direction -> Capabilities.Energy.BLOCK.getCapability(level, pos.relative(direction), direction.getOpposite()))
@@ -71,12 +97,14 @@ public class EnergyUtil {
                 .sorted(Comparator.comparing(energyStorage -> energyStorage.insert(finalAmount, true)))
                 .toList();
 
-        if (toSend.isEmpty()) return;
+        if (toSend.isEmpty()) {
+            return;
+        }
 
         int receivers = toSend.size();
         int toDistribute = finalAmount;
         for (UniversalEnergyStorage to : toSend) {
-            toDistribute -= moveEnergy(from, to, finalAmount/receivers);
+            toDistribute -= moveEnergy(from, to, finalAmount / receivers);
         }
     }
 

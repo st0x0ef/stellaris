@@ -30,20 +30,20 @@ public class CustomLightningBoltRenderer extends EntityRenderer<CustomLightningB
         float g = 0.0F;
         RandomSource randomSource = RandomSource.create(entity.seed);
 
-        for(int i = 7; i >= 0; --i) {
+        for (int i = 7; i >= 0; --i) {
             fs[i] = f;
             gs[i] = g;
-            f += (float)(randomSource.nextInt(11) - 5);
-            g += (float)(randomSource.nextInt(11) - 5);
+            f += (float) (randomSource.nextInt(11) - 5);
+            g += (float) (randomSource.nextInt(11) - 5);
         }
 
         VertexConsumer vertexConsumer = buffer.getBuffer(RenderType.lightning());
         Matrix4f matrix4f = poseStack.last().pose();
 
-        for(int j = 0; j < 4; ++j) {
+        for (int j = 0; j < 4; ++j) {
             RandomSource randomSource2 = RandomSource.create(entity.seed);
 
-            for(int k = 0; k < 3; ++k) {
+            for (int k = 0; k < 3; ++k) {
                 int l = 7;
                 int m = 0;
                 if (k > 0) {
@@ -57,25 +57,26 @@ public class CustomLightningBoltRenderer extends EntityRenderer<CustomLightningB
                 float h = fs[l] - f;
                 float n = gs[l] - g;
 
-                for(int o = l; o >= m; --o) {
+                for (int o = l; o >= m; --o) {
                     float p = h;
                     float q = n;
                     if (k == 0) {
-                        h += (float)(randomSource2.nextInt(11) - 5);
-                        n += (float)(randomSource2.nextInt(11) - 5);
-                    } else {
-                        h += (float)(randomSource2.nextInt(31) - 15);
-                        n += (float)(randomSource2.nextInt(31) - 15);
+                        h += (float) (randomSource2.nextInt(11) - 5);
+                        n += (float) (randomSource2.nextInt(11) - 5);
+                    }
+                    else {
+                        h += (float) (randomSource2.nextInt(31) - 15);
+                        n += (float) (randomSource2.nextInt(31) - 15);
                     }
 
-                    float v = 0.1F + (float)j * 0.2F;
+                    float v = 0.1F + (float) j * 0.2F;
                     if (k == 0) {
-                        v *= (float)o * 0.1F + 1.0F;
+                        v *= (float) o * 0.1F + 1.0F;
                     }
 
-                    float w = 0.1F + (float)j * 0.2F;
+                    float w = 0.1F + (float) j * 0.2F;
                     if (k == 0) {
-                        w *= ((float)o - 1.0F) * 0.1F + 1.0F;
+                        w *= ((float) o - 1.0F) * 0.1F + 1.0F;
                     }
 
                     float red = entity.getEntityData().get(CustomLightningBolt.RED);
@@ -93,10 +94,10 @@ public class CustomLightningBoltRenderer extends EntityRenderer<CustomLightningB
     }
 
     private static void quad(Matrix4f matrix, VertexConsumer consumer, float x1, float z1, int index, float x2, float z2, float red, float green, float blue, float f, float g, boolean bl, boolean bl2, boolean bl3, boolean bl4) {
-        consumer.addVertex(matrix, x1 + (bl ? g : -g), (float)(index * 16), z1 + (bl2 ? g : -g)).setColor(red, green, blue, 0.3F);
-        consumer.addVertex(matrix, x2 + (bl ? f : -f), (float)((index + 1) * 16), z2 + (bl2 ? f : -f)).setColor(red, green, blue, 0.3F);
-        consumer.addVertex(matrix, x2 + (bl3 ? f : -f), (float)((index + 1) * 16), z2 + (bl4 ? f : -f)).setColor(red, green, blue, 0.3F);
-        consumer.addVertex(matrix, x1 + (bl3 ? g : -g), (float)(index * 16), z1 + (bl4 ? g : -g)).setColor(red, green, blue, 0.3F);
+        consumer.addVertex(matrix, x1 + (bl ? g : -g), (float) (index * 16), z1 + (bl2 ? g : -g)).setColor(red, green, blue, 0.3F);
+        consumer.addVertex(matrix, x2 + (bl ? f : -f), (float) ((index + 1) * 16), z2 + (bl2 ? f : -f)).setColor(red, green, blue, 0.3F);
+        consumer.addVertex(matrix, x2 + (bl3 ? f : -f), (float) ((index + 1) * 16), z2 + (bl4 ? f : -f)).setColor(red, green, blue, 0.3F);
+        consumer.addVertex(matrix, x1 + (bl3 ? g : -g), (float) (index * 16), z1 + (bl4 ? g : -g)).setColor(red, green, blue, 0.3F);
     }
 
     public @NotNull ResourceLocation getTextureLocation(CustomLightningBolt entity) {

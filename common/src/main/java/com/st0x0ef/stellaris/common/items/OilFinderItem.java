@@ -26,8 +26,9 @@ public class OilFinderItem extends Item implements EnergyProvider.ITEM {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
-        if (level.isClientSide())
+        if (level.isClientSide()) {
             return InteractionResultHolder.fail(player.getItemInHand(usedHand));
+        }
 
 //        UniversalEnergyStorage energy = getEnergy(player.getItemInHand(usedHand));
 //        if (energy.getEnergy() < 1)
@@ -36,7 +37,9 @@ public class OilFinderItem extends Item implements EnergyProvider.ITEM {
         int oilLevel = level.getChunk(player.getOnPos()).stellaris$getChunkOilLevel();
 
         MutableComponent component = Component.literal("Found Oil " + level.getChunk(player.getOnPos()).stellaris$getChunkOilLevel() + "mb");
-        if (oilLevel == 0) component = Component.literal("No oil found");
+        if (oilLevel == 0) {
+            component = Component.literal("No oil found");
+        }
         component.withColor(OilUtils.getOilLevelColor(oilLevel));
 
         player.getItemInHand(usedHand).hurtAndBreak(2, player, EquipmentSlot.MAINHAND);

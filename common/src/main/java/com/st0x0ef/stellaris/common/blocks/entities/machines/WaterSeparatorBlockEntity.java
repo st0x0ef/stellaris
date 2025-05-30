@@ -39,13 +39,15 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity im
     public static final int HYDROGEN_TANK = 0;
     public static final int OXYGEN_TANK = 1;
 
-    public final SingleFluidStorage ingredientTank = new SingleFluidStorage(3000,3000,0) {
+    public final SingleFluidStorage ingredientTank = new SingleFluidStorage(3000, 3000, 0) {
+
         @Override
         protected void onChange() {
             setChanged();
-            if (level != null && level.getServer() != null && !level.getServer().getPlayerList().getPlayers().isEmpty())
+            if (level != null && level.getServer() != null && !level.getServer().getPlayerList().getPlayers().isEmpty()) {
                 NetworkManager.sendToPlayers(level.getServer().getPlayerList().getPlayers(),
                         new SyncFluidPacket(new FluidAmountMapDataComponent(List.of(getFluidInTank(0).getFluid()), List.of(getFluidValueInTank())), 0, getBlockPos(), Direction.UP));
+            }
         }
 
         @Override
@@ -53,20 +55,23 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity im
             return stack.getFluid() == Fluids.WATER;
         }
     };
-    public final FluidStorage resultTanks = new FluidStorage(2, 6000,0,1000) {
+    public final FluidStorage resultTanks = new FluidStorage(2, 6000, 0, 1000) {
+
         @Override
         protected void onChange(int tank) {
             setChanged();
-            if (level != null && level.getServer() != null && !level.getServer().getPlayerList().getPlayers().isEmpty())
+            if (level != null && level.getServer() != null && !level.getServer().getPlayerList().getPlayers().isEmpty()) {
                 NetworkManager.sendToPlayers(level.getServer().getPlayerList().getPlayers(),
                         new SyncFluidPacket(new FluidAmountMapDataComponent(List.of(getFluidInTank(tank).getFluid()), List.of(getFluidValueInTank(tank))), tank, getBlockPos(), getBlockState().getValue(BlockStateProperties.FACING).getClockWise()));
+            }
         }
 
         @Override
         public boolean isFluidValid(int tank, FluidStack stack) {
             if (tank == HYDROGEN_TANK) {
                 return stack.getFluid() == FluidRegistry.HYDROGEN_STILL.get();
-            } else if (tank == OXYGEN_TANK) {
+            }
+            else if (tank == OXYGEN_TANK) {
                 return stack.getFluid() == FluidRegistry.OXYGEN_STILL.get();
             }
             return false;
@@ -96,16 +101,18 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity im
 
     @Override
     public void tick() {
-        FluidUtil.moveFluidToItem(OXYGEN_TANK, resultTanks,3, items, 1000);
-        FluidUtil.moveFluidToItem(HYDROGEN_TANK, resultTanks,2, items, 1000);
+        FluidUtil.moveFluidToItem(OXYGEN_TANK, resultTanks, 3, items, 1000);
+        FluidUtil.moveFluidToItem(HYDROGEN_TANK, resultTanks, 2, items, 1000);
 
-        FluidUtil.moveFluidFromItem(0,1, items, ingredientTank, 1000);
+        FluidUtil.moveFluidFromItem(0, 1, items, ingredientTank, 1000);
         Direction facing = getBlockState().getValue(WaterSeparatorBlock.FACING);
         FluidUtil.distributeFluidNearby(level, worldPosition, resultTanks.getFluidInTank(0), List.of(facing.getClockWise()));
         FluidUtil.distributeFluidNearby(level, worldPosition, resultTanks.getFluidInTank(1), List.of(facing.getCounterClockWise()));
         FluidUtil.distributeFluidNearby(level, worldPosition, ingredientTank.getFluidInTank(0), List.of(Direction.UP, Direction.DOWN, facing, facing.getOpposite()));
 
-        if (level == null) return;
+        if (level == null) {
+            return;
+        }
 
         Optional<RecipeHolder<WaterSeparatorRecipe>> recipeHolder = cachedCheck.getRecipeFor(new FluidInput(this), level);
         if (recipeHolder.isPresent()) {
@@ -147,8 +154,9 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity im
     @Override
     public @Nullable UniversalFluidStorage getFluidTank(@Nullable Direction direction) {
         Direction facing = getBlockState().getValue(BlockStateProperties.FACING);
-        if (facing.getCounterClockWise() == direction || facing.getClockWise() == direction)
+        if (facing.getCounterClockWise() == direction || facing.getClockWise() == direction) {
             return resultTanks;
+        }
         return ingredientTank;
     }
 

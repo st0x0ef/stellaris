@@ -36,8 +36,10 @@ public class UpgradeStationBlock extends Block {
     @Override
     protected ExtendedMenuProvider getMenuProvider(BlockState state, Level level, BlockPos pos) {
         return new ExtendedMenuProvider() {
+
             @Override
-            public void saveExtraData(FriendlyByteBuf buf) {}
+            public void saveExtraData(FriendlyByteBuf buf) {
+            }
 
             @Override
             public Component getDisplayName() {
@@ -55,7 +57,8 @@ public class UpgradeStationBlock extends Block {
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
         if (level.isClientSide) {
             return InteractionResult.SUCCESS;
-        } else {
+        }
+        else {
             MenuRegistry.openExtendedMenu((ServerPlayer) player, this.getMenuProvider(state, level, pos));
             return InteractionResult.CONSUME;
         }

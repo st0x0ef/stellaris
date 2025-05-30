@@ -10,6 +10,7 @@ public record PlanetTextures(
         ResourceLocation planet
 
 ) {
+
     public static final Codec<PlanetTextures> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             ResourceLocation.CODEC.fieldOf("planet_bar").forGetter(PlanetTextures::planet_bar),
             ResourceLocation.CODEC.fieldOf("planet").forGetter(PlanetTextures::planet)

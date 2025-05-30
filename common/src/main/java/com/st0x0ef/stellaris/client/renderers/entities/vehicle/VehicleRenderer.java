@@ -27,6 +27,7 @@ import java.util.List;
 
 @Environment(EnvType.CLIENT)
 public abstract class VehicleRenderer<T extends IVehicleEntity, M extends EntityModel<T>> extends EntityRenderer<T> implements RenderLayerParent<T, M> {
+
     protected final M model;
     protected final List<RenderLayer<T, M>> layers = Lists.newArrayList();
 
@@ -92,7 +93,7 @@ public abstract class VehicleRenderer<T extends IVehicleEntity, M extends Entity
         }
 
         if (!entity.isSpectator()) {
-            for(RenderLayer<T, M> renderlayer : this.layers) {
+            for (RenderLayer<T, M> renderlayer : this.layers) {
                 renderlayer.render(poseStack, buffer, packedLight, entity, f5, f8, partialTick, f7, f2, f6);
             }
         }
@@ -107,9 +108,11 @@ public abstract class VehicleRenderer<T extends IVehicleEntity, M extends Entity
         ResourceLocation resourcelocation = this.getTextureLocation(entity);
         if (p_115324_) {
             return RenderType.itemEntityTranslucentCull(resourcelocation);
-        } else if (p_115323_) {
+        }
+        else if (p_115323_) {
             return this.model.renderType(resourcelocation);
-        } else {
+        }
+        else {
             return p_115325_ ? RenderType.outline(resourcelocation) : null;
         }
     }
@@ -143,7 +146,7 @@ public abstract class VehicleRenderer<T extends IVehicleEntity, M extends Entity
     }
 
     protected float getBob(T p_115305_, float p_115306_) {
-        return (float)p_115305_.tickCount + p_115306_;
+        return (float) p_115305_.tickCount + p_115306_;
     }
 
     @Override

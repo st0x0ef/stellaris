@@ -2,13 +2,12 @@ package com.st0x0ef.stellaris.common.registry;
 
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.*;
-import com.st0x0ef.stellaris.common.blocks.machines.PipeBlock;
 import com.st0x0ef.stellaris.common.blocks.machines.*;
+import com.st0x0ef.stellaris.common.blocks.machines.PipeBlock;
 import dev.architectury.core.block.ArchitecturyLiquidBlock;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ColorRGBA;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.DyeColor;
@@ -38,11 +37,11 @@ public class BlocksRegistry {
 
 
     /** Radioactivity */
-    public static final RegistrySupplier<Block> MERCURY_URANIUM_ORE = BLOCKS.register("mercury_uranium_ore", () -> new RadioactiveBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(5f, 2.5f).requiresCorrectToolForDrops(), 1));
-    public static final RegistrySupplier<Block> URANIUM_BLOCK = BLOCKS.register("uranium_block", () -> new RadioactiveBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).mapColor(DyeColor.GREEN), 1));
-    public static final RegistrySupplier<Block> RAW_URANIUM_BLOCK = BLOCKS.register("raw_uranium_block", () -> new RadioactiveBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.RAW_IRON_BLOCK).mapColor(DyeColor.GREEN), 1));
-    public static final RegistrySupplier<Block> PLUTONIUM_BLOCK = BLOCKS.register("plutonium_block", () -> new RadioactiveBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DIAMOND_BLOCK).mapColor(DyeColor.RED), 2));
-    public static final RegistrySupplier<Block> NEPTUNIUM_BLOCK = BLOCKS.register("neptunium_block", () -> new RadioactiveBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DIAMOND_BLOCK).mapColor(DyeColor.BLACK), 3));
+    public static final RegistrySupplier<Block> MERCURY_URANIUM_ORE = BLOCKS.register("mercury_uranium_ore", () -> new RadioactiveBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(5f, 2.5f).requiresCorrectToolForDrops(), 0));
+    public static final RegistrySupplier<Block> URANIUM_BLOCK = BLOCKS.register("uranium_block", () -> new RadioactiveBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).mapColor(DyeColor.GREEN), 0));
+    public static final RegistrySupplier<Block> RAW_URANIUM_BLOCK = BLOCKS.register("raw_uranium_block", () -> new RadioactiveBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.RAW_IRON_BLOCK).mapColor(DyeColor.GREEN), 0));
+    public static final RegistrySupplier<Block> PLUTONIUM_BLOCK = BLOCKS.register("plutonium_block", () -> new RadioactiveBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DIAMOND_BLOCK).mapColor(DyeColor.RED), 1));
+    public static final RegistrySupplier<Block> NEPTUNIUM_BLOCK = BLOCKS.register("neptunium_block", () -> new RadioactiveBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DIAMOND_BLOCK).mapColor(DyeColor.BLACK), 2));
 
 
     /** MARS Items */
@@ -62,10 +61,7 @@ public class BlocksRegistry {
 
     public static final RegistrySupplier<Block> MARS_ICE_SHARD_ORE = BLOCKS.register("mars_ice_shard_ore", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
     public static final RegistrySupplier<Block> MARS_DIAMOND_ORE = BLOCKS.register("mars_diamond_ore", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
-    public static final RegistrySupplier<Block> MARS_CROP = BLOCKS.register("mars_crop", () -> new MarsCrop(BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT)));
-
-
-
+    public static final RegistrySupplier<Block> MARS_CROP = BLOCKS.register("mars_crop", () -> new AlienCropBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT), ItemsRegistry.MARS_FRUIT, BlocksRegistry.MARS_SAND));
 
 
     /** MERCURY Items */
@@ -99,8 +95,6 @@ public class BlocksRegistry {
     public static final RegistrySupplier<Block> VENUS_DIAMOND_ORE = BLOCKS.register("venus_diamond_ore", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
 
 
-
-
     /** Moon Items */
     public static final RegistrySupplier<Block> CHISELED_MOON_STONE = BLOCKS.register("chiseled_moon_stone", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
     public static final RegistrySupplier<Block> MOON_COBBLESTONE = BLOCKS.register("moon_cobblestone", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
@@ -115,14 +109,14 @@ public class BlocksRegistry {
     public static final RegistrySupplier<Block> MOON_DESH_ORE = BLOCKS.register("moon_desh_ore", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
     public static final RegistrySupplier<Block> MOON_STEEL_ORE = BLOCKS.register("moon_steel_ore", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
 
-    public static final RegistrySupplier<Block> MOON_VINES = BLOCKS.register("moon_vines", () ->  new MoonVine(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).randomTicks().noCollission().lightLevel(CaveVines.emission(14)).instabreak().sound(SoundType.CAVE_VINES).pushReaction(PushReaction.DESTROY)));
-    public static final RegistrySupplier<Block> MOON_VINES_PLANT = BLOCKS.register("moon_vines_plant",() ->  new MoonVinesPlant(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().lightLevel(CaveVines.emission(14)).instabreak().sound(SoundType.CAVE_VINES).pushReaction(PushReaction.DESTROY)));
+    public static final RegistrySupplier<Block> MOON_VINES = BLOCKS.register("moon_vines", () -> new MoonVine(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).randomTicks().noCollission().lightLevel(CaveVines.emission(14)).instabreak().sound(SoundType.CAVE_VINES).pushReaction(PushReaction.DESTROY)));
+    public static final RegistrySupplier<Block> MOON_VINES_PLANT = BLOCKS.register("moon_vines_plant", () -> new MoonVinesPlant(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().lightLevel(CaveVines.emission(14)).instabreak().sound(SoundType.CAVE_VINES).pushReaction(PushReaction.DESTROY)));
 
     public static final RegistrySupplier<Block> MOON_STONE_BRICK_SLAB = BLOCKS.register("moon_stone_brick_slab", () -> new SlabBlock(SlabBlock.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
     public static final RegistrySupplier<Block> MOON_STONE_BRICK_STAIRS = BLOCKS.register("moon_stone_brick_stairs", () -> new StairBlock(MOON_STONE.get().defaultBlockState(), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
     public static final RegistrySupplier<Block> MOON_POLISHED_STONE_BRICK_SLAB = BLOCKS.register("moon_polished_stone_brick_slab", () -> new SlabBlock(SlabBlock.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
     public static final RegistrySupplier<Block> MOON_POLISHED_STONE_BRICK_STAIRS = BLOCKS.register("moon_polished_stone_brick_stairs", () -> new StairBlock(POLISHED_MOON_STONE.get().defaultBlockState(), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
-    public static final RegistrySupplier<Block> MOON_CROPS = BLOCKS.register("moon_crop", () -> new MoonCrop(BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT)));
+    public static final RegistrySupplier<Block> MOON_CROPS = BLOCKS.register("moon_crop", () -> new AlienCropBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT), ItemsRegistry.MOON_FRUIT, BlocksRegistry.MOON_SAND));
 
     public static final RegistrySupplier<Block> STEEL_ORE = BLOCKS.register("steel_ore", () -> new DropExperienceBlock(UniformInt.of(3, 7), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.0F, 3.0F)));
     public static final RegistrySupplier<Block> DEEPSLATE_STEEL_ORE = BLOCKS.register("deepslate_steel_ore", () -> new DropExperienceBlock(UniformInt.of(3, 7), BlockBehaviour.Properties.ofFullCopy(STEEL_ORE.get()).mapColor(MapColor.DEEPSLATE).strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE)));
@@ -132,9 +126,6 @@ public class BlocksRegistry {
 
     public static final RegistrySupplier<Block> MOON_IRON_ORE = BLOCKS.register("moon_iron_ore", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
     public static final RegistrySupplier<Block> MOON_ICE_SHARD_ORE = BLOCKS.register("moon_ice_shard_ore", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
-
-
-
 
 
     /** Machine */
@@ -147,7 +138,7 @@ public class BlocksRegistry {
 
     public static final RegistrySupplier<Block> ROCKET_LAUNCH_PAD = BLOCKS.register("rocket_launch_pad", () -> new RocketLaunchPad(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).sound(SoundType.METAL).strength(5f, 2.5f).requiresCorrectToolForDrops()));
 
-    public static final RegistrySupplier<Block> VACUMATOR = BLOCKS.register("vacuumator", ()-> new VacuumatorBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_ORE)));
+    public static final RegistrySupplier<Block> VACUMATOR = BLOCKS.register("vacuumator", () -> new VacuumatorBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_ORE)));
     public static final RegistrySupplier<Block> WATER_SEPARATOR = BLOCKS.register("water_separator", () -> new WaterSeparatorBlock(BlockBehaviour.Properties.ofFullCopy(STEEL_ORE.get()).mapColor(MapColor.DEEPSLATE).strength(4.5F, 3F).sound(SoundType.DEEPSLATE)));
     public static final RegistrySupplier<Block> FUEL_REFINERY = BLOCKS.register("fuel_refinery", () -> new FuelRefineryBlock(BlockBehaviour.Properties.ofFullCopy(STEEL_ORE.get()).mapColor(MapColor.DEEPSLATE).strength(4.5F, 3F).sound(SoundType.DEEPSLATE)));
     public static final RegistrySupplier<Block> OXYGEN_DISTRIBUTOR = BLOCKS.register("oxygen_distributor", () -> new OxygenDistributorBlock(BlockBehaviour.Properties.ofFullCopy(WATER_SEPARATOR.get())));
@@ -164,12 +155,12 @@ public class BlocksRegistry {
     public static final RegistrySupplier<PowerBankBlock> T3_POWER_BANK = BLOCKS.register("t3_bank", () -> new PowerBankBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK), (short) 3));
     public static final RegistrySupplier<PowerBankBlock> T4_POWER_BANK = BLOCKS.register("t4_bank", () -> new PowerBankBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK), (short) 4));
 
-    public static final RegistrySupplier<Block> T1_CABLE = BLOCKS.register("cable", ()-> new CableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CHAIN), 1000, 250 ,250));
-    public static final RegistrySupplier<Block> T2_CABLE = BLOCKS.register("cable_t2", ()-> new CableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CHAIN), 25000, 6250 ,6250));
-    public static final RegistrySupplier<Block> T3_CABLE = BLOCKS.register("cable_t3", ()-> new CableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CHAIN), 625000, 156250 ,156250));
-    public static final RegistrySupplier<Block> T1_PIPE = BLOCKS.register("pipe_t1", ()-> new PipeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CHAIN), 1000, 250 ,250));
-    public static final RegistrySupplier<Block> T2_PIPE = BLOCKS.register("pipe_t2", ()-> new PipeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CHAIN), 25000, 6250 ,6250));
-    public static final RegistrySupplier<Block> T3_PIPE = BLOCKS.register("pipe_t3", ()-> new PipeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CHAIN), 625000, 156250 ,156250));
+    public static final RegistrySupplier<Block> T1_CABLE = BLOCKS.register("cable", () -> new CableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CHAIN), 1000, 250, 250));
+    public static final RegistrySupplier<Block> T2_CABLE = BLOCKS.register("cable_t2", () -> new CableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CHAIN), 25000, 6250, 6250));
+    public static final RegistrySupplier<Block> T3_CABLE = BLOCKS.register("cable_t3", () -> new CableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CHAIN), 625000, 156250, 156250));
+    public static final RegistrySupplier<Block> T1_PIPE = BLOCKS.register("pipe_t1", () -> new PipeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CHAIN), 1000, 250, 250));
+    public static final RegistrySupplier<Block> T2_PIPE = BLOCKS.register("pipe_t2", () -> new PipeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CHAIN), 25000, 6250, 6250));
+    public static final RegistrySupplier<Block> T3_PIPE = BLOCKS.register("pipe_t3", () -> new PipeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CHAIN), 625000, 156250, 156250));
 
     /**Fluid Blocks*/
     public static final RegistrySupplier<LiquidBlock> FUEL_BLOCK = BLOCKS.register("fuel", () -> new ArchitecturyLiquidBlock(FluidRegistry.FUEL_STILL, BlockBehaviour.Properties.ofFullCopy(Blocks.WATER)));
@@ -182,11 +173,11 @@ public class BlocksRegistry {
     public static final RegistrySupplier<Block> VENUS_STONE_BRICK_STAIRS = BLOCKS.register("venus_stone_brick_stairs", () -> new StairBlock(VENUS_STONE.get().defaultBlockState(), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(5f, 2.5f).requiresCorrectToolForDrops()));
 
     /**Globes*/
-    public static final RegistrySupplier<Block> EARTH_GLOBE_BLOCK = BLOCKS.register("earth_globe", () -> new GlobeBlock(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/block/globes/earth_globe.png"), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(3.5F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops()));
-    public static final RegistrySupplier<Block> MOON_GLOBE_BLOCK = BLOCKS.register("moon_globe", () -> new GlobeBlock(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/block/globes/moon_globe.png"),BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(3.5F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops()));
-    public static final RegistrySupplier<Block> MARS_GLOBE_BLOCK = BLOCKS.register("mars_globe", () -> new GlobeBlock(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/block/globes/mars_globe.png"),BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(3.5F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops()));
-    public static final RegistrySupplier<Block> MERCURY_GLOBE_BLOCK = BLOCKS.register("mercury_globe", () -> new GlobeBlock(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/block/globes/mercury_globe.png"),BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(3.5F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops()));
-    public static final RegistrySupplier<Block> VENUS_GLOBE_BLOCK = BLOCKS.register("venus_globe", () -> new GlobeBlock(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/block/globes/venus_globe.png"),BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(3.5F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> EARTH_GLOBE_BLOCK = BLOCKS.register("earth_globe", () -> new GlobeBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(3.5F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> MOON_GLOBE_BLOCK = BLOCKS.register("moon_globe", () -> new GlobeBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(3.5F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> MARS_GLOBE_BLOCK = BLOCKS.register("mars_globe", () -> new GlobeBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(3.5F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> MERCURY_GLOBE_BLOCK = BLOCKS.register("mercury_globe", () -> new GlobeBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(3.5F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> VENUS_GLOBE_BLOCK = BLOCKS.register("venus_globe", () -> new GlobeBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(3.5F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops()));
 
     public static final RegistrySupplier<Block> CONGLOMORATE_STAIRS = BLOCKS.register("conglomorate_stairs", () -> new StairBlock(CONGLOMORATE.get().defaultBlockState(), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
     public static final RegistrySupplier<Block> IRON_PLATING_STAIRS = BLOCKS.register("iron_plating_stairs", () -> new StairBlock(IRON_PLATING_BLOCK.get().defaultBlockState(), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));

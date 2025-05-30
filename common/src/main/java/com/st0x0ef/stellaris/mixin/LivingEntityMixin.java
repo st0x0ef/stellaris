@@ -1,13 +1,16 @@
 package com.st0x0ef.stellaris.mixin;
 
-import com.st0x0ef.stellaris.common.data_components.SpaceSuitModules;
-import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
-import com.st0x0ef.stellaris.common.utils.PlanetUtil;
+import com.st0x0ef.stellaris.common.oxygen.DimensionOxygenManager;
+import com.st0x0ef.stellaris.common.oxygen.GlobalOxygenManager;
+import com.st0x0ef.stellaris.common.registry.DamageSourceRegistry;
 import com.st0x0ef.stellaris.common.utils.Utils;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.portal.DimensionTransition;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -15,25 +18,54 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LivingEntity.class)
-public abstract class LivingEntityMixin {
+public abstract class LivingEntityMixin extends Entity {
 
     @Unique
-    LivingEntity stellaris$livingEntity = (LivingEntity) ((Object) this);
+    private final LivingEntity stellaris$livingEntity = (LivingEntity) (Object) this;
+
+    @Unique
+    private long stellaris$tickSinceLastOxygenCheck;
+
+    @Unique
+    private DimensionOxygenManager stellaris$oxygenManager;
+
+    public LivingEntityMixin(EntityType<?> entityType, Level level) {
+        super(entityType, level);
+    }
 
     @Inject(at = @At("HEAD"), method = "tick()V")
-    private void tick(CallbackInfo ci){
-        ResourceLocation stellaris$dimension = stellaris$livingEntity.level().dimension().location();
+    private void tick(CallbackInfo ci) {
+        if (firstTick)
+            Utils.handleGravityChange(stellaris$livingEntity, level());
 
-        boolean stellaris$gravityNormalizer = SpaceSuitModules.containsInModules(stellaris$livingEntity.getItemBySlot(EquipmentSlot.CHEST), ItemsRegistry.MODULE_GRAVITY_NORMALIZER.get().getDefaultInstance());
-        if (!stellaris$dimension.equals(ResourceLocation.withDefaultNamespace("overworld")) && PlanetUtil.isPlanet(stellaris$dimension) && !stellaris$gravityNormalizer) {
-            double stellaris$gravity = Utils.MPS2ToMCG(PlanetUtil.getPlanet(stellaris$dimension).gravity());
-            stellaris$livingEntity.getAttribute(Attributes.GRAVITY).setBaseValue(stellaris$gravity);
-            stellaris$livingEntity.getAttribute(Attributes.SAFE_FALL_DISTANCE).setBaseValue(3.0/(stellaris$gravity/0.08));
-            stellaris$livingEntity.getAttribute(Attributes.FALL_DAMAGE_MULTIPLIER).setBaseValue(stellaris$gravity/0.08);
-        } else {
-            stellaris$livingEntity.getAttribute(Attributes.GRAVITY).setBaseValue(0.08);
-            stellaris$livingEntity.getAttribute(Attributes.SAFE_FALL_DISTANCE).setBaseValue(3.0);
-            stellaris$livingEntity.getAttribute(Attributes.FALL_DAMAGE_MULTIPLIER).setBaseValue(1.0);
+        if (!stellaris$livingEntity.level().isClientSide()) {
+
+
+
+            if (stellaris$tickSinceLastOxygenCheck > 20) {
+                if (stellaris$oxygenManager == null) {
+                    stellaris$oxygenManager = GlobalOxygenManager.getInstance().getOrCreateDimensionManager((ServerLevel) level());
+                }
+
+                if(!stellaris$oxygenManager.getLevel().dimension().equals(stellaris$livingEntity.level().dimension())) {
+                    stellaris$oxygenManager = GlobalOxygenManager.getInstance().getOrCreateDimensionManager((ServerLevel) level());
+                }
+
+                if (!stellaris$oxygenManager.breath(stellaris$livingEntity)) {
+                    hurt(DamageSourceRegistry.of(level(), DamageSourceRegistry.OXYGEN), 2f);
+                }
+
+                stellaris$tickSinceLastOxygenCheck = 0;
+            }
+
+            stellaris$tickSinceLastOxygenCheck++;
         }
+    }
+
+    @Override
+    public @Nullable Entity changeDimension(DimensionTransition transition) {
+        stellaris$oxygenManager = GlobalOxygenManager.getInstance().getOrCreateDimensionManager((ServerLevel) level());
+
+        return super.changeDimension(transition);
     }
 }

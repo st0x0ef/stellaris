@@ -20,6 +20,7 @@ import java.util.Map;
 
 @Environment(EnvType.CLIENT)
 public class PlanetPack extends SimpleJsonResourceReloadListener {
+
     public PlanetPack() {
         super(Stellaris.GSON, "renderer/planet_screen/planet");
     }

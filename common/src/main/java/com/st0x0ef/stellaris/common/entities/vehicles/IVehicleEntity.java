@@ -20,7 +20,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.PowderSnowBlock;
 import net.minecraft.world.phys.Vec3;
 
-public abstract class IVehicleEntity extends Entity{
+public abstract class IVehicleEntity extends Entity {
+
     public int FUEL;
 
     public FuelType.Type FUEL_TYPE = FuelType.Type.FUEL;
@@ -88,11 +89,11 @@ public abstract class IVehicleEntity extends Entity{
     }
 
     public void rotAnim() {
-        while(this.getYRot() - this.yRotO < -180.0F) {
+        while (this.getYRot() - this.yRotO < -180.0F) {
             this.yRotO -= 360.0F;
         }
 
-        while(this.getYRot() - this.yRotO >= 180.0F) {
+        while (this.getYRot() - this.yRotO >= 180.0F) {
             this.yRotO += 360.0F;
         }
     }
@@ -119,12 +120,12 @@ public abstract class IVehicleEntity extends Entity{
         }
 
         if (this.lerpSteps > 0) {
-            double d0 = this.getX() + (this.lerpX - this.getX()) / (double)this.lerpSteps;
-            double d2 = this.getY() + (this.lerpY - this.getY()) / (double)this.lerpSteps;
-            double d4 = this.getZ() + (this.lerpZ - this.getZ()) / (double)this.lerpSteps;
-            double d6 = Mth.wrapDegrees(this.lerpYRot - (double)this.getYRot());
-            this.setYRot(this.getYRot() + (float)d6 / (float)this.lerpSteps);
-            this.setXRot(this.getXRot() + (float)(this.lerpXRot - (double)this.getXRot()) / (float)this.lerpSteps);
+            double d0 = this.getX() + (this.lerpX - this.getX()) / (double) this.lerpSteps;
+            double d2 = this.getY() + (this.lerpY - this.getY()) / (double) this.lerpSteps;
+            double d4 = this.getZ() + (this.lerpZ - this.getZ()) / (double) this.lerpSteps;
+            double d6 = Mth.wrapDegrees(this.lerpYRot - (double) this.getYRot());
+            this.setYRot(this.getYRot() + (float) d6 / (float) this.lerpSteps);
+            this.setXRot(this.getXRot() + (float) (this.lerpXRot - (double) this.getXRot()) / (float) this.lerpSteps);
             --this.lerpSteps;
             this.setPos(d0, d2, d4);
             this.setRot(this.getYRot(), this.getXRot());
@@ -153,10 +154,11 @@ public abstract class IVehicleEntity extends Entity{
                 this.setDeltaMovement(vec36.multiply(f5, 0.8F, f5));
                 Vec3 vec32 = this.getFluidFallingAdjustedMovement(d0, flag, this.getDeltaMovement());
                 this.setDeltaMovement(vec32);
-                if (this.horizontalCollision && this.isFree(vec32.x, vec32.y + (double)0.6F - this.getY() + d8, vec32.z)) {
+                if (this.horizontalCollision && this.isFree(vec32.x, vec32.y + (double) 0.6F - this.getY() + d8, vec32.z)) {
                     this.setDeltaMovement(vec32.x, 0.3F, vec32.z);
                 }
-            } else if (this.isInLava()) {
+            }
+            else if (this.isInLava()) {
                 double d7 = this.getY();
                 this.moveRelative(0.02F, vec3);
                 this.move(MoverType.SELF, this.getDeltaMovement());
@@ -164,7 +166,8 @@ public abstract class IVehicleEntity extends Entity{
                     this.setDeltaMovement(this.getDeltaMovement().multiply(0.5D, 0.8F, 0.5D));
                     Vec3 vec33 = this.getFluidFallingAdjustedMovement(d0, flag, this.getDeltaMovement());
                     this.setDeltaMovement(vec33);
-                } else {
+                }
+                else {
                     this.setDeltaMovement(this.getDeltaMovement().scale(0.5D));
                 }
 
@@ -173,29 +176,33 @@ public abstract class IVehicleEntity extends Entity{
                 }
 
                 Vec3 vec34 = this.getDeltaMovement();
-                if (this.horizontalCollision && this.isFree(vec34.x, vec34.y + (double)0.6F - this.getY() + d7, vec34.z)) {
+                if (this.horizontalCollision && this.isFree(vec34.x, vec34.y + (double) 0.6F - this.getY() + d7, vec34.z)) {
                     this.setDeltaMovement(vec34.x, 0.3F, vec34.z);
                 }
-            } else {
+            }
+            else {
                 BlockPos blockpos = this.getBlockPosBelowThatAffectsMyMovement();
                 float f3 = 1.0F;
                 float f4 = this.onGround() ? f3 * 0.91F : 0.91F;
                 Vec3 vec35 = this.handleRelativeFrictionAndCalculateMovement(vec3, f3);
                 double d2 = vec35.y;
                 if (this.level().isClientSide && !this.level().hasChunkAt(blockpos)) {
-                    if (this.getY() > (double)this.level().getMinBuildHeight()) {
+                    if (this.getY() > (double) this.level().getMinBuildHeight()) {
                         d2 = -0.1D;
-                    } else {
+                    }
+                    else {
                         d2 = 0.0D;
                     }
-                } else if (!this.isNoGravity()) {
+                }
+                else if (!this.isNoGravity()) {
                     d2 -= d0;
                 }
 
                 if (this.shouldDiscardFriction()) {
                     this.setDeltaMovement(vec35.x, d2, vec35.z);
-                } else {
-                    this.setDeltaMovement(vec35.x * (double)f4, d2 * (double)0.98F, vec35.z * (double)f4);
+                }
+                else {
+                    this.setDeltaMovement(vec35.x * (double) f4, d2 * (double) 0.98F, vec35.z * (double) f4);
                 }
             }
         }
@@ -219,12 +226,14 @@ public abstract class IVehicleEntity extends Entity{
             double d0;
             if (flag && Math.abs(deltaMovement.y - 0.005D) >= 0.003D && Math.abs(deltaMovement.y - p_20995_ / 16.0D) < 0.003D) {
                 d0 = -0.003D;
-            } else {
+            }
+            else {
                 d0 = deltaMovement.y - p_20995_ / 16.0D;
             }
 
             return new Vec3(deltaMovement.x, d0, deltaMovement.z);
-        } else {
+        }
+        else {
             return deltaMovement;
         }
     }

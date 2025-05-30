@@ -62,7 +62,7 @@ public class MartianRaptor extends Monster {
     @Override
     public boolean doHurtTarget(Entity p_21372_) {
         this.AttackAnim = 10;
-        this.level().broadcastEntityEvent(this, (byte)4);
+        this.level().broadcastEntityEvent(this, (byte) 4);
         return super.doHurtTarget(p_21372_);
     }
 
@@ -70,7 +70,8 @@ public class MartianRaptor extends Monster {
     public void handleEntityEvent(byte p_28844_) {
         if (p_28844_ == 4) {
             this.AttackAnim = 10;
-        } else {
+        }
+        else {
             super.handleEntityEvent(p_28844_);
         }
     }

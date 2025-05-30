@@ -2,6 +2,8 @@ package com.st0x0ef.stellaris.common.utils;
 
 import com.mojang.serialization.Codec;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
+import com.st0x0ef.stellaris.common.data.planets.StellarisData;
+import com.st0x0ef.stellaris.common.data_components.SpaceSuitModules;
 import com.st0x0ef.stellaris.common.entities.vehicles.LanderEntity;
 import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
@@ -10,6 +12,7 @@ import com.st0x0ef.stellaris.common.registry.StatsRegistry;
 import com.st0x0ef.stellaris.common.vehicle_upgrade.FuelType;
 import dev.architectury.utils.GameInstance;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
@@ -23,6 +26,9 @@ import net.minecraft.world.Container;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -64,7 +70,9 @@ public class Utils {
 
     /** Teleport an entity to the planet wanted */
     public static void teleportEntity(Entity entity, Planet destination) {
-        if (entity.level().isClientSide()) return;
+        if (entity.level().isClientSide()) {
+            return;
+        }
         entity.setNoGravity(false);
 
         TeleportUtil.teleportToPlanet(entity, getPlanetLevel(destination), 600);
@@ -94,7 +102,8 @@ public class Utils {
                 }
 
                 serverPlayer.sendSystemMessage(Component.translatable("message.stellaris.lander"));
-            } else {
+            }
+            else {
                 serverPlayer.closeContainer();
                 teleportEntity(serverPlayer, destination);
             }
@@ -105,7 +114,9 @@ public class Utils {
         RocketEntity rocket = (RocketEntity) entities.getFirst().getVehicle();
 
         for (Entity entity : entities) {
-            if (entity.level().isClientSide()) return;
+            if (entity.level().isClientSide()) {
+                return;
+            }
 
             Entity vehicle = entity.getVehicle();
             if (vehicle instanceof RocketEntity playerRocket) {
@@ -113,7 +124,7 @@ public class Utils {
                 rocket = playerRocket;
                 teleportEntity(entity, destination);
 
-                if(entity instanceof Player player) {
+                if (entity instanceof Player player) {
 
                     player.awardStat(StatsRegistry.SPACE_TRAVEL.get(), Utils.distanceToPlanet(PlanetUtil.getPlanet(player.level().dimension().location()), destination));
 
@@ -161,7 +172,8 @@ public class Utils {
         if (colorName.startsWith("#")) {
             try {
                 return Integer.parseInt(colorName.substring(1), 16);
-            } catch (NumberFormatException e) {
+            }
+            catch (NumberFormatException e) {
                 return 0xFFFFFF; // Return white if invalid hex format
             }
         }
@@ -205,7 +217,9 @@ public class Utils {
     }
 
     public static String betterIntToString(int i) {
-        if (i == 0) return "0";
+        if (i == 0) {
+            return "0";
+        }
 
         return (i % 1000) + "K";
     }
@@ -246,8 +260,8 @@ public class Utils {
      * @param MCG Minecraft Gravity Unit (blocks/t²)
      * @return m/s²
      */
-    public static float MCGToMPS2(float MCG){
-        return 122.583125f*MCG;
+    public static float MCGToMPS2(float MCG) {
+        return 122.583125f * MCG;
     }
 
     /**
@@ -255,9 +269,15 @@ public class Utils {
      * @return Minecraft Gravity Unit (blocks/t²)
      */
     public static double MPS2ToMCG(float MPS2) {
-        if (MPS2>0) return Math.floor(0.00816d * MPS2 * 100000) / 100000;
-        else if (MPS2<0) return Math.ceil(0.00816d * MPS2 * 100000) / 100000;
-        else return 0;
+        if (MPS2 > 0) {
+            return Math.floor(0.00816d * MPS2 * 100000) / 100000;
+        }
+        else if (MPS2 < 0) {
+            return Math.ceil(0.00816d * MPS2 * 100000) / 100000;
+        }
+        else {
+            return 0;
+        }
     }
 
     public static void disableFlyAntiCheat(Player player, boolean condition) {
@@ -299,8 +319,7 @@ public class Utils {
     }
 
 
-
-    public  <T> void addButtonToList(ArrayList<ArrayList<T>> finalList, T button, int size){
+    public <T> void addButtonToList(ArrayList<ArrayList<T>> finalList, T button, int size) {
         if (finalList.isEmpty()) {
             ArrayList<T> list = new ArrayList<>();
             list.add(button);
@@ -309,10 +328,11 @@ public class Utils {
         }
 
         for (ArrayList<T> buttons : finalList) {
-            if(buttons.size() < size){
+            if (buttons.size() < size) {
                 buttons.add(button);
                 break;
-            } else if (buttons.size() == size) {
+            }
+            else if (buttons.size() == size) {
                 if (finalList.indexOf(buttons) + 1 >= finalList.size()) {
                     ArrayList<T> list = new ArrayList<>();
                     list.add(button);
@@ -321,5 +341,33 @@ public class Utils {
                 }
             }
         }
+    }
+
+    public static void handleGravityChange(LivingEntity entity, Level level) {
+        if (!SpaceSuitModules.containsInModules(entity.getItemBySlot(EquipmentSlot.CHEST), ItemsRegistry.MODULE_GRAVITY_NORMALIZER.get().getDefaultInstance())) {
+            ResourceLocation dimension = level.dimension().location();
+
+            if (!PlanetUtil.isPlanet(dimension) || dimension.equals(StellarisData.OVERWORLD)) {
+                trySetAttribute(entity, Attributes.GRAVITY, Attributes.GRAVITY.value().getDefaultValue());
+                trySetAttribute(entity, Attributes.SAFE_FALL_DISTANCE, Attributes.SAFE_FALL_DISTANCE.value().getDefaultValue());
+                trySetAttribute(entity, Attributes.FALL_DAMAGE_MULTIPLIER, Attributes.FALL_DAMAGE_MULTIPLIER.value().getDefaultValue());
+            }
+            else if (PlanetUtil.isPlanet(dimension)) {
+                float stellaris$regularGravity = PlanetUtil.getPlanet(dimension).gravity();
+                double stellaris$gravity = Utils.MPS2ToMCG(stellaris$regularGravity);
+
+                trySetAttribute(entity, Attributes.GRAVITY, Attributes.GRAVITY.value().sanitizeValue(stellaris$gravity));
+                trySetAttribute(entity, Attributes.SAFE_FALL_DISTANCE, Attributes.SAFE_FALL_DISTANCE.value().sanitizeValue(3.0 / (stellaris$regularGravity / 9.80665)));
+                trySetAttribute(entity, Attributes.FALL_DAMAGE_MULTIPLIER, Attributes.FALL_DAMAGE_MULTIPLIER.value().sanitizeValue(stellaris$regularGravity / 9.80665));
+            }
+        }
+    }
+
+    public static void trySetAttribute(LivingEntity entity ,Holder<Attribute> attribute, double value) {
+        AttributeInstance attributeInstance = entity.getAttribute(attribute);
+
+        if (attributeInstance != null)
+            attributeInstance.setBaseValue(value);
+
     }
 }

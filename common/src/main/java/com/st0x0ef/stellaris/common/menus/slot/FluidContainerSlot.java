@@ -21,11 +21,15 @@ public class FluidContainerSlot extends Slot {
     @Override
     public boolean mayPlace(ItemStack stack) {
         UniversalFluidStorage fluidStorage = Capabilities.Fluid.ITEM.getCapability(stack);
-        if(fluidStorage == null) return false;
+        if (fluidStorage == null) {
+            return false;
+        }
 
         if (emptyOnly) {
             for (FluidStack fluidStack : fluidStorage) {
-                if (fluidStack.isEmpty()) return true;
+                if (fluidStack.isEmpty()) {
+                    return true;
+                }
             }
             return false;
         }

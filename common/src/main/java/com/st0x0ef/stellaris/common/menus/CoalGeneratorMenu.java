@@ -16,10 +16,10 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
 public class CoalGeneratorMenu extends AbstractContainerMenu {
+
     private final Container inventory;
     private final CoalGeneratorEntity entity;
     private final ContainerData data;
-
 
 
     public static CoalGeneratorMenu create(int syncId, Inventory inventory, FriendlyByteBuf data) {
@@ -59,13 +59,15 @@ public class CoalGeneratorMenu extends AbstractContainerMenu {
                 if (!this.moveItemStackTo(originalStack, this.inventory.getContainerSize(), this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.moveItemStackTo(originalStack, 0, this.inventory.getContainerSize(), false)) {
+            }
+            else if (!this.moveItemStackTo(originalStack, 0, this.inventory.getContainerSize(), false)) {
                 return ItemStack.EMPTY;
             }
 
             if (originalStack.isEmpty()) {
                 slot.set(ItemStack.EMPTY);
-            } else {
+            }
+            else {
                 slot.setChanged();
             }
         }
@@ -98,7 +100,7 @@ public class CoalGeneratorMenu extends AbstractContainerMenu {
             i = 200;
         }
 
-        return Mth.clamp((float)this.data.get(0) / (float)i, 0.0F, 1.0F);
+        return Mth.clamp((float) this.data.get(0) / (float) i, 0.0F, 1.0F);
     }
 
     public boolean isLit() {

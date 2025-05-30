@@ -10,6 +10,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 
 public class MilkyWayMenu extends AbstractContainerMenu {
+
     private final Player player;
     public boolean freeze_gui = false;
 
@@ -17,15 +18,17 @@ public class MilkyWayMenu extends AbstractContainerMenu {
 
         return new MilkyWayMenu(syncId, inventory, new SimpleContainer(0));
     }
-    public MilkyWayMenu(int syncId, Inventory playerInventory, Container container)
-    {
+
+    public MilkyWayMenu(int syncId, Inventory playerInventory, Container container) {
         super(MenuTypesRegistry.MILKYWAY_MENU.get(), syncId);
         this.player = playerInventory.player;
     }
+
     @Override
     public ItemStack quickMoveStack(Player player, int invSlot) {
         return ItemStack.EMPTY;
     }
+
     @Override
     public boolean stillValid(Player player) {
         return !player.isDeadOrDying();

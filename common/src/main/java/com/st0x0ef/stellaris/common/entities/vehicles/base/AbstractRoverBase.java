@@ -32,8 +32,8 @@ import java.util.Optional;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-public abstract class AbstractRoverBase extends IVehicleEntity
-{
+public abstract class AbstractRoverBase extends IVehicleEntity {
+
     private int steps;
     private double clientX;
     private double clientY;
@@ -221,7 +221,8 @@ public abstract class AbstractRoverBase extends IVehicleEntity
                 onCollision(speed);
                 collidedLastTick = true;
             }
-        } else {
+        }
+        else {
             setDeltaMovement(calculateMotionX(getSpeed(), getYRot()), getDeltaMovement().y, calculateMotionZ(getSpeed(), getYRot()));
             if (level().isClientSide) {
                 collidedLastTick = false;
@@ -230,7 +231,6 @@ public abstract class AbstractRoverBase extends IVehicleEntity
     }
 
     protected abstract boolean isEnoughFuel();
-
 
 
     private float getaFloat() {
@@ -263,9 +263,11 @@ public abstract class AbstractRoverBase extends IVehicleEntity
     public boolean canPlayerDriveCar(Player player) {
         if (player.equals(getDriver())) {
             return true;
-        } else if (isInWater() || isInLava()) {
+        }
+        else if (isInWater() || isInLava()) {
             return false;
-        } else {
+        }
+        else {
             return false;
         }
     }

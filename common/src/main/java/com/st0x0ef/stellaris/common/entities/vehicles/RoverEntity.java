@@ -85,6 +85,7 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
     public float getMaxRotationSpeed() {
         return 6.8F;
     }
+
     @Override
     public float getMinRotationSpeed() {
         return 4.8F;
@@ -94,6 +95,7 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
     public float getRollResistance() {
         return 1.5F;
     }
+
     @Override
     public float getRotationModifier() {
         return 2.9F;
@@ -116,7 +118,7 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
 
     @Override
     public Vector3d[] getPlayerOffsets() {
-        return new Vector3d[]{
+        return new Vector3d[] {
                 new Vector3d(0.45D, 0.5D, -0.35D),
                 new Vector3d(0.45D, 0.5D, 0.35D)
         };
@@ -137,7 +139,8 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
             if (player.isCrouching()) {
                 if (!tryFillUpRover(player.getMainHandItem().getItem())) {
                     this.openCustomInventoryScreen(player);
-                } else {
+                }
+                else {
                     player.getItemInHand(hand).grow(-1);
                     player.getInventory().add(new ItemStack(Items.BUCKET));
                 }
@@ -161,13 +164,16 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
     }
 
     private void checkContainer() {
-        if (this.level().isClientSide) return;
+        if (this.level().isClientSide) {
+            return;
+        }
 
         if (this.getInventory().getItem(2).getItem() instanceof VehicleUpgradeItem item) {
             if (item.getUpgrade() instanceof MotorUpgrade upgrade) {
                 this.motorUpgrade = upgrade;
             }
-        } else if (this.getInventory().getItem(2).isEmpty()) {
+        }
+        else if (this.getInventory().getItem(2).isEmpty()) {
             this.motorUpgrade = MotorUpgrade.getBasic();
         }
 
@@ -175,7 +181,8 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
             if (item.getUpgrade() instanceof SpeedUpgrade upgrade) {
                 this.speedUpgrade = upgrade;
             }
-        } else if (this.getInventory().getItem(3).isEmpty()) {
+        }
+        else if (this.getInventory().getItem(3).isEmpty()) {
             this.speedUpgrade = SpeedUpgrade.getBasic();
         }
 
@@ -183,26 +190,30 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
             if (item.getUpgrade() instanceof TankUpgrade upgrade) {
                 this.tankUpgrade = upgrade;
             }
-        } else if (this.getInventory().getItem(4).isEmpty()) {
+        }
+        else if (this.getInventory().getItem(4).isEmpty()) {
             this.tankUpgrade = TankUpgrade.getBasic();
         }
 
         tryFillUpRover(this.getInventory().getItem(0).getItem());
     }
 
-    private SimpleContainer getInventory()
-    {
+    private SimpleContainer getInventory() {
         return inventory;
     }
 
     public boolean tryFillUpRover(Item item) {
-        if (this.level().isClientSide) return false;
+        if (this.level().isClientSide) {
+            return false;
+        }
         if (FUEL >= tankUpgrade.getTankCapacity() || item == null) {
             return false;
         }
 
         FuelType.Type itemType = FuelType.Type.getTypeBasedOnItem(item);
-        if (itemType == null) return false;
+        if (itemType == null) {
+            return false;
+        }
 
         FuelType.Type motorType = motorUpgrade.getFuelType();
 
@@ -264,6 +275,7 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
             NetworkManager.sendToPlayer(player, new SyncRoverComponentPacket(roverComponent));
         }
     }
+
     private void spawnRoverItem() {
         ItemEntity entityToSpawn = new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), this.getRoverItem());
         entityToSpawn.setPickUpDelay(10);
@@ -303,11 +315,11 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
 
         ListTag listTag = new ListTag();
 
-        for(int i = 1; i < this.inventory.getContainerSize(); ++i) {
+        for (int i = 1; i < this.inventory.getContainerSize(); ++i) {
             ItemStack itemStack = this.inventory.getItem(i);
             if (!itemStack.isEmpty()) {
                 CompoundTag compoundTag = new CompoundTag();
-                compoundTag.putByte("Slot", (byte)(i - 1));
+                compoundTag.putByte("Slot", (byte) (i - 1));
                 listTag.add(itemStack.save(this.registryAccess(), compoundTag));
             }
         }
@@ -341,6 +353,7 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
     public void openCustomInventoryScreen(Player player) {
         if (player instanceof ServerPlayer serverPlayer) {
             MenuRegistry.openExtendedMenu(serverPlayer, new ExtendedMenuProvider() {
+
                 @Override
                 public void saveExtraData(FriendlyByteBuf packetByteBuf) {
                     packetByteBuf.writeVarInt(RoverEntity.this.getId());
@@ -362,8 +375,7 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
         }
     }
 
-    public RoverComponent getRoverComponent()
-    {
+    public RoverComponent getRoverComponent() {
         return roverComponent;
     }
 }
