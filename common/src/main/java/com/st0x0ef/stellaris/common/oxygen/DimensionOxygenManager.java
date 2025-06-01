@@ -22,6 +22,7 @@ public class DimensionOxygenManager {
     private final Map<BlockPos, OxygenRoom> roomToCheckIfOpen;
     private final boolean planetHasOxygen;
     private final ServerLevel level;
+    private int tickCount;
 
     public DimensionOxygenManager(ServerLevel level) {
         this.oxygenRooms = new HashSet<>();
@@ -56,8 +57,10 @@ public class DimensionOxygenManager {
         data.setDirty();
     }
 
+
     public void updateOxygenTick() {
-        if (planetHasOxygen) {
+        if (planetHasOxygen || tickCount < 20) {
+            tickCount++;
             return;
         }
 
@@ -65,6 +68,7 @@ public class DimensionOxygenManager {
         roomToCheckIfOpen.values().forEach(OxygenRoom::removeOxygenInRoom);
         roomToCheckIfOpen.clear();
 
+        tickCount=0;
         this.setChanged();
     }
 
