@@ -6,12 +6,14 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class OxygenRoom {
 
     private final BlockPos distributorPos;
-    public final List<BlockPos> oxygenatedPositions;
+    public final Set<BlockPos> oxygenatedPositions;
     private final ServerLevel level;
     private boolean isClosed;
 
@@ -19,7 +21,7 @@ public class OxygenRoom {
 
     public OxygenRoom(ServerLevel level, BlockPos distributorPos) {
         this.distributorPos = distributorPos;
-        this.oxygenatedPositions = new ArrayList<>();
+        this.oxygenatedPositions = new HashSet<>();
         this.level = level;
         isClosed = false;
     }

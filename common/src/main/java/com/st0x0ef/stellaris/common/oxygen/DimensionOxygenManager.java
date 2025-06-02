@@ -22,12 +22,18 @@ public class DimensionOxygenManager {
     private final Map<BlockPos, OxygenRoom> roomToCheckIfOpen;
     private final boolean planetHasOxygen;
     private final ServerLevel level;
+    private int tickCount;
 
     public DimensionOxygenManager(ServerLevel level) {
         this.oxygenRooms = new HashSet<>();
         this.roomToCheckIfOpen = new HashMap<>();
         this.level = level;
         this.planetHasOxygen = PlanetUtil.hasOxygen(level);
+    }
+
+    public void addOxygenRoom(BlockPos pos) {
+        oxygenRooms.add(new OxygenRoom(level, pos));
+        setChanged();
     }
 
     public void removeOxygenRoom(BlockPos pos) {
@@ -51,8 +57,10 @@ public class DimensionOxygenManager {
         data.setDirty();
     }
 
+
     public void updateOxygenTick() {
-        if (planetHasOxygen) {
+        if (planetHasOxygen || tickCount < 20) {
+            tickCount++;
             return;
         }
 
@@ -60,10 +68,12 @@ public class DimensionOxygenManager {
         roomToCheckIfOpen.values().forEach(OxygenRoom::removeOxygenInRoom);
         roomToCheckIfOpen.clear();
 
+        tickCount=0;
         this.setChanged();
     }
 
     public boolean breath(LivingEntity entity) {
+
         if (planetHasOxygen || entity.getType().is(TagRegistry.ENTITY_NO_OXYGEN_NEEDED_TAG)) {
             return true;
         }
@@ -109,5 +119,9 @@ public class DimensionOxygenManager {
     public void setOxygensRooms(Set<OxygenRoom> rooms) {
         this.oxygenRooms.clear();
         this.oxygenRooms.addAll(rooms);
+    }
+
+    public ServerLevel getLevel() {
+        return level;
     }
 }

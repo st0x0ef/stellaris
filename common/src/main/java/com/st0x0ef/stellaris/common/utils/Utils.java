@@ -2,6 +2,8 @@ package com.st0x0ef.stellaris.common.utils;
 
 import com.mojang.serialization.Codec;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
+import com.st0x0ef.stellaris.common.data.planets.StellarisData;
+import com.st0x0ef.stellaris.common.data_components.SpaceSuitModules;
 import com.st0x0ef.stellaris.common.entities.vehicles.LanderEntity;
 import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
@@ -10,6 +12,7 @@ import com.st0x0ef.stellaris.common.registry.StatsRegistry;
 import com.st0x0ef.stellaris.common.vehicle_upgrade.FuelType;
 import dev.architectury.utils.GameInstance;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
@@ -23,6 +26,9 @@ import net.minecraft.world.Container;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -345,5 +351,33 @@ public class Utils {
                 }
             }
         }
+    }
+
+    public static void handleGravityChange(LivingEntity entity, Level level) {
+        if (!SpaceSuitModules.containsInModules(entity.getItemBySlot(EquipmentSlot.CHEST), ItemsRegistry.MODULE_GRAVITY_NORMALIZER.get().getDefaultInstance())) {
+            ResourceLocation dimension = level.dimension().location();
+
+            if (!PlanetUtil.isPlanet(dimension) || dimension.equals(StellarisData.OVERWORLD)) {
+                trySetAttribute(entity, Attributes.GRAVITY, Attributes.GRAVITY.value().getDefaultValue());
+                trySetAttribute(entity, Attributes.SAFE_FALL_DISTANCE, Attributes.SAFE_FALL_DISTANCE.value().getDefaultValue());
+                trySetAttribute(entity, Attributes.FALL_DAMAGE_MULTIPLIER, Attributes.FALL_DAMAGE_MULTIPLIER.value().getDefaultValue());
+            }
+            else if (PlanetUtil.isPlanet(dimension)) {
+                float stellaris$regularGravity = PlanetUtil.getPlanet(dimension).gravity();
+                double stellaris$gravity = Utils.MPS2ToMCG(stellaris$regularGravity);
+
+                trySetAttribute(entity, Attributes.GRAVITY, Attributes.GRAVITY.value().sanitizeValue(stellaris$gravity));
+                trySetAttribute(entity, Attributes.SAFE_FALL_DISTANCE, Attributes.SAFE_FALL_DISTANCE.value().sanitizeValue(3.0 / (stellaris$regularGravity / 9.80665)));
+                trySetAttribute(entity, Attributes.FALL_DAMAGE_MULTIPLIER, Attributes.FALL_DAMAGE_MULTIPLIER.value().sanitizeValue(stellaris$regularGravity / 9.80665));
+            }
+        }
+    }
+
+    public static void trySetAttribute(LivingEntity entity ,Holder<Attribute> attribute, double value) {
+        AttributeInstance attributeInstance = entity.getAttribute(attribute);
+
+        if (attributeInstance != null)
+            attributeInstance.setBaseValue(value);
+
     }
 }
