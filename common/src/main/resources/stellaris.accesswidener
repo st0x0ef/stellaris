@@ -5,8 +5,6 @@ accessible field net/minecraft/client/player/LocalPlayer crouching Z
 accessible field net/minecraft/world/entity/npc/Villager assignProfessionWhenSpawned Z
 transitive-accessible method net/minecraft/world/entity/ai/sensing/SensorType <init> (Ljava/util/function/Supplier;)V
 accessible method net/minecraft/core/particles/SimpleParticleType <init> (Z)V
-accessible method net/minecraft/world/entity/LivingEntity addEatEffect (Lnet/minecraft/world/food/FoodProperties;)V
-accessible method net/minecraft/client/renderer/entity/player/PlayerRenderer getArmPose (Lnet/minecraft/client/player/AbstractClientPlayer;Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/client/model/HumanoidModel$ArmPose;
 accessible method net/minecraft/client/renderer/LevelRenderer doesMobEffectBlockSky (Lnet/minecraft/client/Camera;)Z
 accessible method net/minecraft/client/renderer/FogRenderer getPriorityFogFunction (Lnet/minecraft/world/entity/Entity;F)Lnet/minecraft/client/renderer/FogRenderer$MobEffectFogFunction;
 
@@ -19,9 +17,6 @@ accessible method net/minecraft/world/level/levelgen/feature/DripstoneUtils isEm
 accessible method net/minecraft/world/level/levelgen/feature/DripstoneClusterFeature getChanceOfStalagmiteOrStalactite (IIIILnet/minecraft/world/level/levelgen/feature/configurations/DripstoneClusterConfiguration;)D
 
 accessible method net/minecraft/client/MouseHandler onScroll (JDD)V
-extendable method net/minecraft/client/gui/components/AbstractScrollWidget renderScrollBar (Lnet/minecraft/client/gui/GuiGraphics;)V
-accessible method net/minecraft/client/gui/components/AbstractScrollWidget getScrollBarHeight ()I
-
 accessible field net/minecraft/client/gui/GuiGraphics pose Lcom/mojang/blaze3d/vertex/PoseStack;
 accessible method net/minecraft/stats/Stats makeCustomStat (Ljava/lang/String;Lnet/minecraft/stats/StatFormatter;)Lnet/minecraft/resources/ResourceLocation;
 accessible field net/minecraft/client/KeyMapping key Lcom/mojang/blaze3d/platform/InputConstants$Key;
@@ -35,5 +30,3 @@ accessible method net/minecraft/client/gui/Gui renderTextureOverlay (Lnet/minecr
 extendable method net/minecraft/client/model/Model renderToBuffer (Lcom/mojang/blaze3d/vertex/PoseStack;Lcom/mojang/blaze3d/vertex/VertexConsumer;III)V
 
 accessible method net/minecraft/world/level/block/entity/BlockEntityType <init> (Lnet/minecraft/world/level/block/entity/BlockEntityType$BlockEntitySupplier;Ljava/util/Set;)V
-
-accessible method net/minecraft/world/entity lerpPositionAndRotationStep (DDDDDD)V
