@@ -27,7 +27,7 @@ public final class OxygenSavedData extends SavedData {
     public OxygenSavedData(ServerLevel level, List<OxygenRoomRecord> oxygenRoomRecords) {
         List<OxygenRoom> rooms = new ArrayList<>();
 
-        oxygenRoomRecords.forEach(room -> rooms.add(new OxygenRoom(level, room.distributorPos(), room.oxygenatedPos())));
+        oxygenRoomRecords.forEach(room -> rooms.add(new OxygenRoom(level, room.distributorPos(), new HashSet<>(room.oxygenatedPos()))));
 
         this.rooms = new HashSet<>(rooms);
         this.setDirty();
@@ -43,7 +43,7 @@ public final class OxygenSavedData extends SavedData {
 
     public List<OxygenRoomRecord> getRooms() {
         List<OxygenRoomRecord> list = new ArrayList<>();
-        rooms.forEach((room) -> list.add(new OxygenRoomRecord(room.getDistributorPosition(), room.oxygenatedPositions)));
+        rooms.forEach((room) -> list.add(new OxygenRoomRecord(room.getDistributorPosition(), new ArrayList<>(room.oxygenatedPositions))));
         return list;
     }
 }
