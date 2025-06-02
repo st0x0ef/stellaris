@@ -130,7 +130,6 @@ public class StellarisFabricClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(AlienZombieModel.LAYER_LOCATION, AlienZombieModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(MartianRaptorModel.LAYER_LOCATION, MartianRaptorModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(PygroModel.LAYER_LOCATION, PygroModel::createBodyLayer);
-        EntityModelLayerRegistry.registerModelLayer(PygroBruteModel.LAYER_LOCATION, PygroBruteModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(MoglerModel.LAYER_LOCATION, MoglerModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(StarCrawlerModel.LAYER_LOCATION, StarCrawlerModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(CheeseBossModel.LAYER_LOCATION, CheeseBossModel::createBodyLayer);
