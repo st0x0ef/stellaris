@@ -26,7 +26,7 @@ public class OxygenRoom {
         isClosed = false;
     }
 
-    public OxygenRoom(ServerLevel level, BlockPos distributorPos, List<BlockPos> oxygenatedPositions) {
+    public OxygenRoom(ServerLevel level, BlockPos distributorPos, Set<BlockPos> oxygenatedPositions) {
         this.distributorPos = distributorPos;
         this.oxygenatedPositions = oxygenatedPositions;
         this.level = level;

@@ -357,7 +357,7 @@ public class Utils {
         if (!SpaceSuitModules.containsInModules(entity.getItemBySlot(EquipmentSlot.CHEST), ItemsRegistry.MODULE_GRAVITY_NORMALIZER.get().getDefaultInstance())) {
             ResourceLocation dimension = level.dimension().location();
 
-            if (!PlanetUtil.isPlanet(dimension) || dimension.equals(StellarisData.OVERWORLD)) {
+            if (!PlanetUtil.isPlanet(dimension) || dimension.equals(Level.OVERWORLD.location())) {
                 trySetAttribute(entity, Attributes.GRAVITY, Attributes.GRAVITY.value().getDefaultValue());
                 trySetAttribute(entity, Attributes.SAFE_FALL_DISTANCE, Attributes.SAFE_FALL_DISTANCE.value().getDefaultValue());
                 trySetAttribute(entity, Attributes.FALL_DAMAGE_MULTIPLIER, Attributes.FALL_DAMAGE_MULTIPLIER.value().getDefaultValue());
