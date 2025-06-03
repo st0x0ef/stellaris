@@ -5,7 +5,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 
 import java.util.List;
-import java.util.Set;
 
 public record OxygenRoomRecord(BlockPos distributorPos, List<BlockPos> oxygenatedPos) {
     public static final Codec<OxygenRoomRecord> CODEC = RecordCodecBuilder.create(instance -> instance.group(
