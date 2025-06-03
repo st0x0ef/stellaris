@@ -33,6 +33,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -353,9 +354,9 @@ public class Utils {
         }
     }
 
-    public static void handleGravityChange(LivingEntity entity, Level level) {
+    public static void handleGravityChange(@NotNull LivingEntity entity) {
         if (!SpaceSuitModules.containsInModules(entity.getItemBySlot(EquipmentSlot.CHEST), ItemsRegistry.MODULE_GRAVITY_NORMALIZER.get().getDefaultInstance())) {
-            ResourceLocation dimension = level.dimension().location();
+            ResourceLocation dimension = entity.level().dimension().location();
 
             if (!PlanetUtil.isPlanet(dimension) || dimension.equals(Level.OVERWORLD.location())) {
                 trySetAttribute(entity, Attributes.GRAVITY, Attributes.GRAVITY.value().getDefaultValue());

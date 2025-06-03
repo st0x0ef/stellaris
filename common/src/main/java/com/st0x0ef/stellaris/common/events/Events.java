@@ -115,6 +115,11 @@ public class Events {
                     serverLevel.setBlock(pos, state.setValue(CandleBlock.LIT, false), 3);
                     return EventResult.interruptFalse();
                 }
+
+                // Oxygen system
+                else if (state.is(BlocksRegistry.OXYGEN_DISTRIBUTOR)) {
+                    GlobalOxygenManager.getInstance().getOrCreateDimensionManager(serverLevel).addOxygenRoom(pos);
+                }
             }
 
             return EventResult.pass();
