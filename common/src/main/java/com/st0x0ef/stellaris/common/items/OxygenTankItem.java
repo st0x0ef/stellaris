@@ -4,6 +4,7 @@ import com.fej1fun.potentials.capabilities.Capabilities;
 import com.fej1fun.potentials.fluid.ItemFluidStorage;
 import com.fej1fun.potentials.fluid.UniversalFluidItemStorage;
 import com.fej1fun.potentials.providers.FluidProvider;
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.OxygenDistributorBlockEntity;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import com.st0x0ef.stellaris.common.registry.FluidRegistry;
@@ -24,6 +25,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
 import java.util.function.Consumer;
 
 public class OxygenTankItem extends Item implements FluidProvider.ITEM {
@@ -41,6 +43,11 @@ public class OxygenTankItem extends Item implements FluidProvider.ITEM {
 
     @Override
     public InteractionResult use(Level level, Player player, InteractionHand usedHand) {
+        if(level.isClientSide)
+            Stellaris.LOG.error("Client : {}", Objects.requireNonNull(player.getItemInHand(usedHand).get(DataComponentsRegistry.FLUID_LIST.get())).getAmount(0));
+        else
+            Stellaris.LOG.error("Server : {}", Objects.requireNonNull(player.getItemInHand(usedHand).get(DataComponentsRegistry.FLUID_LIST.get())).getAmount(0));
+
         if(level.isClientSide) return super.use(level, player, usedHand);
 
         if (player.isShiftKeyDown()) {
