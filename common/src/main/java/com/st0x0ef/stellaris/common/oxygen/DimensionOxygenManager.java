@@ -116,7 +116,7 @@ public class DimensionOxygenManager {
                 .orElse(null);
     }
 
-    public void setOxygensRooms(Set<OxygenRoom> rooms) {
+    public void setOxygenRooms(Set<OxygenRoom> rooms) {
         this.oxygenRooms.clear();
         this.oxygenRooms.addAll(rooms);
     }
