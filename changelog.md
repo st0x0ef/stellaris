@@ -1,4 +1,5 @@
 # 1.3.16 changelog
 
 ## Fix 
-- Fix enchantment.
+- Fix enchantment
+- Optimize oxygen check
