@@ -72,17 +72,13 @@ public class Events {
             if(!level.isClientSide() && state.is(BlocksRegistry.LAUNCHPAD_CREATOR)) {
 
                 if(level.getBlockEntity(pos) instanceof LaunchPadCreatorBlockEntity blockEntity) {
-                    Stellaris.LOG.error("sidee s {}", blockEntity.launchPadId);
 
                     var launchPos = Utils.blockPosToVec3(pos);
 
                     NetworkManager.sendToServer(new LaunchPadsOperations(new LaunchPad(blockEntity.launchPadId,
                             launchPos, level.dimension(), "remove", false, "Notch", List.of()), "remove"));
 
-
                 }
-
-
             }
             return EventResult.pass();
         });

@@ -10,6 +10,8 @@ import com.st0x0ef.stellaris.client.screens.etc.StarMovement;
 import com.st0x0ef.stellaris.client.screens.etc.Trail;
 import com.st0x0ef.stellaris.client.screens.record.PSystemRecord;
 import com.st0x0ef.stellaris.client.screens.windows.LaunchWindow;
+import com.st0x0ef.stellaris.client.screens.windows.MoveableWindow;
+import com.st0x0ef.stellaris.client.screens.windows.SpaceStationWindow;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.data.recipes.SpaceStationRecipesManager;
 import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
@@ -129,7 +131,8 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
 
     public ArrayList<SpaceStationRecipesManager.SpaceStationRecipeState> spaceStationRecipeStates = new ArrayList<>();
 
-    private LaunchWindow launchWindow;
+    public ArrayList<MoveableWindow> moveableWindows = new ArrayList<>();
+    public int windowIndex = -1;
 
     public PlanetSelectionScreen(PlanetSelectionMenu abstractContainerMenu, Inventory inventory, Component component) {
         super(abstractContainerMenu, inventory, component);
@@ -146,10 +149,7 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
         super.init();
         getMenu().freeze_gui = false;
 
-        this.launchWindow = new LaunchWindow(300,200, Component.literal("eee"), this);
-
-        addRenderableWidget(this.launchWindow);
-        this.launchWindow.changeVisibility(false);
+        initWindows();
 
         centerSun();
         isPlanetScreenOpened = true;
@@ -162,6 +162,26 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
 
         zoomLevel = 1;
         targetZoomLevel = 1;
+    }
+
+
+    public void initWindows() {
+        var launchWindow = new LaunchWindow(300,200, Component.literal("eee"), this);
+        launchWindow.visible =false;
+        addRenderableWidget(launchWindow);
+        launchWindow.changeVisibility(false);
+
+        moveableWindows.add(launchWindow);
+
+        var spaceStationWindow = new SpaceStationWindow(300,200, Component.literal("eee"), this);
+
+        addRenderableWidget(spaceStationWindow);
+        spaceStationWindow.changeVisibility(false);
+        spaceStationWindow.visible =false;
+
+        moveableWindows.add(spaceStationWindow);
+
+
     }
 
     @Override
@@ -373,7 +393,7 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
 
                 if(focusedBody.spaceStation && !showSpaceStationMenu) {
                     this.showSpaceStationMenu = true;
-                    this.launchWindow.setCelestialBody(this.focusedBody);
+                    ((LaunchWindow) this.moveableWindows.get(0)).setCelestialBody(this.focusedBody);
                 } else {
                     tpToFocusedPlanet();
                 }
@@ -705,14 +725,37 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
             }
             centerOnBody(focusedBody);
         } else if (keyCode == GLFW.GLFW_KEY_ESCAPE) {
-            if (this.launchWindow.visible) {
+            if (this.windowIndex != -1) {
                 this.showSpaceStationMenu = false;
-                this.launchWindow.close();
+
+                showEarlyWindow();
                 return true;
             }
         }
 
         return super.keyPressed(keyCode, scanCode, modifiers);
+    }
+
+    public void showEarlyWindow() {
+        if (this.windowIndex != -1) {
+            this.setWindowVisible(this.windowIndex -= 1);
+
+        }
+    }
+
+    public void setWindowVisible(int index) {
+        for (int i = 0; i < moveableWindows.size(); i++) {
+            MoveableWindow window = moveableWindows.get(i);
+            if (i == index) {
+                window.changeVisibility(true);
+                window.visible = true;
+                this.windowIndex = i;
+            } else {
+                window.close();
+                window.changeVisibility(false);
+                window.visible = false;
+            }
+        }
     }
 
     private CelestialBody getNextBodyByDistance(CelestialBody currentBody) {
@@ -1184,7 +1227,7 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
 
             if (this.minecraft.screen instanceof PlanetSelectionScreen) {
 
-                if(this.launchWindow.visible) {
+                if(this.windowIndex != -1) {
                     this.mouseScrolled(mouseX[0], mouseY[0], scrollX, scrollY);
                     return;
                 }
@@ -1470,14 +1513,11 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
     //We only check one time if the player have the recipes because normally he can't get item during the screen
     private void renderSpaceStation(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
 
-        if(launchWindow == null)return;
-
-
-        if(launchWindow.visible != showSpaceStationMenu) {
-            launchWindow.changeVisibility(showSpaceStationMenu);
+        if(windowIndex == -1 && showSpaceStationMenu) {
+            this.setWindowVisible(0);
         }
 
-        if (launchWindow.visible) launchWindow.renderWidget(guiGraphics, mouseX, mouseY, partialTick);
+        if (windowIndex != -1) this.moveableWindows.get(this.windowIndex).renderWidget(guiGraphics, mouseX, mouseY, partialTick);
 
     }
 

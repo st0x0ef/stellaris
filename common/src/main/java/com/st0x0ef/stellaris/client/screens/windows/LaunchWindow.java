@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.client.screens.PlanetSelectionScreen;
 import com.st0x0ef.stellaris.client.screens.components.LaunchButton;
 import com.st0x0ef.stellaris.client.screens.components.LaunchPadsList;
+import com.st0x0ef.stellaris.client.screens.components.SpaceStationList;
 import com.st0x0ef.stellaris.client.screens.components.TexturedButton;
 import com.st0x0ef.stellaris.client.screens.info.CelestialBody;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPad;
@@ -45,10 +46,12 @@ public class LaunchWindow extends MoveableWindow {
         this.addWidget(this.padsList);
 
         LaunchButton button = new LaunchButton(((getWindowX() + getWidth()) / 2) + 15, (getWindowY() + getHeight()) - 30, 60, 20, Component.literal("Launch"), (b) -> {
-            parent.tpToFocusedPlanet(this.celestialBody);
+            //parent.tpToFocusedPlanet(this.celestialBody);
+            this.parent.setWindowVisible(1);
         });
 
         this.addWidget(button);
+
     }
 
     @Override
@@ -73,7 +76,6 @@ public class LaunchWindow extends MoveableWindow {
         super.close();
 
     }
-
 
     @Override
     public Consumer<MoveableWindow> resize(Minecraft minecraft, int width, int height) {

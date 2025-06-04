@@ -30,6 +30,9 @@ public class TexturedButton extends Button {
     private int textureWidth;
     private int textureHeight;
 
+    private boolean showText = false;
+    private boolean showTooltip = false;
+
     public TexturedButton(int xIn, int yIn, int widthIn, int heightIn, Button.OnPress onPressIn) {
         this(xIn, yIn, widthIn, heightIn, Component.empty(), onPressIn, DEFAULT_NARRATION);
     }
@@ -77,6 +80,21 @@ public class TexturedButton extends Button {
         return cast();
     }
 
+    public <T extends TexturedButton> T showText(boolean showText) {
+        this.showText = showText;
+        return cast();
+    }
+
+    public <T extends TexturedButton> T showTooltip(boolean showTooltip) {
+        this.showTooltip = showTooltip;
+        return cast();
+    }
+
+    @Override
+    public void setTooltip(@Nullable Tooltip tooltip) {
+        super.setTooltip(tooltip);
+    }
+
     public void setYShift(int y) {
         this.yDiffText = y;
     }
@@ -94,6 +112,10 @@ public class TexturedButton extends Button {
         int i = this.yTexStart;
         if (this.isHoveredOrFocused()) {
             i += this.yDiffText;
+
+            if( this.showTooltip) {
+                graphics.renderTooltip(minecraft.font, this.getTooltip().toCharSequence(Minecraft.getInstance()), mouseX, mouseY);
+            }
         }
 
         /** TEXTURE MANAGER */
@@ -107,7 +129,9 @@ public class TexturedButton extends Button {
         /** FONT RENDERER */
         int color = this.isHovered ? 16777215 : 10526880;
 
-        this.renderString(graphics, minecraft.font, color | Mth.ceil(this.alpha * 255.0F) << 24);
+        if(this.showText) {
+            this.renderString(graphics, minecraft.font, color | Mth.ceil(this.alpha * 255.0F) << 24);
+        }
 
 
         RenderSystem.disableDepthTest();
@@ -118,7 +142,6 @@ public class TexturedButton extends Button {
     private ResourceLocation getTypeTexture(boolean hover, ResourceLocation buttonTexture,
                                             ResourceLocation hoverButtonTexture) {
         if (hover) {
-
             return hoverButtonTexture;
         } else {
             return buttonTexture;

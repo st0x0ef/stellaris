@@ -76,11 +76,16 @@ public record SpaceStationRecipe (List<ItemStack> items, ResourceLocation locati
         }
     }
 
+    public Component getDisplayName() {
+        return Component.translatable("station." + this.location.getNamespace() + "." + this.location.getPath());
+    }
 
     public MutableComponent getTooltip(Player player) {
         MutableComponent tooltip = Component.translatable("tooltip." + this.location.getNamespace() + ".space_station_recipe." + this.location.getPath());
-        for (ItemStack item : items) {
 
+        if(player == null) return tooltip;
+
+        for (ItemStack item : items) {
             String name = "\n" + item.getHoverName().getString() + " x" + item.getCount() ;
             if (!player.getInventory().contains(item)) {
                 tooltip.append(Component.literal(name).withStyle(ChatFormatting.RED));

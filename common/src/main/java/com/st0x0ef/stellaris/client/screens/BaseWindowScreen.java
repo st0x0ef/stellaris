@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.client.screens;
 
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.windows.MoveableWindow;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -36,6 +37,7 @@ public class BaseWindowScreen<T extends AbstractContainerMenu> extends AbstractC
         T widget1 = super.addRenderableWidget(widget);
 
         if (widget1 instanceof MoveableWindow window) {
+            Stellaris.LOG.info("Adding moveable window " + window);
             window.init();
             moveableWindows.add(window);
             guiEventListeners.add(window);
