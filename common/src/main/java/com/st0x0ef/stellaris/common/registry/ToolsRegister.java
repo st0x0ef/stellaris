@@ -75,7 +75,7 @@ public record ToolsRegister (TagKey<Block> incorrectBlocksForDrops, int durabili
     }
 
     static {
-        TITANIUM = new ToolMaterial(TagRegistry.INCORRECT_FOR_TITANIUM_TOOL, 589, 7.0F, 2.6F, 20, ItemTags.WOODEN_TOOL_MATERIALS);
+        TITANIUM = new ToolMaterial(TagRegistry.INCORRECT_FOR_TITANIUM_TOOL, 589, 7.0F, 2.6F, 20, ItemTags.IRON_TOOL_MATERIALS);
 
     }
 }
