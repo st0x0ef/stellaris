@@ -23,8 +23,8 @@ import static com.st0x0ef.stellaris.Stellaris.id;
 public class ModPlacedFeatures {
 
     // OVERWORLD
-    public static final ResourceKey<PlacedFeature> STEEL_ORE_PLACED_KEY = createKey("steel_ore");
-    public static final ResourceKey<PlacedFeature> STEEL_ORE_DEEPSLATE_PLACED_KEY = createKey("steel_ore_deepslate");
+    public static final ResourceKey<PlacedFeature> TITANIUM_ORE_PLACED_KEY = createKey("titanium_ore");
+    public static final ResourceKey<PlacedFeature> TITANIUM_ORE_DEEPSLATE_PLACED_KEY = createKey("titanium_ore_deepslate");
 
     public static final ResourceKey<PlacedFeature> LAKE_OIL_UNDERGROUND = createKey("lake_oil_underground");
     public static final ResourceKey<PlacedFeature> LAKE_OIL_SURFACE = createKey("lake_oil_surface");
@@ -45,7 +45,7 @@ public class ModPlacedFeatures {
     public static final ResourceKey<PlacedFeature> MOON_ICE_SHARD_PLACED_KEY = createKey("moon_ice_shard_ore");
     public static final ResourceKey<PlacedFeature> MOON_IRON_PLACED_KEY = createKey("moon_iron_ore");
     public static final ResourceKey<PlacedFeature> MOON_SOUL_SOIL_PLACED_KEY = createKey("moon_soul_soil");
-    public static final ResourceKey<PlacedFeature> MOON_STEEL_PLACED_KEY = createKey("moon_steel_ore");
+    public static final ResourceKey<PlacedFeature> MOON_TITANIUM_PLACED_KEY = createKey("moon_titanium_ore");
     public static final ResourceKey<PlacedFeature> MOON_VINE_PLACED_KEY = createKey("moon_vine");
 
     // VENUS
@@ -61,11 +61,11 @@ public class ModPlacedFeatures {
 
 
         // OVEROWORLD
-        register(context, STEEL_ORE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.STEEL_ORE_KEY),
+        register(context, TITANIUM_ORE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.TITANIUM_ORE_KEY),
                 OrePlacement.commonOrePlacement(9,
                         HeightRangePlacement.triangle(VerticalAnchor.absolute(-24), VerticalAnchor.absolute(56))));
 
-        register(context, STEEL_ORE_DEEPSLATE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.STEEL_ORE_DEEPSLATE_ORE_KEY),
+        register(context, TITANIUM_ORE_DEEPSLATE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.TITANIUM_ORE_DEEPSLATE_ORE_KEY),
                 OrePlacement.commonOrePlacement(17,
                         HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(25))));
         // MARS
@@ -102,7 +102,7 @@ public class ModPlacedFeatures {
                         HeightRangePlacement.triangle(VerticalAnchor.absolute(-24), VerticalAnchor.absolute(56))));
         register(context, MOON_SOUL_SOIL_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.MOON_SOUL_SOIL_KEY),
                 OrePlacement.commonOrePlacement(20, HeightRangePlacement.triangle(VerticalAnchor.absolute(0), VerticalAnchor.absolute(100))));
-        register(context, MOON_STEEL_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.MOON_IRON_ORE_KEY),
+        register(context, MOON_TITANIUM_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.MOON_IRON_ORE_KEY),
                 OrePlacement.commonOrePlacement(10,
                         HeightRangePlacement.triangle(VerticalAnchor.absolute(-24), VerticalAnchor.absolute(56))));
 

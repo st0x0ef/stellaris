@@ -1,9 +1,9 @@
 {
   "replace": false,
   "values": [
-    "stellaris:steel_axe",
-    "stellaris:steel_shovel",
-    "stellaris:steel_pickaxe",
-    "stellaris:steel_hoe"
+    "stellaris:titanium_axe",
+    "stellaris:titanium_shovel",
+    "stellaris:titanium_pickaxe",
+    "stellaris:titanium_hoe"
   ]
 }

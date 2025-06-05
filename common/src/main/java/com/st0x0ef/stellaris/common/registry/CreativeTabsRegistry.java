@@ -17,14 +17,14 @@ public class CreativeTabsRegistry {
             "stellaris",
             () -> CreativeTabRegistry.create(
                     Component.translatable("categorie.stellaris.main"),
-                    () -> new ItemStack(ItemsRegistry.STEEL_INGOT)
+                    () -> new ItemStack(ItemsRegistry.TITANIUM_INGOT)
             )
     );
     public static final RegistrySupplier<CreativeModeTab> STELLARIS_BLOCKS_TAB = TABS.register(
             "stellaris_blocks",
             () -> CreativeTabRegistry.create(
                     Component.translatable("categorie.stellaris_blocks.main"),
-                    () -> new ItemStack(ItemsRegistry.STEEL_BLOCK_ITEM)
+                    () -> new ItemStack(ItemsRegistry.TITANIUM_BLOCK_ITEM)
             )
     );
 }

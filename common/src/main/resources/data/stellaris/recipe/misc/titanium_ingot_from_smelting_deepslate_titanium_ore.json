@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.7,
+  "group": "titanium",
+  "ingredient": "stellaris:deepslate_titanium_ore",
+  "result": {
+    "id": "stellaris:titanium_ingot"
+  }
+}

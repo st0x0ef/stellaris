@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "stellaris:block/titanium_block",
+    "side": "stellaris:block/titanium_block",
+    "top": "stellaris:block/titanium_block"
+  }
+}

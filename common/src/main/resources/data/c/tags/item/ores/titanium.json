@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "stellaris:titanium_ore",
+    "stellaris:deepslate_titanium_ore",
+    "stellaris:moon_titanium_ore"
+  ]
+}

@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "stellaris:raw_steel_block"
+          "name": "stellaris:raw_titanium_block"
         }
       ],
       "rolls": 1.0

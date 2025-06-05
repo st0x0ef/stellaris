@@ -25,7 +25,7 @@ import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
 
 public record ToolsRegister (TagKey<Block> incorrectBlocksForDrops, int durability, float speed, float attackDamageBonus, int enchantmentValue, TagKey<Item> repairItems) {
-    public static final ToolMaterial STEEL;
+    public static final ToolMaterial TITANIUM;
 
 
     private Item.Properties applyCommonProperties(Item.Properties properties) {
@@ -75,7 +75,7 @@ public record ToolsRegister (TagKey<Block> incorrectBlocksForDrops, int durabili
     }
 
     static {
-        STEEL = new ToolMaterial(TagRegistry.INCORRECT_FOR_STEEL_TOOL, 589, 7.0F, 2.6F, 20, ItemTags.WOODEN_TOOL_MATERIALS);
+        TITANIUM = new ToolMaterial(TagRegistry.INCORRECT_FOR_TITANIUM_TOOL, 589, 7.0F, 2.6F, 20, ItemTags.WOODEN_TOOL_MATERIALS);
 
     }
 }

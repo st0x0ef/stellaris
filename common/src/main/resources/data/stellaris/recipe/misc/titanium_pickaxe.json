@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XXX",
+    " # ",
+    " # "
+  ],
+  "key": {
+    "X": "#c:ingots/titanium",
+    "#": "minecraft:stick"
+  },
+  "result": {
+    "id": "stellaris:titanium_pickaxe"
+  }
+}

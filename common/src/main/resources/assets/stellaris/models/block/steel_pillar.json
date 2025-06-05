@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "end": "stellaris:block/steel_pillar_end",
-    "side": "stellaris:block/steel_pillar_side"
-  }
-}

@@ -26,7 +26,7 @@
                   }
                 }
               ],
-              "name": "stellaris:deepslate_steel_ore"
+              "name": "stellaris:deepslate_titanium_ore"
             },
             {
               "type": "minecraft:item",
@@ -40,7 +40,7 @@
                   "function": "minecraft:explosion_decay"
                 }
               ],
-              "name": "stellaris:raw_steel_ingot"
+              "name": "stellaris:raw_titanium_ingot"
             }
           ]
         }

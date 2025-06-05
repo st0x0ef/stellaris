@@ -1,8 +1,8 @@
 {
   "replace": false,
   "values": [
-    "stellaris:steel_ore",
-    "stellaris:deepslate_steel_ore",
+    "stellaris:titanium_ore",
+    "stellaris:deepslate_titanium_ore",
     "stellaris:mercury_uranium_ore",
     "stellaris:mars_iron_ore",
     "stellaris:mars_ostrum_ore",
@@ -15,7 +15,7 @@
     "stellaris:venus_diamond_ore",
     "stellaris:moon_desh_ore",
     "stellaris:moon_ice_shard_ore",
-    "stellaris:moon_steel_ore",
+    "stellaris:moon_titanium_ore",
     "stellaris:mercury_iron_ore"
   ]
 }

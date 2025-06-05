@@ -34,13 +34,13 @@ public class ItemsRegistry {
      */
 
     public static final RegistrySupplier<Item> ICE_SHARD = ITEMS.register("ice_shard", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).setId(id("ice_shard"))));
-    public static final RegistrySupplier<Item> STEEL_INGOT = ITEMS.register("steel_ingot", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).setId(id("steel_ingot"))));
-    public static final RegistrySupplier<Item> STEEL_NUGGET = ITEMS.register("steel_nugget", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).setId(id("steel_nugget"))));
-    public static final RegistrySupplier<Item> STEEL_ORE_ITEM = ITEMS.register("steel_ore", () -> new BlockItem(BlocksRegistry.STEEL_ORE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB).setId(id("steel_ore"))));
-    public static final RegistrySupplier<Item> DEEPSLATE_STEEL_ORE_ITEM = ITEMS.register("deepslate_steel_ore", () -> new BlockItem(BlocksRegistry.DEEPSLATE_STEEL_ORE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB).setId(id("deepslate_steel_ore"))));
+    public static final RegistrySupplier<Item> TITANIUM_INGOT = ITEMS.register("titanium_ingot", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).setId(id("titanium_ingot"))));
+    public static final RegistrySupplier<Item> TITANIUM_NUGGET = ITEMS.register("titanium_nugget", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).setId(id("titanium_nugget"))));
+    public static final RegistrySupplier<Item> TITANIUM_ORE_ITEM = ITEMS.register("titanium_ore", () -> new BlockItem(BlocksRegistry.TITANIUM_ORE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB).setId(id("titanium_ore"))));
+    public static final RegistrySupplier<Item> DEEPSLATE_TITANIUM_ORE_ITEM = ITEMS.register("deepslate_titanium_ore", () -> new BlockItem(BlocksRegistry.DEEPSLATE_TITANIUM_ORE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB).setId(id("deepslate_titanium_ore"))));
     public static final RegistrySupplier<Item> HEAVY_METAL_INGOT_ITEM = ITEMS.register("heavy_metal_ingot", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).setId(id("heavy_metal_ingot"))));
     public static final RegistrySupplier<Item> HEAVY_METAL_NUGGET_ITEM = ITEMS.register("heavy_metal_nugget", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).setId(id("heavy_metal_nugget"))));
-    public static final RegistrySupplier<Item> RAW_STEEL_INGOT = ITEMS.register("raw_steel_ingot", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).setId(id("raw_steel_ingot"))));
+    public static final RegistrySupplier<Item> RAW_TITANIUM_INGOT = ITEMS.register("raw_titanium_ingot", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).setId(id("raw_titanium_ingot"))));
     public static final RegistrySupplier<Item> RAW_DESH_INGOT = ITEMS.register("raw_desh_ingot", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).setId(id("raw_desh_ingot"))));
     public static final RegistrySupplier<Item> DESH_INGOT = ITEMS.register("desh_ingot", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).setId(id("desh_ingot"))));
 
@@ -84,15 +84,15 @@ public class ItemsRegistry {
      * BLOCKS ITEMS
      */
 
-    public static final RegistrySupplier<Item> STEEL_BLOCK_ITEM = ITEMS.register("steel_block", () -> new BlockItem(BlocksRegistry.STEEL_BLOCK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB).setId(id("steel_block"))));
-    public static final RegistrySupplier<Item> RAW_STEEL_BLOCK_ITEM = ITEMS.register("raw_steel_block", () -> new BlockItem(BlocksRegistry.RAW_STEEL_BLOCK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB).setId(id("raw_steel_block"))));
-    public static final RegistrySupplier<Item> STEEL_PLATING_BLOCK_ITEM = ITEMS.register("steel_plating_block", () -> new BlockItem(BlocksRegistry.STEEL_PLATING_BLOCK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB).setId(id("steel_plating_block"))));
-    public static final RegistrySupplier<Item> STEEL_PILLAR_ITEM = ITEMS.register("steel_pillar", () -> new BlockItem(BlocksRegistry.STEEL_PILLAR.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB).setId(id("steel_pillar"))));
-    public static final RegistrySupplier<Item> STEEL_STAIRS_ITEM = ITEMS.register("steel_stairs", () -> new BlockItem(BlocksRegistry.STEEL_STAIRS.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB).setId(id("steel_stairs"))));
-    public static final RegistrySupplier<Item> STEEL_PLATING_STAIRS_ITEM = ITEMS.register("steel_plating_stairs", () -> new BlockItem(BlocksRegistry.STEEL_PLATING_STAIRS.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB).setId(id("steel_plating_stairs"))));
-    public static final RegistrySupplier<Item> STEEL_SLAB_ITEM = ITEMS.register("steel_slab", () -> new BlockItem(BlocksRegistry.STEEL_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB).setId(id("steel_slab"))));
-    public static final RegistrySupplier<Item> STEEL_PLATING_SLAB_ITEM = ITEMS.register("steel_plating_slab", () -> new BlockItem(BlocksRegistry.STEEL_PLATING_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB).setId(id("steel_plating_slab"))));
-    public static final RegistrySupplier<Item> MOON_STEEL_ORE = ITEMS.register("moon_steel_ore", () -> new BlockItem(BlocksRegistry.MOON_STEEL_ORE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB).setId(id("moon_steel_ore"))));
+    public static final RegistrySupplier<Item> TITANIUM_BLOCK_ITEM = ITEMS.register("titanium_block", () -> new BlockItem(BlocksRegistry.TITANIUM_BLOCK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB).setId(id("titanium_block"))));
+    public static final RegistrySupplier<Item> RAW_TITANIUM_BLOCK_ITEM = ITEMS.register("raw_titanium_block", () -> new BlockItem(BlocksRegistry.RAW_TITANIUM_BLOCK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB).setId(id("raw_titanium_block"))));
+    public static final RegistrySupplier<Item> TITANIUM_PLATING_BLOCK_ITEM = ITEMS.register("titanium_plating_block", () -> new BlockItem(BlocksRegistry.TITANIUM_PLATING_BLOCK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB).setId(id("titanium_plating_block"))));
+    public static final RegistrySupplier<Item> TITANIUM_PILLAR_ITEM = ITEMS.register("titanium_pillar", () -> new BlockItem(BlocksRegistry.TITANIUM_PILLAR.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB).setId(id("titanium_pillar"))));
+    public static final RegistrySupplier<Item> TITANIUM_STAIRS_ITEM = ITEMS.register("titanium_stairs", () -> new BlockItem(BlocksRegistry.TITANIUM_STAIRS.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB).setId(id("titanium_stairs"))));
+    public static final RegistrySupplier<Item> TITANIUM_PLATING_STAIRS_ITEM = ITEMS.register("titanium_plating_stairs", () -> new BlockItem(BlocksRegistry.TITANIUM_PLATING_STAIRS.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB).setId(id("titanium_plating_stairs"))));
+    public static final RegistrySupplier<Item> TITANIUM_SLAB_ITEM = ITEMS.register("titanium_slab", () -> new BlockItem(BlocksRegistry.TITANIUM_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB).setId(id("titanium_slab"))));
+    public static final RegistrySupplier<Item> TITANIUM_PLATING_SLAB_ITEM = ITEMS.register("titanium_plating_slab", () -> new BlockItem(BlocksRegistry.TITANIUM_PLATING_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB).setId(id("titanium_plating_slab"))));
+    public static final RegistrySupplier<Item> MOON_TITANIUM_ORE = ITEMS.register("moon_titanium_ore", () -> new BlockItem(BlocksRegistry.MOON_TITANIUM_ORE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB).setId(id("moon_titanium_ore"))));
 
     public static final RegistrySupplier<Item> HEAVY_METAL_PLATE_ITEM = ITEMS.register("heavy_metal_plate", () -> new BlockItem(BlocksRegistry.HEAVY_METAL_PLATE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB).setId(id("heavy_metal_plate"))));
     public static final RegistrySupplier<Item> HEAVY_METAL_CASING_ITEM = ITEMS.register("heavy_metal_casing", () -> new BlockItem(BlocksRegistry.HEAVY_METAL_CASING.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB).setId(id("heavy_metal_casing"))));
@@ -325,8 +325,8 @@ public class ItemsRegistry {
     public static final RegistrySupplier<Item> VERTICAL_MERCURY_SLAB_ITEM = ITEMS.register("vertical_mercury_slab", () -> new BlockItem(BlocksRegistry.VERTICAL_MERCURY_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB).setId(id("vertical_mercury_slab"))));
 
     public static final RegistrySupplier<Item> VERTICAL_HEAVY_METAL_PLATE_SLAB = ITEMS.register("vertical_heavy_metal_plate_slab", () -> new BlockItem(BlocksRegistry.VERTICAL_HEAVY_METAL_PLATE_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB).setId(id("vertical_heavy_metal_plate_slab"))));
-    public static final RegistrySupplier<Item> VERTICAL_STEEL_SLAB = ITEMS.register("vertical_steel_slab", () -> new BlockItem(BlocksRegistry.VERTICAL_STEEL_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB).setId(id("vertical_steel_slab"))));
-    public static final RegistrySupplier<Item> VERTICAL_STEEL_PLATING_SLAB = ITEMS.register("vertical_steel_plating_slab", () -> new BlockItem(BlocksRegistry.VERTICAL_STEEL_PLATING_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB).setId(id("vertical_steel_plating_slab"))));
+    public static final RegistrySupplier<Item> VERTICAL_TITANIUM_SLAB = ITEMS.register("vertical_titanium_slab", () -> new BlockItem(BlocksRegistry.VERTICAL_TITANIUM_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB).setId(id("vertical_titanium_slab"))));
+    public static final RegistrySupplier<Item> VERTICAL_TITANIUM_PLATING_SLAB = ITEMS.register("vertical_titanium_plating_slab", () -> new BlockItem(BlocksRegistry.VERTICAL_TITANIUM_PLATING_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB).setId(id("vertical_titanium_plating_slab"))));
     public static final RegistrySupplier<Item> VERTICAL_IRON_PLATING_SLAB = ITEMS.register("vertical_iron_plating_slab", () -> new BlockItem(BlocksRegistry.VERTICAL_IRON_PLATING_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB).setId(id("vertical_iron_plating_slab"))));
     public static final RegistrySupplier<Item> VERTICAL_DESH_PLATING_SLAB = ITEMS.register("vertical_desh_plating_slab", () -> new BlockItem(BlocksRegistry.VERTICAL_DESH_PLATING_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB).setId(id("vertical_desh_plating_slab"))));
     public static final RegistrySupplier<Item> VERTICAL_DESH_SLAB = ITEMS.register("vertical_desh_slab", () -> new BlockItem(BlocksRegistry.VERTICAL_DESH_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB).setId(id("vertical_desh_slab"))));
@@ -393,11 +393,11 @@ public class ItemsRegistry {
      * Tools
      */
 
-    public static final RegistrySupplier<Item> STEEL_SWORD = ITEMS.register("steel_sword", () -> new Item(new Item.Properties().sword(ToolsRegister.STEEL, 3, -2.8f).arch$tab(CreativeTabsRegistry.STELLARIS_TAB).setId(id("steel_sword"))));
-    public static final RegistrySupplier<Item> STEEL_HOE = ITEMS.register("steel_hoe", () -> new HoeItem(ToolsRegister.STEEL, -3.0F, -1.0F, (new Item.Properties()).arch$tab(CreativeTabsRegistry.STELLARIS_TAB).setId(id("steel_hoe"))));
-    public static final RegistrySupplier<Item> STEEL_PICKAXE = ITEMS.register("steel_pickaxe", () -> new Item((new Item.Properties()).pickaxe(ToolsRegister.STEEL, 1, -2.8f).arch$tab(CreativeTabsRegistry.STELLARIS_TAB).setId(id("steel_pickaxe"))));
-    public static final RegistrySupplier<Item> STEEL_SHOVEL = ITEMS.register("steel_shovel", () -> new ShovelItem(ToolsRegister.STEEL, 1.5F, -3.0F, (new Item.Properties()).arch$tab(CreativeTabsRegistry.STELLARIS_TAB).setId(id("steel_shovel"))));
-    public static final RegistrySupplier<Item> STEEL_AXE = ITEMS.register("steel_axe", () -> new AxeItem(ToolsRegister.STEEL, 6.0F, -3.1F, (new Item.Properties()).arch$tab(CreativeTabsRegistry.STELLARIS_TAB).setId(id("steel_axe"))));
+    public static final RegistrySupplier<Item> TITANIUM_SWORD = ITEMS.register("titanium_sword", () -> new Item(new Item.Properties().sword(ToolsRegister.TITANIUM, 3, -2.8f).arch$tab(CreativeTabsRegistry.STELLARIS_TAB).setId(id("titanium_sword"))));
+    public static final RegistrySupplier<Item> TITANIUM_HOE = ITEMS.register("titanium_hoe", () -> new HoeItem(ToolsRegister.TITANIUM, -3.0F, -1.0F, (new Item.Properties()).arch$tab(CreativeTabsRegistry.STELLARIS_TAB).setId(id("titanium_hoe"))));
+    public static final RegistrySupplier<Item> TITANIUM_PICKAXE = ITEMS.register("titanium_pickaxe", () -> new Item((new Item.Properties()).pickaxe(ToolsRegister.TITANIUM, 1, -2.8f).arch$tab(CreativeTabsRegistry.STELLARIS_TAB).setId(id("titanium_pickaxe"))));
+    public static final RegistrySupplier<Item> TITANIUM_SHOVEL = ITEMS.register("titanium_shovel", () -> new ShovelItem(ToolsRegister.TITANIUM, 1.5F, -3.0F, (new Item.Properties()).arch$tab(CreativeTabsRegistry.STELLARIS_TAB).setId(id("titanium_shovel"))));
+    public static final RegistrySupplier<Item> TITANIUM_AXE = ITEMS.register("titanium_axe", () -> new AxeItem(ToolsRegister.TITANIUM, 6.0F, -3.1F, (new Item.Properties()).arch$tab(CreativeTabsRegistry.STELLARIS_TAB).setId(id("titanium_axe"))));
 
     /**
      * Coal

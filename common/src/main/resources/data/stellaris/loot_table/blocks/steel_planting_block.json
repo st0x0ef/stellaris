@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "stellaris:steel_plating_block"
+          "name": "stellaris:titanium_plating_block"
         }
       ],
       "rolls": 1.0

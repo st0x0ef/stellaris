@@ -8,7 +8,7 @@
   "key": {
     "X": "#c:ingots/heavy_metal",
     "Z": "minecraft:diamond",
-    "Y": "#c:nuggets/steel"
+    "Y": "#c:nuggets/titanium"
   },
   "result": {
     "id": "stellaris:pumpjack_drill"

@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.7,
+  "ingredient": "stellaris:raw_titanium_ingot",
+  "result": {
+    "id": "stellaris:titanium_ingot"
+  }
+}

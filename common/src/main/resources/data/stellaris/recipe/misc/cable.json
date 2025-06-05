@@ -6,8 +6,8 @@
     "WWW"
   ],
   "key": {
-    "I": "#c:ingots/steel",
-    "N": "#c:nuggets/steel",
+    "I": "#c:ingots/titanium",
+    "N": "#c:nuggets/titanium",
     "W": "#minecraft:wool"
   },
   "result": {

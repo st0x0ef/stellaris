@@ -28,7 +28,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "stellaris:steel_ingot",
+          "name": "stellaris:titanium_ingot",
           "weight": 20,
           "functions": [
             {

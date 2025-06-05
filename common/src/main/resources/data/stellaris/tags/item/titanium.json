@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "stellaris:titanium_ingot",
+    "stellaris:titanium_nugget",
+    "stellaris:raw_titanium_ingot",
+    "stellaris:titanium_ore"
+  ]
+}

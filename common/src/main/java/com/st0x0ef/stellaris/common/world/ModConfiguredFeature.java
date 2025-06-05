@@ -28,8 +28,8 @@ import static com.st0x0ef.stellaris.Stellaris.id;
 public class ModConfiguredFeature {
 
     // OVERWORLD
-    static final ResourceKey<ConfiguredFeature<?, ?>> STEEL_ORE_KEY = registerKey("steel_ore_key");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> STEEL_ORE_DEEPSLATE_ORE_KEY = registerKey("steel_ore_deepslate_key");
+    static final ResourceKey<ConfiguredFeature<?, ?>> TITANIUM_ORE_KEY = registerKey("titanium_ore_key");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> TITANIUM_ORE_DEEPSLATE_ORE_KEY = registerKey("titanium_ore_deepslate_key");
     public static final ResourceKey<ConfiguredFeature<?, ?>> LAKE_OIL = registerKey("lake_oil");
 
     // MARS
@@ -48,7 +48,7 @@ public class ModConfiguredFeature {
     public static final ResourceKey<ConfiguredFeature<?, ?>> MOON_ICE_SHARD_ORE_KEY = registerKey("moon_ice_shard_ore_key");
     public static final ResourceKey<ConfiguredFeature<?, ?>> MOON_IRON_ORE_KEY = registerKey("moon_iron_ore_key");
     public static final ResourceKey<ConfiguredFeature<?, ?>> MOON_SOUL_SOIL_KEY = registerKey("moon_soul_soil_key");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> MOON_STEEL_ORE_KEY = registerKey("moon_steel_ore_key");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> MOON_TITANIUM_ORE_KEY = registerKey("moon_titanium_ore_key");
     public static final ResourceKey<ConfiguredFeature<?, ?>> MOON_CAVES = registerKey("moon_caves_key");
     public static final ResourceKey<ConfiguredFeature<?, ?>> MOON_VINES = registerKey("moon_vine_key");
 
@@ -66,10 +66,10 @@ public class ModConfiguredFeature {
     public static final Supplier<List<OreConfiguration.TargetBlockState>> MARS_ICE_SHARD_ORE_REPLACEABLES = Suppliers.memoize(() -> List.of(
             OreConfiguration.target(new BlockMatchTest(BlocksRegistry.MARS_STONE.get()), BlocksRegistry.MARS_ICE_SHARD_ORE.get().defaultBlockState())));
 
-    public static final Supplier<List<OreConfiguration.TargetBlockState>> STEEL_ORE_REPLACEABLES = Suppliers.memoize(() -> List.of(
-            OreConfiguration.target(new BlockMatchTest(Blocks.STONE), BlocksRegistry.STEEL_ORE.get().defaultBlockState())));
-    public static final Supplier<List<OreConfiguration.TargetBlockState>> STEEL_ORE_DEEPSLATE_REPLACEABLES = Suppliers.memoize(() -> List.of(
-            OreConfiguration.target(new BlockMatchTest(Blocks.DEEPSLATE), BlocksRegistry.DEEPSLATE_STEEL_ORE.get().defaultBlockState())));
+    public static final Supplier<List<OreConfiguration.TargetBlockState>> TITANIUM_ORE_REPLACEABLES = Suppliers.memoize(() -> List.of(
+            OreConfiguration.target(new BlockMatchTest(Blocks.STONE), BlocksRegistry.TITANIUM_ORE.get().defaultBlockState())));
+    public static final Supplier<List<OreConfiguration.TargetBlockState>> TITANIUM_ORE_DEEPSLATE_REPLACEABLES = Suppliers.memoize(() -> List.of(
+            OreConfiguration.target(new BlockMatchTest(Blocks.DEEPSLATE), BlocksRegistry.DEEPSLATE_TITANIUM_ORE.get().defaultBlockState())));
 
 
     public static final Supplier<List<OreConfiguration.TargetBlockState>> MARS_IRON_ORE_REPLACEABLES = Suppliers.memoize(() -> List.of(
@@ -95,8 +95,8 @@ public class ModConfiguredFeature {
             OreConfiguration.target(new BlockMatchTest(BlocksRegistry.MOON_STONE.get()), BlocksRegistry.MOON_IRON_ORE.get().defaultBlockState())));
     public static final Supplier<List<OreConfiguration.TargetBlockState>> MOON_SOUL_SOIL_REPLACEABLES = Suppliers.memoize(() -> List.of(
             OreConfiguration.target(new BlockMatchTest(BlocksRegistry.MOON_STONE.get()), Blocks.SOUL_SOIL.defaultBlockState())));
-    public static final Supplier<List<OreConfiguration.TargetBlockState>> MOON_STEEL_ORE_REPLACEABLES = Suppliers.memoize(() -> List.of(
-            OreConfiguration.target(new BlockMatchTest(BlocksRegistry.MOON_STONE.get()), BlocksRegistry.MOON_STEEL_ORE.get().defaultBlockState())));
+    public static final Supplier<List<OreConfiguration.TargetBlockState>> MOON_TITANIUM_ORE_REPLACEABLES = Suppliers.memoize(() -> List.of(
+            OreConfiguration.target(new BlockMatchTest(BlocksRegistry.MOON_STONE.get()), BlocksRegistry.MOON_TITANIUM_ORE.get().defaultBlockState())));
 
 
     // VENUS
@@ -121,8 +121,8 @@ public class ModConfiguredFeature {
         HolderGetter<ConfiguredFeature<?, ?>> holderGetter = context.lookup(Registries.CONFIGURED_FEATURE);
 
 
-        register(context, STEEL_ORE_KEY, Feature.ORE, new OreConfiguration(STEEL_ORE_REPLACEABLES.get(), 9));
-        register(context, STEEL_ORE_DEEPSLATE_ORE_KEY, Feature.ORE, new OreConfiguration(STEEL_ORE_DEEPSLATE_REPLACEABLES.get(), 6));
+        register(context, TITANIUM_ORE_KEY, Feature.ORE, new OreConfiguration(TITANIUM_ORE_REPLACEABLES.get(), 9));
+        register(context, TITANIUM_ORE_DEEPSLATE_ORE_KEY, Feature.ORE, new OreConfiguration(TITANIUM_ORE_DEEPSLATE_REPLACEABLES.get(), 6));
 
         // MARS
         register(context, MARS_DIAMOND_ORE_KEY, Feature.ORE, new OreConfiguration(MARS_DIAMOND_ORE_REPLACEABLES.get(), 7));
@@ -139,7 +139,7 @@ public class ModConfiguredFeature {
         register(context, MOON_ICE_SHARD_ORE_KEY, Feature.ORE, new OreConfiguration(MOON_ICE_SHARD_ORE_REPLACEABLES.get(), 10));
         register(context, MOON_IRON_ORE_KEY, Feature.ORE, new OreConfiguration(MOON_IRON_ORE_REPLACEABLES.get(), 11));
         register(context, MOON_SOUL_SOIL_KEY, Feature.ORE, new OreConfiguration(MOON_SOUL_SOIL_REPLACEABLES.get(), 60));
-        register(context, MOON_STEEL_ORE_KEY, Feature.ORE, new OreConfiguration(MOON_STEEL_ORE_REPLACEABLES.get(), 9));
+        register(context, MOON_TITANIUM_ORE_KEY, Feature.ORE, new OreConfiguration(MOON_TITANIUM_ORE_REPLACEABLES.get(), 9));
 
         // VENUS
         register(context, VENUS_COAL_ORE_KEY, Feature.ORE, new OreConfiguration(VENUS_COAL_ORE_REPLACEABLES.get(), 17));

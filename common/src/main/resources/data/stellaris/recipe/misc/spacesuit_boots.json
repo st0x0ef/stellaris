@@ -8,7 +8,7 @@
   "key": {
     "Z": "minecraft:copper_ingot",
     "X": "minecraft:white_wool",
-    "S": "#c:ingots/steel"
+    "S": "#c:ingots/titanium"
   },
   "result": {
     "id": "stellaris:space_suit_boots"

@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "id": "stellaris:steel_ingot"
+      "id": "stellaris:titanium_ingot"
     },
     "description": {
       "translate": "advancements.stellaris.root.description"
@@ -15,12 +15,12 @@
     "announce_to_chat": true
   },
   "criteria": {
-    "steel_item": {
+    "titanium_item": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": "#stellaris:steel"
+            "items": "#stellaris:titanium"
           }
         ]
       }
@@ -28,7 +28,7 @@
   },
   "requirements": [
     [
-      "steel_item"
+      "titanium_item"
     ]
   ]
 }

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "stellaris:block/titanium_slab"
+    },
+    "type=double": {
+      "model": "stellaris:block/titanium_block"
+    },
+    "type=top": {
+      "model": "stellaris:block/titanium_slab_top"
+    }
+  }
+}

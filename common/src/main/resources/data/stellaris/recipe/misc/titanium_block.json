@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": "#c:ingots/titanium"
+  },
+  "result": {
+    "id": "stellaris:titanium_block"
+  }
+}

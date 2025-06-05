@@ -27,7 +27,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "stellaris:steel_ingot",
+          "name": "stellaris:titanium_ingot",
           "weight": 5,
           "functions": [
             {
@@ -75,7 +75,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "stellaris:steel_pickaxe",
+          "name": "stellaris:titanium_pickaxe",
           "weight": 5,
           "functions": [
             {
@@ -101,7 +101,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "stellaris:steel_shovel",
+          "name": "stellaris:titanium_shovel",
           "weight": 5,
           "functions": [
             {

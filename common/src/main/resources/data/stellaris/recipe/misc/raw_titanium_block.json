@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": "#c:raw_materials/titanium"
+  },
+  "result": {
+    "id": "stellaris:raw_titanium_block"
+  }
+}

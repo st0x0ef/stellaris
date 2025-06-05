@@ -48,5 +48,5 @@ public class TagRegistry {
 
     public static final TagKey<Block> ENERGY_BLOCK_TAG = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "energy_block"));
     public static final TagKey<MobEffect> RADIOACTIVEEFFECT = TagKey.create(Registries.MOB_EFFECT, ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "radioactive"));
-    public static final TagKey<Block> INCORRECT_FOR_STEEL_TOOL = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "incorrect_for_steel_tools"));
+    public static final TagKey<Block> INCORRECT_FOR_TITANIUM_TOOL = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "incorrect_for_titanium_tools"));
 }
