@@ -93,7 +93,7 @@ public class AlienZombieModel extends EntityModel<LivingEntityRenderState> {
 
         PartDefinition cube_r7 = monsterarm4.addOrReplaceChild("cube_r7", CubeListBuilder.create().texOffs(30, 46).addBox(-15.0F, -1.0F, -1.0F, 15.0F, 2.0F, 2.0F, new CubeDeformation(-0.1F)), PartPose.offsetAndRotation(-16.25F, 0.0F, 0.75F, 0.0F, -1.1345F, 0.0F));
 
-        return LayerDefinition.create(meshdefinition, 96, 64);
+        return LayerDefinition.create(meshdefinition, 128, 128);
     }
 
     @Override
