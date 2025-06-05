@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "stellaris:block/velvet_stone",
+    "particle": "stellaris:block/velvet_stone",
+    "side": "stellaris:block/velvet_grass_side",
+    "top": "stellaris:block/velvet_grass_top"
+  }
+}

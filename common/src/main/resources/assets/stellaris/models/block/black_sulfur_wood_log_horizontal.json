@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "stellaris:block/black_sulfur_wood_log_top",
+    "side": "stellaris:block/black_sulfur_wood_log"
+  }
+}

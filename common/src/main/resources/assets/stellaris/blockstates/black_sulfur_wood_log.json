@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "stellaris:block/black_sulfur_wood_log_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "stellaris:block/black_sulfur_wood_log"
+    },
+    "axis=z": {
+      "model": "stellaris:block/black_sulfur_wood_log_horizontal",
+      "x": 90
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "stellaris:block/sulfur_high_plant_top"
+  }
+}

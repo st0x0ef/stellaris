@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "stellaris:block/sulfur_high_plant"
+    },
+    "half=upper": {
+      "model": "stellaris:block/sulfur_high_plant_top"
+    }
+  }
+}

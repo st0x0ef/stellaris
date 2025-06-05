@@ -60,9 +60,21 @@ public class BlocksRegistry {
     public static final RegistrySupplier<Block> POLISHED_MARS_STONE = BLOCKS.register("polished_mars_stone", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
     public static final RegistrySupplier<Block> MARS_STONE_BRICK_SLAB = BLOCKS.register("mars_stone_brick_slab", () -> new SlabBlock(SlabBlock.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
 
+    public static final RegistrySupplier<Block> SCARLET_SAND = BLOCKS.register("scarlet_sand", () -> new ColoredFallingBlock(new ColorRGBA(0x7E7E7E), BlockBehaviour.Properties.of().mapColor(MapColor.SAND).sound(SoundType.SAND).strength(2f, 2.5f).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> SCARLET_STONE = BLOCKS.register("scarlet_stone", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> VELVET_STONE = BLOCKS.register("velvet_stone", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> VELVET_COBBLESTONE = BLOCKS.register("velvet_cobblestone", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> VELVET_GRASS = BLOCKS.register("velvet_grass", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).sound(SoundType.GRASS).strength(3f, 2.5f).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<RotatedPillarBlock> VELVET_WOOD_LOG = BLOCKS.register("velvet_wood_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().sound(SoundType.WOOD).strength(2f, 1.5f).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> VELVET_LEAVES = BLOCKS.register("velvet_leaves", () -> new Block(BlockBehaviour.Properties.of().sound(SoundType.AZALEA_LEAVES).strength(1f, 0.75f).noOcclusion().requiresCorrectToolForDrops()));
+
+    public static final RegistrySupplier<Block> MARS_ICE = BLOCKS.register("mars_ice", () ->new IceBlock(BlockBehaviour.Properties.of().friction(0.98F).randomTicks().strength(0.5F).sound(SoundType.GLASS).noOcclusion()));
+    public static final RegistrySupplier<Block> MARS_PACKED_ICE = BLOCKS.register("mars_packed_ice", () ->new IceBlock(BlockBehaviour.Properties.of().friction(0.98F).randomTicks().strength(0.5F).sound(SoundType.GLASS)));
     public static final RegistrySupplier<Block> MARS_ICE_SHARD_ORE = BLOCKS.register("mars_ice_shard_ore", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
     public static final RegistrySupplier<Block> MARS_DIAMOND_ORE = BLOCKS.register("mars_diamond_ore", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
     public static final RegistrySupplier<Block> MARS_CROP = BLOCKS.register("mars_crop", () -> new MarsCrop(BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT)));
+    public static final RegistrySupplier<Block> VELVET_THORN_GRASS = BLOCKS.register("velvet_thorn_grass", () -> new Block(BlockBehaviour.Properties.of().sound(SoundType.AZALEA_LEAVES).strength(1f, 0.75f).noOcclusion().noCollission().requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> VELVET_SPORE_FLOWER = BLOCKS.register("velvet_spore_flower", () -> new Block(BlockBehaviour.Properties.of().sound(SoundType.AZALEA_LEAVES).strength(1f, 0.75f).noOcclusion().noCollission().requiresCorrectToolForDrops()));
 
 
 
@@ -78,6 +90,12 @@ public class BlocksRegistry {
     public static final RegistrySupplier<Block> CRACKED_MERCURY_STONE_BRICKS = BLOCKS.register("cracked_mercury_stone_bricks", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
     public static final RegistrySupplier<Block> POLISHED_MERCURY_STONE = BLOCKS.register("polished_mercury_stone", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
     public static final RegistrySupplier<Block> MERCURY_STONE_BRICK_SLAB = BLOCKS.register("mercury_stone_brick_slab", () -> new SlabBlock(SlabBlock.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> SOLAR_STONE = BLOCKS.register("solar_stone", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> SOLAR_SAND = BLOCKS.register("solar_sand", () -> new ColoredFallingBlock(new ColorRGBA(0x7E7E7E), BlockBehaviour.Properties.of().mapColor(MapColor.SAND).sound(SoundType.SAND).strength(2f, 2.5f).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> EXPANSE_HOT_STONE = BLOCKS.register("expanse_hot_stone", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> MOLTEN_STONE = BLOCKS.register("molten_stone", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
+
+
 
     /** Venus Items */
     public static final RegistrySupplier<Block> CHISELED_VENUS_STONE = BLOCKS.register("chiseled_venus_stone", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
@@ -98,6 +116,19 @@ public class BlocksRegistry {
     public static final RegistrySupplier<Block> VENUS_SMOOTH_SANDSTONE = BLOCKS.register("venus_smooth_sandstone", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
     public static final RegistrySupplier<Block> VENUS_DIAMOND_ORE = BLOCKS.register("venus_diamond_ore", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
 
+    public static final RegistrySupplier<Block> SULFURIC_STONE = BLOCKS.register("sulfuric_stone", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> SULFURIC_CRACKED_STONE = BLOCKS.register("sulfuric_cracked_stone", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> SULFURIC_COBBLESTONE = BLOCKS.register("sulfuric_cobblestone", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> SULFURIC_YELLOWSTONE = BLOCKS.register("sulfuric_yellowstone", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> SULFURVEIL_STONE = BLOCKS.register("sulfurveil_stone", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> SULFURVEIL_SAND = BLOCKS.register("sulfurveil_sand", () -> new ColoredFallingBlock(new ColorRGBA(0x7E7E7E), BlockBehaviour.Properties.of().mapColor(MapColor.SAND).sound(SoundType.SAND).strength(3f, 2.5f).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> YELLOW_CRYSTALS = BLOCKS.register("yellow_crystals", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.GLASS).strength(3f, 2.5f).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<RotatedPillarBlock> BLACK_SULFUR_WOOD_LOG = BLOCKS.register("black_sulfur_wood_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().sound(SoundType.WOOD).strength(2f, 1.5f).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> SULFUR_LEAVES = BLOCKS.register("sulfur_leaves", () -> new Block(BlockBehaviour.Properties.of().sound(SoundType.AZALEA_LEAVES).strength(1f, 0.75f).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> SULFURIC_THORN_PLANT = BLOCKS.register("sulfuric_thorn_plant", () -> new Block(BlockBehaviour.Properties.of().sound(SoundType.AZALEA_LEAVES).strength(1f, 0.75f).noOcclusion().noCollission().requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> SULFUR_HIGH_PLANT = BLOCKS.register("sulfur_high_plant", () -> new DoublePlantBlock(BlockBehaviour.Properties.of().sound(SoundType.AZALEA_LEAVES).strength(1f, 0.75f).noOcclusion().noCollission().requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> BLACK_SULFUR_ROOTS = BLOCKS.register("black_sulfur_roots", () -> new Block(BlockBehaviour.Properties.of().sound(SoundType.AZALEA_LEAVES).strength(1f, 0.75f).noOcclusion().noCollission().requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> SULFURIC_VEIN_PLANT = BLOCKS.register("sulfuric_vein_plant", () -> new Block(BlockBehaviour.Properties.of().sound(SoundType.AZALEA_LEAVES).strength(1f, 0.75f).noOcclusion().noCollission().requiresCorrectToolForDrops()));
 
 
 
@@ -114,6 +145,10 @@ public class BlocksRegistry {
     public static final RegistrySupplier<Block> POLISHED_MOON_STONE = BLOCKS.register("polished_moon_stone", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
     public static final RegistrySupplier<Block> MOON_DESH_ORE = BLOCKS.register("moon_desh_ore", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
     public static final RegistrySupplier<Block> MOON_STEEL_ORE = BLOCKS.register("moon_steel_ore", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
+
+    public static final RegistrySupplier<RotatedPillarBlock> LUNAR_FOREST_WOOD_LOG = BLOCKS.register("lunar_forest_wood_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().sound(SoundType.WOOD).strength(2f, 1.5f).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<RotatedPillarBlock> LUNAR_STONED_WOOD_LOG = BLOCKS.register("lunar_stoned_wood_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().sound(SoundType.LODESTONE).strength(3f, 2.5f).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> LUNAR_FOREST_LEAVES = BLOCKS.register("lunar_forest_leaves", () -> new Block(BlockBehaviour.Properties.of().sound(SoundType.AZALEA_LEAVES).strength(1f, 0.75f).noOcclusion().requiresCorrectToolForDrops()));
 
     public static final RegistrySupplier<Block> MOON_VINES = BLOCKS.register("moon_vines", () ->  new MoonVine(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).randomTicks().noCollission().lightLevel(CaveVines.emission(14)).instabreak().sound(SoundType.CAVE_VINES).pushReaction(PushReaction.DESTROY)));
     public static final RegistrySupplier<Block> MOON_VINES_PLANT = BLOCKS.register("moon_vines_plant",() ->  new MoonVinesPlant(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().lightLevel(CaveVines.emission(14)).instabreak().sound(SoundType.CAVE_VINES).pushReaction(PushReaction.DESTROY)));

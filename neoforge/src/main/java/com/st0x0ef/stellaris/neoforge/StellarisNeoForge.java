@@ -4,6 +4,7 @@ import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.StellarisClient;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
+import com.st0x0ef.stellaris.common.registry.BlocksRegistry;
 import com.st0x0ef.stellaris.platform.neoforge.EffectRegisterImpl;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
@@ -16,6 +17,9 @@ import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.OnDatapackSyncEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
+
 
 @Mod(Stellaris.MODID)
 public class StellarisNeoForge {
@@ -60,5 +64,25 @@ public class StellarisNeoForge {
 
     public static void onAttributes(EntityAttributeCreationEvent event) {
         EntityRegistry.registerAttributes((entityType, attribute) -> event.put(entityType.get(), attribute.get().build()));
+    }
+
+    public static void registerBlockRenders() {
+        ItemBlockRenderTypes.setRenderLayer(BlocksRegistry.SOLAR_SAND.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(BlocksRegistry.MARS_ICE.get(), RenderType.translucent());
+
+        ItemBlockRenderTypes.setRenderLayer(BlocksRegistry.SULFUR_LEAVES.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(BlocksRegistry.VELVET_LEAVES.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(BlocksRegistry.LUNAR_FOREST_LEAVES.get(), RenderType.cutout());
+
+        ItemBlockRenderTypes.setRenderLayer(BlocksRegistry.MOON_VINES.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(BlocksRegistry.MOON_VINES_PLANT.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(BlocksRegistry.MOON_CROPS.get(), RenderType.cutout());
+
+        ItemBlockRenderTypes.setRenderLayer(BlocksRegistry.VELVET_SPORE_FLOWER.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(BlocksRegistry.VELVET_THORN_GRASS.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(BlocksRegistry.SULFURIC_THORN_PLANT.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(BlocksRegistry.SULFUR_HIGH_PLANT.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(BlocksRegistry.SULFURIC_VEIN_PLANT.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(BlocksRegistry.BLACK_SULFUR_ROOTS.get(), RenderType.cutout());
     }
 }
