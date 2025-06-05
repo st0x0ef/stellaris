@@ -5,6 +5,7 @@ import com.st0x0ef.stellaris.client.screens.windows.MoveableWindow;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
@@ -89,6 +90,17 @@ public class BaseWindowScreen<T extends AbstractContainerMenu> extends AbstractC
         return super.mouseDragged(mouseX, mouseY, button, dragX, dragY);
     }
 
+
+    @Override
+    public boolean charTyped(char codePoint, int modifiers) {
+        for(GuiEventListener listener : this.guiEventListeners) {
+            listener.charTyped(codePoint, modifiers);
+        }
+
+        return super.charTyped(codePoint, modifiers);
+    }
+
+
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         for(GuiEventListener listener : this.guiEventListeners) {
@@ -101,6 +113,7 @@ public class BaseWindowScreen<T extends AbstractContainerMenu> extends AbstractC
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         for(GuiEventListener listener : this.guiEventListeners) {
+            listener.setFocused(true);
             listener.mouseClicked(mouseX, mouseY, button);
         }
 

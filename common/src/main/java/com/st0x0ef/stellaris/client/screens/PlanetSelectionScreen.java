@@ -1410,9 +1410,6 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
         return super.mouseClicked(mouseX, mouseY, button);
     }
 
-
-
-
     @Override
     public boolean mouseReleased(double mouseX, double mouseY, int button) {
         if (button == GLFW.GLFW_MOUSE_BUTTON_LEFT || button == GLFW.GLFW_MOUSE_BUTTON_RIGHT) {
@@ -1510,7 +1507,6 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
 
     /** Space Station **/
 
-    //We only check one time if the player have the recipes because normally he can't get item during the screen
     private void renderSpaceStation(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
 
         if(windowIndex == -1 && showSpaceStationMenu) {

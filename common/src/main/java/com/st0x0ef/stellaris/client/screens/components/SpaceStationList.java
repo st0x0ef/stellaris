@@ -159,6 +159,9 @@ public class SpaceStationList extends AbstractScrollWidget {
             guiGraphics.drawString(getFont(), recipeState.recipe.getDisplayName(), this.x + 5, this.y + 5, Utils.getColorHexCode("white"));
 
             TexturedButton launchButton = new TexturedButton(this.x + window.getWidth() - 135, this.y + 7, 50, 15, Component.literal("Select"), (btn) -> {
+                if(recipeState.isUnlocked) {
+                    window.spaceStationSelected = recipeState.recipe.location();
+                }
             })
                     .showText(true);
 
