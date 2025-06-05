@@ -100,9 +100,12 @@ public class TabletEntryWidget extends AbstractTextAreaWidget {
 
     @Override
     protected void renderScrollbar(GuiGraphics guiGraphics) {
+        if (this.maxScrollAmount() == 0) {
+            return;
+        }
+
         int i = this.scrollerHeight();
         int j = this.getX() + this.width;
-
         int k = Math.max(this.getY(), (int) this.scrollAmount() * (this.height - i) / this.maxScrollAmount() + this.getY());
         guiGraphics.blitSprite(RenderType::guiTextured, SCROLLER_SPRITE, j, k, 8, i);
     }

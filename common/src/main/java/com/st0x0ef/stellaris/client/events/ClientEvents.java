@@ -7,6 +7,7 @@ import com.st0x0ef.stellaris.common.items.CustomTabletEntry;
 import com.st0x0ef.stellaris.common.items.OxygenTankItem;
 import com.st0x0ef.stellaris.common.keybinds.KeyVariables;
 import com.st0x0ef.stellaris.common.network.packets.KeyHandlerPacket;
+import com.st0x0ef.stellaris.common.network.packets.OpenTabletEntryPacket;
 import dev.architectury.event.EventResult;
 import dev.architectury.event.events.client.ClientRawInputEvent;
 import dev.architectury.event.events.client.ClientTooltipEvent;
@@ -14,6 +15,7 @@ import dev.architectury.networking.NetworkManager;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.List;
@@ -22,34 +24,32 @@ public class ClientEvents {
 
     public static ResourceLocation entryHovered = null;
     public static int timeClicked = 0;
+    private static boolean isHolding = false;
 
     public static void registerEvents() {
 
         ClientTooltipEvent.ITEM.register((stack, lines, context, flag) -> {
-            if (stack.getItem() instanceof OxygenTankItem item) {
-                //Stellaris.LOG.error(String.valueOf(item.getFluidTank(stack).getFluidInTank(0).getAmount()));
-                lines.add(Component.translatable("tooltip.item.stellaris.oxygen_tank", item.getFluidTank(stack).getFluidInTank(0).getAmount(), item.getFluidTank(stack).getTankCapacity(0)).withStyle(ChatFormatting.GRAY));
+            ResourceLocation entryId = getEntryId(stack);
+            if (TabletMainScreen.INFOS.containsKey(entryId)) {
+                entryHovered = entryId;
+
+                lines.add(Component.translatable("tooltip.item.stellaris.open_tablet", KeyMappingsRegistry.OPEN_TABLET_INFO.getTranslatedKeyMessage().getString()));
+
+                if (timeClicked > 0) {
+                    lines.add(Component.literal("||".repeat(timeClicked)).withStyle(ChatFormatting.GRAY));
+                }
+                return;
             }
 
-            if (stack.getItem() instanceof CustomTabletEntry customTabletEntry) {
-                if (TabletMainScreen.INFOS.containsKey(customTabletEntry.getEntryName(stack))) {
-                    addTooltip(lines);
-                    entryHovered = customTabletEntry.getEntryName(stack);
-                }
-            } else {
-                if (TabletMainScreen.INFOS.containsKey(ResourceLocation.fromNamespaceAndPath("items", stack.getItem().arch$registryName().getPath()))) {
-                    addTooltip(lines);
-                    entryHovered = ResourceLocation.fromNamespaceAndPath("items", stack.getItem().arch$registryName().getPath());
-                } else {
-                    entryHovered = null;
-                }
-            }
+            entryHovered = null;
         });
 
         ClientRawInputEvent.KEY_PRESSED.register(((client, keyCode, scanCode, action, modifiers) -> {
-            KeyVariables.getKey(client).forEach((key, name) -> {
-                if(client.player == null) return;
+            if(client.player == null) return EventResult.pass();
 
+            tryOpenTableEntry(keyCode);
+
+            KeyVariables.getKey(client).forEach((key, name) -> {
                 if (key.getDefaultKey().getValue() == keyCode && action == GLFW.GLFW_RELEASE) {
                     KeyVariables.setKeyVariable(name, client.player.getUUID(), false);
                     NetworkManager.sendToServer(new KeyHandlerPacket(name, false));
@@ -64,10 +64,39 @@ public class ClientEvents {
         }));
     }
 
+    private static void tryOpenTableEntry(int keyCode) {
+        if (KeyMappingsRegistry.OPEN_TABLET_INFO.key.getValue() == keyCode) {
+            isHolding = true;
+            if (entryHovered != null) {
+                timeClicked++;
+                if (timeClicked == 30) {
+                    NetworkManager.sendToServer(new OpenTabletEntryPacket(entryHovered));
+                    timeClicked = 0;
+                    entryHovered = null;
+                }
+            }
+            return;
+        }
+
+        isHolding = false;
+        if (entryHovered != null) {
+            timeClicked--;
+            return;
+        }
+        timeClicked = 0;
+    }
+
     public static void addTooltip(List<Component> lines) {
         lines.add(Component.translatable("tooltip.item.stellaris.open_tablet", KeyMappingsRegistry.OPEN_TABLET_INFO.getTranslatedKeyMessage().getString()));
         if(timeClicked > 0) {
             lines.add(Component.literal("||".repeat(timeClicked)).withStyle(ChatFormatting.GRAY));
         }
+    }
+
+    private static ResourceLocation getEntryId(ItemStack stack) {
+        if (stack.getItem() instanceof CustomTabletEntry entry) {
+            return entry.getEntryName(stack);
+        }
+        return ResourceLocation.fromNamespaceAndPath("items", stack.getItem().arch$registryName().getPath());
     }
 }
