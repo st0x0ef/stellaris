@@ -6,11 +6,10 @@
     "s s"
   ],
   "key": {
-    "c": {"tag": "c:ingots/desh"},
-    "s": {"tag": "c:ingots/steel"},
-    "i": {"item": "minecraft:redstone_torch"},
-    "r": {"item": "minecraft:orange_stained_glass"}
-
+    "c": "#c:ingots/desh",
+    "s": "#c:ingots/steel",
+    "i": "minecraft:redstone_torch",
+    "r": "minecraft:orange_stained_glass"
   },
   "result": {
     "id": "stellaris:jet_suit_helmet"

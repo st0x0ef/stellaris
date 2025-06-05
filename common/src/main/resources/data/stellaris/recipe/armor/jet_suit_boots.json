@@ -6,10 +6,9 @@
     "c c"
   ],
   "key": {
-    "c": {"tag": "c:ingots/desh"},
-    "s": {"tag": "c:ingots/steel"},
-    "e": {"item": "stellaris:rocket_engine"}
-
+    "c":  "#c:ingots/desh",
+    "s": "#c:ingots/steel",
+    "e": "stellaris:rocket_engine"
   },
   "result": {
     "id": "stellaris:jet_suit_boots"

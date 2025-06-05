@@ -6,12 +6,8 @@
     "ccc"
   ],
   "key": {
-    "c": {
-      "tag": "c:ingots/heavy_metal"
-    },
-    "b": {
-      "item": "stellaris:small_rocket_upgrade"
-    }
+    "c": "#c:ingots/heavy_metal",
+    "b": "stellaris:small_rocket_upgrade"
   },
   "result": {
     "id": "stellaris:normal_rocket_upgrade",

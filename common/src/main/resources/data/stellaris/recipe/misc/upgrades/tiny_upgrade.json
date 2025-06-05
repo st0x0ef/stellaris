@@ -6,18 +6,10 @@
     "ydy"
   ],
   "key": {
-    "c": {
-      "item": "stellaris:rocket_nose_cone"
-    },
-    "b": {
-      "tag": "c:nuggets/heavy_metal"
-    },
-    "d": {
-      "item": "stellaris:engine_fan"
-    },
-    "y": {
-      "item": "stellaris:rocket_fin"
-    }
+    "c": "stellaris:rocket_nose_cone",
+    "b": "#c:nuggets/heavy_metal",
+    "d": "stellaris:engine_fan",
+    "y": "stellaris:rocket_fin"
   },
   "result": {
     "id": "stellaris:tiny_rocket_upgrade",

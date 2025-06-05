@@ -6,11 +6,10 @@
     "crc"
   ],
   "key": {
-    "c": {"tag": "c:ingots/desh"},
-    "s": {"tag": "c:ingots/steel"},
-    "o": {"item": "stellaris:big_oxygen_tank"},
-    "r": {"item": "minecraft:redstone"}
-
+    "c": "#c:ingots/desh",
+    "s": "#c:ingots/steel",
+    "o": "stellaris:big_oxygen_tank",
+    "r": "minecraft:redstone"
   },
   "result": {
     "id": "stellaris:jet_suit_chestplate"

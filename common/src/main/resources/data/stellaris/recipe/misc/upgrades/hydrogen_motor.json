@@ -6,12 +6,8 @@
     " c "
   ],
   "key": {
-    "c": {
-      "item": "stellaris:hydrogen_bucket"
-    },
-    "b": {
-      "item": "stellaris:rocket_engine"
-    }
+    "c": "stellaris:hydrogen_bucket",
+    "b": "stellaris:rocket_engine"
   },
   "result": {
     "id": "stellaris:hydrogen_motor",

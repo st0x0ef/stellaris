@@ -1,12 +1,8 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    {
-      "item": "stellaris:base_module_tier_1"
-    },
-    {
-      "item": "stellaris:fuel_bucket"
-    }
+    "stellaris:base_module_tier_1",
+    "stellaris:fuel_bucket"
   ],
   "result": {
     "id": "stellaris:fuel_module",

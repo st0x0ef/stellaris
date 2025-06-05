@@ -6,10 +6,9 @@
     "c c"
   ],
   "key": {
-    "c": {"tag": "c:ingots/desh"},
-    "s": {"tag": "c:ingots/steel"},
-    "r": {"item": "minecraft:redstone"}
-
+    "c": "#c:ingots/desh",
+    "s": "#c:ingots/steel",
+    "r": "minecraft:redstone"
   },
   "result": {
     "id": "stellaris:jet_suit_leggings"

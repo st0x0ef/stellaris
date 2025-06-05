@@ -6,12 +6,8 @@
     "ccc"
   ],
   "key": {
-    "c": {
-      "tag": "c:ingots/desh"
-    },
-    "b": {
-      "item": "stellaris:tiny_rocket_upgrade"
-    }
+    "c": "#c:ingots/desh",
+    "b": "stellaris:tiny_rocket_upgrade"
   },
   "result": {
     "id": "stellaris:small_rocket_upgrade",

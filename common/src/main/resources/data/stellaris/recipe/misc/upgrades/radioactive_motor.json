@@ -6,12 +6,8 @@
     " c "
   ],
   "key": {
-    "c": {
-      "tag": "c:ingots/uranium"
-    },
-    "b": {
-      "item": "stellaris:rocket_engine"
-    }
+    "c": "#c:ingots/uranium",
+    "b": "stellaris:rocket_engine"
   },
   "result": {
     "id": "stellaris:radioactive_motor",

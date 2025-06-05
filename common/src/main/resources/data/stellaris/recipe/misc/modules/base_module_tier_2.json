@@ -6,8 +6,8 @@
     "HHG"
   ],
   "key": {
-    "H": {"item": "stellaris:steel_nugget"},
-    "G": {"item": "minecraft:gold_nugget"}
+    "H": "stellaris:steel_nugget",
+    "G": "minecraft:gold_nugget"
   },
   "result": {
     "id": "stellaris:base_module_tier_2",
