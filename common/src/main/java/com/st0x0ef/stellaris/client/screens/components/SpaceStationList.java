@@ -30,7 +30,7 @@ public class SpaceStationList extends AbstractScrollWidget {
     public Map<Vector4i, SpaceStationRecipesManager.SpaceStationRecipeState> spaceStationRecipeStateMap = new HashMap<>();
     private final AtomicInteger finalHeight = new AtomicInteger(0);
     private final SpaceStationWindow window;
-    public ArrayList<SpaceStationRecipesManager.SpaceStationRecipeState> spaceStationRecipeStates = new ArrayList<>();
+    public ArrayList<SpaceStationRecipesManager.SpaceStationRecipeState> spaceStationRecipeStates;
 
     public SpaceStationList(int x, int y, int width, int height, Component message, SpaceStationWindow window) {
         super(x, y, width, height, message);
@@ -40,7 +40,7 @@ public class SpaceStationList extends AbstractScrollWidget {
 
     @Override
     protected int getInnerHeight() {
-        return finalHeight.get() - finalHeight.get() / 3;
+        return finalHeight.get() / 2;
     }
 
     @Override
@@ -65,15 +65,13 @@ public class SpaceStationList extends AbstractScrollWidget {
             SpaceStationRecipesManager.SpaceStationRecipeState recipeState = this.spaceStationRecipeStates.get(i);
 
 
-            SpaceStationButton launchPadWidget = new SpaceStationButton(recipeState, x, getY() + y, this.window);
+            SpaceStationButton launchPadWidget = new SpaceStationButton(recipeState, x, getY() + y, this.width + 19, this.window);
             launchPadWidget.render(guiGraphics, mouseX, (int) (mouseY + this.scrollAmount()), partialTick);
             spaceStationRecipeStateMap.putIfAbsent(launchPadWidget.buttonPositions, recipeState);
 
             finalHeight.addAndGet(y);
         }
-
     }
-
 
     @Override
     public boolean isHovered() {
@@ -142,23 +140,25 @@ public class SpaceStationList extends AbstractScrollWidget {
         public final SpaceStationRecipesManager.SpaceStationRecipeState recipeState;
         public final int x;
         public final int y;
+        public final int width;
         public final SpaceStationWindow window;
 
         public Vector4i buttonPositions = new Vector4i();
 
-        public SpaceStationButton(SpaceStationRecipesManager.SpaceStationRecipeState recipeState, int x, int y, SpaceStationWindow window) {
+        public SpaceStationButton(SpaceStationRecipesManager.SpaceStationRecipeState recipeState, int x, int y, int width, SpaceStationWindow window) {
             this.x = x;
             this.y = y;
             this.recipeState = recipeState;
             this.window = window;
+            this.width = width;
         }
 
 
         public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-            guiGraphics.blitSprite(GUISprites.SIDEWAYS_ENERGY_FULL, this.x, this.y, window.getWidth() - 80, 30);
+            guiGraphics.blitSprite(GUISprites.SIDEWAYS_ENERGY_FULL, this.x, this.y, this.width, 30);
             guiGraphics.drawString(getFont(), recipeState.recipe.getDisplayName(), this.x + 5, this.y + 5, Utils.getColorHexCode("white"));
 
-            TexturedButton launchButton = new TexturedButton(this.x + window.getWidth() - 135, this.y + 7, 50, 15, Component.literal("Select"), (btn) -> {
+            TexturedButton launchButton = new TexturedButton((this.x + this.width) - 52, this.y + 7, 50, 15, Component.literal("Select"), (btn) -> {
                 if(recipeState.isUnlocked) {
                     window.spaceStationSelected = recipeState.recipe.location();
                 }
@@ -167,7 +167,7 @@ public class SpaceStationList extends AbstractScrollWidget {
 
             launchButton.setTooltip(Tooltip.create(this.recipeState.recipe.getTooltip(this.window.parent.getPlayer())));
 
-            buttonPositions = new Vector4i(launchButton.getX(), launchButton.getY(), 50, 15);
+            buttonPositions = new Vector4i(launchButton.getX(), launchButton.getY(), launchButton.getWidth(), launchButton.getHeight());
 
             if (recipeState.isUnlocked) {
                 launchButton.tex(
@@ -188,10 +188,7 @@ public class SpaceStationList extends AbstractScrollWidget {
                 guiGraphics.renderTooltip(getFont(), launchButton.getTooltip().toCharSequence(Minecraft.getInstance() ), mouseX, mouseY);
 
             }
-
-
         }
-
 
         public Font getFont() {
             return Minecraft.getInstance().font;
