@@ -1,8 +1,10 @@
 package com.st0x0ef.stellaris.client.events;
 
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.registries.KeyMappingsRegistry;
 import com.st0x0ef.stellaris.client.screens.tablet.TabletMainScreen;
 import com.st0x0ef.stellaris.common.items.CustomTabletEntry;
+import com.st0x0ef.stellaris.common.items.OxygenTankItem;
 import com.st0x0ef.stellaris.common.keybinds.KeyVariables;
 import com.st0x0ef.stellaris.common.network.packets.KeyHandlerPacket;
 import dev.architectury.event.EventResult;
@@ -24,6 +26,11 @@ public class ClientEvents {
     public static void registerEvents() {
 
         ClientTooltipEvent.ITEM.register((stack, lines, context, flag) -> {
+            if (stack.getItem() instanceof OxygenTankItem item) {
+                //Stellaris.LOG.error(String.valueOf(item.getFluidTank(stack).getFluidInTank(0).getAmount()));
+                lines.add(Component.translatable("tooltip.item.stellaris.oxygen_tank", item.getFluidTank(stack).getFluidInTank(0).getAmount(), item.getFluidTank(stack).getTankCapacity(0)).withStyle(ChatFormatting.GRAY));
+            }
+
             if (stack.getItem() instanceof CustomTabletEntry customTabletEntry) {
                 if (TabletMainScreen.INFOS.containsKey(customTabletEntry.getEntryName(stack))) {
                     addTooltip(lines);

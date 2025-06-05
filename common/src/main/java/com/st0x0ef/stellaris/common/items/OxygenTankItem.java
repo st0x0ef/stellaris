@@ -101,7 +101,6 @@ public class OxygenTankItem extends Item implements FluidProvider.ITEM {
 
     @Override
     public @NotNull ItemFluidStorage getFluidTank(@NotNull ItemStack stack) {
-
         return new ItemFluidStorage(DataComponentsRegistry.FLUID_LIST.get(), stack, 1, capacity) {
             @Override
             public boolean isFluidValid(int tank, FluidStack stack) {
