@@ -1,5 +1,7 @@
-# 1.3.16 changelog
+# 1.3.17 changelog
+
+## Changes
+- Make globe easier to break by hand
 
 ## Fix 
-- Fix enchantment
-- Optimize oxygen check
+- Fixed globe loot table was missing
