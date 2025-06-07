@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "XXX",
+    "XLX",
     "YZY",
     "XXX"
   ],
@@ -12,7 +12,8 @@
     },
     "Y": {
       "item": "stellaris:cable"
-    }
+    },
+    "L": {"item": "minecraft:lapis_lazuli"}
   },
   "result": {
     "id": "stellaris:fuel_refinery"

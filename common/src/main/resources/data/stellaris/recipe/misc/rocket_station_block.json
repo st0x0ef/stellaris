@@ -1,14 +1,15 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    " X ",
+    "LXL",
     "XRX",
     "###"
   ],
   "key": {
     "X": {"tag": "c:ingots/heavy_metal"},
     "#": {"item": "stellaris:iron_plating_block"},
-    "R": {"item": "minecraft:redstone"}
+    "R": {"item": "minecraft:redstone"},
+    "L": {"item": "minecraft:lapis_lazuli"}
   },
   "result": {
     "id": "stellaris:rocket_station"
