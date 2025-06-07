@@ -8,7 +8,6 @@ import com.st0x0ef.stellaris.common.menus.slot.upgrade.SpeedUpgradeSlot;
 import com.st0x0ef.stellaris.common.menus.slot.upgrade.TankUpgradeSlot;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
