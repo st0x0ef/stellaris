@@ -7,6 +7,7 @@
 - Make globe easier to break by hand
 - Reduce solar panel energy storage to fit with coal generator
 - Steel blocks no longer need diamond tool to loot
+- Equilibrate some recipes
 
 ## Fix 
 - Fixed globes loot tables was missing
