@@ -13,3 +13,4 @@
 - Fix solar panel energy sync with client
 - Fix solar panel slot position
 - Fix typo
+- Fix mercury uranium ore loot table
