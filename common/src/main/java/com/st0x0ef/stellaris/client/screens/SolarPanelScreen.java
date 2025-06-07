@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.client.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.components.GaugeWidget;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.SolarPanelEntity;
 import com.st0x0ef.stellaris.common.menus.SolarPanelMenu;
@@ -25,7 +26,7 @@ public class SolarPanelScreen extends AbstractContainerScreen<SolarPanelMenu> {
 
     public SolarPanelScreen(SolarPanelMenu abstractContainerMenu, Inventory inventory, Component component) {
         super(abstractContainerMenu, inventory, component);
-        imageWidth = 177;
+        imageWidth = 180;
         imageHeight = 188;
         inventoryLabelY = imageHeight - 92;
     }

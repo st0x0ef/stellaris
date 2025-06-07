@@ -27,7 +27,6 @@ public class SolarPanelMenu extends BaseContainer {
         this.blockEntity = entity;
 
         addSlot(new EnergySlot(inventory, 0, 38, 44));
-
     }
 
     public SolarPanelEntity getBlockEntity() {
