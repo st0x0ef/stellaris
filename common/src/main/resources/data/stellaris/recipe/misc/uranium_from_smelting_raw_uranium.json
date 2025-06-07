@@ -2,11 +2,12 @@
   "type": "minecraft:smelting",
   "category": "misc",
   "cookingtime": 100,
-  "experience": 0.7,
+  "experience": 0.1,
+  "group": "uranium",
   "ingredient": {
-    "tag": "c:raw_materials/desh"
+    "item": "stellaris:raw_uranium"
   },
   "result": {
-    "id": "stellaris:desh_ingot"
+    "id": "stellaris:uranium_ingot"
   }
 }

@@ -3,10 +3,11 @@
   "category": "misc",
   "cookingtime": 100,
   "experience": 0.7,
+  "group": "steel",
   "ingredient": {
-    "tag": "c:raw_materials/desh"
+    "item": "stellaris:moon_steel_ore"
   },
   "result": {
-    "id": "stellaris:desh_ingot"
+    "id": "stellaris:steel_ingot"
   }
 }
