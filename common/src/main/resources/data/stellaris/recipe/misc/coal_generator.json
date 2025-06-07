@@ -6,7 +6,7 @@
     "###"
   ],
   "key": {
-    "#": {"tag": "c:storage_blocks/steel"},
+    "#": {"tag": "c:ingots/steel"},
     "X": {"item": "minecraft:blast_furnace"},
     "L": {"item": "minecraft:lapis_lazuli"}
   },

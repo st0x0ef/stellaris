@@ -6,8 +6,8 @@
     "###"
   ],
   "key": {
-    "#": {"tag": "c:storage_blocks/steel"},
-    "X": {"tag": "c:storage_blocks/uranium"},
+    "#": {"tag": "c:ingots/steel"},
+    "X": {"tag": "c:ingots/uranium"},
     "L": {"item": "minecraft:lapis_lazuli"}
   },
   "result": {
