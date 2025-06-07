@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.common.network.packets;
 
 import com.st0x0ef.stellaris.common.data_components.RoverComponent;
+import com.st0x0ef.stellaris.common.entities.vehicles.RoverEntity;
 import com.st0x0ef.stellaris.common.menus.RoverMenu;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import dev.architectury.networking.NetworkManager;
@@ -29,7 +30,10 @@ public class SyncRoverComponentPacket implements CustomPacketPayload {
 
     public static void handle(SyncRoverComponentPacket packet, NetworkManager.PacketContext context) {
         LocalPlayer player = (LocalPlayer) context.getPlayer();
-        if (player.containerMenu instanceof RoverMenu menu && menu.getRover() != null) {
+
+        if (player.getVehicle() instanceof RoverEntity rover) {
+            rover.setRoverComponent(packet.component);
+        } else if (player.containerMenu instanceof RoverMenu menu && menu.getRover() != null) {
             menu.getRover().setRoverComponent(packet.component);
         }
     }

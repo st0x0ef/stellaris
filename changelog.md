@@ -9,9 +9,10 @@
 - Steel blocks no longer need diamond tool to loot
 
 ## Fix 
-- Fixed globe loot table was missing
+- Fixed globes loot tables was missing
 - Fix solar panel gui size
 - Fix solar panel energy sync with client
 - Fix solar panel slot position
 - Fix typo
 - Fix mercury uranium ore loot table
+- Fix rover doesn't consume fuel

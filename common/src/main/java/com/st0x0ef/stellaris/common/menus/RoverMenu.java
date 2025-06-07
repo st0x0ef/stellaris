@@ -68,10 +68,6 @@ public class RoverMenu extends AbstractContainerMenu implements IVehicleMenu {
 
     @Override
     public boolean stillValid(Player player) {
-        if (!player.isLocalPlayer()) {
-            this.getRover().syncRocketData((ServerPlayer) player);
-        }
-
         return this.inventory.stillValid(player);
     }
 
