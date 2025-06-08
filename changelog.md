@@ -8,6 +8,7 @@
 - Reduce solar panel energy storage to fit with coal generator
 - Steel blocks no longer need diamond tool to loot
 - Equilibrate some recipes
+- Update sky aesthetics to 1.7.0
 
 ## Fix 
 - Fixed globes loot tables was missing
