@@ -17,3 +17,4 @@
 - Fix typo
 - Fix mercury uranium ore loot table
 - Fix rover doesn't consume fuel
+- Fix mercury lava mines placement
