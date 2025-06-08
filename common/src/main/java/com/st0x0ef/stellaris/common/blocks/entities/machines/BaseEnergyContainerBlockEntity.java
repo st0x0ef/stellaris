@@ -31,7 +31,6 @@ public abstract class BaseEnergyContainerBlockEntity extends BaseContainerBlockE
     public BaseEnergyContainerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, int initialMaxCapacity, int initialMaxInsert, int initialMaxExtract) {
         super(type, pos, state);
         this.energyContainer = new EnergyStorage(initialMaxCapacity, initialMaxInsert, initialMaxExtract) {
-
             @Override
             protected void onChange() {
                 setChanged();

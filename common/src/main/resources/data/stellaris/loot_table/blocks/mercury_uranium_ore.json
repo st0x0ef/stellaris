@@ -31,7 +31,7 @@
             },
             {
               "type": "minecraft:item",
-              "name": "stellaris:uranium_ingot",
+              "name": "stellaris:raw_uranium",
               "functions": [
                 {
                   "function": "minecraft:apply_bonus",

@@ -1,18 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "XXX",
+    "XLX",
     "YZY",
     "XXX"
   ],
   "key": {
-    "X": {"tag": "c:storage_blocks/steel"},
+    "X": {"tag": "c:ingots/steel"},
     "Z": {
       "item": "minecraft:bucket"
     },
     "Y": {
       "item": "stellaris:cable"
-    }
+    },
+    "L": {"item": "minecraft:lapis_lazuli"}
   },
   "result": {
     "id": "stellaris:fuel_refinery"

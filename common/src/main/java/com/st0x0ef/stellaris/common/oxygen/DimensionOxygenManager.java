@@ -2,7 +2,6 @@ package com.st0x0ef.stellaris.common.oxygen;
 
 import com.fej1fun.potentials.capabilities.Capabilities;
 import com.fej1fun.potentials.fluid.UniversalFluidStorage;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.registry.TagRegistry;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
@@ -23,12 +22,18 @@ public class DimensionOxygenManager {
     private final Map<BlockPos, OxygenRoom> roomToCheckIfOpen;
     private final boolean planetHasOxygen;
     private final ServerLevel level;
+    private int tickCount;
 
     public DimensionOxygenManager(ServerLevel level) {
         this.oxygenRooms = new HashSet<>();
         this.roomToCheckIfOpen = new HashMap<>();
         this.level = level;
         this.planetHasOxygen = PlanetUtil.hasOxygen(level);
+    }
+
+    public void addOxygenRoom(BlockPos pos) {
+        oxygenRooms.add(new OxygenRoom(level, pos));
+        setChanged();
     }
 
     public void removeOxygenRoom(BlockPos pos) {
@@ -52,8 +57,10 @@ public class DimensionOxygenManager {
         data.setDirty();
     }
 
+
     public void updateOxygenTick() {
-        if (planetHasOxygen) {
+        if (planetHasOxygen || tickCount < 20) {
+            tickCount++;
             return;
         }
 
@@ -61,6 +68,7 @@ public class DimensionOxygenManager {
         roomToCheckIfOpen.values().forEach(OxygenRoom::removeOxygenInRoom);
         roomToCheckIfOpen.clear();
 
+        tickCount=0;
         this.setChanged();
     }
 
@@ -108,7 +116,7 @@ public class DimensionOxygenManager {
                 .orElse(null);
     }
 
-    public void setOxygensRooms(Set<OxygenRoom> rooms) {
+    public void setOxygenRooms(Set<OxygenRoom> rooms) {
         this.oxygenRooms.clear();
         this.oxygenRooms.addAll(rooms);
     }

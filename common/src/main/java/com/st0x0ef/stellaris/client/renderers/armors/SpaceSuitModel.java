@@ -3,7 +3,6 @@ package com.st0x0ef.stellaris.client.renderers.armors;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.platform.ClientUtilsPlatform;
 import dev.architectury.platform.Platform;
 import net.irisshaders.iris.api.v0.IrisApi;

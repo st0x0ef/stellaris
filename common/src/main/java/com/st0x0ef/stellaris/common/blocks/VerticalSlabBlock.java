@@ -44,16 +44,11 @@ public class VerticalSlabBlock extends HorizontalDirectionalBlock implements Sim
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         Direction dir = state.getValue(FACING);
         return switch (dir) {
-            case NORTH:
-                yield Shapes.box(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.5f);
-            case SOUTH:
-                yield Shapes.box(0.0f, 0.0f, 0.5f, 1.0f, 1.0f, 1.0f);
-            case EAST:
-                yield Shapes.box(0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
-            case WEST:
-                yield Shapes.box(0.0f, 0.0f, 0.0f, 0.5f, 1.0f, 1.0f);
-            default:
-                yield Shapes.block();
+            case NORTH -> Shapes.box(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.5f);
+            case SOUTH -> Shapes.box(0.0f, 0.0f, 0.5f, 1.0f, 1.0f, 1.0f);
+            case EAST -> Shapes.box(0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
+            case WEST -> Shapes.box(0.0f, 0.0f, 0.0f, 0.5f, 1.0f, 1.0f);
+            default -> Shapes.block();
         };
     }
 

@@ -33,7 +33,8 @@ public class JetSuit {
         private int nextFuelCheckTick = 0;
 
         public Suit(Holder<ArmorMaterial> material, Properties properties) {
-            super(material, Type.CHESTPLATE, properties);
+            // The enchantable parameter is set to false because the Jet Suit should not be enchantable.
+            super(material, Type.CHESTPLATE, properties, false);
         }
 
         public int getMode(ItemStack itemStack) {
