@@ -48,7 +48,6 @@ public class SpaceStationList extends AbstractScrollWidget {
         //We don't want to render the border
     }
 
-
     @Override
     protected double scrollRate() {
         return 9;
@@ -153,17 +152,15 @@ public class SpaceStationList extends AbstractScrollWidget {
             this.width = width;
         }
 
-
         public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-            guiGraphics.blitSprite(GUISprites.SIDEWAYS_ENERGY_FULL, this.x, this.y, this.width, 30);
-            guiGraphics.drawString(getFont(), recipeState.recipe.getDisplayName(), this.x + 5, this.y + 5, Utils.getColorHexCode("white"));
+            guiGraphics.blitSprite(GUISprites.WINDOW_BAR, this.x + 20, this.y, this.width - 20, 30);
+            guiGraphics.drawString(getFont(), recipeState.recipe.getDisplayName(), this.x + 27, this.y + 10, Utils.getColorHexCode("white"));
 
-            TexturedButton launchButton = new TexturedButton((this.x + this.width) - 52, this.y + 7, 50, 15, Component.literal("Select"), (btn) -> {
+            TexturedButton launchButton = new TexturedButton((this.x + this.width) - 54, this.y + 6, 49, 18, Component.literal("Select"), (btn) -> {
                 if(recipeState.isUnlocked) {
                     window.spaceStationSelected = recipeState.recipe.location();
                 }
-            })
-                    .showText(true);
+            });
 
             launchButton.setTooltip(Tooltip.create(this.recipeState.recipe.getTooltip(this.window.parent.getPlayer())));
 
@@ -171,13 +168,13 @@ public class SpaceStationList extends AbstractScrollWidget {
 
             if (recipeState.isUnlocked) {
                 launchButton.tex(
-                        ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button.png"),
-                        ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button_hovered.png")
+                        ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/select_button.png"),
+                        ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/select_button_hovered.png")
                 );
             } else {
                 launchButton.tex(
-                        ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/button.png"),
-                        ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/button.png")
+                        ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/select_button.png"),
+                        ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/select_button.png")
                 );
             }
 

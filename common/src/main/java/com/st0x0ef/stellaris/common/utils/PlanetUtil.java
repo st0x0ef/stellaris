@@ -11,9 +11,12 @@ import com.st0x0ef.stellaris.common.oxygen.GlobalOxygenManager;
 import dev.architectury.registry.menu.ExtendedMenuProvider;
 import dev.architectury.registry.menu.MenuRegistry;
 import io.netty.buffer.Unpooled;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -28,6 +31,15 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 
 public class PlanetUtil {
+
+    public static final Component temperature = Component.translatable("text.stellaris.planetscreen.temperature");
+    public static final Component gravity = Component.translatable("text.stellaris.planetscreen.gravity");
+    public static final Component launch = Component.translatable("text.stellaris.planetscreen.launch");
+    public static final Component oxygen = Component.translatable("text.stellaris.planetscreen.oxygen");
+    public static final Component system = Component.translatable("text.stellaris.planetscreen.system");
+    public static final Component error_message = Component.translatable("text.stellaris.planetscreen.error_message");
+
+
     public static Planet getPlanet(ResourceLocation level) {
         AtomicReference<Planet> p = new AtomicReference<>();
         StellarisData.getPlanets().forEach(planet -> {if (planet.dimension().equals(level)) p.set(planet);});
@@ -188,4 +200,47 @@ public class PlanetUtil {
 
         return 0;
     }
+
+    public static MutableComponent[] getPlanetInfo(Planet planet) {
+        MutableComponent temperatureV = Component.literal(temperature.getString() + " : " + (int) planet.temperature() + "°C");
+
+        MutableComponent oxygenV = Component.literal(oxygen.getString());
+
+        MutableComponent gravityV = Component.literal(gravity.getString() + " : " + String.valueOf(Utils.MCGToMPS2(planet.gravity())).substring(0, 4) + "m/s");
+
+        MutableComponent systemV = Component.literal(system.getString() + " : " + Component.translatable(planet.system()).getString());
+
+
+        if (planet.oxygen()) {
+            oxygenV.withColor(Utils.getColorHexCode("Lime"));
+        } else {
+            oxygenV.withColor(Utils.getColorHexCode("Red"));
+        }
+
+        if (planet.temperature() >= 100) {
+            temperatureV.withColor(Utils.getColorHexCode("DarkRed"));
+
+        } else if (planet.temperature() >= 0){
+            temperatureV.withColor(Utils.getColorHexCode("Lime"));
+        } else if (planet.temperature() >= -100) {
+            temperatureV.withColor(Utils.getColorHexCode("Cyan"));
+        } else {
+            temperatureV.withColor(Utils.getColorHexCode("Blue"));
+        }
+
+        return new MutableComponent[] {temperatureV, oxygenV, gravityV, systemV};
+    }
+
+    public static MutableComponent getInLinePlanetInfo(Planet planet) {
+        MutableComponent[] component = getPlanetInfo(planet);
+
+        return Component.literal("")
+                .append(component[0])
+                .append(" | ")
+                .append(component[1])
+                .append(" | ")
+                .append(component[2]);
+    }
+
+
 }

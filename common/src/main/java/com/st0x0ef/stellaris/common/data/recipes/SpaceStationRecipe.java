@@ -76,12 +76,12 @@ public record SpaceStationRecipe (List<ItemStack> items, ResourceLocation locati
         }
     }
 
-    public Component getDisplayName() {
+    public MutableComponent getDisplayName() {
         return Component.translatable("station." + this.location.getNamespace() + "." + this.location.getPath());
     }
 
     public MutableComponent getTooltip(Player player) {
-        MutableComponent tooltip = Component.translatable("tooltip." + this.location.getNamespace() + ".space_station_recipe." + this.location.getPath());
+        MutableComponent tooltip = getDisplayName();
 
         if(player == null) return tooltip;
 

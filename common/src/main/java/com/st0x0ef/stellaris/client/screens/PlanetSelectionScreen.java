@@ -35,6 +35,7 @@ import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
@@ -64,7 +65,7 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
     public static final ResourceLocation SMALL_BUTTON_TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/small_button.png");
     public static final ResourceLocation BUTTON_TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/button.png");
     public static final ResourceLocation LARGE_BUTTON_TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/large_button.png");
-    public static final ResourceLocation LAUNCH_BUTTON_TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button.png");
+    public static final ResourceLocation LAUNCH_BUTTON_TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/classy_button.png");
     public static final ResourceLocation NEXT_BUTTON = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/next_button.png");
     public static final ResourceLocation BACK_BUTTON = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/back_button.png");
 
@@ -96,7 +97,7 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
     private boolean showHelpMenu = true;
     private boolean showSpaceStationMenu = false;
 
-    LaunchButton launchButton;
+    TexturedButton launchButton;
 
     private double offsetX = 0;
     private double offsetY = 0;
@@ -294,10 +295,11 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
         int buttonX = (this.width - buttonWidth) / 4 + 100;
         int buttonY = (this.height - buttonHeight) / 4;
 
-        launchButton = new LaunchButton(buttonX, buttonY, buttonWidth, buttonHeight, Component.literal("Launch"), (btn) -> onLaunchButtonClick());
-        launchButton.setButtonTexture(
-                ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button.png"),
-                ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button_hovered.png")
+        launchButton = new TexturedButton(buttonX, buttonY, buttonWidth, buttonHeight, Component.literal("Launch"), (btn) -> onLaunchButtonClick())
+                .showText(true);
+        launchButton.tex(
+                ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/classy_button.png"),
+                ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/classy_button_hovered.png")
         );
         launchButton.setMessage(launch);
         this.addRenderableWidget(launchButton);
@@ -393,7 +395,7 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
 
                 if(focusedBody.spaceStation && !showSpaceStationMenu) {
                     this.showSpaceStationMenu = true;
-                    ((LaunchWindow) this.moveableWindows.get(0)).setCelestialBody(this.focusedBody);
+                    ((LaunchWindow) this.moveableWindows.getFirst()).setCelestialBody(this.focusedBody);
                 } else {
                     tpToFocusedPlanet();
                 }
@@ -505,44 +507,6 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
             boolean CELESTIAL_BODY_OXYGEN = planet.oxygen();
             String CELESTIAL_BODY_SYSTEM = planet.system();
 
-            Component systemTranslatable;
-
-            Component temperatureV;
-            Component gravityV;
-            Component oxygenV;
-            Component systemV;
-
-            int oxygenColor;
-            int temperatureColor;
-
-            if (CELESTIAL_BODY_SYSTEM == null) {
-                systemV = Component.literal(system + " : null");
-            } else {
-                systemTranslatable = Component.translatable(CELESTIAL_BODY_SYSTEM);
-                systemV = Component.literal(system.getString() + " : " + systemTranslatable.getString());
-            }
-
-            temperatureV = Component.literal(temperature.getString() + " : " + planet.temperature() + "°C");
-
-            oxygenV = Component.literal(oxygen.getString() + " : " + CELESTIAL_BODY_OXYGEN);
-
-            gravityV = Component.literal(gravity.getString() + " : " + CELESTIAL_BODY_GRAVITY + "m/s");
-
-            if (CELESTIAL_BODY_OXYGEN) {
-                oxygenColor = Utils.getColorHexCode("Lime");
-            } else {
-                oxygenColor = Utils.getColorHexCode("Red");
-            }
-
-            if (CELESTIAL_BODY_TEMPERATURE >= 100) {
-                temperatureColor = Utils.getColorHexCode("DarkRed");
-            } else if (CELESTIAL_BODY_TEMPERATURE >= 0){
-                temperatureColor = Utils.getColorHexCode("Lime");
-            } else if (CELESTIAL_BODY_TEMPERATURE >= -100) {
-                temperatureColor = Utils.getColorHexCode("Cyan");
-            } else {
-                temperatureColor = Utils.getColorHexCode("Blue");
-            }
 
             int menuWidth = 215;
             int menuHeight = 177;
@@ -565,7 +529,7 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
             launchButton.visible = true;
             launchButton.setPosition(buttonX, buttonY);
 
-
+            MutableComponent[] planetInfo = PlanetUtil.getPlanetInfo(planet);
             float alpha = 0.5f;
 
             RenderSystem.disableBlend();
@@ -574,9 +538,9 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
 
             graphics.drawString(font, "￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣", textX, buttonY + buttonHeight / 4 + 50, 0xFFFFFF, true);
 
-            graphics.drawString(font, temperatureV, textX, buttonY + buttonHeight / 4 + 60, temperatureColor, true);
-            graphics.drawString(font, oxygenV, textX, buttonY + buttonHeight / 4 + 90, oxygenColor, true);
-            graphics.drawString(font, systemV, textX, buttonY + buttonHeight / 4 + 105, 0xFFFFFF, true);
+            graphics.drawString(font, planetInfo[0], textX, buttonY + buttonHeight / 4 + 60, 0xFFFFFFFF, true);
+            graphics.drawString(font, planetInfo[1], textX, buttonY + buttonHeight / 4 + 90, 0xFFFFFFFF, true);
+            graphics.drawString(font, planetInfo[3], textX, buttonY + buttonHeight / 4 + 105, 0xFFFFFF, true);
 
             if (focusedBody instanceof PlanetInfo && getMoonsCount((PlanetInfo) focusedBody) > 0) {
                 graphics.drawString(font, TranslatableRegistry.MOONS.getString() + " : " + getMoonsCount((PlanetInfo) focusedBody), textX, buttonY + buttonHeight / 4 + 120, 0xD3D3D3, true);
@@ -587,7 +551,7 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
             }
 
             if (canLaunch(planet)) {
-                graphics.drawString(font, gravityV, textX, buttonY + buttonHeight / 4 + 75, Utils.getColorHexCode("White"), true);
+                graphics.drawString(font, planetInfo[2], textX, buttonY + buttonHeight / 4 + 75, Utils.getColorHexCode("White"), true);
 
                 RenderSystem.enableBlend();
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
@@ -599,7 +563,7 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
 
             } else {
                 if (Objects.equals(focusedBody.name, "Earth")) {
-                    graphics.drawString(font, gravityV, textX, buttonY + buttonHeight / 4 + 75, Utils.getColorHexCode("White"), true);
+                    graphics.drawString(font, planetInfo[3], textX, buttonY + buttonHeight / 4 + 75, Utils.getColorHexCode("White"), true);
 
                     RenderSystem.enableBlend();
                     RenderSystem.setShader(GameRenderer::getPositionTexShader);
@@ -609,7 +573,7 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
                     RenderSystem.setShaderTexture(0, LARGE_MENU_TEXTURE);
                     graphics.blit(LARGE_MENU_TEXTURE, centerX, centerY, 0, 0, menuWidth, menuHeight, menuWidth, menuHeight);
                 } else {
-                    graphics.drawString(font, gravityV, textX, buttonY + buttonHeight / 4 + 75, Utils.getColorHexCode("Orange"), true);
+                    graphics.drawString(font, planetInfo[3], textX, buttonY + buttonHeight / 4 + 75, Utils.getColorHexCode("Orange"), true);
 
                     RenderSystem.enableBlend();
                     RenderSystem.setShader(GameRenderer::getPositionTexShader);
@@ -618,7 +582,7 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
 
                     RenderSystem.setShaderTexture(0, LARGE_MENU_TEXTURE_RED);
                     graphics.blit(LARGE_MENU_TEXTURE_RED, centerX, centerY, 0, 0, menuWidth, menuHeight, menuWidth, menuHeight);
-                    launchButton.setButtonTexture(
+                    launchButton.tex(
                             ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/no_launch_button.png"),
                             ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/no_launch_button_hovered.png")
                     );

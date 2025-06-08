@@ -38,6 +38,7 @@ public class SpaceStationWindow extends MoveableWindow {
         //this.nameBox.setBordered(false);
         this.nameBox.setPosition(this.stationList.getX() , getWindowY() + 50);
         this.addWidget(nameBox);
+
     }
 
 
