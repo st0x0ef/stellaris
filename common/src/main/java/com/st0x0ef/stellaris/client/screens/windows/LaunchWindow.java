@@ -57,10 +57,11 @@ public class LaunchWindow extends MoveableWindow {
 
         guiGraphics.blit(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/gui/util/window/window_large.png"), getWindowX(), getWindowY(), 0, 0, this.getWidth(), this.getHeight(), this.getWidth(), this.getHeight());
 
-        guiGraphics.drawCenteredString(Minecraft.getInstance().font, "Available Launch Pads", getWindowX() + getWidth() / 2, getWindowY() + 27, 0xFFFFFFFF);
-
         if(this.celestialBody != null && PlanetUtil.getPlanet(this.celestialBody.dimension) != null) {
+            guiGraphics.drawCenteredString(Minecraft.getInstance().font, celestialBody.name + " Launch Points", getWindowX() + getWidth() / 2, getWindowY() + 27, 0xFFFFFFFF);
+
             guiGraphics.drawCenteredString(Minecraft.getInstance().font, PlanetUtil.getInLinePlanetInfo(PlanetUtil.getPlanet(this.celestialBody.dimension)), getWindowX() + getWidth() / 2 , this.padsList.getY() - 12, 0xFFFFFFFF);
+
         }
 
 
