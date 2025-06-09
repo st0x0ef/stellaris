@@ -49,17 +49,6 @@ public class LaunchWindow extends MoveableWindow {
 
         this.addWidget(this.padsList);
 
-        TexturedButton button = new TexturedButton(((getWindowX() + getWidth()) / 2) - (15), (getWindowY() + getHeight()) - 30, 60, 20, Component.literal("Launch"), (b) -> {
-            //parent.tpToFocusedPlanet(this.celestialBody);
-            this.parent.setWindowVisible(1);
-        })
-                .tex(
-                        ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button.png"),
-                        ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button_hovered.png")
-                );
-
-        this.addWidget(button);
-
     }
 
     @Override

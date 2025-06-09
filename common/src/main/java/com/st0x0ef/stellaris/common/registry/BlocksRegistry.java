@@ -144,7 +144,7 @@ public class BlocksRegistry {
     public static final RegistrySupplier<Block> SOLAR_PANEL = BLOCKS.register("solar_panel", () -> new SolarPanelBlock(BlockBehaviour.Properties.ofFullCopy(STEEL_ORE.get()).mapColor(MapColor.DEEPSLATE).strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE)));
     public static final RegistrySupplier<Block> COAL_GENERATOR = BLOCKS.register("coal_generator", () -> new CoalGeneratorBlock(BlockBehaviour.Properties.ofFullCopy(STEEL_ORE.get()).mapColor(MapColor.DEEPSLATE).strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE)));
     public static final RegistrySupplier<Block> RADIOACTIVE_GENERATOR = BLOCKS.register("radioactive_generator", () -> new RadioactiveGeneratorBlock(BlockBehaviour.Properties.ofFullCopy(STEEL_ORE.get()).mapColor(MapColor.DEEPSLATE).strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE)));
-    public static final RegistrySupplier<Block> LAUNCHPAD_CREATOR = BLOCKS.register("launchpad_creator", () -> new LaunchPadCreatorBlock(BlockBehaviour.Properties.ofFullCopy(STEEL_ORE.get()).mapColor(MapColor.DEEPSLATE).strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE)));
+    public static final RegistrySupplier<Block> ANTENNA = BLOCKS.register("antenna", () -> new AntennaBlock(BlockBehaviour.Properties.ofFullCopy(STEEL_ORE.get()).mapColor(MapColor.DEEPSLATE).strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE)));
 
     public static final RegistrySupplier<Block> ROCKET_LAUNCH_PAD = BLOCKS.register("rocket_launch_pad", () -> new RocketLaunchPad(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).sound(SoundType.METAL).strength(5f, 2.5f).requiresCorrectToolForDrops()));
 

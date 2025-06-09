@@ -1,18 +1,15 @@
 package com.st0x0ef.stellaris.common.network.packets;
 
-import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.blocks.entities.machines.LaunchPadCreatorBlockEntity;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.AntennaBlockEntity;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPad;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPadLauncher;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
-import com.st0x0ef.stellaris.common.registry.BlocksRegistry;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import dev.architectury.networking.NetworkManager;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
 
 public class LaunchPadsOperations implements CustomPacketPayload {
@@ -56,7 +53,7 @@ public class LaunchPadsOperations implements CustomPacketPayload {
                 LaunchPadLauncher.removeLaunchpad(launchPad.id() ,context.getPlayer().getServer());
             }
             case "setLaunchPad" -> {
-                if(context.getPlayer().level().getBlockEntity(Utils.getBlockPosFromVector3i(launchPad.position())) instanceof LaunchPadCreatorBlockEntity blockEntity) {
+                if(context.getPlayer().level().getBlockEntity(Utils.getBlockPosFromVector3i(launchPad.position())) instanceof AntennaBlockEntity blockEntity) {
                     blockEntity.launchPadId = launchPad.id();
                     blockEntity.setChanged();
                 }

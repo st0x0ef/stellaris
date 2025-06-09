@@ -75,7 +75,7 @@ public class BlockEntityRegistry {
                     BlocksRegistry.T3_PIPE.get()
             ).build(null));
 
-    public static final RegistrySupplier<BlockEntityType<LaunchPadCreatorBlockEntity>> LAUNCHPAD_CREATOR = BLOCK_ENTITY_TYPE.register("launchpad_creator",
-            () -> BlockEntityType.Builder.of(LaunchPadCreatorBlockEntity::new, BlocksRegistry.LAUNCHPAD_CREATOR.get()).build(null));
+    public static final RegistrySupplier<BlockEntityType<AntennaBlockEntity>> ANTENNA = BLOCK_ENTITY_TYPE.register("antenna",
+            () -> BlockEntityType.Builder.of(AntennaBlockEntity::new, BlocksRegistry.ANTENNA.get()).build(null));
 
 }

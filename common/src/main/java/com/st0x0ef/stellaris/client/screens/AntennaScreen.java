@@ -3,23 +3,14 @@ package com.st0x0ef.stellaris.client.screens;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.components.CustomCheckBox;
-import com.st0x0ef.stellaris.client.screens.components.GaugeWidget;
 import com.st0x0ef.stellaris.client.screens.components.TexturedButton;
-import com.st0x0ef.stellaris.common.blocks.entities.machines.LaunchPadCreatorBlockEntity;
-import com.st0x0ef.stellaris.common.blocks.entities.machines.PumpjackBlockEntity;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.AntennaBlockEntity;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPad;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPadLauncher;
-import com.st0x0ef.stellaris.common.launchpads.LaunchPadUtils;
-import com.st0x0ef.stellaris.common.menus.LaunchPadCreatorMenu;
-import com.st0x0ef.stellaris.common.menus.PumpjackMenu;
-import com.st0x0ef.stellaris.common.oil.OilUtils;
+import com.st0x0ef.stellaris.common.menus.AntennaMenu;
 import com.st0x0ef.stellaris.common.utils.Utils;
-import com.st0x0ef.stellaris.common.utils.capabilities.fluid.SingleFluidStorage;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.Checkbox;
 import net.minecraft.client.gui.components.EditBox;
-import net.minecraft.client.gui.components.FocusableTextWidget;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
@@ -29,13 +20,12 @@ import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.List;
-import java.util.Objects;
 
-public class LaunchPadCreatorScreen extends AbstractContainerScreen<LaunchPadCreatorMenu> {
+public class AntennaScreen extends AbstractContainerScreen<AntennaMenu> {
 
     private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/antenna.png");
 
-    private final LaunchPadCreatorBlockEntity blockEntity = getMenu().getBlockEntity();
+    private final AntennaBlockEntity blockEntity = getMenu().getBlockEntity();
 
     private EditBox nameBox;
     private EditBox whitelistBox;
@@ -44,7 +34,7 @@ public class LaunchPadCreatorScreen extends AbstractContainerScreen<LaunchPadCre
 
     public LaunchPad pad;
 
-    public LaunchPadCreatorScreen(LaunchPadCreatorMenu menu, Inventory playerInventory, Component title) {
+    public AntennaScreen(AntennaMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
         imageWidth = 180;
         imageHeight = 188;
@@ -109,7 +99,8 @@ public class LaunchPadCreatorScreen extends AbstractContainerScreen<LaunchPadCre
                 .setTexture(GUISprites.CHECKBOX, GUISprites.CHECKBOX_SELECTED);
 
         this.saveButton = new TexturedButton(this.leftPos + (this.imageWidth / 2 - 30),  this.inventoryLabelY, 60, 20, Component.literal("Create"), (b) -> onClose())
-                .tex(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/antenna_button.png"), ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/antenna_button_hovered.png"));
+                .tex(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/antenna_button.png"), ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/antenna_button_hovered.png"))
+                .showText(true);
 
 
         if(pad != null) {

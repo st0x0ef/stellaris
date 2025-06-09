@@ -1,11 +1,8 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.entities.ImplementedInventory;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPad;
-import com.st0x0ef.stellaris.common.launchpads.LaunchPadLauncher;
-import com.st0x0ef.stellaris.common.launchpads.LaunchPadUtils;
-import com.st0x0ef.stellaris.common.menus.LaunchPadCreatorMenu;
+import com.st0x0ef.stellaris.common.menus.AntennaMenu;
 import com.st0x0ef.stellaris.common.network.packets.LaunchPadsOperations;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import dev.architectury.networking.NetworkManager;
@@ -20,22 +17,21 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.Objects;
-
-public class LaunchPadCreatorBlockEntity extends BaseContainerBlockEntity implements ImplementedInventory, TickingBlockEntity {
+public class AntennaBlockEntity extends BaseContainerBlockEntity implements ImplementedInventory, TickingBlockEntity {
 
     public int launchPadId = -1;
     private NonNullList<ItemStack> items = NonNullList.withSize(3, ItemStack.EMPTY);
 
 
-    public LaunchPadCreatorBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(BlockEntityRegistry.LAUNCHPAD_CREATOR.get(), blockPos, blockState);
+    public AntennaBlockEntity(BlockPos blockPos, BlockState blockState) {
+        super(BlockEntityRegistry.ANTENNA.get(), blockPos, blockState);
     }
 
 
     @Override
-    protected Component getDefaultName() {
+    protected @NotNull Component getDefaultName() {
         return Component.literal("Launch Pad Creator");
     }
 
@@ -46,7 +42,7 @@ public class LaunchPadCreatorBlockEntity extends BaseContainerBlockEntity implem
 
     @Override
     protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
-        return new LaunchPadCreatorMenu(containerId, inventory, this, this.launchPadId);
+        return new AntennaMenu(containerId, inventory, this, this.launchPadId);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.blocks;
 
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.registry.BlocksRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -46,12 +47,17 @@ public class RocketLaunchPad extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
-    public BlockState updateShape(BlockState p_56285_, Direction p_56286_, BlockState p_56287_, LevelAccessor p_56288_, BlockPos p_56289_, BlockPos p_56290_) {
-        if (p_56285_.getValue(WATERLOGGED)) {
-            p_56288_.scheduleTick(p_56289_, Fluids.WATER, Fluids.WATER.getTickDelay(p_56288_));
+    protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+        super.onRemove(state, level, pos, newState, movedByPiston);
+    }
+
+    @Override
+    protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
+        if (state.getValue(WATERLOGGED)) {
+            level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
 
-        return super.updateShape(p_56285_, p_56286_, p_56287_, p_56288_, p_56289_, p_56290_);
+        return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
     }
 
     @Override
