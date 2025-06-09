@@ -61,7 +61,8 @@ public class Utils {
     /** Should be call after teleporting the player */
     public static LanderEntity createLanderFromRocket(RocketEntity rocket, Vec3 coords, Level destination) {
         LanderEntity lander = new LanderEntity(destination);
-        lander.setPos(coords.x, coords.y, coords.z);
+        //TODO TELEPORT AT 600 HEIGHT
+        lander.setPos(coords.x, 600, coords.z);
         transfertInventory(rocket, lander);
 
         rocket.discard();
@@ -108,7 +109,6 @@ public class Utils {
             } else {
                 serverPlayer.closeContainer();
                 Stellaris.LOG.error("Null rocket {}", coords);
-
 
                 teleportEntity(serverPlayer, destination, coords);
             }
