@@ -6,6 +6,7 @@ import com.st0x0ef.stellaris.client.screens.GUISprites;
 import com.st0x0ef.stellaris.client.screens.windows.LaunchWindow;
 import com.st0x0ef.stellaris.client.screens.windows.MoveableWindow;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPad;
+import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -15,7 +16,6 @@ import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import org.joml.Vector4i;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -101,7 +101,9 @@ public class LaunchPadsList extends AbstractScrollWidget {
                 LaunchPad launchPad = entry.getValue().launchPad;
 
                 if (Utils.isHoveredOnSprite(pos.x, (int) (pos.y - this.scrollAmount()), pos.z, pos.w, (int) mouseX, (int) mouseY)) {
-                    this.window.parent.tpToFocusedPlanet(launchPad.position(), this.window.celestialBody);
+                    if(this.window.parent.canLaunch(PlanetUtil.getPlanet(this.window.celestialBody.dimension))) {
+                        this.window.parent.tpToFocusedPlanet(launchPad.position(), this.window.celestialBody);
+                    }
                     return true;
                 }
             }

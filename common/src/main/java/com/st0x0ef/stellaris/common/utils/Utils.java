@@ -61,8 +61,7 @@ public class Utils {
     /** Should be call after teleporting the player */
     public static LanderEntity createLanderFromRocket(RocketEntity rocket, Vec3 coords, Level destination) {
         LanderEntity lander = new LanderEntity(destination);
-        //TODO TELEPORT AT 600 HEIGHT
-        lander.setPos(coords.x, 600, coords.z);
+        lander.setPos(coords.x, coords.y, coords.z);
         transfertInventory(rocket, lander);
 
         rocket.discard();
@@ -115,8 +114,11 @@ public class Utils {
         }
     }
 
-    public static void changeDimensionForPlayers(List<Entity> entities, Planet destination) {
-        changeDimensionForPlayers(entities, destination, new Vec3(entities.getFirst().getX(), 600, entities.getFirst().getY()));
+    public static void changeDimensionForPlayers(List<Entity> entities, Planet destination, Vec3 coords, boolean setHeight) {
+        if(setHeight ) {
+            coords = new Vec3(coords.x, 600, coords.z);
+        }
+        changeDimensionForPlayers(entities, destination, coords);
     }
 
     public static void changeDimensionForPlayers(List<Entity> entities, Planet destination, Vec3 coords) {

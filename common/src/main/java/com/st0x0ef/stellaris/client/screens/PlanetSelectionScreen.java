@@ -27,7 +27,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -44,8 +43,6 @@ import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWScrollCallback;
 
 import java.util.*;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 
 import static com.st0x0ef.stellaris.common.utils.Utils.isHoveredOnSprite;
 
@@ -112,7 +109,6 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
         this.imageHeight = 1600;
         this.inventoryLabelY = this.imageHeight - 110;
         this.canZoom = true;
-
     }
 
     @Override
@@ -135,7 +131,6 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
         targetZoomLevel = 1;
     }
 
-
     public void initWindows() {
         var launchWindow = new LaunchWindow(300,200, Component.literal("eee"), this);
         launchWindow.visible =false;
@@ -151,8 +146,6 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
         spaceStationWindow.visible =false;
 
         moveableWindows.add(spaceStationWindow);
-
-
     }
 
     @Override
@@ -167,7 +160,6 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
         if (focusedBody != null) {
             centerOnBody(focusedBody);
         }
-
 
         drawOrbits();
         drawTrails();
@@ -209,7 +201,6 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
         }
         if (focusedBody != null) {
             updateHighlighterPosition(graphics, focusedBody);
-            //renderLargeMenu(graphics);
         }
 
         initTop(graphics, mouseX, mouseY);
@@ -258,8 +249,6 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
     private void initTop(GuiGraphics graphics, int mouseX, int mouseY) {
         ResourceLocation topBarTexture = ResourceLocation.fromNamespaceAndPath(
                 Stellaris.MODID, "textures/gui/util/planet_selection_bar.png");
-
-        Font font = Minecraft.getInstance().font;
 
         int tgWidth = 240;
         int tgHeight = 32;
@@ -315,31 +304,16 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
                     Component.translatable("text.stellaris.planetscreen.z"),
                     Component.translatable("text.stellaris.planetscreen.arrows")
             );
-            graphics.renderTooltip(Minecraft.getInstance().font, tooltipLines, Optional.empty(), mouseX, mouseY);
+            graphics.renderTooltip(this.font, tooltipLines, Optional.empty(), mouseX, mouseY);
         }
         if (galaxyHovering) {
             List<Component> tooltipLines = List.of(
                     Component.translatable("text.stellaris.planetscreen.returntogalaxy")
             );
-            graphics.renderTooltip(Minecraft.getInstance().font, tooltipLines, Optional.empty(), mouseX, mouseY);
+            graphics.renderTooltip(this.font, tooltipLines, Optional.empty(), mouseX, mouseY);
         }
 
 
-    }
-
-    private void onLaunchButtonClick() {
-        if (focusedBody != null && focusedBody.dimension != null) {
-            if (canLaunch(PlanetUtil.getPlanet(focusedBody.dimension))) {
-
-                this.showSpaceStationMenu = true;
-                ((LaunchWindow) this.moveableWindows.getFirst()).setCelestialBody(this.focusedBody);
-
-            } else {
-                if (PlanetUtil.getPlanet(focusedBody.dimension).name().equals("Earth")) {
-                    tpToFocusedPlanet();
-                }
-            }
-        }
     }
 
     private void updateZoomAndOffsetAnimation() {
@@ -366,7 +340,6 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
     }
 
     private void renderStars(GuiGraphics graphics) {
-        Font font = Minecraft.getInstance().font;
         for (CelestialBody star : STARS) {
             if (!isInCurrentGalaxy(star)) continue;
 
@@ -384,7 +357,6 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
     }
 
     private void renderPlanets(GuiGraphics graphics) {
-        Font font = Minecraft.getInstance().font;
         for (PlanetInfo planet : PLANETS) {
             if (!isInCurrentGalaxy(planet)) continue;
 
@@ -1287,6 +1259,7 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
             NetworkManager.sendToServer(new PlaceStationPacket(focusedBody.dimension, stationRecipeState.recipe));
         }
     }
+
 
     public Player getPlayer() {
         return menu.getPlayer();

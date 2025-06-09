@@ -71,7 +71,7 @@ public class TeleportEntityToPlanetPacket implements CustomPacketPayload {
                     player.getEntityData().set(EntityData.DATA_PLANET_MENU_OPEN, false);
                 }
             } else {
-                Utils.changeDimensionForPlayers(rocket.getPassengers(), planet, packet.coords);
+                Utils.changeDimensionForPlayers(rocket.getPassengers(), planet, packet.coords, true);
             }
 
         } else {
