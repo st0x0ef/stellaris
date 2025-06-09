@@ -206,7 +206,14 @@ public class PlanetUtil {
 
         MutableComponent oxygenV = Component.literal(oxygen.getString());
 
-        MutableComponent gravityV = Component.literal(gravity.getString() + " : " + String.valueOf(Utils.MCGToMPS2(planet.gravity())).substring(0, 4) + "m/s");
+
+        var gravityValue = String.valueOf(planet.gravity());
+
+        if (gravityValue.length() > 4) {
+            gravityValue = gravityValue.substring(0, 4);
+        }
+
+        MutableComponent gravityV = Component.literal(gravity.getString() + " : " + gravityValue + "m/s");
 
         MutableComponent systemV = Component.literal(system.getString() + " : " + Component.translatable(planet.system()).getString());
 

@@ -6,6 +6,7 @@ import com.st0x0ef.stellaris.client.screens.PlanetSelectionScreen;
 import com.st0x0ef.stellaris.client.screens.components.LaunchPadsList;
 import com.st0x0ef.stellaris.client.screens.components.TexturedButton;
 import com.st0x0ef.stellaris.client.screens.info.CelestialBody;
+import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPad;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPadUtils;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
@@ -58,12 +59,15 @@ public class LaunchWindow extends MoveableWindow {
         guiGraphics.blit(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/gui/util/window/window_large.png"), getWindowX(), getWindowY(), 0, 0, this.getWidth(), this.getHeight(), this.getWidth(), this.getHeight());
 
         if(this.celestialBody != null && PlanetUtil.getPlanet(this.celestialBody.dimension) != null) {
+            Planet planet = PlanetUtil.getPlanet(this.celestialBody.dimension);
             guiGraphics.drawCenteredString(Minecraft.getInstance().font, celestialBody.name + " Launch Points", getWindowX() + getWidth() / 2, getWindowY() + 27, 0xFFFFFFFF);
 
-            guiGraphics.drawCenteredString(Minecraft.getInstance().font, PlanetUtil.getInLinePlanetInfo(PlanetUtil.getPlanet(this.celestialBody.dimension)), getWindowX() + getWidth() / 2 , this.padsList.getY() - 12, 0xFFFFFFFF);
+            guiGraphics.drawCenteredString(Minecraft.getInstance().font, PlanetUtil.getInLinePlanetInfo(planet), getWindowX() + getWidth() / 2 , this.padsList.getY() - 12, 0xFFFFFFFF);
 
+            if(!this.parent.canLaunch(planet)) {
+                guiGraphics.drawCenteredString(Minecraft.getInstance().font, "You cannot launch to this planet!", getWindowX() + getWidth() / 2, (getWindowY() + getHeight()) - 26, 0xFFFF0000);
+            }
         }
-
 
         this.padsList.launchPads = getLaunchPadsForDimension();
         this.padsList.launchPads.addFirst(this.addDirectLaunch());
