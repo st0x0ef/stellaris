@@ -1,11 +1,18 @@
 package com.st0x0ef.stellaris.common.blocks;
 
-import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.common.blocks.machines.AntennaBlock;
 import com.st0x0ef.stellaris.common.registry.BlocksRegistry;
+import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
+import com.st0x0ef.stellaris.common.registry.TagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -20,9 +27,11 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -138,6 +147,33 @@ public class RocketLaunchPad extends Block implements SimpleWaterloggedBlock {
         }
 
         level.scheduleTick(new BlockPos(pos.getX(), pos.getY(), pos.getZ()), this, 1);
+    }
+
+    @Override
+    protected @NotNull InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+        if (level.isClientSide) return InteractionResult.SUCCESS;
+
+        if (state.getValue(STAGE)) {
+            if (level.getBlockState(pos.below()).getBlock() instanceof AntennaBlock antennaBlock) {
+                antennaBlock.useWithoutItem(state, level, pos.below(), player, hitResult);
+            }
+        }
+        return super.useWithoutItem(state, level, pos, player, hitResult);
+    }
+
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        if (level.isClientSide) return ItemInteractionResult.SUCCESS;
+
+        if(stack.is(ItemsRegistry.ANTENNA.get()) && state.getValue(STAGE)) {
+            if (level.getBlockState(pos.below()).is(TagRegistry.ANTENNA_REPLACEABLES)) {
+                level.setBlock(pos.below(), BlocksRegistry.ANTENNA.get().defaultBlockState(), 3);
+                stack.shrink(1);
+                return ItemInteractionResult.SUCCESS;
+            }
+        }
+
+        return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
     }
 
     @Override
