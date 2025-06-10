@@ -3,6 +3,8 @@ package com.st0x0ef.stellaris.common.network.packets;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.data.recipes.SpaceStationRecipe;
+import com.st0x0ef.stellaris.common.launchpads.LaunchPad;
+import com.st0x0ef.stellaris.common.launchpads.LaunchPadLauncher;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import com.st0x0ef.stellaris.common.registry.EntityData;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
@@ -23,6 +25,7 @@ public class PlaceStationPacket implements CustomPacketPayload {
 
     public final ResourceLocation dimension;
     public final SpaceStationRecipe recipe;
+    public final LaunchPad pad;
 
     public static final StreamCodec<RegistryFriendlyByteBuf, PlaceStationPacket> STREAM_CODEC = new StreamCodec<>() {
         @Override
@@ -34,17 +37,20 @@ public class PlaceStationPacket implements CustomPacketPayload {
         public void encode(RegistryFriendlyByteBuf buf, PlaceStationPacket packet) {
             buf.writeResourceLocation(packet.dimension);
             SpaceStationRecipe.toBuffer(packet.recipe, buf);
+            LaunchPad.toBuffer(packet.pad, buf);
         }
     };
 
-    public PlaceStationPacket(ResourceLocation dimension, SpaceStationRecipe recipe) {
+    public PlaceStationPacket(ResourceLocation dimension, SpaceStationRecipe recipe, LaunchPad pad) {
         this.dimension = dimension;
         this.recipe = recipe;
+        this.pad = pad;
     }
 
     public PlaceStationPacket(RegistryFriendlyByteBuf buffer) {
         this.dimension = buffer.readResourceLocation();
         this.recipe = SpaceStationRecipe.readFromBuffer(buffer);
+        this.pad = LaunchPad.readFromBuffer(buffer);
     }
 
     public static void handle(PlaceStationPacket packet, NetworkManager.PacketContext context) {
@@ -56,11 +62,11 @@ public class PlaceStationPacket implements CustomPacketPayload {
             if (level != null) {
                 Stellaris.LOG.info("Placing space station");
                 Utils.placeSpaceStation(player, level, packet.recipe);
+
+                //TODO: Get antenna position and change it
+                LaunchPadLauncher.addLaunchPad(packet.pad, context.getPlayer().getServer());
                 packet.recipe.removeMaterials(player);
             }
-
-        } else {
-            Stellaris.LOG.error("Planet is null");
         }
     }
 

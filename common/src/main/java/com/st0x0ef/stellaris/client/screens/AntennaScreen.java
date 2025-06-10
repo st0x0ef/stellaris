@@ -95,8 +95,8 @@ public class AntennaScreen extends AbstractContainerScreen<AntennaMenu> {
 
         nameBox.setBordered(false);
 
-        this.publicCheckbox = new CustomCheckBox(this.leftPos + 120, this.topPos + 38, 14, Component.literal(""), this.font, false)
-                .setTexture(GUISprites.CHECKBOX, GUISprites.CHECKBOX_SELECTED);
+        this.publicCheckbox = new CustomCheckBox(this.leftPos + 120, this.topPos + 38, 17, Component.literal(""), this.font, false)
+                .setTexture(GUISprites.INDUSTRIAL_CHECKBOX, GUISprites.INDUSTRIAL_CHECKBOX_SELECTED);
 
         this.saveButton = new TexturedButton(this.leftPos + (this.imageWidth / 2 - 30),  this.inventoryLabelY, 60, 20, Component.literal("Create"), (b) -> onClose())
                 .tex(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/antenna_button.png"), ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/antenna_button_hovered.png"))

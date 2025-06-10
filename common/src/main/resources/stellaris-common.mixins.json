@@ -16,6 +16,7 @@
   ],
   "client": [
     "StormyPlanetMixin",
+    "client.CustomEditBox",
     "client.FogRenderMixin",
     "client.PlayerRiddingVehicleMixin",
     "client.RenderPlayerMixin",

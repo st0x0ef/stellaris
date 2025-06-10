@@ -24,6 +24,7 @@ public class CustomCheckBox extends AbstractButton {
     private final CustomCheckBox.OnValueChange onValueChange;
     private final MultiLineTextWidget textWidget;
 
+    private boolean text = true;
 
     public CustomCheckBox(int x, int y, int maxWidth, Component message, Font font, boolean selected) {
         this(x, y, maxWidth, message, font, selected, CustomCheckBox.OnValueChange.NOP);
@@ -32,11 +33,16 @@ public class CustomCheckBox extends AbstractButton {
 
     public CustomCheckBox(int x, int y, int maxWidth, Component message, Font font, boolean selected, CustomCheckBox.OnValueChange onValueChange) {
         super(x, y, 0, 0, message);
-        this.width = this.getAdjustedWidth(maxWidth, message, font);
+        this.width = maxWidth;
         this.textWidget = (new MultiLineTextWidget(message, font)).setMaxWidth(this.width).setColor(14737632);
-        this.height = this.getAdjustedHeight(font);
+        this.height = this.width;
         this.selected = selected;
         this.onValueChange = onValueChange;
+    }
+
+    public CustomCheckBox showText(boolean text) {
+        this.text = text;
+        return this;
     }
 
     public CustomCheckBox setTexture(ResourceLocation texture, ResourceLocation checkTexture) {
@@ -59,7 +65,7 @@ public class CustomCheckBox extends AbstractButton {
 
     public static int getBoxSize(Font font) {
         Objects.requireNonNull(font);
-        return 9 + 8;
+        return 17;
     }
 
     public void onPress() {
@@ -82,7 +88,6 @@ public class CustomCheckBox extends AbstractButton {
                 narrationElementOutput.add(NarratedElementType.USAGE, Component.translatable("narration.checkbox.usage.hovered"));
             }
         }
-
     }
 
     @Override
@@ -92,14 +97,18 @@ public class CustomCheckBox extends AbstractButton {
         Font font = minecraft.font;
         guiGraphics.setColor(1.0F, 1.0F, 1.0F, this.alpha);
         RenderSystem.enableBlend();
-        ResourceLocation resourceLocation = this.selected ? this.texture : this.checkTexture;
+        ResourceLocation resourceLocation = this.selected ? this.checkTexture : this.texture;
 
-        int i = getBoxSize(font);
+        int i = this.width;
         guiGraphics.blitSprite(resourceLocation, this.getX(), this.getY(), i, i);
-        int j = this.getX() + i + 4;
-        int k = this.getY() + i / 2 - this.textWidget.getHeight() / 2;
-        this.textWidget.setPosition(j, k);
-        this.textWidget.renderWidget(guiGraphics, mouseX, mouseY, partialTick);
+
+        if(this.text) {
+            int j = this.getX() + i + 4;
+            int k = this.getY() + i / 2 - this.textWidget.getHeight() / 2;
+            this.textWidget.setPosition(j, k);
+            this.textWidget.renderWidget(guiGraphics, mouseX, mouseY, partialTick);
+
+        }
     }
 
     @Environment(EnvType.CLIENT)

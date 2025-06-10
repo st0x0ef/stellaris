@@ -1095,6 +1095,8 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
 
                         focusedBody = moon;
                         ((LaunchWindow) this.moveableWindows.getFirst()).setCelestialBody(this.focusedBody);
+                        ((SpaceStationWindow) this.moveableWindows.get(1)).setCelestialBody(this.focusedBody);
+
                         showSpaceStationMenu = true;
 
                         double cx = mx - width / 2.0;
@@ -1124,6 +1126,8 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
 
                         focusedBody = planet;
                         ((LaunchWindow) this.moveableWindows.getFirst()).setCelestialBody(this.focusedBody);
+                        ((SpaceStationWindow) this.moveableWindows.get(1)).setCelestialBody(this.focusedBody);
+
                         showSpaceStationMenu = true;
 
                         double cx = px - width / 2.0;
@@ -1252,12 +1256,11 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
 
     }
 
-    public void onSpaceStationButtonClick(SpaceStationRecipesManager.SpaceStationRecipeState stationRecipeState) {
-        if(stationRecipeState.isUnlocked && focusedBody != null) {
+    public void onSpaceStationButtonClick(CelestialBody body, SpaceStationRecipesManager.SpaceStationRecipeState stationRecipeState, LaunchPad pad) {
+        focusedBody = body;
+        tpToFocusedPlanet();
+        NetworkManager.sendToServer(new PlaceStationPacket(body.dimension, stationRecipeState.recipe, pad));
 
-            tpToFocusedPlanet();
-            NetworkManager.sendToServer(new PlaceStationPacket(focusedBody.dimension, stationRecipeState.recipe));
-        }
     }
 
 

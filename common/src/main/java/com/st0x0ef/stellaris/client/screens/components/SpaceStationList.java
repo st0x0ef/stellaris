@@ -63,7 +63,6 @@ public class SpaceStationList extends AbstractScrollWidget {
 
             SpaceStationRecipesManager.SpaceStationRecipeState recipeState = this.spaceStationRecipeStates.get(i);
 
-
             SpaceStationButton launchPadWidget = new SpaceStationButton(recipeState, x, getY() + y, this.width + 19, this.window);
             launchPadWidget.render(guiGraphics, mouseX, (int) (mouseY + this.scrollAmount()), partialTick);
             spaceStationRecipeStateMap.putIfAbsent(launchPadWidget.buttonPositions, recipeState);
@@ -102,7 +101,7 @@ public class SpaceStationList extends AbstractScrollWidget {
 
                 if (Utils.isHoveredOnSprite(pos.x, (int) (pos.y - this.scrollAmount()), pos.z, pos.w, (int) mouseX, (int) mouseY)) {
                     if(state.isUnlocked) {
-                        window.spaceStationSelected = state.recipe.location();
+                        window.spaceStationSelected = state;
                     }
 
                     return true;
@@ -158,7 +157,7 @@ public class SpaceStationList extends AbstractScrollWidget {
 
             TexturedButton launchButton = new TexturedButton((this.x + this.width) - 54, this.y + 6, 49, 18, Component.literal("Select"), (btn) -> {
                 if(recipeState.isUnlocked) {
-                    window.spaceStationSelected = recipeState.recipe.location();
+                    window.spaceStationSelected = recipeState;
                 }
             });
 

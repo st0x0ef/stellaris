@@ -1,27 +1,43 @@
 package com.st0x0ef.stellaris.client.screens.windows;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.client.screens.GUISprites;
 import com.st0x0ef.stellaris.client.screens.PlanetSelectionScreen;
 import com.st0x0ef.stellaris.client.screens.components.CustomCheckBox;
 import com.st0x0ef.stellaris.client.screens.components.SpaceStationList;
+import com.st0x0ef.stellaris.client.screens.components.TexturedButton;
+import com.st0x0ef.stellaris.client.screens.info.CelestialBody;
+import com.st0x0ef.stellaris.common.data.recipes.SpaceStationRecipesManager;
+import com.st0x0ef.stellaris.common.launchpads.LaunchPad;
+import com.st0x0ef.stellaris.common.launchpads.LaunchPadLauncher;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.client.gui.components.WidgetSprites;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 public class SpaceStationWindow extends MoveableWindow {
 
     public final PlanetSelectionScreen parent;
+    @Nullable
+    public CelestialBody celestialBody = PlanetSelectionScreen.focusedBody;
 
-    public ResourceLocation spaceStationSelected = ResourceLocation.parse("stellaris:null");
+    public SpaceStationRecipesManager.SpaceStationRecipeState spaceStationSelected;
 
     private SpaceStationList stationList;
     private EditBox nameBox;
-
+    private CustomCheckBox publicCheckBox;
+    private TexturedButton launchButton;
 
     public SpaceStationWindow(int width, int height, Component message, PlanetSelectionScreen parent) {
         super(width, height, message, parent);
@@ -34,10 +50,23 @@ public class SpaceStationWindow extends MoveableWindow {
         this.stationList = new SpaceStationList(getWindowX() + 60, getWindowY() + 75, getWidth() - 120, getHeight() - 120, Component.translatable("gui.stellaris.launchpads"), this);
         this.addWidget(this.stationList);
 
-        this.nameBox = new EditBox(Minecraft.getInstance().font, 100, 20, Component.literal("name"));
-        //this.nameBox.setBordered(false);
+        this.nameBox = new EditBox(Minecraft.getInstance().font, 150, 20, Component.literal("name"));
         this.nameBox.setPosition(this.stationList.getX() , getWindowY() + 50);
+        this.nameBox.setSprites(new WidgetSprites(GUISprites.EDIT_BAR, GUISprites.EDIT_BAR));
         this.addWidget(nameBox);
+
+        this.publicCheckBox = new CustomCheckBox(this.nameBox.getX() + this.stationList.getWidth() - 21 , getWindowY() + 50, 20,  Component.translatable("gui.stellaris.public"), Minecraft.getInstance().font, false)
+                .setTexture(GUISprites.CHECKBOX, GUISprites.CHECKBOX_SELECTED)
+                .showText(false);
+
+        this.addWidget(this.publicCheckBox);
+
+        this.launchButton = new TexturedButton((getWindowX() + getWidth()) / 2 - 1 , getWindowY() + getHeight() - 40, 50, 20, (button) -> this.onStationCreated()
+        ).tex(
+                ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button.png"),
+                ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button_hovered.png")
+        );
+        this.addWidget(this.launchButton);
 
     }
 
@@ -68,6 +97,26 @@ public class SpaceStationWindow extends MoveableWindow {
                 stationList.spaceStationRecipeStates = SpaceStationList.getSpaceStationRecipeStates();
             }
         };
+    }
+
+    public void onStationCreated() {
+        if(!this.nameBox.getValue().isEmpty() && this.spaceStationSelected != null && this.celestialBody != null) {
+            LaunchPad pad = new LaunchPad(
+                    LaunchPadLauncher.LAUNCH_PADS.launchPads().size(),
+                    // Will be set after
+                    new Vec3(0, 0, 0),
+                    ResourceKey.create(Registries.DIMENSION, this.celestialBody.dimension),
+                    this.nameBox.getValue(),
+                    this.publicCheckBox.selected,
+                    this.parent.getPlayer().getName().toString(),
+                    List.of()
+            );
+            this.parent.onSpaceStationButtonClick(this.celestialBody, this.spaceStationSelected, pad);
+        }
+    }
+
+    public void setCelestialBody(@Nullable CelestialBody celestialBody) {
+        this.celestialBody = celestialBody;
     }
 
 
