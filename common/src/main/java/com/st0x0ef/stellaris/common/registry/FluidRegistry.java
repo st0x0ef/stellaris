@@ -86,13 +86,29 @@ public class FluidRegistry {
     public static final RegistrySupplier<FlowingFluid> FLOWING_OXYGEN = FLUIDS.register("flowing_oxygen", () -> new ArchitecturyFlowingFluid.Flowing(OXYGEN_ATTRIBUTES));
     public static final RegistrySupplier<FlowingFluid> OXYGEN_STILL = FLUIDS.register("oxygen", () -> new ArchitecturyFlowingFluid.Source(OXYGEN_ATTRIBUTES));
 
+    /** DIESEL FLUIDS */
+    public static final ArchitecturyFluidAttributes DIESEL_ATTRIBUTES = SimpleArchitecturyFluidAttributes.ofSupplier(() -> FluidRegistry.FLOWING_DIESEL, () -> FluidRegistry.DIESEL_STILL)
+            .blockSupplier(() -> BlocksRegistry.DIESEL_BLOCK)
+            .bucketItemSupplier(() -> ItemsRegistry.DIESEL_BUCKET)
+            .slopeFindDistance(4)
+            .dropOff(1)
+            .tickDelay(8)
+            .explosionResistance(100.0F)
+            .luminosity(3)
+            .convertToSource(false)
+            .sourceTexture(id("block/fluids/diesel_still"))
+            .flowingTexture(id("block/fluids/diesel_flow"));
+
+
+    public static final RegistrySupplier<FlowingFluid> FLOWING_DIESEL = FLUIDS.register("flowing_diesel", () -> new ArchitecturyFlowingFluid.Flowing(DIESEL_ATTRIBUTES));
+    public static final RegistrySupplier<FlowingFluid> DIESEL_STILL = FLUIDS.register("diesel", () -> new ArchitecturyFlowingFluid.Source(DIESEL_ATTRIBUTES));
+
     public static void init() {
         FluidRegistry.FLUIDS.register();
         FLUIDS_INFOS.add(OXYGEN_ATTRIBUTES);
         FLUIDS_INFOS.add(OIL_ATTRIBUTES);
         FLUIDS_INFOS.add(HYDROGEN_ATTRIBUTES);
         FLUIDS_INFOS.add(FUEL_ATTRIBUTES);
+        FLUIDS_INFOS.add(DIESEL_ATTRIBUTES);
     }
-
-
 }
