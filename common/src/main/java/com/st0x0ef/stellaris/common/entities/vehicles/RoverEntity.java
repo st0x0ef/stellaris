@@ -157,11 +157,21 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
     public void tick() {
         super.tick();
         this.checkContainer();
+
+        if (getDriver() instanceof ServerPlayer serverPlayer) {
+            this.syncRocketData(serverPlayer);
+        }
     }
 
     @Override
-    protected boolean isEnoughFuel() {
-        return this.getFuel() > 0;
+    protected boolean consumeFuel() {
+        if (this.getFuel() <= 0) {
+            return false;
+        }
+
+        FUEL -= 1;
+
+        return this.getFuel() >= 0;
     }
 
     private void checkContainer() {
