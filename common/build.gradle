@@ -12,17 +12,3 @@ dependencies {
 
     modApi("com.fej1fun.potentials:potentials-common:${rootProject.potentials_version}")
 }
-
-publishing {
-    publications {
-        mavenCommon(MavenPublication) {
-            artifactId = rootProject.modid
-            from components.java
-        }
-    }
-
-    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-    repositories {
-        // Add repositories to publish to here.
-    }
-}
