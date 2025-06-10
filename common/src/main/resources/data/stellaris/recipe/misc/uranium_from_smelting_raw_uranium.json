@@ -4,9 +4,7 @@
   "cookingtime": 100,
   "experience": 0.1,
   "group": "uranium",
-  "ingredient": {
-    "item": "stellaris:raw_uranium"
-  },
+  "ingredient": "stellaris:raw_uranium",
   "result": {
     "id": "stellaris:uranium_ingot"
   }

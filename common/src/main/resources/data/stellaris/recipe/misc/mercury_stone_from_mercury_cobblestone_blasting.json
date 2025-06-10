@@ -4,9 +4,7 @@
   "cookingtime": 100,
   "experience": 0.1,
   "group": "iron",
-  "ingredient": {
-    "item": "stellaris:mercury_cobblestone"
-  },
+  "ingredient": "stellaris:mercury_cobblestone",
   "result": {
     "id": "stellaris:mercury_stone"
   }

@@ -6,7 +6,7 @@
     "###"
   ],
   "key": {
-    "#": {"item": "stellaris:heavy_metal_nugget"}
+    "#": "stellaris:heavy_metal_nugget"
   },
   "result": {
     "id": "stellaris:heavy_metal_ingot"

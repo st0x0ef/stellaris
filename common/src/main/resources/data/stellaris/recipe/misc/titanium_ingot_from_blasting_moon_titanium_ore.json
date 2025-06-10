@@ -4,10 +4,8 @@
   "cookingtime": 100,
   "experience": 0.7,
   "group": "steel",
-  "ingredient": {
-    "item": "stellaris:moon_steel_ore"
-  },
+  "ingredient": "stellaris:moon_titanium_ore",
   "result": {
-    "id": "stellaris:steel_ingot"
+    "id": "stellaris:titanium_ingot"
   }
 }

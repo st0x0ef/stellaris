@@ -4,9 +4,7 @@
   "cookingtime": 100,
   "experience": 0.1,
   "group": "iron",
-  "ingredient": {
-    "item": "stellaris:venus_cobblestone"
-  },
+  "ingredient": "stellaris:venus_cobblestone",
   "result": {
     "id": "stellaris:venus_stone"
   }

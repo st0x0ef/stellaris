@@ -4,9 +4,7 @@
   "cookingtime": 100,
   "experience": 0.1,
   "group": "iron",
-  "ingredient": {
-    "item": "stellaris:moon_ice_shard_ore"
-  },
+  "ingredient": "stellaris:moon_ice_shard_ore",
   "result": {
     "id": "stellaris:ice_shard"
   }

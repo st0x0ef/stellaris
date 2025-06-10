@@ -4,9 +4,7 @@
   "cookingtime": 100,
   "experience": 0.1,
   "group": "iron",
-  "ingredient": {
-    "item": "stellaris:venus_coal_ore"
-  },
+  "ingredient": "stellaris:venus_coal_ore",
   "result": {
     "id": "minecraft:coal"
   }
