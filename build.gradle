@@ -82,7 +82,7 @@ subprojects {
         publications {
             mavenJava(MavenPublication) {
                 groupId "com.st0x0ef.stellaris"
-                artifactId "stellaris-$modLoader-" + minecraft_version
+                artifactId "stellaris-${modLoader}-${minecraft_version}"
                 version mod_version
                 from components.java
                 pom {
@@ -94,7 +94,8 @@ subprojects {
 
         repositories {
             maven {
-                url = "https://maven.exodusstudio.org/releases/"
+                name = "ExodusStudio"
+                url = "https://maven.exodusstudio.org/releases"
                 credentials {
                     username = System.getenv("EXODUS_MAVEN_USERNAME") // DO NOT CHANGE
                     password = System.getenv("EXODUS_MAVEN_KEY") // DO NOT CHANGE
