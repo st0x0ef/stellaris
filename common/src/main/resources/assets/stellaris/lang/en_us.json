@@ -558,9 +558,9 @@
   "general.stellaris.jet_suit_fuel": "Fuel",
   "jetsuit.stellaris.fuel": "§7Fuel : §8%s",
 
-  "text.stellaris.planetscreen.temperature": "Temperature",
+  "text.stellaris.planetscreen.temperature": "Temp.",
   "text.stellaris.planetscreen.gravity": "Gravity",
-  "text.stellaris.planetscreen.oxygen": "Has Oxygen",
+  "text.stellaris.planetscreen.oxygen": "Oxygen",
   "text.stellaris.planetscreen.launch": "Launch!",
   "text.stellaris.planetscreen.system": "Planetary System",
   "text.stellaris.planetscreen.error_message": "You can't reach that celestial body",

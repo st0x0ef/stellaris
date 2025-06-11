@@ -3,7 +3,9 @@ package com.st0x0ef.stellaris.common.utils;
 import com.mojang.serialization.Codec;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
+import com.st0x0ef.stellaris.common.data.planets.StellarisData;
 import com.st0x0ef.stellaris.common.data.recipes.SpaceStationRecipe;
+import com.st0x0ef.stellaris.common.data_components.SpaceSuitModules;
 import com.st0x0ef.stellaris.common.entities.vehicles.LanderEntity;
 import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
@@ -13,6 +15,7 @@ import com.st0x0ef.stellaris.common.registry.StatsRegistry;
 import com.st0x0ef.stellaris.common.vehicle_upgrade.FuelType;
 import dev.architectury.utils.GameInstance;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
@@ -26,6 +29,9 @@ import net.minecraft.world.Container;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -138,7 +144,7 @@ public class Utils {
                     player.awardStat(StatsRegistry.SPACE_TRAVEL.get(), Utils.distanceToPlanet(PlanetUtil.getPlanet(player.level().dimension().location()), destination));
 
                     player.closeContainer();
-                    player.getEntityData().set(EntityData.DATA_PLANET_MENU_OPEN, false);
+                    player.stellaris$setPlanetMenuOpen(false, player, true);
                 }
             }
         }
@@ -382,7 +388,7 @@ public class Utils {
         }
     }
 
-    public static void trySetAttribute(LivingEntity entity ,Holder<Attribute> attribute, double value) {
+    public static void trySetAttribute(LivingEntity entity , Holder<Attribute> attribute, double value) {
         AttributeInstance attributeInstance = entity.getAttribute(attribute);
 
         if (attributeInstance != null)

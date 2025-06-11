@@ -1,7 +1,10 @@
 package com.st0x0ef.stellaris.common.events;
 
 import com.st0x0ef.stellaris.common.blocks.CoalLanternBlock;
+import com.st0x0ef.stellaris.common.blocks.RocketLaunchPad;
 import com.st0x0ef.stellaris.common.blocks.WallCoalTorchBlock;
+import com.st0x0ef.stellaris.common.launchpads.LaunchPadLauncher;
+import com.st0x0ef.stellaris.common.network.packets.SyncLaunchPads;
 import com.st0x0ef.stellaris.common.oxygen.GlobalOxygenManager;
 import com.st0x0ef.stellaris.common.registry.BlocksRegistry;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
@@ -10,11 +13,16 @@ import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import dev.architectury.event.EventResult;
 import dev.architectury.event.events.common.BlockEvent;
+import dev.architectury.event.events.common.LifecycleEvent;
+import dev.architectury.event.events.common.PlayerEvent;
 import dev.architectury.event.events.common.TickEvent;
+import dev.architectury.networking.NetworkManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.storage.LevelStorageSource;
 import net.minecraft.world.phys.AABB;
 
 public class Events {
@@ -32,7 +40,7 @@ public class Events {
                             .orElse(-1);
 
                     if (level >= 0) {
-                        player.addEffect(new MobEffectInstance(getHolder(EffectsRegistry.RADIOACTIVE), 100, level));
+                        player.addEffect(new MobEffectInstance(EffectsRegistry.getHolder(EffectsRegistry.RADIOACTIVE), 100, level));
                     }
 
                     tickBeforeNextRadioactiveCheck = RADIATION_CHECK_INTERVAL;

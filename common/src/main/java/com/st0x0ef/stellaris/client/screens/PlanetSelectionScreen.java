@@ -22,6 +22,7 @@ import com.st0x0ef.stellaris.common.network.packets.PlaceStationPacket;
 import com.st0x0ef.stellaris.common.network.packets.TeleportEntityToPlanetPacket;
 import com.st0x0ef.stellaris.common.registry.EntityData;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
+import com.st0x0ef.stellaris.common.utils.Utils;
 import dev.architectury.networking.NetworkManager;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -1236,7 +1237,7 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
 
     @Override
     public void onClose() {
-        if(getPlayer().getEntityData().get(EntityData.DATA_PLANET_MENU_OPEN)) {
+        if (getPlayer().stellaris$isPlanetMenuOpen()) {
             return;
         }
         long windowHandle = Minecraft.getInstance().getWindow().getWindow();

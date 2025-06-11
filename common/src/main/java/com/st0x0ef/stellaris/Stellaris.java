@@ -3,8 +3,9 @@ package com.st0x0ef.stellaris;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.ToNumberPolicy;
+import com.st0x0ef.stellaris.common.config.CommonConfig;
+import com.st0x0ef.stellaris.common.config.ConfigManager;
 import com.st0x0ef.stellaris.common.data.screen.TabletPack;
-import com.st0x0ef.stellaris.common.config.CustomConfig;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
 import com.st0x0ef.stellaris.common.data.screen.MoonPack;
 import com.st0x0ef.stellaris.common.data.screen.PlanetPack;
@@ -52,13 +53,13 @@ public class Stellaris {
         CreativeTabsRegistry.TABS.register();
         MenuTypesRegistry.MENU_TYPE.register();
         FeaturesRegistry.FEATURES.register();
+        StatsRegistry.STATS.register();
         CommandsRegistry.register();
         Events.registerEvents();
         CapabilitiesRegistry.init();
         RecipesRegistry.register();
         EntityRegistry.registerSpawnPlacements();
         EffectsRegistry.register();
-        StatsRegistry.init();
 
         ReloadListenerRegistry.register(PackType.SERVER_DATA, new StellarisData());
     }
