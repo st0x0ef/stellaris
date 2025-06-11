@@ -129,21 +129,22 @@ public class BlocksRegistry {
 
 
     /** Machine */
-    public static final RegistrySupplier<Block> UPGRADE_STATION = BLOCKS.register("upgrade_station", () -> new UpgradeStationBlock(BlockBehaviour.Properties.ofFullCopy(STEEL_ORE.get()).mapColor(MapColor.DEEPSLATE).strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE)));
+    public static final RegistrySupplier<Block> UPGRADE_STATION = BLOCKS.register("upgrade_station", () -> new UpgradeStationBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(4.5F, 3.0F).sound(SoundType.METAL)));
 
-    public static final RegistrySupplier<Block> ROCKET_STATION = BLOCKS.register("rocket_station", () -> new RocketStationBlock(BlockBehaviour.Properties.ofFullCopy(STEEL_ORE.get()).mapColor(MapColor.DEEPSLATE).strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE)));
-    public static final RegistrySupplier<Block> SOLAR_PANEL = BLOCKS.register("solar_panel", () -> new SolarPanelBlock(BlockBehaviour.Properties.ofFullCopy(STEEL_ORE.get()).mapColor(MapColor.DEEPSLATE).strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE)));
-    public static final RegistrySupplier<Block> COAL_GENERATOR = BLOCKS.register("coal_generator", () -> new CoalGeneratorBlock(BlockBehaviour.Properties.ofFullCopy(STEEL_ORE.get()).mapColor(MapColor.DEEPSLATE).strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE)));
-    public static final RegistrySupplier<Block> RADIOACTIVE_GENERATOR = BLOCKS.register("radioactive_generator", () -> new RadioactiveGeneratorBlock(BlockBehaviour.Properties.ofFullCopy(STEEL_ORE.get()).mapColor(MapColor.DEEPSLATE).strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE)));
+    public static final RegistrySupplier<Block> ROCKET_STATION = BLOCKS.register("rocket_station", () -> new RocketStationBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(4.5F, 3.0F).sound(SoundType.METAL)));
+    public static final RegistrySupplier<Block> SOLAR_PANEL = BLOCKS.register("solar_panel", () -> new SolarPanelBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(4.5F, 3.0F).sound(SoundType.METAL)));
+    public static final RegistrySupplier<Block> COAL_GENERATOR = BLOCKS.register("coal_generator", () -> new CoalGeneratorBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(4.5F, 3.0F).sound(SoundType.METAL)));
+    public static final RegistrySupplier<Block> RADIOACTIVE_GENERATOR = BLOCKS.register("radioactive_generator", () -> new RadioactiveGeneratorBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(4.5F, 3.0F).sound(SoundType.METAL)));
+    public static final RegistrySupplier<Block> DIESEL_GENERATOR = BLOCKS.register("diesel_generator", () -> new DieselGeneratorBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(4.5F, 3.0F).sound(SoundType.METAL)));
 
     public static final RegistrySupplier<Block> ROCKET_LAUNCH_PAD = BLOCKS.register("rocket_launch_pad", () -> new RocketLaunchPad(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).sound(SoundType.METAL).strength(5f, 2.5f).requiresCorrectToolForDrops()));
 
-    public static final RegistrySupplier<Block> VACUMATOR = BLOCKS.register("vacuumator", () -> new VacuumatorBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_ORE)));
-    public static final RegistrySupplier<Block> WATER_SEPARATOR = BLOCKS.register("water_separator", () -> new WaterSeparatorBlock(BlockBehaviour.Properties.ofFullCopy(STEEL_ORE.get()).mapColor(MapColor.DEEPSLATE).strength(4.5F, 3F).sound(SoundType.DEEPSLATE)));
-    public static final RegistrySupplier<Block> FUEL_REFINERY = BLOCKS.register("fuel_refinery", () -> new FuelRefineryBlock(BlockBehaviour.Properties.ofFullCopy(STEEL_ORE.get()).mapColor(MapColor.DEEPSLATE).strength(4.5F, 3F).sound(SoundType.DEEPSLATE)));
-    public static final RegistrySupplier<Block> OXYGEN_DISTRIBUTOR = BLOCKS.register("oxygen_distributor", () -> new OxygenDistributorBlock(BlockBehaviour.Properties.ofFullCopy(WATER_SEPARATOR.get())));
-    public static final RegistrySupplier<Block> WATER_PUMP = BLOCKS.register("water_pump", () -> new WaterPumpBlock(BlockBehaviour.Properties.ofFullCopy(WATER_SEPARATOR.get())));
-    public static final RegistrySupplier<Block> PUMPJACK = BLOCKS.register("pumpjack", () -> new PumpjackBlock(BlockBehaviour.Properties.ofFullCopy(STEEL_ORE.get()).mapColor(MapColor.DEEPSLATE).strength(4.5F, 3F).sound(SoundType.DEEPSLATE)));
+    public static final RegistrySupplier<Block> VACUMATOR = BLOCKS.register("vacuumator", () -> new VacuumatorBlock(BlockBehaviour.Properties.of()));
+    public static final RegistrySupplier<Block> WATER_SEPARATOR = BLOCKS.register("water_separator", () -> new WaterSeparatorBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(4.5F, 3F).sound(SoundType.METAL)));
+    public static final RegistrySupplier<Block> FUEL_REFINERY = BLOCKS.register("fuel_refinery", () -> new FuelRefineryBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(4.5F, 3F).sound(SoundType.METAL)));
+    public static final RegistrySupplier<Block> OXYGEN_DISTRIBUTOR = BLOCKS.register("oxygen_distributor", () -> new OxygenDistributorBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(4.5F, 3F).sound(SoundType.METAL)));
+    public static final RegistrySupplier<Block> WATER_PUMP = BLOCKS.register("water_pump", () -> new WaterPumpBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(4.5F, 3F).sound(SoundType.METAL)));
+    public static final RegistrySupplier<Block> PUMPJACK = BLOCKS.register("pumpjack", () -> new PumpjackBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(4.5F, 3F).sound(SoundType.METAL)));
 
     //Tiered Machine Blocks
     public static final RegistrySupplier<Block> T1_TANK = BLOCKS.register("t1_tank", () -> new FluidTankBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK), 5000));

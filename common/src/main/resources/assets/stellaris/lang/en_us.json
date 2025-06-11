@@ -293,6 +293,7 @@
   "block.stellaris.pumpjack": "Pumpjack",
   "block.stellaris.fuel_refinery": "Fuel Refinery",
   "block.stellaris.upgrade_station": "Upgrade Station",
+  "block.stellaris.diesel_generator": "Diesel Generator",
 
   "item.stellaris.oil_finder": "Oil Finder",
 
@@ -584,6 +585,7 @@
   "stellaris.screen.oxygen": "Oxygen",
   "stellaris.screen.energy": "Energy",
   "stellaris.screen.energyContainer": "Energy",
+  "stellaris.screen.diesel": "Diesel",
 
   "stellaris.compat.rocket_crafting": "Rocket Crafting",
   "general.stellaris.rocket_crafting_mode": "Mode",
@@ -703,6 +705,4 @@
 
   "config.stellaris.oxygenDamage": "Oxygen Damage",
   "config.stellaris.oxygenDamage.desc": "The Damage entites take every second when there is no oxygen."
-
-
 }
