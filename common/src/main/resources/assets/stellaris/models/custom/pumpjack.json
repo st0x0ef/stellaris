@@ -372,13 +372,13 @@
 			"scale": [0.3, 0.3, 0.32]
 		},
 		"ground": {
-			"translation": [0.5, -0.5, 1.25],
-			"scale": [0.35, 0.35, 0.35]
+			"translation": [0, 3, 0],
+			"scale": [0.25, 0.25, 0.25]
 		},
 		"gui": {
-			"rotation": [0, 90, 0],
-			"translation": [0.25, -1.75, 0],
-			"scale": [0.32, 0.32, 0.32]
+			"rotation": [30, 225, 0],
+			"translation": [0.5, -1.25, 0],
+			"scale": [0.374, 0.374, 0.374]
 		},
 		"fixed": {
 			"rotation": [0, 90, 0],
