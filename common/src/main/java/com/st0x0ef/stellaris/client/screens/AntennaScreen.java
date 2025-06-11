@@ -15,6 +15,7 @@ import dev.architectury.networking.NetworkManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -44,8 +45,6 @@ public class AntennaScreen extends AbstractContainerScreen<AntennaMenu> {
         imageWidth = 180;
         imageHeight = 188;
         inventoryLabelY = imageHeight - 94;
-        Stellaris.LOG.info("Loading LaunchPad: " + menu.launchPadId);
-
         if(menu.launchPadId != -1) {
             this.pad = LaunchPadUtils.getPadById(menu.launchPadId);
         }
@@ -55,9 +54,6 @@ public class AntennaScreen extends AbstractContainerScreen<AntennaMenu> {
     protected void init() {
         super.init();
 
-        TexturedButton shareButton = new TexturedButton(this.leftPos + 10, this.topPos + 10, 20, 20, Component.literal(""), (b) -> shareLaunchPad())
-                .tex(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/share_button.png"), ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/share_button_hovered.png"));
-        this.addRenderableWidget(shareButton);
         addWidgets(pad);
     }
 
@@ -114,9 +110,15 @@ public class AntennaScreen extends AbstractContainerScreen<AntennaMenu> {
         this.publicCheckbox = new CustomCheckBox(this.leftPos + 120, this.topPos + 38, 17, Component.literal(""), this.font, false)
                 .setTexture(GUISprites.INDUSTRIAL_CHECKBOX, GUISprites.INDUSTRIAL_CHECKBOX_SELECTED);
 
-        this.saveButton = new TexturedButton(this.leftPos + (this.imageWidth / 2 - 30),  this.inventoryLabelY, 60, 20, Component.literal("Create"), (b) -> onClose())
+        this.saveButton = new TexturedButton(this.leftPos + (this.imageWidth / 2 - 40),  this.inventoryLabelY, 60, 20, Component.literal("Create"), (b) -> onClose())
                 .tex(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/antenna_button.png"), ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/antenna_button_hovered.png"))
                 .showText(true);
+
+        TexturedButton shareButton = new TexturedButton(saveButton.getX() + saveButton.getWidth()  + 5, saveButton.getY(), 20, 20, Component.literal(""), (b) -> shareLaunchPad())
+                .tex(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/share_button.png"), ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/share_button_hovered.png"))
+                .tooltip(Tooltip.create(Component.literal("Share Launch Pad")))
+                .showTooltip(false);
+        this.addRenderableWidget(shareButton);
 
 
         if(pad != null) {

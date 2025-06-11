@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.launchpads;
 
+import com.st0x0ef.stellaris.Stellaris;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.player.Player;
@@ -120,7 +121,6 @@ public class LaunchPadUtils {
         List<LaunchPad> lps = LaunchPadLauncher.LAUNCH_PADS.launchPads().stream()
                 .filter((l) -> l.name().equals(name) && l.owner().equals(player.getName().getString()))
                 .toList();
-
         return lps.isEmpty() ? null : lps.getFirst();
     }
 }

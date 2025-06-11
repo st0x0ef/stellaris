@@ -199,20 +199,21 @@ public class StellarisCommands {
                                                     LaunchPad launchPad = LaunchPadUtils.getPadByNameAndPlayer(StringArgumentType.getString(context, "launchpad"), context.getSource().getPlayer());
 
                                                     if(launchPad == null) {
-                                                        context.getSource().sendFailure(Component.literal("Launchpad not found"));
+                                                        context.getSource().sendFailure(Component.literal("This launchpad don't exist or is not yours"));
                                                         return 0;
                                                     } else if(!launchPad.owner().equals(player.getName().getString())) {
                                                         context.getSource().sendFailure(Component.literal("This launchpad is yours"));
                                                         return 0;
                                                     }
                                                     else if(context.getSource().getPlayer().getName().equals(player.getName())) {
-                                                         context.getSource().sendFailure(Component.literal("You can't share your own launchpad"));
+                                                         context.getSource().sendFailure(Component.literal("You can't share your launchpad to yourself"));
                                                          return 0;
                                                     } else if(launchPad.whitelist().contains(player.getName().getString())) {
                                                         context.getSource().sendFailure(Component.literal("Player " + player.getName().getString() + " already has access to this launchpad"));
                                                         return 0;
                                                     }
                                                     LaunchPadLauncher.modifyLaunchPad(LaunchPadUtils.whitelistPlayer(launchPad, player), context.getSource().getServer());
+                                                    context.getSource().sendSuccess(() -> Component.translatable(""), false);
 
                                                     return Command.SINGLE_SUCCESS;
                                                 })

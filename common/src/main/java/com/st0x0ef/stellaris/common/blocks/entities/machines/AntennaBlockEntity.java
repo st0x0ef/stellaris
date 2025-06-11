@@ -69,8 +69,6 @@ public class AntennaBlockEntity extends BaseContainerBlockEntity implements Impl
         super.loadAdditional(compoundTag, provider);
 
         this.launchPadId = compoundTag.getInt("LaunchPadId");
-        Stellaris.LOG.info("getting launchPadId: " + this.launchPadId);
-
         this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
         ContainerHelper.loadAllItems(compoundTag, this.items, provider);
 
@@ -79,7 +77,6 @@ public class AntennaBlockEntity extends BaseContainerBlockEntity implements Impl
     @Override
     protected void saveAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
         super.saveAdditional(compoundTag, provider);
-        Stellaris.LOG.info("putting launchPadId: " + this.launchPadId);
         compoundTag.putInt("LaunchPadId", this.launchPadId);
         ContainerHelper.saveAllItems(compoundTag, this.items, provider);
 
