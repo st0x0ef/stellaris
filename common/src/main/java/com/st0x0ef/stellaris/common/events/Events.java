@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.common.events;
 import com.st0x0ef.stellaris.common.blocks.CoalLanternBlock;
 import com.st0x0ef.stellaris.common.blocks.RocketLaunchPad;
 import com.st0x0ef.stellaris.common.blocks.WallCoalTorchBlock;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.AntennaBlockEntity;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPadLauncher;
 import com.st0x0ef.stellaris.common.network.packets.SyncLaunchPads;
 import com.st0x0ef.stellaris.common.oxygen.GlobalOxygenManager;
@@ -60,7 +61,11 @@ public class Events {
                     if(checkIfAntennaIsNear(pos, level)) {
                         return EventResult.interruptFalse();
                     }
-
+                } else if(state.is(BlocksRegistry.ANTENNA)) {
+                    AntennaBlockEntity antennaBlockEntity = (AntennaBlockEntity) level.getBlockEntity(pos);
+                    if (antennaBlockEntity != null && antennaBlockEntity.launchPadId != -1) {
+                        LaunchPadLauncher.removeLaunchpad(antennaBlockEntity.launchPadId, serverLevel.getServer());
+                    }
                 }
             }
             return EventResult.pass();

@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.entities.ImplementedInventory;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPad;
 import com.st0x0ef.stellaris.common.menus.AntennaMenu;
@@ -68,6 +69,8 @@ public class AntennaBlockEntity extends BaseContainerBlockEntity implements Impl
         super.loadAdditional(compoundTag, provider);
 
         this.launchPadId = compoundTag.getInt("LaunchPadId");
+        Stellaris.LOG.info("getting launchPadId: " + this.launchPadId);
+
         this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
         ContainerHelper.loadAllItems(compoundTag, this.items, provider);
 
@@ -76,7 +79,8 @@ public class AntennaBlockEntity extends BaseContainerBlockEntity implements Impl
     @Override
     protected void saveAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
         super.saveAdditional(compoundTag, provider);
-        compoundTag.putInt("launchPadId", this.launchPadId);
+        Stellaris.LOG.info("putting launchPadId: " + this.launchPadId);
+        compoundTag.putInt("LaunchPadId", this.launchPadId);
         ContainerHelper.saveAllItems(compoundTag, this.items, provider);
 
     }

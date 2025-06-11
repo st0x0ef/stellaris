@@ -102,11 +102,18 @@ public class LaunchPadUtils {
     }
 
     public static LaunchPad whitelistPlayer(LaunchPad launchPad, Player player) {
-//        if (launchPad.whitelist().contains(player.getName().getString())) {
-//            return launchPad;
-//        }
+        if (launchPad.whitelist().contains(player.getName().getString())) {
+            return launchPad;
+        }
         launchPad.whitelist().add(player.getName().getString());
         return launchPad;
+    }
+
+    public static int getNextLaunchPadId() {
+        return LaunchPadLauncher.LAUNCH_PADS.launchPads().stream()
+                .mapToInt(LaunchPad::id)
+                .max()
+                .orElse(-1) + 1;
     }
 
     public static LaunchPad getPadByNameAndPlayer(String name, Player player) {

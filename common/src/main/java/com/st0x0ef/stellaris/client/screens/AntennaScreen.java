@@ -7,6 +7,7 @@ import com.st0x0ef.stellaris.client.screens.components.TexturedButton;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.AntennaBlockEntity;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPad;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPadLauncher;
+import com.st0x0ef.stellaris.common.launchpads.LaunchPadUtils;
 import com.st0x0ef.stellaris.common.menus.AntennaMenu;
 import com.st0x0ef.stellaris.common.network.packets.LaunchPadsOperations;
 import com.st0x0ef.stellaris.common.utils.Utils;
@@ -46,7 +47,7 @@ public class AntennaScreen extends AbstractContainerScreen<AntennaMenu> {
         Stellaris.LOG.info("Loading LaunchPad: " + menu.launchPadId);
 
         if(menu.launchPadId != -1) {
-            this.pad = LaunchPadLauncher.LAUNCH_PADS.launchPads().get(menu.launchPadId);
+            this.pad = LaunchPadUtils.getPadById(menu.launchPadId);
         }
     }
 
@@ -55,7 +56,7 @@ public class AntennaScreen extends AbstractContainerScreen<AntennaMenu> {
         super.init();
 
         TexturedButton shareButton = new TexturedButton(this.leftPos + 10, this.topPos + 10, 20, 20, Component.literal(""), (b) -> shareLaunchPad())
-                .tex(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/delete.png"), ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/delete_hovered.png"));
+                .tex(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/share_button.png"), ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/share_button_hovered.png"));
         this.addRenderableWidget(shareButton);
         addWidgets(pad);
     }
@@ -144,7 +145,7 @@ public class AntennaScreen extends AbstractContainerScreen<AntennaMenu> {
         var create = false;
         if (this.pad == null) {
             this.pad = new LaunchPad(
-                    LaunchPadLauncher.LAUNCH_PADS.launchPads().size(),
+                    LaunchPadUtils.getNextLaunchPadId(),
                     Utils.blockPosToVec3(blockEntity.getBlockPos()),
                     blockEntity.getLevel().dimension(),
                     this.nameBox.getValue(),
