@@ -35,5 +35,4 @@ public class GUISprites {
     public static final ResourceLocation WINDOW_BAR = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "util/window_bar");
     public static final ResourceLocation FLAMES = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "util/flames");
 
-
 }

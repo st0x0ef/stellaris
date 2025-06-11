@@ -8,7 +8,9 @@ import net.minecraft.world.item.ItemStack;
 public class SpecificItemsSlot {
 
     public static class Tags extends Slot {
+
         final TagKey<net.minecraft.world.item.Item> tag;
+
         public Tags(Container container, int slot, int x, int y, TagKey<net.minecraft.world.item.Item> tag) {
             super(container, slot, x, y);
             this.tag = tag;
@@ -22,7 +24,9 @@ public class SpecificItemsSlot {
     }
 
     public static class Item extends Slot {
+
         net.minecraft.world.item.Item item;
+
         public Item(Container container, int slot, int x, int y, net.minecraft.world.item.Item item) {
             super(container, slot, x, y);
             this.item = item;

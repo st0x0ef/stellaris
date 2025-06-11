@@ -17,10 +17,12 @@ import java.util.Map;
 import java.util.Set;
 
 public class DimensionOxygenManager {
+
     private final Set<OxygenRoom> oxygenRooms;
     private final Map<BlockPos, OxygenRoom> roomToCheckIfOpen;
     private final boolean planetHasOxygen;
     private final ServerLevel level;
+    private int tickCount;
 
     public DimensionOxygenManager(ServerLevel level) {
         this.oxygenRooms = new HashSet<>();
@@ -29,13 +31,9 @@ public class DimensionOxygenManager {
         this.planetHasOxygen = PlanetUtil.hasOxygen(level);
     }
 
-    public void tickOxygenRoom(BlockPos distributorPos) {
-        if (getOxygenRoom(distributorPos) == null) {
-            oxygenRooms.add(new OxygenRoom(level, distributorPos));
-
-        }
-        this.updateOxygenTick();
-        this.setChanged();
+    public void addOxygenRoom(BlockPos pos) {
+        oxygenRooms.add(new OxygenRoom(level, pos));
+        setChanged();
     }
 
     public void removeOxygenRoom(BlockPos pos) {
@@ -59,15 +57,23 @@ public class DimensionOxygenManager {
         data.setDirty();
     }
 
+
     public void updateOxygenTick() {
-        if (planetHasOxygen) return;
+        if (planetHasOxygen || tickCount < 20) {
+            tickCount++;
+            return;
+        }
 
         oxygenRooms.forEach(OxygenRoom::tick);
         roomToCheckIfOpen.values().forEach(OxygenRoom::removeOxygenInRoom);
         roomToCheckIfOpen.clear();
+
+        tickCount=0;
+        this.setChanged();
     }
 
     public boolean breath(LivingEntity entity) {
+
         if (planetHasOxygen || entity.getType().is(TagRegistry.ENTITY_NO_OXYGEN_NEEDED_TAG)) {
             return true;
         }
@@ -110,8 +116,12 @@ public class DimensionOxygenManager {
                 .orElse(null);
     }
 
-    public void setOxygensRooms(Set<OxygenRoom> rooms) {
+    public void setOxygenRooms(Set<OxygenRoom> rooms) {
         this.oxygenRooms.clear();
         this.oxygenRooms.addAll(rooms);
+    }
+
+    public ServerLevel getLevel() {
+        return level;
     }
 }

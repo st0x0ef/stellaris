@@ -51,6 +51,10 @@ public interface NetworkRegistry {
         registerS2C(SyncOilLevelPacket.TYPE, SyncOilLevelPacket.STREAM_CODEC, SyncOilLevelPacket::handle);
         registerS2C(SYNC_SPACE_STATION_DATAPACK, SyncSpaceStationDatapackPacket.STREAM_CODEC, SyncSpaceStationDatapackPacket::handle);
         registerS2C(SYNC_LAUNCH_PADS, SyncLaunchPads.STREAM_CODEC, SyncLaunchPads::handle);
+        registerS2C(SyncPlanetMenuState.TYPE, SyncPlanetMenuState.STREAM_CODEC, SyncPlanetMenuState::handle);
+        registerS2C(SyncConfigPacket.TYPE, SyncConfigPacket.STREAM_CODEC, SyncConfigPacket::handle);
+
+
 
         registerC2S(
                 OPEN_MILKY_WAY_MENU,

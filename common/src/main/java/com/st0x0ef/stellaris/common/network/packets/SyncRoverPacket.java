@@ -12,6 +12,7 @@ import net.minecraft.world.entity.player.Player;
 import java.util.UUID;
 
 public class SyncRoverPacket implements CustomPacketPayload {
+
     private final boolean forward;
     private final boolean backward;
     private final boolean left;
@@ -19,6 +20,7 @@ public class SyncRoverPacket implements CustomPacketPayload {
     private final UUID uuid;
 
     public static final StreamCodec<RegistryFriendlyByteBuf, SyncRoverPacket> STREAM_CODEC = new StreamCodec<>() {
+
         @Override
         public SyncRoverPacket decode(RegistryFriendlyByteBuf buf) {
             return fromBytes(buf);

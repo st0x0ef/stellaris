@@ -22,11 +22,12 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 public class VerticalSlabBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock {
+
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     public VerticalSlabBlock(BlockBehaviour.Properties properties) {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED,false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false));
     }
 
     @Override
@@ -43,16 +44,11 @@ public class VerticalSlabBlock extends HorizontalDirectionalBlock implements Sim
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         Direction dir = state.getValue(FACING);
         return switch (dir) {
-            case NORTH:
-                yield Shapes.box(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.5f);
-            case SOUTH:
-                yield Shapes.box(0.0f, 0.0f, 0.5f, 1.0f, 1.0f, 1.0f);
-            case EAST:
-                yield Shapes.box(0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
-            case WEST:
-                yield Shapes.box(0.0f, 0.0f, 0.0f, 0.5f, 1.0f, 1.0f);
-            default:
-                yield Shapes.block();
+            case NORTH -> Shapes.box(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.5f);
+            case SOUTH -> Shapes.box(0.0f, 0.0f, 0.5f, 1.0f, 1.0f, 1.0f);
+            case EAST -> Shapes.box(0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
+            case WEST -> Shapes.box(0.0f, 0.0f, 0.0f, 0.5f, 1.0f, 1.0f);
+            default -> Shapes.block();
         };
     }
 

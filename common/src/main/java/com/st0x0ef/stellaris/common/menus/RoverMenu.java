@@ -8,7 +8,6 @@ import com.st0x0ef.stellaris.common.menus.slot.upgrade.SpeedUpgradeSlot;
 import com.st0x0ef.stellaris.common.menus.slot.upgrade.TankUpgradeSlot;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -17,8 +16,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
-public class RoverMenu extends AbstractContainerMenu implements IVehicleMenu
-{
+public class RoverMenu extends AbstractContainerMenu implements IVehicleMenu {
 
     private final Container inventory;
     private final RoverEntity rover;
@@ -51,13 +49,15 @@ public class RoverMenu extends AbstractContainerMenu implements IVehicleMenu
                 if (!this.moveItemStackTo(originalStack, this.inventory.getContainerSize(), this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.moveItemStackTo(originalStack, 0, this.inventory.getContainerSize(), false)) {
+            }
+            else if (!this.moveItemStackTo(originalStack, 0, this.inventory.getContainerSize(), false)) {
                 return ItemStack.EMPTY;
             }
 
             if (originalStack.isEmpty()) {
                 slot.set(ItemStack.EMPTY);
-            } else {
+            }
+            else {
                 slot.setChanged();
             }
         }
@@ -67,10 +67,6 @@ public class RoverMenu extends AbstractContainerMenu implements IVehicleMenu
 
     @Override
     public boolean stillValid(Player player) {
-        if (!player.isLocalPlayer()) {
-            this.getRover().syncRocketData((ServerPlayer) player);
-        }
-
         return this.inventory.stillValid(player);
     }
 
@@ -82,7 +78,7 @@ public class RoverMenu extends AbstractContainerMenu implements IVehicleMenu
 
         //UPGRADE SLOTS
         this.addSlot(new MotorUpgradeSlot(inventory, 2, 84, 68, this.rover));
-        this.addSlot(new SpeedUpgradeSlot(inventory,3,110,68));
+        this.addSlot(new SpeedUpgradeSlot(inventory, 3, 110, 68));
         this.addSlot(new TankUpgradeSlot(inventory, 4, 136, 68));
 
         //INVENTORY SLOTS

@@ -21,7 +21,7 @@ public class PumpjackMenu extends BaseContainer {
     }
 
     public PumpjackMenu(int containerId, Inventory inventory, Container container, PumpjackBlockEntity blockEntity) {
-        super(MenuTypesRegistry.PUMPJACK_MENU.get(), containerId, 2, inventory, 58);
+        super(MenuTypesRegistry.PUMPJACK_MENU.get(), containerId, 2, inventory, 10, 142);
         this.container = container;
         this.blockEntity = blockEntity;
         checkContainerSize(container, 2);

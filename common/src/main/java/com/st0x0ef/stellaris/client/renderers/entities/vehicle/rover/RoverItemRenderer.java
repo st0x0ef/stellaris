@@ -2,7 +2,6 @@ package com.st0x0ef.stellaris.client.renderers.entities.vehicle.rover;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.st0x0ef.stellaris.Stellaris;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -16,10 +15,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
+import static com.st0x0ef.stellaris.Stellaris.texture;
+
 @Environment(EnvType.CLIENT)
 public class RoverItemRenderer extends BlockEntityWithoutLevelRenderer {
 
-    private final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/vehicle/rover.png");
+    private final ResourceLocation TEXTURE = texture("vehicle/rover");
     private RoverModel<?> model;
 
     public RoverItemRenderer(BlockEntityRenderDispatcher blockEntityRenderDispatcher, EntityModelSet entityModelSet) {

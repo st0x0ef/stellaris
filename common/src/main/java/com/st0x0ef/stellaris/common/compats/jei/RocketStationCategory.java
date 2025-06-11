@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.common.compats.jei;
 
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.data.recipes.RocketStationRecipe;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -17,10 +16,13 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
 
+import static com.st0x0ef.stellaris.Stellaris.guiTexture;
+import static com.st0x0ef.stellaris.Stellaris.id;
+
 public record RocketStationCategory(IGuiHelper guiHelper) implements IRecipeCategory<RocketStationRecipe> {
 
-    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/compats/rocket_station.png");
-    public static final RecipeType<RocketStationRecipe> RECIPE = new RecipeType<>(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "rocket_station"), RocketStationRecipe.class);
+    public static final ResourceLocation TEXTURE = guiTexture("compats/rocket_station");
+    public static final RecipeType<RocketStationRecipe> RECIPE = new RecipeType<>(id("rocket_station"), RocketStationRecipe.class);
 
     @Override
     public RecipeType<RocketStationRecipe> getRecipeType() {
@@ -52,19 +54,19 @@ public record RocketStationCategory(IGuiHelper guiHelper) implements IRecipeCate
         builder.addInvisibleIngredients(RecipeIngredientRole.CATALYST).addIngredients(Ingredient.of(ItemsRegistry.ROCKET_STATION.get()));
 
         inputSlotAdder(builder, recipe, 56, 20, 0);
-        inputSlotAdder(builder, recipe,47, 38, 1);
-        inputSlotAdder(builder, recipe,65, 38, 2);
-        inputSlotAdder(builder, recipe,47, 56, 3);
-        inputSlotAdder(builder, recipe,65, 56, 4);
-        inputSlotAdder(builder, recipe,47, 74, 5);
-        inputSlotAdder(builder, recipe,65, 74, 6);
-        inputSlotAdder(builder, recipe,29, 92, 7);
-        inputSlotAdder(builder, recipe,47, 92, 8);
-        inputSlotAdder(builder, recipe,65, 92, 9);
-        inputSlotAdder(builder, recipe,83, 92, 10);
-        inputSlotAdder(builder, recipe,29, 110, 11);
-        inputSlotAdder(builder, recipe,56, 110, 12);
-        inputSlotAdder(builder, recipe,83, 110, 13);
+        inputSlotAdder(builder, recipe, 47, 38, 1);
+        inputSlotAdder(builder, recipe, 65, 38, 2);
+        inputSlotAdder(builder, recipe, 47, 56, 3);
+        inputSlotAdder(builder, recipe, 65, 56, 4);
+        inputSlotAdder(builder, recipe, 47, 74, 5);
+        inputSlotAdder(builder, recipe, 65, 74, 6);
+        inputSlotAdder(builder, recipe, 29, 92, 7);
+        inputSlotAdder(builder, recipe, 47, 92, 8);
+        inputSlotAdder(builder, recipe, 65, 92, 9);
+        inputSlotAdder(builder, recipe, 83, 92, 10);
+        inputSlotAdder(builder, recipe, 29, 110, 11);
+        inputSlotAdder(builder, recipe, 56, 110, 12);
+        inputSlotAdder(builder, recipe, 83, 110, 13);
         builder.addSlot(RecipeIngredientRole.OUTPUT, 129, 56).addItemStack(recipe.getResultItem(null));
     }
 

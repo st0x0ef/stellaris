@@ -31,7 +31,9 @@ public class MoonPack extends SimpleJsonResourceReloadListener {
 
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> object, ResourceManager resourceManager, ProfilerFiller profiler) {
-        if (count > 0) return;
+        if (count > 0) {
+            return;
+        }
         MOON.clear();
         object.forEach((key, value) -> {
             JsonObject json = GsonHelper.convertToJsonObject(value, "moons");

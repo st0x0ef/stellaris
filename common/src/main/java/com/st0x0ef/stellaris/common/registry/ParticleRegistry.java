@@ -8,6 +8,7 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.Registries;
 
 public class ParticleRegistry {
+
     public static final DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(Stellaris.MODID, Registries.PARTICLE_TYPE);
 
     /** PARTICLES */

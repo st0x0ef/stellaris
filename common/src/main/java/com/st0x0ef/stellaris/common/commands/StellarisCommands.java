@@ -127,35 +127,35 @@ public class StellarisCommands {
                                     return 0;
                                 }))
                         .then(Commands.literal("launchpads")
-                            .then(Commands.literal("create")
-                                    .then(Commands.argument("dimension", ResourceKeyArgument.key(Registries.DIMENSION))
-                                            .then(Commands.argument("pos", Vec3Argument.vec3())
-                                                    .then(Commands.argument("public", BoolArgumentType.bool())
-                                                            .then(Commands.argument("name", StringArgumentType.string())
-                                                                .executes((CommandContext<CommandSourceStack> context) -> {
+                                .then(Commands.literal("create")
+                                        .then(Commands.argument("dimension", ResourceKeyArgument.key(Registries.DIMENSION))
+                                                .then(Commands.argument("pos", Vec3Argument.vec3())
+                                                        .then(Commands.argument("public", BoolArgumentType.bool())
+                                                                .then(Commands.argument("name", StringArgumentType.string())
+                                                                        .executes((CommandContext<CommandSourceStack> context) -> {
 
-                                                                    LaunchPad launchPad = new LaunchPad(
-                                                                            LaunchPadLauncher.LAUNCH_PADS.launchPads().size(),
-                                                                            Utils.blockPosToVec3(Vec3Argument.getCoordinates(context, "pos").getBlockPos(context.getSource())),
-                                                                            context.getArgument("dimension", ResourceKey.class),
-                                                                            StringArgumentType.getString(context, "name"),
-                                                                            BoolArgumentType.getBool(context, "public"),
-                                                                            Objects.requireNonNull(context.getSource().getPlayer()).getDisplayName().getString(),
-                                                                            new ArrayList<>()
+                                                                            LaunchPad launchPad = new LaunchPad(
+                                                                                    LaunchPadLauncher.LAUNCH_PADS.launchPads().size(),
+                                                                                    Utils.blockPosToVec3(Vec3Argument.getCoordinates(context, "pos").getBlockPos(context.getSource())),
+                                                                                    context.getArgument("dimension", ResourceKey.class),
+                                                                                    StringArgumentType.getString(context, "name"),
+                                                                                    BoolArgumentType.getBool(context, "public"),
+                                                                                    Objects.requireNonNull(context.getSource().getPlayer()).getDisplayName().getString(),
+                                                                                    new ArrayList<>()
 
-                                                                    );
-                                                                    LaunchPadLauncher.addLaunchPad(launchPad, context.getSource().getServer());
+                                                                            );
+                                                                            LaunchPadLauncher.addLaunchPad(launchPad, context.getSource().getServer());
 
-                                                                    context.getSource().sendSuccess(() -> Component.literal("Space Station " + StringArgumentType.getString(context, "name") + " Created"), true);
+                                                                            context.getSource().sendSuccess(() -> Component.literal("Space Station " + StringArgumentType.getString(context, "name") + " Created"), true);
 
-                                                                    return Command.SINGLE_SUCCESS;
+                                                                            return Command.SINGLE_SUCCESS;
 
-                                                                })
-                                                            )
-                                                    )
-                                            )
-                                    )
-                            ).then(Commands.literal("remove")
+                                                                        })
+                                                                )
+                                                        )
+                                                )
+                                        )
+                                ).then(Commands.literal("remove")
                                         .then(Commands.argument("dimension", ResourceKeyArgument.key(Registries.DIMENSION))
                                                 .then(Commands.argument("name", StringArgumentType.string())
                                                         .executes((CommandContext<CommandSourceStack> context) -> {

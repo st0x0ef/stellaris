@@ -5,11 +5,15 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class OxygenRoom {
+
     private final BlockPos distributorPos;
-    public final List<BlockPos> oxygenatedPositions;
+    public final Set<BlockPos> oxygenatedPositions;
     private final ServerLevel level;
     private boolean isClosed;
 
@@ -17,7 +21,7 @@ public class OxygenRoom {
 
     public OxygenRoom(ServerLevel level, BlockPos distributorPos) {
         this.distributorPos = distributorPos;
-        this.oxygenatedPositions = new ArrayList<>();
+        this.oxygenatedPositions = new HashSet<>();
         this.level = level;
         isClosed = false;
     }
@@ -32,7 +36,9 @@ public class OxygenRoom {
 
     public void tick() {
         OxygenDistributorBlockEntity distributor = getDistributorBlockEntity();
-        if (distributor == null) return;
+        if (distributor == null) {
+            return;
+        }
 
         for (Direction direction : Direction.values()) {
             BlockPos rel = distributorPos.relative(direction);
@@ -54,7 +60,8 @@ public class OxygenRoom {
                         Math.abs(rel.getY() - distributorPos.getY()) > HALF_ROOM_SIZE ||
                         Math.abs(rel.getZ() - distributorPos.getZ()) > HALF_ROOM_SIZE) {
                     GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level).addRoomToCheckIfOpen(rel, this);
-                } else if (!oxygenatedPositions.contains(rel) && level.getBlockState(rel).isAir()) {
+                }
+                else if (!oxygenatedPositions.contains(rel) && level.getBlockState(rel).isAir()) {
                     if (distributor.useOxygenAndEnergy()) {
                         oxygenatedPositions.add(rel);
                         GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level).removeRoomToCheckIfOpen(rel);
@@ -68,7 +75,9 @@ public class OxygenRoom {
     }
 
     public void removeOxygenInRoom() {
-        if (!isClosed) oxygenatedPositions.clear();
+        if (!isClosed) {
+            oxygenatedPositions.clear();
+        }
     }
 
     public boolean hasOxygenAt(BlockPos pos) {

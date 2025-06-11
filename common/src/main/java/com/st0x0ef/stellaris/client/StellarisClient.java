@@ -3,7 +3,8 @@ package com.st0x0ef.stellaris.client;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.events.ClientEvents;
 import com.st0x0ef.stellaris.client.overlays.*;
-import com.st0x0ef.stellaris.client.particles.*;
+import com.st0x0ef.stellaris.client.particles.RocketParticle;
+import com.st0x0ef.stellaris.client.particles.VenusRainParticle;
 import com.st0x0ef.stellaris.client.renderers.armors.JetSuitModel;
 import com.st0x0ef.stellaris.client.renderers.armors.SpaceSuitModel;
 import com.st0x0ef.stellaris.client.screens.ConfigScreen;
@@ -31,6 +32,7 @@ import javax.swing.text.rtf.RTFEditorKit;
 
 @Environment(EnvType.CLIENT)
 public class StellarisClient {
+
     public static void initClient() {
         Minecraft.getInstance().execute(() -> {
             setupOpenGLDebugMessageCallback();
@@ -41,6 +43,7 @@ public class StellarisClient {
         registerOverlays();
         registerArmors();
         Platform.getMod(Stellaris.MODID).registerConfigurationScreen(ConfigScreen::new);
+
         ClientEvents.registerEvents();
     }
 
@@ -61,15 +64,16 @@ public class StellarisClient {
     }
 
     public static void registerParticle() {
-        ParticleProviderRegistry.register(ParticleRegistry.VENUS_RAIN_PARTICLE.get(), VenusRainParticle.ParticleFactory::new);
-        ParticleProviderRegistry.register(ParticleRegistry.LARGE_FLAME_PARTICLE.get(), LargeFlameParticle.ParticleFactory::new);
-        ParticleProviderRegistry.register(ParticleRegistry.LARGE_SMOKE_PARTICLE.get(), LargeSmokeParticle.ParticleFactory::new);
-        ParticleProviderRegistry.register(ParticleRegistry.SMALL_FLAME_PARTICLE.get(), SmallFlameParticle.ParticleFactory::new);
-        ParticleProviderRegistry.register(ParticleRegistry.SMALL_SMOKE_PARTICLE.get(), SmallSmokeParticle.ParticleFactory::new);
+        ParticleProviderRegistry.register(ParticleRegistry.VENUS_RAIN_PARTICLE.get(), VenusRainParticle.Provider::new);
+        ParticleProviderRegistry.register(ParticleRegistry.LARGE_FLAME_PARTICLE.get(), RocketParticle.Provider::new);
+        ParticleProviderRegistry.register(ParticleRegistry.LARGE_SMOKE_PARTICLE.get(), RocketParticle.Provider::new);
+        ParticleProviderRegistry.register(ParticleRegistry.SMALL_FLAME_PARTICLE.get(), RocketParticle.SmallProvider::new);
+        ParticleProviderRegistry.register(ParticleRegistry.SMALL_SMOKE_PARTICLE.get(), RocketParticle.SmallProvider::new);
     }
 
     public static void registerOverlays() {
         ClientGuiEvent.RENDER_HUD.register(EffectOverlays::render);
+        ClientGuiEvent.RENDER_HUD.register(OxygenOverlay::render);
         ClientGuiEvent.RENDER_HUD.register(RocketStartOverlay::render);
         ClientGuiEvent.RENDER_HUD.register(RocketBarOverlay::render);
         ClientGuiEvent.RENDER_HUD.register(LanderOverlay::render);

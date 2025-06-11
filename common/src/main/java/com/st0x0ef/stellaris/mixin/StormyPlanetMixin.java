@@ -14,7 +14,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-
 @Mixin(ServerLevel.class)
 public class StormyPlanetMixin {
 
@@ -22,26 +21,22 @@ public class StormyPlanetMixin {
     public void spawnMoreLightningBolt(LevelChunk chunk, int randomTickSpeed, CallbackInfo ci) {
         ServerLevel level = (ServerLevel) (Object) this;
         PlanetUtil.ifPlanet(level.dimension().location(), planet -> {
-            if(planet.stormParameters().isPresent()) {
+            if (planet.stormParameters().isPresent()) {
                 Planet.StormParameters parameters = planet.stormParameters().get();
                 ChunkPos chunkPos = chunk.getPos();
-                int i = chunkPos.getMinBlockX();
-                int j = chunkPos.getMinBlockZ();
+
                 if (level.random.nextInt(parameters.lightningFrequency()) == 0) {
-                    BlockPos blockPos = level.findLightningTargetAround(level.getBlockRandomPos(i, 0, j, 15));
-
-                    CustomLightningBolt lightningBolt = EntityRegistry.VENUS_LIGHTNING_BOLT.get().create(level);
-                    lightningBolt.setCustomColor(parameters.lightningColor());
-
+                    BlockPos pos = level.findLightningTargetAround(level.getBlockRandomPos(chunkPos.getMinBlockX(), 0, chunkPos.getMinBlockZ(), 15));
+                    CustomLightningBolt lightningBolt = EntityRegistry.CUSTOM_LIGHTNING_BOLT.get().create(level);
 
                     if (lightningBolt != null) {
-                        lightningBolt.moveTo(Vec3.atBottomCenterOf(blockPos));
+                        lightningBolt.setCustomColor(parameters.lightningColor());
+                        lightningBolt.moveTo(Vec3.atBottomCenterOf(pos));
                         lightningBolt.setVisualOnly(false);
                         level.addFreshEntity(lightningBolt);
                     }
                 }
             }
-
         });
     }
 }

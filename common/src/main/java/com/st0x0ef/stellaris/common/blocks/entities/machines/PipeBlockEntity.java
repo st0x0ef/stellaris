@@ -15,11 +15,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 public class PipeBlockEntity extends BlockEntity implements FluidProvider.BLOCK, TickingBlockEntity {
+
     private final SingleFluidStorage fluidTank;
 
     public PipeBlockEntity(BlockPos pos, BlockState blockState, long capacity, long maxIn, long maxOut) {
         super(BlockEntityRegistry.PIPE_ENTITY.get(), pos, blockState);
         this.fluidTank = new SingleFluidStorage(capacity, maxIn, maxOut) {
+
             @Override
             protected void onChange() {
                 setChanged();

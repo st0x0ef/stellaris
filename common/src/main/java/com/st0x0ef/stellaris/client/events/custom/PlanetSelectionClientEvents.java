@@ -22,6 +22,7 @@ public interface PlanetSelectionClientEvents {
 
     @Environment(EnvType.CLIENT)
     interface PostStarPackRegistryEvent {
+
         /**
          * Invoked when all the stars has been registered.
          * Usefull for adding more stars to the planet selection screen.
@@ -34,6 +35,7 @@ public interface PlanetSelectionClientEvents {
 
     @Environment(EnvType.CLIENT)
     interface PostMoonPackRegistryEvent {
+
         /**
          * Invoked when all the moon has been registered.
          * Usefull for adding more moon to the planet selection screen.
@@ -46,6 +48,7 @@ public interface PlanetSelectionClientEvents {
 
     @Environment(EnvType.CLIENT)
     interface PostPlanetPackRegistryEvent {
+
         /**
          * Invoked when all the planets has been registered.
          * Usefull for adding more planets to the planet selection screen.

@@ -46,6 +46,7 @@ public class RecipesRegistry {
     }
 
     public record Type<T extends Recipe<?>>(String id) implements RecipeType<T> {
+
         @Override
         public String toString() {
             return Stellaris.MODID + ":" + id;

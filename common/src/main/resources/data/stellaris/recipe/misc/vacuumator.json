@@ -1,15 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "XXX",
+    "XLX",
     "XZX",
     "XXX"
   ],
   "key": {
-    "X": {"tag": "c:storage_blocks/steel"},
+    "X": {"tag": "c:ingots/steel"},
     "Z": {
       "item": "minecraft:bucket"
-    }
+    },
+    "L": {"item": "minecraft:lapis_lazuli"}
   },
   "result": {
     "id": "stellaris:vacuumator"

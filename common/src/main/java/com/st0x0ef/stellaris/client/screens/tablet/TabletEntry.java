@@ -9,7 +9,8 @@ import net.minecraft.world.item.ItemStack;
 import java.util.List;
 import java.util.Optional;
 
-public record TabletEntry(String id, String description, ResourceLocation icon, ResourceLocation hoverIcon, List<Info> infos) {
+public record TabletEntry(String id, String description, ResourceLocation icon, ResourceLocation hoverIcon,
+                          List<Info> infos) {
 
     public static final Codec<TabletEntry> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.STRING.fieldOf("id").forGetter(TabletEntry::id),
@@ -20,7 +21,8 @@ public record TabletEntry(String id, String description, ResourceLocation icon, 
     ).apply(instance, TabletEntry::new));
 
 
-    public record Info(String type, String id, String title, String description, Optional<Image> image, Optional<Item> item, Optional<Entity> entity) {
+    public record Info(String type, String id, String title, String description, Optional<Image> image,
+                       Optional<Item> item, Optional<Entity> entity) {
 
         public static final Codec<Info> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 Codec.STRING.fieldOf("type").forGetter(Info::type),
@@ -36,6 +38,7 @@ public record TabletEntry(String id, String description, ResourceLocation icon, 
     }
 
     public record Image(ResourceLocation location, int width, int height) {
+
         public static final Codec<Image> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 ResourceLocation.CODEC.fieldOf("location").forGetter(Image::location),
                 Codec.INT.fieldOf("width").forGetter(Image::width),
@@ -44,6 +47,7 @@ public record TabletEntry(String id, String description, ResourceLocation icon, 
     }
 
     public record Item(ItemStack stack, float size, Optional<Boolean> onlyIcon) {
+
         public static final Codec<Item> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 ItemStack.CODEC.fieldOf("stack").forGetter(Item::stack),
                 Codec.FLOAT.fieldOf("size").forGetter(Item::size),
@@ -52,6 +56,7 @@ public record TabletEntry(String id, String description, ResourceLocation icon, 
     }
 
     public record Entity(ResourceLocation entity, int scale) {
+
         public static final Codec<Entity> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 ResourceLocation.CODEC.fieldOf("id").forGetter(Entity::entity),
                 Codec.INT.fieldOf("scale").forGetter(Entity::scale)

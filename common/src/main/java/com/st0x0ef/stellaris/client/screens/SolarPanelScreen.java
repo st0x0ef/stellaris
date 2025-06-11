@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.client.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.components.GaugeWidget;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.SolarPanelEntity;
 import com.st0x0ef.stellaris.common.menus.SolarPanelMenu;
@@ -14,17 +13,19 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
+import static com.st0x0ef.stellaris.Stellaris.guiTexture;
+
 @Environment(EnvType.CLIENT)
 public class SolarPanelScreen extends AbstractContainerScreen<SolarPanelMenu> {
 
-    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/solar_panel.png");
+    public static final ResourceLocation TEXTURE = guiTexture("solar_panel");
 
     private final SolarPanelEntity blockEntity = getMenu().getBlockEntity();
     private GaugeWidget energyGauge;
 
     public SolarPanelScreen(SolarPanelMenu abstractContainerMenu, Inventory inventory, Component component) {
         super(abstractContainerMenu, inventory, component);
-        imageWidth = 177;
+        imageWidth = 180;
         imageHeight = 188;
         inventoryLabelY = imageHeight - 92;
     }

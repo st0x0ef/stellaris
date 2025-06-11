@@ -1,12 +1,21 @@
-# 1.3.3 changelog
+# 1.3.17 changelog
 
 ## Additions
-- Add missing recipe for cable and pipe
+- Added missing recipes
 
 ## Changes
-- Updated Sky Aesthetics (1.4.4 => 1.5.0)
-- Change cable t1 recipe
+- Make globe easier to break by hand
+- Reduce solar panel energy storage to fit with coal generator
+- Steel blocks no longer need diamond tool to loot
+- Equilibrate some recipes
+- Update sky aesthetics to 1.7.0
 
-## Fix
-- Fix fabric mob effect
-- Fix tablet opening tooltip never reset
+## Fix 
+- Fixed globes loot tables was missing
+- Fix solar panel gui size
+- Fix solar panel energy sync with client
+- Fix solar panel slot position
+- Fix typo
+- Fix mercury uranium ore loot table
+- Fix rover doesn't consume fuel
+- Fix mercury lava mines placement

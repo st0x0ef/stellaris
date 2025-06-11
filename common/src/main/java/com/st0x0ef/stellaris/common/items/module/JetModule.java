@@ -60,6 +60,7 @@ public class JetModule extends Item implements SpaceSuitModule {
 
     //stolen from jetsuit
     public float spacePressTime;
+
     public int getMode(ItemStack itemStack) {
         return itemStack.getOrDefault(DataComponentsRegistry.JET_SUIT_COMPONENT.get(), new JetSuitComponent(JetSuit.ModeType.DISABLED)).type().getMode();
     }
@@ -92,10 +93,11 @@ public class JetModule extends Item implements SpaceSuitModule {
 //        }
 
 
-
     public void tick(ItemStack stack, Level level, Player player) {
         UniversalFluidStorage storage = Capabilities.Fluid.ITEM.getCapability(stack);
-        if (storage == null || storage.getFluidInTank(1).isEmpty()) return;
+        if (storage == null || storage.getFluidInTank(1).isEmpty()) {
+            return;
+        }
 
         /** JET SUIT FAST BOOST */
         if (player.isSprinting()) {
@@ -127,7 +129,8 @@ public class JetModule extends Item implements SpaceSuitModule {
         if (!player.onGround()) {
             if (KeyVariables.isHoldingUp(player)) {
                 player.moveRelative(1.0F, new Vec3(0, 0, 0.03));
-            } else if (KeyVariables.isHoldingDown(player)) {
+            }
+            else if (KeyVariables.isHoldingDown(player)) {
                 player.moveRelative(1.0F, new Vec3(0, 0, -0.03));
             }
         }
@@ -135,11 +138,13 @@ public class JetModule extends Item implements SpaceSuitModule {
         if (!player.onGround()) {
             if (KeyVariables.isHoldingRight(player)) {
                 player.moveRelative(1.0F, new Vec3(-0.03, 0, 0));
-            } else if (KeyVariables.isHoldingLeft(player)) {
+            }
+            else if (KeyVariables.isHoldingLeft(player)) {
                 player.moveRelative(1.0F, new Vec3(0.03, 0, 0));
             }
         }
     }
+
     private void hoverModeMovement(Player player, ItemStack stack) {
         Vec3 vec3 = player.getDeltaMovement();
 
@@ -150,7 +155,9 @@ public class JetModule extends Item implements SpaceSuitModule {
             Utils.disableFlyAntiCheat(player, true);
 
             UniversalFluidStorage storage = Capabilities.Fluid.ITEM.getCapability(stack);
-            if (storage == null) return;
+            if (storage == null) {
+                return;
+            }
             storage.drain(FluidStack.create(FluidRegistry.FUEL_STILL.get(), 2), false);
         }
 
@@ -168,7 +175,8 @@ public class JetModule extends Item implements SpaceSuitModule {
         if (!player.onGround()) {
             if (KeyVariables.isHoldingUp(player)) {
                 player.moveRelative(0.1F, new Vec3(0, 0, 0.1));
-            } else if (KeyVariables.isHoldingDown(player)) {
+            }
+            else if (KeyVariables.isHoldingDown(player)) {
                 player.moveRelative(0.1F, new Vec3(0, 0, -0.1));
             }
         }
@@ -177,7 +185,8 @@ public class JetModule extends Item implements SpaceSuitModule {
         if (!player.onGround()) {
             if (KeyVariables.isHoldingRight(player)) {
                 player.moveRelative(0.1F, new Vec3(-0.1, 0, 0));
-            } else if (KeyVariables.isHoldingLeft(player)) {
+            }
+            else if (KeyVariables.isHoldingLeft(player)) {
                 player.moveRelative(0.1F, new Vec3(0.1, 0, 0));
             }
         }
@@ -189,9 +198,12 @@ public class JetModule extends Item implements SpaceSuitModule {
             Utils.disableFlyAntiCheat(player, true);
 
             UniversalFluidStorage storage = Capabilities.Fluid.ITEM.getCapability(stack);
-            if (storage == null) return;
+            if (storage == null) {
+                return;
+            }
             storage.drain(FluidStack.create(FluidRegistry.FUEL_STILL.get(), 2), false);
-        } else if (player.isSprinting() && player.onGround() && KeyVariables.isHoldingJump(player)) {
+        }
+        else if (player.isSprinting() && player.onGround() && KeyVariables.isHoldingJump(player)) {
             player.moveTo(player.getX(), player.getY() + 2, player.getZ());
         }
     }
@@ -201,7 +213,8 @@ public class JetModule extends Item implements SpaceSuitModule {
         JetSuitComponent jetSuitComponent;
         if (this.getMode(itemStack) < 3) {
             jetSuitComponent = new JetSuitComponent(JetSuit.ModeType.fromInt(this.getMode(itemStack) + 1));
-        } else {
+        }
+        else {
             jetSuitComponent = new JetSuitComponent(JetSuit.ModeType.fromInt(0));
         }
         itemStack.set(DataComponentsRegistry.JET_SUIT_COMPONENT.get(), jetSuitComponent);
@@ -233,7 +246,7 @@ public class JetModule extends Item implements SpaceSuitModule {
                 else if (KeyVariables.isHoldingJump(player)) {
                     if (this.spacePressTime < 1.4F) {
                         this.spacePressTime = this.spacePressTime + 0.2F;
-                        hoverModeMovement(player,itemStack);
+                        hoverModeMovement(player, itemStack);
                     }
                 }
                 else if (this.spacePressTime >= 0.6F) {
@@ -249,7 +262,8 @@ public class JetModule extends Item implements SpaceSuitModule {
                         if (this.spacePressTime < 2.8F) {
                             this.spacePressTime = this.spacePressTime + 0.2F;
                         }
-                    } else {
+                    }
+                    else {
                         if (this.spacePressTime < 2.2F) {
                             this.spacePressTime = this.spacePressTime + 0.2F;
                         }

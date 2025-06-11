@@ -24,7 +24,7 @@ public class OilFinderModule extends Item implements SpaceSuitModule {
     @Override
     public void tick(ItemStack stack, Level level, Player player) {
         SpaceSuitModule.super.tick(stack, level, player);
-        if(!level.isClientSide) {
+        if (!level.isClientSide) {
             this.oilLevel = level.getChunk(player.blockPosition()).stellaris$getChunkOilLevel();
         }
     }

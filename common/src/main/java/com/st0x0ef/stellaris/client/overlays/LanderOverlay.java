@@ -15,7 +15,7 @@ import net.minecraft.world.entity.player.Player;
 
 public class LanderOverlay {
 
-    public static final ResourceLocation WARNING = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/overlay/warning.png");
+    public static final ResourceLocation WARNING = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/overlay/warning");
 
     public static void render(GuiGraphics graphics, DeltaTracker deltaTracker) {
         Minecraft mc = Minecraft.getInstance();

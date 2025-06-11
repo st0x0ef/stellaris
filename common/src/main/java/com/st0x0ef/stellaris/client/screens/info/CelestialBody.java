@@ -7,6 +7,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
 public class CelestialBody {
+
     public final ResourceLocation texture;
     public final String name;
     public final float width;

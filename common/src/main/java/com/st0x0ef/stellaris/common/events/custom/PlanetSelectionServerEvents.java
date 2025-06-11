@@ -15,6 +15,7 @@ public interface PlanetSelectionServerEvents {
 
 
     interface LaunchButtonServerEvent {
+
         /**
          * Invoked when the player clicked the launch button.
          * This is event is fired server side.

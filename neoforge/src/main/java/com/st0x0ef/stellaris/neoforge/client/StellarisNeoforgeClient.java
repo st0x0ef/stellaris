@@ -11,6 +11,7 @@ import com.st0x0ef.stellaris.client.renderers.entities.alienzombie.AlienZombieMo
 import com.st0x0ef.stellaris.client.renderers.entities.alienzombie.AlienZombieRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.cheeseboss.CheeseBossModel;
 import com.st0x0ef.stellaris.client.renderers.entities.cheeseboss.CheeseBossRenderer;
+import com.st0x0ef.stellaris.client.renderers.entities.customlightning.CustomLightningBoltRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.martianraptor.MartianRaptorModel;
 import com.st0x0ef.stellaris.client.renderers.entities.martianraptor.MartianRaptorRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.mogler.MoglerModel;
@@ -33,12 +34,14 @@ import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.tiny.TinyR
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.tiny.TinyRocketRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rover.RoverModel;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rover.RoverRenderer;
-import com.st0x0ef.stellaris.client.renderers.entities.customlightning.CustomLightningBoltRenderer;
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeBlockRenderer;
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeModel;
 import com.st0x0ef.stellaris.client.screens.*;
 import com.st0x0ef.stellaris.client.screens.tablet.TabletMainScreen;
-import com.st0x0ef.stellaris.common.registry.*;
+import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
+import com.st0x0ef.stellaris.common.registry.EntityRegistry;
+import com.st0x0ef.stellaris.common.registry.FluidRegistry;
+import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -46,10 +49,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.neoforge.client.event.ClientTickEvent;
-import net.neoforged.neoforge.client.event.EntityRenderersEvent;
-import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
-import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.common.NeoForge;
@@ -76,7 +76,7 @@ public class StellarisNeoforgeClient {
 
         event.registerEntityRenderer(EntityRegistry.ICE_SPIT.get(), renderManager -> new ThrownItemRenderer<>(renderManager, 1, true));
         event.registerEntityRenderer(EntityRegistry.ICE_SHARD_ARROW.get(), IceShardArrowRenderer::new);
-        event.registerEntityRenderer(EntityRegistry.VENUS_LIGHTNING_BOLT.get(), CustomLightningBoltRenderer::new);
+        event.registerEntityRenderer(EntityRegistry.CUSTOM_LIGHTNING_BOLT.get(), CustomLightningBoltRenderer::new);
 
         event.registerEntityRenderer(EntityRegistry.TINY_ROCKET.get(), TinyRocketRenderer::new);
         event.registerEntityRenderer(EntityRegistry.SMALL_ROCKET.get(), SmallRocketRenderer::new);
@@ -145,8 +145,16 @@ public class StellarisNeoforgeClient {
     }
 
     @SubscribeEvent
+    public static void registerReloadListener(RegisterClientReloadListenersEvent event) {
+        StellarisClient.registerPacks();
+
+    }
+
+
+    @SubscribeEvent
     private static void initializeClient(RegisterClientExtensionsEvent event) {
         FluidRegistry.FLUIDS_INFOS.forEach((attributes -> event.registerFluidType(new IClientFluidTypeExtensions() {
+
             @Override
             public @NotNull ResourceLocation getStillTexture() {
                 return attributes.getSourceTexture();

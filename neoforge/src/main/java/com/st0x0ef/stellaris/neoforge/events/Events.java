@@ -10,8 +10,9 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.InputEvent;
 
-@EventBusSubscriber(modid = Stellaris.MODID,bus = EventBusSubscriber.Bus.GAME,value = Dist.CLIENT)
+@EventBusSubscriber(modid = Stellaris.MODID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
 public class Events {
+
     @SubscribeEvent
     public static void onKeyInput(InputEvent.Key event) {
         Minecraft minecraft = Minecraft.getInstance();
