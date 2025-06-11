@@ -154,6 +154,7 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
         this.renderBg(graphics, partialTicks, mouseX, mouseY);
         super.render(graphics, mouseX, mouseY, partialTicks);
 
+
         if (!isPausePressed) {
             updatePlanets();
         }
@@ -488,6 +489,8 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
     }
 
     public void setWindowVisible(int index) {
+        Stellaris.LOG.info("window index: " + index);
+
         for (int i = 0; i < moveableWindows.size(); i++) {
             MoveableWindow window = moveableWindows.get(i);
             if (i == index) {
@@ -677,6 +680,10 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
 
             final double G = 10000;
             final double dt = 0.1;
+
+            //Temporary fix to prevent the simulation from running
+            //Btw it's fck impressive
+            if(true) return;
 
             for (PSystemInfo system : PSYSTEMS) {
                 List<StarMovement> stars = new ArrayList<>();
