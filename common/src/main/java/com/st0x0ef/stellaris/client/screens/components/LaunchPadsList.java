@@ -100,11 +100,9 @@ public class LaunchPadsList extends AbstractScrollWidget {
                 Vector4i pos = entry.getKey();
                 LaunchPad launchPad = entry.getValue().launchPad;
 
-                if (Utils.isHoveredOnSprite(pos.x, (int) (pos.y - this.scrollAmount()), pos.z, pos.w, (int) mouseX, (int) mouseY)) {
+                if (Utils.isHoveredOnSprite(pos.x, (int) (pos.y - this.scrollAmount()), pos.z, pos.w, (int) mouseX, (int) mouseY) && window.parent.windowIndex != -1) {
                     if(this.window.parent.canLaunch(PlanetUtil.getPlanet(this.window.celestialBody.dimension))) {
-                        this.window.parent.setWindowVisible(1);
-
-                        //this.window.parent.tpToFocusedPlanet(launchPad.position(), this.window.celestialBody);
+                        this.window.parent.tpToFocusedPlanet(launchPad.position(), this.window.celestialBody);
                     }
                     return true;
                 }
