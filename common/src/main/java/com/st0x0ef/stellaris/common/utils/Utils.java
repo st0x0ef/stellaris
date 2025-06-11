@@ -200,7 +200,7 @@ public class Utils {
             case "yellow" -> 0xFFFF00;
             case "cyan" -> 0x00FFFF;
             case "magenta" -> 0xFF00FF;
-            case "gray" -> 0x808080;
+            case "gray", "grey" -> 0x808080;
             case "maroon" -> 0x800000;
             case "olive" -> 0x808000;
             case "purple" -> 0x800080;

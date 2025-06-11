@@ -69,12 +69,18 @@ public class LaunchPadUtils {
                 .map(LaunchPad::name)
                 .toList();
     }
+
     public static Collection<String> getLaunchPadNames() {
         return LaunchPadLauncher.LAUNCH_PADS.launchPads().stream()
                 .map( (l) -> "\"" + l.name() + "\"")
                 .toList();
     }
 
+    public static Collection<LaunchPad> getPlayerLaunchPad(Player player) {
+        return LaunchPadLauncher.LAUNCH_PADS.launchPads().stream()
+                .filter(launchPad -> launchPad.owner().equals(player.getName().getString()))
+                .toList();
+    }
 
     @Nullable
     public static LaunchPad loadLaunchPad(CompoundTag tag) {

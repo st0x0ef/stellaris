@@ -20,6 +20,7 @@ import com.sun.jna.platform.unix.Resource;
 import dev.architectury.registry.menu.ExtendedMenuProvider;
 import dev.architectury.registry.menu.MenuRegistry;
 import io.netty.buffer.Unpooled;
+import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
@@ -29,6 +30,7 @@ import net.minecraft.commands.arguments.coordinates.Vec3Argument;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -219,6 +221,24 @@ public class StellarisCommands {
                                                 })
                                         )
                                 )
+                        ).then(Commands.literal("list")
+                                .executes((context -> {
+                                    MutableComponent component = Component.empty().append(Component.literal("Your LaunchPads : \n").withStyle(ChatFormatting.UNDERLINE));
+
+                                    LaunchPadUtils.getPlayerLaunchPad(context.getSource().getPlayer()).forEach((launchPad -> {
+                                        component.append(launchPad.name()).append(" (").append(Component.literal(launchPad.dimension().location().toString()).withColor(Utils.getColorHexCode("gray"))).append(") ");
+
+                                        if (launchPad.isPublic()) {
+                                            component.append(Component.literal("[Private] ").withColor(Utils.getColorHexCode("GREEN")));
+                                        } else {
+                                            component.append(Component.literal("[Public] ").withColor(Utils.getColorHexCode("GREEN")));
+                                        }
+                                        component.append("\n");
+                                    }));
+                                    context.getSource().sendSuccess(() -> component, false);
+
+                                    return Command.SINGLE_SUCCESS;
+                                }))
                         )
                 )
         );
