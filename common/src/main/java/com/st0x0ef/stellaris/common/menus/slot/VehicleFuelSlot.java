@@ -14,6 +14,6 @@ public class VehicleFuelSlot extends Slot {
 
     @Override
     public boolean mayPlace(ItemStack stack) {
-        return stack.is(ItemsRegistry.FUEL_BUCKET.get()) || stack.is(ItemsRegistry.HYDROGEN_BUCKET.get()) || stack.has(DataComponentsRegistry.RADIOACTIVE.get());
+        return stack.is(ItemsRegistry.FUEL_BUCKET.get()) || stack.is(ItemsRegistry.DIESEL_BUCKET.get()) || stack.is(ItemsRegistry.HYDROGEN_BUCKET.get()) || stack.has(DataComponentsRegistry.RADIOACTIVE.get());
     }
 }

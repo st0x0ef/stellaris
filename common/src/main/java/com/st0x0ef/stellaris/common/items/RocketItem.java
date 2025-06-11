@@ -165,10 +165,10 @@ public class RocketItem extends Item {
         RocketComponent rocketComponent = stack.get(DataComponentsRegistry.ROCKET_COMPONENT.get());
         return switch (rocketComponent.getFuelType()) {
             case FUEL -> 0xA7E6ED;
+            case DIESEL -> 0x5B2C14;
             case HYDROGEN -> 0x00d8ff;
             case RADIOACTIVE, URANIUM, NEPTUNIUM, PLUTONIUM -> 0x00c12f;
             case null -> 0xA7E6ED;
-
         };
     }
 }

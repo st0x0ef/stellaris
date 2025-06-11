@@ -39,7 +39,8 @@ public class BlockEntityRegistry {
             () -> BlockEntityType.Builder.of(CoalGeneratorEntity::new, BlocksRegistry.COAL_GENERATOR.get()).build(null));
     public static final Supplier<BlockEntityType<?>> RADIOACTIVE_GENERATOR = BLOCK_ENTITY_TYPE.register("radioactive_generator",
             () -> BlockEntityType.Builder.of(RadioactiveGeneratorEntity::new, BlocksRegistry.RADIOACTIVE_GENERATOR.get()).build(null));
-
+    public static final Supplier<BlockEntityType<?>> DIESEL_GENERATOR = BLOCK_ENTITY_TYPE.register("diesel_generator",
+            () -> BlockEntityType.Builder.of(DieselGeneratorBlockEntity::new, BlocksRegistry.DIESEL_GENERATOR.get()).build(null));
     public static final RegistrySupplier<BlockEntityType<?>> VACUUMATOR_ENTITY = BLOCK_ENTITY_TYPE.register("vacuumator",
             () -> BlockEntityType.Builder.of(VacuumatorBlockEntity::new, BlocksRegistry.VACUMATOR.get()).build(null));
     public static final Supplier<BlockEntityType<?>> WATER_SEPARATOR_ENTITY = BLOCK_ENTITY_TYPE.register("water_separator",

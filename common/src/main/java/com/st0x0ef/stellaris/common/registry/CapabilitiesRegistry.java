@@ -16,6 +16,7 @@ public class CapabilitiesRegistry {
         Capabilities.Energy.BLOCK.registerForBlockEntity(BlockEntityRegistry.CABLE_ENTITY);
         Capabilities.Energy.BLOCK.registerForBlockEntity(BlockEntityRegistry.COAL_GENERATOR);
         Capabilities.Energy.BLOCK.registerForBlockEntity(BlockEntityRegistry.RADIOACTIVE_GENERATOR);
+        Capabilities.Energy.BLOCK.registerForBlockEntity(BlockEntityRegistry.DIESEL_GENERATOR);
         Capabilities.Energy.BLOCK.registerForBlockEntity(BlockEntityRegistry.OXYGEN_DISTRIBUTOR);
         Capabilities.Energy.BLOCK.registerForBlockEntity(BlockEntityRegistry.WATER_SEPARATOR_ENTITY);
         Capabilities.Energy.BLOCK.registerForBlockEntity(BlockEntityRegistry.FUEL_REFINERY);
@@ -34,6 +35,7 @@ public class CapabilitiesRegistry {
         Capabilities.Fluid.BLOCK.registerForBlockEntity(BlockEntityRegistry.PUMPJACK);
         Capabilities.Fluid.BLOCK.registerForBlockEntity(BlockEntityRegistry.OXYGEN_DISTRIBUTOR);
         Capabilities.Fluid.BLOCK.registerForBlockEntity(BlockEntityRegistry.PIPE_ENTITY);
+        Capabilities.Fluid.BLOCK.registerForBlockEntity(BlockEntityRegistry.DIESEL_GENERATOR);
     }
 
     static void registerFluidItems() {
