@@ -103,8 +103,9 @@ public class RoverItem extends Item {
         RoverComponent roverComponent = stack.get(DataComponentsRegistry.ROVER_COMPONENT.get());
         return switch (roverComponent.getFuelType()) {
             case FUEL -> 0xA7E6ED;
-            case HYDROGEN -> 0x00d8ff;
-            case RADIOACTIVE, URANIUM, NEPTUNIUM, PLUTONIUM -> 0x00c12f;
+            case DIESEL -> 0x5B2C14;
+            case HYDROGEN -> 0x00D8FF;
+            case RADIOACTIVE, URANIUM, NEPTUNIUM, PLUTONIUM -> 0x00C12F;
             case null -> 0xA7E6ED;
 
         };

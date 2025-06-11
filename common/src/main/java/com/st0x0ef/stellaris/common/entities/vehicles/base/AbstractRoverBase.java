@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.entities.vehicles.base;
 
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.entities.vehicles.IVehicleEntity;
 import com.st0x0ef.stellaris.common.network.packets.SyncRoverPacket;
 import com.st0x0ef.stellaris.common.utils.MathUtils;
@@ -54,7 +55,7 @@ public abstract class AbstractRoverBase extends IVehicleEntity {
     private static final EntityDataAccessor<Boolean> RIGHT = SynchedEntityData.defineId(AbstractRoverBase.class, EntityDataSerializers.BOOLEAN);
 
     private final float distanceBetweenFuelConsumption = 20F;
-    private float distanceSinceLastFuelConsumption = 0F;
+    private float distanceBeforeNextFuelConsumption = 0F;
 
     public AbstractRoverBase(EntityType type, Level worldIn) {
         super(type, worldIn);
@@ -166,11 +167,11 @@ public abstract class AbstractRoverBase extends IVehicleEntity {
             return;
         }
 
-        if (distanceSinceLastFuelConsumption <= 0F) {
+        if (distanceBeforeNextFuelConsumption <= 0F) {
             if (!consumeFuel()) {
                 return;
             }
-            distanceSinceLastFuelConsumption = distanceBetweenFuelConsumption;
+            distanceBeforeNextFuelConsumption = distanceBetweenFuelConsumption;
         }
 
         float speed = getRoverSpeed(0.5F);
@@ -224,7 +225,7 @@ public abstract class AbstractRoverBase extends IVehicleEntity {
         }
 
         if (isForward() || isBackward()) {
-            distanceSinceLastFuelConsumption -= Math.abs(getSpeed());
+            distanceBeforeNextFuelConsumption -= Math.abs(getSpeed());
         }
     }
 

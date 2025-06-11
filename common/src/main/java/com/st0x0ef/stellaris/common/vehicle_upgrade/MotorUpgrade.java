@@ -16,9 +16,6 @@ public class MotorUpgrade extends VehicleUpgrade {
     }
 
     public FuelType.Type getFuelType() {
-        if (this.type == null) {
-            return getBasic().getFuelType();
-        }
         return this.type;
     }
 
@@ -27,7 +24,7 @@ public class MotorUpgrade extends VehicleUpgrade {
         return this.getFuelType().getFuelTexture();
     }
 
-    public static MotorUpgrade getBasic() {
-        return new MotorUpgrade(FuelType.Type.FUEL);
+    public static MotorUpgrade getBasic(boolean isRocket) {
+        return new MotorUpgrade(isRocket ? FuelType.Type.FUEL : FuelType.Type.DIESEL);
     }
 }
