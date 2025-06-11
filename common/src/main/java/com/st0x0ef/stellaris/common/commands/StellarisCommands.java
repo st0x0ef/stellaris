@@ -16,12 +16,15 @@ import com.st0x0ef.stellaris.common.launchpads.LaunchPadUtils;
 import com.st0x0ef.stellaris.common.menus.TestMenu;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
+import com.sun.jna.platform.unix.Resource;
 import dev.architectury.registry.menu.ExtendedMenuProvider;
 import dev.architectury.registry.menu.MenuRegistry;
 import io.netty.buffer.Unpooled;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.commands.arguments.ResourceKeyArgument;
+import net.minecraft.commands.arguments.ResourceLocationArgument;
 import net.minecraft.commands.arguments.coordinates.Vec3Argument;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
@@ -184,6 +187,30 @@ public class StellarisCommands {
                                                     return Command.SINGLE_SUCCESS;
                                                 })
 
+                                        )
+                                ).then(Commands.literal("share")
+                                        .then(Commands.argument("launchpad", new LaunchPadArgument())
+                                                .then(Commands.argument("player", EntityArgument.player())
+                                                        .executes((CommandContext<CommandSourceStack> context) -> {
+                                                            Player player = EntityArgument.getPlayer(context, "player");
+                                                            LaunchPad launchPad = LaunchPadUtils.getPadByNameAndPlayer(StringArgumentType.getString(context, "launchpad"), context.getSource().getPlayer());
+
+                                                            if(launchPad == null) {
+                                                                context.getSource().sendFailure(Component.literal("Launchpad not found"));
+                                                                return 0;
+                                                            }
+                                                            if(context.getSource().getPlayer().getName().equals(player.getName())) {
+                                                                context.getSource().sendFailure(Component.literal("You can't share your own launchpad"));
+                                                                return 0;
+                                                            } else if(launchPad.whitelist().contains(player.getName().getString())) {
+                                                                context.getSource().sendFailure(Component.literal("Player " + player.getName().getString() + " already has access to this launchpad"));
+                                                                return 0;
+                                                            }
+                                                            LaunchPadLauncher.modifyLaunchPad(LaunchPadUtils.whitelistPlayer(launchPad, player), context.getSource().getServer());
+
+                                                            return Command.SINGLE_SUCCESS;
+                                                        })
+                                                )
                                         )
                                 )
                         )

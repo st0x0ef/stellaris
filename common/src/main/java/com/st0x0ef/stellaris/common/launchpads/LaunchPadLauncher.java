@@ -96,6 +96,21 @@ public class LaunchPadLauncher {
         return writeLaunchpads(launchPads, server);
     }
 
+    public static boolean modifyLaunchPad(LaunchPad pad, MinecraftServer server)  {
+
+        if(server == null) {
+            Stellaris.LOG.error("Server is null");
+            return false;
+        }
+        ArrayList<LaunchPad> launchPads = new ArrayList<>();
+        LaunchPadLauncher.LAUNCH_PADS.launchPads().forEach((lpad) -> {
+            if(pad.id() != lpad.id()) launchPads.add(lpad);
+        });
+        launchPads.add(pad);
+
+        return writeLaunchpads(launchPads, server);
+    }
+
     public static boolean writeLaunchpads(ArrayList<LaunchPad> launchPads, MinecraftServer server) {
         Path launchpath = server.storageSource.getLevelDirectory().path().resolve("launch-pads.json");
 

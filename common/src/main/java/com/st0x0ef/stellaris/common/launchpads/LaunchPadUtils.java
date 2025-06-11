@@ -6,6 +6,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Collection;
+import java.util.List;
+
 public class LaunchPadUtils {
 
     public static boolean launchPadHasSameName(LaunchPad launchPad) {
@@ -59,6 +62,17 @@ public class LaunchPadUtils {
         tag.putBoolean("null" , true);
     }
 
+    public static Collection<String> getLaunchPadNames(Player player) {
+        return LaunchPadLauncher.LAUNCH_PADS.launchPads().stream()
+                .filter(launchPad -> launchPad.owner().equals(player.getName().getString()))
+                .map(LaunchPad::name)
+                .toList();
+    }
+    public static Collection<String> getLaunchPadNames() {
+        return LaunchPadLauncher.LAUNCH_PADS.launchPads().stream()
+                .map( (l) -> "\"" + l.name() + "\"")
+                .toList();
+    }
 
 
     @Nullable
@@ -85,5 +99,21 @@ public class LaunchPadUtils {
             }
         }
         return null;
+    }
+
+    public static LaunchPad whitelistPlayer(LaunchPad launchPad, Player player) {
+        if (launchPad.whitelist().contains(player.getName().getString())) {
+            return launchPad;
+        }
+        launchPad.whitelist().add(player.getName().getString());
+        return launchPad;
+    }
+
+    public static LaunchPad getPadByNameAndPlayer(String name, Player player) {
+        List<LaunchPad> lps = LaunchPadLauncher.LAUNCH_PADS.launchPads().stream()
+                .filter((l) -> l.name().equals(name) && l.owner().equals(player.getName().getString()))
+                .toList();
+
+        return lps.isEmpty() ? null : lps.getFirst();
     }
 }

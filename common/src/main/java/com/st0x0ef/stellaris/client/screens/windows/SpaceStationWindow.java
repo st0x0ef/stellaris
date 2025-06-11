@@ -47,7 +47,7 @@ public class SpaceStationWindow extends MoveableWindow {
 
     @Override
     public void init() {
-        this.stationList = new SpaceStationList(getWindowX() + 60, getWindowY() + 75, getWidth() - 120, getHeight() - 120, Component.translatable("gui.stellaris.launchpads"), this);
+        this.stationList = new SpaceStationList(getWindowX() + 60, getWindowY() + 75, getWidth() - 120, getHeight() - 130, Component.translatable("gui.stellaris.launchpads"), this);
         this.addWidget(this.stationList);
 
         this.nameBox = new EditBox(Minecraft.getInstance().font, 150, 20, Component.literal("name"));
@@ -61,7 +61,7 @@ public class SpaceStationWindow extends MoveableWindow {
 
         this.addWidget(this.publicCheckBox);
 
-        this.launchButton = new TexturedButton((getWindowX() + getWidth()) / 2 - 1 , getWindowY() + getHeight() - 40, 50, 20, (button) -> this.onStationCreated()
+        this.launchButton = new TexturedButton((getWindowX() + getWidth()) / 2 - 1 , this.stationList.getY() + this.stationList.getHeight(), 50, 20, (button) -> this.onStationCreated()
         ).tex(
                 ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button.png"),
                 ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button_hovered.png")
@@ -78,10 +78,8 @@ public class SpaceStationWindow extends MoveableWindow {
 
         guiGraphics.drawCenteredString(Minecraft.getInstance().font, "Create a Space Station", getWindowX() + getWidth() / 2, getWindowY() + 27, 0xFFFFFFFF);
 
-
         parent.dragging = false;
         guiGraphics.flush();
-
     }
 
     @Override
@@ -89,7 +87,6 @@ public class SpaceStationWindow extends MoveableWindow {
         GLFW.glfwSetScrollCallback(Minecraft.getInstance().getWindow().getWindow(), parent::onMouseScroll);
     }
 
-    
     @Override
     public Consumer<MoveableWindow> resize(Minecraft minecraft, int width, int height) {
         return (window) -> {

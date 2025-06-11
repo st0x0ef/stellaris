@@ -18,6 +18,7 @@ import com.st0x0ef.stellaris.common.network.packets.SyncSpaceStationDatapackPack
 import com.st0x0ef.stellaris.common.registry.*;
 import dev.architectury.networking.NetworkManager;
 import dev.architectury.registry.ReloadListenerRegistry;
+import net.minecraft.commands.synchronization.ArgumentTypeInfos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
@@ -62,7 +63,6 @@ public class Stellaris {
         RecipesRegistry.register();
         EntityRegistry.registerSpawnPlacements();
         EffectsRegistry.register();
-
         ReloadListenerRegistry.register(PackType.SERVER_DATA, new StellarisData());
     }
 
