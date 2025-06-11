@@ -129,88 +129,93 @@ public class StellarisCommands {
                                     MenuRegistry.openExtendedMenu(context.getSource().getPlayer(), provider);
                                     return 0;
                                 }))
-                        .then(Commands.literal("launchpads")
-                                .then(Commands.literal("create")
-                                        .then(Commands.argument("dimension", ResourceKeyArgument.key(Registries.DIMENSION))
-                                                .then(Commands.argument("pos", Vec3Argument.vec3())
-                                                        .then(Commands.argument("public", BoolArgumentType.bool())
-                                                                .then(Commands.argument("name", StringArgumentType.string())
-                                                                        .executes((CommandContext<CommandSourceStack> context) -> {
 
-                                                                            LaunchPad launchPad = new LaunchPad(
-                                                                                    LaunchPadLauncher.LAUNCH_PADS.launchPads().size(),
-                                                                                    Utils.blockPosToVec3(Vec3Argument.getCoordinates(context, "pos").getBlockPos(context.getSource())),
-                                                                                    context.getArgument("dimension", ResourceKey.class),
-                                                                                    StringArgumentType.getString(context, "name"),
-                                                                                    BoolArgumentType.getBool(context, "public"),
-                                                                                    Objects.requireNonNull(context.getSource().getPlayer()).getDisplayName().getString(),
-                                                                                    new ArrayList<>()
+                ).then(Commands.literal("launchpads")
+                        .then(Commands.literal("create")
+                                .then(Commands.argument("dimension", ResourceKeyArgument.key(Registries.DIMENSION))
+                                        .then(Commands.argument("pos", Vec3Argument.vec3())
+                                                .then(Commands.argument("public", BoolArgumentType.bool())
+                                                        .then(Commands.argument("name", StringArgumentType.string())
+                                                                .executes((CommandContext<CommandSourceStack> context) -> {
 
-                                                                            );
-                                                                            LaunchPadLauncher.addLaunchPad(launchPad, context.getSource().getServer());
+                                                                    LaunchPad launchPad = new LaunchPad(
+                                                                            LaunchPadLauncher.LAUNCH_PADS.launchPads().size(),
+                                                                            Utils.blockPosToVec3(Vec3Argument.getCoordinates(context, "pos").getBlockPos(context.getSource())),
+                                                                            context.getArgument("dimension", ResourceKey.class),
+                                                                            StringArgumentType.getString(context, "name"),
+                                                                            BoolArgumentType.getBool(context, "public"),
+                                                                            Objects.requireNonNull(context.getSource().getPlayer()).getDisplayName().getString(),
+                                                                            new ArrayList<>()
 
-                                                                            context.getSource().sendSuccess(() -> Component.literal("Space Station " + StringArgumentType.getString(context, "name") + " Created"), true);
+                                                                    );
+                                                                    LaunchPadLauncher.addLaunchPad(launchPad, context.getSource().getServer());
 
-                                                                            return Command.SINGLE_SUCCESS;
+                                                                    context.getSource().sendSuccess(() -> Component.literal("Space Station " + StringArgumentType.getString(context, "name") + " Created"), true);
 
-                                                                        })
-                                                                )
+                                                                    return Command.SINGLE_SUCCESS;
+
+                                                                })
                                                         )
                                                 )
                                         )
-                                ).then(Commands.literal("remove")
-                                        .then(Commands.argument("dimension", ResourceKeyArgument.key(Registries.DIMENSION))
-                                                .then(Commands.argument("name", StringArgumentType.string())
-                                                        .executes((CommandContext<CommandSourceStack> context) -> {
-
-                                                            LaunchPad pad = LaunchPadUtils.getPadByNameAndDim(StringArgumentType.getString(context, "name"), context.getArgument("dimension", ResourceKey.class));
-
-                                                            if (pad != null && LaunchPadLauncher.removeLaunchpad(pad.id(),  context.getSource().getServer())) {
-                                                                context.getSource().sendSuccess(() -> Component.literal("Space Station " + StringArgumentType.getString(context, "name") + " Deleted"), true);
-                                                            } else {
-                                                                context.getSource().sendFailure(Component.literal("Space Station " + StringArgumentType.getString(context, "name") + " Not Found"));
-                                                            }
-                                                            return Command.SINGLE_SUCCESS;
-                                                        })
-                                                )
-                                        )
-                                        .then(Commands.argument("id", IntegerArgumentType.integer(0, Integer.MAX_VALUE))
+                                )
+                        ).then(Commands.literal("remove")
+                                .requires(c -> c.hasPermission(2))
+                                .then(Commands.argument("dimension", ResourceKeyArgument.key(Registries.DIMENSION))
+                                        .then(Commands.argument("name", StringArgumentType.string())
                                                 .executes((CommandContext<CommandSourceStack> context) -> {
 
-                                                    LaunchPad pad = LaunchPadUtils.getPadById(IntegerArgumentType.getInteger(context, "id"));
+                                                    LaunchPad pad = LaunchPadUtils.getPadByNameAndDim(StringArgumentType.getString(context, "name"), context.getArgument("dimension", ResourceKey.class));
 
-                                                    if (pad != null && LaunchPadLauncher.removeLaunchpad(pad.id(),context.getSource().getServer())) {
-                                                        context.getSource().sendSuccess(() -> Component.literal("Space Station " + pad.id() + " Deleted"), true);
+                                                    if (pad != null && LaunchPadLauncher.removeLaunchpad(pad.id(),  context.getSource().getServer())) {
+                                                        context.getSource().sendSuccess(() -> Component.literal("Space Station " + StringArgumentType.getString(context, "name") + " Deleted"), true);
                                                     } else {
                                                         context.getSource().sendFailure(Component.literal("Space Station " + StringArgumentType.getString(context, "name") + " Not Found"));
                                                     }
                                                     return Command.SINGLE_SUCCESS;
                                                 })
-
                                         )
-                                ).then(Commands.literal("share")
-                                        .then(Commands.argument("launchpad", new LaunchPadArgument())
-                                                .then(Commands.argument("player", EntityArgument.player())
-                                                        .executes((CommandContext<CommandSourceStack> context) -> {
-                                                            Player player = EntityArgument.getPlayer(context, "player");
-                                                            LaunchPad launchPad = LaunchPadUtils.getPadByNameAndPlayer(StringArgumentType.getString(context, "launchpad"), context.getSource().getPlayer());
+                                )
+                                .then(Commands.argument("id", IntegerArgumentType.integer(0, Integer.MAX_VALUE))
+                                        .requires(c -> c.hasPermission(2))
+                                        .executes((CommandContext<CommandSourceStack> context) -> {
 
-                                                            if(launchPad == null) {
-                                                                context.getSource().sendFailure(Component.literal("Launchpad not found"));
-                                                                return 0;
-                                                            }
-                                                            if(context.getSource().getPlayer().getName().equals(player.getName())) {
-                                                                context.getSource().sendFailure(Component.literal("You can't share your own launchpad"));
-                                                                return 0;
-                                                            } else if(launchPad.whitelist().contains(player.getName().getString())) {
-                                                                context.getSource().sendFailure(Component.literal("Player " + player.getName().getString() + " already has access to this launchpad"));
-                                                                return 0;
-                                                            }
-                                                            LaunchPadLauncher.modifyLaunchPad(LaunchPadUtils.whitelistPlayer(launchPad, player), context.getSource().getServer());
+                                            LaunchPad pad = LaunchPadUtils.getPadById(IntegerArgumentType.getInteger(context, "id"));
 
-                                                            return Command.SINGLE_SUCCESS;
-                                                        })
-                                                )
+                                            if (pad != null && LaunchPadLauncher.removeLaunchpad(pad.id(),context.getSource().getServer())) {
+                                                context.getSource().sendSuccess(() -> Component.literal("Space Station " + pad.id() + " Deleted"), true);
+                                            } else {
+                                                context.getSource().sendFailure(Component.literal("Space Station " + StringArgumentType.getString(context, "name") + " Not Found"));
+                                            }
+                                            return Command.SINGLE_SUCCESS;
+                                        })
+
+                                )
+                        ).then(Commands.literal("share")
+                                .then(Commands.argument("launchpad", new LaunchPadArgument())
+                                        .then(Commands.argument("player", EntityArgument.player())
+                                                .executes((CommandContext<CommandSourceStack> context) -> {
+                                                    Player player = EntityArgument.getPlayer(context, "player");
+                                                    LaunchPad launchPad = LaunchPadUtils.getPadByNameAndPlayer(StringArgumentType.getString(context, "launchpad"), context.getSource().getPlayer());
+
+                                                    if(launchPad == null) {
+                                                        context.getSource().sendFailure(Component.literal("Launchpad not found"));
+                                                        return 0;
+                                                    } else if(!launchPad.owner().equals(player.getName().getString())) {
+                                                        context.getSource().sendFailure(Component.literal("This launchpad is yours"));
+                                                        return 0;
+                                                    }
+                                                    else if(context.getSource().getPlayer().getName().equals(player.getName())) {
+                                                         context.getSource().sendFailure(Component.literal("You can't share your own launchpad"));
+                                                         return 0;
+                                                    } else if(launchPad.whitelist().contains(player.getName().getString())) {
+                                                        context.getSource().sendFailure(Component.literal("Player " + player.getName().getString() + " already has access to this launchpad"));
+                                                        return 0;
+                                                    }
+                                                    LaunchPadLauncher.modifyLaunchPad(LaunchPadUtils.whitelistPlayer(launchPad, player), context.getSource().getServer());
+
+                                                    return Command.SINGLE_SUCCESS;
+                                                })
                                         )
                                 )
                         )

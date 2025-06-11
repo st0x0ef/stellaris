@@ -8,9 +8,13 @@ import com.st0x0ef.stellaris.common.blocks.entities.machines.AntennaBlockEntity;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPad;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPadLauncher;
 import com.st0x0ef.stellaris.common.menus.AntennaMenu;
+import com.st0x0ef.stellaris.common.network.packets.LaunchPadsOperations;
 import com.st0x0ef.stellaris.common.utils.Utils;
+import dev.architectury.networking.NetworkManager;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
@@ -39,6 +43,8 @@ public class AntennaScreen extends AbstractContainerScreen<AntennaMenu> {
         imageWidth = 180;
         imageHeight = 188;
         inventoryLabelY = imageHeight - 94;
+        Stellaris.LOG.info("Loading LaunchPad: " + menu.launchPadId);
+
         if(menu.launchPadId != -1) {
             this.pad = LaunchPadLauncher.LAUNCH_PADS.launchPads().get(menu.launchPadId);
         }
@@ -48,8 +54,17 @@ public class AntennaScreen extends AbstractContainerScreen<AntennaMenu> {
     protected void init() {
         super.init();
 
+        TexturedButton shareButton = new TexturedButton(this.leftPos + 10, this.topPos + 10, 20, 20, Component.literal(""), (b) -> shareLaunchPad())
+                .tex(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/delete.png"), ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/delete_hovered.png"));
+        this.addRenderableWidget(shareButton);
         addWidgets(pad);
+    }
 
+    public void shareLaunchPad() {
+        if (this.pad == null) return;
+        onClose();
+        ChatScreen screen = new ChatScreen("/stellaris launchpads share \"" + this.pad.name() + "\" ");
+        this.minecraft.setScreen(screen);
     }
 
     @Override
@@ -140,6 +155,8 @@ public class AntennaScreen extends AbstractContainerScreen<AntennaMenu> {
             create = true;
         } else {
             this.pad = new LaunchPad(pad.id(), pad.position(), pad.dimension(), this.nameBox.getValue(), this.publicCheckbox.selected, pad.owner(), List.of(this.whitelistBox.getValue().split(",")));
+            NetworkManager.sendToServer(new LaunchPadsOperations(this.pad, "modify"));
+
         }
 
         blockEntity.setLaunchPad(this.pad, create);

@@ -102,9 +102,9 @@ public class LaunchPadUtils {
     }
 
     public static LaunchPad whitelistPlayer(LaunchPad launchPad, Player player) {
-        if (launchPad.whitelist().contains(player.getName().getString())) {
-            return launchPad;
-        }
+//        if (launchPad.whitelist().contains(player.getName().getString())) {
+//            return launchPad;
+//        }
         launchPad.whitelist().add(player.getName().getString());
         return launchPad;
     }

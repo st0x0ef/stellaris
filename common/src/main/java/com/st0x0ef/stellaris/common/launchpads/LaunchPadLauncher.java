@@ -104,9 +104,12 @@ public class LaunchPadLauncher {
         }
         ArrayList<LaunchPad> launchPads = new ArrayList<>();
         LaunchPadLauncher.LAUNCH_PADS.launchPads().forEach((lpad) -> {
-            if(pad.id() != lpad.id()) launchPads.add(lpad);
+            if(pad.id() == lpad.id()) {
+                launchPads.add(pad);
+            } else {
+                launchPads.add(lpad);
+            }
         });
-        launchPads.add(pad);
 
         return writeLaunchpads(launchPads, server);
     }

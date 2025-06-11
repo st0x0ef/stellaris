@@ -49,6 +49,9 @@ public class LaunchPadsOperations implements CustomPacketPayload {
             case "add" -> {
                 LaunchPadLauncher.addLaunchPad(launchPad, context.getPlayer().getServer());
             }
+            case "modify" -> {
+                LaunchPadLauncher.modifyLaunchPad(launchPad, context.getPlayer().getServer());
+            }
             case "remove" -> {
                 LaunchPadLauncher.removeLaunchpad(launchPad.id() ,context.getPlayer().getServer());
             }
