@@ -28,7 +28,7 @@ import net.minecraft.world.level.Level;
 import java.util.ArrayList;
 import java.util.List;
 
-public record SpaceStationRecipe (List<ItemStack> items, ResourceLocation location) {
+public record SpaceStationRecipe(List<ItemStack> items, ResourceLocation location) {
 
     public static final Codec<SpaceStationRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             ItemStack.CODEC.listOf().fieldOf("items").forGetter(SpaceStationRecipe::items),

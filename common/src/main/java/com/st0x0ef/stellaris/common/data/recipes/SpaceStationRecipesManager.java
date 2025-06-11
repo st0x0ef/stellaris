@@ -33,6 +33,7 @@ public class SpaceStationRecipesManager extends SimpleJsonResourceReloadListener
         resourceLocationJsonElementMap.forEach((key, value) -> {
             JsonObject json = GsonHelper.convertToJsonObject(value, "space_stations");
             SpaceStationRecipe recipe = SpaceStationRecipe.CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
+            Stellaris.LOG.debug("Loaded space station recipe: {}", recipe.location());
             SPACE_STATION_RECIPES.add(recipe);
         });
 
