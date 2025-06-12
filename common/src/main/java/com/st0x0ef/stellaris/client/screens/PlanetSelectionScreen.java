@@ -154,7 +154,6 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
         this.renderBg(graphics, partialTicks, mouseX, mouseY);
         super.render(graphics, mouseX, mouseY, partialTicks);
 
-
         if (!isPausePressed) {
             updatePlanets();
         }
@@ -273,7 +272,6 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
         boolean infoHovering = isHoveredOnSprite(infoX, infoY, infoWidth, infoHeight, mouseX, mouseY);
         boolean galaxyHovering = isHoveredOnSprite(galaxyX, galaxyY, galaxyWidth, galaxyHeight, mouseX, mouseY);
 
-        RenderSystem.setShaderColor(50 / 255f, 69 / 255f, 163 / 255f, 1.0f);
         graphics.blit(topBarTexture, tgX, tgY, 0, 0, tgWidth, tgHeight, tgWidth, tgHeight);
         graphics.blit(ResourceLocation.fromNamespaceAndPath(
                         Stellaris.MODID, "textures/gui/util/" + (infoHovering ? "planet_selection_info_button_hover.png" : "planet_selection_info_button.png")),

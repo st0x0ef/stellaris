@@ -12,6 +12,7 @@ import com.st0x0ef.stellaris.common.launchpads.LaunchPadUtils;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -37,7 +38,6 @@ public class LaunchWindow extends MoveableWindow {
 
         this.parent = parent;
         this.moveLimit = 15;
-        parent.canZoom = false;
     }
 
 
@@ -47,8 +47,22 @@ public class LaunchWindow extends MoveableWindow {
 
         ArrayList<LaunchPad> spaceStationButtons = getLaunchPadsForDimension();
         this.padsList = new LaunchPadsList(getWindowX() + 40, getWindowY() + 60, getWidth() - 80, getHeight() - 90, Component.translatable("gui.stellaris.launchpads"), this, spaceStationButtons);
-
         this.addWidget(this.padsList);
+
+
+        int imageRatio = 1;
+        TexturedButton spaceStationButton = new TexturedButton(
+                (getWindowX() + getWidth() / 2) + 73, getWindowY() + 32 - (18*imageRatio) / 2, 28*imageRatio, 18*imageRatio,
+                Component.literal(""),
+                (button) -> {
+                    if (celestialBody != null) {
+                        parent.setWindowVisible(1);
+                    }
+                }
+        ).tex(Stellaris.id("textures/gui/util/buttons/space_station_button.png"), Stellaris.id("textures/gui/util/buttons/space_station_button_hover.png"));
+        spaceStationButton.setTooltip(Tooltip.create(Component.literal("Space Stations")));
+
+        this.addWidget(spaceStationButton);
 
     }
 
