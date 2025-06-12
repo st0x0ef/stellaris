@@ -100,7 +100,7 @@ public class SpaceStationList extends AbstractScrollWidget {
                 SpaceStationRecipesManager.SpaceStationRecipeState state = entry.getValue();
 
                 if (Utils.isHoveredOnSprite(pos.x, (int) (pos.y - this.scrollAmount()), pos.z, pos.w, (int) mouseX, (int) mouseY)) {
-                    if(state.isUnlocked) {
+                    if(state.isUnlocked || window.parent.getPlayer().isCreative()) {
                         window.spaceStationSelected = state;
                     }
 
@@ -165,7 +165,7 @@ public class SpaceStationList extends AbstractScrollWidget {
 
             buttonPositions = new Vector4i(launchButton.getX(), launchButton.getY(), launchButton.getWidth(), launchButton.getHeight());
 
-            if (recipeState.isUnlocked) {
+            if (recipeState.isUnlocked || window.parent.getPlayer().isCreative()) {
                 launchButton.tex(
                         ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/select_button.png"),
                         ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/select_button_hovered.png")

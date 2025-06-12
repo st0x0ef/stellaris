@@ -24,15 +24,17 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public record SpaceStationRecipe(List<ItemStack> items, ResourceLocation location) {
+public record SpaceStationRecipe(List<ItemStack> items, ResourceLocation location, Vec3 antenna_position) {
 
     public static final Codec<SpaceStationRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             ItemStack.CODEC.listOf().fieldOf("items").forGetter(SpaceStationRecipe::items),
-            ResourceLocation.CODEC.fieldOf("location").forGetter(SpaceStationRecipe::location)
+            ResourceLocation.CODEC.fieldOf("location").forGetter(SpaceStationRecipe::location),
+            Vec3.CODEC.fieldOf("antenna_position").forGetter(SpaceStationRecipe::antenna_position)
     ).apply(instance, SpaceStationRecipe::new));
 
     public static RegistryFriendlyByteBuf toBuffer(SpaceStationRecipe recipe, final RegistryFriendlyByteBuf buffer) {
@@ -42,6 +44,8 @@ public record SpaceStationRecipe(List<ItemStack> items, ResourceLocation locatio
             ItemStack.STREAM_CODEC.encode(buffer, item);
         }));
         buffer.writeResourceLocation(recipe.location);
+        buffer.writeVec3(recipe.antenna_position);
+
         return buffer;
 
     }
@@ -53,7 +57,7 @@ public record SpaceStationRecipe(List<ItemStack> items, ResourceLocation locatio
         for (int i = 0; i < k; i++) {
             planets.add(ItemStack.STREAM_CODEC.decode(buffer));
         }
-        return new SpaceStationRecipe(planets, buffer.readResourceLocation());
+        return new SpaceStationRecipe(planets, buffer.readResourceLocation(), buffer.readVec3());
     }
 
 

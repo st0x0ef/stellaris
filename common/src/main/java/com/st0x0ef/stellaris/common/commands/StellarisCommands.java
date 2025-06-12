@@ -90,13 +90,6 @@ public class StellarisCommands {
 
                 .then(Commands.literal("test")
                         .requires(c -> c.hasPermission(2))
-                        .then(Commands.literal("placeSpaceStation")
-                                .executes((CommandContext<CommandSourceStack> context) -> {
-                                    if (context.getSource().getPlayer() != null) {
-                                        Utils.placeSpaceStation(context.getSource().getPlayer(), (ServerLevel) context.getSource().getPlayer().level(), SpaceStationRecipesManager.SPACE_STATION_RECIPES.getLast());
-                                    }
-                                    return 0;
-                                }))
                         .then(Commands.literal("dumpPlanetInfos")
                                 .executes((CommandContext<CommandSourceStack> context) -> {
 

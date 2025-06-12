@@ -2,16 +2,16 @@ package com.st0x0ef.stellaris.common.utils;
 
 import com.mojang.serialization.Codec;
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.AntennaBlockEntity;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
 import com.st0x0ef.stellaris.common.data.recipes.SpaceStationRecipe;
 import com.st0x0ef.stellaris.common.data_components.SpaceSuitModules;
 import com.st0x0ef.stellaris.common.entities.vehicles.LanderEntity;
 import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
-import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
-import com.st0x0ef.stellaris.common.registry.EntityData;
-import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
-import com.st0x0ef.stellaris.common.registry.StatsRegistry;
+import com.st0x0ef.stellaris.common.launchpads.LaunchPad;
+import com.st0x0ef.stellaris.common.launchpads.LaunchPadLauncher;
+import com.st0x0ef.stellaris.common.registry.*;
 import com.st0x0ef.stellaris.common.vehicle_upgrade.FuelType;
 import dev.architectury.utils.GameInstance;
 import net.minecraft.core.BlockPos;
@@ -36,6 +36,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.phys.Vec3;
@@ -352,13 +353,39 @@ public class Utils {
     }
 
     /** Place the space station */
-    public static void placeSpaceStation(Player player, ServerLevel serverLevel, SpaceStationRecipe recipe) {
-        Stellaris.LOG.info("Placing space station {}", recipe.location());
-
+    public static void placeSpaceStation(Player player, ServerLevel serverLevel, SpaceStationRecipe recipe, LaunchPad pad) {
         StructureTemplate structureTemplate = serverLevel.getStructureManager().getOrCreate(recipe.location());
         BlockPos pos = new BlockPos((int)player.getX() - (structureTemplate.getSize().getX() / 2), 100, (int)player.getZ() - (structureTemplate.getSize().getZ() / 2));
-        Stellaris.LOG.info("Placing space station at " + pos);
+        Stellaris.LOG.info("Placing space station {}", pos);
+
+        serverLevel.setBlock(pos, Blocks.PINK_WOOL.defaultBlockState(),2);
         structureTemplate.placeInWorld(serverLevel, pos, pos, new StructurePlaceSettings(), serverLevel.random, 2);
+        placeAntennaBlock(pos, serverLevel, recipe, pad);
+    }
+
+    public static void placeAntennaBlock(BlockPos initialPos, ServerLevel serverLevel, SpaceStationRecipe recipe, LaunchPad pad) {
+
+        BlockPos pos = initialPos.east((int) recipe.antenna_position().x)
+                .south((int) recipe.antenna_position().y)
+                .above((int) recipe.antenna_position().z);
+
+        Stellaris.LOG.error("antenna position: {}", pos);
+
+        AntennaBlockEntity antennaBlockEntity = new AntennaBlockEntity(pos, BlocksRegistry.ANTENNA.get().defaultBlockState());
+
+        LaunchPad newPad = new LaunchPad(
+                pad.id(),
+                Utils.blockPosToVec3(pos),
+                pad.dimension(),
+                pad.name(),
+                pad.isPublic(),
+                pad.owner(),
+                pad.whitelist()
+        );
+
+        antennaBlockEntity.setLaunchPad(newPad, true);
+        serverLevel.setBlock(pos, BlocksRegistry.ANTENNA.get().defaultBlockState(), 1);
+        serverLevel.setBlockEntity(antennaBlockEntity);
     }
 
     public static boolean isHoveredOnSprite(int x, int y, int width, int height, double mouseX, double mouseY) {

@@ -5,6 +5,7 @@ import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.data.recipes.SpaceStationRecipe;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPad;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPadLauncher;
+import com.st0x0ef.stellaris.common.launchpads.LaunchPadUtils;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import com.st0x0ef.stellaris.common.registry.EntityData;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
@@ -60,12 +61,10 @@ public class PlaceStationPacket implements CustomPacketPayload {
 
             ServerLevel level = player.level().getServer().getLevel(ResourceKey.create(Registries.DIMENSION, planet.dimension()));
             if (level != null) {
-                Stellaris.LOG.info("Placing space station");
-                Utils.placeSpaceStation(player, level, packet.recipe);
-
-                //TODO: Get antenna position and change it
-                LaunchPadLauncher.addLaunchPad(packet.pad, context.getPlayer().getServer());
+                Utils.placeSpaceStation(player, level, packet.recipe, packet.pad);
                 packet.recipe.removeMaterials(player);
+                NetworkManager.sendToServer(new TeleportEntityToPlanetPacket(packet.dimension, LaunchPadUtils.getPadById(packet.pad.id()).position()));
+
             }
         }
     }

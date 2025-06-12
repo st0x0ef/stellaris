@@ -11,6 +11,7 @@ import com.st0x0ef.stellaris.client.screens.info.CelestialBody;
 import com.st0x0ef.stellaris.common.data.recipes.SpaceStationRecipesManager;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPad;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPadLauncher;
+import com.st0x0ef.stellaris.common.launchpads.LaunchPadUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.EditBox;
@@ -97,9 +98,13 @@ public class SpaceStationWindow extends MoveableWindow {
     }
 
     public void onStationCreated() {
+        Stellaris.LOG.error("name box empty: " + this.nameBox.getValue().isEmpty());
+        Stellaris.LOG.error("space station selected: " + (this.spaceStationSelected == null ? "null" : this.spaceStationSelected.recipe.location()));
+        Stellaris.LOG.error("celestial body: " + (this.celestialBody == null ? "null" : this.celestialBody.dimension));
+
         if(!this.nameBox.getValue().isEmpty() && this.spaceStationSelected != null && this.celestialBody != null) {
             LaunchPad pad = new LaunchPad(
-                    LaunchPadLauncher.LAUNCH_PADS.launchPads().size(),
+                    LaunchPadUtils.getNextLaunchPadId(),
                     // Will be set after
                     new Vec3(0, 0, 0),
                     ResourceKey.create(Registries.DIMENSION, this.celestialBody.dimension),

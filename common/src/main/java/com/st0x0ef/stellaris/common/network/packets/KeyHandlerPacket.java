@@ -35,10 +35,8 @@ public class KeyHandlerPacket implements CustomPacketPayload {
         public void encode(RegistryFriendlyByteBuf buf, KeyHandlerPacket packet) {
             buf.writeUtf(packet.key);
             buf.writeBoolean(packet.condition);
-
         }
     };
-
 
     public KeyHandlerPacket(String key, boolean condition) {
         this.key = key;
