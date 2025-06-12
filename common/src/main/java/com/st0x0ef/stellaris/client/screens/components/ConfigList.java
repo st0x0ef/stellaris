@@ -1,29 +1,22 @@
 package com.st0x0ef.stellaris.client.screens.components;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 import com.st0x0ef.stellaris.client.screens.ConfigScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.OptionInstance;
-import net.minecraft.client.Options;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.ContainerObjectSelectionList;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.options.OptionsSubScreen;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 public class ConfigList extends ContainerObjectSelectionList<ConfigList.Entry> {
-    private static final int BIG_BUTTON_WIDTH = 310;
-    private static final int DEFAULT_ITEM_HEIGHT = 25;
     private final ConfigScreen screen;
 
     public ConfigList(Minecraft minecraft, int width, ConfigScreen screen) {

@@ -10,16 +10,11 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
-import net.minecraft.client.Options;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.*;
 import net.minecraft.client.gui.components.toasts.SystemToast;
-import net.minecraft.client.gui.layouts.FrameLayout;
-import net.minecraft.client.gui.layouts.GridLayout;
 import net.minecraft.client.gui.layouts.HeaderAndFooterLayout;
-import net.minecraft.client.gui.layouts.SpacerElement;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.options.OptionsSubScreen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -54,11 +49,8 @@ public class ConfigScreen extends Screen {
 
         addFields(clazz.getFields(), Stellaris.CONFIG, configList, 0);
 
-        this.layout.visitWidgets((guiEventListener) -> {
-            AbstractWidget var10000 = (AbstractWidget)this.addRenderableWidget(guiEventListener);
-        });
+        this.layout.visitWidgets(this::addRenderableWidget);
         this.layout.arrangeElements();
-
     }
 
     protected void addTitle() {
@@ -68,7 +60,6 @@ public class ConfigScreen extends Screen {
     protected void addFooter() {
         this.layout.addToFooter(Button.builder(CommonComponents.GUI_DONE, (button) -> this.onClose()).width(200).build());
     }
-
 
     private void addFields(Field[] fields, Object object, ConfigList configList, int recursionDepth) {
         for (Field field : fields) {
@@ -96,9 +87,7 @@ public class ConfigScreen extends Screen {
         if (this.configList != null) {
             this.configList.updateSize(this.width, this.layout);
         }
-
     }
-
 
     @Override
     public void onClose() {
@@ -147,8 +136,7 @@ public class ConfigScreen extends Screen {
                 } catch (Exception ignored) {}
             });
             return editBox;
-        }
-        else {
+        } else {
             SpriteIconButton unsupported = stellarisConfigButton(20);
             unsupported.setTooltip(Tooltip.create(Component.literal("Unsupported field type")));
             return unsupported;
@@ -182,5 +170,4 @@ public class ConfigScreen extends Screen {
             Util.getPlatform().openUri(path.toUri());
         }, true).width(i).sprite(TEXTURE, 16, 16).build();
     }
-
 }
