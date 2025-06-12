@@ -557,7 +557,7 @@
   "general.stellaris.jet_suit_hover_mode": "Hover",
   "general.stellaris.jet_suit_elytra_mode": "Elytra",
   "general.stellaris.jet_suit_fuel": "Fuel",
-  "jetsuit.stellaris.fuel": "§7Fuel : §8%s",
+  "jetsuit.stellaris.diesel": "§7Diesel : §8%s",
 
   "text.stellaris.planetscreen.temperature": "Temperature",
   "text.stellaris.planetscreen.gravity": "Gravity",
