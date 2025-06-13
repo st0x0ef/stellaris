@@ -12,3 +12,4 @@
 
 ## Fixes
 - Space suit crash when trying to put fuel in it
+- Fix some module tooltip
