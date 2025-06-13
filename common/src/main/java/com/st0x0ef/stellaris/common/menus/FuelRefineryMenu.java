@@ -28,12 +28,12 @@ public class FuelRefineryMenu extends BaseContainer {
         this.blockEntity = blockEntity;
 
         // Ingredient tank
-        addSlot(new SpecificFluidContainerSlot(container, FluidRegistry.OIL_STILL.get(), 0, 10, 56, false));
-        addSlot(new ResultSlot(container, 1, 10, 86));
+        addSlot(new SpecificFluidContainerSlot(container, FluidRegistry.OIL_STILL.get(), 0, 14, 76, false));
+        addSlot(new ResultSlot(container, 1, 14, 110));
 
         // Result tank
-        addSlot(new FluidContainerSlot(container, 2, 106, 56, false, true));
-        addSlot(new ResultSlot(container, 3, 106, 86));
+        addSlot(new FluidContainerSlot(container, 2, 102, 76, false, true));
+        addSlot(new ResultSlot(container, 3, 102, 110));
     }
 
     @Override

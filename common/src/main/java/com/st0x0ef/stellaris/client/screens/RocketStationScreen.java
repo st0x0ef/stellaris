@@ -24,8 +24,8 @@ public class RocketStationScreen extends AbstractContainerScreen<RocketStationMe
         this.imageWidth = 180;
         this.imageHeight = 224;
 
-        this.titleLabelX = (180 - Minecraft.getInstance().font.width(title.getString())) / 2 + 30;
-        this.titleLabelY = 4;
+        this.titleLabelX = (180 - Minecraft.getInstance().font.width(title.getString())) / 2;
+        this.titleLabelY = 2;
 
         this.inventoryLabelY = this.imageHeight - 92;
     }
@@ -43,6 +43,11 @@ public class RocketStationScreen extends AbstractContainerScreen<RocketStationMe
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, texture);
         guiGraphics.blit(texture, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
+    }
+
+    @Override
+    protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+        guiGraphics.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 5726575, false);
     }
 
 }

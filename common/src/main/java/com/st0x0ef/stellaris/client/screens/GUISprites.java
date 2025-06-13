@@ -21,7 +21,7 @@ public class GUISprites {
     public static final ResourceLocation ENERGY_FULL = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "util/energy_full");
     public static final ResourceLocation COAL_GENERATOR_LIT_PROGRESS_SPRITE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "util/coal_generator_fire_full");
     public static final ResourceLocation RADIOACTIVE_GENERATOR_LIT_PROGRESS_SPRITE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "util/radioactive_generator_fire_full");
-    public static final ResourceLocation FLUID_TANK_OVERLAY = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "util/fluid_tank_overlay");
+    public static final ResourceLocation FLUID_TANK_OVERLAY = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "util/water_tank_overlay");
     public static final ResourceLocation NO_OVERLAY = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "util/no_overlay");
     public static final ResourceLocation SPACESUIT_OXYGEN_BAR = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/overlay/oxygen_hud.png");
     public static final ResourceLocation SPACESUIT_FUEL_BAR = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/overlay/fuel_hud.png");

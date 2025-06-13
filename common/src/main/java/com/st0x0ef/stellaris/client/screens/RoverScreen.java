@@ -29,7 +29,7 @@ public class RoverScreen  extends AbstractContainerScreen<RoverMenu> {
         imageHeight = 188;
 
         titleLabelX = (180 - Minecraft.getInstance().font.width(title.getString())) / 2;
-        titleLabelY = 4;
+        titleLabelY = 2;
 
         inventoryLabelY = imageHeight - 92;
     }
@@ -42,7 +42,7 @@ public class RoverScreen  extends AbstractContainerScreen<RoverMenu> {
             return;
         }
 
-        fuelGauge = new GaugeWidget(leftPos + 48, topPos + 26, 12, 46, Component.translatable("stellaris.screen.fuel"), rover.getRoverComponent().getFuelType().getFuelTexture(), GUISprites.FLUID_TANK_OVERLAY, rover.getRoverComponent().getTankCapacity(), GaugeWidget.Direction4.DOWN_UP);
+        fuelGauge = new GaugeWidget(leftPos + 52, topPos + 30, 12, 46, Component.translatable("stellaris.screen.fuel"), rover.getRoverComponent().getFuelType().getFuelTexture(), GUISprites.FLUID_TANK_OVERLAY, rover.getRoverComponent().getTankCapacity(), GaugeWidget.Direction4.DOWN_UP);
         addRenderableWidget(fuelGauge);
     }
 
@@ -68,5 +68,10 @@ public class RoverScreen  extends AbstractContainerScreen<RoverMenu> {
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, TEXTURE);
         guiGraphics.blit(TEXTURE, leftPos, topPos, 0, 0, imageWidth, imageHeight, imageWidth, imageHeight);
+    }
+
+    @Override
+    protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+        guiGraphics.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 5726575, false);
     }
 }

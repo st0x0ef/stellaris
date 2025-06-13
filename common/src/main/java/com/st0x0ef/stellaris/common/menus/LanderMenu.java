@@ -64,30 +64,30 @@ public class LanderMenu extends AbstractContainerMenu {
 
     private void addSlots(Container inventory) {
         //FUEL SLOTS
-        this.addSlot(new ResultSlot(inventory, 0, 20, 60));
-        this.addSlot(new ResultSlot(inventory, 1, 50, 60));
+        this.addSlot(new ResultSlot(inventory, 0, 24, 68));
+        this.addSlot(new ResultSlot(inventory, 1, 52, 68));
 
         //UPGRADE SLOTS
-        this.addSlot(new ResultSlot(inventory, 2, 76, 70));
-        this.addSlot(new ResultSlot(inventory, 3, 100, 70));
-        this.addSlot(new ResultSlot(inventory, 4, 124, 70));
-        this.addSlot(new ResultSlot(inventory, 5, 148, 70));
+        this.addSlot(new ResultSlot(inventory, 2, 82, 74));
+        this.addSlot(new ResultSlot(inventory, 3, 100, 74));
+        this.addSlot(new ResultSlot(inventory, 4, 118, 74));
+        this.addSlot(new ResultSlot(inventory, 5, 136, 74));
 
         //INVENTORY SLOTS
-        this.addSlot(new ResultSlot(inventory, 6, 84, 22));
-        this.addSlot(new ResultSlot(inventory, 7, 84, 40));
+        this.addSlot(new ResultSlot(inventory, 6, 82, 28));
+        this.addSlot(new ResultSlot(inventory, 7, 82, 46));
 
-        this.addSlot(new ResultSlot(inventory, 8, 102, 22));
-        this.addSlot(new ResultSlot(inventory, 9, 102, 40));
+        this.addSlot(new ResultSlot(inventory, 8, 100, 28));
+        this.addSlot(new ResultSlot(inventory, 9, 100, 46));
 
-        this.addSlot(new ResultSlot(inventory, 10, 120, 22));
-        this.addSlot(new ResultSlot(inventory, 11, 120, 40));
+        this.addSlot(new ResultSlot(inventory, 10, 118, 28));
+        this.addSlot(new ResultSlot(inventory, 11, 118, 46));
 
-        this.addSlot(new ResultSlot(inventory, 12, 138, 22));
-        this.addSlot(new ResultSlot(inventory, 13, 138, 40));
+        this.addSlot(new ResultSlot(inventory, 12, 136, 28));
+        this.addSlot(new ResultSlot(inventory, 13, 136, 46));
 
         //ROCKET SLOT
-        this.addSlot(new ResultSlot(inventory, 14, 34, 26));
+        this.addSlot(new ResultSlot(inventory, 14, 38, 37));
     }
 
     private void addPlayerInventory(Inventory playerInventory) {

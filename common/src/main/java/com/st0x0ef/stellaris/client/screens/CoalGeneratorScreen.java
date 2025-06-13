@@ -31,7 +31,7 @@ public class CoalGeneratorScreen extends AbstractContainerScreen<CoalGeneratorMe
         imageHeight = 188;
 
         titleLabelX = (180 - Minecraft.getInstance().font.width(title.getString())) / 2;
-        titleLabelY = 4;
+        titleLabelY = 2;
 
         inventoryLabelY = imageHeight - 92;
     }
@@ -79,5 +79,10 @@ public class CoalGeneratorScreen extends AbstractContainerScreen<CoalGeneratorMe
         super.renderTooltip(guiGraphics, x, y);
         energyGauge.renderTooltips(guiGraphics, x, y, font, list ->
                 list.add(Component.translatable("gauge_text.stellaris.max_generation", blockEntity.getEnergyGeneratedPT())));
+    }
+
+    @Override
+    protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+        guiGraphics.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 5726575, false);
     }
 }

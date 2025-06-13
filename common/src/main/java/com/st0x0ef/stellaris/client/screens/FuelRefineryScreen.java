@@ -30,7 +30,7 @@ public class FuelRefineryScreen extends AbstractContainerScreen<FuelRefineryMenu
         imageHeight = 224;
 
         titleLabelX = (180 - Minecraft.getInstance().font.width(title.getString())) / 2;
-        titleLabelY = 4;
+        titleLabelY = 2;
 
         inventoryLabelY = imageHeight - 95;
     }
@@ -44,12 +44,12 @@ public class FuelRefineryScreen extends AbstractContainerScreen<FuelRefineryMenu
         }
 
         SingleFluidStorage ingredientTank = blockEntity.getIngredientTank();
-        ingredientTankGauge = new GaugeWidget(leftPos + 36, topPos + 56, 12, 46, Component.translatable("stellaris.screen.oil"),
+        ingredientTankGauge = new GaugeWidget(leftPos + 42, topPos + 78, 12, 46, Component.translatable("stellaris.screen.oil"),
                 GUISprites.OIL_OVERLAY, GUISprites.LIQUID_TANK_OVERLAY, ingredientTank.getTankCapacity(0), GaugeWidget.Direction4.DOWN_UP);
         addRenderableWidget(ingredientTankGauge);
 
         SingleFluidStorage resultTank = blockEntity.getResultTank();
-        resultTankGauge = new GaugeWidget(leftPos + 84, topPos + 56, 12, 46, Component.translatable("stellaris.screen.fuel"),
+        resultTankGauge = new GaugeWidget(leftPos + 80, topPos + 78, 12, 46, Component.translatable("stellaris.screen.fuel"),
                 GUISprites.FUEL_OVERLAY, GUISprites.LIQUID_TANK_OVERLAY, resultTank.getTankCapacity(0), GaugeWidget.Direction4.DOWN_UP);
         addRenderableWidget(resultTankGauge);
 
@@ -86,5 +86,10 @@ public class FuelRefineryScreen extends AbstractContainerScreen<FuelRefineryMenu
         ingredientTankGauge.renderTooltip(guiGraphics, x, y, font);
         resultTankGauge.renderTooltip(guiGraphics, x, y, font);
         energyGauge.renderTooltip(guiGraphics, x, y, font);
+    }
+
+    @Override
+    protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+        guiGraphics.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 5726575, false);
     }
 }
