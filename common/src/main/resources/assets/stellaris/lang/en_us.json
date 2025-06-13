@@ -704,5 +704,8 @@
 
 
   "config.stellaris.oxygenDamage": "Oxygen Damage",
-  "config.stellaris.oxygenDamage.desc": "The Damage entites take every second when there is no oxygen."
+  "config.stellaris.oxygenDamage.desc": "The Damage entites take every second when there is no oxygen.",
+
+  "config.stellaris.dieselGeneratorFuelTime" : "Diesel Generator Fuel Time",
+  "config.stellaris.dieselGeneratorFuelTime.desc": "The time in ticks a diesel generator can run on 10mb of diesel."
 }

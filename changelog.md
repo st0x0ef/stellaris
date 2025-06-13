@@ -3,6 +3,7 @@
 ## Additions
 - Add diesel
 - Add diesel generator
+- Add new config system
 
 ## Changes
 - Rover now need diesel instead of fuel

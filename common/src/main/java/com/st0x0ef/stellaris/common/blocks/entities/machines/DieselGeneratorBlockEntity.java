@@ -73,12 +73,15 @@ public class DieselGeneratorBlockEntity extends BaseGeneratorBlockEntity impleme
 
         FluidUtil.moveFluidFromItem(0, 0, items, dieselTank, 1000);
 
-        if (!dieselTank.isEmpty()) {
-            int fuelTime = 20; // TODO : make this value configurable
+        if (!dieselTank.isEmpty() && litTime <= 0) {
+            int fuelTime = Stellaris.CONFIG.dieselGeneratorFuelTime;
             litDuration = fuelTime;
             litTime = fuelTime;
-            dieselTank.drain(FluidStack.create(FluidRegistry.DIESEL_STILL.get(), 5), false);
-            shouldUpdate = true;
+            if (isLit()) {
+                dieselTank.drain(FluidStack.create(FluidRegistry.DIESEL_STILL.get(), 5), false);
+                energyContainer.insert(energyGeneratedPT, false);
+                shouldUpdate = true;
+            }
         }
 
         if (wasLit != isLit()) {
@@ -88,10 +91,6 @@ public class DieselGeneratorBlockEntity extends BaseGeneratorBlockEntity impleme
         }
         if (shouldUpdate) {
             setChanged();
-        }
-
-        if (isLit()) {
-            energyContainer.insert(energyGeneratedPT, false);
         }
 
         EnergyUtil.distributeEnergyNearby(level, worldPosition, maxCapacity);
