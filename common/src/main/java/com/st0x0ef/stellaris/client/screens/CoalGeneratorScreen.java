@@ -69,8 +69,8 @@ public class CoalGeneratorScreen extends AbstractContainerScreen<CoalGeneratorMe
         graphics.blit(TEXTURE, leftPos, topPos, 0, 0, imageWidth, imageHeight, imageWidth, imageHeight);
 
         if (menu.isLit()) {
-            int i = Mth.ceil(menu.getLitProgress() * 13.0F) + 1;
-            graphics.blitSprite(GUISprites.COAL_GENERATOR_LIT_PROGRESS_SPRITE, 8, 13, 0, 14 - i, leftPos + 86, topPos + 57 + 13 - i, 14, i);
+            int i = Mth.ceil(menu.getLitProgress() * 11.0F) + 1;
+            graphics.blitSprite(GUISprites.COAL_GENERATOR_LIT_PROGRESS_SPRITE, 14, 11, 0, 12 - i, leftPos + 99, topPos + 68 - i, 12, i);
         }
     }
 

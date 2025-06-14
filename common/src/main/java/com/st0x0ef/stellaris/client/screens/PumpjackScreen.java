@@ -28,10 +28,10 @@ public class PumpjackScreen extends AbstractContainerScreen<PumpjackMenu> {
         super(menu, playerInventory, title);
 
         imageWidth = 180;
-        imageHeight = 224;
+        imageHeight = 188;
 
         titleLabelX = (180 - Minecraft.getInstance().font.width(title.getString())) / 2;
-        titleLabelY = 4;
+        titleLabelY = 2;
 
         inventoryLabelY = imageHeight - 92;
     }
@@ -45,7 +45,7 @@ public class PumpjackScreen extends AbstractContainerScreen<PumpjackMenu> {
         }
 
         SingleFluidStorage resultTank = blockEntity.getResultTank();
-        resultTankGauge = new GaugeWidget(leftPos + 92, topPos + 52, 12, 46, Component.translatable("stellaris.screen.oil"), GUISprites.OIL_OVERLAY, GUISprites.LIQUID_TANK_OVERLAY, resultTank.getTankCapacity(0), GaugeWidget.Direction4.DOWN_UP);
+        resultTankGauge = new GaugeWidget(leftPos + 114, topPos + 46, 12, 46, Component.translatable("stellaris.screen.oil"), GUISprites.OIL_OVERLAY, GUISprites.LIQUID_TANK_OVERLAY, resultTank.getTankCapacity(0), GaugeWidget.Direction4.DOWN_UP);
         addRenderableWidget(resultTankGauge);
 
         energyGauge = new GaugeWidget(leftPos + 68, topPos + 20, 44, 6, Component.translatable("stellaris.screen.energyContainer"), GUISprites.SIDEWAYS_ENERGY_FULL, null, blockEntity.getEnergy(null).getMaxEnergy(), GaugeWidget.Direction4.LEFT_RIGHT);
@@ -62,7 +62,7 @@ public class PumpjackScreen extends AbstractContainerScreen<PumpjackMenu> {
             return;
         }
 
-        guiGraphics.drawString(this.font, "Oil Level", leftPos + 20, topPos + 46, Utils.getColorHexCode("gray"));
+        guiGraphics.drawString(this.font, "Oil Level", leftPos + 19, topPos + 40, Utils.getColorHexCode("gray"));
         guiGraphics.drawCenteredString(this.font, String.valueOf(blockEntity.chunkOilLevel(Minecraft.getInstance().level)), leftPos + 40, topPos + 57, OilUtils.getOilLevelColor(blockEntity.chunkOilLevel(Minecraft.getInstance().level)));
 
         resultTankGauge.updateAmount(blockEntity.getResultTank().getFluidValueInTank());
@@ -83,5 +83,10 @@ public class PumpjackScreen extends AbstractContainerScreen<PumpjackMenu> {
         super.renderTooltip(guiGraphics, x, y);
         resultTankGauge.renderTooltip(guiGraphics, x, y, font);
         energyGauge.renderTooltip(guiGraphics, x, y, font);
+    }
+
+    @Override
+    protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+        guiGraphics.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 5726575, false);
     }
 }

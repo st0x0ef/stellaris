@@ -31,7 +31,7 @@ public class RadioactiveGeneratorScreen extends AbstractContainerScreen<Radioact
         imageHeight = 188;
 
         titleLabelX = (180 - Minecraft.getInstance().font.width(title.getString())) / 2;
-        titleLabelY = 4;
+        titleLabelY = 2;
 
         inventoryLabelY = imageHeight - 92;
     }
@@ -69,8 +69,8 @@ public class RadioactiveGeneratorScreen extends AbstractContainerScreen<Radioact
         graphics.blit(TEXTURE, leftPos, topPos, 0, 0, imageWidth, imageHeight, imageWidth, imageHeight);
 
         if (menu.isLit()) {
-            int i = Mth.ceil(menu.getLitProgress() * 13.0F) + 1;
-            graphics.blitSprite(GUISprites.RADIOACTIVE_GENERATOR_LIT_PROGRESS_SPRITE, 8, 13, 0, 14 - i, leftPos + 86, topPos + 57 + 13 - i, 14, i);
+            int i = Mth.ceil(menu.getLitProgress() * 11.0F) + 1;
+            graphics.blitSprite(GUISprites.RADIOACTIVE_GENERATOR_LIT_PROGRESS_SPRITE, 14, 11, 0, 12 - i, leftPos + 99, topPos + 68 - i, 12, i);
         }
     }
 
@@ -78,5 +78,10 @@ public class RadioactiveGeneratorScreen extends AbstractContainerScreen<Radioact
     protected void renderTooltip(GuiGraphics guiGraphics, int x, int y) {
         super.renderTooltip(guiGraphics, x, y);
         energyGauge.renderTooltips(guiGraphics, x, y, font, list -> list.add(Component.translatable("gauge_text.stellaris.max_generation", blockEntity.getEnergyGeneratedPT())));
+    }
+
+    @Override
+    protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+        guiGraphics.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 5726575, false);
     }
 }

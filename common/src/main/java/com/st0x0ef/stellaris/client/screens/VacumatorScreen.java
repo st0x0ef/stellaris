@@ -29,7 +29,7 @@ public class VacumatorScreen extends AbstractContainerScreen<VacuumatorMenu> {
 		this.imageHeight = 188;
 
 		this.titleLabelX = (180 - Minecraft.getInstance().font.width(title.getString())) / 2;
-		this.titleLabelY = 4;
+		this.titleLabelY = 2;
 
 		this.inventoryLabelY = this.imageHeight - 95;
 	}
@@ -71,5 +71,10 @@ public class VacumatorScreen extends AbstractContainerScreen<VacuumatorMenu> {
 	protected void renderTooltip(GuiGraphics guiGraphics, int x, int y) {
 		super.renderTooltip(guiGraphics, x, y);
 		energyGauge.renderTooltip(guiGraphics, x, y, font);
+	}
+
+	@Override
+	protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+		guiGraphics.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 5726575, false);
 	}
 }

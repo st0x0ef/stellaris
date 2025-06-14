@@ -37,7 +37,7 @@ public class WaterSeparatorScreen extends AbstractContainerScreen<WaterSeparator
         imageHeight = 224;
 
         titleLabelX = (180 - Minecraft.getInstance().font.width(title.getString())) / 2;
-        titleLabelY = 4;
+        titleLabelY = 2;
 
         inventoryLabelY = imageHeight - 95;
     }
@@ -49,17 +49,17 @@ public class WaterSeparatorScreen extends AbstractContainerScreen<WaterSeparator
         if (blockEntity == null) return;
 
         SingleFluidStorage ingredientTank = blockEntity.getIngredientTank();
-        ingredientTankGauge = new GaugeChunkWidget(leftPos + 52, topPos + 46, 12, 46, 76, 46, Component.translatable("stellaris.screen.water"), GUISprites.WATER_OVERLAY, GUISprites.WATER_SEPARATOR_OVERLAY, ingredientTank.getTankCapacity(0), GaugeChunkWidget.Direction4.DOWN_UP);
+        ingredientTankGauge = new GaugeChunkWidget(leftPos + 53, topPos + 54, 12, 46, 76, 46, Component.translatable("stellaris.screen.water"), GUISprites.WATER_OVERLAY, GUISprites.WATER_SEPARATOR_OVERLAY, ingredientTank.getTankCapacity(0), GaugeChunkWidget.Direction4.DOWN_UP);
         addRenderableWidget(ingredientTankGauge);
 
-        overlayTankGauge = new GaugeWidget(leftPos + 52, topPos + 46, 76, 46, Component.translatable("stellaris.screen.water"), GUISprites.WATER_SEPARATOR_WATERED_OVERLAY, null, ingredientTank.getTankCapacity(0), GaugeWidget.Direction4.DOWN_UP);
+        overlayTankGauge = new GaugeWidget(leftPos + 53, topPos + 54, 76, 46, Component.translatable("stellaris.screen.water"), GUISprites.WATER_SEPARATOR_WATERED_OVERLAY, null, ingredientTank.getTankCapacity(0), GaugeWidget.Direction4.DOWN_UP);
         addRenderableWidget(overlayTankGauge);
 
         FluidStorage resultTanks = blockEntity.getResultTanks();
-        hydrogenTankGauge = new GaugeWidget(leftPos + 24, topPos + 46, 12, 46, Component.translatable("stellaris.screen.hydrogen"), GUISprites.HYDROGEN_OVERLAY, GUISprites.LIQUID_TANK_OVERLAY, resultTanks.getTankCapacity(WaterSeparatorBlockEntity.HYDROGEN_TANK), GaugeWidget.Direction4.UP_DOWN);
+        hydrogenTankGauge = new GaugeWidget(leftPos + 22, topPos + 54, 12, 46, Component.translatable("stellaris.screen.hydrogen"), GUISprites.HYDROGEN_OVERLAY, GUISprites.LIQUID_TANK_OVERLAY, resultTanks.getTankCapacity(WaterSeparatorBlockEntity.HYDROGEN_TANK), GaugeWidget.Direction4.UP_DOWN);
         addRenderableWidget(hydrogenTankGauge);
 
-        oxygenTankGauge = new GaugeWidget(leftPos + 144, topPos + 46, 12, 46, Component.translatable("stellaris.screen.oxygen"), GUISprites.OXYGEN_OVERLAY, GUISprites.LIQUID_TANK_OVERLAY, resultTanks.getTankCapacity(WaterSeparatorBlockEntity.OXYGEN_TANK), GaugeWidget.Direction4.UP_DOWN);
+        oxygenTankGauge = new GaugeWidget(leftPos + 146, topPos + 54, 12, 46, Component.translatable("stellaris.screen.oxygen"), GUISprites.OXYGEN_OVERLAY, GUISprites.LIQUID_TANK_OVERLAY, resultTanks.getTankCapacity(WaterSeparatorBlockEntity.OXYGEN_TANK), GaugeWidget.Direction4.UP_DOWN);
         addRenderableWidget(oxygenTankGauge);
 
         energyGauge = new GaugeWidget(leftPos + 68, topPos + 20, 44, 6, Component.translatable("stellaris.screen.energyContainer"), GUISprites.SIDEWAYS_ENERGY_FULL, null, blockEntity.getEnergy(null).getMaxEnergy(), GaugeWidget.Direction4.LEFT_RIGHT);
@@ -96,5 +96,10 @@ public class WaterSeparatorScreen extends AbstractContainerScreen<WaterSeparator
         hydrogenTankGauge.renderTooltip(guiGraphics, x, y, this.font);
         oxygenTankGauge.renderTooltip(guiGraphics, x, y, this.font);
         energyGauge.renderTooltip(guiGraphics, x, y, this.font);
+    }
+
+    @Override
+    protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+        guiGraphics.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 5726575, false);
     }
 }

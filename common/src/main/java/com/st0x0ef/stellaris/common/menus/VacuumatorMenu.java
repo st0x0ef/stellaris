@@ -33,12 +33,12 @@ public class VacuumatorMenu extends AbstractContainerMenu {
         this.container = container;
         this.entity = entity;
 
-        addSlot(new VacumatorCanSlot(container, 0, 58, 40));
-        addSlot(new VacumatorFoodSlot(container, 1, 82, 40));
-        addSlot(new SpecificItemsSlot.Item(container, 2, 106, 40, Items.GLASS_BOTTLE));
+        addSlot(new VacumatorCanSlot(container, 0, 56, 43));
+        addSlot(new VacumatorFoodSlot(container, 1, 82, 43));
+        addSlot(new SpecificItemsSlot.Item(container, 2, 108, 43, Items.GLASS_BOTTLE));
 
-        addSlot(new ResultSlot(container, 3, 66, 68));
-        addSlot(new ResultSlot(container, 4, 98, 68));
+        addSlot(new ResultSlot(container, 3, 68, 69));
+        addSlot(new ResultSlot(container, 4, 96, 69));
 
         addPlayerHotbar(inventory);
         addPlayerInventory(inventory);

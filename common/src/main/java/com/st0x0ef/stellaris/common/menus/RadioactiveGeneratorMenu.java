@@ -35,7 +35,7 @@ public class RadioactiveGeneratorMenu extends AbstractContainerMenu {
         this.entity = entity;
         this.data = data;
 
-        this.addSlot(new RadioactiveGeneratorSlot(inventory, 0, 58, 54));
+        this.addSlot(new RadioactiveGeneratorSlot(inventory, 0, 68, 54));
         addSlot(new EnergySlot(inventory, 2, 106, 54));
 
         addPlayerHotbar(playerInventory);
