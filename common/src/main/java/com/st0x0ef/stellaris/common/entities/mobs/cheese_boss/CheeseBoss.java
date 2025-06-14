@@ -1,8 +1,8 @@
 package com.st0x0ef.stellaris.common.entities.mobs.cheese_boss;
 
 import com.mojang.serialization.Dynamic;
-import com.st0x0ef.stellaris.common.entities.mobs.cheese_boss.attack_entities.CheeseSpit;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
+import com.st0x0ef.stellaris.common.registry.MemoryModuleTypeRegistry;
 import dev.architectury.networking.NetworkManager;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
@@ -12,23 +12,28 @@ import net.minecraft.server.level.ServerEntity;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.BossEvent;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.RangedAttackMob;
+import net.minecraft.world.entity.monster.warden.AngerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class CheeseBoss extends Monster implements Enemy, RangedAttackMob {
-
+public class CheeseBoss extends Monster implements Enemy {
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
     public final AnimationState punchAnimationState = new AnimationState();
@@ -44,9 +49,10 @@ public class CheeseBoss extends Monster implements Enemy, RangedAttackMob {
 
     public CheeseBoss(EntityType<? extends CheeseBoss> type, Level level) {
         super(type, level);
+        switchPhase("camembert");
     }
 
-    //TODO real attributes
+    // TODO real attributes
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MOVEMENT_SPEED, 0.4)
@@ -65,22 +71,22 @@ public class CheeseBoss extends Monster implements Enemy, RangedAttackMob {
         else {
             --this.idleAnimationTimeout;
         }
-        if (this.punchingAnimationTimeout <= 0 && isPunching()) {
-            this.punchingAnimationTimeout = 20;
-            setPunching(false);
-            this.punchAnimationState.start(this.tickCount);
-        }
-        else {
-            --this.punchingAnimationTimeout;
-        }
-        if (this.spittingAnimationTimeout <= 0 && isSpitting()) {
-            this.spittingAnimationTimeout = 30;
-            setSpitting(false);
-            this.spitAnimationState.start(this.tickCount);
-        }
-        else {
-            --this.spittingAnimationTimeout;
-        }
+//        if (this.punchingAnimationTimeout <= 0 && isPunching()) {
+//            this.punchingAnimationTimeout = 20;
+//            setPunching(false);
+//            this.punchAnimationState.start(this.tickCount);
+//        }
+//        else {
+//            --this.punchingAnimationTimeout;
+//        }
+//        if (this.spittingAnimationTimeout <= 0 && isSpitting()) {
+//            this.spittingAnimationTimeout = 30;
+//            setSpitting(false);
+//            this.spitAnimationState.start(this.tickCount);
+//        }
+//        else {
+//            --this.spittingAnimationTimeout;
+//        }
     }
 
     @Override
@@ -89,16 +95,16 @@ public class CheeseBoss extends Monster implements Enemy, RangedAttackMob {
         if (this.level().isClientSide()) {
             setupAnimationStates();
         }
-        //this.level().getServer().sendSystemMessage(Component.literal((Boolean.toString(isSpitting()))));
-    }
+        if  (this.getBrain().getMemory(MemoryModuleTypeRegistry.CURRENT_PHASE.get()).isEmpty()) {
+            this.getBrain().setMemory(MemoryModuleTypeRegistry.CURRENT_PHASE.get(), "cheddar");
+        }
+        tickAllCooldowns();
+}
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new LookAtPlayerGoal(this, Player.class, 35.0f));
-
-        //this.goalSelector.addGoal(2, new CheeseMeleeAttackGoal(this, 1.0, true));
-        this.goalSelector.addGoal(2, new RangedAttackGoal(this, 1.25, 100, 30.0F));
 
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.addBehaviourGoals();
@@ -109,6 +115,23 @@ public class CheeseBoss extends Monster implements Enemy, RangedAttackMob {
         this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));
         this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0));
     }
+
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        boolean bl = super.hurt(source, amount);
+        if (!this.level().isClientSide && !this.isNoAi() && bl && source.getEntity() != null && source.getEntity() != this) {
+            Entity entity = source.getEntity();
+            if (this.brain.getMemory(MemoryModuleType.ATTACK_TARGET).isEmpty() && entity instanceof LivingEntity) {
+                LivingEntity livingEntity = (LivingEntity)entity;
+                if (source.isDirect() || this.closerThan(livingEntity, 5.0F)) {
+                    this.getBrain().setMemory(MemoryModuleType.ATTACK_TARGET, livingEntity);
+                }
+            }
+        }
+
+        return bl;
+    }
+
 
     /**boss bar event*/
     @Override
@@ -128,86 +151,73 @@ public class CheeseBoss extends Monster implements Enemy, RangedAttackMob {
         this.bossEvent.removePlayer(serverPlayer);
     }
 
-    /**melee attack*/
-    public void setPunching(boolean punching) {
-        this.punching = punching;
-    }
-
-    public boolean isPunching() {
-        return this.punching;
-    }
-
-    /**ranged attack*/
-    @Override
-    public void performRangedAttack(LivingEntity target, float velocity) {
-//        Random random = new Random();
-//        if (random.nextInt(2) == 1) {
-//            // add the cheese spike
-//        } else {
-//            setSpitting(true);
-//            spit(target);
-//        }
-        //spit(target);
-    }
-
-    public void setSpitting(boolean spitting) {
-        this.spitting = spitting;
-    }
-
-    public boolean isSpitting() {
-        return this.spitting;
-    }
-
-    private void spit(LivingEntity target) {
-        CheeseSpit cheeseSpit = CheeseSpit.fromLevelAndEntity(this.level(), this);
-        double d = target.getX() - this.getX();
-        double e = target.getY(0.3333333333333333) - cheeseSpit.getY();
-        double f = target.getZ() - this.getZ();
-        double g = Math.sqrt(d * d + f * f) * 0.20000000298023224;
-        cheeseSpit.shoot(d, e + g, f, 1.5F, 10.0F);
-        if (!this.isSilent()) {
-            this.level().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.LLAMA_SPIT, this.getSoundSource(), 1.0F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.2F);
+    public void tickAllCooldowns() {
+        this.getBrain().getMemory(MemoryModuleTypeRegistry.SWITCH_COOLDOWN.get()).ifPresent(cooldown -> {
+            if (cooldown > 0) {
+                this.getBrain().setMemory(MemoryModuleTypeRegistry.SWITCH_COOLDOWN.get(), cooldown - 1);
+            }
+        });
+        if (getCurrentPhase().equals("cheddar")) {
+            this.getBrain().getMemory(MemoryModuleTypeRegistry.SPIKES_COOLDOWN.get()).ifPresent(cooldown -> {
+                if (cooldown > 0) {
+                    this.getBrain().setMemory(MemoryModuleTypeRegistry.SPIKES_COOLDOWN.get(), cooldown - 1);
+                }
+            });
+            this.getBrain().getMemory(MemoryModuleTypeRegistry.CHEESE_RAIN_COOLDOWN.get()).ifPresent(cooldown -> {
+                if (cooldown > 0) {
+                    this.getBrain().setMemory(MemoryModuleTypeRegistry.CHEESE_RAIN_COOLDOWN.get(), cooldown - 1);
+                }
+            });
         }
-
-        this.level().addFreshEntity(cheeseSpit);
+        else if (getCurrentPhase().equals("camembert")) {
+            this.getBrain().getMemory(MemoryModuleTypeRegistry.CHEESE_WHEEL_COOLDOWN.get()).ifPresent(cooldown -> {
+                if (cooldown > 0) {
+                    this.getBrain().setMemory(MemoryModuleTypeRegistry.CHEESE_WHEEL_COOLDOWN.get(), cooldown - 1);
+                }
+            });
+            this.getBrain().getMemory(MemoryModuleTypeRegistry.MOLD_BOMB_COOLDOWN.get()).ifPresent(cooldown -> {
+                if (cooldown > 0) {
+                    this.getBrain().setMemory(MemoryModuleTypeRegistry.MOLD_BOMB_COOLDOWN.get(), cooldown - 1);
+                }
+            });
+        }
     }
 
     @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity entity) {
+    public @NotNull Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity entity) {
         return NetworkManager.createAddEntityPacket(this, entity);
     }
 
     @Override
-    protected Brain<?> makeBrain(Dynamic<?> dynamic) {
+    protected @NotNull Brain<?> makeBrain(Dynamic<?> dynamic) {
         return CheeseBossAi.makeBrain(this, dynamic);
     }
 
     @Contract(value = "null->false")
     public boolean canTargetEntity(@Nullable Entity entity) {
-        if (!(entity instanceof LivingEntity livingEntity)) {
-            return false;
-        }
-        if (this.level() != entity.level()) {
-            return false;
-        }
-        if (!EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(entity)) {
-            return false;
-        }
-        if (this.isAlliedTo(entity)) {
-            return false;
-        }
-        if (livingEntity.getType() == EntityType.ARMOR_STAND) {
-            return false;
-        }
-        if (livingEntity.getType() == EntityRegistry.CHEESE_BOSS.get()) {
-            return false;
-        }
-        if (livingEntity.isInvulnerable()) {
-            return false;
-        }
-        if (livingEntity.isDeadOrDying()) {
+        if (!(entity instanceof LivingEntity livingEntity) ||
+                this.level() != entity.level() ||
+                !EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(entity) ||
+                this.isAlliedTo(entity) ||
+                livingEntity.getType() == EntityType.ARMOR_STAND ||
+                livingEntity.getType() == EntityRegistry.CHEESE_BOSS.get() ||
+                livingEntity.isInvulnerable() || livingEntity.isDeadOrDying()) {
             return false;
         }
         return this.level().getWorldBorder().isWithinBounds(livingEntity.getBoundingBox());
+    }
+
+    public String getCurrentPhase() {
+        return this.getBrain().getMemory(MemoryModuleTypeRegistry.CURRENT_PHASE.get()).orElse("cheddar");
+    }
+
+    public void switchPhase(String phase) {
+        this.getBrain().setMemory(MemoryModuleTypeRegistry.CURRENT_PHASE.get(), phase);
+        this.playSound(SoundEvents.ZOMBIE_VILLAGER_CURE);
+    }
+
+    protected static void spawnCheeseSpikes(CheeseBoss cheeseBoss) {
+        // Logic to spawn cheese spikes around or in front of the Cheese Boss
+
     }
 }
