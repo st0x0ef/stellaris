@@ -8,9 +8,12 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractScrollWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
@@ -71,7 +74,8 @@ public class TabletEntryWidget extends AbstractScrollWidget {
                 finalHeight.addAndGet(descriptionHeight);
             }
             component.item().ifPresent((item) -> {
-                if (item.onlyIcon().isEmpty()) {
+                if (item.onlyIcon().isEmpty() || !item.onlyIcon().get()) {
+
                     ScreenHelper.renderItemWithCustomSize(guiGraphics, Minecraft.getInstance(), item.stack(), this.baseScreenWidth / 2 - (int) item.size() / 2, getY() + finalHeight.get() + 35 + 20, item.size());
                     finalHeight.addAndGet(35 + (int) (item.size() / 4));
                 }
@@ -89,6 +93,7 @@ public class TabletEntryWidget extends AbstractScrollWidget {
             component.entity().ifPresent((entity) -> {
                 int height = getY() + 40 + finalHeight.get() + entity.scale();
                 Entity entity1 = ScreenHelper.createEntity(Minecraft.getInstance().level, entity.entity());
+
                 ScreenHelper.renderEntityInInventory(guiGraphics, (float) this.baseScreenWidth / 2, height + 45, entity.scale(), new Vector3f(), new Quaternionf(-1, 0, 0, 0), null, entity1);
                 finalHeight.addAndGet(80);
 

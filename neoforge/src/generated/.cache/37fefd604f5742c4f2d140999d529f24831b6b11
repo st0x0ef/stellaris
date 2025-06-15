@@ -1,2 +1,5 @@
-// 1.21	2025-06-15T15:08:30.0600104	Tablet Entry Provider
+// 1.21	2025-06-15T16:17:02.6643372	Tablet Entry Provider
 a447aabef24c7400983db664b6f5049da72ba9eb assets/stellaris/renderer/tablet/items.json
+af5d39cacd46101be8e0769c8545b56030318166 assets/stellaris/renderer/tablet/mobs.json
+fbd01324771605d7966e61508b4ca6519aa4d258 assets/stellaris/renderer/tablet/planets.json
+01ee905b50bd8e40b24685d9e7e5bd13b27faebd assets/stellaris/renderer/tablet/rocket.json
