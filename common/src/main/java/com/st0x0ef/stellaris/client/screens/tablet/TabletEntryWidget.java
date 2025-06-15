@@ -27,12 +27,12 @@ public class TabletEntryWidget extends AbstractScrollWidget {
     private static final ResourceLocation SCROLLER_SPRITE = id("icon/scroller");
 
     private final AtomicInteger finalHeight = new AtomicInteger(0);
-    private TabletEntry.Info info;
+    private TabletEntry.ItemInfo info;
     private int baseScreenWidth;
     private final TabletEntryScreen screen;
     private final ArrayList<ClickBox> clickBoxes = new ArrayList<>();
 
-    public TabletEntryWidget(int x, int y, int width, int height, Component message, TabletEntry.Info info, TabletEntryScreen screen) {
+    public TabletEntryWidget(int x, int y, int width, int height, Component message, TabletEntry.ItemInfo info, TabletEntryScreen screen) {
         super(x, y, width, height, message);
         this.info = info;
         this.baseScreenWidth = screen.width;
@@ -65,32 +65,35 @@ public class TabletEntryWidget extends AbstractScrollWidget {
         guiGraphics.drawCenteredString(getFont(), info.title(), this.baseScreenWidth / 2,
                 getY() + finalHeight.get() + 20, Utils.getColorHexCode("white"));
 
-        int descriptionHeight = renderDescriptionWithEveryWords(info.description(), getX() + 5, getY() + finalHeight.get() + 20 + 20, getWidth() - 20, guiGraphics);
-        finalHeight.addAndGet(descriptionHeight);
-
-        info.item().ifPresent((item) -> {
-            if (item.onlyIcon().isEmpty()) {
-                ScreenHelper.renderItemWithCustomSize(guiGraphics, Minecraft.getInstance(), item.stack(), this.baseScreenWidth / 2 - (int) item.size() / 2, getY() + finalHeight.get() + 35 + 20, item.size());
-                finalHeight.addAndGet(35 + (int) (item.size() / 4));
+        for(TabletEntry.InfoComponent component : info.components()) {
+            if (component.text().isPresent()) {
+                int descriptionHeight = renderDescriptionWithEveryWords(component.text().get(), getX() + 5, getY() + finalHeight.get() + 20 + 20, getWidth() - 20, guiGraphics);
+                finalHeight.addAndGet(descriptionHeight);
             }
-        });
+            component.item().ifPresent((item) -> {
+                if (item.onlyIcon().isEmpty()) {
+                    ScreenHelper.renderItemWithCustomSize(guiGraphics, Minecraft.getInstance(), item.stack(), this.baseScreenWidth / 2 - (int) item.size() / 2, getY() + finalHeight.get() + 35 + 20, item.size());
+                    finalHeight.addAndGet(35 + (int) (item.size() / 4));
+                }
+            });
 
 
-        info.image().ifPresent((image) -> {
-            int height = getY() + 40 + finalHeight.get() + 20;
-            guiGraphics.blit(image.location().withSuffix(".png"), this.baseScreenWidth / 2 - image.width() / 2, height, 0f, 0f, image.width(), image.height(), image.width(), image.height());
+            component.image().ifPresent((image) -> {
+                int height = getY() + 40 + finalHeight.get() + 20;
+                guiGraphics.blit(image.location().withSuffix(".png"), this.baseScreenWidth / 2 - image.width() / 2, height, 0f, 0f, image.width(), image.height(), image.width(), image.height());
 
-            finalHeight.addAndGet(image.height() + 40);
+                finalHeight.addAndGet(image.height() + 40);
 
-        });
+            });
 
-        info.entity().ifPresent((entity) -> {
-            int height = getY() + 40 + finalHeight.get() + entity.scale();
-            Entity entity1 = ScreenHelper.createEntity(Minecraft.getInstance().level, entity.entity());
-            ScreenHelper.renderEntityInInventory(guiGraphics, (float) this.baseScreenWidth / 2, height + 45, entity.scale(), new Vector3f(), new Quaternionf(-1, 0, 0, 0), null, entity1);
-            finalHeight.addAndGet(80);
+            component.entity().ifPresent((entity) -> {
+                int height = getY() + 40 + finalHeight.get() + entity.scale();
+                Entity entity1 = ScreenHelper.createEntity(Minecraft.getInstance().level, entity.entity());
+                ScreenHelper.renderEntityInInventory(guiGraphics, (float) this.baseScreenWidth / 2, height + 45, entity.scale(), new Vector3f(), new Quaternionf(-1, 0, 0, 0), null, entity1);
+                finalHeight.addAndGet(80);
 
-        });
+            });
+        }
     }
 
     public void resize(TabletEntryScreen screen) {
