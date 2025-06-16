@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.client.screens.tablet;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.components.TabletButton;
 import com.st0x0ef.stellaris.client.screens.components.TexturedButton;
 import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
@@ -67,7 +68,7 @@ public class TabletEntryScreen extends Screen {
 
         if (currentPage.equals("main")) {
 
-            guiGraphics.drawCenteredString(this.font, this.title.getString().toUpperCase(), this.width / 2, this.topPos + 20, 16777215);
+            guiGraphics.drawCenteredString(this.font, this.title.getString().toUpperCase(), this.width / 2, this.topPos + 25, 16777215);
 
             showEntryButton();
             removeNonShowButtons();
@@ -152,11 +153,14 @@ public class TabletEntryScreen extends Screen {
         });
 
 
-        this.widget = new TabletEntryWidget(this.leftPos + 15, this.topPos + 40, 215, 100, Component.literal(""), null, this);
+        this.widget = new TabletEntryWidget(this.leftPos + 15, this.topPos + 40, 215, 96, Component.literal(""), null, this);
         this.widget.visible = false;
         this.addRenderableWidget(this.widget);
 
-        if (ENTRY_BUTTONS.size() > 1) {
+        Stellaris.LOG.error("{}", ENTRY_BUTTONS.size());
+
+
+        if (ENTRY_BUTTONS.size() >= 1) {
             backButton = new TexturedButton(this.leftPos + 40, this.height / 2 - 4, 16, 16, (button1 -> changePage(false)))
                     .tex(BACK_ARROW, BACK_ARROW_HOVER);
 
@@ -176,7 +180,6 @@ public class TabletEntryScreen extends Screen {
 
     public void changeButtonVisibility(boolean visible) {
         TabletMainScreen.BUTTONS.forEach((texButton -> texButton.visible = visible));
-
     }
 
     public void changeInfo(TabletEntry.ItemInfo info) {

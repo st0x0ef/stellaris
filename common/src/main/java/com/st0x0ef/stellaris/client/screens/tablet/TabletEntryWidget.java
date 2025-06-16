@@ -62,13 +62,13 @@ public class TabletEntryWidget extends AbstractScrollWidget {
 
         finalHeight.set(0);
         guiGraphics.drawCenteredString(getFont(), info.title(), this.baseScreenWidth / 2,
-                getY() + finalHeight.get() + 20, Utils.getColorHexCode("white"));
+                getY() + finalHeight.get() + 10, Utils.getColorHexCode("white"));
 
         for(TabletEntry.InfoComponent component : info.components()) {
 
             switch (component.type()) {
                 case "text" -> component.text().ifPresent((text) -> {
-                    int descriptionHeight = renderDescriptionWithEveryWords(component.text().get(), getX() + 5, getY() + finalHeight.get() + 20 + 20, getWidth() - 20, guiGraphics);
+                    int descriptionHeight = renderDescriptionWithEveryWords(component.text().get(), getX() + 5, getY() + finalHeight.get() + 30, getWidth() - 20, guiGraphics);
                     finalHeight.addAndGet(descriptionHeight);
                 });
                 case "image" -> component.image().ifPresent((image) -> {
