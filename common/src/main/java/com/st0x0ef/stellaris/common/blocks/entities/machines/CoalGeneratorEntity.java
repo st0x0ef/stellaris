@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.machines.CoalGeneratorBlock;
 import com.st0x0ef.stellaris.common.menus.CoalGeneratorMenu;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
@@ -99,7 +100,6 @@ public class CoalGeneratorEntity extends BaseGeneratorBlockEntity {
             energyContainer.insert(energyGeneratedPT, false);
         }
 
-        EnergyUtil.moveEnergyToItem(getEnergy(null), getItem(1), 10);
         EnergyUtil.distributeEnergyNearby(level, worldPosition, maxCapacity);
     }
 
@@ -140,7 +140,6 @@ public class CoalGeneratorEntity extends BaseGeneratorBlockEntity {
 
     @Override
     public int getContainerSize() {
-        return 2;
+        return 1;
     }
-
 }

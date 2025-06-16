@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.client.renderers.entities.starcrawler;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.st0x0ef.stellaris.common.entities.mobs.StarCrawler;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.HierarchicalModel;
@@ -12,12 +13,10 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 
-import static com.st0x0ef.stellaris.Stellaris.id;
-
 @Environment(EnvType.CLIENT)
 public class StarCrawlerModel<T extends StarCrawler> extends HierarchicalModel<StarCrawler> {
 
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(id("star_crawler"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocationUtils.id("star_crawler"), "main");
 
     private final ModelPart root;
 

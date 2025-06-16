@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.client.renderers.entities.projectiles;
 
 import com.st0x0ef.stellaris.common.entities.IceShardArrowEntity;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.culling.Frustum;
@@ -8,12 +9,10 @@ import net.minecraft.client.renderer.entity.ArrowRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 
-import static com.st0x0ef.stellaris.Stellaris.texture;
-
 @Environment(EnvType.CLIENT)
 public class IceShardArrowRenderer extends ArrowRenderer<IceShardArrowEntity> {
 
-    private static final ResourceLocation LAYER_LOCATION = texture("entity/ice_shard_arrow");
+    private static final ResourceLocation LAYER_LOCATION = ResourceLocationUtils.texture("entity/ice_shard_arrow");
 
     public IceShardArrowRenderer(EntityRendererProvider.Context p_174165_) {
         super(p_174165_);

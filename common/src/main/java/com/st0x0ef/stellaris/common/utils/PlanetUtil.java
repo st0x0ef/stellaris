@@ -24,11 +24,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
 
-import static com.st0x0ef.stellaris.Stellaris.texture;
-
 public class PlanetUtil {
 
-    public static final ResourceLocation TEXTURE = texture("planet_bar/earth_planet_bar");
+    public static final ResourceLocation TEXTURE = ResourceLocationUtils.texture("planet_bar/earth_planet_bar");
 
     public static Planet getPlanet(ResourceLocation level) {
         Planet[] result = {null};

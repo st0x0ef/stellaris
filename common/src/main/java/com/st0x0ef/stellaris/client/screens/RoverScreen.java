@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.client.screens.components.GaugeWidget;
 import com.st0x0ef.stellaris.common.entities.vehicles.RoverEntity;
 import com.st0x0ef.stellaris.common.menus.RoverMenu;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -14,12 +15,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
-import static com.st0x0ef.stellaris.Stellaris.guiTexture;
-
 @Environment(value = EnvType.CLIENT)
 public class RoverScreen extends AbstractContainerScreen<RoverMenu> {
 
-    private static final ResourceLocation TEXTURE = guiTexture("rover");
+    private static final ResourceLocation TEXTURE = ResourceLocationUtils.guiTexture("rover");
 
     private final RoverEntity rover = getMenu().getRover();
     private GaugeWidget fuelGauge;
@@ -44,7 +43,7 @@ public class RoverScreen extends AbstractContainerScreen<RoverMenu> {
             return;
         }
 
-        fuelGauge = new GaugeWidget(leftPos + 52, topPos + 30, 12, 46, Component.translatable("stellaris.screen.fuel"), rover.getRoverComponent().getFuelType().getFuelTexture(), GUISprites.FLUID_TANK_OVERLAY, rover.getRoverComponent().getTankCapacity(), GaugeWidget.Direction4.DOWN_UP);
+        fuelGauge = new GaugeWidget(leftPos + 52, topPos + 30, 12, 46, Component.translatable("stellaris.screen.diesel"), rover.getRoverComponent().getFuelType().getFuelTexture(), GUISprites.FLUID_TANK_OVERLAY, rover.getRoverComponent().getTankCapacity(), GaugeWidget.Direction4.DOWN_UP);
         addRenderableWidget(fuelGauge);
     }
 
@@ -59,7 +58,7 @@ public class RoverScreen extends AbstractContainerScreen<RoverMenu> {
         }
 
         fuelGauge.updateAmount(rover.getFuel());
-        fuelGauge.updateSprite(rover.getRoverComponent().getFuelTexture());
+        fuelGauge.updateSprite(rover.getRoverComponent().getFuelType().getFuelTexture());
 
         fuelGauge.renderTooltip(graphics, mouseX, mouseY, font);
     }

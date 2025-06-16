@@ -4,6 +4,7 @@ import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.effects.FoggingScreenEffect;
 import com.st0x0ef.stellaris.common.effects.RadioactiveEffect;
 import com.st0x0ef.stellaris.common.effects.SandStormEffect;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import dev.architectury.registry.registries.DeferredRegister;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
@@ -11,16 +12,14 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 
-import static com.st0x0ef.stellaris.Stellaris.id;
-
 public class EffectsRegistry {
 
     private static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(Stellaris.MODID, Registries.MOB_EFFECT);
 
     // DO NOT CONVERT THESE TO RegistrySuppliers
-    public static final ResourceLocation RADIOACTIVE = id("radioactive");
-    public static final ResourceLocation SANDSTORM = id("sandstorm");
-    public static final ResourceLocation FOGGING_OVERLAY = id("fogging");
+    public static final ResourceLocation RADIOACTIVE = ResourceLocationUtils.id("radioactive");
+    public static final ResourceLocation SANDSTORM = ResourceLocationUtils.id("sandstorm");
+    public static final ResourceLocation FOGGING_OVERLAY = ResourceLocationUtils.id("fogging");
 
     public static void register() {
         EFFECTS.register();

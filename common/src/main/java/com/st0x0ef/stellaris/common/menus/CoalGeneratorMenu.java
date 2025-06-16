@@ -26,19 +26,18 @@ public class CoalGeneratorMenu extends AbstractContainerMenu {
     public static CoalGeneratorMenu create(int syncId, Inventory inventory, FriendlyByteBuf data) {
         CoalGeneratorEntity entity = (CoalGeneratorEntity) inventory.player.level().getBlockEntity(data.readBlockPos());
 
-        return new CoalGeneratorMenu(syncId, inventory, new SimpleContainer(2), entity, new SimpleContainerData(2));
+        return new CoalGeneratorMenu(syncId, inventory, new SimpleContainer(1), entity, new SimpleContainerData(2));
     }
 
     public CoalGeneratorMenu(int syncId, Inventory playerInventory, Container container, CoalGeneratorEntity entity, ContainerData containerData) {
         super(MenuTypesRegistry.COAL_GENERATOR_MENU.get(), syncId);
 
-        checkContainerSize(container, 2);
+        checkContainerSize(container, 1);
         this.inventory = container;
         this.entity = entity;
         this.data = containerData;
 
         this.addSlot(new CoalGeneratorSlot(inventory, 0, 68, 54));
-        addSlot(new EnergySlot(inventory, 1, 106, 54));
 
         addPlayerHotbar(playerInventory);
         addPlayerInventory(playerInventory);

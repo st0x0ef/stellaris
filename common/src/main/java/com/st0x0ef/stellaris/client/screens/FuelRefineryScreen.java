@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.client.screens.components.GaugeWidget;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.FuelRefineryBlockEntity;
 import com.st0x0ef.stellaris.common.menus.FuelRefineryMenu;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import com.st0x0ef.stellaris.common.utils.capabilities.fluid.SingleFluidStorage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -13,15 +14,14 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
-import static com.st0x0ef.stellaris.Stellaris.guiTexture;
-
 public class FuelRefineryScreen extends AbstractContainerScreen<FuelRefineryMenu> {
 
-    private static final ResourceLocation TEXTURE = guiTexture("fuel_refinery");
+    private static final ResourceLocation TEXTURE = ResourceLocationUtils.guiTexture("fuel_refinery");
 
     private final FuelRefineryBlockEntity blockEntity = getMenu().getBlockEntity();
     private GaugeWidget ingredientTankGauge;
-    private GaugeWidget resultTankGauge;
+    private GaugeWidget fuelTankGauge;
+    private GaugeWidget dieselTankGauge;
     private GaugeWidget energyGauge;
 
     public FuelRefineryScreen(FuelRefineryMenu menu, Inventory playerInventory, Component title) {
@@ -32,8 +32,6 @@ public class FuelRefineryScreen extends AbstractContainerScreen<FuelRefineryMenu
 
         titleLabelX = (180 - Minecraft.getInstance().font.width(title.getString())) / 2;
         titleLabelY = 2;
-
-        inventoryLabelY = imageHeight - 95;
     }
 
     @Override
@@ -46,13 +44,18 @@ public class FuelRefineryScreen extends AbstractContainerScreen<FuelRefineryMenu
 
         SingleFluidStorage ingredientTank = blockEntity.getIngredientTank();
         ingredientTankGauge = new GaugeWidget(leftPos + 42, topPos + 78, 12, 46, Component.translatable("stellaris.screen.oil"),
-                GUISprites.OIL_OVERLAY, GUISprites.LIQUID_TANK_OVERLAY, ingredientTank.getTankCapacity(0), GaugeWidget.Direction4.DOWN_UP);
+                GUISprites.OIL_OVERLAY, GUISprites.FLUID_TANK_OVERLAY, ingredientTank.getTankCapacity(0), GaugeWidget.Direction4.DOWN_UP);
         addRenderableWidget(ingredientTankGauge);
 
-        SingleFluidStorage resultTank = blockEntity.getResultTank();
-        resultTankGauge = new GaugeWidget(leftPos + 80, topPos + 78, 12, 46, Component.translatable("stellaris.screen.fuel"),
-                GUISprites.FUEL_OVERLAY, GUISprites.LIQUID_TANK_OVERLAY, resultTank.getTankCapacity(0), GaugeWidget.Direction4.DOWN_UP);
-        addRenderableWidget(resultTankGauge);
+        SingleFluidStorage fuelTank = blockEntity.getOutputFuelTank();
+        fuelTankGauge = new GaugeWidget(leftPos + 80, topPos + 78, 12, 46, Component.translatable("stellaris.screen.fuel"),
+                GUISprites.FUEL_OVERLAY, GUISprites.FLUID_TANK_OVERLAY, fuelTank.getTankCapacity(0), GaugeWidget.Direction4.DOWN_UP);
+        addRenderableWidget(fuelTankGauge);
+
+        SingleFluidStorage dieselTank = blockEntity.getOutputFuelTank();
+        dieselTankGauge = new GaugeWidget(leftPos + 128, topPos + 78, 12, 46, Component.translatable("stellaris.screen.diesel"),
+                GUISprites.OIL_OVERLAY, GUISprites.FLUID_TANK_OVERLAY, dieselTank.getTankCapacity(0), GaugeWidget.Direction4.DOWN_UP);
+        addRenderableWidget(dieselTankGauge);
 
         energyGauge = new GaugeWidget(leftPos + 68, topPos + 20, 44, 6, Component.translatable("stellaris.screen.energyContainer"), GUISprites.SIDEWAYS_ENERGY_FULL, null, blockEntity.getEnergy(null).getMaxEnergy(), GaugeWidget.Direction4.LEFT_RIGHT);
         addRenderableWidget(energyGauge);
@@ -69,14 +72,15 @@ public class FuelRefineryScreen extends AbstractContainerScreen<FuelRefineryMenu
         }
 
         ingredientTankGauge.updateAmount(blockEntity.getIngredientTank().getFluidValueInTank());
-        resultTankGauge.updateAmount(blockEntity.getResultTank().getFluidValueInTank());
+        fuelTankGauge.updateAmount(blockEntity.getOutputFuelTank().getFluidValueInTank());
+        dieselTankGauge.updateAmount(blockEntity.getOutputDieselTank().getFluidValueInTank());
         energyGauge.updateAmount(blockEntity.getEnergy(null).getEnergy());
     }
 
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderColor(1, 1, 1, 1);
+        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         RenderSystem.setShaderTexture(0, TEXTURE);
         guiGraphics.blit(TEXTURE, leftPos, topPos, 0, 0, imageWidth, imageHeight, imageWidth, imageHeight);
     }
@@ -85,7 +89,8 @@ public class FuelRefineryScreen extends AbstractContainerScreen<FuelRefineryMenu
     protected void renderTooltip(GuiGraphics guiGraphics, int x, int y) {
         super.renderTooltip(guiGraphics, x, y);
         ingredientTankGauge.renderTooltip(guiGraphics, x, y, font);
-        resultTankGauge.renderTooltip(guiGraphics, x, y, font);
+        fuelTankGauge.renderTooltip(guiGraphics, x, y, font);
+        dieselTankGauge.renderTooltip(guiGraphics, x, y, font);
         energyGauge.renderTooltip(guiGraphics, x, y, font);
     }
 

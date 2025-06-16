@@ -16,6 +16,7 @@ import com.st0x0ef.stellaris.common.menus.PlanetSelectionMenu;
 import com.st0x0ef.stellaris.common.network.packets.TeleportEntityToPlanetPacket;
 import com.st0x0ef.stellaris.common.registry.TranslatableRegistry;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import dev.architectury.networking.NetworkManager;
 import net.fabricmc.api.EnvType;
@@ -44,26 +45,24 @@ import java.util.Objects;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
-import static com.st0x0ef.stellaris.Stellaris.guiTexture;
-
 @Environment(EnvType.CLIENT)
 public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelectionMenu> {
 
-    public static final ResourceLocation HIGHLIGHTER_TEXTURE = guiTexture("util/planet_highlighter");
-    public static final ResourceLocation BLACK_TEXTURE = guiTexture("util/black");
+    public static final ResourceLocation HIGHLIGHTER_TEXTURE = ResourceLocationUtils.guiTexture("util/planet_highlighter");
+    public static final ResourceLocation BLACK_TEXTURE = ResourceLocationUtils.guiTexture("util/black");
 
-    public static final ResourceLocation BACKGROUND_TEXTURE = guiTexture("planet_selection");
-    public static final ResourceLocation SCROLLER_TEXTURE = guiTexture("util/scroller");
+    public static final ResourceLocation BACKGROUND_TEXTURE = ResourceLocationUtils.guiTexture("planet_selection");
+    public static final ResourceLocation SCROLLER_TEXTURE = ResourceLocationUtils.guiTexture("util/scroller");
 
-    public static final ResourceLocation SMALL_BUTTON_TEXTURE = guiTexture("util/buttons/small_button");
-    public static final ResourceLocation BUTTON_TEXTURE = guiTexture("util/buttons/button");
-    public static final ResourceLocation LARGE_BUTTON_TEXTURE = guiTexture("util/buttons/large_button");
-    public static final ResourceLocation LAUNCH_BUTTON_TEXTURE = guiTexture("util/buttons/launch_button");
-    public static final ResourceLocation LAUNCH_BUTTON_HOVER_TEXTURE = guiTexture("util/buttons/launch_button_hovered");
+    public static final ResourceLocation SMALL_BUTTON_TEXTURE = ResourceLocationUtils.guiTexture("util/buttons/small_button");
+    public static final ResourceLocation BUTTON_TEXTURE = ResourceLocationUtils.guiTexture("util/buttons/button");
+    public static final ResourceLocation LARGE_BUTTON_TEXTURE = ResourceLocationUtils.guiTexture("util/buttons/large_button");
+    public static final ResourceLocation LAUNCH_BUTTON_TEXTURE = ResourceLocationUtils.guiTexture("util/buttons/launch_button");
+    public static final ResourceLocation LAUNCH_BUTTON_HOVER_TEXTURE = ResourceLocationUtils.guiTexture("util/buttons/launch_button_hovered");
 
-    public static final ResourceLocation SMALL_MENU_LIST = guiTexture("util/planet_menu");
-    public static final ResourceLocation LARGE_MENU_TEXTURE = guiTexture("util/large_planet_menu");
-    public static final ResourceLocation LARGE_MENU_TEXTURE_RED = guiTexture("util/large_planet_menu_red");
+    public static final ResourceLocation SMALL_MENU_LIST = ResourceLocationUtils.guiTexture("util/planet_menu");
+    public static final ResourceLocation LARGE_MENU_TEXTURE = ResourceLocationUtils.guiTexture("util/large_planet_menu");
+    public static final ResourceLocation LARGE_MENU_TEXTURE_RED = ResourceLocationUtils.guiTexture("util/large_planet_menu_red");
 
     public static final List<CelestialBody> STARS = new ArrayList<>();
     public static final List<PlanetInfo> PLANETS = new ArrayList<>();
@@ -535,8 +534,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
                 RenderSystem.setShaderTexture(0, LARGE_MENU_TEXTURE);
                 graphics.blit(LARGE_MENU_TEXTURE, centerX, centerY, 0, 0, menuWidth, menuHeight, menuWidth, menuHeight);
                 launchButton.setButtonTexture(
-                        guiTexture("util/buttons/launch_button"),
-                        guiTexture("util/buttons/launch_button_hovered")
+                        ResourceLocationUtils.guiTexture("util/buttons/launch_button"),
+                        ResourceLocationUtils.guiTexture("util/buttons/launch_button_hovered")
                 );
             }
             else {
@@ -550,8 +549,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
                     RenderSystem.setShaderTexture(0, LARGE_MENU_TEXTURE);
                     launchButton.setButtonTexture(
-                            guiTexture("util/buttons/launch_button"),
-                            guiTexture("util/buttons/launch_button_hovered")
+                            ResourceLocationUtils.guiTexture("util/buttons/launch_button"),
+                            ResourceLocationUtils.guiTexture("util/buttons/launch_button_hovered")
                     );
                     graphics.blit(LARGE_MENU_TEXTURE, centerX, centerY, 0, 0, menuWidth, menuHeight, menuWidth, menuHeight);
                 }
@@ -566,8 +565,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
                     RenderSystem.setShaderTexture(0, LARGE_MENU_TEXTURE_RED);
                     graphics.blit(LARGE_MENU_TEXTURE_RED, centerX, centerY, 0, 0, menuWidth, menuHeight, menuWidth, menuHeight);
                     launchButton.setButtonTexture(
-                            guiTexture("util/buttons/no_launch_button"),
-                            guiTexture("util/buttons/no_launch_button_hovered")
+                            ResourceLocationUtils.guiTexture("util/buttons/no_launch_button"),
+                            ResourceLocationUtils.guiTexture("util/buttons/no_launch_button_hovered")
                     );
                 }
             }

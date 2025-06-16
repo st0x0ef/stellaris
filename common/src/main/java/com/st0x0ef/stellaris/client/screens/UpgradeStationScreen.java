@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.client.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.common.menus.UpgradeStationMenu;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -12,12 +13,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
-import static com.st0x0ef.stellaris.Stellaris.id;
-
 @Environment(EnvType.CLIENT)
 public class UpgradeStationScreen extends AbstractContainerScreen<UpgradeStationMenu> {
 
-    private static final ResourceLocation GUI_LOCATION = id("textures/gui/upgrade_station.png"); //temporary
+    private static final ResourceLocation GUI_LOCATION = ResourceLocationUtils.guiTexture("upgrade_station"); //temporary
 
     public UpgradeStationScreen(UpgradeStationMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);

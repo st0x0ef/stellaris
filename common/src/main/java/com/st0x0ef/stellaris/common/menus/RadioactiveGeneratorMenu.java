@@ -24,19 +24,18 @@ public class RadioactiveGeneratorMenu extends AbstractContainerMenu {
 
     public static RadioactiveGeneratorMenu create(int syncId, Inventory inventory, FriendlyByteBuf data) {
         RadioactiveGeneratorEntity entity = (RadioactiveGeneratorEntity) inventory.player.level().getBlockEntity(data.readBlockPos());
-        return new RadioactiveGeneratorMenu(syncId, inventory, new SimpleContainer(2), entity, new SimpleContainerData(2));
+        return new RadioactiveGeneratorMenu(syncId, inventory, new SimpleContainer(1), entity, new SimpleContainerData(2));
     }
 
     public RadioactiveGeneratorMenu(int syncId, Inventory playerInventory, Container container, RadioactiveGeneratorEntity entity, ContainerData data) {
         super(MenuTypesRegistry.RADIOACTIVE_GENERATOR_MENU.get(), syncId);
 
-        checkContainerSize(container, 2);
+        checkContainerSize(container, 1);
         this.inventory = container;
         this.entity = entity;
         this.data = data;
 
         this.addSlot(new RadioactiveGeneratorSlot(inventory, 0, 68, 54));
-        addSlot(new EnergySlot(inventory, 2, 106, 54));
 
         addPlayerHotbar(playerInventory);
         addPlayerInventory(playerInventory);

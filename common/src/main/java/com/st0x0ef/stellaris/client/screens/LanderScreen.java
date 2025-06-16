@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.client.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.common.menus.LanderMenu;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -12,12 +13,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
-import static com.st0x0ef.stellaris.Stellaris.guiTexture;
-
 @Environment(EnvType.CLIENT)
 public class LanderScreen extends AbstractContainerScreen<LanderMenu> {
 
-    public static final ResourceLocation texture = guiTexture("lander");
+    public static final ResourceLocation texture = ResourceLocationUtils.guiTexture("lander");
 
 
     public LanderScreen(LanderMenu abstractContainerMenu, Inventory inventory, Component component) {

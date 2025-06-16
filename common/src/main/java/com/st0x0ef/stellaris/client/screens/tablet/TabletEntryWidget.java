@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.client.screens.tablet;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -20,11 +21,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.st0x0ef.stellaris.Stellaris.id;
-
 public class TabletEntryWidget extends AbstractScrollWidget {
 
-    private static final ResourceLocation SCROLLER_SPRITE = id("icon/scroller");
+    private static final ResourceLocation SCROLLER_SPRITE = ResourceLocationUtils.id("icon/scroller");
 
     private final AtomicInteger finalHeight = new AtomicInteger(0);
     private TabletEntry.Info info;

@@ -1,12 +1,11 @@
 package com.st0x0ef.stellaris.common.vehicle_upgrade;
 
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import net.minecraft.resources.ResourceLocation;
-
-import static com.st0x0ef.stellaris.Stellaris.texture;
 
 public class SkinUpgrade extends VehicleUpgrade {
 
-    public static final ResourceLocation TEXTURE = texture("vehicle/rocket_skin/normal/standard");
+    public static final ResourceLocation TEXTURE = ResourceLocationUtils.texture("vehicle/rocket_skin/normal/standard");
     final private ResourceLocation rocketSkinLocation;
 
     public SkinUpgrade(ResourceLocation rocketSkinLocation) {

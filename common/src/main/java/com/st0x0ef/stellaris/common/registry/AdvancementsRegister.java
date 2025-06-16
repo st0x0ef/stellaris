@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.registry;
 
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import net.minecraft.advancements.Advancement.Builder;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
@@ -12,11 +13,9 @@ import net.minecraft.world.level.ItemLike;
 
 import java.util.function.Consumer;
 
-import static com.st0x0ef.stellaris.Stellaris.guiTexture;
-
 public class AdvancementsRegister implements AdvancementSubProvider {
 
-    public static final ResourceLocation BACKGROUND_TEXTURE = guiTexture("advancements/backgrounds/stellaris");
+    public static final ResourceLocation BACKGROUND_TEXTURE = ResourceLocationUtils.guiTexture("advancements/backgrounds/stellaris");
 
     public void generate(HolderLookup.Provider registries, Consumer<AdvancementHolder> writer) {
         AdvancementHolder advancementHolder = Builder.advancement().display((ItemLike) BlocksRegistry.MOON_SAND, Component.translatable("advancements.moon.root.title"), Component.translatable("advancements.moon.root.description"), BACKGROUND_TEXTURE, AdvancementType.TASK, true, true, false).addCriterion("land on the moon", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike) ItemsRegistry.MOON_SAND_ITEM)).save(writer, "moon/root");

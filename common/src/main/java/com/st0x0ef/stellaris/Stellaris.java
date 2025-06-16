@@ -65,19 +65,6 @@ public class Stellaris {
         ReloadListenerRegistry.register(PackType.SERVER_DATA, new StellarisData());
     }
 
-    public static ResourceLocation texture(String path) {
-        return id("textures/" + path + ".png");
-    }
-
-    public static ResourceLocation guiTexture(String path) {
-        return texture("gui/" + path);
-    }
-
-
-    public static ResourceLocation id(String path) {
-        return ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, path);
-    }
-
     public static void onDatapackSyncEvent(ServerPlayer player, boolean joined) {
         if (joined) {
             NetworkManager.sendToPlayer(player, new SyncPlanetsDatapackPacket(StellarisData.getPlanets()));

@@ -1,13 +1,18 @@
 {
   "type": "stellaris:fuel_refinery",
-  "energyContainer": 50,
+  "energyContainer": 100,
   "ingredient": {
     "fluid": "stellaris:oil",
     "id": "stellaris:oil",
+    "amount": 10
+  },
+  "fuel": {
+    "fluid": "stellaris:fuel",
+    "id": "stellaris:fuel",
     "amount": 5
   },
-  "result": {
-    "fluid": "stellaris:fuel",
+  "diesel": {
+    "fluid": "stellaris:diesel",
     "id": "stellaris:fuel",
     "amount": 5
   }
