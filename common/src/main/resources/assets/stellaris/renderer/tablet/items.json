@@ -1,7 +1,7 @@
 {
   "description": "Items and their properties",
-  "hoverIcon": "minecraft:textures/gui/tablet/book_page_hover.png",
-  "icon": "minecraft:textures/gui/tablet/book_page.png",
+  "hoverIcon": "stellaris:textures/gui/tablet/book_page_hover.png",
+  "icon": "stellaris:textures/gui/tablet/book_page.png",
   "id": "items",
   "infos": [
     {

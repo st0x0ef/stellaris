@@ -60,7 +60,7 @@ public class TabletEntryProvider implements DataProvider {
     }
 
     protected void build(BiConsumer<ResourceLocation, TabletEntry> consumer) {
-        consumer.accept(entryLocation("items"), new TabletEntry("items", "Items and their properties", ResourceLocation.parse("textures/gui/tablet/book_page.png"), ResourceLocation.parse("textures/gui/tablet/book_page_hover.png"), List.of(
+        consumer.accept(entryLocation("items"), new TabletEntry("items", "Items and their properties", this.entryLocation("textures/gui/tablet/book_page.png"), this.entryLocation("textures/gui/tablet/book_page_hover.png"), List.of(
                 new TabletEntry.ItemInfo("oil_finder", "Oil Finder", "item", List.of(
                         new TabletEntry.InfoComponent("text", Optional.of("Right Click on the ground to find oil."), Optional.empty(), Optional.empty(), Optional.empty()),
                         new TabletEntry.InfoComponent("item", Optional.empty(), Optional.empty(), Optional.of(new TabletEntry.ItemComponent(new ItemStack(ItemsRegistry.OIL_FINDER), 32, Optional.empty())), Optional.empty())
@@ -112,7 +112,7 @@ public class TabletEntryProvider implements DataProvider {
         )));
 
 
-        consumer.accept(entryLocation("mobs"), new TabletEntry("mobs", "Discover all the mobs of Stellaris.", ResourceLocation.parse("textures/gui/tablet/rocket_page.png"), ResourceLocation.parse("textures/gui/tablet/rocket_page_hover.png"), List.of(
+        consumer.accept(entryLocation("mobs"), new TabletEntry("mobs", "Discover all the mobs of Stellaris.", this.entryLocation("textures/gui/tablet/rocket_page.png"), this.entryLocation("textures/gui/tablet/rocket_page_hover.png"), List.of(
                 new TabletEntry.ItemInfo("alien", "Alien", "entity", List.of(
                         new TabletEntry.InfoComponent("text", Optional.of("This is an [color=yellow]Alien. This passive mob can be found on the moon [br] [br] Stats : [br] - Health : 20 [br] - Speed : 0.5"), Optional.empty(), Optional.empty(), Optional.empty()),
                         new TabletEntry.InfoComponent("entity", Optional.empty(), Optional.empty(), Optional.empty(), Optional.of(new TabletEntry.EntityComponent(entryLocation("alien"), 25)))
@@ -150,7 +150,7 @@ public class TabletEntryProvider implements DataProvider {
                 ))
         )));
 
-        consumer.accept(entryLocation("planets"), new TabletEntry("planets", "Planets", ResourceLocation.parse("textures/gui/tablet/planets_page.png"), ResourceLocation.parse("textures/gui/tablet/planets_page_hover.png"), List.of(
+        consumer.accept(entryLocation("planets"), new TabletEntry("planets", "Planets", this.entryLocation("textures/gui/tablet/planets_page.png"), this.entryLocation("textures/gui/tablet/planets_page_hover.png"), List.of(
                 new TabletEntry.ItemInfo("mercury", "Mercury", "item", List.of(
                         new TabletEntry.InfoComponent("text", Optional.of("Mercury is a planet that is very close to the sun. It is very hot and has a lot of lava. [br] [br] Temperature : [color=red]430.0°c [br] Gravity : [color=red]3.7 [br] Oxygen : [color=red]false [br] Distance From Earth : 92000km [br] [br] Mobs [br] - [ref=mobs:mogler]Mogler [br] [br] Resources : [br] - [ref=items:uranium]Uranium [br] - Iron"), Optional.empty(), Optional.empty(), Optional.empty()),
                         new TabletEntry.InfoComponent("item", Optional.empty(), Optional.empty(), Optional.of(new TabletEntry.ItemComponent(new ItemStack(ItemsRegistry.MERCURY_GLOBE_ITEM), 32, Optional.empty())), Optional.empty())

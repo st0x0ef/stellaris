@@ -1,7 +1,7 @@
 {
   "description": "Planets",
-  "hoverIcon": "minecraft:textures/gui/tablet/planets_page_hover.png",
-  "icon": "minecraft:textures/gui/tablet/planets_page.png",
+  "hoverIcon": "stellaris:textures/gui/tablet/planets_page_hover.png",
+  "icon": "stellaris:textures/gui/tablet/planets_page.png",
   "id": "planets",
   "infos": [
     {
