@@ -5,6 +5,7 @@ import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.components.GaugeWidget;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.PowerBankEntity;
 import com.st0x0ef.stellaris.common.menus.PowerBankMenu;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -25,6 +26,8 @@ public class PowerBankScreen extends AbstractContainerScreen<PowerBankMenu> {
         imageWidth = 180;
         imageHeight = 188;
         inventoryLabelY = imageHeight - 92;
+        titleLabelX = (180 - Minecraft.getInstance().font.width(title.getString())) / 2;
+        titleLabelY = 2;
     }
 
     @Override
@@ -63,5 +66,10 @@ public class PowerBankScreen extends AbstractContainerScreen<PowerBankMenu> {
     protected void renderTooltip(GuiGraphics guiGraphics, int x, int y) {
         super.renderTooltip(guiGraphics, x, y);
         energyGauge.renderTooltip(guiGraphics, x, y, font);
+    }
+
+    @Override
+    protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+        guiGraphics.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 5726575, false);
     }
 }
