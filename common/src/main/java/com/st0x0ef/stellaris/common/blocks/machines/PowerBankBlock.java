@@ -9,12 +9,16 @@ import com.st0x0ef.stellaris.common.blocks.entities.machines.BaseEnergyContainer
 import com.st0x0ef.stellaris.common.blocks.entities.machines.PowerBankEntity;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -22,9 +26,12 @@ public class PowerBankBlock extends BaseMachineBlock {
 
     public final short tier;
 
+    public static final IntegerProperty STAGE = IntegerProperty.create("stage", 0, 9);
+
     public PowerBankBlock(Properties properties, short tier) {
         super(properties);
         this.tier = tier;
+        registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(STAGE, 0));
     }
 
     @Override
@@ -60,5 +67,11 @@ public class PowerBankBlock extends BaseMachineBlock {
                     energyBlock.getEnergy(null).setEnergyStored(energyStorage.getEnergy());
 
         }
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder);
+        builder.add(STAGE);
     }
 }

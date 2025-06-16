@@ -290,10 +290,10 @@ public class ItemsRegistry {
      * Power Banks & Fluid Tanks
      */
 
-    public static final RegistrySupplier<Item> T1_POWER_BANK = ITEMS.register("power_bank_t1", () -> new PowerBankItem(BlocksRegistry.T1_POWER_BANK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
-    public static final RegistrySupplier<Item> T2_POWER_BANK = ITEMS.register("power_bank_t2", () -> new PowerBankItem(BlocksRegistry.T2_POWER_BANK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
-    public static final RegistrySupplier<Item> T3_POWER_BANK = ITEMS.register("power_bank_t3", () -> new PowerBankItem(BlocksRegistry.T3_POWER_BANK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
-    public static final RegistrySupplier<Item> T4_POWER_BANK = ITEMS.register("power_bank_t4", () -> new PowerBankItem(BlocksRegistry.T4_POWER_BANK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> T1_POWER_BANK = ITEMS.register("t1_bank", () -> new PowerBankItem(BlocksRegistry.T1_POWER_BANK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> T2_POWER_BANK = ITEMS.register("t2_bank", () -> new PowerBankItem(BlocksRegistry.T2_POWER_BANK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> T3_POWER_BANK = ITEMS.register("t3_bank", () -> new PowerBankItem(BlocksRegistry.T3_POWER_BANK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> T4_POWER_BANK = ITEMS.register("t4_bank", () -> new PowerBankItem(BlocksRegistry.T4_POWER_BANK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
 
 
     /**

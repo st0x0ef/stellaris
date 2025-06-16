@@ -1,5 +1,7 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
+import com.st0x0ef.stellaris.common.blocks.machines.CoalGeneratorBlock;
+import com.st0x0ef.stellaris.common.blocks.machines.PowerBankBlock;
 import com.st0x0ef.stellaris.common.menus.PowerBankMenu;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.utils.capabilities.energy.EnergyUtil;
@@ -15,20 +17,28 @@ public class PowerBankEntity extends BaseEnergyContainerBlockEntity {
     public PowerBankEntity(BlockPos pos, BlockState state) {
         this(pos, state, 1);
     }
+
     public PowerBankEntity(BlockPos pos, BlockState state, int tier) {
         super(BlockEntityRegistry.POWER_BANK.get(), pos, state, (int) Math.pow(2,4*tier)*1000, (int) Math.pow(2,4*tier)*1000, (int) Math.pow(2,4*tier)*1000);
     }
 
     @Override
     public void tick() {
+        int initialEnergy = energyContainer.getEnergy();
         //First - Insert slot
         if (!items.getFirst().isEmpty())
-            EnergyUtil.moveEnergyFromItem(energyContainer, items.getFirst(), energyContainer.getMaxEnergy() / 8);
+            EnergyUtil.moveEnergyFromItem(energyContainer, items.getFirst(), energyContainer.getMaxEnergy() / 40);
         //Last - Extract slot
         if (!items.getLast().isEmpty())
-            EnergyUtil.moveEnergyToItem(energyContainer, items.getLast(), energyContainer.getMaxEnergy() / 8);
+            EnergyUtil.moveEnergyToItem(energyContainer, items.getLast(), energyContainer.getMaxEnergy() / 40);
 
-        EnergyUtil.distributeEnergyNearby(level, worldPosition, energyContainer.getMaxEnergy() / 4);
+        EnergyUtil.distributeEnergyNearby(level, worldPosition, energyContainer.getMaxEnergy() / 20);
+
+        if (initialEnergy != energyContainer.getEnergy()) {
+            BlockState state = getBlockState().setValue(PowerBankBlock.STAGE, energyContainer.getEnergy() / energyContainer.getMaxEnergy() * 10);
+            level.setBlock(getBlockPos(), state, 3);
+            setChanged();
+        }
     }
 
     @Override

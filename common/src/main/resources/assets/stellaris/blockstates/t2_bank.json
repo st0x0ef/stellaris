@@ -1,0 +1,46 @@
+{
+  "variants": {
+    "facing=east,lit=false": {
+      "model": "stellaris:block/power_bank",
+      "y": 90
+    },
+    "facing=east,lit=true": {
+      "model": "stellaris:block/power_bank_on",
+      "y": 90
+    },
+    "facing=north,lit=false": {
+      "model": "stellaris:block/power_bank"
+    },
+    "facing=north,lit=true": {
+      "model": "stellaris:block/power_bank_on"
+    },
+    "facing=south,lit=false": {
+      "model": "stellaris:block/power_bank",
+      "y": 180
+    },
+    "facing=south,lit=true": {
+      "model": "stellaris:block/power_bank_on",
+      "y": 180
+    },
+    "facing=west,lit=false": {
+      "model": "stellaris:block/power_bank",
+      "y": 270
+    },
+    "facing=west,lit=true": {
+      "model": "stellaris:block/power_bank_on",
+      "y": 270
+    },
+    "facing=down,lit=false": {
+      "model": "stellaris:block/power_bank"
+    },
+    "facing=down,lit=true": {
+      "model": "stellaris:block/power_bank_on"
+    },
+    "facing=up,lit=false": {
+      "model": "stellaris:block/power_bank"
+    },
+    "facing=up,lit=true": {
+      "model": "stellaris:block/power_bank_on"
+    }
+  }
+}
