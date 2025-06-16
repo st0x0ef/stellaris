@@ -180,7 +180,7 @@ public class TabletEntryScreen extends Screen {
 
     }
 
-    public void changeInfo(TabletEntry.Info info) {
+    public void changeInfo(TabletEntry.ItemInfo info) {
         ResourceLocation location = ResourceLocation.fromNamespaceAndPath(entry.id(), info.id());
         if (widget.setInfo(location)) {
             currentPage = location.toString();
@@ -189,7 +189,7 @@ public class TabletEntryScreen extends Screen {
 
     public void changePage(boolean next) {
         if (!Objects.equals(currentPage, "main")) {
-            TabletEntry.Info info = getNextInfo(next);
+            TabletEntry.ItemInfo info = getNextInfo(next);
             changeInfo(info);
             return;
         }
@@ -227,7 +227,7 @@ public class TabletEntryScreen extends Screen {
         var newScreen = new TabletEntryScreen(Component.translatable(entry.id()), screen, this.leftPos, this.topPos, entry);
         this.minecraft.setScreen(newScreen);
         if (!currentPage.equals("main")) {
-            TabletEntry.Info info = TabletMainScreen.INFOS.get(ResourceLocation.parse(currentPage));
+            TabletEntry.ItemInfo info = TabletMainScreen.INFOS.get(ResourceLocation.parse(currentPage));
             if (info != null) {
                 newScreen.changeInfo(info);
             }
@@ -325,8 +325,8 @@ public class TabletEntryScreen extends Screen {
         }
     }
 
-    public TabletEntry.Info getNextInfo(boolean forward) {
-        List<TabletEntry.Info> infos = entry.infos();
+    public TabletEntry.ItemInfo getNextInfo(boolean forward) {
+        List<TabletEntry.ItemInfo> infos = entry.infos();
         int currentIndex = -1;
 
         for (int i = 0; i < infos.size(); i++) {

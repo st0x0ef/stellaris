@@ -32,7 +32,7 @@ public class TabletMainScreen extends AbstractContainerScreen<TabletMenu> {
     public static final ResourceLocation MAIN_PAGE_TEXTURE = guiTexture("tablet/main_page");
     public static final ResourceLocation MAIN_PAGE_HOVER_TEXTURE = guiTexture("tablet/main_page_hover");
     public static Map<String, TabletEntry> ENTRIES = new HashMap<>();
-    public static Map<ResourceLocation, TabletEntry.Info> INFOS = new HashMap<>();
+    public static Map<ResourceLocation, TabletEntry.ItemInfo> INFOS = new HashMap<>();
     public List<Component> STATS = new ArrayList<>();
     public ResourceLocation directEntry = null;
 
@@ -126,7 +126,7 @@ public class TabletMainScreen extends AbstractContainerScreen<TabletMenu> {
     public void openEntry(ResourceLocation location) {
         if (INFOS.containsKey(location) && this.minecraft != null) {
             TabletEntry entry = ENTRIES.get(location.getNamespace());
-            TabletEntry.Info info = INFOS.get(location);
+            TabletEntry.ItemInfo info = INFOS.get(location);
             this.minecraft.setScreen(new TabletEntryScreen(Component.translatable(entry.id()), this, this.leftPos, this.topPos, entry));
             if (this.minecraft != null && this.minecraft.screen instanceof TabletEntryScreen screen) {
                 screen.changeInfo(info);
