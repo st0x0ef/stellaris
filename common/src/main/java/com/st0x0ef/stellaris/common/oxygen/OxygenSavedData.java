@@ -62,7 +62,7 @@ public final class OxygenSavedData extends SavedData {
             data.rooms.add(oxygenRoom);
         }
 
-        GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level).setOxygensRooms(data.rooms);
+        GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level).setOxygenRooms(data.rooms);
 
         return data;
     }

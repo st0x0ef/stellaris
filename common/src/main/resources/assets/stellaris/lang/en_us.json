@@ -131,8 +131,8 @@
   "block.stellaris.mars_pillar": "Mars Pillar",
   "block.stellaris.mars_deepslate": "Mars Deepslate",
 
-  "block.stellaris.conglomorate": "Conglomorate",
-  "block.stellaris.polished_conglomorate": "Polished Conglomorate",
+  "block.stellaris.conglomorate": "Conglomerate",
+  "block.stellaris.polished_conglomorate": "Polished Conglomerate",
 
   "block.stellaris.mars_stone_stairs": "Mars Stone Stairs",
   "block.stellaris.mars_stone_slab": "Mars Stone Slab",
@@ -141,10 +141,10 @@
   "block.stellaris.mars_stone_brick_stairs": "Mars Stone Brick Stairs",
   "block.stellaris.mars_stone_brick_slab": "Mars Stone Brick Slab",
 
-  "block.stellaris.conglomorate_stairs": "Conglomorate Stairs",
-  "block.stellaris.conglomorate_slab": "Conglomorate Slab",
-  "block.stellaris.polished_conglomorate_stairs": "Polished Conglomorate Stairs",
-  "block.stellaris.polished_conglomorate_slab": "Polished Conglomorate Slab",
+  "block.stellaris.conglomorate_stairs": "Conglomerate Stairs",
+  "block.stellaris.conglomorate_slab": "Conglomerate Slab",
+  "block.stellaris.polished_conglomorate_stairs": "Polished Conglomerate Stairs",
+  "block.stellaris.polished_conglomorate_slab": "Polished Conglomerate Slab",
 
 
 
@@ -253,15 +253,18 @@
   "fluid.stellaris.fuel": "Fuel",
   "fluid.stellaris.hydrogen": "Hydrogen",
   "fluid.stellaris.oxygen": "Oxygen",
+  "fluid.stellaris.diesel": "Diesel",
 
   "block.stellaris.oil": "Oil",
   "block.stellaris.fuel": "Fuel",
   "block.stellaris.hydrogen": "Hydrogen",
   "block.stellaris.oxygen": "Oxygen",
+  "block.stellaris.diesel": "Diesel",
 
   "item.stellaris.oil_bucket": "Oil Bucket",
   "item.stellaris.fuel_bucket": "Fuel Bucket",
   "item.stellaris.hydrogen_bucket": "Hydrogen Bucket",
+  "item.stellaris.diesel_bucket": "Diesel Bucket",
 
 
 
@@ -290,7 +293,7 @@
   "block.stellaris.pumpjack": "Pumpjack",
   "block.stellaris.fuel_refinery": "Fuel Refinery",
   "block.stellaris.upgrade_station": "Upgrade Station",
-  "block.stellaris.power_bank": "Power Bank",
+  "block.stellaris.diesel_generator": "Diesel Generator",
 
   "item.stellaris.oil_finder": "Oil Finder",
 
@@ -554,7 +557,6 @@
   "general.stellaris.jet_suit_hover_mode": "Hover",
   "general.stellaris.jet_suit_elytra_mode": "Elytra",
   "general.stellaris.jet_suit_fuel": "Fuel",
-  "jetsuit.stellaris.fuel": "§7Fuel : §8%s",
 
   "text.stellaris.planetscreen.temperature": "Temperature",
   "text.stellaris.planetscreen.gravity": "Gravity",
@@ -582,6 +584,7 @@
   "stellaris.screen.oxygen": "Oxygen",
   "stellaris.screen.energy": "Energy",
   "stellaris.screen.energyContainer": "Energy",
+  "stellaris.screen.diesel": "Diesel",
 
   "stellaris.compat.rocket_crafting": "Rocket Crafting",
   "general.stellaris.rocket_crafting_mode": "Mode",
@@ -596,13 +599,14 @@
   "tooltip.item.stellaris.can.empty": "Empty",
   "tooltip.item.stellaris.can.nutrition": "Nutrition: %s/%s",
   "tooltip.item.stellaris.can.saturation": "Saturation: %s",
-  "tooltip.item.stellaris.oxygen_tank": "Oxygen: §e%s§r§f/§r§e%s§rmb",
+  "tooltip.item.stellaris.oxygen_tank": "\uD83E\uDEE7 Oxygen: §e%s§r§f/§r§e%s§rmb",
   "tooltip.item.stellaris.rocket.skin": "Skin: %s",
-  "tooltip.item.stellaris.rocket.fuel": "Fuel: %s",
+  "tooltip.item.stellaris.rocket.fuel": "\uD83C\uDF22 Fuel: %s",
   "tooltip.item.stellaris.rocket.model": "Model: %s",
-  "tooltip.item.stellaris.energy": "Energy: §e%s§r§f/§r§e%s§r FE",
+  "tooltip.item.stellaris.energy": "⚡ Energy: §e%s§r§f/§r§e%s§r FE",
   "tooltip.item.stellaris.oil_finder": "Right click on a block to check if there is oil",
   "tooltip.item.stellaris.open_tablet": "§7For more info, press §8[§c%s§8]",
+  "tooltip.item.stellaris.diesel": "\uD83C\uDF22 Diesel: %s",
 
   "stellaris.screen.tablet.rocket_launched": "Rocket Launched : %s",
   "stellaris.screen.tablet.space_traveled": "Kilometers Traveled : %s",
@@ -670,6 +674,38 @@
   "biome.stellaris.mercury_fire_land": "Mercury Fire Land",
   "biome.stellaris.moon_caves": "Moon Caves",
   "biome.stellaris.moon_desert": "Moon Desert",
-  "biome.stellaris.venus_desert": "Venus Desert"
+  "biome.stellaris.venus_desert": "Venus Desert",
 
+
+  "CONFIG": "",
+
+  "config.stellaris.debug": "Debug Mode",
+  "config.stellaris.debug.desc": "Enable debug mode.",
+
+  "config.stellaris.oilConfig": "Oil Config",
+
+  "config.stellaris.chunkOilChance": "Oil Chunk Chance",
+  "config.stellaris.chunkOilChance.desc": "The Chance for a chunk to have Oil.",
+
+
+  "config.stellaris.minOil": "Minimum Oil",
+  "config.stellaris.minOil.desc": "The Minimum Oil in an oil chunk. Will be multiplied by 100.",
+
+  "config.stellaris.maxOil": "Max Oil",
+  "config.stellaris.maxOil.desc": "The Maximum Oil in an oil chunk. Will be multiplied by 100.",
+
+  "config.stellaris.gravityConfig": "Gravity Config",
+
+  "config.stellaris.customEntityGravity": "Custom Entity Gravity",
+  "config.stellaris.customEntityGravity.desc": "Should Entities be affected by planets gravity?",
+
+  "config.stellaris.customItemGravity": "Custom Item Gravity",
+  "config.stellaris.customItemGravity.desc": "Should Items be affected by planets gravity?",
+
+
+  "config.stellaris.oxygenDamage": "Oxygen Damage",
+  "config.stellaris.oxygenDamage.desc": "The Damage entites take every second when there is no oxygen.",
+
+  "config.stellaris.dieselGeneratorFuelTime" : "Diesel Generator Fuel Time",
+  "config.stellaris.dieselGeneratorFuelTime.desc": "The time in ticks a diesel generator can run on 10mb of diesel."
 }

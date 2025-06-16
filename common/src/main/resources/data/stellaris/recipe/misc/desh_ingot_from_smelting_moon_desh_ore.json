@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.7,
+  "ingredient": {
+    "item": "stellaris:moon_desh_ore"
+  },
+  "result": {
+    "id": "stellaris:desh_ingot"
+  }
+}

@@ -65,27 +65,27 @@ public class RocketStationMenu extends AbstractContainerMenu {
 
 
     private void addSlots(Container inventory) {
-        this.addSlot(new Slot(inventory, 0, 51, 12));
+        this.addSlot(new Slot(inventory, 0, 63, 22));
 
-        this.addSlot(new Slot(inventory, 1, 42, 30));
-        this.addSlot(new Slot(inventory, 2, 60, 30));
+        this.addSlot(new Slot(inventory, 1, 54, 40));
+        this.addSlot(new Slot(inventory, 2, 72, 40));
 
-        this.addSlot(new Slot(inventory, 3, 42, 48));
-        this.addSlot(new Slot(inventory, 4, 60, 48));
+        this.addSlot(new Slot(inventory, 3, 54, 58));
+        this.addSlot(new Slot(inventory, 4, 72, 58));
 
-        this.addSlot(new Slot(inventory, 5, 42, 66));
-        this.addSlot(new Slot(inventory, 6, 60, 66));
+        this.addSlot(new Slot(inventory, 5, 54, 76));
+        this.addSlot(new Slot(inventory, 6, 72, 76));
 
-        this.addSlot(new Slot(inventory, 7, 24, 84));
-        this.addSlot(new Slot(inventory, 8, 42, 84));
-        this.addSlot(new Slot(inventory, 9, 60, 84));
-        this.addSlot(new Slot(inventory, 10, 78, 84));
+        this.addSlot(new Slot(inventory, 7, 36, 94));
+        this.addSlot(new Slot(inventory, 8, 54, 94));
+        this.addSlot(new Slot(inventory, 9, 72, 94));
+        this.addSlot(new Slot(inventory, 10, 90, 94));
 
-        this.addSlot(new Slot(inventory, 11, 24, 102));
-        this.addSlot(new Slot(inventory, 12, 51, 102));
-        this.addSlot(new Slot(inventory, 13, 78, 102));
+        this.addSlot(new Slot(inventory, 11, 36, 112));
+        this.addSlot(new Slot(inventory, 12, 63, 112));
+        this.addSlot(new Slot(inventory, 13, 90, 112));
 
-        this.addSlot(new ResultSlot(inventory, 14, 128, 52));
+        this.addSlot(new ResultSlot(inventory, 14, 118, 54));
 
     }
 

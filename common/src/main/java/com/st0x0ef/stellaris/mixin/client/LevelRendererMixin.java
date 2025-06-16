@@ -6,6 +6,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.common.registry.EffectsRegistry;
 import com.st0x0ef.stellaris.common.registry.SoundRegistry;
 import com.st0x0ef.stellaris.common.registry.TagRegistry;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -22,13 +23,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static com.st0x0ef.stellaris.Stellaris.texture;
-
 @Mixin(LevelRenderer.class)
 public class LevelRendererMixin {
 
     @Unique
-    private static final ResourceLocation stellaris$TEXTURE = texture("environment/sandstorm");
+    private static final ResourceLocation stellaris$TEXTURE = ResourceLocationUtils.texture("environment/sandstorm");
 
     @Final
     @Shadow

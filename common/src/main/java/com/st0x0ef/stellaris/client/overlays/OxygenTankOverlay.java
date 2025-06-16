@@ -6,6 +6,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
 import com.st0x0ef.stellaris.common.items.armors.AbstractSpaceArmor;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -17,12 +18,10 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-import static com.st0x0ef.stellaris.Stellaris.texture;
-
 public class OxygenTankOverlay {
 
-    public static final ResourceLocation OXYGEN_TANK = texture("overlay/oxygen_tank");
-    public static final ResourceLocation OXYGEN_TANK_FULL = texture("overlay/oxygen_tank_full");
+    public static final ResourceLocation OXYGEN_TANK = ResourceLocationUtils.texture("overlay/oxygen_tank");
+    public static final ResourceLocation OXYGEN_TANK_FULL = ResourceLocationUtils.texture("overlay/oxygen_tank_full");
 
 
     public static void render(GuiGraphics graphics, float partialTick) {

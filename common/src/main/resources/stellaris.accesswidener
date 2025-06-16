@@ -31,3 +31,5 @@ accessible field  net/minecraft/client/renderer/FogRenderer MOB_EFFECT_FOG Ljava
 accessible class net/minecraft/client/renderer/FogRenderer$MobEffectFogFunction
 accessible class net/minecraft/client/renderer/FogRenderer$FogData
 accessible method net/minecraft/client/gui/Gui renderTextureOverlay (Lnet/minecraft/client/gui/GuiGraphics;Lnet/minecraft/resources/ResourceLocation;F)V
+
+accessible field net/minecraft/client/gui/components/AbstractScrollWidget scrolling Z

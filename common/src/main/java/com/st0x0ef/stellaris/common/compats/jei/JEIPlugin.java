@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.common.compats.jei;
 
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import com.st0x0ef.stellaris.common.registry.RecipesRegistry;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
@@ -13,12 +14,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.NotNull;
 
-import static com.st0x0ef.stellaris.Stellaris.id;
-
 @JeiPlugin
 public class JEIPlugin implements IModPlugin {
 
-    public static final ResourceLocation ID = id("jei");
+    public static final ResourceLocation ID = ResourceLocationUtils.id("jei");
 
     public JEIPlugin () {
     }

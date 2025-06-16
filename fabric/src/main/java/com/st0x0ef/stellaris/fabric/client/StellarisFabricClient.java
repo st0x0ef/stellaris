@@ -165,11 +165,11 @@ public class StellarisFabricClient implements ClientModInitializer {
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.OXYGEN_DISTRIBUTOR.get(), OxygenDistributorScreen::new);
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.WATER_SEPARATOR_MENU.get(), WaterSeparatorScreen::new);
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.FUEL_REFINERY.get(), FuelRefineryScreen::new);
-        MenuRegistry.registerScreenFactory(MenuTypesRegistry.WATER_PUMP_MENU.get(), WaterPumpScreen::new);
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.WAIT_MENU.get(), WaitScreen::new);
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.PUMPJACK_MENU.get(), PumpjackScreen::new);
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.UPGRADE_STATION_MENU.get(), UpgradeStationScreen::new);
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.TABLET_MENU.get(), TabletMainScreen::new);
+        MenuRegistry.registerScreenFactory(MenuTypesRegistry.DIESEL_GENERATOR_MENU.get(), DieselGeneratorScreen::new);
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.POWER_BANK_MENU.get(), PowerBankScreen::new);
     }
 

@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.common.registry;
 
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.Util;
@@ -13,8 +14,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.EnumMap;
 import java.util.List;
-
-import static com.st0x0ef.stellaris.Stellaris.id;
 
 public class ArmorMaterialsRegistry {
 
@@ -31,7 +30,7 @@ public class ArmorMaterialsRegistry {
             10,
             SoundEvents.ARMOR_EQUIP_ELYTRA,
             () -> Ingredient.of(ItemsRegistry.DESH_INGOT.get()),
-            List.of(new ArmorMaterial.Layer(id("jetsuit"))),
+            List.of(new ArmorMaterial.Layer(ResourceLocationUtils.id("jetsuit"))),
             2.0F, 0.0F);
 
     public static final ArmorMaterial SPACE_SUIT_MATERIAL = new ArmorMaterial(
@@ -45,8 +44,8 @@ public class ArmorMaterialsRegistry {
             10,
             SoundEvents.ARMOR_EQUIP_GENERIC,
             () -> Ingredient.of(Items.IRON_INGOT),
-            List.of(new ArmorMaterial.Layer(id("spacesuit")),
-                    new ArmorMaterial.Layer(id("spacesuit"), "_overlay", true)
+            List.of(new ArmorMaterial.Layer(ResourceLocationUtils.id("spacesuit")),
+                    new ArmorMaterial.Layer(ResourceLocationUtils.id("spacesuit"), "_overlay", true)
             ),
             2.0F, 0.0F);
 

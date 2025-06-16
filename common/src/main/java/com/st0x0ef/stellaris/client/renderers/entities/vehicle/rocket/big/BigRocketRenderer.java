@@ -3,15 +3,14 @@ package com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.big;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.VehicleRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.RocketModel;
 import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import com.st0x0ef.stellaris.common.vehicle_upgrade.ModelUpgrade;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 
-import static com.st0x0ef.stellaris.Stellaris.texture;
-
 public class BigRocketRenderer extends VehicleRenderer<RocketEntity, BigRocketModel<RocketEntity>> {
 
-    public static final ResourceLocation TEXTURE = texture("vehicle/rocket_skin/big/standard");
+    public static final ResourceLocation TEXTURE = ResourceLocationUtils.texture("vehicle/rocket_skin/big/standard");
 
     public BigRocketRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new BigRocketModel<>(renderManagerIn.bakeLayer(BigRocketModel.LAYER_LOCATION)), 0.5f);

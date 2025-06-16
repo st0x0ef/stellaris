@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.client.screens.tablet;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -20,19 +21,17 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.st0x0ef.stellaris.Stellaris.id;
-
 public class TabletEntryWidget extends AbstractScrollWidget {
 
-    private static final ResourceLocation SCROLLER_SPRITE = id("icon/scroller");
+    private static final ResourceLocation SCROLLER_SPRITE = ResourceLocationUtils.id("icon/scroller");
 
     private final AtomicInteger finalHeight = new AtomicInteger(0);
-    private TabletEntry.Info info;
+    private TabletEntry.ItemInfo info;
     private int baseScreenWidth;
     private final TabletEntryScreen screen;
     private final ArrayList<ClickBox> clickBoxes = new ArrayList<>();
 
-    public TabletEntryWidget(int x, int y, int width, int height, Component message, TabletEntry.Info info, TabletEntryScreen screen) {
+    public TabletEntryWidget(int x, int y, int width, int height, Component message, TabletEntry.ItemInfo info, TabletEntryScreen screen) {
         super(x, y, width, height, message);
         this.info = info;
         this.baseScreenWidth = screen.width;
@@ -65,32 +64,32 @@ public class TabletEntryWidget extends AbstractScrollWidget {
         guiGraphics.drawCenteredString(getFont(), info.title(), this.baseScreenWidth / 2,
                 getY() + finalHeight.get() + 20, Utils.getColorHexCode("white"));
 
-        int descriptionHeight = renderDescriptionWithEveryWords(info.description(), getX() + 5, getY() + finalHeight.get() + 20 + 20, getWidth() - 20, guiGraphics);
-        finalHeight.addAndGet(descriptionHeight);
+        for(TabletEntry.InfoComponent component : info.components()) {
 
-        info.item().ifPresent((item) -> {
-            if (item.onlyIcon().isEmpty()) {
-                ScreenHelper.renderItemWithCustomSize(guiGraphics, Minecraft.getInstance(), item.stack(), this.baseScreenWidth / 2 - (int) item.size() / 2, getY() + finalHeight.get() + 35 + 20, item.size());
-                finalHeight.addAndGet(35 + (int) (item.size() / 4));
+            switch (component.type()) {
+                case "text" -> component.text().ifPresent((text) -> {
+                    int descriptionHeight = renderDescriptionWithEveryWords(component.text().get(), getX() + 5, getY() + finalHeight.get() + 20 + 20, getWidth() - 20, guiGraphics);
+                    finalHeight.addAndGet(descriptionHeight);
+                });
+                case "image" -> component.image().ifPresent((image) -> {
+                    int height = getY() + 40 + finalHeight.get() + 20;
+                    guiGraphics.blit(image.location().withSuffix(".png"), this.baseScreenWidth / 2 - image.width() / 2, height, 0f, 0f, image.width(), image.height(), image.width(), image.height());
+                    finalHeight.addAndGet(image.height() + 40);
+                });
+                case "item" -> component.item().ifPresent((item) -> {
+                    if (item.onlyIcon().isEmpty() || !item.onlyIcon().get()) {
+                        ScreenHelper.renderItemWithCustomSize(guiGraphics, Minecraft.getInstance(), item.stack(), this.baseScreenWidth / 2 - (int) item.size() / 2, getY() + finalHeight.get() + 35 + 20, item.size());
+                        finalHeight.addAndGet(35 + (int) (item.size() / 4));
+                    }
+                });
+                case "entity" -> component.entity().ifPresent((entity) -> {
+                    int height = getY() + 40 + finalHeight.get() + entity.scale();
+                    Entity entity1 = ScreenHelper.createEntity(Minecraft.getInstance().level, entity.entity());
+                    ScreenHelper.renderEntityInInventory(guiGraphics, (float) this.baseScreenWidth / 2, height + 45, entity.scale(), new Vector3f(), new Quaternionf(-1, 0, 0, 0), null, entity1);
+                    finalHeight.addAndGet(80);
+                });
             }
-        });
-
-
-        info.image().ifPresent((image) -> {
-            int height = getY() + 40 + finalHeight.get() + 20;
-            guiGraphics.blit(image.location().withSuffix(".png"), this.baseScreenWidth / 2 - image.width() / 2, height, 0f, 0f, image.width(), image.height(), image.width(), image.height());
-
-            finalHeight.addAndGet(image.height() + 40);
-
-        });
-
-        info.entity().ifPresent((entity) -> {
-            int height = getY() + 40 + finalHeight.get() + entity.scale();
-            Entity entity1 = ScreenHelper.createEntity(Minecraft.getInstance().level, entity.entity());
-            ScreenHelper.renderEntityInInventory(guiGraphics, (float) this.baseScreenWidth / 2, height + 45, entity.scale(), new Vector3f(), new Quaternionf(-1, 0, 0, 0), null, entity1);
-            finalHeight.addAndGet(80);
-
-        });
+        }
     }
 
     public void resize(TabletEntryScreen screen) {

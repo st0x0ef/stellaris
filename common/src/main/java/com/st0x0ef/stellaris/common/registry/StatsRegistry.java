@@ -1,13 +1,12 @@
 package com.st0x0ef.stellaris.common.registry;
 
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.stats.StatFormatter;
-
-import static com.st0x0ef.stellaris.Stellaris.id;
 
 public class StatsRegistry {
 
@@ -21,7 +20,7 @@ public class StatsRegistry {
     }
 
     public static RegistrySupplier<ResourceLocation> register(String key, StatFormatter formatter) {
-        ResourceLocation resourceLocation = id(key);
+        ResourceLocation resourceLocation = ResourceLocationUtils.id(key);
         RegistrySupplier<ResourceLocation> supplier = STATS.register(key, () -> resourceLocation);
         //Stats.CUSTOM.get(resourceLocation, formatter); // TODO : find a way to make this working on neoforge
         return supplier;

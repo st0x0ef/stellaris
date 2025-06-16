@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.common.compats.jei;
 
 import com.st0x0ef.stellaris.common.data.recipes.RocketStationRecipe;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -16,13 +17,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
 
-import static com.st0x0ef.stellaris.Stellaris.guiTexture;
-import static com.st0x0ef.stellaris.Stellaris.id;
-
 public record RocketStationCategory(IGuiHelper guiHelper) implements IRecipeCategory<RocketStationRecipe> {
 
-    public static final ResourceLocation TEXTURE = guiTexture("compats/rocket_station");
-    public static final RecipeType<RocketStationRecipe> RECIPE = new RecipeType<>(id("rocket_station"), RocketStationRecipe.class);
+    public static final ResourceLocation TEXTURE = ResourceLocationUtils.guiTexture("compats/rocket_station");
+    public static final RecipeType<RocketStationRecipe> RECIPE = new RecipeType<>(ResourceLocationUtils.id("rocket_station"), RocketStationRecipe.class);
 
     @Override
     public RecipeType<RocketStationRecipe> getRecipeType() {

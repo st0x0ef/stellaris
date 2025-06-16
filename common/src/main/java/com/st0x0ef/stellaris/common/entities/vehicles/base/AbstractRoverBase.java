@@ -53,6 +53,9 @@ public abstract class AbstractRoverBase extends IVehicleEntity {
     private static final EntityDataAccessor<Boolean> LEFT = SynchedEntityData.defineId(AbstractRoverBase.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> RIGHT = SynchedEntityData.defineId(AbstractRoverBase.class, EntityDataSerializers.BOOLEAN);
 
+    private final float distanceBetweenFuelConsumption = 20F;
+    private float distanceBeforeNextFuelConsumption = 0F;
+
     public AbstractRoverBase(EntityType type, Level worldIn) {
         super(type, worldIn);
 
@@ -155,31 +158,22 @@ public abstract class AbstractRoverBase extends IVehicleEntity {
     }
 
     public void controlRover() {
-        if (!isVehicle() && isEnoughFuel()) {
+        if (!isVehicle()) {
             setForward(false);
             setBackward(false);
             setLeft(false);
             setRight(false);
+            return;
         }
 
-        float modifier = 0.5F;
-
-        float maxSp = getMaxSpeed() * modifier;
-        float maxBackSp = getMaxReverseSpeed() * modifier;
-
-        float speed = MathUtils.subtractToZero(getSpeed(), getRollResistance());
-
-        if (isForward()) {
-            if (speed <= maxSp) {
-                speed = Math.min(speed + getAcceleration(), maxSp);
+        if (distanceBeforeNextFuelConsumption <= 0F) {
+            if (!consumeFuel()) {
+                return;
             }
+            distanceBeforeNextFuelConsumption = distanceBetweenFuelConsumption;
         }
 
-        if (isBackward()) {
-            if (speed >= -maxBackSp) {
-                speed = Math.max(speed - getAcceleration(), -maxBackSp);
-            }
-        }
+        float speed = getRoverSpeed(0.5F);
 
         setSpeed(speed);
 
@@ -228,14 +222,13 @@ public abstract class AbstractRoverBase extends IVehicleEntity {
                 collidedLastTick = false;
             }
         }
+
+        if (isForward() || isBackward()) {
+            distanceBeforeNextFuelConsumption -= Math.abs(getSpeed());
+        }
     }
 
-    protected abstract boolean isEnoughFuel();
-
-
-    private float getaFloat() {
-        float modifier = 1F;
-
+    private float getRoverSpeed(float modifier) {
         float maxSp = getMaxSpeed() * modifier;
         float maxBackSp = getMaxReverseSpeed() * modifier;
 
@@ -254,6 +247,8 @@ public abstract class AbstractRoverBase extends IVehicleEntity {
         }
         return speed;
     }
+
+    protected abstract boolean consumeFuel();
 
     public void onCollision(float speed) {
         setSpeed(0.01F);

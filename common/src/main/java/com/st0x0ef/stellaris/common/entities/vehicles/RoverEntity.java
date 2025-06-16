@@ -48,11 +48,11 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
         super(type, worldIn);
         this.inventory = new SimpleContainer(13);
 
-        this.motorUpgrade = MotorUpgrade.getBasic();
+        this.motorUpgrade = MotorUpgrade.getBasic(false);
         this.tankUpgrade = TankUpgrade.getBasic();
         this.speedUpgrade = SpeedUpgrade.getBasic();
         this.FUEL = 0;
-        this.FUEL_TYPE = FuelType.Type.FUEL;
+        this.FUEL_TYPE = FuelType.Type.DIESEL;
         this.roverComponent = new RoverComponent(FUEL_TYPE.getSerializedName(), FUEL, FUEL_TYPE.getFuelTexture(), tankUpgrade.getTankCapacity(), speedUpgrade.getSpeedModifier());
     }
 
@@ -156,11 +156,21 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
     public void tick() {
         super.tick();
         this.checkContainer();
+
+        if (getDriver() instanceof ServerPlayer serverPlayer) {
+            this.syncRocketData(serverPlayer);
+        }
     }
 
     @Override
-    protected boolean isEnoughFuel() {
-        return this.getFuel() > 0;
+    protected boolean consumeFuel() {
+        if (this.getFuel() <= 0) {
+            return false;
+        }
+
+        FUEL -= 1;
+
+        return this.getFuel() >= 0;
     }
 
     private void checkContainer() {
@@ -174,7 +184,7 @@ public class RoverEntity extends AbstractRoverBase implements HasCustomInventory
             }
         }
         else if (this.getInventory().getItem(2).isEmpty()) {
-            this.motorUpgrade = MotorUpgrade.getBasic();
+            this.motorUpgrade = MotorUpgrade.getBasic(false);
         }
 
         if (this.getInventory().getItem(3).getItem() instanceof VehicleUpgradeItem item) {

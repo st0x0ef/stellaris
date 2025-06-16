@@ -91,7 +91,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
         this.SKIN_UPGRADE = skinUpgrade;
         this.MODEL_UPGRADE = ModelUpgrade.getBasic();
-        this.MOTOR_UPGRADE = MotorUpgrade.getBasic();
+        this.MOTOR_UPGRADE = MotorUpgrade.getBasic(true);
         this.TANK_UPGRADE = TankUpgrade.getBasic();
 
         this.START_TIMER = 0;
@@ -480,7 +480,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
             }
         }
         else if (this.getInventory().getItem(2).isEmpty()) {
-            this.MOTOR_UPGRADE = MotorUpgrade.getBasic();
+            this.MOTOR_UPGRADE = MotorUpgrade.getBasic(true);
         }
 
         if (this.getInventory().getItem(3).getItem() instanceof VehicleUpgradeItem item) {

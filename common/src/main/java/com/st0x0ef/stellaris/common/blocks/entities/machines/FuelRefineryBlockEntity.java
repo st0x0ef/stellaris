@@ -32,14 +32,14 @@ import java.util.Optional;
 public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity implements FluidProvider.BLOCK {
 
     private final SingleFluidStorage inputTank;
-    private final SingleFluidStorage outputTank;
+    private final SingleFluidStorage outputFuelTank;
+    private final SingleFluidStorage outputDieselTank;
 
     private final RecipeManager.CachedCheck<FluidInput, FuelRefineryRecipe> cachedCheck = RecipeManager.createCheck(RecipesRegistry.FUEL_REFINERY_TYPE.get());
 
     public FuelRefineryBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.FUEL_REFINERY.get(), pos, state);
         this.inputTank = new SingleFluidStorage(10000, 10000, 0) {
-
             @Override
             protected void onChange() {
                 setChanged();
@@ -54,14 +54,23 @@ public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity impl
                 return stack.getFluid().isSame(FluidRegistry.OIL_STILL.get());
             }
         };
-        this.outputTank = new SingleFluidStorage(10000, 0, 10000) {
-
+        this.outputFuelTank = new SingleFluidStorage(10000, 0, 10000) {
             @Override
             protected void onChange() {
                 setChanged();
                 if (level != null && level.getServer() != null && !level.getServer().getPlayerList().getPlayers().isEmpty()) {
                     NetworkManager.sendToPlayers(level.getServer().getPlayerList().getPlayers(),
-                            new SyncFluidPacket(new FluidAmountMapDataComponent(List.of(getFluidInTank(0).getFluid()), List.of(getFluidValueInTank())), 0, getBlockPos(), Direction.DOWN));
+                            new SyncFluidPacket(new FluidAmountMapDataComponent(List.of(getFluidInTank(0).getFluid()), List.of(getFluidValueInTank())), 0, getBlockPos(), Direction.NORTH));
+                }
+            }
+        };
+        this.outputDieselTank = new SingleFluidStorage(10000, 0, 10000) {
+            @Override
+            protected void onChange() {
+                setChanged();
+                if (level != null && level.getServer() != null && !level.getServer().getPlayerList().getPlayers().isEmpty()) {
+                    NetworkManager.sendToPlayers(level.getServer().getPlayerList().getPlayers(),
+                            new SyncFluidPacket(new FluidAmountMapDataComponent(List.of(getFluidInTank(0).getFluid()), List.of(getFluidValueInTank())), 0, getBlockPos(), Direction.SOUTH));
                 }
             }
         };
@@ -69,8 +78,9 @@ public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity impl
 
     @Override
     public void tick() {
-        FluidUtil.moveFluidToItem(0, outputTank, 2, items, 1000);
         FluidUtil.moveFluidToItem(0, inputTank, 1, items, 1000);
+        FluidUtil.moveFluidToItem(0, outputFuelTank, 2, items, 1000);
+        FluidUtil.moveFluidToItem(0, outputDieselTank, 4, items, 1000);
 
         FluidUtil.moveFluidFromItem(0, 0, items, inputTank, 1000);
 
@@ -83,14 +93,25 @@ public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity impl
             FuelRefineryRecipe recipe = recipeHolder.get().value();
 
             if (energyContainer.getEnergy() >= recipe.energy()) {
-                FluidStack resultStack = recipe.resultStack().copy();
+                FluidStack resultStack = recipe.fuelStack().copy();
 
-                if (outputTank.getFluidInTank(0).isEmpty() || outputTank.getFluidInTank(0).isFluidEqual(resultStack)) {
-                    if (outputTank.getFluidValueInTank() + resultStack.getAmount() < outputTank.getTankCapacity(0)) {
-                        energyContainer.extract(recipe.energy(), false);
-                        inputTank.drainWithoutLimits(recipe.ingredientStack().copy(), false);
-                        outputTank.fillWithoutLimits(resultStack, false);
-                        setChanged();
+                if (inputTank.getFluidValueInTank() >= recipe.ingredientStack().getAmount()) {
+                    if ((outputFuelTank.getFluidInTank(0).isEmpty() || outputFuelTank.getFluidInTank(0).isFluidEqual(resultStack)) &&
+                            (outputDieselTank.getFluidInTank(0).isEmpty() || outputDieselTank.getFluidInTank(0).isFluidEqual(resultStack))) {
+                        boolean shouldUseEnergyAndDrainOil = false;
+                        if (outputFuelTank.getFluidValueInTank() + resultStack.getAmount() < outputFuelTank.getTankCapacity(0)) {
+                            outputFuelTank.fillWithoutLimits(resultStack, false);
+                            shouldUseEnergyAndDrainOil = true;
+                        }
+                        if (outputDieselTank.getFluidValueInTank() + recipe.dieselStack().getAmount() < outputDieselTank.getTankCapacity(0)) {
+                            outputDieselTank.fillWithoutLimits(recipe.dieselStack().copy(), false);
+                            shouldUseEnergyAndDrainOil = true;
+                        }
+                        if (shouldUseEnergyAndDrainOil) {
+                            inputTank.drainWithoutLimits(recipe.ingredientStack().copy(), false);
+                            energyContainer.extract(recipe.energy(), false);
+                            setChanged();
+                        }
                     }
                 }
             }
@@ -109,41 +130,46 @@ public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity impl
 
     @Override
     public int getContainerSize() {
-        return 4;
+        return 6;
     }
 
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
         super.loadAdditional(tag, provider);
         inputTank.load(tag, provider, "input");
-        outputTank.load(tag, provider, "output");
+        outputFuelTank.load(tag, provider, "fuel");
+        outputDieselTank.load(tag, provider, "diesel");
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
         super.saveAdditional(tag, provider);
         inputTank.save(tag, provider, "input");
-        outputTank.save(tag, provider, "output");
+        outputFuelTank.save(tag, provider, "fuel");
+        outputDieselTank.save(tag, provider, "diesel");
     }
 
     public SingleFluidStorage getIngredientTank() {
         return inputTank;
     }
 
-    public SingleFluidStorage getResultTank() {
-        return outputTank;
+    public SingleFluidStorage getOutputFuelTank() {
+        return outputFuelTank;
+    }
+    public SingleFluidStorage getOutputDieselTank() {
+        return outputDieselTank;
     }
 
     @Override
     public @Nullable SingleFluidStorage getFluidTank(@Nullable Direction direction) {
-        //TODO better directions
         if (direction == null) {
-            return outputTank;
+            return inputTank;
         }
 
         return switch (direction) {
-            case UP, WEST, SOUTH -> inputTank;
-            case DOWN, EAST, NORTH -> outputTank;
+            case UP, DOWN -> inputTank;
+            case EAST, NORTH -> outputFuelTank;
+            case WEST, SOUTH -> outputDieselTank;
         };
     }
 }
