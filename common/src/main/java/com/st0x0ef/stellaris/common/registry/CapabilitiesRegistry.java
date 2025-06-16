@@ -23,10 +23,15 @@ public class CapabilitiesRegistry {
         Capabilities.Energy.BLOCK.registerForBlockEntity(BlockEntityRegistry.PUMPJACK);
         Capabilities.Energy.BLOCK.registerForBlockEntity(BlockEntityRegistry.WATER_PUMP);
         Capabilities.Energy.BLOCK.registerForBlockEntity(BlockEntityRegistry.VACUUMATOR_ENTITY);
+        Capabilities.Energy.BLOCK.registerForBlockEntity(BlockEntityRegistry.POWER_BANK);
     }
 
     static void registerEnergyItems() {
         Capabilities.Energy.ITEM.registerForItem(ItemsRegistry.OIL_FINDER);
+        Capabilities.Energy.ITEM.registerForItem(ItemsRegistry.T1_POWER_BANK);
+        Capabilities.Energy.ITEM.registerForItem(ItemsRegistry.T2_POWER_BANK);
+        Capabilities.Energy.ITEM.registerForItem(ItemsRegistry.T3_POWER_BANK);
+        Capabilities.Energy.ITEM.registerForItem(ItemsRegistry.T4_POWER_BANK);
     }
 
     static void registerFluidBlockEntities() {
