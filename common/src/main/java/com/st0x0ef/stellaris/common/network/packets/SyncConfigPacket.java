@@ -2,17 +2,12 @@ package com.st0x0ef.stellaris.common.network.packets;
 
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.config.CommonConfig;
-import com.st0x0ef.stellaris.common.data.planets.Planet;
-import com.st0x0ef.stellaris.common.data.planets.StellarisData;
-import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import dev.architectury.networking.NetworkManager;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
 
 public class SyncConfigPacket implements CustomPacketPayload {
 

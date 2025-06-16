@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.common.menus;
 
 import com.st0x0ef.stellaris.common.blocks.entities.machines.RadioactiveGeneratorEntity;
-import com.st0x0ef.stellaris.common.menus.slot.EnergySlot;
 import com.st0x0ef.stellaris.common.menus.slot.RadioactiveGeneratorSlot;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import net.minecraft.network.FriendlyByteBuf;

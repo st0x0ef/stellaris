@@ -2,7 +2,6 @@ package com.st0x0ef.stellaris.common.utils;
 
 import com.mojang.serialization.Codec;
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.config.CommonConfig;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
 import com.st0x0ef.stellaris.common.data_components.SpaceSuitModules;
