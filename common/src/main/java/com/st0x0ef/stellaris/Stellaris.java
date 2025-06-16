@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.ToNumberPolicy;
 import com.st0x0ef.stellaris.common.config.CommonConfig;
 import com.st0x0ef.stellaris.common.config.ConfigManager;
+import com.st0x0ef.stellaris.common.data.recipes.SpaceStationRecipesManager;
 import com.st0x0ef.stellaris.common.data.screen.TabletPack;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
 import com.st0x0ef.stellaris.common.data.screen.MoonPack;
@@ -13,6 +14,7 @@ import com.st0x0ef.stellaris.common.data.screen.StarPack;
 import com.st0x0ef.stellaris.common.events.Events;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import com.st0x0ef.stellaris.common.network.packets.SyncPlanetsDatapackPacket;
+import com.st0x0ef.stellaris.common.network.packets.SyncSpaceStationDatapackPacket;
 import com.st0x0ef.stellaris.common.registry.*;
 import dev.architectury.networking.NetworkManager;
 import dev.architectury.registry.ReloadListenerRegistry;
@@ -65,18 +67,7 @@ public class Stellaris {
         ReloadListenerRegistry.register(PackType.SERVER_DATA, new StellarisData());
     }
 
-    public static ResourceLocation texture(String path) {
-        return id("textures/" + path + ".png");
-    }
 
-    public static ResourceLocation guiTexture(String path) {
-        return texture("gui/" + path);
-    }
-
-
-    public static ResourceLocation id(String path) {
-        return ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, path);
-    }
 
     public static void onDatapackSyncEvent(ServerPlayer player, boolean joined) {
         if (joined) {

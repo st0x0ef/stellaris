@@ -43,7 +43,7 @@ public class TagRegistry {
 
     /** BLOCKS */
     public static final TagKey<Block> SPACE_STATION_CAN_SPAWN_ON = TagKey.create(Registries.BLOCK, id("space_station_can_spawn_on"));
-    public static final TagKey<Block> ANTENNA_REPLACEABLES = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "antenna_replaceable"));
+    public static final TagKey<Block> ANTENNA_REPLACEABLES = TagKey.create(Registries.BLOCK, id("antenna_replaceable"));
     public static final TagKey<Block> ENERGY_BLOCK_TAG = TagKey.create(Registries.BLOCK, id("energy_block"));
     public static final TagKey<MobEffect> RADIOACTIVEEFFECT = TagKey.create(Registries.MOB_EFFECT, id("radioactive"));
     public static final TagKey<Block> INCORRECT_FOR_STEEL_TOOL = TagKey.create(Registries.BLOCK, id("incorrect_for_steel_tools"));

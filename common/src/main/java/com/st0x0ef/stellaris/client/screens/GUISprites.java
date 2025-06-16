@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.client.screens;
 
+import com.st0x0ef.stellaris.Stellaris;
 import net.minecraft.resources.ResourceLocation;
 
 import static com.st0x0ef.stellaris.Stellaris.id;
