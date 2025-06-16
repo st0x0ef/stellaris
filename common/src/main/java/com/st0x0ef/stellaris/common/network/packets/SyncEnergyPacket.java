@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.common.network.packets;
 
 import com.fej1fun.potentials.energy.BaseEnergyStorage;
 import com.fej1fun.potentials.providers.EnergyProvider;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import dev.architectury.networking.NetworkManager;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
@@ -13,11 +14,9 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import org.jetbrains.annotations.NotNull;
 
-import static com.st0x0ef.stellaris.Stellaris.id;
-
 public record SyncEnergyPacket(int energy, BlockPos pos, Direction direction) implements CustomPacketPayload {
 
-    public static final Type<SyncEnergyPacket> TYPE = new Type<>(id("energy_sync_packet"));
+    public static final Type<SyncEnergyPacket> TYPE = new Type<>(ResourceLocationUtils.id("energy_sync_packet"));
     public static final StreamCodec<ByteBuf, SyncEnergyPacket> STREAM_CODEC = StreamCodec.composite(
             ByteBufCodecs.VAR_INT, SyncEnergyPacket::energy,
             BlockPos.STREAM_CODEC, SyncEnergyPacket::pos,

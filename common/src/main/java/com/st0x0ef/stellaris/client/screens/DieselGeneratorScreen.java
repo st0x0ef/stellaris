@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.client.screens.components.GaugeWidget;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.DieselGeneratorBlockEntity;
 import com.st0x0ef.stellaris.common.menus.DieselGeneratorMenu;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import com.st0x0ef.stellaris.common.utils.capabilities.fluid.SingleFluidStorage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -13,11 +14,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
-import static com.st0x0ef.stellaris.Stellaris.guiTexture;
-
 public class DieselGeneratorScreen extends AbstractContainerScreen<DieselGeneratorMenu> {
 
-    private static final ResourceLocation TEXTURE = guiTexture("diesel_generator");
+    private static final ResourceLocation TEXTURE = ResourceLocationUtils.guiTexture("diesel_generator");
 
     private final DieselGeneratorBlockEntity blockEntity = getMenu().getBlockEntity();
     private GaugeWidget dieselTankGauge;
@@ -43,11 +42,11 @@ public class DieselGeneratorScreen extends AbstractContainerScreen<DieselGenerat
 
         SingleFluidStorage ingredientTank = blockEntity.getDieselTank();
         dieselTankGauge = new GaugeWidget(leftPos + 74, topPos + 42, 12, 46, Component.translatable("stellaris.screen.diesel"),
-                GUISprites.OIL_OVERLAY, GUISprites.LIQUID_TANK_OVERLAY, ingredientTank.getTankCapacity(0), GaugeWidget.Direction4.DOWN_UP);
+                GUISprites.OIL_OVERLAY, GUISprites.FLUID_TANK_OVERLAY, ingredientTank.getTankCapacity(0), GaugeWidget.Direction4.DOWN_UP);
         addRenderableWidget(dieselTankGauge);
 
-        energyGauge = new GaugeWidget(leftPos + 67, topPos + 15, 46, 15, Component.translatable("stellaris.screen.energyContainer"),
-                GUISprites.SIDEWAYS_ENERGY_FULL, GUISprites.SIDEWAYS_BATTERY_OVERLAY, blockEntity.getEnergy(null).getMaxEnergy(), GaugeWidget.Direction4.LEFT_RIGHT);
+        energyGauge = new GaugeWidget(leftPos + 67, topPos + 20, 44, 6, Component.translatable("stellaris.screen.energyContainer"),
+                GUISprites.SIDEWAYS_ENERGY_FULL, null, blockEntity.getEnergy(null).getMaxEnergy(), GaugeWidget.Direction4.LEFT_RIGHT);
         addRenderableWidget(energyGauge);
     }
 

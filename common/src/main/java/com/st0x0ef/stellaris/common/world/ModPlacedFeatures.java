@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.world;
 
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -17,8 +18,6 @@ import net.minecraft.world.level.levelgen.heightproviders.UniformHeight;
 import net.minecraft.world.level.levelgen.placement.*;
 
 import java.util.List;
-
-import static com.st0x0ef.stellaris.Stellaris.id;
 
 public class ModPlacedFeatures {
 
@@ -125,7 +124,7 @@ public class ModPlacedFeatures {
     }
 
     private static ResourceKey<PlacedFeature> createKey(String name) {
-        return ResourceKey.create(Registries.PLACED_FEATURE, id(name));
+        return ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocationUtils.id(name));
     }
 
     private static void registerOne(BootstrapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key, Holder<ConfiguredFeature<?, ?>> configuration,

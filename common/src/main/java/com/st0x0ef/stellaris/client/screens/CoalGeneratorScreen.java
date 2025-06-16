@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.client.screens.components.GaugeWidget;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.CoalGeneratorEntity;
 import com.st0x0ef.stellaris.common.menus.CoalGeneratorMenu;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -15,12 +16,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 
-import static com.st0x0ef.stellaris.Stellaris.guiTexture;
-
 @Environment(EnvType.CLIENT)
 public class CoalGeneratorScreen extends AbstractContainerScreen<CoalGeneratorMenu> {
 
-    private static final ResourceLocation TEXTURE = guiTexture("coal_generator");
+    private static final ResourceLocation TEXTURE = ResourceLocationUtils.guiTexture("coal_generator");
 
     private final CoalGeneratorEntity blockEntity = getMenu().getBlockEntity();
     private GaugeWidget energyGauge;
@@ -78,8 +77,7 @@ public class CoalGeneratorScreen extends AbstractContainerScreen<CoalGeneratorMe
     @Override
     protected void renderTooltip(GuiGraphics guiGraphics, int x, int y) {
         super.renderTooltip(guiGraphics, x, y);
-        energyGauge.renderTooltips(guiGraphics, x, y, font, list ->
-                list.add(Component.translatable("gauge_text.stellaris.max_generation", blockEntity.getEnergyGeneratedPT())));
+        energyGauge.renderTooltip(guiGraphics, x, y, font);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.client.renderers.entities.martianraptor;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.st0x0ef.stellaris.common.entities.mobs.MartianRaptor;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.EntityModel;
@@ -12,12 +13,10 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 
-import static com.st0x0ef.stellaris.Stellaris.id;
-
 @Environment(EnvType.CLIENT)
 public class MartianRaptorModel<T extends MartianRaptor> extends EntityModel<T> {
 
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(id("martian_raptor"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocationUtils.id("martian_raptor"), "main");
 
     private final ModelPart body;
     private final ModelPart leg1;

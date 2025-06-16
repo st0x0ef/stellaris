@@ -5,6 +5,7 @@ import com.st0x0ef.stellaris.client.screens.components.ConfigList;
 import com.st0x0ef.stellaris.client.screens.components.StateButton;
 import com.st0x0ef.stellaris.common.config.CommonConfig;
 import com.st0x0ef.stellaris.common.config.ConfigManager;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import dev.architectury.platform.Platform;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -28,7 +29,7 @@ import java.nio.file.Path;
 @Environment(EnvType.CLIENT)
 public class ConfigScreen extends Screen {
 
-    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/item/engine_fan.png");
+    public static final ResourceLocation TEXTURE = ResourceLocationUtils.texture("/item/engine_fan");
     private final Screen parent;
     public final HeaderAndFooterLayout layout = new HeaderAndFooterLayout(this);
     protected ConfigList configList;

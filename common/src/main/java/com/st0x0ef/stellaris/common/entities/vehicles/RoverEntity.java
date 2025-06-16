@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.common.entities.vehicles;
 
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.data_components.RoverComponent;
 import com.st0x0ef.stellaris.common.entities.vehicles.base.AbstractRoverBase;
 import com.st0x0ef.stellaris.common.items.VehicleUpgradeItem;
