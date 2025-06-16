@@ -1,13 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "###",
+    "#L#",
     "#X#",
     "###"
   ],
   "key": {
-    "#": {"tag": "c:storage_blocks/steel"},
-    "X": {"item": "minecraft:blast_furnace"}
+    "#": {"tag": "c:ingots/steel"},
+    "X": {"item": "minecraft:blast_furnace"},
+    "L": {"item": "minecraft:lapis_lazuli"}
   },
   "result": {
     "id": "stellaris:coal_generator"

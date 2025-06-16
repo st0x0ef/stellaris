@@ -5,6 +5,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
 public class ResultSlot extends Slot {
+
     public ResultSlot(Container container, int i, int x, int y) {
         super(container, i, x, y);
     }

@@ -17,9 +17,9 @@
         "size": 32
       },
       "image": {
-          "location": "stellaris:tablet/images/rocket_station",
+          "location": "stellaris:textures/gui/tablet/images/rocket_station",
           "width": 128,
-          "height": 84
+          "height": 96
       }
     },
     {

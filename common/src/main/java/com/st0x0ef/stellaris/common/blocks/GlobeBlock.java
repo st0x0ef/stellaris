@@ -1,11 +1,9 @@
 package com.st0x0ef.stellaris.common.blocks;
 
 import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.st0x0ef.stellaris.common.blocks.entities.GlobeBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -36,22 +34,11 @@ public class GlobeBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
 
     public static final VoxelShape SHAPE = Shapes.box(0.2, 0, 0.2, 0.8, 1, 0.8);
 
-    public static final MapCodec<GlobeBlock> CODEC = RecordCodecBuilder.mapCodec(
-            instance -> instance.group(
-                    ResourceLocation.CODEC.fieldOf("texture").forGetter(GlobeBlock::resourceLocation),
-                    propertiesCodec()
-            ).apply(instance, GlobeBlock::new));
+    public static final MapCodec<GlobeBlock> CODEC = simpleCodec(GlobeBlock::new);
 
-    public ResourceLocation resourceLocation() {
-        return this.texture;
-    }
-
-    public final ResourceLocation texture;
-
-    public GlobeBlock(ResourceLocation resourceLocation, Properties properties) {
+    public GlobeBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false));
-        this.texture = resourceLocation;
     }
 
 

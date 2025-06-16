@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public record Planet (
+public record Planet(
         String system,
         String translatable,
         String name,
@@ -25,6 +25,7 @@ public record Planet (
         PlanetTextures textures
 
 ) {
+
     public static final Codec<Planet> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.STRING.fieldOf("system").forGetter(Planet::system),
             Codec.STRING.fieldOf("translatable").forGetter(Planet::translatable),
@@ -57,6 +58,7 @@ public record Planet (
         return buffer;
 
     }
+
     public static List<Planet> readFromBuffer(RegistryFriendlyByteBuf buffer) {
         List<Planet> planets = new ArrayList<>();
 
@@ -86,18 +88,18 @@ public record Planet (
     }
 
     public record StormParameters(int lightningFrequency, Vec3 lightningColor) {
+
         public static final Codec<StormParameters> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 Codec.INT.fieldOf("lightningFrequency").forGetter(StormParameters::lightningFrequency),
                 Vec3.CODEC.fieldOf("color").forGetter(StormParameters::lightningColor)
         ).apply(instance, StormParameters::new));
 
-        public RegistryFriendlyByteBuf toNetwork( RegistryFriendlyByteBuf buffer) {
+        public RegistryFriendlyByteBuf toNetwork(RegistryFriendlyByteBuf buffer) {
             buffer.writeInt(this.lightningFrequency());
             buffer.writeVec3(this.lightningColor());
 
             return buffer;
         }
-
 
 
         @Override
@@ -114,8 +116,6 @@ public record Planet (
                     buffer.readVec3());
         }
     }
-
-
 
 
 }

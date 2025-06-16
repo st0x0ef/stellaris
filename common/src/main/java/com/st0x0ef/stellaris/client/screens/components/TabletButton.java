@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.client.screens.components;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
 import com.st0x0ef.stellaris.client.screens.tablet.TabletEntry;
 import net.fabricmc.api.EnvType;
@@ -19,8 +18,13 @@ import org.jetbrains.annotations.Nullable;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
+import static com.st0x0ef.stellaris.Stellaris.guiTexture;
+
 @Environment(EnvType.CLIENT)
 public class TabletButton extends Button {
+
+    public static final ResourceLocation TEXTURE = guiTexture("util/buttons/button");
+    public static final ResourceLocation HOVER_TEXTURE = guiTexture("util/buttons/button");
     private ResourceLocation buttonTexture;
     private ResourceLocation hoverButtonTexture;
 
@@ -49,8 +53,8 @@ public class TabletButton extends Button {
         this.yDiffText = 0;
         this.xTexStart = 0;
         this.yTexStart = 0;
-        this.buttonTexture = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/button.png");
-        this.hoverButtonTexture = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/button.png");
+        this.buttonTexture = TEXTURE;
+        this.hoverButtonTexture = HOVER_TEXTURE;
         this.info = info;
         setTooltip();
     }
@@ -68,7 +72,7 @@ public class TabletButton extends Button {
         }
     }
 
-    public <T extends TabletButton> T  tooltip(@Nullable Tooltip tooltip) {
+    public <T extends TabletButton> T tooltip(@Nullable Tooltip tooltip) {
         this.setTooltip(tooltip);
         return cast();
     }
@@ -145,7 +149,8 @@ public class TabletButton extends Button {
                                             ResourceLocation hoverButtonTexture) {
         if (hover) {
             return hoverButtonTexture;
-        } else {
+        }
+        else {
             return buttonTexture;
         }
     }

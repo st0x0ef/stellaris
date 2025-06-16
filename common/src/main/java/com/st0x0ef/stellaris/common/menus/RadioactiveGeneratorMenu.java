@@ -17,6 +17,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
 public class RadioactiveGeneratorMenu extends AbstractContainerMenu {
+
     private final Container inventory;
     private final RadioactiveGeneratorEntity entity;
     private final ContainerData data;
@@ -26,8 +27,7 @@ public class RadioactiveGeneratorMenu extends AbstractContainerMenu {
         return new RadioactiveGeneratorMenu(syncId, inventory, new SimpleContainer(2), entity, new SimpleContainerData(2));
     }
 
-    public RadioactiveGeneratorMenu(int syncId, Inventory playerInventory, Container container, RadioactiveGeneratorEntity entity, ContainerData data)
-    {
+    public RadioactiveGeneratorMenu(int syncId, Inventory playerInventory, Container container, RadioactiveGeneratorEntity entity, ContainerData data) {
         super(MenuTypesRegistry.RADIOACTIVE_GENERATOR_MENU.get(), syncId);
 
         checkContainerSize(container, 2);
@@ -59,13 +59,15 @@ public class RadioactiveGeneratorMenu extends AbstractContainerMenu {
                 if (!this.moveItemStackTo(originalStack, this.inventory.getContainerSize(), this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.moveItemStackTo(originalStack, 0, this.inventory.getContainerSize(), false)) {
+            }
+            else if (!this.moveItemStackTo(originalStack, 0, this.inventory.getContainerSize(), false)) {
                 return ItemStack.EMPTY;
             }
 
             if (originalStack.isEmpty()) {
                 slot.set(ItemStack.EMPTY);
-            } else {
+            }
+            else {
                 slot.setChanged();
             }
         }
@@ -98,7 +100,7 @@ public class RadioactiveGeneratorMenu extends AbstractContainerMenu {
             i = 200;
         }
 
-        return Mth.clamp((float)this.data.get(0) / (float)i, 0.0F, 1.0F);
+        return Mth.clamp((float) this.data.get(0) / (float) i, 0.0F, 1.0F);
     }
 
     public boolean isLit() {

@@ -8,6 +8,7 @@ public abstract class EnergyStorage extends BaseEnergyStorage {
     public EnergyStorage(int capacity, int maxReceive, int maxExtract) {
         super(capacity, maxReceive, maxExtract);
     }
+
     public EnergyStorage(int capacity) {
         super(capacity);
     }
@@ -15,23 +16,27 @@ public abstract class EnergyStorage extends BaseEnergyStorage {
     @Override
     public int insert(int amount, boolean simulate) {
         int inserted = super.insert(amount, simulate);
-        if (!simulate) onChange();
+        if (!simulate) {
+            onChange();
+        }
         return inserted;
     }
 
     @Override
     public int extract(int amount, boolean simulate) {
         int extracted = super.extract(amount, simulate);
-        if (!simulate) onChange();
+        if (!simulate) {
+            onChange();
+        }
         return extracted;
     }
 
     public void save(CompoundTag tag, String name) {
-        tag.putInt("energy-"+name, energy);
+        tag.putInt("energy-" + name, energy);
     }
 
     public void load(CompoundTag tag, String name) {
-        this.energy = tag.getInt("energy-"+name);
+        this.energy = tag.getInt("energy-" + name);
     }
 
     protected abstract void onChange();

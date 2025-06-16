@@ -3,14 +3,10 @@ package com.st0x0ef.stellaris.common.entities.mobs;
 import dev.architectury.networking.NetworkManager;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerEntity;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -28,11 +24,7 @@ import net.minecraft.world.level.Level;
 
 public class MartianRaptor extends Monster {
 
-    private static final EntityDataAccessor<Boolean> ATTACKING =
-            SynchedEntityData.defineId(MartianRaptor.class, EntityDataSerializers.BOOLEAN);
-
-    public final AnimationState attackAnimationState = new AnimationState();
-    private int attackAnimationTick = -1;
+    private float AttackAnim = 0;
 
     public MartianRaptor(EntityType<? extends MartianRaptor> type, Level world) {
         super(type, world);
@@ -68,66 +60,36 @@ public class MartianRaptor extends Monster {
     }
 
     @Override
-    public void tick() {
-        super.tick();
-
-        if(this.level().isClientSide()) {
-            checkAnim();
-        }
-    }
-
-    private void checkAnim(){
-        if (this.isAttacking() && !this.attackAnimationState.isStarted() && this.attackAnimationTick>=0) {
-            this.attackAnimationState.start(this.tickCount);
-        }
-    }
-
-    @Override
     public boolean doHurtTarget(Entity p_21372_) {
-        this.setAttacking(true);
-        this.attackAnimationTick = 10;
-        this.level().broadcastEntityEvent(this, (byte)4);
+        this.AttackAnim = 10;
+        this.level().broadcastEntityEvent(this, (byte) 4);
         return super.doHurtTarget(p_21372_);
     }
 
     @Override
-    public void handleEntityEvent(byte id) {
-        if (id == 4) {
-            this.attackAnimationTick = 10;
-            this.makeSound(SoundEvents.HOGLIN_ATTACK);
-        } else {
-            super.handleEntityEvent(id);
+    public void handleEntityEvent(byte p_28844_) {
+        if (p_28844_ == 4) {
+            this.AttackAnim = 10;
+        }
+        else {
+            super.handleEntityEvent(p_28844_);
         }
     }
 
     @Override
     public void aiStep() {
-        if (this.attackAnimationTick > 0) {
-            --this.attackAnimationTick;
-        }
-        else if (this.attackAnimationTick==0) {
-            this.setAttacking(false);
-            this.attackAnimationState.stop();
-        }
-
         super.aiStep();
+        if (this.AttackAnim > 0) {
+            --this.AttackAnim;
+        }
     }
 
-    public void setAttacking(boolean attacking) {
-        this.entityData.set(ATTACKING, attacking);
-    }
-
-    public boolean isAttacking() {
-        return this.entityData.get(ATTACKING);
+    public float getAttackAnim() {
+        return AttackAnim;
     }
 
     @Override
     public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity entity) {
         return NetworkManager.createAddEntityPacket(this, entity);
-    }
-
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(ATTACKING, false);
     }
 }

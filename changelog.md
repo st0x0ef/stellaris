@@ -1,12 +1,16 @@
-# 1.3.3 changelog
+# 1.4.0 changelog
 
 ## Additions
-- Add missing recipe for cable and pipe
+- Add diesel
+- Add diesel generator
+- Add new config system
 
 ## Changes
-- Updated Sky Aesthetics (1.4.4 => 1.5.0)
-- Change cable t1 recipe
+- Rover now need diesel instead of fuel
+- Jet suit and space suit now need diesel instead of fuel
+- Add emoji symbols to tooltips
+- Oil finder now take energy
 
-## Fix
-- Fix fabric mob effect
-- Fix tablet opening tooltip never reset
+## Fixes
+- Space suit crash when trying to put fuel in it
+- Fix some module tooltip

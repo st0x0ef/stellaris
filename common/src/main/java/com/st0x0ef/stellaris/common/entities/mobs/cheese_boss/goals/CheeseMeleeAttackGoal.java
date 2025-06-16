@@ -4,6 +4,7 @@ import com.st0x0ef.stellaris.common.entities.mobs.cheese_boss.CheeseBoss;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 
 public class CheeseMeleeAttackGoal extends MeleeAttackGoal {
+
     private final CheeseBoss cheeseBoss;
 
     public CheeseMeleeAttackGoal(CheeseBoss cheeseBoss, double speedModifier, boolean followingTargetEvenIfNotSeen) {

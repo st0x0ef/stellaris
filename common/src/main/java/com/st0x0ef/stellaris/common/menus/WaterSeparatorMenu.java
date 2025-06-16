@@ -23,7 +23,7 @@ public class WaterSeparatorMenu extends BaseContainer {
     }
 
     public WaterSeparatorMenu(int containerId, Inventory inventory, Container container, WaterSeparatorBlockEntity blockEntity) {
-        super(MenuTypesRegistry.WATER_SEPARATOR_MENU.get(), containerId, 4, inventory, 58);
+        super(MenuTypesRegistry.WATER_SEPARATOR_MENU.get(), containerId, 4, inventory, 8, 142);
         this.container = container;
         this.blockEntity = blockEntity;
 

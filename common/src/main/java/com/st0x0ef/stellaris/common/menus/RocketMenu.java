@@ -51,13 +51,15 @@ public class RocketMenu extends AbstractContainerMenu implements IVehicleMenu {
                 if (!this.moveItemStackTo(originalStack, this.inventory.getContainerSize(), this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.moveItemStackTo(originalStack, 0, this.inventory.getContainerSize(), false)) {
+            }
+            else if (!this.moveItemStackTo(originalStack, 0, this.inventory.getContainerSize(), false)) {
                 return ItemStack.EMPTY;
             }
 
             if (originalStack.isEmpty()) {
                 slot.set(ItemStack.EMPTY);
-            } else {
+            }
+            else {
                 slot.setChanged();
             }
         }

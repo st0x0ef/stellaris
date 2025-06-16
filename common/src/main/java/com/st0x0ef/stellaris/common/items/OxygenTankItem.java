@@ -7,6 +7,7 @@ import com.fej1fun.potentials.providers.FluidProvider;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.OxygenDistributorBlockEntity;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import com.st0x0ef.stellaris.common.registry.FluidRegistry;
+import com.st0x0ef.stellaris.common.utils.capabilities.fluid.FluidUtil;
 import dev.architectury.fluid.FluidStack;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -27,6 +28,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class OxygenTankItem extends Item implements FluidProvider.ITEM {
+
     private final int capacity;
 
     public OxygenTankItem(Item.Properties properties, int capacity) {
@@ -41,29 +43,22 @@ public class OxygenTankItem extends Item implements FluidProvider.ITEM {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
-        if(level.isClientSide) return super.use(level, player, usedHand);
 
         if (player.isShiftKeyDown()) {
-            ItemStack stack = player.getItemBySlot(EquipmentSlot.CHEST);
+            ItemStack tankStack = player.getItemInHand(usedHand);
+            ItemStack chestplateStack = player.getItemBySlot(EquipmentSlot.CHEST);
 
-            UniversalFluidItemStorage storage = getFluidTank(stack);
+            ItemFluidStorage storage = getFluidTank(tankStack);
+            UniversalFluidItemStorage chestplateStorage = Capabilities.Fluid.ITEM.getCapability(chestplateStack);
 
-            UniversalFluidItemStorage chestplateStorage = Capabilities.Fluid.ITEM.getCapability(stack);
-
-            if (chestplateStorage == null) return super.use(level, player, usedHand);
-
-            if (storage.getFluidInTank(0).isEmpty()) {
+            if (chestplateStorage == null || storage.getFluidInTank(0).isEmpty())
                 return super.use(level, player, usedHand);
-            }
 
-            if (chestplateStorage.getTankCapacity(0) - chestplateStorage.getFluidInTank(0).getAmount() >= storage.getFluidInTank(0).getAmount()) {
-                chestplateStorage.fill(storage.getFluidInTank(0).copy(), false);
-                storage.drain(storage.getFluidInTank(0).copy(), false);
-            } else {
-                long amount = chestplateStorage.getTankCapacity(0) - chestplateStorage.getFluidInTank(0).getAmount();
-                chestplateStorage.fill(storage.getFluidInTank(0).copyWithAmount(amount), false);
-                storage.drain(storage.getFluidInTank(0).copyWithAmount(amount), false);
-            }
+            long amountMoved = FluidUtil.moveFluid(storage, chestplateStorage, storage.getFluidInTank(0)).getAmount();
+
+            if (amountMoved != 0)
+                return InteractionResultHolder.success(tankStack);
+
         }
 
         return super.use(level, player, usedHand);
@@ -104,9 +99,10 @@ public class OxygenTankItem extends Item implements FluidProvider.ITEM {
     public @NotNull ItemFluidStorage getFluidTank(@NotNull ItemStack stack) {
 
         return new ItemFluidStorage(DataComponentsRegistry.FLUID_LIST.get(), stack, 1, capacity) {
+
             @Override
             public boolean isFluidValid(int tank, FluidStack stack) {
-                    return stack.getFluid().isSame(FluidRegistry.OXYGEN_STILL.get());
+                return stack.getFluid().isSame(FluidRegistry.OXYGEN_STILL.get());
             }
         };
     }

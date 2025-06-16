@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.common.network.packets;
 
 import com.st0x0ef.stellaris.common.data_components.RoverComponent;
+import com.st0x0ef.stellaris.common.entities.vehicles.RoverEntity;
 import com.st0x0ef.stellaris.common.menus.RoverMenu;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import dev.architectury.networking.NetworkManager;
@@ -10,11 +11,12 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import org.jetbrains.annotations.NotNull;
 
-public class SyncRoverComponentPacket implements CustomPacketPayload
-{
-    private  RoverComponent component;
+public class SyncRoverComponentPacket implements CustomPacketPayload {
 
-    public static final StreamCodec<RegistryFriendlyByteBuf,SyncRoverComponentPacket> STREAM_CODEC = new StreamCodec<>() {
+    private RoverComponent component;
+
+    public static final StreamCodec<RegistryFriendlyByteBuf, SyncRoverComponentPacket> STREAM_CODEC = new StreamCodec<>() {
+
         @Override
         public @NotNull SyncRoverComponentPacket decode(RegistryFriendlyByteBuf object) {
             return new SyncRoverComponentPacket(object);
@@ -26,14 +28,20 @@ public class SyncRoverComponentPacket implements CustomPacketPayload
         }
     };
 
-    public static void handle(SyncRoverComponentPacket packet,  NetworkManager.PacketContext context) {
+    public static void handle(SyncRoverComponentPacket packet, NetworkManager.PacketContext context) {
         LocalPlayer player = (LocalPlayer) context.getPlayer();
-        if (player.containerMenu instanceof RoverMenu menu && menu.getRover() != null) {
+
+        if (player.getVehicle() instanceof RoverEntity rover) {
+            rover.setRoverComponent(packet.component);
+        } else if (player.containerMenu instanceof RoverMenu menu && menu.getRover() != null) {
             menu.getRover().setRoverComponent(packet.component);
         }
     }
 
-    public SyncRoverComponentPacket(RegistryFriendlyByteBuf buf){this(RoverComponent.fromNetwork(buf));}
+    public SyncRoverComponentPacket(RegistryFriendlyByteBuf buf) {
+        this(RoverComponent.fromNetwork(buf));
+    }
+
     public SyncRoverComponentPacket(RoverComponent component) {
         this.component = component;
     }

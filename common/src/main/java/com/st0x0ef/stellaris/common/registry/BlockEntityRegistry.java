@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import java.util.function.Supplier;
 
 public class BlockEntityRegistry {
+
     //Block entity type
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPE = DeferredRegister.create(Stellaris.MODID, Registries.BLOCK_ENTITY_TYPE);
     public static final RegistrySupplier<BlockEntityType<RocketStationEntity>> ROCKET_STATION = BLOCK_ENTITY_TYPE.register("rocket_station",
@@ -38,7 +39,8 @@ public class BlockEntityRegistry {
             () -> BlockEntityType.Builder.of(CoalGeneratorEntity::new, BlocksRegistry.COAL_GENERATOR.get()).build(null));
     public static final Supplier<BlockEntityType<?>> RADIOACTIVE_GENERATOR = BLOCK_ENTITY_TYPE.register("radioactive_generator",
             () -> BlockEntityType.Builder.of(RadioactiveGeneratorEntity::new, BlocksRegistry.RADIOACTIVE_GENERATOR.get()).build(null));
-
+    public static final Supplier<BlockEntityType<?>> DIESEL_GENERATOR = BLOCK_ENTITY_TYPE.register("diesel_generator",
+            () -> BlockEntityType.Builder.of(DieselGeneratorBlockEntity::new, BlocksRegistry.DIESEL_GENERATOR.get()).build(null));
     public static final RegistrySupplier<BlockEntityType<?>> VACUUMATOR_ENTITY = BLOCK_ENTITY_TYPE.register("vacuumator",
             () -> BlockEntityType.Builder.of(VacuumatorBlockEntity::new, BlocksRegistry.VACUMATOR.get()).build(null));
     public static final Supplier<BlockEntityType<?>> WATER_SEPARATOR_ENTITY = BLOCK_ENTITY_TYPE.register("water_separator",
@@ -64,9 +66,9 @@ public class BlockEntityRegistry {
 
     public static final Supplier<BlockEntityType<?>> CABLE_ENTITY = BLOCK_ENTITY_TYPE.register("cable",
             () -> BlockEntityType.Builder.of(CableBlockEntity::create,
-                            BlocksRegistry.T1_CABLE.get(),
-                            BlocksRegistry.T2_CABLE.get(),
-                            BlocksRegistry.T3_CABLE.get()
+                    BlocksRegistry.T1_CABLE.get(),
+                    BlocksRegistry.T2_CABLE.get(),
+                    BlocksRegistry.T3_CABLE.get()
             ).build(null));
     public static final Supplier<BlockEntityType<?>> PIPE_ENTITY = BLOCK_ENTITY_TYPE.register("pipe",
             () -> BlockEntityType.Builder.of(PipeBlockEntity::create,

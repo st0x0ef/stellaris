@@ -112,7 +112,9 @@ public class RocketStationEntity extends BaseContainerBlockEntity implements Imp
                     else if (ItemStack.isSameItemSameComponents(outputStack, resultStack)) {
                         outputStack.grow(1);
                     }
-                    else return;
+                    else {
+                        return;
+                    }
 
                     for (int i = 0; i < 14; i++) {
                         ItemStack stack = getItem(i);

@@ -12,14 +12,14 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
 public class LanderMenu extends AbstractContainerMenu {
+
     private final Container inventory;
 
     public LanderMenu(int syncId, Inventory inventory, FriendlyByteBuf buffer) {
         this(syncId, inventory, new SimpleContainer(15));
     }
 
-    public LanderMenu(int syncId, Inventory playerInventory, Container container)
-    {
+    public LanderMenu(int syncId, Inventory playerInventory, Container container) {
         super(MenuTypesRegistry.LANDER_MENU.get(), syncId);
 
         checkContainerSize(container, 15);
@@ -42,13 +42,15 @@ public class LanderMenu extends AbstractContainerMenu {
                 if (!this.moveItemStackTo(originalStack, this.inventory.getContainerSize(), this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.moveItemStackTo(originalStack, 0, this.inventory.getContainerSize(), false)) {
+            }
+            else if (!this.moveItemStackTo(originalStack, 0, this.inventory.getContainerSize(), false)) {
                 return ItemStack.EMPTY;
             }
 
             if (originalStack.isEmpty()) {
                 slot.set(ItemStack.EMPTY);
-            } else {
+            }
+            else {
                 slot.setChanged();
             }
         }

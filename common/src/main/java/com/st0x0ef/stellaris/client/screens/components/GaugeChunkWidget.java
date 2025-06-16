@@ -41,8 +41,8 @@ public class GaugeChunkWidget extends AbstractWidget {
     protected void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         switch (DIRECTION) {
             case DOWN_UP -> {
-                int i = Mth.ceil(getProgress(amount, capacity) * (getHeight()));
-                for (int j = 0; j < width/imageWidth; j++) {
+                int i = Mth.ceil(getProgress(amount, capacity) * (getHeight() - 1));
+                for (int j = 0; j < width / imageWidth; j++) {
                     guiGraphics.blitSprite(sprite, imageWidth, getHeight(), 0, getHeight() - i, getX() + imageWidth * j, getY() + getHeight() - i, imageWidth, i);
                 }
                 int x = width % imageWidth;
@@ -51,8 +51,8 @@ public class GaugeChunkWidget extends AbstractWidget {
                 }
             }
             case UP_DOWN -> {
-                int i = Mth.ceil(getProgress(amount, capacity) * (getHeight()));
-                for (int j = 0; j < width/imageWidth; j++) {
+                int i = Mth.ceil(getProgress(amount, capacity) * (getHeight() - 1));
+                for (int j = 0; j < width / imageWidth; j++) {
                     guiGraphics.blitSprite(sprite, imageWidth, getHeight(), 0, 0, getX() + imageWidth * j, getY(), imageWidth, i);
                 }
                 int x = width % imageWidth;
@@ -61,8 +61,8 @@ public class GaugeChunkWidget extends AbstractWidget {
                 }
             }
             case LEFT_RIGHT -> {
-                int i = Mth.ceil(getProgress(amount, capacity) * (getWidth()));
-                for (int j = 0; j < height/imageHeight; j++) {
+                int i = Mth.ceil(getProgress(amount, capacity) * (getWidth() - 1));
+                for (int j = 0; j < height / imageHeight; j++) {
                     guiGraphics.blitSprite(sprite, getWidth(), imageHeight, 0, 0, getX(), getY() + imageHeight * j, i, imageHeight);
                 }
                 int y = height % imageHeight;
@@ -71,8 +71,8 @@ public class GaugeChunkWidget extends AbstractWidget {
                 }
             }
             case RIGHT_LEFT -> {
-                int i = Mth.ceil(getProgress(amount, capacity) * (getWidth()));
-                for (int j = 0; j < height/imageHeight; j++) {
+                int i = Mth.ceil(getProgress(amount, capacity) * (getWidth() - 1));
+                for (int j = 0; j < height / imageHeight; j++) {
                     guiGraphics.blitSprite(sprite, getWidth(), imageHeight, getWidth() - i, 0, getX() + getWidth() - i, getY() + imageHeight * j, i, imageHeight);
                 }
                 int y = height % imageHeight;
@@ -87,7 +87,8 @@ public class GaugeChunkWidget extends AbstractWidget {
     }
 
     public void renderTooltip(GuiGraphics graphics, int mouseX, int mouseY, Font font) {
-        this.renderTooltips(graphics, mouseX, mouseY, font, list -> {});
+        this.renderTooltips(graphics, mouseX, mouseY, font, list -> {
+        });
     }
 
     public void renderTooltips(GuiGraphics graphics, int mouseX, int mouseY, Font font, Consumer<List<Component>> components) {
@@ -96,9 +97,11 @@ public class GaugeChunkWidget extends AbstractWidget {
 
         if (amount >= this.capacity) {
             capacity = Utils.getMessageComponent(GaugeComponent, "Lime");
-        } else if (amount <= 0) {
+        }
+        else if (amount <= 0) {
             capacity = Utils.getMessageComponent(GaugeComponent, "Red");
-        } else {
+        }
+        else {
             capacity = Utils.getMessageComponent(GaugeComponent, "Orange");
         }
 
@@ -124,10 +127,11 @@ public class GaugeChunkWidget extends AbstractWidget {
     }
 
     @Override
-    protected void updateWidgetNarration(NarrationElementOutput narrationElementOutput) {}
+    protected void updateWidgetNarration(NarrationElementOutput narrationElementOutput) {
+    }
 
     private double getProgress(Long amount, Long capacity) {
-        return Mth.clamp((double)amount / (double)capacity, 0.0D, 1.0D);
+        return Mth.clamp((double) amount / (double) capacity, 0.0D, 1.0D);
     }
 
     public enum Direction4 {

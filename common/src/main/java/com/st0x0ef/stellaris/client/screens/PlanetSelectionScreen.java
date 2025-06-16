@@ -14,7 +14,6 @@ import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
 import com.st0x0ef.stellaris.common.menus.PlanetSelectionMenu;
 import com.st0x0ef.stellaris.common.network.packets.TeleportEntityToPlanetPacket;
-import com.st0x0ef.stellaris.common.registry.EntityData;
 import com.st0x0ef.stellaris.common.registry.TranslatableRegistry;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
@@ -45,23 +44,26 @@ import java.util.Objects;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
+import static com.st0x0ef.stellaris.Stellaris.guiTexture;
+
 @Environment(EnvType.CLIENT)
 public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelectionMenu> {
 
-    public static final ResourceLocation HIGHLIGHTER_TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/planet_highlighter.png");
-    public static final ResourceLocation BLACK_TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/black.png");
+    public static final ResourceLocation HIGHLIGHTER_TEXTURE = guiTexture("util/planet_highlighter");
+    public static final ResourceLocation BLACK_TEXTURE = guiTexture("util/black");
 
-    public static final ResourceLocation BACKGROUND_TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/planet_selection.png");
-    public static final ResourceLocation SCROLLER_TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/scroller.png");
+    public static final ResourceLocation BACKGROUND_TEXTURE = guiTexture("planet_selection");
+    public static final ResourceLocation SCROLLER_TEXTURE = guiTexture("util/scroller");
 
-    public static final ResourceLocation SMALL_BUTTON_TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/small_button.png");
-    public static final ResourceLocation BUTTON_TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/button.png");
-    public static final ResourceLocation LARGE_BUTTON_TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/large_button.png");
-    public static final ResourceLocation LAUNCH_BUTTON_TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button.png");
+    public static final ResourceLocation SMALL_BUTTON_TEXTURE = guiTexture("util/buttons/small_button");
+    public static final ResourceLocation BUTTON_TEXTURE = guiTexture("util/buttons/button");
+    public static final ResourceLocation LARGE_BUTTON_TEXTURE = guiTexture("util/buttons/large_button");
+    public static final ResourceLocation LAUNCH_BUTTON_TEXTURE = guiTexture("util/buttons/launch_button");
+    public static final ResourceLocation LAUNCH_BUTTON_HOVER_TEXTURE = guiTexture("util/buttons/launch_button_hovered");
 
-    public static final ResourceLocation SMALL_MENU_LIST = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/planet_menu.png");
-    public static final ResourceLocation LARGE_MENU_TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/large_planet_menu.png");
-    public static final ResourceLocation LARGE_MENU_TEXTURE_RED = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/large_planet_menu_red.png");
+    public static final ResourceLocation SMALL_MENU_LIST = guiTexture("util/planet_menu");
+    public static final ResourceLocation LARGE_MENU_TEXTURE = guiTexture("util/large_planet_menu");
+    public static final ResourceLocation LARGE_MENU_TEXTURE_RED = guiTexture("util/large_planet_menu_red");
 
     public static final List<CelestialBody> STARS = new ArrayList<>();
     public static final List<PlanetInfo> PLANETS = new ArrayList<>();
@@ -131,7 +133,9 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     }
 
     public boolean canLaunch(Planet planet) {
-        if (this.getMenu().getForceCanGoTo()) return true;
+        if (this.getMenu().getForceCanGoTo()) {
+            return true;
+        }
 
         Player player = this.getPlayer();
         if (player == null) {
@@ -174,6 +178,14 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         }
     }
 
+    private void updatePlanetsButton(int offsetX, int offsetY) {
+        for (InvisibleButton button : planetButtons) {
+            button.setX(button.getX() - offsetX);
+            button.setY(button.getX() - offsetY);
+
+        }
+    }
+
     private void initializeMoonButtons() {
         moonButtons.clear();
         for (MoonInfo moon : MOONS) {
@@ -200,7 +212,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         int buttonY = (this.height - buttonHeight) / 4;
 
         launchButton = new LaunchButton(buttonX, buttonY, buttonWidth, buttonHeight, launch, (btn) -> onLaunchButtonClick());
-        launchButton.setButtonTexture(LAUNCH_BUTTON_TEXTURE, ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button_hovered.png"));
+        launchButton.setButtonTexture(LAUNCH_BUTTON_TEXTURE, LAUNCH_BUTTON_HOVER_TEXTURE);
 
         this.addRenderableWidget(launchButton);
         launchButton.visible = false;
@@ -231,7 +243,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
             if (canLaunch(PlanetUtil.getPlanet(focusedBody.dimension))) {
                 tpToFocusedPlanet();
 
-            } else {
+            }
+            else {
                 if (PlanetUtil.getPlanet(focusedBody.dimension).name().equals("Earth")) {
                     tpToFocusedPlanet();
                 }
@@ -290,9 +303,9 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     }
 
     private void renderHelp(GuiGraphics graphics) {
-        if(showHelpMenu) {
-            graphics.drawCenteredString(this.font, Component.translatable("text.stellaris.planetscreen.press_space"), this.width/2, this.height - 20 , 16777212);
-            graphics.drawCenteredString(this.font, Component.translatable("text.stellaris.planetscreen.arrows"), this.width/2, this.height - 10 , 16777212);
+        if (showHelpMenu) {
+            graphics.drawCenteredString(this.font, Component.translatable("text.stellaris.planetscreen.press_space"), this.width / 2, this.height - 20, 16777212);
+            graphics.drawCenteredString(this.font, Component.translatable("text.stellaris.planetscreen.arrows"), this.width / 2, this.height - 10, 16777212);
 
         }
 
@@ -363,7 +376,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         bodyDescription.add(Utils.getMessageComponent("§f" + bodyToHighlight.getTranslatable().getString()));
         if (!isShiftPressed) {
             bodyDescription.add(Utils.getMessageComponent("§8" + TranslatableRegistry.HOLD_SHIFT.getString()));
-        } else {
+        }
+        else {
             addDetailedDescription(bodyDescription, bodyToHighlight);
         }
         if (isPausePressed) {
@@ -376,9 +390,10 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         Planet planet = PlanetUtil.getPlanet(bodyToHighlight.dimension);
         if (planet == null) {
             bodyDescription.add(Utils.getMessageComponent(error_message.getString(), "Red"));
-        } else {
+        }
+        else {
             bodyDescription.add(Utils.getMessageComponent(temperature.getString() + " : " + planet.temperature() + "°C"));
-            bodyDescription.add(Utils.getMessageComponent(gravity.getString() + " : " + planet.gravity() + "m/s"));
+            bodyDescription.add(Utils.getMessageComponent(gravity.getString() + " : " + planet.gravity() + "m/s²"));
             bodyDescription.add(Utils.getMessageComponent(oxygen.getString() + " : " + planet.oxygen()));
             bodyDescription.add(Utils.getMessageComponent(system.getString() + " : " + Component.translatable(planet.system()).getString()));
 
@@ -419,7 +434,9 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
             Planet planet = PlanetUtil.getPlanet(focusedBody.dimension);
 
-            if (planet == null) return;
+            if (planet == null) {
+                return;
+            }
 
             float CELESTIAL_BODY_TEMPERATURE = planet.temperature();
             float CELESTIAL_BODY_GRAVITY = planet.gravity();
@@ -438,7 +455,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
             if (CELESTIAL_BODY_SYSTEM == null) {
                 systemV = Component.literal(system + " : null");
-            } else {
+            }
+            else {
                 systemTranslatable = Component.translatable(CELESTIAL_BODY_SYSTEM);
                 systemV = Component.literal(system.getString() + " : " + systemTranslatable.getString());
             }
@@ -451,17 +469,21 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
             if (CELESTIAL_BODY_OXYGEN) {
                 oxygenColor = Utils.getColorHexCode("Lime");
-            } else {
+            }
+            else {
                 oxygenColor = Utils.getColorHexCode("Red");
             }
 
             if (CELESTIAL_BODY_TEMPERATURE >= 100) {
                 temperatureColor = Utils.getColorHexCode("DarkRed");
-            } else if (CELESTIAL_BODY_TEMPERATURE >= 0){
+            }
+            else if (CELESTIAL_BODY_TEMPERATURE >= 0) {
                 temperatureColor = Utils.getColorHexCode("Lime");
-            } else if (CELESTIAL_BODY_TEMPERATURE >= -100) {
+            }
+            else if (CELESTIAL_BODY_TEMPERATURE >= -100) {
                 temperatureColor = Utils.getColorHexCode("Cyan");
-            } else {
+            }
+            else {
                 temperatureColor = Utils.getColorHexCode("Blue");
             }
 
@@ -513,10 +535,11 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
                 RenderSystem.setShaderTexture(0, LARGE_MENU_TEXTURE);
                 graphics.blit(LARGE_MENU_TEXTURE, centerX, centerY, 0, 0, menuWidth, menuHeight, menuWidth, menuHeight);
                 launchButton.setButtonTexture(
-                        ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button.png"),
-                        ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button_hovered.png")
+                        guiTexture("util/buttons/launch_button"),
+                        guiTexture("util/buttons/launch_button_hovered")
                 );
-            } else {
+            }
+            else {
                 if (Objects.equals(focusedBody.name, "Earth")) {
                     graphics.drawString(font, gravityV, textX, buttonY + buttonHeight / 4 + 75, Utils.getColorHexCode("White"), true);
 
@@ -527,11 +550,12 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
                     RenderSystem.setShaderTexture(0, LARGE_MENU_TEXTURE);
                     launchButton.setButtonTexture(
-                            ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button.png"),
-                            ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button_hovered.png")
+                            guiTexture("util/buttons/launch_button"),
+                            guiTexture("util/buttons/launch_button_hovered")
                     );
                     graphics.blit(LARGE_MENU_TEXTURE, centerX, centerY, 0, 0, menuWidth, menuHeight, menuWidth, menuHeight);
-                } else {
+                }
+                else {
                     graphics.drawString(font, gravityV, textX, buttonY + buttonHeight / 4 + 75, Utils.getColorHexCode("Orange"), true);
 
                     RenderSystem.enableBlend();
@@ -542,8 +566,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
                     RenderSystem.setShaderTexture(0, LARGE_MENU_TEXTURE_RED);
                     graphics.blit(LARGE_MENU_TEXTURE_RED, centerX, centerY, 0, 0, menuWidth, menuHeight, menuWidth, menuHeight);
                     launchButton.setButtonTexture(
-                            ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/no_launch_button.png"),
-                            ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/no_launch_button_hovered.png")
+                            guiTexture("util/buttons/no_launch_button"),
+                            guiTexture("util/buttons/no_launch_button_hovered")
                     );
                 }
             }
@@ -558,16 +582,19 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
                 if (Math.min((int) focusedBody.width, (int) focusedBody.height) == focusedBody.width) {
                     float rate = focusedBody.height / focusedBody.width;
                     graphics.blit(CELESTIAL_BODY_TEXTURE, centerX + menuWidth - 46, centerY + menuHeight / 2 - 14, 0, 0, 12, (int) (12 * rate), 12, (int) (12 * rate));
-                } else {
+                }
+                else {
                     float rate = focusedBody.width / focusedBody.height;
                     graphics.blit(CELESTIAL_BODY_TEXTURE, centerX + menuWidth - 46, centerY + menuHeight / 2 - 14, 0, 0, (int) (12 * rate), 12, (int) (12 * rate), 12);
                 }
-            } else {
+            }
+            else {
                 graphics.blit(CELESTIAL_BODY_TEXTURE, centerX + menuWidth - 46, centerY + menuHeight / 2 - 14, 0, 0, 12, 12, 12, 12);
             }
 
             RenderSystem.disableBlend();
-        } else {
+        }
+        else {
             launchButton.visible = false;
         }
     }
@@ -583,30 +610,36 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         }
         else if (keyCode == GLFW.GLFW_KEY_H) {
             showHelpMenu = !showHelpMenu;
-        } else if (keyCode == GLFW.GLFW_KEY_SPACE) {
+        }
+        else if (keyCode == GLFW.GLFW_KEY_SPACE) {
             isPausePressed = !isPausePressed;
-        } else if (keyCode == GLFW.GLFW_KEY_LEFT_SHIFT || keyCode == GLFW.GLFW_KEY_RIGHT_SHIFT) {
+        }
+        else if (keyCode == GLFW.GLFW_KEY_LEFT_SHIFT || keyCode == GLFW.GLFW_KEY_RIGHT_SHIFT) {
             isShiftPressed = true;
-        } else if (keyCode == GLFW.GLFW_KEY_RIGHT) {
+        }
+        else if (keyCode == GLFW.GLFW_KEY_RIGHT) {
             if (focusedBody instanceof CelestialBody) {
                 focusedBody = getNextBodyByDistance(focusedBody);
                 centerOnBody(focusedBody);
             }
-        } else if (keyCode == GLFW.GLFW_KEY_LEFT) {
+        }
+        else if (keyCode == GLFW.GLFW_KEY_LEFT) {
             if (focusedBody instanceof CelestialBody) {
                 focusedBody = getPreviousBodyByDistance(focusedBody);
                 centerOnBody(focusedBody);
             }
-        } else if (keyCode == GLFW.GLFW_KEY_DOWN) {
+        }
+        else if (keyCode == GLFW.GLFW_KEY_DOWN) {
             if (focusedBody instanceof PlanetInfo) {
                 var moonToBeFocused = getMoonsByDistance((PlanetInfo) focusedBody);
 
-                if(moonToBeFocused.clickable) {
+                if (moonToBeFocused.clickable) {
                     focusedBody = moonToBeFocused;
                     centerOnBody(focusedBody);
                 }
             }
-        } else if (keyCode == GLFW.GLFW_KEY_UP) {
+        }
+        else if (keyCode == GLFW.GLFW_KEY_UP) {
             if (focusedBody instanceof MoonInfo) {
                 focusedBody = ((MoonInfo) focusedBody).orbitCenter;
                 centerOnBody(focusedBody);
@@ -730,7 +763,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
             long windowHandle = Minecraft.getInstance().getWindow().getWindow();
             prevScrollCallback = GLFW.glfwSetScrollCallback(windowHandle, Minecraft.getInstance().mouseHandler::onScroll);
-        } else {
+        }
+        else {
             Stellaris.LOG.error("Focused body is null");
         }
     }
@@ -822,7 +856,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
         CelestialBody sun = findByNameStar("stellaris:sun");
         if (sun != null) {
             sun.setPosition(centerX, centerY);
-        } else {
+        }
+        else {
             Stellaris.LOG.error("stellaris:sun is null");
         }
         offsetX = 0;
@@ -861,7 +896,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     private void centerOnBody(CelestialBody body) {
         if (isLaunching) {
             zoomLevel = 1.6;
-        } else {
+        }
+        else {
             zoomLevel = 1.0;
         }
         offsetX = ((body.x - width / 2.0)) * -1;
@@ -928,7 +964,8 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
                 }
                 showLargeMenu = false;
                 return true;
-            } else {
+            }
+            else {
                 focusedBody = null;
                 hoveredBody = null;
             }
@@ -964,9 +1001,11 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
                     moon.updatePosition();
                 }
 
-            } else {
+            }
+            else {
                 offsetX += Utils.changeLastDigitToEven((mouseX - lastMouseX) / zoomLevel);
                 offsetY += Utils.changeLastDigitToEven((mouseY - lastMouseY) / zoomLevel);
+                updatePlanetsButton((int) offsetX, (int) offsetY);
                 lastMouseX = mouseX;
                 lastMouseY = mouseY;
             }
@@ -990,7 +1029,6 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
     }
 
 
-
     @Override
     public PlanetSelectionMenu getMenu() {
         return this.menu;
@@ -998,7 +1036,7 @@ public class PlanetSelectionScreen extends AbstractContainerScreen<PlanetSelecti
 
     @Override
     public void onClose() {
-        if(getPlayer().getEntityData().get(EntityData.DATA_PLANET_MENU_OPEN)) {
+        if (getPlayer().stellaris$isPlanetMenuOpen()) {
             return;
         }
         long windowHandle = Minecraft.getInstance().getWindow().getWindow();

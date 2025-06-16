@@ -37,7 +37,8 @@ public class RadioactiveGeneratorEntity extends CoalGeneratorEntity {
                     case 2 -> 9000;
                     default -> 0;
                 };
-            } else {
+            }
+            else {
                 return switch (radiationItem.level()) {
                     case 0 -> 200;
                     case 1 -> 500;

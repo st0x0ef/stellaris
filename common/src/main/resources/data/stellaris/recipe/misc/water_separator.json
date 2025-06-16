@@ -1,18 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "XXX",
+    "XLX",
     "YZY",
     "XXX"
   ],
   "key": {
-    "X": {"tag": "c:storage_blocks/steel"},
+    "X": {"tag": "c:ingots/steel"},
     "Z": {
       "item": "minecraft:water_bucket"
     },
     "Y": {
       "item": "stellaris:oxygen_tank"
-    }
+    },
+    "L": {"item": "minecraft:lapis_lazuli"}
   },
   "result": {
     "id": "stellaris:water_separator"

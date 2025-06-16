@@ -10,6 +10,7 @@ import com.st0x0ef.stellaris.client.renderers.entities.alienzombie.AlienZombieMo
 import com.st0x0ef.stellaris.client.renderers.entities.alienzombie.AlienZombieRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.cheeseboss.CheeseBossModel;
 import com.st0x0ef.stellaris.client.renderers.entities.cheeseboss.CheeseBossRenderer;
+import com.st0x0ef.stellaris.client.renderers.entities.customlightning.CustomLightningBoltRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.martianraptor.MartianRaptorModel;
 import com.st0x0ef.stellaris.client.renderers.entities.martianraptor.MartianRaptorRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.mogler.MoglerModel;
@@ -32,11 +33,11 @@ import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.tiny.TinyR
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.tiny.TinyRocketRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rover.RoverModel;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rover.RoverRenderer;
-import com.st0x0ef.stellaris.client.renderers.entities.customlightning.CustomLightningBoltRenderer;
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeBlockRenderer;
 import com.st0x0ef.stellaris.client.renderers.globe.GlobeModel;
 import com.st0x0ef.stellaris.client.screens.*;
 import com.st0x0ef.stellaris.client.screens.tablet.TabletMainScreen;
+import com.st0x0ef.stellaris.common.effects.SandStormEffect;
 import com.st0x0ef.stellaris.common.entities.vehicles.base.AbstractRoverBase;
 import com.st0x0ef.stellaris.common.registry.*;
 import dev.architectury.event.events.common.TickEvent;
@@ -49,6 +50,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
@@ -56,6 +58,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 
 public class StellarisFabricClient implements ClientModInitializer {
+
     @Override
     public void onInitializeClient() {
         TickEvent.LevelTick.PLAYER_POST.register(instance -> {
@@ -84,6 +87,7 @@ public class StellarisFabricClient implements ClientModInitializer {
         registerEntityRenderer();
         registerEntityModelLayer();
         registerKeyBinding();
+        FogRenderer.MOB_EFFECT_FOG.add(new SandStormEffect.SandStormFogFunction());
     }
 
     public static void registerEntityRenderer() {
@@ -98,7 +102,7 @@ public class StellarisFabricClient implements ClientModInitializer {
 
         EntityRendererRegistry.register(EntityRegistry.ICE_SPIT.get(), renderManager -> new ThrownItemRenderer<>(renderManager, 1, true));
         EntityRendererRegistry.register(EntityRegistry.ICE_SHARD_ARROW.get(), IceShardArrowRenderer::new);
-        EntityRendererRegistry.register(EntityRegistry.VENUS_LIGHTNING_BOLT.get(), CustomLightningBoltRenderer::new);
+        EntityRendererRegistry.register(EntityRegistry.CUSTOM_LIGHTNING_BOLT.get(), CustomLightningBoltRenderer::new);
         EntityRendererRegistry.register(EntityRegistry.TINY_ROCKET.get(), TinyRocketRenderer::new);
         EntityRendererRegistry.register(EntityRegistry.SMALL_ROCKET.get(), SmallRocketRenderer::new);
         EntityRendererRegistry.register(EntityRegistry.NORMAL_ROCKET.get(), NormalRocketRenderer::new);
@@ -115,16 +119,14 @@ public class StellarisFabricClient implements ClientModInitializer {
         BuiltinItemRendererRegistry.INSTANCE.register(ItemsRegistry.MERCURY_GLOBE_ITEM.get(), ItemRendererRegistry.GLOBE_ITEM_RENDERER::renderByItem);
         BuiltinItemRendererRegistry.INSTANCE.register(ItemsRegistry.VENUS_GLOBE_ITEM.get(), ItemRendererRegistry.GLOBE_ITEM_RENDERER::renderByItem);
 
-
         BlockRenderLayerMap.INSTANCE.putBlock(BlocksRegistry.MOON_VINES.get(), RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(BlocksRegistry.MOON_VINES_PLANT.get(), RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(BlocksRegistry.UPGRADE_STATION.get(), RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(BlocksRegistry.WATER_PUMP.get(), RenderType.cutout());
-
-
+        BlockRenderLayerMap.INSTANCE.putBlock(BlocksRegistry.MARS_CROP.get(), RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(BlocksRegistry.MOON_CROPS.get(), RenderType.cutout());
 
         BuiltinItemRendererRegistry.INSTANCE.register(ItemsRegistry.ROVER.get(), ItemRendererRegistry.ROVER_ITEM_RENDERER::renderByItem);
-
     }
 
     public static void registerEntityModelLayer() {
@@ -167,8 +169,7 @@ public class StellarisFabricClient implements ClientModInitializer {
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.PUMPJACK_MENU.get(), PumpjackScreen::new);
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.UPGRADE_STATION_MENU.get(), UpgradeStationScreen::new);
         MenuRegistry.registerScreenFactory(MenuTypesRegistry.TABLET_MENU.get(), TabletMainScreen::new);
-
-
+        MenuRegistry.registerScreenFactory(MenuTypesRegistry.DIESEL_GENERATOR_MENU.get(), DieselGeneratorScreen::new);
     }
 
     public static void registerKeyBinding() {

@@ -27,6 +27,7 @@ public abstract class ArmorRenderMixin extends Item {
     @SuppressWarnings("removal")
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(new IClientItemExtensions() {
+
             private ClientUtilsPlatformImpl.ArmorRenderer renderer;
 
             @SuppressWarnings("unchecked")
@@ -40,7 +41,9 @@ public abstract class ArmorRenderMixin extends Item {
                 if (renderer == null) {
                     renderer = ClientUtilsPlatformImpl.ARMOR_RENDERERS.get(stack.getItem());
                 }
-                if (renderer == null) return original;
+                if (renderer == null) {
+                    return original;
+                }
 
                 ModelPart root = Minecraft.getInstance().getEntityModels().bakeLayer(renderer.layer());
 
@@ -53,7 +56,8 @@ public abstract class ArmorRenderMixin extends Item {
                 if (replacement != original) {
                     uncheckedCopyTo(original, replacement);
                     return replacement;
-                } else {
+                }
+                else {
                     return original;
                 }
             }

@@ -1,28 +1,38 @@
 package com.st0x0ef.stellaris.client.screens;
 
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.config.ConfigEntry;
-import com.st0x0ef.stellaris.common.config.CustomConfig;
+import com.st0x0ef.stellaris.client.screens.components.ConfigList;
+import com.st0x0ef.stellaris.client.screens.components.StateButton;
+import com.st0x0ef.stellaris.common.config.CommonConfig;
+import com.st0x0ef.stellaris.common.config.ConfigManager;
 import dev.architectury.platform.Platform;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.*;
 import net.minecraft.client.gui.components.toasts.SystemToast;
-import net.minecraft.client.gui.layouts.FrameLayout;
-import net.minecraft.client.gui.layouts.GridLayout;
-import net.minecraft.client.gui.layouts.SpacerElement;
+import net.minecraft.client.gui.layouts.HeaderAndFooterLayout;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
+import java.io.Writer;
+import java.lang.reflect.Field;
+import java.nio.file.Files;
 import java.nio.file.Path;
+
 
 @Environment(EnvType.CLIENT)
 public class ConfigScreen extends Screen {
+
+    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/item/engine_fan.png");
     private final Screen parent;
+    public final HeaderAndFooterLayout layout = new HeaderAndFooterLayout(this);
+    protected ConfigList configList;
+
     public ConfigScreen(Screen parent) {
         super(Component.literal("Stellaris Option"));
         this.parent = parent;
@@ -30,31 +40,58 @@ public class ConfigScreen extends Screen {
 
     @Override
     protected void init() {
-        GridLayout gridLayout = new GridLayout();
-        gridLayout.defaultCellSetting().paddingHorizontal(5).paddingBottom(4).alignHorizontallyCenter();
-        GridLayout.RowHelper rowHelper = gridLayout.createRowHelper(2);
+        this.addTitle();
+        this.addFooter();
 
-        CustomConfig.CONFIG.forEach( (string, configEntry) -> {
-            StringWidget widget = new StringWidget(Component.literal(string), this.font);
-            rowHelper.addChild(widget);
-            addTypeWidgets(configEntry, rowHelper, string);
-            rowHelper.addChild(SpacerElement.height(5), 2);
+        configList = this.layout.addToContents(new ConfigList(this.minecraft, this.width, this));
 
-        });
+        Class<? extends CommonConfig> clazz = Stellaris.CONFIG.getClass();
 
-        Button doneButton = Button.builder(CommonComponents.GUI_DONE, (button) -> this.onClose()).width(200).build();
+        addFields(clazz.getFields(), Stellaris.CONFIG, configList, 0);
 
-        rowHelper.addChild(doneButton, 2, rowHelper.newCellSettings().paddingTop(10));
+        this.layout.visitWidgets(this::addRenderableWidget);
+        this.layout.arrangeElements();
+    }
 
-        gridLayout.arrangeElements();
-        FrameLayout.alignInRectangle(gridLayout, 0, this.height / 6 + 10, this.width, this.height , 0.5F, 0.0F);
-        gridLayout.visitWidgets(this::addRenderableWidget);
+    protected void addTitle() {
+        this.layout.addTitleHeader(this.title, this.font);
+    }
+
+    protected void addFooter() {
+        this.layout.addToFooter(Button.builder(CommonComponents.GUI_DONE, (button) -> this.onClose()).width(200).build());
+    }
+
+    private void addFields(Field[] fields, Object object, ConfigList configList, int recursionDepth) {
+        for (Field field : fields) {
+            try {
+                Object value = field.get(object);
+                String name = field.getName();
+
+                if (field.isAnnotationPresent(ConfigManager.InnerConfig.class)) {
+                    configList.addBig(new StringWidget(Component.translatable("config.stellaris." + name).withStyle(ChatFormatting.BOLD), this.font));
+
+                    addFields(field.getType().getFields(), field.get(object),  configList, recursionDepth + 1);
+                    continue;
+                }
+
+                configList.addSmall(new StringWidget(Component.translatable("config.stellaris." + name), this.font), addTypeWidget(field, object, value, Component.translatable("config.stellaris." + name + ".desc")));
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    protected void repositionElements() {
+        this.layout.arrangeElements();
+        if (this.configList != null) {
+            this.configList.updateSize(this.width, this.layout);
+        }
     }
 
     @Override
     public void onClose() {
-        CustomConfig.writeConfigFile("stellaris.json");
-        CustomConfig.loadConfigFile();
+        saveConfig();
         this.playToast(Component.literal("Config Saved"), Component.literal("The Stellaris config has been saved"));
         this.minecraft.setScreen(this.parent);
     }
@@ -62,51 +99,6 @@ public class ConfigScreen extends Screen {
     @Override
     public void render(GuiGraphics guiGraphics, int i, int j, float f) {
         super.render(guiGraphics, i, j, f);
-        guiGraphics.drawCenteredString(this.font, this.title, this.width / 2, 20, -1);
-    }
-
-    public void addTypeWidgets(ConfigEntry<?> entry, GridLayout.RowHelper rowHelper, String entryName) {
-        if(entry.getType() == Boolean.class) {
-            Checkbox checkbox = Checkbox.builder(Component.literal(entry.value().toString()), this.font)
-                    .selected((Boolean) entry.value())
-                    .tooltip(Tooltip.create(Component.literal(entry.description()),null))
-                    .onValueChange((checkbox1, aBoolean) -> CustomConfig.CONFIG.replace(entryName, new ConfigEntry<>(aBoolean, entry.description())))
-                    .build();
-            rowHelper.addChild(checkbox);
-
-        } else if (entry.getType() == String.class ) {
-            EditBox button = new EditBox(this.font, 50, 15, Component.literal(entry.value().toString()));
-            button.setMaxLength(100);
-            button.setTooltip(Tooltip.create(Component.literal(entry.description()),null));
-            button.setValue(entry.value().toString());
-            button.setResponder((string) -> CustomConfig.CONFIG.replace(entryName, new ConfigEntry<>(string, entry.description())));
-            rowHelper.addChild(button);
-
-        } else if (entry.getType() == Integer.class || entry.getType() == Double.class || entry.getType() == Float.class || entry.getType() == Long.class){
-            EditBox button = new EditBox(this.font, 50, 15, Component.literal(entry.value().toString()));
-            button.setMaxLength(100);
-            button.setValue(entry.value().toString());
-            button.setTooltip(Tooltip.create(Component.literal(entry.description()),null));
-
-            button.setResponder((string) -> {
-                int foo;
-                try {
-                    foo = Integer.parseInt(string);
-
-                } catch (NumberFormatException e) {
-                    foo = 0;
-                }
-
-                CustomConfig.CONFIG.replace(entryName, new ConfigEntry<>(foo, entry.description()));
-
-            });
-            rowHelper.addChild(button);
-
-        } else {
-            SpriteIconButton spriteIconButton = stellarisConfigButton(20);
-            spriteIconButton.setTooltip(Tooltip.create(Component.literal("This config type is not supported. Use the manual config"), null));
-            rowHelper.addChild(spriteIconButton);
-        }
     }
 
     @Override
@@ -120,13 +112,62 @@ public class ConfigScreen extends Screen {
                 title,
                 description
         ));
+    }
 
+    private AbstractWidget addTypeWidget(Field field, Object configInstance, Object value, Component description) {
+        String fieldName = field.getName();
+
+        if (value instanceof Boolean boolVal) {
+
+            StateButton button = new StateButton(0, 0, 150, 20, Component.literal("StateButton"), boolVal);
+            button.setTooltip(Tooltip.create(description));
+            return button;
+        }
+
+        else if (value instanceof Number || value instanceof String) {
+            EditBox editBox = new EditBox(this.font, 100, 15, Component.literal(fieldName));
+            editBox.setTooltip(Tooltip.create(description));
+            editBox.setValue(value.toString());
+
+            editBox.setResponder(str -> {
+                try {
+                    Object converted = convertValue(str, field.getType());
+                    field.set(configInstance, converted);
+                } catch (Exception ignored) {}
+            });
+            return editBox;
+        } else {
+            SpriteIconButton unsupported = stellarisConfigButton(20);
+            unsupported.setTooltip(Tooltip.create(Component.literal("Unsupported field type")));
+            return unsupported;
+        }
+    }
+
+    private Object convertValue(String str, Class<?> type) {
+        return switch (type.getSimpleName()) {
+            case "int", "Integer" -> Integer.parseInt(str);
+            case "long", "Long" -> Long.parseLong(str);
+            case "double", "Double" -> Double.parseDouble(str);
+            case "float", "Float" -> Float.parseFloat(str);
+            default -> str;
+        };
+    }
+
+    private void saveConfig() {
+        Path configPath = Platform.getConfigFolder().resolve("stellaris-config.json");
+
+        try (Writer writer = Files.newBufferedWriter(configPath)) {
+            Stellaris.GSON.toJson(Stellaris.CONFIG, CommonConfig.class, writer);
+        } catch (Exception e) {
+            e.printStackTrace();
+            playToast(Component.literal("Config Error"), Component.literal("Failed to save Stellaris config"));
+        }
     }
 
     private SpriteIconButton stellarisConfigButton(int i) {
         return SpriteIconButton.builder(Component.literal("Config"), (button) -> {
             Path path = Path.of(Platform.getConfigFolder() + "/stellaris.json");
             Util.getPlatform().openUri(path.toUri());
-        }, true).width(i).sprite(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/item/engine_fan.png"), 16, 16).build();
+        }, true).width(i).sprite(TEXTURE, 16, 16).build();
     }
 }

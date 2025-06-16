@@ -26,12 +26,14 @@ public class WaterPumpBlockEntity extends BaseEnergyBlockEntity implements Fluid
 
     private static final int NEEDED_ENERGY = 100;
     private final SingleFluidStorage waterTank = new SingleFluidStorage(1000) {
+
         @Override
         protected void onChange() {
             setChanged();
-            if (level != null && level.getServer() != null && !level.getServer().getPlayerList().getPlayers().isEmpty())
+            if (level != null && level.getServer() != null && !level.getServer().getPlayerList().getPlayers().isEmpty()) {
                 NetworkManager.sendToPlayers(level.getServer().getPlayerList().getPlayers(),
                         new SyncFluidPacketWithoutDirection(new FluidAmountMapDataComponent(List.of(getFluidInTank(0).getFluid()), List.of(getFluidValueInTank())), 0, getBlockPos()));
+            }
 
         }
     };
@@ -42,8 +44,12 @@ public class WaterPumpBlockEntity extends BaseEnergyBlockEntity implements Fluid
 
     @Override
     public void tick() {
-        if (level == null) return;
-        if (energyContainer.getEnergy() < NEEDED_ENERGY) return;
+        if (level == null) {
+            return;
+        }
+        if (energyContainer.getEnergy() < NEEDED_ENERGY) {
+            return;
+        }
 
         BlockPos belowPos = worldPosition.below();
         FluidState belowFluidState = level.getFluidState(belowPos);

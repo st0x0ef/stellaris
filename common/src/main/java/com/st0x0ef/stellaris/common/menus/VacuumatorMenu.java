@@ -23,7 +23,7 @@ public class VacuumatorMenu extends AbstractContainerMenu {
     private VacuumatorBlockEntity entity;
 
     public VacuumatorMenu(int syncId, Inventory inventory, FriendlyByteBuf buffer) {
-        this(syncId, inventory, new SimpleContainer(5),(VacuumatorBlockEntity) inventory.player.level().getBlockEntity(buffer.readBlockPos()));
+        this(syncId, inventory, new SimpleContainer(5), (VacuumatorBlockEntity) inventory.player.level().getBlockEntity(buffer.readBlockPos()));
     }
 
     public VacuumatorMenu(int syncId, Inventory inventory, Container container, VacuumatorBlockEntity entity) {

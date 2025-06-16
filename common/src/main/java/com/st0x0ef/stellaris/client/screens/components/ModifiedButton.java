@@ -15,7 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class ModifiedButton extends TexturedButton{
+public class ModifiedButton extends TexturedButton {
+
     private final ColorTypes colorType;
 
     private final boolean rocketCondition;

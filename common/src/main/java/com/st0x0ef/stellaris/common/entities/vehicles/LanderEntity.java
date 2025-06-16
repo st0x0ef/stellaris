@@ -29,6 +29,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 public class LanderEntity extends IVehicleEntity implements HasCustomInventoryScreen {
+
     protected SimpleContainer inventory;
 
     public LanderEntity(Level level) {
@@ -57,7 +58,7 @@ public class LanderEntity extends IVehicleEntity implements HasCustomInventorySc
 
     @Override
     public Vec3 getPassengerRidingPosition(Entity entity) {
-        return this.position().add(this.getPassengerAttachmentPoint(entity, getDimensions(this.getPose()),1.0F)).add(0d,2d,0d);
+        return this.position().add(this.getPassengerAttachmentPoint(entity, getDimensions(this.getPose()), 1.0F)).add(0d, 2d, 0d);
     }
 
     @Override
@@ -179,6 +180,7 @@ public class LanderEntity extends IVehicleEntity implements HasCustomInventorySc
     @Override
     public void openCustomInventoryScreen(Player player) {
         MenuRegistry.openExtendedMenu((ServerPlayer) player, new ExtendedMenuProvider() {
+
             @Override
             public void saveExtraData(FriendlyByteBuf buf) {
 

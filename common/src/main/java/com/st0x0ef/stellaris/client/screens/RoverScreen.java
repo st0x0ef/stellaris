@@ -1,7 +1,6 @@
 package com.st0x0ef.stellaris.client.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.components.GaugeWidget;
 import com.st0x0ef.stellaris.common.entities.vehicles.RoverEntity;
 import com.st0x0ef.stellaris.common.menus.RoverMenu;
@@ -15,9 +14,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
+import static com.st0x0ef.stellaris.Stellaris.guiTexture;
+
 @Environment(value = EnvType.CLIENT)
-public class RoverScreen  extends AbstractContainerScreen<RoverMenu> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/rover.png");
+public class RoverScreen extends AbstractContainerScreen<RoverMenu> {
+
+    private static final ResourceLocation TEXTURE = guiTexture("rover");
 
     private final RoverEntity rover = getMenu().getRover();
     private GaugeWidget fuelGauge;

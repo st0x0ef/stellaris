@@ -24,7 +24,7 @@ public class OilFinderModule extends Item implements SpaceSuitModule {
     @Override
     public void tick(ItemStack stack, Level level, Player player) {
         SpaceSuitModule.super.tick(stack, level, player);
-        if(!level.isClientSide) {
+        if (!level.isClientSide) {
             this.oilLevel = level.getChunk(player.blockPosition()).stellaris$getChunkOilLevel();
         }
     }
@@ -43,7 +43,7 @@ public class OilFinderModule extends Item implements SpaceSuitModule {
 
     @Override
     public void addToTooltips(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        tooltipComponents.add(Component.translatable("spacesuit.stellaris.oil_finder.tooltip"));
+        tooltipComponents.add(Component.translatable("spacesuit.stellaris.oil_finder"));
     }
 
 }

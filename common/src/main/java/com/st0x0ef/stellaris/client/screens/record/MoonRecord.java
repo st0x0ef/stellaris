@@ -12,7 +12,8 @@ import java.util.Optional;
 public record MoonRecord(
         ResourceLocation texture, String name,
         float distance, long period, float width,
-        float height, String parent, ResourceKey<Level> dimensionId, String translatable, String id, Optional<Boolean> clickable) {
+        float height, String parent, ResourceKey<Level> dimensionId, String translatable, String id,
+        Optional<Boolean> clickable) {
 
 
     public static final Codec<MoonRecord> CODEC = RecordCodecBuilder.create(instance -> instance.group(

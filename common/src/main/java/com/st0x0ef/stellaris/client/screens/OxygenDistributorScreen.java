@@ -1,14 +1,12 @@
 package com.st0x0ef.stellaris.client.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.components.GaugeWidget;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.OxygenDistributorBlockEntity;
 import com.st0x0ef.stellaris.common.menus.OxygenDistributorMenu;
 import com.st0x0ef.stellaris.common.utils.capabilities.fluid.SingleFluidStorage;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -16,10 +14,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
+import static com.st0x0ef.stellaris.Stellaris.guiTexture;
+
 @Environment(EnvType.CLIENT)
 public class OxygenDistributorScreen extends AbstractContainerScreen<OxygenDistributorMenu> {
 
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/oxygen_distributor.png");
+    private static final ResourceLocation TEXTURE = guiTexture("oxygen_distributor");
 
     private final OxygenDistributorBlockEntity blockEntity = getMenu().getBlockEntity();
     private GaugeWidget energyGauge;
@@ -27,13 +27,8 @@ public class OxygenDistributorScreen extends AbstractContainerScreen<OxygenDistr
 
     public OxygenDistributorScreen(OxygenDistributorMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
-
         imageWidth = 180;
         imageHeight = 188;
-
-        titleLabelX = (180 - Minecraft.getInstance().font.width(title.getString())) / 2;
-        titleLabelY = 4;
-
         inventoryLabelY = imageHeight - 92;
     }
 
@@ -41,13 +36,15 @@ public class OxygenDistributorScreen extends AbstractContainerScreen<OxygenDistr
     protected void init() {
         super.init();
 
-        if (blockEntity == null) return;
+        if (blockEntity == null) {
+            return;
+        }
 
         energyGauge = new GaugeWidget(leftPos + 67, topPos + 15, 46, 15, Component.translatable("stellaris.screen.energyContainer"), GUISprites.SIDEWAYS_ENERGY_FULL, GUISprites.SIDEWAYS_BATTERY_OVERLAY, blockEntity.getEnergy(null).getMaxEnergy(), GaugeWidget.Direction4.LEFT_RIGHT);
         addRenderableWidget(energyGauge);
 
         SingleFluidStorage oxygenTank = blockEntity.oxygenTank;
-        energyGauge = new GaugeWidget(leftPos + 68, topPos + 20, 44, 6, Component.translatable("stellaris.screen.energyContainer"), GUISprites.SIDEWAYS_ENERGY_FULL, null, blockEntity.getEnergy(null).getMaxEnergy(), GaugeWidget.Direction4.LEFT_RIGHT);
+        oxygenGauge = new GaugeWidget(leftPos + 64, topPos + 52, 16, 18, Component.translatable("stellaris.screen.oxygen"), GUISprites.NO_OVERLAY, GUISprites.NO_OVERLAY, oxygenTank.getTankCapacity(0), GaugeWidget.Direction4.DOWN_UP);
         addRenderableWidget(oxygenGauge);
 
     }
