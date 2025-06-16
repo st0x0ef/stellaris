@@ -32,6 +32,9 @@ import java.util.function.Consumer;
 
 public class PlanetUtil {
 
+    public static final ResourceLocation TEXTURE = ResourceLocationUtils.texture("planet_bar/earth_planet_bar");
+
+
     public static final Component temperature = Component.translatable("text.stellaris.planetscreen.temperature");
     public static final Component gravity = Component.translatable("text.stellaris.planetscreen.gravity");
     public static final Component launch = Component.translatable("text.stellaris.planetscreen.launch");

@@ -6,7 +6,6 @@ import com.st0x0ef.stellaris.common.oxygen.GlobalOxygenManager;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.client.DeltaTracker;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.core.BlockPos;
@@ -21,7 +20,6 @@ public class OxygenOverlay {
     public static LivingEntity livingEntity;
     public static BlockPos blockPos;
            public static void render(GuiGraphics graphic, DeltaTracker deltaTracker) {
-               Minecraft minecraft = Minecraft.getInstance();
                if (livingEntity != null && !livingEntity.level().isClientSide()) {
                    if (!GlobalOxygenManager.getInstance().getOrCreateDimensionManager((ServerLevel) livingEntity.level()).breath(livingEntity)) {
                        if (!PlanetUtil.hasOxygenAt(serverLevel, blockPos) && !Utils.isLivingInJetSuit(livingEntity) && !Utils.isLivingInSpaceSuit(livingEntity)) {

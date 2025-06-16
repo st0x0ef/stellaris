@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.client.renderers.entities.pygro;
 
 import com.st0x0ef.stellaris.common.entities.mobs.pygro.Pygro;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.geom.EntityModelSet;
@@ -10,12 +11,10 @@ import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Mob;
 
-import static com.st0x0ef.stellaris.Stellaris.texture;
-
 @Environment(EnvType.CLIENT)
 public class PygroRenderer extends HumanoidMobRenderer<Pygro, PygroModel<Pygro>> {
 
-    public static final ResourceLocation TEXTURE = texture("entity/pygro");
+    public static final ResourceLocation TEXTURE = ResourceLocationUtils.texture("entity/pygro");
 
     public PygroRenderer(EntityRendererProvider.Context context) {
         super(context, new PygroModel<>(context.bakeLayer(PygroModel.LAYER_LOCATION)), 0.5f);

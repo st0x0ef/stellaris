@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.client.screens.components;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
 import com.st0x0ef.stellaris.client.screens.tablet.TabletEntry;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -18,13 +19,11 @@ import org.jetbrains.annotations.Nullable;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
-import static com.st0x0ef.stellaris.Stellaris.guiTexture;
-
 @Environment(EnvType.CLIENT)
 public class TabletButton extends Button {
 
-    public static final ResourceLocation TEXTURE = guiTexture("util/buttons/button");
-    public static final ResourceLocation HOVER_TEXTURE = guiTexture("util/buttons/button");
+    public static final ResourceLocation TEXTURE = ResourceLocationUtils.guiTexture("util/buttons/button");
+    public static final ResourceLocation HOVER_TEXTURE = ResourceLocationUtils.guiTexture("util/buttons/button");
     private ResourceLocation buttonTexture;
     private ResourceLocation hoverButtonTexture;
 
@@ -35,18 +34,18 @@ public class TabletButton extends Button {
 
     private int textureWidth;
     private int textureHeight;
-    private TabletEntry.Info info;
+    private TabletEntry.ItemInfo info;
 
-    public TabletButton(int xIn, int yIn, int widthIn, int heightIn, OnPress onPressIn, TabletEntry.Info info) {
+    public TabletButton(int xIn, int yIn, int widthIn, int heightIn, OnPress onPressIn, TabletEntry.ItemInfo info) {
         this(xIn, yIn, widthIn, heightIn, Component.empty(), onPressIn, DEFAULT_NARRATION, info);
     }
 
-    public TabletButton(int xIn, int yIn, int widthIn, int heightIn, Component title, OnPress onPressIn, TabletEntry.Info info) {
+    public TabletButton(int xIn, int yIn, int widthIn, int heightIn, Component title, OnPress onPressIn, TabletEntry.ItemInfo info) {
         this(xIn, yIn, widthIn, heightIn, title, onPressIn, DEFAULT_NARRATION, info);
     }
 
     public TabletButton(int xIn, int yIn, int widthIn, int heightIn, Component title, OnPress onPressIn,
-                        CreateNarration onTooltipIn, TabletEntry.Info info) {
+                        CreateNarration onTooltipIn, TabletEntry.ItemInfo info) {
         super(xIn, yIn, widthIn, heightIn, title, onPressIn, onTooltipIn);
         this.textureWidth = widthIn;
         this.textureHeight = heightIn;
@@ -60,13 +59,13 @@ public class TabletButton extends Button {
     }
 
     public void setTooltip() {
-        switch (info.type()) {
+        switch (info.iconType()) {
             case "item":
-                info.item().ifPresent((item) -> this.tooltip(Tooltip.create(item.stack().getDisplayName())));
+                info.components().stream().filter((c) -> c.type().equals("item")).toList().getFirst();
                 break;
             case "entity":
-                info.entity().ifPresent((entity) -> {
-                    Entity entity1 = ScreenHelper.createEntity(Minecraft.getInstance().level, entity.entity());
+                info.components().stream().filter((c) -> c.type().equals("entity")).findFirst().ifPresent((entity) -> {
+                    Entity entity1 = ScreenHelper.createEntity(Minecraft.getInstance().level, entity.entity().get().entity());
                     this.tooltip(Tooltip.create(entity1.getDisplayName()));
                 });
         }
@@ -128,13 +127,13 @@ public class TabletButton extends Button {
                 this.width, this.height, this.textureWidth, this.textureHeight, this.getTypeColor());
 
         /** FONT RENDERER */
-        switch (info.type()) {
+        switch (info.iconType()) {
             case "item":
-                info.item().ifPresent((item) -> ScreenHelper.renderItemWithCustomSize(graphics, minecraft, item.stack(), this.getX(), this.getY(), this.width));
+                info.components().stream().filter((c) -> c.type().equals("item")).findFirst().ifPresent((item) -> ScreenHelper.renderItemWithCustomSize(graphics, minecraft, item.item().get().stack(), this.getX(), this.getY(), this.width));;
                 break;
             case "entity":
-                info.entity().ifPresent((entity) -> {
-                    Entity entity1 = ScreenHelper.createEntity(Minecraft.getInstance().level, entity.entity());
+                info.components().stream().filter((c) -> c.type().equals("entity")).findFirst().ifPresent((entity) -> {
+                    Entity entity1 = ScreenHelper.createEntity(Minecraft.getInstance().level, entity.entity().get().entity());
                     ScreenHelper.renderEntityInInventory(graphics, this.getX(), this.getY(), 7, new Vector3f(1.5f, 2.5f, 0), new Quaternionf(-1, 0, 0, 0), null, entity1);
                 });
         }

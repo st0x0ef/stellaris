@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.ToNumberPolicy;
 import com.st0x0ef.stellaris.common.config.CommonConfig;
 import com.st0x0ef.stellaris.common.config.ConfigManager;
-import com.st0x0ef.stellaris.common.data.recipes.SpaceStationRecipesManager;
 import com.st0x0ef.stellaris.common.data.screen.TabletPack;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
 import com.st0x0ef.stellaris.common.data.screen.MoonPack;
@@ -14,11 +13,9 @@ import com.st0x0ef.stellaris.common.data.screen.StarPack;
 import com.st0x0ef.stellaris.common.events.Events;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import com.st0x0ef.stellaris.common.network.packets.SyncPlanetsDatapackPacket;
-import com.st0x0ef.stellaris.common.network.packets.SyncSpaceStationDatapackPacket;
 import com.st0x0ef.stellaris.common.registry.*;
 import dev.architectury.networking.NetworkManager;
 import dev.architectury.registry.ReloadListenerRegistry;
-import net.minecraft.commands.synchronization.ArgumentTypeInfos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
@@ -29,10 +26,12 @@ import org.slf4j.LoggerFactory;
 import java.util.function.BiConsumer;
 
 public class Stellaris {
+
     public static final String MODID = "stellaris";
     public static final Logger LOG = LoggerFactory.getLogger("Stellaris");
     public static final Gson GSON = new GsonBuilder()
             .setPrettyPrinting()
+            .setLenient()
             .setObjectToNumberStrategy(ToNumberPolicy.LONG_OR_DOUBLE)
             .create();
     public static CommonConfig CONFIG;
@@ -40,7 +39,6 @@ public class Stellaris {
     public static void init() {
         NetworkRegistry.init();
         CONFIG = ConfigManager.loadOrGenerateDefaults();
-
 
         ProcessorsRegistry.STRUCTURE_PROCESSORS.register();
         SoundRegistry.SOUNDS.register();
@@ -63,28 +61,8 @@ public class Stellaris {
         RecipesRegistry.register();
         EntityRegistry.registerSpawnPlacements();
         EffectsRegistry.register();
+
         ReloadListenerRegistry.register(PackType.SERVER_DATA, new StellarisData());
-    }
-
-    public static void onDatapackSyncEvent(ServerPlayer player, boolean joined) {
-        if (joined) {
-            NetworkManager.sendToPlayer(player, new SyncPlanetsDatapackPacket(StellarisData.getPlanets()));
-            NetworkManager.sendToPlayer(player, new SyncSpaceStationDatapackPacket(SpaceStationRecipesManager.getSpaceStationRecipes()));
-
-        }
-    }
-
-    public static void onAddReloadListenerEvent(BiConsumer<ResourceLocation, PreparableReloadListener> registry) {
-        registry.accept(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "planets"), new StellarisData());
-        registry.accept(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "space_stations"), new SpaceStationRecipesManager());
-    }
-
-    public static void onAddReloadClientListenerEvent(BiConsumer<ResourceLocation, PreparableReloadListener> registry) {
-        registry.accept(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "stars_pack"), new StarPack());
-        registry.accept(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "planets_pack"), new PlanetPack());
-        registry.accept(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "moon_packs"), new MoonPack());
-        registry.accept(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "tablet_pack"), new TabletPack());
-
     }
 
     public static ResourceLocation texture(String path) {
@@ -99,4 +77,39 @@ public class Stellaris {
     public static ResourceLocation id(String path) {
         return ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, path);
     }
+
+    public static void onDatapackSyncEvent(ServerPlayer player, boolean joined) {
+        if (joined) {
+            NetworkManager.sendToPlayer(player, new SyncPlanetsDatapackPacket(StellarisData.getPlanets()));
+            NetworkManager.sendToPlayer(player, new SyncSpaceStationDatapackPacket(SpaceStationRecipesManager.getSpaceStationRecipes()));
+
+        }
+    }
+
+    public static void onAddReloadListenerEvent(BiConsumer<ResourceLocation, PreparableReloadListener> registry) {
+        registry.accept(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "planets"), new StellarisData());
+        registry.accept(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "space_stations"), new SpaceStationRecipesManager());
+
+    }
+
+    public static void onAddReloadClientListenerEvent(BiConsumer<ResourceLocation, PreparableReloadListener> registry) {
+        registry.accept(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "stars_pack"), new StarPack());
+        registry.accept(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "planets_pack"), new PlanetPack());
+        registry.accept(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "moon_packs"), new MoonPack());
+        registry.accept(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "tablet_pack"), new TabletPack());
+    }
+
+    public static ResourceLocation texture(String path) {
+        return id("textures/" + path + ".png");
+    }
+
+    public static ResourceLocation guiTexture(String path) {
+        return texture("gui/" + path);
+    }
+
+
+    public static ResourceLocation id(String path) {
+        return ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, path);
+    }
+
 }

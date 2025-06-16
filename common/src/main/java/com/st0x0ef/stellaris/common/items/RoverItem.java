@@ -74,11 +74,11 @@ public class RoverItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        RoverComponent rocketComponent = stack.get(DataComponentsRegistry.ROVER_COMPONENT.get());
-        if (rocketComponent == null) {
+        RoverComponent roverComponent = stack.get(DataComponentsRegistry.ROVER_COMPONENT.get());
+        if (roverComponent == null) {
             return;
         }
-        tooltipComponents.add(Component.translatable("tooltip.item.stellaris.rocket.fuel", rocketComponent.fuel()).withStyle(ChatFormatting.GRAY));
+        tooltipComponents.add(Component.translatable("tooltip.item.stellaris.diesel", roverComponent.fuel()).withStyle(ChatFormatting.GRAY));
     }
 
 

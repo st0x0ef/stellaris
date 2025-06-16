@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.common.compats.rei;
 
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.registry.BlocksRegistry;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.Renderer;
@@ -17,11 +18,9 @@ import net.minecraft.resources.ResourceLocation;
 import java.util.LinkedList;
 import java.util.List;
 
-import static com.st0x0ef.stellaris.Stellaris.guiTexture;
-
 public class RocketStationCategory implements DisplayCategory<BasicDisplay> {
 
-    public static final ResourceLocation TEXTURE = guiTexture("compats/rocket_station");
+    public static final ResourceLocation TEXTURE = ResourceLocationUtils.guiTexture("compats/rocket_station");
     public static final CategoryIdentifier<RocketStationDisplay> ROCKET_CRAFTING = CategoryIdentifier.of(Stellaris.MODID, "rocket_crafting");
 
     @Override

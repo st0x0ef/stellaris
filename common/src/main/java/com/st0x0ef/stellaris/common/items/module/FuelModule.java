@@ -46,7 +46,7 @@ public class FuelModule extends Item implements SpaceSuitModule {
         if (storage == null) {
             return;
         }
-        tooltipComponents.add(Component.translatable("jetsuit.stellaris.fuel", storage.getFluidInTank(0).getAmount()).append(" §r/§8 " + storage.getTankCapacity(0)));
+        tooltipComponents.add(Component.translatable("tooltip.item.stellaris.diesel", storage.getFluidInTank(1).getAmount()).append(" §r/§8 " + storage.getTankCapacity(1)));
     }
 
 }

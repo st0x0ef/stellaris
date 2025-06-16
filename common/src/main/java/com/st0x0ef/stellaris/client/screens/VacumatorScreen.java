@@ -4,8 +4,10 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.client.screens.components.GaugeWidget;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.VacuumatorBlockEntity;
 import com.st0x0ef.stellaris.common.menus.VacuumatorMenu;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -13,12 +15,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
-import static com.st0x0ef.stellaris.Stellaris.guiTexture;
-
 @Environment(EnvType.CLIENT)
 public class VacumatorScreen extends AbstractContainerScreen<VacuumatorMenu> {
 
-    public static final ResourceLocation texture = guiTexture("vacuumator");
+    public static final ResourceLocation texture = ResourceLocationUtils.guiTexture("vacuumator");
 
     private final VacuumatorBlockEntity blockEntity = getMenu().getBlockEntity();
     private GaugeWidget energyGauge;
@@ -27,7 +27,9 @@ public class VacumatorScreen extends AbstractContainerScreen<VacuumatorMenu> {
         super(abstractContainerMenu, inventory, component);
         this.imageWidth = 180;
         this.imageHeight = 188;
-        this.inventoryLabelY = this.imageHeight - 95;
+
+        titleLabelX = (180 - Minecraft.getInstance().font.width(title.getString())) / 2;
+        titleLabelY = 2;
     }
 
     @Override
@@ -38,8 +40,8 @@ public class VacumatorScreen extends AbstractContainerScreen<VacuumatorMenu> {
             return;
         }
 
-        energyGauge = new GaugeWidget(leftPos + 67, topPos + 15, 46, 15, Component.translatable("stellaris.screen.energyContainer"),
-                GUISprites.SIDEWAYS_ENERGY_FULL, GUISprites.SIDEWAYS_BATTERY_OVERLAY, blockEntity.getEnergy(null).getMaxEnergy(), GaugeWidget.Direction4.LEFT_RIGHT);
+        energyGauge = new GaugeWidget(leftPos + 68, topPos + 20, 44, 6, Component.translatable("stellaris.screen.energyContainer"),
+                GUISprites.SIDEWAYS_ENERGY_FULL, null, blockEntity.getEnergy(null).getMaxEnergy(), GaugeWidget.Direction4.LEFT_RIGHT);
         addRenderableWidget(energyGauge);
     }
 
@@ -68,5 +70,10 @@ public class VacumatorScreen extends AbstractContainerScreen<VacuumatorMenu> {
     protected void renderTooltip(GuiGraphics guiGraphics, int x, int y) {
         super.renderTooltip(guiGraphics, x, y);
         energyGauge.renderTooltip(guiGraphics, x, y, font);
+    }
+
+    @Override
+    protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+        guiGraphics.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 5726575, false);
     }
 }

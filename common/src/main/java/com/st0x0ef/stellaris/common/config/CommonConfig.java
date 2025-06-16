@@ -7,6 +7,8 @@ public class CommonConfig {
 
     public float oxygenDamage = 2f;
 
+    public int dieselGeneratorFuelTime = 20;
+
     @ConfigManager.InnerConfig
     public Oil oilConfig = new Oil();
 

@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.common.effects;
 
 import com.st0x0ef.stellaris.common.registry.EffectsRegistry;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.FogRenderer;
@@ -12,11 +13,9 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 
-import static com.st0x0ef.stellaris.Stellaris.texture;
-
 public class SandStormEffect extends MobEffect {
 
-    public static ResourceLocation SANDSTORM_OVERLAY = texture("overlay/sandstorm_overlay");
+    public static ResourceLocation SANDSTORM_OVERLAY = ResourceLocationUtils.texture("overlay/sandstorm_overlay");
 
     public SandStormEffect(MobEffectCategory mobEffectCategory, int color) {
         super(mobEffectCategory, color);

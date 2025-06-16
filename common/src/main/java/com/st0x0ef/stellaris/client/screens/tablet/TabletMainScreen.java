@@ -5,6 +5,7 @@ import com.st0x0ef.stellaris.client.screens.components.TexturedButton;
 import com.st0x0ef.stellaris.common.menus.TabletMenu;
 import com.st0x0ef.stellaris.common.registry.StatsRegistry;
 import com.st0x0ef.stellaris.common.registry.TagRegistry;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -24,15 +25,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static com.st0x0ef.stellaris.Stellaris.guiTexture;
-
 public class TabletMainScreen extends AbstractContainerScreen<TabletMenu> {
 
-    public static final ResourceLocation BACKGROUND = guiTexture("tablet/tablet_background");
-    public static final ResourceLocation MAIN_PAGE_TEXTURE = guiTexture("tablet/main_page");
-    public static final ResourceLocation MAIN_PAGE_HOVER_TEXTURE = guiTexture("tablet/main_page_hover");
+    public static final ResourceLocation BACKGROUND = ResourceLocationUtils.guiTexture("tablet/tablet_background");
+    public static final ResourceLocation MAIN_PAGE_TEXTURE = ResourceLocationUtils.guiTexture("tablet/main_page");
+    public static final ResourceLocation MAIN_PAGE_HOVER_TEXTURE = ResourceLocationUtils.guiTexture("tablet/main_page_hover");
     public static Map<String, TabletEntry> ENTRIES = new HashMap<>();
-    public static Map<ResourceLocation, TabletEntry.Info> INFOS = new HashMap<>();
+    public static Map<ResourceLocation, TabletEntry.ItemInfo> INFOS = new HashMap<>();
     public List<Component> STATS = new ArrayList<>();
     public ResourceLocation directEntry = null;
 
@@ -68,7 +67,7 @@ public class TabletMainScreen extends AbstractContainerScreen<TabletMenu> {
         AtomicInteger column = new AtomicInteger(0);
         BUTTONS.clear();
         ENTRIES.forEach((id, entry) -> {
-            TexturedButton button = new TexturedButton(this.leftPos + 61 + (column.get() * 28), this.topPos + 134, 18, 18, Component.translatable(entry.id()), (button1) -> this.minecraft.setScreen(new TabletEntryScreen(Component.translatable(entry.id()), this, this.leftPos, this.topPos, entry))).tex(entry.icon(), entry.hoverIcon()).tooltip(Tooltip.create(Component.translatable(entry.id())));
+            TexturedButton button = new TexturedButton(this.leftPos + 61 + (column.get() * 28), this.topPos + 129, 18, 18, Component.translatable(entry.id()), (button1) -> this.minecraft.setScreen(new TabletEntryScreen(Component.translatable(entry.id()), this, this.leftPos, this.topPos, entry))).tex(entry.icon(), entry.hoverIcon()).tooltip(Tooltip.create(Component.translatable(entry.id())));
 
             column.getAndIncrement();
 
@@ -76,7 +75,7 @@ public class TabletMainScreen extends AbstractContainerScreen<TabletMenu> {
             this.addRenderableWidget(button);
 
             if (BUTTONS.size() == 2) {
-                TexturedButton homeButton = new TexturedButton(this.leftPos + 61 + (column.get() * 28), this.topPos + 134, 18, 18, Component.translatable(entry.id()), (button1) -> this.minecraft.setScreen(this))
+                TexturedButton homeButton = new TexturedButton(this.leftPos + 61 + (column.get() * 28), this.topPos + 129, 18, 18, Component.translatable(entry.id()), (button1) -> this.minecraft.setScreen(this))
                         .tex(MAIN_PAGE_TEXTURE, MAIN_PAGE_HOVER_TEXTURE)
                         .tooltip(Tooltip.create(Component.literal("Home")));
                 BUTTONS.add(homeButton);
@@ -126,7 +125,7 @@ public class TabletMainScreen extends AbstractContainerScreen<TabletMenu> {
     public void openEntry(ResourceLocation location) {
         if (INFOS.containsKey(location) && this.minecraft != null) {
             TabletEntry entry = ENTRIES.get(location.getNamespace());
-            TabletEntry.Info info = INFOS.get(location);
+            TabletEntry.ItemInfo info = INFOS.get(location);
             this.minecraft.setScreen(new TabletEntryScreen(Component.translatable(entry.id()), this, this.leftPos, this.topPos, entry));
             if (this.minecraft != null && this.minecraft.screen instanceof TabletEntryScreen screen) {
                 screen.changeInfo(info);
