@@ -69,8 +69,6 @@ public class TabletEntryWidget extends AbstractScrollWidget {
         guiGraphics.drawCenteredString(getFont(), info.title(), this.baseScreenWidth / 2,
                 getY() + finalHeight.get() + 20, Utils.getColorHexCode("white"));
 
-        Stellaris.LOG.error("components: {}", info.components().size());
-
         for(TabletEntry.InfoComponent component : info.components()) {
 
             switch (component.type()) {
