@@ -33,7 +33,6 @@ public class WaterSeparatorScreen extends AbstractContainerScreen<WaterSeparator
         super(menu, playerInventory, title);
         imageWidth = 180;
         imageHeight = 224;
-        inventoryLabelY = imageHeight - 92;
 
         titleLabelX = (180 - Minecraft.getInstance().font.width(title.getString())) / 2;
         titleLabelY = 2;

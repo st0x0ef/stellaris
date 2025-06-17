@@ -26,7 +26,6 @@ public class DieselGeneratorScreen extends AbstractContainerScreen<DieselGenerat
         super(menu, playerInventory, title);
         imageWidth = 180;
         imageHeight = 188;
-        inventoryLabelY = imageHeight - 92;
 
         titleLabelX = (180 - Minecraft.getInstance().font.width(title.getString())) / 2;
         titleLabelY = 2;

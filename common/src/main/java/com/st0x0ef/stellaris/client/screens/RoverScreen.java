@@ -31,8 +31,6 @@ public class RoverScreen extends AbstractContainerScreen<RoverMenu> {
 
         titleLabelX = (180 - Minecraft.getInstance().font.width(title.getString())) / 2;
         titleLabelY = 2;
-
-        inventoryLabelY = imageHeight - 92;
     }
 
     @Override
