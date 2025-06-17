@@ -56,7 +56,7 @@ public class BlockEntityRegistry {
             () -> BlockEntityType.Builder.of(PumpjackBlockEntity::new, BlocksRegistry.PUMPJACK.get()).build(null));
 
     //TIERED
-    public static final Supplier<BlockEntityType<?>> TANK = BLOCK_ENTITY_TYPE.register("tank",
+    public static final Supplier<BlockEntityType<?>> FLUID_TANK = BLOCK_ENTITY_TYPE.register("tank",
             () -> BlockEntityType.Builder.of(FluidTankBlockEntity::new,
                     BlocksRegistry.T1_TANK.get(),
                     BlocksRegistry.T2_TANK.get(),

@@ -32,11 +32,11 @@ public class FuelRefineryMenu extends BaseContainer {
         addSlot(new ResultSlot(container, 1, 14, 110));
 
         // Fuel tank
-        addSlot(new FluidContainerSlot(container, 2, 102, 76, false, true));
+        addSlot(new FluidContainerSlot(container, 2, 102, 76, false));
         addSlot(new ResultSlot(container, 3, 102, 110));
 
         // Diesel tank
-        addSlot(new FluidContainerSlot(container, 4, 150, 76, false, true));
+        addSlot(new FluidContainerSlot(container, 4, 150, 76, false));
         addSlot(new ResultSlot(container, 5, 150, 110));
     }
 

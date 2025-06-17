@@ -5,6 +5,7 @@
 - Add diesel generator
 - Add new config system
 - Add power banks
+- Add fluid tanks
 
 ## Changes
 - Rover now need diesel instead of fuel

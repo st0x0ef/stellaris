@@ -15,7 +15,7 @@ public class PowerBankEntity extends BaseEnergyContainerBlockEntity {
     private int renderStage = -1; // -1 to force update on first tick
 
     public PowerBankEntity(BlockPos pos, BlockState state) {
-        this(pos, state, 1);
+        this(pos, state, ((PowerBankBlock)state.getBlock()).tier);
     }
 
     public PowerBankEntity(BlockPos pos, BlockState state, int tier) {
@@ -25,6 +25,7 @@ public class PowerBankEntity extends BaseEnergyContainerBlockEntity {
     @Override
     public void tick() {
         int initialRenderStage = renderStage;
+
         //First - Insert slot
         if (!items.getFirst().isEmpty())
             EnergyUtil.moveEnergyFromItem(energyContainer, items.getFirst(), energyContainer.getMaxEnergy() / 40);
@@ -46,7 +47,7 @@ public class PowerBankEntity extends BaseEnergyContainerBlockEntity {
 
     @Override
     protected @NotNull Component getDefaultName() {
-        return Component.translatable("block.stellaris.power_bank");
+        return Component.translatable("screen.stellaris.power_bank");
     }
 
     @Override

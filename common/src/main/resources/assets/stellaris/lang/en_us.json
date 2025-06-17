@@ -294,11 +294,14 @@
   "block.stellaris.fuel_refinery": "Fuel Refinery",
   "block.stellaris.upgrade_station": "Upgrade Station",
   "block.stellaris.diesel_generator": "Diesel Generator",
-  "block.stellaris.power_bank": "Power Bank",
   "block.stellaris.t1_bank": "Tier 1 Power Bank",
   "block.stellaris.t2_bank": "Tier 2 Power Bank",
   "block.stellaris.t3_bank": "Tier 3 Power Bank",
   "block.stellaris.t4_bank": "Tier 4 Power Bank",
+  "block.stellaris.t1_tank": "Tier 1 Fluid Tank",
+  "block.stellaris.t2_tank": "Tier 2 Fluid Tank",
+  "block.stellaris.t3_tank": "Tier 3 Fluid Tank",
+  "block.stellaris.t4_tank": "Tier 4 Fluid Tank",
 
 
   "item.stellaris.oil_finder": "Oil Finder",
@@ -591,6 +594,10 @@
   "stellaris.screen.energy": "Energy",
   "stellaris.screen.energyContainer": "Energy",
   "stellaris.screen.diesel": "Diesel",
+  "stellaris.screen.fluid": "Fluid",
+
+  "screen.stellaris.power_bank": "Power Bank",
+  "screen.stellaris.fluid_tank": "Fluid Tank",
 
   "stellaris.compat.rocket_crafting": "Rocket Crafting",
   "general.stellaris.rocket_crafting_mode": "Mode",

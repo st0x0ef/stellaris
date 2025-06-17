@@ -10,12 +10,10 @@ import net.minecraft.world.item.ItemStack;
 public class FluidContainerSlot extends Slot {
 
     private final boolean emptyOnly;
-    private final boolean allowTanks;
 
-    public FluidContainerSlot(Container container, int slot, int x, int y, boolean emptyOnly, boolean allowTanks) {
+    public FluidContainerSlot(Container container, int slot, int x, int y, boolean emptyOnly) {
         super(container, slot, x, y);
         this.emptyOnly = emptyOnly;
-        this.allowTanks = allowTanks;
     }
 
     @Override

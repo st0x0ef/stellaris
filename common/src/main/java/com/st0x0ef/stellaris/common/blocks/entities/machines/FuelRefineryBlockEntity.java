@@ -152,7 +152,6 @@ public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity impl
     public SingleFluidStorage getIngredientTank() {
         return inputTank;
     }
-
     public SingleFluidStorage getOutputFuelTank() {
         return outputFuelTank;
     }
