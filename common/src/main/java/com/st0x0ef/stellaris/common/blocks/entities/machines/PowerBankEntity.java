@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
-import com.st0x0ef.stellaris.common.blocks.machines.CoalGeneratorBlock;
 import com.st0x0ef.stellaris.common.blocks.machines.PowerBankBlock;
 import com.st0x0ef.stellaris.common.menus.PowerBankMenu;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
@@ -13,6 +12,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 public class PowerBankEntity extends BaseEnergyContainerBlockEntity {
+    private int renderStage = -1; // -1 to force update on first tick
 
     public PowerBankEntity(BlockPos pos, BlockState state) {
         this(pos, state, 1);
@@ -24,7 +24,7 @@ public class PowerBankEntity extends BaseEnergyContainerBlockEntity {
 
     @Override
     public void tick() {
-        int initialEnergy = energyContainer.getEnergy();
+        int initialRenderStage = renderStage;
         //First - Insert slot
         if (!items.getFirst().isEmpty())
             EnergyUtil.moveEnergyFromItem(energyContainer, items.getFirst(), energyContainer.getMaxEnergy() / 40);
@@ -34,8 +34,11 @@ public class PowerBankEntity extends BaseEnergyContainerBlockEntity {
 
         EnergyUtil.distributeEnergyNearby(level, worldPosition, energyContainer.getMaxEnergy() / 20);
 
-        if (initialEnergy != energyContainer.getEnergy()) {
-            BlockState state = getBlockState().setValue(PowerBankBlock.STAGE, energyContainer.getEnergy() / energyContainer.getMaxEnergy() * 10);
+        //Update render stage
+        renderStage = (energyContainer.getEnergy() * 9) / energyContainer.getMaxEnergy();
+
+        if (initialRenderStage != renderStage) {
+            BlockState state = getBlockState().setValue(PowerBankBlock.STAGE, renderStage);
             level.setBlock(getBlockPos(), state, 3);
             setChanged();
         }

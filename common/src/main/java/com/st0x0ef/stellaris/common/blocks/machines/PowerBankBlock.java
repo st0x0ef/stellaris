@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.blocks.machines;
 
+import com.fej1fun.potentials.energy.ItemEnergyStorage;
 import com.fej1fun.potentials.energy.UniversalEnergyStorage;
 import com.fej1fun.potentials.providers.EnergyProvider;
 import com.mojang.serialization.Codec;
@@ -10,7 +11,10 @@ import com.st0x0ef.stellaris.common.blocks.entities.machines.PowerBankEntity;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.stats.Stats;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -73,5 +77,24 @@ public class PowerBankBlock extends BaseMachineBlock {
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(STAGE);
+    }
+
+    @Override
+    public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool) {
+        player.awardStat(Stats.BLOCK_MINED.get(this));
+        player.causeFoodExhaustion(0.005F);
+
+        if (level instanceof ServerLevel) {
+            if (blockEntity instanceof BaseEnergyContainerBlockEntity energyBlock) {
+                UniversalEnergyStorage energy = energyBlock.getEnergy(null);
+                ItemStack stack = new ItemStack(this);
+                EnergyProvider.ITEM provider = (EnergyProvider.ITEM) stack.getItem();
+                if (provider.getEnergy(stack) instanceof ItemEnergyStorage storage)
+                    storage.setEnergyStored(energy.getEnergy());
+                popResource(level, pos, stack);
+            }
+
+            state.spawnAfterBreak((ServerLevel)level, pos, tool, false);
+        }
     }
 }
