@@ -147,10 +147,10 @@ public class BlocksRegistry {
     public static final RegistrySupplier<Block> PUMPJACK = BLOCKS.register("pumpjack", () -> new PumpjackBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(4.5F, 3F).sound(SoundType.METAL)));
 
     //Tiered Machine Blocks
-    public static final RegistrySupplier<Block> T1_TANK = BLOCKS.register("t1_tank", () -> new FluidTankBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(1.5F, 3F).sound(SoundType.METAL), 5000));
-    public static final RegistrySupplier<Block> T2_TANK = BLOCKS.register("t2_tank", () -> new FluidTankBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(1.5F, 3F).sound(SoundType.METAL), 25000));
-    public static final RegistrySupplier<Block> T3_TANK = BLOCKS.register("t3_tank", () -> new FluidTankBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(1.5F, 3F).sound(SoundType.METAL), 100000));
-    public static final RegistrySupplier<Block> T4_TANK = BLOCKS.register("t4_tank", () -> new FluidTankBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(1.5F, 3F).sound(SoundType.METAL), 10000000));
+    public static final RegistrySupplier<FluidTankBlock> T1_TANK = BLOCKS.register("t1_tank", () -> new FluidTankBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(1.5F, 3F).sound(SoundType.METAL), 5000));
+    public static final RegistrySupplier<FluidTankBlock> T2_TANK = BLOCKS.register("t2_tank", () -> new FluidTankBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(1.5F, 3F).sound(SoundType.METAL), 25000));
+    public static final RegistrySupplier<FluidTankBlock> T3_TANK = BLOCKS.register("t3_tank", () -> new FluidTankBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(1.5F, 3F).sound(SoundType.METAL), 100000));
+    public static final RegistrySupplier<FluidTankBlock> T4_TANK = BLOCKS.register("t4_tank", () -> new FluidTankBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(1.5F, 3F).sound(SoundType.METAL), 10000000));
     public static final RegistrySupplier<PowerBankBlock> T1_POWER_BANK = BLOCKS.register("t1_bank", () -> new PowerBankBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(1.5F, 3F).sound(SoundType.METAL), (short) 1));
     public static final RegistrySupplier<PowerBankBlock> T2_POWER_BANK = BLOCKS.register("t2_bank", () -> new PowerBankBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(1.5F, 3F).sound(SoundType.METAL), (short) 2));
     public static final RegistrySupplier<PowerBankBlock> T3_POWER_BANK = BLOCKS.register("t3_bank", () -> new PowerBankBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(1.5F, 3F).sound(SoundType.METAL), (short) 3));
