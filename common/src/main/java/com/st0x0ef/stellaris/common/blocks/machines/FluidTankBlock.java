@@ -66,9 +66,8 @@ public class FluidTankBlock extends BaseMachineBlock {
             UniversalFluidStorage fluidStorage = provider.getFluidTank(stack);
             BlockEntity be = level.getBlockEntity(pos);
             if (fluidStorage != null) {
-                if (be instanceof UniversalFluidStorage fluidBlock) {
-                    fluidBlock.fill(fluidBlock.getFluidInTank(0), false);
-                }
+                if (be instanceof FluidProvider.BLOCK fluidBlock)
+                    fluidBlock.getFluidTank(null).fill(fluidStorage.getFluidInTank(0), false);
             }
         }
     }
@@ -85,11 +84,11 @@ public class FluidTankBlock extends BaseMachineBlock {
         player.causeFoodExhaustion(0.005F);
 
         if (level instanceof ServerLevel) {
-            if (blockEntity instanceof UniversalFluidStorage fluidStorage) {
+            if (blockEntity instanceof FluidProvider.BLOCK fluidStorage) {
                 ItemStack stack = new ItemStack(this);
                 FluidProvider.ITEM provider = (FluidProvider.ITEM) stack.getItem();
                 if (provider.getFluidTank(stack) instanceof ItemFluidStorage storage)
-                    storage.setFluidInTank(0, fluidStorage.getFluidInTank(0));
+                    storage.setFluidInTank(0, fluidStorage.getFluidTank(null).getFluidInTank(0));
                 popResource(level, pos, stack);
             }
 

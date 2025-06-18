@@ -594,7 +594,7 @@
   "stellaris.screen.energy": "Energy",
   "stellaris.screen.energyContainer": "Energy",
   "stellaris.screen.diesel": "Diesel",
-  "stellaris.screen.fluid": "Fluid",
+  "stellaris.screen.empty_fluid": "Empty",
 
   "screen.stellaris.power_bank": "Power Bank",
   "screen.stellaris.fluid_tank": "Fluid Tank",

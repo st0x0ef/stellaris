@@ -39,8 +39,12 @@ public class FluidTankScreen extends AbstractContainerScreen<FluidTankMenu> {
             return;
         }
 
+        Component tooltip = blockEntity.getFluidTank().isEmpty() ?
+                Component.translatable("stellaris.screen.empty_fluid") :
+                blockEntity.getFluidTank().getFluidInTank(0).getName();;
+
         SingleFluidStorage fluidStorage = blockEntity.getFluidTank();
-        fluidGauge = new GaugeWidget(leftPos + 84, topPos + 36, 12, 46, Component.translatable("stellaris.screen.fluid"),
+        fluidGauge = new GaugeWidget(leftPos + 84, topPos + 36, 12, 46, tooltip,
                 GUISprites.WATER_OVERLAY, GUISprites.FLUID_TANK_OVERLAY, fluidStorage.getTankCapacity(0), GaugeWidget.Direction4.DOWN_UP);
         addRenderableWidget(fluidGauge);
     }
@@ -69,6 +73,10 @@ public class FluidTankScreen extends AbstractContainerScreen<FluidTankMenu> {
     @Override
     protected void renderTooltip(GuiGraphics guiGraphics, int x, int y) {
         super.renderTooltip(guiGraphics, x, y);
+        Component tooltip = blockEntity.getFluidTank().isEmpty() ?
+                Component.translatable("stellaris.screen.empty_fluid") :
+                blockEntity.getFluidTank().getFluidInTank(0).getName();;
+        fluidGauge.setMessage(tooltip);
         fluidGauge.renderTooltip(guiGraphics, x, y, font);
     }
 

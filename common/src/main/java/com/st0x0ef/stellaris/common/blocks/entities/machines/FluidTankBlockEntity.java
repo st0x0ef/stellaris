@@ -2,7 +2,6 @@ package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
 import com.fej1fun.potentials.components.FluidAmountMapDataComponent;
 import com.fej1fun.potentials.providers.FluidProvider;
-import com.st0x0ef.stellaris.common.blocks.entities.ImplementedInventory;
 import com.st0x0ef.stellaris.common.blocks.machines.FluidTankBlock;
 import com.st0x0ef.stellaris.common.menus.FluidTankMenu;
 import com.st0x0ef.stellaris.common.network.packets.SyncFluidPacketWithoutDirection;
@@ -16,7 +15,6 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
@@ -26,7 +24,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class FluidTankBlockEntity extends BaseContainerBlockEntity implements FluidProvider.BLOCK, ImplementedInventory, TickingBlockEntity, MenuProvider {
+public class FluidTankBlockEntity extends BaseContainerBlockEntity implements FluidProvider.BLOCK, TickingBlockEntity {
 
     private final SingleFluidStorage fluidTank;
     protected NonNullList<ItemStack> items = NonNullList.withSize(2, ItemStack.EMPTY);
