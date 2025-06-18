@@ -29,7 +29,7 @@ public class ClientEvents {
     public static void registerEvents() {
         ClientTooltipEvent.ITEM.register((stack, lines, context, flag) -> {
             ResourceLocation entryId = getEntryId(stack);
-            if (TabletMainScreen.INFOS.containsKey(entryId)) {
+            if (entryId != null && TabletMainScreen.INFOS.containsKey(entryId)) {
                 entryHovered = entryId;
 
                 lines.add(Component.translatable("tooltip.item.stellaris.open_tablet", KeyMappingsRegistry.OPEN_TABLET_INFO.getTranslatedKeyMessage().getString()));

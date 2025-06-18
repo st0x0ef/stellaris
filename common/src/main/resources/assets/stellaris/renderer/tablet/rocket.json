@@ -88,6 +88,57 @@
       "iconType": "item",
       "id": "small_rocket",
       "title": "Small Rocket Model"
+    },
+    {
+      "components": [
+        {
+          "type": "text",
+          "text": "Apply skin on a [ref=rocket:tiny_rocket]Rocket to change his apparence."
+        },
+        {
+          "type": "item",
+          "item": {
+            "size": 32.0,
+            "stack": {
+              "count": 1,
+              "id": "stellaris:skin_frozy"
+            }
+          }
+        },
+        {
+          "type": "item",
+          "item": {
+            "size": 32.0,
+            "stack": {
+              "count": 1,
+              "id": "stellaris:skin_galaxy"
+            }
+          }
+        },
+        {
+          "type": "item",
+          "item": {
+            "size": 32.0,
+            "stack": {
+              "count": 1,
+              "id": "stellaris:skin_military"
+            }
+          }
+        },
+        {
+          "type": "item",
+          "item": {
+            "size": 32.0,
+            "stack": {
+              "count": 1,
+              "id": "stellaris:skin_rusty"
+            }
+          }
+        }
+      ],
+      "iconType": "item",
+      "id": "skins",
+      "title": "Rocket Skins"
     }
   ]
 }

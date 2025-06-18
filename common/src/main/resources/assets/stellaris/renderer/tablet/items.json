@@ -245,6 +245,48 @@
       "iconType": "item",
       "id": "cable",
       "title": "Cable"
+    },
+    {
+      "components": [
+        {
+          "type": "text",
+          "text": "The antenna allow you to create launchpads that you can teleport on when joining a planet. [br] [br] To place an antenna, place a 3x3 launchpad and right click with antenna on the staged pad. [br] The block need to be air or have the [color=green]#stellaris:antenna_replaceable tag. [br] [br] To access the antenna, right click on the staged pad."
+        },
+        {
+          "type": "item",
+          "item": {
+            "size": 32.0,
+            "stack": {
+              "count": 1,
+              "id": "stellaris:antenna"
+            }
+          }
+        }
+      ],
+      "iconType": "item",
+      "id": "antenna",
+      "title": "Antenna"
+    },
+    {
+      "components": [
+        {
+          "type": "text",
+          "text": "The rocket launch pad need to be placed on a 3x3 square. [br] [br] Right click with a [ref=rocket:tiny_rocket]rocket to place it. [br] Right click with an [ref=items:antenna]Antenna to create a launchpad"
+        },
+        {
+          "type": "item",
+          "item": {
+            "size": 32.0,
+            "stack": {
+              "count": 1,
+              "id": "stellaris:rocket_launch_pad"
+            }
+          }
+        }
+      ],
+      "iconType": "item",
+      "id": "rocket_launch_pad",
+      "title": "Rocket Launch Pad"
     }
   ]
 }
