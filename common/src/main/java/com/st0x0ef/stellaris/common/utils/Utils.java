@@ -114,8 +114,6 @@ public class Utils {
                 serverPlayer.sendSystemMessage(Component.translatable("message.stellaris.lander"));
             } else {
                 serverPlayer.closeContainer();
-                Stellaris.LOG.error("Null rocket {}", coords);
-
                 teleportEntity(serverPlayer, destination, coords);
             }
         }

@@ -294,6 +294,7 @@
   "block.stellaris.fuel_refinery": "Fuel Refinery",
   "block.stellaris.upgrade_station": "Upgrade Station",
   "block.stellaris.diesel_generator": "Diesel Generator",
+  "block.stellaris.antenna": "Antenna",
 
   "item.stellaris.oil_finder": "Oil Finder",
 
@@ -673,6 +674,9 @@
   "biome.stellaris.moon_desert": "Moon Desert",
   "biome.stellaris.venus_desert": "Venus Desert",
 
+  "station.stellaris.space_station_small": "Small Space Station",
+  "station.stellaris.space_station_big": "Big Space Station",
+  "station.stellaris.space_station_medium": "Medium Space Station",
 
   "CONFIG": "",
 

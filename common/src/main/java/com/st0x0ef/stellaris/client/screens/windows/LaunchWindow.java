@@ -30,6 +30,7 @@ public class LaunchWindow extends MoveableWindow {
     public final ArrayList<TexturedButton> spaceStationButtons = new ArrayList<>();
     public final PlanetSelectionScreen parent;
     @Nullable public CelestialBody celestialBody = PlanetSelectionScreen.focusedBody;
+    public TexturedButton spaceStationButton;
 
     private LaunchPadsList padsList;
 
@@ -49,9 +50,8 @@ public class LaunchWindow extends MoveableWindow {
         this.padsList = new LaunchPadsList(getWindowX() + 40, getWindowY() + 60, getWidth() - 80, getHeight() - 90, Component.translatable("gui.stellaris.launchpads"), this, spaceStationButtons);
         this.addWidget(this.padsList);
 
-
         int imageRatio = 1;
-        TexturedButton spaceStationButton = new TexturedButton(
+        spaceStationButton = new TexturedButton(
                 (getWindowX() + getWidth() / 2) + 73, getWindowY() + 32 - (18*imageRatio) / 2, 28*imageRatio, 18*imageRatio,
                 Component.literal(""),
                 (button) -> {
@@ -73,6 +73,13 @@ public class LaunchWindow extends MoveableWindow {
         guiGraphics.blit(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/gui/util/window/window_large.png"), getWindowX(), getWindowY(), 0, 0, this.getWidth(), this.getHeight(), this.getWidth(), this.getHeight());
 
         if(this.celestialBody != null && PlanetUtil.getPlanet(this.celestialBody.dimension) != null) {
+
+            if(!this.celestialBody.spaceStation) {
+                this.spaceStationButton.visible = false;
+            } else {
+                this.spaceStationButton.visible = true;
+            }
+
             Planet planet = PlanetUtil.getPlanet(this.celestialBody.dimension);
             guiGraphics.drawCenteredString(Minecraft.getInstance().font, celestialBody.name + " Launch Points", getWindowX() + getWidth() / 2, getWindowY() + 27, 0xFFFFFFFF);
 
