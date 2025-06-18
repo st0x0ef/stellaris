@@ -26,8 +26,6 @@ public class RocketStationScreen extends AbstractContainerScreen<RocketStationMe
 
         this.titleLabelX = (180 - Minecraft.getInstance().font.width(title.getString())) / 2;
         this.titleLabelY = 2;
-
-        this.inventoryLabelY = this.imageHeight - 92;
     }
 
     @Override

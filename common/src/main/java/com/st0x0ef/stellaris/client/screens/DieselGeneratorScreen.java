@@ -26,7 +26,6 @@ public class DieselGeneratorScreen extends AbstractContainerScreen<DieselGenerat
         super(menu, playerInventory, title);
         imageWidth = 180;
         imageHeight = 188;
-        inventoryLabelY = imageHeight - 92;
 
         titleLabelX = (180 - Minecraft.getInstance().font.width(title.getString())) / 2;
         titleLabelY = 2;
@@ -42,7 +41,7 @@ public class DieselGeneratorScreen extends AbstractContainerScreen<DieselGenerat
 
         SingleFluidStorage ingredientTank = blockEntity.getDieselTank();
         dieselTankGauge = new GaugeWidget(leftPos + 74, topPos + 42, 12, 46, Component.translatable("stellaris.screen.diesel"),
-                GUISprites.OIL_OVERLAY, GUISprites.FLUID_TANK_OVERLAY, ingredientTank.getTankCapacity(0), GaugeWidget.Direction4.DOWN_UP);
+                GUISprites.DIESEL_OVERLAY, GUISprites.FLUID_TANK_OVERLAY, ingredientTank.getTankCapacity(0), GaugeWidget.Direction4.DOWN_UP);
         addRenderableWidget(dieselTankGauge);
 
         energyGauge = new GaugeWidget(leftPos + 67, topPos + 20, 44, 6, Component.translatable("stellaris.screen.energyContainer"),

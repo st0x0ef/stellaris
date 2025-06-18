@@ -64,7 +64,7 @@ public class FuelType {
 
     public enum Type implements StringRepresentable {
         FUEL(GUISprites.FUEL_OVERLAY, null),
-        DIESEL(GUISprites.OIL_OVERLAY, null), // TODO : change to diesel overlay
+        DIESEL(GUISprites.DIESEL_OVERLAY, null),
         HYDROGEN(GUISprites.HYDROGEN_OVERLAY, null),
         RADIOACTIVE(GUISprites.ENERGY_FULL, null),
         URANIUM(GUISprites.ENERGY_FULL, RADIOACTIVE),

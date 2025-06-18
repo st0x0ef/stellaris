@@ -54,7 +54,7 @@ public class FuelRefineryScreen extends AbstractContainerScreen<FuelRefineryMenu
 
         SingleFluidStorage dieselTank = blockEntity.getOutputFuelTank();
         dieselTankGauge = new GaugeWidget(leftPos + 128, topPos + 78, 12, 46, Component.translatable("stellaris.screen.diesel"),
-                GUISprites.OIL_OVERLAY, GUISprites.FLUID_TANK_OVERLAY, dieselTank.getTankCapacity(0), GaugeWidget.Direction4.DOWN_UP);
+                GUISprites.DIESEL_OVERLAY, GUISprites.FLUID_TANK_OVERLAY, dieselTank.getTankCapacity(0), GaugeWidget.Direction4.DOWN_UP);
         addRenderableWidget(dieselTankGauge);
 
         energyGauge = new GaugeWidget(leftPos + 68, topPos + 20, 44, 6, Component.translatable("stellaris.screen.energyContainer"), GUISprites.SIDEWAYS_ENERGY_FULL, null, blockEntity.getEnergy(null).getMaxEnergy(), GaugeWidget.Direction4.LEFT_RIGHT);

@@ -38,4 +38,6 @@ public class MenuTypesRegistry {
     public static final RegistrySupplier<MenuType<TestMenu>> TEST_MENU = MENU_TYPE.register("test_menu", () -> MenuRegistry.ofExtended(TestMenu::create));
     public static final RegistrySupplier<MenuType<AntennaMenu>> ANTENNA_MENU = MENU_TYPE.register("antenna_menu", () -> MenuRegistry.ofExtended(AntennaMenu::create));
 
+    public static final RegistrySupplier<MenuType<PowerBankMenu>> POWER_BANK_MENU = MENU_TYPE.register("power_bank", () -> MenuRegistry.ofExtended(PowerBankMenu::create));
+    public static final RegistrySupplier<MenuType<FluidTankMenu>> FLUID_TANK_MENU = MENU_TYPE.register("fluid_tank", () -> MenuRegistry.ofExtended(FluidTankMenu::create));
 }

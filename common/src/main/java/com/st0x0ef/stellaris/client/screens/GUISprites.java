@@ -39,4 +39,20 @@ public class GUISprites {
     public static final ResourceLocation WINDOW_BAR = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "util/window_bar");
     public static final ResourceLocation FLAMES = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "util/flames");
 
+    public static final ResourceLocation WATER_OVERLAY = ResourceLocationUtils.id("util/water_overlay");
+    public static final ResourceLocation WATER_SEPARATOR_OVERLAY = ResourceLocationUtils.id("util/water_separator_overlay");
+    public static final ResourceLocation HYDROGEN_OVERLAY = ResourceLocationUtils.id("util/hydrogen_gui_overlay");
+    public static final ResourceLocation OXYGEN_OVERLAY = ResourceLocationUtils.id("util/oxygen_gui_overlay");
+    public static final ResourceLocation SIDEWAYS_ENERGY_FULL = ResourceLocationUtils.id("util/sideway_energy_full");
+    public static final ResourceLocation OIL_OVERLAY = ResourceLocationUtils.id("util/oil_gui_overlay");
+    public static final ResourceLocation FUEL_OVERLAY = ResourceLocationUtils.id("util/fuel_overlay");
+    public static final ResourceLocation DIESEL_OVERLAY = ResourceLocationUtils.id("util/diesel_overlay");
+    public static final ResourceLocation ENERGY_FULL = ResourceLocationUtils.id("util/energy_full");
+    public static final ResourceLocation COAL_GENERATOR_LIT_PROGRESS_SPRITE = ResourceLocationUtils.id("util/coal_generator_fire_full");
+    public static final ResourceLocation RADIOACTIVE_GENERATOR_LIT_PROGRESS_SPRITE = ResourceLocationUtils.id("util/radioactive_generator_fire_full");
+    public static final ResourceLocation FLUID_TANK_OVERLAY = ResourceLocationUtils.id("util/fluid_tank_overlay");
+    public static final ResourceLocation NO_OVERLAY = ResourceLocationUtils.id("util/no_overlay");
+    public static final ResourceLocation SPACESUIT_OXYGEN_BAR = ResourceLocationUtils.texture("overlay/oxygen_hud");
+    public static final ResourceLocation SPACESUIT_FUEL_BAR = ResourceLocationUtils.texture("overlay/fuel_hud");
+    public static final ResourceLocation SPACESUIT_FULL_BAR_SPRITE = ResourceLocationUtils.id("util/bar_full");
 }

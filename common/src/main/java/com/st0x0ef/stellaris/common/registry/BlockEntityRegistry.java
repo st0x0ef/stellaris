@@ -56,12 +56,20 @@ public class BlockEntityRegistry {
             () -> BlockEntityType.Builder.of(PumpjackBlockEntity::new, BlocksRegistry.PUMPJACK.get()).build(null));
 
     //TIERED
-    public static final Supplier<BlockEntityType<?>> TANK = BLOCK_ENTITY_TYPE.register("tank",
+    public static final Supplier<BlockEntityType<?>> FLUID_TANK = BLOCK_ENTITY_TYPE.register("tank",
             () -> BlockEntityType.Builder.of(FluidTankBlockEntity::new,
                     BlocksRegistry.T1_TANK.get(),
                     BlocksRegistry.T2_TANK.get(),
                     BlocksRegistry.T3_TANK.get(),
                     BlocksRegistry.T4_TANK.get()
+            ).build(null));
+
+    public static final Supplier<BlockEntityType<?>> POWER_BANK = BLOCK_ENTITY_TYPE.register("power_bank",
+            () -> BlockEntityType.Builder.of(PowerBankEntity::new,
+                    BlocksRegistry.T1_POWER_BANK.get(),
+                    BlocksRegistry.T2_POWER_BANK.get(),
+                    BlocksRegistry.T3_POWER_BANK.get(),
+                    BlocksRegistry.T4_POWER_BANK.get()
             ).build(null));
 
     public static final Supplier<BlockEntityType<?>> CABLE_ENTITY = BLOCK_ENTITY_TYPE.register("cable",

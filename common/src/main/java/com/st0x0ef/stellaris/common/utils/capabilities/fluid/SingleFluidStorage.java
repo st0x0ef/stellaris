@@ -65,11 +65,11 @@ public abstract class SingleFluidStorage implements UniversalFluidStorage {
     public void setFluidInTank(FluidStack stack) {
         this.stack = stack;
         this.stack.setAmount(Math.clamp(stack.getAmount(), 0, getTankCapacity(0)));
+        onChange();
     }
 
     @Override
     public FluidStack drain(FluidStack stack, boolean simulate) {
-
         if (!isFluidValid(0, stack)) {
             return FluidStack.empty();
         }
@@ -175,6 +175,7 @@ public abstract class SingleFluidStorage implements UniversalFluidStorage {
         if (!compoundTag.contains(name + "-singleFluid")) {
             return;
         }
+
         setFluidInTank(FluidStackHooks.readOptional(provider, (CompoundTag) compoundTag.get(name + "-singleFluid")));
     }
 

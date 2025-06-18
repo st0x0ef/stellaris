@@ -1,0 +1,12 @@
+{
+	"parent": "minecraft:block/cube",
+	"textures": {
+		"down": "stellaris:block/machines/power_bank/power_bank_bottom",
+		"east": "stellaris:block/machines/power_bank/power_bank_side",
+		"north": "stellaris:block/machines/power_bank/power_bank_front_on_1",
+		"particle": "stellaris:block/machines/power_bank/power_bank_side",
+		"south": "stellaris:block/machines/power_bank/power_bank_side",
+		"up": "stellaris:block/machines/power_bank/power_bank_top",
+		"west": "stellaris:block/machines/power_bank/power_bank_side"
+	}
+}
