@@ -83,6 +83,11 @@ public class AntennaBlockEntity extends BaseContainerBlockEntity implements Impl
     }
 
     public void setLaunchPad(LaunchPad launchPad, boolean create) {
+        if(!this.level.isClientSide) {
+            this.launchPadId = launchPad.id();
+            return;
+        }
+
         if (create) {
             NetworkManager.sendToServer(new LaunchPadsOperations(launchPad, "add"));
         }
