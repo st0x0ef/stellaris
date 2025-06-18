@@ -10,6 +10,7 @@ import com.st0x0ef.stellaris.client.screens.info.PlanetInfo;
 import com.st0x0ef.stellaris.client.screens.record.PlanetRecord;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
@@ -39,10 +40,14 @@ public class PlanetPack extends SimpleJsonResourceReloadListener {
                     planet.width(),
                     planet.height(),
                     PlanetSelectionScreen.findByNameStar(planet.parent()),
-                    planet.dimensionId().location(),
-                    planet.translatable(),
-                    planet.id()
+                    planet.dimensionId(),
+                    Component.translatable(planet.translatable()),
+                    planet.id(),
+                    planet.spaceStation().orElse(false)
             );
+
+            planet.spaceStation().ifPresent(screenPlanet::setSpaceStation);
+
 
             for (int i = 0; i < PlanetSelectionScreen.PLANETS.size(); i++) {
                 if (PlanetSelectionScreen.PLANETS.get(i).getId().equals(planet.id())) {

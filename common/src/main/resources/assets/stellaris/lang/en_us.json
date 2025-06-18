@@ -302,6 +302,8 @@
   "block.stellaris.fuel_refinery": "Fuel Refinery",
   "block.stellaris.upgrade_station": "Upgrade Station",
   "block.stellaris.diesel_generator": "Diesel Generator",
+  "block.stellaris.antenna": "Antenna",
+
   "block.stellaris.t1_bank": "Tier 1 Power Bank",
   "block.stellaris.t2_bank": "Tier 2 Power Bank",
   "block.stellaris.t3_bank": "Tier 3 Power Bank",
@@ -310,7 +312,6 @@
   "block.stellaris.t2_tank": "Tier 2 Fluid Tank",
   "block.stellaris.t3_tank": "Tier 3 Fluid Tank",
   "block.stellaris.t4_tank": "Tier 4 Fluid Tank",
-
 
   "item.stellaris.oil_finder": "Oil Finder",
 
@@ -575,9 +576,9 @@
   "general.stellaris.jet_suit_elytra_mode": "Elytra",
   "general.stellaris.jet_suit_fuel": "Fuel",
 
-  "text.stellaris.planetscreen.temperature": "Temperature",
+  "text.stellaris.planetscreen.temperature": "Temp.",
   "text.stellaris.planetscreen.gravity": "Gravity",
-  "text.stellaris.planetscreen.oxygen": "Has Oxygen",
+  "text.stellaris.planetscreen.oxygen": "Oxygen",
   "text.stellaris.planetscreen.launch": "Launch!",
   "text.stellaris.planetscreen.system": "Planetary System",
   "text.stellaris.planetscreen.error_message": "You can't reach that celestial body",
@@ -632,9 +633,6 @@
   "stellaris.screen.tablet.rocket_launched": "Rocket Launched : %s",
   "stellaris.screen.tablet.space_traveled": "Kilometers Traveled : %s",
   "stellaris.screen.tablet.boss_killed": "Boss Killed : %s",
-
-  "stat.stellaris.rocket_launched": "Rockets Launched",
-  "stat.stellaris.space_traveled": "Space Traveled",
 
   "translatable.stellaris.registry.holdshift": "Hold [↑ Shift] to view more info.",
   "translatable.stellaris.registry.player": "Player",
@@ -697,6 +695,9 @@
   "biome.stellaris.moon_desert": "Moon Desert",
   "biome.stellaris.venus_desert": "Venus Desert",
 
+  "station.stellaris.space_station_small": "Small Space Station",
+  "station.stellaris.space_station_big": "Big Space Station",
+  "station.stellaris.space_station_medium": "Medium Space Station",
 
   "CONFIG": "",
 

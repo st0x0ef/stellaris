@@ -8,19 +8,22 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 
 public class PlanetSelectionMenu extends AbstractContainerMenu {
-
     private final Player player;
+    private final boolean forceCanGoTo;
+    private final String galaxyId;
     public boolean freeze_gui = false;
-    private boolean forceCanGoTo;
 
-    public static PlanetSelectionMenu create(int syncId, Inventory inventory, FriendlyByteBuf data) {
-        return new PlanetSelectionMenu(syncId, inventory, data.readBoolean());
-    }
-
-    public PlanetSelectionMenu(int syncId, Inventory playerInventory, boolean forceCanGoTo) {
+    public PlanetSelectionMenu(int syncId, Inventory playerInventory, boolean forceCanGoTo, String galaxyId) {
         super(MenuTypesRegistry.PLANET_SELECTION_MENU.get(), syncId);
         this.player = playerInventory.player;
         this.forceCanGoTo = forceCanGoTo;
+        this.galaxyId = galaxyId;
+    }
+
+    public static PlanetSelectionMenu create(int syncId, Inventory inventory, FriendlyByteBuf data) {
+        boolean forceCanGoTo = data.readBoolean();
+        String galaxyId = data.readUtf();
+        return new PlanetSelectionMenu(syncId, inventory, forceCanGoTo, galaxyId);
     }
 
     @Override
@@ -44,5 +47,8 @@ public class PlanetSelectionMenu extends AbstractContainerMenu {
     public boolean getForceCanGoTo() {
         return forceCanGoTo;
     }
-}
 
+    public String getGalaxyId() {
+        return galaxyId;
+    }
+}

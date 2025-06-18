@@ -137,6 +137,7 @@ public class BlocksRegistry {
     public static final RegistrySupplier<Block> COAL_GENERATOR = BLOCKS.register("coal_generator", () -> new CoalGeneratorBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(4.5F, 3.0F).sound(SoundType.METAL)));
     public static final RegistrySupplier<Block> RADIOACTIVE_GENERATOR = BLOCKS.register("radioactive_generator", () -> new RadioactiveGeneratorBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(4.5F, 3.0F).sound(SoundType.METAL)));
     public static final RegistrySupplier<Block> DIESEL_GENERATOR = BLOCKS.register("diesel_generator", () -> new DieselGeneratorBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(4.5F, 3.0F).sound(SoundType.METAL)));
+    public static final RegistrySupplier<Block> ANTENNA = BLOCKS.register("antenna", () -> new AntennaBlock(BlockBehaviour.Properties.ofFullCopy(STEEL_ORE.get()).mapColor(MapColor.DEEPSLATE).strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE)));
 
     public static final RegistrySupplier<Block> ROCKET_LAUNCH_PAD = BLOCKS.register("rocket_launch_pad", () -> new RocketLaunchPad(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).sound(SoundType.METAL).strength(5f, 2.5f).requiresCorrectToolForDrops()));
 

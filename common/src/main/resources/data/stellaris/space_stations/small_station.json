@@ -1,0 +1,18 @@
+{
+  "items": [
+    {
+      "count": 1,
+      "id": "minecraft:diamond_sword"
+    },
+    {
+      "count": 6,
+      "id": "minecraft:birch_planks"
+    }
+  ],
+  "location": "stellaris:space_station_small",
+  "antenna_position": [
+    19,
+    28,
+    18
+  ]
+}

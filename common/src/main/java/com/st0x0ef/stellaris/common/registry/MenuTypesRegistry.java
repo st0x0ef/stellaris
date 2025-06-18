@@ -31,10 +31,12 @@ public class MenuTypesRegistry {
     public static final RegistrySupplier<MenuType<PlanetSelectionMenu>> PLANET_SELECTION_MENU = MENU_TYPE.register("planet_selection_menu", () -> MenuRegistry.ofExtended(PlanetSelectionMenu::create));
     public static final RegistrySupplier<MenuType<TabletMenu>> TABLET_MENU = MENU_TYPE.register("tablet_menu", () -> MenuRegistry.ofExtended(TabletMenu::create));
 
-    public static final RegistrySupplier<MenuType<MilkyWayMenu>> MILKYWAY_MENU = MENU_TYPE.register("milkyway_menu", () -> MenuRegistry.ofExtended(MilkyWayMenu::create));
+    public static final RegistrySupplier<MenuType<GalaxyMenu>> GALAXY_MENU = MENU_TYPE.register("galaxy_menu", () -> MenuRegistry.ofExtended(GalaxyMenu::create));
     public static final RegistrySupplier<MenuType<WaitMenu>> WAIT_MENU = MENU_TYPE.register("wait_menu", () -> MenuRegistry.ofExtended(WaitMenu::create));
 
     public static final RegistrySupplier<MenuType<UpgradeStationMenu>> UPGRADE_STATION_MENU = MENU_TYPE.register("upgrade_station", () -> MenuRegistry.ofExtended(UpgradeStationMenu::create));
+    public static final RegistrySupplier<MenuType<TestMenu>> TEST_MENU = MENU_TYPE.register("test_menu", () -> MenuRegistry.ofExtended(TestMenu::create));
+    public static final RegistrySupplier<MenuType<AntennaMenu>> ANTENNA_MENU = MENU_TYPE.register("antenna_menu", () -> MenuRegistry.ofExtended(AntennaMenu::create));
 
     public static final RegistrySupplier<MenuType<PowerBankMenu>> POWER_BANK_MENU = MENU_TYPE.register("power_bank", () -> MenuRegistry.ofExtended(PowerBankMenu::create));
     public static final RegistrySupplier<MenuType<FluidTankMenu>> FLUID_TANK_MENU = MENU_TYPE.register("fluid_tank", () -> MenuRegistry.ofExtended(FluidTankMenu::create));

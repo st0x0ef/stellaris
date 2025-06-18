@@ -251,7 +251,5 @@ public class TabletEntryWidget extends AbstractScrollWidget {
             entryScreen.widget.setInfo(location);
 
         }
-
     }
-
 }

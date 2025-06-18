@@ -108,11 +108,20 @@ public class TabletEntryProvider implements DataProvider {
                 new TabletEntry.ItemInfo("cable", "Cable", "item", List.of(
                         new TabletEntry.InfoComponent("text", Optional.of("Cable transfers energy from one machine to another. [br] [br] Need Energy [color=yellow]⚡ "), Optional.empty(), Optional.empty(), Optional.empty()),
                         new TabletEntry.InfoComponent("item", Optional.empty(), Optional.empty(), Optional.of(new TabletEntry.ItemComponent(new ItemStack(ItemsRegistry.T1_CABLE), 32, Optional.empty())), Optional.empty())
+                )),
+                new TabletEntry.ItemInfo("antenna", "Antenna", "item", List.of(
+                        new TabletEntry.InfoComponent("text", Optional.of("The antenna allow you to create launchpads that you can teleport on when joining a planet. [br] [br] To place an antenna, place a 3x3 launchpad and right click with antenna on the staged pad. [br] The block need to be air or have the [color=green]#stellaris:antenna_replaceable tag. [br] [br] To access the antenna, right click on the staged pad."), Optional.empty(), Optional.empty(), Optional.empty()),
+                        new TabletEntry.InfoComponent("item", Optional.empty(), Optional.empty(), Optional.of(new TabletEntry.ItemComponent(new ItemStack(ItemsRegistry.ANTENNA), 32, Optional.empty())), Optional.empty())
+                )),
+                new TabletEntry.ItemInfo("rocket_launch_pad", "Rocket Launch Pad", "item", List.of(
+                        new TabletEntry.InfoComponent("text", Optional.of("The rocket launch pad need to be placed on a 3x3 square. [br] [br] Right click with a [ref=rocket:tiny_rocket]rocket to place it. [br] Right click with an [ref=items:antenna]Antenna to create a launchpad"), Optional.empty(), Optional.empty(), Optional.empty()),
+                        new TabletEntry.InfoComponent("item", Optional.empty(), Optional.empty(), Optional.of(new TabletEntry.ItemComponent(new ItemStack(ItemsRegistry.ROCKET_LAUNCH_PAD), 32, Optional.empty())), Optional.empty())
                 ))
+
         )));
 
 
-        consumer.accept(entryLocation("mobs"), new TabletEntry("mobs", "Discover all the mobs of Stellaris.", this.entryLocation("textures/gui/tablet/rocket_page.png"), this.entryLocation("textures/gui/tablet/rocket_page_hover.png"), List.of(
+        consumer.accept(entryLocation("mobs"), new TabletEntry("mobs", "Discover all the mobs of Stellaris.", this.entryLocation("textures/gui/tablet/mob_page.png"), this.entryLocation("textures/gui/tablet/mob_page_hover.png"), List.of(
                 new TabletEntry.ItemInfo("alien", "Alien", "entity", List.of(
                         new TabletEntry.InfoComponent("text", Optional.of("This is an [color=yellow]Alien. This passive mob can be found on the moon [br] [br] Stats : [br] - Health : 20 [br] - Speed : 0.5"), Optional.empty(), Optional.empty(), Optional.empty()),
                         new TabletEntry.InfoComponent("entity", Optional.empty(), Optional.empty(), Optional.empty(), Optional.of(new TabletEntry.EntityComponent(entryLocation("alien"), 25)))
@@ -192,6 +201,13 @@ public class TabletEntryProvider implements DataProvider {
                         new TabletEntry.InfoComponent("text", Optional.of("This is the small rocket. [br] [br] Can transport 2 entity"), Optional.empty(), Optional.empty(), Optional.empty()),
                         new TabletEntry.InfoComponent("item", Optional.empty(), Optional.empty(), Optional.of(new TabletEntry.ItemComponent(new ItemStack(ItemsRegistry.SMALL_ROCKET_UPGRADE), 32, Optional.empty())), Optional.empty()),
                         new TabletEntry.InfoComponent("entity", Optional.empty(), Optional.empty(), Optional.empty(), Optional.of(new TabletEntry.EntityComponent(this.entryLocation("small_rocket"), 10)))
+                )),
+                new TabletEntry.ItemInfo("skins", "Rocket Skins", "item", List.of(
+                        new TabletEntry.InfoComponent("text", Optional.of("Apply skin on a [ref=rocket:tiny_rocket]Rocket to change his apparence."), Optional.empty(), Optional.empty(), Optional.empty()),
+                        new TabletEntry.InfoComponent("item", Optional.empty(), Optional.empty(), Optional.of(new TabletEntry.ItemComponent(new ItemStack(ItemsRegistry.FROSTY_ROCKET_SKIN), 32, Optional.empty())), Optional.empty()),
+                        new TabletEntry.InfoComponent("item", Optional.empty(), Optional.empty(), Optional.of(new TabletEntry.ItemComponent(new ItemStack(ItemsRegistry.GALAXY_ROCKET_SKIN), 32, Optional.empty())), Optional.empty()),
+                        new TabletEntry.InfoComponent("item", Optional.empty(), Optional.empty(), Optional.of(new TabletEntry.ItemComponent(new ItemStack(ItemsRegistry.MILITARY_ROCKET_SKIN), 32, Optional.empty())), Optional.empty()),
+                        new TabletEntry.InfoComponent("item", Optional.empty(), Optional.empty(), Optional.of(new TabletEntry.ItemComponent(new ItemStack(ItemsRegistry.RUSTY_ROCKET_SKIN), 32, Optional.empty())), Optional.empty())
                 ))
         )));
 

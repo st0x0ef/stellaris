@@ -1,17 +1,49 @@
 package com.st0x0ef.stellaris.common.commands;
 
+import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
+import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
+import com.st0x0ef.stellaris.common.data.recipes.SpaceStationRecipesManager;
+import com.st0x0ef.stellaris.common.launchpads.LaunchPad;
+import com.st0x0ef.stellaris.common.launchpads.LaunchPadLauncher;
+import com.st0x0ef.stellaris.common.launchpads.LaunchPadUtils;
+import com.st0x0ef.stellaris.common.menus.TestMenu;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
+import com.st0x0ef.stellaris.common.utils.Utils;
+import dev.architectury.registry.menu.ExtendedMenuProvider;
+import dev.architectury.registry.menu.MenuRegistry;
+import io.netty.buffer.Unpooled;
+import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.commands.arguments.EntityArgument;
+import net.minecraft.commands.arguments.ResourceKeyArgument;
+import net.minecraft.commands.arguments.coordinates.Vec3Argument;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkAccess;
+import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class StellarisCommands {
 
@@ -54,22 +86,183 @@ public class StellarisCommands {
                                 }))
                         .then(Commands.literal("planetScreen")
                                 .executes((CommandContext<CommandSourceStack> context) -> {
-                                    PlanetUtil.openPlanetSelectionMenu(context.getSource().getPlayer(), true);
+                                    PlanetUtil.openPlanetSelectionMenu(context.getSource().getPlayer(), true, "stellaris:milky_way");
                                     return 0;
                                 }))
                 )
-                .then(Commands.literal("dev")
+
+                .then(Commands.literal("test")
                         .requires(c -> c.hasPermission(2))
                         .then(Commands.literal("dumpPlanetInfos")
                                 .executes((CommandContext<CommandSourceStack> context) -> {
 
-                                    for (Planet planet : StellarisData.getPlanets()) {
+                                    for(Planet planet : StellarisData.getPlanets()) {
                                         Stellaris.LOG.info(planet.name());
                                         Stellaris.LOG.info("[br] [br] Temperature : [color=red]{}°c [br] Gravity : [color=red]{} [br] Oxygen : [color=red]{} [br] Distance From Earth : {}km", planet.temperature(), planet.gravity(), planet.oxygen(), planet.distanceFromEarth());
                                     }
 
                                     return 0;
                                 }))
+                        .then(Commands.literal("getAntennaPos")
+                                .then(Commands.argument("size", IntegerArgumentType.integer())
+                                    .executes((CommandContext<CommandSourceStack> context) -> {
+
+                                    BlockPos pos = context.getSource().getPlayer().blockPosition();
+                                    int size = IntegerArgumentType.getInteger(context, "size");
+
+                                    //X
+                                    for (int i = 0; i < size; i++) {
+                                        //Y
+                                        for(int j = 0; j < size; j++) {
+                                            //Z
+                                            for(int k = 0; k < size; k++) {
+                                                BlockPos antennaPos = pos.offset(i, j, k);
+                                                ServerLevel level = context.getSource().getPlayer().serverLevel();
+                                                BlockState state = level.getBlockState(antennaPos);
+
+                                                if(state.is(BlockTags.WOOL)) {
+                                                    Vec3 offset = new Vec3(i, j, k);
+                                                    context.getSource().sendSuccess(() -> Component.literal("Antenna should be placed at " + antennaPos.toShortString() + "\nOffest is " + offset ) , false);
+                                                    return 0;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    context.getSource().sendFailure(Component.literal("No Pink Wool Block found in the area"));
+                                    return 0;
+                                }))
+                        )
+                        .then(Commands.literal("testScreen")
+                                .executes((CommandContext<CommandSourceStack> context) -> {
+                                    ExtendedMenuProvider provider = new ExtendedMenuProvider() {
+                                        @Override
+                                        public void saveExtraData(FriendlyByteBuf buffer) {
+                                        }
+
+                                        @Override
+                                        public Component getDisplayName() {
+                                            return Component.literal("Planets");
+                                        }
+
+                                        @Override
+                                        public @NotNull AbstractContainerMenu createMenu(int syncId, Inventory inv, Player player) {
+                                            FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
+                                            return TestMenu.create(syncId, inv, buffer);
+                                        }
+                                    };
+
+                                    MenuRegistry.openExtendedMenu(context.getSource().getPlayer(), provider);
+                                    return 0;
+                                }))
+
+                ).then(Commands.literal("launchpads")
+                        .then(Commands.literal("create")
+                                .then(Commands.argument("dimension", ResourceKeyArgument.key(Registries.DIMENSION))
+                                        .then(Commands.argument("pos", Vec3Argument.vec3())
+                                                .then(Commands.argument("public", BoolArgumentType.bool())
+                                                        .then(Commands.argument("name", StringArgumentType.string())
+                                                                .executes((CommandContext<CommandSourceStack> context) -> {
+
+                                                                    LaunchPad launchPad = new LaunchPad(
+                                                                            LaunchPadLauncher.LAUNCH_PADS.launchPads().size(),
+                                                                            Utils.blockPosToVec3(Vec3Argument.getCoordinates(context, "pos").getBlockPos(context.getSource())),
+                                                                            context.getArgument("dimension", ResourceKey.class),
+                                                                            StringArgumentType.getString(context, "name"),
+                                                                            BoolArgumentType.getBool(context, "public"),
+                                                                            Objects.requireNonNull(context.getSource().getPlayer()).getDisplayName().getString(),
+                                                                            new ArrayList<>()
+
+                                                                    );
+                                                                    LaunchPadLauncher.addLaunchPad(launchPad, context.getSource().getServer());
+
+                                                                    context.getSource().sendSuccess(() -> Component.literal("Space Station " + StringArgumentType.getString(context, "name") + " Created"), true);
+
+                                                                    return Command.SINGLE_SUCCESS;
+
+                                                                })
+                                                        )
+                                                )
+                                        )
+                                )
+                        ).then(Commands.literal("remove")
+                                .requires(c -> c.hasPermission(2))
+                                .then(Commands.argument("dimension", ResourceKeyArgument.key(Registries.DIMENSION))
+                                        .then(Commands.argument("name", StringArgumentType.string())
+                                                .executes((CommandContext<CommandSourceStack> context) -> {
+
+                                                    LaunchPad pad = LaunchPadUtils.getPadByNameAndDim(StringArgumentType.getString(context, "name"), context.getArgument("dimension", ResourceKey.class));
+
+                                                    if (pad != null && LaunchPadLauncher.removeLaunchpad(pad.id(),  context.getSource().getServer())) {
+                                                        context.getSource().sendSuccess(() -> Component.literal("Space Station " + StringArgumentType.getString(context, "name") + " Deleted"), true);
+                                                    } else {
+                                                        context.getSource().sendFailure(Component.literal("Space Station " + StringArgumentType.getString(context, "name") + " Not Found"));
+                                                    }
+                                                    return Command.SINGLE_SUCCESS;
+                                                })
+                                        )
+                                )
+                                .then(Commands.argument("id", IntegerArgumentType.integer(0, Integer.MAX_VALUE))
+                                        .requires(c -> c.hasPermission(2))
+                                        .executes((CommandContext<CommandSourceStack> context) -> {
+
+                                            LaunchPad pad = LaunchPadUtils.getPadById(IntegerArgumentType.getInteger(context, "id"));
+
+                                            if (pad != null && LaunchPadLauncher.removeLaunchpad(pad.id(),context.getSource().getServer())) {
+                                                context.getSource().sendSuccess(() -> Component.literal("Space Station " + pad.id() + " Deleted"), true);
+                                            } else {
+                                                context.getSource().sendFailure(Component.literal("Space Station " + StringArgumentType.getString(context, "name") + " Not Found"));
+                                            }
+                                            return Command.SINGLE_SUCCESS;
+                                        })
+
+                                )
+                        ).then(Commands.literal("share")
+                                .then(Commands.argument("launchpad", new LaunchPadArgument())
+                                        .then(Commands.argument("player", EntityArgument.player())
+                                                .executes((CommandContext<CommandSourceStack> context) -> {
+                                                    Player player = EntityArgument.getPlayer(context, "player");
+                                                    LaunchPad launchPad = LaunchPadUtils.getPadByNameAndPlayer(StringArgumentType.getString(context, "launchpad"), context.getSource().getPlayer());
+
+                                                    if(launchPad == null) {
+                                                        context.getSource().sendFailure(Component.literal("This launchpad don't exist or is not yours"));
+                                                        return 0;
+                                                    } else if(!launchPad.owner().equals(player.getName().getString())) {
+                                                        context.getSource().sendFailure(Component.literal("This launchpad is yours"));
+                                                        return 0;
+                                                    }
+                                                    else if(context.getSource().getPlayer().getName().equals(player.getName())) {
+                                                         context.getSource().sendFailure(Component.literal("You can't share your launchpad to yourself"));
+                                                         return 0;
+                                                    } else if(launchPad.whitelist().contains(player.getName().getString())) {
+                                                        context.getSource().sendFailure(Component.literal("Player " + player.getName().getString() + " already has access to this launchpad"));
+                                                        return 0;
+                                                    }
+                                                    LaunchPadLauncher.modifyLaunchPad(LaunchPadUtils.whitelistPlayer(launchPad, player), context.getSource().getServer());
+                                                    context.getSource().sendSuccess(() -> Component.translatable(""), false);
+
+                                                    return Command.SINGLE_SUCCESS;
+                                                })
+                                        )
+                                )
+                        ).then(Commands.literal("list")
+                                .executes((context -> {
+                                    MutableComponent component = Component.empty().append(Component.literal("Your LaunchPads : \n").withStyle(ChatFormatting.UNDERLINE));
+
+                                    LaunchPadUtils.getPlayerLaunchPad(context.getSource().getPlayer()).forEach((launchPad -> {
+                                        component.append(launchPad.name()).append(" (").append(Component.literal(launchPad.dimension().location().toString()).withColor(Utils.getColorHexCode("gray"))).append(") ");
+
+                                        if (launchPad.isPublic()) {
+                                            component.append(Component.literal("[Private] ").withColor(Utils.getColorHexCode("GREEN")));
+                                        } else {
+                                            component.append(Component.literal("[Public] ").withColor(Utils.getColorHexCode("GREEN")));
+                                        }
+                                        component.append("\n");
+                                    }));
+                                    context.getSource().sendSuccess(() -> component, false);
+
+                                    return Command.SINGLE_SUCCESS;
+                                }))
+                        )
                 )
         );
     }

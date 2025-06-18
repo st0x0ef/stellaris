@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:dirt",
+    "#minecraft:sand",
+    "#minecraft:air",
+    "#minecraft:fire",
+    "#minecraft:leaves",
+    "#minecraft:snow",
+    "minecraft:water"
+  ]
+}

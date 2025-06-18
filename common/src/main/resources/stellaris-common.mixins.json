@@ -4,6 +4,7 @@
   "package": "com.st0x0ef.stellaris.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "ArgumentTypeRegistryMixin",
     "CandleBlockMixin",
     "ChunkAccessMixin",
     "ChunkSerializerMixin",
@@ -13,6 +14,7 @@
     "StormyPlanetMixin"
   ],
   "client": [
+    "client.CustomEditBox",
     "client.HumanoidModelMixin",
     "client.LevelRendererMixin",
     "client.PlayerRendererMixin"

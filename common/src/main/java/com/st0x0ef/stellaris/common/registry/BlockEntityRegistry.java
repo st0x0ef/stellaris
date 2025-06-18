@@ -85,4 +85,7 @@ public class BlockEntityRegistry {
                     BlocksRegistry.T3_PIPE.get()
             ).build(null));
 
+    public static final RegistrySupplier<BlockEntityType<AntennaBlockEntity>> ANTENNA = BLOCK_ENTITY_TYPE.register("antenna",
+            () -> BlockEntityType.Builder.of(AntennaBlockEntity::new, BlocksRegistry.ANTENNA.get()).build(null));
+
 }

@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.common.registry;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.data.recipes.FuelRefineryRecipe;
 import com.st0x0ef.stellaris.common.data.recipes.RocketStationRecipe;
+import com.st0x0ef.stellaris.common.data.recipes.SpaceStationRecipe;
 import com.st0x0ef.stellaris.common.data.recipes.WaterSeparatorRecipe;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
@@ -37,6 +38,7 @@ public class RecipesRegistry {
             "fuel_refinery",
             FuelRefineryRecipe.Serializer::new
     );
+
 
     public static void register() {
         RECIPE_TYPES.register();

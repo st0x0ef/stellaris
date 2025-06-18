@@ -565,17 +565,16 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     }
 
     private void openPlanetMenu(Player player) {
-        if (player == null) {
-            return;
-        }
+        if (player == null) return;
 
         if (!player.stellaris$isPlanetMenuOpen()) {
             player.setNoGravity(true);
             player.getVehicle().setNoGravity(true);
-            PlanetUtil.openPlanetSelectionMenu(player, player.isCreative());
+            PlanetUtil.openPlanetSelectionMenu(player, player.isCreative(), "stellaris:milky_way");
             player.stellaris$setPlanetMenuOpen(true, player, true);
         }
     }
+
 
     private void openWaitMenu(Player player) {
         if (player == null) {

@@ -232,7 +232,7 @@
   "text.stellaris.planetscreen.system": "Planetary System",
   "text.stellaris.planetscreen.error_message": "You can't reach that celestial body",
   "text.stellaris.rocketscreen.fuel": "Fuel Capacity",
-  "text.stellaris.milkywayscreen.milkyway": "Milky Way",
+  "text.stellaris.galaxyscreen.milkyway": "Milky Way",
   "translatable.stellaris.registry.holdshift": "Hold [↑ Shift] to view more info",
   "translatable.stellaris.registry.player": "Player",
   "translatable.stellaris.registry.players": "player",
