@@ -1,6 +1,8 @@
 # 1.4.0 changelog
 
 ## Additions
+- Add space station
+- Add launch pad network
 - Add diesel
 - Add diesel generator
 - Add new config system
@@ -10,8 +12,11 @@
 - Add solerium
 - Add corronium
 - Add tharsite
+- Add antena
+- Add new tablet entries
 
 ## Changes
+- Improve the planet selection screen
 - Rover now need diesel instead of fuel
 - Jet suit and space suit now need diesel instead of fuel
 - Add emoji symbols to tooltips

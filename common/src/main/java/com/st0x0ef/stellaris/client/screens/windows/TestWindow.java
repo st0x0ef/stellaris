@@ -24,9 +24,7 @@ public class TestWindow extends MoveableWindow {
 
     @Override
     public void init() {
-        Button button = Button.builder(Component.literal("Test"), (button1) -> {
-            System.out.println("Button clicked!");
-        }).bounds(getWindowX() + 10, getWindowY() + 30, 100, 20).build();
+        Button button = Button.builder(Component.literal("Test"), (button1) -> System.out.println("Button clicked!")).bounds(getWindowX() + 10, getWindowY() + 30, 100, 20).build();
 
         this.addWidget(button);
 

@@ -10,7 +10,6 @@ import com.st0x0ef.stellaris.client.screens.components.TexturedButton;
 import com.st0x0ef.stellaris.client.screens.info.CelestialBody;
 import com.st0x0ef.stellaris.common.data.recipes.SpaceStationRecipesManager;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPad;
-import com.st0x0ef.stellaris.common.launchpads.LaunchPadLauncher;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPadUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;

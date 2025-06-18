@@ -6,7 +6,6 @@ import com.st0x0ef.stellaris.client.screens.GUISprites;
 import com.st0x0ef.stellaris.client.screens.windows.SpaceStationWindow;
 import com.st0x0ef.stellaris.common.data.recipes.SpaceStationRecipe;
 import com.st0x0ef.stellaris.common.data.recipes.SpaceStationRecipesManager;
-import com.st0x0ef.stellaris.common.launchpads.LaunchPad;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -100,7 +99,7 @@ public class SpaceStationList extends AbstractScrollWidget {
                 SpaceStationRecipesManager.SpaceStationRecipeState state = entry.getValue();
 
                 if (Utils.isHoveredOnSprite(pos.x, (int) (pos.y - this.scrollAmount()), pos.z, pos.w, (int) mouseX, (int) mouseY)) {
-                    if(state.isUnlocked || window.parent.getPlayer().isCreative()) {
+                    if(state.isUnlocked() || window.parent.getPlayer().isCreative()) {
                         window.spaceStationSelected = state;
                     }
 
@@ -153,19 +152,19 @@ public class SpaceStationList extends AbstractScrollWidget {
 
         public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
             guiGraphics.blitSprite(GUISprites.WINDOW_BAR, this.x + 20, this.y, this.width - 20, 30);
-            guiGraphics.drawString(getFont(), recipeState.recipe.getDisplayName(), this.x + 27, this.y + 10, Utils.getColorHexCode("white"));
+            guiGraphics.drawString(getFont(), recipeState.recipe().getDisplayName(), this.x + 27, this.y + 10, Utils.getColorHexCode("white"));
 
             TexturedButton launchButton = new TexturedButton((this.x + this.width) - 54, this.y + 6, 49, 18, Component.literal("Select"), (btn) -> {
-                if(recipeState.isUnlocked) {
+                if(recipeState.isUnlocked()) {
                     window.spaceStationSelected = recipeState;
                 }
             });
 
-            launchButton.setTooltip(Tooltip.create(this.recipeState.recipe.getTooltip(this.window.parent.getPlayer())));
+            launchButton.setTooltip(Tooltip.create(this.recipeState.recipe().getTooltip(this.window.parent.getPlayer())));
 
             buttonPositions = new Vector4i(launchButton.getX(), launchButton.getY(), launchButton.getWidth(), launchButton.getHeight());
 
-            if (recipeState.isUnlocked || window.parent.getPlayer().isCreative()) {
+            if (recipeState.isUnlocked() || window.parent.getPlayer().isCreative()) {
                 launchButton.tex(
                         ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/select_button.png"),
                         ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/select_button_hovered.png")

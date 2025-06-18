@@ -1,29 +1,14 @@
 package com.st0x0ef.stellaris.common.data.recipes;
 
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.data.planets.Planet;
-import com.st0x0ef.stellaris.common.data.planets.PlanetTextures;
-import com.st0x0ef.stellaris.common.data.recipes.input.SpaceStationInput;
-import com.st0x0ef.stellaris.common.registry.RecipesRegistry;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
@@ -40,9 +25,7 @@ public record SpaceStationRecipe(List<ItemStack> items, ResourceLocation locatio
     public static RegistryFriendlyByteBuf toBuffer(SpaceStationRecipe recipe, final RegistryFriendlyByteBuf buffer) {
         buffer.writeInt(recipe.items.size());
 
-        recipe.items.forEach(((item) -> {
-            ItemStack.STREAM_CODEC.encode(buffer, item);
-        }));
+        recipe.items.forEach(((item) -> ItemStack.STREAM_CODEC.encode(buffer, item)));
         buffer.writeResourceLocation(recipe.location);
         buffer.writeVec3(recipe.antenna_position);
 

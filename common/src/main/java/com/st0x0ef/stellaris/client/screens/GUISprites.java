@@ -4,9 +4,6 @@ import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import net.minecraft.resources.ResourceLocation;
 
-import static com.st0x0ef.stellaris.Stellaris.id;
-import static com.st0x0ef.stellaris.Stellaris.texture;
-
 public class GUISprites {
 
     public static final ResourceLocation WATER_OVERLAY = ResourceLocationUtils.id("util/water_overlay");

@@ -6,11 +6,8 @@ import com.mojang.serialization.JsonOps;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.network.packets.SyncLaunchPads;
 import dev.architectury.networking.NetworkManager;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.GsonHelper;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.dimension.DimensionType;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

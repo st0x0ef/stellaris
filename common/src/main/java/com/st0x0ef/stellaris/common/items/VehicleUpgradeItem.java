@@ -1,7 +1,5 @@
 package com.st0x0ef.stellaris.common.items;
 
-import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import com.st0x0ef.stellaris.common.vehicle_upgrade.SkinUpgrade;
 import com.st0x0ef.stellaris.common.vehicle_upgrade.VehicleUpgrade;
 import net.minecraft.resources.ResourceLocation;

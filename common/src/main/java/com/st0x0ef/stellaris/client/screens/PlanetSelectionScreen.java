@@ -455,7 +455,7 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
                         .sorted(Comparator.comparingDouble(p -> p.orbitRadius))
                         .toList();
                 if (!planetsInSystem.isEmpty()) {
-                    focusedBody = planetsInSystem.get(0);
+                    focusedBody = planetsInSystem.getFirst();
                 }
             }
 
@@ -633,7 +633,7 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
     }
 
     public void tpToFocusedPlanet() {
-        tpToFocusedPlanet(new Vec3(getPlayer().getX(), 600, getPlayer().getZ()), this.focusedBody);
+        tpToFocusedPlanet(new Vec3(getPlayer().getX(), 600, getPlayer().getZ()), focusedBody);
     }
 
     public void tpToFocusedPlanet(CelestialBody body) {
@@ -684,7 +684,7 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
             for (PSystemInfo system : PSYSTEMS) {
                 List<StarMovement> stars = new ArrayList<>();
 
-                for (PSystemRecord.StarPosition sp : system.stars) {
+                for (PSystemRecord.StarPosition sp : system.stars()) {
                     CelestialBody star = findByNameStar(sp.id());
                     if (star != null) {
                         stars.add(new StarMovement(star, star.getWidth() / 30));
@@ -878,7 +878,7 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
     private void centerSun() {
         float centerX = width / 2.0f;
         float centerY = height / 2.0f;
-        CelestialBody sun = findByNameStar(GalaxyScreen.findByNameGalaxy(getMenu().getGalaxyId()).getCenterStar());
+        CelestialBody sun = findByNameStar(GalaxyScreen.findByNameGalaxy(getMenu().getGalaxyId()).centerStar());
         if (sun != null) {
             sun.setPosition(centerX, centerY);
         } else {
@@ -890,15 +890,15 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
 
     private boolean isInCurrentGalaxy(CelestialBody body) {
         for (PSystemInfo system : PSYSTEMS) {
-            if (!system.getParent().equals(menu.getGalaxyId())) continue;
+            if (!system.parent().equals(menu.getGalaxyId())) continue;
 
-            for (PSystemRecord.StarPosition sp : system.stars) {
+            for (PSystemRecord.StarPosition sp : system.stars()) {
                 if (sp.id().equals(body.getId())) return true;
             }
 
             for (PlanetInfo planet : PLANETS) {
                 if (planet.getId().equals(body.getId())) {
-                    for (PSystemRecord.StarPosition sp : system.stars) {
+                    for (PSystemRecord.StarPosition sp : system.stars()) {
                         if (planet.orbitCenter.getId().equals(sp.id())) return true;
                     }
                 }
@@ -907,7 +907,7 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
             for (MoonInfo moon : MOONS) {
                 if (moon.getId().equals(body.getId())) {
                     if (moon.orbitCenter instanceof PlanetInfo planet) {
-                        for (PSystemRecord.StarPosition sp : system.stars) {
+                        for (PSystemRecord.StarPosition sp : system.stars()) {
                             if (planet.orbitCenter.getId().equals(sp.id())) return true;
                         }
                     }
@@ -1098,8 +1098,8 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
                             moon.clickable) {
 
                         focusedBody = moon;
-                        ((LaunchWindow) this.moveableWindows.getFirst()).setCelestialBody(this.focusedBody);
-                        ((SpaceStationWindow) this.moveableWindows.get(1)).setCelestialBody(this.focusedBody);
+                        ((LaunchWindow) this.moveableWindows.getFirst()).setCelestialBody(focusedBody);
+                        ((SpaceStationWindow) this.moveableWindows.get(1)).setCelestialBody(focusedBody);
 
                         showSpaceStationMenu = true;
 
@@ -1129,8 +1129,8 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
                             mouseY >= planetY && mouseY <= planetY + planetHeight) {
 
                         focusedBody = planet;
-                        ((LaunchWindow) this.moveableWindows.getFirst()).setCelestialBody(this.focusedBody);
-                        ((SpaceStationWindow) this.moveableWindows.get(1)).setCelestialBody(this.focusedBody);
+                        ((LaunchWindow) this.moveableWindows.getFirst()).setCelestialBody(focusedBody);
+                        ((SpaceStationWindow) this.moveableWindows.get(1)).setCelestialBody(focusedBody);
 
                         showSpaceStationMenu = true;
 
@@ -1263,7 +1263,7 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
     public void onSpaceStationButtonClick(CelestialBody body, SpaceStationRecipesManager.SpaceStationRecipeState stationRecipeState, LaunchPad pad) {
         focusedBody = body;
         tpToFocusedPlanet();
-        NetworkManager.sendToServer(new PlaceStationPacket(body.dimension, stationRecipeState.recipe, pad));
+        NetworkManager.sendToServer(new PlaceStationPacket(body.dimension, stationRecipeState.recipe(), pad));
 
     }
 

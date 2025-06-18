@@ -3,10 +3,8 @@ package com.st0x0ef.stellaris.client.screens;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
-import com.st0x0ef.stellaris.client.screens.info.CelestialBody;
 import com.st0x0ef.stellaris.client.screens.info.GalaxyInfo;
 import com.st0x0ef.stellaris.common.menus.GalaxyMenu;
-import com.st0x0ef.stellaris.common.network.packets.OpenMilkyWayMenuPacket;
 import com.st0x0ef.stellaris.common.network.packets.OpenPlanetScreenPacket;
 import dev.architectury.networking.NetworkManager;
 import net.fabricmc.api.EnvType;
@@ -105,7 +103,7 @@ public class GalaxyScreen extends AbstractContainerScreen<GalaxyMenu> {
 
     public static GalaxyInfo findByNameGalaxy(String id) {
         for (GalaxyInfo body : GalaxyScreen.GALAXY) {
-            if (body.getId().equals(id)) {
+            if (body.id().equals(id)) {
                 return body;
             }
         }
@@ -117,7 +115,7 @@ public class GalaxyScreen extends AbstractContainerScreen<GalaxyMenu> {
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (isHoveredOnSprite(tbtX, tbtY, tbtWidth, tbtHeight, mouseX, mouseY)) {
             Minecraft.getInstance().player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0F, 1.0F);
-            NetworkManager.sendToServer(new OpenPlanetScreenPacket(GALAXY.get(selectedGalaxyIndex).getId()));
+            NetworkManager.sendToServer(new OpenPlanetScreenPacket(GALAXY.get(selectedGalaxyIndex).id()));
         }
 
         return super.mouseClicked(mouseX, mouseY, button);
@@ -136,7 +134,7 @@ public class GalaxyScreen extends AbstractContainerScreen<GalaxyMenu> {
 
         if (!GALAXY.isEmpty()) {
             GalaxyInfo selectedGalaxy = GALAXY.get(selectedGalaxyIndex);
-            ScreenHelper.drawTexturewithRotation(guiGraphics, selectedGalaxy.texture, galaxyX, galaxyY, 0, 0, galaxyWidth, galaxyHeight, galaxyWidth, galaxyHeight, rotationAngle);
+            ScreenHelper.drawTexturewithRotation(guiGraphics, selectedGalaxy.texture(), galaxyX, galaxyY, 0, 0, galaxyWidth, galaxyHeight, galaxyWidth, galaxyHeight, rotationAngle);
             int nameWidth = font.width(selectedGalaxy.getTranslatable());
             guiGraphics.drawString(font, selectedGalaxy.getTranslatable(), (width - nameWidth) / 2, 10, 0xFFFFFF);
         } else {

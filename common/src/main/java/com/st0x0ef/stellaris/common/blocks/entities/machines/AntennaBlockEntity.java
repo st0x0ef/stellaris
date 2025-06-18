@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.entities.ImplementedInventory;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPad;
 import com.st0x0ef.stellaris.common.menus.AntennaMenu;
@@ -83,7 +82,7 @@ public class AntennaBlockEntity extends BaseContainerBlockEntity implements Impl
     }
 
     public void setLaunchPad(LaunchPad launchPad, boolean create) {
-        if(!this.level.isClientSide) {
+        if(this.level == null || !this.level.isClientSide) {
             this.launchPadId = launchPad.id();
             return;
         }

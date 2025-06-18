@@ -6,7 +6,6 @@ import com.google.gson.JsonObject;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceKey;
@@ -124,9 +123,7 @@ public record LaunchPad(
 
         public static RegistryFriendlyByteBuf toBuffer(LaunchPadContainer launchPads, final RegistryFriendlyByteBuf buffer) {
             buffer.writeInt(launchPads.launchPads.size());
-            launchPads.launchPads.forEach(launchPad -> {
-                LaunchPad.toBuffer(launchPad, buffer);
-            });
+            launchPads.launchPads.forEach(launchPad -> LaunchPad.toBuffer(launchPad, buffer));
 
             return buffer;
         }

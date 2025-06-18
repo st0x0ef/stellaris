@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.common.launchpads;
 
-import com.st0x0ef.stellaris.Stellaris;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.player.Player;

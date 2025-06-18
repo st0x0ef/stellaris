@@ -4,7 +4,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
 import com.st0x0ef.stellaris.Stellaris;
-import com.st0x0ef.stellaris.common.data.planets.Planet;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -46,9 +45,7 @@ public class SpaceStationRecipesManager extends SimpleJsonResourceReloadListener
     public static RegistryFriendlyByteBuf toBuffer(List<SpaceStationRecipe> recipes, final RegistryFriendlyByteBuf buffer) {
         buffer.writeInt(recipes.size());
 
-        recipes.forEach(((recipe) -> {
-            SpaceStationRecipe.toBuffer(recipe, buffer);
-        }));
+        recipes.forEach(((recipe) -> SpaceStationRecipe.toBuffer(recipe, buffer)));
 
         return buffer;
 
@@ -80,17 +77,7 @@ public class SpaceStationRecipesManager extends SimpleJsonResourceReloadListener
         return tooltip;
     }
 
-    public static class SpaceStationRecipeState {
-
-        public final SpaceStationRecipe recipe;
-        public final boolean isUnlocked;
-        public final MutableComponent tooltip;
-
-        public SpaceStationRecipeState(SpaceStationRecipe recipe, MutableComponent tooltip, boolean isUnlocked) {
-            this.recipe = recipe;
-            this.isUnlocked = isUnlocked;
-            this.tooltip = tooltip;
-        }
+    public record SpaceStationRecipeState(SpaceStationRecipe recipe, MutableComponent tooltip, boolean isUnlocked) {
 
 
     }

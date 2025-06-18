@@ -53,9 +53,7 @@ public class PSystemPack extends SimpleJsonResourceReloadListener {
                 PlanetSelectionScreen.PSYSTEMS.add(screenPSYSTEM);
                 Stellaris.LOG.info("Added a planetary system '{}' to PlanetScreen: {}", record.name(), record.id());
 
-            }, () -> {
-                Stellaris.LOG.error("Failed to parse PSystemRecord JSON: {}", key.toString());
-            });
+            }, () -> Stellaris.LOG.error("Failed to parse PSystemRecord JSON: {}", key.toString()));
         });
 
         Stellaris.LOG.info("Finished loading {} Planetary System.", PlanetSelectionScreen.PSYSTEMS.size());

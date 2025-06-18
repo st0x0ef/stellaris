@@ -5,35 +5,10 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
-public class GalaxyInfo {
-    public final ResourceLocation texture;
-    public final String name;
-    public final String translatable;
-    public final String id;
-    public final String centerStar;
-
-    public GalaxyInfo(ResourceLocation texture, String name, String translatable, String id, String centerStar) {
-        this.texture = texture;
-        this.name = name;
-        this.translatable = translatable;
-        this.id = id;
-        this.centerStar = centerStar;
-    }
+public record GalaxyInfo(ResourceLocation texture, String name, String translatable, String id, String centerStar) {
 
     public Component getTranslatable() {
         return Component.translatable(translatable);
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getCenterStar() {
-        return centerStar;
     }
 
     public static final Codec<GalaxyInfo> CODEC = RecordCodecBuilder.create(

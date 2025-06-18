@@ -10,7 +10,6 @@ import com.st0x0ef.stellaris.common.data_components.SpaceSuitModules;
 import com.st0x0ef.stellaris.common.entities.vehicles.LanderEntity;
 import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPad;
-import com.st0x0ef.stellaris.common.launchpads.LaunchPadLauncher;
 import com.st0x0ef.stellaris.common.registry.*;
 import com.st0x0ef.stellaris.common.vehicle_upgrade.FuelType;
 import dev.architectury.utils.GameInstance;
@@ -36,12 +35,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Vector3i;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -120,7 +117,7 @@ public class Utils {
     }
 
     public static void changeDimensionForPlayers(List<Entity> entities, Planet destination, Vec3 coords, boolean setHeight) {
-        if(setHeight ) {
+        if (setHeight) {
             coords = new Vec3(coords.x, 600, coords.z);
         }
         changeDimensionForPlayers(entities, destination, coords);

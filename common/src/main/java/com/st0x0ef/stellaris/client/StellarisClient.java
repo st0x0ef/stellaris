@@ -22,13 +22,10 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.server.packs.PackType;
-import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.world.item.component.DyedItemColor;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL43;
 import org.lwjgl.opengl.GLDebugMessageCallback;
-
-import javax.swing.text.rtf.RTFEditorKit;
 
 @Environment(EnvType.CLIENT)
 public class StellarisClient {
