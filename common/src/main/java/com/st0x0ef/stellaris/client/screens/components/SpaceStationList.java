@@ -40,7 +40,7 @@ public class SpaceStationList extends AbstractScrollWidget {
 
     @Override
     protected int getInnerHeight() {
-        return finalHeight.get() / 2;
+        return finalHeight.get();
     }
 
     @Override

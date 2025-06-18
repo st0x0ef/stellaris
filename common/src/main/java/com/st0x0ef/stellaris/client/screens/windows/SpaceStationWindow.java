@@ -98,9 +98,6 @@ public class SpaceStationWindow extends MoveableWindow {
     }
 
     public void onStationCreated() {
-        Stellaris.LOG.error("name box empty: " + this.nameBox.getValue().isEmpty());
-        Stellaris.LOG.error("space station selected: " + (this.spaceStationSelected == null ? "null" : this.spaceStationSelected.recipe.location()));
-        Stellaris.LOG.error("celestial body: " + (this.celestialBody == null ? "null" : this.celestialBody.dimension));
 
         if(!this.nameBox.getValue().isEmpty() && this.spaceStationSelected != null && this.celestialBody != null) {
             LaunchPad pad = new LaunchPad(
@@ -128,7 +125,7 @@ public class SpaceStationWindow extends MoveableWindow {
         if(keyCode == GLFW.GLFW_KEY_ESCAPE) {
             close();
             return true;
-        } else if (this.nameBox.isFocused() || this.nameBox.isHovered()) {
+        } else if (this.nameBox.isFocused() || this.nameBox.isHovered()|| keyCode == GLFW.GLFW_KEY_SPACE) {
             return true;
             
         }
@@ -136,4 +133,11 @@ public class SpaceStationWindow extends MoveableWindow {
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
+    @Override
+    public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
+        if(this.stationList.isHovered()) {
+            return true;
+        }
+        return super.mouseDragged(mouseX, mouseY, button, dragX, dragY);
+    }
 }

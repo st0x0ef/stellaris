@@ -25,6 +25,7 @@ import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.commands.arguments.ResourceKeyArgument;
 import net.minecraft.commands.arguments.coordinates.Vec3Argument;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -32,10 +33,13 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkAccess;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -87,7 +91,6 @@ public class StellarisCommands {
                                 }))
                 )
 
-
                 .then(Commands.literal("test")
                         .requires(c -> c.hasPermission(2))
                         .then(Commands.literal("dumpPlanetInfos")
@@ -100,6 +103,35 @@ public class StellarisCommands {
 
                                     return 0;
                                 }))
+                        .then(Commands.literal("getAntennaPos")
+                                .then(Commands.argument("size", IntegerArgumentType.integer())
+                                    .executes((CommandContext<CommandSourceStack> context) -> {
+
+                                    BlockPos pos = context.getSource().getPlayer().blockPosition();
+                                    int size = IntegerArgumentType.getInteger(context, "size");
+
+                                    //X
+                                    for (int i = 0; i < size; i++) {
+                                        //Y
+                                        for(int j = 0; j < size; j++) {
+                                            //Z
+                                            for(int k = 0; k < size; k++) {
+                                                BlockPos antennaPos = pos.offset(i, j, k);
+                                                ServerLevel level = context.getSource().getPlayer().serverLevel();
+                                                BlockState state = level.getBlockState(antennaPos);
+
+                                                if(state.is(BlockTags.WOOL)) {
+                                                    Vec3 offset = new Vec3(i, j, k);
+                                                    context.getSource().sendSuccess(() -> Component.literal("Antenna should be placed at " + antennaPos.toShortString() + "\nOffest is " + offset ) , false);
+                                                    return 0;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    context.getSource().sendFailure(Component.literal("No Pink Wool Block found in the area"));
+                                    return 0;
+                                }))
+                        )
                         .then(Commands.literal("testScreen")
                                 .executes((CommandContext<CommandSourceStack> context) -> {
                                     ExtendedMenuProvider provider = new ExtendedMenuProvider() {

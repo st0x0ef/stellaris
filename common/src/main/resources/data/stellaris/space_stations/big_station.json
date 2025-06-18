@@ -9,10 +9,10 @@
       "id": "minecraft:birch_planks"
     }
   ],
-  "location": "stellaris:space_station_small",
+  "location": "stellaris:space_station_big",
   "antenna_position": [
-    19,
     28,
-    18
+    40,
+    27
   ]
 }

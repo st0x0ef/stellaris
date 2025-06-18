@@ -20,6 +20,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public class PlaceStationPacket implements CustomPacketPayload {
@@ -61,9 +62,10 @@ public class PlaceStationPacket implements CustomPacketPayload {
 
             ServerLevel level = player.level().getServer().getLevel(ResourceKey.create(Registries.DIMENSION, planet.dimension()));
             if (level != null) {
-                Utils.placeSpaceStation(player, level, packet.recipe, packet.pad);
+                Vec3 stationPosition = Utils.placeSpaceStation(player, level, packet.recipe, packet.pad);
                 packet.recipe.removeMaterials(player);
-                NetworkManager.sendToServer(new TeleportEntityToPlanetPacket(packet.dimension, LaunchPadUtils.getPadById(packet.pad.id()).position()));
+
+                NetworkManager.sendToServer(new TeleportEntityToPlanetPacket(packet.dimension, stationPosition));
 
             }
         }

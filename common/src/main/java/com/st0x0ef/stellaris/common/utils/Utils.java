@@ -353,23 +353,17 @@ public class Utils {
     }
 
     /** Place the space station */
-    public static void placeSpaceStation(Player player, ServerLevel serverLevel, SpaceStationRecipe recipe, LaunchPad pad) {
+    public static Vec3 placeSpaceStation(Player player, ServerLevel serverLevel, SpaceStationRecipe recipe, LaunchPad pad) {
         StructureTemplate structureTemplate = serverLevel.getStructureManager().getOrCreate(recipe.location());
         BlockPos pos = new BlockPos((int)player.getX() - (structureTemplate.getSize().getX() / 2), 100, (int)player.getZ() - (structureTemplate.getSize().getZ() / 2));
-        Stellaris.LOG.info("Placing space station {}", pos);
 
-        serverLevel.setBlock(pos, Blocks.PINK_WOOL.defaultBlockState(),2);
         structureTemplate.placeInWorld(serverLevel, pos, pos, new StructurePlaceSettings(), serverLevel.random, 2);
-        placeAntennaBlock(pos, serverLevel, recipe, pad);
+        return placeAntennaBlock(pos, serverLevel, recipe, pad);
     }
 
-    public static void placeAntennaBlock(BlockPos initialPos, ServerLevel serverLevel, SpaceStationRecipe recipe, LaunchPad pad) {
+    public static Vec3 placeAntennaBlock(BlockPos initialPos, ServerLevel serverLevel, SpaceStationRecipe recipe, LaunchPad pad) {
 
-        BlockPos pos = initialPos.east((int) recipe.antenna_position().x)
-                .south((int) recipe.antenna_position().y)
-                .above((int) recipe.antenna_position().z);
-
-        Stellaris.LOG.error("antenna position: {}", pos);
+        BlockPos pos = initialPos.offset((int) recipe.antenna_position().x, (int) recipe.antenna_position().y, (int) recipe.antenna_position().z);
 
         AntennaBlockEntity antennaBlockEntity = new AntennaBlockEntity(pos, BlocksRegistry.ANTENNA.get().defaultBlockState());
 
@@ -386,6 +380,8 @@ public class Utils {
         antennaBlockEntity.setLaunchPad(newPad, true);
         serverLevel.setBlock(pos, BlocksRegistry.ANTENNA.get().defaultBlockState(), 1);
         serverLevel.setBlockEntity(antennaBlockEntity);
+
+        return Utils.blockPosToVec3(pos);
     }
 
     public static boolean isHoveredOnSprite(int x, int y, int width, int height, double mouseX, double mouseY) {
