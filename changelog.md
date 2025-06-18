@@ -6,6 +6,7 @@
 - Add new config system
 - Add power banks
 - Add fluid tanks
+- Add hydrogen and oxygen to tag
 
 ## Changes
 - Rover now need diesel instead of fuel
