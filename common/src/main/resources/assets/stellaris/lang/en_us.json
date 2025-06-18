@@ -25,12 +25,15 @@
   "block.stellaris.mars_diamond_ore": "Mars Diamond Ore",
   "block.stellaris.mars_ostrum_ore": "Mars Ostrum Ore",
   "block.stellaris.mars_plutonium_ore": "Mars Plutonium Ore",
+  "block.stellaris.mars_tharsite_ore": "Mars Tharsite Ore",
   "block.stellaris.venus_coal_ore": "Venus Coal Ore",
   "block.stellaris.venus_gold_ore": "Venus Gold Ore",
   "block.stellaris.venus_diamond_ore": "Venus Diamond Ore",
   "block.stellaris.venus_neptunium_ore": "Venus Neptunium Ore",
+  "block.stellaris.venus_corronium_ore": "Venus Corronium Ore",
   "block.stellaris.mercury_iron_ore": "Mercury Iron Ore",
   "block.stellaris.mercury_uranium_ore": "Mercury Uranium Ore",
+  "block.stellaris.mercury_solerium_ore": "Mercury Solerium Ore",
 
   "block.stellaris.raw_steel_block": "Block of Raw Steel",
   "block.stellaris.raw_desh_block": "Block of Raw Desh",
@@ -50,14 +53,19 @@
   "item.stellaris.uranium_ingot": "Uranium Ingot",
   "item.stellaris.plutonium_ingot": "Plutonium Ingot",
   "item.stellaris.neptunium_ingot": "Neptunium Ingot",
+  "item.stellaris.corronium_ingot": "Corronium Ingot",
+  "item.stellaris.tharsite_ingot": "Tharsite Ingot",
+  "item.stellaris.solerium": "Solerium",
+
+  "item.stellaris.raw_corronium": "Raw Corronium",
+  "item.stellaris.raw_tharsite": "Raw Tharsite",
+  "item.stellaris.raw_solerium": "Raw Solerium",
 
   "item.stellaris.steel_nugget": "Steel Nugget",
   "item.stellaris.heavy_metal_nugget": "Heavy Metal Nugget",
   "item.stellaris.plutonium_nugget": "Plutonium Nugget",
-
   "item.stellaris.plutonium_piece": "Plutonium Piece",
   "item.stellaris.neptunium_piece": "Neptunium Piece",
-
   "item.stellaris.plutonium_grain": "Plutonium Grain",
 
 

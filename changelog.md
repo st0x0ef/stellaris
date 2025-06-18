@@ -7,6 +7,9 @@
 - Add power banks
 - Add fluid tanks
 - Add hydrogen and oxygen to tag
+- Add solerium
+- Add corronium
+- Add tharsite
 
 ## Changes
 - Rover now need diesel instead of fuel
