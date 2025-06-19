@@ -25,6 +25,7 @@ public class CommonConfig {
     public static class Gravity {
         public boolean customEntityGravity = true;
         public boolean customItemGravity = true;
+        public float orbitGravity = 3.0f;
 
     }
 

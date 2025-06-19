@@ -1,13 +1,12 @@
 {
   "system": "solar_system",
-  "level": "stellaris:mars",
-  "orbit": "stellaris:mars_orbit",
-  "name": "Mars",
+  "level": "stellaris:mars_orbit",
+  "name": "Mars Orbit",
   "translatable": "stellaris.planet.mars",
   "oxygen": false,
   "temperature": -63,
   "distanceFromEarth": 55700,
-  "gravity": 3.72076,
+  "gravity": 2.72076,
   "textures": {
     "planet": "stellaris:textures/planet_bar/mars_planet_bar.png",
     "planet_bar": "stellaris:textures/planet_bar/mars_planet_bar.png"

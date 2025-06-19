@@ -8,5 +8,6 @@
   "parent": "stellaris:sun",
   "dimensionId": "stellaris:mars",
   "translatable": "text.stellaris.planetscreen.mars",
-  "id": "stellaris:mars"
+  "id": "stellaris:mars",
+  "space_station": true
 }

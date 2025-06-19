@@ -485,8 +485,6 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
     }
 
     public void setWindowVisible(int index) {
-        Stellaris.LOG.info("window index: " + index);
-
         for (int i = 0; i < moveableWindows.size(); i++) {
             MoveableWindow window = moveableWindows.get(i);
             if (i == index) {

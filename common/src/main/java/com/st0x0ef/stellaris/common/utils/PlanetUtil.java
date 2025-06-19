@@ -24,6 +24,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
@@ -75,6 +76,8 @@ public class PlanetUtil {
     public static ResourceLocation getSpaceStationDimension(Planet planet) {
         return planet.orbit().isPresent() ? planet.orbit().get() : planet.dimension();
     }
+
+
 
     /** Get the resource location of the planet bar set in the Planet file */
     public static ResourceLocation getPlanetBar(ResourceLocation level) {
