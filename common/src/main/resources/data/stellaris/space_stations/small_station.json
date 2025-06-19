@@ -1,12 +1,12 @@
 {
   "items": [
     {
-      "count": 1,
-      "id": "minecraft:diamond_sword"
+      "count": 100,
+      "id": "stellaris:steel_ingot"
     },
     {
-      "count": 6,
-      "id": "minecraft:birch_planks"
+      "count": 100,
+      "id": "stellaris:heavy_metal_ingot"
     }
   ],
   "location": "stellaris:space_station_small",
