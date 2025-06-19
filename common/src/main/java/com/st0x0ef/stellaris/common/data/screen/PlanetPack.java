@@ -43,10 +43,12 @@ public class PlanetPack extends SimpleJsonResourceReloadListener {
                     planet.dimensionId(),
                     Component.translatable(planet.translatable()),
                     planet.id(),
-                    planet.spaceStation().orElse(false)
+                    planet.spaceStation().orElse(false),
+                    planet.canLaunchOn().orElse(true)
             );
 
             planet.spaceStation().ifPresent(screenPlanet::setSpaceStation);
+            planet.canLaunchOn().ifPresent(screenPlanet::setCanLaunchOn);
 
 
             for (int i = 0; i < PlanetSelectionScreen.PLANETS.size(); i++) {

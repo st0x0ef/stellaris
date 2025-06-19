@@ -13,7 +13,7 @@ public record PlanetRecord(
         ResourceLocation texture, String name,
         int distance, long period, int width,
         int height, String parent,
-        ResourceKey<Level> dimensionId, String translatable, Optional<Boolean> spaceStation, String id) {
+        ResourceKey<Level> dimensionId, String translatable, Optional<Boolean> spaceStation, String id, Optional<Boolean> canLaunchOn) {
 
 
     public static final Codec<PlanetRecord> CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -27,6 +27,7 @@ public record PlanetRecord(
             ResourceKey.codec(Registries.DIMENSION).fieldOf("dimensionId").forGetter(PlanetRecord::dimensionId),
             Codec.STRING.fieldOf("translatable").forGetter(PlanetRecord::translatable),
             Codec.BOOL.optionalFieldOf("space_station").forGetter(PlanetRecord::spaceStation),
-            Codec.STRING.fieldOf("id").forGetter(PlanetRecord::id)
+            Codec.STRING.fieldOf("id").forGetter(PlanetRecord::id),
+            Codec.BOOL.optionalFieldOf("can_launch_on").forGetter(PlanetRecord::canLaunchOn)
     ).apply(instance, PlanetRecord::new));
 }

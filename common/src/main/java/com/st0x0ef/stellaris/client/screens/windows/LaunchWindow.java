@@ -63,7 +63,6 @@ public class LaunchWindow extends MoveableWindow {
         spaceStationButton.setTooltip(Tooltip.create(Component.literal("Space Stations")));
 
         this.addWidget(spaceStationButton);
-
     }
 
     @Override
@@ -74,7 +73,7 @@ public class LaunchWindow extends MoveableWindow {
 
         if(this.celestialBody != null && PlanetUtil.getPlanet(this.celestialBody.dimension) != null) {
 
-            if(!this.celestialBody.spaceStation) {
+            if (!this.celestialBody.spaceStation) {
                 this.spaceStationButton.visible = false;
             } else {
                 this.spaceStationButton.visible = true;
@@ -88,10 +87,13 @@ public class LaunchWindow extends MoveableWindow {
             if(!this.parent.canLaunch(planet)) {
                 guiGraphics.drawCenteredString(Minecraft.getInstance().font, "You cannot launch to this planet!", getWindowX() + getWidth() / 2, (getWindowY() + getHeight()) - 26, 0xFFFF0000);
             }
-        }
 
-        this.padsList.launchPads = getLaunchPadsForDimension();
-        this.padsList.launchPads.addFirst(this.addDirectLaunch());
+            this.padsList.launchPads = getLaunchPadsForDimension();
+
+            if (this.celestialBody.canLaunchOn) {
+                this.padsList.launchPads.addFirst(this.addDirectLaunch());
+            }
+        }
 
         guiGraphics.flush();
         parent.dragging = false;

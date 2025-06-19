@@ -9,6 +9,6 @@
   "dimensionId": "stellaris:jupiter",
   "translatable": "text.stellaris.planetscreen.jupiter",
   "id": "stellaris:jupiter",
-  "space_station": true
-
+  "space_station": true,
+  "can_launch_on": false
 }

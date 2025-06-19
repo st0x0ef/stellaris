@@ -12,12 +12,14 @@ public class PlanetInfo extends CelestialBody {
     public final CelestialBody orbitCenter;
     public final double orbitRadius;
     public double currentAngle;
+    public boolean spaceStation = false;
+    public boolean canLaunchOn = true;
 
-    public PlanetInfo(ResourceLocation texture, String name, double orbitRadius, long orbitDuration, float width, float height, CelestialBody orbitCenter, ResourceKey<Level> dimension, Component translatable, String id, boolean spaceStation) {
-        this(texture, name, orbitRadius, orbitDuration, width, height, orbitCenter, dimension.location(), translatable.getString(), id);
+    public PlanetInfo(ResourceLocation texture, String name, double orbitRadius, long orbitDuration, float width, float height, CelestialBody orbitCenter, ResourceKey<Level> dimension, Component translatable, String id, boolean spaceStation, boolean canLaunchOn) {
+        this(texture, name, orbitRadius, orbitDuration, width, height, orbitCenter, dimension.location(), translatable.getString(), id, spaceStation, canLaunchOn);
     }
 
-    public PlanetInfo(ResourceLocation texture, String name, double orbitRadius, long orbitDuration, float width, float height, CelestialBody orbitCenter, ResourceLocation dimension, String translatable, String id) {
+    public PlanetInfo(ResourceLocation texture, String name, double orbitRadius, long orbitDuration, float width, float height, CelestialBody orbitCenter, ResourceLocation dimension, String translatable, String id, boolean spaceStation, boolean canLaunchOn) {
         super(texture, name, 0, 0, width, height, 0xFFFFFF, dimension, translatable, id);
         this.orbitRadius = orbitRadius;
         this.orbitDuration = orbitDuration;
@@ -56,8 +58,9 @@ public class PlanetInfo extends CelestialBody {
                                     CelestialBody.CODEC.fieldOf("orbitCenter").forGetter(b -> b.orbitCenter),
                                     ResourceLocation.CODEC.fieldOf("dimension").forGetter(b -> b.dimension),
                                     Codec.STRING.fieldOf("translatable").forGetter(b -> b.translatable),
-                                    Codec.STRING.fieldOf("id").forGetter(b -> b.id)
-                            )
-                            .apply(instance, PlanetInfo::new)
+                                    Codec.STRING.fieldOf("id").forGetter(b -> b.id),
+                                    Codec.BOOL.optionalFieldOf("space_station", false).forGetter(b -> b.spaceStation),
+                                    Codec.BOOL.optionalFieldOf("can_launch_on", true).forGetter(b -> b.canLaunchOn)
+                            ).apply(instance, PlanetInfo::new)
     );
 }

@@ -18,9 +18,10 @@ public class CelestialBody {
     public ResourceLocation dimension;
     public String translatable;
     public String id;
-    public boolean clickable = true;
+    public boolean clickable;
     public boolean spaceStation = false;
     public final Trail trail = new Trail();
+    public boolean canLaunchOn = true;
 
     public CelestialBody(ResourceLocation texture, String name, float x, float y, float width, float height, int orbitColor, ResourceLocation dimension, String translatable, String id) {
         this(texture, name, x, y, width, height, orbitColor, dimension, translatable, id, true);
@@ -48,6 +49,11 @@ public class CelestialBody {
 
     public CelestialBody setSpaceStation(boolean spaceStation) {
         this.spaceStation = spaceStation;
+        return this;
+    }
+
+    public CelestialBody setCanLaunchOn(boolean canLaunchOn) {
+        this.canLaunchOn = canLaunchOn;
         return this;
     }
 
