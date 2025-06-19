@@ -17,6 +17,7 @@ public record Planet(
         String translatable,
         String name,
         ResourceLocation dimension,
+        // Optional orbit location, if the planet is orbiting another celestial body. Need to be a ResourceLocation of the orbit dimension and a planet with the same level should exist.
         Optional<ResourceLocation> orbit,
         boolean oxygen,
         float temperature,
