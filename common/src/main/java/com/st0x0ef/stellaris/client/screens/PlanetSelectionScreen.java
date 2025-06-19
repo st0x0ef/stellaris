@@ -131,14 +131,14 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
     }
 
     public void initWindows() {
-        var launchWindow = new LaunchWindow(300,200, Component.literal("eee"), this);
-        launchWindow.visible =false;
+        LaunchWindow launchWindow = new LaunchWindow(300,200, Component.literal("eee"), this);
+        launchWindow.visible = false;
         addRenderableWidget(launchWindow);
         launchWindow.changeVisibility(false);
 
         moveableWindows.add(launchWindow);
 
-        var spaceStationWindow = new SpaceStationWindow(300,200, Component.literal("eee"), this);
+        SpaceStationWindow spaceStationWindow = new SpaceStationWindow(300,200, Component.literal("eee"), this);
 
         addRenderableWidget(spaceStationWindow);
         spaceStationWindow.changeVisibility(false);

@@ -180,8 +180,7 @@ public class SpaceStationList extends AbstractScrollWidget {
             launchButton.render(guiGraphics, mouseX, mouseY, partialTick);
 
             if (Utils.isHoveredOnSprite(this.x, this.y, window.getWidth() - 80, 30, mouseX, mouseY)) {
-                guiGraphics.renderTooltip(getFont(), launchButton.getTooltip().toCharSequence(Minecraft.getInstance() ), mouseX, mouseY);
-
+                guiGraphics.renderTooltip(getFont(), launchButton.getTooltip().toCharSequence(Minecraft.getInstance()), mouseX, mouseY);
             }
         }
 

@@ -77,8 +77,5 @@ public class SpaceStationRecipesManager extends SimpleJsonResourceReloadListener
         return tooltip;
     }
 
-    public record SpaceStationRecipeState(SpaceStationRecipe recipe, MutableComponent tooltip, boolean isUnlocked) {
-
-
-    }
+    public record SpaceStationRecipeState(SpaceStationRecipe recipe, MutableComponent tooltip, boolean isUnlocked) {}
 }

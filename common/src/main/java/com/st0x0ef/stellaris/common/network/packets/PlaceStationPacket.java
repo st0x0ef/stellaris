@@ -53,8 +53,7 @@ public class PlaceStationPacket implements CustomPacketPayload {
     public static void handle(PlaceStationPacket packet, NetworkManager.PacketContext context) {
         Player player = context.getPlayer();
         Planet planet = PlanetUtil.getPlanet(packet.dimension);
-        if(planet != null ) {
-
+        if(planet != null) {
             ServerLevel level = player.level().getServer().getLevel(ResourceKey.create(Registries.DIMENSION, planet.dimension()));
             if (level != null) {
                 Vec3 stationPosition = Utils.placeSpaceStation(player, level, packet.recipe, packet.pad);

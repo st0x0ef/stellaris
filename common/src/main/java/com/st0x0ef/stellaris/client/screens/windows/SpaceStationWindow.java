@@ -97,7 +97,6 @@ public class SpaceStationWindow extends MoveableWindow {
     }
 
     public void onStationCreated() {
-
         if(!this.nameBox.getValue().isEmpty() && this.spaceStationSelected != null && this.celestialBody != null) {
             LaunchPad pad = new LaunchPad(
                     LaunchPadUtils.getNextLaunchPadId(),
@@ -120,7 +119,6 @@ public class SpaceStationWindow extends MoveableWindow {
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-
         if(keyCode == GLFW.GLFW_KEY_ESCAPE) {
             close();
             return true;

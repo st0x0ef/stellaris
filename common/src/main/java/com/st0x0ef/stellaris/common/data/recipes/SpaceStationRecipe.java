@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.common.data.recipes;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.st0x0ef.stellaris.common.data.recipes.input.ItemInput;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -14,10 +15,10 @@ import net.minecraft.world.phys.Vec3;
 import java.util.ArrayList;
 import java.util.List;
 
-public record SpaceStationRecipe(List<ItemStack> items, ResourceLocation location, Vec3 antenna_position) {
+public record SpaceStationRecipe(List<ItemInput> items, ResourceLocation location, Vec3 antenna_position) {
 
     public static final Codec<SpaceStationRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            ItemStack.CODEC.listOf().fieldOf("items").forGetter(SpaceStationRecipe::items),
+            ItemInput.CODEC.listOf().fieldOf("items").forGetter(SpaceStationRecipe::items),
             ResourceLocation.CODEC.fieldOf("location").forGetter(SpaceStationRecipe::location),
             Vec3.CODEC.fieldOf("antenna_position").forGetter(SpaceStationRecipe::antenna_position)
     ).apply(instance, SpaceStationRecipe::new));
@@ -25,7 +26,7 @@ public record SpaceStationRecipe(List<ItemStack> items, ResourceLocation locatio
     public static RegistryFriendlyByteBuf toBuffer(SpaceStationRecipe recipe, final RegistryFriendlyByteBuf buffer) {
         buffer.writeInt(recipe.items.size());
 
-        recipe.items.forEach(((item) -> ItemStack.STREAM_CODEC.encode(buffer, item)));
+        recipe.items.forEach(((item) -> ItemInput.STREAM_CODEC.encode(buffer, item)));
         buffer.writeResourceLocation(recipe.location);
         buffer.writeVec3(recipe.antenna_position);
 
@@ -33,20 +34,20 @@ public record SpaceStationRecipe(List<ItemStack> items, ResourceLocation locatio
 
     }
     public static SpaceStationRecipe readFromBuffer(RegistryFriendlyByteBuf buffer) {
-        ArrayList<ItemStack> planets = new ArrayList<>();
+        ArrayList<ItemInput> items = new ArrayList<>();
 
         int k = buffer.readInt();
 
         for (int i = 0; i < k; i++) {
-            planets.add(ItemStack.STREAM_CODEC.decode(buffer));
+            items.add(ItemInput.STREAM_CODEC.decode(buffer));
         }
-        return new SpaceStationRecipe(planets, buffer.readResourceLocation(), buffer.readVec3());
+        return new SpaceStationRecipe(items, buffer.readResourceLocation(), buffer.readVec3());
     }
 
 
     public boolean haveMaterials(Player player) {
-        for (ItemStack item : items) {
-            if (!player.getInventory().contains(item)) {
+        for (ItemInput item : items) {
+            if (player.getInventory().countItem(item.getItem()) < item.count()) {
                 return false;
             }
         }
@@ -54,12 +55,15 @@ public record SpaceStationRecipe(List<ItemStack> items, ResourceLocation locatio
     }
 
     public void removeMaterials(Player player) {
-
-
-        for (ItemStack item : items) {
-
-            player.getInventory().removeItem(item);
-
+        for (ItemInput item : items) {
+            int stacksNeeded = item.count() / item.getItem().getDefaultMaxStackSize();
+            int remainder = item.count() % item.getItem().getDefaultMaxStackSize();
+            for (int i = 0; i < stacksNeeded; i++) {
+                player.getInventory().removeItem(item.getItem().getDefaultInstance().copyWithCount(item.getItem().getDefaultMaxStackSize()));
+            }
+            if (remainder > 0) {
+                player.getInventory().removeItem(item.getItem().getDefaultInstance().copyWithCount(remainder));
+            }
         }
     }
 
@@ -72,9 +76,9 @@ public record SpaceStationRecipe(List<ItemStack> items, ResourceLocation locatio
 
         if(player == null) return tooltip;
 
-        for (ItemStack item : items) {
-            String name = "\n" + item.getHoverName().getString() + " x" + item.getCount() ;
-            if (!player.getInventory().contains(item)) {
+        for (ItemInput item : items) {
+            String name = "\n" + item.getItem().getDefaultInstance().getHoverName().getString() + " x" + item.count() ;
+            if (player.getInventory().countItem(item.getItem()) < item.count()) {
                 tooltip.append(Component.literal(name).withStyle(ChatFormatting.RED));
             } else {
                 tooltip.append(Component.literal(name).withStyle(ChatFormatting.GREEN));

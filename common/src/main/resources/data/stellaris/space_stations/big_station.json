@@ -2,11 +2,11 @@
   "items": [
     {
       "count": 200,
-      "id": "stellaris:steel_ingot"
+      "item": "stellaris:steel_ingot"
     },
     {
       "count": 200,
-      "id": "stellaris:heavy_metal_ingot"
+      "item": "stellaris:heavy_metal_ingot"
     }
   ],
   "location": "stellaris:space_station_big",
