@@ -3,6 +3,7 @@
 ## Additions
 - Add space station
 - Add launch pad network
+- Add jupiter
 - Add diesel
 - Add diesel generator
 - Add new config system
