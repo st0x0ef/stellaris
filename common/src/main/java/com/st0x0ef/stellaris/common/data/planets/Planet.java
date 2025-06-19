@@ -74,8 +74,7 @@ public record Planet(
                     buffer.readFloat(),
                     buffer.readInt(),
                     buffer.readFloat(),
-                    buffer.readOptional(StormParameters::readBuffer)
-                    ,
+                    buffer.readOptional(StormParameters::readBuffer),
                     PlanetTextures.fromNetwork(buffer)));
         }
 
