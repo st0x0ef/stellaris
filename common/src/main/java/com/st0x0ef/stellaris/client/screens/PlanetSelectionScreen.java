@@ -170,8 +170,8 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
         for (MoonInfo moon : MOONS) {
             int moonWidth = (int) (moon.width * zoomLevel);
             int moonHeight = (int) (moon.height * zoomLevel);
-            float moonX = (float) ((moon.x + offsetX) * zoomLevel - moonWidth / 2);
-            float moonY = (float) ((moon.y + offsetY) * zoomLevel - moonHeight / 2);
+            float moonX = (float) ((moon.x + offsetX) * zoomLevel - (double) moonWidth / 2);
+            float moonY = (float) ((moon.y + offsetY) * zoomLevel - (double) moonHeight / 2);
 
             if (mouseX >= moonX && mouseX <= moonX + moonWidth &&
                     mouseY >= moonY && mouseY <= moonY + moonHeight) {
@@ -184,8 +184,8 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
             for (PlanetInfo planet : PLANETS) {
                 int planetWidth = (int) (planet.width * zoomLevel);
                 int planetHeight = (int) (planet.height * zoomLevel);
-                float planetX = (float) ((planet.orbitCenter.x + offsetX + planet.orbitRadius * Math.cos(planet.currentAngle) - planetWidth / 2) * zoomLevel);
-                float planetY = (float) ((planet.orbitCenter.y + offsetY + planet.orbitRadius * Math.sin(planet.currentAngle) - planetHeight / 2) * zoomLevel);
+                float planetX = (float) ((planet.orbitCenter.x + offsetX + planet.orbitRadius * Math.cos(planet.currentAngle) - (double) planetWidth / 2) * zoomLevel);
+                float planetY = (float) ((planet.orbitCenter.y + offsetY + planet.orbitRadius * Math.sin(planet.currentAngle) - (double) planetHeight / 2) * zoomLevel);
 
                 if (mouseX >= planetX && mouseX <= planetX + planetWidth &&
                         mouseY >= planetY && mouseY <= planetY + planetHeight) {
@@ -743,8 +743,8 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
                     s.vx += s.ax * dt;
                     s.vy += s.ay * dt;
 
-                    s.body.x += s.vx * dt;
-                    s.body.y += s.vy * dt;
+                    s.body.x += (float) (s.vx * dt);
+                    s.body.y += (float) (s.vy * dt);
 
                     double dx = s.body.x - centerX;
                     double dy = s.body.y - centerY;
@@ -1216,8 +1216,8 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
             highlightX = (float) ((mx - moon.width / 2) * zoomLevel);
             highlightY = (float) ((my - moon.height / 2) * zoomLevel);
         } else {
-            highlightX = (float) ((body.x + offsetX) * zoomLevel - highlightWidth / 2);
-            highlightY = (float) ((body.y + offsetY) * zoomLevel - highlightHeight / 2);
+            highlightX = (float) ((body.x + offsetX) * zoomLevel - (double) highlightWidth / 2);
+            highlightY = (float) ((body.y + offsetY) * zoomLevel - (double) highlightHeight / 2);
         }
 
         currentHighlighterFrame = (currentHighlighterFrame + 1) % totalHighlighterFrames;

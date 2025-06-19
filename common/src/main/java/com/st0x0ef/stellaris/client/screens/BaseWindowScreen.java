@@ -32,8 +32,8 @@ public class BaseWindowScreen<T extends AbstractContainerMenu> extends AbstractC
     }
 
     @Override
-    public <T extends GuiEventListener & Renderable & NarratableEntry> T addRenderableWidget(T widget) {
-        T widget1 = super.addRenderableWidget(widget);
+    public <R extends GuiEventListener & Renderable & NarratableEntry> R addRenderableWidget(R widget) {
+        R widget1 = super.addRenderableWidget(widget);
 
         if (widget1 instanceof MoveableWindow window) {
             Stellaris.LOG.info("Adding moveable window " + window);
