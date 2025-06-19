@@ -142,7 +142,6 @@ public abstract class SingleFluidStorage implements UniversalFluidStorage {
     }
 
     public long fillWithoutLimits(FluidStack stack, boolean simulate) {
-
         if (!isFluidValid(0, stack)) {
             return 0L;
         }
