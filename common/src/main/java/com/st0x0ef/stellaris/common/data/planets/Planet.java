@@ -17,6 +17,7 @@ public record Planet(
         String translatable,
         String name,
         ResourceLocation dimension,
+        Optional<ResourceLocation> orbit,
         boolean oxygen,
         float temperature,
         int distanceFromEarth,
@@ -31,6 +32,7 @@ public record Planet(
             Codec.STRING.fieldOf("translatable").forGetter(Planet::translatable),
             Codec.STRING.fieldOf("name").forGetter(Planet::name),
             ResourceLocation.CODEC.fieldOf("level").forGetter(Planet::dimension),
+            ResourceLocation.CODEC.optionalFieldOf("orbit").forGetter(Planet::orbit),
             Codec.BOOL.fieldOf("oxygen").forGetter(Planet::oxygen),
             Codec.FLOAT.fieldOf("temperature").forGetter(Planet::temperature),
             Codec.INT.fieldOf("distanceFromEarth").forGetter(Planet::distanceFromEarth), // in megameters
@@ -47,6 +49,7 @@ public record Planet(
             buffer.writeUtf(planet.translatable);
             buffer.writeUtf(planet.name);
             buffer.writeResourceLocation(planet.dimension);
+            buffer.writeOptional(planet.orbit, FriendlyByteBuf::writeResourceLocation);
             buffer.writeBoolean(planet.oxygen);
             buffer.writeFloat(planet.temperature);
             buffer.writeInt(planet.distanceFromEarth);
@@ -70,6 +73,7 @@ public record Planet(
                     buffer.readUtf(),
                     buffer.readUtf(),
                     buffer.readResourceLocation(),
+                    buffer.readOptional(FriendlyByteBuf::readResourceLocation),
                     buffer.readBoolean(),
                     buffer.readFloat(),
                     buffer.readInt(),

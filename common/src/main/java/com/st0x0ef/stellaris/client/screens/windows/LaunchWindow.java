@@ -51,7 +51,7 @@ public class LaunchWindow extends MoveableWindow {
         this.addWidget(this.padsList);
 
         int imageRatio = 1;
-        spaceStationButton = new TexturedButton(
+        this.spaceStationButton = new TexturedButton(
                 (getWindowX() + getWidth() / 2) + 73, getWindowY() + 32 - (18*imageRatio) / 2, 28*imageRatio, 18*imageRatio,
                 Component.literal(""),
                 (button) -> {

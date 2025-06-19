@@ -72,6 +72,10 @@ public class PlanetUtil {
         return true;
     }
 
+    public static ResourceLocation getSpaceStationDimension(Planet planet) {
+        return planet.orbit().isPresent() ? planet.orbit().get() : planet.dimension();
+    }
+
     /** Get the resource location of the planet bar set in the Planet file */
     public static ResourceLocation getPlanetBar(ResourceLocation level) {
         if (isPlanet(level)) {

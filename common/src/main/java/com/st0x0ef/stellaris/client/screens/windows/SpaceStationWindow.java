@@ -8,9 +8,11 @@ import com.st0x0ef.stellaris.client.screens.components.CustomCheckBox;
 import com.st0x0ef.stellaris.client.screens.components.SpaceStationList;
 import com.st0x0ef.stellaris.client.screens.components.TexturedButton;
 import com.st0x0ef.stellaris.client.screens.info.CelestialBody;
+import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.data.recipes.SpaceStationRecipesManager;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPad;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPadUtils;
+import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.EditBox;
@@ -97,12 +99,15 @@ public class SpaceStationWindow extends MoveableWindow {
     }
 
     public void onStationCreated() {
-        if(!this.nameBox.getValue().isEmpty() && this.spaceStationSelected != null && this.celestialBody != null) {
+        if(!this.nameBox.getValue().isEmpty() && this.spaceStationSelected != null && this.celestialBody != null && PlanetUtil.getPlanet(this.celestialBody.dimension) != null) {
+            Planet planet = PlanetUtil.getPlanet(this.celestialBody.dimension);
+
             LaunchPad pad = new LaunchPad(
                     LaunchPadUtils.getNextLaunchPadId(),
                     // Will be set after
                     new Vec3(0, 0, 0),
-                    ResourceKey.create(Registries.DIMENSION, this.celestialBody.dimension),
+                    //If the orbit is present, use it, otherwise use the celestial body's dimension
+                    ResourceKey.create(Registries.DIMENSION, PlanetUtil.getSpaceStationDimension(planet)),
                     this.nameBox.getValue(),
                     this.publicCheckBox.selected,
                     this.parent.getPlayer().getName().toString(),
