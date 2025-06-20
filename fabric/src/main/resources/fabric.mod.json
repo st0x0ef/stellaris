@@ -31,6 +31,6 @@
     "minecraft": ">=1.21",
     "architectury": ">=13.0.6",
     "fabric-api": ">=0.100.8",
-    "potentials": ">=0.6.0"
+    "potentials": ">=0.7.0"
   }
 }
