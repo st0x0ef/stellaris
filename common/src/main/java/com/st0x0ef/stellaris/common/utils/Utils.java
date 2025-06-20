@@ -36,7 +36,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.phys.Vec3;
@@ -115,6 +114,19 @@ public class Utils {
                 serverPlayer.closeContainer();
                 teleportEntity(serverPlayer, destination, coords);
             }
+        }
+    }
+
+    public static void changeDimensionWithVehicle(Entity entity, Planet destination, Vec3 coords) {
+        Entity vehicle = entity.getVehicle();
+
+        entity.stopRiding();
+
+        Utils.teleportEntity(entity, destination, coords);
+
+        if(vehicle != null) {
+            teleportEntity(vehicle, destination, coords);
+            entity.startRiding(vehicle, true);
         }
     }
 

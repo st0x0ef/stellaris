@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.common.data.planets;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -19,6 +20,8 @@ public record Planet(
         ResourceLocation dimension,
         // Optional orbit location, if the planet is orbiting another celestial body. Need to be a ResourceLocation of the orbit dimension and a planet with the same level should exist.
         Optional<ResourceLocation> orbit,
+        //Use to easily get the main planet of an orbit, if this is a moon or something similar.
+        Optional<ResourceLocation> mainPlanet,
         boolean oxygen,
         float temperature,
         int distanceFromEarth,
@@ -34,6 +37,8 @@ public record Planet(
             Codec.STRING.fieldOf("name").forGetter(Planet::name),
             ResourceLocation.CODEC.fieldOf("level").forGetter(Planet::dimension),
             ResourceLocation.CODEC.optionalFieldOf("orbit").forGetter(Planet::orbit),
+            ResourceLocation.CODEC.optionalFieldOf("mainPlanet").forGetter(Planet::mainPlanet),
+
             Codec.BOOL.fieldOf("oxygen").forGetter(Planet::oxygen),
             Codec.FLOAT.fieldOf("temperature").forGetter(Planet::temperature),
             Codec.INT.fieldOf("distanceFromEarth").forGetter(Planet::distanceFromEarth), // in megameters
@@ -51,6 +56,7 @@ public record Planet(
             buffer.writeUtf(planet.name);
             buffer.writeResourceLocation(planet.dimension);
             buffer.writeOptional(planet.orbit, FriendlyByteBuf::writeResourceLocation);
+            buffer.writeOptional(planet.mainPlanet, FriendlyByteBuf::writeResourceLocation);
             buffer.writeBoolean(planet.oxygen);
             buffer.writeFloat(planet.temperature);
             buffer.writeInt(planet.distanceFromEarth);
@@ -74,6 +80,7 @@ public record Planet(
                     buffer.readUtf(),
                     buffer.readUtf(),
                     buffer.readResourceLocation(),
+                    buffer.readOptional(FriendlyByteBuf::readResourceLocation),
                     buffer.readOptional(FriendlyByteBuf::readResourceLocation),
                     buffer.readBoolean(),
                     buffer.readFloat(),
@@ -103,15 +110,6 @@ public record Planet(
             buffer.writeVec3(this.lightningColor());
 
             return buffer;
-        }
-
-
-        @Override
-        public String toString() {
-            return "StormParameters{" +
-                    ", lightningFrequency=" + lightningFrequency +
-                    ", lightningColor=" + lightningColor +
-                    '}';
         }
 
         public static StormParameters readBuffer(FriendlyByteBuf buffer) {

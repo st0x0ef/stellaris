@@ -3,6 +3,7 @@
   "level": "stellaris:mars_orbit",
   "name": "Mars Orbit",
   "translatable": "stellaris.planet.mars",
+  "mainPlanet": "stellaris:mars",
   "oxygen": false,
   "temperature": -63,
   "distanceFromEarth": 55700,

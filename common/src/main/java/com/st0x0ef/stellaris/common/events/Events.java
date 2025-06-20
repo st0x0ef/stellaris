@@ -1,9 +1,12 @@
 package com.st0x0ef.stellaris.common.events;
 
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.CoalLanternBlock;
 import com.st0x0ef.stellaris.common.blocks.RocketLaunchPad;
 import com.st0x0ef.stellaris.common.blocks.WallCoalTorchBlock;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.AntennaBlockEntity;
+import com.st0x0ef.stellaris.common.config.CommonConfig;
+import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPadLauncher;
 import com.st0x0ef.stellaris.common.network.packets.SyncLaunchPads;
 import com.st0x0ef.stellaris.common.oxygen.GlobalOxygenManager;
@@ -13,18 +16,18 @@ import com.st0x0ef.stellaris.common.registry.EffectsRegistry;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import dev.architectury.event.EventResult;
-import dev.architectury.event.events.common.BlockEvent;
-import dev.architectury.event.events.common.LifecycleEvent;
-import dev.architectury.event.events.common.PlayerEvent;
-import dev.architectury.event.events.common.TickEvent;
+import dev.architectury.event.events.common.*;
 import dev.architectury.networking.NetworkManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.storage.LevelStorageSource;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 public class Events {
     private static final int RADIATION_CHECK_INTERVAL = 100;
@@ -50,6 +53,20 @@ public class Events {
             }
         });
 
+        EntityEvent.ENTER_SECTION.register((entity, sectionX, sectionY, sectionZ, prevX, prevY, prevZ) -> {
+            Level level = entity.level();
+            Planet orbit = PlanetUtil.getPlanet(level.dimension().location());
+
+            if(orbit != null && orbit.mainPlanet().isPresent()) {
+                Planet mainPlanet = PlanetUtil.getPlanet(orbit.mainPlanet().get());
+                if(mainPlanet != null && entity.getY() <= Stellaris.CONFIG.orbitTeleportationYCoord) {
+
+                    Vec3 coordinates = new Vec3(entity.getX(), 600, entity.getZ());
+
+                    Utils.changeDimensionWithVehicle(entity, mainPlanet, coordinates);
+                }
+            }
+        });
 
         BlockEvent.BREAK.register((level, pos, state, player, value) -> {
             if (level instanceof ServerLevel serverLevel) {
