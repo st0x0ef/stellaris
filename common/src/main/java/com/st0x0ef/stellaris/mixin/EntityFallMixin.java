@@ -24,7 +24,6 @@ public class EntityFallMixin {
         if(orbit != null && orbit.mainPlanet().isPresent()) {
             Planet mainPlanet = PlanetUtil.getPlanet(orbit.mainPlanet().get());
             if(mainPlanet != null && entity.getY() <= Stellaris.CONFIG.orbitTeleportationYCoord) {
-
                 Vec3 coordinates = new Vec3(entity.getX(), 600, entity.getZ());
 
                 Utils.changeDimensionWithVehicle(entity, mainPlanet, coordinates);
