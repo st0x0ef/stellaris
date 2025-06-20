@@ -39,7 +39,7 @@ dependencies {
     modRuntimeOnly("fr.tathan.sky-aesthetics:sky-aesthetics-neoforge-1.21.5:${sky_version}")
     include("fr.tathan.sky-aesthetics:sky-aesthetics-neoforge-1.21.5:${sky_version}")
 
-    modApi("com.fej1fun.potentials:potentials-neoforge:${rootProject.potentials_version}")
+    modApi("com.fej1fun.potentials:potentials-neoforge-${minecraft_version}:${potentials_version}")
 
     //implementation "curse.maven:energized-power-782147:5510706"
 
