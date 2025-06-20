@@ -1,10 +1,9 @@
 {
   "system": "solar_system",
-  "level": "stellaris:mars_orbit",
+  "level": "stellaris:earth_orbit",
   "name": "Mars Orbit",
-  "translatable": "stellaris.planet.mars",
-  "mainPlanet": "stellaris:mars",
-
+  "translatable": "stellaris.planet.earth",
+  "mainPlanet": "minecraft:overworld",
   "oxygen": false,
   "temperature": -63,
   "distanceFromEarth": 55700,

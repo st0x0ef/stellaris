@@ -3,6 +3,7 @@
   "level": "stellaris:venus",
   "name": "Venus",
   "translatable": "stellaris.planet.venus",
+  "orbit": "stellaris:venus_orbit",
   "oxygen": false,
   "temperature": 462,
   "distanceFromEarth": 41000,

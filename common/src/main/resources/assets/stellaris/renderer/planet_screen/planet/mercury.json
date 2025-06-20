@@ -8,5 +8,6 @@
   "parent": "stellaris:sun",
   "dimensionId": "stellaris:mercury",
   "translatable": "text.stellaris.planetscreen.mercury",
-  "id": "stellaris:mercury"
+  "id": "stellaris:mercury",
+  "space_station": true
 }
