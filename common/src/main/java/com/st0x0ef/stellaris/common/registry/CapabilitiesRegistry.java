@@ -32,6 +32,7 @@ public class CapabilitiesRegistry {
         Capabilities.Energy.ITEM.registerForItem(ItemsRegistry.T2_POWER_BANK);
         Capabilities.Energy.ITEM.registerForItem(ItemsRegistry.T3_POWER_BANK);
         Capabilities.Energy.ITEM.registerForItem(ItemsRegistry.T4_POWER_BANK);
+        Capabilities.Energy.ITEM.registerForItem(ItemsRegistry.BATTERY);
     }
 
     static void registerFluidBlockEntities() {
@@ -53,5 +54,6 @@ public class CapabilitiesRegistry {
         Capabilities.Fluid.ITEM.registerForItem(ItemsRegistry.T2_FLUID_TANK);
         Capabilities.Fluid.ITEM.registerForItem(ItemsRegistry.T3_FLUID_TANK);
         Capabilities.Fluid.ITEM.registerForItem(ItemsRegistry.T4_FLUID_TANK);
+        Capabilities.Fluid.ITEM.registerForItem(ItemsRegistry.FLUID_CELL);
     }
 }

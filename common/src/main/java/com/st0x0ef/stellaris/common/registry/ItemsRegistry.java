@@ -437,6 +437,14 @@ public class ItemsRegistry {
     public static final RegistrySupplier<Item> COAL_LANTERN_ITEM = ITEMS.register("coal_lantern", () -> new BlockItem(BlocksRegistry.COAL_LANTERN_BLOCK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
 
 
+    /**
+     * Storage items
+     */
+
+    public static final RegistrySupplier<Item> BATTERY = ITEMS.register("battery", () -> new BatteryItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).stacksTo(1)));
+    public static final RegistrySupplier<Item> FLUID_CELL = ITEMS.register("fluid_cell", () -> new FluidCellItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).stacksTo(1)));
+
+
     public static ArrayList<ItemStack> fullItemsToAdd() {
         ArrayList<ItemStack> list = new ArrayList<>();
 

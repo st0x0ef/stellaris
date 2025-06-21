@@ -308,6 +308,7 @@
   "block.stellaris.t2_bank": "Tier 2 Power Bank",
   "block.stellaris.t3_bank": "Tier 3 Power Bank",
   "block.stellaris.t4_bank": "Tier 4 Power Bank",
+
   "block.stellaris.t1_tank": "Tier 1 Fluid Tank",
   "block.stellaris.t2_tank": "Tier 2 Fluid Tank",
   "block.stellaris.t3_tank": "Tier 3 Fluid Tank",
@@ -317,11 +318,10 @@
 
   "item.stellaris.tablet": "Tablet",
 
-  "item.stellaris.raw_steel_ingot": "Raw Steel Ingot",
-  "item.stellaris.raw_desh_ingot": "Raw Desh Ingot",
-  "item.stellaris.ice_shard": "Ice Shard",
-  "item.stellaris.raw_uranium": "Raw Uranium",
-  "item.stellaris.moon_berries": "Moon Berry",
+  "item.stellaris.battery": "Battery",
+  "item.stellaris.fluid_cell": "Fluid Cell",
+
+
 
   "STELLARIS VEHICLE STUFF":
   ""
@@ -423,6 +423,8 @@
   "item.stellaris.small_red_can": "Small Red Can",
   "item.stellaris.small_yellow_can": "Small Yellow Can",
 
+  "item.stellaris.moon_berries": "Moon Berry",
+
 
 
   "STELLARIS MISCELLANEOUS ITEMS AND BLOCKS":
@@ -440,6 +442,11 @@
   "item.stellaris.big_oxygen_tank": "Big Oxygen Tank",
 
   "item.stellaris.pumpjack_drill": "Pumpjack Drill",
+
+  "item.stellaris.raw_steel_ingot": "Raw Steel Ingot",
+  "item.stellaris.raw_desh_ingot": "Raw Desh Ingot",
+  "item.stellaris.ice_shard": "Ice Shard",
+  "item.stellaris.raw_uranium": "Raw Uranium",
 
 
 

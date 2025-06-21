@@ -15,6 +15,8 @@
 - Add antena
 - Add new tablet entries
 - Add missing recipes
+- Add battery
+- Add fluid cell
 
 ## Changes
 - Improve the planet selection screen

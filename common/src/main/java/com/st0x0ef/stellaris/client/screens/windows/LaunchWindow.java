@@ -73,11 +73,7 @@ public class LaunchWindow extends MoveableWindow {
 
         if(this.celestialBody != null && PlanetUtil.getPlanet(this.celestialBody.dimension) != null) {
 
-            if (!this.celestialBody.spaceStation) {
-                this.spaceStationButton.visible = false;
-            } else {
-                this.spaceStationButton.visible = true;
-            }
+            this.spaceStationButton.visible = this.celestialBody.spaceStation;
 
             Planet planet = PlanetUtil.getPlanet(this.celestialBody.dimension);
             guiGraphics.drawCenteredString(Minecraft.getInstance().font, celestialBody.name + " Launch Points", getWindowX() + getWidth() / 2, getWindowY() + 27, 0xFFFFFFFF);
