@@ -169,5 +169,8 @@ public class LaunchWindow extends MoveableWindow {
         this.celestialBody = celestialBody;
     }
 
-
+    @Override
+    public int getMoveLimit() {
+        return 15;
+    }
 }

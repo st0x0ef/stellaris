@@ -137,4 +137,9 @@ public class SpaceStationWindow extends MoveableWindow {
         }
         return super.mouseDragged(mouseX, mouseY, button, dragX, dragY);
     }
+
+    @Override
+    public int getMoveLimit() {
+        return 15;
+    }
 }

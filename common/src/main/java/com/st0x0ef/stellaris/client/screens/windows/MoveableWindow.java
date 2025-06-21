@@ -134,7 +134,7 @@ public abstract class MoveableWindow extends AbstractWidget implements Renderabl
     }
 
     public boolean mouseInside(double mouseX, double mouseY) {
-        return mouseX >= this.windowX && mouseX <= this.windowX + this.width && mouseY >= this.windowY && mouseY <= this.windowY + this.moveLimit;
+        return mouseX >= this.windowX && mouseX <= this.windowX + this.width && mouseY >= this.windowY && mouseY <= this.windowY + this.getMoveLimit();
     }
 
     public int getWindowX() {
@@ -149,7 +149,7 @@ public abstract class MoveableWindow extends AbstractWidget implements Renderabl
         void render(MoveableWindow window);
     }
 
-    public void setMoveLimit(int moveLimit) {
-        this.moveLimit = moveLimit;
+    public int getMoveLimit() {
+        return this.height;
     }
 }
