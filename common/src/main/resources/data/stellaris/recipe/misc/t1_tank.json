@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "tst",
+    "sfs",
+    "tst"
+  ],
+  "key": {
+    "s": {
+      "tag": "c:ingots/steel"
+    },
+    "t": {
+      "item": "stellaris:tharsite_ingot"
+    },
+    "f": {
+      "item": "stellaris:fluid_cell"
+    }
+  },
+  "result": {
+    "id": "stellaris:t1_tank",
+    "count": 1
+  }
+}

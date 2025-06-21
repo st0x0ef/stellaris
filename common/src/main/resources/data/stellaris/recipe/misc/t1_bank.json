@@ -1,20 +1,23 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "ccc",
-    "cbc",
-    "ccc"
+    "hsh",
+    "sbs",
+    "hsh"
   ],
   "key": {
-    "c": {
+    "s": {
+      "tag": "c:ingots/steel"
+    },
+    "h": {
       "tag": "c:ingots/heavy_metal"
     },
     "b": {
-      "item": "stellaris:small_rocket_upgrade"
+      "item": "stellaris:battery"
     }
   },
   "result": {
-    "id": "stellaris:normal_rocket_upgrade",
+    "id": "stellaris:t1_bank",
     "count": 1
   }
 }

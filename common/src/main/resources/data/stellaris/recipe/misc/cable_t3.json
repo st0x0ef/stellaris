@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WWW",
+    "III",
+    "WWW"
+  ],
+  "key": {
+    "I": {"item": "stellaris:solerium"},
+    "W": {"tag": "minecraft:wool"}
+  },
+  "result": {
+    "id": "stellaris:cable_t3",
+    "count": 6
+  }
+}

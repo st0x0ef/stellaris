@@ -43,8 +43,8 @@ public class ItemsRegistry {
     public static final RegistrySupplier<Item> RAW_DESH_INGOT = ITEMS.register("raw_desh_ingot", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> DESH_INGOT = ITEMS.register("desh_ingot", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
 
-    public static final RegistrySupplier<Item> CORRONIUM_INGOT = ITEMS.register("corronium_ingot", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
-    public static final RegistrySupplier<Item> RAW_CORRONIUM = ITEMS.register("raw_corronium", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> CORRONIUM_INGOT = ITEMS.register("corronium_ingot", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.RADIOACTIVE.get(), new RadioactiveComponent(3, false))));
+    public static final RegistrySupplier<Item> RAW_CORRONIUM = ITEMS.register("raw_corronium", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.RADIOACTIVE.get(), new RadioactiveComponent(3, false))));
     public static final RegistrySupplier<Item> SOLERIUM = ITEMS.register("solerium", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> RAW_SOLERIUM = ITEMS.register("raw_solerium", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> THARSITE_INGOT = ITEMS.register("tharsite_ingot", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
@@ -199,7 +199,7 @@ public class ItemsRegistry {
     public static final RegistrySupplier<Item> VENUS_SMOOTH_SANDSTONE_SLAB_ITEM = ITEMS.register("venus_smooth_sandstone_slab", () -> new BlockItem(BlocksRegistry.VENUS_SMOOTH_SANDSTONE_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
     public static final RegistrySupplier<Item> VENUS_STONE_SLAB_ITEM = ITEMS.register("venus_stone_slab", () -> new BlockItem(BlocksRegistry.VENUS_STONE_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
     public static final RegistrySupplier<Item> VENUS_DIAMOND_ORE = ITEMS.register("venus_diamond_ore", () -> new BlockItem(BlocksRegistry.VENUS_DIAMOND_ORE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
-    public static final RegistrySupplier<Item> VENUS_CORRONIUM_ORE = ITEMS.register("venus_corronium_ore", () -> new BlockItem(BlocksRegistry.VENUS_CORRONIUM_ORE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
+    public static final RegistrySupplier<Item> VENUS_CORRONIUM_ORE = ITEMS.register("venus_corronium_ore", () -> new BlockItem(BlocksRegistry.VENUS_CORRONIUM_ORE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB).component(DataComponentsRegistry.RADIOACTIVE.get(), new RadioactiveComponent(3, true))));
 
 
     //Desh
@@ -284,7 +284,7 @@ public class ItemsRegistry {
     public static final RegistrySupplier<Item> VACUMATOR = ITEMS.register("vacuumator", () -> new BlockItem(BlocksRegistry.VACUMATOR.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> PUMPJACK = ITEMS.register("pumpjack", () -> new BlockItem(BlocksRegistry.PUMPJACK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> UPGRADE_STATION = ITEMS.register("upgrade_station", () -> new BlockItem(BlocksRegistry.UPGRADE_STATION.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
-    public static final RegistrySupplier<Item> ANTENNA = ITEMS.register("antenna", () -> new BlockItem(BlocksRegistry.ANTENNA.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> ANTENNA = ITEMS.register("antenna", () -> new AntennaItem(BlocksRegistry.ANTENNA.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
 
     /**
      * Cables & Pipes
@@ -435,6 +435,14 @@ public class ItemsRegistry {
 
     public static final RegistrySupplier<Item> COAL_TORCH_ITEM = ITEMS.register("coal_torch", () -> new CoalTorchItem(BlocksRegistry.COAL_TORCH_BLOCK.get(), BlocksRegistry.WALL_COAL_TORCH_BLOCK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> COAL_LANTERN_ITEM = ITEMS.register("coal_lantern", () -> new BlockItem(BlocksRegistry.COAL_LANTERN_BLOCK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+
+
+    /**
+     * Storage items
+     */
+
+    public static final RegistrySupplier<Item> BATTERY = ITEMS.register("battery", () -> new BatteryItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).stacksTo(1)));
+    public static final RegistrySupplier<Item> FLUID_CELL = ITEMS.register("fluid_cell", () -> new FluidCellItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).stacksTo(1)));
 
 
     public static ArrayList<ItemStack> fullItemsToAdd() {

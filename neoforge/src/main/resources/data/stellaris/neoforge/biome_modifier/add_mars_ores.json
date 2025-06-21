@@ -1,6 +1,6 @@
 {
   "type": "neoforge:add_features",
   "biomes": "#stellaris:mars_biomes",
-  "features": ["stellaris:mars_ostrum_ore", "stellaris:mars_ice_shard_ore", "stellaris:mars_iron_ore", "stellaris:mars_diamond_ore"],
+  "features": ["stellaris:mars_ostrum_ore", "stellaris:mars_ice_shard_ore", "stellaris:mars_iron_ore", "stellaris:mars_diamond_ore", "stellaris:mars_tharsite_ore"],
   "step": "underground_ores"
 }

@@ -24,7 +24,6 @@ public class AntennaMenu extends AbstractContainerMenu {
         this.player = inventory.player;
         this.blockEntity = blockEntity;
         this.launchPadId = launchPadId;
-
     }
 
 
@@ -35,7 +34,7 @@ public class AntennaMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player player) {
-        return !player.isDeadOrDying();
+        return !player.level().isClientSide();
     }
 
     public Player getPlayer() {

@@ -11,7 +11,7 @@ dependencies {
 
     modApi "dev.architectury:architectury:${rootProject.architectury_version}"
 
-    modApi("com.fej1fun.potentials:potentials-common:${rootProject.potentials_version}")
+    modApi("com.fej1fun.potentials:potentials-common-${minecraft_version}:${potentials_version}")
 }
 
 publishing {

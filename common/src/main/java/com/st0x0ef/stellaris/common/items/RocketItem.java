@@ -157,7 +157,15 @@ public class RocketItem extends Item {
     @Override
     public int getBarWidth(ItemStack stack) {
         RocketComponent rocketComponent = stack.get(DataComponentsRegistry.ROCKET_COMPONENT.get());
-        return 13 * rocketComponent.fuel() / rocketComponent.getTankCapacity();
+
+        int value = 13 * rocketComponent.fuel() / rocketComponent.getTankCapacity();
+
+        if (value < 0) {
+            value = 0;
+        } else if (value > 13) {
+            value = 13;
+        }
+        return value;
     }
 
     @Override
