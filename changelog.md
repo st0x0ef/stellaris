@@ -14,6 +14,7 @@
 - Add tharsite
 - Add antena
 - Add new tablet entries
+- Add missing recipes
 
 ## Changes
 - Improve the planet selection screen

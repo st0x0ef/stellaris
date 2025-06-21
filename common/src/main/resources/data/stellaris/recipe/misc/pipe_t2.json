@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WWW",
+    "III",
+    "WWW"
+  ],
+  "key": {
+    "I": {"item": "stellaris:tharsite_ingot"},
+    "W": {"tag": "minecraft:wool"}
+  },
+  "result": {
+    "id": "stellaris:pipe_t2",
+    "count": 6
+  }
+}
