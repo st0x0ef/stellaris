@@ -1,20 +1,23 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "ccc",
-    "cbc",
-    "ccc"
+    "isi",
+    "sbs",
+    "isi"
   ],
   "key": {
-    "c": {
+    "i": {
       "tag": "c:ingots/steel"
     },
+    "s": {
+      "item": "stellaris:solerium"
+    },
     "b": {
-      "item": "stellaris:normal_rocket_upgrade"
+      "item": "stellaris:t3_bank"
     }
   },
   "result": {
-    "id": "stellaris:big_rocket_upgrade",
+    "id": "stellaris:t4_bank",
     "count": 1
   }
 }

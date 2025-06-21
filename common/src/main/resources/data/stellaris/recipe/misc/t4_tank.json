@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "isi",
+    "sts",
+    "isi"
+  ],
+  "key": {
+    "s": {
+      "tag": "c:ingots/steel"
+    },
+    "i": {
+      "item": "stellaris:tharsite_ingot"
+    },
+    "t": {
+      "item": "stellaris:t3_tank"
+    }
+  },
+  "result": {
+    "id": "stellaris:t4_tank",
+    "count": 1
+  }
+}
