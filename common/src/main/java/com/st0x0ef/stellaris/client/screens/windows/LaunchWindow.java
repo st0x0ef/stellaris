@@ -10,6 +10,7 @@ import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPad;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPadUtils;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
+import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Tooltip;
@@ -91,6 +92,8 @@ public class LaunchWindow extends MoveableWindow {
 
             if (this.celestialBody.canLaunchOn) {
                 this.padsList.launchPads.addFirst(this.addDirectLaunch());
+            } else if (this.padsList.launchPads.isEmpty()) {
+                guiGraphics.drawCenteredString(Minecraft.getInstance().font, getErrorName(), getWindowX() + getWidth() / 2, this.padsList.getY() + 7, Utils.getColorHexCode("white"));
             }
         }
 
@@ -130,11 +133,10 @@ public class LaunchWindow extends MoveableWindow {
         if(planet == null) {
             return launchPads;
         }
-
         PlanetSelectionScreen.LAUNCH_PADS.launchPads()
                 .stream()
-                .filter((s) -> s.dimension().location() == planet.dimension() || (planet.orbit().isPresent() && s.dimension().location() == planet.orbit().get()))
-                .filter((s) -> LaunchPadUtils.canPlayerJoinLaunchPad(s, parent.getPlayer()))
+                .filter((pad) -> pad.dimension().location() == planet.dimension() || (planet.orbit().isPresent() && pad.dimension().location().equals(planet.orbit().get())))
+                .filter((pad) -> LaunchPadUtils.canPlayerJoinLaunchPad(pad, parent.getPlayer()))
                 .forEach(launchPads::add);
 
         return launchPads;
@@ -176,5 +178,15 @@ public class LaunchWindow extends MoveableWindow {
         this.celestialBody = celestialBody;
     }
 
+    public String getErrorName() {
+        double randomNumber = (Math.random() * 100) + 1;
+        if (randomNumber < 55) {
+            return "No Launch Pads available";
+        } else if (randomNumber < 99) {
+            return "Error 404: Launchpads not found";
+        } else {
+            return "These are not the Launchpads you are looking for";
+        }
+    }
 
 }

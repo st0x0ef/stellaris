@@ -110,7 +110,7 @@ public class SpaceStationWindow extends MoveableWindow {
                     ResourceKey.create(Registries.DIMENSION, PlanetUtil.getSpaceStationDimension(planet)),
                     this.nameBox.getValue(),
                     this.publicCheckBox.selected,
-                    this.parent.getPlayer().getName().toString(),
+                    this.parent.getPlayer().getDisplayName().getString(),
                     List.of()
             );
             this.parent.onSpaceStationButtonClick(this.celestialBody, this.spaceStationSelected, pad);

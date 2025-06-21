@@ -46,11 +46,11 @@ public class LaunchPadUtils {
         if(launchPad.isPublic()) {
             return true;
         }
-        if(launchPad.whitelist().contains(player.getName().getString())) {
+        if(launchPad.whitelist().contains(player.getDisplayName().getString())) {
             return true;
         }
 
-        return launchPad.owner().equals(player.getName().getString());
+        return launchPad.owner().equals(player.getDisplayName().getString());
     }
 
     public static void saveLaunchPad(@Nullable LaunchPad launchPad, CompoundTag tag) {
