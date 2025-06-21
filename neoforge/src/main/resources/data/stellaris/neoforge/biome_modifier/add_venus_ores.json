@@ -1,6 +1,6 @@
 {
   "type": "neoforge:add_features",
   "biomes": "#stellaris:venus_biomes",
-  "features": ["stellaris:venus_coal_ore", "stellaris:venus_diamond_ore", "stellaris:venus_gold_ore"],
+  "features": ["stellaris:venus_coal_ore", "stellaris:venus_diamond_ore", "stellaris:venus_gold_ore", "stellaris:venus_corronium_ore"],
   "step": "underground_ores"
 }
