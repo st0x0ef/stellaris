@@ -23,7 +23,8 @@ public class BlockEntityRegistry {
                     BlocksRegistry.RAW_URANIUM_BLOCK.get(),
                     BlocksRegistry.MERCURY_URANIUM_ORE.get(),
                     BlocksRegistry.PLUTONIUM_BLOCK.get(),
-                    BlocksRegistry.NEPTUNIUM_BLOCK.get()
+                    BlocksRegistry.NEPTUNIUM_BLOCK.get(),
+                    BlocksRegistry.VENUS_CORRONIUM_ORE.get()
             ).build(null));
     public static final RegistrySupplier<BlockEntityType<GlobeBlockEntity>> GLOBE_BLOCK_ENTITY = BLOCK_ENTITY_TYPE.register("globe", () -> BlockEntityType.Builder.of(GlobeBlockEntity::new,
                     BlocksRegistry.EARTH_GLOBE_BLOCK.get(),

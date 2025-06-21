@@ -5,9 +5,9 @@ import net.minecraft.world.Container;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
-public class RadioactiveGeneratorSlot extends Slot {
+public class RadioactiveSlot extends Slot {
 
-    public RadioactiveGeneratorSlot(Container container, int slot, int x, int y) {
+    public RadioactiveSlot(Container container, int slot, int x, int y) {
         super(container, slot, x, y);
     }
 
