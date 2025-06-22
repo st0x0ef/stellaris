@@ -125,7 +125,7 @@ public class Events {
     }
 
     private static boolean checkIfAntennaIsNear(BlockPos pos, Level level) {
-        return level.getBlockStates(new AABB(pos).inflate(2)).anyMatch(blockState -> blockState.is(BlocksRegistry.ANTENNA));
+        return level.getBlockStates(new AABB(pos).inflate(1)).anyMatch(blockState -> blockState.is(BlocksRegistry.ANTENNA));
     }
 
 }
