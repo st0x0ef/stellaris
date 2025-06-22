@@ -116,6 +116,19 @@ public class Utils {
         }
     }
 
+    public static void changeDimensionWithVehicle(Entity entity, Planet destination, Vec3 coords) {
+        Entity vehicle = entity.getVehicle();
+
+        entity.stopRiding();
+
+        Utils.teleportEntity(entity, destination, coords);
+
+        if(vehicle != null) {
+            teleportEntity(vehicle, destination, coords);
+            entity.startRiding(vehicle, true);
+        }
+    }
+
     public static void changeDimensionForPlayers(List<Entity> entities, Planet destination, Vec3 coords, boolean setHeight) {
         if (setHeight) {
             coords = new Vec3(coords.x, 600, coords.z);

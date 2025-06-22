@@ -36,7 +36,6 @@ public class BaseWindowScreen<T extends AbstractContainerMenu> extends AbstractC
         R widget1 = super.addRenderableWidget(widget);
 
         if (widget1 instanceof MoveableWindow window) {
-            Stellaris.LOG.info("Adding moveable window " + window);
             window.init();
             moveableWindows.add(window);
             guiEventListeners.add(window);

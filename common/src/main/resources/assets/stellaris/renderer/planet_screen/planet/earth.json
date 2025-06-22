@@ -8,5 +8,6 @@
   "parent": "stellaris:sun",
   "dimensionId": "minecraft:overworld",
   "translatable": "text.stellaris.planetscreen.earth",
-  "id": "stellaris:earth"
+  "id": "stellaris:earth",
+  "space_station": true
 }

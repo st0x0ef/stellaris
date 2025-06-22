@@ -8,6 +8,8 @@ public class CommonConfig {
     public float oxygenDamage = 2f;
 
     public int dieselGeneratorFuelTime = 20;
+    public double orbitTeleportationYCoord = -10;
+
 
     @ConfigManager.InnerConfig
     public Oil oilConfig = new Oil();

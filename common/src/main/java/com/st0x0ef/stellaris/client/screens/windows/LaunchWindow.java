@@ -10,6 +10,7 @@ import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPad;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPadUtils;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
+import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Tooltip;
@@ -46,12 +47,11 @@ public class LaunchWindow extends MoveableWindow {
     public void init() {
         GLFW.glfwSetScrollCallback(Minecraft.getInstance().getWindow().getWindow(), Minecraft.getInstance().mouseHandler::onScroll);
 
-        ArrayList<LaunchPad> spaceStationButtons = getLaunchPadsForDimension();
-        this.padsList = new LaunchPadsList(getWindowX() + 40, getWindowY() + 60, getWidth() - 80, getHeight() - 90, Component.translatable("gui.stellaris.launchpads"), this, spaceStationButtons);
+        this.padsList = new LaunchPadsList(getWindowX() + 40, getWindowY() + 60, getWidth() - 80, getHeight() - 90, Component.translatable("gui.stellaris.launchpads"), this, new ArrayList<>());
         this.addWidget(this.padsList);
 
         int imageRatio = 1;
-        spaceStationButton = new TexturedButton(
+        this.spaceStationButton = new TexturedButton(
                 (getWindowX() + getWidth() / 2) + 73, getWindowY() + 32 - (18*imageRatio) / 2, 28*imageRatio, 18*imageRatio,
                 Component.literal(""),
                 (button) -> {
@@ -68,6 +68,7 @@ public class LaunchWindow extends MoveableWindow {
     @Override
     public void renderWindow(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
         RenderSystem.clear(256, Minecraft.ON_OSX);
+        this.padsList.launchPads = getLaunchPadsForDimension();
 
         guiGraphics.blit(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/gui/util/window/window_large.png"), getWindowX(), getWindowY(), 0, 0, this.getWidth(), this.getHeight(), this.getWidth(), this.getHeight());
 
@@ -84,10 +85,11 @@ public class LaunchWindow extends MoveableWindow {
                 guiGraphics.drawCenteredString(Minecraft.getInstance().font, "You cannot launch to this planet!", getWindowX() + getWidth() / 2, (getWindowY() + getHeight()) - 26, 0xFFFF0000);
             }
 
-            this.padsList.launchPads = getLaunchPadsForDimension();
 
             if (this.celestialBody.canLaunchOn) {
                 this.padsList.launchPads.addFirst(this.addDirectLaunch());
+            } else if (this.padsList.launchPads.isEmpty()) {
+                guiGraphics.drawCenteredString(Minecraft.getInstance().font, getErrorName(), getWindowX() + getWidth() / 2, this.padsList.getY() + 7, Utils.getColorHexCode("white"));
             }
         }
 
@@ -119,15 +121,18 @@ public class LaunchWindow extends MoveableWindow {
     public ArrayList<LaunchPad> getLaunchPadsForDimension() {
         ArrayList<LaunchPad> launchPads = new ArrayList<>();
 
-
         if(celestialBody == null) {
             return launchPads;
         }
+        Planet planet = PlanetUtil.getPlanet(celestialBody.dimension);
 
+        if(planet == null) {
+            return launchPads;
+        }
         PlanetSelectionScreen.LAUNCH_PADS.launchPads()
                 .stream()
-                .filter((s) -> s.dimension().location() == celestialBody.dimension)
-                .filter((s) -> LaunchPadUtils.canPlayerJoinLaunchPad(s, parent.getPlayer()))
+                .filter((pad) -> pad.dimension().location() == planet.dimension() || (planet.orbit().isPresent() && pad.dimension().location().equals(planet.orbit().get())))
+                .filter((pad) -> LaunchPadUtils.canPlayerJoinLaunchPad(pad, parent.getPlayer()))
                 .forEach(launchPads::add);
 
         return launchPads;
@@ -136,7 +141,7 @@ public class LaunchWindow extends MoveableWindow {
     public LaunchPad addDirectLaunch() {
         Player player = parent.getPlayer();
         return new LaunchPad(
-                1000,
+                10000,
                 this.parent.getPlayer().position(),
                 ResourceKey.create(Registries.DIMENSION, celestialBody.dimension),
                 "Launch Directly",
@@ -167,6 +172,17 @@ public class LaunchWindow extends MoveableWindow {
 
     public void setCelestialBody(@Nullable CelestialBody celestialBody) {
         this.celestialBody = celestialBody;
+    }
+
+    public String getErrorName() {
+        double randomNumber = (Math.random() * 100) + 1;
+        if (randomNumber < 55) {
+            return "No Launch Pads available";
+        } else if (randomNumber < 99) {
+            return "Error 404: Launchpads not found";
+        } else {
+            return "These are not the Launchpads you are looking for";
+        }
     }
 
     @Override

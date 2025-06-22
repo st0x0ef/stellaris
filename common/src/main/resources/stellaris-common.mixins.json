@@ -8,6 +8,7 @@
     "CandleBlockMixin",
     "ChunkAccessMixin",
     "ChunkSerializerMixin",
+    "EntityFallMixin",
     "ItemEntityMixin",
     "LivingEntityMixin",
     "PlayerMixin",

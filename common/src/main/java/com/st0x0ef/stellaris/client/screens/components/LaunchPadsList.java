@@ -102,7 +102,7 @@ public class LaunchPadsList extends AbstractScrollWidget {
 
                 if (Utils.isHoveredOnSprite(pos.x, (int) (pos.y - this.scrollAmount()), pos.z, pos.w, (int) mouseX, (int) mouseY) && window.parent.windowIndex != -1) {
                     if(this.window.parent.canLaunch(PlanetUtil.getPlanet(this.window.celestialBody.dimension))) {
-                        this.window.parent.tpToFocusedPlanet(launchPad.position(), this.window.celestialBody);
+                        this.window.parent.tpToFocusedPlanet(launchPad.position(), this.window.celestialBody.dimension);
                     }
                     return true;
                 }
@@ -146,7 +146,6 @@ public class LaunchPadsList extends AbstractScrollWidget {
             guiGraphics.blitSprite(GUISprites.WINDOW_BAR, this.x, this.y, window.getWidth() - 80, 30);
 
             var smallPadName = this.launchPad.name().length() > 20 ? this.launchPad.name().substring(0, 20) + "..." : this.launchPad.name();
-
             guiGraphics.drawString(getFont(), smallPadName, this.x + 10, this.y + 10, Utils.getColorHexCode("white"));
 
             this.buttonPositions = new Vector4i(launchButton.getX(), launchButton.getY(), 50, 15);

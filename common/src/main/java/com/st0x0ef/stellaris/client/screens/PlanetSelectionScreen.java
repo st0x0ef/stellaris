@@ -485,8 +485,6 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
     }
 
     public void setWindowVisible(int index) {
-        Stellaris.LOG.info("window index: " + index);
-
         for (int i = 0; i < moveableWindows.size(); i++) {
             MoveableWindow window = moveableWindows.get(i);
             if (i == index) {
@@ -633,17 +631,17 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
     }
 
     public void tpToFocusedPlanet() {
-        tpToFocusedPlanet(new Vec3(getPlayer().getX(), 600, getPlayer().getZ()), focusedBody);
+        tpToFocusedPlanet(new Vec3(getPlayer().getX(), 600, getPlayer().getZ()), focusedBody.dimension);
     }
 
-    public void tpToFocusedPlanet(CelestialBody body) {
-        tpToFocusedPlanet(new Vec3(getPlayer().getX(), 600, getPlayer().getZ()), body);
+    public void tpToFocusedPlanet(ResourceLocation dimension) {
+        tpToFocusedPlanet(new Vec3(getPlayer().getX(), 600, getPlayer().getZ()), dimension);
     }
 
-    public void tpToFocusedPlanet(Vec3 coords, CelestialBody focusedBody) {
+    public void tpToFocusedPlanet(Vec3 coords, ResourceLocation focusedBodyDimension) {
         if (focusedBody != null) {
 
-            NetworkManager.sendToServer(new TeleportEntityToPlanetPacket(focusedBody.dimension, coords));
+            NetworkManager.sendToServer(new TeleportEntityToPlanetPacket(focusedBodyDimension, coords));
             long windowHandle = Minecraft.getInstance().getWindow().getWindow();
             prevScrollCallback = GLFW.glfwSetScrollCallback(windowHandle, Minecraft.getInstance().mouseHandler::onScroll);
         } else {
@@ -1261,9 +1259,11 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
     }
 
     public void onSpaceStationButtonClick(CelestialBody body, SpaceStationRecipesManager.SpaceStationRecipeState stationRecipeState, LaunchPad pad) {
+        Planet planet = PlanetUtil.getPlanet(body.dimension);
+
         focusedBody = body;
-        tpToFocusedPlanet();
-        NetworkManager.sendToServer(new PlaceStationPacket(body.dimension, stationRecipeState.recipe(), pad));
+        tpToFocusedPlanet(PlanetUtil.getSpaceStationDimension(planet));
+        NetworkManager.sendToServer(new PlaceStationPacket(PlanetUtil.getSpaceStationDimension(planet), stationRecipeState.recipe(), pad));
 
     }
 

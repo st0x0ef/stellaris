@@ -87,6 +87,7 @@ public class LaunchPadLauncher {
             Stellaris.LOG.error("Server is null");
             return false;
         }
+        Stellaris.LOG.error("{} Adding launchpad {}", pad.id(), pad.name());
         ArrayList<LaunchPad> launchPads = new ArrayList<>(LaunchPadLauncher.LAUNCH_PADS.launchPads());
         launchPads.add(pad);
 

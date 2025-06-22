@@ -154,33 +154,34 @@ public class SpaceStationList extends AbstractScrollWidget {
             guiGraphics.blitSprite(GUISprites.WINDOW_BAR, this.x + 20, this.y, this.width - 20, 30);
             guiGraphics.drawString(getFont(), recipeState.recipe().getDisplayName(), this.x + 27, this.y + 10, Utils.getColorHexCode("white"));
 
-            TexturedButton launchButton = new TexturedButton((this.x + this.width) - 54, this.y + 6, 49, 18, Component.literal("Select"), (btn) -> {
+            TexturedButton selectButton = new TexturedButton((this.x + this.width) - 54, this.y + 6, 49, 18, Component.literal("Select"), (btn) -> {
                 if(recipeState.isUnlocked()) {
                     window.spaceStationSelected = recipeState;
                 }
             });
 
-            launchButton.setTooltip(Tooltip.create(this.recipeState.recipe().getTooltip(this.window.parent.getPlayer())));
+            selectButton.setTooltip(Tooltip.create(this.recipeState.recipe().getTooltip(this.window.parent.getPlayer())));
 
-            buttonPositions = new Vector4i(launchButton.getX(), launchButton.getY(), launchButton.getWidth(), launchButton.getHeight());
+            buttonPositions = new Vector4i(selectButton.getX(), selectButton.getY(), selectButton.getWidth(), selectButton.getHeight());
 
             if (recipeState.isUnlocked() || window.parent.getPlayer().isCreative()) {
-                launchButton.tex(
+                selectButton.tex(
                         ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/select_button.png"),
                         ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/select_button_hovered.png")
                 );
             } else {
-                launchButton.tex(
+                selectButton.tex(
                         ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/select_button.png"),
                         ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/select_button.png")
                 );
             }
 
 
-            launchButton.render(guiGraphics, mouseX, mouseY, partialTick);
+            selectButton.render(guiGraphics, mouseX, mouseY, partialTick);
 
             if (Utils.isHoveredOnSprite(this.x, this.y, window.getWidth() - 80, 30, mouseX, mouseY)) {
-                guiGraphics.renderTooltip(getFont(), launchButton.getTooltip().toCharSequence(Minecraft.getInstance()), mouseX, mouseY);
+                guiGraphics.renderTooltip(getFont(), selectButton.getTooltip().toCharSequence(Minecraft.getInstance() ), mouseX, mouseY);
+
             }
         }
 

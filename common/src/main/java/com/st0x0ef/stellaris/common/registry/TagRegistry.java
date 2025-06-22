@@ -31,6 +31,7 @@ public class TagRegistry {
     public static final TagKey<Biome> MOON_BIOMES_TAG = TagKey.create(Registries.BIOME, id("moon_biomes"));
     public static final TagKey<Biome> VENUS_BIOMES_TAG = TagKey.create(Registries.BIOME, id("venus_biomes"));
     public static final TagKey<Biome> SANDSTORM_BIOMES_TAG = TagKey.create(Registries.BIOME, id("sandstorm_biomes"));
+    public static final TagKey<Biome> ORBIT_BIOMES_TAG = TagKey.create(Registries.BIOME, id("orbit_biomes"));
 
     /** ROCKET UPGRADE */
     public static final TagKey<Item> ROCKET_UPGRADE_TAG = TagKey.create(Registries.ITEM, id("rocket_upgrade"));

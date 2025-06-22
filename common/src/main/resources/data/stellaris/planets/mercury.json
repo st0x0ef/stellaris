@@ -3,6 +3,7 @@
   "translatable": "stellaris.planet.mercury",
   "name": "Mercury",
   "level": "stellaris:mercury",
+  "orbit": "stellaris:mercury_orbit",
   "oxygen": false,
   "temperature": 430,
   "distanceFromEarth": 92000,

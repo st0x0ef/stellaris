@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.common.network.packets;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.data.recipes.SpaceStationRecipe;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPad;
+import com.st0x0ef.stellaris.common.launchpads.LaunchPadLauncher;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
@@ -59,6 +60,17 @@ public class PlaceStationPacket implements CustomPacketPayload {
                 Vec3 stationPosition = Utils.placeSpaceStation(player, level, packet.recipe, packet.pad);
                 packet.recipe.removeMaterials(player);
 
+
+                LaunchPad newPad = new LaunchPad(
+                        packet.pad.id(),
+                        stationPosition,
+                        packet.pad.dimension(),
+                        packet.pad.name(),
+                        packet.pad.isPublic(),
+                        packet.pad.owner(),
+                        packet.pad.whitelist()
+                );
+                LaunchPadLauncher.addLaunchPad(newPad, context.getPlayer().getServer());
                 NetworkManager.sendToServer(new TeleportEntityToPlanetPacket(packet.dimension, stationPosition));
 
             }
