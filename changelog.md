@@ -4,6 +4,7 @@
 - Add space station
 - Add launch pad network
 - Add jupiter
+- Add planets orbits
 - Add diesel
 - Add diesel generator
 - Add new config system
