@@ -29,8 +29,6 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 
 public class JetSuit {
-    public static final long MAX_FUEL_CAPACITY = 1000;
-
     public static class Suit extends AbstractSpaceArmor.Chestplate {
         public float spacePressTime = 0.0f;
 

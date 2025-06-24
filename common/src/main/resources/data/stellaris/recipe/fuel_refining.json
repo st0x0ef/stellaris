@@ -13,7 +13,7 @@
   },
   "diesel": {
     "fluid": "stellaris:diesel",
-    "id": "stellaris:fuel",
+    "id": "stellaris:diesel",
     "amount": 5
   }
 }
