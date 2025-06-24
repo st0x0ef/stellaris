@@ -1,0 +1,12 @@
+{
+  "name": "Solar System",
+  "translatable": "text.stellaris.planetscreen.solar_system",
+  "parent": "stellaris:milky_way",
+  "starCount": 1,
+  "id": "stellaris:solar_system",
+  "stars": [
+    { "id": "stellaris:sun", "x": 300, "y": 100, "mass": 1.0 }
+  ],
+  "centerX": 0,
+  "centerY": 0
+}

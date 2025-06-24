@@ -1,11 +1,11 @@
 package com.st0x0ef.stellaris.client.screens.tablet;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.components.TexturedButton;
 import com.st0x0ef.stellaris.common.menus.TabletMenu;
 import com.st0x0ef.stellaris.common.registry.StatsRegistry;
 import com.st0x0ef.stellaris.common.registry.TagRegistry;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -27,20 +27,22 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class TabletMainScreen extends AbstractContainerScreen<TabletMenu> {
 
-    public static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/tablet_background.png");
+    public static final ResourceLocation BACKGROUND = ResourceLocationUtils.guiTexture("tablet/tablet_background");
+    public static final ResourceLocation MAIN_PAGE_TEXTURE = ResourceLocationUtils.guiTexture("tablet/main_page");
+    public static final ResourceLocation MAIN_PAGE_HOVER_TEXTURE = ResourceLocationUtils.guiTexture("tablet/main_page_hover");
     public static Map<String, TabletEntry> ENTRIES = new HashMap<>();
-    public static Map<ResourceLocation, TabletEntry.Info> INFOS = new HashMap<>();
+    public static Map<ResourceLocation, TabletEntry.ItemInfo> INFOS = new HashMap<>();
     public List<Component> STATS = new ArrayList<>();
     public ResourceLocation directEntry = null;
 
     public static ArrayList<TexturedButton> BUTTONS = new ArrayList<>();
-    
+
     public TabletMainScreen(TabletMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, Component.literal("Tablet"));
         this.imageHeight = 162;
         this.imageWidth = 250;
 
-        if(menu.getEntry() != null && !menu.getEntry().getNamespace().equals("null")) {
+        if (menu.getEntry() != null && !menu.getEntry().getNamespace().equals("null")) {
             directEntry = menu.getEntry();
         }
     }
@@ -54,7 +56,7 @@ public class TabletMainScreen extends AbstractContainerScreen<TabletMenu> {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, BACKGROUND);
-        guiGraphics.blit(BACKGROUND, this.leftPos , this.topPos , 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
+        guiGraphics.blit(BACKGROUND, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
     }
 
     @Override
@@ -65,17 +67,17 @@ public class TabletMainScreen extends AbstractContainerScreen<TabletMenu> {
         AtomicInteger column = new AtomicInteger(0);
         BUTTONS.clear();
         ENTRIES.forEach((id, entry) -> {
-            TexturedButton button = new TexturedButton(this.leftPos + 61 + (column.get() * 28), this.topPos + 134 , 18, 18, Component.translatable(entry.id()), (button1) -> this.minecraft.setScreen(new TabletEntryScreen(Component.translatable(entry.id()), this, this.leftPos, this.topPos, entry))).tex(entry.icon(), entry.hoverIcon()).tooltip(Tooltip.create(Component.translatable(entry.id())));
+            TexturedButton button = new TexturedButton(this.leftPos + 61 + (column.get() * 28), this.topPos + 129, 18, 18, Component.translatable(entry.id()), (button1) -> this.minecraft.setScreen(new TabletEntryScreen(Component.translatable(entry.id()), this, this.leftPos, this.topPos, entry))).tex(entry.icon(), entry.hoverIcon()).tooltip(Tooltip.create(Component.translatable(entry.id())));
 
             column.getAndIncrement();
 
             BUTTONS.add(button);
             this.addRenderableWidget(button);
 
-            if(BUTTONS.size() == 2) {
-                TexturedButton homeButton = new TexturedButton(this.leftPos + 61 + (column.get() * 28), this.topPos + 134, 18, 18, Component.translatable(entry.id()), (button1) -> this.minecraft.setScreen(this)).tex(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/main_page.png"),
-                        ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/tablet/main_page_hover.png")
-                ).tooltip(Tooltip.create(Component.literal("Home")));
+            if (BUTTONS.size() == 2) {
+                TexturedButton homeButton = new TexturedButton(this.leftPos + 61 + (column.get() * 28), this.topPos + 129, 18, 18, Component.translatable(entry.id()), (button1) -> this.minecraft.setScreen(this))
+                        .tex(MAIN_PAGE_TEXTURE, MAIN_PAGE_HOVER_TEXTURE)
+                        .tooltip(Tooltip.create(Component.literal("Home")));
                 BUTTONS.add(homeButton);
                 column.getAndIncrement();
 
@@ -89,28 +91,24 @@ public class TabletMainScreen extends AbstractContainerScreen<TabletMenu> {
         }
     }
 
-
-
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
 
         for (int i = 0; i < this.STATS.size(); i++) {
-
-            guiGraphics.drawString(this.font, this.STATS.get(i), this.leftPos + 90, this.topPos + 55 + (i*10), 0xFFFFFF);
+            guiGraphics.drawString(this.font, this.STATS.get(i), this.leftPos + 90, this.topPos + 55 + (i * 10), 0xFFFFFF);
         }
 
-        InventoryScreen.renderEntityInInventoryFollowsMouse(guiGraphics,  this.leftPos + 50, this.topPos + 45, this.leftPos + 80, this.topPos + 115, 30, 0.0625F, mouseX, mouseY, this.minecraft.player);
-
+        InventoryScreen.renderEntityInInventoryFollowsMouse(guiGraphics, this.leftPos + 50, this.topPos + 45, this.leftPos + 80, this.topPos + 115, 30, 0.0625F, mouseX, mouseY, this.minecraft.player);
     }
 
     public List<Component> getStats() {
         List<Component> stats = new ArrayList<>();
-        if(this.minecraft != null) {
+        if (this.minecraft != null) {
             StatsCounter statsCounter = this.minecraft.player.getStats();
 
             AtomicInteger bossKilled = new AtomicInteger(0);
-            for(EntityType<?> entityType : BuiltInRegistries.ENTITY_TYPE) {
+            for (EntityType<?> entityType : BuiltInRegistries.ENTITY_TYPE) {
                 if (entityType.is(TagRegistry.ENTITY_BOSS) && statsCounter.getValue(Stats.ENTITY_KILLED.get(entityType)) > 0 || statsCounter.getValue(Stats.ENTITY_KILLED_BY.get(entityType)) > 0) {
                     bossKilled.incrementAndGet();
                 }
@@ -125,9 +123,9 @@ public class TabletMainScreen extends AbstractContainerScreen<TabletMenu> {
     }
 
     public void openEntry(ResourceLocation location) {
-        if(INFOS.containsKey(location) && this.minecraft != null) {
+        if (INFOS.containsKey(location) && this.minecraft != null) {
             TabletEntry entry = ENTRIES.get(location.getNamespace());
-            TabletEntry.Info info = INFOS.get(location);
+            TabletEntry.ItemInfo info = INFOS.get(location);
             this.minecraft.setScreen(new TabletEntryScreen(Component.translatable(entry.id()), this, this.leftPos, this.topPos, entry));
             if (this.minecraft != null && this.minecraft.screen instanceof TabletEntryScreen screen) {
                 screen.changeInfo(info);
@@ -142,6 +140,4 @@ public class TabletMainScreen extends AbstractContainerScreen<TabletMenu> {
     public int getTopPos() {
         return this.topPos;
     }
-
-
 }

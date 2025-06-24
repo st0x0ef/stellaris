@@ -8,7 +8,6 @@ import com.st0x0ef.stellaris.common.menus.slot.upgrade.SpeedUpgradeSlot;
 import com.st0x0ef.stellaris.common.menus.slot.upgrade.TankUpgradeSlot;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -17,8 +16,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
-public class RoverMenu extends AbstractContainerMenu implements IVehicleMenu
-{
+public class RoverMenu extends AbstractContainerMenu implements IVehicleMenu {
 
     private final Container inventory;
     private final RoverEntity rover;
@@ -51,13 +49,15 @@ public class RoverMenu extends AbstractContainerMenu implements IVehicleMenu
                 if (!this.moveItemStackTo(originalStack, this.inventory.getContainerSize(), this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.moveItemStackTo(originalStack, 0, this.inventory.getContainerSize(), false)) {
+            }
+            else if (!this.moveItemStackTo(originalStack, 0, this.inventory.getContainerSize(), false)) {
                 return ItemStack.EMPTY;
             }
 
             if (originalStack.isEmpty()) {
                 slot.set(ItemStack.EMPTY);
-            } else {
+            }
+            else {
                 slot.setChanged();
             }
         }
@@ -67,36 +67,32 @@ public class RoverMenu extends AbstractContainerMenu implements IVehicleMenu
 
     @Override
     public boolean stillValid(Player player) {
-        if (!player.isLocalPlayer()) {
-            this.getRover().syncRocketData((ServerPlayer) player);
-        }
-
         return this.inventory.stillValid(player);
     }
 
 
     private void addSlots(Container inventory) {
         //FUEL SLOTS
-        this.addSlot(new VehicleFuelSlot(inventory, 0, 18, 26));
-        this.addSlot(new ResultSlot(inventory, 1, 18, 56));
+        this.addSlot(new VehicleFuelSlot(inventory, 0, 20, 28));
+        this.addSlot(new ResultSlot(inventory, 1, 20, 62));
 
         //UPGRADE SLOTS
-        this.addSlot(new MotorUpgradeSlot(inventory, 2, 84, 68, this.rover));
-        this.addSlot(new SpeedUpgradeSlot(inventory,3,110,68));
-        this.addSlot(new TankUpgradeSlot(inventory, 4, 136, 68));
+        this.addSlot(new MotorUpgradeSlot(inventory, 2, 82, 74, this.rover));
+        this.addSlot(new SpeedUpgradeSlot(inventory, 3, 109, 74));
+        this.addSlot(new TankUpgradeSlot(inventory, 4, 136, 74));
 
         //INVENTORY SLOTS
-        this.addSlot(new Slot(inventory, 5, 84, 22));
-        this.addSlot(new Slot(inventory, 6, 84, 40));
+        this.addSlot(new Slot(inventory, 5, 82, 28));
+        this.addSlot(new Slot(inventory, 6, 82, 46));
 
-        this.addSlot(new Slot(inventory, 7, 102, 22));
-        this.addSlot(new Slot(inventory, 8, 102, 40));
+        this.addSlot(new Slot(inventory, 7, 100, 28));
+        this.addSlot(new Slot(inventory, 8, 100, 46));
 
-        this.addSlot(new Slot(inventory, 9, 120, 22));
-        this.addSlot(new Slot(inventory, 10, 120, 40));
+        this.addSlot(new Slot(inventory, 9, 118, 28));
+        this.addSlot(new Slot(inventory, 10, 118, 46));
 
-        this.addSlot(new Slot(inventory, 11, 138, 22));
-        this.addSlot(new Slot(inventory, 12, 138, 40));
+        this.addSlot(new Slot(inventory, 11, 136, 28));
+        this.addSlot(new Slot(inventory, 12, 136, 46));
     }
 
     private void addPlayerInventory(Inventory playerInventory) {

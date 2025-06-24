@@ -1,8 +1,8 @@
 package com.st0x0ef.stellaris.client.overlays;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -12,16 +12,16 @@ import net.minecraft.world.entity.player.Player;
 
 public class RocketStartOverlay {
 
-    public static final ResourceLocation TIMER_1 = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/overlay/timer/timer_1.png");
-    public static final ResourceLocation TIMER_2 = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/overlay/timer/timer_2.png");
-    public static final ResourceLocation TIMER_3 = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/overlay/timer/timer_3.png");
-    public static final ResourceLocation TIMER_4 = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/overlay/timer/timer_4.png");
-    public static final ResourceLocation TIMER_5 = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/overlay/timer/timer_5.png");
-    public static final ResourceLocation TIMER_6 = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/overlay/timer/timer_6.png");
-    public static final ResourceLocation TIMER_7 = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/overlay/timer/timer_7.png");
-    public static final ResourceLocation TIMER_8 = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/overlay/timer/timer_8.png");
-    public static final ResourceLocation TIMER_9 = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/overlay/timer/timer_9.png");
-    public static final ResourceLocation TIMER_10 = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/overlay/timer/timer_10.png");
+    public static final ResourceLocation TIMER_1 = ResourceLocationUtils.texture("overlay/timer/timer_1");
+    public static final ResourceLocation TIMER_2 = ResourceLocationUtils.texture("overlay/timer/timer_2");
+    public static final ResourceLocation TIMER_3 = ResourceLocationUtils.texture("overlay/timer/timer_3");
+    public static final ResourceLocation TIMER_4 = ResourceLocationUtils.texture("overlay/timer/timer_4");
+    public static final ResourceLocation TIMER_5 = ResourceLocationUtils.texture("overlay/timer/timer_5");
+    public static final ResourceLocation TIMER_6 = ResourceLocationUtils.texture("overlay/timer/timer_6");
+    public static final ResourceLocation TIMER_7 = ResourceLocationUtils.texture("overlay/timer/timer_7");
+    public static final ResourceLocation TIMER_8 = ResourceLocationUtils.texture("overlay/timer/timer_8");
+    public static final ResourceLocation TIMER_9 = ResourceLocationUtils.texture("overlay/timer/timer_9");
+    public static final ResourceLocation TIMER_10 = ResourceLocationUtils.texture("overlay/timer/timer_10");
 
     public static void render(GuiGraphics graphics, DeltaTracker deltaTracker) {
         Minecraft mc = Minecraft.getInstance();
@@ -36,7 +36,9 @@ public class RocketStartOverlay {
                 timer = rocket.START_TIMER;
 
                 /** CHECK IF ROCKET IS STARTED */
-                if(!rocket.getEntityData().get(RocketEntity.ROCKET_START)) return;
+                if (!rocket.getEntityData().get(RocketEntity.ROCKET_START)) {
+                    return;
+                }
             }
 
             int timerWidth = graphics.guiWidth() / 2 - 31;

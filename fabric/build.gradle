@@ -33,8 +33,7 @@ dependencies {
     modApi "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}+${minecraft_version}"
     modApi "dev.architectury:architectury-fabric:${architectury_version}"
     modApi "com.terraformersmc:modmenu:${modmenu_version}"
-    include modApi("teamreborn:energy:${energy_version}") { transitive = false }
-    modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rootProject.rei_version}"
+    modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
     modCompileOnlyApi("mezz.jei:jei-${minecraft_version}-fabric-api:${jei_version}")
     modRuntimeOnly("mezz.jei:jei-${minecraft_version}-fabric:${jei_version}")
 
@@ -43,7 +42,7 @@ dependencies {
 
     modImplementation "curse.maven:energized-power-782147:5510660"
 
-    modApi("com.fej1fun.potentials:potentials-fabric:${rootProject.potentials_version}")
+    modApi("com.fej1fun.potentials:potentials-fabric-${minecraft_version}:${potentials_version}")
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }

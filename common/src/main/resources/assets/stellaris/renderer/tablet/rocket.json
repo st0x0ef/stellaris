@@ -1,60 +1,144 @@
 {
-  "id": "rocket",
   "description": "Learn about rockets and how to build them !",
-  "icon": "stellaris:textures/gui/tablet/rocket_page.png",
   "hoverIcon": "stellaris:textures/gui/tablet/rocket_page_hover.png",
+  "icon": "stellaris:textures/gui/tablet/rocket_page.png",
+  "id": "rocket",
   "infos": [
     {
-      "type": "item",
+      "components": [
+        {
+          "type": "text",
+          "text": "One of the first block you need, is the Rocket Station. This allow you to build the rocket with all the parts needed."
+        },
+        {
+          "type": "item",
+          "item": {
+            "size": 32.0,
+            "stack": {
+              "count": 1,
+              "id": "stellaris:rocket_station"
+            }
+          }
+        },
+        {
+          "type": "image",
+          "image": {
+            "height": 64,
+            "location": "stellaris:textures/gui/tablet/images/rocket_station",
+            "width": 128
+          }
+        }
+      ],
+      "iconType": "item",
       "id": "rocket_station",
-      "title": "Rocket Station",
-      "description": "One of the first block you need, is the Rocket Station. This allow you to build the rocket with all the parts needed.",
-      "item": {
-        "stack": {
-          "id": "stellaris:rocket_station",
-          "count": 1
-        },
-        "size": 32
-      },
-      "image": {
-          "location": "stellaris:tablet/images/rocket_station",
-          "width": 128,
-          "height": 84
-      }
+      "title": "Rocket Station"
     },
     {
-      "type": "item",
+      "components": [
+        {
+          "type": "text",
+          "text": "This is the basic rocket. [br] [br] Can transport 1 entity"
+        },
+        {
+          "type": "item",
+          "item": {
+            "size": 32.0,
+            "stack": {
+              "count": 1,
+              "id": "stellaris:tiny_rocket_upgrade"
+            }
+          }
+        },
+        {
+          "type": "entity",
+          "entity": {
+            "id": "stellaris:tiny_rocket",
+            "scale": 10
+          }
+        }
+      ],
+      "iconType": "item",
       "id": "tiny_rocket",
-      "title": "Tiny Rocket Model",
-      "description": "This is the basic rocket. [br] [br] Can transport 1 entity",
-      "item": {
-        "stack": {
-          "id": "stellaris:tiny_rocket_upgrade",
-          "count": 1
-        },
-        "size": 32
-      },
-      "entity": {
-        "id": "stellaris:tiny_rocket",
-        "scale": 10
-      }
+      "title": "Tiny Rocket Model"
     },
     {
-      "type": "item",
-      "id": "small_rocket",
-      "title": "Small Rocket Model",
-      "description": "This is the small rocket. [br] [br] Can transport 2 entity",
-      "item": {
-        "stack": {
-          "id": "stellaris:small_rocket_upgrade",
-          "count": 1
+      "components": [
+        {
+          "type": "text",
+          "text": "This is the small rocket. [br] [br] Can transport 2 entity"
         },
-        "size": 32
-      },
-      "entity": {
-        "id": "stellaris:small_rocket",
-        "scale": 10
-      }
+        {
+          "type": "item",
+          "item": {
+            "size": 32.0,
+            "stack": {
+              "count": 1,
+              "id": "stellaris:small_rocket_upgrade"
+            }
+          }
+        },
+        {
+          "type": "entity",
+          "entity": {
+            "id": "stellaris:small_rocket",
+            "scale": 10
+          }
+        }
+      ],
+      "iconType": "item",
+      "id": "small_rocket",
+      "title": "Small Rocket Model"
+    },
+    {
+      "components": [
+        {
+          "type": "text",
+          "text": "Apply skin on a [ref=rocket:tiny_rocket]Rocket to change his apparence."
+        },
+        {
+          "type": "item",
+          "item": {
+            "size": 32.0,
+            "stack": {
+              "count": 1,
+              "id": "stellaris:skin_frozy"
+            }
+          }
+        },
+        {
+          "type": "item",
+          "item": {
+            "size": 32.0,
+            "stack": {
+              "count": 1,
+              "id": "stellaris:skin_galaxy"
+            }
+          }
+        },
+        {
+          "type": "item",
+          "item": {
+            "size": 32.0,
+            "stack": {
+              "count": 1,
+              "id": "stellaris:skin_military"
+            }
+          }
+        },
+        {
+          "type": "item",
+          "item": {
+            "size": 32.0,
+            "stack": {
+              "count": 1,
+              "id": "stellaris:skin_rusty"
+            }
+          }
+        }
+      ],
+      "iconType": "item",
+      "id": "skins",
+      "title": "Rocket Skins"
     }
   ]
 }

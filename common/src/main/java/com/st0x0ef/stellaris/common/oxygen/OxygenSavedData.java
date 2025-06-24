@@ -10,7 +10,7 @@ import net.minecraft.world.level.saveddata.SavedData;
 import java.util.HashSet;
 import java.util.Set;
 
-public final  class OxygenSavedData extends SavedData {
+public final class OxygenSavedData extends SavedData {
 
     private final Set<OxygenRoom> rooms;
     private final ServerLevel level;
@@ -37,7 +37,7 @@ public final  class OxygenSavedData extends SavedData {
 
         if (dimensionOxygenManager.getOxygenRooms() != null && !dimensionOxygenManager.getOxygenRooms().isEmpty()) {
             for (OxygenRoom room : dimensionOxygenManager.getOxygenRooms()) {
-                tag.putIntArray("oxygenDistributorPos" + rooms, new int[]{room.getDistributorPosition().getX(), room.getDistributorPosition().getY(), room.getDistributorPosition().getZ()});
+                tag.putIntArray("oxygenDistributorPos" + rooms, new int[] {room.getDistributorPosition().getX(), room.getDistributorPosition().getY(), room.getDistributorPosition().getZ()});
                 rooms++;
             }
         }
@@ -62,7 +62,7 @@ public final  class OxygenSavedData extends SavedData {
             data.rooms.add(oxygenRoom);
         }
 
-        GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level).setOxygensRooms(data.rooms);
+        GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level).setOxygenRooms(data.rooms);
 
         return data;
     }

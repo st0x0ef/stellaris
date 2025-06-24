@@ -1,90 +1,134 @@
 {
+  "description": "Discover all the mobs of Stellaris.",
+  "hoverIcon": "stellaris:textures/gui/tablet/mob_page_hover.png",
+  "icon": "stellaris:textures/gui/tablet/mob_page.png",
   "id": "mobs",
-  "description": "Discover all the mobs of Stellaris",
-  "icon": "stellaris:textures/gui/tablet/rocket_page.png",
-  "hoverIcon": "stellaris:textures/gui/tablet/rocket_page_hover.png",
   "infos": [
     {
-      "type": "entity",
+      "components": [
+        {
+          "type": "text",
+          "text": "This is an [color=yellow]Alien. This passive mob can be found on the moon [br] [br] Stats : [br] - Health : 20 [br] - Speed : 0.5"
+        },
+        {
+          "type": "entity",
+          "entity": {
+            "id": "stellaris:alien",
+            "scale": 25
+          }
+        }
+      ],
+      "iconType": "entity",
       "id": "alien",
-      "title": "Alien",
-      "description": "This is an [color=yellow]Alien. This passive mob can be found on the moon [br] [br] Stats : [br] - Health : 20 [br] - Speed : 0.5",
-      "entity": {
-        "id": "stellaris:alien",
-        "scale": 25
-
-      }
+      "title": "Alien"
     },
     {
-      "type": "entity",
+      "components": [
+        {
+          "type": "text",
+          "text": "This is an [color=yellow]Alien [color=yellow]Zombie. A ancient force corrupt this alien and now it's a zombie. This aggressive mob can be found on the moon [br] [br] Stats : [br] - Health : 20 [br] - Speed : 0.3 [br] - Damage : 3"
+        },
+        {
+          "type": "entity",
+          "entity": {
+            "id": "stellaris:alien_zombie",
+            "scale": 25
+          }
+        }
+      ],
+      "iconType": "entity",
       "id": "alien_zombie",
-
-      "title": "Alien Zombie",
-      "description": "This is an [color=yellow]Alien [color=yellow]Zombie. A ancient force corrupt this alien and now it's a zombie. This aggressive mob can be found on the moon [br] [br] Stats : [br] - Health : 20 [br] - Speed : 0.3 [br] - Damage : 3",
-      "entity": {
-        "id": "stellaris:alien_zombie",
-        "scale": 25
-
-      }
+      "title": "Alien Zombie"
     },
     {
-      "type": "entity",
+      "components": [
+        {
+          "type": "text",
+          "text": "This is a [color=yellow]Star [color=yellow]Crawler. This monster mob can be found on the moon [br] [br] Stats : [br] - Health : 40 [br] - Speed : 0.4 [br] - Damage : 9"
+        },
+        {
+          "type": "entity",
+          "entity": {
+            "id": "stellaris:star_crawler",
+            "scale": 25
+          }
+        }
+      ],
+      "iconType": "entity",
       "id": "star_crawler",
-
-      "title": "Star Crawler",
-      "description": "This is a [color=yellow]Star [color=yellow]Crawler. This monster mob can be found on the moon [br] [br] Stats : [br] - Health : 40 [br] - Speed : 0.4 [br] - Damage : 9",
-      "entity": {
-        "id": "stellaris:star_crawler",
-        "scale": 25
-
-      }
+      "title": "Star Crawler"
     },
     {
-      "type": "entity",
+      "components": [
+        {
+          "type": "text",
+          "text": "This is a [color=yellow]Martian [color=yellow]Raptor. This creature live on Mars [br] [br] Stats : [br] - Health : 20 [br] - Speed : 0.3 [br] - Damage : 3"
+        },
+        {
+          "type": "entity",
+          "entity": {
+            "id": "stellaris:martian_raptor",
+            "scale": 25
+          }
+        }
+      ],
+      "iconType": "entity",
       "id": "martian_raptor",
-
-      "title": "Martian Raptor",
-      "description": "This is a [color=yellow]Martian [color=yellow]Raptor. This creature live on Mars [br] [br] Stats : [br] - Health : 20 [br] - Speed : 0.3 [br] - Damage : 3",
-      "entity": {
-        "id": "stellaris:martian_raptor",
-        "scale": 25
-
-      }
+      "title": "Martian Raptor"
     },
     {
-      "type": "entity",
+      "components": [
+        {
+          "type": "text",
+          "text": "This is a [color=yellow]Pygro. [br] [br] Stats : [br] - Health : 16 [br] - Speed : 0.35 [br]"
+        },
+        {
+          "type": "entity",
+          "entity": {
+            "id": "stellaris:pygro",
+            "scale": 25
+          }
+        }
+      ],
+      "iconType": "entity",
       "id": "pygro",
-
-      "title": "Pygro",
-      "description": "This is a [color=yellow]Pygro. [br] [br] Stats : [br] - Health : 16 [br] - Speed : 0.35 [br]",
-      "entity": {
-        "id": "stellaris:pygro",
-        "scale": 25
-
-      }
+      "title": "Pygro"
     },
     {
-      "type": "entity",
+      "components": [
+        {
+          "type": "text",
+          "text": "This is a [color=yellow]Pygro [color=yellow]Brute. [br] [br] Stats : [br] - Health : 16 [br] - Speed : 0.35 [br] - Damage : 5"
+        },
+        {
+          "type": "entity",
+          "entity": {
+            "id": "stellaris:pygro_brute",
+            "scale": 25
+          }
+        }
+      ],
+      "iconType": "entity",
       "id": "pygro_brute",
-
-      "title": "Pygro Brute",
-      "description": "This is a [color=yellow]Pygro [color=yellow]Brute. [br] [br] Stats : [br] - Health : 16 [br] - Speed : 0.35 [br] - Damage : 5",
-      "entity": {
-        "id": "stellaris:pygro_brute",
-        "scale": 25
-
-      }
+      "title": "Pygro Brute"
     },
     {
-      "type": "entity",
+      "components": [
+        {
+          "type": "text",
+          "text": "This is a Mogler. This aggressive creature live on venus.  [br] [br] Stats : [br] - Health : 40 [br] - Speed : 0.3 [br] - Damage : 6"
+        },
+        {
+          "type": "entity",
+          "entity": {
+            "id": "stellaris:mogler",
+            "scale": 25
+          }
+        }
+      ],
+      "iconType": "entity",
       "id": "mogler",
-
-      "title": "Mogler",
-      "description": "This is a Mogler. This aggressive creature live on venus.  [br] [br] Stats : [br] - Health : 40 [br] - Speed : 0.3 [br] - Damage : 6",
-      "entity": {
-        "id": "stellaris:mogler",
-        "scale": 25
-      }
+      "title": "Mogler"
     }
   ]
 }

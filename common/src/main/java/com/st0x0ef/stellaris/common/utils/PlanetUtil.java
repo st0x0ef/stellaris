@@ -3,7 +3,7 @@ package com.st0x0ef.stellaris.common.utils;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
-import com.st0x0ef.stellaris.common.menus.MilkyWayMenu;
+import com.st0x0ef.stellaris.common.menus.GalaxyMenu;
 import com.st0x0ef.stellaris.common.menus.PlanetSelectionMenu;
 import com.st0x0ef.stellaris.common.menus.TabletMenu;
 import com.st0x0ef.stellaris.common.menus.WaitMenu;
@@ -14,6 +14,7 @@ import io.netty.buffer.Unpooled;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -28,6 +29,18 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 
 public class PlanetUtil {
+
+    public static final ResourceLocation TEXTURE = ResourceLocationUtils.texture("planet_bar/earth_planet_bar");
+
+
+    public static final Component temperature = Component.translatable("text.stellaris.planetscreen.temperature");
+    public static final Component gravity = Component.translatable("text.stellaris.planetscreen.gravity");
+    public static final Component launch = Component.translatable("text.stellaris.planetscreen.launch");
+    public static final Component oxygen = Component.translatable("text.stellaris.planetscreen.oxygen");
+    public static final Component system = Component.translatable("text.stellaris.planetscreen.system");
+    public static final Component error_message = Component.translatable("text.stellaris.planetscreen.error_message");
+
+
     public static Planet getPlanet(ResourceLocation level) {
         AtomicReference<Planet> p = new AtomicReference<>();
         StellarisData.getPlanets().forEach(planet -> {if (planet.dimension().equals(level)) p.set(planet);});
@@ -67,11 +80,12 @@ public class PlanetUtil {
         return ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/planet_bar/earth_planet_bar.png");
     }
 
-    public static int openPlanetSelectionMenu(Player player, boolean forceCanGoTo) {
+    public static int openPlanetSelectionMenu(Player player, boolean forceCanGoTo, String galaxyId) {
         ExtendedMenuProvider provider = new ExtendedMenuProvider() {
             @Override
             public void saveExtraData(FriendlyByteBuf buffer) {
                 buffer.writeBoolean(forceCanGoTo);
+                buffer.writeUtf(galaxyId); // 여기서 galaxyId도 같이 보냄
             }
 
             @Override
@@ -81,9 +95,15 @@ public class PlanetUtil {
 
             @Override
             public @NotNull AbstractContainerMenu createMenu(int syncId, Inventory inv, Player player) {
-                FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
-                return PlanetSelectionMenu.create(syncId, inv, buffer.writeBoolean(forceCanGoTo));
+                return new PlanetSelectionMenu(syncId, inv, forceCanGoTo, galaxyId);
             }
+
+            public static PlanetSelectionMenu create(int syncId, Inventory inventory, FriendlyByteBuf data) {
+                boolean forceCanGoTo = data.readBoolean();
+                String galaxyId = data.readUtf();
+                return new PlanetSelectionMenu(syncId, inventory, forceCanGoTo, galaxyId);
+            }
+
         };
 
         if (player instanceof ServerPlayer serverPlayer) {
@@ -94,6 +114,7 @@ public class PlanetUtil {
         return 0;
     }
 
+
     public static int openWaitMenu(Player player, String playerChoosing) {
         ExtendedMenuProvider provider = new ExtendedMenuProvider() {
             @Override
@@ -102,7 +123,7 @@ public class PlanetUtil {
             }
 
             @Override
-            public Component getDisplayName() {
+            public @NotNull Component getDisplayName() {
                 return Component.literal("Waiting");
             }
 
@@ -167,7 +188,7 @@ public class PlanetUtil {
             @Override
             public @NotNull AbstractContainerMenu createMenu(int syncId, Inventory inv, Player player) {
                 FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
-                return MilkyWayMenu.create(syncId, inv, buffer);
+                return GalaxyMenu.create(syncId, inv, buffer);
             }
         };
 
@@ -178,4 +199,53 @@ public class PlanetUtil {
 
         return 0;
     }
+
+    public static MutableComponent[] getPlanetInfo(Planet planet) {
+        MutableComponent temperatureV = Component.literal(temperature.getString() + " : " + (int) planet.temperature() + "°C");
+
+        MutableComponent oxygenV = Component.literal(oxygen.getString());
+
+
+        var gravityValue = String.valueOf(planet.gravity());
+
+        if (gravityValue.length() > 4) {
+            gravityValue = gravityValue.substring(0, 4);
+        }
+
+        MutableComponent gravityV = Component.literal(gravity.getString() + " : " + gravityValue + "m/s");
+
+        MutableComponent systemV = Component.literal(system.getString() + " : " + Component.translatable(planet.system()).getString());
+
+
+        if (planet.oxygen()) {
+            oxygenV.withColor(Utils.getColorHexCode("Lime"));
+        } else {
+            oxygenV.withColor(Utils.getColorHexCode("Red"));
+        }
+
+        if (planet.temperature() >= 100) {
+            temperatureV.withColor(Utils.getColorHexCode("DarkRed"));
+
+        } else if (planet.temperature() >= 0){
+            temperatureV.withColor(Utils.getColorHexCode("Lime"));
+        } else if (planet.temperature() >= -100) {
+            temperatureV.withColor(Utils.getColorHexCode("Cyan"));
+        } else {
+            temperatureV.withColor(Utils.getColorHexCode("Blue"));
+        }
+
+        return new MutableComponent[] {temperatureV, oxygenV, gravityV, systemV};
+    }
+
+    public static MutableComponent getInLinePlanetInfo(Planet planet) {
+        MutableComponent[] component = getPlanetInfo(planet);
+
+        return Component.literal("")
+                .append(component[0])
+                .append(" | ")
+                .append(component[1])
+                .append(" | ")
+                .append(component[2]);
+    }
+
 }

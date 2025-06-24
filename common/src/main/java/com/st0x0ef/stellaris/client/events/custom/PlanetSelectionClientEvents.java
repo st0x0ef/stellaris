@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.client.events.custom;
 
 import com.st0x0ef.stellaris.client.screens.info.CelestialBody;
+import com.st0x0ef.stellaris.client.screens.info.GalaxyInfo;
 import com.st0x0ef.stellaris.client.screens.info.MoonInfo;
 import com.st0x0ef.stellaris.client.screens.info.PlanetInfo;
 import dev.architectury.event.Event;
@@ -17,9 +18,11 @@ public interface PlanetSelectionClientEvents {
     Event<PostStarPackRegistryEvent> POST_STAR_PACK_REGISTRY = EventFactory.createLoop();
     Event<PostMoonPackRegistryEvent> POST_MOON_PACK_REGISTRY = EventFactory.createLoop();
     Event<PostPlanetPackRegistryEvent> POST_PLANET_PACK_REGISTRY = EventFactory.createLoop();
+    Event<PostGalaxyPackRegistryEvent> POST_GALAXY_PACK_REGISTRY = EventFactory.createLoop();
 
     @Environment(EnvType.CLIENT)
     interface PostStarPackRegistryEvent {
+
         /**
          * Invoked when all the stars has been registered.
          * Usefull for adding more stars to the planet selection screen.
@@ -32,6 +35,7 @@ public interface PlanetSelectionClientEvents {
 
     @Environment(EnvType.CLIENT)
     interface PostMoonPackRegistryEvent {
+
         /**
          * Invoked when all the moon has been registered.
          * Usefull for adding more moon to the planet selection screen.
@@ -44,6 +48,7 @@ public interface PlanetSelectionClientEvents {
 
     @Environment(EnvType.CLIENT)
     interface PostPlanetPackRegistryEvent {
+
         /**
          * Invoked when all the planets has been registered.
          * Usefull for adding more planets to the planet selection screen.
@@ -52,5 +57,17 @@ public interface PlanetSelectionClientEvents {
          * @return A {@link EventResult} but this events can't be cancelled.
          */
         EventResult planetRegistered(List<PlanetInfo> planetInfos);
+    }
+
+    @Environment(EnvType.CLIENT)
+    interface PostGalaxyPackRegistryEvent {
+        /**
+         * Invoked when all the planets has been registered.
+         * Usefull for adding more planets to the planet selection screen.
+         *
+         * @param galaxyInfos The list of all the planets.
+         * @return A {@link EventResult} but this events can't be cancelled.
+         */
+        EventResult galaxyRegistered(List<GalaxyInfo> galaxyInfos);
     }
 }

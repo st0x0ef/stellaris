@@ -25,6 +25,7 @@ import java.util.Optional;
 import java.util.Set;
 
 public class PygroMobsSensor extends Sensor<LivingEntity> {
+
     @Override
     public Set<MemoryModuleType<?>> requires() {
         return ImmutableSet.of(MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.NEAREST_LIVING_ENTITIES, MemoryModuleType.NEAREST_VISIBLE_NEMESIS, MemoryModuleType.NEAREST_TARGETABLE_PLAYER_NOT_WEARING_GOLD, MemoryModuleType.NEAREST_PLAYER_HOLDING_WANTED_ITEM, MemoryModuleType.NEAREST_VISIBLE_HUNTABLE_HOGLIN, MemoryModuleType.NEAREST_VISIBLE_BABY_HOGLIN, MemoryModuleType.NEAREST_VISIBLE_ADULT_PIGLINS, MemoryModuleType.NEARBY_ADULT_PIGLINS, MemoryModuleType.VISIBLE_ADULT_PIGLIN_COUNT, MemoryModuleType.VISIBLE_ADULT_HOGLIN_COUNT, MemoryModuleType.NEAREST_REPELLENT);
@@ -46,40 +47,47 @@ public class PygroMobsSensor extends Sensor<LivingEntity> {
         List<AbstractPiglin> list1 = Lists.newArrayList();
         NearestVisibleLivingEntities nearestvisiblelivingentities = brain.getMemory(MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES).orElse(NearestVisibleLivingEntities.empty());
 
-        for(LivingEntity livingentity : nearestvisiblelivingentities.findAll((p_186157_) -> true)) {
+        for (LivingEntity livingentity : nearestvisiblelivingentities.findAll((p_186157_) -> true)) {
             if (livingentity instanceof Hoglin hoglinentity) {
                 if (hoglinentity.isBaby() && optional2.isEmpty()) {
                     optional2 = Optional.of(hoglinentity);
-                } else if (hoglinentity.isAdult()) {
+                }
+                else if (hoglinentity.isAdult()) {
                     ++i;
                     if (optional1.isEmpty() && hoglinentity.canBeHunted()) {
                         optional1 = Optional.of(hoglinentity);
                     }
                 }
-            } else if (livingentity instanceof PiglinBrute) {
-                list.add((PiglinBrute)livingentity);
-            } else if (livingentity instanceof Piglin piglinentity) {
+            }
+            else if (livingentity instanceof PiglinBrute) {
+                list.add((PiglinBrute) livingentity);
+            }
+            else if (livingentity instanceof Piglin piglinentity) {
                 if (piglinentity.isBaby() && optional3.isEmpty()) {
                     optional3 = Optional.of(piglinentity);
-                } else if (piglinentity.isAdult()) {
+                }
+                else if (piglinentity.isAdult()) {
                     list.add(piglinentity);
                 }
-            } else if (livingentity instanceof Player playerentity) {
+            }
+            else if (livingentity instanceof Player playerentity) {
                 if (optional6.isEmpty() && !playerentity.isSpectator() && PiglinAi.isPlayerHoldingLovedItem(playerentity)) {
                     optional6 = Optional.of(playerentity);
                 }
-            } else if (optional.isPresent() || !(livingentity instanceof WitherSkeleton) && !(livingentity instanceof WitherBoss)) {
+            }
+            else if (optional.isPresent() || !(livingentity instanceof WitherSkeleton) && !(livingentity instanceof WitherBoss)) {
                 if (optional4.isEmpty() && PiglinAi.isZombified(livingentity.getType())) {
                     optional4 = Optional.of(livingentity);
                 }
-            } else {
-                optional = Optional.of((Mob)livingentity);
+            }
+            else {
+                optional = Optional.of((Mob) livingentity);
             }
         }
 
-        for(LivingEntity livingentity1 : brain.getMemory(MemoryModuleType.NEAREST_LIVING_ENTITIES).orElse(ImmutableList.of())) {
-            if (livingentity1 instanceof AbstractPiglin && ((AbstractPiglin)livingentity1).isAdult()) {
-                list1.add((AbstractPiglin)livingentity1);
+        for (LivingEntity livingentity1 : brain.getMemory(MemoryModuleType.NEAREST_LIVING_ENTITIES).orElse(ImmutableList.of())) {
+            if (livingentity1 instanceof AbstractPiglin && ((AbstractPiglin) livingentity1).isAdult()) {
+                list1.add((AbstractPiglin) livingentity1);
             }
         }
 
@@ -96,7 +104,7 @@ public class PygroMobsSensor extends Sensor<LivingEntity> {
     }
 
     private static Optional<BlockPos> findNearestRepellent(ServerLevel world, LivingEntity livingEntity) {
-        return BlockPos.findClosestMatch(new BlockPos((int)livingEntity.getX(), (int)livingEntity.getY(), (int)livingEntity.getZ()), 8, 4, (pos) -> isRepellent(world, pos));
+        return BlockPos.findClosestMatch(new BlockPos((int) livingEntity.getX(), (int) livingEntity.getY(), (int) livingEntity.getZ()), 8, 4, (pos) -> isRepellent(world, pos));
     }
 
     private static boolean isRepellent(ServerLevel world, BlockPos pos) {

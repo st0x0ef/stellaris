@@ -1,11 +1,11 @@
 package com.st0x0ef.stellaris.client.overlays;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
 import com.st0x0ef.stellaris.common.entities.vehicles.LanderEntity;
 import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.Blocks;
 
 public class RocketBarOverlay {
 
-    public static final ResourceLocation ROCKET = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/planet_bar/rocket.png");
+    public static final ResourceLocation ROCKET = ResourceLocationUtils.texture("planet_bar/rocket");
 
     public static void render(GuiGraphics graphics, DeltaTracker deltaTracker) {
         Player player = Minecraft.getInstance().player;
@@ -25,7 +25,9 @@ public class RocketBarOverlay {
         if (player.getVehicle() instanceof RocketEntity || player.getVehicle() instanceof LanderEntity) {
             Level level = Minecraft.getInstance().level;
 
-            if (level == null) return;
+            if (level == null) {
+                return;
+            }
 
             double min = player.level().getMinBuildHeight();
 

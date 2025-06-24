@@ -10,6 +10,7 @@ import net.minecraft.network.codec.StreamCodec;
 import java.io.Serializable;
 
 public record CappedLongComponent(long amount, long capacity) implements Serializable {
+
     public static final Codec<CappedLongComponent> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.LONG.fieldOf("amount").forGetter(CappedLongComponent::amount),
             Codec.LONG.fieldOf("capacity").forGetter(CappedLongComponent::capacity)

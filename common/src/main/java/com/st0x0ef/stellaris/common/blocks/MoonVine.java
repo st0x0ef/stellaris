@@ -76,7 +76,7 @@ public class MoonVine extends GrowingPlantHeadBlock implements BonemealableBlock
     }
 
     public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
-        return !(Boolean)state.getValue(BERRIES);
+        return !(Boolean) state.getValue(BERRIES);
     }
 
     public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
@@ -97,7 +97,8 @@ public class MoonVine extends GrowingPlantHeadBlock implements BonemealableBlock
             level.setBlock(pos, blockState, 2);
             level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(entity, blockState));
             return InteractionResult.sidedSuccess(level.isClientSide);
-        } else {
+        }
+        else {
             return InteractionResult.PASS;
         }
     }

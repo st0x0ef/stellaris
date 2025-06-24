@@ -2,19 +2,19 @@ package com.st0x0ef.stellaris.client.renderers.entities.vehicle.rover;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.entities.vehicles.RoverEntity;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
 
 
 public class RoverModel<T extends RoverEntity> extends EntityModel<T> {
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "rover"), "main");
+
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocationUtils.id("rover"), "main");
 
     private final ModelPart rover;
     private final ModelPart antenna;
@@ -189,16 +189,14 @@ public class RoverModel<T extends RoverEntity> extends EntityModel<T> {
     }
 
 
-
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.rover.yRot = netHeadYaw / (180F / (float) Math.PI);
 
         float wheelRotation = (float) entity.getDeltaMovement().x / 5f;
-        if (entity.getDirection() == Direction.NORTH ||entity.getDirection() == Direction.SOUTH) {
+        if (entity.getDirection() == Direction.NORTH || entity.getDirection() == Direction.SOUTH) {
             wheelRotation = (float) entity.getDeltaMovement().z / 5f;
         }
-
 
 
         if (entity.isForward()) {
@@ -209,7 +207,8 @@ public class RoverModel<T extends RoverEntity> extends EntityModel<T> {
             this.rover.getChild("Wheels").getChild("Wheel5").xRot += wheelRotation;
             this.rover.getChild("Wheels").getChild("Wheel6").xRot += wheelRotation;
 
-        } else if (entity.isBackward()) {
+        }
+        else if (entity.isBackward()) {
             this.rover.getChild("Wheels").getChild("Wheel1").xRot -= -wheelRotation;
             this.rover.getChild("Wheels").getChild("Wheel2").xRot -= -wheelRotation;
             this.rover.getChild("Wheels").getChild("Wheel3").xRot -= -wheelRotation;
@@ -217,7 +216,8 @@ public class RoverModel<T extends RoverEntity> extends EntityModel<T> {
             this.rover.getChild("Wheels").getChild("Wheel5").xRot -= -wheelRotation;
             this.rover.getChild("Wheels").getChild("Wheel6").xRot -= -wheelRotation;
 
-        } else {
+        }
+        else {
             this.rover.getChild("Wheels").getChild("Wheel1").xRot = 0;
             this.rover.getChild("Wheels").getChild("Wheel2").xRot = 0;
             this.rover.getChild("Wheels").getChild("Wheel3").xRot = 0;

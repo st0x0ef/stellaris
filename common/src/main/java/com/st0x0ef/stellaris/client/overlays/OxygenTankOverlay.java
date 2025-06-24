@@ -6,6 +6,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
 import com.st0x0ef.stellaris.common.items.armors.AbstractSpaceArmor;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -19,8 +20,8 @@ import net.minecraft.world.item.ItemStack;
 
 public class OxygenTankOverlay {
 
-    public static final ResourceLocation OXYGEN_TANK = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/overlay/oxygen_tank.png");
-    public static final ResourceLocation OXYGEN_TANK_FULL = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/overlay/oxygen_tank_full.png");
+    public static final ResourceLocation OXYGEN_TANK = ResourceLocationUtils.texture("overlay/oxygen_tank");
+    public static final ResourceLocation OXYGEN_TANK_FULL = ResourceLocationUtils.texture("overlay/oxygen_tank_full");
 
 
     public static void render(GuiGraphics graphics, float partialTick) {
@@ -30,10 +31,12 @@ public class OxygenTankOverlay {
             ItemStack chest = player.getItemBySlot(EquipmentSlot.CHEST);
             Minecraft mc = Minecraft.getInstance();
 
-            if(chest.getItem() instanceof AbstractSpaceArmor.Chestplate) {
+            if (chest.getItem() instanceof AbstractSpaceArmor.Chestplate) {
                 UniversalFluidStorage chestplateStorage = Capabilities.Fluid.ITEM.getCapability(chest);
 
-                if (chestplateStorage == null) return;
+                if (chestplateStorage == null) {
+                    return;
+                }
 
                 long oxygen = chestplateStorage.getFluidInTank(0).getAmount();
                 long maxOxygen = chestplateStorage.getTankCapacity(0);

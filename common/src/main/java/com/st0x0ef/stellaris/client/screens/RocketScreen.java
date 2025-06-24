@@ -1,12 +1,13 @@
 package com.st0x0ef.stellaris.client.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.components.GaugeWidget;
 import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
 import com.st0x0ef.stellaris.common.menus.RocketMenu;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -17,16 +18,19 @@ import net.minecraft.world.entity.player.Inventory;
 @Environment(EnvType.CLIENT)
 public class RocketScreen extends AbstractContainerScreen<RocketMenu> {
 
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/rocket.png");
+    private static final ResourceLocation TEXTURE = ResourceLocationUtils.guiTexture("rocket");
 
     private final RocketEntity rocket = getMenu().getRocket();
     private GaugeWidget fuelGauge;
 
     public RocketScreen(RocketMenu abstractContainerMenu, Inventory inventory, Component component) {
         super(abstractContainerMenu, inventory, component);
+
         imageWidth = 180;
-        imageHeight = 224;
-        inventoryLabelY = imageHeight - 92;
+        imageHeight = 188;
+
+        titleLabelX = (180 - Minecraft.getInstance().font.width(title.getString())) / 2;
+        titleLabelY = 2;
     }
 
     @Override
@@ -37,7 +41,7 @@ public class RocketScreen extends AbstractContainerScreen<RocketMenu> {
             return;
         }
 
-        fuelGauge = new GaugeWidget(leftPos + 48, topPos + 50, 12, 46, Component.translatable("stellaris.screen.fuel"), rocket.getRocketComponent().getFuelType().getFuelTexture(), GUISprites.FLUID_TANK_OVERLAY, rocket.getTankCapacity(), GaugeWidget.Direction4.DOWN_UP);
+        fuelGauge = new GaugeWidget(leftPos + 52, topPos + 30, 12, 46, Component.translatable("stellaris.screen.fuel"), rocket.getRocketComponent().getFuelType().getFuelTexture(), GUISprites.FLUID_TANK_OVERLAY, rocket.getTankCapacity(), GaugeWidget.Direction4.DOWN_UP);
         addRenderableWidget(fuelGauge);
     }
 
@@ -64,5 +68,10 @@ public class RocketScreen extends AbstractContainerScreen<RocketMenu> {
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, TEXTURE);
         guiGraphics.blit(TEXTURE, leftPos, topPos, 0, 0, imageWidth, imageHeight, imageWidth, imageHeight);
+    }
+
+    @Override
+    protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+        guiGraphics.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 5726575, false);
     }
 }

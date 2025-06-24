@@ -37,19 +37,19 @@ public class GaugeWidget extends AbstractWidget {
     protected void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         switch (DIRECTION) {
             case DOWN_UP -> {
-                int i = Mth.ceil(getProgress(amount, capacity) * (getHeight() - 1));
+                int i = Mth.ceil(getProgress(amount, capacity) * (getHeight()));
                 guiGraphics.blitSprite(sprite, getWidth(), getHeight(), 0, getHeight() - i, getX(), getY() + getHeight() - i, getWidth(), i);
             }
             case UP_DOWN -> {
-                int i = Mth.ceil(getProgress(amount, capacity) * (getHeight() - 1));
+                int i = Mth.ceil(getProgress(amount, capacity) * (getHeight()));
                 guiGraphics.blitSprite(sprite, getWidth(), getHeight(), 0, 0, getX(), getY(), getWidth(), i);
             }
             case LEFT_RIGHT -> {
-                int i = Mth.ceil(getProgress(amount, capacity) * (getWidth() - 1));
+                int i = Mth.ceil(getProgress(amount, capacity) * (getWidth()));
                 guiGraphics.blitSprite(sprite, getWidth(), getHeight(), 0, 0, getX(), getY(), i, getHeight());
             }
             case RIGHT_LEFT -> {
-                int i = Mth.ceil(getProgress(amount, capacity) * (getWidth() - 1));
+                int i = Mth.ceil(getProgress(amount, capacity) * (getWidth()));
                 guiGraphics.blitSprite(sprite, getWidth(), getHeight(), getWidth() - i, 0, getX() + getWidth() - i, getY(), i, getHeight());
             }
         }
@@ -59,7 +59,8 @@ public class GaugeWidget extends AbstractWidget {
     }
 
     public void renderTooltip(GuiGraphics graphics, int mouseX, int mouseY, Font font) {
-        this.renderTooltips(graphics, mouseX, mouseY, font, list -> {});
+        this.renderTooltips(graphics, mouseX, mouseY, font, list -> {
+        });
     }
 
     public void renderTooltips(GuiGraphics graphics, int mouseX, int mouseY, Font font, Consumer<List<Component>> components) {
@@ -68,9 +69,11 @@ public class GaugeWidget extends AbstractWidget {
 
         if (amount >= this.capacity) {
             capacity = Utils.getMessageComponent(GaugeComponent, "Lime");
-        } else if (amount <= 0) {
+        }
+        else if (amount <= 0) {
             capacity = Utils.getMessageComponent(GaugeComponent, "Red");
-        } else {
+        }
+        else {
             capacity = Utils.getMessageComponent(GaugeComponent, "Orange");
         }
 
@@ -96,10 +99,11 @@ public class GaugeWidget extends AbstractWidget {
     }
 
     @Override
-    protected void updateWidgetNarration(NarrationElementOutput narrationElementOutput) {}
+    protected void updateWidgetNarration(NarrationElementOutput narrationElementOutput) {
+    }
 
     private double getProgress(Long amount, Long capacity) {
-        return Mth.clamp((double)amount / (double)capacity, 0.0D, 1.0D);
+        return Mth.clamp((double) amount / (double) capacity, 0.0D, 1.0D);
     }
 
     public enum Direction4 {

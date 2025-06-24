@@ -8,5 +8,4 @@ public class CommandsRegistry {
     public static void register() {
         CommandRegistrationEvent.EVENT.register((dispatcher, registry, selection) -> new StellarisCommands(dispatcher));
     }
-
 }

@@ -95,6 +95,7 @@ public class ScreenHelper {
 
 
     public static class PlanetScreenHelper {
+
         public static final Component CATALOG_TEXT = tl("catalog");
         public static final Component BACK_TEXT = tl("back");
 
@@ -211,14 +212,14 @@ public class ScreenHelper {
 
     public static void renderEntityInInventory(GuiGraphics guiGraphics, float x, float y, float scale, Vector3f translate, Quaternionf pose, @Nullable Quaternionf cameraOrientation, Entity entity) {
         guiGraphics.pose().pushPose();
-        guiGraphics.pose().translate(x, y, (double)50.0F);
+        guiGraphics.pose().translate(x, y, (double) 50.0F);
         guiGraphics.pose().scale(scale, scale, -scale);
         guiGraphics.pose().translate(translate.x, translate.y, translate.z);
         guiGraphics.pose().mulPose(pose);
         Lighting.setupForEntityInInventory();
         EntityRenderDispatcher entityRenderDispatcher = Minecraft.getInstance().getEntityRenderDispatcher();
         if (cameraOrientation != null) {
-            entityRenderDispatcher.overrideCameraOrientation(cameraOrientation.conjugate(new Quaternionf()).rotateY((float)Math.PI));
+            entityRenderDispatcher.overrideCameraOrientation(cameraOrientation.conjugate(new Quaternionf()).rotateY((float) Math.PI));
         }
 
         entityRenderDispatcher.setRenderShadow(false);
@@ -234,7 +235,7 @@ public class ScreenHelper {
         if (!stack.isEmpty()) {
             BakedModel bakedModel = minecraft.getItemRenderer().getModel(stack, null, null, 0);
             graphics.pose.pushPose();
-            graphics.pose.translate((x + size / 2), (y + size / 2), (float)(150));
+            graphics.pose.translate((x + size / 2), (y + size / 2), (float) (150));
 
             try {
                 graphics.pose.scale(size, -size, size);
@@ -248,7 +249,8 @@ public class ScreenHelper {
                 if (bl) {
                     Lighting.setupFor3DItems();
                 }
-            } catch (Throwable throwable) {
+            }
+            catch (Throwable throwable) {
                 CrashReport crashReport = CrashReport.forThrowable(throwable, "Rendering item");
                 CrashReportCategory crashReportCategory = crashReport.addCategory("Item being rendered");
                 crashReportCategory.setDetail("Item Type", () -> String.valueOf(stack.getItem()));

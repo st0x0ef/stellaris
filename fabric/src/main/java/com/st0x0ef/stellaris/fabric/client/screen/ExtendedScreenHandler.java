@@ -9,6 +9,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import org.jetbrains.annotations.Nullable;
 
 public class ExtendedScreenHandler implements ExtendedScreenHandlerFactory<Object> {
+
     @Override
     public Component getDisplayName() {
         return null;

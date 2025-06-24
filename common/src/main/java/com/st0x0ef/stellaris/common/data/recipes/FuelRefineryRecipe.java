@@ -17,7 +17,8 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
-public record FuelRefineryRecipe(FluidStack ingredientStack, FluidStack resultStack, int energy) implements Recipe<FluidInput> {
+public record FuelRefineryRecipe(FluidStack ingredientStack, FluidStack fuelStack, FluidStack dieselStack,
+                                 int energy) implements Recipe<FluidInput> {
 
     public static RecipeType<FuelRefineryRecipe> Type = RecipesRegistry.FUEL_REFINERY_TYPE.get();
 
@@ -57,15 +58,17 @@ public record FuelRefineryRecipe(FluidStack ingredientStack, FluidStack resultSt
 
         private static final MapCodec<FuelRefineryRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                 FluidStack.CODEC.fieldOf("ingredient").forGetter(FuelRefineryRecipe::ingredientStack),
-                FluidStack.CODEC.fieldOf("result").forGetter(FuelRefineryRecipe::resultStack),
+                FluidStack.CODEC.fieldOf("fuel").forGetter(FuelRefineryRecipe::fuelStack),
+                FluidStack.CODEC.fieldOf("diesel").forGetter(FuelRefineryRecipe::dieselStack),
                 Codec.INT.fieldOf("energyContainer").forGetter(FuelRefineryRecipe::energy)
         ).apply(instance, FuelRefineryRecipe::new));
 
         private static final StreamCodec<RegistryFriendlyByteBuf, FuelRefineryRecipe> STREAM_CODEC = StreamCodec.of((buf, recipe) -> {
             recipe.ingredientStack().write(buf);
-            recipe.resultStack().write(buf);
+            recipe.fuelStack().write(buf);
+            recipe.dieselStack().write(buf);
             buf.writeInt(recipe.energy());
-        }, buf -> new FuelRefineryRecipe(FluidStack.read(buf), FluidStack.read(buf), buf.readInt()));
+        }, buf -> new FuelRefineryRecipe(FluidStack.read(buf), FluidStack.read(buf), FluidStack.read(buf), buf.readInt()));
 
         @Override
         public MapCodec<FuelRefineryRecipe> codec() {

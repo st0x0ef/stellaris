@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "nhn",
+    "hsh",
+    "hsh"
+  ],
+  "key": {
+    "s": {
+      "tag": "c:ingots/steel"
+    },
+    "h": {
+      "tag": "c:ingots/heavy_metal"
+    },
+    "n": {
+      "tag": "c:nuggets/heavy_metal"
+    }
+  },
+  "result": {
+    "id": "stellaris:battery",
+    "count": 1
+  }
+}

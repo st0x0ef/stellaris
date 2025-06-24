@@ -12,28 +12,32 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 
-public class FuelRefineryMenu extends BaseContainerOld {
+public class FuelRefineryMenu extends BaseContainer {
 
     private final Container container;
     private final FuelRefineryBlockEntity blockEntity;
 
     public static FuelRefineryMenu create(int containerId, Inventory inventory, FriendlyByteBuf buf) {
         FuelRefineryBlockEntity blockEntity = (FuelRefineryBlockEntity) inventory.player.level().getBlockEntity(buf.readBlockPos());
-        return new FuelRefineryMenu(containerId, inventory, new SimpleContainer(4), blockEntity);
+        return new FuelRefineryMenu(containerId, inventory, new SimpleContainer(6), blockEntity);
     }
 
     public FuelRefineryMenu(int containerId, Inventory inventory, Container container, FuelRefineryBlockEntity blockEntity) {
-        super(MenuTypesRegistry.FUEL_REFINERY.get(), containerId, 4, inventory, 26);
+        super(MenuTypesRegistry.FUEL_REFINERY.get(), containerId, 6, inventory, 10, 142);
         this.container = container;
         this.blockEntity = blockEntity;
 
         // Ingredient tank
-        addSlot(new SpecificFluidContainerSlot(container, FluidRegistry.OIL_STILL.get(), 0, 10, 36, false));
-        addSlot(new ResultSlot(container, 1, 10, 66));
+        addSlot(new SpecificFluidContainerSlot(container, FluidRegistry.OIL_STILL.get(), 0, 14, 76, false));
+        addSlot(new ResultSlot(container, 1, 14, 110));
 
-        // Result tank
-        addSlot(new FluidContainerSlot(container, 2, 125, 36, false, true));
-        addSlot(new ResultSlot(container, 3, 125, 66));
+        // Fuel tank
+        addSlot(new FluidContainerSlot(container, 2, 102, 76, false));
+        addSlot(new ResultSlot(container, 3, 102, 110));
+
+        // Diesel tank
+        addSlot(new FluidContainerSlot(container, 4, 150, 76, false));
+        addSlot(new ResultSlot(container, 5, 150, 110));
     }
 
     @Override

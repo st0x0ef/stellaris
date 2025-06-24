@@ -1,0 +1,18 @@
+{
+  "items": [
+    {
+      "count": 100,
+      "item": "stellaris:steel_ingot"
+    },
+    {
+      "count": 100,
+      "item": "stellaris:heavy_metal_ingot"
+    }
+  ],
+  "location": "stellaris:space_station_small",
+  "antenna_position": [
+    19,
+    28,
+    18
+  ]
+}

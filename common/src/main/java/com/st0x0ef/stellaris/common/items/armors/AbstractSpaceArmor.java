@@ -19,14 +19,15 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public abstract class AbstractSpaceArmor extends CustomArmorItem {
-    public AbstractSpaceArmor(Holder<ArmorMaterial> material, Type type, Properties properties) {
-        super(material, type, properties);
+
+    public AbstractSpaceArmor(Holder<ArmorMaterial> material, Type type, Properties properties, boolean enchantable) {
+        super(material, type, properties, enchantable);
     }
 
-    public static abstract class AbstractSpaceChestplate extends AbstractSpaceArmor implements FluidProvider.ITEM {
+    public static class AbstractSpaceChestplate extends AbstractSpaceArmor implements FluidProvider.ITEM {
 
-        public AbstractSpaceChestplate(Holder<ArmorMaterial> material, Type type, Properties properties) {
-            super(material, type, properties);
+        public AbstractSpaceChestplate(Holder<ArmorMaterial> material, Type type, Properties properties, boolean enchantable) {
+            super(material, type, properties, enchantable);
         }
 
         @Override
@@ -39,37 +40,41 @@ public abstract class AbstractSpaceArmor extends CustomArmorItem {
 
         @Override
         public @NotNull UniversalFluidItemStorage getFluidTank(@NotNull ItemStack stack) {
-
-            return new ItemFluidStorage(DataComponentsRegistry.FLUID_LIST.get(), stack, 1, 3000) {
+            return new ItemFluidStorage(DataComponentsRegistry.FLUID_LIST.get(), stack, 2, 3000) {
                 @Override
                 public boolean isFluidValid(int tank, FluidStack stack) {
-                    return stack.getFluid().isSame(FluidRegistry.OXYGEN_STILL.get());
+                    return switch (tank) {
+                        case 0 -> stack.getFluid().isSame(FluidRegistry.OXYGEN_STILL.get());
+                        case 1 -> stack.getFluid().isSame(FluidRegistry.DIESEL_STILL.get());
+                        default -> false;
+                    };
                 }
             };
         }
-
     }
 
-    public static abstract class Chestplate extends AbstractSpaceChestplate {
-        public Chestplate(Holder<ArmorMaterial> material, Type type, Properties properties) {
-            super(material, type, properties);
+    public static class Chestplate extends AbstractSpaceChestplate {
+
+        public Chestplate(Holder<ArmorMaterial> material, Type type, Properties properties, boolean enchantable) {
+            super(material, type, properties, enchantable);
         }
 
         @Override
         public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
             super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
-            tooltipComponents.add(Component.translatable("jetsuit.stellaris.fuel", getFluidTank(stack).getFluidInTank(1).getAmount()));
+            tooltipComponents.add(Component.translatable("tooltip.item.stellaris.diesel", getFluidTank(stack).getFluidInTank(1).getAmount()));
 
         }
 
         @Override
         public @NotNull UniversalFluidItemStorage getFluidTank(@NotNull ItemStack stack) {
             return new ItemFluidStorage(DataComponentsRegistry.FLUID_LIST.get(), stack, 2, 3000) {
-                    @Override
+
+                @Override
                 public boolean isFluidValid(int tank, FluidStack stack) {
                     return switch (tank) {
                         case 0 -> stack.getFluid().isSame(FluidRegistry.OXYGEN_STILL.get());
-                        case 1 -> stack.getFluid().isSame(FluidRegistry.FUEL_STILL.get());
+                        case 1 -> stack.getFluid().isSame(FluidRegistry.DIESEL_STILL.get());
                         default -> false;
                     };
                 }

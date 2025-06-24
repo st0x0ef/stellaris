@@ -1,13 +1,13 @@
 package com.st0x0ef.stellaris.common.registry;
 
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import dev.architectury.core.fluid.ArchitecturyFlowingFluid;
 import dev.architectury.core.fluid.ArchitecturyFluidAttributes;
 import dev.architectury.core.fluid.SimpleArchitecturyFluidAttributes;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
 
@@ -31,9 +31,8 @@ public class FluidRegistry {
             .explosionResistance(100.0F)
             .luminosity(3)
             .convertToSource(false)
-            .sourceTexture(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "block/fluids/fuel_still"))
-            .flowingTexture(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "block/fluids/fuel_flow"));
-
+            .sourceTexture(ResourceLocationUtils.id("block/fluids/fuel_still"))
+            .flowingTexture(ResourceLocationUtils.id("block/fluids/fuel_flow"));
 
 
     public static final RegistrySupplier<FlowingFluid> FLOWING_FUEL = FLUIDS.register("flowing_fuel", () -> new ArchitecturyFlowingFluid.Flowing(FUEL_ATTRIBUTES));
@@ -49,8 +48,8 @@ public class FluidRegistry {
             .tickDelay(8)
             .explosionResistance(100.0F)
             .convertToSource(true)
-            .sourceTexture(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "block/fluids/oil_still"))
-            .flowingTexture(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "block/fluids/oil_flow"));
+            .sourceTexture(ResourceLocationUtils.id("block/fluids/oil_still"))
+            .flowingTexture(ResourceLocationUtils.id("block/fluids/oil_flow"));
 
     public static final RegistrySupplier<FlowingFluid> FLOWING_OIL = FLUIDS.register("flowing_oil", () -> new ArchitecturyFlowingFluid.Flowing(OIL_ATTRIBUTES));
     public static final RegistrySupplier<FlowingFluid> OIL_STILL = FLUIDS.register("oil", () -> new ArchitecturyFlowingFluid.Source(OIL_ATTRIBUTES));
@@ -65,8 +64,8 @@ public class FluidRegistry {
             .explosionResistance(100.0F)
             .lighterThanAir(true)
             .convertToSource(false)
-            .sourceTexture(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "block/fluids/hydrogen_still"))
-            .flowingTexture(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "block/fluids/hydrogen_flow"));
+            .sourceTexture(ResourceLocationUtils.id("block/fluids/hydrogen_still"))
+            .flowingTexture(ResourceLocationUtils.id("block/fluids/hydrogen_flow"));
 
     public static final RegistrySupplier<FlowingFluid> FLOWING_HYDROGEN = FLUIDS.register("flowing_hydrogen", () -> new ArchitecturyFlowingFluid.Flowing(HYDROGEN_ATTRIBUTES));
     public static final RegistrySupplier<FlowingFluid> HYDROGEN_STILL = FLUIDS.register("hydrogen", () -> new ArchitecturyFlowingFluid.Source(HYDROGEN_ATTRIBUTES));
@@ -80,11 +79,28 @@ public class FluidRegistry {
             .explosionResistance(100)
             .lighterThanAir(true)
             .convertToSource(false)
-            .sourceTexture(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "block/fluids/oxygen_still"))
-            .flowingTexture(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "block/fluids/oxygen_flow"));
+            .sourceTexture(ResourceLocationUtils.id("block/fluids/oxygen_still"))
+            .flowingTexture(ResourceLocationUtils.id("block/fluids/oxygen_flow"));
 
     public static final RegistrySupplier<FlowingFluid> FLOWING_OXYGEN = FLUIDS.register("flowing_oxygen", () -> new ArchitecturyFlowingFluid.Flowing(OXYGEN_ATTRIBUTES));
     public static final RegistrySupplier<FlowingFluid> OXYGEN_STILL = FLUIDS.register("oxygen", () -> new ArchitecturyFlowingFluid.Source(OXYGEN_ATTRIBUTES));
+
+    /** DIESEL FLUIDS */
+    public static final ArchitecturyFluidAttributes DIESEL_ATTRIBUTES = SimpleArchitecturyFluidAttributes.ofSupplier(() -> FluidRegistry.FLOWING_DIESEL, () -> FluidRegistry.DIESEL_STILL)
+            .blockSupplier(() -> BlocksRegistry.DIESEL_BLOCK)
+            .bucketItemSupplier(() -> ItemsRegistry.DIESEL_BUCKET)
+            .slopeFindDistance(4)
+            .dropOff(1)
+            .tickDelay(8)
+            .explosionResistance(100.0F)
+            .luminosity(3)
+            .convertToSource(false)
+            .sourceTexture(ResourceLocationUtils.id("block/fluids/diesel_still"))
+            .flowingTexture(ResourceLocationUtils.id("block/fluids/diesel_flow"));
+
+
+    public static final RegistrySupplier<FlowingFluid> FLOWING_DIESEL = FLUIDS.register("flowing_diesel", () -> new ArchitecturyFlowingFluid.Flowing(DIESEL_ATTRIBUTES));
+    public static final RegistrySupplier<FlowingFluid> DIESEL_STILL = FLUIDS.register("diesel", () -> new ArchitecturyFlowingFluid.Source(DIESEL_ATTRIBUTES));
 
     public static void init() {
         FluidRegistry.FLUIDS.register();
@@ -92,7 +108,6 @@ public class FluidRegistry {
         FLUIDS_INFOS.add(OIL_ATTRIBUTES);
         FLUIDS_INFOS.add(HYDROGEN_ATTRIBUTES);
         FLUIDS_INFOS.add(FUEL_ATTRIBUTES);
+        FLUIDS_INFOS.add(DIESEL_ATTRIBUTES);
     }
-
-
 }

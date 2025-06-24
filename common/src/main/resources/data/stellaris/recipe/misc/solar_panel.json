@@ -3,12 +3,13 @@
   "pattern": [
     "RRR",
     "X#X",
-    "XXX"
+    "XLX"
   ],
   "key": {
     "X": {"tag": "c:ingots/steel"},
     "#": {"item": "minecraft:redstone_block"},
-    "R": {"item": "minecraft:amethyst_block"}
+    "R": {"item": "minecraft:amethyst_block"},
+    "L": {"item": "minecraft:lapis_lazuli"}
   },
   "result": {
     "id": "stellaris:solar_panel"

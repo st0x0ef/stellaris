@@ -31,7 +31,9 @@ public class MoonPack extends SimpleJsonResourceReloadListener {
 
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> object, ResourceManager resourceManager, ProfilerFiller profiler) {
-        if (count > 0) return;
+        if (count > 0) {
+            return;
+        }
         MOON.clear();
         object.forEach((key, value) -> {
             JsonObject json = GsonHelper.convertToJsonObject(value, "moons");
@@ -53,6 +55,8 @@ public class MoonPack extends SimpleJsonResourceReloadListener {
             );
 
             moon.clickable().ifPresent(screenMoon::setClickable);
+            moon.spaceStation().ifPresent(screenMoon::setSpaceStation);
+            moon.canLaunchOn().ifPresent(screenMoon::setCanLaunchOn);
 
             for (int i = 0; i < PlanetSelectionScreen.MOONS.size(); i++) {
                 if (PlanetSelectionScreen.MOONS.get(i).getId().equals(screenMoon.getId())) {

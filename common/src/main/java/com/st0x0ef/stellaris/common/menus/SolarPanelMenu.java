@@ -20,14 +20,13 @@ public class SolarPanelMenu extends BaseContainer {
     }
 
     public SolarPanelMenu(int syncId, Inventory playerInventory, Container container, SolarPanelEntity entity) {
-        super(MenuTypesRegistry.SOLAR_PANEL_MENU.get(), syncId, 1, playerInventory, 22);
+        super(MenuTypesRegistry.SOLAR_PANEL_MENU.get(), syncId, 1, playerInventory, 10, 106);
 
         checkContainerSize(container, 1);
         this.inventory = container;
         this.blockEntity = entity;
 
-        addSlot(new EnergySlot(inventory, 0, 38, 44));
-
+        addSlot(new EnergySlot(inventory, 0, 82, 56));
     }
 
     public SolarPanelEntity getBlockEntity() {

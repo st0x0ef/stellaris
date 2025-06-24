@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.7,
+  "ingredient": {
+    "item": "stellaris:mars_tharsite_ore"
+  },
+  "result": {
+    "id": "stellaris:tharsite_ingot"
+  }
+}

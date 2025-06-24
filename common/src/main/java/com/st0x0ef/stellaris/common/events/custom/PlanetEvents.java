@@ -14,6 +14,7 @@ public interface PlanetEvents {
     Event<PostPlanetRegistryEvent> POST_PLANET_REGISTRY = EventFactory.createLoop();
 
     interface RegisterPlanetEvent {
+
         /**
          * Invoked when a Planet is registered.
          *
@@ -25,6 +26,7 @@ public interface PlanetEvents {
     }
 
     interface PostPlanetRegistryEvent {
+
         /**
          * Invoked when all the planets has been registered.
          * Usefull for adding more planets to the list.

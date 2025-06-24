@@ -37,6 +37,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class RocketStationBlock extends BaseEntityBlock {
+
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
     public static final VoxelShape SHAPE = Shapes.box(0, 0, 0, 1, 0.75, 1);
 
@@ -83,12 +84,13 @@ public class RocketStationBlock extends BaseEntityBlock {
         if (blockState.getBlock() != blockState2.getBlock()) {
             BlockEntity blockEntity = level.getBlockEntity(blockPos);
             if (blockEntity instanceof RocketStationEntity) {
-                Containers.dropContents(level, blockPos, (RocketStationEntity)blockEntity);
-                level.updateNeighbourForOutputSignal(blockPos,this);
+                Containers.dropContents(level, blockPos, (RocketStationEntity) blockEntity);
+                level.updateNeighbourForOutputSignal(blockPos, this);
             }
             super.onRemove(blockState, level, blockPos, blockState2, bl);
         }
     }
+
     @Override
     public RenderShape getRenderShape(BlockState blockState) {
         return RenderShape.MODEL;
@@ -108,6 +110,7 @@ public class RocketStationBlock extends BaseEntityBlock {
     @Override
     protected ExtendedMenuProvider getMenuProvider(BlockState state, Level level, BlockPos pos) {
         return new ExtendedMenuProvider() {
+
             @Override
             public void saveExtraData(FriendlyByteBuf buf) {
                 buf.writeBlockPos(pos);

@@ -92,8 +92,9 @@ public class CoalGeneratorEntity extends BaseGeneratorBlockEntity {
             BlockState state = getBlockState().setValue(CoalGeneratorBlock.LIT, isLit());
             level.setBlock(getBlockPos(), state, 3);
         }
-        if (shouldUpdate)
+        if (shouldUpdate) {
             setChanged();
+        }
         if (isLit()) {
             energyContainer.insert(energyGeneratedPT, false);
         }
@@ -140,5 +141,4 @@ public class CoalGeneratorEntity extends BaseGeneratorBlockEntity {
     public int getContainerSize() {
         return 1;
     }
-
 }

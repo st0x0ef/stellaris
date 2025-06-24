@@ -44,7 +44,9 @@ public class UpgradeStationMenu extends BaseItemCombinerMenu {
 
     @Override
     public void createResult() {
-        if (this.player.level().isClientSide) return;
+        if (this.player.level().isClientSide) {
+            return;
+        }
 
         ItemStack itemStack = this.inputSlots.getItem(0).copy();
         ItemStack module = this.inputSlots.getItem(1);
@@ -61,18 +63,20 @@ public class UpgradeStationMenu extends BaseItemCombinerMenu {
                 this.resultSlots.setItem(0, itemStack);
                 this.broadcastChanges();
 
-            } else this.resultSlots.setItem(0, ItemStack.EMPTY);
+            }
+            else {
+                this.resultSlots.setItem(0, ItemStack.EMPTY);
+            }
         }
     }
-
 
 
     @Override
     protected @NotNull ItemCombinerMenuSlotDefinition createInputSlotDefinitions() {
         return ItemCombinerMenuSlotDefinition.create()
-                .withSlot(0, 32, 40, itemStack -> itemStack.getItem() instanceof SpaceSuit)
-                .withSlot(1, 80, 40, itemStack -> itemStack.getItem() instanceof SpaceSuitModule)
-                .withResultSlot(2, 136, 40)
+                .withSlot(0, 31, 48, itemStack -> itemStack.getItem() instanceof SpaceSuit)
+                .withSlot(1, 75, 48, itemStack -> itemStack.getItem() instanceof SpaceSuitModule)
+                .withResultSlot(2, 127, 48)
                 .build();
     }
 }

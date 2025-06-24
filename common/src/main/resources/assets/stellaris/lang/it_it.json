@@ -232,7 +232,7 @@
   "text.stellaris.planetscreen.system": "Sistema planetario",
   "text.stellaris.planetscreen.error_message": "Non è possibile raggiungere quel corpo celeste",
   "text.stellaris.rocketscreen.fuel": "Livello del carburante",
-  "text.stellaris.milkywayscreen.milkyway": "Via Lattea",
+  "text.stellaris.galaxyscreen.milkyway": "Via Lattea",
   "translatable.stellaris.registry.holdshift": "Tieni premuto [↑ Shift] per maggiori informazioni",
   "translatable.stellaris.registry.player": "Giocatore",
   "translatable.stellaris.registry.players": "giocatore",

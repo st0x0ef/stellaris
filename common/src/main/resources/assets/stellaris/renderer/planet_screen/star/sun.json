@@ -1,10 +1,10 @@
 {
   "texture": "stellaris:textures/environment/star/sun.png",
   "name": "Sun",
-  "x": 300,
-  "y": 100,
-  "width": 36.0,
-  "height": 36.0,
+  "x": 0,
+  "y": 0,
+  "width": 40.0,
+  "height": 40.0,
   "orbitColor": "Yellow",
   "translatable": "text.stellaris.planetscreen.sun",
   "id": "stellaris:sun"

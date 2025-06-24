@@ -1,8 +1,8 @@
 package com.st0x0ef.stellaris.client.renderers.entities.alien;
 
 
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.entities.mobs.alien.Alien;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.culling.Frustum;
@@ -15,21 +15,21 @@ import net.minecraft.world.entity.npc.VillagerProfession;
 public class AlienRenderer extends MobRenderer<Alien, AlienModel<Alien>> {
 
     /** TEXTURES */
-    public static final ResourceLocation ALIEN = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/alien/alien.png");
+    public static final ResourceLocation ALIEN = ResourceLocationUtils.texture("entity/alien/alien");
 
-    public static final ResourceLocation FARMER = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/alien/farmer.png");
-    public static final ResourceLocation FISHERMAN = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/alien/fisherman.png");
-    public static final ResourceLocation SHEPHERD = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/alien/shepherd.png");
-    public static final ResourceLocation FLETCHER = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/alien/fletcher.png");
-    public static final ResourceLocation LIBRARIAN = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/alien/librarian.png");
-    public static final ResourceLocation CARTOGRAPHER = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/alien/cartographer.png");
-    public static final ResourceLocation CLERIC = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/alien/cleric.png");
-    public static final ResourceLocation ARMORER = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/alien/armorer.png");
-    public static final ResourceLocation WEAPON_SMITH = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/alien/weapon_smith.png");
-    public static final ResourceLocation TOOL_SMITH = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/alien/tool_smith.png");
-    public static final ResourceLocation BUTCHER = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/alien/butcher.png");
-    public static final ResourceLocation LEATHER_WORKER = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/alien/leather_worker.png");
-    public static final ResourceLocation MASON = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"textures/entity/alien/mason.png");
+    public static final ResourceLocation FARMER = ResourceLocationUtils.texture("entity/alien/farmer");
+    public static final ResourceLocation FISHERMAN = ResourceLocationUtils.texture("entity/alien/fisherman");
+    public static final ResourceLocation SHEPHERD = ResourceLocationUtils.texture("entity/alien/shepherd");
+    public static final ResourceLocation FLETCHER = ResourceLocationUtils.texture("entity/alien/fletcher");
+    public static final ResourceLocation LIBRARIAN = ResourceLocationUtils.texture("entity/alien/librarian");
+    public static final ResourceLocation CARTOGRAPHER = ResourceLocationUtils.texture("entity/alien/cartographer");
+    public static final ResourceLocation CLERIC = ResourceLocationUtils.texture("entity/alien/cleric");
+    public static final ResourceLocation ARMORER = ResourceLocationUtils.texture("entity/alien/armorer");
+    public static final ResourceLocation WEAPON_SMITH = ResourceLocationUtils.texture("entity/alien/weapon_smith");
+    public static final ResourceLocation TOOL_SMITH = ResourceLocationUtils.texture("entity/alien/tool_smith");
+    public static final ResourceLocation BUTCHER = ResourceLocationUtils.texture("entity/alien/butcher");
+    public static final ResourceLocation LEATHER_WORKER = ResourceLocationUtils.texture("entity/alien/leather_worker");
+    public static final ResourceLocation MASON = ResourceLocationUtils.texture("entity/alien/mason");
 
 
     public AlienRenderer(EntityRendererProvider.Context renderManagerIn) {

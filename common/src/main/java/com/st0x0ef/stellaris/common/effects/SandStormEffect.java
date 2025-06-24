@@ -1,7 +1,7 @@
 package com.st0x0ef.stellaris.common.effects;
 
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.registry.EffectsRegistry;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.FogRenderer;
@@ -15,7 +15,7 @@ import net.minecraft.world.entity.LivingEntity;
 
 public class SandStormEffect extends MobEffect {
 
-    public static ResourceLocation SANDSTORM_OVERLAY =  ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/overlay/sandstorm_overlay.png");
+    public static ResourceLocation SANDSTORM_OVERLAY = ResourceLocationUtils.texture("overlay/sandstorm_overlay");
 
     public SandStormEffect(MobEffectCategory mobEffectCategory, int color) {
         super(mobEffectCategory, color);
@@ -33,7 +33,7 @@ public class SandStormEffect extends MobEffect {
         }
 
         public Holder<MobEffect> getMobEffect() {
-            return EffectsRegistry.SANDSTORM;
+            return EffectsRegistry.getHolder(EffectsRegistry.SANDSTORM);
         }
 
         @Override
@@ -42,11 +42,12 @@ public class SandStormEffect extends MobEffect {
         }
 
         public void setupFog(FogRenderer.FogData fogData, LivingEntity entity, MobEffectInstance effectInstance, float farPlaneDistance, float f) {
-            float g = effectInstance.isInfiniteDuration() ? 20.0F : Mth.lerp(Math.min(1.0F, (float)effectInstance.getDuration() / 40.0F), farPlaneDistance, 20.0F);
+            float g = effectInstance.isInfiniteDuration() ? 20.0F : Mth.lerp(Math.min(1.0F, (float) effectInstance.getDuration() / 40.0F), farPlaneDistance, 20.0F);
             if (fogData.mode == FogRenderer.FogMode.FOG_SKY) {
                 fogData.start = 4F;
                 fogData.end = g * 0.8F;
-            } else {
+            }
+            else {
                 fogData.start = g * 0.25F;
                 fogData.end = g;
             }

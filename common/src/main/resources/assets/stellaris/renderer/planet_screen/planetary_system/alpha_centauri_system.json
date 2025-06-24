@@ -1,0 +1,14 @@
+{
+  "name": "Alpha Centauri System",
+  "translatable": "text.stellaris.planetscreen.alpha_centauri_system",
+  "parent": "stellaris:milky_way",
+  "starCount": 3,
+  "id": "stellaris:alpha_centauri_system",
+  "stars": [
+    { "id": "stellaris:ac_a"},
+    { "id": "stellaris:ac_b"},
+    { "id": "stellaris:proxima"}
+  ],
+  "centerX": 600,
+  "centerY": 600
+}

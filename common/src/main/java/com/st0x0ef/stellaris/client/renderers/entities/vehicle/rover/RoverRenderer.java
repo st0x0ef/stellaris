@@ -1,14 +1,14 @@
 package com.st0x0ef.stellaris.client.renderers.entities.vehicle.rover;
 
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.entities.vehicles.RoverEntity;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 
 public class RoverRenderer extends AbstractRoverRenderer<RoverEntity, RoverModel<RoverEntity>> {
 
-    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/vehicle/rover.png");
+    public static final ResourceLocation TEXTURE = ResourceLocationUtils.texture("vehicle/rover");
 
     public RoverRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new RoverModel<>(renderManagerIn.bakeLayer(RoverModel.LAYER_LOCATION)), 0f);

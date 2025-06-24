@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.client.overlays;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.entities.vehicles.LanderEntity;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -15,7 +16,7 @@ import net.minecraft.world.entity.player.Player;
 
 public class LanderOverlay {
 
-    public static final ResourceLocation WARNING = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/overlay/warning.png");
+    public static final ResourceLocation WARNING = ResourceLocationUtils.texture("overlay/warning");
 
     public static void render(GuiGraphics graphics, DeltaTracker deltaTracker) {
         Minecraft mc = Minecraft.getInstance();

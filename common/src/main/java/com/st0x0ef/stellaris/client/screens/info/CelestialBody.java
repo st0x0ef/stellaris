@@ -2,10 +2,12 @@ package com.st0x0ef.stellaris.client.screens.info;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.st0x0ef.stellaris.client.screens.etc.Trail;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
 public class CelestialBody {
+
     public final ResourceLocation texture;
     public final String name;
     public final float width;
@@ -16,7 +18,10 @@ public class CelestialBody {
     public ResourceLocation dimension;
     public String translatable;
     public String id;
-    public boolean clickable = true;
+    public boolean clickable;
+    public boolean spaceStation = false;
+    public final Trail trail = new Trail();
+    public boolean canLaunchOn = true;
 
     public CelestialBody(ResourceLocation texture, String name, float x, float y, float width, float height, int orbitColor, ResourceLocation dimension, String translatable, String id) {
         this(texture, name, x, y, width, height, orbitColor, dimension, translatable, id, true);
@@ -42,6 +47,16 @@ public class CelestialBody {
         this.y = y;
     }
 
+    public CelestialBody setSpaceStation(boolean spaceStation) {
+        this.spaceStation = spaceStation;
+        return this;
+    }
+
+    public CelestialBody setCanLaunchOn(boolean canLaunchOn) {
+        this.canLaunchOn = canLaunchOn;
+        return this;
+    }
+
     public Component getTranslatable() {
         return Component.translatable(translatable);
     }
@@ -53,6 +68,8 @@ public class CelestialBody {
     public String getId() {
         return id;
     }
+
+    public float getWidth() {return width;}
 
     public static final Codec<CelestialBody> CODEC = RecordCodecBuilder.create(
             instance ->

@@ -6,19 +6,21 @@ import com.st0x0ef.stellaris.common.registry.EffectsRegistry;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.core.Holder;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.player.Player;
 
 public class EffectOverlays {
 
-
     public static void render(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
-
         Minecraft minecraft = Minecraft.getInstance();
+        Player player = minecraft.player;
+        Holder<MobEffect> sandStorm = EffectsRegistry.getHolder(EffectsRegistry.SANDSTORM);
 
-        if (minecraft.player.hasEffect(EffectsRegistry.SANDSTORM)) {
-
-            MobEffectInstance instance = minecraft.player.getEffect(EffectsRegistry.SANDSTORM);
-            float alpha = instance.getBlendFactor(minecraft.player, deltaTracker.getGameTimeDeltaPartialTick(true));
+        if (player.hasEffect(sandStorm)) {
+            MobEffectInstance instance = player.getEffect(sandStorm);
+            float alpha = instance.getBlendFactor(player, deltaTracker.getGameTimeDeltaPartialTick(true));
 
             RenderSystem.disableDepthTest();
             RenderSystem.depthMask(false);
@@ -31,7 +33,5 @@ public class EffectOverlays {
             guiGraphics.setColor(1.0F, 1.0F, 1.0F, 1.0F);
 
         }
-
     }
-
 }

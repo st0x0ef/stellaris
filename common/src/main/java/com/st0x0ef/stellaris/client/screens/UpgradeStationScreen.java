@@ -1,10 +1,11 @@
 package com.st0x0ef.stellaris.client.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.menus.UpgradeStationMenu;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -15,7 +16,7 @@ import net.minecraft.world.entity.player.Inventory;
 @Environment(EnvType.CLIENT)
 public class UpgradeStationScreen extends AbstractContainerScreen<UpgradeStationMenu> {
 
-    private static final ResourceLocation GUI_LOCATION = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,  "textures/gui/upgrade_station.png"); //temporary
+    private static final ResourceLocation GUI_LOCATION = ResourceLocationUtils.guiTexture("upgrade_station"); //temporary
 
     public UpgradeStationScreen(UpgradeStationMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
@@ -23,7 +24,8 @@ public class UpgradeStationScreen extends AbstractContainerScreen<UpgradeStation
         this.imageWidth = 180;
         this.imageHeight = 188;
 
-        this.inventoryLabelY = this.imageHeight - 92;
+        this.titleLabelX = (180 - Minecraft.getInstance().font.width(title.getString())) / 2;
+        this.titleLabelY = 2;
     }
 
     @Override
@@ -39,6 +41,11 @@ public class UpgradeStationScreen extends AbstractContainerScreen<UpgradeStation
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, GUI_LOCATION);
         guiGraphics.blit(GUI_LOCATION, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
+    }
+
+    @Override
+    protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+        guiGraphics.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 5726575, false);
     }
 
 }

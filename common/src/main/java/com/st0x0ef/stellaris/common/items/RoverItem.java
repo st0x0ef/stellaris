@@ -23,6 +23,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class RoverItem extends Item {
+
     public RoverItem(Properties properties) {
         super(properties.stacksTo(1));
     }
@@ -36,7 +37,7 @@ public class RoverItem extends Item {
 
         if (context.getLevel() instanceof ServerLevel level) {
             RoverEntity rover = this.getRover(context.getLevel(), itemStack);
-            rover.setPos(pos.getX() + 0.5D,  pos.getY() + 1.0D, pos.getZ() + 0.5D);
+            rover.setPos(pos.getX() + 0.5D, pos.getY() + 1.0D, pos.getZ() + 0.5D);
 
             if (level.addFreshEntity(rover)) {
                 if (!player.getAbilities().instabuild) {
@@ -55,7 +56,7 @@ public class RoverItem extends Item {
         return super.useOn(context);
     }
 
-    public RoverEntity getRover(Level level ,ItemStack stack) {
+    public RoverEntity getRover(Level level, ItemStack stack) {
         RoverEntity rover = new RoverEntity(EntityRegistry.ROVER.get(), level);
         RoverComponent roverComponent = stack.get(DataComponentsRegistry.ROVER_COMPONENT.get());
         if (roverComponent != null) {
@@ -73,14 +74,16 @@ public class RoverItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        RoverComponent rocketComponent = stack.get(DataComponentsRegistry.ROVER_COMPONENT.get());
-        if(rocketComponent == null) return;
-        tooltipComponents.add(Component.translatable("tooltip.item.stellaris.rocket.fuel", rocketComponent.fuel()).withStyle(ChatFormatting.GRAY));
+        RoverComponent roverComponent = stack.get(DataComponentsRegistry.ROVER_COMPONENT.get());
+        if (roverComponent == null) {
+            return;
+        }
+        tooltipComponents.add(Component.translatable("tooltip.item.stellaris.diesel", roverComponent.fuel()).withStyle(ChatFormatting.GRAY));
     }
 
 
     public void roverPlaceSound(BlockPos pos, Level world) {
-        world.playSound(null, pos, SoundEvents.STONE_BREAK, SoundSource.BLOCKS, 1,1);
+        world.playSound(null, pos, SoundEvents.STONE_BREAK, SoundSource.BLOCKS, 1, 1);
     }
 
 
@@ -100,8 +103,9 @@ public class RoverItem extends Item {
         RoverComponent roverComponent = stack.get(DataComponentsRegistry.ROVER_COMPONENT.get());
         return switch (roverComponent.getFuelType()) {
             case FUEL -> 0xA7E6ED;
-            case HYDROGEN -> 0x00d8ff;
-            case RADIOACTIVE, URANIUM, NEPTUNIUM, PLUTONIUM -> 0x00c12f;
+            case DIESEL -> 0x5B2C14;
+            case HYDROGEN -> 0x00D8FF;
+            case RADIOACTIVE, URANIUM, NEPTUNIUM, PLUTONIUM -> 0x00C12F;
             case null -> 0xA7E6ED;
 
         };

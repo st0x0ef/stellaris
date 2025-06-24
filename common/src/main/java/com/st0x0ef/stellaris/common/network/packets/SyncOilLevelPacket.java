@@ -1,11 +1,10 @@
 package com.st0x0ef.stellaris.common.network.packets;
 
-import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import dev.architectury.networking.NetworkManager;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -15,9 +14,10 @@ public class SyncOilLevelPacket implements CustomPacketPayload {
     final int chunkX;
     final int chunkZ;
 
-    public static final Type<SyncOilLevelPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "energy_oil_level_packet"));
+    public static final Type<SyncOilLevelPacket> TYPE = new Type<>(ResourceLocationUtils.id("energy_oil_level_packet"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, SyncOilLevelPacket> STREAM_CODEC = new StreamCodec<>() {
+
         @Override
         public @NotNull SyncOilLevelPacket decode(RegistryFriendlyByteBuf buf) {
             return new SyncOilLevelPacket(buf);
@@ -30,7 +30,6 @@ public class SyncOilLevelPacket implements CustomPacketPayload {
             buf.writeInt(packet.chunkZ);
         }
     };
-
 
 
     public SyncOilLevelPacket(RegistryFriendlyByteBuf buffer) {
