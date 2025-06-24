@@ -6,6 +6,7 @@ import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.Util;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
@@ -30,7 +31,11 @@ public class ArmorMaterialsRegistry {
             10,
             SoundEvents.ARMOR_EQUIP_ELYTRA,
             () -> Ingredient.of(ItemsRegistry.DESH_INGOT.get()),
-            List.of(new ArmorMaterial.Layer(ResourceLocationUtils.id("jetsuit"))),
+            List.of(
+                    new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"jetsuit4")),
+                    new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"jetsuit4")),
+                    new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID,"jetsuit4"))),
+
             2.0F, 0.0F);
 
     public static final ArmorMaterial SPACE_SUIT_MATERIAL = new ArmorMaterial(

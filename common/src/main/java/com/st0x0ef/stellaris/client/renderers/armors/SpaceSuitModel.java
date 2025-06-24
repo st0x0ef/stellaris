@@ -3,10 +3,8 @@ package com.st0x0ef.stellaris.client.renderers.armors;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
-import com.st0x0ef.stellaris.platform.ClientUtilsPlatform;
+import com.st0x0ef.stellaris.Stellaris;
 import dev.architectury.platform.Platform;
-import net.irisshaders.iris.api.v0.IrisApi;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -19,12 +17,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class SpaceSuitModel extends HumanoidModel<LivingEntity> {
 
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocationUtils.id("spacesuit"), "main");
-    public static final ResourceLocation TEXTURE = ResourceLocationUtils.texture("models/armor/spacesuit_white");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "spacesuit"), "main");
+    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/models/armor/spacesuit_white.png");
 
     private final ModelPart head;
     private final ModelPart body;
@@ -98,17 +97,13 @@ public class SpaceSuitModel extends HumanoidModel<LivingEntity> {
         return LayerDefinition.create(meshdefinition, 128, 128);
     }
 
+
     @Override
     public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-        if (ClientUtilsPlatform.isIrisInstalled() && IrisApi.getInstance().isRenderingShadowPass()) {
-            return;
-        }
-
         if (Platform.isNeoForge()) {
             MultiBufferSource.BufferSource bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
             vertexConsumer = bufferSource.getBuffer(RenderType.entityTranslucent(TEXTURE));
         }
-
 
         parentModel.copyPropertiesTo(this);
 
@@ -116,12 +111,12 @@ public class SpaceSuitModel extends HumanoidModel<LivingEntity> {
     }
 
     @Override
-    protected Iterable<ModelPart> headParts() {
+    protected @NotNull Iterable<ModelPart> headParts() {
         return ImmutableList.of(head);
     }
 
     @Override
-    protected Iterable<ModelPart> bodyParts() {
+    protected @NotNull Iterable<ModelPart> bodyParts() {
         return ImmutableList.of(body, rightArm, leftArm, rightLeg, leftLeg, hat);
     }
 

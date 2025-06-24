@@ -9,6 +9,8 @@ import com.st0x0ef.stellaris.common.registry.FluidRegistry;
 import dev.architectury.fluid.FluidStack;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -78,6 +80,18 @@ public abstract class AbstractSpaceArmor extends CustomArmorItem {
                 }
             };
 
+        }
+
+        public boolean canElytraFly(ItemStack stack, LivingEntity entity) {
+            return false;
+        }
+
+        public boolean elytraFlightTick(ItemStack stack, LivingEntity entity, int flightTicks) {
+            return false;
+        }
+
+        public boolean tryToStartFallFlying(Player player) {
+            return false;
         }
     }
 }
