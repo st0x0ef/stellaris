@@ -82,10 +82,16 @@ public abstract class AbstractSpaceArmor extends CustomArmorItem {
 
         }
 
-        public abstract boolean canElytraFly(ItemStack stack, LivingEntity entity);
+        public boolean canElytraFly(ItemStack stack, LivingEntity entity) {
+            return false;
+        }
 
-        public abstract boolean elytraFlightTick(ItemStack stack, LivingEntity entity, int flightTicks);
+        public boolean elytraFlightTick(ItemStack stack, LivingEntity entity, int flightTicks) {
+            return false;
+        }
 
-        public abstract boolean tryToStartFallFlying(Player player);
+        public boolean tryToStartFallFlying(Player player) {
+            return false;
+        }
     }
 }

@@ -37,7 +37,7 @@ public class JetSuit {
         private int nextFuelCheckTick = 0;
 
         public Suit(Holder<ArmorMaterial> material, Properties properties) {
-            super(material, Type.CHESTPLATE, properties);
+            super(material, Type.CHESTPLATE, properties, false);
         }
 
         public int getMode(ItemStack itemStack) {
