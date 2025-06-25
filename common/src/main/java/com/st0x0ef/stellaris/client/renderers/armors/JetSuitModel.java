@@ -33,8 +33,6 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
     private final ModelPart waist;
     private final ModelPart leftLeg;
     private final ModelPart rightLeg;
-    private final ModelPart leftShoe;
-    private final ModelPart rightShoe;
     private final ModelPart antenna;
     private final ModelPart lamp;
 
@@ -52,8 +50,6 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
         this.waist = root.getChild("waist");
         this.leftLeg = root.getChild("left_leg");
         this.rightLeg = root.getChild("right_leg");
-        this.leftShoe = root.getChild("left_shoe");
-        this.rightShoe = root.getChild("right_shoe");
         this.antenna = head.getChild("antenna_r1");
         this.lamp = head.getChild("lamp_r1");
 
@@ -71,7 +67,6 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
                 .texOffs(16, 34).addBox(4.7F, -5.8F, 1.2F, 1.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.ZERO);
 
         head.addOrReplaceChild("lamp_r1", CubeListBuilder.create().texOffs(48, 48).addBox(-2.0F, -1.0F, -2.5F, 4.0F, 2.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -8.7F, -0.5F, -0.2618F, 0.0F, 0.0F));
-
 
 
         head.addOrReplaceChild("antenna_r1", CubeListBuilder.create().texOffs(50, 16).addBox(0.0F, -2.0F, -1.0F, 0.0F, 4.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(5.2F, -5.8F, 4.2F, -0.7854F, 0.0F, 0.0F));
@@ -93,18 +88,13 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
         partdefinition.addOrReplaceChild("waist", CubeListBuilder.create().texOffs(32, 0).addBox(-4.0F, 0.0F, -2.1F, 8.0F, 12.0F, 4.0F, new CubeDeformation(0.5F)), PartPose.ZERO);
 
         partdefinition.addOrReplaceChild("left_leg", CubeListBuilder.create()
-                        .texOffs(16, 45).mirror().addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.5F)),
-                PartPose.offset(1.9F, 12.0F, 0.0F));
-
-        partdefinition.addOrReplaceChild("right_leg", CubeListBuilder.create()
-                        .texOffs(16, 45).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.5F)),
-                PartPose.offset(-1.9F, 12.0F, 0.0F));
-
-        partdefinition.addOrReplaceChild("left_shoe", CubeListBuilder.create()
+                        .texOffs(16, 45).mirror().addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.5F))
                         .texOffs(32, 45).mirror().addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.75F)),
                 PartPose.offset(1.9F, 12.0F, 0.0F));
 
-        partdefinition.addOrReplaceChild("right_shoe", CubeListBuilder.create()
+        partdefinition.addOrReplaceChild("right_leg", CubeListBuilder.create()
+
+                        .texOffs(16, 45).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.5F))
                         .texOffs(32, 45).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.75F)),
                 PartPose.offset(-1.9F, 12.0F, 0.0F));
 
@@ -130,7 +120,13 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
 
     @Override
     protected @NotNull Iterable<ModelPart> bodyParts() {
-        return ImmutableList.of(body, rightArm, leftArm, rightLeg, leftLeg, rightShoe, leftShoe);
+        return switch (this.slot) {
+            case HEAD -> ImmutableList.of();
+            case CHEST -> ImmutableList.of(body, rightArm, leftArm);
+            case LEGS -> ImmutableList.of(rightLeg, leftLeg);
+            case FEET -> ImmutableList.of(rightLeg, leftLeg);
+            default -> ImmutableList.of();
+        };
     }
 
     @Override
@@ -160,12 +156,12 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
                 this.rightLeg.visible = true;
                 this.leftLeg.visible = true;
             }
-            case FEET ->  {
-                this.leftShoe.visible = true;
-                this.rightShoe.visible = true;
-
+            case FEET -> {
+                this.leftLeg.visible = true;
+                this.rightLeg.visible = true;
             }
         }
     }
+
 
 }
