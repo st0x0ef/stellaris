@@ -2,7 +2,8 @@ package com.st0x0ef.stellaris.common.data_components;
 
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
-import com.st0x0ef.stellaris.common.items.module.SpaceSuitModule;
+import com.st0x0ef.stellaris.common.module.*;
+import com.st0x0ef.stellaris.common.module.Module;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -13,6 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Stream;
 
 public record SpaceSuitModules(List<ItemStack> modules) implements Serializable {
@@ -58,15 +60,13 @@ public record SpaceSuitModules(List<ItemStack> modules) implements Serializable 
         return moduleToReturn;
     }
 
-    public static boolean containsAllInModules(ItemStack stack, List<Item> modules) {
+    public static boolean containsAllInModules(ItemStack stack, Set<? extends Module> modules) {
         boolean containsAll = true;
-        for (Item item : modules) {
-            if (item instanceof SpaceSuitModule validModule) {
-                if (!containsInModules(stack, validModule)) {
-                    containsAll = false;
-                }
-                break;
+        for (Module module : modules) {
+            if (!containsInModules(stack, module)) {
+                containsAll = false;
             }
+            break;
         }
         return containsAll;
     }
@@ -75,7 +75,7 @@ public record SpaceSuitModules(List<ItemStack> modules) implements Serializable 
         return containsInModules(stack, getModule(module));
     }
 
-    public static boolean containsInModules(ItemStack stack, SpaceSuitModule module) {
+    public static boolean containsInModules(ItemStack stack, Module module) {
         if (stack.isEmpty()) {
             return false;
         }

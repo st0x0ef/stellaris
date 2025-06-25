@@ -1,4 +1,4 @@
-package com.st0x0ef.stellaris.common.items.module;
+package com.st0x0ef.stellaris.common.module;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.EnvType;
@@ -8,7 +8,6 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -17,13 +16,7 @@ import net.minecraft.world.level.Level;
 
 import java.util.List;
 
-public interface SpaceSuitModule {
-
-    MutableComponent displayName(); //TODO add in gui
-
-    default List<Item> requires() {
-        return List.of();
-    }
+public interface SpaceSuitModule extends Module {
 
     default void tick(ItemStack stack, Level level, Player player) {
     }

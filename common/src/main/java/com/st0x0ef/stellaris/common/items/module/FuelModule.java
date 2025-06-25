@@ -9,13 +9,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 
 import java.util.List;
 
-public class FuelModule extends Item implements SpaceSuitModule {
+public class FuelModule extends SpaceSuitModuleItem {
 
     public FuelModule(Properties properties) {
         super(properties.stacksTo(1));

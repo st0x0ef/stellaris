@@ -6,6 +6,7 @@ import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.data_components.JetSuitComponent;
 import com.st0x0ef.stellaris.common.items.armors.JetSuit;
 import com.st0x0ef.stellaris.common.keybinds.KeyVariables;
+import com.st0x0ef.stellaris.common.module.Module;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import com.st0x0ef.stellaris.common.registry.FluidRegistry;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
@@ -22,14 +23,13 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.List;
+import java.util.Set;
 
-public class JetModule extends Item implements SpaceSuitModule {
+public class JetModule extends SpaceSuitModuleItem {
 
     public JetModule(Properties properties) {
         super(properties.stacksTo(1));
@@ -41,8 +41,8 @@ public class JetModule extends Item implements SpaceSuitModule {
     }
 
     @Override
-    public List<Item> requires() {
-        return List.of(ItemsRegistry.MODULE_FUEL.get());
+    public Set<Module> requires() {
+        return Set.of(ItemsRegistry.MODULE_FUEL.get());
     }
 
     @Override

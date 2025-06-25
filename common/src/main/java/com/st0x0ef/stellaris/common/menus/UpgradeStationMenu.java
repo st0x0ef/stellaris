@@ -2,7 +2,7 @@ package com.st0x0ef.stellaris.common.menus;
 
 import com.st0x0ef.stellaris.common.data_components.SpaceSuitModules;
 import com.st0x0ef.stellaris.common.items.armors.SpaceSuit;
-import com.st0x0ef.stellaris.common.items.module.SpaceSuitModule;
+import com.st0x0ef.stellaris.common.module.SpaceSuitModule;
 import com.st0x0ef.stellaris.common.registry.BlocksRegistry;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
@@ -14,6 +14,8 @@ import net.minecraft.world.inventory.ItemCombinerMenuSlotDefinition;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Set;
 
 
 public class UpgradeStationMenu extends BaseItemCombinerMenu {

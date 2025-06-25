@@ -7,11 +7,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-public class AutoFeederModule extends Item implements SpaceSuitModule {
+public class AutoFeederModule extends SpaceSuitModuleItem {
 
     public AutoFeederModule(Properties properties) {
         super(properties.stacksTo(1));

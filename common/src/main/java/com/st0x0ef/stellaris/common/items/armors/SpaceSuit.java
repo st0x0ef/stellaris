@@ -1,7 +1,7 @@
 package com.st0x0ef.stellaris.common.items.armors;
 
 import com.st0x0ef.stellaris.common.data_components.SpaceSuitModules;
-import com.st0x0ef.stellaris.common.items.module.SpaceSuitModule;
+import com.st0x0ef.stellaris.common.module.SpaceSuitModule;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import dev.architectury.platform.Platform;
 import net.fabricmc.api.EnvType;
@@ -10,6 +10,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
@@ -57,7 +58,7 @@ public class SpaceSuit extends AbstractSpaceArmor.AbstractSpaceChestplate {
         if (Screen.hasShiftDown()) {
             if (!modules.isEmpty()) {
                 tooltipComponents.add(Component.translatable("spacesuit.stellaris.modules"));
-                modules.forEach(spaceSuitModule -> tooltipComponents.add(spaceSuitModule.displayName().withStyle(ChatFormatting.GRAY)));
+                modules.forEach(spaceSuitModule -> tooltipComponents.add(MutableComponent.create(spaceSuitModule.displayName().getContents()).withStyle(ChatFormatting.GRAY)));
             }
         }
         else {
