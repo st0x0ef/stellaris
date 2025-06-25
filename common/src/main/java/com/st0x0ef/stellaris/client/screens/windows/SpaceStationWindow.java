@@ -63,7 +63,7 @@ public class SpaceStationWindow extends MoveableWindow {
 
         this.addWidget(this.publicCheckBox);
 
-        this.launchButton = new TexturedButton((getWindowX() + getWidth()) / 2 - 1 , this.stationList.getY() + this.stationList.getHeight(), 50, 20, (button) -> this.onStationCreated()
+        this.launchButton = new TexturedButton((getWindowX() + getWidth()) / 2 +  25 - 3, this.stationList.getY() + this.stationList.getHeight(), 50, 20, (button) -> this.onStationCreated()
         ).tex(
                 ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button.png"),
                 ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button_hovered.png")
