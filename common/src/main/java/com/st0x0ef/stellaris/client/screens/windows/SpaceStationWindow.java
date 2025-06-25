@@ -78,7 +78,7 @@ public class SpaceStationWindow extends MoveableWindow {
         RenderSystem.clear(256, Minecraft.ON_OSX);
         guiGraphics.blit(ResourceLocation.parse("stellaris:textures/gui/util/window/window_large.png"), getWindowX(), getWindowY(), 0, 0, this.getWidth(), this.getHeight(), this.getWidth(), this.getHeight());
 
-        guiGraphics.drawCenteredString(Minecraft.getInstance().font, "Create a Space Station", getWindowX() + getWidth() / 2, getWindowY() + 27, 0xFFFFFFFF);
+        guiGraphics.drawCenteredString(Minecraft.getInstance().font, "Create a Space Station", getWindowX() + getWidth() / 2, getWindowY() + 23, 0xFFFFFFFF);
 
         parent.dragging = false;
         guiGraphics.flush();

@@ -299,7 +299,6 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
         if (infoHovering) {
             List<Component> tooltipLines = List.of(
                     Component.translatable("text.stellaris.planetscreen.space"),
-                    Component.translatable("text.stellaris.planetscreen.z"),
                     Component.translatable("text.stellaris.planetscreen.arrows")
             );
             graphics.renderTooltip(this.font, tooltipLines, Optional.empty(), mouseX, mouseY);

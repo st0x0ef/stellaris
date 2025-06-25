@@ -528,7 +528,6 @@
   ""
 ,
 
-  "text.stellaris.milkywayscreen.milkyway": "Milky Way",
   "solar_system": "Solar System",
   "text.stellaris.planetscreen.sun": "Sun",
   "text.stellaris.planetscreen.mercury": "Mercury",
@@ -544,6 +543,9 @@
   "text.stellaris.planetscreen.uranus": "Uranus",
   "text.stellaris.planetscreen.neptune": "Neptune",
   "text.stellaris.planetscreen.kuiper_belt": "Kuiper Belt",
+  "text.stellaris.planetscreen.space": "Press [Space] to pause",
+  "text.stellaris.planetscreen.returntogalaxy": "Change galaxy",
+  "text.stellaris.galaxyscreen.milkyway": "Milky Way",
 
 
 
