@@ -1,63 +1,63 @@
 package com.st0x0ef.stellaris.common.data_components;
 
-import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.st0x0ef.stellaris.common.module.*;
 import com.st0x0ef.stellaris.common.module.Module;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
+import com.st0x0ef.stellaris.common.registry.ModuleRegistry;
+import com.st0x0ef.stellaris.platform.RegistrarUtilPlatform;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.RegistryOps;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Stream;
+import java.util.*;
+import java.util.function.Supplier;
 
-public record SpaceSuitModules(List<ItemStack> modules) implements Serializable {
+public record SpaceSuitModules(List<SpaceSuitModule> modules) implements Serializable {
 
     public static SpaceSuitModules empty() {
         return new SpaceSuitModules(List.of());
     }
 
-    public static final Codec<SpaceSuitModules> CODEC = ItemStack.CODEC.listOf().xmap(SpaceSuitModules::new, modules -> modules.modules);
-    public static final StreamCodec<RegistryFriendlyByteBuf, SpaceSuitModules> STREAM_CODEC = ItemStack.STREAM_CODEC
-            .apply(ByteBufCodecs.list())
-            .map(SpaceSuitModules::new, modules -> modules.modules);
+    public static final Codec<SpaceSuitModules> CODEC = RegistrarUtilPlatform.getByNameCodec(ModuleRegistry.SUIT_MODULE)
+            .listOf().xmap(SpaceSuitModules::new, SpaceSuitModules::modules);
+    public static final StreamCodec<RegistryFriendlyByteBuf, SpaceSuitModules> STREAM_CODEC = ByteBufCodecs.fromCodecWithRegistries(CODEC);
 
-
-    public ItemStack getItemUnsafe(int index) {
-        return this.modules.get(index);
+    public List<? extends Item> items() {
+        return this.modules.stream().map(Module::getAsItem).map(Supplier::get).toList();
     }
 
-    public Stream<ItemStack> itemCopyStream() {
-        return this.modules.stream().map(ItemStack::copy);
+    public List<ItemStack> itemStacks() {
+        return this.modules.stream().map(Module::getAsItem).map(Supplier::get).map(ItemStack::new).toList();
     }
 
-    public Iterable<ItemStack> items() {
-        return this.modules;
-    }
-
-    public Iterable<ItemStack> itemsCopy() {
-        return Lists.transform(this.modules, ItemStack::copy);
-    }
-
-    public static ItemStack getIfContains(ItemStack stack, Item module) {
-        ItemStack moduleToReturn = ItemStack.EMPTY;
+    public static boolean contains(ItemStack stack, Item module) {
         SpaceSuitModules spaceSuitModules = stack.getOrDefault(DataComponentsRegistry.SPACE_SUIT_MODULES.get(), empty());
-        if (spaceSuitModules.items() == null) {
-            return moduleToReturn;
-        }
-        for (ItemStack moduleStack : spaceSuitModules.items()) {
-            if (moduleStack.is(module)) {
-                moduleToReturn = moduleStack;
-                break;
-            }
-        }
-        return moduleToReturn;
+        if (spaceSuitModules.modules == null)
+            return false;
+
+        for (Item item : spaceSuitModules.items())
+            if (item.equals(module))
+                return true;
+
+        return false;
+    }
+
+    public static boolean contains(ItemStack stack, Module module) {
+        SpaceSuitModules spaceSuitModules = stack.getOrDefault(DataComponentsRegistry.SPACE_SUIT_MODULES.get(), empty());
+        if (spaceSuitModules.modules == null)
+            return false;
+
+        for (Module module1 : spaceSuitModules.modules)
+            if (module1.equals(module))
+                return true;
+
+        return false;
     }
 
     public static boolean containsAllInModules(ItemStack stack, Set<? extends Module> modules) {
@@ -84,7 +84,7 @@ public record SpaceSuitModules(List<ItemStack> modules) implements Serializable 
             return false;
         }
         boolean boolToReturn = false;
-        for (SpaceSuitModule module1 : spaceSuitModules.getModules()) {
+        for (SpaceSuitModule module1 : spaceSuitModules.modules) {
             if (module1 == module) {
                 boolToReturn = true;
                 break;
@@ -94,10 +94,6 @@ public record SpaceSuitModules(List<ItemStack> modules) implements Serializable 
         return boolToReturn;
     }
 
-    public List<SpaceSuitModule> getModules() {
-        return Lists.transform(this.modules, SpaceSuitModules::getModule);
-    }
-
     private static SpaceSuitModule getModule(ItemStack itemStack) {
         if (itemStack.getItem() instanceof SpaceSuitModule spaceSuitModule) {
             return spaceSuitModule;
@@ -105,18 +101,25 @@ public record SpaceSuitModules(List<ItemStack> modules) implements Serializable 
         return null; //failsafe, shouldn't happen unless tampered with or incorrect checks for upgrade station
     }
 
+    public Mutable toMutable() {
+        return new Mutable(this);
+    }
+
     public static class Mutable {
 
-        private final List<ItemStack> modules;
+        private final List<SpaceSuitModule> modules;
 
         public Mutable(SpaceSuitModules contents) {
             this.modules = new ArrayList<>(contents.modules);
         }
 
-        public Mutable insert(ItemStack stack) {
-            if (!stack.isEmpty() && stack.getItem().canFitInsideContainerItems()) {
-                this.modules.add(stack);
-            }
+        public Mutable insert(SpaceSuitModule module) {
+            this.modules.add(module);
+            return this;
+        }
+
+        public <M extends Item & SpaceSuitModule> Mutable insert(M module) {
+            this.modules.add(module);
             return this;
         }
 

@@ -8,10 +8,10 @@ import dev.architectury.registry.registries.RegistrySupplier;
 
 import java.util.function.Supplier;
 
-public class ModuleRegistry {
+public abstract class ModuleRegistry {
     public static final Registrar<SpaceSuitModule> SUIT_MODULE;
 
-    public static class SpaceSuitModules {
+    public static class SpaceSuitModules extends ModuleRegistry {
         public static final RegistrySupplier<? extends SpaceSuitModule> AUTO_FEEDER_MODULE =
                 register("auto_feeder", ItemsRegistry.MODULE_AUTO_FEEDER);
         public static final RegistrySupplier<? extends SpaceSuitModule> OIL_FINDER_MODULE =

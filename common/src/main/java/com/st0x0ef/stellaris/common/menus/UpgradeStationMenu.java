@@ -59,8 +59,8 @@ public class UpgradeStationMenu extends BaseItemCombinerMenu {
                     !SpaceSuitModules.containsInModules(itemStack, module) &&
                     SpaceSuitModules.containsAllInModules(itemStack, validModule.requires())) {
 
-                SpaceSuitModules.Mutable mutable = new SpaceSuitModules.Mutable(itemStack.getOrDefault(DataComponentsRegistry.SPACE_SUIT_MODULES.get(), SpaceSuitModules.empty()));
-                itemStack.set(DataComponentsRegistry.SPACE_SUIT_MODULES.get(), mutable.insert(module).toImmutable());
+                SpaceSuitModules.Mutable mutable = itemStack.getOrDefault(DataComponentsRegistry.SPACE_SUIT_MODULES.get(), SpaceSuitModules.empty()).toMutable();
+                itemStack.set(DataComponentsRegistry.SPACE_SUIT_MODULES.get(), mutable.insert(validModule).toImmutable());
 
                 this.resultSlots.setItem(0, itemStack);
                 this.broadcastChanges();

@@ -1,23 +1,27 @@
 package com.st0x0ef.stellaris.common.items.module;
 
+import com.st0x0ef.stellaris.common.module.Module;
+import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 public class OilFinderModule extends SpaceSuitModuleItem {
 
     int oilLevel = 0;
 
     public OilFinderModule(Properties properties) {
-        super(properties.stacksTo(1));
+        super(properties);
     }
 
     @Override
@@ -38,6 +42,11 @@ public class OilFinderModule extends SpaceSuitModuleItem {
     @Override
     public MutableComponent displayName() {
         return Component.translatable("spacesuit.stellaris.oil_finder");
+    }
+
+    @Override
+    public <T extends Item & Module> Supplier<T> getAsItem() {
+        return (Supplier<T>) ItemsRegistry.MODULE_OIL_FINDER;
     }
 
     @Override

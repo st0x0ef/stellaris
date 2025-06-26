@@ -400,7 +400,7 @@ public class Utils {
     }
 
     public static void handleGravityChange(LivingEntity entity, Level level) {
-        if (!SpaceSuitModules.containsInModules(entity.getItemBySlot(EquipmentSlot.CHEST), ItemsRegistry.MODULE_GRAVITY_NORMALIZER.get().getDefaultInstance())) {
+        if (!SpaceSuitModules.containsInModules(entity.getItemBySlot(EquipmentSlot.CHEST), ModuleRegistry.SpaceSuitModules.GRAVITY_NORMALIZER_MODULE.get())) {
             ResourceLocation dimension = level.dimension().location();
 
             if (!PlanetUtil.isPlanet(dimension) || dimension.equals(StellarisData.OVERWORLD) || !Stellaris.CONFIG.gravityConfig.customEntityGravity) {

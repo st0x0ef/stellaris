@@ -23,6 +23,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.DyedItemColor;
 
 import java.util.ArrayList;
+import java.util.function.Supplier;
 
 public class ItemsRegistry {
 
@@ -417,7 +418,7 @@ public class ItemsRegistry {
     public static final RegistrySupplier<SpaceSuitModuleItem> MODULE_AUTO_FEEDER = ITEMS.register("auto_feeder_module", () -> new AutoFeederModule(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<SpaceSuitModuleItem> MODULE_OIL_FINDER = ITEMS.register("oil_finder_module", () -> new OilFinderModule(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<SpaceSuitModuleItem> MODULE_GRAVITY_NORMALIZER = ITEMS.register("gravity_normalizer_module", () -> new GravityNormalizerModule(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
-    public static final RegistrySupplier<SpaceSuitModuleItem> MODULE_JET = ITEMS.register("jet_module", () -> new JetModule(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<JetModule> MODULE_JET = ITEMS.register("jet_module", () -> new JetModule(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
 
     /**
      * Tools

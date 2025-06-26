@@ -3,26 +3,35 @@ package com.st0x0ef.stellaris.common.items.module;
 import com.fej1fun.potentials.capabilities.Capabilities;
 import com.fej1fun.potentials.fluid.UniversalFluidStorage;
 import com.st0x0ef.stellaris.client.screens.GUISprites;
+import com.st0x0ef.stellaris.common.module.Module;
+import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 public class FuelModule extends SpaceSuitModuleItem {
 
     public FuelModule(Properties properties) {
-        super(properties.stacksTo(1));
+        super(properties);
     }
 
     @Override
     public MutableComponent displayName() {
         return Component.translatable("spacesuit.stellaris.fuel_module");
+    }
+
+    @Override
+    public <T extends Item & Module> Supplier<T> getAsItem() {
+        return (Supplier<T>) ItemsRegistry.MODULE_FUEL;
     }
 
     @Override

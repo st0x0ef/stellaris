@@ -1,15 +1,12 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "com.st0x0ef.stellaris.neoforge.mixin",
+  "package": "com.st0x0ef.stellaris.fabric.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "ArmorRenderMixin",
     "RegistrarMixin"
   ],
   "client": [
-    "GlobeItemRendererMixin",
-    "RoverItemRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

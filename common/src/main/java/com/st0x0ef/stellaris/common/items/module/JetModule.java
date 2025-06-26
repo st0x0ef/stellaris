@@ -23,21 +23,28 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.Set;
+import java.util.function.Supplier;
 
 public class JetModule extends SpaceSuitModuleItem {
 
     public JetModule(Properties properties) {
-        super(properties.stacksTo(1));
+        super(properties);
     }
 
     @Override
     public MutableComponent displayName() {
         return Component.translatable("spacesuit.stellaris.jet_module");
+    }
+
+    @Override
+    public <T extends Item & Module> Supplier<T> getAsItem() {
+        return (Supplier<T>) ItemsRegistry.MODULE_JET;
     }
 
     @Override

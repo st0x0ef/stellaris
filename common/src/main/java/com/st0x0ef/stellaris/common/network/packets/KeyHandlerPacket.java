@@ -8,6 +8,7 @@ import com.st0x0ef.stellaris.common.keybinds.KeyVariables;
 import com.st0x0ef.stellaris.common.menus.PlanetSelectionMenu;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
+import com.st0x0ef.stellaris.common.registry.ModuleRegistry;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import dev.architectury.networking.NetworkManager;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -75,12 +76,10 @@ public class KeyHandlerPacket implements CustomPacketPayload {
                     }
                     else if (Utils.isLivingInSpaceSuit(player)) {
                         ItemStack itemStack = player.getItemBySlot(EquipmentSlot.CHEST);
-                        ItemStack jetModule = SpaceSuitModules.getIfContains(itemStack, ItemsRegistry.MODULE_JET.get());
-                        if (!jetModule.isEmpty()) {
-                            if (jetModule.getItem() instanceof JetModule module) {
+                        if (SpaceSuitModules.containsInModules(itemStack, ModuleRegistry.SpaceSuitModules.JET_MODULE.get())
+                                && ModuleRegistry.SpaceSuitModules.JET_MODULE.get() instanceof JetModule module)
                                 module.switchJetSuitMode(itemStack);
-                            }
-                        }
+
                     }
                     break;
                 case "key_jump":
