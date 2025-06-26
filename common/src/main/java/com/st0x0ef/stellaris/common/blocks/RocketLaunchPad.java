@@ -6,6 +6,7 @@ import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import com.st0x0ef.stellaris.common.registry.TagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
@@ -172,6 +173,9 @@ public class RocketLaunchPad extends Block implements SimpleWaterloggedBlock {
                 level.setBlock(pos.below(), BlocksRegistry.ANTENNA.get().defaultBlockState(), 3);
                 stack.shrink(1);
                 return ItemInteractionResult.SUCCESS;
+            } else {
+                player.displayClientMessage(Component.literal("You can't place an antenna block here. The surface under the launchpad can't be repleaced."), false);
+                return ItemInteractionResult.FAIL;
             }
         }
 
