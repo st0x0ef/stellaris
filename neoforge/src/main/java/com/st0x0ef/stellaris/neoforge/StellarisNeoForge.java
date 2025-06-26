@@ -3,6 +3,8 @@ package com.st0x0ef.stellaris.neoforge;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
+import com.st0x0ef.stellaris.common.registry.ModuleRegistry;
+import com.st0x0ef.stellaris.common.registry.RegistryRegistry;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.IEventBus;
@@ -20,6 +22,9 @@ public class StellarisNeoForge {
 
     public StellarisNeoForge(IEventBus bus) {
         Stellaris.init();
+
+        RegistryRegistry.register(); //DO NOT REMOVE. VERY IMPORTANT (neoforge is weird like that)
+
         NeoForge.EVENT_BUS.addListener(StellarisNeoForge::onAddReloadListenerEvent);
         NeoForge.EVENT_BUS.addListener(StellarisNeoForge::onDatapackSync);
         //NeoForge.EVENT_BUS.addListener(StellarisNeoForge::addItemToTab);

@@ -5,6 +5,7 @@ import com.st0x0ef.stellaris.common.module.*;
 import com.st0x0ef.stellaris.common.module.Module;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import com.st0x0ef.stellaris.common.registry.ModuleRegistry;
+import com.st0x0ef.stellaris.common.registry.RegistryRegistry;
 import com.st0x0ef.stellaris.platform.RegistrarUtilPlatform;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -24,7 +25,7 @@ public record SpaceSuitModules(List<SpaceSuitModule> modules) implements Seriali
         return new SpaceSuitModules(List.of());
     }
 
-    public static final Codec<SpaceSuitModules> CODEC = RegistrarUtilPlatform.getByNameCodec(ModuleRegistry.SUIT_MODULE)
+    public static final Codec<SpaceSuitModules> CODEC = RegistrarUtilPlatform.getByNameCodec(RegistryRegistry.SUIT_MODULE)
             .listOf().xmap(SpaceSuitModules::new, SpaceSuitModules::modules);
     public static final StreamCodec<RegistryFriendlyByteBuf, SpaceSuitModules> STREAM_CODEC = ByteBufCodecs.fromCodecWithRegistries(CODEC);
 

@@ -2,14 +2,13 @@ package com.st0x0ef.stellaris.common.registry;
 
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.module.SpaceSuitModule;
-import dev.architectury.registry.registries.Registrar;
-import dev.architectury.registry.registries.RegistrarManager;
 import dev.architectury.registry.registries.RegistrySupplier;
 
 import java.util.function.Supplier;
 
+import static com.st0x0ef.stellaris.common.registry.RegistryRegistry.SUIT_MODULE;
+
 public abstract class ModuleRegistry {
-    public static final Registrar<SpaceSuitModule> SUIT_MODULE;
 
     public static class SpaceSuitModules extends ModuleRegistry {
         public static final RegistrySupplier<? extends SpaceSuitModule> AUTO_FEEDER_MODULE =
@@ -30,9 +29,5 @@ public abstract class ModuleRegistry {
     }
 
 
-    static {
-        SUIT_MODULE = RegistrarManager.get(Stellaris.MODID).<SpaceSuitModule>builder(Stellaris.id("suit_module"))
-                .syncToClients()
-                .build();
-    }
+
 }
