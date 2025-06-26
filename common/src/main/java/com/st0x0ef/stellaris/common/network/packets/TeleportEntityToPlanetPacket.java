@@ -57,7 +57,6 @@ public class TeleportEntityToPlanetPacket implements CustomPacketPayload {
         }
 
         if(planet != null ) {
-
             if(rocket == null) {
                 Utils.changeDimension(player, planet, packet.coords);
                 return;

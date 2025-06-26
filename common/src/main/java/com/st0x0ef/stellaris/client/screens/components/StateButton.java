@@ -28,7 +28,6 @@ public class StateButton extends AbstractButton {
         this.state = defaultState;
     }
 
-
     public StateButton setColor(int active, int inactive) {
         this.activeColor = active;
         this.inactiveColor = inactive;

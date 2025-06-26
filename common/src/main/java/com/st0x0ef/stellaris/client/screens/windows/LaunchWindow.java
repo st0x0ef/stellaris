@@ -34,6 +34,7 @@ public class LaunchWindow extends MoveableWindow {
     public TexturedButton spaceStationButton;
 
     private LaunchPadsList padsList;
+    private String errorMessage = getErrorMessage();
 
     public LaunchWindow(int width, int height, Component message, PlanetSelectionScreen parent) {
         super(width, height, message, parent);
@@ -50,9 +51,8 @@ public class LaunchWindow extends MoveableWindow {
         this.padsList = new LaunchPadsList(getWindowX() + 40, getWindowY() + 60, getWidth() - 80, getHeight() - 90, Component.translatable("gui.stellaris.launchpads"), this, new ArrayList<>());
         this.addWidget(this.padsList);
 
-        int imageRatio = 1;
         this.spaceStationButton = new TexturedButton(
-                (getWindowX() + getWidth() / 2) + 73, getWindowY() + 32 - (18*imageRatio) / 2, 28*imageRatio, 18*imageRatio,
+                (getWindowX() + getWidth() / 2) + 73, getWindowY() + 18, 28, 18,
                 Component.literal(""),
                 (button) -> {
                     if (celestialBody != null) {
@@ -77,7 +77,7 @@ public class LaunchWindow extends MoveableWindow {
             this.spaceStationButton.visible = this.celestialBody.spaceStation;
 
             Planet planet = PlanetUtil.getPlanet(this.celestialBody.dimension);
-            guiGraphics.drawCenteredString(Minecraft.getInstance().font, celestialBody.name + " Launch Points", getWindowX() + getWidth() / 2, getWindowY() + 27, 0xFFFFFFFF);
+            guiGraphics.drawCenteredString(Minecraft.getInstance().font, celestialBody.name + " Launch Points", getWindowX() + getWidth() / 2, getWindowY() + 23, 0xFFFFFFFF);
 
             guiGraphics.drawCenteredString(Minecraft.getInstance().font, PlanetUtil.getInLinePlanetInfo(planet), getWindowX() + getWidth() / 2 , this.padsList.getY() - 12, 0xFFFFFFFF);
 
@@ -89,7 +89,7 @@ public class LaunchWindow extends MoveableWindow {
             if (this.celestialBody.canLaunchOn) {
                 this.padsList.launchPads.addFirst(this.addDirectLaunch());
             } else if (this.padsList.launchPads.isEmpty()) {
-                guiGraphics.drawCenteredString(Minecraft.getInstance().font, getErrorName(), getWindowX() + getWidth() / 2, this.padsList.getY() + 7, Utils.getColorHexCode("white"));
+                guiGraphics.drawCenteredString(Minecraft.getInstance().font, errorMessage, getWindowX() + getWidth() / 2, this.padsList.getY() + 7, Utils.getColorHexCode("white"));
             }
         }
 
@@ -129,9 +129,12 @@ public class LaunchWindow extends MoveableWindow {
         if(planet == null) {
             return launchPads;
         }
+
+
+
         PlanetSelectionScreen.LAUNCH_PADS.launchPads()
                 .stream()
-                .filter((pad) -> pad.dimension().location() == planet.dimension() || (planet.orbit().isPresent() && pad.dimension().location().equals(planet.orbit().get())))
+                .filter((pad) -> pad.dimension().location().equals(planet.dimension()) || (planet.orbit().isPresent() && pad.dimension().location().equals(planet.orbit().get())))
                 .filter((pad) -> LaunchPadUtils.canPlayerJoinLaunchPad(pad, parent.getPlayer()))
                 .forEach(launchPads::add);
 
@@ -174,7 +177,7 @@ public class LaunchWindow extends MoveableWindow {
         this.celestialBody = celestialBody;
     }
 
-    public String getErrorName() {
+    public String getErrorMessage() {
         double randomNumber = (Math.random() * 100) + 1;
         if (randomNumber < 55) {
             return "No Launch Pads available";

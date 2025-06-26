@@ -58,8 +58,9 @@ public class PlaceStationPacket implements CustomPacketPayload {
             ServerLevel level = player.level().getServer().getLevel(ResourceKey.create(Registries.DIMENSION, planet.dimension()));
             if (level != null) {
                 Vec3 stationPosition = Utils.placeSpaceStation(player, level, packet.recipe, packet.pad);
-                packet.recipe.removeMaterials(player);
-
+                if (!player.isCreative() && !player.isSpectator()) {
+                    packet.recipe.removeMaterials(player);
+                }
 
                 LaunchPad newPad = new LaunchPad(
                         packet.pad.id(),
@@ -70,9 +71,9 @@ public class PlaceStationPacket implements CustomPacketPayload {
                         packet.pad.owner(),
                         packet.pad.whitelist()
                 );
+
                 LaunchPadLauncher.addLaunchPad(newPad, context.getPlayer().getServer());
                 NetworkManager.sendToServer(new TeleportEntityToPlanetPacket(packet.dimension, stationPosition));
-
             }
         }
     }

@@ -62,17 +62,12 @@ public class SpaceStationList extends AbstractScrollWidget {
 
             SpaceStationRecipesManager.SpaceStationRecipeState recipeState = this.spaceStationRecipeStates.get(i);
 
-            SpaceStationButton launchPadWidget = new SpaceStationButton(recipeState, x, getY() + y, this.width + 19, this.window);
+            SpaceStationButton launchPadWidget = new SpaceStationButton(recipeState, x, getY() + y, this.width + 19, this);
             launchPadWidget.render(guiGraphics, mouseX, (int) (mouseY + this.scrollAmount()), partialTick);
             spaceStationRecipeStateMap.putIfAbsent(launchPadWidget.buttonPositions, recipeState);
 
             finalHeight.addAndGet(y);
         }
-    }
-
-    @Override
-    public boolean isHovered() {
-        return super.isHovered();
     }
 
     @Override
@@ -138,15 +133,15 @@ public class SpaceStationList extends AbstractScrollWidget {
         public final int x;
         public final int y;
         public final int width;
-        public final SpaceStationWindow window;
+        public final SpaceStationList list;
 
         public Vector4i buttonPositions = new Vector4i();
 
-        public SpaceStationButton(SpaceStationRecipesManager.SpaceStationRecipeState recipeState, int x, int y, int width, SpaceStationWindow window) {
+        public SpaceStationButton(SpaceStationRecipesManager.SpaceStationRecipeState recipeState, int x, int y, int width, SpaceStationList list) {
             this.x = x;
             this.y = y;
             this.recipeState = recipeState;
-            this.window = window;
+            this.list = list;
             this.width = width;
         }
 
@@ -156,15 +151,15 @@ public class SpaceStationList extends AbstractScrollWidget {
 
             TexturedButton selectButton = new TexturedButton((this.x + this.width) - 54, this.y + 6, 49, 18, Component.literal("Select"), (btn) -> {
                 if(recipeState.isUnlocked()) {
-                    window.spaceStationSelected = recipeState;
+                    list.window.spaceStationSelected = recipeState;
                 }
             });
 
-            selectButton.setTooltip(Tooltip.create(this.recipeState.recipe().getTooltip(this.window.parent.getPlayer())));
+            selectButton.setTooltip(Tooltip.create(this.recipeState.recipe().getTooltip(this.list.window.parent.getPlayer())));
 
             buttonPositions = new Vector4i(selectButton.getX(), selectButton.getY(), selectButton.getWidth(), selectButton.getHeight());
 
-            if (recipeState.isUnlocked() || window.parent.getPlayer().isCreative()) {
+            if (recipeState.isUnlocked() || list.window.parent.getPlayer().isCreative()) {
                 selectButton.tex(
                         ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/select_button.png"),
                         ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/select_button_hovered.png")
@@ -179,7 +174,7 @@ public class SpaceStationList extends AbstractScrollWidget {
 
             selectButton.render(guiGraphics, mouseX, mouseY, partialTick);
 
-            if (Utils.isHoveredOnSprite(this.x, this.y, window.getWidth() - 80, 30, mouseX, mouseY)) {
+            if (Utils.isHoveredOnSprite(this.x, this.y, list.window.getWidth() - 80, 30, mouseX, mouseY) && this.list.isHovered()) {
                 guiGraphics.renderTooltip(getFont(), selectButton.getTooltip().toCharSequence(Minecraft.getInstance() ), mouseX, mouseY);
 
             }

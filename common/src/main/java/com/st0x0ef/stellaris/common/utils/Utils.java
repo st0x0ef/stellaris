@@ -370,7 +370,6 @@ public class Utils {
     }
 
     public static Vec3 placeAntennaBlock(BlockPos initialPos, ServerLevel serverLevel, SpaceStationRecipe recipe, LaunchPad pad) {
-
         BlockPos pos = initialPos.offset((int) recipe.antenna_position().x, (int) recipe.antenna_position().y, (int) recipe.antenna_position().z);
 
         AntennaBlockEntity antennaBlockEntity = new AntennaBlockEntity(pos, BlocksRegistry.ANTENNA.get().defaultBlockState());
@@ -426,5 +425,4 @@ public class Utils {
             attributeInstance.setBaseValue(value);
 
     }
-
 }

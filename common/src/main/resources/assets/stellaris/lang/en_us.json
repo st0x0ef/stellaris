@@ -528,7 +528,6 @@
   ""
 ,
 
-  "text.stellaris.milkywayscreen.milkyway": "Milky Way",
   "solar_system": "Solar System",
   "text.stellaris.planetscreen.sun": "Sun",
   "text.stellaris.planetscreen.mercury": "Mercury",
@@ -544,6 +543,9 @@
   "text.stellaris.planetscreen.uranus": "Uranus",
   "text.stellaris.planetscreen.neptune": "Neptune",
   "text.stellaris.planetscreen.kuiper_belt": "Kuiper Belt",
+  "text.stellaris.planetscreen.space": "Press [Space] to pause",
+  "text.stellaris.planetscreen.returntogalaxy": "Change galaxy",
+  "text.stellaris.galaxyscreen.milkyway": "Milky Way",
 
 
 
@@ -624,6 +626,7 @@
   "message.stellaris.speed": "%s Speed",
   "text.stellaris.rocket.fuel": "You need to put %s in the rocket to be able to fly",
   "message.stellaris.lander": "§4⚠ Warning §r |  Press space bar to slow down!",
+  "message.stellaris.not_owner_of_launch_pad": "§4You can't use this launch pad, you are not the owner of it!",
 
   "tooltip.item.stellaris.can.empty": "Empty",
   "tooltip.item.stellaris.can.nutrition": "Nutrition: %s/%s",

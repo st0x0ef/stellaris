@@ -63,7 +63,7 @@ public class SpaceStationWindow extends MoveableWindow {
 
         this.addWidget(this.publicCheckBox);
 
-        this.launchButton = new TexturedButton((getWindowX() + getWidth()) / 2 - 1 , this.stationList.getY() + this.stationList.getHeight(), 50, 20, (button) -> this.onStationCreated()
+        this.launchButton = new TexturedButton((getWindowX() + getWidth()) / 2 +  25 - 3, this.stationList.getY() + this.stationList.getHeight(), 50, 20, (button) -> this.onStationCreated()
         ).tex(
                 ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button.png"),
                 ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "textures/gui/util/buttons/launch_button_hovered.png")
@@ -78,7 +78,7 @@ public class SpaceStationWindow extends MoveableWindow {
         RenderSystem.clear(256, Minecraft.ON_OSX);
         guiGraphics.blit(ResourceLocation.parse("stellaris:textures/gui/util/window/window_large.png"), getWindowX(), getWindowY(), 0, 0, this.getWidth(), this.getHeight(), this.getWidth(), this.getHeight());
 
-        guiGraphics.drawCenteredString(Minecraft.getInstance().font, "Create a Space Station", getWindowX() + getWidth() / 2, getWindowY() + 27, 0xFFFFFFFF);
+        guiGraphics.drawCenteredString(Minecraft.getInstance().font, "Create a Space Station", getWindowX() + getWidth() / 2, getWindowY() + 23, 0xFFFFFFFF);
 
         parent.dragging = false;
         guiGraphics.flush();

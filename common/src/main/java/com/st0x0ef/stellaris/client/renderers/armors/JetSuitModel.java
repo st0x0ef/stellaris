@@ -71,6 +71,9 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
                 .texOffs(16, 34).addBox(4.7F, -5.8F, 1.2F, 1.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.ZERO);
 
         head.addOrReplaceChild("lamp_r1", CubeListBuilder.create().texOffs(48, 48).addBox(-2.0F, -1.0F, -2.5F, 4.0F, 2.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -8.7F, -0.5F, -0.2618F, 0.0F, 0.0F));
+
+
+
         head.addOrReplaceChild("antenna_r1", CubeListBuilder.create().texOffs(50, 16).addBox(0.0F, -2.0F, -1.0F, 0.0F, 4.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(5.2F, -5.8F, 4.2F, -0.7854F, 0.0F, 0.0F));
 
         partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(26, 16).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F, new CubeDeformation(0.75F))
@@ -117,6 +120,9 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
 
         parentModel.copyPropertiesTo(this);
 
+        this.leftShoe.copyFrom(this.leftLeg);
+        this.rightShoe.copyFrom(this.rightLeg);
+
         super.renderToBuffer(poseStack, vertexConsumer, packedLight, packedOverlay, color);
     }
 
@@ -137,6 +143,14 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
         this.antenna.visible = visible;
         this.lamp.visible = visible;
         this.waist.visible = visible;
+        this.head.visible = visible;
+        this.body.visible = visible;
+        this.leftArm.visible = visible;
+        this.rightArm.visible = visible;
+        this.leftLeg.visible = visible;
+        this.rightLeg.visible = visible;
+        this.leftShoe.visible = visible;
+        this.rightShoe.visible = visible;
     }
 
 
@@ -146,6 +160,7 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
             case HEAD -> {
                 this.head.visible = true;
                 this.lamp.visible = true;
+                this.antenna.visible = true;
             }
             case CHEST -> {
                 this.body.visible = true;
@@ -163,5 +178,4 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
             }
         }
     }
-
 }
