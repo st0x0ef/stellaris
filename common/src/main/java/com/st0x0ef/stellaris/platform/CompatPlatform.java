@@ -5,7 +5,7 @@ import dev.architectury.injectables.annotations.ExpectPlatform;
 public class CompatPlatform {
 
     @ExpectPlatform
-    public static void loadCompats() {
+    public static boolean isModLoading(String modid) {
         throw new AssertionError();
     }
 

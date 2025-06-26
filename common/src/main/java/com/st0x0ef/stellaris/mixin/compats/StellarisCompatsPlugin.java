@@ -3,10 +3,14 @@ package com.st0x0ef.stellaris.mixin.compats;
 
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.compats.ModCompat;
+import com.st0x0ef.stellaris.platform.CompatPlatform;
 import dev.architectury.platform.Platform;
+import org.objectweb.asm.tree.AnnotationNode;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
+import org.spongepowered.asm.service.MixinService;
+import org.spongepowered.asm.util.Annotations;
 
 import java.util.List;
 import java.util.Set;
@@ -28,20 +32,18 @@ public class StellarisCompatsPlugin implements IMixinConfigPlugin {
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
 
-        if(mixinClassName.contains("Compat")) {
-            try {
+        try {
+            ClassNode node = MixinService.getService().getBytecodeProvider().getClassNode(mixinClassName);
 
-                Class<?> mixinClass = Class.forName(mixinClassName);
-
-                if(mixinClass.isAnnotationPresent(ModCompat.MixinCompat.class)) {
-                    ModCompat.MixinCompat annotation = mixinClass.getAnnotation(ModCompat.MixinCompat.class);
-
-                    return Platform.isModLoaded(annotation.modid());
-
+            if(node.visibleAnnotations != null) {
+                AnnotationNode annotationNode = Annotations.get(node.visibleAnnotations, ModCompat.MixinCompat.class.descriptorString());
+                if(annotationNode != null) {
+                    String object = Annotations.getValue(annotationNode, "modid", ModCompat.MixinCompat.class);
+                    return CompatPlatform.isModLoading(object);
                 }
-            } catch (ClassNotFoundException e) {
-                Stellaris.LOG.error("Error loading mixin class: " + mixinClassName, e);
             }
+        } catch (Exception e) {
+            System.out.println("Checking mixin class: " + mixinClassName + " with annotation: " + e);
         }
 
         return true;
@@ -55,6 +57,7 @@ public class StellarisCompatsPlugin implements IMixinConfigPlugin {
 
     @Override
     public List<String> getMixins() {
+        Stellaris.LOG.error("eeeee");
         return List.of();
     }
 

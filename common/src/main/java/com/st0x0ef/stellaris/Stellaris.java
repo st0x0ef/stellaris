@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.ToNumberPolicy;
+import com.st0x0ef.stellaris.common.compats.CompatsRegistry;
 import com.st0x0ef.stellaris.common.config.CommonConfig;
 import com.st0x0ef.stellaris.common.config.ConfigManager;
 import com.st0x0ef.stellaris.common.data.recipes.SpaceStationRecipesManager;
@@ -67,7 +68,7 @@ public class Stellaris {
 
         ReloadListenerRegistry.register(PackType.SERVER_DATA, new StellarisData());
 
-        CompatPlatform.loadCompats();
+        CompatsRegistry.register();
     }
 
 
