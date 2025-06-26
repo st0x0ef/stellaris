@@ -120,6 +120,9 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
 
         parentModel.copyPropertiesTo(this);
 
+        this.leftShoe.copyFrom(this.leftLeg);
+        this.rightShoe.copyFrom(this.rightLeg);
+
         super.renderToBuffer(poseStack, vertexConsumer, packedLight, packedOverlay, color);
     }
 
@@ -140,6 +143,14 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
         this.antenna.visible = visible;
         this.lamp.visible = visible;
         this.waist.visible = visible;
+        this.head.visible = visible;
+        this.body.visible = visible;
+        this.leftArm.visible = visible;
+        this.rightArm.visible = visible;
+        this.leftLeg.visible = visible;
+        this.rightLeg.visible = visible;
+        this.leftShoe.visible = visible;
+        this.rightShoe.visible = visible;
     }
 
 
@@ -167,5 +178,4 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
             }
         }
     }
-
 }
