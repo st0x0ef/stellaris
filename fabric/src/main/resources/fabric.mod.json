@@ -21,6 +21,9 @@
     ],
     "jei_mod_plugin": [
       "com.st0x0ef.stellaris.common.compats.jei.JEIPlugin"
+    ],
+    "stellaris": [
+      "com.st0x0ef.stellaris.common.compats.TestCompat"
     ]
   },
   "mixins": [

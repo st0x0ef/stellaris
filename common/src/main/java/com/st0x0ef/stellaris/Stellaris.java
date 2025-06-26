@@ -16,6 +16,7 @@ import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import com.st0x0ef.stellaris.common.network.packets.SyncPlanetsDatapackPacket;
 import com.st0x0ef.stellaris.common.network.packets.SyncSpaceStationDatapackPacket;
 import com.st0x0ef.stellaris.common.registry.*;
+import com.st0x0ef.stellaris.platform.CompatPlatform;
 import dev.architectury.networking.NetworkManager;
 import dev.architectury.registry.ReloadListenerRegistry;
 import net.minecraft.resources.ResourceLocation;
@@ -65,6 +66,8 @@ public class Stellaris {
         EffectsRegistry.register();
 
         ReloadListenerRegistry.register(PackType.SERVER_DATA, new StellarisData());
+
+        CompatPlatform.loadCompats();
     }
 
 

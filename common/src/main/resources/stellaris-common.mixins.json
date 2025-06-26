@@ -3,6 +3,7 @@
   "minVersion": "0.8",
   "package": "com.st0x0ef.stellaris.mixin",
   "compatibilityLevel": "JAVA_21",
+  "plugin": "com.st0x0ef.stellaris.mixin.compats.StellarisCompatsPlugin",
   "mixins": [
     "ArgumentTypeRegistryMixin",
     "CandleBlockMixin",
@@ -12,7 +13,8 @@
     "ItemEntityMixin",
     "LivingEntityMixin",
     "PlayerMixin",
-    "StormyPlanetMixin"
+    "StormyPlanetMixin",
+    "compats.MekanismCompat"
   ],
   "client": [
     "client.CustomEditBox",
