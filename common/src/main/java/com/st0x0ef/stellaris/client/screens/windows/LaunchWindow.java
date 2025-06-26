@@ -129,9 +129,12 @@ public class LaunchWindow extends MoveableWindow {
         if(planet == null) {
             return launchPads;
         }
+
+
+
         PlanetSelectionScreen.LAUNCH_PADS.launchPads()
                 .stream()
-                .filter((pad) -> pad.dimension().location() == planet.dimension() || (planet.orbit().isPresent() && pad.dimension().location().equals(planet.orbit().get())))
+                .filter((pad) -> pad.dimension().location().equals(planet.dimension()) || (planet.orbit().isPresent() && pad.dimension().location().equals(planet.orbit().get())))
                 .filter((pad) -> LaunchPadUtils.canPlayerJoinLaunchPad(pad, parent.getPlayer()))
                 .forEach(launchPads::add);
 
