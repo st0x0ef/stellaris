@@ -8,4 +8,7 @@ public class CompatPlatformImpl {
         return FabricLoader.getInstance().isModLoaded(modid);
     }
 
+    public static void registerLoaderCompat() {
+    }
+
 }

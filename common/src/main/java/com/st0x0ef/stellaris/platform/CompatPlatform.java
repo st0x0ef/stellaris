@@ -9,4 +9,9 @@ public class CompatPlatform {
         throw new AssertionError();
     }
 
+    @ExpectPlatform
+    public static void registerLoaderCompat() {
+        throw new AssertionError();
+    }
+
 }

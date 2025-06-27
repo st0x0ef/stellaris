@@ -2,9 +2,11 @@
   "required": true,
   "minVersion": "0.8",
   "package": "com.st0x0ef.stellaris.neoforge.mixin",
+  "plugin": "com.st0x0ef.stellaris.mixin.compats.StellarisCompatsPlugin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "ArmorRenderMixin"
+    "ArmorRenderMixin",
+    "mekanism.RadioactiveItemMixin"
   ],
   "client": [
     "GlobeItemRendererMixin",

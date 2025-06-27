@@ -40,6 +40,7 @@ dependencies {
     include("fr.tathan.sky-aesthetics:sky-aesthetics-neoforge-1.21:${sky_version}")
 
     modApi("com.fej1fun.potentials:potentials-neoforge-${minecraft_version}:${potentials_version}")
+    modCompileOnly "mekanism:Mekanism:${mekanism_version}:all"// Mekanism
 
     implementation "curse.maven:energized-power-782147:5510706"
 

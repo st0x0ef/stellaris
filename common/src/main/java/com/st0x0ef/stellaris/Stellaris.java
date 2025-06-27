@@ -93,6 +93,8 @@ public class Stellaris {
         registry.accept(ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "tablet_pack"), new TabletPack());
     }
 
+
+
     public static ResourceLocation texture(String path) {
         return id("textures/" + path + ".png");
     }
