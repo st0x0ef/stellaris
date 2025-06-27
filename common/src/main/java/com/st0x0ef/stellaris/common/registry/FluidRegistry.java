@@ -20,7 +20,6 @@ public class FluidRegistry {
 
     public static final List<ArchitecturyFluidAttributes> FLUIDS_INFOS = new ArrayList<>();
 
-
     /** FUEL FLUIDS */
     public static final ArchitecturyFluidAttributes FUEL_ATTRIBUTES = SimpleArchitecturyFluidAttributes.ofSupplier(() -> FluidRegistry.FLOWING_FUEL, () -> FluidRegistry.FUEL_STILL)
             .blockSupplier(() -> BlocksRegistry.FUEL_BLOCK)
@@ -37,7 +36,6 @@ public class FluidRegistry {
 
     public static final RegistrySupplier<FlowingFluid> FLOWING_FUEL = FLUIDS.register("flowing_fuel", () -> new ArchitecturyFlowingFluid.Flowing(FUEL_ATTRIBUTES));
     public static final RegistrySupplier<FlowingFluid> FUEL_STILL = FLUIDS.register("fuel", () -> new ArchitecturyFlowingFluid.Source(FUEL_ATTRIBUTES));
-
 
     /** OIL FLUIDS */
     public static final ArchitecturyFluidAttributes OIL_ATTRIBUTES = SimpleArchitecturyFluidAttributes.ofSupplier(() -> FluidRegistry.FLOWING_OIL, () -> FluidRegistry.OIL_STILL)
