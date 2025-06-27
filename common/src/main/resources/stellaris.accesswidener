@@ -39,4 +39,3 @@ accessible field net/minecraft/server/MinecraftServer storageSource Lnet/minecra
 accessible field net/minecraft/client/gui/components/AbstractWidget isHovered Z
 
 accessible method net/minecraft/commands/synchronization/ArgumentTypeInfos register (Lnet/minecraft/core/Registry;Ljava/lang/String;Ljava/lang/Class;Lnet/minecraft/commands/synchronization/ArgumentTypeInfo;)Lnet/minecraft/commands/synchronization/ArgumentTypeInfo;
-

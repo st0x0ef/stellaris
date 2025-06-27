@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.common.registry;
 
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.common.blocks.entities.FlagBlockEntity;
 import com.st0x0ef.stellaris.common.blocks.entities.GlobeBlockEntity;
 import com.st0x0ef.stellaris.common.blocks.entities.RadioactiveBlockEntity;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.*;
@@ -55,6 +56,8 @@ public class BlockEntityRegistry {
             () -> BlockEntityType.Builder.of(WaterPumpBlockEntity::new, BlocksRegistry.WATER_PUMP.get()).build(null));
     public static final Supplier<BlockEntityType<?>> PUMPJACK = BLOCK_ENTITY_TYPE.register("pumpjack",
             () -> BlockEntityType.Builder.of(PumpjackBlockEntity::new, BlocksRegistry.PUMPJACK.get()).build(null));
+    public static final Supplier<BlockEntityType<FlagBlockEntity>> FLAG = BLOCK_ENTITY_TYPE.register("flag",
+            () -> BlockEntityType.Builder.of(FlagBlockEntity::new, BlocksRegistry.FLAG.get()).build(null));
 
     //TIERED
     public static final Supplier<BlockEntityType<?>> FLUID_TANK = BLOCK_ENTITY_TYPE.register("tank",

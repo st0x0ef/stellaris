@@ -12,6 +12,7 @@ import com.st0x0ef.stellaris.client.renderers.entities.alienzombie.AlienZombieRe
 import com.st0x0ef.stellaris.client.renderers.entities.cheeseboss.CheeseBossModel;
 import com.st0x0ef.stellaris.client.renderers.entities.cheeseboss.CheeseBossRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.customlightning.CustomLightningBoltRenderer;
+import com.st0x0ef.stellaris.client.renderers.entities.flag.FlagBlockRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.martianraptor.MartianRaptorModel;
 import com.st0x0ef.stellaris.client.renderers.entities.martianraptor.MartianRaptorRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.mogler.MoglerModel;
@@ -98,6 +99,7 @@ public class StellarisNeoforgeClient {
         event.registerLayerDefinition(MoglerModel.LAYER_LOCATION, MoglerModel::createBodyLayer);
         event.registerLayerDefinition(StarCrawlerModel.LAYER_LOCATION, StarCrawlerModel::createBodyLayer);
         event.registerLayerDefinition(CheeseBossModel.LAYER_LOCATION, CheeseBossModel::createBodyLayer);
+        event.registerLayerDefinition(FlagBlockRenderer.LAYER_LOCATION, FlagBlockRenderer::createBodyLayer);
 
         event.registerLayerDefinition(GlobeModel.LAYER_LOCATION, GlobeModel::createLayer);
         event.registerLayerDefinition(LanderModel.LAYER_LOCATION, LanderModel::createBodyLayer);

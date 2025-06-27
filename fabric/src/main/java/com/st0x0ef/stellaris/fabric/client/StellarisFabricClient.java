@@ -11,6 +11,8 @@ import com.st0x0ef.stellaris.client.renderers.entities.alienzombie.AlienZombieRe
 import com.st0x0ef.stellaris.client.renderers.entities.cheeseboss.CheeseBossModel;
 import com.st0x0ef.stellaris.client.renderers.entities.cheeseboss.CheeseBossRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.customlightning.CustomLightningBoltRenderer;
+import com.st0x0ef.stellaris.client.renderers.entities.flag.FlagBlockRenderer;
+import com.st0x0ef.stellaris.client.renderers.entities.flag.FlagHeadModel;
 import com.st0x0ef.stellaris.client.renderers.entities.martianraptor.MartianRaptorModel;
 import com.st0x0ef.stellaris.client.renderers.entities.martianraptor.MartianRaptorRenderer;
 import com.st0x0ef.stellaris.client.renderers.entities.mogler.MoglerModel;
@@ -113,6 +115,8 @@ public class StellarisFabricClient implements ClientModInitializer {
 
         BlockEntityRenderers.register(BlockEntityRegistry.GLOBE_BLOCK_ENTITY.get(), GlobeBlockRenderer::new);
 
+        BlockEntityRenderers.register(BlockEntityRegistry.FLAG.get(), FlagBlockRenderer::new);
+
         BuiltinItemRendererRegistry.INSTANCE.register(ItemsRegistry.EARTH_GLOBE_ITEM.get(), ItemRendererRegistry.GLOBE_ITEM_RENDERER::renderByItem);
         BuiltinItemRendererRegistry.INSTANCE.register(ItemsRegistry.MOON_GLOBE_ITEM.get(), ItemRendererRegistry.GLOBE_ITEM_RENDERER::renderByItem);
         BuiltinItemRendererRegistry.INSTANCE.register(ItemsRegistry.MARS_GLOBE_ITEM.get(), ItemRendererRegistry.GLOBE_ITEM_RENDERER::renderByItem);
@@ -138,8 +142,12 @@ public class StellarisFabricClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(StarCrawlerModel.LAYER_LOCATION, StarCrawlerModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(CheeseBossModel.LAYER_LOCATION, CheeseBossModel::createBodyLayer);
 
+
         EntityModelLayerRegistry.registerModelLayer(GlobeModel.LAYER_LOCATION, GlobeModel::createLayer);
         EntityModelLayerRegistry.registerModelLayer(LanderModel.LAYER_LOCATION, LanderModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(FlagHeadModel.LAYER_LOCATION, FlagHeadModel::createHumanoidHeadLayer);
+
+        EntityModelLayerRegistry.registerModelLayer(FlagBlockRenderer.LAYER_LOCATION, FlagBlockRenderer::createBodyLayer);
 
         EntityModelLayerRegistry.registerModelLayer(TinyRocketModel.LAYER_LOCATION, TinyRocketModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(SmallRocketModel.LAYER_LOCATION, SmallRocketModel::createBodyLayer);
