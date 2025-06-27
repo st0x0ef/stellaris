@@ -102,4 +102,6 @@ public class EntityRegistry {
     public static final DeferredRegister<SensorType<?>> SENSOR = DeferredRegister.create(Stellaris.MODID, Registries.SENSOR_TYPE);
     public static final RegistrySupplier<SensorType<PygroMobsSensor>> PYGRO_SENSOR = SENSOR.register("pygro_sensor", () -> new SensorType<>(PygroMobsSensor::new));
     public static final RegistrySupplier<SensorType<CheeseBossEntitySensor>> CHEESE_BOSS_SENSOR = SENSOR.register("cheese_boss_sensor", () -> new SensorType<>(CheeseBossEntitySensor::new));
+
+    private EntityRegistry() {}
 }

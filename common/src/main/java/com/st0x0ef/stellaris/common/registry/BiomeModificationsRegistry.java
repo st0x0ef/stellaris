@@ -46,4 +46,6 @@ public class BiomeModificationsRegistry {
             mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.VENUS_GOLD_PLACED_KEY);
         }));
     }
+
+    private BiomeModificationsRegistry() {}
 }

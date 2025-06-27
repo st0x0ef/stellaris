@@ -21,4 +21,6 @@ public class FeaturesRegistry {
     public static final RegistrySupplier<ModifiedBlockBlobFeature> MODIFIED_BLOCK_BLOB = FEATURES.register("modified_block_blob", () -> new ModifiedBlockBlobFeature(BlockStateConfiguration.CODEC));
     public static final RegistrySupplier<MoonDripstoneClusterFeature> MOON_DRIPSTONE_CLUSTER = FEATURES.register("moon_dripstone_cluster", () -> new MoonDripstoneClusterFeature(DripstoneClusterConfiguration.CODEC));
 
+    private FeaturesRegistry() {}
+
 }

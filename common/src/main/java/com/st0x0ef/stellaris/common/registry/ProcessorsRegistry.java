@@ -13,4 +13,6 @@ public class ProcessorsRegistry {
 
     public static final RegistrySupplier<StructureProcessorType<VoidProcessor>> STRUCTURE_VOID_PROCESSOR = STRUCTURE_PROCESSORS.register("structure_void_processor", () -> () -> VoidProcessor.CODEC);
 
+    private ProcessorsRegistry() {}
+
 }

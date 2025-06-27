@@ -58,5 +58,5 @@ public class ArmorMaterialsRegistry {
     public static final RegistrySupplier<ArmorMaterial> JET_SUIT = ARMOR_MATERIAL.register("radioactive", () -> JET_SUIT_MATERIAL);
     public static final RegistrySupplier<ArmorMaterial> SPACE_SUIT = ARMOR_MATERIAL.register("space_suit", () -> SPACE_SUIT_MATERIAL);
 
-
+    private ArmorMaterialsRegistry() {}
 }

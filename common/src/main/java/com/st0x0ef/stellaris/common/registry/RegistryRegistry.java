@@ -18,4 +18,7 @@ public class RegistryRegistry {
     static {
         SUIT_MODULE = RegistrarManager.get(Stellaris.MODID).<SpaceSuitModule>builder(Stellaris.id("suit_module")).syncToClients().build();
     }
+
+    private RegistryRegistry() {}
+
 }

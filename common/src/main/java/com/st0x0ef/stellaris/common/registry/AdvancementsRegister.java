@@ -22,4 +22,6 @@ public class AdvancementsRegister implements AdvancementSubProvider {
 
         AdvancementHolder advancementHolder2 = Builder.advancement().display((ItemLike) BlocksRegistry.MARS_SAND, Component.translatable("advancements.mars.root.title"), Component.translatable("advancements.mars.root.description"), BACKGROUND_TEXTURE, net.minecraft.advancements.AdvancementType.TASK, true, true, false).addCriterion("land on the mars", InventoryChangeTrigger.TriggerInstance.hasItems((ItemLike) ItemsRegistry.MARS_SAND)).save(writer, "mars/root");
     }
+
+    private AdvancementsRegister() {}
 }

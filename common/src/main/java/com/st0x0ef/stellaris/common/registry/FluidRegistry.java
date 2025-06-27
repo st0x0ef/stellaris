@@ -110,4 +110,6 @@ public class FluidRegistry {
         FLUIDS_INFOS.add(FUEL_ATTRIBUTES);
         FLUIDS_INFOS.add(DIESEL_ATTRIBUTES);
     }
+
+    private FluidRegistry() {}
 }

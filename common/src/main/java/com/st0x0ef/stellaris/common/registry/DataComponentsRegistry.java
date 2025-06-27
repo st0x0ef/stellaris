@@ -41,4 +41,5 @@ public class DataComponentsRegistry {
         return DATA_COMPONENT_TYPE.register(name, () -> builderOperator.apply(DataComponentType.builder()).build());
     }
 
+    private DataComponentsRegistry() {}
 }

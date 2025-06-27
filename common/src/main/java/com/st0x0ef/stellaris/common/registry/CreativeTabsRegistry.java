@@ -27,4 +27,6 @@ public class CreativeTabsRegistry {
                     () -> new ItemStack(ItemsRegistry.STEEL_BLOCK_ITEM)
             )
     );
+
+    private CreativeTabsRegistry() {}
 }

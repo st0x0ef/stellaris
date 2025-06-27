@@ -18,4 +18,7 @@ public class SoundRegistry {
     public static final RegistrySupplier<SoundEvent> WIND_SOUND = SOUNDS.register("wind", () -> SoundEvent.createVariableRangeEvent(ResourceLocationUtils.id("wind")));
     public static final RegistrySupplier<SoundEvent> RADIOACTIVE = SOUNDS.register("radioactive", () -> SoundEvent.createVariableRangeEvent(ResourceLocationUtils.id("radioactive")));
     public static final RegistrySupplier<SoundEvent> SONIC_BOOM_SOUND = SOUNDS.register("sonic_boom", () -> SoundEvent.createVariableRangeEvent(ResourceLocationUtils.id("sonic_boom")));
+
+    private SoundRegistry() {}
+
 }

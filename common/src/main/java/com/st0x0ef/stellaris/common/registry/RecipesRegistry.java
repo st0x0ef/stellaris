@@ -51,4 +51,7 @@ public class RecipesRegistry {
             return Stellaris.MODID + ":" + id;
         }
     }
+
+    private RecipesRegistry() {}
+
 }

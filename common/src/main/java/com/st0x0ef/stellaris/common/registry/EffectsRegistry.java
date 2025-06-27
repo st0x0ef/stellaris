@@ -37,4 +37,6 @@ public class EffectsRegistry {
         }
         return holder;
     }
+
+    private EffectsRegistry() {}
 }

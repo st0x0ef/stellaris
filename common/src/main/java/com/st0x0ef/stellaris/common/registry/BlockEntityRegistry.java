@@ -89,4 +89,5 @@ public class BlockEntityRegistry {
     public static final RegistrySupplier<BlockEntityType<AntennaBlockEntity>> ANTENNA = BLOCK_ENTITY_TYPE.register("antenna",
             () -> BlockEntityType.Builder.of(AntennaBlockEntity::new, BlocksRegistry.ANTENNA.get()).build(null));
 
+    private BlockEntityRegistry() {}
 }

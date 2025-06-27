@@ -8,4 +8,7 @@ public class ItemRendererRegistry {
 
     public static final GlobeItemRenderer GLOBE_ITEM_RENDERER = new GlobeItemRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
     public static final RoverItemRenderer ROVER_ITEM_RENDERER = new RoverItemRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
+
+    private ItemRendererRegistry() {}
+
 }

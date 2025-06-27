@@ -56,4 +56,6 @@ public class CapabilitiesRegistry {
         Capabilities.Fluid.ITEM.registerForItem(ItemsRegistry.T4_FLUID_TANK);
         Capabilities.Fluid.ITEM.registerForItem(ItemsRegistry.FLUID_CELL);
     }
+
+    private CapabilitiesRegistry() {}
 }

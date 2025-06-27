@@ -28,6 +28,7 @@ public abstract class ModuleRegistry {
         }
     }
 
+    private ModuleRegistry() {}
 
 
 }

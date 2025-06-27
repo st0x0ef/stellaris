@@ -455,4 +455,7 @@ public class ItemsRegistry {
 
         return list;
     }
+
+    private ItemsRegistry() {}
+
 }

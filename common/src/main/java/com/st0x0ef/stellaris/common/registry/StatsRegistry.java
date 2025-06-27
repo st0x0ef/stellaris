@@ -25,4 +25,7 @@ public class StatsRegistry {
         //Stats.CUSTOM.get(resourceLocation, formatter); // TODO : find a way to make this working on neoforge
         return supplier;
     }
+
+    private StatsRegistry() {}
+
 }

@@ -17,4 +17,7 @@ public class ParticleRegistry {
     public static final RegistrySupplier<ParticleType<SimpleParticleType>> LARGE_SMOKE_PARTICLE = PARTICLES.register("large_smoke", () -> new SimpleParticleType(true));
     public static final RegistrySupplier<ParticleType<SimpleParticleType>> SMALL_FLAME_PARTICLE = PARTICLES.register("small_flame", () -> new SimpleParticleType(true));
     public static final RegistrySupplier<ParticleType<SimpleParticleType>> SMALL_SMOKE_PARTICLE = PARTICLES.register("small_smoke", () -> new SimpleParticleType(true));
+
+    private ParticleRegistry() {}
+
 }
