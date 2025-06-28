@@ -2,6 +2,7 @@
 build/
 *.ipr
 run/
+server_run/
 *.iws
 out/
 *.iml
