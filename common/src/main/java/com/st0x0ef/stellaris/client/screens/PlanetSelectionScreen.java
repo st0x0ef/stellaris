@@ -639,7 +639,6 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
 
     public void tpToFocusedPlanet(Vec3 coords, ResourceLocation focusedBodyDimension) {
         if (focusedBody != null) {
-
             NetworkManager.sendToServer(new TeleportEntityToPlanetPacket(focusedBodyDimension, coords));
             long windowHandle = Minecraft.getInstance().getWindow().getWindow();
             prevScrollCallback = GLFW.glfwSetScrollCallback(windowHandle, Minecraft.getInstance().mouseHandler::onScroll);

@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.client.screens;
 
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.windows.MoveableWindow;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
