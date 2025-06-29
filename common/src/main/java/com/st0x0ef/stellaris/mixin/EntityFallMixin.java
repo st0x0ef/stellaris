@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Entity.class)
 public class EntityFallMixin {
 
-    @Inject( method = "tick", at = @At("HEAD"), remap = false)
+    @Inject( method = "tick", at = @At("HEAD"))
     public void entityFalling(CallbackInfo ci) {
         Entity entity = (Entity)(Object)this;
         Level level = entity.level();
@@ -29,6 +29,5 @@ public class EntityFallMixin {
                 Utils.changeDimensionWithVehicle(entity, mainPlanet, coordinates);
             }
         }
-
     }
 }
