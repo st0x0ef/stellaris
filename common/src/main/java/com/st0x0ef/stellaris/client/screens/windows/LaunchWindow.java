@@ -130,8 +130,6 @@ public class LaunchWindow extends MoveableWindow {
             return launchPads;
         }
 
-
-
         PlanetSelectionScreen.LAUNCH_PADS.launchPads()
                 .stream()
                 .filter((pad) -> pad.dimension().location().equals(planet.dimension()) || (planet.orbit().isPresent() && pad.dimension().location().equals(planet.orbit().get())))

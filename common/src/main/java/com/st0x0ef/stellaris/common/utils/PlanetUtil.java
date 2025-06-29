@@ -48,11 +48,32 @@ public class PlanetUtil {
         return p.get();
     }
 
+    public static Planet getPlanetFromOrbit(ResourceLocation orbit) {
+        AtomicReference<Planet> p = new AtomicReference<>();
+        StellarisData.getPlanets().forEach(planet -> {
+            if (planet.orbit().isPresent() && planet.orbit().get().equals(orbit)) {
+                p.set(planet);
+            }
+        });
+        return p.get();
+    }
+
     public static boolean isPlanet(ResourceLocation level) {
         AtomicBoolean isPlanet = new AtomicBoolean(false);
         StellarisData.getPlanets().forEach(planet -> {if (planet.dimension().equals(level)) isPlanet.set(true);});
 
         return isPlanet.get();
+    }
+
+    public static boolean isOrbit(ResourceLocation level) {
+        AtomicBoolean isOrbit = new AtomicBoolean(false);
+        StellarisData.getPlanets().forEach(planet -> {
+            if (planet.orbit().isPresent() && planet.orbit().get().equals(level)) {
+                isOrbit.set(true);
+            }
+        });
+
+        return isOrbit.get();
     }
 
     public static void ifPlanet(ResourceLocation level, Consumer<Planet> planetRunnable) {

@@ -14,7 +14,9 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractScrollWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 import org.joml.Vector4i;
 
 import java.util.ArrayList;
@@ -94,16 +96,23 @@ public class LaunchPadsList extends AbstractScrollWidget {
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-
         if(launchPadMap != null) {
             for(Map.Entry<Vector4i, LaunchPadWidget> entry : launchPadMap.entrySet()) {
                 Vector4i pos = entry.getKey();
                 LaunchPad launchPad = entry.getValue().launchPad;
+                ResourceKey<Level> dimension = launchPad.dimension();
 
                 if (Utils.isHoveredOnSprite(pos.x, (int) (pos.y - this.scrollAmount()), pos.z, pos.w, (int) mouseX, (int) mouseY) && window.parent.windowIndex != -1) {
-                    if(this.window.parent.canLaunch(PlanetUtil.getPlanet(this.window.celestialBody.dimension))) {
-                        this.window.parent.tpToFocusedPlanet(launchPad.position(), this.window.celestialBody.dimension);
+                    if (PlanetUtil.isPlanet(dimension.location())) {
+                        if (this.window.parent.canLaunch(PlanetUtil.getPlanet(dimension.location()))) {
+                            this.window.parent.tpToFocusedPlanet(launchPad.position(), dimension.location());
+                        }
+                    } else if (PlanetUtil.isOrbit(dimension.location())) {
+                        if (this.window.parent.canLaunch(PlanetUtil.getPlanetFromOrbit(dimension.location()))) {
+                            this.window.parent.tpToFocusedPlanet(launchPad.position(), dimension.location());
+                        }
                     }
+
                     return true;
                 }
             }
