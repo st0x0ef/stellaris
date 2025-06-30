@@ -82,7 +82,12 @@ public class GalaxyScreen extends AbstractContainerScreen<GalaxyMenu> {
     public void onClose() {
         long windowHandle = Minecraft.getInstance().getWindow().getWindow();
         GLFW.glfwSetScrollCallback(windowHandle, Minecraft.getInstance().mouseHandler::onScroll);
+
         super.onClose();
+
+        if(this.menu.getPlayer().stellaris$isPlanetMenuOpen()) {
+            NetworkManager.sendToServer(new OpenPlanetScreenPacket(GALAXY.get(selectedGalaxyIndex).id()));
+        }
     }
 
     public static GalaxyInfo findByNameGalaxy(String id) {
