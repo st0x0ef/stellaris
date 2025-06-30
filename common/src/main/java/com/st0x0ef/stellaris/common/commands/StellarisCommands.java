@@ -223,21 +223,21 @@ public class StellarisCommands {
                                                     LaunchPad launchPad = LaunchPadUtils.getPadByNameAndPlayer(StringArgumentType.getString(context, "launchpad"), context.getSource().getPlayer());
 
                                                     if(launchPad == null) {
-                                                        context.getSource().sendFailure(Component.literal("This launchpad don't exist or is not yours"));
+                                                        context.getSource().sendFailure(Component.translatable("message.stellaris.launchpad_dont_exist"));
                                                         return 0;
                                                     } else if(!launchPad.owner().equals(player.getName().getString())) {
-                                                        context.getSource().sendFailure(Component.literal("This launchpad is yours"));
+                                                        context.getSource().sendFailure(Component.translatable("message.stellaris.launchpad_not_yours"));
                                                         return 0;
                                                     }
                                                     else if(context.getSource().getPlayer().getName().equals(player.getName())) {
-                                                         context.getSource().sendFailure(Component.literal("You can't share your launchpad to yourself"));
+                                                         context.getSource().sendFailure(Component.translatable("message.stellaris.launchpad_share_yourself"));
                                                          return 0;
-                                                    } else if(launchPad.whitelist().contains(player.getName().getString())) {
+                                                    } else if(launchPad.whitelist().contains(player.getDisplayName().getString())) {
                                                         context.getSource().sendFailure(Component.literal("Player " + player.getName().getString() + " already has access to this launchpad"));
                                                         return 0;
                                                     }
                                                     LaunchPadLauncher.modifyLaunchPad(LaunchPadUtils.whitelistPlayer(launchPad, player), context.getSource().getServer());
-                                                    context.getSource().sendSuccess(() -> Component.translatable(""), false);
+                                                    context.getSource().sendSuccess(() -> Component.translatable("message.stellaris.launchpad_share_success", player.getName(), launchPad.name()), false);
 
                                                     return Command.SINGLE_SUCCESS;
                                                 })

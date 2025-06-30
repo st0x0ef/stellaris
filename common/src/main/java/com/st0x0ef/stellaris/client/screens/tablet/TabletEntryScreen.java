@@ -94,11 +94,10 @@ public class TabletEntryScreen extends Screen {
                 nextButton.setSize(16, 16);
                 backButton.setSize(16, 16);
 
-                homeButton.tex(HOME_BUTTON, HOME_BUTTON_HOVER);
                 backButton.tex(BACK_ARROW, BACK_ARROW_HOVER);
                 nextButton.tex(NEXT_ARROW, NEXT_ARROW_HOVER);
                 homeButton.setSize(16, 16);
-                homeButton.tex(HOME_BUTTON, SMALL_HOME_BUTTON_HOVER);
+                homeButton.tex(HOME_BUTTON, HOME_BUTTON_HOVER);
                 homeButton.setPosition(this.leftPos + 18, this.topPos + 22);
 
             }
