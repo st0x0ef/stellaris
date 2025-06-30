@@ -8,6 +8,7 @@ import com.mojang.math.Axis;
 import com.st0x0ef.stellaris.common.blocks.FlagBlock;
 import com.st0x0ef.stellaris.common.blocks.entities.FlagBlockEntity;
 import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
+import net.minecraft.FileUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
@@ -95,39 +96,40 @@ public class FlagBlockRenderer implements BlockEntityRenderer<FlagBlockEntity> {
         this.base.render(poseStack, bufferSource.getBuffer(RenderType.entityCutout(texture)), packedLight, packedOverlay);
 
 
-
-
-
         if(direction == Direction.WEST || direction == Direction.EAST) {
             poseStack.mulPose(Axis.YP.rotationDegrees(90));
         }
-        this.flag.render(poseStack, bufferSource.getBuffer(RenderType.entityCutoutNoCullZOffset(texture)), packedLight, packedOverlay);
         this.pole.render(poseStack, bufferSource.getBuffer(RenderType.entityCutout(texture)), packedLight, packedOverlay);
-
-        Map<Direction, Vector4d> rotationMap = Map.of(
-                Direction.NORTH, new Vector4d(-180, 1.13D, 2.05D, 0.7D),
-                Direction.SOUTH, new Vector4d(-180, 1.13D, 2.05D, 0.8D),
-
-                Direction.WEST, new Vector4d(90, 0.7D, 2D, 1.2D),
-                Direction.EAST, new Vector4d(90, 0.8D, 2D, 1.2D)
-
-        );
+        this.flag.render(poseStack, bufferSource.getBuffer(RenderType.entityCutoutNoCullZOffset(texture)), packedLight, packedOverlay);
 
         poseStack.popPose();
 
-        for(Direction dir : List.of(direction.getOpposite(), direction)) {
-            poseStack.pushPose();
+        if(true) {
+            Map<Direction, Vector4d> rotationMap = Map.of(
+                    Direction.NORTH, new Vector4d(-180, 1.13D, 2.05D, 0.7D),
+                    Direction.SOUTH, new Vector4d(-180, 1.13D, 2.05D, 0.8D),
 
-            Vector4d directionInfo = rotationMap.get(dir);
-            poseStack.translate(directionInfo.y, directionInfo.z, directionInfo.w);
+                    Direction.WEST, new Vector4d(90, 0.7D, 2D, 1.2D),
+                    Direction.EAST, new Vector4d(90, 0.8D, 2D, 1.2D)
+            );
 
-            var testProfile = new ResolvableProfile(new GameProfile(UUID.fromString("fe40f09c-fdaa-497f-8e2b-bed31180bfbd"), "TATHAN_06"));
-            RenderType renderType = SkullBlockRenderer.getRenderType(SkullBlock.Types.PLAYER, testProfile);
 
-            renderSkull((float) directionInfo.x, 0.0F, poseStack, bufferSource, packedLight, SkullBlock.Types.PLAYER, renderType);
+            for(Direction dir : List.of(direction.getOpposite(), direction)) {
+                poseStack.pushPose();
 
-            poseStack.popPose();
+                Vector4d directionInfo = rotationMap.get(dir);
+                poseStack.translate(directionInfo.y, directionInfo.z, directionInfo.w);
+
+                var testProfile = new ResolvableProfile(new GameProfile(UUID.fromString("fe40f09c-fdaa-497f-8e2b-bed31180bfbd"), "TATHAN_06"));
+                RenderType renderType = SkullBlockRenderer.getRenderType(SkullBlock.Types.PLAYER, testProfile);
+
+                renderSkull((float) directionInfo.x, 0.0F, poseStack, bufferSource, packedLight, SkullBlock.Types.PLAYER, renderType);
+
+                poseStack.popPose();
+            }
+        } else {
         }
+
 
     }
 

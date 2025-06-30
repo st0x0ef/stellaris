@@ -3,8 +3,6 @@
   "injected_interfaces": {
     "net/minecraft/class_2791": ["com/st0x0ef/stellaris/common/oil/ChunkOilLevelGetter"],
     "net/minecraft/class_1657": ["com/st0x0ef/stellaris/common/utils/CustomPlayerData"],
-    "net/minecraft/class_342": ["com/st0x0ef/stellaris/client/screens/components/CustomTexture"],
-    "net/minecraft/class_746": ["com/st0x0ef/stellaris/injects/LocalPlayerScreenOpener"]
-
+    "net/minecraft/class_342": ["com/st0x0ef/stellaris/client/screens/components/CustomTexture"]
   }
 }

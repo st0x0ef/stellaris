@@ -21,7 +21,7 @@ public class CustomCheckBox extends AbstractButton {
     private ResourceLocation checkTexture = ResourceLocation.withDefaultNamespace("widget/checkbox");;
 
     public boolean selected;
-    private final CustomCheckBox.OnValueChange onValueChange;
+    private CustomCheckBox.OnValueChange onValueChange;
     private final MultiLineTextWidget textWidget;
 
     private boolean text = true;
@@ -48,6 +48,11 @@ public class CustomCheckBox extends AbstractButton {
     public CustomCheckBox setTexture(ResourceLocation texture, ResourceLocation checkTexture) {
         this.texture = texture;
         this.checkTexture = checkTexture;
+        return this;
+    }
+
+    public CustomCheckBox setOnValueChange(OnValueChange onValueChange) {
+        this.onValueChange = onValueChange;
         return this;
     }
 

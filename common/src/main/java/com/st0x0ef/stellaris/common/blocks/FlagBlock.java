@@ -2,14 +2,25 @@ package com.st0x0ef.stellaris.common.blocks;
 
 import com.mojang.serialization.MapCodec;
 import com.st0x0ef.stellaris.common.blocks.entities.FlagBlockEntity;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.AntennaBlockEntity;
+import com.st0x0ef.stellaris.common.blocks.machines.BaseMachineBlock;
+import com.st0x0ef.stellaris.common.menus.AntennaMenu;
+import com.st0x0ef.stellaris.common.menus.FlagUploadMenu;
+import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
+import dev.architectury.registry.menu.ExtendedMenuProvider;
+import io.netty.buffer.Unpooled;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ResolvableProfile;
@@ -18,11 +29,10 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
@@ -33,10 +43,10 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class FlagBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
+
+public class FlagBlock extends BaseMachineBlock implements SimpleWaterloggedBlock {
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 
     public FlagBlock(Properties properties) {
         super(properties);
@@ -57,6 +67,33 @@ public class FlagBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
         return Shapes.box((double) 7 / 16, 0, (double) 7 / 16, (double) 9 / 16, 3, (double) 9 / 16);
     }
 
+    @Nullable
+    @Override
+    protected ExtendedMenuProvider getMenuProvider(BlockState state, Level level, BlockPos pos) {
+        BlockEntity blockEntity = level.getBlockEntity(pos);
+        if (blockEntity instanceof FlagBlockEntity flagBlockEntity) {
+            return new ExtendedMenuProvider() {
+                @Override
+                public void saveExtraData(FriendlyByteBuf buf) {
+                    buf.writeBlockPos(blockEntity.getBlockPos());
+                }
+
+                @Override
+                public Component getDisplayName() {
+                    return flagBlockEntity.getDisplayName();
+                }
+
+                @Override
+                public AbstractContainerMenu createMenu(int containerId, Inventory inventory, Player player) {
+                    FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.buffer());
+                    buf.writeBlockPos(blockEntity.getBlockPos());
+
+                    return FlagUploadMenu.create(containerId, inventory, buf);
+                }
+            };
+        }
+        return null;
+    }
 
     @Override
     public BlockState playerWillDestroy(Level worldIn, BlockPos pos, BlockState state, Player player) {
@@ -124,6 +161,16 @@ public class FlagBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
     }
 
     @Override
+    public BlockEntityType<?> getBlockEntityType() {
+        return BlockEntityRegistry.FLAG.get();
+    }
+
+    @Override
+    public boolean hasTicker(Level level) {
+        return false;
+    }
+
+    @Override
     protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
         state = state.setValue(WATERLOGGED, false);
         super.onPlace(state, level, pos, oldState, movedByPiston);
@@ -149,13 +196,6 @@ public class FlagBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
         stateBuilder.add(FACING, WATERLOGGED);
     }
 
-    @Override
-    protected @NotNull InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-        if (level.isClientSide) {
-            if (player.isLocalPlayer())
-                ((LocalPlayer) player).stellaris$OpenFlagScreen();
-        }
 
-        return InteractionResult.sidedSuccess(level.isClientSide);
-    }
+
 }

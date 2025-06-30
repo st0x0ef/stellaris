@@ -18,7 +18,6 @@
     "client.CustomEditBox",
     "client.HumanoidModelMixin",
     "client.LevelRendererMixin",
-    "client.LocalPlayerMixin",
     "client.PlayerRendererMixin"
   ],
   "injectors": {
