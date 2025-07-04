@@ -66,8 +66,9 @@ public class FluidTankBlock extends BaseMachineBlock {
             UniversalFluidStorage fluidStorage = provider.getFluidTank(stack);
             BlockEntity be = level.getBlockEntity(pos);
             if (fluidStorage != null) {
-                if (be instanceof FluidProvider.BLOCK fluidBlock)
-                    fluidBlock.getFluidTank(null).fill(fluidStorage.getFluidInTank(0), false);
+                if (be instanceof FluidTankBlockEntity fluidTankBlock) {
+                    fluidTankBlock.getFluidTank(null).fill(fluidStorage.getFluidInTank(0), false);
+                }
             }
         }
     }
