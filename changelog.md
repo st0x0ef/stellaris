@@ -28,6 +28,7 @@
 - Update almost all gui style
 - Change some machines' max energy capacity
 - Update the jet suit model
+- Vacuumator now need energy
 
 ## Fixes
 - Space suit crash when trying to put fuel in it

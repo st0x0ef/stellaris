@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.blocks;
 
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.machines.AntennaBlock;
 import com.st0x0ef.stellaris.common.registry.BlocksRegistry;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
@@ -157,8 +158,8 @@ public class RocketLaunchPad extends Block implements SimpleWaterloggedBlock {
         if (level.isClientSide) return InteractionResult.SUCCESS;
 
         if (state.getValue(STAGE)) {
-            if (level.getBlockState(pos.below()).getBlock() instanceof AntennaBlock antennaBlock) {
-                antennaBlock.useWithoutItem(state, level, pos.below(), player, hitResult);
+            if (!player.getItemInHand(InteractionHand.MAIN_HAND).is(ItemsRegistry.ROCKET.get()) && level.getBlockState(pos.below()).getBlock() instanceof AntennaBlock antennaBlock) {
+                return antennaBlock.useWithoutItem(state, level, pos.below(), player, hitResult);
             }
         }
         return super.useWithoutItem(state, level, pos, player, hitResult);
@@ -173,6 +174,9 @@ public class RocketLaunchPad extends Block implements SimpleWaterloggedBlock {
                 level.setBlock(pos.below(), BlocksRegistry.ANTENNA.get().defaultBlockState(), 3);
                 stack.shrink(1);
                 return ItemInteractionResult.SUCCESS;
+
+            } else if(stack.is(ItemsRegistry.ROCKET.get())) {
+                return ItemInteractionResult.FAIL;
             } else {
                 player.displayClientMessage(Component.literal("You can't place an antenna block here. The surface under the launchpad can't be repleaced."), false);
                 return ItemInteractionResult.FAIL;

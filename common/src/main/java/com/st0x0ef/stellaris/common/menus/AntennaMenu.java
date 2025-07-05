@@ -8,7 +8,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 
-public class AntennaMenu extends AbstractContainerMenu {
+public class AntennaMenu extends BaseContainer {
 
     private final Player player;
     private final AntennaBlockEntity blockEntity;
@@ -20,7 +20,7 @@ public class AntennaMenu extends AbstractContainerMenu {
     }
 
     public AntennaMenu(int containerId, Inventory inventory, AntennaBlockEntity blockEntity, int launchPadId) {
-        super(MenuTypesRegistry.ANTENNA_MENU.get(), containerId);
+        super(MenuTypesRegistry.ANTENNA_MENU.get(), containerId, 0, inventory, 10, 106);
         this.player = inventory.player;
         this.blockEntity = blockEntity;
         this.launchPadId = launchPadId;

@@ -133,27 +133,27 @@ public class TabletEntryProvider implements DataProvider {
 
                 )),
                 new TabletEntry.ItemInfo("star_crawler", "Star Crawler", "entity", List.of(
-                        new TabletEntry.InfoComponent("text", Optional.of("This is a [color=yellow]Star [color=yellow]Crawler. This monster mob can be found on the moon [br] [br] Stats : [br] - Health : 40 [br] - Speed : 0.4 [br] - Damage : 9"), Optional.empty(), Optional.empty(), Optional.empty()),
+                        new TabletEntry.InfoComponent("text", Optional.of("This is a [color=yellow]Star [color=yellow]Crawler. This monster mob can be found on the [ref=planets:moon]moon [br] [br] Stats : [br] - Health : 40 [br] - Speed : 0.4 [br] - Damage : 9"), Optional.empty(), Optional.empty(), Optional.empty()),
                         new TabletEntry.InfoComponent("entity", Optional.empty(), Optional.empty(), Optional.empty(), Optional.of(new TabletEntry.EntityComponent(entryLocation("star_crawler"), 25)))
 
                 )),
                 new TabletEntry.ItemInfo("martian_raptor", "Martian Raptor", "entity", List.of(
-                        new TabletEntry.InfoComponent("text", Optional.of("This is a [color=yellow]Martian [color=yellow]Raptor. This creature live on Mars [br] [br] Stats : [br] - Health : 20 [br] - Speed : 0.3 [br] - Damage : 3"), Optional.empty(), Optional.empty(), Optional.empty()),
+                        new TabletEntry.InfoComponent("text", Optional.of("This is a [color=yellow]Martian [color=yellow]Raptor. This agressive creature live on [ref=planets:mars]Mars [br] [br] Stats : [br] - Health : 20 [br] - Speed : 0.3 [br] - Damage : 3"), Optional.empty(), Optional.empty(), Optional.empty()),
                         new TabletEntry.InfoComponent("entity", Optional.empty(), Optional.empty(), Optional.empty(), Optional.of(new TabletEntry.EntityComponent(entryLocation("martian_raptor"), 25)))
 
                 )),
                 new TabletEntry.ItemInfo("pygro", "Pygro", "entity", List.of(
-                        new TabletEntry.InfoComponent("text", Optional.of("This is a [color=yellow]Pygro. [br] [br] Stats : [br] - Health : 16 [br] - Speed : 0.35 [br]"), Optional.empty(), Optional.empty(), Optional.empty()),
+                        new TabletEntry.InfoComponent("text", Optional.of("This is a [color=yellow]Pygro. This passive creature live on [ref=planets:mercury]Mercury [br] [br] Stats : [br] - Health : 16 [br] - Speed : 0.35 [br]"), Optional.empty(), Optional.empty(), Optional.empty()),
                         new TabletEntry.InfoComponent("entity", Optional.empty(), Optional.empty(), Optional.empty(), Optional.of(new TabletEntry.EntityComponent(entryLocation("pygro"), 25)))
 
                 )),
                 new TabletEntry.ItemInfo("pygro_brute", "Pygro Brute", "entity", List.of(
-                        new TabletEntry.InfoComponent("text", Optional.of("This is a [color=yellow]Pygro [color=yellow]Brute. [br] [br] Stats : [br] - Health : 16 [br] - Speed : 0.35 [br] - Damage : 5"), Optional.empty(), Optional.empty(), Optional.empty()),
+                        new TabletEntry.InfoComponent("text", Optional.of("This is a [color=yellow]Pygro [color=yellow]Brute. This aggressive creature live on [ref=planets:mercury]Mercury. [br] [br] Stats : [br] - Health : 16 [br] - Speed : 0.35 [br] - Damage : 5"), Optional.empty(), Optional.empty(), Optional.empty()),
                         new TabletEntry.InfoComponent("entity", Optional.empty(), Optional.empty(), Optional.empty(), Optional.of(new TabletEntry.EntityComponent(entryLocation("pygro_brute"), 25)))
 
                 )),
                 new TabletEntry.ItemInfo("mogler", "Mogler", "entity", List.of(
-                        new TabletEntry.InfoComponent("text", Optional.of("This is a Mogler. This aggressive creature live on venus.  [br] [br] Stats : [br] - Health : 40 [br] - Speed : 0.3 [br] - Damage : 6"), Optional.empty(), Optional.empty(), Optional.empty()),
+                        new TabletEntry.InfoComponent("text", Optional.of("This is a [color=yellow]Mogler. This aggressive creature live on [ref=planets:venus]venus.  [br] [br] Stats : [br] - Health : 40 [br] - Speed : 0.3 [br] - Damage : 6"), Optional.empty(), Optional.empty(), Optional.empty()),
                         new TabletEntry.InfoComponent("entity", Optional.empty(), Optional.empty(), Optional.empty(), Optional.of(new TabletEntry.EntityComponent(entryLocation("mogler"), 25)))
 
                 ))
@@ -190,7 +190,7 @@ public class TabletEntryProvider implements DataProvider {
                 new TabletEntry.ItemInfo("rocket_station", "Rocket Station", "item", List.of(
                         new TabletEntry.InfoComponent("text", Optional.of("One of the first block you need, is the Rocket Station. This allow you to build the rocket with all the parts needed."), Optional.empty(), Optional.empty(), Optional.empty()),
                         new TabletEntry.InfoComponent("item", Optional.empty(), Optional.empty(), Optional.of(new TabletEntry.ItemComponent(new ItemStack(ItemsRegistry.ROCKET_STATION), 32, Optional.empty())), Optional.empty()),
-                        new TabletEntry.InfoComponent("image", Optional.empty(), Optional.of(new TabletEntry.ImageComponent(entryLocation("textures/gui/tablet/images/rocket_station"), 128, 64)), Optional.empty(), Optional.empty())
+                        new TabletEntry.InfoComponent("image", Optional.empty(), Optional.of(new TabletEntry.ImageComponent(entryLocation("textures/gui/tablet/images/rocket_station"), 166, 125)), Optional.empty(), Optional.empty())
                 )),
                 new TabletEntry.ItemInfo("tiny_rocket", "Tiny Rocket Model", "item", List.of(
                         new TabletEntry.InfoComponent("text", Optional.of("This is the basic rocket. [br] [br] Can transport 1 entity"), Optional.empty(), Optional.empty(), Optional.empty()),

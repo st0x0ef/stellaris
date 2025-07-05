@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.client.screens.components;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
 import com.st0x0ef.stellaris.client.screens.tablet.TabletEntry;
 import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
@@ -66,6 +67,7 @@ public class TabletButton extends Button {
             case "entity":
                 info.components().stream().filter((c) -> c.type().equals("entity")).findFirst().ifPresent((entity) -> {
                     Entity entity1 = ScreenHelper.createEntity(Minecraft.getInstance().level, entity.entity().get().entity());
+                    Stellaris.LOG.info("Entity: " + entity1.getDisplayName());
                     this.tooltip(Tooltip.create(entity1.getDisplayName()));
                 });
         }

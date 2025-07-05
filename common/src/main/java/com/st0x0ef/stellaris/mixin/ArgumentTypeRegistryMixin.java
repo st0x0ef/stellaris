@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ArgumentTypeInfos.class)
 public class ArgumentTypeRegistryMixin {
 
-    @Inject(method = "bootstrap", at = @At("HEAD"), remap = false)
+    @Inject(method = "bootstrap", at = @At("HEAD"))
     private static void registerArgument(Registry<ArgumentTypeInfo<?, ?>> registry, CallbackInfoReturnable<ArgumentTypeInfo<?, ?>> cir) {
         ArgumentTypeInfos.register(registry, "launch_pad", LaunchPadArgument.class, SingletonArgumentInfo.contextFree(LaunchPadArgument::create));
     }

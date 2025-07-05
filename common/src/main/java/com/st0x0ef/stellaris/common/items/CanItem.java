@@ -47,8 +47,6 @@ public class CanItem extends Item implements CustomTabletEntry {
         int canNutrition = getNutrition(canStack) + getNutrition(foodStack);
         if (canNutrition <= ((CanItem) canStack.getItem()).getMaxNutrition()) {
             setFoodProperties(canStack, new FoodProperties(canNutrition, Math.round((getSaturation(canStack) + getSaturation(foodStack)) * 10F) / 10F, false, 1.6F, Optional.empty(), List.of()));
-
-
             return true;
         }
         return false;

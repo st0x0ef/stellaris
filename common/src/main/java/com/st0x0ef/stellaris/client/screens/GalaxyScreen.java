@@ -12,7 +12,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -24,8 +23,6 @@ import org.lwjgl.glfw.GLFW;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.st0x0ef.stellaris.common.utils.Utils.isHoveredOnSprite;
 
 @Environment(EnvType.CLIENT)
 public class GalaxyScreen extends AbstractContainerScreen<GalaxyMenu> {
@@ -85,7 +82,12 @@ public class GalaxyScreen extends AbstractContainerScreen<GalaxyMenu> {
     public void onClose() {
         long windowHandle = Minecraft.getInstance().getWindow().getWindow();
         GLFW.glfwSetScrollCallback(windowHandle, Minecraft.getInstance().mouseHandler::onScroll);
+
         super.onClose();
+
+        if(this.menu.getPlayer().stellaris$isPlanetMenuOpen()) {
+            NetworkManager.sendToServer(new OpenPlanetScreenPacket(GALAXY.get(selectedGalaxyIndex).id()));
+        }
     }
 
     public static GalaxyInfo findByNameGalaxy(String id) {

@@ -44,7 +44,7 @@
       "components": [
         {
           "type": "text",
-          "text": "This is a [color=yellow]Star [color=yellow]Crawler. This monster mob can be found on the moon [br] [br] Stats : [br] - Health : 40 [br] - Speed : 0.4 [br] - Damage : 9"
+          "text": "This is a [color=yellow]Star [color=yellow]Crawler. This monster mob can be found on the [ref=planets:moon]moon [br] [br] Stats : [br] - Health : 40 [br] - Speed : 0.4 [br] - Damage : 9"
         },
         {
           "type": "entity",
@@ -62,7 +62,7 @@
       "components": [
         {
           "type": "text",
-          "text": "This is a [color=yellow]Martian [color=yellow]Raptor. This creature live on Mars [br] [br] Stats : [br] - Health : 20 [br] - Speed : 0.3 [br] - Damage : 3"
+          "text": "This is a [color=yellow]Martian [color=yellow]Raptor. This agressive creature live on [ref=planets:mars]Mars [br] [br] Stats : [br] - Health : 20 [br] - Speed : 0.3 [br] - Damage : 3"
         },
         {
           "type": "entity",
@@ -80,7 +80,7 @@
       "components": [
         {
           "type": "text",
-          "text": "This is a [color=yellow]Pygro. [br] [br] Stats : [br] - Health : 16 [br] - Speed : 0.35 [br]"
+          "text": "This is a [color=yellow]Pygro. This passive creature live on [ref=planets:mercury]Mercury [br] [br] Stats : [br] - Health : 16 [br] - Speed : 0.35 [br]"
         },
         {
           "type": "entity",
@@ -98,7 +98,7 @@
       "components": [
         {
           "type": "text",
-          "text": "This is a [color=yellow]Pygro [color=yellow]Brute. [br] [br] Stats : [br] - Health : 16 [br] - Speed : 0.35 [br] - Damage : 5"
+          "text": "This is a [color=yellow]Pygro [color=yellow]Brute. This aggressive creature live on [ref=planets:mercury]Mercury. [br] [br] Stats : [br] - Health : 16 [br] - Speed : 0.35 [br] - Damage : 5"
         },
         {
           "type": "entity",
@@ -116,7 +116,7 @@
       "components": [
         {
           "type": "text",
-          "text": "This is a Mogler. This aggressive creature live on venus.  [br] [br] Stats : [br] - Health : 40 [br] - Speed : 0.3 [br] - Damage : 6"
+          "text": "This is a [color=yellow]Mogler. This aggressive creature live on [ref=planets:venus]venus.  [br] [br] Stats : [br] - Health : 40 [br] - Speed : 0.3 [br] - Damage : 6"
         },
         {
           "type": "entity",

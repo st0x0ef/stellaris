@@ -65,7 +65,9 @@ public class Utils {
     /** Should be call after teleporting the player */
     public static LanderEntity createLanderFromRocket(RocketEntity rocket, Vec3 coords, Level destination) {
         LanderEntity lander = new LanderEntity(destination);
-        lander.setPos(coords.x, coords.y, coords.z);
+        Vec3 landerOffset = new Vec3(0.5d, 0, -0.5d);
+
+        lander.setPos(coords.x + landerOffset.x, coords.y, coords.z + landerOffset.z);
         transfertInventory(rocket, lander);
 
         rocket.discard();
@@ -99,7 +101,7 @@ public class Utils {
                 }
 
                 LanderEntity lander = createLanderFromRocket(rocket, coords, getPlanetLevel(destination));
-                teleportEntity(serverPlayer, destination, coords);
+                teleportEntity(serverPlayer, destination, lander.getPassengerRidingPosition(serverPlayer));
                 player.awardStat(StatsRegistry.SPACE_TRAVEL.get(), Utils.distanceToPlanet(PlanetUtil.getPlanet(player.level().dimension().location()), destination));
 
                 serverPlayer.level().addFreshEntity(lander);
@@ -157,7 +159,7 @@ public class Utils {
                 }
             }
         }
-        LanderEntity lander = createLanderFromRocket( rocket, coords, getPlanetLevel(destination));
+        LanderEntity lander = createLanderFromRocket(rocket, coords, getPlanetLevel(destination));
         entities.getFirst().level().addFreshEntity(lander);
 
         for (Entity entity : entities) {
