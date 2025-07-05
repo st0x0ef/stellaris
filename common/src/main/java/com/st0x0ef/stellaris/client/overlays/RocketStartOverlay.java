@@ -10,6 +10,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 
+import java.util.Optional;
+import java.util.function.Consumer;
+
 public class RocketStartOverlay {
 
     public static final ResourceLocation TIMER_1 = ResourceLocationUtils.texture("overlay/timer/timer_1");
@@ -22,6 +25,13 @@ public class RocketStartOverlay {
     public static final ResourceLocation TIMER_8 = ResourceLocationUtils.texture("overlay/timer/timer_8");
     public static final ResourceLocation TIMER_9 = ResourceLocationUtils.texture("overlay/timer/timer_9");
     public static final ResourceLocation TIMER_10 = ResourceLocationUtils.texture("overlay/timer/timer_10");
+
+
+    private static final ResourceLocation[] TIMER_TEXTURES = {
+            TIMER_10, TIMER_9, TIMER_8, TIMER_7, TIMER_6,
+            TIMER_5, TIMER_4, TIMER_3, TIMER_2, TIMER_1
+    };
+
 
     public static void render(GuiGraphics graphics, DeltaTracker deltaTracker) {
         Minecraft mc = Minecraft.getInstance();
@@ -39,52 +49,26 @@ public class RocketStartOverlay {
                 if (!rocket.getEntityData().get(RocketEntity.ROCKET_START)) {
                     return;
                 }
-            }
 
-            int timerWidth = graphics.guiWidth() / 2 - 31;
-            int timerHeight = graphics.guiHeight() / 2 / 2;
+                int timerWidth = graphics.guiWidth() / 2 - 31;
+                int timerHeight = graphics.guiHeight() / 2 / 2;
 
-            /** TIMER */
-            if (timer > -1 && timer < 20) {
-                RenderSystem.setShaderTexture(0, TIMER_10);
-                graphics.blit(TIMER_10, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
-            }
-            else if (timer > 20 && timer < 40) {
-                RenderSystem.setShaderTexture(0, TIMER_9);
-                graphics.blit(TIMER_9, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
-            }
-            else if (timer > 40 && timer < 60) {
-                RenderSystem.setShaderTexture(0, TIMER_8);
-                graphics.blit(TIMER_8, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
-            }
-            else if (timer > 60 && timer < 80) {
-                RenderSystem.setShaderTexture(0, TIMER_7);
-                graphics.blit(TIMER_7, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
-            }
-            else if (timer > 80 && timer < 100) {
-                RenderSystem.setShaderTexture(0, TIMER_6);
-                graphics.blit(TIMER_6, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
-            }
-            else if (timer > 100 && timer < 120) {
-                RenderSystem.setShaderTexture(0, TIMER_5);
-                graphics.blit(TIMER_5, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
-            }
-            else if (timer > 120 && timer < 140) {
-                RenderSystem.setShaderTexture(0, TIMER_4);
-                graphics.blit(TIMER_4, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
-            }
-            else if (timer > 140 && timer < 160) {
-                RenderSystem.setShaderTexture(0, TIMER_3);
-                graphics.blit(TIMER_3, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
-            }
-            else if (timer > 160 && timer < 180) {
-                RenderSystem.setShaderTexture(0, TIMER_2);
-                graphics.blit(TIMER_2, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
-            }
-            else if (timer > 180 && timer < 200) {
-                RenderSystem.setShaderTexture(0, TIMER_1);
-                graphics.blit(TIMER_1, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
+
+                /** TIMER */
+                renderTimer(timer, timerWidth, timerHeight, texture -> {
+                    RenderSystem.setShaderTexture(0, texture);
+                    graphics.blit(texture, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
+                });
             }
         }
+    }
+
+    private static void renderTimer(int timer, int timerWidth, int timerHeight, Consumer<ResourceLocation> render) {
+        Optional.of(timer)
+                .filter(t -> t >= 0 && t < 200)
+                .map(t -> 9 - (t / 20))
+                .filter(idx -> idx >= 0 && idx < TIMER_TEXTURES.length)
+                .map(idx -> TIMER_TEXTURES[idx])
+                .ifPresent(render::accept);
     }
 }
