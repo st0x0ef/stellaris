@@ -29,6 +29,7 @@
 - Change some machines' max energy capacity
 - Update the jet suit model
 - Vacuumator now need energy
+- Vanilla crops can now only be placed in space if there is oxygen
 
 ## Fixes
 - Space suit crash when trying to put fuel in it
