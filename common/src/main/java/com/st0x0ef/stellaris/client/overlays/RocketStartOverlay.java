@@ -28,8 +28,8 @@ public class RocketStartOverlay {
 
 
     private static final ResourceLocation[] TIMER_TEXTURES = {
-            TIMER_10, TIMER_9, TIMER_8, TIMER_7, TIMER_6,
-            TIMER_5, TIMER_4, TIMER_3, TIMER_2, TIMER_1
+            TIMER_1, TIMER_2, TIMER_3, TIMER_4, TIMER_5,
+            TIMER_6, TIMER_7, TIMER_8, TIMER_9, TIMER_10
     };
 
 
