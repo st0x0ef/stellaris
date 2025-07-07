@@ -73,7 +73,7 @@ public class PlaceStationPacket implements CustomPacketPayload {
                 );
 
                 LaunchPadLauncher.addLaunchPad(newPad, context.getPlayer().getServer());
-                NetworkManager.sendToServer(new TeleportEntityToPlanetPacket(packet.dimension, stationPosition));
+                TeleportEntityToPlanetPacket.teleportToPlanet(player, packet.dimension, stationPosition);
             }
         }
     }

@@ -52,13 +52,19 @@ public class TeleportEntityToPlanetPacket implements CustomPacketPayload {
         Planet planet = PlanetUtil.getPlanet(packet.dimension);
         Entity rocket = player.getVehicle();
 
-        if(PlanetSelectionServerEvents.LAUNCH_BUTTON.invoker().launchButton(player, planet, rocket, context) == EventResult.interruptTrue()) {
-            return;
+        if(PlanetSelectionServerEvents.LAUNCH_BUTTON.invoker().launchButton(player, planet, rocket, context) != EventResult.interruptTrue()) {
+            teleportToPlanet(player, packet.dimension, packet.coords);
         }
+
+    }
+
+    public static void teleportToPlanet(Player player, ResourceLocation dimension, Vec3 coords) {
+        Planet planet = PlanetUtil.getPlanet(dimension);
+        Entity rocket = player.getVehicle();
 
         if(planet != null ) {
             if(rocket == null) {
-                Utils.changeDimension(player, planet, packet.coords);
+                Utils.changeDimension(player, planet, coords);
                 return;
             }
 
@@ -67,12 +73,13 @@ public class TeleportEntityToPlanetPacket implements CustomPacketPayload {
                 Utils.changeDimension((Player) passengers.getFirst(), planet);
                 player.stellaris$setPlanetMenuOpen(false, (Player) passengers.getFirst(), true);
             } else {
-                Utils.changeDimensionForPlayers(rocket.getPassengers(), planet, packet.coords, true);
+                Utils.changeDimensionForPlayers(rocket.getPassengers(), planet, coords, true);
             }
 
         } else {
             Stellaris.LOG.error("Planet is null");
         }
+
     }
 
     @Override
