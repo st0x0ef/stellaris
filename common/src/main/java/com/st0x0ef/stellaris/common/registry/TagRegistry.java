@@ -48,4 +48,6 @@ public class TagRegistry {
     public static final TagKey<Block> ENERGY_BLOCK_TAG = TagKey.create(Registries.BLOCK, id("energy_block"));
     public static final TagKey<MobEffect> RADIOACTIVEEFFECT = TagKey.create(Registries.MOB_EFFECT, id("radioactive"));
     public static final TagKey<Block> INCORRECT_FOR_STEEL_TOOL = TagKey.create(Registries.BLOCK, id("incorrect_for_steel_tools"));
+    public static final TagKey<Block> ALIEN_CROPS = TagKey.create(Registries.BLOCK, id("alien_crops"));
+
 }
