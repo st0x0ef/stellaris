@@ -1,0 +1,64 @@
+{
+  "world": "stellaris:moon_orbit",
+  "id": "stellaris:moon_orbit",
+  "rain": true,
+  "fog_settings": {
+    "fog": true
+  },
+  "cloud_settings": {
+    "cloud": false,
+    "cloud_height": 192
+  },
+  "custom_vanilla_objects": {
+    "sun": true,
+    "sun_texture": "textures/environment/sun.png",
+    "sun_height": 450,
+    "sun_size": 200,
+    "moon": true,
+    "moon_phase": false,
+    "moon_texture": "stellaris:textures/environment/solar_system/earth.png",
+    "moon_height": 75,
+    "moon_size": 75
+  },
+  "sunrise_color": [255, 169, 91],
+  "stars": {
+    "vanilla": false,
+    "moving_stars": true,
+    "count": 30000,
+    "all_days_visible": true,
+    "scale": 0.05,
+    "color": [190, 160, -1],
+    "shooting_stars": {
+      "percentage": 999,
+      "random_lifetime": [
+        20,
+        90
+      ],
+      "scale": 0.1,
+      "speed": 0.6,
+      "rotation": 0,
+      "color": [190, 160, -1]
+
+    }
+  },
+  "sky_color": {
+    "custom_color": false,
+    "color": [255, 255, 255, 0]
+  },
+
+  "sky_type": "NORMAL",
+  "sky_objects": [
+    {
+      "texture": "stellaris:textures/environment/solar_system/moon.png",
+      "blend": false,
+      "size": 96.0,
+      "rotation": [
+        180.0,
+        0.0,
+        0.0
+      ],
+      "height": 100,
+      "rotation_type": "FIXED"
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 {
   "system": "solar_system",
   "level": "stellaris:moon",
+  "orbit": "stellaris:moon_orbit",
   "name": "Moon",
   "translatable": "stellaris.planet.moon",
   "oxygen": false,
