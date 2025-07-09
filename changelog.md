@@ -30,6 +30,7 @@
 - Update the jet suit model
 - Vacuumator now need energy
 - Vanilla crops can now only be placed in space if there is oxygen
+- Change earth's structures loot table
 
 ## Fixes
 - Space suit crash when trying to put fuel in it
