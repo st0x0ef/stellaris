@@ -8,7 +8,5 @@
   "parent": "stellaris:earth",
   "dimensionId": "stellaris:moon",
   "translatable": "text.stellaris.planetscreen.moon",
-  "id": "stellaris:moon",
-  "space_station": true
-
+  "id": "stellaris:moon"
 }
