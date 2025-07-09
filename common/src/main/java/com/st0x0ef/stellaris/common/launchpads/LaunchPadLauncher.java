@@ -48,7 +48,7 @@ public class LaunchPadLauncher {
                 JsonElement jsonElement = LaunchPad.LaunchPadContainer.toJson(defaults);
                 String launchpadsFile = Stellaris.GSON.toJson(jsonElement);
 
-                var launchpadsWrite = Files.newBufferedWriter(systemsFile);
+                BufferedWriter launchpadsWrite = Files.newBufferedWriter(systemsFile);
                 launchpadsWrite.write(launchpadsFile);
                 launchpadsWrite.close();
 

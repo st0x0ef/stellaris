@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.common.blocks;
 
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.machines.AntennaBlock;
 import com.st0x0ef.stellaris.common.registry.BlocksRegistry;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;

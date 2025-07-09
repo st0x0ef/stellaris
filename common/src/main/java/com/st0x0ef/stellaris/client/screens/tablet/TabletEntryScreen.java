@@ -241,8 +241,8 @@ public class TabletEntryScreen extends Screen {
 
         super.resize(minecraft, width, height);
 
-        var currentPage = this.currentPage;
-        var newScreen = new TabletEntryScreen(Component.translatable(entry.id()), screen, this.leftPos, this.topPos, entry);
+        String currentPage = this.currentPage;
+        TabletEntryScreen newScreen = new TabletEntryScreen(Component.translatable(entry.id()), screen, this.leftPos, this.topPos, entry);
         this.minecraft.setScreen(newScreen);
         if (!currentPage.equals("main")) {
             TabletEntry.ItemInfo info = TabletMainScreen.INFOS.get(ResourceLocation.parse(currentPage));

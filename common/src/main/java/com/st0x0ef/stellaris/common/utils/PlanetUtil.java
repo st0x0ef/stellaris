@@ -233,7 +233,7 @@ public class PlanetUtil {
         MutableComponent oxygenV = Component.literal(oxygen.getString());
 
 
-        var gravityValue = String.valueOf(planet.gravity());
+        String gravityValue = String.valueOf(planet.gravity());
 
         if (gravityValue.length() > 4) {
             gravityValue = gravityValue.substring(0, 4);

@@ -108,7 +108,7 @@ public class LaunchWindow extends MoveableWindow {
 
     @Override
     public Consumer<MoveableWindow> resize(Minecraft minecraft, int width, int height) {
-        var body = this.celestialBody;
+        CelestialBody body = this.celestialBody;
 
         return (window) -> {
             if(window instanceof LaunchWindow launchWindow) {

@@ -142,7 +142,7 @@ public class AntennaScreen extends AbstractContainerScreen<AntennaMenu> {
         if (this.nameBox.getValue().isEmpty() || this.nameBox.getValue().equals(" ")) return;
 
 
-        var create = false;
+        boolean create = false;
         if (this.pad == null) {
             this.pad = new LaunchPad(
                     LaunchPadUtils.getNextLaunchPadId(),

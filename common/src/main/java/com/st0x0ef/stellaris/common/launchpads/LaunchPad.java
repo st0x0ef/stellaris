@@ -95,15 +95,15 @@ public record LaunchPad(
 
 
     public static LaunchPad readFromBuffer(RegistryFriendlyByteBuf buffer) {
-        var id = buffer.readInt();
+        int id = buffer.readInt();
 
-        var position = buffer.readVec3();
-        var dimension = buffer.readResourceKey(Registries.DIMENSION);
-        var name = buffer.readUtf();
-        var isPublic = buffer.readBoolean();
+        Vec3 position = buffer.readVec3();
+        ResourceKey<Level> dimension = buffer.readResourceKey(Registries.DIMENSION);
+        String name = buffer.readUtf();
+        boolean isPublic = buffer.readBoolean();
 
-        var owner = buffer.readUtf();
-        var whitelistSize = buffer.readInt();
+        String owner = buffer.readUtf();
+        int whitelistSize = buffer.readInt();
 
         List<String> whitelist = new ArrayList<>();
 

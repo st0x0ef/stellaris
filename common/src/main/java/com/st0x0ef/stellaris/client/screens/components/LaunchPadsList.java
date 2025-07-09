@@ -154,7 +154,7 @@ public class LaunchPadsList extends AbstractScrollWidget {
         public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
             guiGraphics.blitSprite(GUISprites.WINDOW_BAR, this.x, this.y, window.getWidth() - 80, 30);
 
-            var smallPadName = this.launchPad.name().length() > 20 ? this.launchPad.name().substring(0, 20) + "..." : this.launchPad.name();
+            String smallPadName = this.launchPad.name().length() > 20 ? this.launchPad.name().substring(0, 20) + "..." : this.launchPad.name();
             guiGraphics.drawString(getFont(), smallPadName, this.x + 10, this.y + 10, Utils.getColorHexCode("white"));
 
             this.buttonPositions = new Vector4i(launchButton.getX(), launchButton.getY(), 50, 15);
