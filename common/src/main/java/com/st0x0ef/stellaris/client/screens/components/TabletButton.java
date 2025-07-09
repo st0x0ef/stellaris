@@ -67,7 +67,7 @@ public class TabletButton extends Button {
             case "entity":
                 info.components().stream().filter((c) -> c.type().equals("entity")).findFirst().ifPresent((entity) -> {
                     Entity entity1 = ScreenHelper.createEntity(Minecraft.getInstance().level, entity.entity().get().entity());
-                    Stellaris.LOG.info("Entity: " + entity1.getDisplayName());
+                    Stellaris.LOG.info("Entity: {}", entity1.getDisplayName());
                     this.tooltip(Tooltip.create(entity1.getDisplayName()));
                 });
         }

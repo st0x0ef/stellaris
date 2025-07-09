@@ -10,6 +10,7 @@ import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPad;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPadUtils;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -59,7 +60,7 @@ public class LaunchWindow extends MoveableWindow {
                         parent.setWindowVisible(1);
                     }
                 }
-        ).tex(Stellaris.id("textures/gui/util/buttons/space_station_button.png"), Stellaris.id("textures/gui/util/buttons/space_station_button_hover.png"));
+        ).tex(ResourceLocationUtils.id("textures/gui/util/buttons/space_station_button.png"), ResourceLocationUtils.id("textures/gui/util/buttons/space_station_button_hover.png"));
         spaceStationButton.setTooltip(Tooltip.create(Component.literal("Space Stations")));
 
         this.addWidget(spaceStationButton);

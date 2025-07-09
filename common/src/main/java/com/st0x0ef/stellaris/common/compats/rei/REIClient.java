@@ -8,7 +8,6 @@ import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
 import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
 import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
 import me.shedaniel.rei.api.client.registry.screen.ExclusionZones;
-import me.shedaniel.rei.api.client.registry.screen.ScreenRegistry;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 
 import java.util.List;
@@ -33,10 +32,5 @@ public class REIClient implements REIClientPlugin {
     @Override
     public void registerDisplays(DisplayRegistry registry) {
         registry.registerRecipeFiller(RocketStationRecipe.class, RocketStationRecipe.Type, RocketStationDisplay::new);
-    }
-
-    @Override
-    public void registerScreens(ScreenRegistry registry) {
-        REIClientPlugin.super.registerScreens(registry);
     }
 }
