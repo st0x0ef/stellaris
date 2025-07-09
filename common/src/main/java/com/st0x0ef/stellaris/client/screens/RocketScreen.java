@@ -57,7 +57,7 @@ public class RocketScreen extends AbstractContainerScreen<RocketMenu> {
 
         fuelGauge.updateAmount(rocket.getFuel());
         fuelGauge.updateCapacity(rocket.getTankCapacity());
-        fuelGauge.updateSprite(rocket.getRocketComponent().getFuelTexture());
+        fuelGauge.updateSprite(rocket.getRocketComponent().getFuelType().getFuelTexture());
 
         fuelGauge.renderTooltip(graphics, mouseX, mouseY, font);
     }
