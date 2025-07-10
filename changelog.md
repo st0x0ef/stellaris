@@ -37,3 +37,4 @@
 - Fix some module tooltip
 - Fix negative rocket bar
 - Fix space suit rendering
+- Fix gravity change when switching to another planet

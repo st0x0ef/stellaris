@@ -64,6 +64,7 @@ public abstract class LivingEntityMixin extends Entity {
     @Override
     public @Nullable Entity changeDimension(DimensionTransition transition) {
         stellaris$oxygenManager = GlobalOxygenManager.getInstance().getOrCreateDimensionManager((ServerLevel) level());
+        Utils.handleGravityChange(stellaris$livingEntity, level());
 
         return super.changeDimension(transition);
     }
