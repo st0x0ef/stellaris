@@ -102,7 +102,7 @@ public class GaugeWidget extends AbstractWidget {
     protected void updateWidgetNarration(NarrationElementOutput narrationElementOutput) {
     }
 
-    private double getProgress(Long amount, Long capacity) {
+    protected double getProgress(Long amount, Long capacity) {
         return Mth.clamp((double) amount / (double) capacity, 0.0D, 1.0D);
     }
 

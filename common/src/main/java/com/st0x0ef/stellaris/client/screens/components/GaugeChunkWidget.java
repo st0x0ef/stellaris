@@ -1,44 +1,38 @@
 package com.st0x0ef.stellaris.client.screens.components;
 
-import com.st0x0ef.stellaris.common.utils.Utils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.AbstractWidget;
-import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.client.renderer.texture.SpriteContents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Consumer;
-
 @Environment(EnvType.CLIENT)
-public class GaugeChunkWidget extends AbstractWidget {
+public class GaugeChunkWidget extends GaugeWidget {
 
-    protected long capacity;
-    protected long amount = 0L;
-    protected ResourceLocation sprite;
-    protected ResourceLocation overlay_sprite;
-    protected final Direction4 DIRECTION;
-    protected final int imageWidth;
-    protected final int imageHeight;
+    protected boolean spriteChanged;
 
-    public GaugeChunkWidget(int x, int y, int imageWidth, int imageHeight, int width, int height, Component message, ResourceLocation sprite, @Nullable ResourceLocation overlay_sprite, long capacity, Direction4 direction) {
-        super(x, y, width, height, message);
-        this.sprite = sprite;
-        this.overlay_sprite = overlay_sprite;
-        this.capacity = capacity;
-        this.DIRECTION = direction;
-        this.imageWidth = imageWidth;
-        this.imageHeight = imageHeight;
+    protected int imageWidth;
+    protected int imageHeight;
+
+    public GaugeChunkWidget(int x, int y, int width, int height, Component message, ResourceLocation sprite, @Nullable ResourceLocation overlay_sprite, long capacity, Direction4 direction) {
+        super(x, y, width, height, message, sprite, overlay_sprite, capacity, direction);
+
+        spriteChanged = true;
     }
 
     @Override
     protected void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+        if (spriteChanged) {
+            SpriteContents contents = guiGraphics.sprites.getSprite(sprite).contents();
+            this.imageHeight = contents.height();
+            this.imageWidth = contents.width();
+
+            spriteChanged = false;
+        }
+
         switch (DIRECTION) {
             case DOWN_UP -> {
                 int i = Mth.ceil(getProgress(amount, capacity) * (getHeight() - 1));
@@ -86,64 +80,9 @@ public class GaugeChunkWidget extends AbstractWidget {
         }
     }
 
-    public void renderTooltip(GuiGraphics graphics, int mouseX, int mouseY, Font font) {
-        this.renderTooltips(graphics, mouseX, mouseY, font, list -> {
-        });
-    }
-
-    public void renderTooltips(GuiGraphics graphics, int mouseX, int mouseY, Font font, Consumer<List<Component>> components) {
-        String GaugeComponent = getMessage().getString() + " : " + amount + " / " + this.capacity;
-        Component capacity;
-
-        if (amount >= this.capacity) {
-            capacity = Utils.getMessageComponent(GaugeComponent, "Lime");
-        }
-        else if (amount <= 0) {
-            capacity = Utils.getMessageComponent(GaugeComponent, "Red");
-        }
-        else {
-            capacity = Utils.getMessageComponent(GaugeComponent, "Orange");
-        }
-
-        List<Component> components1 = new ArrayList<>();
-        components.accept(components1);
-        components1.addFirst(capacity);
-        if (mouseX >= this.getX() && mouseX <= this.getX() + width && mouseY >= this.getY() && mouseY <= this.getY() + this.height) {
-            graphics.renderComponentTooltip(font, components1, mouseX, mouseY);
-        }
-    }
-
-    public void updateAmount(long value) {
-        this.amount = Math.clamp(value, 0, capacity);
-    }
-
-    public void updateCapacity(long capacity) {
-        this.capacity = capacity;
-        this.amount = Math.min(this.amount, capacity);
-    }
-
+    @Override
     public void updateSprite(ResourceLocation sprite) {
-        this.sprite = sprite;
+        super.updateSprite(sprite);
+        spriteChanged = true;
     }
-
-    @Override
-    protected void updateWidgetNarration(NarrationElementOutput narrationElementOutput) {
-    }
-
-    private double getProgress(Long amount, Long capacity) {
-        return Mth.clamp((double) amount / (double) capacity, 0.0D, 1.0D);
-    }
-
-    public enum Direction4 {
-        DOWN_UP,
-        UP_DOWN,
-        LEFT_RIGHT,
-        RIGHT_LEFT
-    }
-
-    @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        return false;
-    }
-
 }

@@ -1,11 +1,14 @@
 package com.st0x0ef.stellaris.client.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.st0x0ef.stellaris.client.screens.components.FluidGaugeWidget;
 import com.st0x0ef.stellaris.client.screens.components.GaugeWidget;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.FluidTankBlockEntity;
 import com.st0x0ef.stellaris.common.menus.FluidTankMenu;
 import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import com.st0x0ef.stellaris.common.utils.capabilities.fluid.SingleFluidStorage;
+import dev.architectury.core.fluid.ArchitecturyFluidAttributes;
+import dev.architectury.core.fluid.SimpleArchitecturyFluidAttributes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -19,7 +22,7 @@ public class FluidTankScreen extends AbstractContainerScreen<FluidTankMenu> {
     private static final ResourceLocation TEXTURE = ResourceLocationUtils.guiTexture("fluid_tank");
 
     private final FluidTankBlockEntity blockEntity = getMenu().getBlockEntity();
-    private GaugeWidget fluidGauge;
+    private FluidGaugeWidget fluidGauge;
 
     public FluidTankScreen(FluidTankMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
@@ -41,11 +44,10 @@ public class FluidTankScreen extends AbstractContainerScreen<FluidTankMenu> {
 
         Component tooltip = blockEntity.getFluidTank().isEmpty() ?
                 Component.translatable("stellaris.screen.empty_fluid") :
-                blockEntity.getFluidTank().getFluidInTank(0).getName();;
+                blockEntity.getFluidTank().getFluidInTank(0).getName();
 
-        SingleFluidStorage fluidStorage = blockEntity.getFluidTank();
-        fluidGauge = new GaugeWidget(leftPos + 84, topPos + 36, 12, 46, tooltip,
-                GUISprites.WATER_OVERLAY, GUISprites.FLUID_TANK_OVERLAY, fluidStorage.getTankCapacity(0), GaugeWidget.Direction4.DOWN_UP);
+        fluidGauge = new FluidGaugeWidget(leftPos + 84, topPos + 36, 12, 46, tooltip, blockEntity::getFluidTank, 0, GaugeWidget.Direction4.DOWN_UP)
+                .setOverlaySprite(GUISprites.FLUID_TANK_OVERLAY);
         addRenderableWidget(fluidGauge);
     }
 
@@ -55,11 +57,6 @@ public class FluidTankScreen extends AbstractContainerScreen<FluidTankMenu> {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
         renderTooltip(guiGraphics, mouseX, mouseY);
 
-        if (blockEntity == null) {
-            return;
-        }
-
-        fluidGauge.updateAmount(blockEntity.getFluidTank().getFluidValueInTank());
     }
 
     @Override
@@ -75,7 +72,7 @@ public class FluidTankScreen extends AbstractContainerScreen<FluidTankMenu> {
         super.renderTooltip(guiGraphics, x, y);
         Component tooltip = blockEntity.getFluidTank().isEmpty() ?
                 Component.translatable("stellaris.screen.empty_fluid") :
-                blockEntity.getFluidTank().getFluidInTank(0).getName();;
+                blockEntity.getFluidTank().getFluidInTank(0).getName();
         fluidGauge.setMessage(tooltip);
         fluidGauge.renderTooltip(guiGraphics, x, y, font);
     }

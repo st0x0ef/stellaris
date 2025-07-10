@@ -47,7 +47,7 @@ public class WaterSeparatorScreen extends AbstractContainerScreen<WaterSeparator
         }
 
         SingleFluidStorage ingredientTank = blockEntity.getIngredientTank();
-        ingredientTankGauge = new GaugeChunkWidget(leftPos + 53, topPos + 54, 12, 46, 76, 46, Component.translatable("stellaris.screen.water"), GUISprites.WATER_OVERLAY, GUISprites.WATER_SEPARATOR_OVERLAY, ingredientTank.getTankCapacity(0), GaugeChunkWidget.Direction4.DOWN_UP);
+        ingredientTankGauge = new GaugeChunkWidget(leftPos + 53, topPos + 54, 76, 46, Component.translatable("stellaris.screen.water"), GUISprites.WATER_OVERLAY, GUISprites.WATER_SEPARATOR_OVERLAY, ingredientTank.getTankCapacity(0), GaugeChunkWidget.Direction4.DOWN_UP);
         addRenderableWidget(ingredientTankGauge);
 
         FluidStorage resultTanks = blockEntity.getResultTanks();
