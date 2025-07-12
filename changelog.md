@@ -38,3 +38,4 @@
 - Fix negative rocket bar
 - Fix space suit rendering
 - Fix gravity change when switching to another planet
+- Fix cable send max capacity energy every tick

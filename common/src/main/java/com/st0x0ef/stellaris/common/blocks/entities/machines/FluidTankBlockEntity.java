@@ -87,7 +87,7 @@ public class FluidTankBlockEntity extends BaseContainerBlockEntity implements Fl
         if (!items.getLast().isEmpty())
             FluidUtil.moveFluidToItem(0, fluidTank, 1, items, 1000);
 
-        FluidUtil.distributeFluidNearby(level, worldPosition, fluidTank.getFluidInTank(0).copyWithAmount(fluidTank.getTankCapacity(0) / 20));
+        FluidUtil.distributeFluidNearby(level, worldPosition, fluidTank.getFluidInTank(0).copyWithAmount(fluidTank.getFluidValueInTank() / 20));
 
         //Update render stage
         renderStage = Math.toIntExact((fluidTank.getFluidValueInTank() * 9) / fluidTank.getTankCapacity(0));
