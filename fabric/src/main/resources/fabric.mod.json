@@ -7,7 +7,7 @@
   "authors": ["The Stellaris Team"],
   "contact": {},
   "license": "CC BY-NC-SA 4.0",
-  "icon": "assets/stellaris/logo.png",
+  "icon": "logo.png",
   "environment": "*",
   "entrypoints": {
     "main": [

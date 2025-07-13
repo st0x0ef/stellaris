@@ -630,11 +630,11 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
     }
 
     public void tpToFocusedPlanet() {
-        tpToFocusedPlanet(new Vec3(getPlayer().getX(), 600, getPlayer().getZ()), focusedBody.dimension);
+        tpToFocusedPlanet(new Vec3(getPlayer().getX(), Stellaris.CONFIG.rocketTpHeight, getPlayer().getZ()), focusedBody.dimension);
     }
 
     public void tpToFocusedPlanet(ResourceLocation dimension) {
-        tpToFocusedPlanet(new Vec3(getPlayer().getX(), 600, getPlayer().getZ()), dimension);
+        tpToFocusedPlanet(new Vec3(getPlayer().getX(), Stellaris.CONFIG.rocketTpHeight, getPlayer().getZ()), dimension);
     }
 
     public void tpToFocusedPlanet(Vec3 coords, ResourceLocation focusedBodyDimension) {

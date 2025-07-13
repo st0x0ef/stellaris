@@ -2,14 +2,12 @@ package com.st0x0ef.stellaris.common.config;
 
 
 public class CommonConfig {
-
-    public boolean debug = false;
-
     public float oxygenDamage = 2f;
 
     public int dieselGeneratorFuelTime = 20;
     public double orbitTeleportationYCoord = -10;
 
+    public int rocketTpHeight = 600;
 
     @ConfigManager.InnerConfig
     public Oil oilConfig = new Oil();
@@ -29,6 +27,4 @@ public class CommonConfig {
         public boolean customItemGravity = true;
 
     }
-
-
 }

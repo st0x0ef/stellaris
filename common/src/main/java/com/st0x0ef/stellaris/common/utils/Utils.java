@@ -84,7 +84,7 @@ public class Utils {
     }
 
     public static void changeDimension(Player player, Planet destination) {
-        changeDimension(player, destination, new Vec3((int) player.getX(), 600, (int) player.getZ()));
+        changeDimension(player, destination, new Vec3((int) player.getX(), Stellaris.CONFIG.rocketTpHeight, (int) player.getZ()));
     }
 
     /** To use with the planetSelection menu */
@@ -133,7 +133,7 @@ public class Utils {
 
     public static void changeDimensionForPlayers(List<Entity> entities, Planet destination, Vec3 coords, boolean setHeight) {
         if (setHeight) {
-            coords = new Vec3(coords.x, 600, coords.z);
+            coords = new Vec3(coords.x, Stellaris.CONFIG.rocketTpHeight, coords.z);
         }
         changeDimensionForPlayers(entities, destination, coords);
     }
