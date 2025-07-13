@@ -746,5 +746,5 @@
   "config.stellaris.rocketTpHeight.desc": "The height at which the rocket opens the teleportation screen. Default is 600 blocks.",
 
   "config.stellaris.orbitTeleportationYCoord": "Orbit Teleportation Y Coordinate",
-  "config.stellaris.orbitTeleportationYCoord.desc": "The Y coordinate at which the player will be teleported when using the orbit teleportation feature,",
+  "config.stellaris.orbitTeleportationYCoord.desc": "The Y coordinate at which the player will be teleported when using the orbit teleportation feature,"
 }
