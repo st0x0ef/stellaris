@@ -48,5 +48,14 @@
       ]
     }
   ],
+  "functions": [
+    {
+      "function": "minecraft:experience",
+      "experience": {
+        "min": 2,
+        "max": 5
+      }
+    }
+  ],
   "random_sequence": "minecraft:blocks/iron_ore"
 }
