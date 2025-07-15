@@ -68,16 +68,15 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
     public boolean dragging = false;
 
     public boolean isPausePressed = false;
-    private boolean isShiftPressed = false;
     private boolean isWheelButtonDown = false;
     public boolean isPlanetScreenOpened;
 
-    @Nullable public static CelestialBody focusedBody = null;
-    @Nullable public static CelestialBody hoveredBody = null;
+    @Nullable public CelestialBody focusedBody = null;
+    @Nullable public CelestialBody hoveredBody = null;
 
     private double zoomLevel = 1.0;
     private double targetZoomLevel = 1.0;
-    public boolean canZoom = true;
+    public boolean canZoom;
 
     private double targetOffsetX = 0;
     private double targetOffsetY = 0;
@@ -88,13 +87,14 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
     private final List<InvisibleButton> moonButtons = new ArrayList<>();
 
     public ArrayList<MoveableWindow> moveableWindows = new ArrayList<>();
+    private LaunchWindow launchWindow;
+    private SpaceStationWindow spaceStationWindow;
     public int windowIndex = -1;
 
     private int currentHighlighterFrame = 0;
     private final int totalHighlighterFrames = 30;
 
     private int leftArrowX, rightArrowX, arrowY, arrowWidth = 25, arrowHeight = 25;
-    private int upArrowX, downArrowX, verticalArrowY;
     private final int verticalArrowWidth = 20, verticalArrowHeight = 20;
 
     int galaxyWidth = 21;
@@ -131,19 +131,16 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
     }
 
     public void initWindows() {
-        LaunchWindow launchWindow = new LaunchWindow(300,200, Component.literal("eee"), this);
+        this.launchWindow = new LaunchWindow(300,200, Component.literal("Launch"), this);
         launchWindow.visible = false;
         addRenderableWidget(launchWindow);
         launchWindow.changeVisibility(false);
-
         moveableWindows.add(launchWindow);
 
-        SpaceStationWindow spaceStationWindow = new SpaceStationWindow(300,200, Component.literal("eee"), this);
-
+        this.spaceStationWindow = new SpaceStationWindow(300,200, Component.literal("Space Station"), this);
+        spaceStationWindow.visible = false;
         addRenderableWidget(spaceStationWindow);
         spaceStationWindow.changeVisibility(false);
-        spaceStationWindow.visible =false;
-
         moveableWindows.add(spaceStationWindow);
     }
 
@@ -203,15 +200,9 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
         }
 
         initTop(graphics, mouseX, mouseY);
-        etc();
         renderLaunchPads(graphics, mouseX, mouseY, partialTicks);
 
         this.renderTooltip(graphics, mouseX, mouseY);
-    }
-
-    /** just some stuffs group for common things**/
-    public void etc() {
-        if (focusedBody == findByNameMoon("stellaris:deimos") || focusedBody == findByNameMoon("stellaris:phobos")) focusedBody = findByNamePlanet("stellaris:mars");
     }
 
     public boolean canLaunch(Planet planet) {
@@ -262,10 +253,6 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
         leftArrowX = tgX + 7;
         rightArrowX = tgX + tgWidth - arrowWidth - 7;
         arrowY = tgY + (tgHeight - arrowHeight) / 2;
-
-        upArrowX = tgX + tgWidth + 10;
-        downArrowX = tgX - verticalArrowWidth - 10;
-        verticalArrowY = tgY + (tgHeight - verticalArrowHeight) / 2;
 
         boolean infoHovering = isHoveredOnSprite(infoX, infoY, infoWidth, infoHeight, mouseX, mouseY);
         boolean galaxyHovering = isHoveredOnSprite(galaxyX, galaxyY, galaxyWidth, galaxyHeight, mouseX, mouseY);
@@ -402,8 +389,6 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
             showHelpMenu = !showHelpMenu;
         } else if (keyCode == GLFW.GLFW_KEY_SPACE || keyCode == GLFW.GLFW_KEY_X) {
             isPausePressed = !isPausePressed;
-        } else if (keyCode == GLFW.GLFW_KEY_LEFT_SHIFT || keyCode == GLFW.GLFW_KEY_RIGHT_SHIFT) {
-            isShiftPressed = true;
         } else if (keyCode == GLFW.GLFW_KEY_RIGHT) {
             if (focusedBody == null) {
                 focusedBody = findByNameStar("stellaris:sun");
@@ -629,30 +614,20 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
         return i;
     }
 
-    public void tpToFocusedPlanet() {
-        tpToFocusedPlanet(new Vec3(getPlayer().getX(), Stellaris.CONFIG.rocketTpHeight, getPlayer().getZ()), focusedBody.dimension);
-    }
-
     public void tpToFocusedPlanet(ResourceLocation dimension) {
         tpToFocusedPlanet(new Vec3(getPlayer().getX(), Stellaris.CONFIG.rocketTpHeight, getPlayer().getZ()), dimension);
     }
 
     public void tpToFocusedPlanet(Vec3 coords, ResourceLocation focusedBodyDimension) {
-        if (focusedBody != null) {
+        if (focusedBodyDimension != null) {
             NetworkManager.sendToServer(new TeleportEntityToPlanetPacket(focusedBodyDimension, coords));
             long windowHandle = Minecraft.getInstance().getWindow().getWindow();
-            prevScrollCallback = GLFW.glfwSetScrollCallback(windowHandle, Minecraft.getInstance().mouseHandler::onScroll);
+            if (prevScrollCallback != null) {
+                GLFW.glfwSetScrollCallback(windowHandle, Minecraft.getInstance().mouseHandler::onScroll);
+            }
         } else {
-            Stellaris.LOG.error("Focused body is null");
+            Stellaris.LOG.error("Destination dimension for teleportation is null");
         }
-    }
-
-    @Override
-    public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
-        if (keyCode == GLFW.GLFW_KEY_LEFT_SHIFT || keyCode == GLFW.GLFW_KEY_RIGHT_SHIFT) {
-            isShiftPressed = false;
-        }
-        return super.keyReleased(keyCode, scanCode, modifiers);
     }
 
     private void updatePlanets() {
@@ -1094,8 +1069,8 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
                             moon.clickable) {
 
                         focusedBody = moon;
-                        ((LaunchWindow) this.moveableWindows.getFirst()).setCelestialBody(focusedBody);
-                        ((SpaceStationWindow) this.moveableWindows.get(1)).setCelestialBody(focusedBody);
+                        this.launchWindow.setCelestialBody(focusedBody);
+                        this.spaceStationWindow.setCelestialBody(focusedBody);
 
                         showSpaceStationMenu = true;
 
@@ -1125,8 +1100,8 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
                             mouseY >= planetY && mouseY <= planetY + planetHeight) {
 
                         focusedBody = planet;
-                        ((LaunchWindow) this.moveableWindows.getFirst()).setCelestialBody(focusedBody);
-                        ((SpaceStationWindow) this.moveableWindows.get(1)).setCelestialBody(focusedBody);
+                        this.launchWindow.setCelestialBody(focusedBody);
+                        this.spaceStationWindow.setCelestialBody(focusedBody);
 
                         showSpaceStationMenu = true;
 

@@ -31,8 +31,6 @@ import java.util.function.Consumer;
 public class SpaceStationWindow extends MoveableWindow {
 
     public final PlanetSelectionScreen parent;
-    @Nullable
-    public CelestialBody celestialBody = PlanetSelectionScreen.focusedBody;
 
     public SpaceStationRecipesManager.SpaceStationRecipeState spaceStationSelected;
 
@@ -99,8 +97,8 @@ public class SpaceStationWindow extends MoveableWindow {
     }
 
     public void onStationCreated() {
-        if(!this.nameBox.getValue().isEmpty() && this.spaceStationSelected != null && this.celestialBody != null && PlanetUtil.getPlanet(this.celestialBody.dimension) != null) {
-            Planet planet = PlanetUtil.getPlanet(this.celestialBody.dimension);
+        if(!this.nameBox.getValue().isEmpty() && this.spaceStationSelected != null && this.parent.focusedBody != null && PlanetUtil.getPlanet(this.parent.focusedBody.dimension) != null) {
+            Planet planet = PlanetUtil.getPlanet(this.parent.focusedBody.dimension);
 
             LaunchPad pad = new LaunchPad(
                     LaunchPadUtils.getNextLaunchPadId(),
@@ -113,12 +111,12 @@ public class SpaceStationWindow extends MoveableWindow {
                     this.parent.getPlayer().getName().getString(),
                     List.of()
             );
-            this.parent.onSpaceStationButtonClick(this.celestialBody, this.spaceStationSelected, pad);
+            this.parent.onSpaceStationButtonClick(this.parent.focusedBody, this.spaceStationSelected, pad);
         }
     }
 
     public void setCelestialBody(@Nullable CelestialBody celestialBody) {
-        this.celestialBody = celestialBody;
+        this.parent.focusedBody = celestialBody;
     }
 
 

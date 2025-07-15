@@ -31,7 +31,7 @@ public class LaunchWindow extends MoveableWindow {
 
     public final ArrayList<TexturedButton> spaceStationButtons = new ArrayList<>();
     public final PlanetSelectionScreen parent;
-    @Nullable public CelestialBody celestialBody = PlanetSelectionScreen.focusedBody;
+    @Nullable public CelestialBody celestialBody;
     public TexturedButton spaceStationButton;
 
     private LaunchPadsList padsList;
@@ -56,7 +56,7 @@ public class LaunchWindow extends MoveableWindow {
                 (getWindowX() + getWidth() / 2) + 73, getWindowY() + 18, 28, 18,
                 Component.literal(""),
                 (button) -> {
-                    if (celestialBody != null) {
+                    if (this.celestialBody != null) {
                         parent.setWindowVisible(1);
                     }
                 }
@@ -119,6 +119,10 @@ public class LaunchWindow extends MoveableWindow {
         };
     }
 
+    public void setCelestialBody(@Nullable CelestialBody celestialBody) {
+        this.celestialBody = celestialBody;
+    }
+
     public ArrayList<LaunchPad> getLaunchPadsForDimension() {
         ArrayList<LaunchPad> launchPads = new ArrayList<>();
 
@@ -170,10 +174,6 @@ public class LaunchWindow extends MoveableWindow {
         for(TexturedButton button : spaceStationButtons) {
             button.visible = visible;
         }
-    }
-
-    public void setCelestialBody(@Nullable CelestialBody celestialBody) {
-        this.celestialBody = celestialBody;
     }
 
     public String getErrorMessage() {
