@@ -14,11 +14,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class RocketStationDisplay extends BasicDisplay {
-
-    public RocketStationDisplay(List<EntryIngredient> inputs, List<EntryIngredient> outputs) {
-        super(inputs, outputs);
-    }
-
     public RocketStationDisplay(RecipeHolder<RocketStationRecipe> recipe) {
         super(getInputList(recipe.value()), List.of(EntryIngredient.of(EntryStacks.of(recipe.value().getResultItem(null)))));
     }

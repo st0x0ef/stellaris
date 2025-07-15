@@ -38,6 +38,7 @@ public class RecipesRegistry {
             FuelRefineryRecipe.Serializer::new
     );
 
+
     public static void register() {
         RECIPE_TYPES.register();
         RECIPE_SERIALIZERS.register();

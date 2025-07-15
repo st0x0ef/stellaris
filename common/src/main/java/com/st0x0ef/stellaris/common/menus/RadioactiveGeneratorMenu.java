@@ -1,7 +1,7 @@
 package com.st0x0ef.stellaris.common.menus;
 
 import com.st0x0ef.stellaris.common.blocks.entities.machines.RadioactiveGeneratorEntity;
-import com.st0x0ef.stellaris.common.menus.slot.RadioactiveGeneratorSlot;
+import com.st0x0ef.stellaris.common.menus.slot.RadioactiveSlot;
 import com.st0x0ef.stellaris.common.registry.MenuTypesRegistry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.Mth;
@@ -34,7 +34,7 @@ public class RadioactiveGeneratorMenu extends AbstractContainerMenu {
         this.entity = entity;
         this.data = data;
 
-        this.addSlot(new RadioactiveGeneratorSlot(inventory, 0, 66, 54));
+        this.addSlot(new RadioactiveSlot(inventory, 0, 68, 54));
 
         addPlayerHotbar(playerInventory);
         addPlayerInventory(playerInventory);

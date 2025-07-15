@@ -55,6 +55,8 @@ public class MoonPack extends SimpleJsonResourceReloadListener {
             );
 
             moon.clickable().ifPresent(screenMoon::setClickable);
+            moon.spaceStation().ifPresent(screenMoon::setSpaceStation);
+            moon.canLaunchOn().ifPresent(screenMoon::setCanLaunchOn);
 
             for (int i = 0; i < PlanetSelectionScreen.MOONS.size(); i++) {
                 if (PlanetSelectionScreen.MOONS.get(i).getId().equals(screenMoon.getId())) {

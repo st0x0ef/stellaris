@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "stellaris:block/machines/antenna_bottom",
+    "up": "stellaris:block/machines/antenna_top",
+    "north": "stellaris:block/machines/antenna_side",
+    "south": "stellaris:block/machines/antenna_side",
+    "west": "stellaris:block/machines/antenna_side",
+    "east": "stellaris:block/machines/antenna_side",
+    "particle": "stellaris:block/machines/antenna_side"
+  }
+}

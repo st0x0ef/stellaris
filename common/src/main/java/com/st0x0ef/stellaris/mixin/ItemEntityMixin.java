@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.resources.ResourceLocation;
@@ -18,7 +19,7 @@ public abstract class ItemEntityMixin {
     @ModifyReturnValue(method = "getDefaultGravity", at = @At("RETURN"))
     private double modifyGravity(double original) {
         ResourceLocation dimension = stellaris$itemEntity.level().dimension().location();
-        if (PlanetUtil.isPlanet(dimension)) {
+        if (PlanetUtil.isPlanet(dimension) && Stellaris.CONFIG.gravityConfig.customItemGravity) {
             return (Utils.MPS2ToMCG(PlanetUtil.getPlanet(dimension).gravity()) % 2);
         }
         return original;

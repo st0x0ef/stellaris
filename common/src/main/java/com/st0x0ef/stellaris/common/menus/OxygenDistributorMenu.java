@@ -20,7 +20,7 @@ public class OxygenDistributorMenu extends BaseContainer {
         this.container = container;
         this.blockEntity = blockEntity;
 
-        addSlot(new SpecificFluidContainerSlot(container, FluidRegistry.OXYGEN_STILL.get(), 0, 96, 54, false));
+        addSlot(new SpecificFluidContainerSlot(container, FluidRegistry.OXYGEN_STILL.get(), 0, 67, 50, false));
     }
 
     public static OxygenDistributorMenu create(int syncId, Inventory inventory, FriendlyByteBuf data) {

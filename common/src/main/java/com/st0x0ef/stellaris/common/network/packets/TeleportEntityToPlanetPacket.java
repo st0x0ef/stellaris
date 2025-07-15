@@ -14,14 +14,17 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 public class TeleportEntityToPlanetPacket implements CustomPacketPayload {
 
     public final ResourceLocation dimension;
+    public final Vec3 coords;
 
     public static final StreamCodec<RegistryFriendlyByteBuf, TeleportEntityToPlanetPacket> STREAM_CODEC = new StreamCodec<>() {
-
         @Override
         public @NotNull TeleportEntityToPlanetPacket decode(RegistryFriendlyByteBuf buf) {
             return new TeleportEntityToPlanetPacket(buf);
@@ -30,15 +33,18 @@ public class TeleportEntityToPlanetPacket implements CustomPacketPayload {
         @Override
         public void encode(RegistryFriendlyByteBuf buf, TeleportEntityToPlanetPacket packet) {
             buf.writeResourceLocation(packet.dimension);
+            buf.writeVec3(packet.coords);
         }
     };
 
-    public TeleportEntityToPlanetPacket(ResourceLocation dimension) {
+    public TeleportEntityToPlanetPacket(ResourceLocation dimension, Vec3 coords) {
         this.dimension = dimension;
+        this.coords = coords;
     }
 
     public TeleportEntityToPlanetPacket(RegistryFriendlyByteBuf buffer) {
         this.dimension = buffer.readResourceLocation();
+        this.coords = buffer.readVec3();
     }
 
     public static void handle(TeleportEntityToPlanetPacket packet, NetworkManager.PacketContext context) {
@@ -46,29 +52,34 @@ public class TeleportEntityToPlanetPacket implements CustomPacketPayload {
         Planet planet = PlanetUtil.getPlanet(packet.dimension);
         Entity rocket = player.getVehicle();
 
-        if (PlanetSelectionServerEvents.LAUNCH_BUTTON.invoker().launchButton(player, planet, rocket, context) == EventResult.interruptTrue()) {
-            return;
+        if(PlanetSelectionServerEvents.LAUNCH_BUTTON.invoker().launchButton(player, planet, rocket, context) != EventResult.interruptTrue()) {
+            teleportToPlanet(player, packet.dimension, packet.coords);
         }
 
-        if (planet != null) {
+    }
 
-            if (rocket == null) {
-                Utils.changeDimension(player, planet);
+    public static void teleportToPlanet(Player player, ResourceLocation dimension, Vec3 coords) {
+        Planet planet = PlanetUtil.getPlanet(dimension);
+        Entity rocket = player.getVehicle();
+
+        if(planet != null ) {
+            if(rocket == null) {
+                Utils.changeDimension(player, planet, coords);
                 return;
             }
 
-            if (rocket.getPassengers().size() == 1) {
-                player.stellaris$setPlanetMenuOpen(false, (Player) rocket.getPassengers().getFirst(), true);
-                Utils.changeDimension((Player) rocket.getPassengers().getFirst(), planet);
-            }
-            else {
-                Utils.changeDimensionForPlayers(rocket.getPassengers(), planet);
+            if(rocket.getPassengers().size() == 1) {
+                List<Entity> passengers = rocket.getPassengers();
+                Utils.changeDimension((Player) passengers.getFirst(), planet);
+                player.stellaris$setPlanetMenuOpen(false, (Player) passengers.getFirst(), true);
+            } else {
+                Utils.changeDimensionForPlayers(rocket.getPassengers(), planet, coords, true);
             }
 
-        }
-        else {
+        } else {
             Stellaris.LOG.error("Planet is null");
         }
+
     }
 
     @Override

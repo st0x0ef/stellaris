@@ -1,10 +1,12 @@
 package com.st0x0ef.stellaris.client.overlays;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
 import com.st0x0ef.stellaris.common.entities.vehicles.LanderEntity;
 import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -14,11 +16,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 
-import static com.st0x0ef.stellaris.Stellaris.texture;
-
 public class RocketBarOverlay {
 
-    public static final ResourceLocation ROCKET = texture("planet_bar/rocket");
+    public static final ResourceLocation ROCKET = ResourceLocationUtils.texture("planet_bar/rocket");
 
     public static void render(GuiGraphics graphics, DeltaTracker deltaTracker) {
         Player player = Minecraft.getInstance().player;
@@ -38,7 +38,7 @@ public class RocketBarOverlay {
                 }
             }
 
-            double yHeight = ((player.getY() - min) / (600 - min)) * 113;
+            double yHeight = ((player.getY() - min) / (Stellaris.CONFIG.rocketTpHeight - min)) * 113;
 
             ResourceLocation planet = PlanetUtil.getPlanetBar(level.dimension().location());
 

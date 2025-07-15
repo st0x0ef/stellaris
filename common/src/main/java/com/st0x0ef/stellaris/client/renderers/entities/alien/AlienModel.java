@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.client.renderers.entities.alien;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.st0x0ef.stellaris.common.entities.mobs.alien.Alien;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.EntityModel;
@@ -11,13 +12,10 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
-
-import static com.st0x0ef.stellaris.Stellaris.id;
-
 @Environment(EnvType.CLIENT)
 public class AlienModel<T extends Alien> extends EntityModel<T> {
 
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(id("alien"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocationUtils.id("alien"), "main");
 
     private final ModelPart head;
     private final ModelPart body;

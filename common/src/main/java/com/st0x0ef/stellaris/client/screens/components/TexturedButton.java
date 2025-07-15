@@ -2,26 +2,25 @@ package com.st0x0ef.stellaris.client.screens.components;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.client.screens.helper.ScreenHelper;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
-
-import static com.st0x0ef.stellaris.Stellaris.guiTexture;
 
 @Environment(EnvType.CLIENT)
 public class TexturedButton extends Button {
 
-    public static final ResourceLocation TEXTURE = guiTexture("util/buttons/button");
-    public static final ResourceLocation HOVER_TEXTURE = guiTexture("util/buttons/button");
+    public static final ResourceLocation TEXTURE = ResourceLocationUtils.guiTexture("util/buttons/button");
+    public static final ResourceLocation HOVER_TEXTURE = ResourceLocationUtils.guiTexture("util/buttons/button");
     private ResourceLocation buttonTexture;
     private ResourceLocation hoverButtonTexture;
 
@@ -32,6 +31,9 @@ public class TexturedButton extends Button {
 
     private int textureWidth;
     private int textureHeight;
+
+    private boolean showText = false;
+    private boolean showTooltip = false;
 
     public TexturedButton(int xIn, int yIn, int widthIn, int heightIn, Button.OnPress onPressIn) {
         this(xIn, yIn, widthIn, heightIn, Component.empty(), onPressIn, DEFAULT_NARRATION);
@@ -81,6 +83,21 @@ public class TexturedButton extends Button {
         return cast();
     }
 
+    public <T extends TexturedButton> T showText(boolean showText) {
+        this.showText = showText;
+        return cast();
+    }
+
+    public <T extends TexturedButton> T showTooltip(boolean showTooltip) {
+        this.showTooltip = showTooltip;
+        return cast();
+    }
+
+    @Override
+    public void setTooltip(@Nullable Tooltip tooltip) {
+        super.setTooltip(tooltip);
+    }
+
     public void setYShift(int y) {
         this.yDiffText = y;
     }
@@ -98,6 +115,10 @@ public class TexturedButton extends Button {
         int i = this.yTexStart;
         if (this.isHoveredOrFocused()) {
             i += this.yDiffText;
+
+            if( this.showTooltip) {
+                graphics.renderTooltip(minecraft.font, this.getTooltip().toCharSequence(Minecraft.getInstance()), mouseX, mouseY);
+            }
         }
 
         /** TEXTURE MANAGER */
@@ -109,7 +130,12 @@ public class TexturedButton extends Button {
                 this.width, this.height, this.textureWidth, this.textureHeight, this.getTypeColor());
 
         /** FONT RENDERER */
-        Font fontRenderer = minecraft.font;
+        int color = this.isHovered ? 16777215 : 10526880;
+
+        if(this.showText) {
+            this.renderString(graphics, minecraft.font, color | Mth.ceil(this.alpha * 255.0F) << 24);
+        }
+
 
         RenderSystem.disableDepthTest();
         RenderSystem.disableBlend();

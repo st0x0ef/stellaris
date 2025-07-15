@@ -57,4 +57,6 @@ public class PipeBlock extends BaseCableBlock {
     public boolean hasTicker(Level level) {
         return !level.isClientSide;
     }
+
+
 }

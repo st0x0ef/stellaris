@@ -136,7 +136,7 @@ public class SystemButton extends TexturedButton {
 
             list.add(Component.literal("§9" + ScreenHelper.PlanetScreenHelper.ITEM_REQUIREMENT_TEXT.getString()).getVisualOrderText());
 
-            //TODO NEED A REWORK WITH THE CRAFTING RECPIES
+            //TODO NEED A REWORK WITH THE CRAFTING RECIPES
             /*
             for (IngredientStack ingredientStack : screen.recipe.getIngredientStacks()) {
                 boolean check = screen.getSpaceStationItemCheck(ingredientStack);

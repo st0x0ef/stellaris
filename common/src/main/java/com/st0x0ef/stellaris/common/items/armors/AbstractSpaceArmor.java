@@ -9,6 +9,8 @@ import com.st0x0ef.stellaris.common.registry.FluidRegistry;
 import dev.architectury.fluid.FluidStack;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -38,12 +40,14 @@ public abstract class AbstractSpaceArmor extends CustomArmorItem {
 
         @Override
         public @NotNull UniversalFluidItemStorage getFluidTank(@NotNull ItemStack stack) {
-
-            return new ItemFluidStorage(DataComponentsRegistry.FLUID_LIST.get(), stack, 1, 3000) {
-
+            return new ItemFluidStorage(DataComponentsRegistry.FLUID_LIST.get(), stack, 2, 3000) {
                 @Override
                 public boolean isFluidValid(int tank, FluidStack stack) {
-                    return stack.getFluid().isSame(FluidRegistry.OXYGEN_STILL.get());
+                    return switch (tank) {
+                        case 0 -> stack.getFluid().isSame(FluidRegistry.OXYGEN_STILL.get());
+                        case 1 -> stack.getFluid().isSame(FluidRegistry.DIESEL_STILL.get());
+                        default -> false;
+                    };
                 }
             };
         }
@@ -58,7 +62,7 @@ public abstract class AbstractSpaceArmor extends CustomArmorItem {
         @Override
         public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
             super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
-            tooltipComponents.add(Component.translatable("jetsuit.stellaris.fuel", getFluidTank(stack).getFluidInTank(1).getAmount()));
+            tooltipComponents.add(Component.translatable("tooltip.item.stellaris.diesel", getFluidTank(stack).getFluidInTank(1).getAmount()));
 
         }
 
@@ -70,12 +74,24 @@ public abstract class AbstractSpaceArmor extends CustomArmorItem {
                 public boolean isFluidValid(int tank, FluidStack stack) {
                     return switch (tank) {
                         case 0 -> stack.getFluid().isSame(FluidRegistry.OXYGEN_STILL.get());
-                        case 1 -> stack.getFluid().isSame(FluidRegistry.FUEL_STILL.get());
+                        case 1 -> stack.getFluid().isSame(FluidRegistry.DIESEL_STILL.get());
                         default -> false;
                     };
                 }
             };
 
+        }
+
+        public boolean canElytraFly(ItemStack stack, LivingEntity entity) {
+            return false;
+        }
+
+        public boolean elytraFlightTick(ItemStack stack, LivingEntity entity, int flightTicks) {
+            return false;
+        }
+
+        public boolean tryToStartFallFlying(Player player) {
+            return false;
         }
     }
 }

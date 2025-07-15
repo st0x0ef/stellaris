@@ -74,11 +74,11 @@ public class RoverItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        RoverComponent rocketComponent = stack.get(DataComponentsRegistry.ROVER_COMPONENT.get());
-        if (rocketComponent == null) {
+        RoverComponent roverComponent = stack.get(DataComponentsRegistry.ROVER_COMPONENT.get());
+        if (roverComponent == null) {
             return;
         }
-        tooltipComponents.add(Component.translatable("tooltip.item.stellaris.rocket.fuel", rocketComponent.fuel()).withStyle(ChatFormatting.GRAY));
+        tooltipComponents.add(Component.translatable("tooltip.item.stellaris.diesel", roverComponent.fuel()).withStyle(ChatFormatting.GRAY));
     }
 
 
@@ -103,8 +103,9 @@ public class RoverItem extends Item {
         RoverComponent roverComponent = stack.get(DataComponentsRegistry.ROVER_COMPONENT.get());
         return switch (roverComponent.getFuelType()) {
             case FUEL -> 0xA7E6ED;
-            case HYDROGEN -> 0x00d8ff;
-            case RADIOACTIVE, URANIUM, NEPTUNIUM, PLUTONIUM -> 0x00c12f;
+            case DIESEL -> 0x5B2C14;
+            case HYDROGEN -> 0x00D8FF;
+            case RADIOACTIVE, URANIUM, NEPTUNIUM, PLUTONIUM -> 0x00C12F;
             case null -> 0xA7E6ED;
 
         };

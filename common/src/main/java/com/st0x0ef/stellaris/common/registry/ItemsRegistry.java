@@ -10,6 +10,7 @@ import com.st0x0ef.stellaris.common.data_components.RoverComponent;
 import com.st0x0ef.stellaris.common.items.*;
 import com.st0x0ef.stellaris.common.items.armors.SpaceSuit;
 import com.st0x0ef.stellaris.common.items.module.*;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import com.st0x0ef.stellaris.common.vehicle_upgrade.*;
 import dev.architectury.core.item.ArchitecturyBucketItem;
 import dev.architectury.registry.registries.DeferredRegister;
@@ -22,8 +23,6 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.DyedItemColor;
 
 import java.util.ArrayList;
-
-import static com.st0x0ef.stellaris.Stellaris.texture;
 
 public class ItemsRegistry {
 
@@ -43,6 +42,14 @@ public class ItemsRegistry {
     public static final RegistrySupplier<Item> RAW_STEEL_INGOT = ITEMS.register("raw_steel_ingot", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> RAW_DESH_INGOT = ITEMS.register("raw_desh_ingot", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> DESH_INGOT = ITEMS.register("desh_ingot", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+
+    public static final RegistrySupplier<Item> CORRONIUM_INGOT = ITEMS.register("corronium_ingot", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.RADIOACTIVE.get(), new RadioactiveComponent(3, false))));
+    public static final RegistrySupplier<Item> RAW_CORRONIUM = ITEMS.register("raw_corronium", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.RADIOACTIVE.get(), new RadioactiveComponent(3, false))));
+    public static final RegistrySupplier<Item> SOLERIUM = ITEMS.register("solerium", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> RAW_SOLERIUM = ITEMS.register("raw_solerium", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> THARSITE_INGOT = ITEMS.register("tharsite_ingot", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> RAW_THARSITE = ITEMS.register("raw_tharsite", () -> new Item(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+
 
     /**
      * Food Cans
@@ -156,6 +163,7 @@ public class ItemsRegistry {
     public static final RegistrySupplier<Item> MARS_STONE_SLAB_ITEM = ITEMS.register("mars_stone_slab", () -> new BlockItem(BlocksRegistry.MARS_STONE_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
     public static final RegistrySupplier<Item> MARS_ICE_SHARD_ORE = ITEMS.register("mars_ice_shard_ore", () -> new BlockItem(BlocksRegistry.MARS_ICE_SHARD_ORE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
     public static final RegistrySupplier<Item> MARS_DIAMOND_ORE = ITEMS.register("mars_diamond_ore", () -> new BlockItem(BlocksRegistry.MARS_DIAMOND_ORE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
+    public static final RegistrySupplier<Item> MARS_THARSITE_ORE = ITEMS.register("mars_tharsite_ore", () -> new BlockItem(BlocksRegistry.MARS_THARSITE_ORE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
 
 
     /**
@@ -191,6 +199,7 @@ public class ItemsRegistry {
     public static final RegistrySupplier<Item> VENUS_SMOOTH_SANDSTONE_SLAB_ITEM = ITEMS.register("venus_smooth_sandstone_slab", () -> new BlockItem(BlocksRegistry.VENUS_SMOOTH_SANDSTONE_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
     public static final RegistrySupplier<Item> VENUS_STONE_SLAB_ITEM = ITEMS.register("venus_stone_slab", () -> new BlockItem(BlocksRegistry.VENUS_STONE_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
     public static final RegistrySupplier<Item> VENUS_DIAMOND_ORE = ITEMS.register("venus_diamond_ore", () -> new BlockItem(BlocksRegistry.VENUS_DIAMOND_ORE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
+    public static final RegistrySupplier<Item> VENUS_CORRONIUM_ORE = ITEMS.register("venus_corronium_ore", () -> new BlockItem(BlocksRegistry.VENUS_CORRONIUM_ORE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB).component(DataComponentsRegistry.RADIOACTIVE.get(), new RadioactiveComponent(3, true))));
 
 
     //Desh
@@ -246,6 +255,7 @@ public class ItemsRegistry {
     public static final RegistrySupplier<Item> MERCURY_STONE_BRICK_SLAB_ITEM = ITEMS.register("mercury_stone_brick_slab", () -> new BlockItem(BlocksRegistry.MERCURY_STONE_BRICK_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
     public static final RegistrySupplier<Item> MERCURY_POLISHED_STONE_SLAB_ITEM = ITEMS.register("marcury_polished_stone_slab", () -> new BlockItem(BlocksRegistry.MERCURY_POLISHED_STONE_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
     public static final RegistrySupplier<Item> MERCURY_STONE_SLAB_ITEM = ITEMS.register("marcury_stone_slab", () -> new BlockItem(BlocksRegistry.MERCURY_STONE_SLAB.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
+    public static final RegistrySupplier<Item> MERCURY_SOLERIUM_ORE_ITEM = ITEMS.register("mercury_solerium_ore", () -> new BlockItem(BlocksRegistry.MERCURY_SOLERIUM_ORE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
 
     public static final RegistrySupplier<Item> METEORITE_ITEM = ITEMS.register("meteorite", () -> new BlockItem(BlocksRegistry.METEORITE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_BLOCKS_TAB)));
 
@@ -267,12 +277,14 @@ public class ItemsRegistry {
     public static final RegistrySupplier<Item> SOLAR_PANEL = ITEMS.register("solar_panel", () -> new BlockItem(BlocksRegistry.SOLAR_PANEL.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> COAL_GENERATOR = ITEMS.register("coal_generator", () -> new BlockItem(BlocksRegistry.COAL_GENERATOR.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> RADIOACTIVE_GENERATOR = ITEMS.register("radioactive_generator", () -> new BlockItem(BlocksRegistry.RADIOACTIVE_GENERATOR.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> DIESEL_GENERATOR = ITEMS.register("diesel_generator", () -> new BlockItem(BlocksRegistry.DIESEL_GENERATOR.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> WATER_SEPARATOR = ITEMS.register("water_separator", () -> new BlockItem(BlocksRegistry.WATER_SEPARATOR.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> FUEL_REFINERY = ITEMS.register("fuel_refinery", () -> new BlockItem(BlocksRegistry.FUEL_REFINERY.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> WATER_PUMP = ITEMS.register("water_pump", () -> new BlockItem(BlocksRegistry.WATER_PUMP.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
-    public static final RegistrySupplier<Item> VACUMATOR = ITEMS.register("vacuumator", () -> new BlockItem(BlocksRegistry.VACUMATOR.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> VACUMATOR = ITEMS.register("vacuumator", () -> new BlockItem(BlocksRegistry.VACUUMATOR.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> PUMPJACK = ITEMS.register("pumpjack", () -> new BlockItem(BlocksRegistry.PUMPJACK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> UPGRADE_STATION = ITEMS.register("upgrade_station", () -> new BlockItem(BlocksRegistry.UPGRADE_STATION.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> ANTENNA = ITEMS.register("antenna", () -> new AntennaItem(BlocksRegistry.ANTENNA.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
 
     /**
      * Cables & Pipes
@@ -285,6 +297,21 @@ public class ItemsRegistry {
     public static final RegistrySupplier<Item> T1_PIPE = ITEMS.register("pipe_t1", () -> new BlockItem(BlocksRegistry.T1_PIPE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> T2_PIPE = ITEMS.register("pipe_t2", () -> new BlockItem(BlocksRegistry.T2_PIPE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> T3_PIPE = ITEMS.register("pipe_t3", () -> new BlockItem(BlocksRegistry.T3_PIPE.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+
+    /**
+     * Power Banks & Fluid Tanks
+     */
+
+    public static final RegistrySupplier<Item> T1_FLUID_TANK= ITEMS.register("t1_tank", () -> new FluidTankItem(BlocksRegistry.T1_TANK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> T2_FLUID_TANK = ITEMS.register("t2_tank", () -> new FluidTankItem(BlocksRegistry.T2_TANK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> T3_FLUID_TANK = ITEMS.register("t3_tank", () -> new FluidTankItem(BlocksRegistry.T3_TANK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> T4_FLUID_TANK = ITEMS.register("t4_tank", () -> new FluidTankItem(BlocksRegistry.T4_TANK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+
+
+    public static final RegistrySupplier<Item> T1_POWER_BANK = ITEMS.register("t1_bank", () -> new PowerBankItem(BlocksRegistry.T1_POWER_BANK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> T2_POWER_BANK = ITEMS.register("t2_bank", () -> new PowerBankItem(BlocksRegistry.T2_POWER_BANK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> T3_POWER_BANK = ITEMS.register("t3_bank", () -> new PowerBankItem(BlocksRegistry.T3_POWER_BANK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> T4_POWER_BANK = ITEMS.register("t4_bank", () -> new PowerBankItem(BlocksRegistry.T4_POWER_BANK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
 
 
     /**
@@ -318,6 +345,7 @@ public class ItemsRegistry {
     public static final RegistrySupplier<Item> FUEL_BUCKET = ITEMS.register("fuel_bucket", () -> new ArchitecturyBucketItem(FluidRegistry.FUEL_STILL, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1).arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> OIL_BUCKET = ITEMS.register("oil_bucket", () -> new ArchitecturyBucketItem(FluidRegistry.OIL_STILL, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1).arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> HYDROGEN_BUCKET = ITEMS.register("hydrogen_bucket", () -> new ArchitecturyBucketItem(FluidRegistry.HYDROGEN_STILL, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1).arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+    public static final RegistrySupplier<Item> DIESEL_BUCKET = ITEMS.register("diesel_bucket", () -> new ArchitecturyBucketItem(FluidRegistry.DIESEL_STILL, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1).arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
 
 
     public static final RegistrySupplier<Item> FLAG_ITEM = ITEMS.register("flag", () -> new BlockItem(BlocksRegistry.FLAG.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
@@ -338,13 +366,13 @@ public class ItemsRegistry {
      * Rocket
      */
 
-    public static final RegistrySupplier<Item> ROCKET = ITEMS.register("rocket", () -> new RocketItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.ROCKET_COMPONENT.get(), new RocketComponent(SkinUpgrade.getBasic().getNameSpace(), ModelUpgrade.getBasic().getModel(), MotorUpgrade.getBasic().getFuelType().getSerializedName(), 0, GUISprites.FUEL_OVERLAY, TankUpgrade.getBasic().getTankCapacity()))));
+    public static final RegistrySupplier<Item> ROCKET = ITEMS.register("rocket", () -> new RocketItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.ROCKET_COMPONENT.get(), new RocketComponent(SkinUpgrade.getBasic().getNameSpace(), ModelUpgrade.getBasic().getModel(), MotorUpgrade.getBasic(true).getFuelType().getSerializedName(), 0, GUISprites.FUEL_OVERLAY, TankUpgrade.getBasic().getTankCapacity()))));
     // Upgrade
-    public static final RegistrySupplier<Item> FROSTY_ROCKET_SKIN = ITEMS.register("skin_frozy", () -> new VehicleUpgradeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), new SkinUpgrade(texture("vehicle/rocket_skin/normal/frozy"))));
-    public static final RegistrySupplier<Item> NORMAL_ROCKET_SKIN = ITEMS.register("skin_normal", () -> new VehicleUpgradeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), new SkinUpgrade(texture("vehicle/rocket_skin/normal/standard"))));
-    public static final RegistrySupplier<Item> GALAXY_ROCKET_SKIN = ITEMS.register("skin_galaxy", () -> new VehicleUpgradeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), new SkinUpgrade(texture("vehicle/rocket_skin/normal/galaxy"))));
-    public static final RegistrySupplier<Item> MILITARY_ROCKET_SKIN = ITEMS.register("skin_military", () -> new VehicleUpgradeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), new SkinUpgrade(texture("vehicle/rocket_skin/normal/military"))));
-    public static final RegistrySupplier<Item> RUSTY_ROCKET_SKIN = ITEMS.register("skin_rusty", () -> new VehicleUpgradeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), new SkinUpgrade(texture("vehicle/rocket_skin/normal/rusty"))));
+    public static final RegistrySupplier<Item> FROSTY_ROCKET_SKIN = ITEMS.register("skin_frozy", () -> new VehicleUpgradeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), new SkinUpgrade(ResourceLocationUtils.texture("vehicle/rocket_skin/normal/frozy"))));
+    public static final RegistrySupplier<Item> NORMAL_ROCKET_SKIN = ITEMS.register("skin_normal", () -> new VehicleUpgradeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), new SkinUpgrade(ResourceLocationUtils.texture("vehicle/rocket_skin/normal/standard"))));
+    public static final RegistrySupplier<Item> GALAXY_ROCKET_SKIN = ITEMS.register("skin_galaxy", () -> new VehicleUpgradeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), new SkinUpgrade(ResourceLocationUtils.texture("vehicle/rocket_skin/normal/galaxy"))));
+    public static final RegistrySupplier<Item> MILITARY_ROCKET_SKIN = ITEMS.register("skin_military", () -> new VehicleUpgradeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), new SkinUpgrade(ResourceLocationUtils.texture("vehicle/rocket_skin/normal/military"))));
+    public static final RegistrySupplier<Item> RUSTY_ROCKET_SKIN = ITEMS.register("skin_rusty", () -> new VehicleUpgradeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), new SkinUpgrade(ResourceLocationUtils.texture("vehicle/rocket_skin/normal/rusty"))));
 
     public static final RegistrySupplier<Item> TINY_ROCKET_UPGRADE = ITEMS.register("tiny_rocket_upgrade", () -> new VehicleUpgradeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), new ModelUpgrade(RocketModel.TINY)));
     public static final RegistrySupplier<Item> SMALL_ROCKET_UPGRADE = ITEMS.register("small_rocket_upgrade", () -> new VehicleUpgradeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), new ModelUpgrade(RocketModel.SMALL)));
@@ -356,7 +384,7 @@ public class ItemsRegistry {
     public static final RegistrySupplier<Item> HYDROGEN_MOTOR_UPGRADE = ITEMS.register("hydrogen_motor", () -> new VehicleUpgradeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), new MotorUpgrade(FuelType.Type.HYDROGEN)));
     public static final RegistrySupplier<Item> RADIOACTIVE_MOTOR_UPGRADE = ITEMS.register("radioactive_motor", () -> new VehicleUpgradeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), new MotorUpgrade(FuelType.Type.RADIOACTIVE)));
 
-    public static final RegistrySupplier<Item> ROVER = ITEMS.register("rover", () -> new RoverItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.ROVER_COMPONENT.get(), new RoverComponent(MotorUpgrade.getBasic().getFuelType().getSerializedName(), 0, GUISprites.FUEL_OVERLAY, TankUpgrade.getBasic().getTankCapacity(), 1))));
+    public static final RegistrySupplier<Item> ROVER = ITEMS.register("rover", () -> new RoverItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).component(DataComponentsRegistry.ROVER_COMPONENT.get(), new RoverComponent(MotorUpgrade.getBasic(false).getFuelType().getSerializedName(), 0, GUISprites.FUEL_OVERLAY, TankUpgrade.getBasic().getTankCapacity(), 1))));
     public static final RegistrySupplier<Item> SPEED_UPGRADE = ITEMS.register("speed_upgrade", () -> new VehicleUpgradeItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB), new SpeedUpgrade(1.8f)));
 
     /**
@@ -407,6 +435,14 @@ public class ItemsRegistry {
 
     public static final RegistrySupplier<Item> COAL_TORCH_ITEM = ITEMS.register("coal_torch", () -> new CoalTorchItem(BlocksRegistry.COAL_TORCH_BLOCK.get(), BlocksRegistry.WALL_COAL_TORCH_BLOCK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
     public static final RegistrySupplier<Item> COAL_LANTERN_ITEM = ITEMS.register("coal_lantern", () -> new BlockItem(BlocksRegistry.COAL_LANTERN_BLOCK.get(), new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB)));
+
+
+    /**
+     * Storage items
+     */
+
+    public static final RegistrySupplier<Item> BATTERY = ITEMS.register("battery", () -> new BatteryItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).stacksTo(1)));
+    public static final RegistrySupplier<Item> FLUID_CELL = ITEMS.register("fluid_cell", () -> new FluidCellItem(new Item.Properties().arch$tab(CreativeTabsRegistry.STELLARIS_TAB).stacksTo(1)));
 
 
     public static ArrayList<ItemStack> fullItemsToAdd() {

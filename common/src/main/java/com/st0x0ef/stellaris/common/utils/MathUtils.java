@@ -13,4 +13,8 @@ public class MathUtils {
         float result = a - b;
         return Math.max(result, 0.0F);
     }
+    public static float convertToTAU(float a){
+        /** return TAU without function PI * 2.00 */
+        return (float) (Math.TAU *  a);
+    }
 }

@@ -1,0 +1,15 @@
+{
+  "system": "solar_system",
+  "level": "stellaris:venus_orbit",
+  "name": "Mars Orbit",
+  "translatable": "stellaris.planet.venus",
+  "mainPlanet": "stellaris:venus",
+  "oxygen": false,
+  "temperature": -63,
+  "distanceFromEarth": 55700,
+  "gravity": 0.7,
+  "textures": {
+    "planet": "stellaris:textures/planet_bar/orbit_planet_bar.png",
+    "planet_bar": "stellaris:textures/planet_bar/orbit_planet_bar.png"
+  }
+}

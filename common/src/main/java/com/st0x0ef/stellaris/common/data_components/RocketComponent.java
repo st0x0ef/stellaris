@@ -31,11 +31,6 @@ public record RocketComponent(String skin, RocketModel model, String fuelType, i
         return fuel;
     }
 
-    @Deprecated
-    public ResourceLocation getFuelTexture() {
-        return this.getFuelType().getFuelTexture();
-    }
-
     public ResourceLocation getSkin() {
         return ResourceLocation.parse(skin);
     }

@@ -1,6 +1,7 @@
 {
   "system": "solar_system",
   "level": "stellaris:mars",
+  "orbit": "stellaris:mars_orbit",
   "name": "Mars",
   "translatable": "stellaris.planet.mars",
   "oxygen": false,

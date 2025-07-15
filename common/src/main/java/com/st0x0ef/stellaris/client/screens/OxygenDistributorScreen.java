@@ -4,9 +4,11 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.client.screens.components.GaugeWidget;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.OxygenDistributorBlockEntity;
 import com.st0x0ef.stellaris.common.menus.OxygenDistributorMenu;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import com.st0x0ef.stellaris.common.utils.capabilities.fluid.SingleFluidStorage;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -14,12 +16,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
-import static com.st0x0ef.stellaris.Stellaris.guiTexture;
-
 @Environment(EnvType.CLIENT)
 public class OxygenDistributorScreen extends AbstractContainerScreen<OxygenDistributorMenu> {
 
-    private static final ResourceLocation TEXTURE = guiTexture("oxygen_distributor");
+    private static final ResourceLocation TEXTURE = ResourceLocationUtils.guiTexture("oxygen_distributor");
 
     private final OxygenDistributorBlockEntity blockEntity = getMenu().getBlockEntity();
     private GaugeWidget energyGauge;
@@ -29,7 +29,9 @@ public class OxygenDistributorScreen extends AbstractContainerScreen<OxygenDistr
         super(menu, playerInventory, title);
         imageWidth = 180;
         imageHeight = 188;
-        inventoryLabelY = imageHeight - 92;
+
+        titleLabelX = (180 - Minecraft.getInstance().font.width(title.getString())) / 2;
+        titleLabelY = 2;
     }
 
     @Override
@@ -40,11 +42,11 @@ public class OxygenDistributorScreen extends AbstractContainerScreen<OxygenDistr
             return;
         }
 
-        energyGauge = new GaugeWidget(leftPos + 67, topPos + 15, 46, 15, Component.translatable("stellaris.screen.energyContainer"), GUISprites.SIDEWAYS_ENERGY_FULL, GUISprites.SIDEWAYS_BATTERY_OVERLAY, blockEntity.getEnergy(null).getMaxEnergy(), GaugeWidget.Direction4.LEFT_RIGHT);
+        energyGauge = new GaugeWidget(leftPos + 69, topPos + 21, 44, 4, Component.translatable("stellaris.screen.energyContainer"), GUISprites.SIDEWAYS_ENERGY_FULL, null, blockEntity.getEnergy(null).getMaxEnergy(), GaugeWidget.Direction4.LEFT_RIGHT);
         addRenderableWidget(energyGauge);
 
         SingleFluidStorage oxygenTank = blockEntity.oxygenTank;
-        oxygenGauge = new GaugeWidget(leftPos + 64, topPos + 52, 16, 18, Component.translatable("stellaris.screen.oxygen"), GUISprites.NO_OVERLAY, GUISprites.NO_OVERLAY, oxygenTank.getTankCapacity(0), GaugeWidget.Direction4.DOWN_UP);
+        oxygenGauge = new GaugeWidget(leftPos + 95, topPos + 48, 20, 20, Component.translatable("stellaris.screen.oxygen"), GUISprites.NO_OVERLAY, GUISprites.NO_OVERLAY, oxygenTank.getTankCapacity(0), GaugeWidget.Direction4.DOWN_UP);
         addRenderableWidget(oxygenGauge);
 
     }
@@ -76,5 +78,10 @@ public class OxygenDistributorScreen extends AbstractContainerScreen<OxygenDistr
         super.renderTooltip(guiGraphics, x, y);
         energyGauge.renderTooltip(guiGraphics, x, y, this.font);
         oxygenGauge.renderTooltip(guiGraphics, x, y, this.font);
+    }
+
+    @Override
+    protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+        guiGraphics.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 5726575, false);
     }
 }

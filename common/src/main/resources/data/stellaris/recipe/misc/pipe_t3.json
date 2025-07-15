@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    "IPI",
+    "III"
+  ],
+  "key": {
+    "I": {"tag": "c:ingots/steel"},
+    "P": {"item": "stellaris:pipe_t2"}
+  },
+  "result": {
+    "id": "stellaris:pipe_t3",
+    "count": 1
+  }
+}

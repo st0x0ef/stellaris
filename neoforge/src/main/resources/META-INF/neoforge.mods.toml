@@ -8,7 +8,7 @@ modId = "stellaris"
 version = "${version}"
 displayName = "Stellaris"
 authors = "The Stellaris Team"
-logoFile = "assets/stellaris/logo.png"
+logoFile = "logo.png"
 description = '''
 Stellaris introduces an expansive and immersive space exploration experience within the familiar Minecraft universe. Players can discover new planets, moon and galaxies !
 '''

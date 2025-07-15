@@ -124,15 +124,19 @@ public class StellarisNeoforgeClient {
         event.register(MenuTypesRegistry.COAL_GENERATOR_MENU.get(), CoalGeneratorScreen::new);
         event.register(MenuTypesRegistry.RADIOACTIVE_GENERATOR_MENU.get(), RadioactiveGeneratorScreen::new);
         event.register(MenuTypesRegistry.PLANET_SELECTION_MENU.get(), PlanetSelectionScreen::new);
-        event.register(MenuTypesRegistry.MILKYWAY_MENU.get(), MilkyWayScreen::new);
+        event.register(MenuTypesRegistry.GALAXY_MENU.get(), GalaxyScreen::new);
         event.register(MenuTypesRegistry.LANDER_MENU.get(), LanderScreen::new);
         event.register(MenuTypesRegistry.OXYGEN_DISTRIBUTOR.get(), OxygenDistributorScreen::new);
         event.register(MenuTypesRegistry.WATER_SEPARATOR_MENU.get(), WaterSeparatorScreen::new);
         event.register(MenuTypesRegistry.FUEL_REFINERY.get(), FuelRefineryScreen::new);
-        event.register(MenuTypesRegistry.WATER_PUMP_MENU.get(), WaterPumpScreen::new);
         event.register(MenuTypesRegistry.WAIT_MENU.get(), WaitScreen::new);
         event.register(MenuTypesRegistry.PUMPJACK_MENU.get(), PumpjackScreen::new);
         event.register(MenuTypesRegistry.TABLET_MENU.get(), TabletMainScreen::new);
+        event.register(MenuTypesRegistry.ANTENNA_MENU.get(), AntennaScreen::new);
+        event.register(MenuTypesRegistry.TEST_MENU.get(), TestScreen::new);
+        event.register(MenuTypesRegistry.DIESEL_GENERATOR_MENU.get(), DieselGeneratorScreen::new);
+        event.register(MenuTypesRegistry.POWER_BANK_MENU.get(), PowerBankScreen::new);
+        event.register(MenuTypesRegistry.FLUID_TANK_MENU.get(), FluidTankScreen::new);
     }
 
     @SubscribeEvent

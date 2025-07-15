@@ -157,7 +157,15 @@ public class RocketItem extends Item {
     @Override
     public int getBarWidth(ItemStack stack) {
         RocketComponent rocketComponent = stack.get(DataComponentsRegistry.ROCKET_COMPONENT.get());
-        return 13 * rocketComponent.fuel() / rocketComponent.getTankCapacity();
+
+        int value = 13 * rocketComponent.fuel() / rocketComponent.getTankCapacity();
+
+        if (value < 0) {
+            value = 0;
+        } else if (value > 13) {
+            value = 13;
+        }
+        return value;
     }
 
     @Override
@@ -165,10 +173,10 @@ public class RocketItem extends Item {
         RocketComponent rocketComponent = stack.get(DataComponentsRegistry.ROCKET_COMPONENT.get());
         return switch (rocketComponent.getFuelType()) {
             case FUEL -> 0xA7E6ED;
+            case DIESEL -> 0x5B2C14;
             case HYDROGEN -> 0x00d8ff;
             case RADIOACTIVE, URANIUM, NEPTUNIUM, PLUTONIUM -> 0x00c12f;
             case null -> 0xA7E6ED;
-
         };
     }
 }

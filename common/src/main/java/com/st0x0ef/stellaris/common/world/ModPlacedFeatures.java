@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.world;
 
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -18,8 +19,6 @@ import net.minecraft.world.level.levelgen.placement.*;
 
 import java.util.List;
 
-import static com.st0x0ef.stellaris.Stellaris.id;
-
 public class ModPlacedFeatures {
 
     // OVERWORLD
@@ -35,10 +34,12 @@ public class ModPlacedFeatures {
     public static final ResourceKey<PlacedFeature> MARS_ICE_SHARD_PLACED_KEY = createKey("mars_ice_shard_ore");
     public static final ResourceKey<PlacedFeature> MARS_IRON_PLACED_KEY = createKey("mars_iron_ore");
     public static final ResourceKey<PlacedFeature> MARS_OSTRUM_PLACED_KEY = createKey("mars_ostrum_ore");
+    public static final ResourceKey<PlacedFeature> MARS_THARSITE_PLACED_KEY = createKey("mars_tharsite_ore");
 
     // MERCURY
     public static final ResourceKey<PlacedFeature> MERCURY_IRON_PLACED_KEY = createKey("mercury_iron_ore");
     public static final ResourceKey<PlacedFeature> MERCURY_URANIUM_PLACED_KEY = createKey("mercury_uranium_ore");
+    public static final ResourceKey<PlacedFeature> MERCURY_SOLERIUM_PLACED_KEY = createKey("mercury_solerium_ore");
 
     // MOON
     public static final ResourceKey<PlacedFeature> MOON_DESH_PLACED_KEY = createKey("moon_desh_ore");
@@ -47,13 +48,15 @@ public class ModPlacedFeatures {
     public static final ResourceKey<PlacedFeature> MOON_SOUL_SOIL_PLACED_KEY = createKey("moon_soul_soil");
     public static final ResourceKey<PlacedFeature> MOON_STEEL_PLACED_KEY = createKey("moon_steel_ore");
     public static final ResourceKey<PlacedFeature> MOON_VINE_PLACED_KEY = createKey("moon_vine");
+    public static final ResourceKey<PlacedFeature> MOON_CAVES = createKey("moon_caves");
 
     // VENUS
     public static final ResourceKey<PlacedFeature> VENUS_COAL_PLACED_KEY = createKey("venus_coal_ore");
     public static final ResourceKey<PlacedFeature> VENUS_DIAMOND_PLACED_KEY = createKey("venus_diamond_ore");
     public static final ResourceKey<PlacedFeature> VENUS_GOLD_PLACED_KEY = createKey("venus_gold_ore");
+    public static final ResourceKey<PlacedFeature> VENUS_CORRONIUM_PLACED_KEY = createKey("venus_corronium_ore");
 
-    public static final ResourceKey<PlacedFeature> MOON_CAVES = createKey("moon_caves");
+
 
 
     public static void bootstrap(BootstrapContext<PlacedFeature> context) {
@@ -81,6 +84,9 @@ public class ModPlacedFeatures {
         register(context, MARS_OSTRUM_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.MARS_OSTRUM_ORE_KEY),
                 OrePlacement.commonOrePlacement(12,
                         HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-64), VerticalAnchor.aboveBottom(80))));
+        register(context, MARS_THARSITE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.MARS_THARSITE_ORE_KEY),
+                OrePlacement.commonOrePlacement(8,
+                        HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(-32), VerticalAnchor.aboveBottom(32))));
 
         // MERCURY
         register(context, MERCURY_IRON_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.MERCURY_IRON_ORE_KEY),
@@ -89,6 +95,9 @@ public class ModPlacedFeatures {
         register(context, MERCURY_URANIUM_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.MERCURY_URANIUM_ORE_KEY),
                 OrePlacement.commonOrePlacement(4,
                         HeightRangePlacement.triangle(VerticalAnchor.absolute(-80), VerticalAnchor.absolute(192))));
+        register(context, MERCURY_SOLERIUM_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.MERCURY_SOLERIUM_ORE_KEY),
+                OrePlacement.rareOrePlacement(4,
+                        HeightRangePlacement.triangle(VerticalAnchor.absolute(16), VerticalAnchor.absolute(320))));
 
         // MOON
         register(context, MOON_DESH_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.MOON_DESH_ORE_KEY),
@@ -116,6 +125,9 @@ public class ModPlacedFeatures {
         register(context, VENUS_GOLD_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.VENUS_GOLD_ORE_KEY),
                 OrePlacement.commonOrePlacement(4,
                         HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(32))));
+        register(context, VENUS_CORRONIUM_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.VENUS_CORRONIUM_ORE_KEY),
+                OrePlacement.rareOrePlacement(4,
+                        HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(-32))));
 
         register(context, MOON_VINE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.MOON_VINES), List.of(new PlacementModifier[] {CountPlacement.of(188), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.hasSturdyFace(Direction.DOWN), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(-1)), BiomeFilter.biome()}));
         registerOne(context, LAKE_OIL_UNDERGROUND, configuredFeatures.getOrThrow(ModConfiguredFeature.LAKE_OIL), new PlacementModifier[] {RarityFilter.onAverageOnceEvery(9), InSquarePlacement.spread(), HeightRangePlacement.of(UniformHeight.of(VerticalAnchor.absolute(0), VerticalAnchor.top())), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.allOf(BlockPredicate.not(BlockPredicate.ONLY_IN_AIR_PREDICATE), BlockPredicate.insideWorld(new BlockPos(0, -5, 0))), 32), SurfaceRelativeThresholdFilter.of(Heightmap.Types.OCEAN_FLOOR_WG, Integer.MIN_VALUE, -5), BiomeFilter.biome()});
@@ -125,7 +137,7 @@ public class ModPlacedFeatures {
     }
 
     private static ResourceKey<PlacedFeature> createKey(String name) {
-        return ResourceKey.create(Registries.PLACED_FEATURE, id(name));
+        return ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocationUtils.id(name));
     }
 
     private static void registerOne(BootstrapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key, Holder<ConfiguredFeature<?, ?>> configuration,

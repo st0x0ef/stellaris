@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "isi",
+    "sbs",
+    "isi"
+  ],
+  "key": {
+    "i": {
+      "tag": "c:ingots/steel"
+    },
+    "s": {
+      "item": "stellaris:solerium"
+    },
+    "b": {
+      "item": "stellaris:t3_bank"
+    }
+  },
+  "result": {
+    "id": "stellaris:t4_bank",
+    "count": 1
+  }
+}

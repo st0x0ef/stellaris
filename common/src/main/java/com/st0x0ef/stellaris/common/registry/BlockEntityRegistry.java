@@ -23,7 +23,8 @@ public class BlockEntityRegistry {
                     BlocksRegistry.RAW_URANIUM_BLOCK.get(),
                     BlocksRegistry.MERCURY_URANIUM_ORE.get(),
                     BlocksRegistry.PLUTONIUM_BLOCK.get(),
-                    BlocksRegistry.NEPTUNIUM_BLOCK.get()
+                    BlocksRegistry.NEPTUNIUM_BLOCK.get(),
+                    BlocksRegistry.VENUS_CORRONIUM_ORE.get()
             ).build(null));
     public static final RegistrySupplier<BlockEntityType<GlobeBlockEntity>> GLOBE_BLOCK_ENTITY = BLOCK_ENTITY_TYPE.register("globe", () -> BlockEntityType.Builder.of(GlobeBlockEntity::new,
                     BlocksRegistry.EARTH_GLOBE_BLOCK.get(),
@@ -39,9 +40,10 @@ public class BlockEntityRegistry {
             () -> BlockEntityType.Builder.of(CoalGeneratorEntity::new, BlocksRegistry.COAL_GENERATOR.get()).build(null));
     public static final Supplier<BlockEntityType<?>> RADIOACTIVE_GENERATOR = BLOCK_ENTITY_TYPE.register("radioactive_generator",
             () -> BlockEntityType.Builder.of(RadioactiveGeneratorEntity::new, BlocksRegistry.RADIOACTIVE_GENERATOR.get()).build(null));
-
+    public static final Supplier<BlockEntityType<?>> DIESEL_GENERATOR = BLOCK_ENTITY_TYPE.register("diesel_generator",
+            () -> BlockEntityType.Builder.of(DieselGeneratorBlockEntity::new, BlocksRegistry.DIESEL_GENERATOR.get()).build(null));
     public static final RegistrySupplier<BlockEntityType<?>> VACUUMATOR_ENTITY = BLOCK_ENTITY_TYPE.register("vacuumator",
-            () -> BlockEntityType.Builder.of(VacuumatorBlockEntity::new, BlocksRegistry.VACUMATOR.get()).build(null));
+            () -> BlockEntityType.Builder.of(VacuumatorBlockEntity::new, BlocksRegistry.VACUUMATOR.get()).build(null));
     public static final Supplier<BlockEntityType<?>> WATER_SEPARATOR_ENTITY = BLOCK_ENTITY_TYPE.register("water_separator",
             () -> BlockEntityType.Builder.of(WaterSeparatorBlockEntity::new, BlocksRegistry.WATER_SEPARATOR.get()).build(null));
     public static final Supplier<BlockEntityType<?>> OXYGEN_DISTRIBUTOR = BLOCK_ENTITY_TYPE.register("oxygen_distributor",
@@ -55,12 +57,20 @@ public class BlockEntityRegistry {
             () -> BlockEntityType.Builder.of(PumpjackBlockEntity::new, BlocksRegistry.PUMPJACK.get()).build(null));
 
     //TIERED
-    public static final Supplier<BlockEntityType<?>> TANK = BLOCK_ENTITY_TYPE.register("tank",
+    public static final Supplier<BlockEntityType<?>> FLUID_TANK = BLOCK_ENTITY_TYPE.register("tank",
             () -> BlockEntityType.Builder.of(FluidTankBlockEntity::new,
                     BlocksRegistry.T1_TANK.get(),
                     BlocksRegistry.T2_TANK.get(),
                     BlocksRegistry.T3_TANK.get(),
                     BlocksRegistry.T4_TANK.get()
+            ).build(null));
+
+    public static final Supplier<BlockEntityType<?>> POWER_BANK = BLOCK_ENTITY_TYPE.register("power_bank",
+            () -> BlockEntityType.Builder.of(PowerBankEntity::new,
+                    BlocksRegistry.T1_POWER_BANK.get(),
+                    BlocksRegistry.T2_POWER_BANK.get(),
+                    BlocksRegistry.T3_POWER_BANK.get(),
+                    BlocksRegistry.T4_POWER_BANK.get()
             ).build(null));
 
     public static final Supplier<BlockEntityType<?>> CABLE_ENTITY = BLOCK_ENTITY_TYPE.register("cable",
@@ -75,5 +85,8 @@ public class BlockEntityRegistry {
                     BlocksRegistry.T2_PIPE.get(),
                     BlocksRegistry.T3_PIPE.get()
             ).build(null));
+
+    public static final RegistrySupplier<BlockEntityType<AntennaBlockEntity>> ANTENNA = BLOCK_ENTITY_TYPE.register("antenna",
+            () -> BlockEntityType.Builder.of(AntennaBlockEntity::new, BlocksRegistry.ANTENNA.get()).build(null));
 
 }

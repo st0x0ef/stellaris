@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "rlr",
+    "srs",
+    "sss"
+  ],
+  "key": {
+    "l": {
+      "item": "minecraft:lightning_rod"
+    },
+    "s": {
+      "tag": "c:ingots/steel"
+    },
+    "r": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result": {
+    "id": "stellaris:antenna",
+    "count": 1
+  }
+}

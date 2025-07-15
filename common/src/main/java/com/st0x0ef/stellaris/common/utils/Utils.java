@@ -1,14 +1,16 @@
 package com.st0x0ef.stellaris.common.utils;
 
 import com.mojang.serialization.Codec;
+import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.common.blocks.entities.machines.AntennaBlockEntity;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.data.planets.StellarisData;
+import com.st0x0ef.stellaris.common.data.recipes.SpaceStationRecipe;
 import com.st0x0ef.stellaris.common.data_components.SpaceSuitModules;
 import com.st0x0ef.stellaris.common.entities.vehicles.LanderEntity;
 import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
-import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
-import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
-import com.st0x0ef.stellaris.common.registry.StatsRegistry;
+import com.st0x0ef.stellaris.common.launchpads.LaunchPad;
+import com.st0x0ef.stellaris.common.registry.*;
 import com.st0x0ef.stellaris.common.vehicle_upgrade.FuelType;
 import dev.architectury.utils.GameInstance;
 import net.minecraft.core.BlockPos;
@@ -33,6 +35,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -58,9 +63,11 @@ public class Utils {
     }
 
     /** Should be call after teleporting the player */
-    public static LanderEntity createLanderFromRocket(Entity player, RocketEntity rocket, int yPos, Level destination) {
+    public static LanderEntity createLanderFromRocket(RocketEntity rocket, Vec3 coords, Level destination) {
         LanderEntity lander = new LanderEntity(destination);
-        lander.setPos(player.getX(), yPos, player.getZ());
+        Vec3 landerOffset = new Vec3(0.5d, 0, -0.5d);
+
+        lander.setPos(coords.x + landerOffset.x, coords.y, coords.z + landerOffset.z);
         transfertInventory(rocket, lander);
 
         rocket.discard();
@@ -69,17 +76,19 @@ public class Utils {
     }
 
     /** Teleport an entity to the planet wanted */
-    public static void teleportEntity(Entity entity, Planet destination) {
-        if (entity.level().isClientSide()) {
-            return;
-        }
+    public static void teleportEntity(Entity entity, Planet destination, Vec3 coords) {
+        if (entity.level().isClientSide()) return;
         entity.setNoGravity(false);
 
-        TeleportUtil.teleportToPlanet(entity, getPlanetLevel(destination), 600);
+        TeleportUtil.teleportToPlanet(entity, getPlanetLevel(destination), coords);
+    }
+
+    public static void changeDimension(Player player, Planet destination) {
+        changeDimension(player, destination, new Vec3((int) player.getX(), Stellaris.CONFIG.rocketTpHeight, (int) player.getZ()));
     }
 
     /** To use with the planetSelection menu */
-    public static void changeDimension(Player player, Planet destination) {
+    public static void changeDimension(Player player, Planet destination, Vec3 coords) {
         if (player instanceof ServerPlayer serverPlayer) {
             if (serverPlayer.getVehicle() instanceof RocketEntity rocket) {
                 serverPlayer.stopRiding();
@@ -91,8 +100,8 @@ public class Utils {
                     rocket.syncRocketData(serverPlayer);
                 }
 
-                LanderEntity lander = createLanderFromRocket(serverPlayer, rocket, 600, getPlanetLevel(destination));
-                teleportEntity(serverPlayer, destination);
+                LanderEntity lander = createLanderFromRocket(rocket, coords, getPlanetLevel(destination));
+                teleportEntity(serverPlayer, destination, lander.getPassengerRidingPosition(serverPlayer));
                 player.awardStat(StatsRegistry.SPACE_TRAVEL.get(), Utils.distanceToPlanet(PlanetUtil.getPlanet(player.level().dimension().location()), destination));
 
                 serverPlayer.level().addFreshEntity(lander);
@@ -102,29 +111,46 @@ public class Utils {
                 }
 
                 serverPlayer.sendSystemMessage(Component.translatable("message.stellaris.lander"));
-            }
-            else {
+            } else {
                 serverPlayer.closeContainer();
-                teleportEntity(serverPlayer, destination);
+                teleportEntity(serverPlayer, destination, coords);
             }
         }
     }
 
-    public static void changeDimensionForPlayers(List<Entity> entities, Planet destination) {
+    public static void changeDimensionWithVehicle(Entity entity, Planet destination, Vec3 coords) {
+        Entity vehicle = entity.getVehicle();
+
+        entity.stopRiding();
+
+        Utils.teleportEntity(entity, destination, coords);
+
+        if(vehicle != null) {
+            teleportEntity(vehicle, destination, coords);
+            entity.startRiding(vehicle, true);
+        }
+    }
+
+    public static void changeDimensionForPlayers(List<Entity> entities, Planet destination, Vec3 coords, boolean setHeight) {
+        if (setHeight) {
+            coords = new Vec3(coords.x, Stellaris.CONFIG.rocketTpHeight, coords.z);
+        }
+        changeDimensionForPlayers(entities, destination, coords);
+    }
+
+    public static void changeDimensionForPlayers(List<Entity> entities, Planet destination, Vec3 coords) {
         RocketEntity rocket = (RocketEntity) entities.getFirst().getVehicle();
 
         for (Entity entity : entities) {
-            if (entity.level().isClientSide()) {
-                return;
-            }
+            if (entity.level().isClientSide()) return;
 
             Entity vehicle = entity.getVehicle();
             if (vehicle instanceof RocketEntity playerRocket) {
                 entity.stopRiding();
                 rocket = playerRocket;
-                teleportEntity(entity, destination);
+                teleportEntity(entity, destination, coords);
 
-                if (entity instanceof Player player) {
+                if(entity instanceof Player player) {
 
                     player.awardStat(StatsRegistry.SPACE_TRAVEL.get(), Utils.distanceToPlanet(PlanetUtil.getPlanet(player.level().dimension().location()), destination));
 
@@ -133,7 +159,7 @@ public class Utils {
                 }
             }
         }
-        LanderEntity lander = createLanderFromRocket(entities.getFirst(), rocket, 600, getPlanetLevel(destination));
+        LanderEntity lander = createLanderFromRocket(rocket, coords, getPlanetLevel(destination));
         entities.getFirst().level().addFreshEntity(lander);
 
         for (Entity entity : entities) {
@@ -172,8 +198,7 @@ public class Utils {
         if (colorName.startsWith("#")) {
             try {
                 return Integer.parseInt(colorName.substring(1), 16);
-            }
-            catch (NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 return 0xFFFFFF; // Return white if invalid hex format
             }
         }
@@ -186,7 +211,7 @@ public class Utils {
             case "yellow" -> 0xFFFF00;
             case "cyan" -> 0x00FFFF;
             case "magenta" -> 0xFF00FF;
-            case "gray" -> 0x808080;
+            case "gray", "grey" -> 0x808080;
             case "maroon" -> 0x800000;
             case "olive" -> 0x808000;
             case "purple" -> 0x800080;
@@ -217,9 +242,7 @@ public class Utils {
     }
 
     public static String betterIntToString(int i) {
-        if (i == 0) {
-            return "0";
-        }
+        if (i == 0) return "0";
 
         return (i % 1000) + "K";
     }
@@ -260,8 +283,8 @@ public class Utils {
      * @param MCG Minecraft Gravity Unit (blocks/t²)
      * @return m/s²
      */
-    public static float MCGToMPS2(float MCG) {
-        return 122.583125f * MCG;
+    public static float MCGToMPS2(float MCG){
+        return 122.583125f*MCG;
     }
 
     /**
@@ -269,15 +292,9 @@ public class Utils {
      * @return Minecraft Gravity Unit (blocks/t²)
      */
     public static double MPS2ToMCG(float MPS2) {
-        if (MPS2 > 0) {
-            return Math.floor(0.00816d * MPS2 * 100000) / 100000;
-        }
-        else if (MPS2 < 0) {
-            return Math.ceil(0.00816d * MPS2 * 100000) / 100000;
-        }
-        else {
-            return 0;
-        }
+        if (MPS2>0) return Math.floor(0.00816d * MPS2 * 100000) / 100000;
+        else if (MPS2<0) return Math.ceil(0.00816d * MPS2 * 100000) / 100000;
+        else return 0;
     }
 
     public static void disableFlyAntiCheat(Player player, boolean condition) {
@@ -318,8 +335,11 @@ public class Utils {
         return entity.level().canSeeSky(entity.blockPosition());
     }
 
+    public static BlockPos getBlockPosFromVector3i(Vec3 vec3) {
+        return new BlockPos((int) vec3.x, (int) vec3.y, (int) vec3.z);
+    }
 
-    public <T> void addButtonToList(ArrayList<ArrayList<T>> finalList, T button, int size) {
+    public  <T> void addButtonToList(ArrayList<ArrayList<T>> finalList, T button, int size){
         if (finalList.isEmpty()) {
             ArrayList<T> list = new ArrayList<>();
             list.add(button);
@@ -328,11 +348,10 @@ public class Utils {
         }
 
         for (ArrayList<T> buttons : finalList) {
-            if (buttons.size() < size) {
+            if(buttons.size() < size){
                 buttons.add(button);
                 break;
-            }
-            else if (buttons.size() == size) {
+            } else if (buttons.size() == size) {
                 if (finalList.indexOf(buttons) + 1 >= finalList.size()) {
                     ArrayList<T> list = new ArrayList<>();
                     list.add(button);
@@ -343,16 +362,54 @@ public class Utils {
         }
     }
 
+    /** Place the space station */
+    public static Vec3 placeSpaceStation(Player player, ServerLevel serverLevel, SpaceStationRecipe recipe, LaunchPad pad) {
+        StructureTemplate structureTemplate = serverLevel.getStructureManager().getOrCreate(recipe.location());
+        BlockPos pos = new BlockPos((int)player.getX() - (structureTemplate.getSize().getX() / 2), 100, (int)player.getZ() - (structureTemplate.getSize().getZ() / 2));
+
+        structureTemplate.placeInWorld(serverLevel, pos, pos, new StructurePlaceSettings(), serverLevel.random, 2);
+        return placeAntennaBlock(pos, serverLevel, recipe, pad);
+    }
+
+    public static Vec3 placeAntennaBlock(BlockPos initialPos, ServerLevel serverLevel, SpaceStationRecipe recipe, LaunchPad pad) {
+        BlockPos pos = initialPos.offset((int) recipe.antenna_position().x, (int) recipe.antenna_position().y, (int) recipe.antenna_position().z);
+
+        AntennaBlockEntity antennaBlockEntity = new AntennaBlockEntity(pos, BlocksRegistry.ANTENNA.get().defaultBlockState());
+
+        LaunchPad newPad = new LaunchPad(
+                pad.id(),
+                Utils.blockPosToVec3(pos),
+                pad.dimension(),
+                pad.name(),
+                pad.isPublic(),
+                pad.owner(),
+                pad.whitelist()
+        );
+
+        antennaBlockEntity.setLaunchPad(newPad, true);
+        serverLevel.setBlock(pos, BlocksRegistry.ANTENNA.get().defaultBlockState(), 1);
+        serverLevel.setBlockEntity(antennaBlockEntity);
+
+        return Utils.blockPosToVec3(pos);
+    }
+
+    public static boolean isHoveredOnSprite(int x, int y, int width, int height, double mouseX, double mouseY) {
+        return mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + height;
+    }
+
+    public static Vec3 blockPosToVec3(BlockPos pos) {
+        return new Vec3(pos.getX(), pos.getY(), pos.getZ());
+    }
+
     public static void handleGravityChange(LivingEntity entity, Level level) {
         if (!SpaceSuitModules.containsInModules(entity.getItemBySlot(EquipmentSlot.CHEST), ItemsRegistry.MODULE_GRAVITY_NORMALIZER.get().getDefaultInstance())) {
             ResourceLocation dimension = level.dimension().location();
 
-            if (!PlanetUtil.isPlanet(dimension) || dimension.equals(StellarisData.OVERWORLD)) {
+            if (!PlanetUtil.isPlanet(dimension) || dimension.equals(StellarisData.OVERWORLD) || !Stellaris.CONFIG.gravityConfig.customEntityGravity) {
                 trySetAttribute(entity, Attributes.GRAVITY, Attributes.GRAVITY.value().getDefaultValue());
                 trySetAttribute(entity, Attributes.SAFE_FALL_DISTANCE, Attributes.SAFE_FALL_DISTANCE.value().getDefaultValue());
                 trySetAttribute(entity, Attributes.FALL_DAMAGE_MULTIPLIER, Attributes.FALL_DAMAGE_MULTIPLIER.value().getDefaultValue());
-            }
-            else if (PlanetUtil.isPlanet(dimension)) {
+            } else if (PlanetUtil.isPlanet(dimension)) {
                 float stellaris$regularGravity = PlanetUtil.getPlanet(dimension).gravity();
                 double stellaris$gravity = Utils.MPS2ToMCG(stellaris$regularGravity);
 
@@ -363,7 +420,7 @@ public class Utils {
         }
     }
 
-    public static void trySetAttribute(LivingEntity entity ,Holder<Attribute> attribute, double value) {
+    public static void trySetAttribute(LivingEntity entity , Holder<Attribute> attribute, double value) {
         AttributeInstance attributeInstance = entity.getAttribute(attribute);
 
         if (attributeInstance != null)

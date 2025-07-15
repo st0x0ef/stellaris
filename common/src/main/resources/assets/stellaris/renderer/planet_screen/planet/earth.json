@@ -1,12 +1,13 @@
 {
   "texture": "stellaris:textures/environment/solar_system/earth.png",
   "name": "Earth",
-  "distance": 100,
+  "distance": 130,
   "period": 8000,
   "width": 10.0,
   "height": 10.0,
   "parent": "stellaris:sun",
   "dimensionId": "minecraft:overworld",
   "translatable": "text.stellaris.planetscreen.earth",
-  "id": "stellaris:earth"
+  "id": "stellaris:earth",
+  "space_station": true
 }

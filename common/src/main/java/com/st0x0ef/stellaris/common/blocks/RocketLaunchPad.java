@@ -1,10 +1,19 @@
 package com.st0x0ef.stellaris.common.blocks;
 
+import com.st0x0ef.stellaris.common.blocks.machines.AntennaBlock;
 import com.st0x0ef.stellaris.common.registry.BlocksRegistry;
+import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
+import com.st0x0ef.stellaris.common.registry.TagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -19,9 +28,11 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,12 +57,17 @@ public class RocketLaunchPad extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
-    public BlockState updateShape(BlockState p_56285_, Direction p_56286_, BlockState p_56287_, LevelAccessor p_56288_, BlockPos p_56289_, BlockPos p_56290_) {
-        if (p_56285_.getValue(WATERLOGGED)) {
-            p_56288_.scheduleTick(p_56289_, Fluids.WATER, Fluids.WATER.getTickDelay(p_56288_));
+    protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+        super.onRemove(state, level, pos, newState, movedByPiston);
+    }
+
+    @Override
+    protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
+        if (state.getValue(WATERLOGGED)) {
+            level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
 
-        return super.updateShape(p_56285_, p_56286_, p_56287_, p_56288_, p_56289_, p_56290_);
+        return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
     }
 
     @Override
@@ -134,6 +150,39 @@ public class RocketLaunchPad extends Block implements SimpleWaterloggedBlock {
         }
 
         level.scheduleTick(new BlockPos(pos.getX(), pos.getY(), pos.getZ()), this, 1);
+    }
+
+    @Override
+    protected @NotNull InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+        if (level.isClientSide) return InteractionResult.SUCCESS;
+
+        if (state.getValue(STAGE)) {
+            if (!player.getItemInHand(InteractionHand.MAIN_HAND).is(ItemsRegistry.ROCKET.get()) && level.getBlockState(pos.below()).getBlock() instanceof AntennaBlock antennaBlock) {
+                return antennaBlock.useWithoutItem(state, level, pos.below(), player, hitResult);
+            }
+        }
+        return super.useWithoutItem(state, level, pos, player, hitResult);
+    }
+
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        if (level.isClientSide) return ItemInteractionResult.SUCCESS;
+
+        if(stack.is(ItemsRegistry.ANTENNA.get()) && state.getValue(STAGE)) {
+            if (level.getBlockState(pos.below()).is(TagRegistry.ANTENNA_REPLACEABLES)) {
+                level.setBlock(pos.below(), BlocksRegistry.ANTENNA.get().defaultBlockState(), 3);
+                stack.shrink(1);
+                return ItemInteractionResult.SUCCESS;
+
+            } else if(stack.is(ItemsRegistry.ROCKET.get())) {
+                return ItemInteractionResult.FAIL;
+            } else {
+                player.displayClientMessage(Component.literal("You can't place an antenna block here. The surface under the launchpad can't be repleaced."), false);
+                return ItemInteractionResult.FAIL;
+            }
+        }
+
+        return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
     }
 
     @Override

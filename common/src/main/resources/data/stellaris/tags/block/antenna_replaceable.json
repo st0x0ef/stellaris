@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:dirt",
+    "#minecraft:sand",
+    "#minecraft:air",
+    "#minecraft:fire",
+    "#minecraft:leaves",
+    "#minecraft:snow",
+    "minecraft:water",
+    "stellaris:moon_sand",
+    "stellaris:moon_stone",
+    "stellaris:mars_sand",
+    "stellaris:mars_stone",
+    "stellaris:venus_sand",
+    "stellaris:venus_stone",
+    "stellaris:mercury_stone"
+  ]
+}

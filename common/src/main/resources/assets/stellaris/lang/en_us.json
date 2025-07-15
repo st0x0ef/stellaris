@@ -25,12 +25,15 @@
   "block.stellaris.mars_diamond_ore": "Mars Diamond Ore",
   "block.stellaris.mars_ostrum_ore": "Mars Ostrum Ore",
   "block.stellaris.mars_plutonium_ore": "Mars Plutonium Ore",
+  "block.stellaris.mars_tharsite_ore": "Mars Tharsite Ore",
   "block.stellaris.venus_coal_ore": "Venus Coal Ore",
   "block.stellaris.venus_gold_ore": "Venus Gold Ore",
   "block.stellaris.venus_diamond_ore": "Venus Diamond Ore",
   "block.stellaris.venus_neptunium_ore": "Venus Neptunium Ore",
+  "block.stellaris.venus_corronium_ore": "Venus Corronium Ore",
   "block.stellaris.mercury_iron_ore": "Mercury Iron Ore",
   "block.stellaris.mercury_uranium_ore": "Mercury Uranium Ore",
+  "block.stellaris.mercury_solerium_ore": "Mercury Solerium Ore",
 
   "block.stellaris.raw_steel_block": "Block of Raw Steel",
   "block.stellaris.raw_desh_block": "Block of Raw Desh",
@@ -50,14 +53,19 @@
   "item.stellaris.uranium_ingot": "Uranium Ingot",
   "item.stellaris.plutonium_ingot": "Plutonium Ingot",
   "item.stellaris.neptunium_ingot": "Neptunium Ingot",
+  "item.stellaris.corronium_ingot": "Corronium Ingot",
+  "item.stellaris.tharsite_ingot": "Tharsite Ingot",
+  "item.stellaris.solerium": "Solerium",
+
+  "item.stellaris.raw_corronium": "Raw Corronium",
+  "item.stellaris.raw_tharsite": "Raw Tharsite",
+  "item.stellaris.raw_solerium": "Raw Solerium",
 
   "item.stellaris.steel_nugget": "Steel Nugget",
   "item.stellaris.heavy_metal_nugget": "Heavy Metal Nugget",
   "item.stellaris.plutonium_nugget": "Plutonium Nugget",
-
   "item.stellaris.plutonium_piece": "Plutonium Piece",
   "item.stellaris.neptunium_piece": "Neptunium Piece",
-
   "item.stellaris.plutonium_grain": "Plutonium Grain",
 
 
@@ -136,8 +144,8 @@
 
   "block.stellaris.mars_stone_stairs": "Mars Stone Stairs",
   "block.stellaris.mars_stone_slab": "Mars Stone Slab",
-  "block.stellaris.mars_polished_stone_brick_slab": "Mars Polished Stone Slab",
-  "block.stellaris.mars_polished_stone_brick_stairs": "Mars Polished Stone Stairs",
+  "block.stellaris.mars_polished_stone_slab": "Mars Polished Stone Slab",
+  "block.stellaris.mars_polished_stone_stairs": "Mars Polished Stone Stairs",
   "block.stellaris.mars_stone_brick_stairs": "Mars Stone Brick Stairs",
   "block.stellaris.mars_stone_brick_slab": "Mars Stone Brick Slab",
 
@@ -253,15 +261,18 @@
   "fluid.stellaris.fuel": "Fuel",
   "fluid.stellaris.hydrogen": "Hydrogen",
   "fluid.stellaris.oxygen": "Oxygen",
+  "fluid.stellaris.diesel": "Diesel",
 
   "block.stellaris.oil": "Oil",
   "block.stellaris.fuel": "Fuel",
   "block.stellaris.hydrogen": "Hydrogen",
   "block.stellaris.oxygen": "Oxygen",
+  "block.stellaris.diesel": "Diesel",
 
   "item.stellaris.oil_bucket": "Oil Bucket",
   "item.stellaris.fuel_bucket": "Fuel Bucket",
   "item.stellaris.hydrogen_bucket": "Hydrogen Bucket",
+  "item.stellaris.diesel_bucket": "Diesel Bucket",
 
 
 
@@ -290,16 +301,27 @@
   "block.stellaris.pumpjack": "Pumpjack",
   "block.stellaris.fuel_refinery": "Fuel Refinery",
   "block.stellaris.upgrade_station": "Upgrade Station",
+  "block.stellaris.diesel_generator": "Diesel Generator",
+  "block.stellaris.antenna": "Antenna",
+
+  "block.stellaris.t1_bank": "Tier 1 Power Bank",
+  "block.stellaris.t2_bank": "Tier 2 Power Bank",
+  "block.stellaris.t3_bank": "Tier 3 Power Bank",
+  "block.stellaris.t4_bank": "Tier 4 Power Bank",
+
+  "block.stellaris.t1_tank": "Tier 1 Fluid Tank",
+  "block.stellaris.t2_tank": "Tier 2 Fluid Tank",
+  "block.stellaris.t3_tank": "Tier 3 Fluid Tank",
+  "block.stellaris.t4_tank": "Tier 4 Fluid Tank",
 
   "item.stellaris.oil_finder": "Oil Finder",
 
   "item.stellaris.tablet": "Tablet",
 
-  "item.stellaris.raw_steel_ingot": "Raw Steel Ingot",
-  "item.stellaris.raw_desh_ingot": "Raw Desh Ingot",
-  "item.stellaris.ice_shard": "Ice Shard",
-  "item.stellaris.raw_uranium": "Raw Uranium",
-  "item.stellaris.moon_berries": "Moon Berry",
+  "item.stellaris.battery": "Battery",
+  "item.stellaris.fluid_cell": "Fluid Cell",
+
+
 
   "STELLARIS VEHICLE STUFF":
   ""
@@ -401,6 +423,8 @@
   "item.stellaris.small_red_can": "Small Red Can",
   "item.stellaris.small_yellow_can": "Small Yellow Can",
 
+  "item.stellaris.moon_berries": "Moon Berry",
+
 
 
   "STELLARIS MISCELLANEOUS ITEMS AND BLOCKS":
@@ -418,6 +442,11 @@
   "item.stellaris.big_oxygen_tank": "Big Oxygen Tank",
 
   "item.stellaris.pumpjack_drill": "Pumpjack Drill",
+
+  "item.stellaris.raw_steel_ingot": "Raw Steel Ingot",
+  "item.stellaris.raw_desh_ingot": "Raw Desh Ingot",
+  "item.stellaris.ice_shard": "Ice Shard",
+  "item.stellaris.raw_uranium": "Raw Uranium",
 
 
 
@@ -449,7 +478,7 @@
   "entity.stellaris.martian_raptor": "Martian Raptor",
   "entity.stellaris.pygro": "Pygro",
   "entity.stellaris.pygro_brute": "Pygro Brute",
-
+  "entity.stellaris.alien.none": "Alien",
   "entity.stellaris.star_crawler": "Star Crawler",
 
   "STELLARIS ADVANCEMENTS":
@@ -499,7 +528,6 @@
   ""
 ,
 
-  "text.stellaris.milkywayscreen.milkyway": "Milky Way",
   "solar_system": "Solar System",
   "text.stellaris.planetscreen.sun": "Sun",
   "text.stellaris.planetscreen.mercury": "Mercury",
@@ -515,6 +543,9 @@
   "text.stellaris.planetscreen.uranus": "Uranus",
   "text.stellaris.planetscreen.neptune": "Neptune",
   "text.stellaris.planetscreen.kuiper_belt": "Kuiper Belt",
+  "text.stellaris.planetscreen.space": "Press [Space] to pause",
+  "text.stellaris.planetscreen.returntogalaxy": "Change galaxy",
+  "text.stellaris.galaxyscreen.milkyway": "Milky Way",
 
 
 
@@ -530,7 +561,7 @@
   "key.stellaris.jetsuit_mode": "Jet Suit Mode",
   "key.stellaris.rocket_crafting_mode": "Rocket Crafting Mode",
   "key.stellaris.slow_lander": "Slow Lander",
-  "key.stellaris.tablet_info": "Tabet Info",
+  "key.stellaris.tablet_info": "Tablet Info",
 
 
 
@@ -553,11 +584,10 @@
   "general.stellaris.jet_suit_hover_mode": "Hover",
   "general.stellaris.jet_suit_elytra_mode": "Elytra",
   "general.stellaris.jet_suit_fuel": "Fuel",
-  "jetsuit.stellaris.fuel": "§7Fuel : §8%s",
 
-  "text.stellaris.planetscreen.temperature": "Temperature",
+  "text.stellaris.planetscreen.temperature": "Temp.",
   "text.stellaris.planetscreen.gravity": "Gravity",
-  "text.stellaris.planetscreen.oxygen": "Has Oxygen",
+  "text.stellaris.planetscreen.oxygen": "Oxygen",
   "text.stellaris.planetscreen.launch": "Launch!",
   "text.stellaris.planetscreen.system": "Planetary System",
   "text.stellaris.planetscreen.error_message": "You can't reach that celestial body",
@@ -581,6 +611,11 @@
   "stellaris.screen.oxygen": "Oxygen",
   "stellaris.screen.energy": "Energy",
   "stellaris.screen.energyContainer": "Energy",
+  "stellaris.screen.diesel": "Diesel",
+  "stellaris.screen.empty_fluid": "Empty",
+
+  "screen.stellaris.power_bank": "Power Bank",
+  "screen.stellaris.fluid_tank": "Fluid Tank",
 
   "stellaris.compat.rocket_crafting": "Rocket Crafting",
   "general.stellaris.rocket_crafting_mode": "Mode",
@@ -591,24 +626,27 @@
   "message.stellaris.speed": "%s Speed",
   "text.stellaris.rocket.fuel": "You need to put %s in the rocket to be able to fly",
   "message.stellaris.lander": "§4⚠ Warning §r |  Press space bar to slow down!",
+  "message.stellaris.not_owner_of_launch_pad": "§4You can't use this launch pad, you are not the owner of it!",
+  "message.stellaris.launchpad_share_success": "Added %s to the %s launch pad whitelist.",
+  "message.stellaris.launchpad_share_yourself": "You can't share your launchpad to yourself.",
+  "message.stellaris.launchpad_not_yours": "This launchpad is not yours.",
+  "message.stellaris.launchpad_dont_exist": "This launchpad don't exist.",
 
   "tooltip.item.stellaris.can.empty": "Empty",
   "tooltip.item.stellaris.can.nutrition": "Nutrition: %s/%s",
   "tooltip.item.stellaris.can.saturation": "Saturation: %s",
-  "tooltip.item.stellaris.oxygen_tank": "Oxygen: §e%s§r§f/§r§e%s§rmb",
+  "tooltip.item.stellaris.oxygen_tank": "\uD83E\uDEE7 Oxygen: §e%s§r§f/§r§e%s§rmb",
   "tooltip.item.stellaris.rocket.skin": "Skin: %s",
-  "tooltip.item.stellaris.rocket.fuel": "Fuel: %s",
+  "tooltip.item.stellaris.rocket.fuel": "\uD83C\uDF22 Fuel: %s",
   "tooltip.item.stellaris.rocket.model": "Model: %s",
-  "tooltip.item.stellaris.energy": "Energy: §e%s§r§f/§r§e%s§r FE",
+  "tooltip.item.stellaris.energy": "⚡ Energy: §e%s§r§f/§r§e%s§r FE",
   "tooltip.item.stellaris.oil_finder": "Right click on a block to check if there is oil",
   "tooltip.item.stellaris.open_tablet": "§7For more info, press §8[§c%s§8]",
+  "tooltip.item.stellaris.diesel": "\uD83C\uDF22 Diesel: %s",
 
   "stellaris.screen.tablet.rocket_launched": "Rocket Launched : %s",
   "stellaris.screen.tablet.space_traveled": "Kilometers Traveled : %s",
   "stellaris.screen.tablet.boss_killed": "Boss Killed : %s",
-
-  "stat.stellaris.rocket_launched": "Rockets Launched",
-  "stat.stellaris.space_traveled": "Space Traveled",
 
   "translatable.stellaris.registry.holdshift": "Hold [↑ Shift] to view more info.",
   "translatable.stellaris.registry.player": "Player",
@@ -651,7 +689,7 @@
   "spacesuit.stellaris.auto_feeder": "Auto Feeder",
   "spacesuit.stellaris.energy_module": "Energy Module",
   "spacesuit.stellaris.fuel_module": "Fuel Module",
-  "spacesuit.stellaris.jet": "Jet Module",
+  "spacesuit.stellaris.jet_module": "Jet Module",
   "spacesuit.stellaris.gravity_normalizer": "Gravity Normalizer",
   "spacesuit.stellaris.oil_finder": "Oil Finder",
   "spacesuit.stellaris.shift_for_modules": "Hold shift for module list",
@@ -669,6 +707,44 @@
   "biome.stellaris.mercury_fire_land": "Mercury Fire Land",
   "biome.stellaris.moon_caves": "Moon Caves",
   "biome.stellaris.moon_desert": "Moon Desert",
-  "biome.stellaris.venus_desert": "Venus Desert"
+  "biome.stellaris.venus_desert": "Venus Desert",
 
+  "station.stellaris.space_station_small": "Small Space Station",
+  "station.stellaris.space_station_big": "Big Space Station",
+  "station.stellaris.space_station_medium": "Medium Space Station",
+
+  "CONFIG": "",
+
+  "config.stellaris.oilConfig": "Oil Config",
+
+  "config.stellaris.chunkOilChance": "Oil Chunk Chance",
+  "config.stellaris.chunkOilChance.desc": "The Chance for a chunk to have Oil.",
+
+
+  "config.stellaris.minOil": "Minimum Oil",
+  "config.stellaris.minOil.desc": "The Minimum Oil in an oil chunk. Will be multiplied by 100.",
+
+  "config.stellaris.maxOil": "Max Oil",
+  "config.stellaris.maxOil.desc": "The Maximum Oil in an oil chunk. Will be multiplied by 100.",
+
+  "config.stellaris.gravityConfig": "Gravity Config",
+
+  "config.stellaris.customEntityGravity": "Custom Entity Gravity",
+  "config.stellaris.customEntityGravity.desc": "Should Entities be affected by planets gravity?",
+
+  "config.stellaris.customItemGravity": "Custom Item Gravity",
+  "config.stellaris.customItemGravity.desc": "Should Items be affected by planets gravity?",
+
+
+  "config.stellaris.oxygenDamage": "Oxygen Damage",
+  "config.stellaris.oxygenDamage.desc": "The Damage entites take every second when there is no oxygen.",
+
+  "config.stellaris.dieselGeneratorFuelTime" : "Diesel Generator Fuel Time",
+  "config.stellaris.dieselGeneratorFuelTime.desc": "The time in ticks a diesel generator can run on 10mb of diesel.",
+
+  "config.stellaris.rocketTpHeight": "Rocket Teleportation Height",
+  "config.stellaris.rocketTpHeight.desc": "The height at which the rocket opens the teleportation screen. Default is 600 blocks.",
+
+  "config.stellaris.orbitTeleportationYCoord": "Orbit Teleportation Y Coordinate",
+  "config.stellaris.orbitTeleportationYCoord.desc": "The Y coordinate at which the player will be teleported when using the orbit teleportation feature,"
 }

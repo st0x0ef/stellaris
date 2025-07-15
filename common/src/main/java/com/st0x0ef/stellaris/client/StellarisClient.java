@@ -8,10 +8,7 @@ import com.st0x0ef.stellaris.client.particles.VenusRainParticle;
 import com.st0x0ef.stellaris.client.renderers.armors.JetSuitModel;
 import com.st0x0ef.stellaris.client.renderers.armors.SpaceSuitModel;
 import com.st0x0ef.stellaris.client.screens.ConfigScreen;
-import com.st0x0ef.stellaris.common.data.screen.MoonPack;
-import com.st0x0ef.stellaris.common.data.screen.PlanetPack;
-import com.st0x0ef.stellaris.common.data.screen.StarPack;
-import com.st0x0ef.stellaris.common.data.screen.TabletPack;
+import com.st0x0ef.stellaris.common.data.screen.*;
 import com.st0x0ef.stellaris.common.handlers.GlobalExceptionHandler;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import com.st0x0ef.stellaris.common.registry.ParticleRegistry;
@@ -43,6 +40,7 @@ public class StellarisClient {
         registerOverlays();
         registerArmors();
         Platform.getMod(Stellaris.MODID).registerConfigurationScreen(ConfigScreen::new);
+
         ClientEvents.registerEvents();
     }
 
@@ -72,6 +70,7 @@ public class StellarisClient {
 
     public static void registerOverlays() {
         ClientGuiEvent.RENDER_HUD.register(EffectOverlays::render);
+        ClientGuiEvent.RENDER_HUD.register(OxygenOverlay::render);
         ClientGuiEvent.RENDER_HUD.register(RocketStartOverlay::render);
         ClientGuiEvent.RENDER_HUD.register(RocketBarOverlay::render);
         ClientGuiEvent.RENDER_HUD.register(LanderOverlay::render);
@@ -98,7 +97,9 @@ public class StellarisClient {
         ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new StarPack());
         ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new PlanetPack());
         ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new MoonPack());
+        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new PSystemPack());
         ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new TabletPack());
+        ReloadListenerRegistry.register(PackType.CLIENT_RESOURCES, new GalaxyPack());
     }
 
 }

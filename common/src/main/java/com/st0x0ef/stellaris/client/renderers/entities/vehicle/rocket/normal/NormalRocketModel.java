@@ -3,17 +3,16 @@ package com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.normal;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.st0x0ef.stellaris.common.entities.vehicles.RocketEntity;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 
-import static com.st0x0ef.stellaris.Stellaris.id;
-
 public class NormalRocketModel<T extends RocketEntity> extends EntityModel<T> {
 
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(id("normal_rocket"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocationUtils.id("normal_rocket"), "main");
     private final ModelPart rocket;
 
     public NormalRocketModel(ModelPart root) {

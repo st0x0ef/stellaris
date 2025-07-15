@@ -1,0 +1,12 @@
+{
+	"parent": "minecraft:block/cube",
+	"textures": {
+		"down": "stellaris:block/machines/fluid_tank/fluid_tank_bottom",
+		"east": "stellaris:block/machines/fluid_tank/fluid_tank_side",
+		"north": "stellaris:block/machines/fluid_tank/fluid_tank_front_9",
+		"particle": "stellaris:block/machines/fluid_tank/fluid_tank_side",
+		"south": "stellaris:block/machines/fluid_tank/fluid_tank_side",
+		"up": "stellaris:block/machines/fluid_tank/fluid_tank_top",
+		"west": "stellaris:block/machines/fluid_tank/fluid_tank_side"
+	}
+}

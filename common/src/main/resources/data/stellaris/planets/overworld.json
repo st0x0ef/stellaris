@@ -3,6 +3,8 @@
   "translatable": "stellaris.planet.earth",
   "name": "Earth",
   "level": "minecraft:overworld",
+  "orbit": "stellaris:earth_orbit",
+
   "oxygen": true,
   "temperature": 15,
   "distanceFromEarth": 0,

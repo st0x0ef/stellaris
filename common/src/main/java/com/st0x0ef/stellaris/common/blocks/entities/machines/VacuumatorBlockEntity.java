@@ -113,9 +113,9 @@ public class VacuumatorBlockEntity extends BaseEnergyContainerBlockEntity implem
 
             setItem(3, resultStack);
             setItem(4, PotionContents.createItemStack(Items.POTION, Potions.WATER));
-        }
 
-        getEnergy(null).extract(500, false);
+            getEnergy(null).extract(500, false);
+        }
     }
 
     public static boolean isFood(ItemStack food) {

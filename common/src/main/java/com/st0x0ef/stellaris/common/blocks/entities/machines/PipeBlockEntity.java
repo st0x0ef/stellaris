@@ -21,7 +21,6 @@ public class PipeBlockEntity extends BlockEntity implements FluidProvider.BLOCK,
     public PipeBlockEntity(BlockPos pos, BlockState blockState, long capacity, long maxIn, long maxOut) {
         super(BlockEntityRegistry.PIPE_ENTITY.get(), pos, blockState);
         this.fluidTank = new SingleFluidStorage(capacity, maxIn, maxOut) {
-
             @Override
             protected void onChange() {
                 setChanged();

@@ -6,6 +6,7 @@ import com.mojang.math.Axis;
 import com.st0x0ef.stellaris.common.blocks.GlobeBlock;
 import com.st0x0ef.stellaris.common.blocks.entities.GlobeBlockEntity;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -20,16 +21,14 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.state.BlockState;
 
-import static com.st0x0ef.stellaris.Stellaris.texture;
-
 @Environment(EnvType.CLIENT)
 public class GlobeBlockRenderer<T extends GlobeBlockEntity> implements BlockEntityRenderer<GlobeBlockEntity> {
 
-    public static final ResourceLocation EARTH_GLOBE_TEXTURE = texture("block/globes/earth_globe");
-    public static final ResourceLocation MOON_GLOBE_TEXTURE = texture("block/globes/moon_globe");
-    public static final ResourceLocation MARS_GLOBE_TEXTURE = texture("block/globes/mars_globe");
-    public static final ResourceLocation MERCURY_GLOBE_TEXTURE = texture("block/globes/mercury_globe");
-    public static final ResourceLocation VENUS_GLOBE_TEXTURE = texture("block/globes/venus_globe");
+    public static final ResourceLocation EARTH_GLOBE_TEXTURE = ResourceLocationUtils.texture("block/globes/earth_globe");
+    public static final ResourceLocation MOON_GLOBE_TEXTURE = ResourceLocationUtils.texture("block/globes/moon_globe");
+    public static final ResourceLocation MARS_GLOBE_TEXTURE = ResourceLocationUtils.texture("block/globes/mars_globe");
+    public static final ResourceLocation MERCURY_GLOBE_TEXTURE = ResourceLocationUtils.texture("block/globes/mercury_globe");
+    public static final ResourceLocation VENUS_GLOBE_TEXTURE = ResourceLocationUtils.texture("block/globes/venus_globe");
     private GlobeModel<?> model;
 
     public GlobeBlockRenderer(BlockEntityRendererProvider.Context Context) {

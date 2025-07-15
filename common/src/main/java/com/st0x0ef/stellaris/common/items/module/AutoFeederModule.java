@@ -29,13 +29,9 @@ public class AutoFeederModule extends Item implements SpaceSuitModule {
                         player.eat(level, foodStack, foodProperties);
                         break;
                     }
-
                 }
-
             }
-
         }
-
     }
 
     @Override

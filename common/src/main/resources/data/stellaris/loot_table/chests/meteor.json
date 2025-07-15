@@ -85,7 +85,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:iron_sword",
+          "name": "stellaris:steel_sword",
           "weight": 15,
           "functions": [
             {
@@ -95,7 +95,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:iron_axe",
+          "name": "stellaris:steel_axe",
           "weight": 15,
           "functions": [
             {
@@ -105,7 +105,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:iron_hoe",
+          "name": "stellaris:steel_hoe",
           "weight": 15,
           "functions": [
             {
@@ -115,7 +115,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:iron_shovel",
+          "name": "stellaris:steel_shovel",
           "weight": 15,
           "functions": [
             {
@@ -125,7 +125,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:iron_pickaxe",
+          "name": "stellaris:steel_pickaxe",
           "weight": 15,
           "functions": [
             {
@@ -260,27 +260,27 @@
         {
           "type": "minecraft:item",
           "name": "stellaris:skin_normal",
-          "weight": 5
+          "weight": 3
         },
         {
           "type": "minecraft:item",
           "name": "stellaris:skin_frozy",
-          "weight": 5
+          "weight": 3
         },
         {
           "type": "minecraft:item",
           "name": "stellaris:skin_galaxy",
-          "weight": 5
+          "weight": 3
         },
         {
           "type": "minecraft:item",
           "name": "stellaris:skin_military",
-          "weight": 5
+          "weight": 3
         },
         {
           "type": "minecraft:item",
           "name": "stellaris:skin_rusty",
-          "weight": 5
+          "weight": 3
         }
       ]
     }

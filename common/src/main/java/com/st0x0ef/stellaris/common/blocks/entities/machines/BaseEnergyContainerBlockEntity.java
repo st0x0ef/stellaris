@@ -47,7 +47,7 @@ public abstract class BaseEnergyContainerBlockEntity extends BaseContainerBlockE
     }
 
     public BaseEnergyContainerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-        this(type, pos, state, 15000);
+        this(type, pos, state, 12800);
     }
 
     @Override

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "hsh",
+    "sbs",
+    "hsh"
+  ],
+  "key": {
+    "s": {
+      "tag": "c:ingots/steel"
+    },
+    "h": {
+      "tag": "c:ingots/heavy_metal"
+    },
+    "b": {
+      "item": "stellaris:battery"
+    }
+  },
+  "result": {
+    "id": "stellaris:t1_bank",
+    "count": 1
+  }
+}

@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.common.entities.vehicles;
 
 import com.google.common.collect.Sets;
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.RocketModel;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.data_components.RocketComponent;
@@ -91,7 +92,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
         this.SKIN_UPGRADE = skinUpgrade;
         this.MODEL_UPGRADE = ModelUpgrade.getBasic();
-        this.MOTOR_UPGRADE = MotorUpgrade.getBasic();
+        this.MOTOR_UPGRADE = MotorUpgrade.getBasic(true);
         this.TANK_UPGRADE = TankUpgrade.getBasic();
 
         this.START_TIMER = 0;
@@ -123,7 +124,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     public void tick() {
         super.tick();
 
-        if (this.getY() > 600) {
+        if (this.getY() > Stellaris.CONFIG.rocketTpHeight) {
             this.openPlanetMenu(getFirstPlayerPassenger());
 
             this.getPassengers().forEach((entity -> {
@@ -480,7 +481,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
             }
         }
         else if (this.getInventory().getItem(2).isEmpty()) {
-            this.MOTOR_UPGRADE = MotorUpgrade.getBasic();
+            this.MOTOR_UPGRADE = MotorUpgrade.getBasic(true);
         }
 
         if (this.getInventory().getItem(3).getItem() instanceof VehicleUpgradeItem item) {
@@ -565,17 +566,16 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
     }
 
     private void openPlanetMenu(Player player) {
-        if (player == null) {
-            return;
-        }
+        if (player == null) return;
 
         if (!player.stellaris$isPlanetMenuOpen()) {
             player.setNoGravity(true);
             player.getVehicle().setNoGravity(true);
-            PlanetUtil.openPlanetSelectionMenu(player, player.isCreative());
+            PlanetUtil.openPlanetSelectionMenu(player, player.isCreative(), "stellaris:milky_way");
             player.stellaris$setPlanetMenuOpen(true, player, true);
         }
     }
+
 
     private void openWaitMenu(Player player) {
         if (player == null) {

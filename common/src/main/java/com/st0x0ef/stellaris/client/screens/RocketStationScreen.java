@@ -2,8 +2,10 @@ package com.st0x0ef.stellaris.client.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.st0x0ef.stellaris.common.menus.RocketStationMenu;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -11,21 +13,19 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
-import static com.st0x0ef.stellaris.Stellaris.guiTexture;
-
 @Environment(EnvType.CLIENT)
 public class RocketStationScreen extends AbstractContainerScreen<RocketStationMenu> {
 
-    public static final ResourceLocation texture = guiTexture("rocket_station");
+    public static final ResourceLocation texture = ResourceLocationUtils.guiTexture("rocket_station");
 
     public RocketStationScreen(RocketStationMenu abstractContainerMenu, Inventory inventory, Component component) {
         super(abstractContainerMenu, inventory, component);
+
         this.imageWidth = 180;
         this.imageHeight = 224;
 
-        this.titleLabelX = this.imageWidth - 80;
-
-        this.inventoryLabelY = this.imageHeight - 92;
+        this.titleLabelX = (180 - Minecraft.getInstance().font.width(title.getString())) / 2;
+        this.titleLabelY = 2;
     }
 
     @Override
@@ -41,6 +41,11 @@ public class RocketStationScreen extends AbstractContainerScreen<RocketStationMe
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, texture);
         guiGraphics.blit(texture, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
+    }
+
+    @Override
+    protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+        guiGraphics.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 5726575, false);
     }
 
 }

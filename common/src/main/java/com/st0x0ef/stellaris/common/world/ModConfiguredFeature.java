@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.common.world;
 
 import com.google.common.base.Suppliers;
 import com.st0x0ef.stellaris.common.registry.BlocksRegistry;
+import com.st0x0ef.stellaris.common.utils.ResourceLocationUtils;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -23,8 +24,6 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTes
 import java.util.List;
 import java.util.function.Supplier;
 
-import static com.st0x0ef.stellaris.Stellaris.id;
-
 public class ModConfiguredFeature {
 
     // OVERWORLD
@@ -37,10 +36,14 @@ public class ModConfiguredFeature {
     public static final ResourceKey<ConfiguredFeature<?, ?>> MARS_ICE_SHARD_ORE_KEY = registerKey("mars_ice_shard_ore_key");
     public static final ResourceKey<ConfiguredFeature<?, ?>> MARS_IRON_ORE_KEY = registerKey("mars_iron_ore_key");
     public static final ResourceKey<ConfiguredFeature<?, ?>> MARS_OSTRUM_ORE_KEY = registerKey("mars_ostrum_ore_key");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> MARS_THARSITE_ORE_KEY = registerKey("mars_tharsite_ore_key");
+
 
     // MERCURY
     public static final ResourceKey<ConfiguredFeature<?, ?>> MERCURY_IRON_ORE_KEY = registerKey("mercury_iron_ore_key");
     public static final ResourceKey<ConfiguredFeature<?, ?>> MERCURY_URANIUM_ORE_KEY = registerKey("mercury_uranium_ore_key");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> MERCURY_SOLERIUM_ORE_KEY = registerKey("mercury_solerium_ore_key");
+
 
     // MOON
     public static final ResourceKey<ConfiguredFeature<?, ?>> MOON_CHEESE_ORE_KEY = registerKey("moon_cheese_ore_key");
@@ -57,6 +60,7 @@ public class ModConfiguredFeature {
     public static final ResourceKey<ConfiguredFeature<?, ?>> VENUS_COAL_ORE_KEY = registerKey("venus_coal_ore_key");
     public static final ResourceKey<ConfiguredFeature<?, ?>> VENUS_DIAMOND_ORE_KEY = registerKey("venus_diamond_ore_key");
     public static final ResourceKey<ConfiguredFeature<?, ?>> VENUS_GOLD_ORE_KEY = registerKey("venus_gold_ore_key");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> VENUS_CORRONIUM_ORE_KEY = registerKey("venus_corronium_ore_key");
 
 
     // MARS
@@ -78,11 +82,17 @@ public class ModConfiguredFeature {
     public static final Supplier<List<OreConfiguration.TargetBlockState>> MARS_OSTRUM_ORE_REPLACEABLES = Suppliers.memoize(() -> List.of(
             OreConfiguration.target(new BlockMatchTest(BlocksRegistry.MARS_STONE.get()), BlocksRegistry.MARS_OSTRUM_ORE.get().defaultBlockState())));
 
+    public static final Supplier<List<OreConfiguration.TargetBlockState>> MARS_THARSITE_ORE_REPLACEABLES = Suppliers.memoize(() -> List.of(
+            OreConfiguration.target(new BlockMatchTest(BlocksRegistry.MARS_STONE.get()), BlocksRegistry.MARS_THARSITE_ORE.get().defaultBlockState())));
+
     // MERCURY
     public static final Supplier<List<OreConfiguration.TargetBlockState>> MERCURY_IRON_ORE_REPLACEABLES = Suppliers.memoize(() -> List.of(
             OreConfiguration.target(new BlockMatchTest(BlocksRegistry.MERCURY_STONE.get()), BlocksRegistry.MERCURY_IRON_ORE.get().defaultBlockState())));
     public static final Supplier<List<OreConfiguration.TargetBlockState>> MERCURY_URANIUM_ORE_REPLACEABLES = Suppliers.memoize(() -> List.of(
             OreConfiguration.target(new BlockMatchTest(BlocksRegistry.MERCURY_STONE.get()), BlocksRegistry.MERCURY_URANIUM_ORE.get().defaultBlockState())));
+    public static final Supplier<List<OreConfiguration.TargetBlockState>> MERCURY_SOLERIUM_ORE_REPLACEABLES = Suppliers.memoize(() -> List.of(
+            OreConfiguration.target(new BlockMatchTest(BlocksRegistry.MERCURY_STONE.get()), BlocksRegistry.MERCURY_SOLERIUM_ORE.get().defaultBlockState())));
+
 
     // MOON
     public static final Supplier<List<OreConfiguration.TargetBlockState>> MOON_DESH_ORE_REPLACEABLES = Suppliers.memoize(() -> List.of(
@@ -109,8 +119,12 @@ public class ModConfiguredFeature {
     public static final Supplier<List<OreConfiguration.TargetBlockState>> VENUS_GOLD_ORE_REPLACEABLES = Suppliers.memoize(() -> List.of(
             OreConfiguration.target(new BlockMatchTest(BlocksRegistry.VENUS_STONE.get()), BlocksRegistry.VENUS_GOLD_ORE.get().defaultBlockState())));
 
+    public static final Supplier<List<OreConfiguration.TargetBlockState>> VENUS_CORRONIUM_ORE_REPLACEABLES = Suppliers.memoize(() -> List.of(
+            OreConfiguration.target(new BlockMatchTest(BlocksRegistry.VENUS_STONE.get()), BlocksRegistry.VENUS_CORRONIUM_ORE.get().defaultBlockState())));
+
+
     public static ResourceKey<ConfiguredFeature<?, ?>> registerKey(String name) {
-        return ResourceKey.create(Registries.CONFIGURED_FEATURE, id(name));
+        return ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocationUtils.id(name));
     }
 
     private static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(BootstrapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, F feature, FC configuration) {
@@ -129,10 +143,12 @@ public class ModConfiguredFeature {
         register(context, MARS_ICE_SHARD_ORE_KEY, Feature.ORE, new OreConfiguration(MARS_ICE_SHARD_ORE_REPLACEABLES.get(), 10));
         register(context, MARS_IRON_ORE_KEY, Feature.ORE, new OreConfiguration(MARS_IRON_ORE_REPLACEABLES.get(), 11));
         register(context, MARS_OSTRUM_ORE_KEY, Feature.ORE, new OreConfiguration(MARS_OSTRUM_ORE_REPLACEABLES.get(), 8));
+        register(context, MARS_THARSITE_ORE_KEY, Feature.ORE, new OreConfiguration(MARS_THARSITE_ORE_REPLACEABLES.get(), 6));
 
         // MERCURY
         register(context, MERCURY_IRON_ORE_KEY, Feature.ORE, new OreConfiguration(MERCURY_IRON_ORE_REPLACEABLES.get(), 8));
         register(context, MERCURY_URANIUM_ORE_KEY, Feature.ORE, new OreConfiguration(MERCURY_URANIUM_ORE_REPLACEABLES.get(), 4));
+        register(context, MERCURY_SOLERIUM_ORE_KEY, Feature.ORE, new OreConfiguration(MERCURY_SOLERIUM_ORE_REPLACEABLES.get(), 6));
 
         // MOON
         register(context, MOON_DESH_ORE_KEY, Feature.ORE, new OreConfiguration(MOON_DESH_ORE_REPLACEABLES.get(), 9));
@@ -145,6 +161,7 @@ public class ModConfiguredFeature {
         register(context, VENUS_COAL_ORE_KEY, Feature.ORE, new OreConfiguration(VENUS_COAL_ORE_REPLACEABLES.get(), 17));
         register(context, VENUS_DIAMOND_ORE_KEY, Feature.ORE, new OreConfiguration(VENUS_DIAMOND_ORE_REPLACEABLES.get(), 9));
         register(context, VENUS_GOLD_ORE_KEY, Feature.ORE, new OreConfiguration(VENUS_GOLD_ORE_REPLACEABLES.get(), 10));
+        register(context, VENUS_CORRONIUM_ORE_KEY, Feature.ORE, new OreConfiguration(VENUS_CORRONIUM_ORE_REPLACEABLES.get(), 6));
 
         register(context, LAKE_OIL, Feature.LAKE, new LakeFeature.Configuration(BlockStateProvider.simple(BlocksRegistry.OIL_BLOCK.get().defaultBlockState()), BlockStateProvider.simple(Blocks.STONE.defaultBlockState())));
 

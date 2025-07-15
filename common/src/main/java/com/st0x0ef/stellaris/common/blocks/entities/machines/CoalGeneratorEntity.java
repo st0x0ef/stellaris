@@ -141,5 +141,4 @@ public class CoalGeneratorEntity extends BaseGeneratorBlockEntity {
     public int getContainerSize() {
         return 1;
     }
-
 }

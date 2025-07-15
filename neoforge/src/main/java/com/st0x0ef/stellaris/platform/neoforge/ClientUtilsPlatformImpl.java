@@ -23,6 +23,7 @@ public class ClientUtilsPlatformImpl {
 
     }
 
+
     public static boolean isIrisInstalled() {
         return IS_IRIS_INSTALLED;
     }

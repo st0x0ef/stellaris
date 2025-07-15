@@ -8,6 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.Item;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
@@ -15,18 +16,12 @@ public class FuelType {
 
     public static final Codec<Type> CODEC = StringRepresentable.fromEnum(Type::values);
 
-    @Deprecated
-    public static float getMegametersTraveled(int fuelQuantity, Item fuelItem) {
-        Type type = Type.getTypeBasedOnItem(fuelItem);
-
-        return getMegametersTraveled(fuelQuantity, type);
-    }
-
-    public static float getMegametersTraveled(int fuelQuantity, FuelType.Type type) {
+    public static float getMegametersTraveled(int fuelQuantity, Type type) {
         if (type != null) {
             return switch (type) {
                 case FUEL ->
                         19.22f * fuelQuantity; // Need 20mb to go on Moon, 2133mb to go on Venus, 2900mb to go on Mars and 4786mb to go on Mercury (approx)
+                case DIESEL -> 0.0F;
                 case HYDROGEN ->
                         21.36f * fuelQuantity; // Need 18mb to go on Moon, 1920mb to go on Venus, 2610mb to go on Mars and 4307mb to go on Mercury (approx)
                 case RADIOACTIVE, URANIUM ->
@@ -41,13 +36,6 @@ public class FuelType {
         return 0.0f;
     }
 
-    @Deprecated
-    public static float getFuelNeededToGoOnPlanet(Planet actual, Planet destination, Item fuelItem) {
-        Type type = Type.getTypeBasedOnItem(fuelItem);
-
-        return getFuelNeededToGoOnPlanet(actual, destination, type);
-    }
-
     public static float getFuelNeededToGoOnPlanet(Planet actual, Planet destination, Type type) {
         float distance = Mth.abs(actual.distanceFromEarth() - destination.distanceFromEarth());
 
@@ -55,6 +43,7 @@ public class FuelType {
             return switch (type) {
                 case FUEL ->
                         distance / 19.22f; // Need 20mb to go on Moon, 2133mb to go on Venus, 2900mb to go on Mars and 4786mb to go on Mercury (approx)
+                case DIESEL -> Float.MAX_VALUE; // Diesel is not used for space travel in rocket
                 case HYDROGEN ->
                         distance / 21.36f; // Need 18mb to go on Moon, 1920mb to go on Venus, 2610mb to go on Mars and 4307mb to go on Mercury (approx)
                 case RADIOACTIVE, URANIUM ->
@@ -66,28 +55,7 @@ public class FuelType {
             };
         }
 
-        return 0.0f;
-    }
-
-
-    public static Item getItemBasedOnTypeName(String name) {
-        if (name.equals(Type.FUEL.getSerializedName())) {
-            return ItemsRegistry.FUEL_BUCKET.get();
-        }
-        else if (name.equals(Type.HYDROGEN.getSerializedName())) {
-            return ItemsRegistry.HYDROGEN_BUCKET.get();
-        }
-        else if (name.equals(Type.URANIUM.getSerializedName())) {
-            return ItemsRegistry.URANIUM_INGOT.get();
-        }
-        else if (name.equals(Type.NEPTUNIUM.getSerializedName())) {
-            return ItemsRegistry.NEPTUNIUM_INGOT.get();
-        }
-        else if (name.equals(Type.PLUTONIUM.getSerializedName())) {
-            return ItemsRegistry.PLUTONIUM_INGOT.get();
-        }
-
-        return null;
+        return Float.MAX_VALUE;
     }
 
     public static Item getItemBasedOnLoacation(ResourceLocation location) {
@@ -96,6 +64,7 @@ public class FuelType {
 
     public enum Type implements StringRepresentable {
         FUEL(GUISprites.FUEL_OVERLAY, null),
+        DIESEL(GUISprites.DIESEL_OVERLAY, null),
         HYDROGEN(GUISprites.HYDROGEN_OVERLAY, null),
         RADIOACTIVE(GUISprites.ENERGY_FULL, null),
         URANIUM(GUISprites.ENERGY_FULL, RADIOACTIVE),
@@ -117,6 +86,9 @@ public class FuelType {
             if (item.getDefaultInstance().is(ItemsRegistry.FUEL_BUCKET.get())) {
                 return FUEL;
             }
+            if (item.getDefaultInstance().is(ItemsRegistry.DIESEL_BUCKET.get())) {
+                return DIESEL;
+            }
             else if (item.getDefaultInstance().is(ItemsRegistry.HYDROGEN_BUCKET.get())) {
                 return HYDROGEN;
             }
@@ -136,6 +108,7 @@ public class FuelType {
         public static Type fromString(String name) {
             return switch (name) {
                 case "fuel" -> FUEL;
+                case "diesel" -> DIESEL;
                 case "hydrogen" -> HYDROGEN;
                 case "uranium" -> URANIUM;
                 case "neptunium" -> NEPTUNIUM;
@@ -150,7 +123,7 @@ public class FuelType {
         }
 
         @Override
-        public String getSerializedName() {
+        public @NotNull String getSerializedName() {
             return name().toLowerCase();
         }
 
