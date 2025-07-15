@@ -48,14 +48,5 @@
       ]
     }
   ],
-  "functions": [
-    {
-      "function": "minecraft:experience",
-      "experience": {
-        "min": 3,
-        "max": 7
-      }
-    }
-  ],
   "random_sequence": "minecraft:blocks/diamond_ore"
 }
