@@ -18,6 +18,7 @@
 - Add missing recipes
 - Add battery
 - Add fluid cell
+- Add 4 new translated languages (Spanish, Japanese, Portuguese & Traditional Chinese)
 
 ## Changes
 - Improve the planet selection screen
@@ -31,6 +32,7 @@
 - Vacuumator now need energy
 - Vanilla crops can now only be placed in space if there is oxygen
 - Change earth's structures loot table
+- Update translation
 
 ## Fixes
 - Space suit crash when trying to put fuel in it
