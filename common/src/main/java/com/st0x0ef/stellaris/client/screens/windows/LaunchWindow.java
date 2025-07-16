@@ -87,9 +87,7 @@ public class LaunchWindow extends MoveableWindow {
             }
 
 
-            if (this.celestialBody.canLaunchOn) {
-                this.padsList.launchPads.addFirst(this.addDirectLaunch());
-            } else if (this.padsList.launchPads.isEmpty()) {
+            if (this.padsList.launchPads.isEmpty()) {
                 guiGraphics.drawCenteredString(Minecraft.getInstance().font, errorMessage, getWindowX() + getWidth() / 2, this.padsList.getY() + 7, Utils.getColorHexCode("white"));
             }
         }
@@ -114,12 +112,15 @@ public class LaunchWindow extends MoveableWindow {
         return (window) -> {
             if(window instanceof LaunchWindow launchWindow) {
                 launchWindow.setCelestialBody(body);
+                this.padsList = new LaunchPadsList(getWindowX() + 40, getWindowY() + 60, getWidth() - 80, getHeight() - 90, Component.translatable("gui.stellaris.launchpads"), this, new ArrayList<>());
+                launchWindow.padsList = this.padsList;
                 launchWindow.padsList.launchPads = launchWindow.getLaunchPadsForDimension();
             }
         };
     }
 
     public void setCelestialBody(@Nullable CelestialBody celestialBody) {
+        Stellaris.LOG.error("Setting celestial body in LaunchWindow: {}", celestialBody == null ? "null" : celestialBody.name);
         this.celestialBody = celestialBody;
     }
 
@@ -129,6 +130,12 @@ public class LaunchWindow extends MoveableWindow {
         if(celestialBody == null) {
             return launchPads;
         }
+
+        if(celestialBody.canLaunchOn) {
+            launchPads.add(addDirectLaunch());
+            return launchPads;
+        }
+
         Planet planet = PlanetUtil.getPlanet(celestialBody.dimension);
 
         if(planet == null) {
