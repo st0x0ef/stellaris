@@ -39,7 +39,7 @@ public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity impl
 
     public FuelRefineryBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.FUEL_REFINERY.get(), pos, state);
-        this.inputTank = new SingleFluidStorage(10000, 10000, 0) {
+        this.inputTank = new SingleFluidStorage(10000) {
             @Override
             protected void onChange() {
                 setChanged();
@@ -54,7 +54,7 @@ public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity impl
                 return stack.getFluid().isSame(FluidRegistry.OIL_STILL.get());
             }
         };
-        this.outputFuelTank = new SingleFluidStorage(10000, 0, 10000) {
+        this.outputFuelTank = new SingleFluidStorage(10000) {
             @Override
             protected void onChange() {
                 setChanged();
@@ -64,7 +64,7 @@ public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity impl
                 }
             }
         };
-        this.outputDieselTank = new SingleFluidStorage(10000, 0, 10000) {
+        this.outputDieselTank = new SingleFluidStorage(10000) {
             @Override
             protected void onChange() {
                 setChanged();
@@ -93,22 +93,21 @@ public class FuelRefineryBlockEntity extends BaseEnergyContainerBlockEntity impl
             FuelRefineryRecipe recipe = recipeHolder.get().value();
 
             if (energyContainer.getEnergy() >= recipe.energy()) {
-                FluidStack resultStack = recipe.fuelStack().copy();
 
                 if (inputTank.getFluidValueInTank() >= recipe.ingredientStack().getAmount()) {
-                    if ((outputFuelTank.getFluidInTank(0).isEmpty() || outputFuelTank.getFluidInTank(0).isFluidEqual(resultStack)) &&
-                            (outputDieselTank.getFluidInTank(0).isEmpty() || outputDieselTank.getFluidInTank(0).isFluidEqual(resultStack))) {
+                    if ((outputFuelTank.getFluidInTank(0).isEmpty() || outputFuelTank.getFluidInTank(0).isFluidEqual(recipe.fuelStack())) &&
+                            (outputDieselTank.getFluidInTank(0).isEmpty() || outputDieselTank.getFluidInTank(0).isFluidEqual(recipe.dieselStack()))) {
                         boolean shouldUseEnergyAndDrainOil = false;
-                        if (outputFuelTank.getFluidValueInTank() + resultStack.getAmount() < outputFuelTank.getTankCapacity(0)) {
-                            outputFuelTank.fillWithoutLimits(resultStack, false);
+                        if (outputFuelTank.getFluidValueInTank() + recipe.fuelStack().getAmount() < outputFuelTank.getTankCapacity(0)) {
+                            outputFuelTank.fill(recipe.fuelStack().copy(), false);
                             shouldUseEnergyAndDrainOil = true;
                         }
                         if (outputDieselTank.getFluidValueInTank() + recipe.dieselStack().getAmount() < outputDieselTank.getTankCapacity(0)) {
-                            outputDieselTank.fillWithoutLimits(recipe.dieselStack().copy(), false);
+                            outputDieselTank.fill(recipe.dieselStack().copy(), false);
                             shouldUseEnergyAndDrainOil = true;
                         }
                         if (shouldUseEnergyAndDrainOil) {
-                            inputTank.drainWithoutLimits(recipe.ingredientStack().copy(), false);
+                            inputTank.drain(recipe.ingredientStack().copy(), false);
                             energyContainer.extract(recipe.energy(), false);
                             setChanged();
                         }
