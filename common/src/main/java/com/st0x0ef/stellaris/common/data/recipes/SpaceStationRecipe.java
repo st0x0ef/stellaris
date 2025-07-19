@@ -9,6 +9,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
@@ -44,24 +45,65 @@ public record SpaceStationRecipe(List<ItemInput> items, ResourceLocation locatio
     }
 
 
-    public boolean haveMaterials(Player player) {
+    private boolean haveMaterials(Player player) {
         for (ItemInput item : items) {
-            if (player.getInventory().countItem(item.getItem()) < item.count()) {
+            int itemLeftToAdd = item.count();
+            for (Item itemType : item.getItems()) {
+                itemLeftToAdd -= player.getInventory().countItem(itemType);
+                if (itemLeftToAdd <= 0) {
+                    break;
+                }
+            }
+            if (itemLeftToAdd > 0) {
                 return false;
             }
         }
         return true;
     }
 
+    private boolean haveMaterials(ItemInput item, Player player) {
+        int itemLeftToAdd = item.count();
+        for (Item itemType : item.getItems()) {
+            itemLeftToAdd -= player.getInventory().countItem(itemType);
+            if (itemLeftToAdd <= 0) {
+                break;
+            }
+        }
+        return itemLeftToAdd <= 0;
+    }
+
     public void removeMaterials(Player player) {
         for (ItemInput item : items) {
-            int stacksNeeded = item.count() / item.getItem().getDefaultMaxStackSize();
-            int remainder = item.count() % item.getItem().getDefaultMaxStackSize();
-            for (int i = 0; i < stacksNeeded; i++) {
-                player.getInventory().removeItem(item.getItem().getDefaultInstance().copyWithCount(item.getItem().getDefaultMaxStackSize()));
-            }
-            if (remainder > 0) {
-                player.getInventory().removeItem(item.getItem().getDefaultInstance().copyWithCount(remainder));
+            int itemLeftToRemove = item.count();
+            for (Item itemType : item.getItems()) {
+                while (itemLeftToRemove > 0) {
+                    int count = player.getInventory().countItem(itemType);
+                    if (count <= 0) {
+                        break;
+                    }
+
+                    if (count >= itemLeftToRemove) {
+                        int stacksToRemove = itemLeftToRemove / itemType.getDefaultMaxStackSize();
+                        int remainder = itemLeftToRemove % itemType.getDefaultMaxStackSize();
+                        for (int i = 0; i < stacksToRemove; i++) {
+                            player.getInventory().removeItem(itemType.getDefaultInstance().copyWithCount(itemType.getDefaultMaxStackSize()));
+                        }
+                        if (remainder > 0) {
+                            player.getInventory().removeItem(itemType.getDefaultInstance().copyWithCount(remainder));
+                        }
+                        itemLeftToRemove = 0;
+                    } else {
+                        int stacksToRemove = count / itemType.getDefaultMaxStackSize();
+                        int remainder = count % itemType.getDefaultMaxStackSize();
+                        for (int i = 0; i < stacksToRemove; i++) {
+                            player.getInventory().removeItem(itemType.getDefaultInstance().copyWithCount(itemType.getDefaultMaxStackSize()));
+                        }
+                        if (remainder > 0) {
+                            player.getInventory().removeItem(itemType.getDefaultInstance().copyWithCount(remainder));
+                        }
+                        itemLeftToRemove -= count;
+                    }
+                }
             }
         }
     }
@@ -76,11 +118,11 @@ public record SpaceStationRecipe(List<ItemInput> items, ResourceLocation locatio
         if(player == null) return tooltip;
 
         for (ItemInput item : items) {
-            String name = "\n" + item.getItem().getDefaultInstance().getHoverName().getString() + " x" + item.count() ;
-            if (player.getInventory().countItem(item.getItem()) < item.count()) {
-                tooltip.append(Component.literal(name).withStyle(ChatFormatting.RED));
+            String text = "\n" + item.getDisplayName() + " x " + item.count();
+            if (haveMaterials(item, player)) {
+                tooltip.append(Component.literal(text).withStyle(ChatFormatting.GREEN));
             } else {
-                tooltip.append(Component.literal(name).withStyle(ChatFormatting.GREEN));
+                tooltip.append(Component.literal(text).withStyle(ChatFormatting.RED));
             }
         }
 
