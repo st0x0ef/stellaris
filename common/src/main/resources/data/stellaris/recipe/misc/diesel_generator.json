@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "sss",
+    "hbh",
+    "hch"
+  ],
+  "key": {
+    "c": {
+      "item": "stellaris:coal_generator"
+    },
+    "b": {
+      "item": "minecraft:bucket"
+    },
+    "s": {
+      "tag": "c:ingots/steel"
+    },
+    "h": {
+      "tag": "c:ingots/heavy_metal"
+    }
+  },
+  "result": {
+    "id": "stellaris:diesel_generator",
+    "count": 1
+  }
+}

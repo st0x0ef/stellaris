@@ -1,4 +1,4 @@
-# 1.4.2 changelog
+# 1.4.3 changelog
 
-## Fixes
-- Fix player not teleported to the right planet
+## Additions
+- Added missing diesel generator recipe
