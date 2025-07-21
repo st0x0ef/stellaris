@@ -1,7 +1,8 @@
-# 1.4.3 changelog
-
-## Additions
-- Added missing diesel generator recipe
+# 1.4.4 changelog
 
 ## Changes
-- Bumped sky aesthetics to 1.7.1 to fix rain and cloud issues
+- Allow to use tag in space station recipes
+- Use #c:is_dry Convention biome tags instead of #c:is_desert ([#94](https://github.com/st0x0ef/stellaris/issues/94))
+
+## Fixes
+- Fix diesel generator loot table
