@@ -46,8 +46,8 @@ public class BaseWindowScreen<T extends AbstractContainerMenu> extends AbstractC
 
     @Override
     public void mouseMoved(double mouseX, double mouseY) {
-        for(GuiEventListener listener : this.guiEventListeners) {
-            listener.mouseMoved(mouseX, mouseY);
+        for(AbstractWidget listener : this.guiEventListeners) {
+            if(listener.visible) listener.mouseMoved(mouseX, mouseY);
         }
 
         super.mouseMoved(mouseX, mouseY);
@@ -56,11 +56,12 @@ public class BaseWindowScreen<T extends AbstractContainerMenu> extends AbstractC
     @Override
     public boolean mouseReleased(double mouseX, double mouseY, int button) {
 
-        for(GuiEventListener listener : this.moveableWindows) {
-            listener.mouseReleased(mouseX, mouseY, button);
+        for(MoveableWindow listener : this.moveableWindows) {
+
+            if(listener.visible) listener.mouseReleased(mouseX, mouseY, button);
         }
-        for(GuiEventListener listener : this.guiEventListeners) {
-            listener.mouseReleased(mouseX, mouseY, button);
+        for(AbstractWidget listener : this.guiEventListeners) {
+            if(listener.visible) listener.mouseReleased(mouseX, mouseY, button);
         }
 
         return super.mouseReleased(mouseX, mouseY, button);
@@ -69,8 +70,8 @@ public class BaseWindowScreen<T extends AbstractContainerMenu> extends AbstractC
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
 
-        for(GuiEventListener listener : this.guiEventListeners) {
-            listener.mouseScrolled(mouseX, mouseY, scrollX, scrollY);
+        for(AbstractWidget listener : this.guiEventListeners) {
+            if(listener.visible) listener.mouseScrolled(mouseX, mouseY, scrollX, scrollY);
         }
 
         return super.mouseScrolled(mouseX, mouseY, scrollX, scrollY);
@@ -79,8 +80,8 @@ public class BaseWindowScreen<T extends AbstractContainerMenu> extends AbstractC
 
     @Override
     public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
-        for(GuiEventListener listener : this.guiEventListeners) {
-            listener.mouseDragged(mouseX, mouseY, button, dragX, dragY);
+        for(AbstractWidget listener : this.guiEventListeners) {
+            if(listener.visible) listener.mouseDragged(mouseX, mouseY, button, dragX, dragY);
         }
 
         return super.mouseDragged(mouseX, mouseY, button, dragX, dragY);
@@ -89,8 +90,8 @@ public class BaseWindowScreen<T extends AbstractContainerMenu> extends AbstractC
 
     @Override
     public boolean charTyped(char codePoint, int modifiers) {
-        for(GuiEventListener listener : this.guiEventListeners) {
-            listener.charTyped(codePoint, modifiers);
+        for(AbstractWidget listener : this.guiEventListeners) {
+            if(listener.visible) listener.charTyped(codePoint, modifiers);
         }
 
         return super.charTyped(codePoint, modifiers);
@@ -99,8 +100,8 @@ public class BaseWindowScreen<T extends AbstractContainerMenu> extends AbstractC
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        for(GuiEventListener listener : this.guiEventListeners) {
-            listener.keyPressed(keyCode, scanCode, modifiers);
+        for(AbstractWidget listener : this.guiEventListeners) {
+            if(listener.visible) listener.keyPressed(keyCode, scanCode, modifiers);
         }
 
         return super.keyPressed(keyCode, scanCode, modifiers);
@@ -108,9 +109,11 @@ public class BaseWindowScreen<T extends AbstractContainerMenu> extends AbstractC
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        for(GuiEventListener listener : this.guiEventListeners) {
-            listener.setFocused(true);
-            listener.mouseClicked(mouseX, mouseY, button);
+        for(AbstractWidget listener : this.guiEventListeners) {
+            if(listener.visible) {
+                listener.setFocused(true);
+                listener.mouseClicked(mouseX, mouseY, button);
+            }
         }
 
         return super.mouseClicked(mouseX, mouseY, button);
