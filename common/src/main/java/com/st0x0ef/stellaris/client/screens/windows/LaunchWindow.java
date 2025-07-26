@@ -58,6 +58,7 @@ public class LaunchWindow extends MoveableWindow {
                 (button) -> {
                     if (this.celestialBody != null) {
                         parent.setWindowVisible(1);
+                        ((SpaceStationWindow) parent.moveableWindows.get(1)).setCelestialBody(this.celestialBody);
                     }
                 }
         ).tex(ResourceLocationUtils.id("textures/gui/util/buttons/space_station_button.png"), ResourceLocationUtils.id("textures/gui/util/buttons/space_station_button_hover.png"));

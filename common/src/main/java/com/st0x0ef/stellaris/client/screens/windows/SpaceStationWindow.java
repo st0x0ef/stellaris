@@ -34,6 +34,8 @@ public class SpaceStationWindow extends MoveableWindow {
 
     public SpaceStationRecipesManager.SpaceStationRecipeState spaceStationSelected;
 
+    public CelestialBody celestialBody;
+
     private SpaceStationList stationList;
     private EditBox nameBox;
     private CustomCheckBox publicCheckBox;
@@ -97,8 +99,9 @@ public class SpaceStationWindow extends MoveableWindow {
     }
 
     public void onStationCreated() {
-        if(!this.nameBox.getValue().isEmpty() && this.spaceStationSelected != null && this.parent.focusedBody != null && PlanetUtil.getPlanet(this.parent.focusedBody.dimension) != null) {
-            Planet planet = PlanetUtil.getPlanet(this.parent.focusedBody.dimension);
+        Stellaris.LOG.info("Creating space station with name: {}", celestialBody);
+        if(!this.nameBox.getValue().isEmpty() && this.spaceStationSelected != null && celestialBody != null && PlanetUtil.getPlanet(celestialBody.dimension) != null) {
+            Planet planet = PlanetUtil.getPlanet(celestialBody.dimension);
 
             LaunchPad pad = new LaunchPad(
                     LaunchPadUtils.getNextLaunchPadId(),
@@ -111,12 +114,12 @@ public class SpaceStationWindow extends MoveableWindow {
                     this.parent.getPlayer().getName().getString(),
                     List.of()
             );
-            this.parent.onSpaceStationButtonClick(this.parent.focusedBody, this.spaceStationSelected, pad);
+            this.parent.onSpaceStationButtonClick(celestialBody, this.spaceStationSelected, pad);
         }
     }
 
     public void setCelestialBody(@Nullable CelestialBody celestialBody) {
-        this.parent.focusedBody = celestialBody;
+        this.celestialBody = celestialBody;
     }
 
 
