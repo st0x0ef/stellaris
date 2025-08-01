@@ -1,7 +1,5 @@
-# 1.3.19 changelog
+# 1.3.20 changelog
 
-## Additions
-- Add hydrogen and oxygen to tags
 
 ## Changes
-- Update potentials to 0.7.0
+- Update sky aesthetics to 1.6.2 to fix a crash on Mars
