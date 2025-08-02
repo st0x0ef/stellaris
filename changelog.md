@@ -3,3 +3,7 @@
 
 ## Changes
 - Update sky aesthetics to 1.6.2 to fix a crash on Mars
+
+
+## Fixes
+- Fix incorrect blocks names in some structures
