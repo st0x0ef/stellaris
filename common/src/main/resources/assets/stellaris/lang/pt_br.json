@@ -1,0 +1,750 @@
+{
+  "Quick explanation on formatting":
+  "Comentários não podem ser escritos em arquivos .json, e só podem ser feitos em arquivos .jsonc. Este é um arquivo .json, então os comentários são um pouco estranhos aqui.",
+
+  "How comments are made despite this limitation":
+  "Comentários são escritos onde a chave de tradução deveria estar, e a tradução deve ser deixada em branco ou ter uma explicação. Cada parte do comentário deve ser separada por uma linha.",
+
+  "Comment spacing":
+  "Comentários são escritos acima de uma seção. Deve haver três(3) linhas de espaço em branco acima de um comentário, bem como uma(1) abaixo do comentário.",
+
+
+
+  "STELLARIS ORES":
+  ""
+,
+
+  "block.stellaris.steel_ore": "Minério de Aço",
+  "block.stellaris.deepslate_steel_ore": "Minério de Aço de Ardosiabissal",
+  "block.stellaris.moon_ice_shard_ore": "Minério de Fragmento de Gelo Lunar",
+  "block.stellaris.moon_iron_ore": "Minério de Ferro Lunar",
+  "block.stellaris.moon_steel_ore": "Minério de Aço Lunar",
+  "block.stellaris.moon_desh_ore": "Minério de Desh Lunar",
+  "block.stellaris.mars_ice_shard_ore": "Minério de Fragmento de Gelo Marciano",
+  "block.stellaris.mars_iron_ore": "Minério de Ferro Marciano",
+  "block.stellaris.mars_diamond_ore": "Minério de Diamante Marciano",
+  "block.stellaris.mars_ostrum_ore": "Minério de Ostrum Marciano",
+  "block.stellaris.mars_plutonium_ore": "Minério de Plutônio Marciano",
+  "block.stellaris.mars_tharsite_ore": "Minério de Tharsite Marciano",
+  "block.stellaris.venus_coal_ore": "Minério de Carvão Venusiano",
+  "block.stellaris.venus_gold_ore": "Minério de Ouro Venusiano",
+  "block.stellaris.venus_diamond_ore": "Minério de Diamante Venusiano",
+  "block.stellaris.venus_neptunium_ore": "Minério de Neptúnio Venusiano",
+  "block.stellaris.venus_corronium_ore": "Minério de Corronium Venusiano",
+  "block.stellaris.mercury_iron_ore": "Minério de Ferro Mercuriano",
+  "block.stellaris.mercury_uranium_ore": "Minério de Urânio Mercuriano",
+  "block.stellaris.mercury_solerium_ore": "Minério de Solerium Mercuriano",
+
+  "block.stellaris.raw_steel_block": "Bloco de Aço Bruto",
+  "block.stellaris.raw_desh_block": "Bloco de Desh Bruto",
+  "block.stellaris.raw_uranium_block": "Bloco de Urânio Bruto",
+
+  "item.stellaris.raw_neptunium": "Neptúnio Bruto",
+
+  "block.stellaris.steel_block": "Bloco de Aço",
+  "block.stellaris.desh_block": "Bloco de Desh",
+  "block.stellaris.uranium_block": "Bloco de Urânio",
+  "block.stellaris.plutonium_block": "Bloco de Plutônio",
+  "block.stellaris.neptunium_block": "Bloco de Neptúnio",
+
+  "item.stellaris.steel_ingot": "Barra de Aço",
+  "item.stellaris.heavy_metal_ingot": "Barra de Metal Pesado",
+  "item.stellaris.desh_ingot": "Barra de Desh",
+  "item.stellaris.uranium_ingot": "Barra de Urânio",
+  "item.stellaris.plutonium_ingot": "Barra de Plutônio",
+  "item.stellaris.neptunium_ingot": "Barra de Neptúnio",
+  "item.stellaris.corronium_ingot": "Barra de Corronium",
+  "item.stellaris.tharsite_ingot": "Barra de Tharsite",
+  "item.stellaris.solerium": "Solerium",
+
+  "item.stellaris.raw_corronium": "Corronium Bruto",
+  "item.stellaris.raw_tharsite": "Tharsite Bruto",
+  "item.stellaris.raw_solerium": "Solerium Bruto",
+
+  "item.stellaris.steel_nugget": "Pepita de Aço",
+  "item.stellaris.heavy_metal_nugget": "Pepita de Metal Pesado",
+  "item.stellaris.plutonium_nugget": "Pepita de Plutônio",
+  "item.stellaris.plutonium_piece": "Pedaço de Plutônio",
+  "item.stellaris.neptunium_piece": "Pedaço de Neptúnio",
+  "item.stellaris.plutonium_grain": "Grão de Plutônio",
+
+
+
+  "STELLARIS METAL DECORATION BLOCKS":
+  ""
+,
+
+  "block.stellaris.iron_plating_block": "Revestimento de Ferro",
+  "block.stellaris.iron_plating_stairs": "Escadas de Revestimento de Ferro",
+  "block.stellaris.iron_plating_slab": "Laje de Revestimento de Ferro",
+  "block.stellaris.iron_pillar": "Pilar de Ferro",
+
+  "block.stellaris.steel_plating_block": "Bloco de Revestimento de Aço",
+  "block.stellaris.steel_plating_stairs": "Escadas de Revestimento de Aço",
+  "block.stellaris.steel_plating_slab": "Laje de Revestimento de Aço",
+  "block.stellaris.steel_pillar": "Pilar de Aço",
+  "block.stellaris.steel_slab": "Laje de Aço",
+  "block.stellaris.steel_stairs": "Escadas de Aço",
+
+  "block.stellaris.heavy_metal_casing": "Carcaça de Metal Pesado",
+  "block.stellaris.heavy_metal_plate": "Placa de Metal Pesado",
+  "block.stellaris.heavy_metal_stairs": "Escadas de Metal Pesado",
+  "block.stellaris.heavy_metal_slab": "Laje de Metal Pesado",
+
+  "block.stellaris.desh_plating_block": "Bloco de Revestimento de Desh",
+  "block.stellaris.desh_plating_stairs": "Escadas de Revestimento de Desh",
+  "block.stellaris.desh_plating_slab": "Laje de Revestimento de Desh",
+  "block.stellaris.desh_pillar": "Pilar de Desh",
+
+
+
+  "STELLARIS MOON WORLDGEN BLOCKS":
+  ""
+,
+
+  "block.stellaris.moon_sand": "Areia Lunar",
+  "block.stellaris.moon_stone": "Pedra Lunar",
+  "block.stellaris.moon_cobblestone": "Pedregulho Lunar",
+  "block.stellaris.moon_stone_dust": "Pó de Pedra Lunar",
+  "block.stellaris.chiseled_moon_stone": "Pedra Lunar Cinzelada",
+  "block.stellaris.polished_moon_stone": "Pedra Lunar Polida",
+  "block.stellaris.moon_stone_bricks": "Tijolos de Pedra Lunar",
+  "block.stellaris.cracked_moon_stone_bricks": "Tijolos de Pedra Lunar Rachados",
+  "block.stellaris.moon_stone_pillar": "Pilar de Pedra Lunar",
+  "block.stellaris.moon_pillar": "Pilar Lunar",
+  "block.stellaris.moon_deepslate": "Ardosiabissal Lunar",
+
+  "block.stellaris.moon_stone_stairs": "Escadas de Pedra Lunar",
+  "block.stellaris.moon_stone_slab": "Laje de Pedra Lunar",
+  "block.stellaris.moon_polished_stone_brick_stairs": "Escadas de Pedra Polida Lunar",
+  "block.stellaris.moon_polished_stone_brick_slab": "Laje de Pedra Polida Lunar",
+  "block.stellaris.moon_stone_brick_stairs": "Escadas de Tijolos de Pedra Lunar",
+  "block.stellaris.moon_stone_brick_slab": "Laje de Tijolos de Pedra Lunar",
+
+
+
+  "STELLARIS MARS WORLDGEN BLOCKS":
+  ""
+,
+
+  "block.stellaris.mars_sand": "Areia Marciana",
+  "block.stellaris.mars_stone": "Pedra Marciana",
+  "block.stellaris.mars_cobblestone": "Pedregulho Marciano",
+  "block.stellaris.mars_stone_dust": "Pó de Pedra Marciana",
+  "block.stellaris.chiseled_mars_stone_bricks": "Pedra Marciana Cinzelada",
+  "block.stellaris.polished_mars_stone": "Pedra Marciana Polida",
+  "block.stellaris.mars_stone_bricks": "Tijolos de Pedra Marciana",
+  "block.stellaris.cracked_mars_stone_bricks": "Tijolos de Pedra Marciana Rachados",
+  "block.stellaris.mars_stone_pillar": "Pilar de Pedra Marciana",
+  "block.stellaris.mars_pillar": "Pilar Marciano",
+  "block.stellaris.mars_deepslate": "Ardosiabissal Marciana",
+
+  "block.stellaris.conglomorate": "Conglomerado",
+  "block.stellaris.polished_conglomorate": "Conglomerado Polido",
+
+  "block.stellaris.mars_stone_stairs": "Escadas de Pedra Marciana",
+  "block.stellaris.mars_stone_slab": "Laje de Pedra Marciana",
+  "block.stellaris.mars_polished_stone_slab": "Laje de Pedra Polida Marciana",
+  "block.stellaris.mars_polished_stone_stairs": "Escadas de Pedra Polida Marciana",
+  "block.stellaris.mars_stone_brick_stairs": "Escadas de Tijolos de Pedra Marciana",
+  "block.stellaris.mars_stone_brick_slab": "Laje de Tijolos de Pedra Marciana",
+
+  "block.stellaris.conglomorate_stairs": "Escadas de Conglomerado",
+  "block.stellaris.conglomorate_slab": "Laje de Conglomerado",
+  "block.stellaris.polished_conglomorate_stairs": "Escadas de Conglomerado Polido",
+  "block.stellaris.polished_conglomorate_slab": "Laje de Conglomerado Polido",
+
+
+
+  "STELLARIS VENUS WORLDGEN BLOCKS":
+  ""
+,
+
+  "block.stellaris.venus_sand": "Areia Venusiana",
+  "block.stellaris.venus_sandstone": "Arenito Venusiano",
+  "block.stellaris.chiseled_venus_sandstone": "Arenito Venusiano Cinzelado",
+  "block.stellaris.venus_smooth_sandstone": "Arenito Liso Venusiano",
+  "block.stellaris.venus_sandstone_bricks": "Tijolos de Arenito Venusiano",
+  "block.stellaris.cracked_venus_sandstone_bricks": "Tijolos de Arenito Venusiano Rachados",
+  "block.stellaris.venus_smooth_sandstone_brick": "Tijolo de Arenito Liso Venusiano",
+  "block.stellaris.venus_sandstone_pillar": "Pilar de Arenito Venusiano",
+
+  "block.stellaris.venus_sandstone_stairs": "Escadas de Arenito Venusiano",
+  "block.stellaris.venus_sandstone_slab": "Laje de Arenito Venusiano",
+  "block.stellaris.venus_smooth_sandstone_stairs": "Escadas de Arenito Liso Venusiano",
+  "block.stellaris.venus_smooth_sandstone_slab": "Laje de Arenito Liso Venusiano",
+  "block.stellaris.venus_sandstone_brick_stairs": "Escadas de Tijolos de Arenito Venusiano",
+  "block.stellaris.venus_sandstone_brick_slab": "Laje de Tijolos de Arenito Venusiano",
+  "block.stellaris.venus_smooth_sandstone_brick_stairs": "Escadas de Tijolos de Arenito Liso Venusiano",
+  "block.stellaris.venus_smooth_sandstone_brick_slab": "Laje de Tijolos de Arenito Liso Venusiano",
+
+  "block.stellaris.venus_stone": "Pedra Venusiana",
+  "block.stellaris.venus_cobblestone": "Pedregulho Venusiano",
+  "block.stellaris.venus_stone_dust": "Pó de Pedra Venusiana",
+  "block.stellaris.chiseled_venus_stone": "Pedra Venusiana Cinzelada",
+  "block.stellaris.polished_venus_stone": "Pedra Venusiana Polida",
+  "block.stellaris.venus_stone_bricks": "Tijolos de Pedra Venusiana",
+  "block.stellaris.cracked_venus_stone_bricks": "Tijolos de Pedra Venusiana Rachados",
+  "block.stellaris.venus_stone_pillar": "Pilar de Pedra Venusiana",
+  "block.stellaris.venus_pillar": "Pilar Venusiano",
+  "block.stellaris.venus_deepslate": "Ardosiabissal Venusiana",
+
+  "block.stellaris.venus_stone_stairs": "Escadas de Pedra Venusiana",
+  "block.stellaris.venus_stone_slab": "Laje de Pedra Venusiana",
+  "block.stellaris.venus_polished_stone_stairs": "Escadas de Pedra Polida Venusiana",
+  "block.stellaris.venus_polished_stone_slab": "Laje de Pedra Polida Venusiana",
+  "block.stellaris.venus_stone_brick_stairs": "Escadas de Tijolos de Pedra Venusiana",
+  "block.stellaris.venus_stone_brick_slab": "Laje de Tijolos de Pedra Venusiana",
+
+
+
+  "STELLARIS MERCURY WORLDGEN BLOCKS":
+  ""
+,
+
+  "block.stellaris.mercury_stone": "Pedra Mercuriana",
+  "block.stellaris.mercury_cobblestone": "Pedregulho Mercuriano",
+  "block.stellaris.mercury_stone_dust": "Pó de Pedra Mercuriana",
+  "block.stellaris.chiseled_mercury_stone": "Pedra Mercuriana Cinzelada",
+  "block.stellaris.polished_mercury_stone": "Pedra Mercuriana Polida",
+  "block.stellaris.mercury_stone_bricks": "Tijolos de Pedra Mercuriana",
+  "block.stellaris.cracked_mercury_stone_bricks": "Tijolos de Pedra Mercuriana Rachados",
+  "block.stellaris.mercury_stone_pillar": "Pilar de Pedra Mercuriana",
+  "block.stellaris.mercury_pillar": "Pilar Mercuriano",
+  "block.stellaris.mercury_deepslate": "Ardosiabissal Mercuriana",
+
+  "block.stellaris.mercury_stone_stairs": "Escadas de Pedra Mercuriana",
+  "block.stellaris.mercury_stone_slab": "Laje de Pedra Mercuriana",
+  "block.stellaris.mercury_polished_stone_stairs": "Escadas de Pedra Polida Mercuriana",
+  "block.stellaris.mercury_polished_stone_slab": "Laje de Pedra Polida Mercuriana",
+  "block.stellaris.mercury_stone_brick_stairs": "Escadas de Tijolos de Pedra Mercuriana",
+  "block.stellaris.mercury_stone_brick_slab": "Laje de Tijolos de Pedra Mercuriana",
+
+
+
+  "STELLARIS VERTICAL SLABS":
+  ""
+,
+
+  "block.stellaris.vertical_moon_slab": "Laje Vertical de Pedra Lunar",
+  "block.stellaris.vertical_mars_slab": "Laje Vertical de Pedra Marciana",
+  "block.stellaris.vertical_venus_slab": "Laje Vertical de Pedra Venusiana",
+  "block.stellaris.vertical_mercury_slab": "Laje Vertical de Pedra Mercuriana",
+
+  "block.stellaris.vertical_steel_slab": "Laje Vertical de Aço",
+  "block.stellaris.vertical_heavy_metal_slab": "Laje Vertical de Metal Pesado",
+  "block.stellaris.vertical_heavy_metal_plate_slab": "Laje Vertical de Placa de Metal Pesado",
+  "block.stellaris.vertical_steel_plating_slab": "Laje Vertical de Revestimento de Aço",
+  "block.stellaris.vertical_iron_plating_slab": "Laje Vertical de Revestimento de Ferro",
+  "block.stellaris.vertical_desh_plating_slab": "Laje Vertical de Revestimento de Desh",
+  "block.stellaris.vertical_desh_slab": "Laje Vertical de Desh",
+
+
+
+  "STELLARIS GLOBES":
+  ""
+,
+
+  "block.stellaris.earth_globe": "Globo Terrestre",
+  "block.stellaris.moon_globe": "Globo Lunar",
+  "block.stellaris.mars_globe": "Globo Marciano",
+  "block.stellaris.mercury_globe": "Globo Mercuriano",
+  "block.stellaris.venus_globe": "Globo Venusiano",
+
+
+
+  "STELLARIS FLUIDS":
+  ""
+,
+
+  "fluid.stellaris.oil": "Petróleo",
+  "fluid.stellaris.fuel": "Combustível",
+  "fluid.stellaris.hydrogen": "Hidrogênio",
+  "fluid.stellaris.oxygen": "Oxigênio",
+  "fluid.stellaris.diesel": "Diesel",
+
+  "block.stellaris.oil": "Petróleo",
+  "block.stellaris.fuel": "Combustível",
+  "block.stellaris.hydrogen": "Hidrogênio",
+  "block.stellaris.oxygen": "Oxigênio",
+  "block.stellaris.diesel": "Diesel",
+
+  "item.stellaris.oil_bucket": "Balde de Petróleo",
+  "item.stellaris.fuel_bucket": "Balde de Combustível",
+  "item.stellaris.hydrogen_bucket": "Balde de Hidrogênio",
+  "item.stellaris.diesel_bucket": "Balde de Diesel",
+
+
+
+  "STELLARIS MACHINERY":
+  ""
+,
+
+  "block.stellaris.cable": "Cabo Nível 1",
+  "block.stellaris.cable_t2": "Cabo Nível 2",
+  "block.stellaris.cable_t3": "Cabo Nível 3",
+
+  "block.stellaris.pipe_t1": "Tubo Nível 1",
+  "block.stellaris.pipe_t2": "Tubo Nível 2",
+  "block.stellaris.pipe_t3": "Tubo Nível 3",
+
+  "block.stellaris.rocket_launch_pad": "Plataforma de Lançamento de Foguetes",
+  "block.stellaris.rocket_station": "Estação de Foguetes",
+
+  "block.stellaris.coal_generator": "Gerador a Carvão",
+  "block.stellaris.radioactive_generator": "Gerador Radioativo",
+  "block.stellaris.solar_panel": "Painel Solar",
+  "block.stellaris.water_pump": "Bomba d'Água",
+  "block.stellaris.water_separator": "Separador de Água",
+  "block.stellaris.oxygen_distributor": "Distribuidor de Oxigênio",
+  "block.stellaris.vacuumator": "Aspirator",
+  "block.stellaris.pumpjack": "Bomba de Extração",
+  "block.stellaris.fuel_refinery": "Refinaria de Combustível",
+  "block.stellaris.upgrade_station": "Estação de Melhoria",
+  "block.stellaris.diesel_generator": "Gerador a Diesel",
+  "block.stellaris.antenna": "Antena",
+
+  "block.stellaris.t1_bank": "Banco de Energia Nível 1",
+  "block.stellaris.t2_bank": "Banco de Energia Nível 2",
+  "block.stellaris.t3_bank": "Banco de Energia Nível 3",
+  "block.stellaris.t4_bank": "Banco de Energia Nível 4",
+
+  "block.stellaris.t1_tank": "Tanque de Fluido Nível 1",
+  "block.stellaris.t2_tank": "Tanque de Fluido Nível 2",
+  "block.stellaris.t3_tank": "Tanque de Fluido Nível 3",
+  "block.stellaris.t4_tank": "Tanque de Fluido Nível 4",
+
+  "item.stellaris.oil_finder": "Localizador de Petróleo",
+
+  "item.stellaris.tablet": "Tablet",
+
+  "item.stellaris.battery": "Bateria",
+  "item.stellaris.fluid_cell": "Célula de Fluido",
+
+
+
+  "STELLARIS VEHICLE STUFF":
+  ""
+,
+
+  "item.stellaris.rocket": "Foguete",
+  "item.stellaris.rocket_fin": "Aleta de Foguete",
+  "item.stellaris.engine_fan": "Ventoinha do Motor",
+  "item.stellaris.rocket_engine": "Motor de Foguete",
+  "item.stellaris.rocket_nose_cone": "Cone do Nariz do Foguete",
+
+  "item.stellaris.tiny_rocket_upgrade": "Modelo de Foguete Miniatura",
+  "item.stellaris.small_rocket_upgrade": "Modelo de Foguete Pequeno",
+  "item.stellaris.normal_rocket_upgrade": "Modelo de Foguete Normal",
+  "item.stellaris.big_rocket_upgrade": "Modelo de Foguete Grande",
+
+  "item.stellaris.big_fuel_tank_upgrade": "Tanque de Combustível Grande",
+
+  "item.stellaris.hydrogen_motor": "Motor a Hidrogênio",
+  "item.stellaris.radioactive_motor": "Motor Radioativo",
+
+  "item.stellaris.skin_normal": "Aparência Normal",
+  "item.stellaris.skin_frozy": "Aparência Congelada",
+  "item.stellaris.skin_rusty": "Aparência Enferrujada",
+  "item.stellaris.skin_military": "Aparência Militar",
+  "item.stellaris.skin_galaxy": "Aparência de Galáxia",
+
+  "item.stellaris.rover": "Rover",
+
+  "item.stellaris.speed_upgrade": "Melhoria de Velocidade",
+
+
+
+  "STELLARIS ARMOR/SUITS":
+  ""
+,
+
+  "item.stellaris.space_suit_chestplate": "Peitoral de Traje Espacial",
+  "item.stellaris.space_suit_helmet": "Capacete de Traje Espacial",
+  "item.stellaris.space_suit_leggings": "Calças de Traje Espacial",
+  "item.stellaris.space_suit_boots": "Botas de Traje Espacial",
+
+  "item.stellaris.jet_suit_boots": "Botas de Traje a Jato",
+  "item.stellaris.jet_suit_leggings": "Calças de Traje a Jato",
+  "item.stellaris.jet_suit_chestplate": "Peitoral de Traje a Jato",
+  "item.stellaris.jet_suit_helmet": "Capacete de Traje a Jato",
+
+  "item.stellaris.jetsuit_helmet": "Capacete de Traje a Jato",
+  "item.stellaris.jetsuit_leggings": "Calças de Traje a Jato",
+  "item.stellaris.jetsuit_boots": "Botas de Traje a Jato",
+  "item.stellaris.jetsuit_suit": "Peitoral de Traje a Jato",
+  "item.stellaris.base_module_tier_1": "Módulo Base Nível 1",
+  "item.stellaris.base_module_tier_2": "Módulo Base Nível 2",
+
+  "item.stellaris.fuel_module": "Módulo de Combustível",
+  "item.stellaris.oil_finder_module": "Módulo Localizador de Petróleo",
+  "item.stellaris.auto_feeder_module": "Módulo Autoalimentador",
+  "item.stellaris.gravity_normalizer_module": "Módulo Normalizador de Gravidade",
+  "item.stellaris.jet_module": "Módulo de Jato",
+  "item.stellaris.energy_module": "Módulo de Energia",
+
+
+  "STELLARIS TOOLS/WEAPONS":
+  ""
+,
+
+  "item.stellaris.steel_sword": "Espada de Aço",
+  "item.stellaris.steel_axe": "Machado de Aço",
+  "item.stellaris.steel_pickaxe": "Picareta de Aço",
+  "item.stellaris.steel_hoe": "Enxada de Aço",
+  "item.stellaris.steel_shovel": "Pá de Aço",
+
+  "item.stellaris.ice_shard_arrow": "Flecha de Fragmento de Gelo",
+
+
+
+  "STELLARIS FOODS":
+  ""
+,
+
+  "item.stellaris.cannon_steak": "Bife Enlatado",
+  "item.stellaris.cosmo_bread": "Pão Cósmico",
+  "item.stellaris.cheese": "Queijo",
+  "block.stellaris.cheese_block": "Bloco de Queijo",
+  "item.stellaris.cosmo_coffee": "Café Cósmico",
+  "item.stellaris.coffee_cup": "Xícara de Café",
+  "item.stellaris.moon_fruit": "Fruta Lunar",
+  "item.stellaris.mars_fruit": "Fruta Marciana",
+
+  "item.stellaris.big_blue_can": "Lata Azul Grande",
+  "item.stellaris.big_green_can": "Lata Verde Grande",
+  "item.stellaris.big_purple_can": "Lata Roxa Grande",
+  "item.stellaris.big_red_can": "Lata Vermelha Grande",
+  "item.stellaris.big_yellow_can": "Lata Amarela Grande",
+
+  "item.stellaris.small_blue_can": "Lata Azul Pequena",
+  "item.stellaris.small_green_can": "Lata Verde Pequena",
+  "item.stellaris.small_purple_can": "Lata Roxa Pequena",
+  "item.stellaris.small_red_can": "Lata Vermelha Pequena",
+  "item.stellaris.small_yellow_can": "Lata Amarela Pequena",
+
+  "item.stellaris.moon_berries": "Baga Lunar",
+
+
+
+  "STELLARIS MISCELLANEOUS ITEMS AND BLOCKS":
+  ""
+,
+
+  "block.stellaris.flag": "Bandeira",
+
+  "block.stellaris.meteorite": "Meteorito",
+
+  "block.stellaris.coal_lantern": "Lanterna de Carvão",
+  "block.stellaris.coal_torch": "Tocha de Carvão",
+
+  "item.stellaris.oxygen_tank": "Tanque de Oxigênio",
+  "item.stellaris.big_oxygen_tank": "Tanque de Oxigênio Grande",
+
+  "item.stellaris.pumpjack_drill": "Broca da Bomba de Extração",
+
+  "item.stellaris.raw_steel_ingot": "Barra de Aço Bruto",
+  "item.stellaris.raw_desh_ingot": "Barra de Desh Bruto",
+  "item.stellaris.ice_shard": "Fragmento de Gelo",
+  "item.stellaris.raw_uranium": "Urânio Bruto",
+
+
+
+  "STELLARIS ENTITIES":
+  ""
+,
+
+  "item.stellaris.alien_spawn_egg": "Ovo de Invocação de Alienígena",
+  "item.stellaris.alien_zombie_spawn_egg": "Ovo de Invocação de Zumbi Alienígena",
+  "item.stellaris.star_crawler_spawn_egg": "Ovo de Invocação de Rastejador Estelar",
+  "item.stellaris.martian_raptor_spawn_egg": "Ovo de Invocação de Raptor Marciano",
+  "item.stellaris.pygro_spawn_egg": "Ovo de Invocação de Pygro",
+  "item.stellaris.pygro_brute_spawn_egg": "Ovo de Invocação de Pygro Bruto",
+  "item.stellaris.mogler_spawn_egg": "Ovo de Invocação de Mogler",
+
+  "container.entity.stellaris.lander": "Módulo de Pouso",
+  "container.entity.stellaris.rocket": "Foguete",
+  "entity.stellaris.cheese_boss": "Chefe Queijo",
+  "entity.stellaris.lander": "Módulo de Pouso",
+  "entity.stellaris.big_rocket": "Foguete Grande",
+  "entity.stellaris.normal_rocket": "Foguete Normal",
+  "entity.stellaris.tiny_rocket": "Foguete Miniatura",
+  "entity.stellaris.small_rocket": "Foguete Pequeno",
+  "entity.stellaris.ice_shard_arrow": "Flecha de Fragmento de Gelo",
+  "entity.stellaris.cheese_spit": "Cuspe de Queijo",
+  "entity.stellaris.alien": "Alienígena",
+  "entity.stellaris.alien_zombie": "Zumbi Alienígena",
+  "entity.stellaris.mogler": "Mogler",
+  "entity.stellaris.martian_raptor": "Raptor Marciano",
+  "entity.stellaris.pygro": "Pygro",
+  "entity.stellaris.pygro_brute": "Pygro Bruto",
+  "entity.stellaris.alien.none": "Alienígena",
+  "entity.stellaris.star_crawler": "Rastejador Estelar",
+
+  "STELLARIS ADVANCEMENTS":
+  ""
+,
+
+  "advancements.moon.root.title": "Um Pequeno Passo Para o Homem...",
+  "advancements.moon.root.description": "Pouse na Lua.",
+  "advancements.mars.root.title": "Ermo Vermelho",
+  "advancements.mars.root.description": "Pouse em Marte.",
+  "advancements.venus.root.title": "Vênus, Deusa do Amor e da Beleza",
+  "advancements.venus.root.description": "Pouse em Vênus.",
+  "advancements.mercury.root.title": "Quente Demais Para Mim!",
+  "advancements.mercury.root.description": "Pouse em Mercúrio.",
+
+  "advancements.stellaris.rocket_station.description": "Criou uma Estação de Foguetes.",
+  "advancements.stellaris.rocket_station.title": "Um Outro Tipo de Bancada de Trabalho",
+
+  "advancements.stellaris.oil.description": "Encontre Petróleo.",
+  "advancements.stellaris.oil.title": "Alguém disse Petróleo?!!",
+  "advancements.stellaris.root.title": "Que metal estranho...",
+  "advancements.stellaris.root.description": "Encontre Aço.",
+  "advancements.stellaris.rocket.description": "Criou um foguete.",
+  "advancements.stellaris.rocket.title": "Leve-me Para a Lua!",
+
+
+
+  "STELLARIS EFFECTS":
+  ""
+,
+
+  "effect.stellaris.radioactive": "Radioatividade",
+  "effect.stellaris.sandstorm": "Tempestade de Areia",
+
+
+
+  "STELLARIS DAMAGE TYPES":
+  ""
+,
+
+  "death.attack.radiation": "%1$s recebeu uma dose letal de radiação",
+  "death.attack.oxygen": "%1$s morreu por falta de oxigênio",
+
+
+
+  "STELLARIS PLANET SCREEN":
+  ""
+,
+
+  "solar_system": "Sistema Solar",
+  "text.stellaris.planetscreen.sun": "Sol",
+  "text.stellaris.planetscreen.mercury": "Mercúrio",
+  "text.stellaris.planetscreen.venus": "Vênus",
+  "text.stellaris.planetscreen.earth": "Terra",
+  "text.stellaris.planetscreen.moon": "Lua",
+  "text.stellaris.planetscreen.mars": "Marte",
+  "text.stellaris.planetscreen.phobos": "Fobos",
+  "text.stellaris.planetscreen.deimos": "Deimos",
+  "text.stellaris.planetscreen.asteroid_belt": "Cinturão de Asteroides",
+  "text.stellaris.planetscreen.jupiter": "Júpiter",
+  "text.stellaris.planetscreen.saturn": "Saturno",
+  "text.stellaris.planetscreen.uranus": "Urano",
+  "text.stellaris.planetscreen.neptune": "Netuno",
+  "text.stellaris.planetscreen.kuiper_belt": "Cinturão de Kuiper",
+  "text.stellaris.planetscreen.space": "Pressione [Espaço] para pausar",
+  "text.stellaris.planetscreen.returntogalaxy": "Mudar de galáxia",
+  "text.stellaris.galaxyscreen.milkyway": "Via Láctea",
+
+
+
+  "STELLARIS CATEGORIES":
+  ""
+,
+
+  "categorie.stellaris.main": "Stellaris",
+  "categorie.stellaris_blocks.main": "Blocos Stellaris",
+  "category.stellaris.default": "Stellaris",
+  "key.stellaris.rocket_start": "Ligar Foguete",
+  "key.stellaris.freeze_planet_menu": "Congelar Menu de Seleção de Planeta",
+  "key.stellaris.jetsuit_mode": "Modo do Traje a Jato",
+  "key.stellaris.rocket_crafting_mode": "Modo de Criação de Foguete",
+  "key.stellaris.slow_lander": "Desacelerar Módulo de Pouso",
+  "key.stellaris.tablet_info": "Informações do Tablet",
+
+
+
+  "STELLARIS EVENTS":
+  ""
+,
+
+  "event.stellaris.cheeseboss": "Chefe Queijo",
+
+
+
+  "UNSORTED":
+  ""
+,
+
+  "jetsuit.stellaris.oxygen": "§7Oxigênio : §8%s",
+  "general.stellaris.jet_suit_mode": "Modo",
+  "general.stellaris.jet_suit_disabled_mode": "Desativado",
+  "general.stellaris.jet_suit_normal_mode": "Normal",
+  "general.stellaris.jet_suit_hover_mode": "Flutuar",
+  "general.stellaris.jet_suit_elytra_mode": "Élitro",
+  "general.stellaris.jet_suit_fuel": "Combustível",
+
+  "text.stellaris.planetscreen.temperature": "Temp.",
+  "text.stellaris.planetscreen.gravity": "Gravidade",
+  "text.stellaris.planetscreen.oxygen": "Oxigênio",
+  "text.stellaris.planetscreen.launch": "Lançar!",
+  "text.stellaris.planetscreen.system": "Sistema Planetário",
+  "text.stellaris.planetscreen.error_message": "Você não consegue alcançar esse corpo celeste",
+
+  "text.stellaris.rocketscreen.fuel": "Capacidade de Combustível",
+
+  "text.stellaris.planetscreen.press_space": "Para pausar a tela, pressione Espaço",
+  "text.stellaris.planetscreen.arrows": "Selecione planetas com as teclas de seta",
+  "text.stellaris.planetscreen.help": "Para ocultar as informações, pressione H",
+  "text.stellaris.waitscreen": "Aguardando %s escolher um local!",
+
+  "gauge_text.stellaris.stored": "Armazenado : %s",
+  "gauge_text.stellaris.capacity": "Capacidade : %s",
+  "screen.stellaris.gauge": "Capacidade: %1$s / %2$s",
+  "gauge_text.stellaris.max_generation": "Geração Máxima : %s FE/tick",
+
+  "stellaris.screen.oil": "Petróleo",
+  "stellaris.screen.fuel": "Combustível",
+  "stellaris.screen.water": "Água",
+  "stellaris.screen.hydrogen": "Hidrogênio",
+  "stellaris.screen.oxygen": "Oxigênio",
+  "stellaris.screen.energy": "Energia",
+  "stellaris.screen.energyContainer": "Energia",
+  "stellaris.screen.diesel": "Diesel",
+  "stellaris.screen.empty_fluid": "Vazio",
+
+  "screen.stellaris.power_bank": "Banco de Energia",
+  "screen.stellaris.fluid_tank": "Tanque de Fluido",
+
+  "stellaris.compat.rocket_crafting": "Criação de Foguete",
+  "general.stellaris.rocket_crafting_mode": "Modo",
+  "general.stellaris.rocket_crafting_fuel": "Combustível",
+  "general.stellaris.rocket_crafting_disabled_mode": "Desativado",
+  "general.stellaris.rocket_crafting_normal_mode": "Normal",
+
+  "message.stellaris.speed": "Velocidade %s",
+  "text.stellaris.rocket.fuel": "Você precisa colocar %s no foguete para conseguir voar",
+  "message.stellaris.lander": "§4⚠ Aviso §r | Pressione a barra de espaço para desacelerar!",
+  "message.stellaris.not_owner_of_launch_pad": "§4Você não pode usar esta plataforma de lançamento, você não é o dono dela!",
+  "message.stellaris.launchpad_share_success": "Adicionado %s à lista de permissões da plataforma de lançamento de %s.",
+  "message.stellaris.launchpad_share_yourself": "Você não pode compartilhar sua plataforma de lançamento com você mesmo.",
+  "message.stellaris.launchpad_not_yours": "Esta plataforma de lançamento não é sua.",
+  "message.stellaris.launchpad_dont_exist": "Esta plataforma de lançamento não existe.",
+
+  "tooltip.item.stellaris.can.empty": "Vazio",
+  "tooltip.item.stellaris.can.nutrition": "Nutrição: %s/%s",
+  "tooltip.item.stellaris.can.saturation": "Saturação: %s",
+  "tooltip.item.stellaris.oxygen_tank": "\uD83E\uDEE7 Oxigênio: §e%s§r§f/§r§e%s§rmb",
+  "tooltip.item.stellaris.rocket.skin": "Aparência: %s",
+  "tooltip.item.stellaris.rocket.fuel": "\uD83C\uDF22 Combustível: %s",
+  "tooltip.item.stellaris.rocket.model": "Modelo: %s",
+  "tooltip.item.stellaris.energy": "⚡ Energia: §e%s§r§f/§r§e%s§r FE",
+  "tooltip.item.stellaris.oil_finder": "Clique com o botão direito em um bloco para verificar se há petróleo",
+  "tooltip.item.stellaris.open_tablet": "§7Para mais informações, pressione §8[§c%s§8]",
+  "tooltip.item.stellaris.diesel": "\uD83C\uDF22 Diesel: %s",
+
+  "stellaris.screen.tablet.rocket_launched": "Foguetes Lançados : %s",
+  "stellaris.screen.tablet.space_traveled": "Quilômetros Viajados : %s",
+  "stellaris.screen.tablet.boss_killed": "Chefes Mortos : %s",
+
+  "translatable.stellaris.registry.holdshift": "Segure [↑ Shift] para ver mais informações.",
+  "translatable.stellaris.registry.player": "Jogador",
+  "translatable.stellaris.registry.players": "Jogadores",
+  "translatable.stellaris.registry.moons": "§7§l☾ §r§7Luas",
+
+  "tag.item.c.axes": "Machados",
+  "tag.item.c.arrows": "Flechas",
+  "tag.item.c.crops": "Cultivos",
+
+  "tag.item.c.raw_materials.desh": "Desh Bruto",
+  "tag.item.c.raw_materials.neptunium": "Neptúnio Bruto",
+  "tag.item.c.raw_materials.steel": "Aço Bruto",
+  "tag.item.c.raw_materials.uranium": "Urânio Bruto",
+  "tag.item.c.ore_blocks.steel": "Bloco de Aço",
+  "tag.item.c.nuggets.steel": "Pepita de Aço",
+  "tag.item.c.nuggets.heavy_metal": "Pepita de Metal Pesado",
+  "tag.item.c.nuggets.plutonium": "Pepita de Plutônio",
+
+  "tag.item.c.ingots.steel": "Barras de Aço",
+  "tag.item.c.ingots.heavy_metal": "Barras de Metal Pesado",
+  "tag.item.c.ingots.plutonium": "Barras de Plutônio",
+  "tag.item.c.ingots.neptunium": "Barras de Neptúnio",
+  "tag.item.c.ingots.uranium": "Barras de Urânio",
+  "tag.item.c.ingots.desh": "Barras de Desh",
+  "tag.item.c.storage_blocks.raw_steel": "Bloco de Aço Bruto",
+  "tag.item.c.storage_blocks.raw_uranium": "Bloco de Urânio Bruto",
+
+  "tag.block.c.ores.desh": "Minérios de Desh",
+  "tag.block.c.ores.ostrum": "Minérios de Ostrum",
+  "tag.block.c.ores.uranium": "Minérios de Urânio",
+  "tag.block.c.ores.steel": "Minérios de Aço",
+  "tag.block.c.ores.neptunium": "Minérios de Neptúnio",
+
+  "tag.item.stellaris.can": "Latas",
+  "tag.item.stellaris.space_food": "Comida Espacial",
+  "tag.item.stellaris.rocket_skin": "Aparência de Foguete",
+  "tag.item.stellaris.coal_generator_fuel": "Combustível de Gerador a Carvão",
+
+  "spacesuit.stellaris.auto_feeder": "Autoalimentador",
+  "spacesuit.stellaris.energy_module": "Módulo de Energia",
+  "spacesuit.stellaris.fuel_module": "Módulo de Combustível",
+  "spacesuit.stellaris.jet_module": "Módulo de Jato",
+  "spacesuit.stellaris.gravity_normalizer": "Normalizador de Gravidade",
+  "spacesuit.stellaris.oil_finder": "Localizador de Petróleo",
+  "spacesuit.stellaris.shift_for_modules": "Segure shift para ver a lista de módulos",
+  "spacesuit.stellaris.modules": "Módulos",
+  "container.stellaris.upgrade": "Melhoria",
+
+  "stat.minecraft.space_traveled": "Espaço Viajado",
+  "stat.minecraft.rocket_launched": "Foguetes Lançados",
+
+  "biome.stellaris.infernal_venus_barrens": "Ermos Infernais de Vênus",
+  "biome.stellaris.mars_desert": "Deserto Marciano",
+  "biome.stellaris.mars_ice_spikes": "Pináculos de Gelo Marciano",
+  "biome.stellaris.mars_rocky_plains": "Planícies Rochosas Marcianas",
+  "biome.stellaris.mercury": "Mercúrio",
+  "biome.stellaris.mercury_fire_land": "Terra de Fogo Mercuriana",
+  "biome.stellaris.moon_caves": "Cavernas Lunares",
+  "biome.stellaris.moon_desert": "Deserto Lunar",
+  "biome.stellaris.venus_desert": "Deserto Venusiano",
+
+  "station.stellaris.space_station_small": "Estação Espacial Pequena",
+  "station.stellaris.space_station_big": "Estação Espacial Grande",
+  "station.stellaris.space_station_medium": "Estação Espacial Média",
+
+  "CONFIG": "",
+
+  "config.stellaris.oilConfig": "Configuração de Petróleo",
+
+  "config.stellaris.chunkOilChance": "Chance de Petróleo por Chunk",
+  "config.stellaris.chunkOilChance.desc": "A chance de um chunk conter Petróleo.",
+
+
+  "config.stellaris.minOil": "Mínimo de Petróleo",
+  "config.stellaris.minOil.desc": "A quantidade mínima de Petróleo em um chunk de petróleo. Será multiplicado por 100.",
+
+  "config.stellaris.maxOil": "Máximo de Petróleo",
+  "config.stellaris.maxOil.desc": "A quantidade máxima de Petróleo em um chunk de petróleo. Será multiplicado por 100.",
+
+  "config.stellaris.gravityConfig": "Configuração de Gravidade",
+
+  "config.stellaris.customEntityGravity": "Gravidade de Entidade Personalizada",
+  "config.stellaris.customEntityGravity.desc": "As entidades devem ser afetadas pela gravidade dos planetas?",
+
+  "config.stellaris.customItemGravity": "Gravidade de Item Personalizada",
+  "config.stellaris.customItemGravity.desc": "Os itens devem ser afetados pela gravidade dos planetas?",
+
+
+  "config.stellaris.oxygenDamage": "Dano por Oxigênio",
+  "config.stellaris.oxygenDamage.desc": "O dano que as entidades recebem por segundo quando não há oxigênio.",
+
+  "config.stellaris.dieselGeneratorFuelTime" : "Tempo de Combustível do Gerador a Diesel",
+  "config.stellaris.dieselGeneratorFuelTime.desc": "O tempo em ticks que um gerador a diesel pode funcionar com 10mb de diesel.",
+
+  "config.stellaris.rocketTpHeight": "Altura de Teletransporte do Foguete",
+  "config.stellaris.rocketTpHeight.desc": "A altura em que o foguete abre a tela de teletransporte. O padrão é 600 blocos.",
+
+  "config.stellaris.orbitTeleportationYCoord": "Coordenada Y de Teletransporte Orbital",
+  "config.stellaris.orbitTeleportationYCoord.desc": "A coordenada Y para a qual o jogador será teletransportado ao usar o recurso de teletransporte orbital."
+}
