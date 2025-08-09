@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.common.events;
 
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.CoalLanternBlock;
 import com.st0x0ef.stellaris.common.blocks.RocketLaunchPad;
 import com.st0x0ef.stellaris.common.blocks.WallCoalTorchBlock;
@@ -24,7 +25,7 @@ import net.minecraft.world.level.storage.LevelStorageSource;
 import net.minecraft.world.phys.AABB;
 
 public class Events {
-    private static final int RADIATION_CHECK_INTERVAL = 100; // TODO: config
+    private static final int RADIATION_CHECK_INTERVAL = Stellaris.CONFIG.radiationCheckInterval;
     private static int tickBeforeNextRadioactiveCheck = RADIATION_CHECK_INTERVAL;
 
     public static void registerEvents() {

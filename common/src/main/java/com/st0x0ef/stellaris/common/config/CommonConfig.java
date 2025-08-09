@@ -7,6 +7,8 @@ public class CommonConfig {
     public int dieselGeneratorFuelTime = 20;
     public double orbitTeleportationYCoord = -10;
 
+    public int radiationCheckInterval = 100;
+
     public int rocketTpHeight = 600;
 
     @ConfigManager.InnerConfig
