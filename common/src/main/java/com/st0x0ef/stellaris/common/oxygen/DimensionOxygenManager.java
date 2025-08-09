@@ -73,7 +73,6 @@ public class DimensionOxygenManager {
     }
 
     public boolean breath(LivingEntity entity) {
-
         if (planetHasOxygen || entity.getType().is(TagRegistry.ENTITY_NO_OXYGEN_NEEDED_TAG)) {
             return true;
         }

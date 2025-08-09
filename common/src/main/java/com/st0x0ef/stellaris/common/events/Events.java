@@ -24,7 +24,7 @@ import net.minecraft.world.level.storage.LevelStorageSource;
 import net.minecraft.world.phys.AABB;
 
 public class Events {
-    private static final int RADIATION_CHECK_INTERVAL = 100;
+    private static final int RADIATION_CHECK_INTERVAL = 100; // TODO: config
     private static int tickBeforeNextRadioactiveCheck = RADIATION_CHECK_INTERVAL;
 
     public static void registerEvents() {
@@ -112,10 +112,7 @@ public class Events {
 
         });
 
-    }
-
-    private static void removeOxygenRoom(ServerLevel level, BlockPos pos) {
-        GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level).removeOxygenRoom(pos);
+        TickEvent.SERVER_LEVEL_POST.register((level) -> GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level).updateOxygenTick());
     }
 
     private static boolean checkIfAntennaIsNear(BlockPos pos, Level level) {
