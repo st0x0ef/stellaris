@@ -44,7 +44,7 @@ public class TabletEntryScreen extends Screen {
 
     private final TabletMainScreen screen;
     public TabletEntry entry;
-    private ArrayList<TabletButton> PAGES_BUTTONS = new ArrayList<>();
+    private final ArrayList<TabletButton> PAGES_BUTTONS = new ArrayList<>();
     public String currentPage = "main";
 
     public TexturedButton nextButton;

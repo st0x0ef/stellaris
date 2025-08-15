@@ -339,7 +339,7 @@ public class Utils {
         return new BlockPos((int) vec3.x, (int) vec3.y, (int) vec3.z);
     }
 
-    public  <T> void addButtonToList(ArrayList<ArrayList<T>> finalList, T button, int size){
+    public <T> void addButtonToList(ArrayList<ArrayList<T>> finalList, T button, int size){
         if (finalList.isEmpty()) {
             ArrayList<T> list = new ArrayList<>();
             list.add(button);

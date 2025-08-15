@@ -189,8 +189,7 @@ public class TabletEntryWidget extends AbstractScrollWidget {
                 lines.add(wordsInLine);
                 wordsInLine = new ArrayList<>();
                 width.set(0);
-            }
-            else {
+            } else {
                 if (word.contains("[color=")) {
                     String wordWithoutColor = word.replace("[color=" + word.substring(7, word.indexOf("]")) + "]", "");
                     wordWidth = Minecraft.getInstance().font.width(wordWithoutColor + " ");
