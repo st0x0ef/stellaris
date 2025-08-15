@@ -27,6 +27,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 public class LanderEntity extends IVehicleEntity implements HasCustomInventoryScreen {
 
@@ -113,16 +114,38 @@ public class LanderEntity extends IVehicleEntity implements HasCustomInventorySc
     public void addAdditionalSaveData(CompoundTag compound) {
         compound.put("InventoryCustom", this.inventory.createTag(registryAccess()));
 
+        ListTag listTag = new ListTag();
+        for (int i = 1; i < this.inventory.getContainerSize(); ++i) {
+            ItemStack itemStack = this.inventory.getItem(i);
+            if (!itemStack.isEmpty()) {
+                CompoundTag compoundTag = new CompoundTag();
+                compoundTag.putByte("Slot", (byte) (i - 1));
+                listTag.add(itemStack.save(this.registryAccess(), compoundTag));
+            }
+        }
+
+        compound.put("Items", listTag);
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         ListTag inventoryCustom = compound.getList("InventoryCustom", 15);
         this.inventory.fromTag(inventoryCustom, registryAccess());
+
+        ListTag listTag = compound.getList("Items", 10);
+
+        for (int i = 0; i < listTag.size(); ++i) {
+            CompoundTag compoundTag = listTag.getCompound(i);
+            int j = compoundTag.getByte("Slot") & 255;
+            if (j < this.inventory.getContainerSize() - 1) {
+                this.inventory.setItem(j + 1, ItemStack.parse(this.registryAccess(), compoundTag).orElse(ItemStack.EMPTY));
+            }
+        }
+
     }
 
     @Override
-    public InteractionResult interact(Player player, InteractionHand hand) {
+    public @NotNull InteractionResult interact(Player player, InteractionHand hand) {
         super.interact(player, hand);
         InteractionResult result = InteractionResult.sidedSuccess(this.level().isClientSide);
 
