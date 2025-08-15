@@ -36,6 +36,8 @@ public class BiomeModificationsRegistry {
         BiomeModifications.addProperties((context) -> context.hasTag(TagRegistry.MERCURY_BIOMES_TAG), ((biomeContext, mutable) -> {
             mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.MERCURY_IRON_PLACED_KEY);
             mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.MERCURY_URANIUM_PLACED_KEY);
+            mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.MERCURY_SOLERIUM_PLACED_KEY);
+
 
 
         }));

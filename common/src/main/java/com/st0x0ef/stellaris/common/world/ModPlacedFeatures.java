@@ -97,7 +97,7 @@ public class ModPlacedFeatures {
                         HeightRangePlacement.triangle(VerticalAnchor.absolute(-80), VerticalAnchor.absolute(192))));
         register(context, MERCURY_SOLERIUM_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.MERCURY_SOLERIUM_ORE_KEY),
                 OrePlacement.rareOrePlacement(4,
-                        HeightRangePlacement.triangle(VerticalAnchor.absolute(16), VerticalAnchor.absolute(320))));
+                        HeightRangePlacement.triangle(VerticalAnchor.absolute(0), VerticalAnchor.absolute(192))));
 
         // MOON
         register(context, MOON_DESH_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.MOON_DESH_ORE_KEY),
