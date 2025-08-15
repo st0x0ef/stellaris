@@ -1,7 +1,10 @@
-# 1.4.5 changelog
+# 1.4.6 changelog
 
 ## Additions
-- Add config option for radioactivity's check interval
+- Add corronium, solerium and tharsite generation
 
-## Fixes
-- Fix oxygen system doesn't tick
+# Fixes
+- Fix items not saved in the lander
+
+## HotFixe
+- Fix water Separator
