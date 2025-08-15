@@ -3,7 +3,6 @@ package com.st0x0ef.stellaris.common.blocks.entities.machines;
 import com.fej1fun.potentials.components.FluidAmountMapDataComponent;
 import com.fej1fun.potentials.fluid.UniversalFluidStorage;
 import com.fej1fun.potentials.providers.FluidProvider;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.machines.WaterSeparatorBlock;
 import com.st0x0ef.stellaris.common.data.recipes.WaterSeparatorRecipe;
 import com.st0x0ef.stellaris.common.data.recipes.input.FluidInput;
@@ -102,17 +101,13 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity im
 
     @Override
     public void tick() {
-
         FluidUtil.moveFluidToItem(OXYGEN_TANK, resultTanks, 3, items, 1000);
         FluidUtil.moveFluidToItem(HYDROGEN_TANK, resultTanks, 2, items, 1000);
 
         FluidUtil.moveFluidFromItem(0, 1, items, ingredientTank, 1000);
         Direction facing = getBlockState().getValue(WaterSeparatorBlock.FACING);
-
-        if(isFacingGood(facing)) {
-            FluidUtil.distributeFluidNearby(level, worldPosition, resultTanks.getFluidInTank(0), List.of(facing.getClockWise()));
-            FluidUtil.distributeFluidNearby(level, worldPosition, resultTanks.getFluidInTank(1), List.of(facing.getCounterClockWise()));
-        }
+        FluidUtil.distributeFluidNearby(level, worldPosition, resultTanks.getFluidInTank(0), List.of(facing.getClockWise()));
+        FluidUtil.distributeFluidNearby(level, worldPosition, resultTanks.getFluidInTank(1), List.of(facing.getCounterClockWise()));
         FluidUtil.distributeFluidNearby(level, worldPosition, ingredientTank.getFluidInTank(0), List.of(Direction.UP, Direction.DOWN, facing, facing.getOpposite()));
 
         if (level == null) {
@@ -159,15 +154,10 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity im
     @Override
     public @Nullable UniversalFluidStorage getFluidTank(@Nullable Direction direction) {
         Direction facing = getBlockState().getValue(BlockStateProperties.FACING);
-        if (isFacingGood(facing) && (facing.getCounterClockWise() == direction || facing.getClockWise() == direction)) {
+        if (facing.getCounterClockWise() == direction || facing.getClockWise() == direction) {
             return resultTanks;
         }
         return ingredientTank;
-    }
-
-    public boolean isFacingGood(Direction facing) {
-        int ordinal = facing.ordinal();
-        return ordinal != 0 && ordinal != 1;
     }
 
     public SingleFluidStorage getIngredientTank() {
