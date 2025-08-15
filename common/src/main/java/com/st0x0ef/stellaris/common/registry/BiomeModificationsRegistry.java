@@ -31,6 +31,8 @@ public class BiomeModificationsRegistry {
             mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.MARS_ICE_SHARD_PLACED_KEY);
             mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.MARS_IRON_PLACED_KEY);
             mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.MARS_OSTRUM_PLACED_KEY);
+            mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.MARS_THARSITE_PLACED_KEY);
+
         }));
 
         BiomeModifications.addProperties((context) -> context.hasTag(TagRegistry.MERCURY_BIOMES_TAG), ((biomeContext, mutable) -> {
@@ -46,6 +48,8 @@ public class BiomeModificationsRegistry {
             mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.VENUS_COAL_PLACED_KEY);
             mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.VENUS_DIAMOND_PLACED_KEY);
             mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.VENUS_GOLD_PLACED_KEY);
+            mutable.getGenerationProperties().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.VENUS_CORRONIUM_PLACED_KEY);
+
         }));
     }
 }
