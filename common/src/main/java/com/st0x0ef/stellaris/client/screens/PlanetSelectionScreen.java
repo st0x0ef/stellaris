@@ -325,6 +325,7 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
 
     private void renderStars(GuiGraphics graphics) {
         for (CelestialBody star : STARS) {
+
             if (!isInCurrentGalaxy(star)) continue;
 
             float bodyX = (float) ((star.x + offsetX) * zoomLevel - (star.width / 2) * zoomLevel);
@@ -860,32 +861,34 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
     }
 
     private boolean isInCurrentGalaxy(CelestialBody body) {
-        for (PSystemInfo system : PSYSTEMS) {
-            if (!system.parent().equals(menu.getGalaxyId())) continue;
+        return body.galaxy.equals(this.getMenu().getGalaxyId()) || body.galaxy.equals("null");
 
-            for (PSystemRecord.StarPosition sp : system.stars()) {
-                if (sp.id().equals(body.getId())) return true;
-            }
-
-            for (PlanetInfo planet : PLANETS) {
-                if (planet.getId().equals(body.getId())) {
-                    for (PSystemRecord.StarPosition sp : system.stars()) {
-                        if (planet.orbitCenter.getId().equals(sp.id())) return true;
-                    }
-                }
-            }
-
-            for (MoonInfo moon : MOONS) {
-                if (moon.getId().equals(body.getId())) {
-                    if (moon.orbitCenter instanceof PlanetInfo planet) {
-                        for (PSystemRecord.StarPosition sp : system.stars()) {
-                            if (planet.orbitCenter.getId().equals(sp.id())) return true;
-                        }
-                    }
-                }
-            }
-        }
-        return false;
+//        for (PSystemInfo system : PSYSTEMS) {
+//            if (!system.parent().equals(menu.getGalaxyId())) continue;
+//
+//            for (PSystemRecord.StarPosition sp : system.stars()) {
+//                if (sp.id().equals(body.getId())) return true;
+//            }
+//
+//            for (PlanetInfo planet : PLANETS) {
+//                if (planet.getId().equals(body.getId())) {
+//                    for (PSystemRecord.StarPosition sp : system.stars()) {
+//                        if (planet.orbitCenter.getId().equals(sp.id())) return true;
+//                    }
+//                }
+//            }
+//
+//            for (MoonInfo moon : MOONS) {
+//                if (moon.getId().equals(body.getId())) {
+//                    if (moon.orbitCenter instanceof PlanetInfo planet) {
+//                        for (PSystemRecord.StarPosition sp : system.stars()) {
+//                            if (planet.orbitCenter.getId().equals(sp.id())) return true;
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        return false;
     }
 
     public static CelestialBody findByNameStar(String id) {

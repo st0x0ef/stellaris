@@ -20,7 +20,7 @@ public class PlanetInfo extends CelestialBody {
     }
 
     public PlanetInfo(ResourceLocation texture, String name, double orbitRadius, long orbitDuration, float width, float height, CelestialBody orbitCenter, ResourceLocation dimension, String translatable, String id, boolean spaceStation, boolean canLaunchOn) {
-        super(texture, name, 0, 0, width, height, 0xFFFFFF, dimension, translatable, id);
+        super(texture, name, 0, 0, width, height, 0xFFFFFF, dimension, translatable, id, "null");
         this.orbitRadius = orbitRadius;
         this.orbitDuration = orbitDuration;
         this.orbitCenter = orbitCenter;

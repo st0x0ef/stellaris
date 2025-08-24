@@ -22,12 +22,14 @@ public class CelestialBody {
     public boolean spaceStation = false;
     public final Trail trail = new Trail();
     public boolean canLaunchOn = true;
+    public final String galaxy;
 
-    public CelestialBody(ResourceLocation texture, String name, float x, float y, float width, float height, int orbitColor, ResourceLocation dimension, String translatable, String id) {
-        this(texture, name, x, y, width, height, orbitColor, dimension, translatable, id, true);
+
+    public CelestialBody(ResourceLocation texture, String name, float x, float y, float width, float height, int orbitColor, ResourceLocation dimension, String translatable, String id, String galaxy) {
+        this(texture, name, x, y, width, height, orbitColor, dimension, translatable, id, true, galaxy);
     }
 
-    public CelestialBody(ResourceLocation texture, String name, float x, float y, float width, float height, int orbitColor, ResourceLocation dimension, String translatable, String id, boolean clickable) {
+    public CelestialBody(ResourceLocation texture, String name, float x, float y, float width, float height, int orbitColor, ResourceLocation dimension, String translatable, String id, boolean clickable, String galaxy) {
         this.texture = texture;
         this.name = name;
         this.x = x;
@@ -39,6 +41,7 @@ public class CelestialBody {
         this.translatable = translatable;
         this.id = id;
         this.clickable = clickable;
+        this.galaxy = galaxy;
     }
 
 
@@ -85,7 +88,8 @@ public class CelestialBody {
                                     ResourceLocation.CODEC.fieldOf("dimension").forGetter(b -> b.dimension),
                                     Codec.STRING.fieldOf("translatable").forGetter(b -> b.translatable),
                                     Codec.STRING.fieldOf("id").forGetter(b -> b.id),
-                                    Codec.BOOL.optionalFieldOf("clickable", true).forGetter(b -> b.clickable)
+                                    Codec.BOOL.optionalFieldOf("clickable", true).forGetter(b -> b.clickable),
+                                    Codec.STRING.optionalFieldOf("galaxy", "stellaris:milky_way").forGetter(b -> b.galaxy)
                             )
                             .apply(instance, CelestialBody::new)
     );

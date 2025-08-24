@@ -1,10 +1,4 @@
-# 1.4.6 changelog
+# 1.4.7 changelog
 
-## Additions
-- Add corronium, solerium and tharsite generation
-
-# Fixes
-- Fix items not saved in the lander
-
-## HotFixe
-- Fix water Separator
+## Changes
+- Allow to add other planets via event
