@@ -3,6 +3,7 @@ package com.st0x0ef.stellaris.common.blocks.entities.machines;
 import com.fej1fun.potentials.components.FluidAmountMapDataComponent;
 import com.fej1fun.potentials.fluid.UniversalFluidStorage;
 import com.fej1fun.potentials.providers.FluidProvider;
+import com.st0x0ef.stellaris.common.blocks.machines.BaseMachineBlock;
 import com.st0x0ef.stellaris.common.blocks.machines.WaterSeparatorBlock;
 import com.st0x0ef.stellaris.common.data.recipes.WaterSeparatorRecipe;
 import com.st0x0ef.stellaris.common.data.recipes.input.FluidInput;
@@ -153,7 +154,7 @@ public class WaterSeparatorBlockEntity extends BaseEnergyContainerBlockEntity im
 
     @Override
     public @Nullable UniversalFluidStorage getFluidTank(@Nullable Direction direction) {
-        Direction facing = getBlockState().getValue(BlockStateProperties.FACING);
+        Direction facing = getBlockState().getValue(BaseMachineBlock.FACING);
         if (facing.getCounterClockWise() == direction || facing.getClockWise() == direction) {
             return resultTanks;
         }
