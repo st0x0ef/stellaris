@@ -1,4 +1,4 @@
-# 1.4.7 changelog
+# 1.4.8 changelog
 
-## Changes
-- Allow to add other planets via event
+## Fix
+- Water separator blockstate's crash
