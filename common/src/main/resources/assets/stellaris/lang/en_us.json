@@ -735,6 +735,7 @@
   "config.stellaris.customItemGravity": "Custom Item Gravity",
   "config.stellaris.customItemGravity.desc": "Should Items be affected by planets gravity?",
 
+  "config.stellaris.oxygenConfig": "Oxygen Config",
 
   "config.stellaris.enableOxygenSystem": "Enable the Oxygen System",
   "config.stellaris.enableOxygenSystem.desc": "Enable (true) or Disable (false) the Oxygen System. Default is true.",
@@ -760,5 +761,5 @@
   "config.stellaris.orbitTeleportationYCoord.desc": "The Y coordinate at which the player will be teleported when using the orbit teleportation feature,",
 
   "config.stellaris.radiationCheckInterval": "Radiation Check Interval",
-  "config.stellaris.radiationCheckInterval.desc": "The interval in ticks at which the radiation check is performed. Default is 100 ticks (5 second).",
+  "config.stellaris.radiationCheckInterval.desc": "The interval in ticks at which the radiation check is performed. Default is 100 ticks (5 second)."
 }

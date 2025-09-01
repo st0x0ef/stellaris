@@ -2,7 +2,6 @@ package com.st0x0ef.stellaris.common.oxygen;
 
 import com.fej1fun.potentials.capabilities.Capabilities;
 import com.fej1fun.potentials.fluid.UniversalFluidStorage;
-import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.registry.TagRegistry;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
