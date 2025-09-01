@@ -1,4 +1,4 @@
-# 1.4.8 changelog
+# 1.4.9 changelog
 
 ## Fix
-- Water separator blockstate's crash
+- Water separator crash
