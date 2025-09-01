@@ -82,11 +82,6 @@ public class Events {
                     serverLevel.setBlockAndUpdate(pos, BlocksRegistry.COAL_LANTERN_BLOCK.get().defaultBlockState().setValue(CoalLanternBlock.HANGING, state.getValue(LanternBlock.HANGING)));
                     return EventResult.interruptFalse();
                 }
-
-                // Oxygen system
-                else if (state.is(BlocksRegistry.OXYGEN_DISTRIBUTOR)) {
-                    GlobalOxygenManager.getInstance().getOrCreateDimensionManager(serverLevel).addOxygenRoom(pos);
-                }
             }
             if(state.is(BlocksRegistry.ANTENNA)) {
                 if (level.getBlockState(pos.above()).is(BlocksRegistry.ROCKET_LAUNCH_PAD) && level.getBlockState(pos.above()).getValue(RocketLaunchPad.STAGE)) {

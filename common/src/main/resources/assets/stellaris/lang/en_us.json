@@ -736,8 +736,19 @@
   "config.stellaris.customItemGravity.desc": "Should Items be affected by planets gravity?",
 
 
+  "config.stellaris.enableOxygenSystem": "Enable the Oxygen System",
+  "config.stellaris.enableOxygenSystem.desc": "Enable (true) or Disable (false) the Oxygen System. Default is true.",
+
+  "config.stellaris.oxygenCheckInterval": "Oxygen Check Interval",
+  "config.stellaris.oxygenCheckInterval.desc": "Interval in ticks at which the oxygen check is performed. Default is 20 ticks (1 second).",
+
+  "config.stellaris.maxOxygenRoomSize": "Max Oxygen Room Size",
+  "config.stellaris.maxOxygenRoomSize.desc": "The maximum size of a room that can be filled with oxygen. Default is 32 blocks.",
+
   "config.stellaris.oxygenDamage": "Oxygen Damage",
-  "config.stellaris.oxygenDamage.desc": "The Damage entites take every second when there is no oxygen.",
+  "config.stellaris.oxygenDamage.desc": "The Damage entites take every second when there is no oxygen. Default is 2 (1 heart).",
+
+
 
   "config.stellaris.dieselGeneratorFuelTime" : "Diesel Generator Fuel Time",
   "config.stellaris.dieselGeneratorFuelTime.desc": "The time in ticks a diesel generator can run on 10mb of diesel.",
@@ -749,5 +760,5 @@
   "config.stellaris.orbitTeleportationYCoord.desc": "The Y coordinate at which the player will be teleported when using the orbit teleportation feature,",
 
   "config.stellaris.radiationCheckInterval": "Radiation Check Interval",
-  "config.stellaris.radiationCheckInterval.desc": "The interval in ticks at which the radiation check is performed. Default is 100 ticks (5 second)."
+  "config.stellaris.radiationCheckInterval.desc": "The interval in ticks at which the radiation check is performed. Default is 100 ticks (5 second).",
 }

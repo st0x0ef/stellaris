@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.common.oxygen;
 
 import com.fej1fun.potentials.capabilities.Capabilities;
 import com.fej1fun.potentials.fluid.UniversalFluidStorage;
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.registry.TagRegistry;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
@@ -33,16 +34,14 @@ public class DimensionOxygenManager {
 
     public void addOxygenRoom(BlockPos pos) {
         oxygenRooms.add(new OxygenRoom(level, pos));
-        setChanged();
     }
 
     public void removeOxygenRoom(BlockPos pos) {
         oxygenRooms.removeIf(room -> room.getDistributorPosition().equals(pos));
-        setChanged();
     }
 
     public void addRoomToCheckIfOpen(BlockPos pos, OxygenRoom room) {
-        if (roomToCheckIfOpen.remove(pos) == null) {
+        if (!roomToCheckIfOpen.containsKey(pos)) {
             roomToCheckIfOpen.put(pos, room);
         }
     }
@@ -50,13 +49,6 @@ public class DimensionOxygenManager {
     public void removeRoomToCheckIfOpen(BlockPos pos) {
         roomToCheckIfOpen.remove(pos);
     }
-
-
-    private void setChanged() {
-        OxygenSavedData data = OxygenSavedData.getData(level);
-        data.setDirty();
-    }
-
 
     public void updateOxygenTick() {
         if (planetHasOxygen || tickCount < 20) {
@@ -68,8 +60,7 @@ public class DimensionOxygenManager {
         roomToCheckIfOpen.values().forEach(OxygenRoom::removeOxygenInRoom);
         roomToCheckIfOpen.clear();
 
-        tickCount=0;
-        this.setChanged();
+        tickCount = 0;
     }
 
     public boolean breath(LivingEntity entity) {
@@ -104,20 +95,11 @@ public class DimensionOxygenManager {
         return oxygenRooms.stream().anyMatch(room -> room.hasOxygenAt(pos));
     }
 
-    public Set<OxygenRoom> getOxygenRooms() {
-        return oxygenRooms;
-    }
-
     public OxygenRoom getOxygenRoom(BlockPos distributorPos) {
         return oxygenRooms.stream()
                 .filter(room -> room.getDistributorPosition().equals(distributorPos))
                 .findFirst()
                 .orElse(null);
-    }
-
-    public void setOxygenRooms(Set<OxygenRoom> rooms) {
-        this.oxygenRooms.clear();
-        this.oxygenRooms.addAll(rooms);
     }
 
     public ServerLevel getLevel() {

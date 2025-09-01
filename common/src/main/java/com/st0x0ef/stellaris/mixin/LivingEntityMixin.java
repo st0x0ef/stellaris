@@ -39,19 +39,18 @@ public abstract class LivingEntityMixin extends Entity {
         if (firstTick)
             Utils.handleGravityChange(stellaris$livingEntity, level());
 
-        if (!stellaris$livingEntity.level().isClientSide()) {
-
-            if (stellaris$tickSinceLastOxygenCheck > 20) {
+        if (level() instanceof ServerLevel serverLevel && Stellaris.CONFIG.oxygenConfig.enableOxygenSystem) {
+            if (stellaris$tickSinceLastOxygenCheck > Stellaris.CONFIG.oxygenConfig.oxygenCheckInterval) {
                 if (stellaris$oxygenManager == null) {
-                    stellaris$oxygenManager = GlobalOxygenManager.getInstance().getOrCreateDimensionManager((ServerLevel) level());
+                    stellaris$oxygenManager = GlobalOxygenManager.getInstance().getOrCreateDimensionManager(serverLevel);
                 }
 
                 if(!stellaris$oxygenManager.getLevel().dimension().equals(stellaris$livingEntity.level().dimension())) {
-                    stellaris$oxygenManager = GlobalOxygenManager.getInstance().getOrCreateDimensionManager((ServerLevel) level());
+                    stellaris$oxygenManager = GlobalOxygenManager.getInstance().getOrCreateDimensionManager(serverLevel);
                 }
 
                 if (!stellaris$oxygenManager.breath(stellaris$livingEntity)) {
-                    hurt(DamageSourceRegistry.of(level(), DamageSourceRegistry.OXYGEN), Stellaris.CONFIG.oxygenDamage);
+                    hurt(DamageSourceRegistry.of(level(), DamageSourceRegistry.OXYGEN), Stellaris.CONFIG.oxygenConfig.oxygenDamage);
                 }
 
                 stellaris$tickSinceLastOxygenCheck = 0;
