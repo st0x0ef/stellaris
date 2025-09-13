@@ -730,10 +730,10 @@
   "config.stellaris.gravityConfig": "Налаштування гравітації",
 
   "config.stellaris.customEntityGravity": "Власна гравітація сутностей",
-  "config.stellaris.customEntityGravity.desc": "Чи має на сутностей впливати гравітація планет?",
+  "config.stellaris.customEntityGravity.desc": "Чи має на сутностей упливати гравітація планет?",
 
   "config.stellaris.customItemGravity": "Власна гравітація предметів",
-  "config.stellaris.customItemGravity.desc": "Чи має на премдети впливати гравітація планет?",
+  "config.stellaris.customItemGravity.desc": "Чи має на предмети впливати гравітація планет?",
 
 
   "config.stellaris.oxygenDamage": "Шкода кисню",
