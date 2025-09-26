@@ -45,6 +45,15 @@ public enum RocketModel implements StringRepresentable {
         };
     }
 
+    public double getPlayerYPos() {
+        return switch (this) {
+            case TINY -> 3.15d;
+            case SMALL -> 2.0d;
+            case NORMAL -> 3.15d;
+            case BIG -> 2.5d;
+        };
+    }
+
     public int getMaxPlayerNumber() {
         return switch (this) {
             case TINY -> 1;
