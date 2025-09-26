@@ -43,6 +43,7 @@ public class CapabilitiesRegistry {
         Capabilities.Fluid.BLOCK.registerForBlockEntity(BlockEntityRegistry.PIPE_ENTITY);
         Capabilities.Fluid.BLOCK.registerForBlockEntity(BlockEntityRegistry.DIESEL_GENERATOR);
         Capabilities.Fluid.BLOCK.registerForBlockEntity(BlockEntityRegistry.FLUID_TANK);
+        Capabilities.Fluid.BLOCK.registerForBlockEntity(BlockEntityRegistry.FUEL_REFINERY);
     }
 
     static void registerFluidItems() {
