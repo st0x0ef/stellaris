@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
 
 public class TabletEntryWidget extends AbstractScrollWidget {
 
-    private static final ResourceLocation SCROLLER_SPRITE = ResourceLocationUtils.id("icon/scroller");
+    private static final ResourceLocation SCROLLER_SPRITE = ResourceLocationUtils.id("util/scroller");
 
     private final AtomicInteger finalHeight = new AtomicInteger(0);
     private TabletEntry.ItemInfo info;

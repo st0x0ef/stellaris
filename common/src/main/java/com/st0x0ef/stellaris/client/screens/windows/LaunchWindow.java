@@ -121,7 +121,6 @@ public class LaunchWindow extends MoveableWindow {
     }
 
     public void setCelestialBody(@Nullable CelestialBody celestialBody) {
-        Stellaris.LOG.error("Setting celestial body in LaunchWindow: {}", celestialBody == null ? "null" : celestialBody.name);
         this.celestialBody = celestialBody;
     }
 
@@ -132,14 +131,15 @@ public class LaunchWindow extends MoveableWindow {
             return launchPads;
         }
 
-        if(celestialBody.canLaunchOn) {
+        if(celestialBody.canLaunchOn || this.parent.getPlayer().isCreative()) {
             launchPads.add(addDirectLaunch());
-            return launchPads;
+
         }
 
         Planet planet = PlanetUtil.getPlanet(celestialBody.dimension);
 
         if(planet == null) {
+
             return launchPads;
         }
 

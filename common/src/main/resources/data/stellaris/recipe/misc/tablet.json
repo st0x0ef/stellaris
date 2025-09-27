@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "nnn",
+    "nhn",
+    "nsn"
+  ],
+  "key": {
+    "s": {
+      "tag": "c:ingots/steel"
+    },
+    "h": {
+      "tag": "c:glass_panes"
+    },
+    "n": {
+      "tag": "c:nuggets/heavy_metal"
+    }
+  },
+  "result": {
+    "id": "stellaris:tablet",
+    "count": 1
+  }
+}

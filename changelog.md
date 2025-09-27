@@ -1,8 +1,8 @@
-# 1.4.9 changelog
+# 1.4.11 changelog
 
-## Additions
-- New config options for the oxygen system
+## Addition
+- Added tablet recipe
 
 ## Fix
-- Water separator crash
-- Fix some oxygen related issue
+- Fix launchpads not showing
+- fix scroller texture

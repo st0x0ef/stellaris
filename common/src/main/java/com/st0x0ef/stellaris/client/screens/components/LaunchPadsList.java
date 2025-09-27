@@ -27,7 +27,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class LaunchPadsList extends AbstractScrollWidget {
 
-    private static final ResourceLocation SCROLLER_SPRITE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "icon/scroller");
+    private static final ResourceLocation SCROLLER_SPRITE = ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, "util/scroller");
 
     public Map<Vector4i, LaunchPadWidget> launchPadMap = new HashMap<>();
     private final AtomicInteger finalHeight = new AtomicInteger(0);
