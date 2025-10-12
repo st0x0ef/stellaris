@@ -101,6 +101,7 @@ public class Utils {
                 }
 
                 LanderEntity lander = createLanderFromRocket(rocket, coords, getPlanetLevel(destination));
+                lander.setNoGravity(true);
                 teleportEntity(serverPlayer, destination, lander.getPassengerRidingPosition(serverPlayer));
                 player.awardStat(StatsRegistry.SPACE_TRAVEL.get(), Utils.distanceToPlanet(PlanetUtil.getPlanet(player.level().dimension().location()), destination));
 
@@ -109,6 +110,7 @@ public class Utils {
                 while (!serverPlayer.startRiding(lander, true)) {
                     // Wait until the player starts riding the lander
                 }
+                lander.setNoGravity(false);
 
                 serverPlayer.sendSystemMessage(Component.translatable("message.stellaris.lander"));
             } else {

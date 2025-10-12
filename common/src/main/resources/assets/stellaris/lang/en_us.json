@@ -750,6 +750,9 @@
   "config.stellaris.oxygenDamage.desc": "The Damage entites take every second when there is no oxygen. Default is 2 (1 heart).",
 
 
+  "config.stellaris.landerExplodeWhenTooFast": "Lander Explode When Too Fast",
+  "config.stellaris.landerExplodeWhenTooFast.desc": "If true, the lander will explode if it lands too fast.",
+
 
   "config.stellaris.dieselGeneratorFuelTime" : "Diesel Generator Fuel Time",
   "config.stellaris.dieselGeneratorFuelTime.desc": "The time in ticks a diesel generator can run on 10mb of diesel.",
