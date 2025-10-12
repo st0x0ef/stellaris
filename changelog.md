@@ -1,8 +1,8 @@
-# 1.4.11 changelog
+# 1.4.12 changelog
 
-## Addition
-- Added tablet recipe
 
-## Fix
-- Fix launchpads not showing
-- fix scroller texture
+## Fixes
+- Fix not able to click launch window
+- Try fixing issue when player ride lander
+- Added rover explosion config field
+- Change space sand strenght
