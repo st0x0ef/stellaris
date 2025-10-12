@@ -79,7 +79,7 @@ public class LaunchWindow extends MoveableWindow {
             this.spaceStationButton.visible = this.celestialBody.spaceStation;
 
             Planet planet = PlanetUtil.getPlanet(this.celestialBody.dimension);
-            guiGraphics.drawCenteredString(Minecraft.getInstance().font, celestialBody.name + " Launch Points", getWindowX() + getWidth() / 2, getWindowY() + 23, 0xFFFFFFFF);
+            guiGraphics.drawCenteredString(Minecraft.getInstance().font, this.celestialBody.name + " Launch Points", getWindowX() + getWidth() / 2, getWindowY() + 23, 0xFFFFFFFF);
 
             guiGraphics.drawCenteredString(Minecraft.getInstance().font, PlanetUtil.getInLinePlanetInfo(planet), getWindowX() + getWidth() / 2 , this.padsList.getY() - 12, 0xFFFFFFFF);
 
@@ -113,9 +113,12 @@ public class LaunchWindow extends MoveableWindow {
         return (window) -> {
             if(window instanceof LaunchWindow launchWindow) {
                 launchWindow.setCelestialBody(body);
-                this.padsList = new LaunchPadsList(getWindowX() + 40, getWindowY() + 60, getWidth() - 80, getHeight() - 90, Component.translatable("gui.stellaris.launchpads"), this, new ArrayList<>());
-                launchWindow.padsList = this.padsList;
-                launchWindow.padsList.launchPads = launchWindow.getLaunchPadsForDimension();
+                launchWindow.setCelestialBody(body);
+                launchWindow.init();
+
+                //this.padsList = new LaunchPadsList(getWindowX() + 40, getWindowY() + 60, getWidth() - 80, getHeight() - 90, Component.translatable("gui.stellaris.launchpads"), this, new ArrayList<>());
+                //launchWindow.padsList = this.padsList;
+                //launchWindow.padsList.launchPads = launchWindow.getLaunchPadsForDimension();
             }
         };
     }
@@ -159,7 +162,7 @@ public class LaunchWindow extends MoveableWindow {
                 this.parent.getPlayer().position(),
                 ResourceKey.create(Registries.DIMENSION, celestialBody.dimension),
                 "Launch Directly",
-                false,
+                true,
                 player.getName().getString(),
                 List.of()
         );

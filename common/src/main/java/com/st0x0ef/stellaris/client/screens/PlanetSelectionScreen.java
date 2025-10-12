@@ -208,6 +208,10 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
     public boolean canLaunch(Planet planet) {
         if (this.getMenu().getForceCanGoTo()) return true;
 
+        if(planet.dimension() == ResourceLocation.parse("minecraft:overworld")) {
+            return true;
+        }
+
         Player player = this.getPlayer();
         if (player == null) {
             return false;
@@ -1007,12 +1011,12 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
             boolean isArrowHovered = mouseX >= leftArrowX && mouseX <= leftArrowX + arrowWidth &&
                     mouseY >= arrowY && mouseY <= arrowY + arrowHeight;
 
-            if (mouseX >= leftArrowX && mouseX <= leftArrowX + arrowWidth &&
-                    mouseY >= arrowY && mouseY <= arrowY + arrowHeight) {
+            if (isArrowHovered) {
                 if (focusedBody == null) {
                     focusedBody = findByNamePlanet("stellaris:earth");
                 } else if (focusedBody instanceof PlanetInfo || focusedBody instanceof MoonInfo) {
                     focusedBody = getPreviousBodyByDistance(focusedBody);
+                    setWindowCelestialBody(focusedBody);
                 } else {
                     focusedBody = getPreviousStarByDistance(focusedBody);
                 }
@@ -1032,6 +1036,8 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
                     focusedBody = findByNamePlanet("stellaris:earth");
                 } else if (focusedBody instanceof PlanetInfo || focusedBody instanceof MoonInfo) {
                     focusedBody = getNextBodyByDistance(focusedBody);
+                    setWindowCelestialBody(focusedBody);
+
                 } else {
                     focusedBody = getNextStarByDistance(focusedBody);
                 }
@@ -1072,9 +1078,8 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
                             moon.clickable) {
 
                         focusedBody = moon;
-                        this.launchWindow.setCelestialBody(focusedBody);
-                        this.spaceStationWindow.setCelestialBody(focusedBody);
 
+                        setWindowCelestialBody(focusedBody);
                         showSpaceStationMenu = true;
 
                         double cx = mx - width / 2.0;
@@ -1103,8 +1108,7 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
                             mouseY >= planetY && mouseY <= planetY + planetHeight) {
 
                         focusedBody = planet;
-                        this.launchWindow.setCelestialBody(focusedBody);
-                        this.spaceStationWindow.setCelestialBody(focusedBody);
+                        setWindowCelestialBody(focusedBody);
 
                         showSpaceStationMenu = true;
 
@@ -1126,6 +1130,14 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
         }
 
         return super.mouseClicked(mouseX, mouseY, button);
+    }
+
+
+    public void setWindowCelestialBody(CelestialBody body) {
+        Stellaris.LOG.error("body id {}", body.id);
+        this.launchWindow.setCelestialBody(body);
+        this.spaceStationWindow.setCelestialBody(body);
+
     }
 
     @Override
