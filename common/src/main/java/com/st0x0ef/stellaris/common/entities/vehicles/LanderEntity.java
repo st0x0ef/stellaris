@@ -88,17 +88,20 @@ public class LanderEntity extends IVehicleEntity implements HasCustomInventorySc
     }
 
     @Override
-    public boolean causeFallDamage(float p_150347_, float p_150348_, DamageSource p_150349_) {
-        if (p_150347_ > 5.0F) {
+    public boolean causeFallDamage(float fallDistance, float multiplier, DamageSource source) {
+        if (fallDistance > 5.0F) {
             if (!this.level().isClientSide) {
-                this.level().explode(null, this.getX(), this.getY(), this.getZ(), 10, true,
-                        Level.ExplosionInteraction.TNT);
 
-                this.remove(RemovalReason.DISCARDED);
+                if (Stellaris.CONFIG.landerExplodeWhenTooFast) {
+                    this.level().explode(this, this.getX(), this.getY(), this.getZ(), 10, true,
+                            Level.ExplosionInteraction.TNT);
+                    this.remove(RemovalReason.DISCARDED);
+                }
+
             }
         }
 
-        return super.causeFallDamage(p_150347_, p_150348_, p_150349_);
+        return super.causeFallDamage(fallDistance, multiplier, source);
     }
 
     protected void dropEquipment() {

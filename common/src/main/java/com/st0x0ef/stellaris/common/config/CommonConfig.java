@@ -9,6 +9,9 @@ public class CommonConfig {
 
     public int rocketTpHeight = 600;
 
+    public boolean landerExplodeWhenTooFast = false;
+
+
     @ConfigManager.InnerConfig
     public Oil oilConfig = new Oil();
 
