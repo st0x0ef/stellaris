@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.mixin;
 
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.commands.LaunchPadArgument;
 import net.minecraft.commands.synchronization.ArgumentTypeInfo;
 import net.minecraft.commands.synchronization.ArgumentTypeInfos;
@@ -13,8 +14,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ArgumentTypeInfos.class)
 public class ArgumentTypeRegistryMixin {
 
-    @Inject(method = "bootstrap", at = @At("HEAD"))
+    @Inject(method = "bootstrap", at = @At("RETURN"))
     private static void registerArgument(Registry<ArgumentTypeInfo<?, ?>> registry, CallbackInfoReturnable<ArgumentTypeInfo<?, ?>> cir) {
-        ArgumentTypeInfos.register(registry, "launch_pad", LaunchPadArgument.class, SingletonArgumentInfo.contextFree(LaunchPadArgument::create));
+        ArgumentTypeInfos.register(registry, Stellaris.MODID + ":launch_pad", LaunchPadArgument.class, SingletonArgumentInfo.contextFree(LaunchPadArgument::create));
     }
 }
