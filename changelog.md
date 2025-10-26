@@ -1,8 +1,7 @@
-# 1.4.12 changelog
+# 1.4.13 changelog
 
+## Changes
+- Added maximum sky aesthetics version
 
 ## Fixes
-- Fix not able to click launch window
-- Try fixing issue when player ride lander
-- Added rover explosion config field
-- Change space sand strenght
+-  Fix LaunchPadArgument's registration with Velocity [#476](https://github.com/st0x0ef/stellaris/pull/151)
