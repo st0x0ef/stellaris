@@ -75,6 +75,10 @@ public class DimensionOxygenManager {
             return true;
         }
 
+        if(Utils.isLivingInOxygenatedArmor(entity)) {
+            return true;
+        }
+
         if (Utils.isLivingInJetSuit(entity) || Utils.isLivingInSpaceSuit(entity)) {
             UniversalFluidStorage storage = Capabilities.Fluid.ITEM.getCapability(entity.getItemBySlot(EquipmentSlot.CHEST));
             if (storage != null && !storage.getFluidInTank(0).isEmpty()) {

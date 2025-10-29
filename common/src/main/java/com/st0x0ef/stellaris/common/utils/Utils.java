@@ -315,6 +315,18 @@ public class Utils {
         return isLivingInArmor(entity, EquipmentSlot.FEET, ItemsRegistry.SPACESUIT_BOOTS.get()) && isLivingInArmor(entity, EquipmentSlot.LEGS, ItemsRegistry.SPACESUIT_LEGGINGS.get()) && isLivingInArmor(entity, EquipmentSlot.CHEST, ItemsRegistry.SPACESUIT_SUIT.get()) && isLivingInArmor(entity, EquipmentSlot.HEAD, ItemsRegistry.SPACESUIT_HELMET.get());
     }
 
+    /**
+     * Check if the entity is wearing a full set of oxygenated armor. An oxygenated armor is an armor that don't need oxygen to let the player breath.
+     * @param entity
+     * @return true if the entity is wearing a full set of oxygenated armor, false otherwise
+     */
+    public static boolean isLivingInOxygenatedArmor(LivingEntity entity) {
+        return (entity.getItemBySlot(EquipmentSlot.FEET).is(TagRegistry.OXYGENATED_ARMOR))
+                && (entity.getItemBySlot(EquipmentSlot.LEGS).is(TagRegistry.OXYGENATED_ARMOR))
+                && (entity.getItemBySlot(EquipmentSlot.CHEST).is(TagRegistry.OXYGENATED_ARMOR))
+                && (entity.getItemBySlot(EquipmentSlot.HEAD).is(TagRegistry.OXYGENATED_ARMOR));
+
+    }
 
     public static boolean isLivingInArmor(LivingEntity entity, EquipmentSlot slot, Item item) {
         return entity.getItemBySlot(slot).getItem() == item;

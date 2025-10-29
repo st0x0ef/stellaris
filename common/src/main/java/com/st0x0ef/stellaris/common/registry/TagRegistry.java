@@ -40,6 +40,7 @@ public class TagRegistry {
     public static final TagKey<Item> COAL_GENERATOR_FUEL_TAG = TagKey.create(Registries.ITEM, ResourceLocationUtils.id("coal_generator_fuel"));
     public static final TagKey<Item> RADIOACTIVE_GENERATOR_FUEL_TAG = TagKey.create(Registries.ITEM, ResourceLocationUtils.id("radioactive_generator_fuel"));
     public static final TagKey<Item> ROCKET_SKIN = TagKey.create(Registries.ITEM, ResourceLocationUtils.id("rocket_skin"));
+    public static final TagKey<Item> OXYGENATED_ARMOR = TagKey.create(Registries.ITEM, ResourceLocationUtils.id("oxygenated_armor"));
 
     /** BLOCKS */
     public static final TagKey<Block> SPACE_STATION_CAN_SPAWN_ON = TagKey.create(Registries.BLOCK, ResourceLocationUtils.id("space_station_can_spawn_on"));
