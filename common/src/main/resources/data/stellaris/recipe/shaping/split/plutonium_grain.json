@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "stellaris:plutonium_piece"
+    }
+  ],
+
+  "result": {
+    "id": "stellaris:plutonium_grain",
+    "count": 9
+  }
+}

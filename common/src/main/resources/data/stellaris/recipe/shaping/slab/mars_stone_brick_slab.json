@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {"item": "stellaris:mars_stone_bricks"}
+  },
+  "result": {
+    "id": "stellaris:mars_stone_brick_slab",
+    "count": 6
+  }
+}
