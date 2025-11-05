@@ -113,9 +113,11 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
 
     @Override
     public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-        if (Platform.isNeoForge()) {
-            MultiBufferSource.BufferSource bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
-            vertexConsumer = bufferSource.getBuffer(RenderType.entityTranslucent(TEXTURE));
+        MultiBufferSource.BufferSource bufferSource = null;
+        if(Platform.isNeoForge()) {
+            RenderType renderType = RenderType.entityTranslucent(TEXTURE);
+            bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
+            vertexConsumer = bufferSource.getBuffer(renderType);
         }
 
         parentModel.copyPropertiesTo(this);
@@ -124,6 +126,8 @@ public class JetSuitModel extends HumanoidModel<LivingEntity> {
         this.rightShoe.copyFrom(this.rightLeg);
 
         super.renderToBuffer(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+        if(Platform.isNeoForge() && bufferSource != null) bufferSource.endBatch();
+
     }
 
     @Override

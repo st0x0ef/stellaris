@@ -1,7 +1,4 @@
-# 1.4.13 changelog
-
-## Changes
-- Added maximum sky aesthetics version
+# 1.4.14 changelog
 
 ## Fixes
--  Fix LaunchPadArgument's registration with Velocity [#476](https://github.com/st0x0ef/stellaris/pull/151)
+-  Fix armors and shaders
