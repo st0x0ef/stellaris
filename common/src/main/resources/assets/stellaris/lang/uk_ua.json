@@ -58,7 +58,7 @@
   "item.stellaris.solerium": "Солерій",
 
   "item.stellaris.raw_corronium": "Необроблений короній",
-  "item.stellaris.raw_tharsite": "Неоюроблений тарсит",
+  "item.stellaris.raw_tharsite": "Необроблений тарсит",
   "item.stellaris.raw_solerium": "Необроблений солерій",
 
   "item.stellaris.steel_nugget": "Сталевий самородок",
@@ -208,17 +208,17 @@
   "block.stellaris.chiseled_mercury_stone": "Різьблений меркурієвий камінь",
   "block.stellaris.polished_mercury_stone": "Полірований меркурієвий камінь",
   "block.stellaris.mercury_stone_bricks": "Цегла з меркурієвого камнею",
-  "block.stellaris.cracked_mercury_stone_bricks": "Тріснута цегла з меркурієвого камнею",
-  "block.stellaris.mercury_stone_pillar": "Колона з меркурієвого камнею",
+  "block.stellaris.cracked_mercury_stone_bricks": "Тріснута цегла з меркурієвого каменю",
+  "block.stellaris.mercury_stone_pillar": "Колона з меркурієвого каменю",
   "block.stellaris.mercury_pillar": "Меркурієва колона",
   "block.stellaris.mercury_deepslate": "Меркурієвий кругляк",
 
   "block.stellaris.mercury_stone_stairs": "Сходи з меркурієвого каменю",
-  "block.stellaris.mercury_stone_slab": "Плита з меркурієвого камнею",
-  "block.stellaris.mercury_polished_stone_stairs": "Сходи з полірованого меркурієвого камнею",
-  "block.stellaris.mercury_polished_stone_slab": "Плита з полірованого меркурієвого камнею",
-  "block.stellaris.mercury_stone_brick_stairs": "Сходи з цегли меркурієвого камнею",
-  "block.stellaris.mercury_stone_brick_slab": "Плита з цегли меркурієвого камнею",
+  "block.stellaris.mercury_stone_slab": "Плита з меркурієвого каменю",
+  "block.stellaris.mercury_polished_stone_stairs": "Сходи з полірованого меркурієвого каменю",
+  "block.stellaris.mercury_polished_stone_slab": "Плита з полірованого меркурієвого каменю",
+  "block.stellaris.mercury_stone_brick_stairs": "Сходи з цегли меркурієвого каменю",
+  "block.stellaris.mercury_stone_brick_slab": "Плита з цегли меркурієвого каменю",
 
 
 
@@ -298,7 +298,7 @@
   "block.stellaris.water_separator": "Розділювач води",
   "block.stellaris.oxygen_distributor": "Розповсюджувач кисню",
   "block.stellaris.vacuumator": "Вакуумна машина",
-  "block.stellaris.pumpjack": "Нафтодобувка установка",
+  "block.stellaris.pumpjack": "Нафтодобувна установка",
   "block.stellaris.fuel_refinery": "Нафтопереробник",
   "block.stellaris.upgrade_station": "Станція покращення",
   "block.stellaris.diesel_generator": "Дизельний генератор",
@@ -343,7 +343,7 @@
   "item.stellaris.hydrogen_motor": "Водневий двигун",
   "item.stellaris.radioactive_motor": "Ядерний двигун",
 
-  "item.stellaris.skin_normal": "Звийчайний скін",
+  "item.stellaris.skin_normal": "Звичайний скін",
   "item.stellaris.skin_frozy": "Обледенілий скін",
   "item.stellaris.skin_rusty": "Заржавілий скін",
   "item.stellaris.skin_military": "Воєнний скін",
@@ -381,7 +381,7 @@
   "item.stellaris.auto_feeder_module": "Автогодувальний модуль",
   "item.stellaris.gravity_normalizer_module": "Модуль нормалізатора гравітації",
   "item.stellaris.jet_module": "Двигунний модуль",
-  "item.stellaris.energy_module": "Енергетичний моділь",
+  "item.stellaris.energy_module": "Енергетичний модуль",
 
 
   "STELLARIS TOOLS/WEAPONS":
