@@ -766,5 +766,8 @@
   "config.stellaris.orbitTeleportationYCoord.desc": "Координата Y, до якої буде телепортовано гравця під час використання функції телепортації орбіти.",
 
   "config.stellaris.radiationCheckInterval": "Інтервал перевірки радіації",
-  "config.stellaris.radiationCheckInterval.desc": "Інтервал у тактах, через який виконується перевірка радіації. Усталено 100 тактів (5 секунд)."
+  "config.stellaris.radiationCheckInterval.desc": "Інтервал у тактах, через який виконується перевірка радіації. Усталено 100 тактів (5 секунд).",
+
+
+  "modmenu.descriptionTranslation.stellaris": "Stellaris представляє експансивний і захопливий досвід дослідження космосу у знайомому Всесвіті Minecraft. Гравці можуть відкривати нові планети, місяці та галактики."
 }
