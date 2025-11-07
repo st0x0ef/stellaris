@@ -633,7 +633,7 @@
   "message.stellaris.launchpad_dont_exist": "Ця панель запуску не існує.",
 
   "tooltip.item.stellaris.can.empty": "Порожньо",
-  "tooltip.item.stellaris.can.nutrition": "Харчування: %s/%s",
+  "tooltip.item.stellaris.can.nutrition": "Поживність: %s/%s",
   "tooltip.item.stellaris.can.saturation": "Насиченість: %s",
   "tooltip.item.stellaris.oxygen_tank": "Кисень: §e%s§r§f/§r§e%s§rмВ",
   "tooltip.item.stellaris.rocket.skin": "Скін: %s",
