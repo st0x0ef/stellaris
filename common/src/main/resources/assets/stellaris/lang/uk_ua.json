@@ -118,8 +118,8 @@
   "block.stellaris.moon_stone_slab": "Плита з місячного каменю",
   "block.stellaris.moon_polished_stone_brick_stairs": "Сходи з полірованого місячного каменю",
   "block.stellaris.moon_polished_stone_brick_slab": "Плита з полірованого місячного каменю",
-  "block.stellaris.moon_stone_brick_stairs": "Сходи з цегли місячного каменю",
-  "block.stellaris.moon_stone_brick_slab": "Плита з цегли місячного каменю",
+  "block.stellaris.moon_stone_brick_stairs": "Цегляні сходи з місячного каменю",
+  "block.stellaris.moon_stone_brick_slab": "Цегляна плита з місячного каменю",
 
 
 
@@ -144,8 +144,8 @@
 
   "block.stellaris.mars_stone_stairs": "Сходи з марсового каменю",
   "block.stellaris.mars_stone_slab": "Плита з марсового каменю",
-  "block.stellaris.mars_polished_stone_brick_slab": "Плита з полірованого марсового каменю",
-  "block.stellaris.mars_polished_stone_brick_stairs": "Сходи з полірованого марсового каменю",
+  "block.stellaris.mars_polished_stone_slab": "Плита з полірованого марсового каменю",
+  "block.stellaris.mars_polished_stone_stairs": "Сходи з полірованого марсового каменю",
   "block.stellaris.mars_stone_brick_stairs": "Сходи з цегли марсового каменю",
   "block.stellaris.mars_stone_brick_slab": "Плита з цегли марсового каменю",
 
@@ -280,13 +280,13 @@
   "МАШИНИ STELLARIS"
 ,
 
-  "block.stellaris.cable": "Сталевий кабель",
-  "block.stellaris.cable_t2": "Дешовий кабель",
-  "block.stellaris.cable_t3": "Важко-металевий кабель",
+  "block.stellaris.cable": "Кабель рівня 1",
+  "block.stellaris.cable_t2": "Кабель рівня 2",
+  "block.stellaris.cable_t3": "Кабель рівня 3",
 
-  "block.stellaris.pipe_t1": "Сталева труба",
-  "block.stellaris.pipe_t2": "Дешова труба",
-  "block.stellaris.pipe_t3": "Важко-металева труба",
+  "block.stellaris.pipe_t1": "Труба рівня 1",
+  "block.stellaris.pipe_t2": "Труба рівня 2",
+  "block.stellaris.pipe_t3": "Труба рівня 3",
 
   "block.stellaris.rocket_launch_pad": "Стартовий майданчик",
   "block.stellaris.rocket_station": "Верстак НАСА",
@@ -478,7 +478,7 @@
   "entity.stellaris.martian_raptor": "Марсіанський раптор",
   "entity.stellaris.pygro": "Піґро",
   "entity.stellaris.pygro_brute": "Брутальний піґро",
-
+  "entity.stellaris.alien.none": "Прибулець",
   "entity.stellaris.star_crawler": "Зірко-повзун",
 
   "STELLARIS ADVANCEMENTS":
@@ -510,7 +510,7 @@
   "ЕФЕКТИ STELLARIS"
 ,
 
-  "effect.stellaris.radioactive": "Радіацція",
+  "effect.stellaris.radioactive": "Радіація",
   "effect.stellaris.sandstorm": "Піщана буря",
 
 
@@ -560,7 +560,7 @@
   "key.stellaris.freeze_planet_menu": "Заморозити меню вибору планети",
   "key.stellaris.jetsuit_mode": "Змінити режим реакт. костюма",
   "key.stellaris.rocket_crafting_mode": "Змінити режим майстр. ракет",
-  "key.stellaris.slow_lander": "Повільна посадка",
+  "key.stellaris.slow_lander": "Сповільнити посадка",
   "key.stellaris.tablet_info": "Інформація планшета",
 
 
@@ -579,8 +579,8 @@
 
   "jetsuit.stellaris.oxygen": "§7Кисень: §8%s",
   "general.stellaris.jet_suit_mode": "Режим",
-  "general.stellaris.jet_suit_disabled_mode": "ВИМК.",
-  "general.stellaris.jet_suit_normal_mode": "Усталено",
+  "general.stellaris.jet_suit_disabled_mode": "Вимкнено",
+  "general.stellaris.jet_suit_normal_mode": "Звичайний",
   "general.stellaris.jet_suit_hover_mode": "Зависання",
   "general.stellaris.jet_suit_elytra_mode": "Елітри",
   "general.stellaris.jet_suit_fuel": "Паливо",
@@ -677,7 +677,7 @@
 
   "tag.block.c.ores.desh": "Дешові руди",
   "tag.block.c.ores.ostrum": "Острієві руди",
-  "tag.block.c.ores.uranium": "Кранові руди",
+  "tag.block.c.ores.uranium": "Уранові руди",
   "tag.block.c.ores.steel": "Сталеві руди",
   "tag.block.c.ores.neptunium": "Нептунієві руди",
 
@@ -689,7 +689,7 @@
   "spacesuit.stellaris.auto_feeder": "Автогодівник",
   "spacesuit.stellaris.energy_module": "Енергетичний модуль",
   "spacesuit.stellaris.fuel_module": "Паливний модуль",
-  "spacesuit.stellaris.jet": "Двигуний модуль",
+  "spacesuit.stellaris.jet_module": "Двигунний модуль",
   "spacesuit.stellaris.gravity_normalizer": "Нормалізатор гравітації",
   "spacesuit.stellaris.oil_finder": "Шукач нафти",
   "spacesuit.stellaris.shift_for_modules": "Утримуйте Shift для списку модулів",
@@ -707,25 +707,27 @@
   "biome.stellaris.mercury_fire_land": "Вогняна земля Меркурію",
   "biome.stellaris.moon_caves": "Місячні печери",
   "biome.stellaris.moon_desert": "Місячна пустеля",
-  "biome.stellaris.venus_desert": "Пустеля Венера",
+  "biome.stellaris.venus_desert": "Пустеля Венери",
+  "biome.stellaris.space": "Космос",
+  "biome.stellaris.venus": "Космос Венери",
 
   "station.stellaris.space_station_small": "Мала космічна станція",
   "station.stellaris.space_station_big": "Велика космічна станція",
-  "station.stellaris.space_station_medium": "Посередня космічна станція",
+  "station.stellaris.space_station_medium": "Середня космічна станція",
 
   "CONFIG": "НАЛАШТУВАННЯ",
 
   "config.stellaris.oilConfig": "Налаштування нафти",
 
-  "config.stellaris.chunkOilChance": "Шанс чанка нафти",
-  "config.stellaris.chunkOilChance.desc": "Шанс того, що у чанкі буде нафта.",
+  "config.stellaris.chunkOilChance": "Шанс чанку з нафтою",
+  "config.stellaris.chunkOilChance.desc": "Шанс того, що в чанку буде нафта.",
 
 
-  "config.stellaris.minOil": "Мінім нафти",
-  "config.stellaris.minOil.desc": "Мінімум нафти у чанку нафти. Буде помножено на 100.",
+  "config.stellaris.minOil": "Мінімум нафти",
+  "config.stellaris.minOil.desc": "Мінімум нафти в чанку нафти. Буде помножено на 100.",
 
   "config.stellaris.maxOil": "Максимум нафти",
-  "config.stellaris.maxOil.desc": "Максимум нафти у чанку нафти. Буде помножено на 100.",
+  "config.stellaris.maxOil.desc": "Максимум нафти в чанку нафти. Буде помножено на 100.",
 
   "config.stellaris.gravityConfig": "Налаштування гравітації",
 
@@ -735,9 +737,24 @@
   "config.stellaris.customItemGravity": "Власна гравітація предметів",
   "config.stellaris.customItemGravity.desc": "Чи має на предмети впливати гравітація планет?",
 
+  "config.stellaris.oxygenConfig": "Налаштування кисню",
+
+  "config.stellaris.enableOxygenSystem": "Увімкніть кисневу систему",
+  "config.stellaris.enableOxygenSystem.desc": "Умикає (так) або вимкнути (ні) систему кисню. Усталеним значенням є так.",
+
+  "config.stellaris.oxygenCheckInterval": "Інтервал перевірки кисню",
+  "config.stellaris.oxygenCheckInterval.desc": "Інтервал у тактах, через які виконується перевірка кисню. Усталено 20 тактів (1 секунда).",
+
+  "config.stellaris.maxOxygenRoomSize": "Макс. розмір кисневої кімнати",
+  "config.stellaris.maxOxygenRoomSize.desc": "Максимальний розмір кімнати, яку можна наповнити киснем. Усталено 32 блоки.",
 
   "config.stellaris.oxygenDamage": "Шкода кисню",
-  "config.stellaris.oxygenDamage.desc": "Шкода від того, що немає кисню.",
+  "config.stellaris.oxygenDamage.desc": "Шкода від відсутности кисню.",
+
+
+  "config.stellaris.landerExplodeWhenTooFast": "Посадковий модуль вибухає коли надто швидко",
+  "config.stellaris.landerExplodeWhenTooFast.desc": "Якщо так, посадковий модуль вибухне, якщо приземлиться надто швидко.",
+
 
   "config.stellaris.dieselGeneratorFuelTime" : "Час палива дизельного генератора",
   "config.stellaris.dieselGeneratorFuelTime.desc": "Час у тактах, протягом якого дизель-генератор може працювати на 10 мВ дизеля.",
@@ -749,8 +766,5 @@
   "config.stellaris.orbitTeleportationYCoord.desc": "Координата Y, до якої буде телепортовано гравця під час використання функції телепортації орбіти.",
 
   "config.stellaris.radiationCheckInterval": "Інтервал перевірки радіації",
-  "config.stellaris.radiationCheckInterval.desc": "Інтервал у тактах, через який виконується перевірка радіації. Усталено 100 тактів (5 секунд).",
-
-
-  "modmenu.descriptionTranslation.stellaris": "Stellaris представляє експансивний і захопливий досвід дослідження космосу у знайомому Всесвіті Minecraft. Гравці можуть відкривати нові планети, місяці та галактики."
+  "config.stellaris.radiationCheckInterval.desc": "Інтервал у тактах, через який виконується перевірка радіації. Усталено 100 тактів (5 секунд)."
 }
