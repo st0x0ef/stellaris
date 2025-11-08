@@ -16,4 +16,8 @@ public class ResourceLocationUtils {
     public static ResourceLocation id(String path) {
         return ResourceLocation.fromNamespaceAndPath(Stellaris.MODID, path);
     }
+
+    public static ResourceLocation ctag(String path) {
+        return ResourceLocation.fromNamespaceAndPath("c", path);
+    }
 }

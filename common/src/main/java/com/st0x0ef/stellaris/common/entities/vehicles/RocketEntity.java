@@ -5,6 +5,7 @@ import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.client.renderers.entities.vehicle.rocket.RocketModel;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.data_components.RocketComponent;
+import com.st0x0ef.stellaris.common.entities.vehicles.base.IVehicleEntity;
 import com.st0x0ef.stellaris.common.items.VehicleUpgradeItem;
 import com.st0x0ef.stellaris.common.keybinds.KeyVariables;
 import com.st0x0ef.stellaris.common.menus.RocketMenu;
@@ -554,7 +555,7 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
                 ItemStack fuelItem = inventory.removeItem(0, 1);
 
-                if (fuelItem.is(ItemsRegistry.FUEL_BUCKET.get()) || fuelItem.is(ItemsRegistry.HYDROGEN_BUCKET.get())) {
+                if (fuelItem.is(TagRegistry.FUEL) || fuelItem.is(ItemsRegistry.HYDROGEN_BUCKET.get())) {
                     inventory.setItem(1, new ItemStack(Items.BUCKET, inventory.getItem(1).getCount() + 1));
                 }
 

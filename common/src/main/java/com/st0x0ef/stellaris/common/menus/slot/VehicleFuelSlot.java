@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.common.menus.slot;
 
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
+import com.st0x0ef.stellaris.common.registry.TagRegistry;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
@@ -14,6 +15,6 @@ public class VehicleFuelSlot extends Slot {
 
     @Override
     public boolean mayPlace(ItemStack stack) {
-        return stack.is(ItemsRegistry.FUEL_BUCKET.get()) || stack.is(ItemsRegistry.DIESEL_BUCKET.get()) || stack.is(ItemsRegistry.HYDROGEN_BUCKET.get()) || stack.has(DataComponentsRegistry.RADIOACTIVE.get());
+        return stack.is(TagRegistry.FUEL) || stack.is(ItemsRegistry.DIESEL_BUCKET.get()) || stack.is(ItemsRegistry.HYDROGEN_BUCKET.get()) || stack.has(DataComponentsRegistry.RADIOACTIVE.get());
     }
 }

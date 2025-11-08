@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.st0x0ef.stellaris.client.screens.GUISprites;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
+import com.st0x0ef.stellaris.common.registry.TagRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.util.StringRepresentable;
@@ -83,7 +84,7 @@ public class FuelType {
             if (item == null) {
                 return null;
             }
-            if (item.getDefaultInstance().is(ItemsRegistry.FUEL_BUCKET.get())) {
+            if (item.getDefaultInstance().is(TagRegistry.FUEL)) {
                 return FUEL;
             }
             if (item.getDefaultInstance().is(ItemsRegistry.DIESEL_BUCKET.get())) {

@@ -1,4 +1,4 @@
-package com.st0x0ef.stellaris.common.entities.vehicles;
+package com.st0x0ef.stellaris.common.entities.vehicles.base;
 
 import com.st0x0ef.stellaris.common.vehicle_upgrade.FuelType;
 import dev.architectury.networking.NetworkManager;

@@ -1,6 +1,7 @@
 package com.st0x0ef.stellaris.common.entities.vehicles;
 
 import com.st0x0ef.stellaris.Stellaris;
+import com.st0x0ef.stellaris.common.entities.vehicles.base.IVehicleEntity;
 import com.st0x0ef.stellaris.common.keybinds.KeyVariables;
 import com.st0x0ef.stellaris.common.menus.LanderMenu;
 import com.st0x0ef.stellaris.common.registry.EntityRegistry;

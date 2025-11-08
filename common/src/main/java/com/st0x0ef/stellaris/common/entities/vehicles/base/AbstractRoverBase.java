@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.common.entities.vehicles.base;
 
-import com.st0x0ef.stellaris.common.entities.vehicles.IVehicleEntity;
 import com.st0x0ef.stellaris.common.network.packets.SyncRoverPacket;
 import com.st0x0ef.stellaris.common.utils.MathUtils;
 import dev.architectury.networking.NetworkManager;
