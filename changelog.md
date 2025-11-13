@@ -1,4 +1,4 @@
-# 1.4.14 changelog
+# 1.4.15 changelog
 
 ## Fixes
--  Fix armors rendering with shaders
+-  Fix gravity changes not always synced with server

@@ -439,6 +439,5 @@ public class Utils {
 
         if (attributeInstance != null)
             attributeInstance.setBaseValue(value);
-
     }
 }

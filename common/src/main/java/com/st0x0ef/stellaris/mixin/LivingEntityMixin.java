@@ -36,8 +36,8 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Inject(at = @At("HEAD"), method = "tick()V")
     private void tick(CallbackInfo ci) {
-        if (firstTick)
-            Utils.handleGravityChange(stellaris$livingEntity, level());
+        if (firstTick && level() instanceof ServerLevel serverLevel)
+            Utils.handleGravityChange(stellaris$livingEntity, serverLevel);
 
         if (level() instanceof ServerLevel serverLevel && Stellaris.CONFIG.oxygenConfig.enableOxygenSystem) {
             if (stellaris$tickSinceLastOxygenCheck > Stellaris.CONFIG.oxygenConfig.oxygenCheckInterval) {
@@ -63,8 +63,6 @@ public abstract class LivingEntityMixin extends Entity {
     @Override
     public @Nullable Entity changeDimension(DimensionTransition transition) {
         stellaris$oxygenManager = GlobalOxygenManager.getInstance().getOrCreateDimensionManager((ServerLevel) level());
-        Utils.handleGravityChange(stellaris$livingEntity, level());
-
         return super.changeDimension(transition);
     }
 }
