@@ -1,4 +1,4 @@
-# 1.4.15 changelog
+# 1.4.16 changelog
 
 ## Fixes
--  Fix gravity changes not always synced with server
+-  Fix mars tharsite ore placed feature
