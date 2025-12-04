@@ -1,50 +1,37 @@
 {
-  "world": "stellaris:venus",
-  "fog_settings": {
-    "fog": true,
-    "fog_density": [120, 200]
+  "sky_objects": [],
+  "light_settings": {
+    "forceBrightLightmap": false,
+    "constantAmbientLight": false
   },
-  "cloud_settings": {
-    "cloud": false,
-    "cloud_height": 192
-  },
-  "rain": false,
-  "custom_vanilla_objects": {
-    "sun": true,
-    "sun_texture": "textures/environment/sun.png",
-    "sun_height": 150,
-    "sun_size": 150,
-    "moon": false,
-    "moon_phase": false,
-    "moon_texture": "",
-    "moon_height": 150,
-    "moon_size": 150
-
-  },
-  "sunrise_color": [235, 136, 68],
   "stars": {
-    "vanilla": false,
-    "moving_stars": true,
-    "count": 30000,
-    "all_days_visible": true,
     "scale": 0.05,
-    "color": [255, 255, 255],
-    "shooting_stars": {
-      "percentage": 999,
-      "random_lifetime": [
-        20,
-        100
-      ],
-      "scale": 0.1,
-      "speed": 0.4,
-      "color": [190, 160, -1]
-    }
+    "color": [
+      255,
+      255,
+      255
+    ],
+    "vanilla": false,
+    "moving_stars": false,
+    "count": 100000,
+    "all_days_visible": false
   },
   "sky_color": {
-    "custom_color": false,
-    "color": [255, 255, 255, 0]
+    "sunset_alpha_modifier": 0
   },
-
-  "sky_type": "NORMAL",
-  "sky_objects": []
+  "fog_settings": {
+    "fog": true
+  },
+  "weather": false,
+  "sun": {
+    "texture": "minecraft:textures/environment/sun.png",
+    "height": 450.0,
+    "size": 400.0
+  },
+  "world": "stellaris:venus",
+  "id": "stellaris:venus",
+  "cloud_settings": {
+    "cloud": true,
+    "cloud_height": 300
+  }
 }

@@ -44,7 +44,6 @@ side = "BOTH"
 [[dependencies.stellaris]]
 modId = "sky_aesthetics"
 type = "required"
-versionRange = "(,1.7.1]"
 
 [[mixins]]
 config = "stellaris.mixins.json"

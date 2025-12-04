@@ -1,51 +1,33 @@
 {
-  "world": "stellaris:mercury",
+  "sky_objects": [],
+  "stars": {
+    "scale": 0.05,
+    "color": [
+      255,
+      255,
+      255
+    ],
+    "vanilla": false,
+    "moving_stars": false,
+    "count": 100000,
+    "all_days_visible": false
+  },
+  "sky_color": {
+    "sunset_alpha_modifier": 0
+  },
   "fog_settings": {
     "fog": true
   },
+  "weather": false,
+  "sun": {
+    "texture": "minecraft:textures/environment/sun.png",
+    "height": 450.0,
+    "size": 550.0
+  },
+  "world": "stellaris:mercury",
+  "id": "stellaris:mercury",
   "cloud_settings": {
     "cloud": false,
-    "cloud_height": 192
-  },
-  "rain": false,
-  "custom_vanilla_objects": {
-    "sun": true,
-    "sun_texture": "textures/environment/sun.png",
-    "sun_height": 150,
-    "sun_size": 150,
-
-    "moon": false,
-    "moon_phase": false,
-    "moon_texture": "",
-    "moon_height": 150,
-    "moon_size": 150
-  },
-  "sunrise_color": [179, 49, 44 ],
-  "stars": {
-    "vanilla": false,
-    "moving_stars": true,
-    "count": 10000,
-    "all_days_visible": true,
-    "scale": 0.05,
-    "color": [255, 255, 255],
-    "shooting_stars": {
-      "percentage": 950,
-      "random_lifetime": [
-        20,
-        100
-      ],
-      "scale": 0.1,
-      "speed": 0.7,
-      "color": [190, 160, -1]
-
-    }
-  },
-  "sky_type": "NORMAL",
-  "sky_color": {
-    "custom_color": false,
-    "color": [255, 255, 255, 0]
-  },
-  "sky_objects": [
-
-  ]
+    "cloud_height": 300
+  }
 }
