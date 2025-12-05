@@ -1,64 +1,51 @@
 {
-  "world": "stellaris:mercury_orbit",
-  "id": "stellaris:mercury_orbit",
-  "rain": true,
-  "fog_settings": {
-    "fog": true
-  },
-  "cloud_settings": {
-    "cloud": false,
-    "cloud_height": 192
-  },
-  "custom_vanilla_objects": {
-    "sun": true,
-    "sun_texture": "textures/environment/sun.png",
-    "sun_height": 450,
-    "sun_size": 200,
-    "moon": false,
-    "moon_phase": true,
-    "moon_texture": "stellaris:textures/environment/solar_system/phobos.png",
-    "moon_height": 75,
-    "moon_size": 75
-  },
-  "sunrise_color": [255, 169, 91],
-  "stars": {
-    "vanilla": false,
-    "moving_stars": true,
-    "count": 30000,
-    "all_days_visible": true,
-    "scale": 0.05,
-    "color": [190, 160, -1],
-    "shooting_stars": {
-      "percentage": 999,
-      "random_lifetime": [
-        20,
-        90
-      ],
-      "scale": 0.1,
-      "speed": 0.6,
-      "rotation": 0,
-      "color": [190, 160, -1]
-
-    }
-  },
-  "sky_color": {
-    "custom_color": false,
-    "color": [255, 255, 255, 0]
-  },
-
-  "sky_type": "NORMAL",
   "sky_objects": [
     {
-      "texture": "stellaris:textures/environment/solar_system/mercury.png",
-      "blend": false,
-      "size": 96.0,
       "rotation": [
         180.0,
         0.0,
         0.0
       ],
+      "object_rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
       "height": 100,
-      "rotation_type": "FIXED"
+      "rotation_type": "STATIC",
+      "texture": "stellaris:textures/environment/solar_system/mercury.png",
+      "blend": false,
+      "size": 40.0
     }
-  ]
+  ],
+  "stars": {
+    "scale": 0.05,
+    "color": [
+      255,
+      255,
+      255
+    ],
+    "vanilla": true,
+    "moving_stars": false,
+    "count": 100000,
+    "all_days_visible": false
+  },
+  "sky_color": {
+    "sunset_alpha_modifier": 0
+  },
+  "fog_settings": {
+    "fog": true
+  },
+  "weather": false,
+  "sun": {
+    "texture": "minecraft:textures/environment/sun.png",
+    "height": 450.0,
+    "size": 135.0
+  },
+  "world": "stellaris:mercury_orbit",
+  "id": "stellaris:mercury_orbit",
+  "cloud_settings": {
+    "cloud": false,
+    "cloud_height": 300
+  }
 }
