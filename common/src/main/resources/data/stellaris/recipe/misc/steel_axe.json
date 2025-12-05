@@ -1,9 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "XX ",
-    "X# ",
-    " # "
+    "XX",
+    "X#",
+    " #"
   ],
   "key": {
     "X": {"tag": "c:ingots/steel"},

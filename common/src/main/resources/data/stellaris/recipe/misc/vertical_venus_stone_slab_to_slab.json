@@ -1,12 +1,12 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "   ",
-    "   ",
-    "#  "
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "stellaris:vertical_venus_slab"
+    }
   ],
   "key": {
-    "#": {"item": "stellaris:vertical_venus_slab"}
+    "#": {"item": "stellaris:"}
   },
   "result": {
     "id": "stellaris:venus_stone_slab"

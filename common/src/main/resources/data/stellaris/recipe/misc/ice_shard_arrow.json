@@ -1,9 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "   ",
-    "#R ",
-    "   "
+    "#R"
   ],
   "key": {
     "#": {"item": "minecraft:arrow"},
