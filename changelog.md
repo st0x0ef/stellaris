@@ -11,3 +11,5 @@
 - fix polished stone stairs recipe ([#159](https://github.com/st0x0ef/stellaris/issues/159))
 - fix recipes offset ([#160](https://github.com/st0x0ef/stellaris/issues/160))
 - fix vertical mercury stone slab recipe ([#158](https://github.com/st0x0ef/stellaris/issues/158))
+- fix alien zombie doesn't have the zombie tag ([#173](https://github.com/st0x0ef/stellaris/issues/173))
+- fix requirement for fuel module for collecting diesel into the jet suit ([#152](https://github.com/st0x0ef/stellaris/issues/152))
