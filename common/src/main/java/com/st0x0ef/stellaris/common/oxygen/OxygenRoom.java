@@ -90,6 +90,10 @@ public class OxygenRoom {
 
 
     public boolean breathOxygenAt(BlockPos pos) {
+        if (!Stellaris.CONFIG.oxygenConfig.enableOxygenSystem) {
+            return true;
+        }
+
         if (hasOxygenAt(pos)) {
             OxygenDistributorBlockEntity distributor = getDistributorBlockEntity();
             if (getDistributorBlockEntity() == null || !distributor.useOxygenAndEnergy()) {

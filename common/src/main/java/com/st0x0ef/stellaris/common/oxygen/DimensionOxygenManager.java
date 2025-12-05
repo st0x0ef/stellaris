@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.common.oxygen;
 
 import com.fej1fun.potentials.capabilities.Capabilities;
 import com.fej1fun.potentials.fluid.UniversalFluidStorage;
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.registry.TagRegistry;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
@@ -50,6 +51,8 @@ public class DimensionOxygenManager {
     }
 
     public void updateOxygenTick() {
+        if (!Stellaris.CONFIG.oxygenConfig.enableOxygenSystem) return;
+
         if (planetHasOxygen || tickCount < 20) {
             tickCount++;
             return;
@@ -63,6 +66,10 @@ public class DimensionOxygenManager {
     }
 
     public boolean breath(LivingEntity entity) {
+        if (!Stellaris.CONFIG.oxygenConfig.enableOxygenSystem) {
+            return true;
+        }
+
         if (planetHasOxygen || entity.getType().is(TagRegistry.ENTITY_NO_OXYGEN_NEEDED_TAG)) {
             return true;
         }
