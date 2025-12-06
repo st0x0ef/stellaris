@@ -1,4 +1,4 @@
-# 1.4.17 changelog
+# 1.4.18 changelog
 
 ## Fixes
-- Update sky aesthetics to fix a crash on dedicated servers
+- Update exo config to fix a crash when joining a world
