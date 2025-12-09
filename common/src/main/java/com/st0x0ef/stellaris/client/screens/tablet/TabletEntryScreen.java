@@ -13,6 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -72,7 +73,7 @@ public class TabletEntryScreen extends Screen {
 
         if (currentPage.equals("main")) {
 
-            guiGraphics.drawCenteredString(this.font, this.title.getString().toUpperCase(), this.width / 2, this.topPos + 25, 16777215);
+            guiGraphics.drawCenteredString(this.font, this.title.getString().toUpperCase(Locale.ROOT), this.width / 2, this.topPos + 25, 16777215);
 
             showEntryButton();
             removeNonShowButtons();

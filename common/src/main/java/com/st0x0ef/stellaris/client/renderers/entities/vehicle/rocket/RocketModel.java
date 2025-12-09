@@ -4,6 +4,8 @@ import com.mojang.serialization.Codec;
 import net.minecraft.util.StringRepresentable;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Locale;
+
 public enum RocketModel implements StringRepresentable {
     TINY(0),
     SMALL(1),
@@ -33,7 +35,7 @@ public enum RocketModel implements StringRepresentable {
 
     @Override
     public @NotNull String getSerializedName() {
-        return name().toLowerCase();
+        return name().toLowerCase(Locale.ROOT);
     }
 
     public static RocketModel fromString(String name) {

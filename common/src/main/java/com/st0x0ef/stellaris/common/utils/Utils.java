@@ -205,7 +205,7 @@ public class Utils {
             }
         }
 
-        return switch (colorName.toLowerCase()) {
+        return switch (colorName.toLowerCase(Locale.ROOT)) {
             case "black" -> 0x000000;
             case "red" -> 0xFF0000;
             case "green" -> 0x008000;
