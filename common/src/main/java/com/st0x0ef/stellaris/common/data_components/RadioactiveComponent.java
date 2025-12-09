@@ -8,16 +8,24 @@ import net.minecraft.network.codec.StreamCodec;
 
 import java.io.Serializable;
 
-public record RadioactiveComponent(int level, boolean isBlock) implements Serializable {
+public record RadioactiveComponent(int level, int itemBurnDuration, boolean isBlock) implements Serializable {
 
     public static final Codec<RadioactiveComponent> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.INT.fieldOf("level").forGetter(RadioactiveComponent::level),
+            Codec.INT.fieldOf("item_burn_duration").forGetter(RadioactiveComponent::itemBurnDuration),
             Codec.BOOL.fieldOf("is_block").forGetter(RadioactiveComponent::isBlock)
     ).apply(instance, RadioactiveComponent::new));
 
     public static final StreamCodec<ByteBuf, RadioactiveComponent> STREAM_CODEC;
 
     static {
-        STREAM_CODEC = StreamCodec.composite(ByteBufCodecs.fromCodec(Codec.INT), RadioactiveComponent::level, ByteBufCodecs.fromCodec(Codec.BOOL), RadioactiveComponent::isBlock, RadioactiveComponent::new);
+        STREAM_CODEC = StreamCodec.composite(ByteBufCodecs.fromCodec(Codec.INT), RadioactiveComponent::level, ByteBufCodecs.fromCodec(Codec.INT), RadioactiveComponent::itemBurnDuration, ByteBufCodecs.fromCodec(Codec.BOOL), RadioactiveComponent::isBlock, RadioactiveComponent::new);
+    }
+
+    public int itemBurnDuration() {
+        if (isBlock) {
+            return itemBurnDuration * 9;
+        }
+        return itemBurnDuration;
     }
 }

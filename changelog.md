@@ -1,4 +1,4 @@
-# 1.4.18 changelog
+# 1.4.19 changelog
 
-## Fixes
-- Update exo config to fix a crash when joining a world
+## Changes
+- remove hardcoded item burn duration

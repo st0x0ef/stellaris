@@ -1,6 +1,5 @@
 package com.st0x0ef.stellaris.common.blocks.entities.machines;
 
-import com.st0x0ef.stellaris.common.data_components.RadioactiveComponent;
 import com.st0x0ef.stellaris.common.menus.RadioactiveGeneratorMenu;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
@@ -29,25 +28,7 @@ public class RadioactiveGeneratorEntity extends CoalGeneratorEntity {
         }
 
         if (fuelStack.has(DataComponentsRegistry.RADIOACTIVE.get())) {
-            RadioactiveComponent radiationItem = fuelStack.get(DataComponentsRegistry.RADIOACTIVE.get());
-            if (radiationItem.isBlock()) {
-                return switch (radiationItem.level()) {
-                    case 0 -> 1800;
-                    case 1 -> 4500;
-                    case 2 -> 9000;
-                    case 3 -> 13500;
-                    default -> 0;
-                };
-            }
-            else {
-                return switch (radiationItem.level()) {
-                    case 0 -> 200;
-                    case 1 -> 500;
-                    case 2 -> 1000;
-                    case 3 -> 1500;
-                    default -> 0;
-                };
-            }
+            return fuelStack.get(DataComponentsRegistry.RADIOACTIVE.get()).itemBurnDuration();
         }
 
         return 0;
