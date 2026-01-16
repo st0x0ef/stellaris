@@ -431,7 +431,7 @@
   "РІЗНІ БЛОКИ ТА ПРЕДМЕТИ STELLARIS"
 ,
 
-  "block.stellaris.flag": "Паропор",
+  "block.stellaris.flag": "Прапор",
 
   "block.stellaris.meteorite": "Небесний камінь",
 
@@ -501,7 +501,7 @@
   "advancements.stellaris.oil.title": "Відчуття свободи",
   "advancements.stellaris.root.title": "Краще, ніж залізо",
   "advancements.stellaris.root.description": "Отримайте сталь",
-  "advancements.stellaris.rocket.description": "Змайстурйте ракету",
+  "advancements.stellaris.rocket.description": "Змайструйте ракету",
   "advancements.stellaris.rocket.title": "Три, два, один…",
 
 
@@ -617,7 +617,7 @@
   "screen.stellaris.power_bank": "Накопичувач енергії",
   "screen.stellaris.fluid_tank": "Рідинний бак",
 
-  "stellaris.compat.rocket_crafting": "Майстурвання ракет",
+  "stellaris.compat.rocket_crafting": "Майстрування ракет",
   "general.stellaris.rocket_crafting_mode": "Режим",
   "general.stellaris.rocket_crafting_fuel": "Паливо",
   "general.stellaris.rocket_crafting_disabled_mode": "ВИМК.",
@@ -640,8 +640,8 @@
   "tooltip.item.stellaris.rocket.fuel": "Паливо: %s",
   "tooltip.item.stellaris.rocket.model": "Модель: %s",
   "tooltip.item.stellaris.energy": "Енергія: §e%s§r§f/§r§e%s§r FE",
-  "tooltip.item.stellaris.oil_finder": "ПКМ на блоці, щоб перевірити наявність нафти",
-  "tooltip.item.stellaris.open_tablet": "§7Для деталей натисніть §8[§c%s§8]",
+  "tooltip.item.stellaris.oil_finder": "ПКМ по блоку, щоб перевірити наявність нафти",
+  "tooltip.item.stellaris.open_tablet": "§7Натисніть §8[§c%s§8]§r для подробиць",
   "tooltip.item.stellaris.diesel": "\uD83C\uDF22 Дизель: %s",
 
   "stellaris.screen.tablet.rocket_launched": "Ракета запущена: %s",
@@ -656,6 +656,7 @@
   "tag.item.c.axes": "Сокири",
   "tag.item.c.arrows": "Стріли",
   "tag.item.c.crops": "Урожаї",
+  "tag.item.c.fuel": "Палива",
 
   "tag.item.c.raw_materials.desh": "Необроблений деш",
   "tag.item.c.raw_materials.neptunium": "Необроблений нептуній",
@@ -682,7 +683,7 @@
   "tag.block.c.ores.neptunium": "Нептунієві руди",
 
   "tag.item.stellaris.can": "Консерви",
-  "tag.item.stellaris.space_food": "Космічні руди",
+  "tag.item.stellaris.space_food": "Космічна їжа",
   "tag.item.stellaris.rocket_skin": "Скіни ракет",
   "tag.item.stellaris.coal_generator_fuel": "Паливо вугільного генератора",
 
