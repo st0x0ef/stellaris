@@ -1,8 +1,8 @@
 {
   "sky_objects": [],
   "moon": {
-    "moon_phase": true,
-    "texture": "minecraft:textures/environment/moon_phases.png",
+    "moon_phase": false,
+    "texture": "stellaris:textures/environment/solar_system/earth.png",
     "height": 75.0,
     "size": 75.0
   },
