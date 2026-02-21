@@ -10,9 +10,11 @@
     "ChunkSerializerMixin",
     "CropGrowsMixin",
     "EntityFallMixin",
+    "EntityMixin",
     "ItemEntityMixin",
     "LivingEntityMixin",
     "PlayerMixin",
+    "ServerPlayerMixin",
     "StormyPlanetMixin"
   ],
   "client": [
