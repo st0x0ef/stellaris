@@ -21,9 +21,6 @@ public abstract class EntityMixin {
 	protected DimensionOxygenManager stellaris$oxygenManager;
 
 	@Shadow
-	protected boolean firstTick;
-
-	@Shadow
 	public abstract Level level();
 
 	@WrapMethod(method = "changeDimension")

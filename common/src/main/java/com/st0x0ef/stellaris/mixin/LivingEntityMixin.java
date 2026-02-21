@@ -3,7 +3,6 @@ package com.st0x0ef.stellaris.mixin;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.oxygen.GlobalOxygenManager;
 import com.st0x0ef.stellaris.common.registry.DamageSourceRegistry;
-import com.st0x0ef.stellaris.common.utils.Utils;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
@@ -28,9 +27,6 @@ public abstract class LivingEntityMixin extends EntityMixin {
 
     @Inject(at = @At("HEAD"), method = "tick()V")
     private void tick(CallbackInfo ci) {
-        if (firstTick && level() instanceof ServerLevel serverLevel)
-            Utils.handleGravityChange(stellaris$livingEntity, serverLevel);
-
         if (level() instanceof ServerLevel serverLevel && Stellaris.CONFIG.oxygenConfig.enableOxygenSystem) {
             if (stellaris$tickSinceLastOxygenCheck > Stellaris.CONFIG.oxygenConfig.oxygenCheckInterval) {
                 if (stellaris$oxygenManager == null) {
