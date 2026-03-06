@@ -1,5 +1,7 @@
-# 1.4.20 changelog
+# 1.4.21 changelog
 
 ## Changes
-- Update Ukrainian localization ([#187](https://github.com/st0x0ef/stellaris/pull/187))
-- Update Sky Aesthetics to v2.0.11-beta
+- Update Sky Aesthetics to v2.0.12-beta
+
+## Fixes
+- Fix gravity update when an entity go to another dimension ([#191](https://github.com/st0x0ef/stellaris/pull/191))
