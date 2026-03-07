@@ -8,6 +8,7 @@ import com.st0x0ef.stellaris.common.keybinds.KeyVariables;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import com.st0x0ef.stellaris.common.utils.Utils;
+import dev.architectury.fluid.FluidStack;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
@@ -59,13 +60,19 @@ public class JetSuit {
 
 
                 /** JET SUIT FAST BOOST */
-                if (player.isSprinting()) {
-                    this.boost(player, 1.3, true);
+                if (player.isSprinting() && this.getMode(jetSuitItemStack) != ModeType.ELYTRA.getMode()) {
+                    UniversalFluidItemStorage storage = getFluidTank(jetSuitItemStack);
+                    if (!storage.getFluidInTank(1).isEmpty()) {
+                        this.boost(player, 1.3, true);
+                    }
                 }
 
                 /** JET SUIT SLOW BOOST */
-                if (player.zza > 0 && !player.isSprinting()) {
-                    this.boost(player, 0.9, false);
+                if (player.zza > 0 && !player.isSprinting() && this.getMode(jetSuitItemStack) != ModeType.ELYTRA.getMode()) {
+                    UniversalFluidItemStorage storage = getFluidTank(jetSuitItemStack);
+                    if (!storage.getFluidInTank(1).isEmpty()) {
+                        this.boost(player, 0.9, false);
+                    }
                 }
 
                 switch (this.getMode(stack)) {
@@ -207,27 +214,23 @@ public class JetSuit {
             if (!player.getAbilities().flying && !player.isPassenger() && Utils.isLivingInJetSuit(player)) {
                 if (this.getMode(stack) == ModeType.ELYTRA.getMode() && !player.hasEffect(MobEffects.SLOW_FALLING)) {
                     UniversalFluidItemStorage storage = getFluidTank(stack);
-                    if (storage.getFluidInTank(1).isEmpty()) return;
 
-                    if (!player.onGround() && !player.isInWater() && !player.hasEffect(MobEffects.LEVITATION)) {
-                        player.startFallFlying();
-                        Utils.disableFlyAntiCheat(player, true);
-                    }
+                    if (player.isFallFlying() && KeyVariables.isHoldingUp(player)) {
+                        // Check fuel is in tank
+                        if (!storage.getFluidInTank(1).isEmpty()) {
+                            this.boost(player, 1.3, true);
 
-
-                    if (player.isFallFlying() && player.isSprinting()) {
-                        Vec3 look = player.getLookAngle();
-                        Vec3 motion = player.getDeltaMovement();
-                        double boost = 0.1;
-                        player.setDeltaMovement(motion.add(look.x * boost, look.y * boost, look.z * boost));
-
-                        // Consume fuel
-                        if (nextFuelCheckTick <= 0) {
-                            storage.drain(storage.getFluidInTank(1), false);
-                            nextFuelCheckTick = 20;
+                            // consume fuel
+                            if (nextFuelCheckTick <= 0) {
+                                FluidStack currentFluid = storage.getFluidInTank(1);
+                                FluidStack toDrain = FluidStack.create(currentFluid.getFluid(), 1);
+                                storage.drain(toDrain, false);
+                                nextFuelCheckTick = 2;
+                            }
+                            nextFuelCheckTick--;
                         }
-                        nextFuelCheckTick--;
                     }
+
                     if (!player.level().isClientSide) {
                         Vec3 look = player.getLookAngle();
                         ServerLevel serverLevel = (ServerLevel) player.level();
@@ -347,7 +350,7 @@ public class JetSuit {
         public boolean tryToStartFallFlying(Player player) {
             if (!player.onGround() && !player.isFallFlying() && !player.isInWater() && !player.hasEffect(MobEffects.LEVITATION)) {
                 ItemStack itemStack = player.getItemBySlot(EquipmentSlot.CHEST);
-                if (itemStack.is(ItemsRegistry.JETSUIT_SUIT) && ElytraItem.isFlyEnabled(itemStack)) {
+                if (itemStack.is(ItemsRegistry.JETSUIT_SUIT) && ElytraItem.isFlyEnabled(itemStack) && this.getMode(itemStack) == ModeType.ELYTRA.getMode()) {
                     player.startFallFlying();
                     return true;
                 }
