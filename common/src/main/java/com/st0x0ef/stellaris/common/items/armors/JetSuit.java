@@ -57,22 +57,37 @@ public class JetSuit {
 
             if (entity instanceof Player player && player.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof JetSuit.Suit) {
                 ItemStack jetSuitItemStack = player.getItemBySlot(EquipmentSlot.CHEST);
-
+                boolean isBoosting = false;
 
                 /** JET SUIT FAST BOOST */
-                if (player.isSprinting() && this.getMode(jetSuitItemStack) != ModeType.ELYTRA.getMode()) {
+                if (player.isSprinting() && this.getMode(jetSuitItemStack) != ModeType.ELYTRA.getMode()
+                        && this.getMode(jetSuitItemStack) != ModeType.DISABLED.getMode()) {
                     UniversalFluidItemStorage storage = getFluidTank(jetSuitItemStack);
                     if (!storage.getFluidInTank(1).isEmpty()) {
                         this.boost(player, 1.3, true);
+                        isBoosting = true;
                     }
                 }
 
                 /** JET SUIT SLOW BOOST */
-                if (player.zza > 0 && !player.isSprinting() && this.getMode(jetSuitItemStack) != ModeType.ELYTRA.getMode()) {
+                if (player.zza > 0 && !player.isSprinting() && this.getMode(jetSuitItemStack) != ModeType.ELYTRA.getMode()
+                        && this.getMode(jetSuitItemStack) != ModeType.DISABLED.getMode()) {
                     UniversalFluidItemStorage storage = getFluidTank(jetSuitItemStack);
                     if (!storage.getFluidInTank(1).isEmpty()) {
                         this.boost(player, 0.9, false);
+                        isBoosting = true;
                     }
+                }
+
+                /** DRAIN FUEL IF BOOSTING */
+                if (isBoosting) {
+                    UniversalFluidItemStorage storage = getFluidTank(jetSuitItemStack);
+                    if (nextFuelCheckTick <= 0) {
+                        FluidStack currentFluid = storage.getFluidInTank(1);
+                        storage.drain(FluidStack.create(currentFluid.getFluid(), 1), false);
+                        nextFuelCheckTick = 20;
+                    }
+                    nextFuelCheckTick--;
                 }
 
                 switch (this.getMode(stack)) {
@@ -215,6 +230,10 @@ public class JetSuit {
                 if (this.getMode(stack) == ModeType.ELYTRA.getMode() && !player.hasEffect(MobEffects.SLOW_FALLING)) {
                     UniversalFluidItemStorage storage = getFluidTank(stack);
 
+                    if (nextFuelCheckTick > 0) {
+                        nextFuelCheckTick--;
+                    }
+
                     if (player.isFallFlying() && KeyVariables.isHoldingUp(player)) {
                         // Check fuel is in tank
                         if (!storage.getFluidInTank(1).isEmpty()) {
@@ -223,11 +242,9 @@ public class JetSuit {
                             // consume fuel
                             if (nextFuelCheckTick <= 0) {
                                 FluidStack currentFluid = storage.getFluidInTank(1);
-                                FluidStack toDrain = FluidStack.create(currentFluid.getFluid(), 1);
-                                storage.drain(toDrain, false);
-                                nextFuelCheckTick = 2;
+                                storage.drain(FluidStack.create(currentFluid.getFluid(), 1), false);
+                                nextFuelCheckTick = 20;
                             }
-                            nextFuelCheckTick--;
                         }
                     }
 
