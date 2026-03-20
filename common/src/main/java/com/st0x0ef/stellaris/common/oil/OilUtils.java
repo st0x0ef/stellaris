@@ -8,10 +8,13 @@ import java.util.Random;
 public class OilUtils {
 
     public static int getRandomOilLevel() {
+        int chance = Stellaris.CONFIG.oilConfig.chunkOilChance;
+        if (chance <= 0) {
+            return 0;
+        }
         Random random = new Random();
-        if (random.nextInt(0, Stellaris.CONFIG.oilConfig.chunkOilChance) == 0) {
+        if (random.nextInt(0, chance) == 0) {
             return random.nextInt(Stellaris.CONFIG.oilConfig.minOil, Stellaris.CONFIG.oilConfig.maxOil) * 1000;
-
         }
         return 0;
     }
