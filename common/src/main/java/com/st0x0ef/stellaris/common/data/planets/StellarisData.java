@@ -12,13 +12,14 @@ import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.util.profiling.ProfilerFiller;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class StellarisData extends SimpleJsonResourceReloadListener {
 
-    private static final List<Planet> PLANETS = new ArrayList<>();
+    private static final List<Planet> PLANETS = new CopyOnWriteArrayList<>();
     public static final ResourceLocation OVERWORLD = ResourceLocation.withDefaultNamespace("overworld");
 
     public StellarisData() {
@@ -37,17 +38,17 @@ public class StellarisData extends SimpleJsonResourceReloadListener {
             }
             PLANETS.add(planet);
         });
-        PlanetEvents.POST_PLANET_REGISTRY.invoker().planetRegistered(PLANETS, false);
+        PlanetEvents.POST_PLANET_REGISTRY.invoker().planetRegistered(Collections.unmodifiableList(PLANETS), false);
     }
 
     public static List<Planet> getPlanets() {
-        return PLANETS;
+        return Collections.unmodifiableList(PLANETS);
     }
 
     public static void addAllPlanets(List<Planet> planets) {
         PLANETS.clear();
         PLANETS.addAll(planets);
-        PlanetEvents.POST_PLANET_REGISTRY.invoker().planetRegistered(planets, true);
+        PlanetEvents.POST_PLANET_REGISTRY.invoker().planetRegistered(Collections.unmodifiableList(planets), true);
     }
 
     public static void addPlanets(List<Planet> planets) {
