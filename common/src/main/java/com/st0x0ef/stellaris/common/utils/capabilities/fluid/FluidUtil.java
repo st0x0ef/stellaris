@@ -25,7 +25,7 @@ public class FluidUtil {
         if (to == null) {
             return;
         }
-        amount = Math.min(amount, to.getTankCapacity(0) - to.getFluidInTank(0).getAmount());
+
         moveFluid(from, to, from.getFluidInTank(tank).copyWithAmount(amount));
         items.set(slot, to.getContainer());
     }
