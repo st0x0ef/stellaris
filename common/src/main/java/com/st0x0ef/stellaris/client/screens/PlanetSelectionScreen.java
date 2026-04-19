@@ -964,7 +964,7 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
                     double beforeZoomWorldY = screenY / zoomLevel - offsetY;
 
                     targetZoomLevel += scrollY * 0.1;
-                    targetZoomLevel = Math.max(0.2, Math.min(targetZoomLevel, 1.2));
+                    targetZoomLevel = Math.clamp(targetZoomLevel, 0.2, 1.2);
 
                     double afterZoomWorldX = screenX / targetZoomLevel - offsetX;
                     double afterZoomWorldY = screenY / targetZoomLevel - offsetY;
