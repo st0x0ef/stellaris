@@ -31,7 +31,7 @@ public class FuelModule extends Item implements SpaceSuitModule {
     @Override
     public void renderToGui(GuiGraphics graphics, DeltaTracker deltaTracker, Player player, ItemStack stack) {
         UniversalFluidStorage storage = Capabilities.Fluid.ITEM.getCapability(stack);
-        if (storage == null) return;
+        if (storage == null || storage.getTanks() <= 1 ) return;
 
         graphics.blit(RenderType::guiTextured, GUISprites.SPACESUIT_FUEL_BAR, 5, 16, 0, 0, 37, 10, 37, 10);
 
@@ -43,7 +43,7 @@ public class FuelModule extends Item implements SpaceSuitModule {
     @Override
     public void addToTooltips(ItemStack itemStack, TooltipContext tooltipContext, TooltipDisplay tooltipDisplay, Consumer<Component> consumer, TooltipFlag tooltipFlag) {
         UniversalFluidStorage storage = Capabilities.Fluid.ITEM.getCapability(itemStack);
-        if (storage == null) return;
+        if (storage == null || storage.getTanks() <= 1  ) return;
 
         consumer.accept(Component.translatable("jetsuit.stellaris.fuel", storage.getFluidInTank(1).getAmount()).append(" §r/§8 " + storage.getTankCapacity(1)));
     }

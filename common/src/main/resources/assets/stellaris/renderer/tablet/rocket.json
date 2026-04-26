@@ -17,7 +17,7 @@
         "size": 32
       },
       "image": {
-          "location": "stellaris:textures/gui/tablet/images/rocket_station",
+          "location": "stellaris:textures/gui/tablet/images/rocket_station.png",
           "width": 128,
           "height": 96
       }
@@ -33,10 +33,6 @@
           "count": 1
         },
         "size": 32
-      },
-      "entity": {
-        "id": "stellaris:tiny_rocket",
-        "scale": 10
       }
     },
     {
@@ -50,10 +46,6 @@
           "count": 1
         },
         "size": 32
-      },
-      "entity": {
-        "id": "stellaris:small_rocket",
-        "scale": 10
       }
     }
   ]

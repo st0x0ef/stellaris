@@ -69,7 +69,7 @@ public class TabletEntryWidget extends AbstractTextAreaWidget {
 
         info.image().ifPresent((image) -> {
             int height = getY() + 40 + finalHeight.get() + 20;
-            guiGraphics.blitSprite(RenderType::guiTextured, image.location(), this.baseScreenWidth / 2 - image.width() / 2, height, image.width(), image.height());
+            guiGraphics.blit(RenderType::guiTextured, image.location(), this.baseScreenWidth / 2 - image.width() / 2, height, 0, 0, image.width(), image.height(), image.width(), image.height());
 
             finalHeight.addAndGet(image.height() + 40 );
         });

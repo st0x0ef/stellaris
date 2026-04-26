@@ -56,7 +56,7 @@
         "size": 32
       },
       "image": {
-        "location": "stellaris:textures/gui/tablet/images/vacuumator_recipe",
+        "location": "stellaris:textures/gui/tablet/images/vacuumator_recipe.png",
         "width": 136,
         "height": 97
       }
@@ -76,7 +76,7 @@
 
       },
       "image": {
-        "location": "stellaris:textures/gui/tablet/images/water_separator",
+        "location": "stellaris:textures/gui/tablet/images/water_separator.png",
         "width": 128,
         "height": 64
       }
@@ -109,7 +109,7 @@
         "size": 32
       },
       "image": {
-        "location": "stellaris:textures/gui/tablet/images/vacuumator",
+        "location": "stellaris:textures/gui/tablet/images/vacuumator.png",
         "width": 128,
         "height": 64
       }
@@ -129,7 +129,7 @@
 
       },
       "image": {
-        "location": "stellaris:textures/gui/tablet/images/fuel_refinery",
+        "location": "stellaris:textures/gui/tablet/images/fuel_refinery.png",
         "width": 128,
         "height": 64
       }
