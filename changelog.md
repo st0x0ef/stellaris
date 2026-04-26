@@ -1,9 +1,5 @@
-# 1.3.20 changelog
-
-
-## Changes
-- Update sky aesthetics to 1.6.2 to fix a crash on Mars
-
+# 1.3.21 changelog
 
 ## Fixes
-- Fix incorrect blocks names in some structures
+- Fix image not rendering on the tablet
+- Fix crash due to rocket entity rendering
