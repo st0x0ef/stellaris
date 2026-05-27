@@ -11,6 +11,8 @@ public class CommonConfig {
 
     public boolean landerExplodeWhenTooFast = false;
 
+    public boolean enableCannedFoodSystem = true;
+
 
     @ConfigManager.InnerConfig
     public Oil oilConfig = new Oil();

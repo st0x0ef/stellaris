@@ -1,5 +1,6 @@
 package com.st0x0ef.stellaris.mixin;
 
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.network.packets.SyncPlanetMenuState;
 import com.st0x0ef.stellaris.common.registry.TagRegistry;
 import com.st0x0ef.stellaris.common.utils.CustomPlayerData;
@@ -35,9 +36,11 @@ public abstract class PlayerMixin extends LivingEntity implements CustomPlayerDa
     }
 
     @Inject(at = @At(value = "HEAD"), method = "eat", cancellable = true)
-    private void cancelEat(Level level, ItemStack foodStack, FoodProperties foodProperties, CallbackInfoReturnable<ItemStack> cir) {
-        if (level instanceof ServerLevel serverLevel && !PlanetUtil.hasOxygenAt(serverLevel, getOnPos()) && !foodStack.is(TagRegistry.SPACE_FOOD)) {
-            cir.setReturnValue(foodStack);
+    private void cancelEat(Level level, ItemStack food, FoodProperties foodProperties, CallbackInfoReturnable<ItemStack> cir) {
+        if (Stellaris.CONFIG.enableCannedFoodSystem) {
+            if (level instanceof ServerLevel serverLevel && !PlanetUtil.hasOxygenAt(serverLevel, getOnPos()) && !food.is(TagRegistry.SPACE_FOOD)) {
+                cir.setReturnValue(food);
+            }
         }
     }
 

@@ -1,8 +1,8 @@
-# 1.4.22 changelog
+# 1.4.23 changelog
 
-## Changes
-- Update Sky Aesthetics to v2.0.13-beta
+## Additions
+- Added a config option to disable canned food
 
 ## Fixes
-- Fix fluid transfer only checking first slot capacity
-- Fix crash when chunkOilChance is set to 0 ([#195](https://github.com/st0x0ef/stellaris/pull/195))
+- Fix concurrent modification in planet reloading ([#196](https://github.com/st0x0ef/stellaris/pull/196))
+- Fix jet suit doesn't use fuel ([#192](https://github.com/st0x0ef/stellaris/pull/192))
