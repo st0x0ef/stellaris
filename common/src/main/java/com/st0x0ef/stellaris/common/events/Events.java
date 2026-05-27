@@ -106,9 +106,12 @@ public class Events {
             LaunchPadLauncher.loadOrGenerateDefaults(levelStorageSource.getLevelDirectory().path());
             NetworkManager.sendToPlayer(player, new SyncLaunchPads(LaunchPadLauncher.LAUNCH_PADS));
 
+            Utils.handleGravityChange(player, player.level());
         });
 
         TickEvent.SERVER_LEVEL_POST.register((level) -> GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level).updateOxygenTick());
+
+        PlayerEvent.PLAYER_RESPAWN.register((player, conqueredEnd, removalReason) -> Utils.handleGravityChange(player, player.level()));
     }
 
     private static boolean checkIfAntennaIsNear(BlockPos pos, Level level) {
