@@ -14,6 +14,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import org.lwjgl.glfw.GLFW;
 
 @Environment(EnvType.CLIENT)
 public class WaitScreen extends AbstractContainerScreen<WaitMenu> {
@@ -69,8 +70,9 @@ public class WaitScreen extends AbstractContainerScreen<WaitMenu> {
 
     @Override
     public void onClose() {
-        if (this.getPlayer().stellaris$isPlanetMenuOpen()) {
-            return;
+        if (this.getPlayer() != null) {
+            long windowHandle = Minecraft.getInstance().getWindow().getWindow();
+            GLFW.glfwSetScrollCallback(windowHandle, Minecraft.getInstance().mouseHandler::onScroll);
         }
         super.onClose();
     }

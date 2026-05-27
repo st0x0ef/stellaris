@@ -11,3 +11,4 @@
 - Fix jet suit doesn't use fuel ([#192](https://github.com/st0x0ef/stellaris/pull/192))
 - Fix new gravity doesn't apply to player when respawning
 - Fix space station doesn't always spawn on dedicated server
+- Fix planet selection screen doesn't open under some conditions

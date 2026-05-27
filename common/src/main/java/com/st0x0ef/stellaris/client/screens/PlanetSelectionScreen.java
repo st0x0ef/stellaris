@@ -1226,12 +1226,10 @@ public class PlanetSelectionScreen extends BaseWindowScreen<PlanetSelectionMenu>
 
     @Override
     public void onClose() {
-        if (getPlayer().stellaris$isPlanetMenuOpen()) {
-            return;
-        }
         long windowHandle = Minecraft.getInstance().getWindow().getWindow();
-        prevScrollCallback = GLFW.glfwSetScrollCallback(windowHandle, Minecraft.getInstance().mouseHandler::onScroll);
-
+        if (prevScrollCallback != null) {
+            GLFW.glfwSetScrollCallback(windowHandle, Minecraft.getInstance().mouseHandler::onScroll);
+        }
         super.onClose();
     }
 

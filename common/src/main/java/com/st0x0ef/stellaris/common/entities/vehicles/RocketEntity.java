@@ -570,8 +570,12 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         if (player == null) return;
 
         if (!player.stellaris$isPlanetMenuOpen()) {
+            player.closeContainer();
             player.setNoGravity(true);
-            player.getVehicle().setNoGravity(true);
+            Entity vehicle = player.getVehicle();
+            if (vehicle != null) {
+                vehicle.setNoGravity(true);
+            }
             PlanetUtil.openPlanetSelectionMenu(player, player.isCreative(), "stellaris:milky_way");
             player.stellaris$setPlanetMenuOpen(true, player, true);
         }
@@ -584,8 +588,12 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
         }
 
         if (!player.stellaris$isPlanetMenuOpen()) {
+            player.closeContainer();
             player.setNoGravity(true);
-            player.getVehicle().setNoGravity(true);
+            Entity vehicle = player.getVehicle();
+            if (vehicle != null) {
+                vehicle.setNoGravity(true);
+            }
             PlanetUtil.openWaitMenu(player, this.getFirstPlayerPassenger().getDisplayName().getString());
             player.stellaris$setPlanetMenuOpen(true, player, true);
         }
