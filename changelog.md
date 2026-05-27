@@ -4,7 +4,7 @@
 - Added a config option to disable canned food
 
 ## Changes
--  Improve logging in case of an error during space station creation
+- Improve logging in case of an error during space station creation
 
 ## Fixes
 - Fix concurrent modification in planet reloading ([#196](https://github.com/st0x0ef/stellaris/pull/196))
