@@ -377,11 +377,17 @@ public class Utils {
     }
 
     /** Place the space station */
+    @Nullable
     public static Vec3 placeSpaceStation(Player player, ServerLevel serverLevel, SpaceStationRecipe recipe, LaunchPad pad) {
         StructureTemplate structureTemplate = serverLevel.getStructureManager().getOrCreate(recipe.location());
         BlockPos pos = new BlockPos((int)player.getX() - (structureTemplate.getSize().getX() / 2), 100, (int)player.getZ() - (structureTemplate.getSize().getZ() / 2));
 
-        structureTemplate.placeInWorld(serverLevel, pos, pos, new StructurePlaceSettings(), serverLevel.random, 2);
+        boolean placed = structureTemplate.placeInWorld(serverLevel, pos, pos, new StructurePlaceSettings(), serverLevel.random, 2);
+        if (!placed) {
+            Stellaris.LOG.warn("Failed to place space station structure {} in dimension {} at {}", recipe.location(), serverLevel.dimension().location(), pos);
+            return null;
+        }
+
         return placeAntennaBlock(pos, serverLevel, recipe, pad);
     }
 
