@@ -422,21 +422,19 @@ public class Utils {
     }
 
     public static void handleGravityChange(LivingEntity entity, Level level) {
-        if (!SpaceSuitModules.containsInModules(entity.getItemBySlot(EquipmentSlot.CHEST), ItemsRegistry.MODULE_GRAVITY_NORMALIZER.get().getDefaultInstance())) {
-            ResourceLocation dimension = level.dimension().location();
+        ResourceLocation dimension = level.dimension().location();
 
-            if (!PlanetUtil.isPlanet(dimension) || dimension.equals(StellarisData.OVERWORLD) || !Stellaris.CONFIG.gravityConfig.customEntityGravity) {
-                trySetAttribute(entity, Attributes.GRAVITY, Attributes.GRAVITY.value().getDefaultValue());
-                trySetAttribute(entity, Attributes.SAFE_FALL_DISTANCE, Attributes.SAFE_FALL_DISTANCE.value().getDefaultValue());
-                trySetAttribute(entity, Attributes.FALL_DAMAGE_MULTIPLIER, Attributes.FALL_DAMAGE_MULTIPLIER.value().getDefaultValue());
-            } else if (PlanetUtil.isPlanet(dimension)) {
-                float stellaris$regularGravity = PlanetUtil.getPlanet(dimension).gravity();
-                double stellaris$gravity = Utils.MPS2ToMCG(stellaris$regularGravity);
+        if (SpaceSuitModules.containsInModules(entity.getItemBySlot(EquipmentSlot.CHEST), ItemsRegistry.MODULE_GRAVITY_NORMALIZER.get().getDefaultInstance()) || !PlanetUtil.isPlanet(dimension) || dimension.equals(StellarisData.OVERWORLD) || !Stellaris.CONFIG.gravityConfig.customEntityGravity) {
+            trySetAttribute(entity, Attributes.GRAVITY, Attributes.GRAVITY.value().getDefaultValue());
+            trySetAttribute(entity, Attributes.SAFE_FALL_DISTANCE, Attributes.SAFE_FALL_DISTANCE.value().getDefaultValue());
+            trySetAttribute(entity, Attributes.FALL_DAMAGE_MULTIPLIER, Attributes.FALL_DAMAGE_MULTIPLIER.value().getDefaultValue());
+        } else {
+            float stellaris$regularGravity = PlanetUtil.getPlanet(dimension).gravity();
+            double stellaris$gravity = Utils.MPS2ToMCG(stellaris$regularGravity);
 
-                trySetAttribute(entity, Attributes.GRAVITY, Attributes.GRAVITY.value().sanitizeValue(stellaris$gravity));
-                trySetAttribute(entity, Attributes.SAFE_FALL_DISTANCE, Attributes.SAFE_FALL_DISTANCE.value().sanitizeValue(3.0 / (stellaris$regularGravity / 9.80665)));
-                trySetAttribute(entity, Attributes.FALL_DAMAGE_MULTIPLIER, Attributes.FALL_DAMAGE_MULTIPLIER.value().sanitizeValue(stellaris$regularGravity / 9.80665));
-            }
+            trySetAttribute(entity, Attributes.GRAVITY, Attributes.GRAVITY.value().sanitizeValue(stellaris$gravity));
+            trySetAttribute(entity, Attributes.SAFE_FALL_DISTANCE, Attributes.SAFE_FALL_DISTANCE.value().sanitizeValue(3.0 / (stellaris$regularGravity / 9.80665)));
+            trySetAttribute(entity, Attributes.FALL_DAMAGE_MULTIPLIER, Attributes.FALL_DAMAGE_MULTIPLIER.value().sanitizeValue(stellaris$regularGravity / 9.80665));
         }
     }
 

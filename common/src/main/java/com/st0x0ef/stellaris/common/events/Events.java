@@ -31,6 +31,8 @@ public class Events {
     public static void registerEvents() {
         TickEvent.PLAYER_POST.register(player -> {
             if (!player.level().isClientSide()) {
+                Utils.handleGravityChange(player, player.level());
+
                 if (tickBeforeNextRadioactiveCheck <= 0 && !Utils.isLivingInJetSuit(player)) {
                     int level = player.getInventory().items.stream()
                             .filter(stack -> stack.has(DataComponentsRegistry.RADIOACTIVE.get()))
