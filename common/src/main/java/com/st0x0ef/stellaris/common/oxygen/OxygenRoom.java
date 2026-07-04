@@ -35,14 +35,13 @@ public class OxygenRoom {
         }
 
         Queue<BlockPos> toExplore = new LinkedList<>();
-        Set<BlockPos> visited = new HashSet<>(oxygenatedPositions);
-        Set<BlockPos> newPositions = new HashSet<>();
+        Set<BlockPos> visited = new HashSet<>();
+        Set<BlockPos> reachablePositions = new HashSet<>();
 
         for (Direction direction : Direction.values()) {
             BlockPos rel = distributorPos.relative(direction);
-            if (!visited.contains(rel) && level.getBlockState(rel).isAir()) {
+            if (visited.add(rel) && level.getBlockState(rel).isAir()) {
                 toExplore.offer(rel);
-                visited.add(rel);
             }
         }
 
@@ -50,14 +49,12 @@ public class OxygenRoom {
             BlockPos currentPos = toExplore.poll();
 
             if (level.getBlockState(currentPos).isAir()) {
-                newPositions.add(currentPos);
+                reachablePositions.add(currentPos);
 
                 for (Direction direction : Direction.values()) {
                     BlockPos rel = currentPos.relative(direction);
 
-                    if (!visited.contains(rel)) {
-                        visited.add(rel);
-
+                    if (visited.add(rel)) {
                         int HalfRoomSize = Stellaris.CONFIG.oxygenConfig.maxOxygenRoomSize / 2;
                         if (Math.abs(rel.getX() - distributorPos.getX()) > HalfRoomSize ||
                                 Math.abs(rel.getY() - distributorPos.getY()) > HalfRoomSize ||
@@ -72,12 +69,16 @@ public class OxygenRoom {
             }
         }
 
-        for (BlockPos pos : newPositions) {
-            if (!oxygenatedPositions.contains(pos) && distributor.useOxygenAndEnergy()) {
-                oxygenatedPositions.add(pos);
+        Set<BlockPos> newOxygenatedPositions = new HashSet<>();
+        for (BlockPos pos : reachablePositions) {
+            if (oxygenatedPositions.contains(pos) || distributor.useOxygenAndEnergy()) {
+                newOxygenatedPositions.add(pos);
                 GlobalOxygenManager.getInstance().getOrCreateDimensionManager(level).removeRoomToCheckIfOpen(pos);
             }
         }
+
+        oxygenatedPositions.clear();
+        oxygenatedPositions.addAll(newOxygenatedPositions);
     }
 
     public void removeOxygenInRoom() {
