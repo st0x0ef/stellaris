@@ -28,14 +28,27 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 public class JetSuit {
     public static class Suit extends AbstractSpaceArmor.Chestplate {
-        public float spacePressTime = 0.0f;
 
-        private int nextFuelCheckTick = 0;
+        /** Per-player fuel-drain interval counter, keyed by player UUID. The item instance is a
+         *  singleton shared by every player, so this state must not live in a plain field. */
+        private final Map<UUID, Integer> fuelCheckTicks = new HashMap<>();
 
         public Suit(Holder<ArmorMaterial> material, Properties properties) {
             super(material, Type.CHESTPLATE, properties, false);
+        }
+
+        private int getFuelTick(Player player) {
+            return fuelCheckTicks.getOrDefault(player.getUUID(), 0);
+        }
+
+        private void setFuelTick(Player player, int value) {
+            fuelCheckTicks.put(player.getUUID(), value);
         }
 
         public int getMode(ItemStack itemStack) {
@@ -57,6 +70,9 @@ public class JetSuit {
 
             if (entity instanceof Player player && player.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof JetSuit.Suit) {
                 ItemStack jetSuitItemStack = player.getItemBySlot(EquipmentSlot.CHEST);
+
+                if (stack != jetSuitItemStack) return;
+
                 boolean isBoosting = false;
 
                 /** JET SUIT FAST BOOST */
@@ -82,12 +98,12 @@ public class JetSuit {
                 /** DRAIN FUEL IF BOOSTING */
                 if (isBoosting) {
                     UniversalFluidItemStorage storage = getFluidTank(jetSuitItemStack);
-                    if (nextFuelCheckTick <= 0) {
+                    if (getFuelTick(player) <= 0) {
                         FluidStack currentFluid = storage.getFluidInTank(1);
                         storage.drain(FluidStack.create(currentFluid.getFluid(), 1), false);
-                        nextFuelCheckTick = 20;
+                        setFuelTick(player, 20);
                     }
-                    nextFuelCheckTick--;
+                    setFuelTick(player, getFuelTick(player) - 1);
                 }
 
                 switch (this.getMode(stack)) {
@@ -95,9 +111,6 @@ public class JetSuit {
                     case 2 -> this.hoverModeMovement(player, jetSuitItemStack);
                     case 3 -> this.elytraModeMovement(player, jetSuitItemStack);
                 }
-
-                /** CALCULATE PRESS SPACE TIME */
-                this.calculateSpacePressTime(player, jetSuitItemStack);
             }
         }
 
@@ -108,17 +121,16 @@ public class JetSuit {
 
                     if (storage.getFluidInTank(1).isEmpty()) return;
                     if (KeyVariables.isHoldingJump(player)) {
-                        if (nextFuelCheckTick > 0) {
-                            player.moveRelative(1.2F, new Vec3(0, 0.1, 0));
-                            player.resetFallDistance();
-                            Utils.disableFlyAntiCheat(player, true);
-                        } else if (storage.getFluidInTank(1).isEmpty()) {
-                            player.moveRelative(1.2F, new Vec3(0, 0.1, 0));
-                            player.resetFallDistance();
-                            Utils.disableFlyAntiCheat(player, true);
-                            nextFuelCheckTick = 20;
+                        player.moveRelative(1.2F, new Vec3(0, 0.1, 0));
+                        player.resetFallDistance();
+                        Utils.disableFlyAntiCheat(player, true);
+
+                        if (getFuelTick(player) <= 0) {
+                            FluidStack currentFluid = storage.getFluidInTank(1);
+                            storage.drain(FluidStack.create(currentFluid.getFluid(), 1), false);
+                            setFuelTick(player, 20);
                         }
-                        nextFuelCheckTick--;
+                        setFuelTick(player, getFuelTick(player) - 1);
 
                         if (!player.onGround()) {
                             Vec3 movement = Vec3.ZERO;
@@ -166,18 +178,17 @@ public class JetSuit {
                     // Main movement logic
                     if (storage.getFluidInTank(1).isEmpty()) return;
                     if (!player.onGround() && !player.isInWater()) {
-                        if (nextFuelCheckTick > 0) {
-                            player.setDeltaMovement(vec3.x, vec3.y + 0.04, vec3.z);
-                            player.resetFallDistance();
-                            Utils.disableFlyAntiCheat(player, true);
-                        } else if (!storage.getFluidInTank(1).isEmpty()) {
-                            player.setDeltaMovement(vec3.x, vec3.y + 0.04, vec3.z);
-                            player.resetFallDistance();
-                            Utils.disableFlyAntiCheat(player, true);
-                            nextFuelCheckTick = 20;
-                        }
+                        player.setDeltaMovement(vec3.x, vec3.y + 0.04, vec3.z);
+                        player.resetFallDistance();
+                        Utils.disableFlyAntiCheat(player, true);
 
-                        nextFuelCheckTick--;
+                        /** Consume one unit of the tank's fuel every 20 ticks while hovering. */
+                        if (getFuelTick(player) <= 0) {
+                            FluidStack currentFluid = storage.getFluidInTank(1);
+                            storage.drain(FluidStack.create(currentFluid.getFluid(), 1), false);
+                            setFuelTick(player, 20);
+                        }
+                        setFuelTick(player, getFuelTick(player) - 1);
                     }
 
                     // Move up
@@ -230,8 +241,8 @@ public class JetSuit {
                 if (this.getMode(stack) == ModeType.ELYTRA.getMode() && !player.hasEffect(MobEffects.SLOW_FALLING)) {
                     UniversalFluidItemStorage storage = getFluidTank(stack);
 
-                    if (nextFuelCheckTick > 0) {
-                        nextFuelCheckTick--;
+                    if (getFuelTick(player) > 0) {
+                        setFuelTick(player, getFuelTick(player) - 1);
                     }
 
                     if (player.isFallFlying() && KeyVariables.isHoldingUp(player)) {
@@ -240,10 +251,10 @@ public class JetSuit {
                             this.boost(player, 1.3, true);
 
                             // consume fuel
-                            if (nextFuelCheckTick <= 0) {
+                            if (getFuelTick(player) <= 0) {
                                 FluidStack currentFluid = storage.getFluidInTank(1);
                                 storage.drain(FluidStack.create(currentFluid.getFluid(), 1), false);
-                                nextFuelCheckTick = 20;
+                                setFuelTick(player, 20);
                             }
                         }
                     }
@@ -273,57 +284,6 @@ public class JetSuit {
                 jetSuitComponent = new JetSuitComponent(ModeType.fromInt(0));
             }
             itemStack.set(DataComponentsRegistry.JET_SUIT_COMPONENT.get(), jetSuitComponent);
-
-
-
-        }
-
-
-        public void calculateSpacePressTime(Player player, ItemStack itemStack) {
-            int mode = this.getMode(itemStack);
-
-            /** NORMAL MODE */
-            if (mode == ModeType.NORMAL.getMode()) {
-                if (KeyVariables.isHoldingJump(player)) {
-                    if (this.spacePressTime < 2.2F) {
-                        this.spacePressTime = this.spacePressTime + 0.2F;
-                    }
-                } else if (this.spacePressTime > 0.0F) {
-                    this.spacePressTime = this.spacePressTime - 0.2F;
-                }
-            }
-
-            /** HOVER MODE */
-            if (mode == ModeType.HOVER.getMode()) {
-                if (!player.onGround() && this.spacePressTime < 0.6F) {
-                    this.spacePressTime = this.spacePressTime + 0.2F;
-                } else if (KeyVariables.isHoldingJump(player)) {
-                    if (this.spacePressTime < 1.4F) {
-                        this.spacePressTime = this.spacePressTime + 0.2F;
-                        hoverModeMovement(player, itemStack);
-                    }
-                } else if (this.spacePressTime >= 0.6F) {
-                    this.spacePressTime = this.spacePressTime - 0.2F;
-                }
-
-            }
-
-            /** ELYTRA MODE */
-            if (mode == ModeType.ELYTRA.getMode()) {
-                if (KeyVariables.isHoldingUp(player) && player.isFallFlying()) {
-                    if (player.isSprinting()) {
-                        if (this.spacePressTime < 2.8F) {
-                            this.spacePressTime = this.spacePressTime + 0.2F;
-                        }
-                    } else {
-                        if (this.spacePressTime < 2.2F) {
-                            this.spacePressTime = this.spacePressTime + 0.2F;
-                        }
-                    }
-                }
-            }
-
-
         }
 
         public void boost(Player player, double boost, boolean sonicBoom) {

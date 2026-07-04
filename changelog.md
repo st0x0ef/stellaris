@@ -20,3 +20,7 @@
 - Fix launchpad share suggestions showing other players' private launchpads
 - Fix the launch button using a previously selected launchpad after switching planet
 - Fix an empty launchpad whitelist adding a blank entry
+- Fix jet module draining the wrong fluid
+- Fix jet suit normal and hover modes not consuming fuel
+- Fix jet suit and jet module flight state impacting other players
+- Fix suit ticking even if it's not equipped

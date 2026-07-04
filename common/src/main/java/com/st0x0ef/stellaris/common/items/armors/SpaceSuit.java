@@ -40,6 +40,9 @@ public class SpaceSuit extends AbstractSpaceArmor.AbstractSpaceChestplate {
 
         if (entity instanceof Player player && player.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof SpaceSuit) {
             ItemStack spaceSuitItemStack = player.getItemBySlot(EquipmentSlot.CHEST);
+
+            if (stack != spaceSuitItemStack) return;
+
             List<SpaceSuitModule> modules = getModules(stack);
             if (!modules.isEmpty()) {
                 modules.forEach(spaceSuitModule -> spaceSuitModule.tick(spaceSuitItemStack, level, player));

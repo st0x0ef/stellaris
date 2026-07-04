@@ -7,7 +7,6 @@ import com.st0x0ef.stellaris.common.data_components.JetSuitComponent;
 import com.st0x0ef.stellaris.common.items.armors.JetSuit;
 import com.st0x0ef.stellaris.common.keybinds.KeyVariables;
 import com.st0x0ef.stellaris.common.registry.DataComponentsRegistry;
-import com.st0x0ef.stellaris.common.registry.FluidRegistry;
 import com.st0x0ef.stellaris.common.registry.ItemsRegistry;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import dev.architectury.fluid.FluidStack;
@@ -27,12 +26,36 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 public class JetModule extends Item implements SpaceSuitModule {
 
+    /** Per-player flight state, keyed by player UUID. The item instance is a singleton shared by
+     *  every player, so this state must not live in plain fields (it would bleed between players). */
+    private final Map<UUID, Float> spacePressTimes = new HashMap<>();
+    private final Map<UUID, Boolean> glidingStates = new HashMap<>();
+
     public JetModule(Properties properties) {
         super(properties.stacksTo(1));
+    }
+
+    private float getSpacePressTime(Player player) {
+        return spacePressTimes.getOrDefault(player.getUUID(), 0.0f);
+    }
+
+    private void setSpacePressTime(Player player, float value) {
+        spacePressTimes.put(player.getUUID(), value);
+    }
+
+    private boolean isGliding(Player player) {
+        return glidingStates.getOrDefault(player.getUUID(), false);
+    }
+
+    private void setGliding(Player player, boolean value) {
+        glidingStates.put(player.getUUID(), value);
     }
 
     @Override
@@ -58,8 +81,6 @@ public class JetModule extends Item implements SpaceSuitModule {
         return y;
     }
 
-    //stolen from jetsuit
-    public float spacePressTime;
     public int getMode(ItemStack itemStack) {
         return itemStack.getOrDefault(DataComponentsRegistry.JET_SUIT_COMPONENT.get(), new JetSuitComponent(JetSuit.ModeType.DISABLED)).type().getMode();
     }
@@ -151,7 +172,8 @@ public class JetModule extends Item implements SpaceSuitModule {
 
             UniversalFluidStorage storage = Capabilities.Fluid.ITEM.getCapability(stack);
             if (storage == null) return;
-            storage.drain(FluidStack.create(FluidRegistry.FUEL_STILL.get(), 2), false);
+            FluidStack currentFluid = storage.getFluidInTank(1);
+            storage.drain(FluidStack.create(currentFluid.getFluid(), 2), false);
         }
 
         // Move up
@@ -190,19 +212,20 @@ public class JetModule extends Item implements SpaceSuitModule {
 
             UniversalFluidStorage storage = Capabilities.Fluid.ITEM.getCapability(stack);
             if (storage == null) return;
-            storage.drain(FluidStack.create(FluidRegistry.FUEL_STILL.get(), 2), false);
+            FluidStack currentFluid = storage.getFluidInTank(1);
+            storage.drain(FluidStack.create(currentFluid.getFluid(), 2), false);
         } else if (player.isSprinting() && player.onGround() && KeyVariables.isHoldingJump(player)) {
             player.moveTo(player.getX(), player.getY() + 2, player.getZ());
         } else if (player.isCrouching() && player.isFallFlying()) {
             player.stopFallFlying();
         }
 
-        if (isGliding) {
+        if (isGliding(player)) {
             player.setDeltaMovement(player.getDeltaMovement().x(), 0, player.getDeltaMovement().z());
             if (!player.onGround()) {
                 player.setDeltaMovement(player.getDeltaMovement().x(), -0.1D, player.getDeltaMovement().z());
             } else {
-                isGliding = false;
+                setGliding(player, false);
                 player.stopFallFlying();
             }
         }
@@ -220,8 +243,6 @@ public class JetModule extends Item implements SpaceSuitModule {
 
     }
 
-    private boolean isGliding = false;
-
     public void calculateSpacePressTime(Player player, ItemStack itemStack) {
         if (Utils.isLivingInJetSuit(player)) {
             int mode = this.getMode(itemStack);
@@ -229,21 +250,21 @@ public class JetModule extends Item implements SpaceSuitModule {
             if (mode == JetSuit.ModeType.ELYTRA.getMode()) {
                 if (KeyVariables.isHoldingUp(player) && player.isFallFlying()) {
                     if (player.isSprinting()) {
-                        if (this.spacePressTime < 2.8F) {
-                            this.spacePressTime += 0.2F;
+                        if (getSpacePressTime(player) < 2.8F) {
+                            setSpacePressTime(player, getSpacePressTime(player) + 0.2F);
                         }
                     } else {
-                        if (this.spacePressTime < 2.2F) {
-                            this.spacePressTime += 0.2F;
+                        if (getSpacePressTime(player) < 2.2F) {
+                            setSpacePressTime(player, getSpacePressTime(player) + 0.2F);
                         }
                     }
-                    if (this.spacePressTime >= 2.0F && !isGliding) {
+                    if (getSpacePressTime(player) >= 2.0F && !isGliding(player)) {
                         startGliding(player);
                     }
-                } else if (this.spacePressTime > 0.0F) {
-                    this.spacePressTime -= 0.2F;
-                    if (this.spacePressTime <= 0.0F) {
-                        isGliding = false;
+                } else if (getSpacePressTime(player) > 0.0F) {
+                    setSpacePressTime(player, getSpacePressTime(player) - 0.2F);
+                    if (getSpacePressTime(player) <= 0.0F) {
+                        setGliding(player, false);
                     }
                 }
             }
@@ -251,7 +272,7 @@ public class JetModule extends Item implements SpaceSuitModule {
     }
 
     private void startGliding(Player player) {
-        isGliding = true;
+        setGliding(player, true);
         player.stopFallFlying();
         player.setDeltaMovement(player.getDeltaMovement().x(), 0.0D, player.getDeltaMovement().z());
     }
