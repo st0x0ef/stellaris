@@ -2,6 +2,7 @@ package com.st0x0ef.stellaris.common.blocks.machines;
 
 import com.mojang.serialization.MapCodec;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.AntennaBlockEntity;
+import com.st0x0ef.stellaris.common.launchpads.LaunchPad;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPadUtils;
 import com.st0x0ef.stellaris.common.menus.AntennaMenu;
 import com.st0x0ef.stellaris.common.registry.BlockEntityRegistry;
@@ -93,7 +94,8 @@ public class AntennaBlock extends BaseMachineBlock {
         if (!level.isClientSide) {
             BlockEntity blockEntity = level.getBlockEntity(pos);
             if (blockEntity instanceof AntennaBlockEntity antennaBlock) {
-                if (antennaBlock.launchPadId == -1 || LaunchPadUtils.getPadById(antennaBlock.launchPadId).owner().equals(player.getDisplayName().getString())) {
+                LaunchPad pad = LaunchPadUtils.getPadById(antennaBlock.launchPadId);
+                if (antennaBlock.launchPadId == -1 || (pad != null && pad.owner().equals(player.getName().getString()))) {
                     super.useWithoutItem(state, level, pos, player, hitResult);
                 } else {
                     // If the player is not the owner of the launch pad, do not open the menu

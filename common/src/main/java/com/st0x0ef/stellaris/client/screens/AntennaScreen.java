@@ -23,6 +23,7 @@ import net.minecraft.world.entity.player.Inventory;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AntennaScreen extends AbstractContainerScreen<AntennaMenu> {
@@ -142,6 +143,9 @@ public class AntennaScreen extends AbstractContainerScreen<AntennaMenu> {
         if (this.nameBox.getValue().isEmpty() || this.nameBox.getValue().equals(" ")) return;
 
 
+        String rawWhitelist = this.whitelistBox.getValue().trim();
+        List<String> whitelist = rawWhitelist.isEmpty() ? new ArrayList<>() : new ArrayList<>(List.of(rawWhitelist.split(",")));
+
         boolean create = false;
         if (this.pad == null) {
             this.pad = new LaunchPad(
@@ -150,12 +154,12 @@ public class AntennaScreen extends AbstractContainerScreen<AntennaMenu> {
                     blockEntity.getLevel().dimension(),
                     this.nameBox.getValue(),
                     this.publicCheckbox.selected,
-                    menu.getPlayer().getDisplayName().getString(),
-                    List.of(this.whitelistBox.getValue().split(","))
+                    menu.getPlayer().getName().getString(),
+                    whitelist
             );
             create = true;
         } else {
-            this.pad = new LaunchPad(pad.id(), pad.position(), pad.dimension(), this.nameBox.getValue(), this.publicCheckbox.selected, pad.owner(), List.of(this.whitelistBox.getValue().split(",")));
+            this.pad = new LaunchPad(pad.id(), pad.position(), pad.dimension(), this.nameBox.getValue(), this.publicCheckbox.selected, pad.owner(), whitelist);
             NetworkManager.sendToServer(new LaunchPadsOperations(this.pad, "modify"));
 
         }

@@ -6,6 +6,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -111,8 +112,16 @@ public class LaunchPadUtils {
         if (launchPad.whitelist().contains(player.getName().getString())) {
             return launchPad;
         }
-        launchPad.whitelist().add(player.getName().getString());
-        return launchPad;
+        List<String> newWhitelist = new ArrayList<>(launchPad.whitelist());
+        newWhitelist.add(player.getName().getString());
+        return new LaunchPad(launchPad.id(), launchPad.position(), launchPad.dimension(),
+                launchPad.name(), launchPad.isPublic(), launchPad.owner(), newWhitelist);
+    }
+
+    public static LaunchPad.LaunchPadContainer getVisibleLaunchPads(LaunchPad.LaunchPadContainer container, Player player) {
+        return new LaunchPad.LaunchPadContainer(container.launchPads().stream()
+                .filter(pad -> canPlayerJoinLaunchPad(pad, player))
+                .toList());
     }
 
     public static int getNextLaunchPadId() {

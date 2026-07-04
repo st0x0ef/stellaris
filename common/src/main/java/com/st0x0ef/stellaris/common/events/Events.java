@@ -6,6 +6,7 @@ import com.st0x0ef.stellaris.common.blocks.RocketLaunchPad;
 import com.st0x0ef.stellaris.common.blocks.WallCoalTorchBlock;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.AntennaBlockEntity;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPadLauncher;
+import com.st0x0ef.stellaris.common.launchpads.LaunchPadUtils;
 import com.st0x0ef.stellaris.common.network.packets.SyncLaunchPads;
 import com.st0x0ef.stellaris.common.oxygen.GlobalOxygenManager;
 import com.st0x0ef.stellaris.common.registry.BlocksRegistry;
@@ -106,7 +107,7 @@ public class Events {
             LevelStorageSource.LevelStorageAccess levelStorageSource = player.server.storageSource;
 
             LaunchPadLauncher.loadOrGenerateDefaults(levelStorageSource.getLevelDirectory().path());
-            NetworkManager.sendToPlayer(player, new SyncLaunchPads(LaunchPadLauncher.LAUNCH_PADS));
+            NetworkManager.sendToPlayer(player, new SyncLaunchPads(LaunchPadUtils.getVisibleLaunchPads(LaunchPadLauncher.LAUNCH_PADS, player)));
 
             Utils.handleGravityChange(player, player.level());
         });

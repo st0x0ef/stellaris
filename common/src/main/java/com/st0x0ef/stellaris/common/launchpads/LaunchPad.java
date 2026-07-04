@@ -26,13 +26,12 @@ public record LaunchPad(
 ) {
 
     public static final Codec<LaunchPad> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            Codec.INT.fieldOf("id").forGetter(launchPad -> (int) launchPad.position().x),
+            Codec.INT.fieldOf("id").forGetter(LaunchPad::id),
             Vec3.CODEC.fieldOf("position").forGetter(LaunchPad::position),
             ResourceKey.codec(Registries.DIMENSION).fieldOf("dimension").forGetter(LaunchPad::dimension),
             Codec.STRING.fieldOf("name").forGetter(LaunchPad::name),
             Codec.BOOL.fieldOf("public").forGetter(LaunchPad::isPublic),
-
-            Codec.STRING.fieldOf("owner").forGetter(LaunchPad::name),
+            Codec.STRING.fieldOf("owner").forGetter(LaunchPad::owner),
             Codec.STRING.listOf().fieldOf("whitelist").forGetter(LaunchPad::whitelist)
     ).apply(instance, LaunchPad::new));
 

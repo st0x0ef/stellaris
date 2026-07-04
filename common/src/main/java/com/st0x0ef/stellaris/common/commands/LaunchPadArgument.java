@@ -8,6 +8,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPadUtils;
+import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.SharedSuggestionProvider;
 
 import java.util.concurrent.CompletableFuture;
@@ -25,6 +26,9 @@ public class LaunchPadArgument implements ArgumentType<String> {
 
     @Override
     public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
+        if (context.getSource() instanceof CommandSourceStack css && css.getPlayer() != null) {
+            return SharedSuggestionProvider.suggest(LaunchPadUtils.getLaunchPadNames(css.getPlayer()), builder);
+        }
         return SharedSuggestionProvider.suggest(LaunchPadUtils.getLaunchPadNames(), builder);
     }
 }

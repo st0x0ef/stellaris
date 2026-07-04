@@ -1,15 +1,19 @@
 package com.st0x0ef.stellaris.common.network.packets;
 
+import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.blocks.entities.machines.AntennaBlockEntity;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPad;
 import com.st0x0ef.stellaris.common.launchpads.LaunchPadLauncher;
+import com.st0x0ef.stellaris.common.launchpads.LaunchPadUtils;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import com.st0x0ef.stellaris.common.utils.Utils;
 import dev.architectury.networking.NetworkManager;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public class LaunchPadsOperations implements CustomPacketPayload {
@@ -45,18 +49,38 @@ public class LaunchPadsOperations implements CustomPacketPayload {
         //On the Server
         LaunchPad launchPad = packet.launchPad;
         Level level = context.getPlayer().level();
+        String playerName = context.getPlayer().getName().getString();
+
         switch (packet.action) {
             case "add" -> {
+                if (!launchPad.owner().equals(playerName)) return;
                 LaunchPadLauncher.addLaunchPad(launchPad, context.getPlayer().getServer());
             }
             case "modify" -> {
-                LaunchPadLauncher.modifyLaunchPad(launchPad, context.getPlayer().getServer());
+                LaunchPad existing = LaunchPadUtils.getPadById(launchPad.id());
+                if (existing == null || !existing.owner().equals(playerName)) return;
+                LaunchPad toPersist = new LaunchPad(existing.id(), existing.position(), existing.dimension(),
+                        launchPad.name(), launchPad.isPublic(), existing.owner(), launchPad.whitelist());
+                LaunchPadLauncher.modifyLaunchPad(toPersist, context.getPlayer().getServer());
             }
             case "remove" -> {
+                LaunchPad existing = LaunchPadUtils.getPadById(launchPad.id());
+                if (existing == null || !existing.owner().equals(playerName)) return;
                 LaunchPadLauncher.removeLaunchpad(launchPad.id() ,context.getPlayer().getServer());
             }
             case "setLaunchPad" -> {
-                if(context.getPlayer().level().getBlockEntity(Utils.getBlockPosFromVector3i(launchPad.position())) instanceof AntennaBlockEntity blockEntity) {
+                BlockPos pos = Utils.getBlockPosFromVector3i(launchPad.position());
+                if (context.getPlayer().distanceToSqr(Vec3.atCenterOf(pos)) > 64.0) return;
+
+                if (context.getPlayer().level().getBlockEntity(pos) instanceof AntennaBlockEntity blockEntity) {
+                    LaunchPad target = LaunchPadUtils.getPadById(launchPad.id());
+                    if (target == null || !target.owner().equals(playerName)) return;
+
+                    if (blockEntity.launchPadId != -1) {
+                        LaunchPad current = LaunchPadUtils.getPadById(blockEntity.launchPadId);
+                        if (current != null && !current.owner().equals(playerName)) return;
+                    }
+
                     blockEntity.launchPadId = launchPad.id();
                     blockEntity.setChanged();
                 }

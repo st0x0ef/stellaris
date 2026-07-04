@@ -156,6 +156,7 @@ public class StellarisCommands {
 
                 ).then(Commands.literal("launchpads")
                         .then(Commands.literal("create")
+                                .requires(c -> c.hasPermission(2))
                                 .then(Commands.argument("dimension", ResourceKeyArgument.key(Registries.DIMENSION))
                                         .then(Commands.argument("pos", Vec3Argument.vec3())
                                                 .then(Commands.argument("public", BoolArgumentType.bool())
@@ -163,12 +164,12 @@ public class StellarisCommands {
                                                                 .executes((CommandContext<CommandSourceStack> context) -> {
 
                                                                     LaunchPad launchPad = new LaunchPad(
-                                                                            LaunchPadLauncher.LAUNCH_PADS.launchPads().size(),
+                                                                            LaunchPadUtils.getNextLaunchPadId(),
                                                                             Utils.blockPosToVec3(Vec3Argument.getCoordinates(context, "pos").getBlockPos(context.getSource())),
                                                                             context.getArgument("dimension", ResourceKey.class),
                                                                             StringArgumentType.getString(context, "name"),
                                                                             BoolArgumentType.getBool(context, "public"),
-                                                                            Objects.requireNonNull(context.getSource().getPlayer()).getDisplayName().getString(),
+                                                                            Objects.requireNonNull(context.getSource().getPlayer()).getName().getString(),
                                                                             new ArrayList<>()
 
                                                                     );
@@ -209,7 +210,7 @@ public class StellarisCommands {
                                             if (pad != null && LaunchPadLauncher.removeLaunchpad(pad.id(),context.getSource().getServer())) {
                                                 context.getSource().sendSuccess(() -> Component.literal("Space Station " + pad.id() + " Deleted"), true);
                                             } else {
-                                                context.getSource().sendFailure(Component.literal("Space Station " + StringArgumentType.getString(context, "name") + " Not Found"));
+                                                context.getSource().sendFailure(Component.literal("Space Station " + IntegerArgumentType.getInteger(context, "id") + " Not Found"));
                                             }
                                             return Command.SINGLE_SUCCESS;
                                         })
@@ -225,14 +226,14 @@ public class StellarisCommands {
                                                     if(launchPad == null) {
                                                         context.getSource().sendFailure(Component.translatable("message.stellaris.launchpad_dont_exist"));
                                                         return 0;
-                                                    } else if(!launchPad.owner().equals(player.getName().getString())) {
+                                                    } else if(!launchPad.owner().equals(context.getSource().getPlayer().getName().getString())) {
                                                         context.getSource().sendFailure(Component.translatable("message.stellaris.launchpad_not_yours"));
                                                         return 0;
                                                     }
-                                                    else if(context.getSource().getPlayer().getName().equals(player.getName())) {
+                                                    else if(context.getSource().getPlayer().getName().getString().equals(player.getName().getString())) {
                                                          context.getSource().sendFailure(Component.translatable("message.stellaris.launchpad_share_yourself"));
                                                          return 0;
-                                                    } else if(launchPad.whitelist().contains(player.getDisplayName().getString())) {
+                                                    } else if(launchPad.whitelist().contains(player.getName().getString())) {
                                                         context.getSource().sendFailure(Component.literal("Player " + player.getName().getString() + " already has access to this launchpad"));
                                                         return 0;
                                                     }
@@ -251,9 +252,9 @@ public class StellarisCommands {
                                         component.append(launchPad.name()).append(" (").append(Component.literal(launchPad.dimension().location().toString()).withColor(Utils.getColorHexCode("gray"))).append(") ");
 
                                         if (launchPad.isPublic()) {
-                                            component.append(Component.literal("[Private] ").withColor(Utils.getColorHexCode("GREEN")));
-                                        } else {
                                             component.append(Component.literal("[Public] ").withColor(Utils.getColorHexCode("GREEN")));
+                                        } else {
+                                            component.append(Component.literal("[Private] ").withColor(Utils.getColorHexCode("GREEN")));
                                         }
                                         component.append("\n");
                                     }));

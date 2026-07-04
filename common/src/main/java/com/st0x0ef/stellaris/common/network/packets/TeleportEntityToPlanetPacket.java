@@ -3,6 +3,8 @@ package com.st0x0ef.stellaris.common.network.packets;
 import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.data.planets.Planet;
 import com.st0x0ef.stellaris.common.events.custom.PlanetSelectionServerEvents;
+import com.st0x0ef.stellaris.common.launchpads.LaunchPad;
+import com.st0x0ef.stellaris.common.launchpads.LaunchPadUtils;
 import com.st0x0ef.stellaris.common.network.NetworkRegistry;
 import com.st0x0ef.stellaris.common.utils.PlanetUtil;
 import com.st0x0ef.stellaris.common.utils.Utils;
@@ -23,6 +25,7 @@ public class TeleportEntityToPlanetPacket implements CustomPacketPayload {
 
     public final ResourceLocation dimension;
     public final Vec3 coords;
+    public final int launchPadId;
 
     public static final StreamCodec<RegistryFriendlyByteBuf, TeleportEntityToPlanetPacket> STREAM_CODEC = new StreamCodec<>() {
         @Override
@@ -34,26 +37,47 @@ public class TeleportEntityToPlanetPacket implements CustomPacketPayload {
         public void encode(RegistryFriendlyByteBuf buf, TeleportEntityToPlanetPacket packet) {
             buf.writeResourceLocation(packet.dimension);
             buf.writeVec3(packet.coords);
+            buf.writeInt(packet.launchPadId);
         }
     };
 
     public TeleportEntityToPlanetPacket(ResourceLocation dimension, Vec3 coords) {
+        this(dimension, coords, -1);
+    }
+
+    public TeleportEntityToPlanetPacket(ResourceLocation dimension, Vec3 coords, int launchPadId) {
         this.dimension = dimension;
         this.coords = coords;
+        this.launchPadId = launchPadId;
     }
 
     public TeleportEntityToPlanetPacket(RegistryFriendlyByteBuf buffer) {
         this.dimension = buffer.readResourceLocation();
         this.coords = buffer.readVec3();
+        this.launchPadId = buffer.readInt();
     }
 
     public static void handle(TeleportEntityToPlanetPacket packet, NetworkManager.PacketContext context) {
         Player player = context.getPlayer();
-        Planet planet = PlanetUtil.getPlanet(packet.dimension);
+
+        Vec3 coords = packet.coords;
+        ResourceLocation dimension = packet.dimension;
+
+        if (packet.launchPadId != -1) {
+            LaunchPad pad = LaunchPadUtils.getPadById(packet.launchPadId);
+            if (pad == null || !LaunchPadUtils.canPlayerJoinLaunchPad(pad, player)) {
+                Stellaris.LOG.warn("{} tried to launch to launchpad {} without access", player.getName().getString(), packet.launchPadId);
+                return;
+            }
+            coords = pad.position();
+            dimension = pad.dimension().location();
+        }
+
+        Planet planet = PlanetUtil.getPlanet(dimension);
         Entity rocket = player.getVehicle();
 
         if(PlanetSelectionServerEvents.LAUNCH_BUTTON.invoker().launchButton(player, planet, rocket, context) != EventResult.interruptTrue()) {
-            teleportToPlanet(player, packet.dimension, packet.coords);
+            teleportToPlanet(player, dimension, coords);
         }
 
     }

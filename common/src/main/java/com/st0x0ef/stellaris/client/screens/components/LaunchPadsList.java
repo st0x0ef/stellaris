@@ -59,13 +59,14 @@ public class LaunchPadsList extends AbstractScrollWidget {
     @Override
     protected void renderContents(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         finalHeight.set(0);
+        launchPadMap.clear();
         for(int i = 0; i < this.launchPads.size(); i++) {
             int x = this.window.getWindowX() + 40;
             int y = (i * 35);
 
             LaunchPadWidget launchPadWidget = new LaunchPadWidget(launchPads.get(i), x, getY() + y, this.window);
             launchPadWidget.render(guiGraphics, mouseX, (int) (mouseY + this.scrollAmount()), partialTick);
-            launchPadMap.putIfAbsent(launchPadWidget.buttonPositions, launchPadWidget);
+            launchPadMap.put(launchPadWidget.buttonPositions, launchPadWidget);
 
             finalHeight.addAndGet(y);
         }
@@ -105,11 +106,11 @@ public class LaunchPadsList extends AbstractScrollWidget {
                 if (Utils.isHoveredOnSprite(pos.x, (int) (pos.y - this.scrollAmount()), pos.z, pos.w, (int) mouseX, (int) mouseY) && window.parent.windowIndex != -1) {
                     if (PlanetUtil.isPlanet(dimension.location())) {
                         if (this.window.parent.canLaunch(PlanetUtil.getPlanet(dimension.location()))) {
-                            this.window.parent.tpToFocusedPlanet(launchPad.position(), dimension.location());
+                            this.window.parent.tpToFocusedPlanet(launchPad.position(), dimension.location(), launchPad.id());
                         }
                     } else if (PlanetUtil.isOrbit(dimension.location())) {
                         if (this.window.parent.canLaunch(PlanetUtil.getPlanetFromOrbit(dimension.location()))) {
-                            this.window.parent.tpToFocusedPlanet(launchPad.position(), dimension.location());
+                            this.window.parent.tpToFocusedPlanet(launchPad.position(), dimension.location(), launchPad.id());
                         }
                     }
 

@@ -7,12 +7,12 @@ import com.st0x0ef.stellaris.Stellaris;
 import com.st0x0ef.stellaris.common.network.packets.SyncLaunchPads;
 import dev.architectury.networking.NetworkManager;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.GsonHelper;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
@@ -39,20 +39,20 @@ public class LaunchPadLauncher {
             if (!(e instanceof NoSuchFileException))
                 e.printStackTrace();
 
+            LaunchPad.LaunchPadContainer defaults = LaunchPad.LaunchPadContainer.DEFAULT;
+            LaunchPadLauncher.LAUNCH_PADS = defaults;
+
             try {
                 File folder = systemsFile.toFile().getParentFile();
                 if (!folder.exists())
                     folder.mkdirs();
 
-                LaunchPad.LaunchPadContainer defaults = LaunchPad.LaunchPadContainer.DEFAULT;
                 JsonElement jsonElement = LaunchPad.LaunchPadContainer.toJson(defaults);
                 String launchpadsFile = Stellaris.GSON.toJson(jsonElement);
 
                 BufferedWriter launchpadsWrite = Files.newBufferedWriter(systemsFile);
                 launchpadsWrite.write(launchpadsFile);
                 launchpadsWrite.close();
-
-                LaunchPadLauncher.LAUNCH_PADS = defaults;
 
             } catch (Exception e1) {
                 e1.printStackTrace();
@@ -87,6 +87,14 @@ public class LaunchPadLauncher {
             Stellaris.LOG.error("Server is null");
             return false;
         }
+        if (LaunchPadUtils.getPadById(pad.id()) != null) {
+            Stellaris.LOG.warn("Rejected add: launchpad id {} already exists", pad.id());
+            return false;
+        }
+        if (LaunchPadUtils.launchPadExistInDimension(pad, pad.dimension())) {
+            Stellaris.LOG.warn("Rejected add: a launchpad named {} already exists in {}", pad.name(), pad.dimension());
+            return false;
+        }
         Stellaris.LOG.error("{} Adding launchpad {}", pad.id(), pad.name());
         ArrayList<LaunchPad> launchPads = new ArrayList<>(LaunchPadLauncher.LAUNCH_PADS.launchPads());
         launchPads.add(pad);
@@ -100,38 +108,47 @@ public class LaunchPadLauncher {
             Stellaris.LOG.error("Server is null");
             return false;
         }
+        boolean found = false;
         ArrayList<LaunchPad> launchPads = new ArrayList<>();
-        LaunchPadLauncher.LAUNCH_PADS.launchPads().forEach((lpad) -> {
-            if(pad.id() == lpad.id()) {
+        for (LaunchPad lpad : LaunchPadLauncher.LAUNCH_PADS.launchPads()) {
+            if (pad.id() == lpad.id()) {
                 launchPads.add(pad);
+                found = true;
             } else {
                 launchPads.add(lpad);
             }
-        });
+        }
+
+        if (!found) {
+            Stellaris.LOG.error("Launchpad {} not found", pad.id());
+            return false;
+        }
 
         return writeLaunchpads(launchPads, server);
     }
 
     public static boolean writeLaunchpads(ArrayList<LaunchPad> launchPads, MinecraftServer server) {
         Path launchpath = server.storageSource.getLevelDirectory().path().resolve("launch-pads.json");
+        LaunchPad.LaunchPadContainer newContainer = new LaunchPad.LaunchPadContainer(launchPads);
 
         try {
-            LaunchPadLauncher.LAUNCH_PADS = new LaunchPad.LaunchPadContainer(launchPads);
-
-            JsonElement jsonElement = LaunchPad.LaunchPadContainer.toJson(LaunchPadLauncher.LAUNCH_PADS);
+            JsonElement jsonElement = LaunchPad.LaunchPadContainer.toJson(newContainer);
             String launchpadsFile = Stellaris.GSON.toJson(jsonElement);
-
 
             BufferedWriter launchpadsWrite = Files.newBufferedWriter(launchpath);
             launchpadsWrite.write(launchpadsFile);
             launchpadsWrite.close();
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             Stellaris.LOG.error("Error writing launchpads to file {}", e.getMessage());
             return false;
         }
 
-        NetworkManager.sendToPlayers(server.getPlayerList().getPlayers(), new SyncLaunchPads(LaunchPadLauncher.LAUNCH_PADS));
+        LaunchPadLauncher.LAUNCH_PADS = newContainer;
+
+        for (ServerPlayer p : server.getPlayerList().getPlayers()) {
+            NetworkManager.sendToPlayer(p, new SyncLaunchPads(LaunchPadUtils.getVisibleLaunchPads(LaunchPadLauncher.LAUNCH_PADS, p)));
+        }
         return true;
 
     }
