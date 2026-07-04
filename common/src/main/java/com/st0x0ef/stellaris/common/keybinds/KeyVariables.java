@@ -56,14 +56,19 @@ public class KeyVariables {
         switch (key) {
             case "key_up":
                 KEY_UP.put(uuid, bool);
+                break;
             case "key_down":
                 KEY_DOWN.put(uuid, bool);
+                break;
             case "key_right":
                 KEY_RIGHT.put(uuid, bool);
+                break;
             case "key_left":
                 KEY_LEFT.put(uuid, bool);
+                break;
             case "key_jump":
                 KEY_JUMP.put(uuid, bool);
+                break;
         }
     }
 }
