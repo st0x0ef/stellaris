@@ -136,7 +136,6 @@ public class LaunchWindow extends MoveableWindow {
 
         if(celestialBody.canLaunchOn || this.parent.getPlayer().isCreative()) {
             launchPads.add(addDirectLaunch());
-
         }
 
         Planet planet = PlanetUtil.getPlanet(celestialBody.dimension);
@@ -158,7 +157,7 @@ public class LaunchWindow extends MoveableWindow {
     public LaunchPad addDirectLaunch() {
         Player player = parent.getPlayer();
         return new LaunchPad(
-                10000,
+                -1,
                 this.parent.getPlayer().position(),
                 ResourceKey.create(Registries.DIMENSION, celestialBody.dimension),
                 "Launch Directly",
