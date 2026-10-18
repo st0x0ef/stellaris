@@ -4,19 +4,19 @@ In Project Stellaris, a lot of machines need to be powered by Electricity.
 
 ## Generators
 
-The mod contains multiple blocks that can generate electricity
+The mod contains multiple blocks that can generate electricity.
 
-| Blocks                |      Use                      |  Max Generation (Fe/Tick)|
+| Blocks                |      Use                      |  Max Generation (FE/tick)|
 | --------------------- | :---------------------------: | ----: |
-| Solar Panel           | Need to be set under the sun  | 1     |
-| Coal Generator        |   Need coal                   | 3     |
-| Radioactive Generator |   Need Radioactive blocks     | 500   |
+| Solar Panel           | Needs to be set under the sun | 1     |
+| Coal Generator        |   Needs coal                  | 3     |
+| Radioactive Generator |   Needs radioactive blocks    | 500   |
 
 
 
 ## Power other machines
 
-Now that you have electricity, you need to power other machines. For this, there are two ways :
+Now that you have electricity, you need to power other machines. For this, there are two ways:
 
 - First, you can set a generator next to a machine
     ![Next to a machine](/screens/generators-glued.png)
@@ -26,5 +26,5 @@ Now that you have electricity, you need to power other machines. For this, there
 
 
 ::: info
-The `Generators blocks` and `Machines` from Stellaris are compatible with other tech mods.
+The `Generator blocks` and `Machines` from Stellaris are compatible with other tech mods.
 :::

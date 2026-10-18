@@ -1,6 +1,6 @@
 # Custom Planets
 
-With Project Stellaris, you can add your own planets using a datapack! Following this walkthrough will teach you the fundamentals on creating a custom planet for your world.
+With Project Stellaris, you can add your own planets using a datapack! Following this walkthrough will teach you the fundamentals of creating a custom planet for your world.
 
 ## Creating the Datapack
 
@@ -24,11 +24,11 @@ If you are new to creating Data Packs in Minecraft, then you should follow this 
 
 ### Creating the .txt File
 
-To create your first text file, make sure you are on the root directory of your project. In this directory, you should have a folder named `data` and a file named `pack.mcmeta`. To create these two things, you will right click inside of the directory, and you will see an item in the list called `new` or `new text file`. If you see `new`, hover over it and click text file. The text file should have a default name of `New Text Document.txt`. If you are using Microsoft Windows and cannot see file extensions, then you need to enable access to view them. You can do this by going to the top bar, clicking view, and clicking `File Name extensions`, or, hovering over `show`, then clicking `File Name Extensions`. You should rename this file `pack.mcmeta`.
+To create your first text file, make sure you are on the root directory of your project. In this directory, you should have a folder named `data` and a file named `pack.mcmeta`. To create these two things, you will right-click inside of the directory, and you will see an item in the list called `new` or `new text file`. If you see `new`, hover over it and click text file. The text file should have a default name of `New Text Document.txt`. If you are using Microsoft Windows and cannot see file extensions, then you need to enable access to view them. You can do this by going to the top bar, clicking view, and clicking `File Name extensions`, or, hovering over `show`, then clicking `File Name Extensions`. You should rename this file `pack.mcmeta`.
 
 ### Modifying pack.mcmeta
 
-Now that you have created the text file, you need to mofify the contents inside of it. To do so, double click the file. If prompted, open the file in a program like `Notepad`, or an IDE like `Visual Studio Code`. Once you have done this, you should modify the contents of the file as shown below:
+Now that you have created the text file, you need to modify the contents inside of it. To do so, double click the file. If prompted, open the file in a program like `Notepad`, or an IDE like `Visual Studio Code`. Once you have done this, you should modify the contents of the file as shown below:
 
 ```json
 {
@@ -70,13 +70,13 @@ Below is an explanation for each modifier.
 
 `system`: The system your planet is in. Currently, only `solar_system` and `milky_way` are supported.
 
-`level`: The ResourceKey of your planets dimension. Replace `namespace` with the name you chose earlier, and the `dimension` with the basic name of your planet.
+`level`: The ResourceKey of your planet's dimension. Replace `namespace` with the name you chose earlier, and the `dimension` with the basic name of your planet.
 
 `name`: The name of your planet.
 
 `translatable`: The translation of the name of your planet. Fill out the appropriate fields.
 
-`orbit`: The Resource Key of your planets orbit.
+`orbit`: The Resource Key of your planet's orbit.
 
 ::: warning
 For the moment, orbit is not used. Please leave it with the default value.
@@ -86,12 +86,12 @@ For the moment, orbit is not used. Please leave it with the default value.
 
 `temperature`: The temperature of the planet (in °C).
 
-`distanceFromEarth`: The Distance from Earth (in km).
+`distanceFromEarth`: The distance from Earth (in km).
 
-`gravity`: The gravational pull of your planet (in $m/s^2$).
+`gravity`: The gravitational pull of your planet (in $m/s^2$).
 
 `textures`: The texture fields contain two additional values:
-- `planet`: The planets texture location.
+- `planet`: The planet's texture location.
 - `planet_bar`: The planet bar texture location (used when the player is in the rocket).
 
 ::: info
@@ -101,4 +101,4 @@ The `translatable` attributes are defined in a language file located at `assets/
 
 ## Examples
 
-You can find exemples in the github page of the [Stellaris Project](https://github.com/st0x0ef/stellaris/tree/master/common/src/main/resources/data/stellaris/planets).
+You can find examples on the GitHub page of the [Stellaris Project](https://github.com/st0x0ef/stellaris/tree/master/common/src/main/resources/data/stellaris/planets).

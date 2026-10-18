@@ -1,10 +1,10 @@
 # Custom Modules
 
-With Project Stellaris, you can add your own modules to the jet suit !
+With Project Stellaris, you can add your own modules to the jet suit!
 
 ## Creation of the Module Class
 
-First, you'll need to create the module class :
+First, you'll need to create the module class:
 
 ```java
 public class TestModule extends Item implements SpaceSuitModule {
@@ -47,7 +47,7 @@ Needed to return the name of the Module.
 :::
 
 ::: details **void renderToGui()**
-Allows you to render things on the players screen while the module is on the player.
+Allows you to render things on the player's screen while the module is on the player.
 :::
 
 ::: details **void addToTooltips()**
@@ -55,7 +55,7 @@ Allows you to add tooltips to the Space Suit Chestplate.
 :::
 
 ::: details **int renderStackedGui()**
-Allows you to render things on the player screen. The height will change depending on whether other modules render things too, hence, the requirement to return the height of what you're rendering.
+Allows you to render things on the player's screen. The height will change depending on whether other modules render things too, hence, the requirement to return the height of what you're rendering.
 :::
 
 ::: details **List \<Item\> requires()**

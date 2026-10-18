@@ -1,6 +1,6 @@
 # Adding Stellaris to your project
 
-if you want to add Stellaris to your project, you can use gradle for it.
+If you want to add Stellaris to your project, you can use Gradle.
 
 **Adding the repository**
 
@@ -27,7 +27,7 @@ repositories {
 
 
 
-**Adding Stellaris as dependency**
+**Adding Stellaris as a dependency**
 
 ::: code-group
 

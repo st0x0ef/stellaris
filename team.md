@@ -10,7 +10,7 @@ const members = [
     name: 'st0x0ef',
     title: 'Creator, Developer',
     links: [
-      { icon: 'github', link: 'https://github.com/yyx990803' }
+      { icon: 'github', link: 'https://github.com/st0x0ef' }
     ]
   },
   {
@@ -18,7 +18,7 @@ const members = [
     name: 'TATHAN',
     title: 'Co-Creator, Developer',
     links: [
-      { icon: 'github', link: 'https://github.com/yyx990803' }
+      { icon: 'github', link: 'https://github.com/TathanDev' }
     ]
   },
   {
@@ -96,7 +96,7 @@ const members = [
     avatar: 'https://cdn.discordapp.com/avatars/1003010832365539348/3e9ceaf9866d84927477a42a136d9825?size=1024',
     name: 'Kurjiano',
     title: 'Builder'
-  },  
+  },
   {
     avatar: 'https://cdn.discordapp.com/avatars/667758839625416720/f2ed80b9c10b8d3528aec7c09ff9ec6e?size=1024',
     name: 'Ilyuxadwa',
@@ -106,7 +106,7 @@ const members = [
     avatar: 'https://cdn.discordapp.com/avatars/719659781152833547/3e26b3495336a3163de22592c6fbc35d?size=1024',
     name: 'Dipdoop',
     title: 'Community Manager'
-  } 
+  }
 ]
 </script>
 

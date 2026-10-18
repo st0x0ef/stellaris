@@ -46,13 +46,13 @@ Ah yes! Our good ol' friend from the previous step, the pack.mcmeta file. You wi
 }
 ```
 
-Aforementioned above, there are three different folders that you will create inside of the `planet_screen` directory.
+As mentioned above, there are three different folders that you will create inside of the `planet_screen` directory.
 
 ## The Galaxy Folder
 
-Inside of this foler, you will be able to create a galaxy of your choice.
+Inside of this folder, you will be able to create a galaxy of your choice.
 
-Json Example
+JSON example
 
 ```json
 {
@@ -67,13 +67,13 @@ Json Example
 
   `name`: The name of the galaxy.
 
-  `translatable`: The translatable name of the star.
+  `translatable`: The translatable name of the galaxy.
 
-  `id`: A special id of the star.
+  `id`: A special id of the galaxy.
 
 ## The Star Folder
 
-Inside of this folder, you will be able to place a star of your choice. Everything in your solar system will revolve around this star. As of right now, you can only have one star in your system. We recommend placing your star in the centre of the screen, which is something we have done for you in the below json, however, you are free to change it to whatever you would like!
+Inside of this folder, you will be able to place a star of your choice. Everything in your solar system will revolve around this star. As of right now, you can only have one star in your system. We recommend placing your star in the centre of the screen, which is something we have done for you in the below JSON, however, you are free to change it to whatever you would like!
 
 ```json
 {
@@ -101,7 +101,7 @@ Inside of this folder, you will be able to place a star of your choice. Everythi
 
 `height`: The height of the star (in pixels).
 
-`orbitColor`: The color of the rings around the star. You can find more information at [Orbit Colors](./orbit-colours.md).
+`orbitColor`: The colour of the rings around the star. You can find more information at [Orbit Colours](./orbit-colours.md).
 
 `translatable`: The translatable name of the star.
 
@@ -113,7 +113,7 @@ The planet selection screen is 1600x1200 pixels. This means that your *X* and *Y
 
 ## The Planet Folder
 
-Inside of this folder, you will be able to put in your planet files so the player client will recogonize them inside of the planet selection menu. This is similar to how you created your star, but you will be able to set the location where your player lands. For each planet that you have created in the previous step, create a json file for it inside of the `planet` folder. This step can take some time and trial and error in figuring out where you want your planets to be.
+Inside of this folder, you will be able to put in your planet files so the player client will recognise them inside of the planet selection menu. This is similar to how you created your star, but you will be able to set the location where your player lands. For each planet that you have created in the previous step, create a JSON file for it inside of the `planet` folder. This step can take some time and trial and error in figuring out where you want your planets to be.
 
 ```json
 {
@@ -151,7 +151,7 @@ Inside of this folder, you will be able to put in your planet files so the playe
 
 ## The Moon Folder
 
-Inside of this folder, you will be able to put in your moon files so the player client will recogonize them inside of the planet selection menu. This step is similar to how you created your planet, but you will be able to set the parent planet (say that ten times fast) of the moon. For each moon you would like to create for a planet, place it inside of the `moon` folder.
+Inside of this folder, you will be able to put in your moon files so the player client will recognise them inside of the planet selection menu. This step is similar to how you created your planet, but you will be able to set the parent planet (say that ten times fast) of the moon. For each moon you would like to create for a planet, place it inside of the `moon` folder.
 
 ```json
 {
@@ -188,12 +188,12 @@ Inside of this folder, you will be able to put in your moon files so the player 
 `id`: A special id of the moon.
 
 ## The Textures Folder
-For each thing that you have created so far, you will need to supply the proper textures for them. This can be done by following the naming scheme that we have provided in the JSON file examples. If you are confused, please resort to our [Github](https://github.com/st0x0ef/stellaris/tree/master/common/src/main/resources/assets/stellaris/renderer) for more examples on what you should be doing. Make sure you are putting the texture files *exactly* where they are listed in the JSON files, or Minecraft will be unable to find them.
+For each thing that you have created so far, you will need to supply the proper textures for them. This can be done by following the naming scheme that we have provided in the JSON file examples. If you are confused, please refer to our [GitHub](https://github.com/st0x0ef/stellaris/tree/master/common/src/main/resources/assets/stellaris/renderer) for more examples on what you should be doing. Make sure you are putting the texture files *exactly* where they are listed in the JSON files, or Minecraft will be unable to find them.
 
 ## The Language Folder
-For each thing you have created so far, you have also supplied a `translatable` tag to that thing. We are now going to give names for each thing so the player client understands what each thing is, instead of it being just a thing. Earlier, we created a path to our language file, and gave it the `LANG_COUNTRY` code of `en_us`. If you are not an american living in the United States, I recommend you change that to your actual country and use your own language for what you will name these things.
+For each thing you have created so far, you have also supplied a `translatable` tag to that thing. We are now going to give names for each thing so the player client understands what each thing is, instead of it being just a thing. Earlier, we created a path to our language file, and gave it the `LANG_COUNTRY` code of `en_us`. If you are not an American living in the United States, I recommend you change that to your actual country and use your own language for what you will name these things.
 
-In your `assets/[namespace]/lang/` directory, you will create a new file with using the `LANG_COUNTRY` you either put before, or just changed it to in your `pack.mcmeta`, and you will make it a `.json` file type, similar to what you've been using before. In this file, you will now define everything you've put in a `translatable` tag up to this point. We have provided an example for you to follow:
+In your `assets/[namespace]/lang/` directory, you will create a new file using the `LANG_COUNTRY` you either put before, or just changed it to in your `pack.mcmeta`, and you will make it a `.json` file type, similar to what you've been using before. In this file, you will now define everything you've put in a `translatable` tag up to this point. We have provided an example for you to follow:
 
 ```json
 {
@@ -204,4 +204,4 @@ In your `assets/[namespace]/lang/` directory, you will create a new file with us
 
 ## Examples
 
-You can find exemples in the github of the [Stellaris Project](https://github.com/st0x0ef/stellaris/tree/master/common/src/main/resources/assets/stellaris/renderer).
+You can find examples on the GitHub page of the [Stellaris Project](https://github.com/st0x0ef/stellaris/tree/master/common/src/main/resources/assets/stellaris/renderer).
