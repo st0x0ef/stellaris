@@ -1,7 +1,7 @@
-# Orbit Colors
-When creating your orbit, you have the ability to choose from multiple different colors. For your convenience, we have created colors for you that you can input as text. Below are those colours
+# Orbit Colours
+When creating your orbit, you have the ability to choose from multiple different colours. For your convenience, we have created colours for you that you can input as text. Below are those colours.
 
-## Default Colors
+## Default Colours
 - Default: <span><code style="background-color: #FFFFFF;">‎ ‎ ‎ ‎ ‎ ‎ ‎ </code></span>
 - Black: <span><code style="background-color: #000000;">‎ ‎ ‎ ‎ ‎ ‎ ‎ </code></span>
 - Red: <span><code style="background-color: #FF0000;">‎ ‎ ‎ ‎ ‎ ‎ ‎ </code></span>
@@ -31,8 +31,8 @@ When creating your orbit, you have the ability to choose from multiple different
 - Dark Red: <span><code style="background-color: #8B0000;">‎ ‎ ‎ ‎ ‎ ‎ ‎ </code></span>
 - Rainbow: Rainbow will generate a random colour to use for orbit each time the game is launched.
 
-## Custom Colors
-Optionally, you have the ability to use a custom color of your own using a [hex-based color picker](https://www.google.com/search?q=hex+color+picker). Below is an example of how your color should be inserted into your json file.
+## Custom Colours
+Optionally, you have the ability to use a custom colour of your own using a [hex-based colour picker](https://www.google.com/search?q=hex+color+picker). Below is an example of how your colour should be inserted into your JSON file.
 
 ```json
 {
