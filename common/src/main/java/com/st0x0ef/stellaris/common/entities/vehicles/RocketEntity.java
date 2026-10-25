@@ -234,13 +234,18 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
 
         if (!this.level().isClientSide) {
             if (player.isCrouching()) {
-                if (!tryFillUpRocket(player.getMainHandItem().getItem())) {
+                if (!tryFillUpRocket(player.getItemInHand(hand).getItem(), false)) {
                     this.openCustomInventoryScreen(player);
                 }
                 else {
-                    player.getItemInHand(hand).shrink(1);
-                    player.getInventory().add(new ItemStack(Items.BUCKET));
-                }
+                    ItemStack heldItem = player.getItemInHand(hand);
+                    boolean isBucketFuel = heldItem.is(TagRegistry.FUEL)
+                    boolean isBucketFuel = heldItem.is(TagRegistry.BUCKET_FUELS);
+                        heldItem.shrink(1);
+                    if (isBucketFuel) {
+                        player.getInventory().add(new ItemStack(Items.BUCKET));
+                    }
+                    }
                 return InteractionResult.CONSUME;
             }
 
@@ -524,10 +529,10 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
             }
         }
 
-        tryFillUpRocket(this.getInventory().getItem(0).getItem());
+        tryFillUpRocket(this.getInventory().getItem(0).getItem(), true);
     }
 
-    public boolean tryFillUpRocket(Item item) {
+    public boolean tryFillUpRocket(Item item,boolean fromInventory) {
         if (this.level().isClientSide) {
             return false;
         }
@@ -553,11 +558,15 @@ public class RocketEntity extends IVehicleEntity implements HasCustomInventorySc
                     FUEL = TANK_UPGRADE.getTankCapacity();
                 }
 
-                ItemStack fuelItem = inventory.removeItem(0, 1);
+               ItemStack fuelItem = ItemStack.EMPTY;
+                if (fromInventory) {
+                    fuelItem = inventory.removeItem(0, 1);}
 
-                if (fuelItem.is(TagRegistry.FUEL) || fuelItem.is(ItemsRegistry.HYDROGEN_BUCKET.get())) {
+                if (fuelItem.is(TagRegistry.FUEL)
+                    || fuelItem.is(ItemsRegistry.DIESEL_BUCKET.get())
+                    || fuelItem.is(ItemsRegistry.HYDROGEN_BUCKET.get())) {
                     inventory.setItem(1, new ItemStack(Items.BUCKET, inventory.getItem(1).getCount() + 1));
-                }
+                    }
 
                 return true;
             }

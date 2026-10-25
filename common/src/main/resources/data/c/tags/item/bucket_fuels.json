@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "stellaris:fuel_bucket",
+    "stellaris:diesel_bucket",
+    "stellaris:hydrogen_bucket"
+  ]
+}
